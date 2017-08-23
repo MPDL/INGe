@@ -67,11 +67,6 @@
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>dataacquisition_presentation</artifactId>
-							<contextRoot>/dataacquisition</contextRoot>
-						</webModule>
-						<webModule>
-							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>cone_cache_presentation</artifactId>
 							<contextRoot>/cone_cache</contextRoot>
 						</webModule>
@@ -317,11 +312,6 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>dataacquisition_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>

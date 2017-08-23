@@ -182,70 +182,70 @@ public class DataHandlerService {
     return fetchedData;
   }
 
-  public byte[] fetchMetadatafromURL(URL url) throws DataaquisitionException {
-    byte[] input = null;
-    URLConnection conn = null;
-    Date retryAfter = null;
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ZipOutputStream zos = new ZipOutputStream(baos);
-
-    try {
-      conn = ProxyHelper.openConnection(url);
-      HttpURLConnection httpConn = (HttpURLConnection) conn;
-      int responseCode = httpConn.getResponseCode();
-      switch (responseCode) {
-        case 503:
-          String retryAfterHeader = conn.getHeaderField("Retry-After");
-          if (retryAfterHeader != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-            retryAfter = dateFormat.parse(retryAfterHeader);
-            logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-            throw new DataaquisitionException("Source responded with 503, retry after "
-                + retryAfter + ".");
-          }
-          break;
-        case 302:
-          String alternativeLocation = conn.getHeaderField("Location");
-          return fetchMetadatafromURL(new URL(alternativeLocation));
-        case 200:
-          logger.info("Source responded with 200.");
-          // Fetch file
-          GetMethod method = new GetMethod(url.toString());
-          HttpClient client = new HttpClient();
-          ProxyHelper.executeMethod(client, method);
-          input = method.getResponseBody();
-          httpConn.disconnect();
-          // Create zip file with fetched file
-          ZipEntry ze = new ZipEntry("unapi");
-          ze.setSize(input.length);
-          ze.setTime(this.currentDate());
-          CRC32 crc321 = new CRC32();
-          crc321.update(input);
-          ze.setCrc(crc321.getValue());
-          zos.putNextEntry(ze);
-          zos.write(input);
-          zos.flush();
-          zos.closeEntry();
-          zos.close();
-          this.setContentType("application/zip");
-          this.setFileEnding(".zip");
-          break;
-        case 403:
-          throw new DataaquisitionException("Access to url " + url + " is restricted.");
-        default:
-          throw new DataaquisitionException(
-              "An error occurred during importing from external system: " + responseCode + ": "
-                  + httpConn.getResponseMessage() + ".");
-      }
-    } catch (AccessException e) {
-      logger.error("Access denied.", e);
-      throw new DataaquisitionException("Access denied to " + url.toString(), e);
-    } catch (Exception e) {
-      throw new DataaquisitionException(e);
-    }
-
-    return baos.toByteArray();
-  }
+  // public byte[] fetchMetadatafromURL(URL url) throws DataaquisitionException {
+  // byte[] input = null;
+  // URLConnection conn = null;
+  // Date retryAfter = null;
+  // ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  // ZipOutputStream zos = new ZipOutputStream(baos);
+  //
+  // try {
+  // conn = ProxyHelper.openConnection(url);
+  // HttpURLConnection httpConn = (HttpURLConnection) conn;
+  // int responseCode = httpConn.getResponseCode();
+  // switch (responseCode) {
+  // case 503:
+  // String retryAfterHeader = conn.getHeaderField("Retry-After");
+  // if (retryAfterHeader != null) {
+  // SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+  // retryAfter = dateFormat.parse(retryAfterHeader);
+  // logger.debug("Source responded with 503, retry after " + retryAfter + ".");
+  // throw new DataaquisitionException("Source responded with 503, retry after "
+  // + retryAfter + ".");
+  // }
+  // break;
+  // case 302:
+  // String alternativeLocation = conn.getHeaderField("Location");
+  // return fetchMetadatafromURL(new URL(alternativeLocation));
+  // case 200:
+  // logger.info("Source responded with 200.");
+  // // Fetch file
+  // GetMethod method = new GetMethod(url.toString());
+  // HttpClient client = new HttpClient();
+  // ProxyHelper.executeMethod(client, method);
+  // input = method.getResponseBody();
+  // httpConn.disconnect();
+  // // Create zip file with fetched file
+  // ZipEntry ze = new ZipEntry("unapi");
+  // ze.setSize(input.length);
+  // ze.setTime(this.currentDate());
+  // CRC32 crc321 = new CRC32();
+  // crc321.update(input);
+  // ze.setCrc(crc321.getValue());
+  // zos.putNextEntry(ze);
+  // zos.write(input);
+  // zos.flush();
+  // zos.closeEntry();
+  // zos.close();
+  // this.setContentType("application/zip");
+  // this.setFileEnding(".zip");
+  // break;
+  // case 403:
+  // throw new DataaquisitionException("Access to url " + url + " is restricted.");
+  // default:
+  // throw new DataaquisitionException(
+  // "An error occurred during importing from external system: " + responseCode + ": "
+  // + httpConn.getResponseMessage() + ".");
+  // }
+  // } catch (AccessException e) {
+  // logger.error("Access denied.", e);
+  // throw new DataaquisitionException("Access denied to " + url.toString(), e);
+  // } catch (Exception e) {
+  // throw new DataaquisitionException(e);
+  // }
+  //
+  // return baos.toByteArray();
+  // }
 
   public String fetchTextualData(String identifier, String trgFormatName, String trgFormatType,
       String trgFormatEncoding) throws DataaquisitionException {

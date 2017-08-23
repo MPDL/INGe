@@ -41,10 +41,8 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
@@ -62,7 +60,7 @@ public class Util {
   private static final Logger logger = Logger.getLogger(Util.class);
 
   private static final String internalFormat = TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.name();
-  private static final String dummyFormat = "unknown";
+  // private static final String dummyFormat = "unknown";
   private static final String METADATA_XSLT_LOCATION = "transformations/thirdParty/xslt";
 
   // Cone
@@ -199,35 +197,35 @@ public class Util {
     }
   }
 
-  /**
-   * Checks if a target format can be transformed from escidoc format. Will be more dynamic in
-   * future when transformation service can handle transformation queuing
-   * 
-   * @param trgFormatName
-   * @param trgFormatType
-   * @param trgFormatEncoding
-   * @return true if transformation is provided, else false
-   */
-  public static boolean checkEscidocTransform(String trgFormatName, String trgFormatType,
-      String trgFormatEncoding) {
-
-    if (TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.equals(trgFormatName))
-      return true;
-
-    Transformer t = null;
-
-    try {
-      t =
-          TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
-              TransformerFactory.FORMAT.valueOf(trgFormatName));
-    } catch (TransformationException e) {
-      logger.warn("No transformation found from <" + TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML
-          + "> to < " + trgFormatName + ">");
-      return false;
-    }
-
-    return t != null;
-  }
+  // /**
+  // * Checks if a target format can be transformed from escidoc format. Will be more dynamic in
+  // * future when transformation service can handle transformation queuing
+  // *
+  // * @param trgFormatName
+  // * @param trgFormatType
+  // * @param trgFormatEncoding
+  // * @return true if transformation is provided, else false
+  // */
+  // public static boolean checkEscidocTransform(String trgFormatName, String trgFormatType,
+  // String trgFormatEncoding) {
+  //
+  // if (TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.equals(trgFormatName))
+  // return true;
+  //
+  // Transformer t = null;
+  //
+  // try {
+  // t =
+  // TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+  // TransformerFactory.FORMAT.valueOf(trgFormatName));
+  // } catch (TransformationException e) {
+  // logger.warn("No transformation found from <" + TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML
+  // + "> to < " + trgFormatName + ">");
+  // return false;
+  // }
+  //
+  // return t != null;
+  // }
 
   /**
    * This operation return the Fulltext Object of the format to fetch from the source.
@@ -355,133 +353,133 @@ public class Util {
   // return false;
   // }
 
-  /**
-   * Eliminates duplicates in a List.
-   * 
-   * @param metadataV as MetadataVO List
-   * @return List with unique entries
-   */
-  public static List<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
-    List<MetadataVO> cleanVector = new ArrayList<MetadataVO>();
-    MetadataVO format1;
-    MetadataVO format2;
+  // /**
+  // * Eliminates duplicates in a List.
+  // *
+  // * @param metadataV as MetadataVO List
+  // * @return List with unique entries
+  // */
+  // public static List<MetadataVO> getRidOfDuplicatesInVector(List<MetadataVO> metadataV) {
+  // List<MetadataVO> cleanVector = new ArrayList<MetadataVO>();
+  // MetadataVO format1;
+  // MetadataVO format2;
+  //
+  //
+  // for (int i = 0; i < metadataV.size(); i++) {
+  // boolean duplicate = false;
+  // format1 = (MetadataVO) metadataV.get(i);
+  // for (int x = i + 1; x < metadataV.size(); x++) {
+  // format2 = (MetadataVO) metadataV.get(x);
+  // if (isMdFormatEqual(format1, format2)) {
+  // duplicate = true;
+  // }
+  // }
+  // if (!duplicate) {
+  // cleanVector.add(format1);
+  // }
+  // }
+  //
+  // return cleanVector;
+  // }
 
+  // /**
+  // * Checks if the format of two MetadataVO Objects are equal.
+  // *
+  // * @param src1
+  // * @param src2
+  // * @return true if equal, else false
+  // */
+  // public static boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2) {
+  // if (!src1.getName().equalsIgnoreCase(src2.getName())) {
+  // return false;
+  // }
+  //
+  // if (!src1.getMdFormat().equalsIgnoreCase(src2.getMdFormat())) {
+  // return false;
+  // }
+  //
+  // if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*")) {
+  // return true;
+  // } else {
+  // if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
+  // return false;
+  // }
+  // }
+  //
+  // return true;
+  // }
 
-    for (int i = 0; i < metadataV.size(); i++) {
-      boolean duplicate = false;
-      format1 = (MetadataVO) metadataV.get(i);
-      for (int x = i + 1; x < metadataV.size(); x++) {
-        format2 = (MetadataVO) metadataV.get(x);
-        if (isMdFormatEqual(format1, format2)) {
-          duplicate = true;
-        }
-      }
-      if (!duplicate) {
-        cleanVector.add(format1);
-      }
-    }
-
-    return cleanVector;
-  }
-
-  /**
-   * Checks if the format of two MetadataVO Objects are equal.
-   * 
-   * @param src1
-   * @param src2
-   * @return true if equal, else false
-   */
-  public static boolean isMdFormatEqual(MetadataVO src1, MetadataVO src2) {
-    if (!src1.getName().equalsIgnoreCase(src2.getName())) {
-      return false;
-    }
-
-    if (!src1.getMdFormat().equalsIgnoreCase(src2.getMdFormat())) {
-      return false;
-    }
-
-    if (src1.getEncoding().equals("*") || src2.getEncoding().equals("*")) {
-      return true;
-    } else {
-      if (!src1.getEncoding().equalsIgnoreCase(src2.getEncoding())) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-//  /**
-//   * Creates the source description xml.
-//   * 
-//   * @return xml as byte[]
-//   */
-//  public static byte[] createUnapiSourcesXml() {
-//    byte[] xml = null;
-//
-//    List<DataSourceVO> sources;
-//    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
-//
-//    try {
-//      sources = sourceHandler.getSources(null, DataSourceHandlerService.UNAPI);
-//      SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
-//      SourcesType xmlSources = xmlSourceDoc.addNewSources();
-//      for (int i = 0; i < sources.size(); i++) {
-//        DataSourceVO source = sources.get(i);
-//        SourceType xmlSource = xmlSources.addNewSource();
-//        // Name
-//        SimpleLiteral name = xmlSource.addNewName();
-//        XmlString sourceName = XmlString.Factory.newInstance();
-//        sourceName.setStringValue(source.getName());
-//        name.set(sourceName);
-//        // Base url
-//        SimpleLiteral url = xmlSource.addNewIdentifier();
-//        XmlString sourceUrl = XmlString.Factory.newInstance();
-//        sourceUrl.setStringValue(source.getUrl().toExternalForm());
-//        url.set(sourceUrl);
-//        // Description
-//        SimpleLiteral desc = xmlSource.addNewDescription();
-//        XmlString sourceDesc = XmlString.Factory.newInstance();
-//        sourceDesc.setStringValue(source.getDescription());
-//        desc.set(sourceDesc);
-//        // Identifier prefix
-//        List<String> idPreVec = source.getIdentifier();
-//        for (int x = 0; x < idPreVec.size(); x++) {
-//          SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
-//          XmlString sourceidPre = XmlString.Factory.newInstance();
-//          sourceidPre.setStringValue(idPreVec.get(x));
-//          idPreSimp.set(sourceidPre);
-//        }
-//        // Identifier delimiter
-//        SimpleLiteral idDel = xmlSource.addNewIdentifierDelimiter();
-//        XmlString sourceidDel = XmlString.Factory.newInstance();
-//        sourceidDel.setStringValue(":");
-//        idDel.set(sourceidDel);
-//        // Identifier example
-//        List<String> examples = source.getIdentifierExample();
-//        if (examples != null) {
-//          for (String example : examples) {
-//            SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
-//            XmlString sourceidEx = XmlString.Factory.newInstance();
-//            sourceidEx.setStringValue(example);
-//            idEx.set(sourceidEx);
-//          }
-//        }
-//      }
-//      XmlOptions xOpts = new XmlOptions();
-//      xOpts.setSavePrettyPrint();
-//      xOpts.setSavePrettyPrintIndent(4);
-//      xOpts.setUseDefaultNamespace();
-//      xmlSourceDoc.save(baos, xOpts);
-//    } catch (IOException e) {
-//      logger.error("Error when creating outputXml.", e);
-//      throw new RuntimeException(e);
-//    }
-//
-//    xml = baos.toByteArray();
-//    return xml;
-//  }
+  // /**
+  // * Creates the source description xml.
+  // *
+  // * @return xml as byte[]
+  // */
+  // public static byte[] createUnapiSourcesXml() {
+  // byte[] xml = null;
+  //
+  // List<DataSourceVO> sources;
+  // ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  // DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
+  //
+  // try {
+  // sources = sourceHandler.getSources(null, DataSourceHandlerService.UNAPI);
+  // SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
+  // SourcesType xmlSources = xmlSourceDoc.addNewSources();
+  // for (int i = 0; i < sources.size(); i++) {
+  // DataSourceVO source = sources.get(i);
+  // SourceType xmlSource = xmlSources.addNewSource();
+  // // Name
+  // SimpleLiteral name = xmlSource.addNewName();
+  // XmlString sourceName = XmlString.Factory.newInstance();
+  // sourceName.setStringValue(source.getName());
+  // name.set(sourceName);
+  // // Base url
+  // SimpleLiteral url = xmlSource.addNewIdentifier();
+  // XmlString sourceUrl = XmlString.Factory.newInstance();
+  // sourceUrl.setStringValue(source.getUrl().toExternalForm());
+  // url.set(sourceUrl);
+  // // Description
+  // SimpleLiteral desc = xmlSource.addNewDescription();
+  // XmlString sourceDesc = XmlString.Factory.newInstance();
+  // sourceDesc.setStringValue(source.getDescription());
+  // desc.set(sourceDesc);
+  // // Identifier prefix
+  // List<String> idPreVec = source.getIdentifier();
+  // for (int x = 0; x < idPreVec.size(); x++) {
+  // SimpleLiteral idPreSimp = xmlSource.addNewIdentifierPrefix();
+  // XmlString sourceidPre = XmlString.Factory.newInstance();
+  // sourceidPre.setStringValue(idPreVec.get(x));
+  // idPreSimp.set(sourceidPre);
+  // }
+  // // Identifier delimiter
+  // SimpleLiteral idDel = xmlSource.addNewIdentifierDelimiter();
+  // XmlString sourceidDel = XmlString.Factory.newInstance();
+  // sourceidDel.setStringValue(":");
+  // idDel.set(sourceidDel);
+  // // Identifier example
+  // List<String> examples = source.getIdentifierExample();
+  // if (examples != null) {
+  // for (String example : examples) {
+  // SimpleLiteral idEx = xmlSource.addNewIdentifierExample();
+  // XmlString sourceidEx = XmlString.Factory.newInstance();
+  // sourceidEx.setStringValue(example);
+  // idEx.set(sourceidEx);
+  // }
+  // }
+  // }
+  // XmlOptions xOpts = new XmlOptions();
+  // xOpts.setSavePrettyPrint();
+  // xOpts.setSavePrettyPrintIndent(4);
+  // xOpts.setUseDefaultNamespace();
+  // xmlSourceDoc.save(baos, xOpts);
+  // } catch (IOException e) {
+  // logger.error("Error when creating outputXml.", e);
+  // throw new RuntimeException(e);
+  // }
+  //
+  // xml = baos.toByteArray();
+  // return xml;
+  // }
 
   // /**
   // * Extracts out of a url the escidoc import source name.
@@ -580,9 +578,9 @@ public class Util {
     return internalFormat;
   }
 
-  public static String getDummyFormat() {
-    return dummyFormat;
-  }
+  // public static String getDummyFormat() {
+  // return dummyFormat;
+  // }
 
   public static boolean checkXsltTransformation(String formatFrom, String formatTo) {
     String xsltUri = formatFrom.toLowerCase().trim() + "2" + formatTo.toLowerCase().trim() + ".xsl";

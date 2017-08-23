@@ -33,7 +33,6 @@
 		<module>cone</module>
 		<module>cone_presentation</module>
 		<module>dataacquisition</module>
-		<module>dataacquisition_presentation</module>
 		<module>framework_access</module>
 		<module>inge_es_connector</module>
 		<module>inge_db_connector</module>
@@ -321,12 +320,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
 				<version>1.0.91-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>dataacquisition_presentation</artifactId>
-				<version>1.0.91-SNAPSHOT</version>
-				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
@@ -1045,8 +1038,6 @@
 		<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 		<!-- import-source -->
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		<!-- Dataacquisition - Apache FOP configuration file -->
-		<escidoc.dataacquisition.resources.fop.configuration />
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
 		<!-- Number of creator displayed on load of the view full item page, the 
 			rest is displayed through "more" button -->
@@ -1055,21 +1046,16 @@
 		<escidoc.pubman.blog.baseUrl />
 		<escidoc.pubman.blog.news />
 		<escidoc.pubman.genres.configuration>Genres.xml</escidoc.pubman.genres.configuration>
-		<escidoc.dataacquisition.service.url>http://localhost:8080/dataacquisition/</escidoc.dataacquisition.service.url>
 		<!-- unAPI -->
-		<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
+		<escidoc.unapi.view.server>http://localhost:8080/rest/unapi</escidoc.unapi.view.server>
 		<!-- syndication service -->
 		<escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
 		<escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
 		<escidoc.syndication.ttl>0</escidoc.syndication.ttl>
 		<escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
-		<!-- Dataacquisition - Apache FOP configuration file -->
-		<escidoc.dataacquisition.resources.fop.configuration />
-		
 		<!-- Transformation implementing classes -->
 		<escidoc.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</escidoc.transformation.mab.content.url.prefix>
 		<!-- Transformation stylesheets -->
-
         <escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
         <escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</escidoc.transformation.arxiv2escidoc_publication_item.stylesheet.filename>        
         <escidoc.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</escidoc.transformation.bibtex.configuration.filename>
@@ -1287,7 +1273,7 @@
                 <escidoc.pubman.instance.url>https://dev.inge.mpdl.mpg.de</escidoc.pubman.instance.url>
                 <escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
                 <escidoc.systemtype>dev</escidoc.systemtype>
-                <escidoc.unapi.view.server>https://dev.inge.mpdl.mpg.de/dataacquisition/view/unapi</escidoc.unapi.view.server>
+                <escidoc.unapi.view.server>https://dev.inge.mpdl.mpg.de/rest/unapi</escidoc.unapi.view.server>
                 <jboss.deploy.port>8889</jboss.deploy.port>
                 <jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
                 <jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>

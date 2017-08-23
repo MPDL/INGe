@@ -43,12 +43,6 @@
 				out via our <a
 				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
 				target="_blank">REST-Interface</a>!
-				<h4>Service for data transfer</h4> Do you want to fetch data from
-				external sources like arXiv, BioMed Central, PubMed Central or
-				Spires? <br /> Use our <a
-				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-interface</a>!
-				<h4>Validation service</h4> <a href="/validation/" target="_blank">Check</a>
-				your XML data for formal correctness with our validation service.
 				<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
 				href="/cone/" target="_blank">controlled vocabularies</a> for
 				persons, journals, classifications or languages.
@@ -101,10 +95,6 @@
 				Datenabfragen können Sie über unsere <a
 				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
 				target="_blank">REST-Schnittstelle</a> vornehmen.
-				<h4>Service zur Datenübernahme</h4> Möchten Sie Publikationsdaten
-				von externen Systemen wie arXiv, BioMed Central, PubMedCentral oder
-				Spires importieren? <br /> Nutzen Sie dazu unsere <a
-				href="/pubman/faces/../../dataacquisition" target="_blank">unAPI-Schnittstelle</a>!
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
 				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
 				für Personen, Zeitschriften, Klassifikationen oder Sprachen.
@@ -161,12 +151,6 @@
 				href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp"
 				target="_blank">検索実行例</a>
 			</li>
-			<li>データ取得サービス: <a href="/dataacquisition"
-				target="_blank">unAPI インタフェース</a>
-				arXivのような外部システムからデータを取得するなどのunAPIインターフェースが用意されています。
-			</li>
-			<li><a href="/validation/" target="_blank">検証サービス</a>:
-				XMLメタデータの検証とレポート</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス;
 					Control of Named Entities Service (CoNE)</a>:
 				雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher
