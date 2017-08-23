@@ -27,6 +27,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>dataacquisition</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
 		</dependency>
 		<dependency>

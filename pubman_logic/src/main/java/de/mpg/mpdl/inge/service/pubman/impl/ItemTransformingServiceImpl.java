@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
@@ -25,6 +27,8 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 
+@Service
+@Primary
 public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   private static Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
