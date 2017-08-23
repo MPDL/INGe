@@ -15,7 +15,7 @@ import org.springframework.context.annotation.PropertySources;
 
 })
 @ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
-@Import(value = {WebConfiguration.class, RestWebConfiguration.class, SwaggerConfiguratiion.class})
+@Import(value = {WebConfiguration.class, RestWebConfiguration.class, SwaggerConfiguration.class})
 public class PubmanRestConfiguration {
 
 }
