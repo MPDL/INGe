@@ -56,6 +56,9 @@ public class TransformerFactory {
 
         case JUS_HTML_XML:
         case HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML:
+        case OAI_DC:
+          return FileFormatVO.XML_MIMETYPE;
+
         case BMC_FULLTEXT_HTML:
           return FileFormatVO.HTML_PLAIN_MIMETYPE;
 
