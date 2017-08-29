@@ -46,8 +46,6 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     converter.setObjectMapper(objectMapper);
     converters.add(0, converter);
-    System.out.println("Converter list:");
-    converters.forEach(c -> System.out.println(c.getClass().getName()));
     super.extendMessageConverters(converters);
   }
 
