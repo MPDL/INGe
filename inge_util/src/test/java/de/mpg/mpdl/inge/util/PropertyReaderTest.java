@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class PropertyReaderTest {
@@ -31,6 +32,7 @@ public class PropertyReaderTest {
         "pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
   }
 
+  @Ignore
   @Test
   public void testGetProperty() {
     String frameworkUrl = PropertyReader.getFrameworkUrl();
@@ -49,6 +51,7 @@ public class PropertyReaderTest {
     assertTrue(notExistingProperty == null);
   }
 
+  @Ignore
   @Test
   public void testForceReloadProperties() throws IOException {
 
