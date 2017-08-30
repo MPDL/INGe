@@ -3,16 +3,16 @@ package de.mpg.mpdl.inge.es.connector;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@Repository
-public class ElasticSearchTransportClientProvider {
+
+public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 
   private TransportClient client;
 
@@ -36,14 +36,7 @@ public class ElasticSearchTransportClientProvider {
     // super(settings);
   }
 
-  public TransportClient getClient() {
+  public Client getClient() {
     return client;
   }
-
-  public void setClient(TransportClient client) {
-    this.client = client;
-  }
-
-
-
 }

@@ -1,7 +1,6 @@
-package de.mpg.mpdl.inge.es.es.connector;
+package de.mpg.mpdl.inge.es.connector;
 
 import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -9,13 +8,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.es.spring.AppConfig;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {AppConfig.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ItemServiceHandlerTest extends TestBase {
   private static final Logger logger = Logger.getLogger(ItemServiceHandlerTest.class);
@@ -39,6 +41,7 @@ public class ItemServiceHandlerTest extends TestBase {
   }
 
   @Test
+  @Ignore
   public void test1Read() {
     try {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
@@ -61,6 +64,7 @@ public class ItemServiceHandlerTest extends TestBase {
   }
 
   @Test
+  @Ignore
   public void test2Read() {
     try {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);

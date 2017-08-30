@@ -3,9 +3,6 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.elasticsearch.node.NodeValidationException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
-
-import de.mpg.mpdl.inge.service.es.util.ESBase;
+import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfigPubmanLogic.class})
+@ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 public class ContextServiceTest {
 
   @Autowired
@@ -32,18 +27,6 @@ public class ContextServiceTest {
 
   private static final String ADMIN_LOGIN = "admin";
   private static final String ADMIN_PASSWORD = "tseT";
-
-  private static ESBase esBase = null;
-
-  @BeforeClass
-  public static void init() throws NodeValidationException {
-    // esBase = new ESBase();
-  }
-
-  @AfterClass
-  public static void tearDown() {
-    // esBase.clear();
-  }
 
   @Test
   public void objects() {

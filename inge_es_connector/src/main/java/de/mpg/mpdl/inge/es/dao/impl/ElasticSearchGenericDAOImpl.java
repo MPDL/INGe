@@ -23,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 /**
- * ElasticSearchTransportClient enables elasticsearch accessibility
+ * ElasticSearchClient enables elasticsearch accessibility
  * 
  * @author frank (initial creation)
  * @author $Author$ (last modification)
@@ -46,10 +46,9 @@ public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements Gener
 
 
   @Autowired
-  ElasticSearchTransportClientProvider client;
+  ElasticSearchClientProvider client;
 
   ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
-
 
 
   private String indexName;

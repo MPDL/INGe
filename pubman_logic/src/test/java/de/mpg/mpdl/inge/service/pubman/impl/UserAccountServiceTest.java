@@ -1,11 +1,15 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,11 +21,12 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
+import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfigPubmanLogic.class})
+@ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserAccountServiceTest {
 
   private static final String ADMIN_LOGIN = "admin";
@@ -29,6 +34,9 @@ public class UserAccountServiceTest {
   private static final String USER_OBJECTID_MODERATOR = "user_3000165";
   private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
   private static final String USER_OBJECTID_DEACTIVATED = "user_3000166";
+
+  // password may change during the tests depending on the test order
+  private static String actualDepositorPassword = "tseT";
   @Autowired
   UserAccountService userAccountService;
 
@@ -40,7 +48,7 @@ public class UserAccountServiceTest {
   @Test
   public void login() {
     String username = PropertyReader.getProperty("inge.depositor.loginname");
-    String password = PropertyReader.getProperty("inge.depositor.password");
+    String password = actualDepositorPassword;
     String token = null;
     try {
       token = userAccountService.login(username, password);
@@ -70,10 +78,25 @@ public class UserAccountServiceTest {
   }
 
   @Test
-  public void get() throws Exception {
+  public void getDepositor() throws Exception {
     String authenticationToken =
         userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            PropertyReader.getProperty("inge.depositor.password"));
+            actualDepositorPassword);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
+
+    assertTrue("Got no accountUserVO object", accountUserVO != null);
+    assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliations().size() == 1);
+    assertTrue("Wrong affiliation in list.", accountUserVO.getAffiliations().get(0).getObjectId()
+        .equalsIgnoreCase("ou_persistent25"));
+  }
+
+  @Test
+  public void getModerator() throws Exception {
+    String authenticationToken =
+        userAccountService.login(PropertyReader.getProperty("inge.moderator.loginname"),
+            PropertyReader.getProperty("inge.moderator.password"));
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
@@ -132,40 +155,6 @@ public class UserAccountServiceTest {
   }
 
   @Test
-  public void changePasswordByUser() throws Exception {
-    String authenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            PropertyReader.getProperty("inge.depositor.password"));
-    assertTrue(authenticationToken != null);
-
-    AccountUserVO accountUserPwdToBeChanged =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
-
-    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
-        accountUserPwdToBeChanged.getLastModificationDate(), "newPassword", authenticationToken);
-
-    assertTrue(userAccountService.login("test_depositor", "newPassword") != null);
-  }
-
-  @Test
-  public void changePasswordByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
-
-    AccountUserVO accountUserPwdToBeChanged =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
-
-    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
-        accountUserPwdToBeChanged.getLastModificationDate(), "newPassword", authenticationToken);
-
-    String userAuthenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            "newPassword");
-
-    assertTrue(userAuthenticationToken != null);
-  }
-
-  @Test
   public void activateByAdmin() throws Exception {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
@@ -199,7 +188,7 @@ public class UserAccountServiceTest {
   public void deactivateByOwner() throws Exception {
 
     String username = PropertyReader.getProperty("inge.depositor.loginname");
-    String password = PropertyReader.getProperty("inge.depositor.password");
+    String password = actualDepositorPassword;
 
     String authenticationToken = userAccountService.login(username, password);
     assertTrue(authenticationToken != null);
@@ -212,6 +201,42 @@ public class UserAccountServiceTest {
             accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
   }
 
+  @Test
+  public void changePasswordByUser() throws Exception {
+    String authenticationToken =
+        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
+            actualDepositorPassword);
+    assertTrue(authenticationToken != null);
+    actualDepositorPassword = "newPassword";
 
+    AccountUserVO accountUserPwdToBeChanged =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
+        accountUserPwdToBeChanged.getLastModificationDate(), actualDepositorPassword,
+        authenticationToken);
+
+    assertTrue(userAccountService.login("test_depositor", actualDepositorPassword) != null);
+  }
+
+  @Test
+  public void changePasswordByAdmin() throws Exception {
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserPwdToBeChanged =
+        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+
+    actualDepositorPassword = "anotherPassword";
+    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
+        accountUserPwdToBeChanged.getLastModificationDate(), actualDepositorPassword,
+        authenticationToken);
+
+    String userAuthenticationToken =
+        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
+            actualDepositorPassword);
+
+    assertTrue(userAuthenticationToken != null);
+  }
 
 }

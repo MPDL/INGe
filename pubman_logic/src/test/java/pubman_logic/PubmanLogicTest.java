@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
+import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -69,13 +69,13 @@ public class PubmanLogicTest {
   private AuthorizationService authorizationService;
 
   @Autowired
-  ElasticSearchTransportClientProvider client;
-
-  @Autowired
   private PubItemDaoEs pubItemDao;
 
   @Autowired
   private OrganizationDaoEs orgDao;
+
+  @Autowired
+  ElasticSearchClientProvider client;
 
 
   @Ignore

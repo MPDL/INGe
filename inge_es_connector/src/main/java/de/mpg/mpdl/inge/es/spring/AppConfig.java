@@ -1,21 +1,26 @@
 package de.mpg.mpdl.inge.es.spring;
 
-import org.elasticsearch.index.query.QueryBuilder;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
+import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.es")
 public class AppConfig {
+  private final static Logger logger = LogManager.getLogger(AppConfig.class);
 
-
-
-  public static void main(String[] args) {
-    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-    OrganizationDaoEs printer = context.getBean(OrganizationDaoEs.class);
+  @Bean
+  @Primary
+  public ElasticSearchTransportClientProvider elasticSearchClientProvider() {
+    logger.info("Initializing Spring Bean ElasticSearchTransportClientProvider");
+    return new ElasticSearchTransportClientProvider();
   }
 }

@@ -1,7 +1,6 @@
-package de.mpg.mpdl.inge.es.es.connector;
+package de.mpg.mpdl.inge.es.connector;
 
 import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -9,21 +8,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
+import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
+import de.mpg.mpdl.inge.es.spring.AppConfig;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {AppConfig.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ContextServiceHandlerTest extends TestBase {
+public class OrganizationServiceHandlerTest extends TestBase {
   private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);
 
   @Autowired
-  private ContextDaoEs contextDao;
-  private String test_context_id = "test_context";
+  private OrganizationDaoEs organizationDao;
 
+  private String test_ou_id = "test_ou";
 
   @After
   public void tearDown() throws Exception {}
@@ -31,8 +33,8 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testCreate() {
     try {
-      String contextId = this.contextDao.create(test_context_id, test_context());
-      assert contextId.equals(test_context_id);
+      String ouId = this.organizationDao.create(test_ou_id, test_ou());
+      assert ouId.equals(test_ou_id);
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -42,8 +44,8 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testRead() {
     try {
-      ContextVO contextVO = this.contextDao.get(test_context_id);
-      assert contextVO.equals(test_context());
+      AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
+      assert affiliationVO.equals(test_ou());
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -53,11 +55,11 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testUpdate() {
     try {
-      ContextVO contextVO = this.contextDao.get(test_context_id);
-      contextVO.setState(ContextVO.State.CREATED);
-      this.contextDao.update(test_context_id, contextVO);
-      ContextVO contextVO2 = this.contextDao.get(test_context_id);
-      assert contextVO2.getState().equals(ContextVO.State.CREATED);
+      AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
+      affiliationVO.getDefaultMetadata().setCountryCode("DE");
+      this.organizationDao.update(test_ou_id, affiliationVO);
+      AffiliationVO affiliationVO2 = this.organizationDao.get(test_ou_id);
+      assert affiliationVO2.getDefaultMetadata().getCountryCode().equals("DE");
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -67,7 +69,7 @@ public class ContextServiceHandlerTest extends TestBase {
   @Ignore
   @Test
   public void testZDelete() {
-    String contextId = this.contextDao.delete(test_context_id);
-    assert contextId.equals(test_context_id);
+    String ouId = this.organizationDao.delete(test_ou_id);
+    assert ouId.equals(test_ou_id);
   }
 }
