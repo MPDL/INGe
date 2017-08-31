@@ -125,32 +125,32 @@ public class Util {
    * @return Fulltext Object of the format to fetch
    */
   public static FullTextVO getFtObjectToFetch(DataSourceVO source, TransformerFactory.FORMAT format) {
-    FullTextVO ft = null;
+    FullTextVO fullTextVO = null;
 
     for (int i = 0; i < source.getFtFormats().size(); i++) {
-      ft = source.getFtFormats().get(i);
+      fullTextVO = source.getFtFormats().get(i);
       boolean fetchMd = true;
 
-      if (!ft.getName().equalsIgnoreCase(format.getName())) {
+      if (!fullTextVO.getName().equalsIgnoreCase(format.getName())) {
         continue;
       }
-      if (!ft.getFtFormat().equalsIgnoreCase(format.getType())) {
+      if (!fullTextVO.getFtFormat().equalsIgnoreCase(format.getType())) {
         continue;
       }
-      if ((!"*".equals(ft.getEncoding())) && (!"*".equals(format.getEncoding()))) {
-        if (!ft.getEncoding().equalsIgnoreCase(format.getEncoding())) {
+      if ((!"*".equals(fullTextVO.getEncoding())) && (!"*".equals(format.getEncoding()))) {
+        if (!fullTextVO.getEncoding().equalsIgnoreCase(format.getEncoding())) {
           fetchMd = false;
         }
       }
 
       if (fetchMd) {
-        return ft;
+        return fullTextVO;
       } else {
-        ft = null;
+        fullTextVO = null;
       }
     }
 
-    return ft;
+    return fullTextVO;
   }
 
   /**
@@ -185,28 +185,29 @@ public class Util {
    */
   public static String retrieveFileEndingFromCone(String mimeType) {
     String suffix = null;
-    URLConnection conn;
-    InputStreamReader isReader;
-    BufferedReader bReader;
 
     try {
-
       URL coneUrl =
           new URL(PropertyReader.getProperty("escidoc.cone.service.url") + coneMethod + coneRel1
               + mimeType + coneRel2);
-      conn = ProxyHelper.openConnection(coneUrl);
-      HttpURLConnection httpConn = (HttpURLConnection) conn;
-      int responseCode = httpConn.getResponseCode();
+      URLConnection con = ProxyHelper.openConnection(coneUrl);
+      HttpURLConnection httpCon = (HttpURLConnection) con;
+      
+      int responseCode = httpCon.getResponseCode();
+      
       switch (responseCode) {
         case 200:
           logger.debug("Cone Service responded with 200.");
           break;
+          
         default:
           throw new RuntimeException("An error occurred while calling Cone Service: "
               + responseCode);
       }
-      isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
-      bReader = new BufferedReader(isReader);
+      
+      InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
+      BufferedReader bReader = new BufferedReader(isReader);
+      
       String line = "";
       while ((line = bReader.readLine()) != null) {
         if (line.contains("<escidoc:suffix>")) {
@@ -215,7 +216,8 @@ public class Util {
                   line.indexOf("</escidoc:suffix>"));
         }
       }
-      httpConn.disconnect();
+      
+      httpCon.disconnect();
     } catch (Exception e) {
       logger
           .warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType + ")", e);
@@ -233,7 +235,6 @@ public class Util {
       ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri,
           Util.class.getClassLoader());
       check = true;
-
     } catch (FileNotFoundException e) {
       logger.warn("No transformation file from format: " + formatFrom + " to format: " + formatTo);
     }

@@ -1733,16 +1733,10 @@ public class EasySubmission extends FacesBean {
     this.locatorUpload = locatorUpload;
   }
 
-  /**
-   * @return the alternativeLanguageName
-   */
   public String getAlternativeLanguageName() {
     return this.alternativeLanguageName;
   }
 
-  /**
-   * @param alternativeLanguageName the alternativeLanguageName to set
-   */
   public void setAlternativeLanguageName(String alternativeLanguageName) {
     this.alternativeLanguageName = alternativeLanguageName;
   }
