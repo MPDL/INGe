@@ -149,7 +149,8 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     JSONParser parser = new JSONParser();
 
     try {
-      StringBuffer importFileStringBuffer = new StringBuffer().append("./es_scripts/import_").append(indexName).append(".txt");
+      StringBuffer importFileStringBuffer =
+          new StringBuffer().append("./es_scripts/import_").append(indexName).append(".txt");
       lines =
           FileUtils.readLines(new File(this.getClass().getClassLoader()
               .getResource(importFileStringBuffer.toString()).toURI()));
