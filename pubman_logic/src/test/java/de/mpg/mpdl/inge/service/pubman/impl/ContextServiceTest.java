@@ -27,7 +27,7 @@ public class ContextServiceTest {
 
   private static final String ADMIN_LOGIN = "admin";
   private static final String ADMIN_PASSWORD = "tseT";
-  
+
   private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
   private static final String DEPOSITOR_PASSWORD = "tseT";
 
@@ -37,28 +37,32 @@ public class ContextServiceTest {
   }
 
   @Test
-  public void openAndClose()  throws Exception {
-    
+  public void openAndClose() throws Exception {
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
-    
+
     switch (contextVO.getState()) {
       case OPENED:
-        contextVO = contextService.close("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+        contextVO =
+            contextService.close("ctx_persistent3", contextVO.getLastModificationDate(),
+                authenticationToken);
         assertTrue(contextVO.getState().equals(ContextVO.State.CLOSED));
         break;
       case CLOSED:
       case CREATED:
-        contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+        contextVO =
+            contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
+                authenticationToken);
         assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
       default:
         break;
     }
   }
-  
+
   @Test(expected = AuthorizationException.class)
   public void openWhenAlreadyOpen() throws Exception {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
@@ -67,32 +71,40 @@ public class ContextServiceTest {
     ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
-     
-    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+
+    contextVO =
+        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
+            authenticationToken);
   }
-  
+
   @Test(expected = AuthenticationException.class)
   public void openWithoutAuthorization() throws Exception {
-    String authenticationToken = userAccountService.login(USER_OBJECTID_DEPOSITOR, DEPOSITOR_PASSWORD);
+    String authenticationToken =
+        userAccountService.login(USER_OBJECTID_DEPOSITOR, DEPOSITOR_PASSWORD);
     assertTrue(authenticationToken != null);
 
     ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
-     
-    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+
+    contextVO =
+        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
+            authenticationToken);
   }
-  
+
   @Test(expected = AuthenticationException.class)
   public void openWrongAuthentication() throws Exception {
-    String authenticationToken = userAccountService.login(USER_OBJECTID_DEPOSITOR, "XXXXXXXXXXXXXX");
+    String authenticationToken =
+        userAccountService.login(USER_OBJECTID_DEPOSITOR, "XXXXXXXXXXXXXX");
     assertTrue(authenticationToken != null);
 
     ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
-     
-    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+
+    contextVO =
+        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
+            authenticationToken);
   }
 
 }
