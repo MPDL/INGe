@@ -17,6 +17,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 
 @ManagedBean(name = "YearbookCandidatesSessionBean")
@@ -53,10 +54,10 @@ public class YearbookCandidatesSessionBean extends FacesBean {
         this.orgUnitSelectItems = new ArrayList<SelectItem>();
         this.orgUnitSelectItems.add(new SelectItem("all", "-"));
         final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
-        final String topLevelOU =
-            ouHandler.retrieve(this.yisb.getYearbookItem().getYearbookMetadata().getCreators()
-                .get(0).getOrganization().getIdentifier());
-        final AffiliationVO affVO = XmlTransformingService.transformToAffiliation(topLevelOU);
+
+        final AffiliationVO affVO =
+            ApplicationBean.INSTANCE.getOrganizationService().get(
+                yisb.getYearbook().getOrganization().getObjectId(), null);
         final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
         affList.add(new AffiliationVOPresentation(affVO));
         YearbookCandidatesSessionBean.addChildAffiliationsToMenu(affList, this.orgUnitSelectItems,

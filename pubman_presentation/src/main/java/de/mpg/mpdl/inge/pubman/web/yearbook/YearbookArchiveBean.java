@@ -6,8 +6,12 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import de.escidoc.www.services.om.ItemHandler;
+import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -16,6 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
@@ -35,41 +40,20 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class YearbookArchiveBean extends FacesBean {
   private static final String MAXIMUM_RECORDS = "5000";
 
-  private final List<PubItemVO> archivedYearbooks;
-  private PubItemVO selectedYearbook;
+  private final List<YearbookDbVO> archivedYearbooks;
+  private YearbookDbVO selectedYearbook;
   private String yearbookId;
 
   public YearbookArchiveBean() throws Exception {
-    final ItemHandler itemHandler =
-        ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
-    // this.activeYearbookItem = this.yearbookItemSessionBean.getYearbookItem();
-    this.archivedYearbooks = new ArrayList<PubItemVO>();
-    final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-    final String orgId =
-        this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId();
-    filterParams.put("operation", new String[] {"searchRetrieve"});
-    filterParams.put("version", new String[] {"1.1"});
-    filterParams.put(
-        "query",
-        new String[] {"\"/properties/context/id\"="
-            + PropertyReader.getProperty("escidoc.pubman.yearbook.context.id")
-            + " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
-    filterParams.put("maximumRecords", new String[] {YearbookArchiveBean.MAXIMUM_RECORDS});
-    final String xmlItemList = itemHandler.retrieveItems(filterParams);
-    final SearchRetrieveResponseVO<PubItemVO> result =
-        XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
-    // check if years have to be excluded from selection
-    if (result.getNumberOfRecords() > 0) {
-      PubItemVO recordPubItem = null;
-      for (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
-        recordPubItem = (PubItemVO) yearbookRecord.getData();
-        if (recordPubItem != null && recordPubItem.getYearbookMetadata() != null) {
-          if (ItemVO.State.RELEASED.equals(recordPubItem.getVersion().getState())) {
-            this.archivedYearbooks.add(recordPubItem);
-          }
-        }
-      }
-    }
+
+    String query = "SELECT y FROM YearbookDbVO y WHERE state=?";
+    List<Object> params = new ArrayList<>();
+    params.add(State.OPENED.name());
+    this.archivedYearbooks =
+        ApplicationBean.INSTANCE.getYearbookService().query(query, params,
+            getLoginHelper().getAuthenticationToken());
+
+
     if (this.getArchivedYearbooks() != null && this.getArchivedYearbooks().size() < 1) {
       this.info(this.getMessage("Yearbook_noArchivedItems"));
     }
@@ -78,7 +62,7 @@ public class YearbookArchiveBean extends FacesBean {
   /**
    * @return the archivedYearbooks (List<PubItemVO>)
    */
-  public List<PubItemVO> getArchivedYearbooks() {
+  public List<YearbookDbVO> getArchivedYearbooks() {
     return this.archivedYearbooks;
   }
 
@@ -99,14 +83,14 @@ public class YearbookArchiveBean extends FacesBean {
   /**
    * @return the yearbook for the detailed view
    */
-  public PubItemVO getSelectedYearbook() {
+  public YearbookDbVO getSelectedYearbook() {
     return this.selectedYearbook;
   }
 
   /**
    * @param selectedYearbook (PubItemVO) the yearbook for the detailed view
    */
-  public void setSelectedYearbook(PubItemVO selectedYearbook) {
+  public void setSelectedYearbook(YearbookDbVO selectedYearbook) {
     this.selectedYearbook = selectedYearbook;
   }
 
@@ -114,17 +98,14 @@ public class YearbookArchiveBean extends FacesBean {
    * @return all Members of the choosen yearbook
    */
   public List<PubItemVOPresentation> retrieveAllMembers() throws Exception {
-    List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    final MetadataSearchQuery mdQuery =
-        YearbookCandidatesRetrieverRequestBean.getMemberQuery(this.getSelectedYearbook());
-    final ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
-    pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
-    return pubItemList;
+
+    return YearbookUtils.retrieveAllMembers(this.getSelectedYearbook(), getLoginHelper()
+        .getAuthenticationToken());
   }
 
   public String viewItem() {
-    for (final PubItemVO archivedYearbook : this.getArchivedYearbooks()) {
-      if (this.getYearbookId().equals(archivedYearbook.getVersion().getObjectId())) {
+    for (final YearbookDbVO archivedYearbook : this.getArchivedYearbooks()) {
+      if (this.getYearbookId().equals(archivedYearbook.getObjectId())) {
         this.setSelectedYearbook(archivedYearbook);
       }
     }

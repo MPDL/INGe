@@ -164,7 +164,7 @@ public class EditItem extends FacesBean {
     if (this.getPubItem().getVersion() != null
         && this.getPubItem().getVersion().getObjectId() != null
         && this.getLoginHelper().getIsYearbookEditor()) {
-      if (this.getYearbookItemSessionBean().getYearbookItem() != null
+      if (this.getYearbookItemSessionBean().getYearbook() != null
           && this.getYearbookItemSessionBean().getInvalidItemMap()
               .get(this.getPubItem().getVersion().getObjectId()) != null) {
         try {

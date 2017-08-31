@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.apache.lucene.search.BooleanQuery;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
@@ -139,6 +141,9 @@ public class YearbookModeratorRetrieverRequestBean extends
 
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
+
+
+
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
       // define the filter criteria
@@ -182,12 +187,18 @@ public class YearbookModeratorRetrieverRequestBean extends
     try {
       List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
+      for (final PubItemVO item : ((PubItemListSessionBean) this.getBasePaginatorListSessionBean())
+          .getSelectedItems()) {
+
+      }
+
+
       String query = "";
       for (final PubItemVO item : ((PubItemListSessionBean) this.getBasePaginatorListSessionBean())
           .getSelectedItems()) {
         if (item.getRelations() != null && item.getRelations().size() > 0) {
-          final MetadataSearchQuery mdQuery =
-              YearbookCandidatesRetrieverRequestBean.getMemberQuery(item);
+          final MetadataSearchQuery mdQuery = null;
+          // YearbookUtils.getMemberQuery(item);
 
           if (!query.equals("")) {
             query += " OR ";

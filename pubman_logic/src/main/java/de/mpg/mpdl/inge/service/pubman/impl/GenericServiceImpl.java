@@ -38,8 +38,8 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
 
-public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObject extends BasicDbRO>
-    implements GenericService<ModelObject> {
+public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO> implements
+    GenericService<ModelObject> {
 
   @Autowired
   private AuthorizationService aaService;
@@ -65,7 +65,10 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       handleDBException(e);
     }
     ModelObject objectToReturn = transformToOld(objectToCreate);
-    getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
+    if (getElasticDao() != null) {
+      getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
+    }
+
     if (reindexList != null) {
       reindex(reindexList);;
     }
@@ -96,7 +99,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
 
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
-    getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
+    if (getElasticDao() != null) {
+      getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
+    }
     if (reindexList != null) {
       reindex(reindexList);
     }
@@ -116,7 +121,9 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
     }
     checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
-    getElasticDao().delete(id);
+    if (getElasticDao() != null) {
+      getElasticDao().delete(id);
+    }
 
   }
 
@@ -138,17 +145,20 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
 
-    QueryBuilder qb = srr.getQueryBuilder();
-    if (authenticationToken != null) {
-      qb =
-          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb,
-              aaService.checkLoginRequired(authenticationToken));
-    } else {
-      qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
+    if (getElasticDao() != null) {
+      QueryBuilder qb = srr.getQueryBuilder();
+      if (authenticationToken != null) {
+        qb =
+            aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb,
+                aaService.checkLoginRequired(authenticationToken));
+      } else {
+        qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
+      }
+      srr.setQueryBuilder(qb);
+      System.out.println(srr.getQueryBuilder().toString());
+      return getElasticDao().search(srr);
     }
-    srr.setQueryBuilder(qb);
-    System.out.println(srr.getQueryBuilder().toString());
-    return getElasticDao().search(srr);
+    return null;
   }
 
 
@@ -197,9 +207,12 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
 
   protected void reindex(List<String> idList) throws IngeTechnicalException {
     // Reindex old and new Parents
-    for (String id : idList) {
-      ModelObject vo = transformToOld(getDbRepository().findOne(id));
-      getElasticDao().create(id, vo);
+    if (getElasticDao() != null) {
+      for (String id : idList) {
+        ModelObject vo = transformToOld(getDbRepository().findOne(id));
+
+        getElasticDao().create(id, vo);
+      }
     }
   }
 
@@ -233,42 +246,43 @@ public abstract class GenericServiceImpl<ModelObject extends ValueObject, DbObje
   @Transactional(readOnly = true)
   public void reindex() {
 
+    if (getElasticDao() != null) {
+      String entityName =
+          ((Class<ModelObject>) ((ParameterizedType) getClass().getGenericSuperclass())
+              .getActualTypeArguments()[0]).getSimpleName();
 
-    String entityName =
-        ((Class<ModelObject>) ((ParameterizedType) getClass().getGenericSuperclass())
-            .getActualTypeArguments()[0]).getSimpleName();
 
+      Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
+          (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+              .createQuery("SELECT e FROM " + entityName + " e");
+      query.setReadOnly(true);
+      query.setFetchSize(500);
+      query.setCacheMode(CacheMode.IGNORE);
+      query.setFlushMode(FlushModeType.COMMIT);
+      query.setCacheable(false);
+      ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
 
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
-            .createQuery("SELECT e FROM " + entityName + " e");
-    query.setReadOnly(true);
-    query.setFetchSize(500);
-    query.setCacheMode(CacheMode.IGNORE);
-    query.setFlushMode(FlushModeType.COMMIT);
-    query.setCacheable(false);
-    ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
+      int count = 0;
+      while (results.next()) {
+        try {
+          count++;
+          DbObject dbObject = (DbObject) results.get(0);
+          logger.info("(" + count + ") Reindexing " + entityName + " " + dbObject.getObjectId());
+          getElasticDao().createNotImmediately(dbObject.getObjectId(), transformToOld(dbObject));
 
-    int count = 0;
-    while (results.next()) {
-      try {
-        count++;
-        DbObject dbObject = (DbObject) results.get(0);
-        logger.info("(" + count + ") Reindexing " + entityName + " " + dbObject.getObjectId());
-        getElasticDao().createNotImmediately(dbObject.getObjectId(), transformToOld(dbObject));
+          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+          if (count % 1000 == 0) {
+            logger.info("Clearing entity manager while reindexing");
+            entityManager.flush();
+            entityManager.clear();
+          }
 
-        // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-        if (count % 1000 == 0) {
-          logger.info("Clearing entity manager while reindexing");
-          entityManager.flush();
-          entityManager.clear();
+        } catch (Exception e) {
+          logger.error("Error while reindexing ", e);
         }
 
-      } catch (Exception e) {
-        logger.error("Error while reindexing ", e);
+
       }
-
-
     }
   }
 

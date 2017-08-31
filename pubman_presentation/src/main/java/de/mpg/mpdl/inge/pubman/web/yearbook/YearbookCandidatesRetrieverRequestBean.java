@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -9,20 +10,31 @@ import javax.faces.model.SelectItem;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
+import org.apache.lucene.search.BooleanQuery;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
@@ -36,6 +48,7 @@ import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery;
 import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -102,7 +115,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
             .get(YearbookCandidatesRetrieverRequestBean.parameterSelectedOrgUnit);
     if (orgUnit == null) {
       if (this.getYearbookCandidatesSessionBean().getSelectedOrgUnit() != null
-          || this.getYearbookItemSessionBean().getYearbookItem() == null) {
+          || this.getYearbookItemSessionBean().getYearbook() == null) {
         this.setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
       } else {
         this.setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getOrgUnitSelectItems()
@@ -127,10 +140,10 @@ public class YearbookCandidatesRetrieverRequestBean extends
   public String addSelectedToYearbook() {
     final YearbookItemSessionBean yisb =
         (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    final List<ItemRO> selected = new ArrayList<ItemRO>();
+    final List<String> selected = new ArrayList<String>();
     for (final PubItemVOPresentation item : ((PubItemListSessionBean) this
         .getBasePaginatorListSessionBean()).getSelectedItems()) {
-      selected.add(item.getVersion());
+      selected.add(item.getVersion().getObjectId());
     }
     yisb.addMembers(selected);
     this.getBasePaginatorListSessionBean().update();
@@ -140,10 +153,10 @@ public class YearbookCandidatesRetrieverRequestBean extends
   public String removeSelectedFromYearbook() {
     final YearbookItemSessionBean yisb =
         (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    final List<ItemRO> selected = new ArrayList<ItemRO>();
+    final List<String> selected = new ArrayList<String>();
     for (final PubItemVOPresentation item : ((PubItemListSessionBean) this
         .getBasePaginatorListSessionBean()).getSelectedItems()) {
-      selected.add(item.getVersion());
+      selected.add(item.getVersion().getObjectId());
     }
     yisb.removeMembers(selected);
     this.getBasePaginatorListSessionBean().update();
@@ -196,242 +209,70 @@ public class YearbookCandidatesRetrieverRequestBean extends
     this.selectedSortOrder = selectedSortOrder;
   }
 
-  private SearchQuery getCandidatesQuery() throws Exception {
-    String query = YearbookCandidatesRetrieverRequestBean.getCandidateQuery().getCqlQuery();
-    if (this.getSelectedOrgUnit() != null && !this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-      query +=
-          " AND " + MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\""
-              + this.getSelectedOrgUnit() + "\"";
-      // mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS,
-      // getSelectedOrgUnit(), LogicalOperator.AND));
-    }
-
-    return new PlainCqlQuery(query);
-  }
-
-  public static SearchQuery getCandidateQuery() throws Exception {
-    final YearbookItemSessionBean yisb =
-        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    final ArrayList<String> contentTypes = new ArrayList<String>();
-    final String contentTypeIdPublication =
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    contentTypes.add(contentTypeIdPublication);
-
-    final ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-    final MetadataSearchCriterion objectTypeMds =
-        new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-    mdsList.add(objectTypeMds);
-
-    // MetadataSearchCriterion genremd = new MetadataSearchCriterion(CriterionType.ANY, );
-
-    int i = 0;
-    for (final Genre genre : yisb.getYearbookContext().getAdminDescriptor().getAllowedGenres()) {
-      if (i == 0) {
-        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre
-            .getUri(), LogicalOperator.AND));
-      } else {
-        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.GENRE, genre
-            .getUri(), LogicalOperator.OR));
-      }
-      i++;
-    }
-
-    if (yisb.getNumberOfMembers() > 0) {
-      for (final ItemRelationVO rel : yisb.getYearbookItem().getRelations()) {
-        mdsList.add(new MetadataSearchCriterion(CriterionType.OBJID, rel.getTargetItemRef()
-            .getObjectId(), LogicalOperator.NOT));
-      }
-    }
-    final MetadataSearchQuery mdQuery = new MetadataSearchQuery(contentTypes, mdsList);
 
 
-
-    // generate Dates search query
-    // date query for date issued & published-online
-    final ArrayList<CriterionType> dateTypeList = new ArrayList<CriterionType>();
-    dateTypeList.add(CriterionType.DATE_ISSUED);
-    dateTypeList.add(CriterionType.DATE_PUBLISHED_ONLINE);
-    MetadataDateSearchCriterion mdDate =
-        new MetadataDateSearchCriterion(dateTypeList, yisb.getYearbookItem().getYearbookMetadata()
-            .getStartDate(), yisb.getYearbookItem().getYearbookMetadata().getEndDate());
-    final String datequery1 = mdDate.generateCqlQuery();
-    // date query for date accepted (only if publication is of type Thesis)
-    dateTypeList.clear();
-    dateTypeList.add(CriterionType.DATE_ACCEPTED);
-    mdDate =
-        new MetadataDateSearchCriterion(dateTypeList, yisb.getYearbookItem().getYearbookMetadata()
-            .getStartDate(), yisb.getYearbookItem().getYearbookMetadata().getEndDate());
-    final String datequery2 =
-        "( " + mdDate.generateCqlQuery() + " ) AND " + MetadataSearchCriterion.getINDEX_GENRE()
-            + "=\"http://purl.org/eprint/type/Thesis\"";
-    final String datequery = "(( " + datequery1 + ") OR (" + datequery2 + " ))";
-
-
-
-    final String orgIndex =
-        MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS()
-            + "=\""
-            + yisb.getYearbookItem().getYearbookMetadata().getCreators().get(0).getOrganization()
-                .getIdentifier() + "\"";
-    final String orgQuery = "( " + orgIndex + " )";
-    // context query
-    String contextQuery = "";
-    if (yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts() != null
-        && yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts().size() > 0) {
-      contextQuery += "(";
-      int k = 0;
-      for (final String contextId : yisb.getYearbookItem().getYearbookMetadata()
-          .getIncludedContexts()) {
-        if (!contextId.trim().equals("")) {
-          if (k != 0) {
-            contextQuery += " OR";
-          }
-          final String context =
-              " " + MetadataSearchCriterion.getINDEX_CONTEXT_OBJECTID() + "=\"" + contextId.trim()
-                  + "\"";
-          contextQuery += context;
-          k++;
-        }
-      }
-      contextQuery += " )";
-    }
-    final String additionalQuery = datequery + " AND " + orgQuery + " AND " + contextQuery;
-
-
-    // String additionalQuery = yisb.getYearbookItem().getLocalTags().get(0);
-    final PlainCqlQuery query =
-        new PlainCqlQuery(mdQuery.getCqlQuery() + " AND " + additionalQuery);
-
-    return query;
-  }
-
-  private SearchQuery getNonCandidatesQuery() throws Exception {
-    String contextQuery = "";
+  private BoolQueryBuilder getNonCandidatesQuery() throws Exception {
     final YearbookItemSessionBean yisb = this.getYearbookItemSessionBean();
-    if (yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts() != null
-        && yisb.getYearbookItem().getYearbookMetadata().getIncludedContexts().size() > 0) {
-      contextQuery += "(";
-      int k = 0;
-      for (final String contextId : yisb.getYearbookItem().getYearbookMetadata()
-          .getIncludedContexts()) {
-        if (!contextId.trim().equals("")) {
-          if (k != 0) {
-            contextQuery += " OR";
-          }
-          final String context =
-              " " + MetadataSearchCriterion.getINDEX_CONTEXT_OBJECTID() + "=\"" + contextId.trim()
-                  + "\"";
-          contextQuery += context;
-          k++;
-        }
-      }
-      contextQuery += " )";
-    }
-    final String contentModel =
-        MetadataSearchCriterion.getINDEX_CONTENT_TYPE() + "=\""
-            + PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication")
-            + "\"";
-    final String objectType = MetadataSearchCriterion.getINDEX_OBJECT_TYPE() + "=\"item\"";
 
-    // String orgUnitSelected = MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\"" +
-    // getSelectedOrgUnit() + "\"";
+    BoolQueryBuilder nonCandidateBoolQuery = QueryBuilders.boolQuery();
 
-    String query =
-        objectType + " AND " + contentModel + " AND (" + contextQuery + ") NOT ( "
-            + this.getCandidatesQuery().getCqlQuery() + " )";
-
-    // Remove the members
-    if (yisb.getNumberOfMembers() > 0) {
-      query += " NOT (" + MetadataSearchCriterion.getINDEX_OBJID() + " any ";
-      for (final ItemRelationVO rel : yisb.getYearbookItem().getRelations()) {
-        query += rel.getTargetItemRef().getObjectId() + " ";
-      }
-      query += ")";
+    // Contexts
+    BoolQueryBuilder contextBoolQuery = QueryBuilders.boolQuery();
+    nonCandidateBoolQuery.must(contextBoolQuery);
+    for (String contextId : yisb.getYearbook().getContextIds()) {
+      contextBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
+          contextId));
     }
 
 
-    // Add the selected org unit filter
+    nonCandidateBoolQuery.mustNot(YearbookUtils.getCandidateQuery());
+
+
+    // Remove members
+    if (yisb.getYearbook().getItemIds().size() > 0) {
+      BoolQueryBuilder memberBoolQuery = QueryBuilders.boolQuery();
+      nonCandidateBoolQuery.must(memberBoolQuery);
+      for (String id : yisb.getYearbook().getItemIds()) {
+        memberBoolQuery.mustNot(QueryBuilders.termQuery(
+            PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id));
+      }
+    }
+
+
+
     if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-      query +=
-          " AND " + MetadataSearchCriterion.getINDEX_ORGANIZATION_PIDS() + "=\""
-              + this.getSelectedOrgUnit() + "\"";
-    }
-    return new PlainCqlQuery(query);
-  }
-
-  public static MetadataSearchQuery getMemberQuery(PubItemVO yearbookItem) throws Exception {
-    final ArrayList<String> contentTypes = new ArrayList<String>();
-    final String contentTypeIdPublication =
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    contentTypes.add(contentTypeIdPublication);
-
-    final ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-    final MetadataSearchCriterion objectTypeMds =
-        new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-    mdsList.add(objectTypeMds);
-
-    int i = 0;
-    for (final ItemRelationVO rel : yearbookItem.getRelations()) {
-      if (i == 0) {
-        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, rel
-            .getTargetItemRef().getObjectId(), LogicalOperator.AND));
-      } else {
-        objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, rel
-            .getTargetItemRef().getObjectId(), LogicalOperator.OR));
+      List<String> orgWithChildren = new ArrayList<>();
+      OrganizationSearchCriterion.fillWithChildOus(orgWithChildren, getSelectedOrgUnit());
+      BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
+      nonCandidateBoolQuery.must(ouBoolQuery);
+      for (String ouId : orgWithChildren) {
+        ouBoolQuery.should(QueryBuilders.termQuery(
+            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
+        ouBoolQuery.should(QueryBuilders.termQuery(
+            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
       }
-      i++;
-
-    }
-    final MetadataSearchQuery mdQuery = new MetadataSearchQuery(contentTypes, mdsList);
-    return mdQuery;
-  }
-
-  private SearchQuery getMembersQuery() throws Exception {
-    final YearbookItemSessionBean yisb = this.getYearbookItemSessionBean();
-    if (yisb.getNumberOfMembers() > 0) {
-      final MetadataSearchQuery mdQuery =
-          YearbookCandidatesRetrieverRequestBean.getMemberQuery(yisb.getYearbookItem());
-      if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-        mdQuery.addCriterion(new MetadataSearchCriterion(CriterionType.ORGANIZATION_PIDS, this
-            .getSelectedOrgUnit(), LogicalOperator.AND));
-      }
-      return mdQuery;
     }
 
-    return null;
+    return nonCandidateBoolQuery;
+
   }
 
-  private SearchQuery getInvalidMembersQuery() throws Exception {
+  private BoolQueryBuilder getInvalidMembersQuery() throws Exception {
 
     final YearbookItemSessionBean yisb =
         (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
     if (yisb.getInvalidItemMap().size() > 0) {
-      final ArrayList<String> contentTypes = new ArrayList<String>();
-      final String contentTypeIdPublication =
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-      contentTypes.add(contentTypeIdPublication);
 
-      final ArrayList<MetadataSearchCriterion> mdsList = new ArrayList<MetadataSearchCriterion>();
-      final MetadataSearchCriterion objectTypeMds =
-          new MetadataSearchCriterion(CriterionType.OBJECT_TYPE, "item", LogicalOperator.AND);
-      mdsList.add(objectTypeMds);
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-      int i = 0;
       for (final YearbookInvalidItemRO item : yisb.getInvalidItemMap().values()) {
-        if (i == 0) {
-          objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, item
-              .getObjectId(), LogicalOperator.AND));
-        } else {
-          objectTypeMds.addSubCriteria(new MetadataSearchCriterion(CriterionType.OBJID, item
-              .getObjectId(), LogicalOperator.OR));
-        }
-        i++;
-
+        bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
+            item.getObjectId()));
       }
 
-      final MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, mdsList);
-      return query;
+
+      return bq;
 
 
 
@@ -460,16 +301,15 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
-    List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     final YearbookItemSessionBean yisb = this.getYearbookItemSessionBean();
 
     try {
-      if (yisb.getYearbookItem() != null) {
-        SearchQuery query = null;
+      if (yisb.getYearbook() != null) {
+        BoolQueryBuilder query = null;
         if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.CANDIDATES)) {
-          query = this.getCandidatesQuery();
+          query = YearbookUtils.getCandidateQuery();
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.MEMBERS)) {
-          query = this.getMembersQuery();
+          query = YearbookUtils.getMemberQuery(yisb.getYearbook());
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.INVALID)) {
           query = this.getInvalidMembersQuery();
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.NON_CANDIDATES)) {
@@ -477,10 +317,24 @@ public class YearbookCandidatesRetrieverRequestBean extends
         }
 
         if (query != null) {
-          query.setStartRecord(new PositiveInteger(String.valueOf(offset + 1)));
-          query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
+          
+          if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
+            List<String> orgWithChildren = new ArrayList<>();
+            OrganizationSearchCriterion.fillWithChildOus(orgWithChildren, getSelectedOrgUnit());
+            BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
+            query.must(ouBoolQuery);
+            for(String ouId : orgWithChildren)
+            {
+              ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
+              ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
+            }
+          }
+          
+          
+          
+          
 
-
+          /*
           if (sc.getIndex() != null) {
             query.setSortKeys(sc.getIndex());
           }
@@ -495,12 +349,27 @@ public class YearbookCandidatesRetrieverRequestBean extends
               query.setSortOrder(SortingOrder.ASCENDING);
             }
           }
+          */
+          
+          
+          
+          //TODO Sorting!!!
 
-          System.out.println(query.getCqlQuery());
-          final ItemContainerSearchResult result = SearchService.searchForItemContainer(query);
+          
+          SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
+          
+          SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset+1, ssc);
+              
+              
+          SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
+              .search(srr, getLoginHelper().getAuthenticationToken());
 
-          pubItemList = this.extractItemsOfSearchResult(result);
-          this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
+          this.numberOfRecords = resp.getNumberOfRecords();
+
+          List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
+              .collect(Collectors.toList());
+
+          return CommonUtils.convertToPubItemVOPresentationList(resultList);
         }
       }
     } catch (final Exception e) {
@@ -509,35 +378,8 @@ public class YearbookCandidatesRetrieverRequestBean extends
       this.numberOfRecords = 0;
     }
 
-    return pubItemList;
+    return null;
   }
 
 
-  public ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
-      ItemContainerSearchResult result) {
-
-    final List<SearchResultElement> results = result.getResultList();
-
-    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    for (int i = 0; i < results.size(); i++) {
-      // check if we have found an item
-      if (results.get(i) instanceof ItemResultVO) {
-        // cast to PubItemResultVO
-        final ItemResultVO item = (ItemResultVO) results.get(i);
-        final PubItemResultVO pubItemResult =
-            new PubItemResultVO(item, item.getSearchHitList(), item.getScore());
-        final PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
-
-        final YearbookItemSessionBean yisb = this.getYearbookItemSessionBean();
-        if (yisb.getInvalidItemMap().containsKey(pubItemPres.getVersion().getObjectId())) {
-          final YearbookInvalidItemRO itemRO =
-              yisb.getInvalidItemMap().get(pubItemPres.getVersion().getObjectId());
-          pubItemPres.setValidationReport(itemRO.getValidationReport());
-        }
-        pubItemList.add(pubItemPres);
-      }
-    }
-
-    return pubItemList;
-  }
 }

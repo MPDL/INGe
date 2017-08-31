@@ -21,7 +21,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						styleClass="quad_txtArea inputTxtArea"
-						value="#{YearbookItemEditBean.title}" />
+						value="Jahrbuch #{YearbookItemEditBean.yearbook.year}" #{YearbookItemEditBean.yearbook.organization.name}"/>
 				</span>
 			 </h:panelGroup>
 			 <h:panelGroup layout="block"
@@ -33,7 +33,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						id="selSelectedOrgUnit" styleClass="xDouble_select replace"
-						value="#{YearbookItemEditBean.organization.name} (#{YearbookItemEditBean.organization.identifier})" />
+						value="#{YearbookItemEditBean.yearbook.organization.name}" (#{YearbookItemEditBean.yearbook.organization.objectId})" />
 				</span>
 			 </h:panelGroup>
 			 <h:panelGroup layout="block"

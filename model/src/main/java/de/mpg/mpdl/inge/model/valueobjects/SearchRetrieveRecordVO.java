@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
 
-public class SearchRetrieveRecordVO<T extends ValueObject> extends ValueObject {
+public class SearchRetrieveRecordVO<T> extends ValueObject {
 
   private String schema;
   private String packing;

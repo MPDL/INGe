@@ -18,7 +18,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @param <E>
  * @param <Query>
  */
-public interface GenericDaoEs<E extends ValueObject> {
+public interface GenericDaoEs<E> {
 
   /**
    * creates a new object in elasticsearch for the entity with a specific id

@@ -94,9 +94,9 @@ public class GrantVO extends ValueObject {
 
 
   public enum PredefinedRoles {
-    DEPOSITOR("DEPOSITOR"), MODERATOR("MODERATOR"), PRIVILEGEDVIEWER(
-        "escidoc:role-privileged-viewer"), REPORTER("escidoc:role-reporter"), AUDIENCE(
-        "escidoc:role-audience"), SYSADMIN("SYSADMIN");
+    DEPOSITOR("DEPOSITOR"), MODERATOR("MODERATOR"), SYSADMIN("SYSADMIN"), YEARBOOK_EDITOR(
+        "YEARBOOK-EDITOR"), PRIVILEGEDVIEWER("escidoc:role-privileged-viewer"), REPORTER(
+        "escidoc:role-reporter"), AUDIENCE("escidoc:role-audience");
 
     private final String frameworkValue;
 

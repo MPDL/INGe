@@ -43,6 +43,7 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
@@ -491,7 +492,7 @@ public class ViewItemFull extends FacesBean {
       if (this.getLoginHelper().getIsYearbookEditor()) {
         this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
-        if (this.yisb.getYearbookItem() != null) {
+        if (this.yisb.getYearbook() != null) {
           if (this.yisb.getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId()) != null) {
             try {
               // revalidate
@@ -508,9 +509,7 @@ public class ViewItemFull extends FacesBean {
           }
 
           try {
-            if (ItemVO.State.PENDING.equals(this.yisb.getYearbookItem().getVersion().getState())
-                || ItemVO.State.IN_REVISION.equals(this.yisb.getYearbookItem().getVersion()
-                    .getState())) {
+            if (YearbookDbVO.State.OPENED.equals(this.yisb.getYearbook().getState())) {
               this.isCandidateOfYearbook =
                   this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
               if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
@@ -575,8 +574,8 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addToYearbookMember() {
-    final List<ItemRO> selected = new ArrayList<ItemRO>();
-    selected.add(this.getPubItem().getVersion());
+    final List<String> selected = new ArrayList<String>();
+    selected.add(this.getPubItem().getVersion().getObjectId());
     this.yisb.addMembers(selected);
     this.isCandidateOfYearbook = false;
     this.isMemberOfYearbook = true;
@@ -585,8 +584,8 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String removeMemberFromYearbook() {
-    final List<ItemRO> selected = new ArrayList<ItemRO>();
-    selected.add(this.getPubItem().getVersion());
+    final List<String> selected = new ArrayList<String>();
+    selected.add(this.getPubItem().getVersion().getObjectId());
     this.yisb.removeMembers(selected);
     this.isMemberOfYearbook = false;
     this.isCandidateOfYearbook = true;

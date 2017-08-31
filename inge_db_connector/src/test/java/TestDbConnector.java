@@ -25,10 +25,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.mchange.v2.c3p0.impl.NewProxyPreparedStatement;
 
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbVO;
@@ -44,13 +49,17 @@ import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
+import de.mpg.mpdl.inge.db.repository.YearbookRepository;
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -72,6 +81,10 @@ public class TestDbConnector {
   @Autowired
   private ItemRepository itemRepository;
 
+
+  @Autowired
+  private ItemObjectRepository itemObjectRepository;
+
   @Autowired
   private OrganizationRepository orgRepository;
 
@@ -87,6 +100,11 @@ public class TestDbConnector {
   @Autowired
   private IdentifierProviderServiceImpl idProvider;
 
+  @Autowired
+  private YearbookRepository yearbookRepository;
+
+
+
   @PersistenceContext
   private EntityManager entityManager;
 
@@ -95,6 +113,8 @@ public class TestDbConnector {
   private Queue<AffiliationVO> updateLaterAffs = new LinkedList<AffiliationVO>();
 
   private HttpClient httpClientWithEscidocCookie;
+
+
 
   @Before
   public void setup() {
@@ -106,6 +126,33 @@ public class TestDbConnector {
     cookieStore.addCookie(cookie);
     httpClientWithEscidocCookie =
         HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
+  }
+
+  @Test
+  public void testYearbook() {
+    /*
+     * Page<PubItemObjectDbVO> result = itemObjectRepository.findAll(new PageRequest(0, 10));
+     * 
+     * 
+     * 
+     * YearbookDbVO yearbook = new YearbookDbVO(); yearbook.setYear(2017);
+     * yearbook.setOrganization(orgRepository.findOne("ou_persistent25"));
+     * yearbook.setState(State.OPENED);
+     * 
+     * for(PubItemObjectDbVO pubItemO : result) { yearbook.getItems().add(pubItemO); }
+     * 
+     * yearbookRepository.save(yearbook);
+     */
+
+    // YearbookDbVO yearbookReturned = yearbookRepository.findOne(3);
+    /*
+     * yearbookReturned.getItems(); PubItemObjectDbVO item = yearbookReturned.getItems().get(0);
+     * 
+     * 
+     * System.out.println(item.getObjectId());
+     */
+
+
   }
 
 

@@ -2,11 +2,13 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
@@ -14,6 +16,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -23,6 +26,7 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
@@ -138,43 +142,21 @@ public class YearbookArchiveRetrieverRequestBean extends
       final YearbookArchiveBean yearbookArchiveBean =
           (YearbookArchiveBean) FacesTools.findBean("YearbookArchiveBean.class");
 
-      // define the filter criteria
-      final FilterTaskParamVO filter = new FilterTaskParamVO();
+      
+      QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookArchiveBean.getSelectedYearbook());
+      
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset+1, null);
+      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
+          .search(srr, getLoginHelper().getAuthenticationToken());
 
-      // add all contexts for which the user has moderator rights (except the "all" item of the
-      // menu)
-      final List<ItemRO> itemRelations = new ArrayList<ItemRO>();
-      for (final ItemRelationVO itemRelation : yearbookArchiveBean.getSelectedYearbook()
-          .getRelations()) {
-        itemRelations.add(itemRelation.getTargetItemRef());
-      }
-      if (!itemRelations.isEmpty()) {
-        filter.getFilterList().add(filter.new ItemRefFilter(itemRelations));
-      }
-      // add views per page limit
-      final Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-      filter.getFilterList().add(f8);
-      final Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
-      filter.getFilterList().add(f9);
-      if (sc != null) {
-        final Filter sortFilter = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
-        filter.getFilterList().add(sortFilter);
-      }
 
-      final String xmlItemList =
-          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
-              .retrieveItems(filter.toMap());
+      this.numberOfRecords = resp.getNumberOfRecords();
+      
+      List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
+          .collect(Collectors.toList());
 
-      final SearchRetrieveResponseVO<PubItemVO> result =
-          XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
+      return CommonUtils.convertToPubItemVOPresentationList(resultList);
 
-      final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-      for (final SearchRetrieveRecordVO<PubItemVO> record : result.getRecords()) {
-        pubItemList.add((PubItemVO) record.getData());
-      }
-
-      this.numberOfRecords = result.getNumberOfRecords();
-      returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       YearbookArchiveRetrieverRequestBean.logger.error("Error in retrieving items", e);
       FacesBean.error("Error in retrieving items");

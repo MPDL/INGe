@@ -5,7 +5,7 @@ import java.util.List;
 import org.elasticsearch.action.search.SearchResponse;
 
 
-public class SearchRetrieveResponseVO<T extends ValueObject> extends ValueObject {
+public class SearchRetrieveResponseVO<T> extends ValueObject {
 
   private String version;
   private int numberOfRecords;

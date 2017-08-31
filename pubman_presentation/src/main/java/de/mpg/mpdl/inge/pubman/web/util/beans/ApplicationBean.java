@@ -120,6 +120,10 @@ public class ApplicationBean extends FacesBean {
   @ManagedProperty("#{userAccountServiceImpl}")
   private de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService;
 
+
+  @ManagedProperty("#{yearbookServiceDbImpl}")
+  private de.mpg.mpdl.inge.service.pubman.YearbookService yearbookService;
+
   @ManagedProperty("#{restDataSource}")
   private DataSource dataSource;
 
@@ -572,5 +576,13 @@ public class ApplicationBean extends FacesBean {
 
   public void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
+  }
+
+  public de.mpg.mpdl.inge.service.pubman.YearbookService getYearbookService() {
+    return yearbookService;
+  }
+
+  public void setYearbookService(de.mpg.mpdl.inge.service.pubman.YearbookService yearbookService) {
+    this.yearbookService = yearbookService;
   }
 }

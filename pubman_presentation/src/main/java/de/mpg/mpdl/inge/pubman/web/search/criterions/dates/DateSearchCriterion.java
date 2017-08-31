@@ -367,7 +367,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
   }
 
 
-  public String roundDateString(String toQuery) {
+  public static String roundDateString(String toQuery) {
     if (toQuery == null) {
       return null;
     } else if (toQuery.matches("\\d\\d\\d\\d")) {
