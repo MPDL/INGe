@@ -212,8 +212,7 @@ public class MultipleImport extends FacesBean {
 
     if (this.format != null) {
       transformer =
-          TransformerCache.getTransformer(this.format,
-              TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
+          TransformerCache.getTransformer(this.format, TransformerFactory.getInternalFormat());
       config = transformer.getConfiguration();
     }
 

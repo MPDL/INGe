@@ -22,7 +22,6 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
@@ -146,7 +145,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
     try {
       String itemXml = XmlTransformingService.transformToItem(item);
 
-      final Transformer t = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, target);
+      final Transformer t =
+          TransformerCache.getTransformer(TransformerFactory.getInternalFormat(), target);
 
 
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
@@ -159,7 +159,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+  public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat,
+      TransformerFactory.FORMAT targetFormat) {
     return TransformerCache.isTransformationExisting(sourceFormat, targetFormat);
   }
 }

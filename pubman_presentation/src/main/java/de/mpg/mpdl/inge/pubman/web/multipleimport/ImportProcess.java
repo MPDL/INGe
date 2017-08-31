@@ -196,7 +196,7 @@ public class ImportProcess extends Thread {
     }
 
     if (!itemTransformingService.isTransformationExisting(format,
-        TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML)) {
+        TransformerFactory.getInternalFormat())) {
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_format_invalid",
           this.connection);
       this.fail();
@@ -440,7 +440,7 @@ public class ImportProcess extends Thread {
     try {
       escidocXml =
           this.itemTransformingService.transformFromTo(this.format,
-              TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, singleItem);
+              TransformerFactory.getInternalFormat(), singleItem);
 
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done",

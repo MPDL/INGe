@@ -64,7 +64,7 @@ public class DoiRestService {
       // Generate metadata xml for the DOI service
       String itemXml = XmlTransformingService.transformToItem(pubItem);
       Transformer transformer =
-          TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML,
+          TransformerCache.getTransformer(TransformerFactory.getInternalFormat(),
               TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();
 
