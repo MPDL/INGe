@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 12:05:47
  */
+@SuppressWarnings("serial")
 public class FileVO extends ValueObject implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
