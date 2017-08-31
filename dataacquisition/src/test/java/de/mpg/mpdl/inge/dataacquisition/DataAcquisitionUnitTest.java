@@ -26,19 +26,12 @@
 
 package de.mpg.mpdl.inge.dataacquisition;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
-import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
-import de.mpg.mpdl.inge.dataacquisition.Util;
-import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
-import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -50,10 +43,6 @@ public class DataAcquisitionUnitTest {
   private DataHandlerService datahandler = new DataHandlerService();
 
   private final static String arxivId = "arXiv:0904.3933";
-  private final static String pmcId = "PMC2043518";
-  private final static String bmcId = "1472-6890-9-1";
-  private final static String spiresId = "hep-ph/0001001 ";
-  private final static String escidocId = "escidoc:1817723";
 
   @Before
   public void setup() throws Exception {
@@ -70,54 +59,8 @@ public class DataAcquisitionUnitTest {
 
   @Test
   public void fetchArxiv() throws Exception {
-    byte[] test = this.datahandler.doFetch("arxiv", arxivId);
-    String s = new String(test, "UTF-8");
+    byte[] test =
+        this.datahandler.doFetchMetaData("arXiv", arxivId, TransformerFactory.getInternalFormat());
     Assert.assertNotNull(test);
-  }
-
-  @Test
-  public void fetchPmc() throws Exception {
-    byte[] test = this.datahandler.doFetch("PubMedCentral", pmcId);
-    Assert.assertNotNull(test);
-  }
-
-  @Test
-  public void fetchBmc() throws Exception {
-    byte[] test = this.datahandler.doFetch("BioMed Central", bmcId);
-    Assert.assertNotNull(test);
-  }
-
-  @Test
-  public void fetchSpires() throws Exception {
-    byte[] test = this.datahandler.doFetch("spires", spiresId);
-    String s = new String(test, "UTF-8");
-    Assert.assertNotNull(test);
-  }
-
-  @Test
-  @Ignore
-  public void fetcheSciDoc() throws Exception {
-    byte[] test = this.datahandler.doFetch("escidoc", escidocId);
-    Assert.assertNotNull(test);
-  }
-
-  /**
-   * This test fetches an arxiv item in all formats the sources provides.
-   * 
-   * @throws Exception
-   */
-  @Test
-  public void fetchItemInSpecificFormatTest() throws Exception {
-    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
-    DataSourceVO test = sourceHandler.getSourceByIdentifier("arXiv");
-
-    List<MetadataVO> formats = test.getMdFormats();
-    byte[] ret;
-
-    for (int i = 0; i < formats.size(); i++) {
-      ret = null;
-      ret = this.datahandler.doFetch("arxiv", arxivId, formats.get(i).getName());
-      Assert.assertNotNull(ret);
-    }
   }
 }
