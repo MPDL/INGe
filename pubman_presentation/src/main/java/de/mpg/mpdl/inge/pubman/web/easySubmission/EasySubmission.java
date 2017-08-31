@@ -99,6 +99,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -329,6 +330,7 @@ public class EasySubmission extends FacesBean {
           EditItemSessionBean.SUBMISSION_METHOD_IMPORT);
 
       return "loadNewFetchMetadata";
+
     } else { // Skip Collection selection for Import & Easy Sub if only one Collection
       depositorContextList.get(0).selectForEasySubmission();
       this.getEasySubmissionSessionBean().setCurrentSubmissionStep(
@@ -673,59 +675,55 @@ public class EasySubmission extends FacesBean {
    * @return navigation String
    */
   public String harvestData() {
-    // Fetch data from external system
     if (this.getServiceID() == null || "".equals(this.getServiceID())) {
       this.warn(this.getMessage("easy_submission_external_service_no_id"));
       return null;
     }
 
     final DataHandlerService dataHandler = new DataHandlerService();
-    PubItemVO itemVO = null;
-    final String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
     final List<FileVO> fileVOs = new ArrayList<FileVO>();
     String fetchedItem = null;
+
     try {
+      final String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
+
       // Harvest metadata
       final byte[] fetchedItemByte =
-          dataHandler.doFetch(service, this.getServiceID(), EasySubmission.INTERNAL_MD_FORMAT);
-      fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length, "UTF8");
+          dataHandler.doFetchMetaData(service, this.getServiceID(),
+              TransformerFactory.getInternalFormat());
+
+      fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length);
 
       // Harvest full text
-      if (this.getEasySubmissionSessionBean().isFulltext() //
-          && !this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-              .equals(EasySubmissionSessionBean.FULLTEXT_NONE) //
-          && !fetchedItem.equals("")) {
+      if (this.getEasySubmissionSessionBean().isFulltext()
+          && !fetchedItem.equals("")
+          && !EasySubmissionSessionBean.FULLTEXT_NONE.equals(this.getEasySubmissionSessionBean()
+              .getRadioSelectFulltext())) {
+
         final DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
         final List<FullTextVO> ftFormats = source.getFtFormats();
-        FullTextVO fulltext = new FullTextVO();
-        final List<String> formats = new ArrayList<String>();
+        final List<TransformerFactory.FORMAT> fullTextFormats =
+            new ArrayList<TransformerFactory.FORMAT>();
 
-        // Get DEFAULT full text version from source
-        if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-            .equals(EasySubmissionSessionBean.FULLTEXT_DEFAULT)) {
-          for (int x = 0; x < ftFormats.size(); x++) {
-            fulltext = ftFormats.get(x);
-            if (fulltext.isFtDefault()) {
-              formats.add(fulltext.getName());
+        if (EasySubmissionSessionBean.FULLTEXT_DEFAULT.equals(this.getEasySubmissionSessionBean()
+            .getRadioSelectFulltext())) {
+          for (FullTextVO fulltextVO : ftFormats) {
+            if (fulltextVO.isFtDefault()) {
+              fullTextFormats.add(TransformerFactory.getFormat(fulltextVO.getName()));
               break;
             }
           }
-        }
-
-        // Get ALL full text versions from source
-        if (this.getEasySubmissionSessionBean().getRadioSelectFulltext()
-            .equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
-          for (int x = 0; x < ftFormats.size(); x++) {
-            fulltext = ftFormats.get(x);
-            formats.add(fulltext.getName());
+        } else if (EasySubmissionSessionBean.FULLTEXT_ALL.equals(this
+            .getEasySubmissionSessionBean().getRadioSelectFulltext())) {
+          for (FullTextVO fulltextVO : ftFormats) {
+            fullTextFormats.add(TransformerFactory.getFormat(fulltextVO.getName()));
           }
         }
 
-        final String[] arrFormats = new String[formats.size()];
         final byte[] ba =
-            dataHandler.doFetch(
-                this.getEasySubmissionSessionBean().getCurrentExternalServiceType(),
-                this.getServiceID(), formats.toArray(arrFormats));
+            dataHandler.doFetchFullText(this.getEasySubmissionSessionBean()
+                .getCurrentExternalServiceType(), this.getServiceID(), fullTextFormats
+                .toArray(new TransformerFactory.FORMAT[fullTextFormats.size()]));
         final ByteArrayInputStream in = new ByteArrayInputStream(ba);
         final URL fileURL =
             this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
@@ -777,7 +775,7 @@ public class EasySubmission extends FacesBean {
     // Generate item ValueObject
     if (fetchedItem != null && !fetchedItem.trim().equals("")) {
       try {
-        itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
+        PubItemVO itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
         itemVO.getFiles().clear();
         itemVO.setContext(this.getItem().getContext());
 

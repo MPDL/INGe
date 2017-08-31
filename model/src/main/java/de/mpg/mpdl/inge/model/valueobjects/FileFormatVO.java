@@ -56,6 +56,9 @@ public class FileFormatVO extends ValueObject {
   public static final String PDF_NAME = "pdf";
   public static final String PDF_MIMETYPE = "application/pdf";
 
+  public static final String PS_NAME = "ps";
+  public static final String PS_MIMETYPE = "application/gzip";
+
   public static final String RTF_NAME = "rtf";
   public static final String RTF_MIMETYPE = "application/rtf";
 
