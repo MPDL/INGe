@@ -25,12 +25,4 @@ public class AppConfigPubmanLogicTest {
     return new BCryptPasswordEncoder();
   }
 
-  /*
-   * @Bean
-   * 
-   * @Primary public ElasticSearchLocalClientProvider elasticSearchClientProvider() {
-   * logger.info("Initializing Spring Bean ElasticSearchLocalClientProvider"); return new
-   * ElasticSearchLocalClientProvider(); }
-   */
-
 }

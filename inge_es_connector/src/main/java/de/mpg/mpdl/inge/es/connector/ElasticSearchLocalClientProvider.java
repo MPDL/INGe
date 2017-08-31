@@ -37,11 +37,12 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
 
   private static final String TEMP_FOLDER = "./target/es/";
   private static final String CLUSTER_NAME = "myLocalCluster";
-  private static final String[] indexNames = {/* "pure", */"db_users"/*
-                                                                      * , "user_accounts"
-                                                                      * "pure_contexts",
-                                                                      * "organizational_units"
-                                                                      */};
+  private static final String[] indexNames = {/* "pure", */"db_users", "db_contexts"
+  /*
+   * , "user_accounts"
+   * 
+   * "organizational_units"
+   */};
 
   public Client getClient() {
     init();
@@ -148,9 +149,10 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     JSONParser parser = new JSONParser();
 
     try {
+      StringBuffer importFileStringBuffer = new StringBuffer().append("./es_scripts/import_").append(indexName).append(".txt");
       lines =
           FileUtils.readLines(new File(this.getClass().getClassLoader()
-              .getResource("./es_scripts/import_db_users.txt").toURI()));
+              .getResource(importFileStringBuffer.toString()).toURI()));
     } catch (IOException | URISyntaxException e) {
       logger.warn("Error occured when reading bulk import file", e);
     }
@@ -208,6 +210,8 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     switch (index) {
       case "db_users":
         return "user";
+      case "db_contexts":
+        return "context";
       default:
         return "";
     }
