@@ -192,22 +192,22 @@ public class Util {
               + mimeType + coneRel2);
       URLConnection con = ProxyHelper.openConnection(coneUrl);
       HttpURLConnection httpCon = (HttpURLConnection) con;
-      
+
       int responseCode = httpCon.getResponseCode();
-      
+
       switch (responseCode) {
         case 200:
           logger.debug("Cone Service responded with 200.");
           break;
-          
+
         default:
           throw new RuntimeException("An error occurred while calling Cone Service: "
               + responseCode);
       }
-      
+
       InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
       BufferedReader bReader = new BufferedReader(isReader);
-      
+
       String line = "";
       while ((line = bReader.readLine()) != null) {
         if (line.contains("<escidoc:suffix>")) {
@@ -216,7 +216,7 @@ public class Util {
                   line.indexOf("</escidoc:suffix>"));
         }
       }
-      
+
       httpCon.disconnect();
     } catch (Exception e) {
       logger

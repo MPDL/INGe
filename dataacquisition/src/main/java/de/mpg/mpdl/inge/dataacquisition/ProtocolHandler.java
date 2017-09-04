@@ -68,26 +68,26 @@ public class ProtocolHandler {
     } catch (Exception e) {
       throw new RuntimeException("An error occurred while checking the OAI Record: " + record);
     }
-    
+
     NodeList errorList = recordDOM.getElementsByTagName("error");
-    
+
     for (int i = 0; i < errorList.getLength(); i++) {
       Node errorNode = errorList.item(i);
       NamedNodeMap attr = errorNode.getAttributes();
       Node errorCode = attr.getNamedItem("code");
-      
+
       if (errorCode.getTextContent().equals(error1)) {
         throw new DataaquisitionException("OAI-Record returned with error Code " + "'badArgument "
             + "(The request includes illegal arguments or is missing required arguments)'.");
       }
-      
+
       if (errorCode.getTextContent().equals(error2)) {
         throw new DataaquisitionException("OAI-Record returned with error Code "
             + "'cannotDisseminateFormat "
             + "(The value of the metadataPrefix argument is not supported by the item "
             + "identified by the value of the identifier argument)'.");
       }
-      
+
       if (errorCode.getTextContent().equals(error3)) {
         throw new DataaquisitionException("OAI-Record returned with error Code "
             + "'idDoesNotExist "

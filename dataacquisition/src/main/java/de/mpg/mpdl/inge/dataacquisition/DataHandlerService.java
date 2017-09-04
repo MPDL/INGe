@@ -143,10 +143,10 @@ public class DataHandlerService {
     }
 
     if (!supportedProtocol) {
-      logger.warn(
-          "Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
-      throw new DataaquisitionException(
-          "Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
+      logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol()
+          + " not supported.");
+      throw new DataaquisitionException("Harvesting protocol "
+          + this.currentSource.getHarvestProtocol() + " not supported.");
     }
 
     String fetchedItem = item;
@@ -155,19 +155,19 @@ public class DataHandlerService {
     // Transform the itemXML if necessary
     if (item != null && !targetFormat.getName().equalsIgnoreCase(metaDataVO.getName())) {
 
-      Transformer transformer = TransformerCache
-          .getTransformer(TransformerFactory.getFormat(metaDataVO.getName()), targetFormat);
+      Transformer transformer =
+          TransformerCache.getTransformer(TransformerFactory.getFormat(metaDataVO.getName()),
+              targetFormat);
       StringWriter wr = new StringWriter();
 
       transformer.transform(
-          new TransformerStreamSource(
-              new ByteArrayInputStream(item.getBytes(targetFormat.getEncoding()))),
-          new TransformerStreamResult(wr));
+          new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(targetFormat
+              .getEncoding()))), new TransformerStreamResult(wr));
 
       itemAfterTransformaton = wr.toString();
 
       if (this.currentSource.getItemUrl() != null) {
-        this.itemUrl = 
+        this.itemUrl =
             new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier));
       }
 
@@ -178,9 +178,8 @@ public class DataHandlerService {
         if (componentTransformer != null) {
           wr = new StringWriter();
 
-          componentTransformer.transform(
-              new TransformerStreamSource(new ByteArrayInputStream(fetchedItem.getBytes())),
-              new TransformerStreamResult(wr));
+          componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(
+              fetchedItem.getBytes())), new TransformerStreamResult(wr));
           byte[] componentBytes = wr.toString().getBytes();
 
           if (componentBytes != null) {
@@ -211,16 +210,17 @@ public class DataHandlerService {
         TransformerFactory.FORMAT format = targetFormats[i];
         FullTextVO fulltextVO = Util.getFtObjectToFetch(this.currentSource, format);
         // Replace regex with identifier
-        String decoded = java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(),
-            this.currentSource.getEncoding());
+        String decoded =
+            java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(),
+                this.currentSource.getEncoding());
         fulltextVO.setFtUrl(new URL(decoded));
-        fulltextVO.setFtUrl(
-            new URL(fulltextVO.getFtUrl().toString().replaceAll(REGEX, identifier.trim())));
+        fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString()
+            .replaceAll(REGEX, identifier.trim())));
 
         in = this.fetchFile(fulltextVO);
 
         this.setFileProperties(fulltextVO);
-        
+
         // If only one file => return it in fetched format
         if (targetFormats.length == 1) {
           return in;
@@ -230,34 +230,34 @@ public class DataHandlerService {
         // If cone service is not available (we do not get a fileEnding)
         // we have to make sure that the zip entries differ in name.
         String fileName = identifier;
-        
+
         if ("".equals(this.getFileEnding())) {
           fileName = fileName + "_" + i;
         }
-        
+
         ZipEntry ze = new ZipEntry(fileName + this.getFileEnding());
         ze.setSize(in.length);
         ze.setTime(this.currentDate());
-        
+
         CRC32 crc321 = new CRC32();
         crc321.update(in);
-        
+
         ze.setCrc(crc321.getValue());
-        
+
         zos.putNextEntry(ze);
         zos.write(in);
         zos.flush();
         zos.closeEntry();
       }
-      
+
       this.contentType = "application/zip";
       this.fileEnding = ".zip";
-      
+
       zos.close();
     } catch (DataaquisitionException e) {
       logger.error("Import this.source " + this.currentSource + " not available.", e);
-      throw new DataaquisitionException(
-          "Import this.source " + this.currentSource + " not available.", e);
+      throw new DataaquisitionException("Import this.source " + this.currentSource
+          + " not available.", e);
     } catch (IOException e) {
       throw new DataaquisitionException(e);
     }
@@ -271,9 +271,9 @@ public class DataHandlerService {
     try {
       URLConnection con = ProxyHelper.openConnection(fulltext.getFtUrl());
       HttpURLConnection httpCon = (HttpURLConnection) con;
-      
+
       int responseCode = httpCon.getResponseCode();
-      
+
       switch (responseCode) {
         case 200:
           logger.info("Source responded with 200.");
@@ -283,16 +283,16 @@ public class DataHandlerService {
           input = method.getResponseBody();
           httpCon.disconnect();
           break;
-          
+
         case 302:
           String alternativeLocation = con.getHeaderField("Location");
           fulltext.setFtUrl(new URL(alternativeLocation));
-          
+
           return fetchFile(fulltext);
-          
+
         case 403:
-          throw new DataaquisitionException(
-              "Access to url " + this.currentSource.getName() + " is restricted.");
+          throw new DataaquisitionException("Access to url " + this.currentSource.getName()
+              + " is restricted.");
 
         case 503:
           // request was not processed by this.source
@@ -329,39 +329,39 @@ public class DataHandlerService {
     try {
       URLConnection con = ProxyHelper.openConnection(md.getMdUrl());
       HttpURLConnection httpCon = (HttpURLConnection) con;
-      
+
       int responseCode = httpCon.getResponseCode();
-      
+
       switch (responseCode) {
         case 200:
           logger.info("Source responded with 200");
           break;
-          
+
         case 302:
           String alternativeLocation = con.getHeaderField("Location");
           md.setMdUrl(new URL(alternativeLocation));
           this.currentSource = this.sourceHandler.updateMdEntry(this.currentSource, md);
           return fetchOAIRecord(md, encoding);
-          
+
         case 403:
-          throw new AccessException(
-              "Access to url " + this.currentSource.getName() + " is restricted.");
-          
+          throw new AccessException("Access to url " + this.currentSource.getName()
+              + " is restricted.");
+
         case 503:
           String retryAfterHeader = con.getHeaderField("Retry-After");
           if (retryAfterHeader != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             Date retryAfter = dateFormat.parse(retryAfterHeader);
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-            throw new DataaquisitionException(
-                "Source responded with 503, retry after " + retryAfter + ".");
+            throw new DataaquisitionException("Source responded with 503, retry after "
+                + retryAfter + ".");
           } else {
             logger.debug("Source responded with 503, retry after "
                 + this.currentSource.getRetryAfter() + ".");
             throw new DataaquisitionException("Source responded with 503, retry after "
                 + this.currentSource.getRetryAfter() + ".");
           }
-          
+
         default:
           throw new DataaquisitionException(
               "An error occurred during importing from external system: " + responseCode + ": "
@@ -371,12 +371,12 @@ public class DataHandlerService {
       // Get itemXML
       InputStreamReader isReader = new InputStreamReader(md.getMdUrl().openStream(), encoding);
       BufferedReader bReader = new BufferedReader(isReader);
-      
+
       String line = "";
       while ((line = bReader.readLine()) != null) {
         itemXML += line + "\n";
       }
-      
+
       httpCon.disconnect();
     } catch (AccessException e) {
       logger.error("Access denied.", e);
