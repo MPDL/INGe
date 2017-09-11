@@ -380,5 +380,4 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
     return null;
   }
-
 }
