@@ -9,16 +9,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.FTFetchSettingType;
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.FTFetchSettingsType;
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourceType;
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesType;
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingType;
-import de.mpg.escidoc.metadataprofile.schema.x01.importSource.MDFetchSettingsType;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.FTFetchSettingType;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.FTFetchSettingsType;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.ImportSourceType;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.ImportSourcesDocument;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.ImportSourcesType;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.MDFetchSettingType;
+import de.mpg.mpdl.inge.dataaquisition.explainSources.MDFetchSettingsType;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

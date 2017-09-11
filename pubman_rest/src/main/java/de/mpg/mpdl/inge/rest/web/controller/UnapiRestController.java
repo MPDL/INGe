@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatType;
+import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsDocument;
+import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsType;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -23,9 +26,6 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
-import noNamespace.FormatType;
-import noNamespace.FormatsDocument;
-import noNamespace.FormatsType;
 
 @RestController
 @RequestMapping("/unapi")
