@@ -74,7 +74,7 @@ public class StructuredExportService {
     if (itemList == null)
       throw new StructuredExportManagerException("Item list is null");
 
-    if ("ESCIDOC_XML_V13".equalsIgnoreCase(exportFormat)) {
+    if ("ESCIDOC_XML".equalsIgnoreCase(exportFormat)) {
       return itemList.getBytes();
     }
 

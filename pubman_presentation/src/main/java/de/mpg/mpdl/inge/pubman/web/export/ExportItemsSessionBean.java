@@ -151,13 +151,12 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setExportFormatName(String exportFormatName) {
-    // if ( exportFormatName == null || exportFormatName.trim().equals("") )
-    // exportFormatName = "APA";
     this.exportFormatName = exportFormatName;
     this.curExportFormatVO.setName(exportFormatName);
-    if ("APA".equalsIgnoreCase(exportFormatName) || "AJP".equalsIgnoreCase(exportFormatName)
-        || "JUS".equalsIgnoreCase(exportFormatName) || "DEFAULT".equalsIgnoreCase(exportFormatName)
-        || "TEST".equalsIgnoreCase(exportFormatName)
+
+    if ("APA".equalsIgnoreCase(exportFormatName) //
+        || "AJP".equalsIgnoreCase(exportFormatName) //
+        || "JUS".equalsIgnoreCase(exportFormatName) //
         || "APA(CJK)".equalsIgnoreCase(exportFormatName)) {
       this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
       this.exportFormatType = FormatType.LAYOUT.toString();
