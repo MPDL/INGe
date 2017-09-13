@@ -1218,6 +1218,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     if (this.suggestConeUrl == null) {
       this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
     }
+
     return this.suggestConeUrl;
   }
 }
