@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
@@ -54,6 +55,8 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -549,6 +552,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         && !PubItemDbRO.State.RELEASED.equals(latestVersion.getObject().getPublicStatus())) {
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.SUBMITTED);
     }
+
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
@@ -581,6 +585,28 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     reindex(latestVersion);
 
+    
+    // TODO: - fuer OPEN_AIRE ins Repository Verzeichnis schreiben
+    //       - beliebigen Pfad vorgeben ermöglichen
+    //       - vorhandene Datei ueberschreiben
+    //       - Namespaces in XML Datei anpassen
+    //       - Datei löschen ermöglichen
+    if (PubItemDbRO.State.RELEASED.equals(state)) {
+      try {
+        String s = XmlTransformingService.transformToItem(itemToReturn);
+        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
+      } catch (TechnicalException e) {
+        throw new IngeTechnicalException(e);
+      }
+    } else if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
+      try {
+        String s = XmlTransformingService.transformToItem(itemToReturn);
+//        this.fileService.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
+      } catch (TechnicalException e) {
+        throw new IngeTechnicalException(e);
+      }
+    }
+    
     return itemToReturn;
   }
 
