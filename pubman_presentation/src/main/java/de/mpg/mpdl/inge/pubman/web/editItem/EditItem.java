@@ -484,8 +484,9 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      PubItemVO itemVO = new PubItemVO(this.getPubItem());
+      PubItemVO itemVO = new PubItemVO(this.getPubItem()); // Validierung arbeitet mit Kopie
       PubItemUtil.cleanUpItem(itemVO);
+      cleanUp(itemVO);
       ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);
@@ -534,13 +535,12 @@ public class EditItem extends FacesBean {
     return this.getPubItem() != null && this.restoreVO();
   }
 
-  private void cleanUp() {
+  private void cleanUp(PubItemVO pubItem) {
     // cleanup item according to genre specific MD specification
     final GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(this.getPubItem(),
-            GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+        new GenreSpecificItemManager(pubItem, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
     try {
-      this.item = (PubItemVOPresentation) itemManager.cleanupItem();
+      pubItem = (PubItemVO) itemManager.cleanupItem();
     } catch (final Exception e) {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
@@ -638,7 +638,7 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-    cleanUp();
+    cleanUp(this.getPubItem());
 
     String retVal = checkItemChanged(navigateTo);
 
