@@ -123,18 +123,36 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
   private boolean checkDate(String s) {
 
     if (ValidationTools.isNotEmpty(s)) {
-      try {
-        MdsPublicationDateFormatValidator.SHORT.parse(s);
-      } catch (final ParseException e) {
-        try {
-          MdsPublicationDateFormatValidator.MEDIUM.parse(s);
-        } catch (final ParseException e1) {
+      switch (s.length()) {
+        case 10:
           try {
+            MdsPublicationDateFormatValidator.LONG.setLenient(false);
             MdsPublicationDateFormatValidator.LONG.parse(s);
-          } catch (final ParseException e2) {
+          } catch (final ParseException e) {
             return false;
           }
-        }
+          break;
+
+        case 7:
+          try {
+            MdsPublicationDateFormatValidator.MEDIUM.setLenient(false);
+            MdsPublicationDateFormatValidator.MEDIUM.parse(s);
+          } catch (final ParseException e) {
+            return false;
+          }
+          break;
+
+        case 4:
+          try {
+            MdsPublicationDateFormatValidator.SHORT.setLenient(false);
+            MdsPublicationDateFormatValidator.SHORT.parse(s);
+          } catch (final ParseException e) {
+            return false;
+          }
+          break;
+
+        default:
+          return false;
       }
     }
 
