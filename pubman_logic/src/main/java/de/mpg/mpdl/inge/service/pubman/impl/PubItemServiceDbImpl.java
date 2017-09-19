@@ -585,28 +585,29 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     reindex(latestVersion);
 
-    
+
     // TODO: - fuer OPEN_AIRE ins Repository Verzeichnis schreiben
-    //       - beliebigen Pfad vorgeben ermöglichen
-    //       - vorhandene Datei ueberschreiben
-    //       - Namespaces in XML Datei anpassen
-    //       - Datei löschen ermöglichen
+    // - beliebigen Pfad vorgeben ermöglichen
+    // - vorhandene Datei ueberschreiben
+    // - Namespaces in XML Datei anpassen
+    // - Datei löschen ermöglichen
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       try {
         String s = XmlTransformingService.transformToItem(itemToReturn);
-        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
+        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn
+            .getVersion().getObjectIdAndVersion() + ".xml");
       } catch (TechnicalException e) {
         throw new IngeTechnicalException(e);
       }
     } else if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
       try {
         String s = XmlTransformingService.transformToItem(itemToReturn);
-//        this.fileService.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
+        // this.fileService.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
       } catch (TechnicalException e) {
         throw new IngeTechnicalException(e);
       }
     }
-    
+
     return itemToReturn;
   }
 
