@@ -43,13 +43,13 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -508,7 +508,7 @@ public class ViewItemFull extends FacesBean {
           }
 
           try {
-            if (YearbookDbVO.State.OPENED.equals(this.yisb.getYearbook().getState())) {
+            if (YearbookDbVO.State.CREATED.equals(this.yisb.getYearbook().getState())) {
               this.isCandidateOfYearbook =
                   this.yisb.isCandidate(this.pubItem.getVersion().getObjectId());
               if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {

@@ -14,28 +14,14 @@
 						<li class="full_area0 listItem"><h:panelGroup layout="block"
 								styleClass="free_area0 itemHeader">
 								<span class="free_area0 status statusArea"> <h:panelGroup
-										layout="block"
-										styleClass="big_imgArea statusIcon withdrawnItem"
-										rendered="#{item.version.state == 'WITHDRAWN'}" /> <h:panelGroup
 										layout="block" styleClass="big_imgArea statusIcon pendingItem"
-										rendered="#{item.version.state == 'PENDING'}" /> <h:panelGroup
+										rendered="#{item.state == 'CREATED'}" /> <h:panelGroup
 										layout="block"
 										styleClass="big_imgArea statusIcon submittedItem"
-										rendered="#{item.version.state == 'SUBMITTED'}" /> <h:panelGroup
+										rendered="#{item.state == 'SUBMITTED'}" /> <h:panelGroup
 										layout="block"
 										styleClass="big_imgArea statusIcon releasedItem"
-										rendered="#{item.version.state == 'RELEASED' and item.version.state != 'WITHDRAWN'}" />
-									<h:panelGroup layout="block"
-										styleClass="big_imgArea statusIcon inRevisionItem"
-										rendered="#{item.version.state == 'IN_REVISION'}" /> <span
-									class="noDisplay">(</span> <h:outputLabel
-										id="lblItemPublicState"
-										styleClass="free_area0_p3 medium_label"
-										rendered="#{item.version.state == 'WITHDRAWN'}">
-										<h:outputText value="#{item.publicStatus}" />
-									</h:outputLabel> <h:outputLabel id="lblItemState"
-										styleClass="free_area0_p3 medium_label"
-										rendered="#{item.version.state != 'WITHDRAWN'}">
+										rendered="#{item.state == 'RELEASED'}"/>
 										<h:outputText value="#{item.version.state}" />
 									</h:outputLabel> <span class="noDisplay">)</span>
 								</span>

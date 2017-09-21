@@ -24,16 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.db.model.valueobjects;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -47,12 +38,51 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @updated 21-Nov-2007 12:08:27
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "ContextRO")
-@Table(name = "context_basic")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class ContextDbRO extends BasicDbRO {
+public class AccountUserDbRO implements Cloneable {
+  /**
+   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
+   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
+   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
+   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
+   * be compiled twice for testing (once for the Application Server, once for the local test).
+   * 
+   * @author Johannes Mueller
+   */
+  private String name;
+
+  private String objectId;
+
+  /**
+   * Creates a new instance.
+   */
+  public AccountUserDbRO() {
+    super();
+  }
+
+
+
+  public String getObjectId() {
+    return objectId;
+  }
+
+
+
+  public void setObjectId(String objectId) {
+    this.objectId = objectId;
+  }
+
+
+
+  public String getName() {
+    return name;
+  }
+
+
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
 
 
 }

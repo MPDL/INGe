@@ -11,10 +11,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -47,6 +47,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
         q.setParameter(i, params.get(i));
       }
     }
+
     List<YearbookDbVO> result = q.getResultList();
     return result;
   }
@@ -109,7 +110,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
     objectToBeUpdated.setYear(givenObject.getYear());
 
     if (create) {
-      objectToBeUpdated.setState(State.OPENED);
+      objectToBeUpdated.setState(State.CREATED);
     }
 
     return null;

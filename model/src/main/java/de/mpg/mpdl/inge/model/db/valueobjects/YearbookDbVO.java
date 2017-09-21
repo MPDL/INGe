@@ -1,36 +1,23 @@
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import de.mpg.mpdl.inge.db.model.hibernate.StringListJsonUserType;
-import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
+import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 @Entity(name = "YearbookDbVO")
 @Table(name = "yearbook")
@@ -38,7 +25,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 public class YearbookDbVO extends BasicDbRO {
 
   public enum State {
-    OPENED, CLOSED;
+    CREATED, SUBMITTED, RELEASED;
   }
 
 
@@ -49,7 +36,7 @@ public class YearbookDbVO extends BasicDbRO {
   private AffiliationDbVO organization;
 
   @Enumerated(EnumType.STRING)
-  private State state = State.OPENED;
+  private State state = State.CREATED;
 
   @ElementCollection
   @CollectionTable(name = "yearbook_item")

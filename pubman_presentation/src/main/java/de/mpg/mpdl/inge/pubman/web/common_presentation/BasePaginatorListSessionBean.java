@@ -72,6 +72,12 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   private List<ListElementType> currentPartList;
 
+
+  /**
+   * List containing the currently selected items
+   */
+  private Map<ListElementType, Boolean> currentSelections = new HashMap<>();
+
   /**
    * The current number of elements per page
    */
@@ -144,6 +150,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   private boolean listUpdate = true;
 
+
+
   /**
    * Initializes a new BasePaginatorListSessionBean
    */
@@ -208,6 +216,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
         this.paginatorPageList.add(new PaginatorPage(i + 1));
       }
 
+      this.currentSelections.clear();
+      for (ListElementType e : this.currentPartList) {
+        this.currentSelections.put(e, Boolean.FALSE);
+      }
+
       this.listUpdated();
     }
 
@@ -239,6 +252,11 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
       this.paginatorPageList.clear();
       for (int i = 0; i < ((this.getTotalNumberOfElements() - 1) / this.elementsPerPage) + 1; i++) {
         this.paginatorPageList.add(new PaginatorPage(i + 1));
+      }
+
+      this.currentSelections.clear();
+      for (ListElementType e : this.currentPartList) {
+        this.currentSelections.put(e, Boolean.FALSE);
       }
 
       this.listUpdated();
@@ -842,5 +860,13 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
 
   public void setParameterMap(Map<String, String> redirectParameterMap) {
     this.redirectParameterMap = redirectParameterMap;
+  }
+
+  public Map<ListElementType, Boolean> getCurrentSelections() {
+    return currentSelections;
+  }
+
+  public void setCurrentSelections(Map<ListElementType, Boolean> currentSelections) {
+    this.currentSelections = currentSelections;
   }
 }

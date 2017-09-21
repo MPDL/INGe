@@ -21,7 +21,7 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.db.model.hibernate.MdsPublicationVOJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.MdsPublicationVOJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 

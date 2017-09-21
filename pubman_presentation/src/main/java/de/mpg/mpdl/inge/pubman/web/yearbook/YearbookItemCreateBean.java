@@ -20,9 +20,9 @@ import org.apache.log4j.Logger;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -76,16 +76,10 @@ public class YearbookItemCreateBean extends FacesBean {
   public YearbookItemCreateBean() throws Exception {
     this.selectableYears = new ArrayList<SelectItem>();
 
-    String orgId = null;
+    String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+    this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE
+        .getOrganizationService().get(orgId, null)));
 
-    for (GrantVO grant : this.getLoginHelper().getAccountUser().getGrants()) {
-      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
-        orgId = grant.getObjectRef();
-        this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE
-            .getOrganizationService().get(orgId, null)));
-        break;
-      }
-    }
 
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     this.initContextMenu();
@@ -232,13 +226,17 @@ public class YearbookItemCreateBean extends FacesBean {
               .error("A yearbook related to this organization object id already exists for this Year");
           return "";
 
-        } else if (yearbook.getYear() == Integer.valueOf(getYear()) - 1
-            && !yearbook.getState().equals(YearbookDbVO.State.CLOSED)) {
-          FacesBean
-              .error("A yearbook related to this organization object id already exists for the previous year and has not been closed until now");
-          return "";
 
         }
+        /*
+         * else if (yearbook.getYear() == Integer.valueOf(getYear()) - 1 &&
+         * !yearbook.getState().equals(YearbookDbVO.State.CLOSED)) { FacesBean .error(
+         * "A yearbook related to this organization object id already exists for the previous year and has not been closed until now"
+         * ); return "";
+         * 
+         * }
+         */
+
       }
 
 

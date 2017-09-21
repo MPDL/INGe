@@ -20,10 +20,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -182,8 +182,8 @@ public class PubmanLogicTest {
   @Test
   @Ignore
   public void testGet() throws Exception {
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+    Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     // query.setHint("org.hibernate.cacheable", "true");
     // query.addQueryHint("org.hibernate.cacheable=true");
@@ -200,8 +200,8 @@ public class PubmanLogicTest {
     for (PubItemObjectDbVO pi : resultList) {
       try {
 
-        de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) pi;
+        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
+            (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) pi;
 
         try {
           long time = System.currentTimeMillis();

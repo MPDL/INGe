@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 
 // @NoRepositoryBean
 public interface ItemRepository extends GenericRepository<PubItemVersionDbVO, VersionableId> {

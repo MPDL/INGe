@@ -8,7 +8,9 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -19,6 +21,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.Organizati
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -180,5 +183,18 @@ public class YearbookUtils {
     pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
     return pubItemList;
     */
+  }
+
+  public static String getYearbookOrganizationId(AccountUserVO user) {
+    String orgId = null;
+
+    for (GrantVO grant : user.getGrants()) {
+      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
+        orgId = grant.getObjectRef();
+
+        break;
+      }
+    }
+    return orgId;
   }
 }

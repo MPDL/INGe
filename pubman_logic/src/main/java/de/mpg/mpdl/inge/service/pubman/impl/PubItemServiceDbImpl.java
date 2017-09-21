@@ -23,14 +23,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
-import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
@@ -41,6 +33,14 @@ import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -180,7 +180,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-    de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO contextNew =
+    de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
         contextRepository.findOne(pubItemVO.getContext().getObjectId());
     ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
 
@@ -232,7 +232,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
-      de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO context, MdsPublicationVO md,
+      de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context, MdsPublicationVO md,
       List<FileVO> files, List<String> localTags, String modifierName, String modifierId) {
     Date currentDate = new Date();
 
@@ -304,8 +304,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     latestVersion.getFiles().clear();// TODO
     latestVersion.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO mod =
-        new de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO();
+    de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod =
+        new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
     latestVersion.setModifiedBy(mod);
@@ -673,8 +673,8 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Transactional(readOnly = true)
   public void reindex() {
 
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+    Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     query.setReadOnly(true);
     query.setFetchSize(500);
@@ -687,8 +687,8 @@ public class PubItemServiceDbImpl implements PubItemService {
     while (results.next()) {
       try {
         count++;
-        de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
+        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
+            (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) results.get(0);
         PubItemVO latestVersion =
             EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
         logger.info("(" + count + ") Reindexing item latest version "

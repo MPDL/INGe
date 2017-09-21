@@ -15,7 +15,7 @@
 							styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 					</h:panelGroup>
 					<h:selectOneMenu id="extSelectTop"
-						value="#{PubItemListSessionBean.elementsPerPageTop}"
+						value="#{YearbookModeratorListSessionBean.elementsPerPageTop}"
 						onfocus="updateSelectionBox(this);"
 						onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
 						<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
@@ -25,7 +25,7 @@
 						<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 					</h:selectOneMenu>
 				</h:panelGroup>
-				<!--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageTop}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+				<!--	<h:selectOneMenu id="extSelectTop" styleClass="free_select" value="#{YearbookModeratorListSessionBean.elementsPerPageTop}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
  			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
  			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -36,7 +36,7 @@
 					title="#{tip.list_btGo}"
 					styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"
 					value="#{lbl.list_btGo}"
-					action="#{PubItemListSessionBean.changeElementsPerPageTop}" />
+					action="#{YearbookModeratorListSessionBean.changeElementsPerPageTop}" />
 				<h:outputLabel id="lblItemList_ObjectsPerPage" for="extSelectTop"
 					styleClass="free_label hitsLabel"
 					value=" #{lbl.ItemList_ObjectsPerPage}" />
@@ -45,50 +45,50 @@
 				<label id="lblPage" class="noDisplay pageLabel">Page</label>
 				<h:outputLink id="btPartListSize"
 					styleClass="min_imgBtn skipToFirst"
-					title="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == 1}"
-					value="#{PubItemListSessionBean.linkForFirstPage}">
+					title="#{lbl.ItemList_Results} 1 - #{YearbookModeratorListSessionBean.partListSize}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == 1}"
+					value="#{YearbookModeratorListSessionBean.linkForFirstPage}">
 					<h:outputText value=" " />
 				</h:outputLink>
 				<h:outputLink id="btList_lkPrevious" styleClass="backward"
-					title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 - PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == 1}"
-					value="#{PubItemListSessionBean.linkForPreviousPage}">
+					title="#{lbl.ItemList_Results} #{YearbookModeratorListSessionBean.offset + 1 - YearbookModeratorListSessionBean.elementsPerPage} - #{YearbookModeratorListSessionBean.offset}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == 1}"
+					value="#{YearbookModeratorListSessionBean.linkForPreviousPage}">
 					<h:outputText value="#{lbl.List_lkPrevious}" />
 				</h:outputLink>
 				<h:panelGroup styleClass="seperator" />
 				<ui:repeat id="paginator" var="paginatorPage"
-					value="#{PubItemListSessionBean.paginatorPages}"
-					offset="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}"
+					value="#{YearbookModeratorListSessionBean.paginatorPages}"
+					offset="#{YearbookModeratorListSessionBean.firstPaginatorPageNumber - 1}"
 					varStatus="status">
 					<ui:fragment
-						rendered="#{status.index lt PubItemListSessionBean.firstPaginatorPageNumber + 6}">
+						rendered="#{status.index lt YearbookModeratorListSessionBean.firstPaginatorPageNumber + 6}">
 						<h:outputLink id="btPageNumber1" styleClass="xSmall_txtBtn"
-							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"
+							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * YearbookModeratorListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*YearbookModeratorListSessionBean.elementsPerPage}"
 							value="#{paginatorPage.link}"
-							rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}">
+							rendered="#{!(paginatorPage.number == YearbookModeratorListSessionBean.currentPageNumber)}">
 							<h:outputText value="#{paginatorPage.number}" />
 						</h:outputLink>
 						<h:outputLink id="btPageNumber2" styleClass="xSmall_txtBtn actual"
-							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"
+							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * YearbookModeratorListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*YearbookModeratorListSessionBean.elementsPerPage}"
 							disabled="true"
-							rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}">
+							rendered="#{paginatorPage.number == YearbookModeratorListSessionBean.currentPageNumber}">
 							<h:outputText value="#{paginatorPage.number}" />
 						</h:outputLink>
 						<h:panelGroup styleClass="seperator" />
 					</ui:fragment>
 				</ui:repeat>
 				<h:outputLink id="btList_lkNext" styleClass="forward"
-					title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 + PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"
-					value="#{PubItemListSessionBean.linkForNextPage}">
+					title="#{lbl.ItemList_Results} #{YearbookModeratorListSessionBean.offset + 1 + YearbookModeratorListSessionBean.elementsPerPage} -  #{YearbookModeratorListSessionBean.offset + 1 + 2*YearbookModeratorListSessionBean.elementsPerPage}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == YearbookModeratorListSessionBean.paginatorPageSize}"
+					value="#{YearbookModeratorListSessionBean.linkForNextPage}">
 					<h:outputText value="#{lbl.List_lkNext}" />
 				</h:outputLink>
 				<h:outputLink id="btLinkForLastPage"
 					styleClass="min_imgBtn skipToLast"
-					title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"
-					value="#{PubItemListSessionBean.linkForLastPage}">
+					title="#{lbl.ItemList_Results} #{((YearbookModeratorListSessionBean.paginatorPageSize-1) * YearbookModeratorListSessionBean.elementsPerPage + 1)} - #{YearbookModeratorListSessionBean.totalNumberOfElements}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == YearbookModeratorListSessionBean.paginatorPageSize}"
+					value="#{YearbookModeratorListSessionBean.linkForLastPage}">
 					<h:outputText value=" " />
 				</h:outputLink>
 			</div>
@@ -96,15 +96,15 @@
 				<label class="free_label gotoLabel"><h:outputText
 						value="#{lbl.List_lblGoToPage}" /></label>
 				<h:inputText id="inpGoToPageTop" styleClass="tiny_txtInput"
-					value="#{PubItemListSessionBean.goToPageTop}" />
+					value="#{YearbookModeratorListSessionBean.goToPageTop}" />
 				<h:outputLabel id="lblItemList_of" styleClass="free_label"
 					value="#{lbl.ItemList_of} " />
 				<h:outputLabel id="lblPaginatorPageSize" styleClass="free_label"
-					value="#{PubItemListSessionBean.paginatorPageSize}" />
+					value="#{YearbookModeratorListSessionBean.paginatorPageSize}" />
 				<h:commandButton id="btList_btGo"
 					styleClass="xTiny_txtBtn paginatorFallbackGoBtn"
 					value="#{lbl.list_btGo}" title="#{tip.List_btGo}"
-					action="#{PubItemListSessionBean.doGoToPageTop}" />
+					action="#{YearbookModeratorListSessionBean.doGoToPageTop}" />
 			</div>
 		</div>
 		<div
@@ -137,24 +137,24 @@
 					class="free_area0 endline status statusArea"> <h:commandLink
 						id="lnkSelectedSortByState" title="#{tip.ItemList_SortBy}"
 						styleClass="free_area0_p8"
-						rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}"
-						action="#{PubItemListSessionBean.changeToSortByState}"
+						rendered="#{YearbookModeratorListSessionBean.selectedSortBy != 'STATE'}"
+						action="#{YearbookModeratorListSessionBean.changeToSortByState}"
 						onclick="fullItemReloadAjax();">
 						<span class="noDisplay"><h:outputText
 								value="#{lbl.ItemList_SortBy} " /></span>
 						<h:outputText value="#{lbl.ENUM_CRITERIA_STATE}" />
 					</h:commandLink> <h:commandLink id="lnkAscSort" title="#{tip.ItemList_SortBy}"
 						styleClass="free_area0_p8 ascSort"
-						rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}"
-						action="#{PubItemListSessionBean.changeSortOrder}"
+						rendered="#{YearbookModeratorListSessionBean.isAscending and YearbookModeratorListSessionBean.selectedSortBy == 'STATE'}"
+						action="#{YearbookModeratorListSessionBean.changeSortOrder}"
 						onclick="fullItemReloadAjax();">
 						<span class="noDisplay"><h:outputText
 								value="#{lbl.ItemList_SortBy} " /></span>
 						<h:outputText value="#{lbl.ENUM_CRITERIA_STATE}" />
 					</h:commandLink> <h:commandLink id="lnkDescSort" title="#{tip.ItemList_SortBy}"
 						styleClass="free_area0_p8 desSort"
-						rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}"
-						action="#{PubItemListSessionBean.changeSortOrder}"
+						rendered="#{!YearbookModeratorListSessionBean.isAscending and YearbookModeratorListSessionBean.selectedSortBy == 'STATE'}"
+						action="#{YearbookModeratorListSessionBean.changeSortOrder}"
 						onclick="fullItemReloadAjax();">
 						<span class="noDisplay"><h:outputText
 								value="#{lbl.ItemList_SortBy} " /></span>
@@ -175,15 +175,13 @@
 			</div>
 			<ol>
 				<ui:repeat id="iterCurrentPartList" var="item"
-					value="#{PubItemListSessionBean.currentPartList}">
+					value="#{YearbookModeratorListSessionBean.currentPartList}">
 					<h:panelGroup>
 						<li class="full_area0 listItem"><h:panelGroup layout="block"
 								styleClass="free_area0 itemHeader">
 								<span class="free_area0_p8 endline itemSelectArea"> <h:selectBooleanCheckbox
 										id="selItemSelect" styleClass="itemCheckBox"
-										value="#{item.selected}" immediate="true"
-										valueChangeListener="#{item.select}"
-										rendered="#{item.showCheckbox}" /> &#160;
+										value="#{YearbookModeratorListSessionBean.currentSelections[item]}"/> &#160;
 								</span>
 								<span class="seperator"></span>
 								<span class="free_area0 status statusArea"> <h:panelGroup
@@ -283,7 +281,7 @@
 							styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 					</h:panelGroup>
 					<h:selectOneMenu id="extSelectBottom"
-						value="#{PubItemListSessionBean.elementsPerPageBottom}"
+						value="#{YearbookModeratorListSessionBean.elementsPerPageBottom}"
 						onfocus="updateSelectionBox(this);"
 						onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
 						<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
@@ -293,7 +291,7 @@
 						<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 					</h:selectOneMenu>
 				</h:panelGroup>
-				<!--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
+				<!--	<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{YearbookModeratorListSessionBean.elementsPerPageBottom}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
  			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
  			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
  			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -304,7 +302,7 @@
 					title="#{tip.list_btGo}"
 					styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"
 					value="#{lbl.list_btGo}"
-					action="#{PubItemListSessionBean.changeElementsPerPageBottom}" />
+					action="#{YearbookModeratorListSessionBean.changeElementsPerPageBottom}" />
 				<h:outputLabel id="lblItemList_ObjectsPerPageBottom"
 					for="extSelectBottom" styleClass="free_label hitsLabel"
 					value=" #{lbl.ItemList_ObjectsPerPage}" />
@@ -314,51 +312,51 @@
 						value="#{lbl.List_lblPage}" /></label>
 				<h:outputLink id="btPartListSizeBottom"
 					styleClass="min_imgBtn skipToFirst"
-					title="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == 1}"
-					value="#{PubItemListSessionBean.linkForFirstPage}">
+					title="#{lbl.ItemList_Results} 1 - #{YearbookModeratorListSessionBean.partListSize}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == 1}"
+					value="#{YearbookModeratorListSessionBean.linkForFirstPage}">
 					<h:outputText value=" " />
 				</h:outputLink>
 				<h:outputLink id="btList_lkPreviousBottom" styleClass="backward"
-					title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 -PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == 1}"
-					value="#{PubItemListSessionBean.linkForPreviousPage}">
+					title="#{lbl.ItemList_Results} #{YearbookModeratorListSessionBean.offset + 1 -YearbookModeratorListSessionBean.elementsPerPage} - #{YearbookModeratorListSessionBean.offset}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == 1}"
+					value="#{YearbookModeratorListSessionBean.linkForPreviousPage}">
 					<h:outputText value="#{lbl.List_lkPrevious}" />
 				</h:outputLink>
 				<h:panelGroup styleClass="seperator" />
 				<ui:repeat id="paginator2" var="paginatorPage"
-					value="#{PubItemListSessionBean.paginatorPages}"
-					offset="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}"
+					value="#{YearbookModeratorListSessionBean.paginatorPages}"
+					offset="#{YearbookModeratorListSessionBean.firstPaginatorPageNumber - 1}"
 					varStatus="status">
 					<ui:fragment
-						rendered="#{status.index lt PubItemListSessionBean.firstPaginatorPageNumber + 6}">
+						rendered="#{status.index lt YearbookModeratorListSessionBean.firstPaginatorPageNumber + 6}">
 						<h:outputLink id="btPageNumber1Bottom" styleClass="xSmall_txtBtn"
-							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"
+							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * YearbookModeratorListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*YearbookModeratorListSessionBean.elementsPerPage}"
 							value="#{paginatorPage.link}"
-							rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}">
+							rendered="#{!(paginatorPage.number == YearbookModeratorListSessionBean.currentPageNumber)}">
 							<h:outputText value="#{paginatorPage.number}" />
 						</h:outputLink>
 						<h:outputLink id="btPageNumber2Bottom"
 							styleClass="xSmall_txtBtn actual"
-							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}"
+							title="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * YearbookModeratorListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*YearbookModeratorListSessionBean.elementsPerPage}"
 							disabled="true"
-							rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}">
+							rendered="#{paginatorPage.number == YearbookModeratorListSessionBean.currentPageNumber}">
 							<h:outputText value="#{paginatorPage.number}" />
 						</h:outputLink>
 						<h:panelGroup styleClass="seperator" />
 					</ui:fragment>
 				</ui:repeat>
 				<h:outputLink id="btList_lkNextBottom" styleClass="forward"
-					title="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset + 1 +PubItemListSessionBean.elementsPerPage} -  #{PubItemListSessionBean.offset + 1 + 2*PubItemListSessionBean.elementsPerPage}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"
-					value="#{PubItemListSessionBean.linkForNextPage}">
+					title="#{lbl.ItemList_Results} #{YearbookModeratorListSessionBean.offset + 1 +YearbookModeratorListSessionBean.elementsPerPage} -  #{YearbookModeratorListSessionBean.offset + 1 + 2*YearbookModeratorListSessionBean.elementsPerPage}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == YearbookModeratorListSessionBean.paginatorPageSize}"
+					value="#{YearbookModeratorListSessionBean.linkForNextPage}">
 					<h:outputText value="#{tip.List_lkNext}" />
 				</h:outputLink>
 				<h:outputLink id="btLinkForLastPageBottom"
 					styleClass="min_imgBtn skipToLast"
-					title="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}"
-					disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}"
-					value="#{PubItemListSessionBean.linkForLastPage}">
+					title="#{lbl.ItemList_Results} #{((YearbookModeratorListSessionBean.paginatorPageSize-1) * YearbookModeratorListSessionBean.elementsPerPage + 1)} - #{YearbookModeratorListSessionBean.totalNumberOfElements}"
+					disabled="#{YearbookModeratorListSessionBean.currentPageNumber == YearbookModeratorListSessionBean.paginatorPageSize}"
+					value="#{YearbookModeratorListSessionBean.linkForLastPage}">
 					<h:outputText value=" " />
 				</h:outputLink>
 			</div>
@@ -366,16 +364,16 @@
 				<label class="free_label gotoLabel"><h:outputText
 						value="#{lbl.List_lblGoToPage}" /></label>
 				<h:inputText id="inpGoToPageBottom" styleClass="tiny_txtInput"
-					value="#{PubItemListSessionBean.goToPageBottom}" />
+					value="#{YearbookModeratorListSessionBean.goToPageBottom}" />
 				<h:outputLabel id="lblItemList_ofBottom" styleClass="free_label"
 					value="#{lbl.ItemList_of} " />
 				<h:outputLabel id="lblpaginatorPageSizeBottom"
 					styleClass="free_label"
-					value="#{PubItemListSessionBean.paginatorPageSize}" />
+					value="#{YearbookModeratorListSessionBean.paginatorPageSize}" />
 				<h:commandButton id="btnGoToPageBottom"
 					styleClass="xTiny_txtBtn paginatorFallbackGoBtn"
 					value="#{lbl.List_btGo}" title="#{lbl.List_btGo}"
-					action="#{PubItemListSessionBean.doGoToPageBottom}" />
+					action="#{YearbookModeratorListSessionBean.doGoToPageBottom}" />
 			</div>
 		</div>
 	</f:subview>

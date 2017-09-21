@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.model.hibernate;
+package de.mpg.mpdl.inge.model.db.hibernate;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

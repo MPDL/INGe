@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;

@@ -10,9 +10,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -46,9 +46,9 @@ public class YearbookArchiveBean extends FacesBean {
 
   public YearbookArchiveBean() throws Exception {
 
-    String query = "SELECT y FROM YearbookDbVO y WHERE state=?";
+    String query = "SELECT y FROM YearbookDbVO y WHERE y.organization.objectId=?";
     List<Object> params = new ArrayList<>();
-    params.add(State.OPENED.name());
+    params.add(YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser()));
     this.archivedYearbooks =
         ApplicationBean.INSTANCE.getYearbookService().query(query, params,
             getLoginHelper().getAuthenticationToken());

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 
 public interface AuditRepository extends JpaRepository<AuditDbVO, String> {
 

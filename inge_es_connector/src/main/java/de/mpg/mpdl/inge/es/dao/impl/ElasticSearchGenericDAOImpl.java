@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class ElasticSearchGenericDAOImpl<E extends ValueObject> implements GenericDaoEs<E> {
+public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
 
   @Autowired

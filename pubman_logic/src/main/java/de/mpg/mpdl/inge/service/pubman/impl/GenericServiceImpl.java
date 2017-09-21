@@ -24,9 +24,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -252,8 +252,8 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
               .getActualTypeArguments()[0]).getSimpleName();
 
 
-      Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
-          (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+      Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
+          (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
               .createQuery("SELECT e FROM " + entityName + " e");
       query.setReadOnly(true);
       query.setFetchSize(500);

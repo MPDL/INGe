@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.Date;
 

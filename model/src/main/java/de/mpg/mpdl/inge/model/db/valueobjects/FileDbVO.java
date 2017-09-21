@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -42,7 +42,7 @@ import org.hibernate.annotations.TypeDef;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import de.mpg.mpdl.inge.db.model.hibernate.MdsFileVOJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 
 /**
