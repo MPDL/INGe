@@ -38,7 +38,7 @@ public class JPAConfiguration {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(restDataSource());
-    em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.db.model"});
+    em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.model.db"});
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
     em.setJpaProperties(hibernateProperties());
