@@ -11,8 +11,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.es.dao.YearbookDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -29,10 +32,16 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
     YearbookService {
 
   @Autowired
+  private YearbookDaoEs yearbookDao;
+  
+  @Autowired
   private YearbookRepository yearbookRepository;
 
   @Autowired
   private EntityManager entityManager;
+  
+  @Autowired
+  private IdentifierProviderServiceImpl idProviderService;
 
 
 
@@ -86,7 +95,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   @Override
   protected GenericDaoEs<YearbookDbVO> getElasticDao() {
-    return null;
+    return yearbookDao;
   }
 
   @Override
@@ -111,6 +120,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
     if (create) {
       objectToBeUpdated.setState(State.CREATED);
+      objectToBeUpdated.setObjectId(idProviderService.getNewId(ID_PREFIX.YEARBOOK));
     }
 
     return null;

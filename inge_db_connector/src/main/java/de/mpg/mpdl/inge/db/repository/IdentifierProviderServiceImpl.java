@@ -15,7 +15,7 @@ public class IdentifierProviderServiceImpl {
   EntityManager entityManager;
 
   public enum ID_PREFIX {
-    CONTEXT("ctx"), FILES("file"), ITEM("item"), OU("ou"), USER("user");
+    CONTEXT("ctx"), FILES("file"), ITEM("item"), OU("ou"), USER("user"), YEARBOOK("yb");
 
     private String prefix;
 

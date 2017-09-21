@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -20,15 +21,13 @@ import org.hibernate.annotations.TypeDef;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 @Entity(name = "YearbookDbVO")
-@Table(name = "yearbook")
+@Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization", "year"}))
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class YearbookDbVO extends BasicDbRO {
 
   public enum State {
     CREATED, SUBMITTED, RELEASED;
   }
-
-
 
   private int year;
 
