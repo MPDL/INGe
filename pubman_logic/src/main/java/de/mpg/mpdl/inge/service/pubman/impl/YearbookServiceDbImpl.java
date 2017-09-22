@@ -33,13 +33,13 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   @Autowired
   private YearbookDaoEs yearbookDao;
-  
+
   @Autowired
   private YearbookRepository yearbookRepository;
 
   @Autowired
   private EntityManager entityManager;
-  
+
   @Autowired
   private IdentifierProviderServiceImpl idProviderService;
 

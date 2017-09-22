@@ -21,7 +21,8 @@ import org.hibernate.annotations.TypeDef;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 @Entity(name = "YearbookDbVO")
-@Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization", "year"}))
+@Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization",
+    "year"}))
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class YearbookDbVO extends BasicDbRO {
 
