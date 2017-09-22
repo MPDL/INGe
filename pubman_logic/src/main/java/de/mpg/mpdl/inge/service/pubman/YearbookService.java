@@ -14,17 +14,21 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface YearbookService extends GenericService<YearbookDbVO> {
 
+  /*
+   * public List<YearbookDbVO> query(String jpql, List<Object> params, String authenticationToken)
+   * throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+   * IngeApplicationException;
+   */
 
-  public List<YearbookDbVO> query(String jpql, List<Object> params, String authenticationToken)
+  public YearbookDbVO submitYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 
-
-  public YearbookDbVO closeYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO releaseYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 
-  public YearbookDbVO openYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO reviseYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 

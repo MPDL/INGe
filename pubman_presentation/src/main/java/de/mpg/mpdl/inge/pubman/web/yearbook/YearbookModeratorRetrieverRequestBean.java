@@ -2,12 +2,14 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.search.BooleanQuery;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.escidoc.www.services.om.ItemHandler;
@@ -19,6 +21,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -37,6 +40,7 @@ import de.mpg.mpdl.inge.search.SearchService;
 import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
+import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook
@@ -145,16 +149,19 @@ public class YearbookModeratorRetrieverRequestBean extends
   public List<YearbookDbVO> retrieveList(int offset, int limit,
       YearbookModeratorListSessionBean.SORT_CRITERIA sc) {
     try {
-      String query = "SELECT y FROM YearbookDbVO y LIMIT ? OFFSET ?";
-      List<Object> params = new ArrayList<>();
-      params.add(limit);
-      params.add(offset);
-      List<YearbookDbVO> returnList =
-          ApplicationBean.INSTANCE.getYearbookService().query(query, params,
+
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, limit, offset);
+      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
               getLoginHelper().getAuthenticationToken());
+      
+      this.numberOfRecords = resp.getNumberOfRecords();
+      List<YearbookDbVO> yearbooks =
+          resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+
+      
 
 
-      return returnList;
+      return yearbooks;
     } catch (final Exception e) {
       YearbookModeratorRetrieverRequestBean.logger.error("Error in retrieving items", e);
       FacesBean.error("Error in retrieving items");

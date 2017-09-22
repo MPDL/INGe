@@ -343,5 +343,42 @@
 				"givenUser.active" : "true"
 			}
 		]
+	},
+	"de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl" : {
+		"technical" : {
+			"order" : [ "user", "yearbook"],
+			"indices" : {
+			}
+		}, 
+		"create" : [
+			{
+				"user" : {
+					"role" : "YEARBOOK-EDITOR"
+				}
+			}
+		],
+		
+		"update" : [
+			{
+				"user" : {
+					"role" : "YEARBOOK-EDITOR"
+				}
+			}
+		],
+		
+		"delete" : [
+			{
+				"user" : {
+					"role" : "YEARBOOK-EDITOR"
+				}
+				
+			}
+		],
+		
+		"get" : [
+
+		]
+		
+		
 	}
 }

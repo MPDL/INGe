@@ -31,6 +31,11 @@ import de.mpg.mpdl.inge.service.pubman.YearbookService;
 public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO> implements
     YearbookService {
 
+
+  public final static String INDEX_OBJECT_ID = "objectId";
+  public final static String INDEX_ORGANIZATION_ID = "organization.objectId";
+  public final static String INDEX_YEAR = "year";
+
   @Autowired
   private YearbookDaoEs yearbookDao;
 
@@ -44,25 +49,20 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   private IdentifierProviderServiceImpl idProviderService;
 
 
+  /*
+   * @Override public List<YearbookDbVO> query(String jpql, List<Object> params, String
+   * authenticationToken) throws IngeTechnicalException, AuthenticationException,
+   * AuthorizationException, IngeApplicationException { Query q = entityManager.createQuery(jpql,
+   * YearbookDbVO.class);
+   * 
+   * if (params != null) { for (int i = 0; i < params.size(); i++) { q.setParameter(i,
+   * params.get(i)); } }
+   * 
+   * List<YearbookDbVO> result = q.getResultList(); return result; }
+   */
 
   @Override
-  public List<YearbookDbVO> query(String jpql, List<Object> params, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
-    Query q = entityManager.createQuery(jpql, YearbookDbVO.class);
-
-    if (params != null) {
-      for (int i = 0; i < params.size(); i++) {
-        q.setParameter(i, params.get(i));
-      }
-    }
-
-    List<YearbookDbVO> result = q.getResultList();
-    return result;
-  }
-
-  @Override
-  public YearbookDbVO closeYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO submitYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
     // TODO Auto-generated method stub
@@ -70,7 +70,15 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   }
 
   @Override
-  public YearbookDbVO openYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO releaseYearbook(int yearbookId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public YearbookDbVO reviseYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
     // TODO Auto-generated method stub

@@ -11,12 +11,17 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
@@ -33,6 +38,10 @@ public class YearbookDbVO extends BasicDbRO {
   private int year;
 
   @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "organization")
+  /* Ignore some properties to avoid huge index entries */
+  @JsonIgnoreProperties({"parentAffiliation", "predecessorAffiliations", "hasChildren",
+      "hasPredecessors", "metadata"})
   private AffiliationDbVO organization;
 
   @Enumerated(EnumType.STRING)
@@ -86,7 +95,5 @@ public class YearbookDbVO extends BasicDbRO {
   public void setContextIds(List<String> contextIds) {
     this.contextIds = contextIds;
   }
-
-
 
 }

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -12,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
@@ -28,6 +30,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped
@@ -66,34 +69,56 @@ public class YearbookItemSessionBean extends FacesBean {
 
   @PostConstruct
   public void postConstruct() {
+
+    if (this.getLoginHelper().getIsYearbookEditor()) {
+      this.initYearbook(null);
+    }
+
+  }
+
+  public void initYearbook(String id) {
     try {
-      if (this.getLoginHelper().getIsYearbookEditor()) {
-        this.initYearbook();
+    this.setYearbook(null);
+    
+    if(id==null)
+    {
+      int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+      String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+      BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+      
+      bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
+      bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_YEAR, currentYear));
+      
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bqb);
+      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
+              getLoginHelper().getAuthenticationToken());
+      
+      List<YearbookDbVO> yearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+      if(yearbooks.size() == 1)
+      {
+        id = yearbooks.get(0).getObjectId();
       }
+      
+
+      /*
+      if (yearbooks.size() == 1
+          && (yearbooks.get(0).getYear() == currentYear || yearbooks.get(0).getYear() == currentYear - 1)
+          && yearbooks.get(0).getState().equals(YearbookDbVO.State.CREATED)) {
+        this.setYearbook(yearbooks.get(0));
+       
+    }
+    
+       */
+    }
+   
+      
+    YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id, getLoginHelper().getAuthenticationToken());
+    
+    this.setYearbook(yb);
+    
     } catch (final Exception e) {
       FacesBean.error("Error initializing yearbook item!");
       YearbookItemSessionBean.logger.error("Error initializing yearbook item!", e);
-    }
-  }
-
-  public void initYearbook() throws Exception {
-    this.setYearbook(null);
-    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-    String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
-
-
-    String query = "SELECT y FROM YearbookDbVO y WHERE y.year=? and y.organization.objectId=?";
-    List<Object> params = new ArrayList<>();
-    params.add(currentYear);
-    params.add(orgId);
-
-    List<YearbookDbVO> yearbooks =
-        yearbookService.query(query, params, this.getLoginHelper().getAuthenticationToken());
-
-    if (yearbooks.size() == 1
-        && (yearbooks.get(0).getYear() == currentYear || yearbooks.get(0).getYear() == currentYear - 1)
-        && yearbooks.get(0).getState().equals(YearbookDbVO.State.CREATED)) {
-      this.setYearbook(yearbooks.get(0));
     }
 
     /*
