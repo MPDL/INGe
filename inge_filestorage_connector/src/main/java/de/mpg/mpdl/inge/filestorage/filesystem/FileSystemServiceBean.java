@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * File storage service direct on the file system
@@ -31,15 +32,15 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
-  @Value("${filesystem_path}")
-  private String filesystemRootPath;
+  private final static String FILESYSTEM_ROOT_PATH = PropertyReader
+      .getProperty("inge.filestroage.seaweed_direct_submit_path");
 
   /*
    * 
    * 
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io.InputStream,
+   * @see de.mpg.mpdl.inge.services.FileStorageInterface#createFile(java.io. InputStream,
    * java.lang.String)
    */
   @Override
@@ -53,7 +54,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
     // Path starting after the the defined filesystemRootPath
     String relativeDirectoryPath = year + "/" + month + "/" + day;
     Path directoryPath =
-        FileSystems.getDefault().getPath(filesystemRootPath + relativeDirectoryPath);
+        FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + relativeDirectoryPath);
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
     try {
 
@@ -96,7 +97,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
    */
   @Override
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
-    Path path = FileSystems.getDefault().getPath(filesystemRootPath + fileRelativePath);
+    Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
     try {
       if (Files.exists(path)) {
         Files.copy(path, out);
@@ -116,7 +117,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   @Override
   public void deleteFile(String fileRelativePath) throws IngeTechnicalException {
     System.out.println("Trying to delete File [" + fileRelativePath + "]");
-    Path path = FileSystems.getDefault().getPath(filesystemRootPath + fileRelativePath);
+    Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
     try {
       if (Files.exists(path)) {
         Files.delete(path);

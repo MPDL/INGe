@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 
 /**
@@ -43,10 +44,11 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
 
   private static Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
 
-  @Value("${seaweed_master_server_ip}")
-  private String seaweedMasterUrl;
-  @Value("${seaweed_direct_submit_path}")
-  private String seaweedDirectSubmitPath;
+  private final static String SEAWEED_MASTER_URL = PropertyReader
+      .getProperty("inge.inge.filestorage.seaweed_master_server_ip");
+
+  private final static String SEAWEED_DIRECT_SUBMIT_PATH = PropertyReader
+      .getProperty("inge.filestroage.seaweed_direct_submit_path");
   @Autowired
   private CloseableHttpClient httpClient;
 
@@ -70,7 +72,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
             .addBinaryBody("upload_file", fileInputStream, ContentType.DEFAULT_BINARY, fileName)
             .build();
 
-    HttpPost httpPost = new HttpPost(seaweedMasterUrl + seaweedDirectSubmitPath);
+    HttpPost httpPost = new HttpPost(SEAWEED_MASTER_URL + SEAWEED_DIRECT_SUBMIT_PATH);
     httpPost.setEntity(entity);
     CloseableHttpResponse response = null;
 
@@ -116,7 +118,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
   @Override
   public void readFile(String fileId, OutputStream out) throws IngeTechnicalException {
     System.out.println("Trying to read Id [" + fileId + "]");
-    HttpGet httpGet = new HttpGet(seaweedMasterUrl + "/" + fileId);
+    HttpGet httpGet = new HttpGet(SEAWEED_MASTER_URL + "/" + fileId);
     CloseableHttpResponse response = null;
     InputStream retrievedFileInputStream = null;
 
@@ -160,7 +162,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     CloseableHttpResponse response = null;
     try {
       HttpDelete httpDelete =
-          new HttpDelete(seaweedMasterUrl + "/" + URLEncoder.encode(fileId, "UTF-8"));
+          new HttpDelete(SEAWEED_MASTER_URL + "/" + URLEncoder.encode(fileId, "UTF-8"));
       logger.info("Delete request: " + httpDelete.getURI().toString());
 
       response = httpClient.execute(httpDelete);

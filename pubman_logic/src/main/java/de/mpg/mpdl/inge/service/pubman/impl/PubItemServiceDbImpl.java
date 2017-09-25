@@ -69,7 +69,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   private final static Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
-
   @Autowired
   private AuthorizationService aaService;
 
@@ -96,7 +95,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   @PersistenceContext
   EntityManager entityManager;
-
 
   public static String INDEX_MODIFICATION_DATE = "version.modificationDate";
   public static String INDEX_CREATION_DATE = "creationDate";
@@ -129,7 +127,6 @@ public class PubItemServiceDbImpl implements PubItemService {
       "metadata.creators.organizations.name";
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
 
-
   public static String INDEX_METADATA_TITLE = "metadata.title";
   public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
@@ -160,14 +157,11 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID =
       "metadata.projectInfo.grantIdentifier.id";
 
-
   public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
   public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE =
       "metadata.sources.alternativeTitles.value";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
-
-
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -180,6 +174,8 @@ public class PubItemServiceDbImpl implements PubItemService {
     de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO contextNew =
         contextRepository.findOne(pubItemVO.getContext().getObjectId());
     ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
+
+    uploadStagedFiles(pubItemVO);
 
     PubItemVersionDbVO pubItemToCreate =
         buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(), pubItemVO.getFiles(),
@@ -200,12 +196,12 @@ public class PubItemServiceDbImpl implements PubItemService {
     try {
       pubItemToCreate = itemRepository.saveAndFlush(pubItemToCreate);
     } catch (DataAccessException e) {
+      rollbackSavedFiles(pubItemVO);
       GenericServiceImpl.handleDBException(e);
     }
     PubItemVO itemToReturn = EntityTransformer.transformToOld(pubItemToCreate);
 
     createAuditEntry(pubItemToCreate, EventType.CREATE);
-    uploadStagedFile(pubItemVO);
     reindex(pubItemToCreate);
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
@@ -284,7 +280,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     fileDbVO.setMimeType(fileVO.getMimeType());
     fileDbVO.setName(fileVO.getName());
     fileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES)); // TODO check if no
-                                                                       // transformation is
+    // transformation is
     // needed
     fileDbVO.setPid(fileVO.getPid());
     fileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVO.getStorage().name()));
@@ -293,13 +289,10 @@ public class PubItemServiceDbImpl implements PubItemService {
     return fileDbVO;
   }
 
-
   private PubItemDbRO updatePubItemWithTechnicalMd(PubItemVersionDbVO latestVersion,
       String modifierName, String modifierId) {
     Date currentDate = new Date();
 
-
-    latestVersion.getFiles().clear();// TODO
     latestVersion.setModificationDate(currentDate);
     de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO mod =
         new de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO();
@@ -310,7 +303,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     return latestVersion;
   }
-
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -345,14 +337,14 @@ public class PubItemServiceDbImpl implements PubItemService {
           .getVersionNumber());
       latestVersion.getObject().setLatestRelease(latestReleaseDbRO);
 
-      // if current user is owner, set to status pending. Else, set to status submitted
+      // if current user is owner, set to status pending. Else, set to status
+      // submitted
 
       if (userAccount.isModerator(context.getReference())) {
         latestVersion.setState(PubItemDbRO.State.SUBMITTED);
       } else {
         latestVersion.setState(PubItemDbRO.State.PENDING);
       }
-
 
       latestVersion.setVersionNumber(latestVersion.getVersionNumber() + 1);
       latestVersion.getObject().setLatestVersion(latestVersion);
@@ -362,7 +354,6 @@ public class PubItemServiceDbImpl implements PubItemService {
         .getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
     latestVersion.getObject().setLocalTags(pubItemVO.getLocalTags());
-
 
     latestVersionOld = EntityTransformer.transformToOld(latestVersion);
     validate(latestVersionOld);
@@ -598,7 +589,6 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
   }
 
-
   private void validate(PubItemVO pubItem) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
@@ -640,8 +630,6 @@ public class PubItemServiceDbImpl implements PubItemService {
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, sortByVersion);
     return pubItemDao.search(srr);
   }
-
-
 
   @Transactional(readOnly = true)
   public void reindex() {
@@ -690,7 +678,6 @@ public class PubItemServiceDbImpl implements PubItemService {
         logger.error("Error while reindexing ", e);
       }
 
-
     }
 
   }
@@ -705,7 +692,6 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     return EntityTransformer.transformToVersionHistory(list);
   }
-
 
   private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
       String method) throws IngeTechnicalException, AuthenticationException,
@@ -725,7 +711,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
   }
 
-  private void uploadStagedFile(PubItemVO pubItemVO) throws IngeTechnicalException {
+  private void uploadStagedFiles(PubItemVO pubItemVO) throws IngeTechnicalException {
     for (FileVO fileVO : pubItemVO.getFiles()) {
       if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
         String stagedPath = fileVO.getContent();
@@ -737,6 +723,20 @@ public class PubItemServiceDbImpl implements PubItemService {
         } catch (IngeTechnicalException e) {
           logger.error("Could not upload staged file [" + stagedPath + "]", e);
           throw new IngeTechnicalException("Could not upload staged file [" + stagedPath + "]", e);
+        }
+      }
+    }
+  }
+
+  private void rollbackSavedFiles(PubItemVO pubItemVO) throws IngeTechnicalException {
+    for (FileVO fileVO : pubItemVO.getFiles()) {
+      if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
+        String relativePath = fileVO.getContent();
+        try {
+          fileService.deleteFile(relativePath);
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not upload staged file [" + relativePath + "]", e);
+          throw new IngeTechnicalException("Could not upload staged file [" + relativePath + "]", e);
         }
       }
     }

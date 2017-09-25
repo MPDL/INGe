@@ -23,7 +23,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
         "de.mpg.mpdl.inge.filestorage.seaweedfs", //
         "de.mpg.mpdl.inge.filestorage.glusterfs" //
     })
-@PropertySource("classpath:filestorage.properties")
 public class FileStorageConnectorConfiguration {
 
   private final CloseableHttpClient httpClient = HttpClients.createDefault();

@@ -25,7 +25,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
-import de.mpg.mpdl.inge.filestorage.glusterfs.GlusterFileServiceBean;
 import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
 
 /**
@@ -56,9 +55,6 @@ public class FileServiceTests {
 
   @Autowired
   FileSystemServiceBean fileSystemServiceBean;
-
-  @Autowired
-  GlusterFileServiceBean glusterFileServiceBean;
 
   @BeforeClass
   public static void setUpClass() {
@@ -132,30 +128,6 @@ public class FileServiceTests {
       assertNotNull(retrievedFileOutputStream);
       fileSystemServiceBean.deleteFile(fileRelativePath);
       Path path = FileSystems.getDefault().getPath(filesystemRootPath + fileRelativePath);
-      assertFalse(Files.exists(path));
-      logger.info("--------------------");
-    }
-  }
-
-  /**
-   * Test for creating, reading and deleting a file from glusterfs
-   * 
-   * @throws IOException
-   */
-  @Test
-  public void testGlusterCreateReadDelete() throws Exception {
-    System.out.println("\nGLUSTER\n");
-    logger.info("--------------------");
-    logger.info("Starting Gluster test " + this.getClass().getName());
-    for (String fileName : FILE_NAMES) {
-      System.out.println("Datei [" + fileName + "]");
-      InputStream fileInputStream = this.getClass().getClassLoader().getResourceAsStream(fileName);
-      String fileRelativePath = glusterFileServiceBean.createFile(fileInputStream, fileName);
-      OutputStream retrievedFileOutputStream = new ByteArrayOutputStream();
-      glusterFileServiceBean.readFile(glusterRootPath, retrievedFileOutputStream);
-      assertNotNull(retrievedFileOutputStream);
-      glusterFileServiceBean.deleteFile(fileRelativePath);
-      Path path = FileSystems.getDefault().getPath(glusterRootPath + fileRelativePath);
       assertFalse(Files.exists(path));
       logger.info("--------------------");
     }

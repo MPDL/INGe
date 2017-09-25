@@ -27,32 +27,17 @@
 package de.mpg.mpdl.inge.pubman.web.util.servlet;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.apache.tika.exception.TikaException;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.sax.BodyContentHandler;
-import org.xml.sax.SAXException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls. /pubman/item/escidoc:12345 for
@@ -107,141 +92,20 @@ public class RedirectServlet extends HttpServlet {
 
       // open component or download it
       if (req.getParameter("mode") == null || download) {
-        try {
-          final InputStream input = this.getContentAsInputStream(req, resp, download, pieces);
-
-          if (input == null) {
-            return;
-          }
-
-          final byte[] buffer = new byte[2048];
-          int numRead;
-          // long numWritten = 0;
-          final OutputStream out = resp.getOutputStream();
-          while ((numRead = input.read(buffer)) != -1) {
-            RedirectServlet.logger.debug(numRead + " bytes read.");
-            out.write(buffer, 0, numRead);
-            resp.flushBuffer();
-            // numWritten += numRead;
-
-          }
-
-          input.close();
-          out.close();
-        } catch (final URISyntaxException e) {
-          throw new ServletException(e);
-        }
+        final StringBuffer redirectUrl = new StringBuffer("/rest/component/");
+        redirectUrl.append(pieces[2]);
+        resp.sendRedirect(redirectUrl.toString());
+        return;
       }
       // view technical metadata
       if (tme) {
-        final OutputStream out = resp.getOutputStream();
-        resp.setCharacterEncoding("UTF-8");
-
-        try {
-
-          final InputStream input = this.getContentAsInputStream(req, resp, false, pieces);
-          if (input == null) {
-            return;
-          }
-          String b = new String();
-
-          try {
-            b = this.getTechnicalMetadataByTika(input);
-          } catch (final TikaException e) {
-            RedirectServlet.logger.warn("TikaException when parsing " + pieces[3], e);
-          } catch (final SAXException e) {
-            RedirectServlet.logger.warn("SAXException when parsing " + pieces[3], e);
-          }
-
-          resp.setHeader("Content-Type", "text/plain; charset=UTF-8");
-
-          out.write(b.toString().getBytes());
-          return;
-
-        } catch (final Exception e) {
-          throw new ServletException(e);
-        }
+        final StringBuffer redirectUrl = new StringBuffer("/rest/component/");
+        redirectUrl.append(pieces[2]);
+        redirectUrl.append("/metadata");
+        resp.sendRedirect(redirectUrl.toString());
       }
     }
   }
-
-  private InputStream getContentAsInputStream(HttpServletRequest req, HttpServletResponse resp,
-      boolean download, String[] pieces) throws IOException, URISyntaxException, ServletException,
-      HttpException, UnsupportedEncodingException {
-    final String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url");
-    String url = null;
-    try {
-      url =
-          frameworkUrl + "/ir/item/" + pieces[0] + "/components/component/" + pieces[2]
-              + "/content";
-      RedirectServlet.logger.debug("Calling " + url);
-    } catch (final Exception e) {
-      throw new ServletException("Error getting framework url", e);
-    }
-
-    final GetMethod method = new GetMethod(url);
-    method.setFollowRedirects(false);
-    final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
-    if (loginHelper != null && loginHelper.getESciDocUserHandle() != null) {
-      method.addRequestHeader("Cookie", "escidocCookie=" + loginHelper.getESciDocUserHandle());
-    }
-    // Execute the method with HttpClient.
-    final HttpClient client = new HttpClient();
-    ProxyHelper.setProxy(client, frameworkUrl);
-    ProxyHelper.executeMethod(client, method);
-    RedirectServlet.logger.debug("...executed");
-    InputStream input;
-
-    if (method.getStatusCode() == 302) {
-      String servletUrl =
-          PropertyReader.getProperty("escidoc.pubman.instance.url")
-              + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-              + PropertyReader.getProperty("escidoc.pubman.item.pattern");
-      servletUrl = servletUrl.replace("$1", "");
-
-      final String loginUrl = frameworkUrl + "/aa/login?target=" + URLEncoder.encode(url, "ASCII");
-      resp.sendRedirect(loginUrl);
-      return null;
-    }
-
-    if (method.getStatusCode() != 200) {
-      throw new RuntimeException("error code " + method.getStatusCode());
-    }
-
-    for (final Header header : method.getResponseHeaders()) {
-      if (!"Transfer-Encoding".equals(header.getName())) {
-        RedirectServlet.logger.debug("Setting header: " + header.getName() + ": "
-            + header.getValue());
-        resp.setHeader(header.getName(), header.getValue());
-      } else {
-        RedirectServlet.logger.info("Ignoring " + header.getName() + ": " + header.getValue());
-      }
-    }
-    if (download) {
-      resp.setHeader("Content-Disposition", "attachment");
-    }
-    input = method.getResponseBodyAsStream();
-
-    return input;
-  }
-
-  private String getTechnicalMetadataByTika(InputStream input) throws IOException, SAXException,
-      TikaException {
-    final StringBuffer b = new StringBuffer(2048);
-    final Metadata metadata = new Metadata();
-    final AutoDetectParser parser = new AutoDetectParser();
-    final BodyContentHandler handler = new BodyContentHandler(-1);
-
-    parser.parse(input, handler, metadata);
-
-    for (final String name : metadata.names()) {
-      b.append(name).append(": ").append(metadata.get(name))
-          .append(System.getProperty("line.separator"));
-    }
-    return b.toString();
-  }
-
-
 
   /**
    * {@inheritDoc}

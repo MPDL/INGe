@@ -9,30 +9,59 @@ import java.nio.file.Paths;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
+/**
+ * FileService implementation using the file system to store staged files
+ * 
+ * @author walter
+ * 
+ */
 @Service
 @Primary
 public class FileServiceFSImpl implements FileService {
-  private static Logger logger = Logger.getLogger(FileServiceFSImpl.class);
+  private final static Logger logger = Logger.getLogger(FileServiceFSImpl.class);
+
+  private final static String TMP_FILE_ROOT_PATH = PropertyReader
+      .getProperty("inge.logic.temporary_filesystem_root_path");
 
   @Autowired
   private FileStorageInterface fsi;
 
+  @Autowired
+  private FileRepository fr;
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.filestorage.FileStorageInterface#createFile(java.io.InputStream,
+   * java.lang.String)
+   */
   @Override
   public String createFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
     return fsi.createFile(fileInputStream, fileName);
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.filestorage.FileStorageInterface#readFile(java.lang.String,
+   * java.io.OutputStream)
+   */
   @Override
-  public void readFile(String filePath, OutputStream out) throws IngeTechnicalException {
-    fsi.readFile(filePath, out);
+  public void readFile(String fileId, OutputStream out) throws IngeTechnicalException {
+    FileDbVO fileDbVO = fr.findOne(fileId);
+    fsi.readFile(fileDbVO.getContent(), out);
   }
 
   @Override
@@ -40,6 +69,12 @@ public class FileServiceFSImpl implements FileService {
     fsi.deleteFile(filePath);
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#createStageFile(java.io.InputStream,
+   * java.lang.String)
+   */
   @Override
   public Path createStageFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
@@ -48,7 +83,7 @@ public class FileServiceFSImpl implements FileService {
     if (fileNameParts[0] != null && !("".equals(fileNameParts[0])) && fileNameParts[1] != null
         && !("".equals(fileNameParts[1]))) {
       int fileHashValue = (fileNameParts[0] + System.currentTimeMillis()).hashCode();
-      tmpFilePath = Paths.get(TEMP_FILE_PATH + fileHashValue + "." + fileNameParts[1]);
+      tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH + fileHashValue + "." + fileNameParts[1]);
     }
 
     try {
@@ -62,6 +97,11 @@ public class FileServiceFSImpl implements FileService {
     return tmpFilePath;
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#readStageFile(java.nio.file.Path)
+   */
   @Override
   public InputStream readStageFile(Path stagedFilePath) throws IngeTechnicalException {
     InputStream in = null;
@@ -75,6 +115,11 @@ public class FileServiceFSImpl implements FileService {
     return in;
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#deleteStageFile(java.nio.file.Path)
+   */
   @Override
   public void deleteStageFile(Path path) throws IngeTechnicalException {
     try {
@@ -85,10 +130,35 @@ public class FileServiceFSImpl implements FileService {
     }
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#indexFile(java.io.InputStream)
+   */
   @Override
   public void indexFile(InputStream fileInputStream) {
     // TODO Auto-generated method stub
 
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileType(java.lang.String)
+   */
+  @Override
+  public String getFileType(String fileId) {
+    return fr.findOne(fileId).getMimeType();
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileName(java.lang.String)
+   */
+  @Override
+  public String getFileName(String fileName) {
+    return fr.findOne(fileName).getName();
   }
 
 }

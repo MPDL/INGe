@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 
@@ -18,10 +20,6 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
  * 
  */
 public interface FileService extends FileStorageInterface {
-
-  public static final String TEMP_FILE_PATH = "E:\\tmp\\filetest\\";
-
-  // public static final String TEMP_FILE_PATH = PropertyReader.getProperty("TempFilePath");
 
   /**
    * @param fileInputStream
@@ -49,4 +47,16 @@ public interface FileService extends FileStorageInterface {
    * @param fileInputStream
    */
   public void indexFile(InputStream fileInputStream);
+
+  /**
+   * @param fileId
+   * @return mime-type of the file
+   */
+  public String getFileType(String fileId);
+
+  /**
+   * @param fileId
+   * @return name of the file
+   */
+  public String getFileName(String fileName);
 }

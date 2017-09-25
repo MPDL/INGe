@@ -1179,7 +1179,12 @@
 		
 		<inge.depositor.loginname>test_depositor</inge.depositor.loginname>
 		<inge.moderator.loginname>test_moderator</inge.moderator.loginname>
-        
+		
+		<inge.filestorage.seaweed_master_server_ip>http://localhost:9333</inge.filestorage.seaweed_master_server_ip>
+		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
+
+		<inge.filestorage.filesystem_path>/usr/share/data/inge/</inge.filestorage.filesystem_path>
+        <inge.logic.temporary_filesystem_root_path>/tmp/inge/</inge.logic.temporary_filesystem_root_path>
 	</properties>
 
 	<profiles>
