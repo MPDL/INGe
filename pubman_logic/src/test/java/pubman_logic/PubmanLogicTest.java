@@ -355,7 +355,7 @@ public class PubmanLogicTest {
   @Ignore
   public void testOaiScrollable() throws Exception {
     int count = 0;
-//    int countIntervall = 0;
+    // int countIntervall = 0;
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED");
 
@@ -379,7 +379,7 @@ public class PubmanLogicTest {
             .getObjectIdAndVersion() + ".xml");
       }
 
-//      countIntervall++;
+      // countIntervall++;
 
       System.out.println(count);
       scrollResp = this.client.getClient().prepareSearchScroll(scrollResp.getScrollId()) //
