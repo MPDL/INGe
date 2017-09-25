@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +42,7 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.db.model.hibernate.ContextAdminDescriptorJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.ContextAdminDescriptorJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 

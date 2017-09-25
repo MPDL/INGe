@@ -24,48 +24,35 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.xmltransforming.exceptions;
+package de.mpg.mpdl.inge.model.db.valueobjects;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * Basic exception for all exception caused by business failures.
+ * The class for AccountUser references.
  * 
- * @author Miriam Doelle (initial creation)
+ * @revised by MuJ: 27.08.2007
  * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
+ * @version $Revision$ $LastChangedDate$
+ * @updated 21-Nov-2007 12:08:27
  */
-public abstract class BusinessException extends Exception {
-  /**
-   * Creates a new instance.
-   */
-  public BusinessException() {
-    super();
-  }
+@JsonInclude(value = Include.NON_EMPTY)
+@Entity(name = "ContextRO")
+@Table(name = "context_basic")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class ContextDbRO extends BasicDbRO {
 
-  /**
-   * Creates a new instance with the given message.
-   * 
-   * @param message The error message.
-   */
-  public BusinessException(String message) {
-    super(message);
-  }
 
-  /**
-   * Creates a new instance with the given cause
-   * 
-   * @param cause The Throwable that caused this exception.
-   */
-  public BusinessException(Throwable cause) {
-    super(cause);
-  }
-
-  /**
-   * Creates a new instance with the given message and cause.
-   * 
-   * @param message The error message.
-   * @param cause The Throwable that caused this exception.
-   */
-  public BusinessException(String message, Throwable cause) {
-    super(message, cause);
-  }
 }

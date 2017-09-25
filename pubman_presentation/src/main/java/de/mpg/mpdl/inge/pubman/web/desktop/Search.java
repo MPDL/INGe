@@ -79,9 +79,6 @@ public class Search extends FacesBean {
       final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext().redirect(
           "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8"));
-    } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
-      Search.logger.error("Search criteria includes some lexical error", e);
-      FacesBean.error(this.getMessage("search_ParseError"));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
       FacesBean.error(this.getMessage("search_TechnicalError"));
@@ -161,9 +158,6 @@ public class Search extends FacesBean {
       final String openSearchRequest =
           "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8");
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
-    } catch (final de.mpg.mpdl.inge.search.parser.ParseException e) {
-      Search.logger.error("Search criteria includes some lexical error", e);
-      FacesBean.error(this.getMessage("search_ParseError"));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
       FacesBean.error(this.getMessage("search_TechnicalError"));

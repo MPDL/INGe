@@ -14,52 +14,38 @@
 						<li class="full_area0 listItem"><h:panelGroup layout="block"
 								styleClass="free_area0 itemHeader">
 								<span class="free_area0 status statusArea"> <h:panelGroup
-										layout="block"
-										styleClass="big_imgArea statusIcon withdrawnItem"
-										rendered="#{item.version.state == 'WITHDRAWN'}" /> <h:panelGroup
 										layout="block" styleClass="big_imgArea statusIcon pendingItem"
-										rendered="#{item.version.state == 'PENDING'}" /> <h:panelGroup
+										rendered="#{item.state == 'CREATED'}" /> <h:panelGroup
 										layout="block"
 										styleClass="big_imgArea statusIcon submittedItem"
-										rendered="#{item.version.state == 'SUBMITTED'}" /> <h:panelGroup
+										rendered="#{item.state == 'SUBMITTED'}" /> <h:panelGroup
 										layout="block"
 										styleClass="big_imgArea statusIcon releasedItem"
-										rendered="#{item.version.state == 'RELEASED' and item.version.state != 'WITHDRAWN'}" />
-									<h:panelGroup layout="block"
-										styleClass="big_imgArea statusIcon inRevisionItem"
-										rendered="#{item.version.state == 'IN_REVISION'}" /> <span
-									class="noDisplay">(</span> <h:outputLabel
-										id="lblItemPublicState"
-										styleClass="free_area0_p3 medium_label"
-										rendered="#{item.version.state == 'WITHDRAWN'}">
-										<h:outputText value="#{item.publicStatus}" />
-									</h:outputLabel> <h:outputLabel id="lblItemState"
-										styleClass="free_area0_p3 medium_label"
-										rendered="#{item.version.state != 'WITHDRAWN'}">
-										<h:outputText value="#{item.version.state}" />
-									</h:outputLabel> <span class="noDisplay">)</span>
+										rendered="#{item.state == 'RELEASED'}"/>
+										<h:outputText value="#{item.state}" />
+									<span class="noDisplay">)</span>
 								</span>
 								<span class="seperator status"></span>
 								<span class="free_area0_p6 endline itemHeadline"> <b>
 										<h:commandLink action="#{YearbookArchiveBean.viewItem}">
 											<f:setPropertyActionListener
 												target="#{YearbookArchiveBean.yearbookId}"
-												value="#{item.version.objectId}" />
-											<h:outputText value="#{item.yearbookMetadata.title}"
+												value="#{item.objectId}" />
+											<h:outputText value="#{item.year} - #{item.organization.name}"
 												escape="false" />
 										</h:commandLink>
 								</b>
 								</span>
 							</h:panelGroup> <h:panelGroup layout="block" styleClass="full_area0 mediumView">
-								<ui:repeat var="rel" value="#{item.relations}">
+								<ui:repeat var="rel" value="#{item.itemIds}">
 									<div
 										class="free_area0_p0 small_marginLIncl endline listItemLine">
 										<span class="huge_area0_p8 endline labelLine"> <h:outputText
 												value="#{lbl.Yearbook_member}" /> <span class="noDisplay">:
 										</span>
 										</span> <span class="xHuge_area0 endline"> <h:outputLink
-												value="#{ApplicationBean.appContext}../item/#{rel.targetItemRef.objectId}">
-												<h:outputText value="#{rel.targetItemRef.objectId}" />
+												value="#{ApplicationBean.appContext}../item/#{rel}">
+												<h:outputText value="#{rel}" />
 											</h:outputLink>
 										</span>
 									</div>

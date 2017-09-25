@@ -43,16 +43,17 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 public class DataGatheringService {
   private static final String PREDICATE_ISREVISIONOF =
       "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
-  private static final String PREDICATE_ISMEMBEROF =
-      "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember"; // "http://escidoc.de/core/01/structural-relations/member";
+  // private static final String PREDICATE_ISMEMBEROF =
+  // "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember"; //
+  // "http://escidoc.de/core/01/structural-relations/member";
   private static final String OUTPUT_FORMAT = "RDF/XML";
 
   private static final Logger logger = Logger.getLogger(DataGatheringService.class);
 
-  /**
-   * Separator used for concatenation of affiliation names to one organization name.
-   */
-  public static final String ORGANIZATION_NAME_SEPARATOR = ", ";
+  // /**
+  // * Separator used for concatenation of affiliation names to one organization name.
+  // */
+  // public static final String ORGANIZATION_NAME_SEPARATOR = ", ";
 
   /*
    * (non-Javadoc)
@@ -248,23 +249,23 @@ public class DataGatheringService {
   // }
   // }
 
-  public static List<RelationVO> findParentContainer(String userHandle, String id)
-      throws TechnicalException {
-    if (id == null) {
-      throw new IllegalArgumentException(DataGatheringService.class.getSimpleName()
-          + ".findParentContainer:itemId is null");
-    }
-    String param =
-        "<param>" + "<query>* " + PREDICATE_ISMEMBEROF + " &lt;info:fedora/" + id + "&gt;</query>"
-            + "<format>" + OUTPUT_FORMAT + "</format>" + "</param>";
-    logger.debug("Param=" + param);
-    try {
-      String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
-      List<RelationVO> relations = XmlTransformingService.transformToRelationVOList(result);
-      return relations;
-    } catch (Exception e) {
-      logger.error("Error retrieving revisions.", e);
-      throw new TechnicalException(e);
-    }
-  }
+  // public static List<RelationVO> findParentContainer(String userHandle, String id)
+  // throws TechnicalException {
+  // if (id == null) {
+  // throw new IllegalArgumentException(DataGatheringService.class.getSimpleName()
+  // + ".findParentContainer:itemId is null");
+  // }
+  // String param =
+  // "<param>" + "<query>* " + PREDICATE_ISMEMBEROF + " &lt;info:fedora/" + id + "&gt;</query>"
+  // + "<format>" + OUTPUT_FORMAT + "</format>" + "</param>";
+  // logger.debug("Param=" + param);
+  // try {
+  // String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
+  // List<RelationVO> relations = XmlTransformingService.transformToRelationVOList(result);
+  // return relations;
+  // } catch (Exception e) {
+  // logger.error("Error retrieving revisions.", e);
+  // throw new TechnicalException(e);
+  // }
+  // }
 }

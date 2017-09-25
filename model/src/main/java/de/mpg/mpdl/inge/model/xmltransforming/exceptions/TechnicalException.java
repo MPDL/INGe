@@ -33,6 +33,7 @@ package de.mpg.mpdl.inge.model.xmltransforming.exceptions;
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
+@SuppressWarnings("serial")
 public class TechnicalException extends Exception {
   /**
    * Default constructor.

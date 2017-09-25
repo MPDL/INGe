@@ -1,31 +1,21 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 
-import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO.State;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
-import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 
 /**
  * Bean for archived Yearbook-Items
@@ -38,7 +28,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SessionScoped
 @SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
-  private static final String MAXIMUM_RECORDS = "5000";
 
   private final List<YearbookDbVO> archivedYearbooks;
   private YearbookDbVO selectedYearbook;
@@ -46,12 +35,13 @@ public class YearbookArchiveBean extends FacesBean {
 
   public YearbookArchiveBean() throws Exception {
 
-    String query = "SELECT y FROM YearbookDbVO y WHERE state=?";
-    List<Object> params = new ArrayList<>();
-    params.add(State.OPENED.name());
-    this.archivedYearbooks =
-        ApplicationBean.INSTANCE.getYearbookService().query(query, params,
+    String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+    QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+    SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
             getLoginHelper().getAuthenticationToken());
+    
+    this.archivedYearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
 
 
     if (this.getArchivedYearbooks() != null && this.getArchivedYearbooks().size() < 1) {

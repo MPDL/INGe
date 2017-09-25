@@ -112,7 +112,6 @@ public class PubItemUtil {
     }
   }
 
-
   public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem,
       String relationComment, final ContextRO pubCollection, final AccountUserVO owner) {
     PubItemVO copiedPubItem = new PubItemVO();

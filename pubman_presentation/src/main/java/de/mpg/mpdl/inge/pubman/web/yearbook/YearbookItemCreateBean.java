@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,13 +17,15 @@ import javax.faces.model.SelectItem;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.www.services.aa.UserAccountHandler;
 import de.escidoc.www.services.om.ItemHandler;
-import de.mpg.mpdl.inge.db.model.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.framework.ServiceLocator;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -30,6 +33,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -46,6 +50,7 @@ import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
+import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "YearbookItemCreateBean")
@@ -76,16 +81,10 @@ public class YearbookItemCreateBean extends FacesBean {
   public YearbookItemCreateBean() throws Exception {
     this.selectableYears = new ArrayList<SelectItem>();
 
-    String orgId = null;
+    String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+    this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE
+        .getOrganizationService().get(orgId, null)));
 
-    for (GrantVO grant : this.getLoginHelper().getAccountUser().getGrants()) {
-      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
-        orgId = grant.getObjectRef();
-        this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE
-            .getOrganizationService().get(orgId, null)));
-        break;
-      }
-    }
 
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     this.initContextMenu();
@@ -103,18 +102,14 @@ public class YearbookItemCreateBean extends FacesBean {
     this.selectableYears.add(new SelectItem(currentYear, currentYear));
     try {
       boolean previousYearPossible = true;
-      final ItemHandler itemHandler =
-          ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
-      final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
 
-
-      String query = "SELECT y FROM YearbookDbVO y WHERE y.organization.objectId=?";
-      List<Object> params = new ArrayList<>();
-      params.add(getAffiliation().getReference().getObjectId());
-
+      
+      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, getAffiliation().getReference().getObjectId());
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
+              getLoginHelper().getAuthenticationToken());
       List<YearbookDbVO> yearbooks =
-          ApplicationBean.INSTANCE.getYearbookService().query(query, params,
-              this.getLoginHelper().getAuthenticationToken());
+          resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
 
 
       // check if years have to be excluded from selection
@@ -216,32 +211,6 @@ public class YearbookItemCreateBean extends FacesBean {
 
       final YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
 
-      String query = "SELECT y FROM YearbookDbVO y WHERE y.organization.objectId=?";
-      List<Object> params = new ArrayList<>();
-      params.add(getAffiliation().getReference().getObjectId());
-
-      List<YearbookDbVO> yearbooks =
-          ApplicationBean.INSTANCE.getYearbookService().query(query, params,
-              this.getLoginHelper().getAuthenticationToken());
-
-
-
-      for (YearbookDbVO yearbook : yearbooks) {
-        if (yearbook.getYear() == Integer.valueOf(getYear())) {
-          FacesBean
-              .error("A yearbook related to this organization object id already exists for this Year");
-          return "";
-
-        } else if (yearbook.getYear() == Integer.valueOf(getYear()) - 1
-            && !yearbook.getState().equals(YearbookDbVO.State.CLOSED)) {
-          FacesBean
-              .error("A yearbook related to this organization object id already exists for the previous year and has not been closed until now");
-          return "";
-
-        }
-      }
-
-
       YearbookDbVO yearbook = new YearbookDbVO();
       AffiliationDbVO ou = new AffiliationDbVO();
       ou.setObjectId(getAffiliation().getReference().getObjectId());
@@ -320,7 +289,7 @@ public class YearbookItemCreateBean extends FacesBean {
        * grant.createInCoreservice(loginHelper.getESciDocUserHandle(), //
        * "Grant for Yearbook created"); this.info(this.getMessage("Yearbook_grantsAdded")); }
        */
-      this.yisb.initYearbook();
+      this.yisb.initYearbook(yearbook.getObjectId());
       final YearbookItemEditBean yieb =
           (YearbookItemEditBean) FacesTools.findBean("YearbookItemEditBean");
       if (yieb != null) {

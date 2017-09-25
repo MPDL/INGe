@@ -49,6 +49,7 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookUtils;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 
 /**
@@ -286,20 +287,22 @@ public class LoginHelper extends FacesBean {
 
   public boolean getIsYearbookEditor() {
     // toDo: find better way how to do this
-    final ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    if (this.getIsDepositor() && clsb.getYearbookContextListSize() > 0) {
-      return true;
-    }
 
-    if (this.getAccountUsersUserGroups() != null) {
-      for (final UserGroupVO ug : this.getAccountUsersUserGroups()) {
-        if (ug.getLabel().matches("\\d*? - Yearbook User Group for.*?")) {
-          return true;
-        }
+    for (GrantVO grant : this.accountUser.getGrants()) {
+      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
+        return true;
       }
     }
 
+    /*
+     * final ContextListSessionBean clsb = (ContextListSessionBean)
+     * FacesTools.findBean("ContextListSessionBean"); if (this.getIsDepositor() &&
+     * clsb.getYearbookContextListSize() > 0) { return true; }
+     * 
+     * if (this.getAccountUsersUserGroups() != null) { for (final UserGroupVO ug :
+     * this.getAccountUsersUserGroups()) { if
+     * (ug.getLabel().matches("\\d*? - Yearbook User Group for.*?")) { return true; } } }
+     */
     return false;
   }
 

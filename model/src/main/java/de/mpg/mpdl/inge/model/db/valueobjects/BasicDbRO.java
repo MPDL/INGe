@@ -24,10 +24,19 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 /**
  * The class for AccountUser references.
@@ -38,7 +47,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @updated 21-Nov-2007 12:08:27
  */
 @JsonInclude(value = Include.NON_EMPTY)
-public class AccountUserDbRO implements Cloneable {
+@MappedSuperclass
+public class BasicDbRO implements Cloneable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -48,14 +58,32 @@ public class AccountUserDbRO implements Cloneable {
    * 
    * @author Johannes Mueller
    */
+  @Id
+  private String objectId;
+
+  @Column(columnDefinition = "TEXT")
   private String name;
 
-  private String objectId;
+  private java.util.Date creationDate;
+
+  private java.util.Date lastModificationDate;
+
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
+      @AttributeOverride(name = "name", column = @Column(name = "owner_name"))})
+  private AccountUserDbRO creator;
+
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
+      @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
+  private AccountUserDbRO modifier;
 
   /**
    * Creates a new instance.
    */
-  public AccountUserDbRO() {
+  public BasicDbRO() {
     super();
   }
 
@@ -81,6 +109,54 @@ public class AccountUserDbRO implements Cloneable {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+
+
+  public java.util.Date getCreationDate() {
+    return creationDate;
+  }
+
+
+
+  public void setCreationDate(java.util.Date creationDate) {
+    this.creationDate = creationDate;
+  }
+
+
+
+  public java.util.Date getLastModificationDate() {
+    return lastModificationDate;
+  }
+
+
+
+  public void setLastModificationDate(java.util.Date lastModificationDate) {
+    this.lastModificationDate = lastModificationDate;
+  }
+
+
+
+  public AccountUserDbRO getCreator() {
+    return creator;
+  }
+
+
+
+  public void setCreator(AccountUserDbRO creator) {
+    this.creator = creator;
+  }
+
+
+
+  public AccountUserDbRO getModifier() {
+    return modifier;
+  }
+
+
+
+  public void setModifier(AccountUserDbRO modifier) {
+    this.modifier = modifier;
   }
 
 

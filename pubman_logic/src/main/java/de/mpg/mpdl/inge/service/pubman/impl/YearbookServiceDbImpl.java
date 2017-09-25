@@ -11,10 +11,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.YearbookDbVO.State;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.es.dao.YearbookDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -28,31 +31,38 @@ import de.mpg.mpdl.inge.service.pubman.YearbookService;
 public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO> implements
     YearbookService {
 
+
+  public final static String INDEX_OBJECT_ID = "objectId";
+  public final static String INDEX_ORGANIZATION_ID = "organization.objectId";
+  public final static String INDEX_YEAR = "year";
+
+  @Autowired
+  private YearbookDaoEs yearbookDao;
+
   @Autowired
   private YearbookRepository yearbookRepository;
 
   @Autowired
   private EntityManager entityManager;
 
+  @Autowired
+  private IdentifierProviderServiceImpl idProviderService;
 
+
+  /*
+   * @Override public List<YearbookDbVO> query(String jpql, List<Object> params, String
+   * authenticationToken) throws IngeTechnicalException, AuthenticationException,
+   * AuthorizationException, IngeApplicationException { Query q = entityManager.createQuery(jpql,
+   * YearbookDbVO.class);
+   * 
+   * if (params != null) { for (int i = 0; i < params.size(); i++) { q.setParameter(i,
+   * params.get(i)); } }
+   * 
+   * List<YearbookDbVO> result = q.getResultList(); return result; }
+   */
 
   @Override
-  public List<YearbookDbVO> query(String jpql, List<Object> params, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
-    Query q = entityManager.createQuery(jpql, YearbookDbVO.class);
-
-    if (params != null) {
-      for (int i = 0; i < params.size(); i++) {
-        q.setParameter(i, params.get(i));
-      }
-    }
-    List<YearbookDbVO> result = q.getResultList();
-    return result;
-  }
-
-  @Override
-  public YearbookDbVO closeYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO submitYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
     // TODO Auto-generated method stub
@@ -60,7 +70,15 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   }
 
   @Override
-  public YearbookDbVO openYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO releaseYearbook(int yearbookId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public YearbookDbVO reviseYearbook(int yearbookId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
     // TODO Auto-generated method stub
@@ -85,7 +103,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   @Override
   protected GenericDaoEs<YearbookDbVO> getElasticDao() {
-    return null;
+    return yearbookDao;
   }
 
   @Override
@@ -109,7 +127,8 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
     objectToBeUpdated.setYear(givenObject.getYear());
 
     if (create) {
-      objectToBeUpdated.setState(State.OPENED);
+      objectToBeUpdated.setState(State.CREATED);
+      objectToBeUpdated.setObjectId(idProviderService.getNewId(ID_PREFIX.YEARBOOK));
     }
 
     return null;

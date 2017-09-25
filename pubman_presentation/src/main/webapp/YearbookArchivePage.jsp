@@ -50,8 +50,16 @@
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}" />
                                     </h:outputLink>
                                 </h:panelGroup>
+                                <div class="free_area0 sub action">
+                                    <!-- content menu upper line starts here -->
+                                    <h:outputLink styleClass="free_area0"  id="lnkCreateYearbook" value="#{ApplicationBean.appContext}YearbookItemCreatePage.jsp">
+									<h:outputText value="XXX Create new Yearbook" />
+									</h:outputLink>
+                                    <!-- content menu upper line ends here -->
+                                </div>
                                 <!-- content menu ends here -->
                             </h:panelGroup>
+                             
                             <div class="subHeader">
                                 <!-- Subheadline starts here -->
                                 <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{YearbookArchiveBean.numberOfMessages == 1}" />

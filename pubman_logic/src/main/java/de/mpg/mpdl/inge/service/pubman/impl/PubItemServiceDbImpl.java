@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
@@ -22,14 +23,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.AuditDbVO.EventType;
-import de.mpg.mpdl.inge.db.model.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemDbRO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemVersionDbVO;
-import de.mpg.mpdl.inge.db.model.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
@@ -40,6 +33,14 @@ import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -54,6 +55,8 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -171,7 +174,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
 
-    de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO contextNew =
+    de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
         contextRepository.findOne(pubItemVO.getContext().getObjectId());
     ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
 
@@ -225,7 +228,7 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
-      de.mpg.mpdl.inge.db.model.valueobjects.ContextDbVO context, MdsPublicationVO md,
+      de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context, MdsPublicationVO md,
       List<FileVO> files, List<String> localTags, String modifierName, String modifierId) {
     Date currentDate = new Date();
 
@@ -294,8 +297,8 @@ public class PubItemServiceDbImpl implements PubItemService {
     Date currentDate = new Date();
 
     latestVersion.setModificationDate(currentDate);
-    de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO mod =
-        new de.mpg.mpdl.inge.db.model.valueobjects.AccountUserDbRO();
+    de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod =
+        new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
     latestVersion.setModifiedBy(mod);
@@ -540,6 +543,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         && !PubItemDbRO.State.RELEASED.equals(latestVersion.getObject().getPublicStatus())) {
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.SUBMITTED);
     }
+
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
@@ -571,6 +575,29 @@ public class PubItemServiceDbImpl implements PubItemService {
     createAuditEntry(latestVersion, auditEventType);
 
     reindex(latestVersion);
+
+
+    // TODO: - fuer OPEN_AIRE ins Repository Verzeichnis schreiben
+    // - beliebigen Pfad vorgeben ermöglichen
+    // - vorhandene Datei ueberschreiben
+    // - Namespaces in XML Datei anpassen
+    // - Datei löschen ermöglichen
+    if (PubItemDbRO.State.RELEASED.equals(state)) {
+      try {
+        String s = XmlTransformingService.transformToItem(itemToReturn);
+        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn
+            .getVersion().getObjectIdAndVersion() + ".xml");
+      } catch (TechnicalException e) {
+        throw new IngeTechnicalException(e);
+      }
+    } else if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
+      try {
+        String s = XmlTransformingService.transformToItem(itemToReturn);
+        // this.fileService.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
+      } catch (TechnicalException e) {
+        throw new IngeTechnicalException(e);
+      }
+    }
 
     return itemToReturn;
   }
@@ -634,8 +661,8 @@ public class PubItemServiceDbImpl implements PubItemService {
   @Transactional(readOnly = true)
   public void reindex() {
 
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+    Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     query.setReadOnly(true);
     query.setFetchSize(500);
@@ -648,8 +675,8 @@ public class PubItemServiceDbImpl implements PubItemService {
     while (results.next()) {
       try {
         count++;
-        de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) results.get(0);
+        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
+            (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) results.get(0);
         PubItemVO latestVersion =
             EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
         logger.info("(" + count + ") Reindexing item latest version "

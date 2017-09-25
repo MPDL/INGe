@@ -56,18 +56,16 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 public class ExportItems extends FacesBean {
   private static final Logger logger = Logger.getLogger(ExportItems.class);
 
-  // constants for error and status messages
-  public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
-  // constants for error and status messages
-  public static final String MESSAGE_NO_EXPORTDATA_DELIVERED = "exportItems_NoDataDelivered";
-  public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
-  public static final String MESSAGE_EXPORT_EMAIL_NOTSENT = "exportItems_EmailNotSent";
+  // public static final String MESSAGE_EXPORT_EMAIL_NOTSENT = "exportItems_EmailNotSent";
   public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED =
       "exportItems_RecipientsAreNotDefined";
+  public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
+  public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
+  public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
   public static final String MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS =
       "exportItems_UnknownRecipients";
-  public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
-  public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
+  public static final String MESSAGE_NO_EXPORTDATA_DELIVERED = "exportItems_NoDataDelivered";
+  public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
 
   public ExportItems() {}
 
@@ -80,38 +78,32 @@ public class ExportItems extends FacesBean {
     final SelectItem EXPORTFORMAT_BIBTEX =
         new SelectItem("BIBTEX", this.getLabel("Export_ExportFormat_BIBTEX"));
     final SelectItem EXPORTFORMAT_ESCIDOC_XML =
-        new SelectItem("ESCIDOC_XML_V13", this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
+        new SelectItem("ESCIDOC_XML", this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
     final SelectItem EXPORTFORMAT_APA =
         new SelectItem("APA", this.getLabel("Export_ExportFormat_APA"));
     final SelectItem EXPORTFORMAT_APA_CJK =
         new SelectItem("APA(CJK)", this.getLabel("Export_ExportFormat_APA_CJK"));
     final SelectItem EXPORTFORMAT_AJP =
         new SelectItem("AJP", this.getLabel("Export_ExportFormat_AJP"));
-    // JUS
     final SelectItem EXPORTFORMAT_JUS =
         new SelectItem("JUS", this.getLabel("Export_ExportFormat_JUS"));
-    // CitationStyleEditor
     final SelectItem EXPORTFORMAT_CSL = new SelectItem("CSL", "CSL");
-    // Test citation styles
-    // SelectItem EXPORTFORMAT_DEFAULT = new SelectItem("Default",
-    // getLabel("Export_ExportFormat_DEFAULT"));
-    // SelectItem EXPORTFORMAT_TEST = new SelectItem("Test", getLabel("Export_ExportFormat_TEST"));
 
-    // SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE,
-    // EXPORTFORMAT_BIBTEX, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_AJP,
-    // EXPORTFORMAT_JUS, EXPORTFORMAT_DEFAULT, EXPORTFORMAT_TEST};
     final SelectItem[] EXPORTFORMAT_OPTIONS =
         new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX,
             EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP,
             EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
+
     return EXPORTFORMAT_OPTIONS;
   }
 
+  // Yearbook
   public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED() {
     final SelectItem[] EXPORTFORMAT_OPTIONS =
         Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
     EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] =
         new SelectItem("EDOC_IMPORT", "EDOC_IMPORT");
+
     return EXPORTFORMAT_OPTIONS;
   }
 
@@ -125,13 +117,10 @@ public class ExportItems extends FacesBean {
         new SelectItem("html_linked", this.getLabel("Export_FileFormat_HTML_LINKED"));
     final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
         new SelectItem("escidoc_snippet", this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
-    // SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
-    // SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
-    // SelectItem FILEFORMAT_HTML_STYLED = new SelectItem("html_styled",
-    // getLabel("Export_FileFormat_HTML_STYLED"));
     final SelectItem[] FILEFORMAT_OPTIONS =
         new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN,
             FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
+
     return FILEFORMAT_OPTIONS;
   }
 
@@ -151,12 +140,14 @@ public class ExportItems extends FacesBean {
     final String selExportFormat = sb.getExportFormatName();
     sb.setExportFormatName(selExportFormat);
 
-    if ("APA".equalsIgnoreCase(selExportFormat) || "AJP".equalsIgnoreCase(selExportFormat)
-        || "JUS".equalsIgnoreCase(selExportFormat) || "DEFAULT".equalsIgnoreCase(selExportFormat)
-        || "TEST".equalsIgnoreCase(selExportFormat) || "APA(CJK)".equalsIgnoreCase(selExportFormat)
+    if ("APA".equalsIgnoreCase(selExportFormat) //
+        || "AJP".equalsIgnoreCase(selExportFormat) //
+        || "JUS".equalsIgnoreCase(selExportFormat) //
+        || "APA(CJK)".equalsIgnoreCase(selExportFormat) //
         || "CSL".equalsIgnoreCase(selExportFormat)) {
-      // set default fileFormat for APA or AJP to pdf
+      // set default fileFormat to pdf
       final String fileFormat = sb.getFileFormat();
+
       if (fileFormat != null || fileFormat != null && fileFormat.trim().equals("")
           || fileFormat != null && fileFormat.trim().equals(FileFormatVO.TEXT_NAME)) {
         sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
@@ -164,7 +155,7 @@ public class ExportItems extends FacesBean {
     } else {
       String fileFormat = null;
 
-      if ("ESCIDOC_XML".equals(selExportFormat) || "ESCIDOC_XML_V13".equals(selExportFormat)) {
+      if ("ESCIDOC_XML".equals(selExportFormat)) {
         fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
       } else if ("MARCXML".equals(selExportFormat)) {
         fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
@@ -172,9 +163,9 @@ public class ExportItems extends FacesBean {
         // txt for all other
         fileFormat = FileFormatVO.TEXT_NAME;
       }
+
       sb.setFileFormat(fileFormat);
     }
-
   }
 
   // /////////////////////////////////////////////////////////////////////////////////////

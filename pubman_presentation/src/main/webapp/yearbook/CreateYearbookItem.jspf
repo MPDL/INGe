@@ -4,7 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-	
+
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock">
 		<h3 class="xLarge_area0_p8 endline blockHeader">
 			<h:outputText value="#{lbl.Yearbook_information}" />
@@ -108,7 +108,9 @@
 						</h:panelGroup>
 					</h:panelGroup>
 				</span>
-			</h:panelGroup> <h:panelGroup layout="block"
+			</h:panelGroup> 
+			<ui:remove>
+			<h:panelGroup layout="block"
 				styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 						styleClass="mandatory" title="#{msg.mandatoryField}" value="*" />
@@ -124,7 +126,8 @@
 					</h:selectManyListbox>
 				</h:panelGroup>
 			</h:panelGroup>
+			</ui:remove>
 		</span>
 	</h:panelGroup>
-	
+
 </ui:composition>

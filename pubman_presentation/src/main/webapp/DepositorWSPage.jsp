@@ -9,6 +9,8 @@
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${MyItemsRetrieverRequestBean.unapiURLview}" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
     <h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+    <script src="/cone/js/jquery.suggest.js"></script>
+	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">

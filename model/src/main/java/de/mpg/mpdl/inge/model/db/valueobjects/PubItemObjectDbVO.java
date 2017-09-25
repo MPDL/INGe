@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +22,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import de.mpg.mpdl.inge.db.model.hibernate.StringListJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 
 

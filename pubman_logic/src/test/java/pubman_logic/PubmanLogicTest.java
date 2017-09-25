@@ -1,5 +1,6 @@
 package pubman_logic;
 
+import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.List;
@@ -7,8 +8,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.hibernate.query.Query;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,27 +24,29 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-import de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
-import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
-import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -65,18 +73,20 @@ public class PubmanLogicTest {
   // @Autowired
   // private ItemRepository itemRepository;
 
-  @Autowired
-  private AuthorizationService authorizationService;
+  // @Autowired
+  // private AuthorizationService authorizationService;
 
-  @Autowired
-  private PubItemDaoEs pubItemDao;
+  // @Autowired
+  // private PubItemDaoEs pubItemDao;
 
-  @Autowired
-  private OrganizationDaoEs orgDao;
+  // @Autowired
+  // private OrganizationDaoEs orgDao;
 
   @Autowired
   ElasticSearchClientProvider client;
 
+  @Autowired
+  private FileService fileService;
 
   @Ignore
   @Test
@@ -182,8 +192,8 @@ public class PubmanLogicTest {
   @Test
   @Ignore
   public void testGet() throws Exception {
-    Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO>) entityManager
+    Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
+        (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     // query.setHint("org.hibernate.cacheable", "true");
     // query.addQueryHint("org.hibernate.cacheable=true");
@@ -200,8 +210,8 @@ public class PubmanLogicTest {
     for (PubItemObjectDbVO pi : resultList) {
       try {
 
-        de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.db.model.valueobjects.PubItemObjectDbVO) pi;
+        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
+            (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) pi;
 
         try {
           long time = System.currentTimeMillis();
@@ -322,6 +332,60 @@ public class PubmanLogicTest {
     validateLoginname("mark");
   }
 
+  @Test
+  @Ignore
+  public void testOai() throws Exception {
+    QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED");
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0, null);
+    SearchRetrieveResponseVO<PubItemVO> response = pubItemService.search(srr, null);
 
+    int size = response.getRecords().size();
 
+    System.out.println("Anzahl: " + size);
+
+    for (SearchRetrieveRecordVO<PubItemVO> searchRetrieveRecordVO : response.getRecords()) {
+      PubItemVO pubItemVO = searchRetrieveRecordVO.getData();
+      String s = XmlTransformingService.transformToItem(pubItemVO);
+      this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
+          .getObjectIdAndVersion() + ".xml");
+    }
+  }
+
+  @Test
+  @Ignore
+  public void testOaiScrollable() throws Exception {
+    int count = 0;
+    // int countIntervall = 0;
+
+    QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED");
+
+    SearchResponse scrollResp =
+        this.client.getClient().prepareSearch(PropertyReader.getProperty("item_index_name"))
+            .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
+            .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
+            .setQuery(qb) //
+            .setSize(1000) // max of 1000 hits will be returned for each scroll
+            .get();
+    // Scroll until no hits are returned
+
+    ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+
+    do {
+      for (SearchHit hit : scrollResp.getHits().getHits()) {
+        count++;
+        PubItemVO pubItemVO = mapper.readValue(hit.getSourceAsString(), PubItemVO.class);
+        String s = XmlTransformingService.transformToItem(pubItemVO);
+        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
+            .getObjectIdAndVersion() + ".xml");
+      }
+
+      // countIntervall++;
+
+      System.out.println(count);
+      scrollResp = this.client.getClient().prepareSearchScroll(scrollResp.getScrollId()) //
+          .setScroll(new TimeValue(60000)) //
+          .execute() //
+          .actionGet();
+    } while (scrollResp.getHits().getHits().length != 0); // && countIntervall < 5);
+  }
 }

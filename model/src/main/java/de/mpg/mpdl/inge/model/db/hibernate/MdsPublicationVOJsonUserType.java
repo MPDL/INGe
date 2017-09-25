@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.model.hibernate;
+package de.mpg.mpdl.inge.model.db.hibernate;
 
 import com.fasterxml.jackson.databind.type.TypeFactory;
 

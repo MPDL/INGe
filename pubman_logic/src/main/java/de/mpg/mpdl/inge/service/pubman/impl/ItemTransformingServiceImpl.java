@@ -40,7 +40,6 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
     map.put("ENDNOTE", TransformerFactory.FORMAT.ENDNOTE_STRING);
     map.put("BIBTEX", TransformerFactory.FORMAT.BIBTEX_STRING);
     map.put("ESCIDOC_XML", TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
-    map.put("EDOC_EXPORT", TransformerFactory.FORMAT.EDOC_XML);
     map.put("EDOC_IMPORT", TransformerFactory.FORMAT.EDOC_XML);
   }
 
@@ -63,7 +62,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
       case STRUCTURED:
 
-        if ("ESCIDOC_XML_V13".equalsIgnoreCase(exportFormat.getFormatType().toString())) {
+        if ("ESCIDOC_XML".equalsIgnoreCase(exportFormat.getName())) {
           return itemList.getBytes();
         }
 
@@ -73,7 +72,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         try {
           trans =
               TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML,
-                  map.get(exportFormat));
+                  map.get(exportFormat.getName()));
 
           trans.transform(
               new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
@@ -83,7 +82,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         } catch (UnsupportedEncodingException | TransformationException e) {
           logger.warn("Exception occured when transforming from <"
               + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
-              + map.get(exportFormat));
+              + map.get(exportFormat.getName()));
           throw new IngeTechnicalException(e);
         }
         break;

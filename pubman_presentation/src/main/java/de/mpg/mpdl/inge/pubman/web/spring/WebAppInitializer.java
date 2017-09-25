@@ -33,6 +33,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // Spring
     servletContext.addListener(new ContextLoaderListener(myctx));
     servletContext.addListener(new RequestContextListener());
+    // Use ear.context (pubman_logic) as shared context between all webapps in the ear.
+    // ear.context is defined in beanRefContext.xml in module pubman_logic
     servletContext.setInitParameter(ContextLoader.LOCATOR_FACTORY_KEY_PARAM, "ear.context");
 
 

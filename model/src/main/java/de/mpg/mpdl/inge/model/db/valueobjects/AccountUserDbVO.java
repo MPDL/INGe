@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.model.valueobjects;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import de.mpg.mpdl.inge.db.model.hibernate.GrantVOListJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
 @Entity(name = "AccountUserVO")
