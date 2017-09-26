@@ -16,6 +16,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.FileDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
@@ -73,6 +74,7 @@ public class Validation {
                 .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
                 .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
                 .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
                 .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
@@ -108,6 +110,7 @@ public class Validation {
                 .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
                 .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
                 .on(pubItemVO.getMetadata(), new DateRequiredValidator())
                 .when(
@@ -156,6 +159,7 @@ public class Validation {
                 .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
                 .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
                 .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
                 .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
@@ -179,6 +183,7 @@ public class Validation {
                 .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
                 .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
                 .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
                 .on(pubItemVO.getMetadata().getCreators(), new CreatorRequiredValidator())
                 .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
                 .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
