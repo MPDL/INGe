@@ -5,10 +5,7 @@ package de.mpg.mpdl.inge.service.pubman;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Path;
-
-import org.springframework.beans.factory.annotation.Value;
 
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
