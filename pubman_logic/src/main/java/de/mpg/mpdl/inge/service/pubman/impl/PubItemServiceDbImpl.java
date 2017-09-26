@@ -64,6 +64,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
+import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 
 @Service
@@ -585,15 +586,15 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       try {
         String s = XmlTransformingService.transformToItem(itemToReturn);
-        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn
-            .getVersion().getObjectIdAndVersion() + ".xml");
+        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn.getVersion()
+            .getObjectIdAndVersion() + ".xml");
       } catch (TechnicalException e) {
         throw new IngeTechnicalException(e);
       }
     } else if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
       try {
         String s = XmlTransformingService.transformToItem(itemToReturn);
-        // this.fileService.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
+        OaiFileTools.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
       } catch (TechnicalException e) {
         throw new IngeTechnicalException(e);
       }

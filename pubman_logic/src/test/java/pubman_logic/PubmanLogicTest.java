@@ -42,12 +42,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
-import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
+import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -84,9 +84,6 @@ public class PubmanLogicTest {
 
   @Autowired
   ElasticSearchClientProvider client;
-
-  @Autowired
-  private FileService fileService;
 
   @Ignore
   @Test
@@ -346,7 +343,7 @@ public class PubmanLogicTest {
     for (SearchRetrieveRecordVO<PubItemVO> searchRetrieveRecordVO : response.getRecords()) {
       PubItemVO pubItemVO = searchRetrieveRecordVO.getData();
       String s = XmlTransformingService.transformToItem(pubItemVO);
-      this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
+      OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
           .getObjectIdAndVersion() + ".xml");
     }
   }
@@ -375,7 +372,7 @@ public class PubmanLogicTest {
         count++;
         PubItemVO pubItemVO = mapper.readValue(hit.getSourceAsString(), PubItemVO.class);
         String s = XmlTransformingService.transformToItem(pubItemVO);
-        this.fileService.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
+        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
             .getObjectIdAndVersion() + ".xml");
       }
 
