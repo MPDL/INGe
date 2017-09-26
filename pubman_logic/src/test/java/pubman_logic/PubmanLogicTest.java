@@ -352,9 +352,9 @@ public class PubmanLogicTest {
   @Ignore
   public void testOaiScrollable() throws Exception {
     int count = 0;
-    // int countIntervall = 0;
+    int countIntervall = 0;
 
-    QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED");
+    QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
     SearchResponse scrollResp =
         this.client.getClient().prepareSearch(PropertyReader.getProperty("item_index_name"))
@@ -376,13 +376,13 @@ public class PubmanLogicTest {
             .getObjectIdAndVersion() + ".xml");
       }
 
-      // countIntervall++;
+      countIntervall++;
 
       System.out.println(count);
       scrollResp = this.client.getClient().prepareSearchScroll(scrollResp.getScrollId()) //
           .setScroll(new TimeValue(60000)) //
           .execute() //
           .actionGet();
-    } while (scrollResp.getHits().getHits().length != 0); // && countIntervall < 5);
+    } while (scrollResp.getHits().getHits().length != 0 && countIntervall < 4);
   }
 }

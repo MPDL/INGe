@@ -24,9 +24,7 @@ public class OaiFileTools {
       throws IngeTechnicalException {
     Path filePath = FileSystems.getDefault().getPath(OAI_FILESYSTEM_ROOT_PATH + "/" + fileName);
     try {
-      CopyOption[] options = new CopyOption[]{
-          StandardCopyOption.REPLACE_EXISTING,
-        };       
+      CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING,};
       Files.copy(fileInputStream, filePath, options);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
