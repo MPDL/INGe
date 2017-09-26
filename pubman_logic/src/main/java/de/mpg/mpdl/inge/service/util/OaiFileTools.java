@@ -2,9 +2,11 @@ package de.mpg.mpdl.inge.service.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.CopyOption;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 import org.apache.log4j.Logger;
 
@@ -22,7 +24,10 @@ public class OaiFileTools {
       throws IngeTechnicalException {
     Path filePath = FileSystems.getDefault().getPath(OAI_FILESYSTEM_ROOT_PATH + "/" + fileName);
     try {
-      Files.copy(fileInputStream, filePath);
+      CopyOption[] options = new CopyOption[]{
+          StandardCopyOption.REPLACE_EXISTING,
+        };       
+      Files.copy(fileInputStream, filePath, options);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
       throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
