@@ -33,7 +33,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
   private final static String FILESYSTEM_ROOT_PATH = PropertyReader
-      .getProperty("inge.filestroage.seaweed_direct_submit_path");
+      .getProperty("inge.filestorage.filesystem_path");
 
   /*
    * 
