@@ -1,31 +1,31 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+// import java.sql.PreparedStatement;
+// import java.sql.ResultSet;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
 public class DbTools {
-  public static void closePreparedStatement(PreparedStatement ps) {
-    try {
-      if (ps != null && !ps.isClosed()) {
-        ps.close();
-      }
-    } catch (final Exception e) {
-      throw new RuntimeException("Error closing prepared statement", e);
-    }
-  }
+  // public static void closePreparedStatement(PreparedStatement ps) {
+  // try {
+  // if (ps != null && !ps.isClosed()) {
+  // ps.close();
+  // }
+  // } catch (final Exception e) {
+  // throw new RuntimeException("Error closing prepared statement", e);
+  // }
+  // }
 
-  public static void closeResultSet(ResultSet rs) {
-    try {
-      if (rs != null && !rs.isClosed()) {
-        rs.close();
-      }
-    } catch (final Exception e) {
-      throw new RuntimeException("Error closing result set", e);
-    }
-  }
+  // public static void closeResultSet(ResultSet rs) {
+  // try {
+  // if (rs != null && !rs.isClosed()) {
+  // rs.close();
+  // }
+  // } catch (final Exception e) {
+  // throw new RuntimeException("Error closing result set", e);
+  // }
+  // }
 
   public static void closeConnection(Connection connection) {
     try {

@@ -69,8 +69,8 @@ public class ImportSurveyorTask {
     } catch (final Exception e) {
       ImportSurveyorTask.logger.error("Error checking database for unfinished imports", e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
       DbTools.closeConnection(connection);
     }
 

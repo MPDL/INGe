@@ -120,7 +120,7 @@ public class ImportLog extends BaseImportLog {
         importLog = ImportLog.fillImportLog(rs);
       }
 
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
 
       query = "select * from import_log_item where parent = ? order by id";
       ps = connection.prepareStatement(query);
@@ -136,7 +136,7 @@ public class ImportLog extends BaseImportLog {
 
       importLog.setItems(importLogItems);
 
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
 
       if (loadDetails) {
         query =
@@ -172,8 +172,8 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error getting detail", e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
     }
 
     return importLog;
@@ -210,8 +210,8 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException(e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -240,8 +240,8 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error getting log", e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
     }
 
     return result;
@@ -540,7 +540,7 @@ public class ImportLog extends BaseImportLog {
       ps.setInt(1, this.id);
       ps.executeUpdate();
 
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
 
       query = "delete from import_log_item where parent  = ?";
 
@@ -548,7 +548,7 @@ public class ImportLog extends BaseImportLog {
       ps.setInt(1, this.id);
       ps.executeUpdate();
 
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
 
       query = "delete from import_log where id  = ?";
 
@@ -558,7 +558,7 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException(e);
     } finally {
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
       DbTools.closeConnection(connection);
     }
 
@@ -595,7 +595,7 @@ public class ImportLog extends BaseImportLog {
       ps.setString(7, this.format.name());
 
       ps.executeUpdate();
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
 
       ps = connection.prepareStatement("select max(id) as maxid from import_log");
 
@@ -609,8 +609,8 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -632,7 +632,7 @@ public class ImportLog extends BaseImportLog {
       ps.setString(6, importLogItem.getItemId());
 
       ps.executeUpdate();
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
 
       ps = connection.prepareStatement("select max(id) as maxid from import_log_item");
 
@@ -646,8 +646,8 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -671,8 +671,8 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -939,7 +939,7 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     } finally {
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
     }
   }
 
@@ -971,7 +971,7 @@ public class ImportLog extends BaseImportLog {
     } catch (final Exception e) {
       throw new RuntimeException("Error saving log", e);
     } finally {
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closePreparedStatement(ps);
     }
   }
 }

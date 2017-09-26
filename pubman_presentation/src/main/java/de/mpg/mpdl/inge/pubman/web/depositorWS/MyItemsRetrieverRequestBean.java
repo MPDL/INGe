@@ -136,8 +136,8 @@ public class MyItemsRetrieverRequestBean extends
       MyItemsRetrieverRequestBean.logger.error("Error getting imports from database", e);
       FacesBean.error("Error getting imports from database");
     } finally {
-      DbTools.closeResultSet(rs);
-      DbTools.closePreparedStatement(ps);
+      // DbTools.closeResultSet(rs);
+      // DbTools.closePreparedStatement(ps);
       DbTools.closeConnection(connection);
     }
 
