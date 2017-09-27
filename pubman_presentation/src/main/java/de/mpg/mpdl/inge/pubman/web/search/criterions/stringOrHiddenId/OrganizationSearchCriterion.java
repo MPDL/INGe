@@ -28,14 +28,12 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.batik.bridge.svg12.BindingListener;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
@@ -44,9 +42,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
