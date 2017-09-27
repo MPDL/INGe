@@ -489,10 +489,10 @@ public class ImportProcess extends Thread {
           } else {
             this.importLog.suspendItem(this.connection);
           }
-        } catch (final ValidationException e2) { // Standard Validation
+        } catch (final ValidationException e) { // Standard Validation
           this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
               "import_process_release_validation_failed", this.connection);
-          for (final ValidationReportItemVO item : e2.getReport().getItems()) {
+          for (final ValidationReportItemVO item : e.getReport().getItems()) {
             this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, item.getContent(),
                 this.connection);
           }

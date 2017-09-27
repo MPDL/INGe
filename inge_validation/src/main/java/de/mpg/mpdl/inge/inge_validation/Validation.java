@@ -214,8 +214,8 @@ public class Validation {
 
     if (complexResult.isSuccess() == false) {
       for (final ValidationError error : complexResult.getErrors()) {
-        final ValidationReportItemVO item = new ValidationReportItemVO();
-        item.setContent(error.getErrorMsg());
+        final ValidationReportItemVO item =
+            new ValidationReportItemVO(error.getErrorMsg(), ValidationReportItemVO.Severity.ERROR);
         item.setElement(error.getField());
         v.addItem(item);
       }
