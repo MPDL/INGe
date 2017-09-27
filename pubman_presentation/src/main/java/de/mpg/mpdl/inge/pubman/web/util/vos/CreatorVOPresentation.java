@@ -263,10 +263,12 @@ public class CreatorVOPresentation extends CreatorVO {
         editItem.error(editItem.getMessage("EntryIsNotANumber").replace("$1", this.getOuNumbers()));
       } catch (final IndexOutOfBoundsException ioobe) {
         EditItem editItem = getEditItem();
-        editItem.error(editItem.getMessage("EntryIsNotInValidRange").replace("$1", this.getOuNumbers()));
+        editItem.error(editItem.getMessage("EntryIsNotInValidRange").replace("$1",
+            this.getOuNumbers()));
       } catch (final Exception e) {
         EditItem editItem = getEditItem();
-        editItem.error(editItem.getMessage("ErrorInOrganizationAssignment").replace("$1", this.getOuNumbers()));
+        editItem.error(editItem.getMessage("ErrorInOrganizationAssignment").replace("$1",
+            this.getOuNumbers()));
       }
       return result;
     } else {
@@ -327,7 +329,7 @@ public class CreatorVOPresentation extends CreatorVO {
   public boolean equals(Object obj) {
     return (this == obj);
   }
-  
+
   private EditItem getEditItem() {
     return (EditItem) FacesTools.findBean("EditItem");
   }

@@ -136,7 +136,7 @@ public class PubFileVOPresentation extends FacesBean {
       return value;
     }
 
-//    this.error("There is no such content category defined (" + key + ")");
+    // this.error("There is no such content category defined (" + key + ")");
     Logger.getLogger(PubFileVOPresentation.class).warn(
         "WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
 

@@ -760,14 +760,12 @@ public class EasySubmission extends FacesBean {
       return null;
     } catch (final DataaquisitionException inre) {
       EasySubmission.logger.error(inre.getMessage(), inre);
-      this.error(this
-          .getMessage("easy_submission_import_from_external_service_identifier_error")
+      this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error")
           + this.getServiceID());
       return null;
     } catch (final Exception e) {
       EasySubmission.logger.error(e.getMessage(), e);
-      this.error(this
-          .getMessage("easy_submission_import_from_external_service_identifier_error")
+      this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error")
           + this.getServiceID());
       return null;
     }

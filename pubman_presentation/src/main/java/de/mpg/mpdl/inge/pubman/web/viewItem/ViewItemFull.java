@@ -771,29 +771,28 @@ public class ViewItemFull extends FacesBean {
     return retVal;
   }
 
-//  private void showValidationMessages(ValidationReportVO report) {
-//    FacesBean.warn(this.getMessage(ViewItemFull.VALIDATION_ERROR_MESSAGE));
-//    for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
-//      final ValidationReportItemVO element = iter.next();
-//      this.error(this.getMessage(element.getContent()));
-//    }
-//  }
-  
+  // private void showValidationMessages(ValidationReportVO report) {
+  // FacesBean.warn(this.getMessage(ViewItemFull.VALIDATION_ERROR_MESSAGE));
+  // for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator();
+  // iter.hasNext();) {
+  // final ValidationReportItemVO element = iter.next();
+  // this.error(this.getMessage(element.getContent()));
+  // }
+  // }
+
   private void showValidationMessages(ValidationReportVO report) {
     this.warn(this.getMessage(ViewItemFull.VALIDATION_ERROR_MESSAGE));
-    
+
     for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       final ValidationReportItemVO element = iter.next();
 
       switch (element.getSeverity()) {
         case ERROR:
-          this.error(this.getMessage(element.getContent()).replaceAll("\\$1",
-              element.getElement()));
+          this.error(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
           break;
 
         case WARNING:
-          this.warn(this.getMessage(element.getContent()).replaceAll("\\$1",
-              element.getElement()));
+          this.warn(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
           break;
 
         default:

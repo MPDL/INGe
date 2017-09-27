@@ -146,8 +146,8 @@ public class EditItemBean extends FacesBean {
 
       if (!org.isEmpty() && !this.usedOrganizations.contains(org.getNumber())) {
 
-        this.error(this.getMessage("EntryIsNotBound").replace("$1",
-            String.valueOf(org.getNumber())));
+        this.error(this.getMessage("EntryIsNotBound")
+            .replace("$1", String.valueOf(org.getNumber())));
         return false;
       }
     }
@@ -212,8 +212,7 @@ public class EditItemBean extends FacesBean {
         this.error(this.getMessage("EntryIsNotANumber").replace("$1", creator.getOuNumbers()));
         return false;
       } catch (final IndexOutOfBoundsException ioobe) {
-        this.error(this.getMessage("EntryIsNotInValidRange").replace("$1",
-            creator.getOuNumbers()));
+        this.error(this.getMessage("EntryIsNotInValidRange").replace("$1", creator.getOuNumbers()));
         return false;
       } catch (final Exception e) {
         EditItemBean.logger.error("Unexpected error evaluation creator organizations", e);

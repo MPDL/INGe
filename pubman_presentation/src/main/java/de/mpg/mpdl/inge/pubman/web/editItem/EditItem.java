@@ -835,13 +835,11 @@ public class EditItem extends FacesBean {
 
       switch (element.getSeverity()) {
         case ERROR:
-          this.error(this.getMessage(element.getContent()).replaceAll("\\$1",
-              element.getElement()));
+          this.error(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
           break;
 
         case WARNING:
-          this.warn(this.getMessage(element.getContent()).replaceAll("\\$1",
-              element.getElement()));
+          this.warn(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
           break;
 
         default:
