@@ -93,7 +93,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void info(String summary, String detail, UIComponent component) {
-    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_INFO);
+    this.message(summary, detail, component, FacesMessage.SEVERITY_INFO);
   }
 
   /**
@@ -138,7 +138,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void warn(String summary, String detail, UIComponent component) {
-    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_WARN);
+    this.message(summary, detail, component, FacesMessage.SEVERITY_WARN);
   }
 
   /**
@@ -148,8 +148,8 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void error(String summary) {
-    FacesBean.error(summary, null, null);
+  public void error(String summary) {
+    this.error(summary, null, null);
   }
 
   /**
@@ -160,7 +160,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void error(String summary, String detail) {
-    FacesBean.error(summary, detail, null);
+    this.error(summary, detail, null);
   }
 
   /**
@@ -172,7 +172,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void error(UIComponent component, String summary) {
-    FacesBean.error(summary, null, component);
+    this.error(summary, null, component);
   }
 
   /**
@@ -182,8 +182,8 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void error(String summary, String detail, UIComponent component) {
-    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_ERROR);
+  public void error(String summary, String detail, UIComponent component) {
+    this.message(summary, detail, component, FacesMessage.SEVERITY_ERROR);
   }
 
   /**
@@ -228,7 +228,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void fatal(String summary, String detail, UIComponent component) {
-    FacesBean.message(summary, detail, component, FacesMessage.SEVERITY_FATAL);
+    this.message(summary, detail, component, FacesMessage.SEVERITY_FATAL);
   }
 
   /**
@@ -238,7 +238,7 @@ public class FacesBean implements Serializable {
    * 
    * @param summary summary text
    */
-  public static void message(String summary, String detail, UIComponent component, Severity severity) {
+  public void message(String summary, String detail, UIComponent component, Severity severity) {
     final FacesMessage fm = new FacesMessage(severity, summary, detail);
 
     if (component == null) {

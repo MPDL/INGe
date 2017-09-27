@@ -112,11 +112,11 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] itemListReportTransformed = null;
 
     if ("".equals(this.organization.getIdentifier()) || this.organization.getIdentifier() == null) {
-      FacesBean.error(this.getMessage("ReportOrgIdNotProvided"));
+      this.error(this.getMessage("ReportOrgIdNotProvided"));
       return;
     }
     if ("".equals(this.getReportYear()) || this.getReportYear() == null) {
-      FacesBean.error(this.getMessage("ReportYearNotProvided"));
+      this.error(this.getMessage("ReportYearNotProvided"));
       return;
     }
 
@@ -155,7 +155,7 @@ public class ReportWorkspaceBean extends FacesBean {
       }
     } catch (final Exception e) {
       logger.error("Error while generatiring report output file.", e);
-      FacesBean.error("Error while generatiring output file.");
+      this.error("Error while generatiring output file.");
     }
   }
 
@@ -212,7 +212,7 @@ public class ReportWorkspaceBean extends FacesBean {
       }
     } catch (final Exception e) {
       logger.error("Error when trying to find search service.", e);
-      FacesBean.error("Did not find Search service");
+      this.error("Did not find Search service");
     }
 
     return itemListAsString;
@@ -226,7 +226,7 @@ public class ReportWorkspaceBean extends FacesBean {
               FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
-      FacesBean.error("Did not find Citation service");
+      this.error("Did not find Citation service");
     }
 
     return exportData;

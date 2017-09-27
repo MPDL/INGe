@@ -58,13 +58,13 @@ public class Search extends FacesBean {
 
     // check if the searchString contains useful data
     if (searchString.trim().equals("")) {
-      FacesBean.error(this.getMessage("search_NoCriteria"));
+      this.error(this.getMessage("search_NoCriteria"));
       return;
     }
 
     // Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search
     if (searchString.trim().contains("%")) {
-      FacesBean.error(this.getMessage("search_ParseError"));
+      this.error(this.getMessage("search_ParseError"));
       return;
     }
 
@@ -81,7 +81,7 @@ public class Search extends FacesBean {
           "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8"));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
-      FacesBean.error(this.getMessage("search_TechnicalError"));
+      this.error(this.getMessage("search_TechnicalError"));
     }
   }
 
@@ -160,7 +160,7 @@ public class Search extends FacesBean {
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
-      FacesBean.error(this.getMessage("search_TechnicalError"));
+      this.error(this.getMessage("search_TechnicalError"));
     }
 
     return "";

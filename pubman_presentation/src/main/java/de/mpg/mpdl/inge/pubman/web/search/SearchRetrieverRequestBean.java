@@ -24,7 +24,6 @@ import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
@@ -149,8 +148,7 @@ public class SearchRetrieverRequestBean extends
 
     if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
       this.setElasticSearchQuery("");
-      FacesBean
-          .error("You have to call this page with a parameter \"esq\" and a elastic search query!");
+      this.error("You have to call this page with a parameter \"esq\" and a elastic search query!");
 
     } else {
       this.setElasticSearchQuery(elasticSearchQuery);
@@ -216,7 +214,7 @@ public class SearchRetrieverRequestBean extends
        * Integer.parseInt(result.getTotalNumberOfResults().toString());
        */
     } catch (final Exception e) {
-      FacesBean.error("Error in search!");
+      this.error("Error in search!");
       SearchRetrieverRequestBean.logger.error("Error during search. ", e);
     }
 
@@ -362,7 +360,7 @@ public class SearchRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getIndex() == null || sc.getIndex().equals("")) {
-      FacesBean.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
+      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
           this.getLabel("ENUM_CRITERIA_" + sc.name())));
     }
   }

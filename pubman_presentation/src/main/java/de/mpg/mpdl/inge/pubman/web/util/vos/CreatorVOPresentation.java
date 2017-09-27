@@ -43,7 +43,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 /**
@@ -260,14 +259,14 @@ public class CreatorVOPresentation extends CreatorVO {
           }
         }
       } catch (final NumberFormatException nfe) {
-        FacesBean.error(((EditItem) FacesTools.findBean("EditItem"))
-            .getMessage("EntryIsNotANumber").replace("$1", this.getOuNumbers()));
+        EditItem editItem = getEditItem();
+        editItem.error(editItem.getMessage("EntryIsNotANumber").replace("$1", this.getOuNumbers()));
       } catch (final IndexOutOfBoundsException ioobe) {
-        FacesBean.error(((EditItem) FacesTools.findBean("EditItem")).getMessage(
-            "EntryIsNotInValidRange").replace("$1", this.getOuNumbers()));
+        EditItem editItem = getEditItem();
+        editItem.error(editItem.getMessage("EntryIsNotInValidRange").replace("$1", this.getOuNumbers()));
       } catch (final Exception e) {
-        FacesBean.error(((EditItem) FacesTools.findBean("EditItem")).getMessage(
-            "ErrorInOrganizationAssignment").replace("$1", this.getOuNumbers()));
+        EditItem editItem = getEditItem();
+        editItem.error(editItem.getMessage("ErrorInOrganizationAssignment").replace("$1", this.getOuNumbers()));
       }
       return result;
     } else {
@@ -327,5 +326,9 @@ public class CreatorVOPresentation extends CreatorVO {
   @Override
   public boolean equals(Object obj) {
     return (this == obj);
+  }
+  
+  private EditItem getEditItem() {
+    return (EditItem) FacesTools.findBean("EditItem");
   }
 }

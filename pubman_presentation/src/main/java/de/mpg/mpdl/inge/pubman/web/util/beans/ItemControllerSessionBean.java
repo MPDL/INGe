@@ -125,7 +125,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while accepting current PubItem", e);
-      FacesBean.error("Error while accepting current PubItem" + e.getMessage());
+      this.error("Error while accepting current PubItem" + e.getMessage());
     }
 
     return "";
@@ -148,7 +148,7 @@ public class ItemControllerSessionBean extends FacesBean {
     // new item directly
     if (this.getContextListSessionBean().getDepositorContextList().isEmpty()) {
       ItemControllerSessionBean.logger.warn("The user does not have privileges for any context.");
-      FacesBean.error(this.getMessage("ViewItemFull_user_has_no_context"));
+      this.error(this.getMessage("ViewItemFull_user_has_no_context"));
       return null;
     }
 
@@ -250,14 +250,14 @@ public class ItemControllerSessionBean extends FacesBean {
     } catch (final AuthenticationException | AuthorizationException e) {
       ItemControllerSessionBean.logger.error(
           "Authentication/Authorization error while deleting current PubItem", e);
-      FacesBean.error("Authentication/Authorization error while deleting current PubItem: "
+      this.error("Authentication/Authorization error while deleting current PubItem: "
           + e.getMessage());
     } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while deleting current PubItem", e);
-      FacesBean.error("Technical error while deleting current PubItem");
+      this.error("Technical error while deleting current PubItem");
     } catch (final IngeApplicationException e) {
       ItemControllerSessionBean.logger.error("Application error while deleting current PubItem", e);
-      FacesBean.error("Application error while deleting current PubItem: " + e.getMessage());
+      this.error("Application error while deleting current PubItem: " + e.getMessage());
     }
 
     return "";
@@ -531,7 +531,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while submitting current PubItem", e);
-      FacesBean.error("Error while submitting current PubItem" + e.getMessage());
+      this.error("Error while submitting current PubItem" + e.getMessage());
     }
 
     return "";
@@ -731,7 +731,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccesfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while revising current PubItem", e);
-      FacesBean.error("Error while revising current PubItem" + e.getMessage());
+      this.error("Error while revising current PubItem" + e.getMessage());
     }
 
     return "";
@@ -767,16 +767,16 @@ public class ItemControllerSessionBean extends FacesBean {
       // TODO Auto-generated catch block
       ItemControllerSessionBean.logger
           .error("Authentication error while saving current PubItem", e);
-      FacesBean.error("Authentication error while saving current PubItem: " + e.getMessage());
+      this.error("Authentication error while saving current PubItem: " + e.getMessage());
     } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while saving current PubItem", e);
-      FacesBean.error("Technical error while saving current PubItem");
+      this.error("Technical error while saving current PubItem");
     } catch (final IngeApplicationException e) {
       if (e.getCause() instanceof ValidationException) {
         throw (ValidationException) e.getCause();
       } else {
         ItemControllerSessionBean.logger.error("Application Error while saving current PubItem", e);
-        FacesBean.error("Application error while saving current PubItem: " + e.getMessage());
+        this.error("Application error while saving current PubItem: " + e.getMessage());
       }
 
     }
@@ -842,7 +842,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while releasing current PubItem", e);
-      FacesBean.error("Error while releasing current PubItem" + e.getMessage());
+      this.error("Error while releasing current PubItem" + e.getMessage());
     }
 
     return "";
@@ -868,7 +868,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while withdrawing current PubItem", e);
-      FacesBean.error("Error while withdrawing current PubItem");
+      this.error("Error while withdrawing current PubItem");
     }
 
     return "";

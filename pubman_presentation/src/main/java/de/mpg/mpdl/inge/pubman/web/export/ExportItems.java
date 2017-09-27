@@ -254,7 +254,7 @@ public class ExportItems extends FacesBean {
     }
 
     if (!OK) {
-      FacesBean.error(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED));
+      this.error(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED));
       return null;
     }
 
@@ -271,7 +271,7 @@ public class ExportItems extends FacesBean {
       // normal
       final Throwable ecc = e.getCause().getCause();
       if (ecc != null && ecc instanceof com.sun.mail.smtp.SMTPAddressFailedException) {
-        FacesBean.error(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
+        this.error(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS));
         return null;
       }
 
@@ -290,7 +290,7 @@ public class ExportItems extends FacesBean {
       try {
         FacesTools.getExternalContext().redirect(bhsb.getPreviousItem().getPage());
       } catch (final IOException e) {
-        FacesBean.error("Could not redirect!");
+        this.error("Could not redirect!");
       }
 
       return "";

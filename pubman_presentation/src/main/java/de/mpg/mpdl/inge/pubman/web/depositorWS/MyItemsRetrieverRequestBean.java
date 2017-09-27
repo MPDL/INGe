@@ -30,7 +30,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -134,7 +133,7 @@ public class MyItemsRetrieverRequestBean extends
       }
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error getting imports from database", e);
-      FacesBean.error("Error getting imports from database");
+      this.error("Error getting imports from database");
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
@@ -206,7 +205,7 @@ public class MyItemsRetrieverRequestBean extends
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error in retrieving items", e);
-      FacesBean.error("Error in retrieving items");
+      this.error("Error in retrieving items");
       this.numberOfRecords = 0;
     }
 
@@ -221,7 +220,7 @@ public class MyItemsRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getSortPath() == null || sc.getSortPath().equals("")) {
-      FacesBean.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
+      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
           this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }
@@ -324,7 +323,7 @@ public class MyItemsRetrieverRequestBean extends
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error during redirection.", e);
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
 
     return "";
@@ -342,7 +341,7 @@ public class MyItemsRetrieverRequestBean extends
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
 
     return "";

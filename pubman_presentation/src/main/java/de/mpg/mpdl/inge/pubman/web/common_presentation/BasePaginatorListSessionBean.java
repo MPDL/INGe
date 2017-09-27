@@ -425,10 +425,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
         this.setCurrentPageNumber(goToPage);
         this.setGoToPageBottom(String.valueOf(goToPage));
       } else {
-        FacesBean.error(this.getMessage("listError_goTo"));
+        this.error(this.getMessage("listError_goTo"));
       }
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("listError_goTo"));
+      this.error(this.getMessage("listError_goTo"));
     }
 
     this.redirect();
@@ -447,10 +447,10 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
         this.setCurrentPageNumber(goToPage);
         this.setGoToPageTop(String.valueOf(goToPage));
       } else {
-        FacesBean.error(this.getMessage("listError_goTo"));
+        this.error(this.getMessage("listError_goTo"));
       }
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("listError_goTo"));
+      this.error(this.getMessage("listError_goTo"));
     }
 
     this.redirect();
@@ -575,7 +575,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
       BasePaginatorListSessionBean.logger.debug("redirectURL :" + this.getRedirectUrl());
       FacesTools.getExternalContext().redirect(this.getRedirectUrl());
     } catch (final IOException e) {
-      FacesBean.error("Could not redirect!");
+      this.error("Could not redirect!");
     }
   }
 

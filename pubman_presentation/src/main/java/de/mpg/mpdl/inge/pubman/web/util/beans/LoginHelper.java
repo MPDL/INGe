@@ -49,7 +49,6 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookUtils;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 
 /**
@@ -134,10 +133,10 @@ public class LoginHelper extends FacesBean {
       }
     } catch (final AuthenticationException e) {
       LoginHelper.logger.error("Error while logging in", e);
-      FacesBean.error("Username and/or password not correct");
+      this.error("Username and/or password not correct");
     } catch (final Exception e) {
       LoginHelper.logger.error("Error while logging in", e);
-      FacesBean.error("Technical error while logging in.");
+      this.error("Technical error while logging in.");
     }
 
     return HomePage.LOAD_HOMEPAGE;

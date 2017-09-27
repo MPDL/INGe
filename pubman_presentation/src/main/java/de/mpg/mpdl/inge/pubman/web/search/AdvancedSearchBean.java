@@ -797,7 +797,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public void startSearch(Index indexName) {
     if (this.currentlyOpenedParenthesis != null) {
-      FacesBean.error(this.getMessage("search_ParenthesisNotClosed"));
+      this.error(this.getMessage("search_ParenthesisNotClosed"));
       return;
     }
 
@@ -847,17 +847,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       AdvancedSearchBean.logger.info(qb.toString());
 
     } catch (final SearchParseException e1) {
-      FacesBean.error(this.getMessage("search_ParseError"));
-
+      this.error(this.getMessage("search_ParseError"));
     }
 
     this.query = SearchCriterionBase.scListToQueryString(allCriterions);
     AdvancedSearchBean.logger.debug("Internal Query: " + this.query);
 
     if (this.query == null || this.query.trim().isEmpty()) {
-      FacesBean.error(this.getMessage("search_NoCriteria"));
+      this.error(this.getMessage("search_NoCriteria"));
     }
-
 
     String searchType = "advanced";
     if (Index.ITEM_CONTAINER_ADMIN == indexName) {

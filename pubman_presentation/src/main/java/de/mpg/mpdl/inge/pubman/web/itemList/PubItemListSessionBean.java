@@ -53,7 +53,6 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionB
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -259,7 +258,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -276,7 +275,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -293,7 +292,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -310,7 +309,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -327,7 +326,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -344,7 +343,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -361,7 +360,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -382,7 +381,7 @@ public class PubItemListSessionBean extends
       this.setCurrentPageNumber(1);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -397,7 +396,7 @@ public class PubItemListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -412,7 +411,7 @@ public class PubItemListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -427,7 +426,7 @@ public class PubItemListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -442,7 +441,7 @@ public class PubItemListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -457,7 +456,7 @@ public class PubItemListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -472,7 +471,7 @@ public class PubItemListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -487,7 +486,7 @@ public class PubItemListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -734,14 +733,14 @@ public class PubItemListSessionBean extends
           existing++;
         }
       } else {
-        FacesBean.error(this.getMessage("basket_MaximumSizeReached") + " ("
+        this.error(this.getMessage("basket_MaximumSizeReached") + " ("
             + PubItemListSessionBean.MAXIMUM_CART_ITEMS + ")");
         break;
       }
     }
 
     if (selectedPubItems.size() == 0) {
-      FacesBean.error(this.getMessage("basket_NoItemsSelected"));
+      this.error(this.getMessage("basket_NoItemsSelected"));
     }
     if (added > 0 || existing > 0) {
       this.info(this.getMessage("basket_MultipleAddedSuccessfully").replace("$1",
@@ -911,7 +910,7 @@ public class PubItemListSessionBean extends
       // return "dialog:showDisplayExportItemsPage";
       return "showDisplayExportItemsPage";
     } else {
-      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+      this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
       sb.setExportDisplayData(displayExportData);
       this.redirect();
       return "";
@@ -946,7 +945,7 @@ public class PubItemListSessionBean extends
         return ErrorPage.LOAD_ERRORPAGE;
       }
       if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
-        FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
+        this.error(this.getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
         this.redirect();
       }
       // YEAR + MONTH + DAY_OF_MONTH
@@ -975,7 +974,7 @@ public class PubItemListSessionBean extends
       // hier call set the values on the exportEmailView - attachment file, subject, ....
       return "displayExportEmailPage";
     } else {
-      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+      this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
     }
 
     return "";
@@ -1022,7 +1021,7 @@ public class PubItemListSessionBean extends
       }
       FacesTools.getCurrentInstance().responseComplete();
     } else {
-      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+      this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
     }
   }
 
@@ -1248,7 +1247,7 @@ public class PubItemListSessionBean extends
     if (newItemPosition > 0 && newItemPosition <= this.getTotalNumberOfElements()) {
       this.itemPosition = newItemPosition;
     } else {
-      FacesBean.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
+      this.error(this.getMessage("ViewItemFull_browse_to_item_not_in_range"));
     }
   }
 

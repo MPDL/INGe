@@ -297,7 +297,7 @@ public class YearbookItemCreateBean extends FacesBean {
       }
       return "loadYearbookPage";
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_creationError"));
+      this.error(this.getMessage("Yearbook_creationError"));
       YearbookItemCreateBean.logger.error("Error while creating yearbook", e);
     }
 

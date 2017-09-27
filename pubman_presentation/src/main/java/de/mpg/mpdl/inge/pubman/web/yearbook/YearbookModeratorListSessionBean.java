@@ -254,7 +254,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -271,7 +271,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -288,7 +288,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -305,7 +305,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -322,7 +322,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -339,7 +339,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -356,7 +356,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -377,7 +377,7 @@ public class YearbookModeratorListSessionBean extends
       this.setCurrentPageNumber(1);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -392,7 +392,7 @@ public class YearbookModeratorListSessionBean extends
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -407,7 +407,7 @@ public class YearbookModeratorListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -422,7 +422,7 @@ public class YearbookModeratorListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -437,7 +437,7 @@ public class YearbookModeratorListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -452,7 +452,7 @@ public class YearbookModeratorListSessionBean extends
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 

@@ -20,7 +20,6 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -118,13 +117,13 @@ public class CartItemsRetrieverRequestBean extends
       pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - this.numberOfRecords);
       if (pssb.getDiffDisplayNumber() > 0) {
 
-        FacesBean.error(pssb.getDiffDisplayNumber() + " " + this.getMessage("basket_ItemsChanged"));
+        this.error(pssb.getDiffDisplayNumber() + " " + this.getMessage("basket_ItemsChanged"));
       }
 
 
 
     } catch (final Exception e) {
-      FacesBean.error("Error in retrieving items");
+      this.error("Error in retrieving items");
       CartItemsRetrieverRequestBean.logger.error("Error while retrieving items for basket", e);
     }
     return returnList;
@@ -148,7 +147,7 @@ public class CartItemsRetrieverRequestBean extends
       }
     }
     if (countSelected == 0) {
-      FacesBean.error(this
+      this.error(this
           .getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
     }
 
@@ -168,7 +167,7 @@ public class CartItemsRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getSortPath() == null || sc.getSortPath().equals("")) {
-      FacesBean.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
+      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
           this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }

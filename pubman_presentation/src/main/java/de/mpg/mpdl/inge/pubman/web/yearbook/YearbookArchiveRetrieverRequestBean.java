@@ -121,7 +121,7 @@ public class YearbookArchiveRetrieverRequestBean extends
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -159,7 +159,7 @@ public class YearbookArchiveRetrieverRequestBean extends
 
     } catch (final Exception e) {
       YearbookArchiveRetrieverRequestBean.logger.error("Error in retrieving items", e);
-      FacesBean.error("Error in retrieving items");
+      this.error("Error in retrieving items");
       this.numberOfRecords = 0;
     }
 
@@ -173,7 +173,7 @@ public class YearbookArchiveRetrieverRequestBean extends
     try {
       pilsb.downloadExportFile(pilsb.getSelectedItems());
     } catch (final Exception e) {
-      FacesBean.error("Error while exporting");
+      this.error("Error while exporting");
       YearbookArchiveRetrieverRequestBean.logger.error("Error exporting yearbook", e);
     }
   }

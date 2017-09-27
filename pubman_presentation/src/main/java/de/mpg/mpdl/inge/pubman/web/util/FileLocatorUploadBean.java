@@ -225,7 +225,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     }
 
     if (this.getError() != null) {
-      FacesBean.error(this.getMessage("errorLocatorMain").replace("$1", this.getError()));
+      this.error(this.getMessage("errorLocatorMain").replace("$1", this.getError()));
       return null;
     }
 
