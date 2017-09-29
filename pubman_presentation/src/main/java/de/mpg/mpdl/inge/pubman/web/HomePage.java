@@ -40,7 +40,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -67,7 +66,7 @@ public class HomePage extends BreadcrumbPage {
 
     final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     if (parameters.containsKey("expired")) {
-      FacesBean.error(this.getMessage("LoginErrorPage_loggedOffFromSystem"));
+      this.error(this.getMessage("LoginErrorPage_loggedOffFromSystem"));
     } else if (parameters.containsKey("logout")) {
       this.info(this.getMessage("LogoutMessage"));
     }

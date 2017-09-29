@@ -131,7 +131,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
 
     return "";
@@ -164,7 +164,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       return yearbooks;
     } catch (final Exception e) {
       YearbookModeratorRetrieverRequestBean.logger.error("Error in retrieving items", e);
-      FacesBean.error("Error in retrieving items");
+      this.error("Error in retrieving items");
       this.numberOfRecords = 0;
     }
 

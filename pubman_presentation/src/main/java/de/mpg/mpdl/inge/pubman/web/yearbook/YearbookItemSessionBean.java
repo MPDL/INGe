@@ -62,7 +62,7 @@ public class YearbookItemSessionBean extends FacesBean {
       this.pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
       this.selectedWorkspace = YBWORKSPACE.CANDIDATES;
     } catch (final Exception e) {
-      FacesBean.error("Error retrieving yearbook item!");
+      this.error("Error retrieving yearbook item!");
       YearbookItemSessionBean.logger.error("Error retrieving yearbook item!", e);
     }
   }
@@ -117,7 +117,7 @@ public class YearbookItemSessionBean extends FacesBean {
     this.setYearbook(yb);
     
     } catch (final Exception e) {
-      FacesBean.error("Error initializing yearbook item!");
+      this.error("Error initializing yearbook item!");
       YearbookItemSessionBean.logger.error("Error initializing yearbook item!", e);
     }
 
@@ -184,7 +184,7 @@ public class YearbookItemSessionBean extends FacesBean {
       this.addRelations(newRels);
       this.info(this.getMessage("Yearbook_AddedItemsToYearbook"));
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_ErrorAddingMembers"));
+      this.error(this.getMessage("Yearbook_ErrorAddingMembers"));
       YearbookItemSessionBean.logger.error("Error adding members to yearbook", e);
     }
   }
@@ -202,7 +202,7 @@ public class YearbookItemSessionBean extends FacesBean {
       this.removeRelations(itemIds);
       this.info(this.getMessage("Yearbook_RemovedItemsFromYearbook"));
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_ErrorRemovingMembers"));
+      this.error(this.getMessage("Yearbook_ErrorRemovingMembers"));
       YearbookItemSessionBean.logger.error("Error removing members from yearbook", e);
     }
   }
@@ -413,13 +413,13 @@ public class YearbookItemSessionBean extends FacesBean {
     // for (final PubItemVOPresentation pubItem : pubItemList) {
     // final boolean valid = this.validateItem(pubItem);
     // if (!valid) {
-    // FacesBean.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
+    // this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
     // "\"" + pubItem.getMetadata().getTitle() + "\""));
     // allValid = false;
     // }
     // }
     // if (!allValid) {
-    // FacesBean.error(this.getMessage("Yearbook_SubmitError"));
+    // this.error(this.getMessage("Yearbook_SubmitError"));
     // } else {
     // final TaskParamVO param =
     // new TaskParamVO(this.getYearbookItem().getModificationDate(), "Submitting yearbook");
@@ -428,7 +428,7 @@ public class YearbookItemSessionBean extends FacesBean {
     // this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
     // }
     // } catch (final Exception e) {
-    // FacesBean.error(this.getMessage("Yearbook_SubmitError"));
+    // this.error(this.getMessage("Yearbook_SubmitError"));
     // YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
     // }
     // try {
@@ -436,7 +436,7 @@ public class YearbookItemSessionBean extends FacesBean {
     // this.itemHandler.retrieve(this.getYearbookItem().getVersion().getObjectId());
     // this.setYearbookItem(XmlTransformingService.transformToPubItem(yearbookXml));
     // } catch (final Exception e) {
-    // FacesBean.error(this.getMessage("Yearbook_reinitializeError"));
+    // this.error(this.getMessage("Yearbook_reinitializeError"));
     // YearbookItemSessionBean.logger.error("Could not reinitialize Yearbook", e);
     // }
 
@@ -456,7 +456,7 @@ public class YearbookItemSessionBean extends FacesBean {
       this.pilsb.downloadExportFile(result);
 
     } catch (final Exception e) {
-      FacesBean.error("Error while exporting");
+      this.error("Error while exporting");
       YearbookItemSessionBean.logger.error("Error exporting yearbook", e);
     }
 

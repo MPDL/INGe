@@ -30,7 +30,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
@@ -159,7 +158,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyTasksRetrieverRequestBean.logger.error("Error in retrieving items", e);
-      FacesBean.error("Error in retrieving items");
+      this.error("Error in retrieving items");
       this.numberOfRecords = 0;
     }
 
@@ -343,7 +342,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
     } catch (final Exception e) {
       MyTasksRetrieverRequestBean.logger.error("Error getting imports from database", e);
-      FacesBean.error("Error getting imports from database");
+      this.error("Error getting imports from database");
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
@@ -391,7 +390,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 
@@ -406,7 +405,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      FacesBean.error("Could not redirect");
+      this.error("Could not redirect");
     }
   }
 

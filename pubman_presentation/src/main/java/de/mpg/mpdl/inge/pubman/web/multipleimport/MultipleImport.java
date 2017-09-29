@@ -112,7 +112,7 @@ public class MultipleImport extends FacesBean {
   public String uploadFile() {
     MultipleImport.logger.info(this.uploadedImportFile);
     if (this.uploadedImportFile == null) {
-      FacesBean.error(this.getMessage("UploadFileNotProvided"));
+      this.error(this.getMessage("UploadFileNotProvided"));
       return null;
     }
 
@@ -137,7 +137,7 @@ public class MultipleImport extends FacesBean {
 
   public void startImport() throws Exception {
     if ("".equals(this.name)) {
-      FacesBean.error(this.getMessage("ImportNameNotProvided"));
+      this.error(this.getMessage("ImportNameNotProvided"));
       return;
     }
 

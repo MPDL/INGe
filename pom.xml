@@ -1177,6 +1177,21 @@
 		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
 		<framework.organizational_unit.id>escidoc:persistent25</framework.organizational_unit.id>
 		
+		<context_index_name>db_contexts</context_index_name>
+		<context_index_type>context</context_index_type>
+		<context_index_sort>name.sorted</context_index_sort>
+		<item_index_name>db_items</item_index_name>
+		<item_index_type>item</item_index_type>
+		<item_index_sort>metadata.title.sorted</item_index_sort>
+		<organization_index_name>db_ous</organization_index_name>
+		<organization_index_type>organization</organization_index_type>
+		<organization_index_sort>defaultMetadata.name.sorted</organization_index_sort>
+		<user_index_name>db_users</user_index_name>
+		<user_index_type>user</user_index_type>
+		<user_index_sort>name.sorted</user_index_sort>
+		<yearbook_index_name>db_yearbooks</yearbook_index_name>
+		<yearbook_index_type>yearbook</yearbook_index_type>
+		
 		<inge.depositor.loginname>test_depositor</inge.depositor.loginname>
 		<inge.moderator.loginname>test_moderator</inge.moderator.loginname>
 		
@@ -1187,6 +1202,11 @@
         <inge.logic.temporary_filesystem_root_path>/tmp/inge/</inge.logic.temporary_filesystem_root_path>
         <inge.rest.service_url>http://localhost:8080/rest</inge.rest.service_url>
         <inge.rest.file_path>/component</inge.rest.file_path>
+        
+		<inge.filestorage.filesystem_path>/usr/share/data/inge/oai/</inge.filestorage.filesystem_path>
+
+		<es_cluster_name>elastic_inge</es_cluster_name> 
+		<es_transport_ips>134.76.28.200:8080</es_transport_ips> 
 	</properties>
 
 	<profiles>

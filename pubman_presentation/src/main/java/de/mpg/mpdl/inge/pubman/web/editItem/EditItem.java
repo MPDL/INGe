@@ -564,8 +564,9 @@ public class EditItem extends FacesBean {
           EditItem.logger.warn("Item has not been changed.");
           // create a validation report
           final ValidationReportVO changedReport = new ValidationReportVO();
-          final ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
-          changedReportItem.setContent("itemHasNotBeenChanged");
+          final ValidationReportItemVO changedReportItem =
+              new ValidationReportItemVO("itemHasNotBeenChanged",
+                  ValidationReportItemVO.Severity.ERROR);
           changedReport.addItem(changedReportItem);
           // show report and stay on this page
           this.showValidationMessages(changedReport);
@@ -747,10 +748,10 @@ public class EditItem extends FacesBean {
         fileVO.setContent(path);
       } catch (Exception e) {
         e.printStackTrace();
-        FacesBean.error(this.getMessage("Error uploading file"));
+        this.error(this.getMessage("Error uploading file"));
       }
     } else {
-      FacesBean.error(this.getMessage("ComponentEmpty"));
+      this.error(this.getMessage("ComponentEmpty"));
     }
     return "";
   }
@@ -769,7 +770,7 @@ public class EditItem extends FacesBean {
       locatorBean.locatorUploaded();
     }
     if (locatorBean.getError() != null) {
-      FacesBean.error(this.getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
+      this.error(this.getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
     } else {
       this.setLocatorUpload("");
     }
@@ -829,14 +830,21 @@ public class EditItem extends FacesBean {
   }
 
   private void showValidationMessages(ValidationReportVO report) {
-    this.showValidationMessages(this, report);
-  }
-
-  public void showValidationMessages(FacesBean bean, ValidationReportVO report) {
     for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       final ValidationReportItemVO element = iter.next();
-      FacesBean.error(bean.getMessage(element.getContent())
-          .replaceAll("\\$1", element.getElement()));
+
+      switch (element.getSeverity()) {
+        case ERROR:
+          this.error(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+          break;
+
+        case WARNING:
+          this.warn(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+          break;
+
+        default:
+          break;
+      }
     }
   }
 
@@ -1179,7 +1187,7 @@ public class EditItem extends FacesBean {
           this.getEditItemSessionBean().getOverwriteCreators());
     } catch (final Exception e) {
       EditItem.logger.error("Could not parse creator string", e);
-      FacesBean.error(this.getMessage("ErrorParsingCreatorString"));
+      this.error(this.getMessage("ErrorParsingCreatorString"));
     }
   }
 

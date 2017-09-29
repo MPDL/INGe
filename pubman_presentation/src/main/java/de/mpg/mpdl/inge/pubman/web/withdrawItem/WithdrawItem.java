@@ -94,7 +94,7 @@ public class WithdrawItem extends FacesBean {
 
   public String withdraw() {
     if (this.withdrawalComment == null || "".equals(this.withdrawalComment.trim())) {
-      FacesBean.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
+      this.error(this.getMessage(DepositorWSPage.NO_WITHDRAWAL_COMMENT_GIVEN));
       return null;
     }
 

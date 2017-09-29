@@ -332,7 +332,7 @@ public class YearbookItemEditBean extends FacesBean {
        */
 
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_deleteError"));
+      this.error(this.getMessage("Yearbook_deleteError"));
       YearbookItemEditBean.logger.error("Problem deleting yearbook", e);
     }
 
@@ -385,7 +385,7 @@ public class YearbookItemEditBean extends FacesBean {
        * } this.yearbookItemSessionBean.initYearbook(); return "loadYearbookPage";
        */
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("Yearbook_editError"));
+      this.error(this.getMessage("Yearbook_editError"));
       YearbookItemEditBean.logger.error("Exception thrown while saving yearbook", e);
     }
 

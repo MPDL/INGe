@@ -73,20 +73,20 @@ public class SourceVO extends ValueObject implements Cloneable {
    * The possible genres for an source.
    */
   public enum Genre {
-    BOOK("http://purl.org/eprint/type/Book"), PROCEEDINGS(
-        "http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), JOURNAL(
-        "http://purl.org/escidoc/metadata/ves/publication-types/journal"), ISSUE(
-        "http://purl.org/escidoc/metadata/ves/publication-types/issue"), SERIES(
-        "http://purl.org/escidoc/metadata/ves/publication-types/series"),
+    BOOK("http://purl.org/eprint/type/Book"), //
+    PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), //
+    JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"), //
+    ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"), //
+    SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series"),
 
     // JUS
-    NEWSPAPER("http://purl.org/escidoc/metadata/ves/publication-types/newspaper"), ENCYCLOPEDIA(
-        "http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"), MULTI_VOLUME(
-        "http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"), COMMENTARY(
-        "http://purl.org/escidoc/metadata/ves/publication-types/commentary"), HANDBOOK(
-        "http://purl.org/escidoc/metadata/ves/publication-types/handbook"), COLLECTED_EDITION(
-        "http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"), FESTSCHRIFT(
-        "http://purl.org/escidoc/metadata/ves/publication-types/festschrift");
+    NEWSPAPER("http://purl.org/escidoc/metadata/ves/publication-types/newspaper"), //
+    ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"), //
+    MULTI_VOLUME("http://purl.org/escidoc/metadata/ves/publication-types/multi-volume"), //
+    COMMENTARY("http://purl.org/escidoc/metadata/ves/publication-types/commentary"), //
+    HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/handbook"), //
+    COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"), //
+    FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift");
 
     private String uri;
 
@@ -103,12 +103,12 @@ public class SourceVO extends ValueObject implements Cloneable {
    * The possible genres for an source.
    */
   public enum AlternativeTitleType {
-    ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"), HTML(
-        "http://purl.org/escidoc/metadata/terms/0.1/HTML"), LATEX(
-        "http://purl.org/escidoc/metadata/terms/0.1/LATEX"), MATHML(
-        "http://purl.org/escidoc/metadata/terms/0.1/MATHML"), SUBTITLE(
-        "http://purl.org/escidoc/metadata/terms/0.1/SUBTITLE"), OTHER(
-        "http://purl.org/escidoc/metadata/terms/0.1/OTHER");
+    ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"), //
+    HTML("http://purl.org/escidoc/metadata/terms/0.1/HTML"), //
+    LATEX("http://purl.org/escidoc/metadata/terms/0.1/LATEX"), //
+    MATHML("http://purl.org/escidoc/metadata/terms/0.1/MATHML"), //
+    SUBTITLE("http://purl.org/escidoc/metadata/terms/0.1/SUBTITLE"), //
+    OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
 
     private String uri;
 

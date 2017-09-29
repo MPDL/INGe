@@ -4,15 +4,21 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
 public class ValidationReportItemVO extends ValueObject {
+  public static enum Severity {
+    ERROR, WARNING
+  };
+
   private String content;
   private String element;
+  private Severity severity;
+
+  public ValidationReportItemVO(String content, Severity severity) {
+    this.content = content;
+    this.severity = severity;
+  }
 
   public final String getContent() {
     return this.content;
-  }
-
-  public final void setContent(final String content) {
-    this.content = content;
   }
 
   public final String getElement() {
@@ -23,9 +29,14 @@ public class ValidationReportItemVO extends ValueObject {
     this.element = element;
   }
 
+  public final Severity getSeverity() {
+    return this.severity;
+  }
+
   @Override
   public String toString() {
-    return "ValidationReportItemVO [content=" + this.content + ", element=" + this.element + "]";
+    return "ValidationReportItemVO [content=" + content + ", element=" + element + ", severity="
+        + severity + "]";
   }
 
 }

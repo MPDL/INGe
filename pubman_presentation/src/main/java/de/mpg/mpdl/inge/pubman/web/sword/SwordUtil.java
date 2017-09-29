@@ -468,8 +468,9 @@ public class SwordUtil extends FacesBean {
       SwordUtil.logger.debug("Item successfully created.");
     } catch (final Exception e) {
       SwordUtil.logger.error("Transformation to PubItem failed.", e);
-      final ValidationReportItemVO itemReport = new ValidationReportItemVO();
-      itemReport.setContent("Error transforming item into eSciDoc Publication Item.");
+      final ValidationReportItemVO itemReport =
+          new ValidationReportItemVO("Error transforming item into eSciDoc Publication Item.",
+              ValidationReportItemVO.Severity.ERROR);
       final ValidationReportVO report = new ValidationReportVO();
       report.getItems().add(itemReport);
       throw new ValidationException(report);
@@ -675,7 +676,7 @@ public class SwordUtil extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            FacesBean.error("There is no content category available.");
+            this.error("There is no content category available.");
             Logger.getLogger(PubFileVOPresentation.class).warn(
                 "WARNING: no content-category has been defined in Genres.xml");
           }
@@ -691,7 +692,7 @@ public class SwordUtil extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            FacesBean.error("There is no content category available.");
+            this.error("There is no content category available.");
             Logger.getLogger(PubFileVOPresentation.class).warn(
                 "WARNING: no content-category has been defined in Genres.xml");
           }

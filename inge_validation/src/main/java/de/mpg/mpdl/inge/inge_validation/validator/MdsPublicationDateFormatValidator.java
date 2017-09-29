@@ -1,8 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import com.baidu.unbiz.fluentvalidator.ValidationError;
 import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
@@ -30,23 +27,9 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * 
  * <iso:assert test=". = '' or ../escidoc:start-date != ''"> EndDateWithoutStartDate</iso:assert>
  * </iso:rule>
- * 
- * <iso:rule context="dcterms:available"> <iso:assert test=". = '' or (matches(.,
- * '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">
- * DateFormatIncorrect</iso:assert> </iso:rule>
- * 
- * <iso:rule context="dcterms:dateCopyrighted"> <iso:assert test=". = '' or (matches(.,
- * '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">
- * DateFormatIncorrect</iso:assert> </iso:rule> </iso:pattern>
  */
-
-// TODO: dcterms:available + dcterms:dateCopyrighted / Kontext prüfen
 public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements
     Validator<MdsPublicationVO> {
-
-  public static final SimpleDateFormat SHORT = new SimpleDateFormat("yyyy");
-  public static final SimpleDateFormat MEDIUM = new SimpleDateFormat("yyyy-MM");
-  public static final SimpleDateFormat LONG = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
@@ -55,54 +38,64 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
     if (m != null) {
 
-      if (!this.checkDate(m.getDateAccepted())) {
+      if (!ValidationTools.checkDate(m.getDateAccepted())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "dateAccepted"));
         ok = false;
       }
 
-      if (!this.checkDate(m.getDateCreated())) {
+      if (!ValidationTools.checkDate(m.getDateCreated())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "dateCreated"));
         ok = false;
       }
 
-      if (!this.checkDate(m.getDateModified())) {
+      if (!ValidationTools.checkDate(m.getDateModified())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "dateModified"));
         ok = false;
       }
 
-      if (!this.checkDate(m.getDatePublishedInPrint())) {
+      if (!ValidationTools.checkDate(m.getDatePublishedInPrint())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "datePublishedInPrint"));
         ok = false;
       }
 
-      if (!this.checkDate(m.getDatePublishedOnline())) {
+      if (!ValidationTools.checkDate(m.getDatePublishedOnline())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "datePublishedOnline"));
         ok = false;
       }
 
-      if (!this.checkDate(m.getDateSubmitted())) {
+      if (!ValidationTools.checkDate(m.getDateSubmitted())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "dateSubmitted"));
         ok = false;
+      }
+      
+      if (m.getLegalCase() != null) {
+        
+        if (!ValidationTools.checkDate(m.getLegalCase().getDatePublished())) {
+          context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+              "dateSubmitted"));
+          ok = false;
+        }
+        
       }
 
       if (m.getEvent() != null) {
 
         final String startDate = m.getEvent().getStartDate();
-        final String endDate = m.getEvent().getStartDate();
+        final String endDate = m.getEvent().getEndDate();
 
-        if (!this.checkDate(startDate)) {
+        if (!ValidationTools.checkDate(startDate)) {
           context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
               "startDate"));
           ok = false;
         }
 
-        if (!this.checkDate(endDate)) {
+        if (!ValidationTools.checkDate(endDate)) {
           context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
               "endDate"));
           ok = false;
@@ -118,45 +111,6 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
     } // if
 
     return ok;
-  }
-
-  private boolean checkDate(String s) {
-
-    if (ValidationTools.isNotEmpty(s)) {
-      switch (s.length()) {
-        case 10:
-          try {
-            MdsPublicationDateFormatValidator.LONG.setLenient(false);
-            MdsPublicationDateFormatValidator.LONG.parse(s);
-          } catch (final ParseException e) {
-            return false;
-          }
-          break;
-
-        case 7:
-          try {
-            MdsPublicationDateFormatValidator.MEDIUM.setLenient(false);
-            MdsPublicationDateFormatValidator.MEDIUM.parse(s);
-          } catch (final ParseException e) {
-            return false;
-          }
-          break;
-
-        case 4:
-          try {
-            MdsPublicationDateFormatValidator.SHORT.setLenient(false);
-            MdsPublicationDateFormatValidator.SHORT.parse(s);
-          } catch (final ParseException e) {
-            return false;
-          }
-          break;
-
-        default:
-          return false;
-      }
-    }
-
-    return true;
   }
 
 }

@@ -379,7 +379,7 @@ public class AudienceBean extends FacesBean {
 
           } catch (final RuntimeException e) {
             AudienceBean.logger.error("Error while revoking grant: ", e);
-            FacesBean.error(this.getMessage("AudienceErrorRevokingGrant"));
+            this.error(this.getMessage("AudienceErrorRevokingGrant"));
             error = true;
           }
         }
@@ -393,7 +393,7 @@ public class AudienceBean extends FacesBean {
             // .createInCoreservice(loginHelper.getESciDocUserHandle(), DUMMY_CREATE_COMMENT);
           } catch (final RuntimeException rE) {
             AudienceBean.logger.error("Error while creating grant: ", rE);
-            FacesBean.error(this.getMessage("AudienceErrorAssigningGrant"));
+            this.error(this.getMessage("AudienceErrorAssigningGrant"));
             error = true;
           }
         }

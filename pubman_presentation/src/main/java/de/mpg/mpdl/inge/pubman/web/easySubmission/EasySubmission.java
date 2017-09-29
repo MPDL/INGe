@@ -174,7 +174,7 @@ public class EasySubmission extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            FacesBean.error("There is no content category available.");
+            this.error("There is no content category available.");
             Logger.getLogger(PubFileVOPresentation.class).warn(
                 "WARNING: no content-category has been defined in Genres.xml");
           }
@@ -393,7 +393,7 @@ public class EasySubmission extends FacesBean {
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
-          FacesBean.error("There is no content category available.");
+          this.error("There is no content category available.");
           Logger.getLogger(PubFileVOPresentation.class).warn(
               "WARNING: no content-category has been defined in Genres.xml");
         }
@@ -510,7 +510,7 @@ public class EasySubmission extends FacesBean {
       return returnValue;
     } catch (ValidationException e) {
       for (final ValidationReportItemVO item : e.getReport().getItems()) {
-        FacesBean.error(this.getMessage(item.getContent()));
+        this.error(this.getMessage(item.getContent()));
       }
     }
 
@@ -575,7 +575,7 @@ public class EasySubmission extends FacesBean {
       }
 
       if (errorMessage.length() > 0) {
-        FacesBean.error(errorMessage.toString());
+        this.error(errorMessage.toString());
       }
     }
 
@@ -754,20 +754,18 @@ public class EasySubmission extends FacesBean {
       }
     } catch (final AccessException inre) {
       EasySubmission.logger.error("Error fetching from external import source", inre);
-      FacesBean.error(this
+      this.error(this
           .getMessage("easy_submission_import_from_external_service_access_denied_error")
           + this.getServiceID());
       return null;
     } catch (final DataaquisitionException inre) {
       EasySubmission.logger.error(inre.getMessage(), inre);
-      FacesBean.error(this
-          .getMessage("easy_submission_import_from_external_service_identifier_error")
+      this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error")
           + this.getServiceID());
       return null;
     } catch (final Exception e) {
       EasySubmission.logger.error(e.getMessage(), e);
-      FacesBean.error(this
-          .getMessage("easy_submission_import_from_external_service_identifier_error")
+      this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error")
           + this.getServiceID());
       return null;
     }
@@ -806,12 +804,12 @@ public class EasySubmission extends FacesBean {
         this.getItem().getFiles().addAll(itemVO.getFiles());
       } catch (final TechnicalException e) {
         EasySubmission.logger.warn("Error transforming item to pubItem.");
-        FacesBean.error(this.getMessage("easy_submission_import_from_external_service_error"));
+        this.error(this.getMessage("easy_submission_import_from_external_service_error"));
         return null;
       }
     } else {
       EasySubmission.logger.warn("Empty fetched Item.");
-      FacesBean.error(this.getMessage("easy_submission_import_from_external_service_error"));
+      this.error(this.getMessage("easy_submission_import_from_external_service_error"));
       return null;
     }
 
@@ -928,7 +926,7 @@ public class EasySubmission extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            FacesBean.error("There is no content category available.");
+            this.error("There is no content category available.");
             Logger.getLogger(PubFileVOPresentation.class).warn(
                 "WARNING: no content-category has been defined in Genres.xml");
           }
@@ -1010,7 +1008,7 @@ public class EasySubmission extends FacesBean {
         ItemValidatingService.validate(itemVO, validationPoint);
       } catch (final ValidationException e) {
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
-          FacesBean.error(this.getMessage(item.getContent()));
+          this.error(this.getMessage(item.getContent()));
         }
         return null;
       } catch (final ValidationServiceException e) {
@@ -1551,7 +1549,7 @@ public class EasySubmission extends FacesBean {
       this.getEasySubmissionSessionBean().initAuthorCopyPasteCreatorBean();
       return "loadNewEasySubmission";
     } catch (final Exception e) {
-      FacesBean.error(this.getMessage("ErrorParsingCreatorString"));
+      this.error(this.getMessage("ErrorParsingCreatorString"));
       return "loadNewEasySubmission";
     }
   }
@@ -1719,7 +1717,7 @@ public class EasySubmission extends FacesBean {
     }
 
     if (locatorBean.getError() != null) {
-      FacesBean.error(this.getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
+      this.error(this.getMessage("errorLocatorMain").replace("$1", locatorBean.getError()));
     } else {
       this.setLocatorUpload("");
     }

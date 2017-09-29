@@ -235,7 +235,7 @@ public class ViewItemFull extends FacesBean {
         this.getItemControllerSessionBean().setCurrentPubItem(this.pubItem);
       } catch (AuthorizationException | AuthenticationException e) {
         if (this.getLoginHelper().isLoggedIn()) {
-          FacesBean.error(this.getMessage("ViewItemFull_noPermission"));
+          this.error(this.getMessage("ViewItemFull_noPermission"));
         } else {
           getLoginHelper().logout();
         }
@@ -641,7 +641,7 @@ public class ViewItemFull extends FacesBean {
     // new item directly
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0) {
       ViewItemFull.logger.warn("The user does not have privileges for any context.");
-      FacesBean.error(this.getMessage("ViewItemFull_user_has_no_context"));
+      this.error(this.getMessage("ViewItemFull_user_has_no_context"));
       return null;
     }
 
@@ -771,11 +771,33 @@ public class ViewItemFull extends FacesBean {
     return retVal;
   }
 
+  // private void showValidationMessages(ValidationReportVO report) {
+  // FacesBean.warn(this.getMessage(ViewItemFull.VALIDATION_ERROR_MESSAGE));
+  // for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator();
+  // iter.hasNext();) {
+  // final ValidationReportItemVO element = iter.next();
+  // this.error(this.getMessage(element.getContent()));
+  // }
+  // }
+
   private void showValidationMessages(ValidationReportVO report) {
     this.warn(this.getMessage(ViewItemFull.VALIDATION_ERROR_MESSAGE));
+
     for (final Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();) {
       final ValidationReportItemVO element = iter.next();
-      FacesBean.error(this.getMessage(element.getContent()));
+
+      switch (element.getSeverity()) {
+        case ERROR:
+          this.error(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+          break;
+
+        case WARNING:
+          this.warn(this.getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+          break;
+
+        default:
+          break;
+      }
     }
   }
 
@@ -1731,7 +1753,7 @@ public class ViewItemFull extends FacesBean {
           .put(this.pubItem.getVersion().getObjectIdAndVersion(), this.pubItem.getVersion());
       this.info(this.getMessage("basket_SingleAddedSuccessfully"));
     } else {
-      FacesBean.error(this.getMessage("basket_SingleAlreadyInBasket"));
+      this.error(this.getMessage("basket_SingleAlreadyInBasket"));
     }
     this.canAddToBasket = false;
     this.canDeleteFromBasket = true;
@@ -1792,7 +1814,7 @@ public class ViewItemFull extends FacesBean {
     }
 
     if ((exportFileData == null) || (new String(exportFileData)).trim().equals("")) {
-      FacesBean.error(this.getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
+      this.error(this.getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
       return "";
     }
 
@@ -2252,11 +2274,11 @@ public class ViewItemFull extends FacesBean {
         this.info(this.getMessage("ViewItem_doiAddedSuccessfully"));
         this.getPubItemListSessionBean().update();
       } else {
-        FacesBean.error(this.getMessage("ViewItem_doiAddingProblem"));
+        this.error(this.getMessage("ViewItem_doiAddingProblem"));
       }
     } catch (final Exception e) {
       ViewItemFull.logger.error("Error creating new DOI", e);
-      FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
+      this.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
     return retVal;
@@ -2299,11 +2321,11 @@ public class ViewItemFull extends FacesBean {
         this.info(this.getMessage(messageSuccess));
         this.getPubItemListSessionBean().update();
       } else {
-        FacesBean.error(this.getMessage(messageError));
+        this.error(this.getMessage(messageError));
       }
     } catch (final Exception e) {
       ViewItemFull.logger.error("Problems with validation", e);
-      FacesBean.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
+      this.error(this.getMessage("ViewItem_doiAddingProblem") + "--\n" + e.getMessage());
     }
 
     return retVal;
