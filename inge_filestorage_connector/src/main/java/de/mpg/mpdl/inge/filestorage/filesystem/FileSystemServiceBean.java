@@ -32,8 +32,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
-  private final static String FILESYSTEM_ROOT_PATH = PropertyReader
-      .getProperty("inge.filestorage.filesystem_path");
+  private final static String FILESYSTEM_ROOT_PATH =
+      PropertyReader.getProperty("inge.filestorage.filesystem_path");
 
   /*
    * 
@@ -64,27 +64,38 @@ public class FileSystemServiceBean implements FileStorageInterface {
       }
 
       if (Files.notExists(filePath)) {
-        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-            + "]");
+        System.out
+            .println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
         Files.copy(fileInputStream, filePath);
       } else {
         int i = 1;
         // Split fileName to name and suffix
-        String nameOfTheFile = newFileName.substring(0, newFileName.lastIndexOf("."));
-        String fileSuffix = newFileName.substring(newFileName.lastIndexOf("."));
+        String nameOfTheFile = null;
+        String fileSuffix = null;
+        if (newFileName.contains(".")) {
+          nameOfTheFile = newFileName.substring(0, newFileName.lastIndexOf("."));
+          fileSuffix = newFileName.substring(newFileName.lastIndexOf("."));
+        } else {
+          nameOfTheFile = newFileName;
+        }
+
         do {
-          newFileName = nameOfTheFile + "_" + i + fileSuffix;
+          if (fileSuffix != null) {
+            newFileName = nameOfTheFile + "_" + i + fileSuffix;
+          } else {
+            newFileName = nameOfTheFile + "_" + i;
+          }
           filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
           i++;
         } while (Files.exists(filePath));
-        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-            + "]");
+        System.out
+            .println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
         Files.copy(fileInputStream, filePath);
       }
     } catch (IOException e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
-          + "]", e);
+      throw new IngeTechnicalException(
+          "An error occoured, when trying to create file [" + fileName + "]", e);
     }
     return relativeDirectoryPath + "/" + newFileName;
   }
@@ -104,8 +115,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
       }
     } catch (IOException e) {
       logger.error("An error occoured, when trying to retrieve file [" + path.toString() + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to retrieve file["
-          + path.toString() + "]", e);
+      throw new IngeTechnicalException(
+          "An error occoured, when trying to retrieve file[" + path.toString() + "]", e);
     }
   }
 
@@ -123,10 +134,10 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Files.delete(path);
       }
     } catch (IOException e) {
-      logger
-          .error("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to delete the file ["
-          + path.toString() + "]", e);
+      logger.error("An error occoured, when trying to delete the file [" + path.toString() + "]",
+          e);
+      throw new IngeTechnicalException(
+          "An error occoured, when trying to delete the file [" + path.toString() + "]", e);
     }
   }
 }

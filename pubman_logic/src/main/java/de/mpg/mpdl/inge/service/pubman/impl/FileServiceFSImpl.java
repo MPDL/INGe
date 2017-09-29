@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,9 +10,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.apache.log4j.Logger;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
@@ -32,6 +41,7 @@ public class FileServiceFSImpl implements FileService {
 
   private final static String TMP_FILE_ROOT_PATH = PropertyReader
       .getProperty("inge.logic.temporary_filesystem_root_path");
+
 
   @Autowired
   private FileStorageInterface fsi;
@@ -138,6 +148,39 @@ public class FileServiceFSImpl implements FileService {
   public void indexFile(InputStream fileInputStream) {
     // TODO Auto-generated method stub
 
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileMetadata(java.lang.String)
+   */
+  @Override
+  public String getFileMetadata(String componentId) {
+
+    final StringBuffer b = new StringBuffer(2048);
+    final Metadata metadata = new Metadata();
+    final AutoDetectParser parser = new AutoDetectParser();
+    final BodyContentHandler handler = new BodyContentHandler();
+    ParseContext context = new ParseContext();
+
+    ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
+    try {
+      this.readFile(componentId, fileOutput);
+      final TikaInputStream input =
+          TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
+      parser.parse(input, handler, metadata, context);
+      fileOutput.close();
+      input.close();
+    } catch (IngeTechnicalException | IOException | SAXException | TikaException e) {
+      logger.error("could not read file [" + componentId + "] for Metadata extraction");
+    }
+
+    for (final String name : metadata.names()) {
+      b.append(name).append(": ").append(metadata.get(name))
+          .append(System.getProperty("line.separator"));
+    }
+    return b.toString();
   }
 
   /*

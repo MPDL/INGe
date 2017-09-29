@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.MediaType;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
+import org.apache.http.entity.ContentType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -65,6 +71,7 @@ import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 @Primary
@@ -165,6 +172,10 @@ public class PubItemServiceDbImpl implements PubItemService {
       "metadata.sources.alternativeTitles.value";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
+
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
+  public static final String REST_COMPONENT_PATH = PropertyReader
+      .getProperty("inge.rest.file_path");
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -743,11 +754,12 @@ public class PubItemServiceDbImpl implements PubItemService {
       if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
         String stagedPath = fileVO.getContent();
         try {
-          String persitentPath =
-              fileService.createFile(fileService.readStageFile(Paths.get(stagedPath)),
-                  fileVO.getName());
-          fileVO.setContent(persitentPath);
-        } catch (IngeTechnicalException e) {
+          String persistentPath =
+              Request.Put(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileVO.getName())
+                  .bodyStream(fileService.readStageFile(Paths.get(stagedPath))).execute()
+                  .returnContent().asString();
+          fileVO.setContent(persistentPath);
+        } catch (IOException e) {
           logger.error("Could not upload staged file [" + stagedPath + "]", e);
           throw new IngeTechnicalException("Could not upload staged file [" + stagedPath + "]", e);
         }
