@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
-  private static final String URL_PATTERN = UriAsLocatorValidator.getUrlPattern();
+  public static final String URL_PATTERN = UriAsLocatorValidator.getUrlPattern();
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -52,7 +52,10 @@ public class UriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implem
         if (fileVO != null) {
           if (ValidationTools.isNotEmpty(fileVO.getContent()) //
               && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
-              && !Pattern.matches(UriAsLocatorValidator.URL_PATTERN, fileVO.getContent())) {
+              && !Pattern.matches(UriAsLocatorValidator.URL_PATTERN, fileVO.getContent())
+              && (fileVO.getContent().startsWith("http://")
+                  || fileVO.getContent().startsWith("https://") || fileVO.getContent().startsWith(
+                  "ftp://"))) {
             context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField(
                 "file[" + i + "]"));
             ok = false;

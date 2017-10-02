@@ -49,12 +49,12 @@ public class ComponentContentRequiredValidator extends ValidatorHandler<List<Fil
       for (final FileVO fileVO : files) {
 
         if (fileVO != null //
-            && ValidationTools.isEmpty(fileVO.getContent())) {
+            && !ValidationTools.isEmpty(fileVO.getContent())) {
 
           if (fileVO.getDefaultMetadata() != null
-              && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle()) //
-              || ValidationTools.isNotEmpty(fileVO.getMimeType()) //
-              || ValidationTools.isNotEmpty(fileVO.getDescription())) {
+              && ValidationTools.isEmpty(fileVO.getDefaultMetadata().getTitle()) //
+              || ValidationTools.isEmpty(fileVO.getMimeType()) //
+              || ValidationTools.isEmpty(fileVO.getDefaultMetadata().getDescription())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED)
                 .setField("file[" + i + "]"));
             ok = false;
