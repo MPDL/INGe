@@ -1203,7 +1203,7 @@
         <inge.rest.service_url>http://localhost:8080/rest</inge.rest.service_url>
         <inge.rest.file_path>/component</inge.rest.file_path>
         
-		<inge.filestorage.filesystem_path>/usr/share/data/inge/oai/</inge.filestorage.filesystem_path>
+		<inge.filestorage.oai.filesystem_path>/usr/share/data/inge/oai/</inge.filestorage.oai.filesystem_path>
 
 		<es_cluster_name>elastic_inge</es_cluster_name> 
 		<es_transport_ips>134.76.28.200:8080</es_transport_ips> 
