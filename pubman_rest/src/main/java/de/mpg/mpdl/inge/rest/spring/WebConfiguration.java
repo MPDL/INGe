@@ -49,10 +49,10 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
     super.extendMessageConverters(converters);
   }
 
-  @Override
-  public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-    configurer.defaultContentType(MediaType.APPLICATION_JSON);
-  }
+  // @Override
+  // public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+  // configurer.defaultContentType(MediaType.APPLICATION_JSON);
+  // }
 
   @Override
   public void configureViewResolvers(ViewResolverRegistry registry) {

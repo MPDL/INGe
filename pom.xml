@@ -1200,6 +1200,8 @@
 
 		<inge.filestorage.filesystem_path>/usr/share/data/inge/</inge.filestorage.filesystem_path>
         <inge.logic.temporary_filesystem_root_path>/tmp/inge/</inge.logic.temporary_filesystem_root_path>
+        <inge.rest.service_url>http://localhost:8080/rest</inge.rest.service_url>
+        <inge.rest.file_path>/component</inge.rest.file_path>
         
 		<inge.filestorage.filesystem_path>/usr/share/data/inge/oai/</inge.filestorage.filesystem_path>
 
