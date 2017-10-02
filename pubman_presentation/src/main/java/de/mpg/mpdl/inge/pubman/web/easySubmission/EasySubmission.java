@@ -905,6 +905,8 @@ public class EasySubmission extends FacesBean {
     }
 
     // add an empty file and an empty locator if necessary for display purposes
+    // TODO: das passiert an tausend Stellen und ist teilweise unterschiedlich. WARUM????
+    //       -> Suche nach Konstruktor PubFileVOPresentation(int fileIndex, FileVO file, boolean isLocator)
     if (files != null && files.size() > 0) {
       if (files.get(files.size() - 1).getFile().getDefaultMetadata().getSize() > 0) {
         final FileVO newFile = new FileVO();
