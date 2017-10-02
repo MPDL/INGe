@@ -395,8 +395,8 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getLocatorIsLink() {
-    return ((this.getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (this.getFile()
-        .getContent().startsWith("http://")
+    return ((this.getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) //
+    && (this.getFile().getContent().startsWith("http://")
         || this.getFile().getContent().startsWith("https://") || this.getFile().getContent()
         .startsWith("ftp://")));
   }

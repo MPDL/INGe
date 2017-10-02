@@ -328,22 +328,22 @@ public class EditItem extends FacesBean {
   }
 
   private void bindFiles() {
-    final List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-    final List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-    int fileCount = 0;
-    int locatorCount = 0;
-
     // add files
+    final List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    int fileCount = 0;
+
     for (final FileVO file : this.getPubItem().getFiles()) {
       if (file.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
         // Add identifierVO if not available yet
-        if (file.getDefaultMetadata() != null
-            && (file.getDefaultMetadata().getIdentifiers() == null || file.getDefaultMetadata()
-                .getIdentifiers().isEmpty())) {
+        if (file.getDefaultMetadata() != null //
+            && (file.getDefaultMetadata().getIdentifiers() == null //
+            || file.getDefaultMetadata().getIdentifiers().isEmpty())) {
           file.getDefaultMetadata().getIdentifiers().add(new IdentifierVO());
         }
-        final PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, file, false);
-        files.add(filepres);
+
+        final PubFileVOPresentation pubFileVOPresentation =
+            new PubFileVOPresentation(fileCount, file, false);
+        files.add(pubFileVOPresentation);
         fileCount++;
       }
     }
@@ -351,19 +351,25 @@ public class EditItem extends FacesBean {
     this.getEditItemSessionBean().setFiles(files);
 
     // add locators
+    final List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+    int locatorCount = 0;
+
     for (final FileVO file : this.getPubItem().getFiles()) {
       if (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL)) {
-        final PubFileVOPresentation locatorpres =
+        final PubFileVOPresentation pubFileVOPresentation =
             new PubFileVOPresentation(locatorCount, file, true);
+
         // This is a small hack for locators generated out of Bibtex files
-        if (locatorpres.getLocator() == null && locatorpres.getFile() != null
-            && locatorpres.getFile().getName() != null) {
-          locatorpres.setLocator(locatorpres.getFile().getName().trim());
-          locatorpres.getFile().getMetadataSets().add(new MdsFileVO());
-          locatorpres.getFile().getDefaultMetadata().setTitle(locatorpres.getFile().getName());
+        if (pubFileVOPresentation.getLocator() == null && pubFileVOPresentation.getFile() != null
+            && pubFileVOPresentation.getFile().getName() != null) {
+          pubFileVOPresentation.setLocator(pubFileVOPresentation.getFile().getName().trim());
+          pubFileVOPresentation.getFile().getMetadataSets().add(new MdsFileVO());
+          pubFileVOPresentation.getFile().getDefaultMetadata()
+              .setTitle(pubFileVOPresentation.getFile().getName());
         }
+
         // And here it ends
-        locators.add(locatorpres);
+        locators.add(pubFileVOPresentation);
         locatorCount++;
       }
     }

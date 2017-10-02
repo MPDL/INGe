@@ -59,34 +59,31 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * @updated 05-Sep-2007 12:59:09
    */
   public enum IdType {
-    CONE("http://purl.org/escidoc/metadata/terms/0.1/CONE"), URI(
-        "http://purl.org/escidoc/metadata/terms/0.1/URI"), ISBN(
-        "http://purl.org/escidoc/metadata/terms/0.1/ISBN"), ISSN(
-        "http://purl.org/escidoc/metadata/terms/0.1/ISSN"), DOI(
-        "http://purl.org/escidoc/metadata/terms/0.1/DOI"), URN(
-        "http://purl.org/escidoc/metadata/terms/0.1/URN"), PII(
-        "http://purl.org/escidoc/metadata/terms/0.1/PII"), EDOC(
-        "http://purl.org/escidoc/metadata/terms/0.1/EDOC"), ESCIDOC(
-        "http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), ISI(
-        "http://purl.org/escidoc/metadata/terms/0.1/ISI"), PND(
-        "http://purl.org/escidoc/metadata/terms/0.1/PND"), ZDB(
-        "http://purl.org/escidoc/metadata/terms/0.1/ZDB"), PMID(
-        "http://purl.org/escidoc/metadata/terms/0.1/PMID"), ARXIV(
-        "http://purl.org/escidoc/metadata/terms/0.1/ARXIV"), PMC(
-        "http://purl.org/escidoc/metadata/terms/0.1/PMC"), BMC(
-        "http://purl.org/escidoc/metadata/terms/0.1/BMC"), BIBTEX_CITEKEY(
-        "http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"), REPORT_NR(
-        "http://purl.org/escidoc/metadata/terms/0.1/REPORT-NR"), SSRN(
-        "http://purl.org/escidoc/metadata/terms/0.1/SSRN"),
-    /* SFX should not be in here */
-    // SFX ("http://purl.org/escidoc/metadata/terms/0.1/SFX"),
-    PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), PATENT_APPLICATION_NR(
-        "http://purl.org/escidoc/metadata/terms/0.1/PATENT-APPLICATION-NR"), PATENT_PUBLICATION_NR(
-        "http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"), OPEN_AIRE(
-        "http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), GRANT_ID(
-        "http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), OTHER(
-        "http://purl.org/escidoc/metadata/terms/0.1/OTHER");
-
+    ARXIV("http://purl.org/escidoc/metadata/terms/0.1/ARXIV"), //
+    BIBTEX_CITEKEY("http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"), //
+    BMC("http://purl.org/escidoc/metadata/terms/0.1/BMC"), //
+    CONE("http://purl.org/escidoc/metadata/terms/0.1/CONE"), //
+    DOI("http://purl.org/escidoc/metadata/terms/0.1/DOI"), //
+    EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
+    ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), //
+    GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), //
+    ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
+    ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
+    ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
+    OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), //
+    OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER"), //
+    PATENT_APPLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-APPLICATION-NR"), //
+    PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), //
+    PATENT_PUBLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"), //
+    PII("http://purl.org/escidoc/metadata/terms/0.1/PII"), //
+    PMC("http://purl.org/escidoc/metadata/terms/0.1/PMC"), //
+    PMID("http://purl.org/escidoc/metadata/terms/0.1/PMID"), //
+    PND("http://purl.org/escidoc/metadata/terms/0.1/PND"), //
+    REPORT_NR("http://purl.org/escidoc/metadata/terms/0.1/REPORT-NR"), //
+    SSRN("http://purl.org/escidoc/metadata/terms/0.1/SSRN"), //
+    URI("http://purl.org/escidoc/metadata/terms/0.1/URI"), //
+    URN("http://purl.org/escidoc/metadata/terms/0.1/URN"), //
+    ZDB("http://purl.org/escidoc/metadata/terms/0.1/ZDB");
 
     private String uri;
 
