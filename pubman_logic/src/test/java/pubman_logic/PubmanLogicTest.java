@@ -35,7 +35,6 @@ import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
@@ -327,25 +326,6 @@ public class PubmanLogicTest {
     System.out.println(jt.getRawClass());
 
     validateLoginname("mark");
-  }
-
-  @Test
-  @Ignore
-  public void testOai() throws Exception {
-    QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED");
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0, null);
-    SearchRetrieveResponseVO<PubItemVO> response = pubItemService.search(srr, null);
-
-    int size = response.getRecords().size();
-
-    System.out.println("Anzahl: " + size);
-
-    for (SearchRetrieveRecordVO<PubItemVO> searchRetrieveRecordVO : response.getRecords()) {
-      PubItemVO pubItemVO = searchRetrieveRecordVO.getData();
-      String s = XmlTransformingService.transformToItem(pubItemVO);
-      OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
-          .getObjectIdAndVersion() + ".xml");
-    }
   }
 
   @Test
