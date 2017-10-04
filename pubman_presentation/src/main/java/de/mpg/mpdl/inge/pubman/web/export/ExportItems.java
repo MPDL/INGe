@@ -35,12 +35,12 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
@@ -56,7 +56,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 public class ExportItems extends FacesBean {
   private static final Logger logger = Logger.getLogger(ExportItems.class);
 
-  // public static final String MESSAGE_EXPORT_EMAIL_NOTSENT = "exportItems_EmailNotSent";
   public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED =
       "exportItems_RecipientsAreNotDefined";
   public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
@@ -128,10 +127,6 @@ public class ExportItems extends FacesBean {
     return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
   }
 
-  private ItemControllerSessionBean getItemControllerSessionBean() {
-    return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  }
-
   /*
    * Updates the GUI relatively the selected export format.
    */
@@ -171,27 +166,6 @@ public class ExportItems extends FacesBean {
   // /////////////////////////////////////////////////////////////////////////////////////
   // /////// next methods are used by EMailing
 
-
-  // /*
-  // * Disables the export components when the email page gets open.
-  // */
-  // public void disableExportPanComps(boolean b) {
-  //
-  // }
-
-
-  // /**
-  // * redirects the user to the list he came from
-  // *
-  // * @return String nav rule for loading the page the user came from
-  // */
-  // public String backToList() {
-  // ExportItemsSessionBean sb = this.getExportItemsSessionBean();
-  // cleanUpEmailFields();
-  // return sb.getNavigationStringToGoBack() != null ? sb.getNavigationStringToGoBack()
-  // : SearchRetrieverRequestBean.LOAD_SEARCHRESULTLIST;
-  // }
-
   /**
    * Clean up some fields on the Email interface
    */
@@ -205,26 +179,7 @@ public class ExportItems extends FacesBean {
     sb.setExportEmailReplyToAddr(null);
   }
 
-  // public HtmlMessages getValMessage() {
-  // return valMessage;
-  // }
-  //
-  // public void setValMessage(HtmlMessages valMessage) {
-  // this.valMessage = valMessage;
-  // }
-
-  /**
-   * Adds and removes messages concerning item lists.
-   */
-
-  /**
-   * redirects the user to the list he came from
-   * 
-   * @return String nav rule for loading the page the user came from
-   */
-
   public String sendEMail() {
-    ExportItems.logger.debug(">>>  sendEMail");
     String status = "not sent";
     final String smtpHost = this.getExportItemsSessionBean().getEmailServernameProp();
     final String withAuth = this.getExportItemsSessionBean().getEmailWithAuthProp();
@@ -261,10 +216,7 @@ public class ExportItems extends FacesBean {
     final String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
 
     try {
-      status =
-          this.getItemControllerSessionBean().sendEmail(smtpHost, withAuth, usr, pwd,
-              senderAddress, recipientsAddresses, recipientsCCAddresses, null, replyToAddresses,
-              subject, text, attachments);
+      status = EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, null, replyToAddresses, subject, text, attachments);
       this.cleanUpEmailFields();
     } catch (final TechnicalException e) {
       ExportItems.logger.error("Could not send the export formats." + "\n" + e.toString());

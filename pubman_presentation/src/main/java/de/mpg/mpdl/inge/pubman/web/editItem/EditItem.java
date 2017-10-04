@@ -377,6 +377,7 @@ public class EditItem extends FacesBean {
     this.getEditItemSessionBean().setLocators(locators);
 
     // make sure that at least one locator and one file is stored in the EditItemSessionBean
+    // TODO: where is the one file??
     if (this.getEditItemSessionBean().getLocators().size() < 1) {
       final FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());

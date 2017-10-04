@@ -70,7 +70,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
-import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
@@ -781,37 +780,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
     }
     return "";
-  }
-
-  /**
-   * Method for sending an email with attached file. The sending requires authentication.
-   * 
-   * @author: StG
-   * @param smtpHost the outgoing smpt mail server
-   * @param withAuth use authentication (true/false)
-   * @param usr the user authorized to the server
-   * @param pwd the password of the user
-   * @param senderAddress the email address of the sender
-   * @param recipientsAddresses the email address(es) of the recipients
-   * @param recipientsCCAddresses the email address(es) of the recipients
-   * @param replyToAddresses the reply to address(es)
-   * @param text the content text of the email
-   * @param subject the subject of the email
-   * @param attachments the names/paths of the files to be attached
-   * @throws Exception if wrong pws or user or emailing data
-   */
-  public String sendEmail(String smtpHost, String withAuth, String usr, String pwd,
-      String senderAddress, String[] recipientsAddresses, String[] recipientsCCAddresses,
-      String[] recipientsBCCAddresses, String[] replyToAddresses, String subject, String text,
-      String[] attachments) throws TechnicalException {
-
-    String status = "not sent";
-    status =
-        EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
-            recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, subject, text,
-            attachments);
-
-    return status;
   }
 
   public void setCurrentCollection(ContextVO currentCollection) {
