@@ -183,12 +183,9 @@ public class ExportItemsSessionBean extends FacesBean {
     if (fileFormat == null || fileFormat.trim().equals("")
         || this.getExportFormatName().equalsIgnoreCase("ENDNOTE")
         || this.getExportFormatName().equalsIgnoreCase("BIBTEX")
-    // || getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED
     ) {
       fileFormat = FileFormatVO.TEXT_NAME;
     }
-
-    // this.fileFormat = fileFormat;
 
     this.curFileFormatVO.setName(fileFormat);
     this.curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
@@ -200,22 +197,8 @@ public class ExportItemsSessionBean extends FacesBean {
 
   }
 
-
-
   // ////////////////////////////////////////////////////////////////////////////////////////7
   // next methods are used by EMAIL-ing
-  /*
-   * navigationString to go back to the list where exportEmail has been called from
-   */
-  // private String navigationStringToGoBack = null;
-  //
-  // public final String getNavigationStringToGoBack() {
-  // return this.navigationStringToGoBack;
-  // }
-  //
-  // public final void setNavigationStringToGoBack(final String navigationStringToGoBack) {
-  // this.navigationStringToGoBack = navigationStringToGoBack;
-  // }
 
   public void setAttExportFile(File attFile) {
     this.attExportFile = new File(attFile.toURI());
@@ -250,60 +233,42 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setExportEmailSubject(String exportEmailSubject) {
-
     this.exportEmailSubject = exportEmailSubject;
-
   }
 
   public String getExportEmailSubject() {
-
     return this.exportEmailSubject;
-
   }
 
   public void setExportEmailTxt(String exportEmailTxt) {
-
     this.exportEmailTxt = exportEmailTxt;
-
   }
 
   public String getExportEmailTxt() {
-
     return this.exportEmailTxt;
   }
 
   public void setExportEmailReplyToAddr(String exportEmailReplyToAddr) {
-
     this.exportEmailReplyToAddr = exportEmailReplyToAddr;
-
   }
 
   public String getExportEmailReplyToAddr() {
-
     return this.exportEmailReplyToAddr;
   }
 
   public void setEmailRecipients(String emailRecipients) {
-
     this.emailRecipients = emailRecipients;
-
   }
 
   public String getEmailRecipients() {
-
     return this.emailRecipients;
   }
 
   public void setEmailSenderProp(String emailSender) {
-
     this.emailSenderProp = emailSender;
-
   }
 
   public String getEmailSenderProp() {
-
-    ExportItemsSessionBean.logger.debug("getEmailSenderProp " + this.emailSenderProp);
-
     return this.emailSenderProp;
   }
 
@@ -311,7 +276,6 @@ public class ExportItemsSessionBean extends FacesBean {
 
   public String getEmailServernameProp() {
     return this.emailServernameProp;
-
   }
 
   public void setEmailWithAuthProp(String trueorfalse) {
@@ -338,41 +302,25 @@ public class ExportItemsSessionBean extends FacesBean {
     return this.emailAuthPwdProp;
   }
 
-  /**
-   * getter for the visibility of the citation style auto suggest text field
-   * 
-   * @return visibility of the citation style auto suggest text field depending on the
-   *         exportFormatName
-   */
   public boolean getEnableCslAutosuggest() {
     return this.enableCslAutosuggest;
   }
 
-  /**
-   * setter for the visibility of the citation style auto suggest text field
-   * 
-   * @param enableCslAutosuggest
-   */
   public void setEnableCslAutosuggest(boolean enableCslAutosuggest) {
     this.enableCslAutosuggest = enableCslAutosuggest;
   }
 
   public void setExportDisplayData(String data) {
-    // logger.debug("setExportDisplayData "+ data);
     this.exportDisplayData = data;
-
   }
 
   public String getExportDisplayData() {
-    // logger.debug("getExportDisplayData ");
     return this.exportDisplayData;
   }
-
 
   public boolean getEnableFileFormats() {
     return this.enableFileFormats;
   }
-
 
   public void setEnableFileFormats(boolean enableFileFormats) {
     this.enableFileFormats = enableFileFormats;
@@ -382,26 +330,21 @@ public class ExportItemsSessionBean extends FacesBean {
     return this.enableExport;
   }
 
-
   public void setEnableExport(boolean enableExport) {
     this.enableExport = enableExport;
   }
-
 
   public String getEmailCCRecipients() {
     return this.emailCCRecipients;
   }
 
-
   public void setEmailCCRecipients(String emailCCRecipients) {
     this.emailCCRecipients = emailCCRecipients;
   }
 
-
   public String getEmailBCCRecipients() {
     return this.emailBCCRecipients;
   }
-
 
   public void setEmailBCCRecipients(String emailBCCRecipients) {
     this.emailBCCRecipients = emailBCCRecipients;
