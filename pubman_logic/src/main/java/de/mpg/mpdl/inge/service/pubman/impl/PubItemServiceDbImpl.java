@@ -3,18 +3,15 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.MediaType;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
-import org.apache.http.entity.ContentType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -41,13 +38,16 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
-import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
+import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -175,8 +175,8 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
 
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
-  public static final String REST_COMPONENT_PATH = PropertyReader
-      .getProperty("inge.rest.file_path");
+  public static final String REST_COMPONENT_PATH =
+      PropertyReader.getProperty("inge.rest.file_path");
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -192,10 +192,9 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     uploadStagedFiles(pubItemVO);
 
-    PubItemVersionDbVO pubItemToCreate =
-        buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(), pubItemVO.getFiles(),
-            pubItemVO.getLocalTags(), userAccount.getReference().getTitle(), userAccount
-                .getReference().getObjectId());
+    PubItemVersionDbVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew,
+        pubItemVO.getMetadata(), pubItemVO.getFiles(), pubItemVO.getLocalTags(),
+        userAccount.getReference().getTitle(), userAccount.getReference().getObjectId());
 
     PubItemVO pubItemToCreateOld = EntityTransformer.transformToOld(pubItemToCreate);
 
@@ -334,12 +333,11 @@ public class PubItemServiceDbImpl implements PubItemService {
     }
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
 
-    checkEqualModificationDate(pubItemVO.getVersion().getModificationDate(), latestVersionOld
-        .getVersion().getModificationDate());
+    checkEqualModificationDate(pubItemVO.getVersion().getModificationDate(),
+        latestVersionOld.getVersion().getModificationDate());
 
-    ContextVO context =
-        EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getContext()
-            .getObjectId()));
+    ContextVO context = EntityTransformer
+        .transformToOld(contextRepository.findOne(pubItemVO.getContext().getObjectId()));
 
     checkPubItemAa(latestVersionOld, context, userAccount, "update");
 
@@ -348,8 +346,8 @@ public class PubItemServiceDbImpl implements PubItemService {
       // Reset latestRelase reference because it is the same object as latest version
       PubItemDbRO latestReleaseDbRO = new PubItemDbRO();
       latestReleaseDbRO.setObjectId(latestVersion.getObject().getLatestRelease().getObjectId());
-      latestReleaseDbRO.setVersionNumber(latestVersion.getObject().getLatestRelease()
-          .getVersionNumber());
+      latestReleaseDbRO
+          .setVersionNumber(latestVersion.getObject().getLatestRelease().getVersionNumber());
       latestVersion.getObject().setLatestRelease(latestReleaseDbRO);
 
       // if current user is owner, set to status pending. Else, set to status
@@ -365,9 +363,62 @@ public class PubItemServiceDbImpl implements PubItemService {
       latestVersion.getObject().setLatestVersion(latestVersion);
     }
 
-    updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getReference()
-        .getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(),
+        userAccount.getReference().getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
+    ArrayList<FileDbVO> fileDbVOList = new ArrayList<FileDbVO>();
+    for (FileVO fileVo : pubItemVO.getFiles()) {
+      if ((fileVo.getReference() == null || fileVo.getReference().getObjectId() == null)
+          && (fileVo.getContent() == null || fileVo.getContent().length() == 0)) {
+        break;
+      }
+
+      FileDbVO newFileDbVo = new FileDbVO();
+      newFileDbVo.setChecksum(fileVo.getChecksum());
+      // TODO
+      // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
+      // .getChecksumAlgorithm().name()));
+      newFileDbVo.setContent(fileVo.getContent());
+      newFileDbVo.setContentCategory(fileVo.getContentCategory());
+
+      AccountUserRO accountUserRo = fileVo.getCreatedByRO();
+      AccountUserDbRO modifier = new AccountUserDbRO();
+      if (accountUserRo != null) {
+        modifier.setObjectId(accountUserRo.getObjectId());
+        modifier.setName(accountUserRo.getTitle());
+        newFileDbVo.setCreator(modifier);
+      } else {
+        modifier.setObjectId(userAccount.getUserid());
+        modifier.setName(userAccount.getName());
+      }
+
+      if (fileVo.getCreationDate() != null) {
+        newFileDbVo.setCreationDate(fileVo.getCreationDate());
+      } else {
+        Date currentDate = new Date();
+        newFileDbVo.setCreationDate(currentDate);
+      }
+
+      newFileDbVo.setMetadata(fileVo.getDefaultMetadata());
+      newFileDbVo.setDescription(fileVo.getDescription());
+      newFileDbVo.setLastModificationDate(fileVo.getLastModificationDate());
+      newFileDbVo.setMimeType(fileVo.getMimeType());
+      newFileDbVo.setName(fileVo.getName());
+      newFileDbVo.setPid(fileVo.getPid());
+
+      if (fileVo.getReference() != null) {
+        newFileDbVo.setObjectId(fileVo.getReference().getObjectId());
+        newFileDbVo.setName(fileVo.getName());
+      } else {
+        newFileDbVo.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
+      }
+
+      newFileDbVo.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
+      newFileDbVo.setVisibility(FileDbVO.Visibility.valueOf(fileVo.getVisibility().name()));
+
+      fileDbVOList.add(newFileDbVo);
+    }
+    latestVersion.setFiles(fileDbVOList);
     latestVersion.getObject().setLocalTags(pubItemVO.getLocalTags());
 
     latestVersionOld = EntityTransformer.transformToOld(latestVersion);
@@ -400,9 +451,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     PubItemVO latestPubItem = EntityTransformer.transformToOld(latestPubItemDbVersion);
 
-    ContextVO context =
-        EntityTransformer.transformToOld(contextRepository.findOne(latestPubItem.getContext()
-            .getObjectId()));
+    ContextVO context = EntityTransformer
+        .transformToOld(contextRepository.findOne(latestPubItem.getContext().getObjectId()));
     checkPubItemAa(latestPubItem, context, userAccount, "delete");
 
     itemObjectRepository.delete(latestPubItemDbVersion.getObject());
@@ -434,17 +484,15 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (authenticationToken == null && version == null) {
       requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
     } else if (version != null) {
-      requestedItem =
-          EntityTransformer.transformToOld(itemRepository.findOne(new VersionableId(objectId,
-              Integer.parseInt(version))));
+      requestedItem = EntityTransformer.transformToOld(
+          itemRepository.findOne(new VersionableId(objectId, Integer.parseInt(version))));
     } else {
       requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
     }
 
     if (requestedItem != null && (authenticationToken != null || version != null)) {
-      ContextVO context =
-          EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
-              .getObjectId()));
+      ContextVO context = EntityTransformer
+          .transformToOld(contextRepository.findOne(requestedItem.getContext().getObjectId()));
       try {
         AccountUserVO userAccount = null;
         if (authenticationToken != null) {
@@ -477,14 +525,12 @@ public class PubItemServiceDbImpl implements PubItemService {
     QueryBuilder authorizedQuery;
 
     if (authenticationToken == null) {
-      authorizedQuery =
-          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryBuilder(),
-              null);
+      authorizedQuery = aaService.modifyQueryForAa(this.getClass().getCanonicalName(),
+          srr.getQueryBuilder(), null);
     } else {
       AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
-      authorizedQuery =
-          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryBuilder(),
-              userAccount);
+      authorizedQuery = aaService.modifyQueryForAa(this.getClass().getCanonicalName(),
+          srr.getQueryBuilder(), userAccount);
     }
 
     srr.setQueryBuilder(authorizedQuery);
@@ -545,9 +591,8 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     checkEqualModificationDate(modificationDate, latestVersionOld.getModificationDate());
 
-    ContextVO context =
-        EntityTransformer.transformToOld(contextRepository.findOne(latestVersion.getObject()
-            .getContext().getObjectId()));
+    ContextVO context = EntityTransformer.transformToOld(
+        contextRepository.findOne(latestVersion.getObject().getContext().getObjectId()));
 
     checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
 
@@ -569,8 +614,8 @@ public class PubItemServiceDbImpl implements PubItemService {
       latestVersion.setState(state);
     }
 
-    updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getReference()
-        .getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(),
+        userAccount.getReference().getObjectId());
 
     latestVersion.setLastMessage(message);
 
@@ -597,8 +642,8 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       try {
         String s = XmlTransformingService.transformToItem(itemToReturn);
-        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn.getVersion()
-            .getObjectIdAndVersion() + ".xml");
+        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()),
+            itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
       } catch (TechnicalException e) {
         throw new IngeTechnicalException(e);
       }
@@ -619,9 +664,8 @@ public class PubItemServiceDbImpl implements PubItemService {
         .delete(new VersionableId(item.getObjectId(), item.getVersionNumber() - 1).toString());
 
     pubItemDao.create(item.getObjectIdAndVersion(), EntityTransformer.transformToOld(item));
-    if (item.getObject().getLatestRelease() != null
-        && !item.getObjectIdAndVersion().equals(
-            item.getObject().getLatestRelease().getObjectIdAndVersion())) {
+    if (item.getObject().getLatestRelease() != null && !item.getObjectIdAndVersion()
+        .equals(item.getObject().getLatestRelease().getObjectIdAndVersion())) {
       pubItemDao.create(item.getObject().getLatestRelease().getObjectIdAndVersion(),
           EntityTransformer
               .transformToOld((PubItemVersionDbVO) item.getObject().getLatestRelease()));
@@ -632,7 +676,8 @@ public class PubItemServiceDbImpl implements PubItemService {
       AuthorizationException, IngeApplicationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
 
-    if (pubItem.getPublicStatus() != null && ItemVO.State.PENDING.equals(pubItem.getPublicStatus())) {
+    if (pubItem.getPublicStatus() != null
+        && ItemVO.State.PENDING.equals(pubItem.getPublicStatus())) {
       vp = ValidationPoint.SAVE;
     }
 
@@ -695,9 +740,8 @@ public class PubItemServiceDbImpl implements PubItemService {
             + latestVersion.getVersion().getObjectIdAndVersion());
         pubItemDao.createNotImmediately(latestVersion.getVersion().getObjectId() + "_"
             + latestVersion.getVersion().getVersionNumber(), latestVersion);
-        if (object.getLatestRelease() != null
-            && object.getLatestRelease().getVersionNumber() != object.getLatestVersion()
-                .getVersionNumber()) {
+        if (object.getLatestRelease() != null && object.getLatestRelease()
+            .getVersionNumber() != object.getLatestVersion().getVersionNumber()) {
           PubItemVO latestRelease =
               EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestRelease());
           logger.info("(" + count + ") Reindexing item latest release "
@@ -733,8 +777,8 @@ public class PubItemServiceDbImpl implements PubItemService {
   }
 
   private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
-      String method) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+      String method) throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, item,
         context);
   }
@@ -776,10 +820,12 @@ public class PubItemServiceDbImpl implements PubItemService {
           fileService.deleteFile(relativePath);
         } catch (IngeTechnicalException e) {
           logger.error("Could not upload staged file [" + relativePath + "]", e);
-          throw new IngeTechnicalException("Could not upload staged file [" + relativePath + "]", e);
+          throw new IngeTechnicalException("Could not upload staged file [" + relativePath + "]",
+              e);
         }
       }
     }
   }
 
 }
+
