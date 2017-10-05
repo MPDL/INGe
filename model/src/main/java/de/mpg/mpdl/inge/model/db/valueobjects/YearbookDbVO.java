@@ -47,7 +47,7 @@ public class YearbookDbVO extends BasicDbRO {
   @Enumerated(EnumType.STRING)
   private State state = State.CREATED;
 
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "yearbook_item")
   private Set<String> itemIds = new HashSet<>();
 

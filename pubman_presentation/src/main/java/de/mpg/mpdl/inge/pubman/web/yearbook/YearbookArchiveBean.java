@@ -6,13 +6,16 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.elasticsearch.discovery.local.LocalDiscovery;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
@@ -93,7 +96,18 @@ public class YearbookArchiveBean extends FacesBean {
         .getAuthenticationToken());
   }
 
-  public String viewItem() {
+
+  public String editMembers(YearbookDbVO yearbook) {
+
+    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
+    yisb.initYearbook(yearbook.getObjectId());
+    return "loadYearbookPage";
+
+  }
+
+  public String viewItem(YearbookDbVO yearbook) {
+
+
     for (final YearbookDbVO archivedYearbook : this.getArchivedYearbooks()) {
       if (this.getYearbookId().equals(archivedYearbook.getObjectId())) {
         this.setSelectedYearbook(archivedYearbook);

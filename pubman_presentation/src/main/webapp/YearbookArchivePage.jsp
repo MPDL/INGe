@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="full_area0">
-                        <div id="editItem" class="full_area0 fullItem">
+                        <div id="editItem" class="full_area0">
                             <ui:include src="yearbook/yearbookArchiveList.jspf" />
                         </div>
                     </div>

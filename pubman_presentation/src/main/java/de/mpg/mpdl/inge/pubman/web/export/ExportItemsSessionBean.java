@@ -182,8 +182,7 @@ public class ExportItemsSessionBean extends FacesBean {
   public void setFileFormat(String fileFormat) {
     if (fileFormat == null || fileFormat.trim().equals("")
         || this.getExportFormatName().equalsIgnoreCase("ENDNOTE")
-        || this.getExportFormatName().equalsIgnoreCase("BIBTEX")
-    ) {
+        || this.getExportFormatName().equalsIgnoreCase("BIBTEX")) {
       fileFormat = FileFormatVO.TEXT_NAME;
     }
 

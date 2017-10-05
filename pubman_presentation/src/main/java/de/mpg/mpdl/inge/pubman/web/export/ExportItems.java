@@ -216,7 +216,9 @@ public class ExportItems extends FacesBean {
     final String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
 
     try {
-      status = EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, null, replyToAddresses, subject, text, attachments);
+      status =
+          EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
+              recipientsCCAddresses, null, replyToAddresses, subject, text, attachments);
       this.cleanUpEmailFields();
     } catch (final TechnicalException e) {
       ExportItems.logger.error("Could not send the export formats." + "\n" + e.toString());
