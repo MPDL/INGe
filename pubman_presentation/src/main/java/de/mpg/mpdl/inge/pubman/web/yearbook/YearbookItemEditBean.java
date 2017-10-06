@@ -331,9 +331,7 @@ public class YearbookItemEditBean extends FacesBean {
       YearbookDbVO clonedYearbook = ModelHelper.makeClone(yearbookItemSessionBean.getYearbook());
       clonedYearbook.setContextIds(contextIds);
       clonedYearbook.setYear(Integer.parseInt(getYear()));
-      System.out.println(yearbookItemSessionBean.getYearbook().getObjectId());
-      System.out.println(clonedYearbook.getObjectId());
-      System.out.println(clonedYearbook.getOrganization());
+
 
       YearbookDbVO updatedYearbook =
           yearbookService.update(clonedYearbook, getLoginHelper().getAuthenticationToken());
@@ -352,6 +350,6 @@ public class YearbookItemEditBean extends FacesBean {
   }
 
   public String cancel() {
-    return "loadYearbookArchivePage";
+    return "loadYearbookPage";
   }
 }

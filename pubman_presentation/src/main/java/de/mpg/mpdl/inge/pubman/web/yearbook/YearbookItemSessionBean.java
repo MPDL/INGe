@@ -47,6 +47,8 @@ public class YearbookItemSessionBean extends FacesBean {
   // private ContextVO yearbookContext;
 
   private YearbookDbVO yearbook;
+  
+  private YearbookDbVO yearbookForView;
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap =
@@ -461,5 +463,13 @@ public class YearbookItemSessionBean extends FacesBean {
     }
 
     return "";
+  }
+
+  public YearbookDbVO getYearbookForView() {
+    return yearbookForView;
+  }
+
+  public void setYearbookForView(YearbookDbVO yearbookForView) {
+    this.yearbookForView = yearbookForView;
   }
 }

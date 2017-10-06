@@ -215,7 +215,9 @@ public class YearbookCandidatesRetrieverRequestBean extends
     final YearbookItemSessionBean yisb = this.getYearbookItemSessionBean();
 
     BoolQueryBuilder nonCandidateBoolQuery = QueryBuilders.boolQuery();
-
+    nonCandidateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
+        "RELEASED"));
+    
     // Contexts
     BoolQueryBuilder contextBoolQuery = QueryBuilders.boolQuery();
     nonCandidateBoolQuery.must(contextBoolQuery);
