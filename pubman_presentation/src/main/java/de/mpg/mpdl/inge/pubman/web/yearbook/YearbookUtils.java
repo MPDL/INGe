@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class YearbookUtils {
 
@@ -40,60 +41,13 @@ public class YearbookUtils {
     BoolQueryBuilder genreQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(genreQuery);
 
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.JOURNAL.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.ARTICLE.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.ISSUE.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.BOOK.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.BOOK_ITEM.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.PROCEEDINGS.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONFERENCE_PAPER.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.PAPER.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.THESIS.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.SERIES.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONTRIBUTION_TO_HANDBOOK.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONTRIBUTION_TO_FESTSCHRIFT.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONTRIBUTION_TO_COLLECTED_EDITION.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.MONOGRAPH.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.HANDBOOK.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.COLLECTED_EDITION.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.FESTSCHRIFT.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.NEWSPAPER_ARTICLE.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONFERENCE_REPORT.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.EDITORIAL.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CONTRIBUTION_TO_COMMENTARY.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.BOOK_REVIEW.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.OPINION.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CASE_STUDY.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.CASE_NOTE.name()));
-    genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.COMMENTARY.name()));
+    String genreProperties = PropertyReader.getProperty("yearbook.allowed_genres");
+
+    for (String genre : genreProperties.split(",")) {
+      genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
+          genre.trim()));
+    }
+
 
     // Exclude items which are already members
 
