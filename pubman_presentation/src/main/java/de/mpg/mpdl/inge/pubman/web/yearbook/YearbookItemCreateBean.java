@@ -99,11 +99,8 @@ public class YearbookItemCreateBean extends FacesBean {
     final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
     final Calendar calendar = Calendar.getInstance();
     final String currentYear = calendarFormat.format(calendar.getTime());
-    this.selectableYears.add(new SelectItem(currentYear, currentYear));
     try {
-      boolean previousYearPossible = true;
 
-      
       QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, getAffiliation().getReference().getObjectId());
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
       SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
@@ -112,14 +109,14 @@ public class YearbookItemCreateBean extends FacesBean {
           resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
 
 
-      // check if years have to be excluded from selection
-      for (YearbookDbVO yearbook : yearbooks) {
-        if (yearbook.getYear() == Integer.valueOf(currentYear)) {
-          previousYearPossible = false;
-        }
+      List<Integer> years = yearbooks.stream().map(yb -> yb.getYear()).collect(Collectors.toList());
+      
+      if(!years.contains(Integer.parseInt(currentYear)))
+      {
+        this.selectableYears.add(new SelectItem(currentYear, currentYear) );
       }
-
-      if (previousYearPossible == true) {
+      if(!years.contains(Integer.parseInt(currentYear)-1))
+      {
         this.selectableYears.add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1),
             Integer.toString(Integer.valueOf(currentYear) - 1)));
       }

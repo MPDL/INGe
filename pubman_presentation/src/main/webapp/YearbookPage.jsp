@@ -27,7 +27,7 @@
                             <div id="contentSkipLinkAnchor" class="clear headLine">
                                 <!-- Headline starts here -->
                                 <h1>
-                                    <h:outputText value="#{lbl.YearbookPage}" />
+                                    <h:outputText value="#{lbl.YearbookPage} #{YearbookItemSessionBean.yearbook.year}" />
                                 </h1>
                                 <!-- Headline ends here -->
                             </div>
@@ -51,6 +51,12 @@
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}" />
                                     </h:outputLink>
                                 </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="contentMenu" rendered="#{YearbookItemSessionBean.yearbook!=null}">
+                                <!-- content menu starts here -->
+                                <div class="free_area0 sub">
+                                <b><h:outputText value="#{YearbookItemSessionBean.yearbook.name}"/></b>
+                                </div>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="contentMenu" rendered="#{YearbookItemSessionBean.yearbook!=null}">
                                 <!-- content menu starts here -->
@@ -103,7 +109,7 @@
                                     <h:outputText styleClass="seperator void" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}" />
                                     <h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}" onclick="fullItemReloadAjax();" />
                                     <h:outputText styleClass="seperator void" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbook.state=='CREATED'}" />
-                                    <h:commandLink id="lnkSubmitYearbook" styleClass="free_area0" value="#{lbl.Yearbook_submitYearbook}" action="#{YearbookItemSessionBean.submitYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbook.state=='CREATED'}" onclick="fullItemReloadAjax();" /> &#160;
+                                    <h:commandLink id="lnkSubmitYearbook" styleClass="free_area0" value="#{lbl.Yearbook_submitYearbook}" action="#{YearbookItemSessionBean.submitYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbook.state=='CREATED' and YearbookItemSessionBean.yearbook.itemIds.size() > 0}" onclick="fullItemReloadAjax();" /> &#160;
                                     <!-- content menu upper line ends here -->
                                 </div>
                                 <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">

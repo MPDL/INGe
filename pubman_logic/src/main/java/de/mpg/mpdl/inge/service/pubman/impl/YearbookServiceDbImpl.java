@@ -65,7 +65,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
    */
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public YearbookDbVO submit(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -74,7 +74,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public YearbookDbVO release(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
@@ -82,7 +82,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   }
 
   @Override
-  @Transactional
+  @Transactional(rollbackFor = Throwable.class)
   public YearbookDbVO revise(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {

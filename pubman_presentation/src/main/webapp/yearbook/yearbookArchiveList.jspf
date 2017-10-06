@@ -18,10 +18,10 @@
 								<span class="free_area0_p6 endline itemHeadline">
 									<b>
 									<h:commandLink styleClass="" action="#{YearbookArchiveBean.editMembers(item)}" rendered="#{item.state == 'CREATED'}">
-										<h:outputText escape="false" value="#{item.year} - #{item.organization.name}"/>
+										<h:outputText escape="false" value="#{item.name}"/>
 									</h:commandLink>
 									<h:commandLink styleClass="" action="#{YearbookArchiveBean.viewMembers(item)}" rendered="#{item.state != 'CREATED'}">
-										<h:outputText escape="false" value="#{item.year} - #{item.organization.name}"/>
+										<h:outputText escape="false" value="#{item.name}"/>
 									</h:commandLink>
 									
 									</b>

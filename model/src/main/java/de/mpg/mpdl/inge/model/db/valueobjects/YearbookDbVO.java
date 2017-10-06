@@ -97,4 +97,9 @@ public class YearbookDbVO extends BasicDbRO implements Serializable {
     this.contextIds = contextIds;
   }
 
+  @Override
+  public String getName() {
+    return getYear() + " - " + getOrganization().getName();
+  }
+
 }

@@ -24,7 +24,7 @@
                             <div id="contentSkipLinkAnchor" class="clear headLine">
                                 <!-- Headline starts here -->
                                 <h1>
-                                    <h:outputText value="#{lbl.YearbookArchivePage}" />
+                                    <h:outputText value="#{lbl.YearbookArchivePage} #{YearbookItemSessionBean.yearbookForView.year}" />
                                 </h1>
                                 <!-- Headline ends here -->
                             </div>

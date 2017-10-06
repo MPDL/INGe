@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
@@ -189,7 +190,7 @@ public class YearbookItemEditBean extends FacesBean {
     final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
     final Calendar calendar = Calendar.getInstance();
     final String currentYear = calendarFormat.format(calendar.getTime());
-    this.selectableYears.add(new SelectItem(currentYear, currentYear));
+    this.selectableYears.add(new SelectItem(String.valueOf(yearbookItemSessionBean.getYearbook().getYear()), String.valueOf(yearbookItemSessionBean.getYearbook().getYear())));
     
     try {
       QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, yearbookItemSessionBean.getYearbook().getOrganization().getObjectId());
@@ -199,18 +200,20 @@ public class YearbookItemEditBean extends FacesBean {
       List<YearbookDbVO> yearbooks =
           resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
 
-      boolean previousYearPossible = true;
-      // check if years have to be excluded from selection
-      for (YearbookDbVO yearbook : yearbooks) {
-        if (yearbook.getYear() == Integer.valueOf(currentYear)) {
-          previousYearPossible = false;
-        }
+      List<Integer> years = yearbooks.stream().map(yb -> yb.getYear()).collect(Collectors.toList());
+      
+      if(!years.contains(Integer.parseInt(currentYear)) && yearbookItemSessionBean.getYearbook().getYear() != Integer.parseInt(currentYear))
+      {
+        this.selectableYears.add(new SelectItem(currentYear, currentYear) );
       }
-
-      if (previousYearPossible == true) {
+      if(!years.contains(Integer.parseInt(currentYear)-1) && yearbookItemSessionBean.getYearbook().getYear() != Integer.parseInt(currentYear)-1)
+      {
         this.selectableYears.add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1),
             Integer.toString(Integer.valueOf(currentYear) - 1)));
       }
+      
+      
+      
     } catch (Exception e) {
       YearbookItemEditBean.logger.error("Problem with yearbook: \n", e);
     } 
