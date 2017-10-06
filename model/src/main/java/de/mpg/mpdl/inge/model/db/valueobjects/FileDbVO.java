@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Cacheable;
@@ -58,7 +60,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
-public class FileDbVO extends FileDbRO {
+public class FileDbVO extends FileDbRO implements Serializable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc

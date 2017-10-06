@@ -59,7 +59,7 @@
 								</div>
 								<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 									<span class="huge_area0_p8 endline labelLine">
-										<h:commandLink value="Edit yearbook data" action="#{YearbookArchiveBean.editData(item)}"/>
+										<h:commandLink value="Edit yearbook data" action="#{YearbookArchiveBean.editYearbookData(item)}"/>
 									</span>
 								</div>
 							</h:panelGroup>

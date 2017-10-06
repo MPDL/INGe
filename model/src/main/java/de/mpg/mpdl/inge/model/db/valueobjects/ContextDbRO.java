@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -52,7 +54,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class ContextDbRO extends BasicDbRO {
+public class ContextDbRO extends BasicDbRO implements Serializable {
 
 
 }

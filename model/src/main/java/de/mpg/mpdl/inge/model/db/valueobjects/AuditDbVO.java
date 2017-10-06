@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
@@ -22,7 +23,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name = "audit")
 @Table(name = "audit_log")
-public class AuditDbVO {
+public class AuditDbVO implements Serializable {
 
   public enum EventType {
     CREATE, SUBMIT, RELEASE, REVISE, WITHDRAW, UPDATE;

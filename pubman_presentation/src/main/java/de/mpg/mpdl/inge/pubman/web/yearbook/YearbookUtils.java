@@ -33,7 +33,9 @@ public class YearbookUtils {
 
     BoolQueryBuilder candidateBoolQuery = QueryBuilders.boolQuery();
 
-    
+    candidateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
+        "RELEASED"));
+
     // Genres
     BoolQueryBuilder genreQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(genreQuery);
@@ -94,7 +96,7 @@ public class YearbookUtils {
         Genre.COMMENTARY.name()));
 
     // Exclude items which are already members
-    
+
     if (yisb.getNumberOfMembers() > 0) {
       BoolQueryBuilder memberQuery = QueryBuilders.boolQuery();
       candidateBoolQuery.must(memberQuery);
@@ -105,7 +107,7 @@ public class YearbookUtils {
     }
 
     // Dates
-    
+
     String year = String.valueOf((yisb.getYearbook().getYear()));
     String roundedYear = DateSearchCriterion.roundDateString(year);
     BoolQueryBuilder dateBoolQuery = QueryBuilders.boolQuery();
@@ -158,9 +160,15 @@ public class YearbookUtils {
 
     BoolQueryBuilder bq = QueryBuilders.boolQuery();
     int i = 0;
-    for (final String rel : yearbookItem.getItemIds()) {
-      bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, rel));
+    if (yearbookItem.getItemIds().size() > 0) {
+      for (final String rel : yearbookItem.getItemIds()) {
+        bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, rel));
+      }
+    } else {
+      // Return nothing when members are empty
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, ""));;
     }
+
     return bq;
   }
 

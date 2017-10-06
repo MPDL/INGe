@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +30,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 @Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization",
     "year"}))
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
-public class YearbookDbVO extends BasicDbRO {
+public class YearbookDbVO extends BasicDbRO implements Serializable {
 
   public enum State {
     CREATED, SUBMITTED, RELEASED;

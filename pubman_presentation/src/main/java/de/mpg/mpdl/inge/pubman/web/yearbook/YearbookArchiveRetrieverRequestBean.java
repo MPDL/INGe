@@ -145,7 +145,7 @@ public class YearbookArchiveRetrieverRequestBean extends
       
       QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookArchiveBean.getSelectedYearbook());
       
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset+1, null);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, null);
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
           .search(srr, getLoginHelper().getAuthenticationToken());
 

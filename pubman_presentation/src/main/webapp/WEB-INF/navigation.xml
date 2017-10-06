@@ -314,6 +314,24 @@
 		<from-view-id>
 			*</from-view-id>
 		<navigation-case>
+			<from-outcome>loadYearbookItemEditPage</from-outcome>
+			<to-view-id>
+				/YearbookItemEditPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+		<navigation-rule>
+		<from-view-id>
+			*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadYearbookArchivePage</from-outcome>
+			<to-view-id>
+				/YearbookArchivePage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+			*</from-view-id>
+		<navigation-case>
 			<from-outcome>loadUserAccountOptionsPage</from-outcome>
 			<to-view-id>
 				/UserAccountOptions.jsp</to-view-id>

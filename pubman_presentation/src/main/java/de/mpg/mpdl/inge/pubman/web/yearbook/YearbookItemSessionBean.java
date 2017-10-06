@@ -113,7 +113,7 @@ public class YearbookItemSessionBean extends FacesBean {
    
       
     YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id, getLoginHelper().getAuthenticationToken());
-    System.out.println("Yearbook: " +yb);
+    System.out.println("Yearbook: " +yb.getObjectId() + " - " + yb.getLastModificationDate());
     this.setYearbook(yb);
     
     } catch (final Exception e) {

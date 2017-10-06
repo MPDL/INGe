@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -60,7 +62,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 @Table(name = "context")
 @TypeDef(name = "ContextAdminDescriptorJsonUserType",
     typeClass = ContextAdminDescriptorJsonUserType.class)
-public class ContextDbVO extends ContextDbRO implements Searchable {
+public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
   /**
    * The possible states of a collection.
    * 

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.elasticsearch.discovery.local.LocalDiscovery;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -28,7 +29,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
  * @version $Revision$ $LastChangedDate$
  */
 @ManagedBean(name = "YearbookArchiveBean")
-@SessionScoped
+@ViewScoped
 @SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
 
@@ -102,6 +103,14 @@ public class YearbookArchiveBean extends FacesBean {
     YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
     yisb.initYearbook(yearbook.getObjectId());
     return "loadYearbookPage";
+
+  }
+
+  public String editYearbookData(YearbookDbVO yearbook) {
+
+    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
+    yisb.initYearbook(yearbook.getObjectId());
+    return "loadYearbookItemEditPage";
 
   }
 

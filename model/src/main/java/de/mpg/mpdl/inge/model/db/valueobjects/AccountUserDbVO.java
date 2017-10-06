@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 @TypeDef(name = "GrantVOListJsonUserType", typeClass = GrantVOListJsonUserType.class)
-public class AccountUserDbVO extends BasicDbRO {
+public class AccountUserDbVO extends BasicDbRO implements Serializable {
 
   private boolean active;
 

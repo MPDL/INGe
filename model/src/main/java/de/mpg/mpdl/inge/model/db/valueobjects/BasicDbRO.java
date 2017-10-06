@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -48,7 +50,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  */
 @JsonInclude(value = Include.NON_EMPTY)
 @MappedSuperclass
-public class BasicDbRO implements Cloneable {
+public class BasicDbRO implements Cloneable, Serializable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
    * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc

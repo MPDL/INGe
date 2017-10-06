@@ -358,11 +358,11 @@ public class YearbookCandidatesRetrieverRequestBean extends
           
           SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
           
-          SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset+1, ssc);
+          SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, ssc);
               
               
           SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
-              .search(srr, getLoginHelper().getAuthenticationToken());
+              .search(srr, null);
 
           this.numberOfRecords = resp.getNumberOfRecords();
 

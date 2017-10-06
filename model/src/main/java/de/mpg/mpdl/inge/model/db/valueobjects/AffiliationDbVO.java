@@ -25,6 +25,7 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.persistence.Column;
@@ -63,7 +64,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType",
     typeClass = MdsOrganizationalUnitVOJsonUserType.class)
-public class AffiliationDbVO extends AffiliationDbRO {
+public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   public enum State {
     CREATED, CLOSED, OPENED, DELETED
   }
