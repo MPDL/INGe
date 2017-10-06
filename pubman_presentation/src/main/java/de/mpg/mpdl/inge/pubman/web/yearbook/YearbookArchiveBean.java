@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
@@ -105,6 +107,14 @@ public class YearbookArchiveBean extends FacesBean {
     return "loadYearbookPage";
 
   }
+  
+  public String viewMembers(YearbookDbVO yearbook) {
+
+    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
+    yisb.setYearbookForView(yearbook);
+    return "loadYearbookArchiveItemViewPage";
+
+  }
 
   public String editYearbookData(YearbookDbVO yearbook) {
 
@@ -123,5 +133,12 @@ public class YearbookArchiveBean extends FacesBean {
       }
     }
     return "loadYearbookArchiveItemViewPage";
+  }
+
+  public List<String> convertSetToList(Set<String> set) {
+    if (set != null) {
+      return new ArrayList<>(set);
+    }
+    return null;
   }
 }

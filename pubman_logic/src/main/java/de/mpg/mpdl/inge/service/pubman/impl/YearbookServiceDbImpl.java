@@ -4,22 +4,28 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.YearbookDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO> implements
@@ -35,6 +41,9 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   @Autowired
   private YearbookRepository yearbookRepository;
+  
+  @Autowired
+  private AuthorizationService aaService;
 
   // @Autowired
   // private EntityManager entityManager;
@@ -56,27 +65,55 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
    */
 
   @Override
-  public YearbookDbVO submitYearbook(int yearbookId, String authenticationToken)
+  @Transactional
+  public YearbookDbVO submit(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
-    // TODO Auto-generated method stub
-    return null;
+    
+    return changeState(yearbookId, modificationDate, authenticationToken, State.SUBMITTED, "submit");
   }
 
   @Override
-  public YearbookDbVO releaseYearbook(int yearbookId, String authenticationToken)
+  @Transactional
+  public YearbookDbVO release(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
-    // TODO Auto-generated method stub
-    return null;
+    return changeState(yearbookId, modificationDate, authenticationToken, State.RELEASED, "release");
   }
 
   @Override
-  public YearbookDbVO reviseYearbook(int yearbookId, String authenticationToken)
+  @Transactional
+  public YearbookDbVO revise(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
-    // TODO Auto-generated method stub
-    return null;
+    return changeState(yearbookId, modificationDate, authenticationToken, State.CREATED, "revise");
+  }
+  
+  private YearbookDbVO changeState(String id, Date modificationDate, String authenticationToken,
+      YearbookDbVO.State state, String methodName) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
+    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    YearbookDbVO yearbookDbToBeUpdated = yearbookRepository.findOne(id);
+    if (yearbookDbToBeUpdated == null) {
+      throw new IngeApplicationException("Yearbook with given id " + id + " not found.");
+    }
+
+    checkEqualModificationDate(modificationDate, yearbookDbToBeUpdated.getLastModificationDate());
+
+    checkAa(methodName, userAccount,
+        yearbookDbToBeUpdated);
+
+    yearbookDbToBeUpdated.setState(state);
+    updateWithTechnicalMetadata(yearbookDbToBeUpdated, userAccount, false);
+
+    try {
+      yearbookDbToBeUpdated = yearbookRepository.saveAndFlush(yearbookDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+
+    yearbookDao.update(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
+    return yearbookDbToBeUpdated;
   }
 
 

@@ -263,10 +263,10 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
     final YearbookItemSessionBean yisb =
         (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-
+    BoolQueryBuilder bq = QueryBuilders.boolQuery();
     if (yisb.getInvalidItemMap().size() > 0) {
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+    
 
       for (final YearbookInvalidItemRO item : yisb.getInvalidItemMap().values()) {
         bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
@@ -275,28 +275,10 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
 
       return bq;
-
-
-
-      /*
-       * 
-       * ItemValidating itemValidating = (ItemValidating) new
-       * InitialContext().lookup(ItemValidating.SERVICE_NAME);
-       * 
-       * System.out.println("Validate " + pubItemList.size() + "items"); long start =
-       * System.currentTimeMillis(); for(PubItemVO item : pubItemList) { PubItemVO pubitem = new
-       * PubItemVO(item);
-       * 
-       * long startSingle=System.currentTimeMillis(); ValidationReportVO report =
-       * itemValidating.validateItemObject(pubitem); long stopSingle=System.currentTimeMillis();
-       * System.out.println(item.getVersion().getObjectId()+ " took " + (stopSingle-startSingle) +
-       * "ms"); } long stop = System.currentTimeMillis();
-       * 
-       * System.out.println("All " + pubItemList.size() +" took " + (stop-start) + "ms");
-       */
     }
-
-    return null;
+   return null;
+    
+   
   }
 
 
@@ -372,6 +354,11 @@ public class YearbookCandidatesRetrieverRequestBean extends
               .collect(Collectors.toList());
 
           return CommonUtils.convertToPubItemVOPresentationList(resultList);
+        }
+        else
+        {
+          this.numberOfRecords = 0;
+          return new ArrayList<>();
         }
       }
     } catch (final Exception e) {

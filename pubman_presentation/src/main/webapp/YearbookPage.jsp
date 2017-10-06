@@ -102,8 +102,8 @@
                                     <h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbook}" action="#{YearbookCandidatesRetrieverRequestBean.removeSelectedFromYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and (YearbookItemSessionBean.yearbook.state=='CREATED' or YearbookItemSessionBean.yearbook.state=='IN_REVISION')}" onclick="fullItemReloadAjax();" />
                                     <h:outputText styleClass="seperator void" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}" />
                                     <h:commandLink id="lnkValidate" styleClass="free_area0" value="#{lbl.Yearbook_validate}" action="#{YearbookItemSessionBean.validateYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' || YearbookItemSessionBean.selectedWorkspace=='INVALID'}" onclick="fullItemReloadAjax();" />
-                                    <h:outputText styleClass="seperator void" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and (YearbookItemSessionBean.yearbook.state=='CREATED' or YearbookItemSessionBean.yearbook.state=='IN_REVISION') and ContextListSessionBean.yearbookContextListSize>0}" />
-                                    <h:commandLink id="lnkSubmitYearbook" styleClass="free_area0" value="#{lbl.Yearbook_submitYearbook}" action="#{YearbookItemSessionBean.submitYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and (YearbookItemSessionBean.yearbook.state=='CREATED' or YearbookItemSessionBean.yearbook.state=='IN_REVISION') and ContextListSessionBean.yearbookContextListSize>0}" onclick="fullItemReloadAjax();" /> &#160;
+                                    <h:outputText styleClass="seperator void" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbook.state=='CREATED'}" />
+                                    <h:commandLink id="lnkSubmitYearbook" styleClass="free_area0" value="#{lbl.Yearbook_submitYearbook}" action="#{YearbookItemSessionBean.submitYearbook}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='MEMBERS' and YearbookItemSessionBean.yearbook.state=='CREATED'}" onclick="fullItemReloadAjax();" /> &#160;
                                     <!-- content menu upper line ends here -->
                                 </div>
                                 <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
@@ -215,12 +215,7 @@
                         </h:panelGroup>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{YearbookItemSessionBean.yearbook==null}">
-                        <h:panelGroup styleClass="full_area0">
-                            <h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.Yearbook_noYearbookFound}" />
-                            <h:outputLink styleClass="free_area0 small_marginLExcl" value="YearbookItemCreatePage.jsp" rendered="#{ContextListSessionBean.yearbookContextListSize>0}">
-                                <h:outputText value="#{lbl.Yearbook_createYearbook}" />
-                            </h:outputLink>
-                        </h:panelGroup>
+                        
                         <h:panelGroup styleClass="full_area0">
                             <h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.Yearbook_loadArchive}" />
                             <h:outputLink styleClass="free_area0 small_marginLExcl" value="YearbookArchivePage.jsp">

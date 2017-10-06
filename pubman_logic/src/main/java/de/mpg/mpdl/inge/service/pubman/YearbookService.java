@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman;
 
+import java.util.Date;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -14,15 +16,15 @@ public interface YearbookService extends GenericService<YearbookDbVO> {
    * IngeApplicationException;
    */
 
-  public YearbookDbVO submitYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO submit(String yearbookId, Date lastModificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 
-  public YearbookDbVO releaseYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO release(String yearbookId, Date lastModificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 
-  public YearbookDbVO reviseYearbook(int yearbookId, String authenticationToken)
+  public YearbookDbVO revise(String yearbookId, Date lastModificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 

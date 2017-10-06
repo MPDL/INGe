@@ -17,17 +17,18 @@
 								<span class="seperator status"/>
 								<span class="free_area0_p6 endline itemHeadline">
 									<b>
-									<h:outputText escape="false" value="#{item.year} - #{item.organization.name}"/>
-									<ui:remove>
-										<h:commandLink action="#{YearbookArchiveBean.viewItem}">
-											<f:setPropertyActionListener target="#{YearbookArchiveBean.yearbookId}" value="#{item.objectId}"/>
-											<h:outputText escape="false" value="#{item.year} - #{item.organization.name}"/>
-										</h:commandLink>
-										</ui:remove>
+									<h:commandLink styleClass="" action="#{YearbookArchiveBean.editMembers(item)}" rendered="#{item.state == 'CREATED'}">
+										<h:outputText escape="false" value="#{item.year} - #{item.organization.name}"/>
+									</h:commandLink>
+									<h:commandLink styleClass="" action="#{YearbookArchiveBean.viewMembers(item)}" rendered="#{item.state != 'CREATED'}">
+										<h:outputText escape="false" value="#{item.year} - #{item.organization.name}"/>
+									</h:commandLink>
+									
 									</b>
 								</span>
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="full_area0 shortView">
+								
 								<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 									<span class="huge_area0_p8 endline labelLine">
 										<div>
@@ -52,19 +53,10 @@
 										</div>
 									</span>
 								</div>
-								<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-									<span class="huge_area0_p8 endline labelLine">
-										<h:commandLink value="Edit Members" action="#{YearbookArchiveBean.editMembers(item)}"/>
-									</span>
-								</div>
-								<div class="free_area0_p0 small_marginLIncl endline listItemLine">
-									<span class="huge_area0_p8 endline labelLine">
-										<h:commandLink value="Edit yearbook data" action="#{YearbookArchiveBean.editYearbookData(item)}"/>
-									</span>
-								</div>
+
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="full_area0 mediumView">
-								<ui:repeat value="#{item.itemIds}" var="rel">
+								<ui:repeat value="#{YearbookArchiveBean.convertSetToList(item.itemIds)}" var="rel">
 									<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 										<span class="huge_area0_p8 endline labelLine">
 											<h:outputText value="#{lbl.Yearbook_member}"/>

@@ -159,24 +159,20 @@ public class YearbookUtils {
   public static BoolQueryBuilder getMemberQuery(YearbookDbVO yearbookItem) throws Exception {
 
     BoolQueryBuilder bq = QueryBuilders.boolQuery();
-    int i = 0;
     if (yearbookItem.getItemIds().size() > 0) {
       for (final String rel : yearbookItem.getItemIds()) {
         bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, rel));
       }
-    } else {
-      // Return nothing when members are empty
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, ""));;
+      return bq;
     }
-
-    return bq;
+      return null;
   }
 
   public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken) throws Exception {
     
     QueryBuilder qb = YearbookUtils.getMemberQuery(yearbook);
     
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, Integer.MAX_VALUE, 0, null);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
         .search(srr, authenticationToken);
 
