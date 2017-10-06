@@ -165,7 +165,7 @@ public class YearbookUtils {
       }
       return bq;
     }
-      return null;
+    return null;
   }
 
   public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken) throws Exception {

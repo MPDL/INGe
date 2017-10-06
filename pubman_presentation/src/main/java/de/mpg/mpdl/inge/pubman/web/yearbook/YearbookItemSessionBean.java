@@ -334,7 +334,6 @@ public class YearbookItemSessionBean extends FacesBean {
 
       try {
         ItemValidatingService.validate(new PubItemVO(pubItem), ValidationPoint.STANDARD);
-        this.info(this.getMessage("itemIsValid"));
       } catch (final ValidationException e) {
         rep = e.getReport();
       }
@@ -344,8 +343,8 @@ public class YearbookItemSessionBean extends FacesBean {
             pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
       } else {
         this.invalidItemMap.remove(pubItem.getVersion().getObjectId());
-        this.validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(
-            pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        this.validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem
+            .getVersion().getObjectId(), rep, pubItem.getModificationDate()));
       }
       return rep.isValid();
     }
@@ -435,19 +434,21 @@ public class YearbookItemSessionBean extends FacesBean {
       if (!allValid) {
         this.error(this.getMessage("Yearbook_SubmitError"));
       } else {
-        
-        YearbookDbVO updatedYb = ApplicationBean.INSTANCE.getYearbookService().submit(this.yearbook.getObjectId(), this.yearbook.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
+
+        YearbookDbVO updatedYb =
+            ApplicationBean.INSTANCE.getYearbookService().submit(this.yearbook.getObjectId(),
+                this.yearbook.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
         this.setYearbook(updatedYb);
-        
+
         this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
-        
+
         return "loadYearbookArchivePage";
       }
     } catch (final Exception e) {
       this.error(this.getMessage("Yearbook_SubmitError"));
       YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
     }
-    
+
 
     return "";
   }

@@ -32,7 +32,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Test
   public void test1Create() {
     try {
-      String contextId = this.itemDao.create(test_item_id, test_item());
+      String contextId = this.itemDao.createImmediately(test_item_id, test_item());
       assert contextId.equals(test_item_id);
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -55,7 +55,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Test
   public void test2Create() {
     try {
-      String contextId = this.itemDao.create(test_item_id, create_item());
+      String contextId = this.itemDao.createImmediately(test_item_id, create_item());
       assert contextId.equals(test_item_id);
     } catch (Exception e) {
       logger.error(e);
@@ -80,7 +80,7 @@ public class ItemServiceHandlerTest extends TestBase {
     try {
       PubItemVO pubItemVO = this.itemDao.get(test_item_id);
       pubItemVO.setPid("testPid");
-      this.itemDao.update(test_item_id, pubItemVO);
+      this.itemDao.updateImmediately(test_item_id, pubItemVO);
       PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
       assert pubItemVO2.getPid().equals("testPid");
     } catch (IngeTechnicalException e) {

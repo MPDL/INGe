@@ -41,7 +41,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   @Autowired
   private YearbookRepository yearbookRepository;
-  
+
   @Autowired
   private AuthorizationService aaService;
 
@@ -69,7 +69,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   public YearbookDbVO submit(String yearbookId, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
-    
+
     return changeState(yearbookId, modificationDate, authenticationToken, State.SUBMITTED, "submit");
   }
 
@@ -88,10 +88,10 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
       IngeApplicationException {
     return changeState(yearbookId, modificationDate, authenticationToken, State.CREATED, "revise");
   }
-  
+
   private YearbookDbVO changeState(String id, Date modificationDate, String authenticationToken,
-      YearbookDbVO.State state, String methodName) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+      YearbookDbVO.State state, String methodName) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     YearbookDbVO yearbookDbToBeUpdated = yearbookRepository.findOne(id);
     if (yearbookDbToBeUpdated == null) {
@@ -100,8 +100,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
     checkEqualModificationDate(modificationDate, yearbookDbToBeUpdated.getLastModificationDate());
 
-    checkAa(methodName, userAccount,
-        yearbookDbToBeUpdated);
+    checkAa(methodName, userAccount, yearbookDbToBeUpdated);
 
     yearbookDbToBeUpdated.setState(state);
     updateWithTechnicalMetadata(yearbookDbToBeUpdated, userAccount, false);
@@ -112,7 +111,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
       handleDBException(e);
     }
 
-    yearbookDao.update(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
+    getElasticDao().updateImmediately(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
     return yearbookDbToBeUpdated;
   }
 

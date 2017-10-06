@@ -33,7 +33,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
   @Test
   public void testCreate() {
     try {
-      String ouId = this.organizationDao.create(test_ou_id, test_ou());
+      String ouId = this.organizationDao.createImmediately(test_ou_id, test_ou());
       assert ouId.equals(test_ou_id);
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -57,7 +57,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
     try {
       AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
       affiliationVO.getDefaultMetadata().setCountryCode("DE");
-      this.organizationDao.update(test_ou_id, affiliationVO);
+      this.organizationDao.updateImmediately(test_ou_id, affiliationVO);
       AffiliationVO affiliationVO2 = this.organizationDao.get(test_ou_id);
       assert affiliationVO2.getDefaultMetadata().getCountryCode().equals("DE");
     } catch (IngeTechnicalException e) {

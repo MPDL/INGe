@@ -107,7 +107,7 @@ public class YearbookArchiveBean extends FacesBean {
     return "loadYearbookPage";
 
   }
-  
+
   public String viewMembers(YearbookDbVO yearbook) {
 
     YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");

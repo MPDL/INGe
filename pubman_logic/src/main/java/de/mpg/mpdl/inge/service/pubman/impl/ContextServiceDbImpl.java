@@ -104,7 +104,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
     ContextVO contextToReturn = EntityTransformer.transformToOld(contextDbToBeUpdated);
-    contextDao.update(contextDbToBeUpdated.getObjectId(), contextToReturn);
+    getElasticDao().updateImmediately(contextDbToBeUpdated.getObjectId(), contextToReturn);
     return contextToReturn;
   }
 

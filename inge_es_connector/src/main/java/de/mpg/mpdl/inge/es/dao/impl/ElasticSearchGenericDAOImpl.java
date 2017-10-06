@@ -73,7 +73,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    * @param vo
    * @return {@link String}
    */
-  public String createNotImmediately(String id, E entity) throws IngeTechnicalException {
+  public String create(String id, E entity) throws IngeTechnicalException {
     try {
       IndexResponse indexResponse =
           client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
@@ -95,7 +95,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    * @param vo
    * @return {@link String}
    */
-  public String create(String id, E entity) throws IngeTechnicalException {
+  public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
       IndexResponse indexResponse =
           client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
@@ -137,6 +137,20 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    * @param vo
    * @return {@link String}
    */
+  public String updateImmediately(String id, E entity) throws IngeTechnicalException {
+
+    try {
+      UpdateResponse updateResponse =
+          client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
+              .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity))
+              .get();
+      return Long.toString(updateResponse.getVersion());
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+
+  }
+
   public String update(String id, E entity) throws IngeTechnicalException {
 
     try {

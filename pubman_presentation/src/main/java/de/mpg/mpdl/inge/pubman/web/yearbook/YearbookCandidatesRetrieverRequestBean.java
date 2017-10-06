@@ -217,7 +217,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
     BoolQueryBuilder nonCandidateBoolQuery = QueryBuilders.boolQuery();
     nonCandidateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
         "RELEASED"));
-    
+
     // Contexts
     BoolQueryBuilder contextBoolQuery = QueryBuilders.boolQuery();
     nonCandidateBoolQuery.must(contextBoolQuery);
@@ -266,7 +266,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
     BoolQueryBuilder bq = QueryBuilders.boolQuery();
     if (yisb.getInvalidItemMap().size() > 0) {
 
-    
+
 
       for (final YearbookInvalidItemRO item : yisb.getInvalidItemMap().values()) {
         bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
@@ -276,9 +276,9 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
       return bq;
     }
-   return null;
-    
-   
+    return null;
+
+
   }
 
 

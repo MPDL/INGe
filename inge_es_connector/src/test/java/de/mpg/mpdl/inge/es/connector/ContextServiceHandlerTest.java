@@ -33,7 +33,7 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testCreate() {
     try {
-      String contextId = this.contextDao.create(test_context_id, test_context());
+      String contextId = this.contextDao.createImmediately(test_context_id, test_context());
       assert contextId.equals(test_context_id);
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -57,7 +57,7 @@ public class ContextServiceHandlerTest extends TestBase {
     try {
       ContextVO contextVO = this.contextDao.get(test_context_id);
       contextVO.setState(ContextVO.State.CREATED);
-      this.contextDao.update(test_context_id, contextVO);
+      this.contextDao.updateImmediately(test_context_id, contextVO);
       ContextVO contextVO2 = this.contextDao.get(test_context_id);
       assert contextVO2.getState().equals(ContextVO.State.CREATED);
     } catch (IngeTechnicalException e) {
