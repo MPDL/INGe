@@ -305,6 +305,15 @@ public class LoginHelper extends FacesBean {
     return false;
   }
 
+  public boolean getIsYearbookAdmin() {
+    for (GrantVO grant : this.accountUser.getGrants()) {
+      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_ADMIN.frameworkValue())) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /**
    * @return the userGrants (with inherited grants)
    */

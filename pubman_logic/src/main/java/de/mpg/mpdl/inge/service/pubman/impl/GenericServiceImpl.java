@@ -154,7 +154,10 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
       srr.setQueryBuilder(qb);
-      System.out.println(srr.getQueryBuilder().toString());
+      if (srr.getQueryBuilder() != null) {
+        System.out.println(srr.getQueryBuilder().toString());
+      }
+
       return getElasticDao().search(srr);
     }
     return null;

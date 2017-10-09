@@ -85,39 +85,9 @@ public class YearbookModeratorListSessionBean extends
    */
   public static enum SORT_CRITERIA {
     // Use dummy value "score" for default sorting
-    RELEVANCE(null, "", OrderFilter.ORDER_DESCENDING), //
-    TITLE("sort.escidoc.publication.title", "/sort/md-records/md-record/publication/title",
-        OrderFilter.ORDER_ASCENDING), //
-    GENRE("sort.escidoc.genre-without-uri sort.escidoc.publication.degree",
-        "/sort/genre-without-uri /sort/md-records/md-record/publication/degree",
-        OrderFilter.ORDER_ASCENDING), //
-    DATE("sort.escidoc.any-dates", "/sort/any-dates", OrderFilter.ORDER_DESCENDING), //
-    CREATOR("sort.escidoc.publication.compound.publication-creator-names",
-        "/sort/md-records/md-record/publication/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name when
-                                      // complete name is filled!!
-    PUBLISHING_INFO("sort.escidoc.publication.publishing-info.publisher",
-        "/sort/md-records/md-record/publication/source/publishing-info/publisher",
-        OrderFilter.ORDER_ASCENDING), //
-    MODIFICATION_DATE("sort.escidoc.last-modification-date", "/sort/last-modification-date",
-        OrderFilter.ORDER_DESCENDING), //
-    EVENT_TITLE("sort.escidoc.publication.event.title",
-        "/sort/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING), //
-    SOURCE_TITLE("", "/sort/md-records/md-record/publication/source/title",
-        OrderFilter.ORDER_ASCENDING), //
-    SOURCE_CREATOR("", "/sort/md-records/md-record/publication/source/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), //
-    REVIEW_METHOD("", "/sort/md-records/md-record/publication/review-method",
-        OrderFilter.ORDER_ASCENDING), //
-    FILE("", "", OrderFilter.ORDER_ASCENDING), //
-    CREATION_DATE("sort.escidoc.property.creation-date", "/sort/properties/creation-date",
-        OrderFilter.ORDER_ASCENDING), //
-    STATE("sort.escidoc.property.version.status", "/sort/properties/version/status",
-        OrderFilter.ORDER_ASCENDING), //
-    OWNER("sort.escidoc.property.created-by.title", "/properties/created-by/xLinkTitle",
-        OrderFilter.ORDER_ASCENDING), //
-    COLLECTION("sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle",
-        OrderFilter.ORDER_ASCENDING);
+    
+    YEAR("year", "year", OrderFilter.ORDER_DESCENDING),
+    ORGANIZATION_NAME("organization.name", "organization.name", OrderFilter.ORDER_ASCENDING);
 
     /**
      * The search sorting index
@@ -225,7 +195,7 @@ public class YearbookModeratorListSessionBean extends
   /**
    * A string indicating the currently selected submenu of a PubItem list.
    */
-  private String subMenu = "EXPORT";
+  private String subMenu = "SORTING";
 
   /**
    * A string indicating the currently selected list type of a Pub Item list.
@@ -569,6 +539,7 @@ public class YearbookModeratorListSessionBean extends
    */
   @Override
   protected void readOutParameters() {
+    System.out.println("Update!!!!!!!!!!!!");
     final String sortBy =
         FacesTools.getExternalContext().getRequestParameterMap()
             .get(YearbookModeratorListSessionBean.parameterSelectedSortBy);
@@ -585,7 +556,7 @@ public class YearbookModeratorListSessionBean extends
       // }
       // else
       // {
-      this.setSelectedSortBy(SORT_CRITERIA.MODIFICATION_DATE.name());
+      this.setSelectedSortBy(SORT_CRITERIA.YEAR.name());
       // }
     }
 
@@ -666,10 +637,6 @@ public class YearbookModeratorListSessionBean extends
 
 
   public boolean getDisplaySortOrder() {
-    if (SORT_CRITERIA.RELEVANCE.name().equals(this.getSelectedSortBy())) {
-      return false;
-    }
-
     return true;
   }
 

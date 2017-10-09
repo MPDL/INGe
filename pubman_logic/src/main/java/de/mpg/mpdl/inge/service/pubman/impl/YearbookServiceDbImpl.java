@@ -34,7 +34,9 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_ORGANIZATION_ID = "organization.objectId";
+  public final static String INDEX_ORGANIZATION_NAME = "organization.name";
   public final static String INDEX_YEAR = "year";
+  public final static String INDEX_STATE = "state";
 
   @Autowired
   private YearbookDaoEs yearbookDao;
