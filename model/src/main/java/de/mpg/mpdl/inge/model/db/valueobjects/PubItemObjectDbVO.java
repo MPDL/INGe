@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +32,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
-public class PubItemObjectDbVO {
+public class PubItemObjectDbVO implements Serializable {
 
   @Id
   private String objectId;

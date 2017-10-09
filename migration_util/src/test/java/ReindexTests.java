@@ -1,4 +1,4 @@
-package pubman_logic;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
@@ -44,6 +44,7 @@ import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 import de.mpg.mpdl.inge.service.util.OaiFileTools;
@@ -51,7 +52,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfigPubmanLogic.class)
-public class PubmanLogicTest {
+public class ReindexTests {
 
   @Autowired
   private PubItemService pubItemService;
@@ -61,6 +62,9 @@ public class PubmanLogicTest {
 
   @Autowired
   private OrganizationService organizationService;
+  
+  @Autowired
+  private YearbookService yearbookService;
 
 
   @Autowired
@@ -182,6 +186,13 @@ public class PubmanLogicTest {
   public void testReindexUsers() throws Exception {
 
     userAccountService.reindex();
+
+  }
+  
+  @Test
+  public void testReindexYearbooks() throws Exception {
+
+    yearbookService.reindex();
 
   }
 

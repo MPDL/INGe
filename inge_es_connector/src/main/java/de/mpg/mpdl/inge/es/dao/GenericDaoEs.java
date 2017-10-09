@@ -29,9 +29,9 @@ public interface GenericDaoEs<E> {
    * @param vo
    * @return {@link String}
    */
-  public String create(String id, E entity) throws IngeTechnicalException;
+  public String createImmediately(String id, E entity) throws IngeTechnicalException;
 
-  public String createNotImmediately(String id, E entity) throws IngeTechnicalException;
+  public String create(String id, E entity) throws IngeTechnicalException;
 
   /**
    * retrieves the object from elasticsearch for a given id
@@ -52,7 +52,7 @@ public interface GenericDaoEs<E> {
    * @param vo
    * @return {@link String}
    */
-  public String update(String id, E entity) throws IngeTechnicalException;
+  public String updateImmediately(String id, E entity) throws IngeTechnicalException;
 
 
   /**

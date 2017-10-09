@@ -377,8 +377,33 @@
 		
 		"get" : [
 
-		]
+		],
 		
+		"submit" : [
+			{
+				"user" : {
+					"role" : "YEARBOOK-EDITOR"
+				}
+				
+			}
+		],
+		
+		"release" : [
+			{
+				"user" : {
+					"role" : "YEARBOOK-ADMIN"
+				}
+				
+			}
+		],
+		"revise" : [
+			{
+				"user" : {
+					"role" : "YEARBOOK-ADMIN"
+				}
+				
+			}
+		]
 		
 	}
 }

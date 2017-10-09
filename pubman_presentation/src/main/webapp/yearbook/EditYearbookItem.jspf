@@ -21,7 +21,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						styleClass="quad_txtArea inputTxtArea"
-						value="Jahrbuch #{YearbookItemEditBean.yearbook.year}" #{YearbookItemEditBean.yearbook.organization.name}"/>
+						value="#{YearbookItemSessionBean.yearbook.year} - #{YearbookItemSessionBean.yearbook.organization.name}"/>
 				</span>
 			 </h:panelGroup>
 			 <h:panelGroup layout="block"
@@ -33,7 +33,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						id="selSelectedOrgUnit" styleClass="xDouble_select replace"
-						value="#{YearbookItemEditBean.yearbook.organization.name}" (#{YearbookItemEditBean.yearbook.organization.objectId})" />
+						value="#{YearbookItemSessionBean.yearbook.organization.name} (#{YearbookItemSessionBean.yearbook.organization.objectId})" />
 				</span>
 			 </h:panelGroup>
 			 <h:panelGroup layout="block"
@@ -53,7 +53,7 @@
 									<div class="min_imgArea selectboxIcon">&#160;</div>
 								</div>
 								<h:selectOneMenu styleClass="xDouble_select"
-									value="#{context.objectId}" onfocus="updateSelectionBox(this);"
+									value="#{context}" onfocus="updateSelectionBox(this);"
 									onchange="updateSelectionBox(this);">
 									<f:selectItems
 										value="#{YearbookItemEditBean.contextSelectItems}" />
@@ -99,6 +99,7 @@
 							</h:selectOneMenu>
 						</div>
 					</h:panelGroup>
+					<ui:remove>
 					<h:panelGroup styleClass="double_area0" id="dateGroup">
 						<h:panelGroup styleClass="double_area0 tiny_marginRIncl">
 							<h:outputText styleClass="small_label" value="from" />
@@ -111,23 +112,8 @@
 								value="#{YearbookItemEditBean.endDate}" />
 						</h:panelGroup>
 					</h:panelGroup>
+					</ui:remove>
 				</span>
-			</h:panelGroup>
-			<h:panelGroup layout="block"
-				styleClass="free_area0 endline itemLine noTopBorder">
-				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-						styleClass="mandatory" title="#{msg.mandatoryField}" value="*" />
-					<h:outputText value="#{lbl.Yearbook_collaboratorUserIds}" /> <span
-					class="noDisplay">: </span>
-				</b>
-				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
-					<h:selectManyListbox styleClass="xDouble_select"
-						id="selectCollaborators"
-						value="#{YearbookItemEditBean.collaboratorUserIds}" size="15">
-						<f:selectItems
-							value="#{YearbookItemEditBean.collaboratorSelectItems}" />
-					</h:selectManyListbox>
-				</h:panelGroup>
 			</h:panelGroup>
 			<div class="half_area0 formButtonArea">
 				<h:commandLink styleClass="free_area1_p8 activeButton"

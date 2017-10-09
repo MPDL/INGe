@@ -65,7 +65,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
     }
     ModelObject objectToReturn = transformToOld(objectToCreate);
     if (getElasticDao() != null) {
-      getElasticDao().create(objectToCreate.getObjectId(), objectToReturn);
+      getElasticDao().createImmediately(objectToCreate.getObjectId(), objectToReturn);
     }
 
     if (reindexList != null) {
@@ -99,7 +99,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
     ModelObject objectToReturn = transformToOld(objectToBeUpdated);
     if (getElasticDao() != null) {
-      getElasticDao().update(objectToBeUpdated.getObjectId(), objectToReturn);
+      getElasticDao().updateImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
     }
     if (reindexList != null) {
       reindex(reindexList);
@@ -210,7 +210,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
       for (String id : idList) {
         ModelObject vo = transformToOld(getDbRepository().findOne(id));
 
-        getElasticDao().create(id, vo);
+        getElasticDao().createImmediately(id, vo);
       }
     }
   }
@@ -267,7 +267,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
           count++;
           DbObject dbObject = (DbObject) results.get(0);
           logger.info("(" + count + ") Reindexing " + entityName + " " + dbObject.getObjectId());
-          getElasticDao().createNotImmediately(dbObject.getObjectId(), transformToOld(dbObject));
+          getElasticDao().create(dbObject.getObjectId(), transformToOld(dbObject));
 
           // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
           if (count % 1000 == 0) {

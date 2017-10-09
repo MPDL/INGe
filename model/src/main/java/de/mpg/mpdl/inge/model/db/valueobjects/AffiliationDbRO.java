@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -52,6 +54,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class AffiliationDbRO extends BasicDbRO {
+public class AffiliationDbRO extends BasicDbRO implements Serializable {
 
 }

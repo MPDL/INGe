@@ -123,7 +123,8 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
 
       AffiliationDbVO parentVO =
           organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
-      organizationDao.create(parentVO.getObjectId(), EntityTransformer.transformToOld(parentVO));
+      organizationDao.createImmediately(parentVO.getObjectId(),
+          EntityTransformer.transformToOld(parentVO));
     }
 
 
@@ -180,7 +181,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO,
       handleDBException(e);
     }
     AffiliationVO affToReturn = EntityTransformer.transformToOld(affDbToBeUpdated);
-    organizationDao.update(affDbToBeUpdated.getObjectId(), affToReturn);
+    organizationDao.updateImmediately(affDbToBeUpdated.getObjectId(), affToReturn);
     return affToReturn;
   }
 

@@ -76,7 +76,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JPAConfiguration.class)
-public class TestDbConnector {
+public class MigrationTests {
 
   @Autowired
   private ItemRepository itemRepository;

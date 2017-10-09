@@ -1,18 +1,24 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
+import org.elasticsearch.discovery.local.LocalDiscovery;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
@@ -25,7 +31,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
  * @version $Revision$ $LastChangedDate$
  */
 @ManagedBean(name = "YearbookArchiveBean")
-@SessionScoped
+@ViewScoped
 @SuppressWarnings("serial")
 public class YearbookArchiveBean extends FacesBean {
 
@@ -93,12 +99,46 @@ public class YearbookArchiveBean extends FacesBean {
         .getAuthenticationToken());
   }
 
-  public String viewItem() {
+
+  public String editMembers(YearbookDbVO yearbook) {
+
+    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
+    yisb.initYearbook(yearbook.getObjectId());
+    return "loadYearbookPage";
+
+  }
+
+  public String viewMembers(YearbookDbVO yearbook) {
+
+    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
+    yisb.setYearbookForView(yearbook);
+    return "loadYearbookArchiveItemViewPage";
+
+  }
+
+  public String editYearbookData(YearbookDbVO yearbook) {
+
+    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
+    yisb.initYearbook(yearbook.getObjectId());
+    return "loadYearbookItemEditPage";
+
+  }
+
+  public String viewItem(YearbookDbVO yearbook) {
+
+
     for (final YearbookDbVO archivedYearbook : this.getArchivedYearbooks()) {
       if (this.getYearbookId().equals(archivedYearbook.getObjectId())) {
         this.setSelectedYearbook(archivedYearbook);
       }
     }
     return "loadYearbookArchiveItemViewPage";
+  }
+
+  public List<String> convertSetToList(Set<String> set) {
+    if (set != null) {
+      return new ArrayList<>(set);
+    }
+    return null;
   }
 }

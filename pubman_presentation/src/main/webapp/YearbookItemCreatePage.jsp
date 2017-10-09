@@ -75,7 +75,10 @@
                             <ui:include src="yearbook/CreateYearbookItem.jspf" />
                         </div>
                         <div class="full_area0 formButtonArea">
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}" onclick="fullItemReloadAjax();" />
+                        	<h:outputLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="YearbookArchivePage.jsp" onclick="fullItemReloadAjax();" >
+                        		<h:outputText value="Cancel"/>
+                        	</h:outputLink>
+                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="Save" action="#{YearbookItemCreateBean.save}" onclick="fullItemReloadAjax();"/>
                         </div>
                     </div>
                 </div>

@@ -612,8 +612,6 @@ public class PubItemServiceDbImpl implements PubItemService {
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
-      // Set PIDs for the file
-      // latestVersion.getFiles()
     }
 
     if (PubItemDbRO.State.WITHDRAWN.equals(state)) {

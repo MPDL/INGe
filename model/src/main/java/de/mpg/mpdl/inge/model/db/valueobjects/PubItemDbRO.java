@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
 @IdClass(VersionableId.class)
-public class PubItemDbRO {
+public class PubItemDbRO implements Serializable {
 
   public enum State {
     PENDING, SUBMITTED, RELEASED, WITHDRAWN, IN_REVISION

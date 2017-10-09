@@ -16,13 +16,18 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.pubman.web.ErrorPage;
+import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -31,6 +36,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped
@@ -47,6 +53,8 @@ public class YearbookItemSessionBean extends FacesBean {
   // private ContextVO yearbookContext;
 
   private YearbookDbVO yearbook;
+
+  private YearbookDbVO yearbookForView;
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap =
@@ -78,44 +86,49 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public void initYearbook(String id) {
     try {
-    this.setYearbook(null);
-    
-    if(id==null)
-    {
-      int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-      String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
-      BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-      
-      bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
-      bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_YEAR, currentYear));
-      
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bqb);
-      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
-              getLoginHelper().getAuthenticationToken());
-      
-      List<YearbookDbVO> yearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
-      if(yearbooks.size() == 1)
-      {
-        id = yearbooks.get(0).getObjectId();
-      }
-      
+      this.setYearbook(null);
 
-      /*
-      if (yearbooks.size() == 1
-          && (yearbooks.get(0).getYear() == currentYear || yearbooks.get(0).getYear() == currentYear - 1)
-          && yearbooks.get(0).getState().equals(YearbookDbVO.State.CREATED)) {
-        this.setYearbook(yearbooks.get(0));
-       
-    }
-    
-       */
-    }
-   
-      
-    YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id, getLoginHelper().getAuthenticationToken());
-    
-    this.setYearbook(yb);
-    
+      if (id == null) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        String orgId =
+            YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+        BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+
+        bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
+        bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_YEAR, currentYear));
+
+        SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bqb);
+        SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService()
+            .search(srr, getLoginHelper().getAuthenticationToken());
+
+        List<YearbookDbVO> yearbooks =
+            resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+        if (yearbooks.size() == 1) {
+          id = yearbooks.get(0).getObjectId();
+        }
+
+
+        /*
+         * if (yearbooks.size() == 1 && (yearbooks.get(0).getYear() == currentYear ||
+         * yearbooks.get(0).getYear() == currentYear - 1) &&
+         * yearbooks.get(0).getState().equals(YearbookDbVO.State.CREATED)) {
+         * this.setYearbook(yearbooks.get(0));
+         * 
+         * }
+         * 
+         */
+      }
+
+
+      if(id!=null)
+      {
+        YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id,
+            getLoginHelper().getAuthenticationToken());
+        System.out.println("Yearbook: " + yb.getObjectId() + " - " + yb.getLastModificationDate());
+        this.setYearbook(yb);
+      }
+
+
     } catch (final Exception e) {
       this.error("Error initializing yearbook item!");
       YearbookItemSessionBean.logger.error("Error initializing yearbook item!", e);
@@ -321,9 +334,13 @@ public class YearbookItemSessionBean extends FacesBean {
       // revalidate
       System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
       // TODO maybe a special validationpoint for the yearbook needs to be created
-      final ValidationReportVO rep = new ValidationReportVO();
-      // ValidationReportVO rep =
-      // this.itemValidating.validateItemObject(new PubItemVO(pubItem), ValidationPoint.DEFAULT);
+      ValidationReportVO rep = new ValidationReportVO();
+
+      try {
+        ItemValidatingService.validate(new PubItemVO(pubItem), ValidationPoint.STANDARD);
+      } catch (final ValidationException e) {
+        rep = e.getReport();
+      }
       if (rep.getItems().size() > 0) {
         this.validItemMap.remove(pubItem.getVersion().getObjectId());
         this.invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(
@@ -407,38 +424,35 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String submitYearbook() {
-    // try {
-    // final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
-    // boolean allValid = true;
-    // for (final PubItemVOPresentation pubItem : pubItemList) {
-    // final boolean valid = this.validateItem(pubItem);
-    // if (!valid) {
-    // this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
-    // "\"" + pubItem.getMetadata().getTitle() + "\""));
-    // allValid = false;
-    // }
-    // }
-    // if (!allValid) {
-    // this.error(this.getMessage("Yearbook_SubmitError"));
-    // } else {
-    // final TaskParamVO param =
-    // new TaskParamVO(this.getYearbookItem().getModificationDate(), "Submitting yearbook");
-    // final String paramXml = XmlTransformingService.transformToTaskParam(param);
-    // this.itemHandler.submit(this.getYearbookItem().getVersion().getObjectId(), paramXml);
-    // this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
-    // }
-    // } catch (final Exception e) {
-    // this.error(this.getMessage("Yearbook_SubmitError"));
-    // YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
-    // }
-    // try {
-    // final String yearbookXml =
-    // this.itemHandler.retrieve(this.getYearbookItem().getVersion().getObjectId());
-    // this.setYearbookItem(XmlTransformingService.transformToPubItem(yearbookXml));
-    // } catch (final Exception e) {
-    // this.error(this.getMessage("Yearbook_reinitializeError"));
-    // YearbookItemSessionBean.logger.error("Could not reinitialize Yearbook", e);
-    // }
+    try {
+      final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
+      boolean allValid = true;
+      for (final PubItemVOPresentation pubItem : pubItemList) {
+        final boolean valid = this.validateItem(pubItem);
+        if (!valid) {
+          this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
+              "\"" + pubItem.getMetadata().getTitle() + "\""));
+          allValid = false;
+        }
+      }
+      if (!allValid) {
+        this.error(this.getMessage("Yearbook_SubmitError"));
+      } else {
+
+        YearbookDbVO updatedYb =
+            ApplicationBean.INSTANCE.getYearbookService().submit(this.yearbook.getObjectId(),
+                this.yearbook.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
+        this.setYearbook(updatedYb);
+
+        this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
+
+        return "loadYearbookArchivePage";
+      }
+    } catch (final Exception e) {
+      this.error(this.getMessage("Yearbook_SubmitError"));
+      YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
+    }
+
 
     return "";
   }
@@ -461,5 +475,13 @@ public class YearbookItemSessionBean extends FacesBean {
     }
 
     return "";
+  }
+
+  public YearbookDbVO getYearbookForView() {
+    return yearbookForView;
+  }
+
+  public void setYearbookForView(YearbookDbVO yearbookForView) {
+    this.yearbookForView = yearbookForView;
   }
 }
