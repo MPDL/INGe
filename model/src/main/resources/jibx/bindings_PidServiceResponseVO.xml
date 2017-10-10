@@ -29,11 +29,10 @@
 
 <binding>
 
-    <format type="java.util.Date"
+	<format type="java.util.Date"
       deserializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.deserializeDate"
       serializer="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.serializeDate" />
-
-  	<include path="PidTaskParamVO_binding.xml" />  
-  	<include path="PidServiceResponse_binding.xml" />
+      
+    <include path="PidServiceResponse_binding.xml" />
 
 </binding>

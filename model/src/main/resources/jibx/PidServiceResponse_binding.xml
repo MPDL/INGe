@@ -30,9 +30,8 @@
 <binding>
 	<!-- concrete mapping for PidServiceResponseVO -->
 	<mapping name="pidserviceresponse" class="de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO" ordered="false">
-		
+	
 		<value style="element" name="action" usage="optional" field="action"/>
-		
 		<value style="element" name="message" usage="optional" field="message"></value>
 		
 		<structure name="Handle" usage="optional">
@@ -46,5 +45,6 @@
 			<value style="element" name="institute" usage="optional" field="institute"/>
 			<value style="element" name="contact" usage="optional" field="contact"/>
 		</structure>
+		
 	</mapping>
 </binding>

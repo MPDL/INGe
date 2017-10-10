@@ -1,11 +1,6 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
-/**
- * Response of the PID services (GWDG service and PID cache service).
- * 
- * @author saquet
- * 
- */
+@SuppressWarnings("serial")
 public class PidServiceResponseVO extends ValueObject {
   private String action;
   protected String identifier;
@@ -16,9 +11,6 @@ public class PidServiceResponseVO extends ValueObject {
   private String institute;
   private String contact;
 
-  /**
-   * Default constructor.
-   */
   public PidServiceResponseVO() {
     super();
   }
@@ -87,4 +79,10 @@ public class PidServiceResponseVO extends ValueObject {
     this.contact = contact;
   }
 
+  @Override
+  public String toString() {
+    return "PidServiceResponseVO [action=" + action + ", identifier=" + identifier + ", url=" + url
+        + ", creator=" + creator + ", userUid=" + userUid + ", message=" + message + ", institute="
+        + institute + ", contact=" + contact + "]";
+  }
 }
