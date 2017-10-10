@@ -26,12 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,21 +38,10 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
-import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
@@ -86,8 +70,12 @@ public class YearbookModeratorListSessionBean extends
   public static enum SORT_CRITERIA {
     // Use dummy value "score" for default sorting
 
-    YEAR("year", "year", OrderFilter.ORDER_DESCENDING), ORGANIZATION_NAME("organization.name",
-        "organization.name", OrderFilter.ORDER_ASCENDING);
+    YEAR(YearbookServiceDbImpl.INDEX_YEAR, YearbookServiceDbImpl.INDEX_YEAR,
+        OrderFilter.ORDER_DESCENDING), ORGANIZATION_NAME(
+        YearbookServiceDbImpl.INDEX_ORGANIZATION_NAME_KEYWORD,
+        YearbookServiceDbImpl.INDEX_ORGANIZATION_NAME_KEYWORD, OrderFilter.ORDER_ASCENDING), MODIFICATION_DATE(
+        YearbookServiceDbImpl.INDEX_MODIFICATION_DATE,
+        YearbookServiceDbImpl.INDEX_MODIFICATION_DATE, OrderFilter.ORDER_DESCENDING), ;
 
     /**
      * The search sorting index

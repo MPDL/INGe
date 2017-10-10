@@ -8,6 +8,7 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
+	<f:event type="preRenderView" listener="#{YearbookModeratorPage.init}" />
 	<f:event type="preRenderView" listener="#{YearbookModeratorRetrieverRequestBean.init}" />
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 		<f:loadBundle var="lbl" basename="Label" />
@@ -61,9 +62,15 @@
 								</h:panelGroup>
 								<div class="free_area0 sub action">
 									<!-- content menu upper line starts here -->
+									
+                                    <h:commandLink id="lnkChangeSubmenuToFilter" title="#{tip.List_lblFilterOptions}" styleClass="free_area0" value="#{lbl.List_lblFilterOptions}" action="#{YearbookModeratorListSessionBean.changeSubmenuToFilter}" rendered="#{YearbookModeratorListSessionBean.subMenu != 'FILTER'}" onclick="fullItemReloadAjax();" />
+                                    <h:outputText styleClass="free_area0" value="#{lbl.List_lblFilterOptions}" rendered="#{YearbookModeratorListSessionBean.subMenu == 'FILTER'}" />
+                                    <h:outputText styleClass="seperator void" />
+                                    
                                     <h:commandLink id="lnkChangeSubmenuToSorting" title="#{tip.List_lblSortOptions}" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{YearbookModeratorListSessionBean.changeSubmenuToSorting}" rendered="#{YearbookModeratorListSessionBean.subMenu != 'SORTING'}" onclick="fullItemReloadAjax();" />
                                     <h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{YearbookModeratorListSessionBean.subMenu == 'SORTING'}" />
                                     <h:outputText styleClass="seperator void" />
+									
 									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0"
 										value="#{lbl.List_lblExportOptions}" action="#{YearbookModeratorListSessionBean.changeSubmenuToExport}"
 										rendered="#{YearbookModeratorListSessionBean.subMenu != 'EXPORT'}" onclick="fullItemReloadAjax();" />
@@ -90,6 +97,20 @@
 									&#160;
 									<!-- content menu upper line ends here -->
 								</div>
+								<h:panelGroup layout="block" styleClass="quad_area0 sub action" rendered="#{YearbookModeratorListSessionBean.subMenu == 'FILTER'}">
+                                    <!-- content menu lower line starts here -->
+                                    <h:outputText styleClass="medium_label" value="#{lbl.ENUM_CRITERIA_STATE}" />
+                                    <h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer">
+                                        <h:panelGroup layout="block" styleClass="xDouble_area0">
+                                            <h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
+                                            <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+                                        </h:panelGroup>
+                                        <h:selectOneMenu id="cboItemstate" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{YearbookModeratorRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('div').find('.changeState').click();">
+                                            <f:selectItems id="selectItems" value="#{YearbookModeratorRetrieverRequestBean.itemStateSelectItems}" />
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    <h:commandButton id="btnChangeItemState" title="#{tip.list_btChangeState}" styleClass="noDisplay changeState" value=" " action="#{YearbookModeratorRetrieverRequestBean.changeItemState}" />
+                                </h:panelGroup>
 								<h:panelGroup layout="block" styleClass="free_area0 sub action"
 									rendered="#{YearbookModeratorListSessionBean.subMenu == 'SORTING'}">
 									<!-- content menu lower line starts here -->

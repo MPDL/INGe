@@ -62,6 +62,10 @@
                                     <h:outputText styleClass="seperator void" />
                                     <h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0" value="#{lbl.List_lblExportOptions}" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}" onclick="fullItemReloadAjax();" />
                                     <h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" /> &#160;
+                                    <h:outputText styleClass="seperator void" />
+                                    <h:outputLink id="lnkChangeToYearbookArcivePage" styleClass="free_area0" value="YearbookModeratorPage.jsp">
+                                        <h:outputText value="#{lbl.Yearbook_YearbookArchive}" />
+                                    </h:outputLink>
                                     <!-- content menu upper line ends here -->
                                 </div>
                                 <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">

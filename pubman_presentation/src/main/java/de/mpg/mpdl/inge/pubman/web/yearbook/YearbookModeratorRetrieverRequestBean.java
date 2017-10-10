@@ -11,7 +11,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
@@ -48,10 +47,24 @@ public class YearbookModeratorRetrieverRequestBean extends
       .getLogger(YearbookModeratorRetrieverRequestBean.class);
 
   private static String parameterSelectedOrgUnit = "orgUnit";
+  /**
+   * The GET parameter name for the item state.
+   */
+  protected static String parameterSelectedItemState = "itemState";
+
+  /**
+   * The menu entries of the item state filtering menu
+   */
+  private List<SelectItem> itemStateSelectItems;
 
   private String selectedSortOrder;
   AccountUserVO userVO;
   private int numberOfRecords;
+
+  /**
+   * The currently selected item state.
+   */
+  private String selectedItemState;
 
   public YearbookModeratorRetrieverRequestBean() {
     super((YearbookModeratorListSessionBean) FacesTools
@@ -81,6 +94,15 @@ public class YearbookModeratorRetrieverRequestBean extends
       this.setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
     } else {
       this.setSelectedOrgUnit(orgUnit);
+    }
+
+    final String selectedItemState =
+        FacesTools.getExternalContext().getRequestParameterMap()
+            .get(YearbookModeratorRetrieverRequestBean.parameterSelectedItemState);
+    if (selectedItemState == null) {
+      this.setSelectedItemState("all");
+    } else {
+      this.setSelectedItemState(selectedItemState);
     }
   }
 
@@ -139,7 +161,7 @@ public class YearbookModeratorRetrieverRequestBean extends
     System.out.println("Retrieve list!!!!!!!!!!!!!!!!!!");
     try {
 
-      QueryBuilder qb = null;
+      BoolQueryBuilder qb = null;
       if(!getLoginHelper().getIsYearbookAdmin())
       {
         qb = QueryBuilders.boolQuery();
@@ -150,6 +172,16 @@ public class YearbookModeratorRetrieverRequestBean extends
         
         
       }
+      
+      if (!this.getSelectedItemState().toLowerCase().equals("all")) {
+        if(qb==null)
+        {
+          qb = QueryBuilders.boolQuery();
+        }
+        qb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_STATE, getSelectedItemState()));
+      }
+
+      
       
       SortOrder sortOrder =
           sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING) ? SearchSortCriteria.SortOrder.DESC
@@ -347,6 +379,58 @@ public class YearbookModeratorRetrieverRequestBean extends
       return new ArrayList<>(set);
     }
     return null;
+  }
+
+  public List<SelectItem> getItemStateSelectItems() {
+    this.itemStateSelectItems = new ArrayList<SelectItem>();
+    this.itemStateSelectItems.add(new SelectItem("all", this
+        .getLabel("ItemList_filterAllExceptWithdrawn")));
+    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.CREATED.name(), this
+        .getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.CREATED))));
+    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.SUBMITTED.name(), this
+        .getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.SUBMITTED))));
+    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.RELEASED.name(), this
+        .getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.RELEASED))));
+
+    return this.itemStateSelectItems;
+  }
+
+  /**
+   * Sets the selected item state filter
+   * 
+   * @param selectedItemState
+   */
+  public void setSelectedItemState(String selectedItemState) {
+    this.selectedItemState = selectedItemState;
+    this.getBasePaginatorListSessionBean().getParameterMap()
+        .put(parameterSelectedItemState, selectedItemState);
+  }
+
+  /**
+   * Returns the currently selected item state filter
+   * 
+   * @return
+   */
+  public String getSelectedItemState() {
+    return this.selectedItemState;
+  }
+
+  /**
+   * Called by JSF whenever the item state menu is changed.
+   * 
+   * @return
+   */
+  public String changeItemState() {
+    try {
+      this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
+      this.getBasePaginatorListSessionBean().redirect();
+    } catch (final Exception e) {
+      logger.error("Error during redirection.", e);
+      this.error("Could not redirect");
+    }
+
+    return "";
+
   }
 
 
