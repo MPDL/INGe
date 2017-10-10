@@ -341,7 +341,7 @@ public class YearbookItemEditBean extends FacesBean {
 
       yearbookItemSessionBean.initYearbook(updatedYearbook.getObjectId());
       this.info(this.getMessage("Yearbook_createdSuccessfully"));
-      return "loadYearbookArchivePage";
+      return "loadYearbookModeratorPage";
 
 
     } catch (final Exception e) {

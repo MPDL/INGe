@@ -146,16 +146,16 @@ public class YearbookUtils {
     */
   }
 
-  public static String getYearbookOrganizationId(AccountUserVO user) {
-    String orgId = null;
+  public static List<String> getYearbookOrganizationIds(AccountUserVO user) {
+    List<String> orgIds = new ArrayList<>();
 
     for (GrantVO grant : user.getGrants()) {
       if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
-        orgId = grant.getObjectRef();
+        orgIds.add(grant.getObjectRef());
 
         break;
       }
     }
-    return orgId;
+    return orgIds;
   }
 }

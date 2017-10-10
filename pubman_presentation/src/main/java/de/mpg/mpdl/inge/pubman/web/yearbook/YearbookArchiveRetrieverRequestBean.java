@@ -139,11 +139,11 @@ public class YearbookArchiveRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      final YearbookArchiveBean yearbookArchiveBean =
-          (YearbookArchiveBean) FacesTools.findBean("YearbookArchiveBean.class");
+      final YearbookItemSessionBean yearbookItemSessionBean =
+          (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
       
-      QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookArchiveBean.getSelectedYearbook());
+      QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookItemSessionBean.getYearbookForView());
       
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, null);
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()

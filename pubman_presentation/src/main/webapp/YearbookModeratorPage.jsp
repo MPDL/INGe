@@ -61,21 +61,32 @@
 								</h:panelGroup>
 								<div class="free_area0 sub action">
 									<!-- content menu upper line starts here -->
-                                    <h:commandLink id="lnkChangeSubmenuToSorting" title="#{tip.List_lblSortOptions}" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}" onclick="fullItemReloadAjax();" />
-                                    <h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
+                                    <h:commandLink id="lnkChangeSubmenuToSorting" title="#{tip.List_lblSortOptions}" styleClass="free_area0" value="#{lbl.List_lblSortOptions}" action="#{YearbookModeratorListSessionBean.changeSubmenuToSorting}" rendered="#{YearbookModeratorListSessionBean.subMenu != 'SORTING'}" onclick="fullItemReloadAjax();" />
+                                    <h:outputText styleClass="free_area0" value="#{lbl.List_lblSortOptions}" rendered="#{YearbookModeratorListSessionBean.subMenu == 'SORTING'}" />
                                     <h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkChangeSubmenuToExport" title="#{tip.List_lblExportOptions}" styleClass="free_area0"
 										value="#{lbl.List_lblExportOptions}" action="#{YearbookModeratorListSessionBean.changeSubmenuToExport}"
 										rendered="#{YearbookModeratorListSessionBean.subMenu != 'EXPORT'}" onclick="fullItemReloadAjax();" />
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}"
 										rendered="#{YearbookModeratorListSessionBean.subMenu == 'EXPORT'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkSendBackForReworkYearbook" styleClass="free_area0"
-										value="#{lbl.Yearbook_sendBackForReworkYearbook}"
-										action="#{YearbookModeratorRetrieverRequestBean.sendBackForRework}" onclick="fullItemReloadAjax();" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}"
-										action="#{YearbookModeratorRetrieverRequestBean.releaseSelectedYearbooks}" onclick="fullItemReloadAjax();" />
+									
+									<h:panelGroup rendered="#{LoginHelper.isYearbookEditor}">
+										<h:outputText styleClass="seperator void" />
+	                                    <h:outputLink styleClass="free_area0"  id="lnkCreateYearbook" value="#{ApplicationBean.appContext}YearbookItemCreatePage.jsp" >
+										<h:outputText value="#{lbl.Yearbook_createYearbook}" />
+										</h:outputLink>
+									</h:panelGroup>
+                                   
+									
+									<h:panelGroup rendered="#{LoginHelper.isYearbookAdmin}">
+										<h:outputText styleClass="seperator void" />
+										<h:commandLink id="lnkSendBackForReworkYearbook" styleClass="free_area0"
+											value="#{lbl.Yearbook_sendBackForReworkYearbook}"
+											action="#{YearbookModeratorRetrieverRequestBean.sendBackForRework}" onclick="fullItemReloadAjax();"  />
+										<h:outputText styleClass="seperator void" />
+										<h:commandLink id="lnkReleaseYearbook" styleClass="free_area0" value="#{lbl.Yearbook_releaseYearbook}"
+											action="#{YearbookModeratorRetrieverRequestBean.releaseSelectedYearbooks}" onclick="fullItemReloadAjax();"/>
+									</h:panelGroup>
 									&#160;
 									<!-- content menu upper line ends here -->
 								</div>

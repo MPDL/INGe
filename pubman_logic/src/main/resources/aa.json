@@ -348,6 +348,8 @@
 		"technical" : {
 			"order" : [ "user", "yearbook"],
 			"indices" : {
+				"yearbook.organization.objectId" : "organization.objectId.keyword",
+				"yearbook.state" : "state.keyword"
 			}
 		}, 
 		"create" : [
@@ -369,13 +371,29 @@
 		"delete" : [
 			{
 				"user" : {
-					"role" : "YEARBOOK-EDITOR"
+					"role" : "SYSADMIN"
 				}
 				
 			}
 		],
 		
 		"get" : [
+			{
+				"yearbook.state" : ["RELEASED"]
+			},
+			{
+				"yearbook.state" : ["CREATED", "SUBMITTED"],
+				"user" : {
+					"role" : "YEARBOOK-EDITOR",
+					"field_grant_id_match" : "yearbook.organization.objectId"
+				}
+			},
+			{
+				"yearbook.state" : ["CREATED", "SUBMITTED"],
+				"user" : {
+					"role" : "YEARBOOK-ADMIN"
+				}
+			}
 
 		],
 		

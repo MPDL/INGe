@@ -61,7 +61,7 @@
 			<span class="seperator"></span>
 			<span class="free_area0_p8 endline itemHeadline">
 				<b> <h:outputLink id="lnkYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}"
-						value="#{ApplicationBean.appContext}YearbookArchivePage.jsp">
+						value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp">
 						<h:outputText value="#{lbl.chooseWorkspace_lnkYearbookWorkspace}" />
 					</h:outputLink>
 				</b>

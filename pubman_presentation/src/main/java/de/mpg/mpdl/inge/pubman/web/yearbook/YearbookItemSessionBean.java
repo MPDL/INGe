@@ -90,11 +90,11 @@ public class YearbookItemSessionBean extends FacesBean {
 
       if (id == null) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        String orgId =
-            YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+        List<String> orgIds =
+            YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
         BoolQueryBuilder bqb = QueryBuilders.boolQuery();
 
-        bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
+        bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgIds.get(0)));
         bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_YEAR, currentYear));
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bqb);
@@ -446,7 +446,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
         this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
 
-        return "loadYearbookArchivePage";
+        return "loadYearbookModeratorPage";
       }
     } catch (final Exception e) {
       this.error(this.getMessage("Yearbook_SubmitError"));

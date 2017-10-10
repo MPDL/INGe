@@ -85,9 +85,9 @@ public class YearbookModeratorListSessionBean extends
    */
   public static enum SORT_CRITERIA {
     // Use dummy value "score" for default sorting
-    
-    YEAR("year", "year", OrderFilter.ORDER_DESCENDING),
-    ORGANIZATION_NAME("organization.name", "organization.name", OrderFilter.ORDER_ASCENDING);
+
+    YEAR("year", "year", OrderFilter.ORDER_DESCENDING), ORGANIZATION_NAME("organization.name",
+        "organization.name", OrderFilter.ORDER_ASCENDING);
 
     /**
      * The search sorting index

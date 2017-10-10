@@ -81,9 +81,10 @@ public class YearbookItemCreateBean extends FacesBean {
   public YearbookItemCreateBean() throws Exception {
     this.selectableYears = new ArrayList<SelectItem>();
 
-    String orgId = YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+    List<String> orgIds =
+        YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
     this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE
-        .getOrganizationService().get(orgId, null)));
+        .getOrganizationService().get(orgIds.get(0), null)));
 
 
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");

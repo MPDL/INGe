@@ -180,10 +180,10 @@
 								<span class="seperator status"/>
 								<span class="free_area0_p6 endline itemHeadline">
 									<b>
-									<h:commandLink styleClass="" action="#{YearbookArchiveBean.editMembers(item)}" rendered="#{item.state == 'CREATED'}">
+									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.editMembers(item)}" rendered="#{item.state == 'CREATED'}">
 										<h:outputText escape="false" value="#{item.name}"/>
 									</h:commandLink>
-									<h:commandLink styleClass="" action="#{YearbookArchiveBean.viewMembers(item)}" rendered="#{item.state != 'CREATED'}">
+									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.viewMembers(item)}" rendered="#{item.state != 'CREATED'}">
 										<h:outputText escape="false" value="#{item.name}"/>
 									</h:commandLink>
 									</b>
@@ -233,7 +233,7 @@
 
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="full_area0 mediumView">
-								<ui:repeat value="#{YearbookArchiveBean.convertSetToList(item.itemIds)}" var="rel">
+								<ui:repeat value="#{YearbookModeratorRetrieverRequestBean.convertSetToList(item.itemIds)}" var="rel">
 									<div class="free_area0_p0 small_marginLIncl endline listItemLine">
 										<span class="huge_area0_p8 endline labelLine">
 											<h:outputText value="#{lbl.Yearbook_member}"/>
