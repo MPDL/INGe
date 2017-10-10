@@ -950,10 +950,10 @@
 		<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
 		<escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
 		<escidoc.pid.service.create.path>/doxi/rest/pid/create</escidoc.pid.service.create.path>
-		<escidoc.pid.service.password>9KEbNv</escidoc.pid.service.password>
-		<escidoc.pid.service.timeout>3000</escidoc.pid.service.timeout>
+		<escidoc.pid.service.password>pid_user</escidoc.pid.service.password>
+		<escidoc.pid.service.timeout>5000</escidoc.pid.service.timeout>
 		<escidoc.pid.service.url>https://test.doi.mpdl.mpg.de</escidoc.pid.service.url>
-		<escidoc.pid.service.user>test_pure</escidoc.pid.service.user>
+		<escidoc.pid.service.user>pid_user</escidoc.pid.service.user>
 		<escidoc.pubman.blog.baseUrl />
 		<escidoc.pubman.blog.news />
 		<escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
