@@ -54,6 +54,7 @@ public interface GenericDaoEs<E> {
    */
   public String updateImmediately(String id, E entity) throws IngeTechnicalException;
 
+  public String update(String id, E entity) throws IngeTechnicalException;
 
   /**
    * deletes the object with the given id in elasticsearch

@@ -10,21 +10,14 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
@@ -139,11 +132,11 @@ public class YearbookArchiveRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      final YearbookArchiveBean yearbookArchiveBean =
-          (YearbookArchiveBean) FacesTools.findBean("YearbookArchiveBean.class");
+      final YearbookItemSessionBean yearbookItemSessionBean =
+          (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
       
-      QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookArchiveBean.getSelectedYearbook());
+      QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookItemSessionBean.getYearbookForView());
       
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, null);
       SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()

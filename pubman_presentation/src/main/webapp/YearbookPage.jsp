@@ -85,7 +85,7 @@
                                         <h:outputText value="#{lbl.Yearbook_editYearbook}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />
-                                    <h:outputLink id="lnkChangeToYearbookArcivePage" styleClass="free_area0" value="YearbookArchivePage.jsp">
+                                    <h:outputLink id="lnkChangeToYearbookArcivePage" styleClass="free_area0" value="YearbookModeratorPage.jsp">
                                         <h:outputText value="#{lbl.Yearbook_YearbookArchive}" />
                                     </h:outputLink>
                                 </div>

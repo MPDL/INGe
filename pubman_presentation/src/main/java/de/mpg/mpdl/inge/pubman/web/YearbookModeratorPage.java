@@ -1,3 +1,5 @@
+package de.mpg.mpdl.inge.pubman.web;
+
 /*
  * 
  * CDDL HEADER START
@@ -22,24 +24,24 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.pubman.web;
+
 
 import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
 /**
- * TODO BackingBean for YearbookArchivePage.jsp
+ * TODO BackingBean for YearbookPage.jsp
  * 
  * @author walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@ManagedBean(name = "YearbookArchivePage")
+@ManagedBean(name = "YearbookModeratorPage")
 @SuppressWarnings("serial")
-public class YearbookArchivePage extends BreadcrumbPage {
-  public YearbookArchivePage() {}
+public class YearbookModeratorPage extends BreadcrumbPage {
+  public YearbookModeratorPage() {}
 
   @Override
   public void init() {

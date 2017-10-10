@@ -260,9 +260,9 @@ public class EntityTransformer {
     oldFileVo.setDefaultMetadata(newFileVo.getMetadata());
     oldFileVo.setDescription(newFileVo.getDescription());
     oldFileVo.setLastModificationDate(newFileVo.getLastModificationDate());
-    oldFileVo.setMimeType(new FileDbVO().getMimeType());
+    oldFileVo.setMimeType(newFileVo.getMimeType());
     oldFileVo.setName(newFileVo.getName());
-    oldFileVo.setPid(new FileDbVO().getPid());
+    oldFileVo.setPid(newFileVo.getPid());
 
     FileRO oldFileRo = new FileRO();
     oldFileRo.setObjectId(newFileVo.getObjectId());

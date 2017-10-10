@@ -33,7 +33,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 @Service
 public class AuthorizationService {
 
-
   private Map<String, Object> aaMap;
 
   @Autowired
@@ -159,6 +158,9 @@ public class AuthorizationService {
             String key = rule.getKey();
             String index = indices.get(key);
 
+            if (index == null) {
+              throw new AuthorizationException("No index in aa.json defined for: " + key);
+            }
 
             if (rule.getValue() instanceof Collection<?>) {
               List<String> valuesToCompare = (List<String>) rule.getValue();

@@ -7,49 +7,27 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
-import org.apache.axis.types.NonNegativeInteger;
-import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
-import org.apache.lucene.search.BooleanQuery;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
-import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
-import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.MetadataDateSearchCriterion;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery;
-import de.mpg.mpdl.inge.search.query.SearchQuery.SortingOrder;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook

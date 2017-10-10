@@ -14,14 +14,13 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -146,16 +145,16 @@ public class YearbookUtils {
     */
   }
 
-  public static String getYearbookOrganizationId(AccountUserVO user) {
-    String orgId = null;
+  public static List<String> getYearbookOrganizationIds(AccountUserVO user) {
+    List<String> orgIds = new ArrayList<>();
 
     for (GrantVO grant : user.getGrants()) {
       if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
-        orgId = grant.getObjectRef();
+        orgIds.add(grant.getObjectRef());
 
         break;
       }
     }
-    return orgId;
+    return orgIds;
   }
 }

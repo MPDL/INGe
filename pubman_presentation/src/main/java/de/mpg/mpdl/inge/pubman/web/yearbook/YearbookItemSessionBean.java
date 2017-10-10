@@ -13,7 +13,6 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
@@ -26,8 +25,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -36,7 +33,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
-import de.mpg.mpdl.inge.service.util.PubItemUtil;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped
@@ -90,11 +86,11 @@ public class YearbookItemSessionBean extends FacesBean {
 
       if (id == null) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        String orgId =
-            YearbookUtils.getYearbookOrganizationId(this.getLoginHelper().getAccountUser());
+        List<String> orgIds =
+            YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
         BoolQueryBuilder bqb = QueryBuilders.boolQuery();
 
-        bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
+        bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgIds.get(0)));
         bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_YEAR, currentYear));
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bqb);
@@ -446,7 +442,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
         this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
 
-        return "loadYearbookArchivePage";
+        return "loadYearbookModeratorPage";
       }
     } catch (final Exception e) {
       this.error(this.getMessage("Yearbook_SubmitError"));

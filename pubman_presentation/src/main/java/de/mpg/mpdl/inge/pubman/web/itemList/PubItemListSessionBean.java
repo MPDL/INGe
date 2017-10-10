@@ -989,40 +989,44 @@ public class PubItemListSessionBean extends
   public void downloadExportFile(List<PubItemVOPresentation> pubItemList) {
     this.saveSelections();
 
-    final ItemControllerSessionBean icsb =
-        (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-    // set the currently selected items in the FacesBean
-    // this.setSelectedItemsAndCurrentItem();
-    final ExportItemsSessionBean sb =
-        (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
     if (pubItemList.size() != 0) {
-      // export format and file format.
-      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-      byte[] exportFileData = null;
-      try {
-        exportFileData =
-            icsb.retrieveExportData(curExportFormat,
-                CommonUtils.convertToPubItemVOList(pubItemList));
-      } catch (final TechnicalException e) {
-        throw new RuntimeException("Cannot retrieve export data", e);
-      }
-      final String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-      FacesTools.getResponse().setContentType(contentType);
-      final String fileName =
-          "export_" + curExportFormat.getName().toLowerCase() + "."
-              + FileFormatVO.getExtensionByName(sb.getFileFormat());
-      FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
-      try {
-        final OutputStream out = FacesTools.getResponse().getOutputStream();
-        out.write(exportFileData);
-        out.close();
-      } catch (final Exception e) {
-        throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
-      }
-      FacesTools.getCurrentInstance().responseComplete();
+      exportAndDownload(pubItemList);
+
     } else {
       this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
     }
+  }
+
+
+  public static void exportAndDownload(List<PubItemVOPresentation> pubItemList) {
+    final ItemControllerSessionBean icsb =
+        (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+    final ExportItemsSessionBean sb =
+        (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+    // export format and file format.
+    final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    byte[] exportFileData = null;
+    try {
+      exportFileData =
+          icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
+    } catch (final TechnicalException e) {
+      throw new RuntimeException("Cannot retrieve export data", e);
+    }
+    final String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
+    FacesTools.getResponse().setContentType(contentType);
+    final String fileName =
+        "export_" + curExportFormat.getName().toLowerCase() + "."
+            + FileFormatVO.getExtensionByName(sb.getFileFormat());
+    FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
+    try {
+      final OutputStream out = FacesTools.getResponse().getOutputStream();
+      out.write(exportFileData);
+      out.close();
+    } catch (final Exception e) {
+      throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
+    }
+    FacesTools.getCurrentInstance().responseComplete();
+
   }
 
   /**

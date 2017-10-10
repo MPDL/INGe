@@ -671,12 +671,11 @@ public class PubItemServiceDbImpl implements PubItemService {
     pubItemDao
         .delete(new VersionableId(item.getObjectId(), item.getVersionNumber() - 1).toString());
 
-    pubItemDao.createImmediately(item.getObjectIdAndVersion(),
-        EntityTransformer.transformToOld(item));
+    pubItemDao.create(item.getObjectIdAndVersion(), EntityTransformer.transformToOld(item));
     if (item.getObject().getLatestRelease() != null
         && !item.getObjectIdAndVersion().equals(
             item.getObject().getLatestRelease().getObjectIdAndVersion())) {
-      pubItemDao.createImmediately(item.getObject().getLatestRelease().getObjectIdAndVersion(),
+      pubItemDao.create(item.getObject().getLatestRelease().getObjectIdAndVersion(),
           EntityTransformer
               .transformToOld((PubItemVersionDbVO) item.getObject().getLatestRelease()));
     }

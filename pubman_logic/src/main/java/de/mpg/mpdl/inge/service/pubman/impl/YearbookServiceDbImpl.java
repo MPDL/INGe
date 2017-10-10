@@ -31,10 +31,13 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO> implements
     YearbookService {
 
-
-  public final static String INDEX_OBJECT_ID = "objectId";
-  public final static String INDEX_ORGANIZATION_ID = "organization.objectId";
+  public final static String INDEX_MODIFICATION_DATE = "lastModificationDate";
+  public final static String INDEX_OBJECT_ID = "objectId.keyword";
+  public final static String INDEX_ORGANIZATION_ID = "organization.objectId.keyword";
+  public final static String INDEX_ORGANIZATION_NAME = "organization.name";
+  public final static String INDEX_ORGANIZATION_NAME_KEYWORD = "organization.name.keyword";
   public final static String INDEX_YEAR = "year";
+  public final static String INDEX_STATE = "state.keyword";
 
   @Autowired
   private YearbookDaoEs yearbookDao;
