@@ -37,13 +37,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
+import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -67,14 +74,7 @@ public class BrowseByPage extends BreadcrumbPage {
 
   private String currentCharacter = "A";
 
-  private final String anyYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ANY();
-  private final String persSearchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
-  private final String pubOnlineYearSearchIndex = MetadataSearchCriterion
-      .getINDEX_DATE_PUBLISHED_ONLINE();
-  private final String pubYearSearchIndex = MetadataSearchCriterion.getINDEX_DATE_ISSUED();
-  private final String queryDdc = "dc:title";
-  private final String queryPerson = "foaf:family_name";
-  private final String subSearchIndex = MetadataSearchCriterion.getINDEX_TOPIC();
+
 
   public BrowseByPage() {}
 
@@ -195,13 +195,11 @@ public class BrowseByPage extends BreadcrumbPage {
    */
   public String loadBrowseByCreator() {
     this.setSelectedValue("persons");
-    this.setSearchIndex(this.persSearchIndex);
     if (this.bbBean.getSearchResults() != null) {
       this.bbBean.getSearchResults().clear();
     }
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
-    this.bbBean.setQuery(this.queryPerson);
 
     return "loadBrowseByPage";
   }
@@ -214,13 +212,11 @@ public class BrowseByPage extends BreadcrumbPage {
   public String loadBrowseBySubject(String selSubject) {
     final String curSubject = selSubject;
     this.setSelectedValue(curSubject);
-    this.setSearchIndex(this.subSearchIndex);
     if (this.bbBean.getSearchResults() != null) {
       this.bbBean.getSearchResults().clear();
     }
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
-    this.bbBean.setQuery(this.queryDdc);
 
     return "loadBrowseByPage";
   }
@@ -262,14 +258,6 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public void setSelectedValue(String selectedValue) {
     this.bbBean.setSelectedValue(selectedValue);
-  }
-
-  public String getSearchIndex() {
-    return this.bbBean.getSearchIndex();
-  }
-
-  public void setSearchIndex(String index) {
-    this.bbBean.setSearchIndex(index);
   }
 
   public String getCurrentCharacter() {
@@ -319,17 +307,70 @@ public class BrowseByPage extends BreadcrumbPage {
     return "";
   }
 
-  public String getPubYearSearchIndex() {
-    return this.pubYearSearchIndex;
+
+  public void searchForAnyYear(String year) throws Exception {
+
+    List<SearchCriterionBase> scList = new ArrayList<>();
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
+    dsc1.setFrom(year);
+    dsc1.setTo(year);
+    scList.add(dsc1);
+
+
+    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+    search(qb);
   }
 
-  public String getPubOnlineYearSearchIndex() {
-    return this.pubOnlineYearSearchIndex;
+  public void searchForPublishedYear(String year) throws Exception {
+    List<SearchCriterionBase> scList = new ArrayList<>();
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.PUBLISHEDPRINT);
+    dsc1.setFrom(year);
+    dsc1.setTo(year);
+    scList.add(dsc1);
+    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    DateSearchCriterion dsc2 = new DateSearchCriterion(SearchCriterion.PUBLISHED);
+    dsc2.setFrom(year);
+    dsc2.setTo(year);
+    scList.add(dsc2);
+
+
+    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+
+    search(qb);
   }
 
-  public String getAnyYearSearchIndex() {
-    return this.anyYearSearchIndex;
+
+  public void searchForPerson(LinkVO link) throws Exception {
+    List<SearchCriterionBase> scList = new ArrayList<>();
+    PersonSearchCriterion ps = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
+    String coneId = getConeUrl() + "persons/resource/" + link.getValue();
+    ps.setHiddenId(coneId);
+    ps.setSearchString(link.getLabel());
+    scList.add(ps);
+
+    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+
+    search(qb);
   }
+
+  public void searchForSubject(String id) throws Exception {
+    List<SearchCriterionBase> scList = new ArrayList<>();
+    ClassificationSearchCriterion sc = new ClassificationSearchCriterion();
+    sc.setSearchString(id);
+    scList.add(sc);
+
+    QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+
+    search(qb);
+  }
+
+
+  private void search(QueryBuilder qb) throws Exception {
+    FacesTools.getExternalContext().redirect(
+        "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
+            + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
+  }
+
 
   @Override
   public boolean isItemSpecific() {

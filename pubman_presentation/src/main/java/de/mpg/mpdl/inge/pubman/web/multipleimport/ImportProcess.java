@@ -25,12 +25,14 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -40,6 +42,8 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -55,13 +59,10 @@ import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.MarcXmlProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.RisProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.WosProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.ZfNProcessor;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.CriterionType;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion.LogicalOperator;
-import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
@@ -523,28 +524,41 @@ public class ImportProcess extends Thread {
   private boolean checkDuplicatesByIdentifier(PubItemVO itemVO) {
     try {
       if (itemVO.getMetadata().getIdentifiers().size() > 0) {
-        final ArrayList<String> contentModels = new ArrayList<String>();
-        contentModels.add(this.itemContentModel);
-        final ArrayList<MetadataSearchCriterion> criteria =
-            new ArrayList<MetadataSearchCriterion>();
-        boolean first = true;
+        
+        
+        
+        List<SearchCriterionBase> scList = new ArrayList<>();
+        
         for (final IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers()) {
-          final MetadataSearchCriterion criterion =
-              new MetadataSearchCriterion(CriterionType.IDENTIFIER, identifierVO.getId(),
-                  (first ? LogicalOperator.AND : LogicalOperator.OR));
-          first = false;
-          criteria.add(criterion);
+          if(scList.size()>1)
+          {
+            scList.add(new de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator(SearchCriterion.OR_OPERATOR));
+          }
+          IdentifierSearchCriterion sc = new IdentifierSearchCriterion();
+          sc.setSearchString(identifierVO.getId());
+          scList.add(sc);
+          
         }
-        final MetadataSearchQuery query = new MetadataSearchQuery(contentModels, criteria);
-        final ItemContainerSearchResult searchResult = SearchService.searchForItemContainer(query);
-        if (searchResult.getTotalNumberOfResults().equals(BigInteger.ZERO)) {
+        
+
+        QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+        SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+        SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
+        
+        
+        
+
+        if (resp.getNumberOfRecords() == 0) {
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
               "import_process_no_duplicate_detected", this.connection);
           return false;
         } else {
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
               "import_process_duplicates_detected", this.connection);
-          for (final ItemVO duplicate : searchResult.extractItemsOfSearchResult()) {
+          
+          
+          
+          for (final ItemVO duplicate : resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())) {
             if (this.itemContentModel.equals(duplicate.getContentModel())) {
               final PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {

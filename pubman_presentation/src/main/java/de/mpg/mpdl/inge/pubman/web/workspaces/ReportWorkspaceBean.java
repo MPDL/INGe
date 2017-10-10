@@ -10,26 +10,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
-import de.mpg.mpdl.inge.search.SearchService;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.PlainCqlQuery;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -163,50 +173,74 @@ public class ReportWorkspaceBean extends FacesBean {
     String itemListAsString = null;
     int totalNrOfSerchResultItems = 0;
     // create an initial query with the given reportYear and the org id
-    String query =
-        "(escidoc.publication.compound.dates=\""
-            + this.reportYear
-            + "*\" OR "
-            + "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/journal\" OR "
-            + "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/series\") AND "
-            +
 
-            "(escidoc.publication.creator.person.organization.identifier=\""
-            + this.organization.getIdentifier()
-            + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
-            + this.organization.getIdentifier() + "\" ";
+    List<SearchCriterionBase> scList = new ArrayList<>();
+    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
+    dsc1.setFrom(this.reportYear);
+    dsc1.setTo(this.reportYear);
+    scList.add(dsc1);
+    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    GenreSearchCriterion gsc = new GenreSearchCriterion();
+    gsc.setSelectedEnum(Genre.JOURNAL);
+    scList.add(gsc);
+    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    GenreSearchCriterion gsc2 = new GenreSearchCriterion();
+    gsc2.setSelectedEnum(Genre.SERIES);
+    scList.add(gsc2);
+    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
+
+    scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+    OrganizationSearchCriterion osc = new OrganizationSearchCriterion();
+    osc.setSearchString(this.organization.getName());
+    osc.setHiddenId(this.organization.getIdentifier());
+    osc.setIncludeSource(true);
+    scList.add(osc);
+    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+
+
+
+    /*
+     * 
+     * String query = "(escidoc.publication.compound.dates=\"" + this.reportYear + "*\" OR " +
+     * "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/journal\" OR "
+     * +
+     * "escidoc.publication.type=\"http://purl.org/escidoc/metadata/ves/publication-types/series\") AND "
+     * +
+     * 
+     * "(escidoc.publication.creator.person.organization.identifier=\"" +
+     * this.organization.getIdentifier() +
+     * "\" OR escidoc.publication.source.creator.person.organization.identifier=\"" +
+     * this.organization.getIdentifier() + "\" ";
+     * 
+     * try { // get a list of children of the given org this.childAffilList =
+     * this.getChildOUs(this.organization.getIdentifier()); } catch (final Exception e) {
+     * logger.error("Error when trying to get the children of the given organization.", e);
+     * e.printStackTrace(); }
+     * 
+     * // when there are children, concat the org ids to the query if (this.childAffilList.size() >
+     * 0) { for (final String child : this.childAffilList) { query = query +
+     * "OR escidoc.publication.creator.person.organization.identifier=\"" + child +
+     * "\" OR escidoc.publication.source.creator.person.organization.identifier=\"" + child + "\"";
+     * } }
+     * 
+     * // close the brackets of the query query = query + ")";
+     */
     try {
-      // get a list of children of the given org
-      this.childAffilList = this.getChildOUs(this.organization.getIdentifier());
-    } catch (final Exception e) {
-      logger.error("Error when trying to get the children of the given organization.", e);
-      e.printStackTrace();
-    }
+      QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+      SearchRetrieveResponseVO<PubItemVO> resp =
+          ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
-    // when there are children, concat the org ids to the query
-    if (this.childAffilList.size() > 0) {
-      for (final String child : this.childAffilList) {
-        query =
-            query + "OR escidoc.publication.creator.person.organization.identifier=\"" + child
-                + "\" OR escidoc.publication.source.creator.person.organization.identifier=\""
-                + child + "\"";
-      }
-    }
 
-    // close the brackets of the query
-    query = query + ")";
 
-    final PlainCqlQuery cqlQuery = new PlainCqlQuery(query);
-    ItemContainerSearchResult result;
-    try {
-      result = SearchService.searchForItemContainer(cqlQuery);
-      totalNrOfSerchResultItems = Integer.parseInt(result.getTotalNumberOfResults().toString());
-      logger.info("Search result total nr: "
-          + Integer.parseInt(result.getTotalNumberOfResults().toString()));
+      totalNrOfSerchResultItems = resp.getNumberOfRecords();
+      logger.info("Search result total nr: " + resp.getNumberOfRecords());
       if (totalNrOfSerchResultItems > 0) {
-        itemListAsString =
-            XmlTransformingService.transformToItemList(result.extractItemsOfSearchResult());
+        itemListAsString = XmlTransformingService.transformToItemList(
+            resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList()));
       } else {
         this.info(this.getMessage("ReportNoItemsFound"));
       }

@@ -77,10 +77,9 @@
 						<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">
-							<h:outputLink id="lnkLink"
-								value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
-								<h:outputText value="#{link.label}" />
-							</h:outputLink>
+							<h:commandLink id="lnkLink"
+								value="#{link.label}" action="#{BrowseByPage.searchForPerson(link)}"/>
+
 							<h:outputLink id="lnkPersonPortfolioLink" styleClass="authorCard"
 								value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}"
 								target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
@@ -88,10 +87,8 @@
 						<!-- Link for other values then persons -->
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">
-							<h:outputLink id="lnkLink2"
-								value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.encodedLabel}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
-								<h:outputText value="#{link.label}" />
-							</h:outputLink>
+							<h:commandLink id="lnkLink2"
+								value="#{link.label}" action="#{BrowseByPage.searchForSubject(link.value)}"/>
 						</h:panelGroup>
 					</div>
 				</ui:repeat>
@@ -110,10 +107,9 @@
 						<!-- This one is only valid for cone identifier, other values from cone are not populated with the url -->
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">
-							<h:outputLink id="lnkLinkAll"
-								value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{BrowseByPage.coneUrl}persons/resource/#{link.value}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
-								<h:outputText value="#{link.label}" />
-							</h:outputLink>
+							<h:commandLink id="lnkLinkAll"
+								value="#{link.label}" action="#{BrowseByPage.searchForPerson(link)}"/>
+								
 							<h:outputLink id="lnkPersonPortfolioLinkAll"
 								styleClass="authorCard"
 								value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}"
@@ -122,10 +118,10 @@
 						<!-- Link for other values then persons -->
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.selectedValue != 'persons'}">
-							<h:outputLink id="lnkLink2All"
-								value="#{BrowseByPage.searchUrl}cql=(+(+#{BrowseBySessionBean.searchIndex}%3D%22#{link.label}%22+)++and++(+escidoc.objecttype%3D%22item%22+)+)+and++(+escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22+)">
-								<h:outputText value="#{link.label}" />
-							</h:outputLink>
+							
+							<h:commandLink id="lnkLink2All"
+								value="#{link.label}" action="#{BrowseByPage.searchForSubject(link.value)}"/>
+							
 						</h:panelGroup>
 					</div>
 				</ui:repeat>
@@ -143,18 +139,15 @@
 						<span class="seperator"></span>
 						<h:panelGroup styleClass="free_area0_p6 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.dateMode == 'published'}">
-							<h:outputLink id="searchYearPublished"
-								value="#{BrowseByPage.searchUrl}cql=#{BrowseByPage.pubYearSearchIndex}%3D%22#{year}*%22++and++escidoc.objecttype%3D%22item%22+and++escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22">
-								<h:outputText value="#{year}" />
-							</h:outputLink>
+							<h:commandLink id="searchYearPublished"
+								value="#{year}" action="#{BrowseByPage.searchForPublishedYear(year)}"/>
+							
 							<h:outputText value=" (#{BrowseBySessionBean.yearMap.get(year)})"/>
 						</h:panelGroup>
 						<h:panelGroup styleClass="free_area0_p6 xTiny_marginLExcl"
 							rendered="#{BrowseBySessionBean.dateMode == 'any'}">
-							<h:outputLink id="searchYearAny"
-								value="#{BrowseByPage.searchUrl}cql=escidoc.publication.compound.dates%3D%22#{year}*%22++and++escidoc.objecttype%3D%22item%22+and++escidoc.content-model.objid%3D%22#{BrowseBySessionBean.pubContentModel}%22">
-								<h:outputText value="#{year}" />
-							</h:outputLink>
+							<h:commandLink id="searchYearAny"
+								value="#{year}" action="#{BrowseByPage.searchForAnyYear(year)}"/>
 							<h:outputText value=" (#{BrowseBySessionBean.yearMap.get(year)})"/>
 						</h:panelGroup>
 					</div>

@@ -34,7 +34,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.search.parser.ParseException;
 
 /**
  * BackingBean for ErrorPage.jsp. Use this class to display error messages in a seperate page. Don't
@@ -81,10 +80,7 @@ public class ErrorPage extends BreadcrumbPage {
       this.detail = "No Exception was set to display.";
     }
     // added by NiH
-    else if (this.exception instanceof ParseException) {
-      this.summary = this.getMessage("search_ParseError");
-      this.detail = this.getStackTrace();
-    }
+
     /*
      * // this exception indicates that the user tried to accept an item without changing it; if
      * this exception is no longer thrown by the framework we should have to check for changes of

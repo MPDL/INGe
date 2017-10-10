@@ -28,7 +28,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result
@@ -277,33 +276,6 @@ public class SearchRetrieverRequestBean extends
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
-  /**
-   * Helper method that transforms the result of the search into a list of PubItemVOPresentation
-   * objects.
-   * 
-   * @param result
-   * @return
-   */
-  public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
-      ItemContainerSearchResult result) {
-
-    final List<SearchResultElement> results = result.getResultList();
-
-    final ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    for (int i = 0; i < results.size(); i++) {
-      // check if we have found an item
-      if (results.get(i) instanceof ItemResultVO) {
-        // cast to PubItemResultVO
-        final ItemResultVO item = (ItemResultVO) results.get(i);
-        final PubItemResultVO pubItemResult =
-            new PubItemResultVO(item, item.getSearchHitList(), item.getScore());
-        final PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItemResult);
-        pubItemList.add(pubItemPres);
-      }
-    }
-
-    return pubItemList;
-  }
 
 
   public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(

@@ -25,14 +25,11 @@
 
 package de.mpg.mpdl.inge.pubman.web.search;
 
-import java.util.ArrayList;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 
 /**
  * Keeps all attributes that are used for the whole session by the SearchResultList.
@@ -49,7 +46,6 @@ public class SearchResultListSessionBean extends FacesBean {
   }
 
   private AffiliationVO affiliation;
-  private ArrayList<MetadataSearchCriterion> criteria;
   private SearchType type;
   private String searchString;
   private boolean includeFiles = false;
@@ -80,13 +76,6 @@ public class SearchResultListSessionBean extends FacesBean {
     this.type = type;
   }
 
-  public ArrayList<MetadataSearchCriterion> getSearchCriteria() {
-    return this.criteria;
-  }
-
-  public void setSearchCriteria(ArrayList<MetadataSearchCriterion> criteria) {
-    this.criteria = criteria;
-  }
 
   public AffiliationVO getAffiliation() {
     return this.affiliation;

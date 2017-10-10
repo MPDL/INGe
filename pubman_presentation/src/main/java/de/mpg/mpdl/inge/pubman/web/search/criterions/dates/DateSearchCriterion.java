@@ -312,50 +312,59 @@ public class DateSearchCriterion extends SearchCriterionBase {
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
 
-    switch (this.getSearchCriterion()) {
+    return toElasticSearchQuery(this.getSearchCriterion(), this.getFrom(), this.getTo());
+
+  }
+
+  public static QueryBuilder toElasticSearchQuery(SearchCriterion sc, String from, String to)
+      throws SearchParseException {
+
+    switch (sc) {
       case ANYDATE: {
         BoolQueryBuilder bq = QueryBuilders.boolQuery();
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED));
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
+            from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
+            from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED, from, to));
         return bq;
       }
 
       case PUBLISHED:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from,
+            to);
       case PUBLISHEDPRINT:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
+            from, to);
       case ACCEPTED:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, from, to);
       case SUBMITTED:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, from, to);
       case MODIFIED:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, from, to);
       case CREATED:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED, from, to);
       case EVENT_STARTDATE:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_EVENT_STARTDATE);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_EVENT_STARTDATE, from, to);
       case EVENT_ENDDATE:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_EVENT_ENDDATE);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_EVENT_ENDDATE, from, to);
       case MODIFIED_INTERNAL:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, from, to);
       case CREATED_INTERNAL:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_CREATION_DATE);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_CREATION_DATE, from, to);
       case COMPONENT_EMBARGO_DATE:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL, from, to);
     }
     return null;
-
 
   }
 
 
-  private QueryBuilder buildDateRangeQuery(String index) {
+  private static QueryBuilder buildDateRangeQuery(String index, String from, String to) {
 
-    return QueryBuilders.rangeQuery(index).gte(roundDateString(getFrom()))
-        .lte(roundDateString(getTo()));
+    return QueryBuilders.rangeQuery(index).gte(roundDateString(from)).lte(roundDateString(to));
   }
 
   @Override

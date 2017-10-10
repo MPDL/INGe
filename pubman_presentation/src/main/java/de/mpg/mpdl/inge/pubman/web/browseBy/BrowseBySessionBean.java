@@ -58,8 +58,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.search.query.ItemContainerSearchResult;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -86,7 +84,6 @@ public class BrowseBySessionBean extends FacesBean {
   private String dateType = "published";
   private String pubContentModel = "";
   private String query = "q";
-  private String searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
   private String selectedValue = "persons";
   private String[] characters = null;
   private boolean showChars = true;
@@ -107,7 +104,6 @@ public class BrowseBySessionBean extends FacesBean {
   public void clear() {
     this.currentCharacter = "A";
     this.selectedValue = "persons";
-    this.searchIndex = MetadataSearchCriterion.getINDEX_PERSON_IDENTIFIER();
     this.showChars = true;
     this.query = "q";
     this.dateType = "published";
@@ -251,15 +247,6 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
 
-  public String getSearchIndex() {
-    return this.searchIndex;
-  }
-
-  public void setSearchIndex(String searchIndex) {
-    this.searchIndex = searchIndex;
-  }
-
-
 
   private void fillDateMap(String... indexes) {
 
@@ -324,35 +311,6 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
 
-
-  /**
-   * Helper method that transforms the result of the search into a list of PubItemVOPresentation
-   * objects.
-   * 
-   * @param result
-   * @return
-   */
-  private PubItemVOPresentation extractItemsOfSearchResult(ItemContainerSearchResult result) {
-
-    final List<SearchResultElement> results = result.getResultList();
-    PubItemVOPresentation pubItemPres = null;
-
-    // ArrayList<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    for (int i = 0; i < results.size(); i++) {
-      // check if we have found an item
-      if (i == 0 && results.get(i) instanceof ItemResultVO) {
-        // cast to PubItemResultVO
-        final ItemResultVO item = (ItemResultVO) results.get(i);
-        final PubItemResultVO pubItemResult =
-            new PubItemResultVO(item, item.getSearchHitList(), item.getScore());
-        pubItemPres = new PubItemVOPresentation(pubItemResult);
-      }
-    }
-
-    return pubItemPres;
-  }
-
-
   public String getQuery() {
     return this.query;
   }
@@ -398,4 +356,6 @@ public class BrowseBySessionBean extends FacesBean {
   public void setYearMap(Map<String, Long> yearMap) {
     this.yearMap = yearMap;
   }
+
+
 }

@@ -171,6 +171,8 @@ public class PubItemServiceDbImpl implements PubItemService {
   public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
   public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE =
       "metadata.sources.alternativeTitles.value";
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
+      "metadata.sources.creators.person.organization.identifier";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
 

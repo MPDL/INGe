@@ -51,6 +51,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
   private final static Logger logger = LogManager.getLogger(OrganizationSearchCriterion.class);
   private boolean includePredecessorsAndSuccessors;
+  private boolean includeSource;
 
   @Override
   public String[] getCqlIndexForHiddenId(Index indexName) {
@@ -237,6 +238,13 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       bq.should(QueryBuilders.termsQuery(
           PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
           idList.toArray(new String[] {})));
+      if (includeSource) {
+        bq.should(QueryBuilders.termsQuery(
+            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
+            idList.toArray(new String[] {})));
+      }
+
+
       return bq;
     } else {
       return super.toElasticSearchQuery();
@@ -256,6 +264,14 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
     for (AffiliationVO childAff : childAffs) {
       fillWithChildOus(idList, childAff.getReference().getObjectId());
     }
+  }
+
+  public boolean isIncludeSource() {
+    return includeSource;
+  }
+
+  public void setIncludeSource(boolean includeSource) {
+    this.includeSource = includeSource;
   }
 
 

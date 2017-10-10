@@ -10,6 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -19,15 +20,14 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
-import de.mpg.mpdl.inge.search.query.MetadataSearchCriterion;
-import de.mpg.mpdl.inge.search.query.MetadataSearchQuery;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AffiliationBean")
 @SessionScoped
@@ -233,27 +233,18 @@ public class AffiliationBean extends FacesBean {
    */
   public String startSearchForAffiliation(AffiliationVO affiliation) {
     try {
-      final ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-      criteria.add(new MetadataSearchCriterion(
-          MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, affiliation.getReference()
-              .getObjectId()));
-      criteria.add(new MetadataSearchCriterion(MetadataSearchCriterion.CriterionType.OBJECT_TYPE,
-          "item", MetadataSearchCriterion.LogicalOperator.AND));
 
-      final ArrayList<String> contentTypes = new ArrayList<String>();
-      final String contentTypeIdPublication =
-          PropertyReader.getProperty(AffiliationBean.PROPERTY_CONTENT_MODEL);
-      contentTypes.add(contentTypeIdPublication);
+      List<SearchCriterionBase> scList = new ArrayList<>();
+      OrganizationSearchCriterion sc = new OrganizationSearchCriterion();
+      sc.setHiddenId(affiliation.getReference().getObjectId());
+      sc.setSearchString(affiliation.getReference().getTitle());
+      scList.add(sc);
 
-      final MetadataSearchQuery query = new MetadataSearchQuery(contentTypes, criteria);
+      QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
 
-      final String cql = query.getCqlQuery();
-
-      // redirect to SearchResultPage which processes the query
       FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?" + SearchRetrieverRequestBean.parameterCqlQuery + "="
-              + URLEncoder.encode(cql) + "&" + SearchRetrieverRequestBean.parameterSearchType
-              + "=org");
+          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
+              + SearchRetrieverRequestBean.parameterSearchType + "=org");
 
     } catch (final Exception e) {
       AffiliationBean.logger.error("Could not search for items." + "\n" + e.toString());
