@@ -68,7 +68,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.LockVO;
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO.RelationType;
 import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
@@ -848,40 +847,40 @@ public class XmlTransformingService {
     return taskParam;
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public static String transformToPidTaskParam(PidTaskParamVO pidTaskParamVO)
-      throws TechnicalException, MarshallingException {
-    logger.debug("transformToPidTaskParam(PidTaskParamVO)");
-    if (pidTaskParamVO == null) {
-      throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
-          + ":transformToPidTaskParam:pidTaskParamVO is null");
-    }
-    StringWriter sw = null;
-    try {
-      // marshal XML from PidTaskParamVO
-      IBindingFactory bfact = BindingDirectory.getFactory(PidTaskParamVO.class);
-      IMarshallingContext mctx = bfact.createMarshallingContext();
-      mctx.setIndent(2);
-      sw = new StringWriter();
-      mctx.setOutput(sw);
-      mctx.marshalDocument(pidTaskParamVO);
-    } catch (JiBXException e) {
-      throw new MarshallingException(PidTaskParamVO.class.getSimpleName(), e);
-    } catch (java.lang.ClassCastException e) {
-      throw new TechnicalException(e);
-    }
-    String pidTaskParam = null;
-    if (sw != null) {
-      pidTaskParam = sw.toString().trim();
-    }
-    if (logger.isDebugEnabled()) {
-      logger.debug("transformToPidTaskParam(PidTaskParamVO) - result: String pidTaskParam="
-          + pidTaskParam);
-    }
-    return pidTaskParam;
-  }
+  // /**
+  // * {@inheritDoc}
+  // */
+  // public static String transformToPidTaskParam(PidTaskParamVO pidTaskParamVO)
+  // throws TechnicalException, MarshallingException {
+  // logger.debug("transformToPidTaskParam(PidTaskParamVO)");
+  // if (pidTaskParamVO == null) {
+  // throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
+  // + ":transformToPidTaskParam:pidTaskParamVO is null");
+  // }
+  // StringWriter sw = null;
+  // try {
+  // // marshal XML from PidTaskParamVO
+  // IBindingFactory bfact = BindingDirectory.getFactory(PidTaskParamVO.class);
+  // IMarshallingContext mctx = bfact.createMarshallingContext();
+  // mctx.setIndent(2);
+  // sw = new StringWriter();
+  // mctx.setOutput(sw);
+  // mctx.marshalDocument(pidTaskParamVO);
+  // } catch (JiBXException e) {
+  // throw new MarshallingException(PidTaskParamVO.class.getSimpleName(), e);
+  // } catch (java.lang.ClassCastException e) {
+  // throw new TechnicalException(e);
+  // }
+  // String pidTaskParam = null;
+  // if (sw != null) {
+  // pidTaskParam = sw.toString().trim();
+  // }
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("transformToPidTaskParam(PidTaskParamVO) - result: String pidTaskParam="
+  // + pidTaskParam);
+  // }
+  // return pidTaskParam;
+  // }
 
   /**
    * {@inheritDoc}
@@ -1710,36 +1709,36 @@ public class XmlTransformingService {
   // return utf8container;
   // }
 
-  public static String transformToPidServiceResponse(PidServiceResponseVO pidServiceResponseVO)
-      throws TechnicalException {
-    logger.debug("transformToPidServiceResponse()");
-    if (pidServiceResponseVO == null) {
-      throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
-          + "transformToPidServiceResponse:pidServiceResponseVO is null");
-    }
-    String utf8container = null;
-    try {
-      IBindingFactory bfact = BindingDirectory.getFactory(PidServiceResponseVO.class);
-      // marshal object (with nice indentation, as UTF-8)
-      IMarshallingContext mctx = bfact.createMarshallingContext();
-      mctx.setIndent(2);
-      StringWriter sw = new StringWriter();
-      mctx.setOutput(sw);
-      mctx.marshalDocument(pidServiceResponseVO, "UTF-8", null, sw);
-      // use the following call to omit the leading "<?xml" tag of the generated XML
-      // mctx.marshalDocument(containerVO);
-      utf8container = sw.toString().trim();
-    } catch (JiBXException e) {
-      throw new MarshallingException(PidServiceResponseVO.class.getSimpleName(), e);
-    } catch (ClassCastException e) {
-      throw new TechnicalException(e);
-    }
-    if (logger.isDebugEnabled()) {
-      logger.debug("transformToPidServiceResponse() - result: String utf8container="
-          + utf8container);
-    }
-    return utf8container;
-  }
+  // public static String transformToPidServiceResponse(PidServiceResponseVO pidServiceResponseVO)
+  // throws TechnicalException {
+  // logger.debug("transformToPidServiceResponse()");
+  // if (pidServiceResponseVO == null) {
+  // throw new IllegalArgumentException(XmlTransformingService.class.getSimpleName()
+  // + "transformToPidServiceResponse:pidServiceResponseVO is null");
+  // }
+  // String utf8container = null;
+  // try {
+  // IBindingFactory bfact = BindingDirectory.getFactory(PidServiceResponseVO.class);
+  // // marshal object (with nice indentation, as UTF-8)
+  // IMarshallingContext mctx = bfact.createMarshallingContext();
+  // mctx.setIndent(2);
+  // StringWriter sw = new StringWriter();
+  // mctx.setOutput(sw);
+  // mctx.marshalDocument(pidServiceResponseVO, "UTF-8", null, sw);
+  // // use the following call to omit the leading "<?xml" tag of the generated XML
+  // // mctx.marshalDocument(containerVO);
+  // utf8container = sw.toString().trim();
+  // } catch (JiBXException e) {
+  // throw new MarshallingException(PidServiceResponseVO.class.getSimpleName(), e);
+  // } catch (ClassCastException e) {
+  // throw new TechnicalException(e);
+  // }
+  // if (logger.isDebugEnabled()) {
+  // logger.debug("transformToPidServiceResponse() - result: String utf8container="
+  // + utf8container);
+  // }
+  // return utf8container;
+  // }
 
   public static PidServiceResponseVO transformToPidServiceResponse(String pidServiceResponseXml)
       throws TechnicalException {

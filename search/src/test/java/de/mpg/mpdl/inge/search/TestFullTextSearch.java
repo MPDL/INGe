@@ -26,7 +26,6 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
-import de.mpg.mpdl.inge.model.valueobjects.PidTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.ResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
@@ -306,7 +305,6 @@ public class TestFullTextSearch {
   public PubItemVO releaseItem(PubItemVO actualItemVO) throws Exception {
     long start, end;
     String url;
-    PidTaskParamVO pidParam;
     String result = null;
     String paramXml;
     TaskParamVO param;
@@ -328,12 +326,13 @@ public class TestFullTextSearch {
       logger.debug("URL given to PID resolver: " + url);
 
 
-      pidParam = new PidTaskParamVO(lastModificationDate, url);
-      paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
+      // TODO: neuen PIDService aufrufen
+      // pidParam = new PidTaskParamVO(lastModificationDate, url);
+      // paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
       try {
         // Assign floating PID
-        result = itemHandler.assignObjectPid(objectId, paramXml);
+        // result = itemHandler.assignObjectPid(objectId, paramXml);
 
         logger.debug("Floating PID assigned: " + result);
       } catch (Exception e) {
@@ -361,14 +360,15 @@ public class TestFullTextSearch {
 
       logger.debug("URL given to PID resolver: " + url);
 
-      pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
-      paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
+      // TODO: neuen PIDService aufrufen
+      // pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
+      // paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
       try {
         // Assign version PID
-        result =
-            itemHandler.assignVersionPid(actualItemVO.getVersion().getObjectId() + ":"
-                + actualItemVO.getVersion().getVersionNumber(), paramXml);
+        // result =
+        // itemHandler.assignVersionPid(actualItemVO.getVersion().getObjectId() + ":"
+        // + actualItemVO.getVersion().getVersionNumber(), paramXml);
 
         logger.debug("Version PID assigned: " + result);
       } catch (Exception e) {
@@ -399,13 +399,15 @@ public class TestFullTextSearch {
         try {
 
           ResultVO resultVO = XmlTransformingService.transformToResult(result);
-          pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
-          paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
+
+          // TODO: neuen PIDService aufrufen
+          // pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
+          // paramXml = XmlTransformingService.transformToPidTaskParam(pidParam);
 
           // Assign component PID
-          result =
-              itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(), file
-                  .getReference().getObjectId(), paramXml);
+          // result =
+          // itemHandler.assignContentPid(actualItemVO.getVersion().getObjectId(), file
+          // .getReference().getObjectId(), paramXml);
 
           logger.debug("PID assigned: " + result);
         } catch (Exception e) {

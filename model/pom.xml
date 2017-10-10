@@ -20,10 +20,6 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<properties>
-		<spring.security.version>4.1.1.RELEASE</spring.security.version>
-	</properties>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -64,7 +60,7 @@
 						<includeSchemaBinding>bindings_ContainerVO_input.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_ContainerVO_output.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_TaskParamVO.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_PidTaskParamVO.xml</includeSchemaBinding>
+						<includeSchemaBinding>bindings_PidServiceResponseVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_FilterTaskParamVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_FileURL.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_ExportFormat.xml</includeSchemaBinding>
