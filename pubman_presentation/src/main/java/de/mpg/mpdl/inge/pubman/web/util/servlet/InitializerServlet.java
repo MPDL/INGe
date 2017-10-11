@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
+import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
 
 @SuppressWarnings("serial")
 public class InitializerServlet extends HttpServlet {

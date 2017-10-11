@@ -42,12 +42,12 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.pubman.SimpleStatisticsService;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
 
 /**
  * Presentation wrapper for {@link FileVO}.

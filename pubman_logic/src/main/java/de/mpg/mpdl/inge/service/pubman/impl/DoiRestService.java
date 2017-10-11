@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.pubman;
+package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
