@@ -619,7 +619,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     createAuditEntry(latestVersion, auditEventType);
 
-    reindex(latestVersion);
+    
 
 
     // TODO: - fuer OPEN_AIRE ins Repository Verzeichnis schreiben
@@ -637,13 +637,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       }
     } else if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
       try {
-        String s = XmlTransformingService.transformToItem(itemToReturn);
         OaiFileTools.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
-      } catch (TechnicalException e) {
+      } catch (Exception e) {
         throw new IngeTechnicalException(e);
       }
     }
 
+    reindex(latestVersion);
     return itemToReturn;
   }
 
