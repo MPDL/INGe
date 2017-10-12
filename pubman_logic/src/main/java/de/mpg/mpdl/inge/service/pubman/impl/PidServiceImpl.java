@@ -19,17 +19,25 @@ import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.PidService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-public class PidRestService {
 
-  private static final Logger logger = Logger.getLogger(PidRestService.class);
+/**
+ * PidService implementation
+ * 
+ * @author przibylla
+ * 
+ */
+public class PidServiceImpl implements PidService {
+
+  private static final Logger logger = Logger.getLogger(PidServiceImpl.class);
 
   private static final String URL = "url";
 
   private WebTarget target;
 
-  public PidRestService() {
+  public PidServiceImpl() {
     this.init();
   }
 
@@ -54,6 +62,11 @@ public class PidRestService {
     this.target = client.target(serviceUrl);
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PidService#createPid(java.net.URI)
+   */
   public PidServiceResponseVO createPid(URI url) throws IngeApplicationException,
       TechnicalException {
     String createPath = PropertyReader.getProperty("escidoc.pid.service.create.path");
@@ -77,7 +90,7 @@ public class PidRestService {
   }
 
   public static void main(String[] args) throws Exception {
-    PidRestService pidRestService = new PidRestService();
+    PidServiceImpl pidRestService = new PidServiceImpl();
     String url = "www.test.de/" + Math.random();
     logger.info("PID: " + pidRestService.createPid(new URI(url)));
   }
