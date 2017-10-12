@@ -110,7 +110,7 @@ public class SiteMapTask {
   /**
    * {@inheritDoc}
    */
-  @Scheduled(cron="${inge.pubman.sitemap.cron}")
+  @Scheduled(cron = "${inge.pubman.sitemap.cron}")
   public void run() {
     try {
       SiteMapTask.logger.info("Starting to create Sitemap.");

@@ -964,7 +964,7 @@
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
 		<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
 		<escidoc.pubman.sitemap.retrieve.items>1000</escidoc.pubman.sitemap.retrieve.items>
-		<inge.pubman.sitemap.cron>0 3 * * *</inge.pubman.sitemap.cron>
+		<inge.pubman.sitemap.cron>0 0 3 * * *</inge.pubman.sitemap.cron>
 		<escidoc.pubman.statistics.nims.context.ids />
 		<escidoc.pubman.statistics.nims.link />
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
