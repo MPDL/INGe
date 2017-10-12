@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,6 +20,7 @@ import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 @ComponentScan("de.mpg.mpdl.inge.service")
 @Import({AppConfig.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
+@PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
   private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
 
@@ -25,5 +28,10 @@ public class AppConfigPubmanLogic {
   public PasswordEncoder passwordEncoder() {
     logger.info("Initializing Spring Bean PasswordEncoder");
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
   }
 }

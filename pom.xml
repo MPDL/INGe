@@ -963,9 +963,8 @@
 		<escidoc.pubman.presentation.url>/common/</escidoc.pubman.presentation.url>
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
 		<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
-		<escidoc.pubman.sitemap.retrieve.items>100</escidoc.pubman.sitemap.retrieve.items>
-		<escidoc.pubman.sitemap.retrieve.timeout>20</escidoc.pubman.sitemap.retrieve.timeout>
-		<escidoc.pubman.sitemap.task.interval>1440</escidoc.pubman.sitemap.task.interval>
+		<escidoc.pubman.sitemap.retrieve.items>1000</escidoc.pubman.sitemap.retrieve.items>
+		<inge.pubman.sitemap.cron>0 3 * * *</inge.pubman.sitemap.cron>
 		<escidoc.pubman.statistics.nims.context.ids />
 		<escidoc.pubman.statistics.nims.link />
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>

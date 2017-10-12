@@ -36,8 +36,8 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 @Primary
-public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextDbVO> implements
-    ContextService {
+public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextDbVO, String>
+    implements ContextService {
   private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";

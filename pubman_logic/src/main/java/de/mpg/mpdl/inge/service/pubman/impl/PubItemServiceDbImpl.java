@@ -32,6 +32,7 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
+import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -39,7 +40,6 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
-import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -76,7 +75,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 @Primary
-public class PubItemServiceDbImpl implements PubItemService {
+public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> implements
+    PubItemService {
 
   private final static Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
@@ -201,7 +201,7 @@ public class PubItemServiceDbImpl implements PubItemService {
 
     PubItemVO pubItemToCreateOld = EntityTransformer.transformToOld(pubItemToCreate);
 
-    checkPubItemAa(pubItemToCreateOld, contextOld, userAccount, "create");
+    checkAa("create", userAccount, pubItemToCreateOld, contextOld);
 
     validate(pubItemToCreateOld, ValidationPoint.SAVE);
 
@@ -343,7 +343,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getContext()
             .getObjectId()));
 
-    checkPubItemAa(latestVersionOld, context, userAccount, "update");
+    checkAa("update", userAccount, latestVersionOld, context);
 
     if (PubItemDbRO.State.RELEASED.equals(latestVersion.getState())) {
       entityManager.detach(latestVersion);
@@ -458,7 +458,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     ContextVO context =
         EntityTransformer.transformToOld(contextRepository.findOne(latestPubItem.getContext()
             .getObjectId()));
-    checkPubItemAa(latestPubItem, context, userAccount, "delete");
+    checkAa("delete", userAccount, latestPubItem, context);
 
     itemObjectRepository.delete(latestPubItemDbVersion.getObject());
 
@@ -505,7 +505,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         if (authenticationToken != null) {
           userAccount = aaService.checkLoginRequired(authenticationToken);
         }
-        checkPubItemAa(requestedItem, context, userAccount, "get");
+        checkAa("get", userAccount, requestedItem, context);
       } catch (AuthenticationException e) {
         if (version == null) {
           requestedItem =
@@ -524,29 +524,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     return requestedItem;
   }
 
-  @Override
-  public SearchRetrieveResponseVO<PubItemVO> search(SearchRetrieveRequestVO srr,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
 
-    QueryBuilder authorizedQuery;
-
-    if (authenticationToken == null) {
-      authorizedQuery =
-          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryBuilder(),
-              null);
-    } else {
-      AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
-      authorizedQuery =
-          aaService.modifyQueryForAa(this.getClass().getCanonicalName(), srr.getQueryBuilder(),
-              userAccount);
-    }
-
-    srr.setQueryBuilder(authorizedQuery);
-    System.out.println(authorizedQuery);
-    logger.debug("Searching with authorized query: \n" + authorizedQuery.toString());
-    return pubItemDao.search(srr);
-  }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -604,7 +582,7 @@ public class PubItemServiceDbImpl implements PubItemService {
         EntityTransformer.transformToOld(contextRepository.findOne(latestVersion.getObject()
             .getContext().getObjectId()));
 
-    checkPubItemAa(latestVersionOld, context, userAccount, aaMethod);
+    checkAa(aaMethod, userAccount, latestVersionOld, context);
 
     if (PubItemDbRO.State.SUBMITTED.equals(state)
         && !PubItemDbRO.State.RELEASED.equals(latestVersion.getObject().getPublicStatus())) {
@@ -787,19 +765,7 @@ public class PubItemServiceDbImpl implements PubItemService {
     return EntityTransformer.transformToVersionHistory(list);
   }
 
-  private void checkPubItemAa(PubItemVO item, ContextVO context, AccountUserVO userAccount,
-      String method) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, userAccount, item,
-        context);
-  }
 
-  protected boolean checkEqualModificationDate(Date date1, Date date2) {
-    if (date1.equals(date2))
-      return true;
-    else
-      return false;
-  }
 
   private void mapFileVOToFileDbVO(PubItemVO pubItemVO) {
 
@@ -835,6 +801,11 @@ public class PubItemServiceDbImpl implements PubItemService {
         }
       }
     }
+  }
+
+  @Override
+  protected GenericDaoEs<PubItemVO> getElasticDao() {
+    return pubItemDao;
   }
 
 }
