@@ -277,7 +277,7 @@ public class SiteMapTask {
         // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
         // " to " + (firstRecord+maxItemsPerRetrieve));
 
-        logger.info("SiteMapTask: Querying items from offset " + firstRecord + " to "
+        logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to "
             + (firstRecord + this.maxItemsPerRetrieve));
 
         if (resp == null) {
@@ -324,7 +324,7 @@ public class SiteMapTask {
          * this.addItemsToSitemap(itemSearchResult);
          */
 
-        logger.info("SiteMapTask: finished with items from offset " + firstRecord + " to "
+        logger.debug("SiteMapTask: finished with items from offset " + firstRecord + " to "
             + (firstRecord + this.maxItemsPerRetrieve));
         firstRecord += this.maxItemsPerRetrieve;
 
