@@ -2,6 +2,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +69,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.PidService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.OaiFileTools;
@@ -103,6 +106,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
   @Autowired
   private FileService fileService;
+
+  @Autowired
+  private PidService pidService;
 
   @PersistenceContext
   EntityManager entityManager;
@@ -592,6 +598,47 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     if (PubItemDbRO.State.RELEASED.equals(state)) {
       latestVersion.getObject().setPublicStatus(PubItemDbRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
+      PubItemObjectDbVO pubItemObject = latestVersion.getObject();
+      try {
+        if (pubItemObject.getPid() == null) {
+          URI url =
+              new URI(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+                      latestVersion.getObjectId()));
+          pubItemObject.setPid(pidService.createPid(url).getIdentifier());
+        }
+        if (latestVersion.getVersionPid() == null) {
+          URI url =
+              new URI(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+                      latestVersion.getObjectIdAndVersion()));
+          latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
+        }
+      } catch (URISyntaxException | TechnicalException e) {
+        logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]",
+            e);
+        throw new IngeTechnicalException("Error creating PID for item ["
+            + latestVersion.getObjectIdAndVersion() + "]", e);
+      }
+
+
+      for (FileDbVO fileDbVO : latestVersion.getFiles()) {
+        try {
+          if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage())
+              && fileDbVO.getPid() == null) {
+            URI uri = new URI(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileDbVO.getName());
+            fileDbVO.setPid(pidService.createPid(uri).getIdentifier());
+          }
+        } catch (URISyntaxException | TechnicalException e) {
+          logger.error("Error creating PID for file [" + fileDbVO.getName()
+              + "] part of the item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+          throw new IngeTechnicalException("Error creating PID for item ["
+              + latestVersion.getObjectIdAndVersion() + "]", e);
+        }
+      }
+
     }
 
     if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
