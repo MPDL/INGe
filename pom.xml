@@ -934,7 +934,7 @@
 		<escidoc.handles.activated>true</escidoc.handles.activated>
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
 		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		<escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
+		<inge.pubman.import.surveyor.cron>0 */10 * * * *</inge.pubman.import.surveyor.cron>
 		<escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
 		<escidoc.pid.service.create.path>/doxi/rest/pid/create</escidoc.pid.service.create.path>
 		<escidoc.pid.service.password>pid_user</escidoc.pid.service.password>

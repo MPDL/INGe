@@ -20,10 +20,15 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * 'http://purl.org/eprint/type/ConferencePaper' or @type =
  * 'http://purl.org/escidoc/metadata/ves/publication-types/conference-report' or @type =
  * 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition' or
+ * 
  * @type = 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary' or
+ * 
  * @type = 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia' or
+ * 
  * @type = 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift' or
+ * 
  * @type = 'http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook' or
+ * 
  * @type = 'http://purl.org/escidoc/metadata/ves/publication-types/editorial' or @type =
  * 'http://purl.org/escidoc/metadata/ves/publication-types/festschrift' or @type =
  * 'http://purl.org/escidoc/metadata/ves/publication-types/handbook' or @type =
