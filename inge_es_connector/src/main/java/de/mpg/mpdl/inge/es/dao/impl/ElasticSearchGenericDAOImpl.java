@@ -15,8 +15,11 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -225,6 +228,41 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
 
     return srrVO;
+
+  }
+
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll)
+      throws IngeTechnicalException {
+
+    try {
+      SearchRequestBuilder srb =
+          client.getClient().prepareSearch(indexName).setTypes(indexType).setSource(ssb);
+      if (scroll != null) {
+        srb.setScroll(scroll);
+      }
+      return srb.get();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e.getMessage(), e);
+    }
+
+
+  }
+
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException {
+
+    return searchDetailed(ssb, null);
+
+
+  }
+
+  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException {
+
+    try {
+      return client.getClient().prepareSearchScroll(scrollId).setScroll(scroll).get();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e.getMessage(), e);
+    }
+
 
   }
 

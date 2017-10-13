@@ -41,8 +41,8 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 @Primary
-public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO, AffiliationDbVO>
-    implements OrganizationService {
+public class OrganizationServiceDbImpl extends
+    GenericServiceImpl<AffiliationVO, AffiliationDbVO, String> implements OrganizationService {
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
   public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";

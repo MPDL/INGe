@@ -48,8 +48,8 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
-public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, AccountUserDbVO>
-    implements UserAccountService {
+public class UserAccountServiceImpl extends
+    GenericServiceImpl<AccountUserVO, AccountUserDbVO, String> implements UserAccountService {
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 

@@ -28,8 +28,8 @@ import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
-public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO> implements
-    YearbookService {
+public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO, String>
+    implements YearbookService {
 
   public final static String INDEX_MODIFICATION_DATE = "lastModificationDate";
   public final static String INDEX_OBJECT_ID = "objectId.keyword";

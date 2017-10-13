@@ -98,6 +98,9 @@ public class JPAConfiguration {
             "org.hibernate.cache.ehcache.EhCacheRegionFactory");
         setProperty("hibernate.jdbc.time_zone", "UTC");
 
+        // Speed up startup, do not load all metadata from database
+        setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
+
         // setProperty("hibernate.generate_statistics", "true");
 
         // Makes it slow if set to true

@@ -8,7 +8,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
-public interface YearbookService extends GenericService<YearbookDbVO> {
+public interface YearbookService extends GenericService<YearbookDbVO, String> {
 
   /*
    * public List<YearbookDbVO> query(String jpql, List<Object> params, String authenticationToken)
