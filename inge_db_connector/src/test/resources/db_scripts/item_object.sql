@@ -44,8 +44,6 @@ CREATE TABLE item_object (
 );
 
 
-ALTER TABLE item_object OWNER TO postgres;
-
 --
 -- Data for Name: item_object; Type: TABLE DATA; Schema: public; Owner: postgres
 --

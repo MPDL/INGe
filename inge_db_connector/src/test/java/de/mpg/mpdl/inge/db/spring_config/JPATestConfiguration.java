@@ -24,14 +24,18 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+// Use this Hibernate configuration for JUnit Tests. A local database is provided with a fixed data
+// set
+// at start (see import.sql script)
+
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.db.repository")
 @EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository",
     entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
-public class JPAConfiguration {
+public class JPATestConfiguration {
 
-  static private Logger logger = Logger.getLogger(JPAConfiguration.class);
+  static private Logger logger = Logger.getLogger(JPATestConfiguration.class);
 
   @Bean
   @Primary
@@ -61,15 +65,12 @@ public class JPAConfiguration {
 
     dataSource.setDriverClass(PropertyReader.getProperty("inge.database.driver.class"));
 
-
-    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
+    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url.test"));
     dataSource.setUser(PropertyReader.getProperty("inge.database.user.name"));
     dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
 
     logger.info("Using database <" + PropertyReader.getProperty("inge.database.jdbc.url.test")
         + ">");
-    logger.info("Using database user <"
-        + PropertyReader.getProperty("inge.database.user.name.test") + ">");
 
     dataSource.setMaxPoolSize(20);
     dataSource.setMinPoolSize(5);
@@ -100,16 +101,20 @@ public class JPAConfiguration {
             "org.hibernate.cache.ehcache.EhCacheRegionFactory");
         setProperty("hibernate.jdbc.time_zone", "UTC");
 
-        // Speed up startup, do not load all metadata from database
-        setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
-
         // setProperty("hibernate.generate_statistics", "true");
 
         // Makes it slow if set to true
 
-        setProperty("hibernate.hbm2ddl.auto", "update");
-        setProperty("show_sql", "false");
+        if (PropertyReader.getProperty("inge.database.jdbc.url.test").contains("localhost")) {
+          setProperty("hibernate.hbm2ddl.auto", "create");
+          setProperty("hibernate.hbm2ddl.import_files", "/db_scripts/import.sql");
 
+        } else {
+          logger
+              .warn("Hibernate property <ddl-auto> remains in <update> mode as database is not running on localhost.");
+          setProperty("hibernate.hbm2ddl.auto", "update");
+        }
+        setProperty("show_sql", "true");
 
       }
     };

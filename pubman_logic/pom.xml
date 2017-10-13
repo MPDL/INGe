@@ -84,6 +84,12 @@
 			<artifactId>inge_db_connector</artifactId>
 		</dependency>
 		<dependency>
+            <groupId>de.mpg.mpdl.inge</groupId>
+            <artifactId>inge_db_connector</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_filestorage_connector</artifactId>
 		</dependency>

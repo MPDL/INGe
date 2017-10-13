@@ -37,12 +37,7 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
 
   private static final String TEMP_FOLDER = "./target/es/";
   private static final String CLUSTER_NAME = "myLocalCluster";
-  private static final String[] indexNames = {/* "pure", */"db_users", "db_contexts"
-  /*
-   * , "user_accounts"
-   * 
-   * "organizational_units"
-   */};
+  private static final String[] indexNames = {/* "pure", */"db_users", "db_contexts", "db_ous"};
 
   public Client getClient() {
     init();
@@ -213,6 +208,8 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
         return "user";
       case "db_contexts":
         return "context";
+      case "db_ous":
+        return "organization";
       default:
         return "";
     }

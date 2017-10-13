@@ -42,9 +42,6 @@ CREATE TABLE user_account (
     affiliation_objectid character varying(255)
 );
 
-
-ALTER TABLE user_account OWNER TO postgres;
-
 --
 -- Data for Name: user_account; Type: TABLE DATA; Schema: public; Owner: postgres
 --

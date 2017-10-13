@@ -30,6 +30,7 @@ public class ItemServiceHandlerTest extends TestBase {
   public void tearDown() throws Exception {}
 
   @Test
+  @Ignore
   public void test1Create() {
     try {
       String contextId = this.itemDao.createImmediately(test_item_id, test_item());
