@@ -932,10 +932,6 @@
 		<escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
 		<escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
 		<escidoc.handles.activated>true</escidoc.handles.activated>
-		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		<escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-		<inge.pubman.import.surveyor.cron>0 */10 * * * *</inge.pubman.import.surveyor.cron>
-		<escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
 		<escidoc.pid.service.create.path>/doxi/rest/pid/create</escidoc.pid.service.create.path>
 		<escidoc.pid.service.password>pid_user</escidoc.pid.service.password>
 		<escidoc.pid.service.timeout>5000</escidoc.pid.service.timeout>
@@ -964,7 +960,6 @@
 		<escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
 		<escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
 		<escidoc.pubman.sitemap.retrieve.items>1000</escidoc.pubman.sitemap.retrieve.items>
-		<inge.pubman.sitemap.cron>0 0 3 * * *</inge.pubman.sitemap.cron>
 		<escidoc.pubman.statistics.nims.context.ids />
 		<escidoc.pubman.statistics.nims.link />
 		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
@@ -1062,8 +1057,11 @@
 		<inge.filestorage.oai.filesystem_path>/usr/share/data/inge/oai/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
 		<inge.filestorage.seaweed_master_server_ip>http://localhost:9333</inge.filestorage.seaweed_master_server_ip>
+		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
+		<inge.import.surveyor.cron>0 */10 * * * *</inge.import.surveyor.cron>
 		<inge.logic.temporary_filesystem_root_path>/tmp/inge/</inge.logic.temporary_filesystem_root_path>
 		<inge.moderator.loginname>test_moderator</inge.moderator.loginname>
+		<inge.pubman.sitemap.cron>0 0 3 * * *</inge.pubman.sitemap.cron>
 		<inge.rest.file_path>/component</inge.rest.file_path>
 		<inge.rest.service_url>http://localhost:8080/rest</inge.rest.service_url>
 		<item_index_name>db_items</item_index_name>

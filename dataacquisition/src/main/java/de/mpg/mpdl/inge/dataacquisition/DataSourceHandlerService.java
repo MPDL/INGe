@@ -41,7 +41,7 @@ public class DataSourceHandlerService {
    * Public constructor for DataSourceHandlerBean class.
    */
   public DataSourceHandlerService() {
-    this.sourceXmlPath = PropertyReader.getProperty("escidoc.import.sources.xml");
+    this.sourceXmlPath = PropertyReader.getProperty("inge.import.sources.xml");
     DataSourceHandlerService.logger.info("SourcesXml-Property: " + this.sourceXmlPath);
   }
 

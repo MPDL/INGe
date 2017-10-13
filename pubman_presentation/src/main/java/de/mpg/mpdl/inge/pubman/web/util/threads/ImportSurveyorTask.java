@@ -25,7 +25,7 @@ public class ImportSurveyorTask {
 
   public ImportSurveyorTask() {}
 
-  @Scheduled(cron = "${inge.pubman.import.surveyor.cron}")
+  @Scheduled(cron = "${inge.import.surveyor.cron}")
   public void run() {
     ImportSurveyorTask.logger.info("Import surveyor task checks logs...");
 
