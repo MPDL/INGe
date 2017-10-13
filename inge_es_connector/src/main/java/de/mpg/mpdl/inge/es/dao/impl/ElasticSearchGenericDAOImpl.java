@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesResponse;
 import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -47,6 +49,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  */
 public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
+  private final static Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
   ElasticSearchClientProvider client;
@@ -219,6 +222,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
         }
       }
 
+      logger.debug(srb.toString());
       SearchResponse response = srb.get();
 
       srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response);
@@ -240,6 +244,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
       if (scroll != null) {
         srb.setScroll(scroll);
       }
+      logger.debug(srb.toString());
       return srb.get();
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);

@@ -69,9 +69,6 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
       srr.setQueryBuilder(qb);
-      if (srr.getQueryBuilder() != null) {
-        logger.debug(srr.getQueryBuilder().toString());
-      }
 
       return getElasticDao().search(srr);
     }
@@ -94,10 +91,6 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
       ssb.query(qb);
-      if (ssb != null) {
-        logger.debug(ssb.toString());
-      }
-
       return getElasticDao().searchDetailed(ssb, scroll);
     }
     return null;
