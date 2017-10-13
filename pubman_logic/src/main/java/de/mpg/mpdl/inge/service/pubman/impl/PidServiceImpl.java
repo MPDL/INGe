@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.model.valueobjects.PidServiceResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -29,11 +31,15 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @author przibylla
  * 
  */
+@Service
+@Primary
 public class PidServiceImpl implements PidService {
 
   private static final Logger logger = Logger.getLogger(PidServiceImpl.class);
 
   private static final String URL = "url";
+
+  private String createPath;
 
   private WebTarget target;
 
@@ -46,6 +52,7 @@ public class PidServiceImpl implements PidService {
     String passwd = PropertyReader.getProperty("escidoc.pid.service.password");
     int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pid.service.timeout"));
     String serviceUrl = PropertyReader.getProperty("escidoc.pid.service.url");
+    createPath = PropertyReader.getProperty("escidoc.pid.service.create.path");
 
     ClientConfig clientConfig = new ClientConfig();
 
@@ -67,10 +74,9 @@ public class PidServiceImpl implements PidService {
    * 
    * @see de.mpg.mpdl.inge.service.pubman.PidService#createPid(java.net.URI)
    */
+  @Override
   public PidServiceResponseVO createPid(URI url) throws IngeApplicationException,
       TechnicalException {
-    String createPath = PropertyReader.getProperty("escidoc.pid.service.create.path");
-
     Form form = new Form();
     form.param(URL, url.toString());
 
@@ -87,12 +93,6 @@ public class PidServiceImpl implements PidService {
     logger.error("Error occured, when contacting DOxI. StatusCode=" + response.getStatus());
     throw new IngeApplicationException("Error occured, when contacting DOxI: "
         + response.readEntity(String.class));
-  }
-
-  public static void main(String[] args) throws Exception {
-    PidServiceImpl pidRestService = new PidServiceImpl();
-    String url = "www.test.de/" + Math.random();
-    logger.info("PID: " + pidRestService.createPid(new URI(url)));
   }
 
 }
