@@ -16,8 +16,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * >SourceTitleNotProvided</iso:report>
  */
 
-public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceVO>>
-    implements Validator<List<SourceVO>> {
+public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
+    Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {

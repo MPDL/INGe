@@ -15,8 +15,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 
-public class SourceCreatorsRequiredValidator extends ValidatorHandler<List<SourceVO>>
-    implements Validator<List<SourceVO>> {
+public class SourceCreatorsRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
+    Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -37,7 +37,7 @@ public class SourceCreatorsRequiredValidator extends ValidatorHandler<List<Sourc
 
         int j = 1;
         for (final CreatorVO creatorVO : sourceVO.getCreators()) {
-          
+
           boolean errorOrgName = false;
           boolean errorPersFamName = false;
           boolean errorPersGivName = false;
@@ -71,29 +71,29 @@ public class SourceCreatorsRequiredValidator extends ValidatorHandler<List<Sourc
           } // if
 
           if (errorOrgName) {
-            context.addError(
-                ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED)
-                    .setField("source[" + i + "].creator[" + j + "]"));
+            context.addError(ValidationError.create(
+                ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED).setField(
+                "source[" + i + "].creator[" + j + "]"));
             ok = false;
           }
 
           if (errorPersFamName) {
-            context.addError(
-                ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED)
-                    .setField("source[" + i + "].creator[" + j + "]"));
+            context.addError(ValidationError.create(
+                ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED).setField(
+                "source[" + i + "].creator[" + j + "]"));
             ok = false;
           }
 
           if (errorPersGivName) {
-            context.addError(
-                ValidationError.create(ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED)
-                    .setField("source[" + i + "].creator[" + j + "]"));
+            context.addError(ValidationError.create(
+                ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED).setField(
+                "source[" + i + "].creator[" + j + "]"));
             ok = false;
           }
 
           j++;
         } // for
-        
+
         i++;
       } // for
 

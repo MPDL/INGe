@@ -56,8 +56,9 @@ public class Validation {
     switch (validationPoint) {
 
       case SAVE:
-        final FluentValidator vSave = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
+        final FluentValidator vSave =
+            FluentValidator.checkAll().failOver()
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
 
         final ComplexResult resultSave = vSave.doValidate().result(ResultCollectors.toComplex());
 
@@ -68,26 +69,30 @@ public class Validation {
         break;
 
       case SIMPLE:
-        final FluentValidator vSimple = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
-            .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
-            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
-            .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new FileDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorWithOrganisationRequiredValidator())
-            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
-            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
-            .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-            .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+        final FluentValidator vSimple =
+            FluentValidator
+                .checkAll()
+                .failOver()
+                .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
+                .on(pubItemVO.getMetadata().getCreators(),
+                    new CreatorWithOrganisationRequiredValidator())
+                .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
+                .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
         final ComplexResult resultSimple =
             vSimple.doValidate().result(ResultCollectors.toComplex());
@@ -99,36 +104,47 @@ public class Validation {
         break;
 
       case STANDARD:
-        final FluentValidator vStandard = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
-            .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
-            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
-            .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new FileDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorWithOrganisationRequiredValidator())
-            .on(pubItemVO.getMetadata(), new DateRequiredValidator())
-            .when(!MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre())
-                && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre())
-                && !MdsPublicationVO.Genre.MANUSCRIPT.equals(pubItemVO.getMetadata().getGenre())
-                && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre()))
-            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
-            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
-            .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator())
-            .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre())
-                || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre())
-                || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre())
-                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre()))
-            .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-            .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+        final FluentValidator vStandard =
+            FluentValidator
+                .checkAll()
+                .failOver()
+                .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
+                .on(pubItemVO.getMetadata().getCreators(),
+                    new CreatorWithOrganisationRequiredValidator())
+                .on(pubItemVO.getMetadata(), new DateRequiredValidator())
+                .when(
+                    !MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre())
+                        && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata()
+                            .getGenre())
+                        && !MdsPublicationVO.Genre.MANUSCRIPT.equals(pubItemVO.getMetadata()
+                            .getGenre())
+                        && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre()))
+                .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
+                .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new OrganizationNameRequiredValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceGenresRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator())
+                .when(
+                    MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre())
+                        || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata()
+                            .getGenre())
+                        || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata()
+                            .getGenre())
+                        || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata()
+                            .getGenre()))
+                .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
         final ComplexResult resultStandard =
             vStandard.doValidate().result(ResultCollectors.toComplex());
@@ -140,15 +156,16 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_3:
-        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
-            .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new FileDateFormatValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-            .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+        final FluentValidator vEasy3 =
+            FluentValidator.checkAll().failOver()
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
         final ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
 
@@ -159,18 +176,22 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_4:
-        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
-            .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new FileDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorWithOrganisationRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-            .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
+        final FluentValidator vEasy4 =
+            FluentValidator
+                .checkAll()
+                .failOver()
+                .on(pubItemVO.getFiles(), new ComponentMimeTypesValidator())
+                .on(pubItemVO.getFiles(), new ComponentContentRequiredValidator())
+                .on(pubItemVO.getFiles(), new ComponentDataRequiredValidator())
+                .on(pubItemVO.getFiles(), new FileDateFormatValidator())
+                .on(pubItemVO.getMetadata().getCreators(),
+                    new CreatorWithOrganisationRequiredValidator())
+                .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
+                .on(pubItemVO.getFiles(), new NoSlashesInFileNameValidator())
+                .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
+                .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+                .on(pubItemVO.getFiles(), new UriAsLocatorValidator());
 
         final ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
 
@@ -181,13 +202,13 @@ public class Validation {
         break;
 
       default:
-        throw new ValidationServiceException(
-            "undefined validation for validation point:" + validationPoint);
+        throw new ValidationServiceException("undefined validation for validation point:"
+            + validationPoint);
     }
   }
 
-  public static void validateYearbook(final ItemVO itemVO)
-      throws ValidationServiceException, ValidationException {
+  public static void validateYearbook(final ItemVO itemVO) throws ValidationServiceException,
+      ValidationException {
 
     if (itemVO instanceof PubItemVO == false) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
@@ -197,36 +218,42 @@ public class Validation {
 
     GenreValidator.checkGenre(pubItemVO.getMetadata().getGenre());
 
-    final FluentValidator vYearbook = FluentValidator.checkAll().failOver()
-        // Allgemein
-        .on(pubItemVO.getMetadata(), new PublishingDateRequiredValidator())
-        .when(!MdsPublicationVO.Genre.THESIS.equals(pubItemVO.getMetadata().getGenre())
-            && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre())
-            && !MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre()))
-        // Artikel
-        .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-        .when(isArticle(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SequenceInfomationValidator())
-        .when(isArticle(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorWithOrganisationRequiredValidator())
-        .when(isArticle(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-        .when(isArticle(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
-        .when(isArticle(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourceVolumesRequiredValidator())
-        .when(isArticle(pubItemVO.getMetadata().getGenre()))
-        // Book Chapter
-        .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SequenceInfomationValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorWithOrganisationRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+    final FluentValidator vYearbook =
+        FluentValidator
+            .checkAll()
+            .failOver()
+            // Allgemein
+            .on(pubItemVO.getMetadata(), new PublishingDateRequiredValidator())
+            .when(
+                !MdsPublicationVO.Genre.THESIS.equals(pubItemVO.getMetadata().getGenre())
+                    && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre())
+                    && !MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre()))
+            // Artikel
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+            .when(isArticle(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getSources(), new SequenceInfomationValidator())
+            .when(isArticle(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getCreators(),
+                new CreatorWithOrganisationRequiredValidator())
+            .when(isArticle(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
+            .when(isArticle(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
+            .when(isArticle(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getSources(), new SourceVolumesRequiredValidator())
+            .when(isArticle(pubItemVO.getMetadata().getGenre()))
+            // Book Chapter
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+            .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getSources(), new SequenceInfomationValidator())
+            .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getCreators(),
+                new CreatorWithOrganisationRequiredValidator())
+            .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
+            .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+            .on(pubItemVO.getMetadata().getSources(), new SourceTitlesRequiredValidator())
+            .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
 
     ;
 
@@ -251,7 +278,7 @@ public class Validation {
       throw new ValidationException(v);
     }
   }
-  
+
   // ### Yearbook Section ########################################
   private static boolean isArticle(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.ARTICLE.equals(genre)

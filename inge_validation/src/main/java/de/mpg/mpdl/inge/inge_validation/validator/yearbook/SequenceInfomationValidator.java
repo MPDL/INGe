@@ -18,8 +18,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * source:source[2]/escidoc:end-page != '')))">NoSequenceInformationGiven</iso:report>
  */
 
-public class SequenceInfomationValidator extends ValidatorHandler<List<SourceVO>>
-    implements Validator<List<SourceVO>> {
+public class SequenceInfomationValidator extends ValidatorHandler<List<SourceVO>> implements
+    Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -33,8 +33,8 @@ public class SequenceInfomationValidator extends ValidatorHandler<List<SourceVO>
 
         if (sourceVO != null) {
           if (ValidationTools.isEmpty(sourceVO.getSequenceNumber())
-              || (ValidationTools.isEmpty(sourceVO.getStartPage())
-                  && ValidationTools.isEmpty(sourceVO.getEndPage()))) {
+              || (ValidationTools.isEmpty(sourceVO.getStartPage()) && ValidationTools
+                  .isEmpty(sourceVO.getEndPage()))) {
             context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN)
                 .setField("source[" + i + "]"));
             ok = false;

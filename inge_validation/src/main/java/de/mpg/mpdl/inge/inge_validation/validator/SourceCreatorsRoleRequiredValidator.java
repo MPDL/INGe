@@ -72,7 +72,7 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                           ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
                           "source[" + i + "].creator[" + j + "]"));
                       ok = false;
-                      
+
                       break;
                     }
                   }

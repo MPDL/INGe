@@ -619,7 +619,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     createAuditEntry(latestVersion, auditEventType);
 
-    
 
 
     // TODO: - fuer OPEN_AIRE ins Repository Verzeichnis schreiben

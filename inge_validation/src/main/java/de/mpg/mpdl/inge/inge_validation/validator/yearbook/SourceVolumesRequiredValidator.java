@@ -15,8 +15,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * <iso:report test="not(escidoc:volume != '')">SourceVolumeNotProvided</iso:report>
  */
 
-public class SourceVolumesRequiredValidator extends ValidatorHandler<List<SourceVO>>
-    implements Validator<List<SourceVO>> {
+public class SourceVolumesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
+    Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
