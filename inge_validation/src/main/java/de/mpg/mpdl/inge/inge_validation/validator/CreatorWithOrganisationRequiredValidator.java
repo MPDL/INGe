@@ -30,7 +30,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * </iso:pattern>
  */
 
-public class CreatorRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements
+public class CreatorWithOrganisationRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements
     Validator<List<CreatorVO>> {
 
   @Override

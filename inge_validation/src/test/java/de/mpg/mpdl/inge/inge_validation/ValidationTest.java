@@ -17,7 +17,7 @@ import com.baidu.unbiz.fluentvalidator.FluentValidator;
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.CreatorRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.CreatorWithOrganisationRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
@@ -25,7 +25,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.NoSlashesInFileNameValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.OrganizationNameRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.PublicationCreatorsRoleRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.CreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceGenresRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.UriAsLocatorValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentMimeTypesValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -456,7 +457,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new CreatorRequiredValidator());
+            new CreatorWithOrganisationRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -483,7 +484,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new CreatorRequiredValidator());
+            new CreatorWithOrganisationRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -513,7 +514,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new CreatorRequiredValidator());
+            new CreatorWithOrganisationRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1247,7 +1248,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new PublicationCreatorsRoleRequiredValidator());
+            new CreatorsRoleRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1307,7 +1308,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new PublicationCreatorsRoleRequiredValidator());
+            new CreatorsRoleRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1816,4 +1817,17 @@ public class ValidationTest {
 
     logger.info("---------------------- FINISHED testUriAsLocator2 ----------------------");
   }
+
+  @Ignore
+  @Test
+  public void testGenre() throws Exception {
+    logger.info("--------------------- STARTING testGenre ---------------------");
+
+    this.mdsPublicationVO.setGenre(Genre.FILM);
+
+    GenreValidator.checkGenre(this.pubItemVO.getMetadata().getGenre());
+
+    logger.info("--------------------- FINISHED testGenre ---------------------");
+  }
+
 }

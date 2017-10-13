@@ -16,13 +16,29 @@ public class ItemValidatingService {
     try {
       Validation.validate(itemVO, validationPoint);
     } catch (final ValidationServiceException e) {
-      logger.error("validateItemObject:", e);
+      logger.error("validate:", e);
       throw e;
     } catch (final ValidationException e) {
       throw e;
     } catch (final Exception e) {
-      logger.error("validateItemObject: " + itemVO + validationPoint, e);
-      throw new ValidationServiceException("validateItemObject:", e);
+      logger.error("validate: " + itemVO + validationPoint, e);
+      throw new ValidationServiceException("validate:", e);
+    }
+  }
+
+  public static void validateYearbook(final ItemVO itemVO) throws ValidationServiceException,
+      ValidationException {
+
+    try {
+      Validation.validateYearbook(itemVO);
+    } catch (final ValidationServiceException e) {
+      logger.error("validateYearbook:", e);
+      throw e;
+    } catch (final ValidationException e) {
+      throw e;
+    } catch (final Exception e) {
+      logger.error("validateYearbook: " + itemVO, e);
+      throw new ValidationServiceException("validateYearbook:", e);
     }
   }
 }
