@@ -34,18 +34,16 @@ public class InitializerServlet extends HttpServlet {
     }
 
     // initialize google sitemap creation
-    try {
-      this.siteMapTask = new SiteMapTask();
-      this.siteMapTask.start();
-    } catch (final Exception e) {
-      InitializerServlet.logger.error("Problem with google sitemap creation", e);
-    }
+    /*
+     * try { this.siteMapTask = new SiteMapTask(); this.siteMapTask.start(); } catch (final
+     * Exception e) { InitializerServlet.logger.error("Problem with google sitemap creation", e); }
+     */
   }
 
   @Override
   public void destroy() {
     super.destroy();
-    InitializerServlet.logger.info("Signalled to terminate Sitemap creation task.");
-    this.siteMapTask.terminate();
+    // InitializerServlet.logger.info("Signalled to terminate Sitemap creation task.");
+    // this.siteMapTask.terminate();
   }
 }

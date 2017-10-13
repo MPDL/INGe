@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,7 +13,10 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.Scroll;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
@@ -37,8 +41,8 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
 
-public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO> implements
-    GenericService<ModelObject> {
+public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO, Id extends Serializable>
+    extends GenericServiceBaseImpl<ModelObject> implements GenericService<ModelObject, Id> {
 
   @Autowired
   private AuthorizationService aaService;
@@ -55,7 +59,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
       IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToCreate = createEmptyDbObject();
-    List<String> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
+    List<Id> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
     updateWithTechnicalMetadata(objectToCreate, userAccount, true);
     checkAa("create", userAccount, transformToOld(objectToCreate));
     try {
@@ -86,8 +90,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
     }
     checkEqualModificationDate(getModificationDate(object),
         getModificationDate(transformToOld(objectToBeUpdated)));
-    List<String> reindexList =
-        updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
+    List<Id> reindexList = updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
     checkAa("update", userAccount, transformToOld(objectToBeUpdated));
@@ -111,7 +114,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public void delete(String id, String authenticationToken) throws IngeTechnicalException,
+  public void delete(Id id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
@@ -121,14 +124,14 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
     checkAa("delete", userAccount, transformToOld(objectToBeDeleted));
     getDbRepository().delete(id);
     if (getElasticDao() != null) {
-      getElasticDao().delete(id);
+      getElasticDao().delete(getIdForElasticSearch(id));
     }
 
   }
 
   @Transactional(readOnly = true)
   @Override
-  public ModelObject get(String id, String authenticationToken) throws IngeTechnicalException,
+  public ModelObject get(Id id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = null;
     ModelObject object = transformToOld(getDbRepository().findOne(id));
@@ -140,40 +143,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
     return object;
   }
 
-  public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO srr,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
 
-    if (getElasticDao() != null) {
-      QueryBuilder qb = srr.getQueryBuilder();
-      if (authenticationToken != null) {
-        qb =
-            aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb,
-                aaService.checkLoginRequired(authenticationToken));
-      } else {
-        qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
-      }
-      srr.setQueryBuilder(qb);
-      if (srr.getQueryBuilder() != null) {
-        System.out.println(srr.getQueryBuilder().toString());
-      }
-
-      return getElasticDao().search(srr);
-    }
-    return null;
-  }
-
-
-  protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
-    if (objects == null) {
-      objects = new Object[0];
-    }
-    objects =
-        Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
-    aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
-  }
 
   protected void updateWithTechnicalMetadata(DbObject object, AccountUserVO userAccount,
       boolean create) {
@@ -193,27 +163,31 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   protected abstract DbObject createEmptyDbObject();
 
-  protected abstract List<String> updateObjectWithValues(ModelObject givenObject,
+  protected abstract List<Id> updateObjectWithValues(ModelObject givenObject,
       DbObject objectToBeUpdated, AccountUserVO userAccount, boolean create)
       throws IngeTechnicalException, IngeApplicationException;
 
   protected abstract ModelObject transformToOld(DbObject dbObject);
 
-  protected abstract JpaRepository<DbObject, String> getDbRepository();
+  protected abstract JpaRepository<DbObject, Id> getDbRepository();
 
   protected abstract GenericDaoEs<ModelObject> getElasticDao();
 
-  protected abstract String getObjectId(ModelObject object);
+  protected abstract Id getObjectId(ModelObject object);
 
   protected abstract Date getModificationDate(ModelObject object);
 
-  protected void reindex(List<String> idList) throws IngeTechnicalException {
+  protected String getIdForElasticSearch(Id id) {
+    return id.toString();
+  };
+
+  protected void reindex(List<Id> idList) throws IngeTechnicalException {
     // Reindex old and new Parents
     if (getElasticDao() != null) {
-      for (String id : idList) {
+      for (Id id : idList) {
         ModelObject vo = transformToOld(getDbRepository().findOne(id));
 
-        getElasticDao().createImmediately(id, vo);
+        getElasticDao().createImmediately(getIdForElasticSearch(id), vo);
       }
     }
   }

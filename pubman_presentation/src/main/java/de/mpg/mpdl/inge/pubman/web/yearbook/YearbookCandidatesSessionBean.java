@@ -10,7 +10,6 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -52,7 +51,6 @@ public class YearbookCandidatesSessionBean extends FacesBean {
         this.orgUnitSelectItems = new ArrayList<SelectItem>();
         this.orgUnitSelectItems = new ArrayList<SelectItem>();
         this.orgUnitSelectItems.add(new SelectItem("all", "-"));
-        final OrganizationalUnitHandler ouHandler = ServiceLocator.getOrganizationalUnitHandler();
 
         final AffiliationVO affVO =
             ApplicationBean.INSTANCE.getOrganizationService().get(

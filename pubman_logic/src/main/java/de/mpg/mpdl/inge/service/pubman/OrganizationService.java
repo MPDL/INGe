@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
-public interface OrganizationService extends GenericService<AffiliationVO> {
+public interface OrganizationService extends GenericService<AffiliationVO, String> {
 
 
   public AffiliationVO open(String id, Date modificationDate, String authenticationToken)

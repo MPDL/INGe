@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
-public interface PubItemService extends GenericService<PubItemVO> {
+public interface PubItemService extends GenericService<PubItemVO, String> {
   public PubItemVO submitPubItem(String pubItemId, Date modificationDate, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException;

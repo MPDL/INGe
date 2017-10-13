@@ -39,14 +39,29 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.Scroll;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHitField;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -57,7 +72,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class SiteMapTask extends Thread {
+@Component
+public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
   public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir")
@@ -78,15 +94,23 @@ public class SiteMapTask extends Thread {
 
   private boolean signal = false;
 
-  private int interval;
   private int maxItemsPerFile;
   private int maxItemsPerRetrieve;
-  private int retrievalTimeout;
+
+
+
+  @Autowired
+  private PubItemService pubItemService;
+
+
+  @Autowired
+  private OrganizationService ouService;
+
 
   /**
    * {@inheritDoc}
    */
-  @Override
+  @Scheduled(cron = "${inge.pubman.sitemap.cron}")
   public void run() {
     try {
       SiteMapTask.logger.info("Starting to create Sitemap.");
@@ -94,16 +118,16 @@ public class SiteMapTask extends Thread {
       this.contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
       this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
 
-      this.interval =
-          Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.task.interval"));
-
+      /*
+       * this.interval =
+       * Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.task.interval"));
+       */
       this.maxItemsPerFile =
           Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.max.items"));
       this.maxItemsPerRetrieve =
           Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.retrieve.items"));
 
-      this.retrievalTimeout =
-          Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.retrieve.timeout"));
+
 
       this.contentModel =
           PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
@@ -115,8 +139,9 @@ public class SiteMapTask extends Thread {
 
       this.changeFile();
 
-      final int alreadyWritten = this.addViewItemPages();
-      this.addOUSearchResultPages(alreadyWritten);
+      final long alreadyWritten = this.addViewItemPages();
+
+      // this.addOUSearchResultPages(alreadyWritten);
 
       this.finishSitemap();
 
@@ -188,16 +213,8 @@ public class SiteMapTask extends Thread {
       SiteMapTask.logger.error("Error creating Sitemap", e);
     }
 
-    try {
-      Thread.sleep(this.interval * 60 * 1000);
-    } catch (final InterruptedException e) {
-      SiteMapTask.logger.info("Sitemap task interrupted.");
-    }
 
-    if (!this.signal) {
-      final Thread nextThread = new SiteMapTask();
-      nextThread.start();
-    }
+
   }
 
   private boolean copySiteMap(File src, File dest, int bufSize, boolean force) throws IOException {
@@ -240,20 +257,66 @@ public class SiteMapTask extends Thread {
     return successful;
   }
 
-  private int addViewItemPages() {
+  private long addViewItemPages() {
     int firstRecord = 0;
-    int totalRecords = 0;
+    long totalRecords = 0;
+    int writtenInThisFile = 0;
 
+
+    QueryBuilder qb =
+        QueryBuilders.boolQuery()
+            .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
+            .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
+
+    SearchResponse resp = null;
     // fileWriter.write("<ul>");
     do {
+
+
       try {
         // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
         // " to " + (firstRecord+maxItemsPerRetrieve));
 
+        logger.info("SiteMapTask: Querying items from offset " + firstRecord + " to "
+            + (firstRecord + this.maxItemsPerRetrieve));
 
-        final SearchRetrieveResponseVO<PubItemVO> itemSearchResult = this.getItems(firstRecord);
-        totalRecords = itemSearchResult.getNumberOfRecords();
-        this.addItemsToSitemap(itemSearchResult);
+        if (resp == null) {
+          SearchSourceBuilder ssb = new SearchSourceBuilder();
+          ssb.docValueField("version.objectId").docValueField("modificationDate").query(qb)
+              .size(this.maxItemsPerRetrieve);
+          resp = pubItemService.searchDetailed(ssb, new Scroll(new TimeValue(120000)), null);
+        } else {
+          resp = pubItemService.scrollOn(resp.getScrollId(), new Scroll(new TimeValue(120000)));
+        }
+
+
+        totalRecords = resp.getHits().getTotalHits();
+
+        for (final SearchHit result : resp.getHits().getHits()) {
+
+          // final PubItemVO pubItemVO = new PubItemVO(result.getData());
+          try {
+            this.fileWriter.write("\t<url>\n\t\t<loc>");
+            this.fileWriter.write(this.instanceUrl);
+            this.fileWriter.write(this.contextPath);
+            this.fileWriter.write(this.itemPattern.replace("$1", result.field("version.objectId")
+                .getValue()));
+            this.fileWriter.write("</loc>\n\t\t<lastmod>");
+            Long lmd = result.field("modificationDate").getValue();
+            this.fileWriter.write(dateFormat.format(new Date(lmd)));
+            this.fileWriter.write("</lastmod>\n\t</url>\n");
+            writtenInThisFile++;
+
+            if (writtenInThisFile == maxItemsPerFile) {
+              changeFile();
+              writtenInThisFile = 0;
+            }
+
+          } catch (final Exception e) {
+            SiteMapTask.logger.error("Error", e);
+          }
+
+        }
 
         /*
          * final ItemContainerSearchResult itemSearchResult = this.getItems(firstRecord);
@@ -261,23 +324,19 @@ public class SiteMapTask extends Thread {
          * this.addItemsToSitemap(itemSearchResult);
          */
 
+        logger.info("SiteMapTask: finished with items from offset " + firstRecord + " to "
+            + (firstRecord + this.maxItemsPerRetrieve));
         firstRecord += this.maxItemsPerRetrieve;
 
-        if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
-          this.changeFile();
-        }
+
 
       } catch (final Exception e) {
         SiteMapTask.logger.error("Error while creating sitemap part for items from offset "
-            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
+            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve), e);
       }
 
-      try {
-        Thread.sleep(this.retrievalTimeout * 1000);
-      } catch (final InterruptedException e) {
-        SiteMapTask.logger.info("Sitemap task interrupted.");
-      }
-    } while (firstRecord <= totalRecords);
+
+    } while (resp.getHits().getHits().length != 0);
 
     return totalRecords;
   }
@@ -305,11 +364,7 @@ public class SiteMapTask extends Thread {
             + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
       }
 
-      try {
-        Thread.sleep(this.retrievalTimeout * 1000);
-      } catch (final InterruptedException e) {
-        SiteMapTask.logger.info("Sitemap task interrupted.");
-      }
+
     } while (firstRecord <= totalRecords);
   }
 
@@ -329,35 +384,7 @@ public class SiteMapTask extends Thread {
     }
   }
 
-  /**
-   * @param contentModels
-   * @param orgUnit
-   * @return
-   * @throws TechnicalException
-   * @throws Exception
-   */
-  private SearchRetrieveResponseVO<PubItemVO> getItems(int firstRecord) throws Exception {
 
-    SearchRetrieveRequestVO srr =
-        new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<PubItemVO> resp =
-        ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
-
-
-    return resp;
-
-    /*
-     * final SearchQuery itemQuery = new
-     * PlainCqlQuery("(escidoc.objecttype=item and escidoc.content-model.objid=" + this.contentModel
-     * + ")"); itemQuery.setStartRecord(firstRecord + "");
-     * itemQuery.setMaximumRecords(this.maxItemsPerRetrieve + ""); try { final
-     * ItemContainerSearchResult itemSearchResult = SearchService.searchForItemContainer(itemQuery);
-     * return itemSearchResult; } catch (final Exception e) {
-     * SiteMapTask.logger.error("Error getting items", e); }
-     * 
-     * return null;
-     */
-  }
 
   /**
    * @param contentModels
@@ -371,8 +398,7 @@ public class SiteMapTask extends Thread {
 
     SearchRetrieveRequestVO srr =
         new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<AffiliationVO> resp =
-        ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+    SearchRetrieveResponseVO<AffiliationVO> resp = ouService.search(srr, null);
 
 
     return resp;
@@ -400,25 +426,7 @@ public class SiteMapTask extends Thread {
     }
   }
 
-  private void addItemsToSitemap(SearchRetrieveResponseVO<PubItemVO> searchResult) {
 
-    for (final SearchRetrieveRecordVO<PubItemVO> result : searchResult.getRecords()) {
-
-      final PubItemVO pubItemVO = new PubItemVO(result.getData());
-      try {
-        this.fileWriter.write("\t<url>\n\t\t<loc>");
-        this.fileWriter.write(this.instanceUrl);
-        this.fileWriter.write(this.contextPath);
-        this.fileWriter.write(this.itemPattern.replace("$1", pubItemVO.getVersion().getObjectId()));
-        this.fileWriter.write("</loc>\n\t\t<lastmod>");
-        this.fileWriter.write(this.dateFormat.format(pubItemVO.getModificationDate()));
-        this.fileWriter.write("</lastmod>\n\t</url>\n");
-      } catch (final Exception e) {
-        SiteMapTask.logger.error("Error", e);
-      }
-
-    }
-  }
 
   private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationVO> searchResult) {
 
@@ -452,19 +460,6 @@ public class SiteMapTask extends Thread {
     }
   }
 
-  /**
-   * Signals this thread to finish itself.
-   */
-  public void terminate() {
-    SiteMapTask.logger.info("Sitemap creation task signalled to terminate.");
-    this.signal = true;
-  }
 
-  /**
-   * @param args String arguments
-   */
-  public static void main(String[] args) {
-    final Thread nextThread = new SiteMapTask();
-    nextThread.start();
-  }
+
 }

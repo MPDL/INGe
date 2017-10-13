@@ -2,7 +2,10 @@ package de.mpg.mpdl.inge.es.dao;
 
 import java.util.Map;
 
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.search.Scroll;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -76,6 +79,14 @@ public interface GenericDaoEs<E> {
    */
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
       throws IngeTechnicalException;
+
+
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException;
+
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll)
+      throws IngeTechnicalException;
+
+  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException;
 
 
   /**
