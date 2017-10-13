@@ -5,8 +5,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
@@ -26,9 +28,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -45,14 +49,34 @@ import de.mpg.mpdl.inge.service.pubman.GenericService;
 public abstract class GenericServiceBaseImpl<ModelObject> implements
     GenericServiceBase<ModelObject> {
 
+
   @Autowired
   private AuthorizationService aaService;
 
   @PersistenceContext
   EntityManager entityManager;
 
+  private Map<String, ElasticSearchIndexField> indexFields;
+
   private final static Logger logger = LogManager.getLogger(GenericServiceBaseImpl.class);
 
+
+  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
+  public void initSearchIndexFields() {
+    try {
+      Map<String, ElasticSearchIndexField> indexFields = getElasticDao().getIndexFields();
+      this.indexFields = indexFields;
+
+    } catch (IngeTechnicalException e) {
+      logger.error("Error while renewing list of index fields", e);
+    }
+
+  }
+
+
+  public Map<String, ElasticSearchIndexField> getElasticSearchIndexFields() {
+    return indexFields;
+  }
 
 
   public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO srr,

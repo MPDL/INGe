@@ -13,7 +13,7 @@ import org.elasticsearch.cluster.metadata.MappingMetaData;
 public class ElasticSearchIndexField {
 
 
-  enum Type {
+  public enum Type {
     TEXT, KEYWORD, BOOLEAN, DATE, NUMERIC, UNKNOWN;
 
   }

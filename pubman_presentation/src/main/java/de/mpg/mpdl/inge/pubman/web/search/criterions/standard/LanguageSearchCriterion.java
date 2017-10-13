@@ -55,9 +55,8 @@ public class LanguageSearchCriterion extends StandardSearchCriterion {
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_METADATA_LANGUAGES)};
+  public String[] getElasticIndexes() {
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_LANGUAGES};
 
   }
 

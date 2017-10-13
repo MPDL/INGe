@@ -197,24 +197,19 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
   // TODO: Organization path and predecessor/successor
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
-    return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(
-            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, true,
-            "metadata.creators", "metadata.creators.person.organization"),
-        new ElasticSearchIndexField(
-            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, true,
-            "metadata.creators", "metadata.creators.organizations")};
+  public String[] getElasticSearchFieldForHiddenId() {
+    return new String[] {
+
+    PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER};
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
-    return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(
-            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME, true,
-            "metadata.creators", "metadata.creators.person.organization"),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME,
-            true, "metadata.creators", "metadata.creators.organizations")};
+  public String[] getElasticSearchFieldForSearchString() {
+    return new String[] {
+
+    PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME};
   }
 
 
@@ -232,14 +227,14 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       }
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      bq.should(QueryBuilders.termsQuery(
+      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
           PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
           idList.toArray(new String[] {})));
-      bq.should(QueryBuilders.termsQuery(
+      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
           PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
           idList.toArray(new String[] {})));
       if (includeSource) {
-        bq.should(QueryBuilders.termsQuery(
+        bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
             PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
             idList.toArray(new String[] {})));
       }

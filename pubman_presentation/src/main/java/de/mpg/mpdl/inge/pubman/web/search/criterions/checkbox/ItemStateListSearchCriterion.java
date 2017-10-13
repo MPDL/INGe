@@ -25,11 +25,11 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   private static Map<String, String> getItemStateMap() {
     final Map<String, String> itemStateMap = new LinkedHashMap<String, String>();
 
-    itemStateMap.put("PENDING", "pending");
-    itemStateMap.put("SUBMITTED", "submitted");
-    itemStateMap.put("IN_REVISION", "in-revision");
-    itemStateMap.put("RELEASED", "released");
-    itemStateMap.put("WITHDRAWN", "withdrawn");
+    itemStateMap.put("PENDING", "PENDING");
+    itemStateMap.put("SUBMITTED", "SUBMITTED");
+    itemStateMap.put("IN_REVISION", "IN_REVISION");
+    itemStateMap.put("RELEASED", "RELEASED");
+    itemStateMap.put("WITHDRAWN", "WITHDRAWN");
 
 
     return itemStateMap;
@@ -103,9 +103,13 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_PUBLIC_STATE)};
+  public String[] getElasticIndexes(String value) {
+    if ("WITHDRAWN".equals(value)) {
+      return new String[] {PubItemServiceDbImpl.INDEX_PUBLIC_STATE};
+    } else {
+      return new String[] {PubItemServiceDbImpl.INDEX_VERSION_STATE};
+    }
+    
   }
 
   @Override

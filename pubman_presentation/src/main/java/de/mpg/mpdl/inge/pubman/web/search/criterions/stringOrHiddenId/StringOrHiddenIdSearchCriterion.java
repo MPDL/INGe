@@ -96,9 +96,9 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   }
 
 
-  public abstract ElasticSearchIndexField[] getElasticSearchFieldForHiddenId();
+  public abstract String[] getElasticSearchFieldForHiddenId();
 
-  public abstract ElasticSearchIndexField[] getElasticSearchFieldForSearchString();
+  public abstract String[] getElasticSearchFieldForSearchString();
 
 
   @Override

@@ -50,9 +50,8 @@ public class DegreeSearchCriterion extends StandardSearchCriterion {
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.DEGREE; }
    */
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_METADATA_DEGREE)};
+  public String[] getElasticIndexes() {
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_DEGREE};
 
   }
 

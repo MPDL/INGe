@@ -255,7 +255,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
         if (entry.getValue()) {
           final String value =
               this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));
-          bq = bq.should(this.baseElasticSearchQueryBuilder(this.getElasticIndexes(), value));
+          bq = bq.should(this.baseElasticSearchQueryBuilder(this.getElasticIndexes(value), value));
         }
 
       }
@@ -269,7 +269,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
     return null;
   }
 
-  public abstract ElasticSearchIndexField[] getElasticIndexes();
+  public abstract String[] getElasticIndexes(String value);
 
 
 }

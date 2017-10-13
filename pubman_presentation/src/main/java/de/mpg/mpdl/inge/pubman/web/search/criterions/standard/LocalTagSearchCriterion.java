@@ -46,9 +46,8 @@ public class LocalTagSearchCriterion extends StandardSearchCriterion {
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_LOCAL_TAGS)};
+  public String[] getElasticIndexes() {
+    return new String[] {PubItemServiceDbImpl.INDEX_LOCAL_TAGS};
 
   }
 

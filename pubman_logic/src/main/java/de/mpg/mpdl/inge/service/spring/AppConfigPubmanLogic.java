@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,6 +21,7 @@ import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 @ComponentScan("de.mpg.mpdl.inge.service")
 @Import({AppConfig.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
+@EnableScheduling
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
   private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);

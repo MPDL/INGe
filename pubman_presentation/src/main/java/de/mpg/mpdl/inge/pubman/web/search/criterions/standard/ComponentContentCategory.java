@@ -50,9 +50,8 @@ public class ComponentContentCategory extends StandardSearchCriterion {
    */
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.files", true,
-        "metadata.files.contentCategory")};
+  public String[] getElasticIndexes() {
+    return new String[] {"metadata.files.contentCategory"};
 
   }
 

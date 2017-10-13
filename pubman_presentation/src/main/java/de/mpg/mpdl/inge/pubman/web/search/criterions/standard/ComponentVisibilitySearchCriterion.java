@@ -49,9 +49,8 @@ public class ComponentVisibilitySearchCriterion extends StandardSearchCriterion 
    */
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("metadata.files", true,
-        "metadata.files.visibility")};
+  public String[] getElasticIndexes() {
+    return new String[] {"metadata.files.visibility"};
 
   }
 

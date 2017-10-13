@@ -59,15 +59,14 @@ public class ModifiedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        "version.modifiedByRO.objectId")};
+  public String[] getElasticSearchFieldForHiddenId() {
+    return new String[] {"version.modifiedByRO.objectId"};
 
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("version.modifiedByRO.title")};
+  public String[] getElasticSearchFieldForSearchString() {
+    return new String[] {"version.modifiedByRO.title"};
   }
 
   @Override

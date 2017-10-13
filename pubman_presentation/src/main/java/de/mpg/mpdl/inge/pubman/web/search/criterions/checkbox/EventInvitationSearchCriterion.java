@@ -77,8 +77,7 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
   public QueryBuilder toElasticSearchQuery() {
     if (this.isInvited()) {
       return this.baseElasticSearchQueryBuilder(
-          new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-              PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS)}, "invited");
+          new String[] {PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS}, "invited");
     }
 
     return null;

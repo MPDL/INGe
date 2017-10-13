@@ -58,14 +58,14 @@ public class CreatedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("createdByRO.objectId")};
+  public String[] getElasticSearchFieldForHiddenId() {
+    return new String[] {"createdByRO.objectId"};
 
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("createdByRO.title")};
+  public String[] getElasticSearchFieldForSearchString() {
+    return new String[] {"createdByRO.title"};
   }
 
 

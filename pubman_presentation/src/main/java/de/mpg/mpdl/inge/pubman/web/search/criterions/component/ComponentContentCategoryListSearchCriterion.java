@@ -69,9 +69,8 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("files.contentCategory",
-        true, "files")};
+  public String[] getElasticIndexes(String value) {
+    return new String[] {"files.contentCategory"};
 
   }
 

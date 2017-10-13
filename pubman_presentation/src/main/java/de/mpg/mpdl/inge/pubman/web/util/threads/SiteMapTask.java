@@ -282,7 +282,8 @@ public class SiteMapTask {
 
         if (resp == null) {
           SearchSourceBuilder ssb = new SearchSourceBuilder();
-          ssb.docValueField("version.objectId").docValueField("modificationDate").query(qb)
+          ssb.docValueField(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID)
+              .docValueField(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).query(qb)
               .size(this.maxItemsPerRetrieve);
           resp = pubItemService.searchDetailed(ssb, new Scroll(new TimeValue(120000)), null);
         } else {
@@ -299,10 +300,10 @@ public class SiteMapTask {
             this.fileWriter.write("\t<url>\n\t\t<loc>");
             this.fileWriter.write(this.instanceUrl);
             this.fileWriter.write(this.contextPath);
-            this.fileWriter.write(this.itemPattern.replace("$1", result.field("version.objectId")
-                .getValue()));
+            this.fileWriter.write(this.itemPattern.replace("$1",
+                result.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).getValue()));
             this.fileWriter.write("</loc>\n\t\t<lastmod>");
-            Long lmd = result.field("modificationDate").getValue();
+            Long lmd = result.field(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).getValue();
             this.fileWriter.write(dateFormat.format(new Date(lmd)));
             this.fileWriter.write("</lastmod>\n\t</url>\n");
             writtenInThisFile++;

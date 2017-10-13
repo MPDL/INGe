@@ -98,9 +98,8 @@ public class AffiliatedContextListSearchCriterion extends
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID)};
+  public String[] getElasticIndexes(String value) {
+    return new String[] {PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID};
   }
 
   @Override

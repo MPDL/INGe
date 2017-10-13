@@ -54,7 +54,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
 
   public abstract String[] getCqlIndexes(Index indexName);
 
-  public abstract ElasticSearchIndexField[] getElasticIndexes();
+  public abstract String[] getElasticIndexes();
 
   public String getSearchString() {
     return this.searchString;

@@ -49,12 +49,10 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.IDENTIFIER; }
    */
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_PID),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_VERSION_PID),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID)};
+  public String[] getElasticIndexes() {
+    return new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
+        PubItemServiceDbImpl.INDEX_PID, PubItemServiceDbImpl.INDEX_VERSION_PID,
+        PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID};
 
   }
 

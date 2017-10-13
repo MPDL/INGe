@@ -75,9 +75,8 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("files.visibility", true,
-        "files")};
+  public String[] getElasticIndexes(String value) {
+    return new String[] {"files.visibility"};
   }
 
   @Override

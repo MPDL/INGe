@@ -32,9 +32,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.faces.application.Application;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -43,6 +46,7 @@ import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.AffiliatedContextListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
@@ -80,6 +84,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.CreatedByS
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.ModifiedBySearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
@@ -450,40 +455,62 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-  public QueryBuilder baseElasticSearchQueryBuilder(ElasticSearchIndexField[] indexFields,
-      String searchString) {
-
-    return baseElasticSearchQueryBuilder(indexFields, searchString, null);
 
 
-  }
+  public static QueryBuilder baseElasticSearchQueryBuilder(String[] indexFields,
+      String... searchString) {
 
-  public QueryBuilder baseElasticSearchQueryBuilder(ElasticSearchIndexField[] indexFields,
-      String searchString, MultiMatchQueryBuilder.Type multiMatchType) {
-   
+
     if (indexFields.length == 1) {
-      return QueryBuilders.matchQuery(indexFields[0].getFieldname(), searchString);
+
+
+      return baseElasticSearchQueryBuilder(indexFields[0], searchString);
 
     } else {
-      final String[] fieldnames =
-          Arrays.asList(indexFields).stream().map(f -> f.getFieldname()).toArray(String[]::new);
-      
-      if(multiMatchType == null) {
-        return QueryBuilders.multiMatchQuery(searchString, fieldnames);
-      }
-      else
-      {
-        return QueryBuilders.multiMatchQuery(searchString, fieldnames).type(multiMatchType).operator(Operator.AND);
-      }
-      
 
-      /*
-       * BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-       * 
-       * for(int i=0; i<indexFields.length;i++) { boolQuery =
-       * boolQuery.should(QueryBuilders.matchQuery(indexFields[i].getFieldname(), searchString)); }
-       * return boolQuery;
-       */
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+
+      for (String indexField : indexFields) {
+        bq.must(baseElasticSearchQueryBuilder(indexField, searchString));
+      }
+      return bq;
+
+    }
+  }
+
+
+  public static QueryBuilder baseElasticSearchQueryBuilder(String index, String... value) {
+    Map<String, ElasticSearchIndexField> indexMap =
+        ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
+    ElasticSearchIndexField field = indexMap.get(index);
+
+    switch (field.getType()) {
+      case TEXT: {
+        if (value.length == 0) {
+          return QueryBuilders.matchQuery(index, value[0]);
+        } else {
+          BoolQueryBuilder bq = QueryBuilders.boolQuery();
+          for (String searchString : value) {
+            bq.should(QueryBuilders.matchQuery(index, searchString));
+          }
+          return bq;
+        }
+
+      }
+      default: {
+        if (value.length == 0) {
+          return QueryBuilders.termQuery(index, value[0]);
+        } else {
+          BoolQueryBuilder bq = QueryBuilders.boolQuery();
+          for (String searchString : value) {
+            bq.should(QueryBuilders.termQuery(index, searchString));
+          }
+          return bq;
+        }
+
+      }
+
+
     }
   }
 

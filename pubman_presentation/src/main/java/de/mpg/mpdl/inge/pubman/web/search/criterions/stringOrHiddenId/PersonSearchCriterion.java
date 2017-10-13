@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -35,6 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
@@ -163,15 +165,18 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
         return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
             this.getHiddenId());
       } else {
-        return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-            this.getSearchString(), MultiMatchQueryBuilder.Type.CROSS_FIELDS);
+        return QueryBuilders
+            .multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
+            .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND);
+
       }
 
     } else {
       final String roleUri = selectedRole.getUri();
       BoolQueryBuilder bq =
           QueryBuilders.boolQuery().must(
-              QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, roleUri));
+              SearchCriterionBase.baseElasticSearchQueryBuilder(
+                  PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, roleUri));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         bq =
@@ -179,8 +184,10 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
                 this.getHiddenId()));
       } else {
         bq =
-            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-                this.getSearchString(), MultiMatchQueryBuilder.Type.CROSS_FIELDS));
+            bq.must(QueryBuilders
+                .multiMatchQuery(this.getSearchString(),
+                    this.getElasticSearchFieldForSearchString())
+                .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND));
       }
       return QueryBuilders.nestedQuery("metadata.creators", (QueryBuilder) bq, ScoreMode.Avg);
     }
@@ -188,18 +195,14 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForHiddenId() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID, true, "metadata.creators")};
+  public String[] getElasticSearchFieldForHiddenId() {
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID};
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticSearchFieldForSearchString() {
-    return new ElasticSearchIndexField[] {
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_FAMILYNAME,
-            true, "metadata.creators"),
-        new ElasticSearchIndexField(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_GIVENNAME,
-            true, "metadata.creators")};
+  public String[] getElasticSearchFieldForSearchString() {
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_FAMILYNAME,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_GIVENNAME};
   }
 
   @Override

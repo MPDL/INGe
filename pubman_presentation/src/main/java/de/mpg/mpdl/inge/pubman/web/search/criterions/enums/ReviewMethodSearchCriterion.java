@@ -60,9 +60,8 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD)};
+  public String[] getElasticIndexes() {
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD};
   }
 
   @Override

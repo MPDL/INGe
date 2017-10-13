@@ -59,8 +59,8 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
 
   // TODO Does not exist yet
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField("publicationStatus")};
+  public String[] getElasticIndexes(String value) {
+    return new String[] {"publicationStatus"};
   }
 
   @Override

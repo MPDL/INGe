@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   private final String[] cqlIndexes;
-  private ElasticSearchIndexField[] elIndexes;
+  private String[] elIndexes;
 
 
   public FlexibleStandardSearchCriterion(String[] cqlIndexes, String searchString) {
@@ -40,7 +40,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   }
 
-  public FlexibleStandardSearchCriterion(String[] cqlIndexes, ElasticSearchIndexField[] elIndexes,
+  public FlexibleStandardSearchCriterion(String[] cqlIndexes, String[] elIndexes,
       String searchString) {
     this.setSearchString(searchString);
     this.elIndexes = elIndexes;
@@ -63,7 +63,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
   }
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
+  public String[] getElasticIndexes() {
     return this.elIndexes;
   }
 

@@ -56,7 +56,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   }
 
 
-  public abstract ElasticSearchIndexField[] getElasticIndexes();
+  public abstract String[] getElasticIndexes();
 
   public abstract String getSearchString(T selectedEnum);
 

@@ -52,9 +52,8 @@ public class CollectionSearchCriterion extends StandardSearchCriterion {
    */
 
   @Override
-  public ElasticSearchIndexField[] getElasticIndexes() {
-    return new ElasticSearchIndexField[] {new ElasticSearchIndexField(
-        PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID)};
+  public String[] getElasticIndexes() {
+    return new String[] {PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID};
 
   }
 
