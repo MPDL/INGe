@@ -1065,6 +1065,8 @@
         <inge.filestorage.oai.filesystem_path>/usr/share/data/inge/oai/</inge.filestorage.oai.filesystem_path>
         <inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
         <inge.filestorage.seaweed_master_server_ip>http://localhost:9333</inge.filestorage.seaweed_master_server_ip>
+        <inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
+        <inge.import.surveyor.cron>0 */10 * * * *</inge.import.surveyor.cron>
         <inge.logic.temporary_filesystem_root_path>/tmp/inge/</inge.logic.temporary_filesystem_root_path>
         <inge.moderator.loginname>test_moderator</inge.moderator.loginname>
         <inge.rest.file_path>/component</inge.rest.file_path>
