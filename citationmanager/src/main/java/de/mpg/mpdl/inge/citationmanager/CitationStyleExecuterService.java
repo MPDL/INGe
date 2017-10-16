@@ -163,11 +163,9 @@ public class CitationStyleExecuterService {
         mdp.getContent().addAll(xhtmlObjects);
 
         // Set global space after each paragrap
-        PPr ppr = new PPr();
-        Spacing spacing = new Spacing();
-        spacing.setAfter(BigInteger.valueOf(400));
-        ppr.setSpacing(spacing);
-        mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);;
+       
+        mdp.getStyleDefinitionsPart().getContents().getDocDefaults().getPPrDefault().getPPr()
+            .getSpacing().setAfter(BigInteger.valueOf(400));
 
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
