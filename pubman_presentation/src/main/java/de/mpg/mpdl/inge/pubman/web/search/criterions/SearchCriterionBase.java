@@ -480,7 +480,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
     switch (field.getType()) {
       case TEXT: {
-        if (value.length == 0) {
+        if (value.length == 1) {
           return QueryBuilders.matchQuery(index, value[0]);
         } else {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
@@ -492,7 +492,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
       }
       default: {
-        if (value.length == 0) {
+        if (value.length == 1) {
           return QueryBuilders.termQuery(index, value[0]);
         } else {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();

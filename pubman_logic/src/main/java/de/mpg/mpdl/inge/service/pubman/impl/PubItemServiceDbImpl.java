@@ -123,6 +123,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
   public static String INDEX_VERSION_STATE = "version.state";
   public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
+  public static String INDEX_LATESTVERSION_STATE = "latestVersion.state";
   public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
   public static String INDEX_VERSION_PID = "version.pid";

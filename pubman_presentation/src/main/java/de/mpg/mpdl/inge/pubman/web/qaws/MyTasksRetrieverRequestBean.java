@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
@@ -29,6 +30,7 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -102,6 +104,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "WITHDRAWN"));
+        if(getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name()) || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name()))
+        {
+          //filter out possible duplicates
+          bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.valueOf(getSelectedItemState())));
+        }
+        
       }
 
       else if (getSelectedItemState().toLowerCase().equals("all")) {
@@ -111,6 +119,10 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "IN_REVISION"));
         bq.must(stateQueryBuilder);
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
+        
+        //filter out duplicates
+        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.SUBMITTED));
+        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.IN_REVISION));
       }
 
       else {
