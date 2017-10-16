@@ -174,16 +174,15 @@ public class SearchRetrieverRequestBean extends
       final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
       final SearchRetrieveRequestVO query = new SearchRetrieveRequestVO(qb, limit, offset);
       final SearchRetrieveResponseVO result;
-      
-      if ("admin".equals(getSearchType()))
-        {
-        result = ApplicationBean.INSTANCE.getPubItemService().search(query, getLoginHelper().getAuthenticationToken());
-        }
-      else
-      {
+
+      if ("admin".equals(getSearchType())) {
+        result =
+            ApplicationBean.INSTANCE.getPubItemService().search(query,
+                getLoginHelper().getAuthenticationToken());
+      } else {
         result = ApplicationBean.INSTANCE.getPubItemService().search(query, null);
       }
-          
+
       this.numberOfRecords = result.getNumberOfRecords();
 
       pubItemList = extractItemsOfSearchResult(result);

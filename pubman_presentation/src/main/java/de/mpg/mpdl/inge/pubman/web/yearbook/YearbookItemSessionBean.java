@@ -333,7 +333,7 @@ public class YearbookItemSessionBean extends FacesBean {
       ValidationReportVO rep = new ValidationReportVO();
 
       try {
-        ItemValidatingService.validate(new PubItemVO(pubItem), ValidationPoint.STANDARD);
+        ItemValidatingService.validateYearbook(new PubItemVO(pubItem));
       } catch (final ValidationException e) {
         rep = e.getReport();
       }
