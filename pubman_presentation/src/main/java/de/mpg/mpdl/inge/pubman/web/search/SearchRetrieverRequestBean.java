@@ -13,11 +13,9 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
@@ -26,7 +24,6 @@ import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemResultVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 
 /**
@@ -175,7 +172,7 @@ public class SearchRetrieverRequestBean extends
 
 
       final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
-      final SearchRetrieveRequestVO query = new SearchRetrieveRequestVO(qb, limit, offset, null);
+      final SearchRetrieveRequestVO query = new SearchRetrieveRequestVO(qb, limit, offset);
       final SearchRetrieveResponseVO result;
       
       if ("admin".equals(getSearchType()))

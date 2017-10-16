@@ -25,7 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")

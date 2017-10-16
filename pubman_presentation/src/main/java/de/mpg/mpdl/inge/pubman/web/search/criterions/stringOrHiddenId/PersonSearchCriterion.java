@@ -35,7 +35,6 @@ import org.elasticsearch.index.query.QueryBuilders;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 

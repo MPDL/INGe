@@ -25,8 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
-
 @SuppressWarnings("serial")
 public class ComponentContentCategory extends StandardSearchCriterion {
 

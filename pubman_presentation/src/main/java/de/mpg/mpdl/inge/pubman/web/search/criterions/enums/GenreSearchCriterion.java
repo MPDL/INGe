@@ -26,7 +26,6 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.enums;
 
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 

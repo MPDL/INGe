@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")

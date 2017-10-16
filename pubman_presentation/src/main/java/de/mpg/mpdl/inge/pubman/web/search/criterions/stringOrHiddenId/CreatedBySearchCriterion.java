@@ -25,8 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
-
 @SuppressWarnings("serial")
 public class CreatedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 

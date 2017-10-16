@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.pubman.web.search.criterions.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
