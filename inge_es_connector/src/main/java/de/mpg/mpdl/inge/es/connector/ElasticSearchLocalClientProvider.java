@@ -39,12 +39,13 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
   private static final String CLUSTER_NAME = "myLocalCluster";
   private static final String[] indexNames = {/* "pure", */"db_users", "db_contexts", "db_ous"};
 
+
   public Client getClient() {
     init();
     return theNode.client();
   }
 
-  private void init() {
+  private synchronized void init() {
 
     try {
       theNode = getNode(TEMP_FOLDER, CLUSTER_NAME);
@@ -72,7 +73,8 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
       return theNode;
     Settings settings =
         Settings.builder().put("path.home", tempFolder).put("cluster.name", clusterName)
-            .put("transport.type", "local").put("http.enabled", false).build();
+            .put("transport.type", "local").put("http.enabled", false)
+            .put("node.max_local_storage_nodes", "10").build();
 
     theNode = new Node(settings).start();
 
