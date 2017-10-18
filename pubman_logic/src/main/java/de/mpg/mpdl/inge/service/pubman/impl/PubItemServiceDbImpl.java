@@ -891,7 +891,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
 
   private void sendEventTopic(PubItemVO item, String method) {
-    topicJmsTemplate.convertAndSend((Object) item.getVersion().getObjectId(),
+    topicJmsTemplate.convertAndSend(item,
         new MessagePostProcessor() {
           @Override
           public Message postProcessMessage(Message message) throws JMSException {
