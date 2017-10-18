@@ -28,6 +28,8 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.Application;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -220,7 +222,8 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
 
       try {
-        fillWithChildOus(idList, getHiddenId());
+        idList = ApplicationBean.INSTANCE.getOrganizationService().getIdPath(getHiddenId());
+
       } catch (Exception e) {
         logger.error("Error retrieving id path for organizational unit " + getHiddenId());
       }
@@ -251,14 +254,6 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   }
 
 
-  public static void fillWithChildOus(List<String> idList, String ouId) throws Exception {
-    idList.add(ouId);
-    List<AffiliationVO> childAffs =
-        ApplicationBean.INSTANCE.getOrganizationService().searchChildOrganizations(ouId);
-    for (AffiliationVO childAff : childAffs) {
-      fillWithChildOus(idList, childAff.getReference().getObjectId());
-    }
-  }
 
   public boolean isIncludeSource() {
     return includeSource;

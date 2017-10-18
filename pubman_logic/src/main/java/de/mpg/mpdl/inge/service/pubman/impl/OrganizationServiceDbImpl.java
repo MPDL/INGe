@@ -10,8 +10,11 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
@@ -40,6 +43,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 @Service
 @Primary
@@ -77,9 +81,10 @@ public class OrganizationServiceDbImpl extends
    * @return all top-level affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
-    final QueryBuilder qb =
-        QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
+  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
+    final QueryBuilder qb = QueryBuilders.boolQuery()
+        .mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
@@ -95,7 +100,8 @@ public class OrganizationServiceDbImpl extends
    * @throws Exception if framework access fails
    */
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
     final QueryBuilder qb =
         QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
@@ -104,13 +110,31 @@ public class OrganizationServiceDbImpl extends
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
 
-  public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException  {
-    final QueryBuilder qb =
-        QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
+  public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
+    final QueryBuilder qb = QueryBuilders.boolQuery()
+        .must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+  }
+
+  private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException,
+      IngeTechnicalException {
+    idList.add(ouId);
+    SearchSourceBuilder ssb = new SearchSourceBuilder();
+    ssb.docValueField(INDEX_OBJECT_ID);
+    ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(),
+        INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
+    SearchResponse resp = organizationDao.searchDetailed(ssb);
+
+    if (resp.getHits().getTotalHits() > 0) {
+      for (SearchHit hit : resp.getHits().getHits()) {
+        fillWithChildOus(idList, hit.field(INDEX_OBJECT_ID).getValue());
+      }
+    }
+
   }
 
   @Override
@@ -266,20 +290,24 @@ public class OrganizationServiceDbImpl extends
    * Returns the path from the given id up to root parent
    */
   @Transactional
-  public List<String> getIdPath(String id, String token) throws IngeTechnicalException,
-      IngeApplicationException, AuthenticationException, AuthorizationException {
-    AffiliationDbVO affVo = organizationRepository.findOne(id);
-    if (affVo == null)
-      throw new IngeApplicationException("Could not find organization with id " + id);
+  public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
+    /*
+     * AffiliationDbVO affVo = organizationRepository.findOne(id); if (affVo == null) throw new
+     * IngeApplicationException("Could not find organization with id " + id);
+     * 
+     * List<String> idPath = new ArrayList<>(); idPath.add(affVo.getObjectId()); while
+     * (affVo.getParentAffiliation() != null) {
+     * idPath.add(affVo.getParentAffiliation().getObjectId()); affVo = (AffiliationDbVO)
+     * affVo.getParentAffiliation(); }
+     * 
+     * return idPath;
+     */
 
-    List<String> idPath = new ArrayList<>();
-    idPath.add(affVo.getObjectId());
-    while (affVo.getParentAffiliation() != null) {
-      idPath.add(affVo.getParentAffiliation().getObjectId());
-      affVo = (AffiliationDbVO) affVo.getParentAffiliation();
-    }
 
-    return idPath;
+    List<String> ouIds = new ArrayList<>();
+    fillWithChildOus(ouIds, id);
+    return ouIds;
+
   }
 
 
