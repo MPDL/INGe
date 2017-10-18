@@ -91,6 +91,7 @@ public class AppConfigPubmanLogic {
 
   @Bean
   public Destination defaultTopicDestination() {
+    // Use a virtual topic, means every consumer has its own virtual queue
     return new ActiveMQTopic("items-topic");
   }
 
