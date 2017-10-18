@@ -161,15 +161,17 @@ public class ReindexTests {
   @Ignore
   public void testReindexContext() throws Exception {
 
-    contextService.reindex();
+    contextService.reindexAll(null);
+    Thread.sleep(120000);
 
   }
 
   @Test
-  @Ignore
   public void testReindexOu() throws Exception {
 
-    organizationService.reindex();
+    organizationService.reindexAll(null);
+    //organizationService.reindexNotImmediately("ou_persistent35");
+    Thread.sleep(120000);
 
   }
 
@@ -177,7 +179,7 @@ public class ReindexTests {
   @Ignore
   public void testReindexItems() throws Exception {
 
-    pubItemService.reindex();
+    pubItemService.reindexAll(null);
 
   }
 
@@ -185,14 +187,15 @@ public class ReindexTests {
   @Ignore
   public void testReindexUsers() throws Exception {
 
-    userAccountService.reindex();
+    userAccountService.reindexAll(null);
 
   }
   
   @Test
+  @Ignore
   public void testReindexYearbooks() throws Exception {
 
-    yearbookService.reindex();
+    yearbookService.reindexAll(null);
 
   }
 

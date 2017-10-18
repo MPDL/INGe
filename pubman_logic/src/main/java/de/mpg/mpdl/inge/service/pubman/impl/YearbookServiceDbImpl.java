@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,12 +25,13 @@ import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO, String>
-    implements YearbookService {
+    implements YearbookService, ReindexListener {
 
   public final static String INDEX_MODIFICATION_DATE = "lastModificationDate";
   public final static String INDEX_OBJECT_ID = "objectId.keyword";
@@ -165,6 +167,14 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
     }
 
     return null;
+
+  }
+
+
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-YearbookDbVO")
+  public void reindexListener(String id) throws IngeTechnicalException {
+    reindex(id, false);
 
   }
 

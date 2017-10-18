@@ -35,20 +35,16 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                    <argLine>${jacoco.arguments.ut}</argLine>
-                </configuration>
-            </plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.ut}</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>framework_access</artifactId>
@@ -74,21 +70,21 @@
 			<artifactId>inge_es_connector</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>de.mpg.mpdl.inge</groupId>
-            <artifactId>inge_es_connector</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_es_connector</artifactId>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_db_connector</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>de.mpg.mpdl.inge</groupId>
-            <artifactId>inge_db_connector</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_db_connector</artifactId>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_filestorage_connector</artifactId>
@@ -98,12 +94,32 @@
 			<artifactId>spring-context</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-kahadb-store</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -141,14 +157,14 @@
 			<version>1.0.4</version>
 		</dependency>
 		<dependency>
-	        <groupId>com.googlecode.json-simple</groupId>
+			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.glassfish.jersey.core</groupId>
-    		<artifactId>jersey-client</artifactId>
-    		<version>2.5.2</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.5.2</version>
 		</dependency>
 	</dependencies>
 </project>

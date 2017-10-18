@@ -31,5 +31,4 @@ public interface PubItemService extends GenericService<PubItemVO, String> {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException;
 
-  public void reindex();
 }

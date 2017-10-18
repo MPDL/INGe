@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
+import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
@@ -23,10 +25,13 @@ import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +64,8 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
   private Map<String, ElasticSearchIndexField> indexFields;
 
   private final static Logger logger = LogManager.getLogger(GenericServiceBaseImpl.class);
+
+  protected String beanName;
 
 
   @Scheduled(fixedDelay = 3600000, initialDelay = 0)
@@ -179,6 +186,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
     }
 
   }
+
 
 }
 

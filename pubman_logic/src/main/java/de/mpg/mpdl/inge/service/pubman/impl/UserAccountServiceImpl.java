@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,13 +44,15 @@ import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 public class UserAccountServiceImpl extends
-    GenericServiceImpl<AccountUserVO, AccountUserDbVO, String> implements UserAccountService {
+    GenericServiceImpl<AccountUserVO, AccountUserDbVO, String> implements UserAccountService,
+    ReindexListener {
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
@@ -523,6 +526,13 @@ public class UserAccountServiceImpl extends
     AccountUserVO userToReturn = EntityTransformer.transformToOld(accountToBeUpdated);
     userAccountDao.updateImmediately(accountToBeUpdated.getObjectId(), userToReturn);
     return userToReturn;
+  }
+
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AccountUserVO")
+  public void reindexListener(String id) throws IngeTechnicalException {
+    reindex(id, false);
+
   }
 
 

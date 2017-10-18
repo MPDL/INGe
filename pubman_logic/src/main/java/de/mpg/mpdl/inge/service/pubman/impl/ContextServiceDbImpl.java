@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +33,13 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 @Primary
 public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextDbVO, String>
-    implements ContextService {
+    implements ContextService, ReindexListener {
   private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
@@ -183,6 +185,14 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
   @Override
   protected Date getModificationDate(ContextVO object) {
     return object.getLastModificationDate();
+  }
+
+
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ContextVO")
+  public void reindexListener(String id) throws IngeTechnicalException {
+    reindex(id, false);
+
   }
 
 

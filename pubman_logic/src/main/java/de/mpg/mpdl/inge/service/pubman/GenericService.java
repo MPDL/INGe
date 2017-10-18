@@ -21,7 +21,12 @@ public interface GenericService<E, Id extends Serializable> extends GenericServi
   public E get(Id id, String authenticationToken) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public void reindex();
+  public void reindexAll(String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public void reindex(Id id, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException;
+
 
 
 }

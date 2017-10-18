@@ -22,6 +22,7 @@ public class OaiFileTools {
 
   public static String createFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
+    logger.info("Trying to create File [" + fileName + "]");
     Path filePath = FileSystems.getDefault().getPath(OAI_FILESYSTEM_ROOT_PATH + "/" + fileName);
     try {
       CopyOption[] options = new CopyOption[] {StandardCopyOption.REPLACE_EXISTING,};
@@ -36,7 +37,7 @@ public class OaiFileTools {
   }
 
   public static void deleteFile(String fileName) throws IngeTechnicalException {
-    System.out.println("Trying to delete File [" + fileName + "]");
+    logger.info("Trying to delete File [" + fileName + "]");
     Path path = FileSystems.getDefault().getPath(OAI_FILESYSTEM_ROOT_PATH + fileName);
     try {
       if (Files.exists(path)) {

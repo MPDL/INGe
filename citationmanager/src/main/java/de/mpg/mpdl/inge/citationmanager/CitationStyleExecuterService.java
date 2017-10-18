@@ -45,6 +45,9 @@ import org.docx4j.convert.out.FOSettings;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
+import org.docx4j.wml.PPr;
+import org.docx4j.wml.PPrBase.Spacing;
+import org.docx4j.wml.Style;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
@@ -159,9 +162,13 @@ public class CitationStyleExecuterService {
 
         mdp.getContent().addAll(xhtmlObjects);
 
-        // Set global space after each paragraph
-        mdp.getStyleDefinitionsPart().getStyleById("DocDefaults").getPPr().getSpacing()
-            .setAfter(BigInteger.valueOf(400));
+        // Set global space after each paragrap
+        PPr ppr = new PPr();
+        Spacing spacing = new Spacing();
+        spacing.setAfter(BigInteger.valueOf(400));
+        ppr.setSpacing(spacing);
+        mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);;
+
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
