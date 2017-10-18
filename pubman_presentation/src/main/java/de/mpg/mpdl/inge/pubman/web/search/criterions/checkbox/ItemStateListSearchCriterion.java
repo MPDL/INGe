@@ -141,11 +141,11 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
     filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE,
         ItemVO.State.RELEASED.name()));
-    
-//      filterOutQuery.must(QueryBuilders.scriptQuery(new Script("doc['" +
-//      PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']!=doc['" +
-//      PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
-     
+
+    // filterOutQuery.must(QueryBuilders.scriptQuery(new Script("doc['" +
+    // PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']!=doc['" +
+    // PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
+
 
     filterOutQuery.must(baseElasticSearchQueryBuilder(
         PubItemServiceDbImpl.INDEX_LATESTVERSION_STATE, s.name()));
@@ -153,8 +153,8 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     // Filter out released items where user is owner
     BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
     filterOutQuery.must(subQuery);
-    subQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
-        user.getReference().getObjectId()));
+    subQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, user
+        .getReference().getObjectId()));
 
     // Filter out released items where user is moderator
     if (user.isModerator()

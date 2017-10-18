@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
@@ -23,8 +26,12 @@ import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,15 +78,15 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.PidService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
-import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> implements
-    PubItemService {
+    PubItemService, ReindexListener {
 
   private final static Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
@@ -112,6 +119,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
   @PersistenceContext
   EntityManager entityManager;
+
+  @Autowired
+  @Qualifier("queueJmsTemplate")
+  private JmsTemplate queueJmsTemplate;
+
+  @Autowired
+  @Qualifier("topicJmsTemplate")
+  private JmsTemplate topicJmsTemplate;
+
 
   public static String INDEX_MODIFICATION_DATE = "version.modificationDate";
   public static String INDEX_CREATION_DATE = "creationDate";
@@ -227,6 +243,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     createAuditEntry(pubItemToCreate, EventType.CREATE);
     reindex(pubItemToCreate);
+    sendEventTopic(itemToReturn, "create");
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
 
@@ -443,6 +460,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     PubItemVO itemToReturn = EntityTransformer.transformToOld(latestVersion);
     createAuditEntry(latestVersion, EventType.UPDATE);
     reindex(latestVersion);
+    sendEventTopic(itemToReturn, "update");
     logger.info("PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in "
         + (System.currentTimeMillis() - start) + " ms");
     return itemToReturn;
@@ -473,6 +491,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     for (SearchRetrieveRecordVO<PubItemVO> rec : resp.getRecords()) {
       pubItemDao.delete(rec.getPersistenceId());
     }
+    sendEventTopic(latestPubItem, "delete");
 
     logger.info("PubItem " + id + " successfully deleted");
 
@@ -669,44 +688,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
 
 
-    // TODO: - fuer OPEN_AIRE ins Repository Verzeichnis schreiben
-    // - beliebigen Pfad vorgeben ermöglichen
-    // - vorhandene Datei ueberschreiben
-    // - Namespaces in XML Datei anpassen
-    // - Datei löschen ermöglichen
-    if (PubItemDbRO.State.RELEASED.equals(state)) {
-      try {
-        String s = XmlTransformingService.transformToItem(itemToReturn);
-        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), itemToReturn.getVersion()
-            .getObjectIdAndVersion() + ".xml");
-      } catch (TechnicalException e) {
-        throw new IngeTechnicalException(e);
-      }
-    } else if (PubItemDbRO.State.WITHDRAWN.equals(state)) {
-      try {
-        OaiFileTools.deleteFile(itemToReturn.getVersion().getObjectIdAndVersion() + ".xml");
-      } catch (Exception e) {
-        throw new IngeTechnicalException(e);
-      }
-    }
-
     reindex(latestVersion);
+    sendEventTopic(itemToReturn, aaMethod);
     return itemToReturn;
   }
 
-  private void reindex(PubItemVersionDbVO item) throws IngeTechnicalException {
-    pubItemDao
-        .delete(new VersionableId(item.getObjectId(), item.getVersionNumber() - 1).toString());
 
-    pubItemDao.create(item.getObjectIdAndVersion(), EntityTransformer.transformToOld(item));
-    if (item.getObject().getLatestRelease() != null
-        && !item.getObjectIdAndVersion().equals(
-            item.getObject().getLatestRelease().getObjectIdAndVersion())) {
-      pubItemDao.create(item.getObject().getLatestRelease().getObjectIdAndVersion(),
-          EntityTransformer
-              .transformToOld((PubItemVersionDbVO) item.getObject().getLatestRelease()));
-    }
-  }
 
   private void validate(PubItemVO pubItem) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
@@ -750,12 +737,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     return pubItemDao.search(srr);
   }
 
+  @Override
   @Transactional(readOnly = true)
-  public void reindex() {
-
-    Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
-            .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
+  public void reindexAll(String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
+    Query<String> query =
+        (Query<String>) entityManager
+            .createQuery("SELECT itemObject.objectId FROM PubItemObjectVO itemObject");
     query.setReadOnly(true);
     query.setFetchSize(500);
     query.setCacheMode(CacheMode.IGNORE);
@@ -767,24 +755,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     while (results.next()) {
       try {
         count++;
-        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) results.get(0);
-        PubItemVO latestVersion =
-            EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
-        logger.info("(" + count + ") Reindexing item latest version "
-            + latestVersion.getVersion().getObjectIdAndVersion());
-        pubItemDao.create(latestVersion.getVersion().getObjectId() + "_"
-            + latestVersion.getVersion().getVersionNumber(), latestVersion);
-        if (object.getLatestRelease() != null
-            && object.getLatestRelease().getVersionNumber() != object.getLatestVersion()
-                .getVersionNumber()) {
-          PubItemVO latestRelease =
-              EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestRelease());
-          logger.info("(" + count + ") Reindexing item latest release "
-              + latestRelease.getVersion().getObjectIdAndVersion());
-          pubItemDao.create(latestRelease.getVersion().getObjectId() + "_"
-              + latestRelease.getVersion().getVersionNumber(), latestRelease);
-        }
+        String id = (String) results.get(0);
+        queueJmsTemplate.convertAndSend("reindex", id);
 
         // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
         if (count % 1000 == 0) {
@@ -798,8 +770,70 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       }
 
     }
+  }
+
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-PubItemVO")
+  public void reindexListener(String id) throws IngeTechnicalException {
+    reindex(id, false);
+  }
+
+
+  private void reindex(PubItemObjectDbVO object, boolean immediate) throws IngeTechnicalException {
+
+    PubItemVersionDbVO latestVersion = (PubItemVersionDbVO) object.getLatestVersion();
+    PubItemVO latestVersionOld =
+        EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestVersion());
+    // First try to delete the old version from index
+    pubItemDao.delete(new VersionableId(latestVersion.getObjectId(), latestVersion
+        .getVersionNumber() - 1).toString());
+    logger.info("Reindexing item latest version "
+        + latestVersionOld.getVersion().getObjectIdAndVersion());
+
+    if (immediate) {
+      pubItemDao.createImmediately(latestVersionOld.getVersion().getObjectId() + "_"
+          + latestVersionOld.getVersion().getVersionNumber(), latestVersionOld);
+    } else {
+      pubItemDao.create(latestVersionOld.getVersion().getObjectId() + "_"
+          + latestVersionOld.getVersion().getVersionNumber(), latestVersionOld);
+    }
+
+    if (object.getLatestRelease() != null
+        && object.getLatestRelease().getVersionNumber() != object.getLatestVersion()
+            .getVersionNumber()) {
+      PubItemVO latestRelease =
+          EntityTransformer.transformToOld((PubItemVersionDbVO) object.getLatestRelease());
+      logger.info("Reindexing item latest release "
+          + latestRelease.getVersion().getObjectIdAndVersion());
+      if (immediate) {
+        pubItemDao.createImmediately(latestRelease.getVersion().getObjectId() + "_"
+            + latestRelease.getVersion().getVersionNumber(), latestRelease);
+      } else {
+        pubItemDao.create(latestRelease.getVersion().getObjectId() + "_"
+            + latestRelease.getVersion().getVersionNumber(), latestRelease);
+      }
+
+    }
+  }
+
+  private void reindex(String objectId, boolean immediate) throws IngeTechnicalException {
+    de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
+        itemObjectRepository.findOne(objectId);
+    reindex(object, immediate);
 
   }
+
+  private void reindex(PubItemVersionDbVO item) throws IngeTechnicalException {
+    reindex(item.getObject(), true);
+  }
+
+  @Override
+  public void reindex(String id, String authenticationToken) throws IngeTechnicalException,
+      AuthenticationException, AuthorizationException, IngeApplicationException {
+    // TODO AA
+    reindex(id, false);
+  }
+
 
   @Override
   @Transactional(readOnly = true)
@@ -854,5 +888,19 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   protected GenericDaoEs<PubItemVO> getElasticDao() {
     return pubItemDao;
   }
+
+
+  private void sendEventTopic(PubItemVO item, String method) {
+    topicJmsTemplate.convertAndSend((Object) item.getVersion().getObjectId(),
+        new MessagePostProcessor() {
+          @Override
+          public Message postProcessMessage(Message message) throws JMSException {
+            message.setStringProperty("method", method);
+            return message;
+          }
+        });
+  }
+
+
 
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,12 +38,14 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 @Primary
 public class OrganizationServiceDbImpl extends
-    GenericServiceImpl<AffiliationVO, AffiliationDbVO, String> implements OrganizationService {
+    GenericServiceImpl<AffiliationVO, AffiliationDbVO, String> implements OrganizationService,
+    ReindexListener {
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
   public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";
@@ -306,5 +309,12 @@ public class OrganizationServiceDbImpl extends
   @Override
   protected Date getModificationDate(AffiliationVO object) {
     return object.getLastModificationDate();
+  }
+
+  @Override
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AffiliationVO")
+  public void reindexListener(String id) throws IngeTechnicalException {
+    reindex(id, false);
+
   }
 }
