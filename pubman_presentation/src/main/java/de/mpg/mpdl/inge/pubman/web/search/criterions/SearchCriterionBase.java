@@ -451,7 +451,6 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-
   public static QueryBuilder baseElasticSearchQueryBuilder(String[] indexFields,
       String... searchString) {
 

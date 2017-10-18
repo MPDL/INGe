@@ -729,7 +729,7 @@ public class ViewItemFull extends FacesBean {
   private boolean validate() {
     try {
       PubItemVO itemVO = new PubItemVO(this.getPubItem());
-      PubItemUtil.cleanUpItem(itemVO);
+      // PubItemUtil.cleanUpItem(itemVO);
       ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
     } catch (final ValidationException e) {
       this.showValidationMessages(e.getReport());

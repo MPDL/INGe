@@ -200,6 +200,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     uploadStagedFiles(pubItemVO);
 
+    PubItemUtil.cleanUpItem(pubItemVO);
+
     PubItemVersionDbVO pubItemToCreate =
         buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(), pubItemVO.getFiles(),
             pubItemVO.getLocalTags(), userAccount.getReference().getTitle(), userAccount
@@ -334,14 +336,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       IngeApplicationException {
     long start = System.currentTimeMillis();
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
-
+    PubItemUtil.cleanUpItem(pubItemVO);
     PubItemVersionDbVO latestVersion =
         itemRepository.findLatestVersion(pubItemVO.getVersion().getObjectId());
     if (latestVersion == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
     PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
-
     checkEqualModificationDate(pubItemVO.getVersion().getModificationDate(), latestVersionOld
         .getVersion().getModificationDate());
 
@@ -721,7 +722,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
     try {
-      PubItemUtil.cleanUpItem(pubItem);
       ItemValidatingService.validate(pubItem, vp);
     } catch (ValidationException e) {
       throw new IngeApplicationException("Invalid metadata", e);

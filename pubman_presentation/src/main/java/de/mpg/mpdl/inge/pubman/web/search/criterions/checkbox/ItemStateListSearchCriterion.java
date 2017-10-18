@@ -108,7 +108,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     } else {
       return new String[] {PubItemServiceDbImpl.INDEX_VERSION_STATE};
     }
-    
+
   }
 
   @Override
