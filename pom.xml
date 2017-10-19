@@ -947,9 +947,7 @@
         <escidoc.content.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
         <escidoc.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
         <escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
-        <escidoc.doi.service.password>9KEbNv</escidoc.doi.service.password>
         <escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
-        <escidoc.doi.service.user>test_pure</escidoc.doi.service.user>
         <escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
         <escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
         <escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
@@ -964,10 +962,8 @@
         <escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
         <escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
         <escidoc.pid.service.create.path>/doxi/rest/pid/create</escidoc.pid.service.create.path>
-        <escidoc.pid.service.password>pid_user</escidoc.pid.service.password>
         <escidoc.pid.service.timeout>5000</escidoc.pid.service.timeout>
         <escidoc.pid.service.url>https://test.doi.mpdl.mpg.de</escidoc.pid.service.url>
-        <escidoc.pid.service.user>pid_user</escidoc.pid.service.user>
         <escidoc.pubman.blog.baseUrl />
         <escidoc.pubman.blog.news />
         <escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
@@ -1079,8 +1075,6 @@
         <inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>      
         <inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>   
         <inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>   
-        <inge.database.user.name>postgres</inge.database.user.name>
-        <inge.database.user.password>postgres</inge.database.user.password>
         <inge.depositor.loginname>test_depositor</inge.depositor.loginname>
         <inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
         <inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
