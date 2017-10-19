@@ -9,6 +9,8 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 DROP TABLE IF EXISTS user_login;
+ALTER TABLE ONLY public.id_provider DROP CONSTRAINT id_provider_pkey;
+DROP TABLE public.id_provider;
 
 INSERT INTO organization_basic (objectid, creationdate, owner_name, owner_objectid, lastmodificationdate, modifier_name, modifier_objectid, name) VALUES ('ou_persistent13', '2007-03-22 09:23:35.562', NULL, 'user_user42', '2011-06-08 10:08:11.522', NULL, 'user_user42', 'Max Planck Society');
 INSERT INTO organization_basic (objectid, creationdate, owner_name, owner_objectid, lastmodificationdate, modifier_name, modifier_objectid, name) VALUES ('ou_persistent25', '2007-03-22 09:23:35.562', NULL, 'user_user42', '2017-06-19 09:10:39.493', 'roland', 'user_user42', 'Max Planck Digital Library');
@@ -44,6 +46,17 @@ INSERT INTO user_login (loginname, password) VALUES ('test_moderator', '$2a$10$b
 INSERT INTO user_login (loginname, password) VALUES ('testCreateUserWithGrant', '$2a$10$G5rsfixnZQFICdYaCFKqzerkWSkaZPemUh7kgKW5meapNC4DeHbFu');
 INSERT INTO user_login (loginname, password) VALUES ('testDeactivated', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
 INSERT INTO user_login (loginname, password) VALUES ('admin', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
+
+--
+-- Name: id_provider; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE id_provider (type character varying(255) NOT NULL, current_id bigint);
+ALTER TABLE id_provider OWNER TO postgres;
+ALTER TABLE ONLY id_provider ADD CONSTRAINT id_provider_pkey PRIMARY KEY (type);   
+INSERT INTO id_provider(type, current_id) VALUES ('pure', '1000');
+
+
 
 
 

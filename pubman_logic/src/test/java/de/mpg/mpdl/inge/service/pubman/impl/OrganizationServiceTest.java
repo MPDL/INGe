@@ -197,17 +197,14 @@ public class OrganizationServiceTest {
   public void getIdPath() throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
-
     List<String> affiliationVOs =
-        organizationService.getIdPath(ORG_OBJECTID_13, authenticationToken);
+        organizationService.getIdPath(ORG_OBJECTID_13);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">",
         affiliationVOs.size() == 1);
     assertTrue(affiliationVOs.get(0).equals(ORG_OBJECTID_13));
 
-    affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_25, authenticationToken);
+    affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_25);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <2> affiliations - found <" + affiliationVOs.size() + ">",
         affiliationVOs.size() == 2);
