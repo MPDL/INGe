@@ -39,8 +39,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class FileServiceFSImpl implements FileService {
   private final static Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
-  private final static String TMP_FILE_ROOT_PATH = PropertyReader
-      .getProperty("inge.logic.temporary_filesystem_root_path");
+  private final static String TMP_FILE_ROOT_PATH = System.getProperty("jboss.home.dir")
+      + PropertyReader.getProperty("inge.logic.temporary_filesystem_root_path");
 
 
   @Autowired
@@ -48,6 +48,21 @@ public class FileServiceFSImpl implements FileService {
 
   @Autowired
   private FileRepository fr;
+
+  public FileServiceFSImpl() throws IngeTechnicalException {
+    Path rootDirectory = Paths.get(TMP_FILE_ROOT_PATH);
+    if (Files.notExists(rootDirectory)) {
+      logger.info("trying to create directory [ " + rootDirectory.toString() + "]");
+      try {
+        Files.createDirectories(rootDirectory);
+      } catch (IOException e) {
+        logger.error("An error occoured, when trying to create directory [" + rootDirectory + "]",
+            e);
+        throw new IngeTechnicalException("An error occoured, when trying to create directory ["
+            + rootDirectory + "]", e);
+      }
+    }
+  }
 
   /*
    * (non-Javadoc)

@@ -649,11 +649,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         try {
           if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage())
               && fileDbVO.getPid() == null) {
-            URI uri = new URI(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileDbVO.getName());
+            URI uri =
+                new URI(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileDbVO.getObjectId());
             fileDbVO.setPid(pidService.createPid(uri).getIdentifier());
           }
         } catch (URISyntaxException | TechnicalException e) {
-          logger.error("Error creating PID for file [" + fileDbVO.getName()
+          logger.error("Error creating PID for file [" + fileDbVO.getObjectId()
               + "] part of the item [" + latestVersion.getObjectIdAndVersion() + "]", e);
           throw new IngeTechnicalException("Error creating PID for item ["
               + latestVersion.getObjectIdAndVersion() + "]", e);
@@ -891,14 +892,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
 
   private void sendEventTopic(PubItemVO item, String method) {
-    topicJmsTemplate.convertAndSend(item,
-        new MessagePostProcessor() {
-          @Override
-          public Message postProcessMessage(Message message) throws JMSException {
-            message.setStringProperty("method", method);
-            return message;
-          }
-        });
+    topicJmsTemplate.convertAndSend(item, new MessagePostProcessor() {
+      @Override
+      public Message postProcessMessage(Message message) throws JMSException {
+        message.setStringProperty("method", method);
+        return message;
+      }
+    });
   }
 
 
