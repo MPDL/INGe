@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<h:outputText value='#{SearchRetrieverRequestBean.atomFeedLink}'
-		rendered='#{SearchRetrieverRequestBean.normalizedCqlQuery != ""}'
+		rendered='#{SearchRetrieverRequestBean.elasticSearchQuery  != ""}'
 		escape="false" />
 		
 </ui:composition>

@@ -260,16 +260,17 @@ public class SearchRetrieverRequestBean extends
   }
 
 
-  
 
   /**
    * @return link to the atom feed for the current search
    * @throws PubManVersionNotAvailableException
+   * @throws UnsupportedEncodingException
    */
-  public String getAtomFeedLink() throws PubManVersionNotAvailableException {
+  public String getAtomFeedLink() throws PubManVersionNotAvailableException,
+      UnsupportedEncodingException {
     return "<link href='"
         + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl()
-        + "/rest/feed/search?q=" + this.getUrlEncodedQueryString()
+        + "/rest/feed/search?q=" + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
