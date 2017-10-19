@@ -155,11 +155,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
       "metadata.creators.person.organizations.identifier";
   public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER =
-      "metadata.creators.organizations.identifier";
+      "metadata.creators.organization.identifier";
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME =
       "metadata.creators.person.organizations.name";
   public static String INDEX_METADATA_CREATOR_ORGANIZATION_NAME =
-      "metadata.creators.organizations.name";
+      "metadata.creators.organization.name";
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
 
   public static String INDEX_METADATA_TITLE = "metadata.title";

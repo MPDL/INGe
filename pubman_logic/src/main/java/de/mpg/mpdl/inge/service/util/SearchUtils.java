@@ -30,7 +30,7 @@ public class SearchUtils {
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
       for (String indexField : indexFields) {
-        bq.must(baseElasticSearchQueryBuilder(indexMap, indexField, searchString));
+        bq.should(baseElasticSearchQueryBuilder(indexMap, indexField, searchString));
       }
       return bq;
 

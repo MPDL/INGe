@@ -37,7 +37,8 @@ public class FeedRestController {
 
   @RequestMapping(value = "/organization/{ouId}", method = RequestMethod.GET,
       produces = DEFAULT_PRODUCE_MIMETYPE)
-  public String getRecentReleasesforOu(@PathVariable("ouId") String ouId) throws Exception {
+  public String getRecentReleasesforOu(@PathVariable(value = "ouId", required = true) String ouId)
+      throws Exception {
     SyndFeed feed = feedService.recentReleasesforOrganizationalUnit(ouId);
     feed.setFeedType(DEFAULT_FEEDTYPE);
     return new SyndFeedOutput().outputString(feed);
@@ -46,7 +47,8 @@ public class FeedRestController {
 
   @RequestMapping(value = "/search", method = RequestMethod.GET,
       produces = DEFAULT_PRODUCE_MIMETYPE)
-  public String getSearchAsFeed(@RequestParam("q") String query) throws Exception {
+  public String getSearchAsFeed(@RequestParam(value = "q", required = true) String query)
+      throws Exception {
     QueryBuilder qb = QueryBuilders.wrapperQuery(query);
     SyndFeed feed = feedService.recentReleasesSearchQuery(qb);
     feed.setFeedType(DEFAULT_FEEDTYPE);
