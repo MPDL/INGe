@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
@@ -56,6 +57,9 @@ public class ReindexTests {
 
   @Autowired
   private PubItemService pubItemService;
+  
+  @Autowired
+  private PubItemDaoEs pubItemDao;
 
   @Autowired
   private ContextService contextService;
@@ -88,16 +92,18 @@ public class ReindexTests {
   @Autowired
   ElasticSearchClientProvider client;
 
-  @Ignore
+  
   @Test
   public void test() throws Exception {
 
 
+    System.out.println(pubItemDao.getIndexFields());
 
-    List<String> idList = organizationService.getIdPath("ou_1753285", null);
+    /*
+    List<String> idList = organizationService.getIdPath("ou_1753285");
 
     System.out.println(idList);
-
+*/
 
     /*
      * 
@@ -167,6 +173,7 @@ public class ReindexTests {
   }
 
   @Test
+  @Ignore
   public void testReindexOu() throws Exception {
 
     organizationService.reindexAll(null);

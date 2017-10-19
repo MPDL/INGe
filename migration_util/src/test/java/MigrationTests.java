@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
 import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
@@ -82,6 +83,8 @@ public class MigrationTests {
   private ItemRepository itemRepository;
 
 
+
+  
   @Autowired
   private ItemObjectRepository itemObjectRepository;
 
@@ -129,7 +132,10 @@ public class MigrationTests {
   }
 
   @Test
-  public void testYearbook() {
+  public void testYearbook() throws Exception{
+    
+ 
+    
     /*
      * Page<PubItemObjectDbVO> result = itemObjectRepository.findAll(new PageRequest(0, 10));
      * 

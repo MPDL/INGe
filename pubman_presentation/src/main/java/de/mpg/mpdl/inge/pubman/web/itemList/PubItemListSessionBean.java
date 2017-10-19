@@ -45,7 +45,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
@@ -56,6 +56,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
@@ -74,6 +75,8 @@ public class PubItemListSessionBean extends
 
   public static final int MAXIMUM_CART_ITEMS = 2800;
 
+
+
   /**
    * An enumeration that contains the index for the search service and the sorting filter for the
    * eSciDoc ItemHandler for the offered sorting criterias. TODO Description
@@ -85,58 +88,61 @@ public class PubItemListSessionBean extends
    */
   public static enum SORT_CRITERIA {
     // Use dummy value "score" for default sorting
-    RELEVANCE(null, "", OrderFilter.ORDER_DESCENDING), //
-    TITLE("sort.escidoc.publication.title", "/sort/md-records/md-record/publication/title",
-        OrderFilter.ORDER_ASCENDING), //
-    GENRE("sort.escidoc.genre-without-uri sort.escidoc.publication.degree",
-        "/sort/genre-without-uri /sort/md-records/md-record/publication/degree",
-        OrderFilter.ORDER_ASCENDING), //
-    DATE("sort.escidoc.any-dates", "/sort/any-dates", OrderFilter.ORDER_DESCENDING), //
-    CREATOR("sort.escidoc.publication.compound.publication-creator-names",
-        "/sort/md-records/md-record/publication/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), // TODO: Change back to sort.escidoc.complete-name when
-                                      // complete name is filled!!
-    PUBLISHING_INFO("sort.escidoc.publication.publishing-info.publisher",
-        "/sort/md-records/md-record/publication/source/publishing-info/publisher",
-        OrderFilter.ORDER_ASCENDING), //
-    MODIFICATION_DATE("sort.escidoc.last-modification-date", "/sort/last-modification-date",
-        OrderFilter.ORDER_DESCENDING), //
-    EVENT_TITLE("sort.escidoc.publication.event.title",
-        "/sort/md-records/md-record/publication/event/title", OrderFilter.ORDER_ASCENDING), //
-    SOURCE_TITLE("", "/sort/md-records/md-record/publication/source/title",
-        OrderFilter.ORDER_ASCENDING), //
-    SOURCE_CREATOR("", "/sort/md-records/md-record/publication/source/creator/person/family-name",
-        OrderFilter.ORDER_ASCENDING), //
-    REVIEW_METHOD("", "/sort/md-records/md-record/publication/review-method",
-        OrderFilter.ORDER_ASCENDING), //
-    FILE("", "", OrderFilter.ORDER_ASCENDING), //
-    CREATION_DATE("sort.escidoc.property.creation-date", "/sort/properties/creation-date",
-        OrderFilter.ORDER_ASCENDING), //
-    STATE("sort.escidoc.property.version.status", "/sort/properties/version/status",
-        OrderFilter.ORDER_ASCENDING), //
-    OWNER("sort.escidoc.property.created-by.title", "/properties/created-by/xLinkTitle",
-        OrderFilter.ORDER_ASCENDING), //
-    COLLECTION("sort.escidoc.context.objid", "/sort/properties/context/xLinkTitle",
-        OrderFilter.ORDER_ASCENDING);
+    RELEVANCE("", SortOrder.DESC),
+
+    TITLE(PubItemServiceDbImpl.INDEX_METADATA_TITLE, SortOrder.ASC),
+
+    GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE,
+        PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC),
+
+    DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_ANY, SortOrder.DESC), //
+
+    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_FAMILYNAME,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_GIVENNAME,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME}, SortOrder.ASC),
+
+    PUBLISHING_INFO(PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID, SortOrder.ASC), //
+
+    MODIFICATION_DATE(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC),
+
+    EVENT_TITLE(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE, SortOrder.ASC),
+
+    SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SortOrder.ASC),
+
+    SOURCE_CREATOR(new String[] {
+        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME,
+        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME}, SortOrder.ASC), //
+
+    REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SortOrder.ASC), // ,
+
+    CREATION_DATE(PubItemServiceDbImpl.INDEX_CREATION_DATE, SortOrder.ASC),
+
+    STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SortOrder.ASC),
+
+    OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
+
+    COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SortOrder.ASC);
 
     /**
      * The search sorting index
      */
-    private String index;
+    private String[] index;
 
-    /**
-     * The path to the xml by which a list should be sorted
-     */
-    private String sortPath;
 
     /**
      * An additional attribute indicating the default sort order ("ascending" or "descending")
      */
-    private String sortOrder;
+    private SortOrder sortOrder;
 
-    SORT_CRITERIA(String index, String sortPath, String sortOrder) {
-      this.setIndex(index);
-      this.setSortPath(sortPath);
+    SORT_CRITERIA(String index, SortOrder sortOrder) {
+      this.index = new String[] {index};
+      this.sortOrder = sortOrder;
+    }
+
+
+
+    SORT_CRITERIA(String[] index, SortOrder sortOrder) {
+      this.index = index;
       this.sortOrder = sortOrder;
     }
 
@@ -145,7 +151,7 @@ public class PubItemListSessionBean extends
      * 
      * @param index
      */
-    public void setIndex(String index) {
+    public void setIndex(String[] index) {
       this.index = index;
     }
 
@@ -154,36 +160,18 @@ public class PubItemListSessionBean extends
      * 
      * @return
      */
-    public String getIndex() {
+    public String[] getIndex() {
       return this.index;
     }
 
-    /**
-     * Sets the path to the xml tag by which the list should be sorted. Used in filter of
-     * ItemHandler
-     * 
-     * @param sortPath
-     */
-    public void setSortPath(String sortPath) {
-      this.sortPath = sortPath;
-    }
 
-    /**
-     * Sets the path to the xml tag by which the list should be sorted. Used in filter of
-     * ItemHandler
-     * 
-     * @return
-     */
-    public String getSortPath() {
-      return this.sortPath;
-    }
 
     /**
      * Sets the sort order. "ascending" or "descending"
      * 
      * @param sortOrder
      */
-    public void setSortOrder(String sortOrder) {
+    public void setSortOrder(SortOrder sortOrder) {
       this.sortOrder = sortOrder;
     }
 
@@ -192,7 +180,7 @@ public class PubItemListSessionBean extends
      * 
      * @param sortOrder
      */
-    public String getSortOrder() {
+    public SortOrder getSortOrder() {
       return this.sortOrder;
     }
   }
@@ -255,7 +243,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("STATE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -272,7 +261,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("TITLE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -289,7 +279,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("GENRE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -306,7 +297,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("DATE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -323,7 +315,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("CREATOR");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -340,7 +333,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("FILE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -357,7 +351,8 @@ public class PubItemListSessionBean extends
     try {
       this.setSelectedSortBy("CREATION_DATE");
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -371,10 +366,10 @@ public class PubItemListSessionBean extends
    * @return
    */
   public void changeSortOrder() {
-    if (this.selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING)) {
-      this.setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+    if (this.selectedSortOrder.equals(SortOrder.ASC.name())) {
+      this.setSelectedSortOrder(SortOrder.DESC.name());
     } else {
-      this.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
+      this.setSelectedSortOrder(SortOrder.ASC.name());
     }
     try {
       this.setSelectedSortOrder(this.selectedSortOrder);
@@ -393,7 +388,8 @@ public class PubItemListSessionBean extends
   public void changeSortBy() {
     try {
       this.setCurrentPageNumber(1);
-      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
+      this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder()
+          .name());
       this.redirect();
     } catch (final Exception e) {
       this.error("Could not redirect");
@@ -496,7 +492,7 @@ public class PubItemListSessionBean extends
    * @return
    */
   public boolean getIsAscending() {
-    return this.selectedSortOrder.equals(OrderFilter.ORDER_ASCENDING);
+    return this.selectedSortOrder.equals(SortOrder.ASC.name());
   }
 
   /**
@@ -519,24 +515,18 @@ public class PubItemListSessionBean extends
       for (int i = 0; i < SORT_CRITERIA.values().length - 3; i++) {
         final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
 
-        // only add if index/sorting path is available
-        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
-            .equals("")))
-            || (!this.getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
-          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
-              + sc.name())));
-        }
+        this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
+            + sc.name())));
       }
+
     } else {
       for (int i = 0; i < SORT_CRITERIA.values().length; i++) {
         final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
         // only add if index/sorting path is available
-        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
-            .equals("")))
-            || (!this.getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
-          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
-              + sc.name())));
-        }
+
+        this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
+            + sc.name())));
+
       }
     }
 
@@ -629,7 +619,7 @@ public class PubItemListSessionBean extends
     } else if (this.getSelectedSortOrder() != null) {
       // do nothing
     } else {
-      this.setSelectedSortOrder(OrderFilter.ORDER_DESCENDING);
+      this.setSelectedSortOrder(SortOrder.DESC.name());
     }
   }
 
@@ -639,7 +629,7 @@ public class PubItemListSessionBean extends
   @Override
   public SORT_CRITERIA getSortCriteria() {
     final SORT_CRITERIA sc = SORT_CRITERIA.valueOf(this.getSelectedSortBy());
-    sc.setSortOrder(this.getSelectedSortOrder());
+    sc.setSortOrder(SortOrder.valueOf(this.getSelectedSortOrder()));
 
     return sc;
   }

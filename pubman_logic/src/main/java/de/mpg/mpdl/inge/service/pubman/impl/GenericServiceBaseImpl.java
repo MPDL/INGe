@@ -68,6 +68,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
   protected String beanName;
 
 
+
   @Scheduled(fixedDelay = 3600000, initialDelay = 0)
   public void initSearchIndexFields() {
     try {

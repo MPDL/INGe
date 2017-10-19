@@ -9,12 +9,16 @@ import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
+import javax.naming.directory.SearchResult;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -33,7 +37,9 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the My Items
@@ -162,13 +168,13 @@ public class MyItemsRetrieverRequestBean extends
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
-          this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this
+          .getLoginHelper().getAccountUser().getReference().getObjectId()));
 
       // display only latest versions
-      bq.must(QueryBuilders
-          .scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER
-              + "']==doc['" + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
+      bq.must(QueryBuilders.scriptQuery(new Script("doc['"
+          + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
+          + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
@@ -179,28 +185,45 @@ public class MyItemsRetrieverRequestBean extends
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-            ItemVO.State.valueOf(this.selectedItemState).name()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State
+            .valueOf(this.selectedItemState).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders
-            .matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport())
-            .operator(Operator.AND));
+        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS,
+            this.getSelectedImport()).operator(Operator.AND));
       }
 
-      //TODO Sorting!!
-      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq, limit, offset, ssc);
+      PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+      SearchSourceBuilder ssb = new SearchSourceBuilder();
+      ssb.query(bq);
+      ssb.from(offset);
+      ssb.size(limit);
 
-      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
-          .search(srr, getLoginHelper().getAuthenticationToken());
 
-      this.numberOfRecords = resp.getNumberOfRecords();
+      for (String index : sc.getIndex()) {
+        System.out.println(index);
+        System.out.println(pis.getElasticSearchIndexFields());
+        if (!index.isEmpty()) {
+          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(),
+              index,
+              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
+                  : org.elasticsearch.search.sort.SortOrder.DESC));
+        }
+      }
 
-      List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
-          .collect(Collectors.toList());
+
+      // SearchSortCriteria ssc = new
+      // SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
+      // SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq, limit, offset, ssc);
+
+      SearchResponse resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+
+      this.numberOfRecords = (int) resp.getHits().getTotalHits();
+
+      List<PubItemVO> pubItemList =
+          SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
@@ -219,7 +242,7 @@ public class MyItemsRetrieverRequestBean extends
    * @param sc The sorting criteria to be checked
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
-    if (sc.getSortPath() == null || sc.getSortPath().equals("")) {
+    if (sc.getIndex() == null || sc.getIndex().equals("")) {
       this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
           this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();

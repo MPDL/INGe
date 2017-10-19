@@ -86,7 +86,6 @@ public class CartItemsRetrieverRequestBean extends
 
 
       if (pssb.getStoredPubItems().size() > 0) {
-        this.checkSortCriterias(sc);
         
         BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
@@ -159,19 +158,6 @@ public class CartItemsRetrieverRequestBean extends
     return "CartItemsPage.jsp";
   }
 
-  /**
-   * Checks if the selected sorting criteria is currently available. If not (empty string), it
-   * displays a warning message to the user.
-   * 
-   * @param sc The sorting criteria to be checked
-   */
-  protected void checkSortCriterias(SORT_CRITERIA sc) {
-    if (sc.getSortPath() == null || sc.getSortPath().equals("")) {
-      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
-          this.getLabel("ENUM_CRITERIA_" + sc.name())));
-      // getBasePaginatorListSessionBean().redirect();
-    }
-  }
 
   /**
    * Called when the export format list should be updated. Workaround. Method needs to be called

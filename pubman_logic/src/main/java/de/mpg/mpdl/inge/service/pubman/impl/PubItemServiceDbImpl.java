@@ -133,7 +133,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_CREATION_DATE = "creationDate";
   public static String INDEX_LOCAL_TAGS = "localTags";
   public static String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
+  public static String INDEX_CONTEXT_TITLE = "context.title";
   public static String INDEX_OWNER_OBJECT_ID = "owner.objectId";
+  public static String INDEX_OWNER_TITLE = "owner.title";
   public static String INDEX_PUBLIC_STATE = "publicStatus";
   public static String INDEX_PID = "pid";
 
@@ -163,6 +165,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
 
   public static String INDEX_METADATA_TITLE = "metadata.title";
+  public static String INDEX_METADATA_DATE_ANY = "metadata.anyDates";
   public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
   public static String INDEX_METADATA_DATE_ACCEPTED = "metadata.dateAccepted";
@@ -180,6 +183,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_LANGUAGES = "metadata.languages";
   public static String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";
 
+  public static String INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID =
+      "metadata.publishingInfo.publisher";
+
   public static String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
   public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE =
       "metadata.projectInfo.fundingOrganization.title";
@@ -195,6 +201,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
   public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE =
       "metadata.sources.alternativeTitles.value";
+
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME =
+      "metadata.sources.creators.person.familyName";
+
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME =
+      "metadata.sources.creators.person.givenName";
+
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
       "metadata.sources.creators.person.organization.identifier";
 

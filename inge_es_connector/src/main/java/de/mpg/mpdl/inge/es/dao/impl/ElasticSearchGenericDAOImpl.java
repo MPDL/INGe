@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField.Type;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -311,7 +312,13 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
             .get();
     MappingMetaData mmd = resp.getMappings().get(realIndexName).get(indexType);
 
-    return ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
+    Map<String, ElasticSearchIndexField> map =
+        ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
+    ElasticSearchIndexField allField = new ElasticSearchIndexField();
+    allField.setIndexName("_all");
+    allField.setType(Type.TEXT);
+    map.put("_all", allField);
+    return map;
 
   }
 

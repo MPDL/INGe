@@ -24,6 +24,7 @@ public class ElasticSearchIndexField {
 
   private Type type;
 
+
   public String getIndexName() {
     return indexName;
   }
@@ -111,61 +112,85 @@ public class ElasticSearchIndexField {
           }
 
           else {
-            ElasticSearchIndexField indexField = new ElasticSearchIndexField();
+            ElasticSearchIndexField indexField =
+                createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, type);
             indexMap.put(newCurrentPath.toString(), indexField);
-            indexField.setIndexName(newCurrentPath.toString());
-            if (!newCurrentNestedPaths.isEmpty()) {
-              indexField.setNestedPaths(new ArrayList<>(newCurrentNestedPaths));
-            }
-            switch (type) {
-              case "text": {
-                indexField.setType(Type.TEXT);
-                break;
-              }
-              case "keyword": {
-                indexField.setType(Type.KEYWORD);
-                break;
-              }
-              case "boolean": {
-                indexField.setType(Type.BOOLEAN);
-                break;
-              }
-              case "date": {
-                indexField.setType(Type.DATE);
-                break;
-              }
 
-              case "long":
-              case "integer":
-              case "short":
-              case "byte":
-              case "double":
-              case "float":
-              case "half_float":
-              case "scale_float": {
-                indexField.setType(Type.NUMERIC);
-                break;
-              }
-              default: {
-                indexField.setType(Type.UNKNOWN);
+            if (mappingMap.containsKey("copy_to")) {
+              Object copyTo = mappingMap.get("copy_to");
+              if (copyTo instanceof List) {
+                for (String copyToEntry : (List<String>) copyTo) {
+                  ElasticSearchIndexField copyToField =
+                      createIndexFieldObject(copyToEntry, null, type);
+                  indexMap.put(copyToEntry, copyToField);
+                }
+              } else {
+                ElasticSearchIndexField copyToField =
+                    createIndexFieldObject((String) copyTo, null, type);
+                indexMap.put((String) copyTo, copyToField);
               }
 
             }
+
           }
-
-
         }
-
         if (entry.getValue() instanceof Map) {
           fillMap(entry.getKey(), (Map<String, Object>) entry.getValue(), indexMap,
               newCurrentPath.toString(), newCurrentNestedPaths);
         }
+
+
+
       }
+
 
 
     }
 
+    private static ElasticSearchIndexField createIndexFieldObject(String path,
+        List<String> nestedPath, String type) {
+      ElasticSearchIndexField indexField = new ElasticSearchIndexField();
 
+      indexField.setIndexName(path.toString());
+      if (nestedPath != null && !nestedPath.isEmpty()) {
+        indexField.setNestedPaths(new ArrayList<>(nestedPath));
+      }
+      switch (type) {
+        case "text": {
+          indexField.setType(Type.TEXT);
+          break;
+        }
+        case "keyword": {
+          indexField.setType(Type.KEYWORD);
+          break;
+        }
+        case "boolean": {
+          indexField.setType(Type.BOOLEAN);
+          break;
+        }
+        case "date": {
+          indexField.setType(Type.DATE);
+          break;
+        }
+
+        case "long":
+        case "integer":
+        case "short":
+        case "byte":
+        case "double":
+        case "float":
+        case "half_float":
+        case "scale_float": {
+          indexField.setType(Type.NUMERIC);
+          break;
+        }
+        default: {
+          indexField.setType(Type.UNKNOWN);
+        }
+
+      }
+      return indexField;
+    }
 
   }
 

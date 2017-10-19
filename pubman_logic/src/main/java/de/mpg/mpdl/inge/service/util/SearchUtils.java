@@ -5,16 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.sort.FieldSortBuilder;
+import org.elasticsearch.search.sort.SortBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 
 public class SearchUtils {
+
+  private final static Logger logger = Logger.getLogger(SearchUtils.class);
 
   public static QueryBuilder baseElasticSearchQueryBuilder(
       Map<String, ElasticSearchIndexField> indexMap, String[] indexFields, String... searchString) {
@@ -43,34 +50,61 @@ public class SearchUtils {
 
     ElasticSearchIndexField field = indexMap.get(index);
 
-    switch (field.getType()) {
-      case TEXT: {
-        if (value.length == 1) {
-          return QueryBuilders.matchQuery(index, value[0]);
-        } else {
-          BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          for (String searchString : value) {
-            bq.should(QueryBuilders.matchQuery(index, searchString));
+    if (field != null) {
+      switch (field.getType()) {
+        case TEXT: {
+          if (value.length == 1) {
+            return QueryBuilders.matchQuery(index, value[0]);
+          } else {
+            BoolQueryBuilder bq = QueryBuilders.boolQuery();
+            for (String searchString : value) {
+              bq.should(QueryBuilders.matchQuery(index, searchString));
+            }
+            return bq;
           }
-          return bq;
-        }
 
-      }
-      default: {
-        if (value.length == 1) {
-          return QueryBuilders.termQuery(index, value[0]);
-        } else {
-          BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          for (String searchString : value) {
-            bq.should(QueryBuilders.termQuery(index, searchString));
+        }
+        default: {
+          if (value.length == 1) {
+            return QueryBuilders.termQuery(index, value[0]);
+          } else {
+            BoolQueryBuilder bq = QueryBuilders.boolQuery();
+            for (String searchString : value) {
+              bq.should(QueryBuilders.termQuery(index, searchString));
+            }
+            return bq;
           }
-          return bq;
-        }
 
+        }
       }
 
-
+    } else {
+      logger.warn("Index field " + index + " not found");
+      return null;
     }
+
+  }
+
+  public static FieldSortBuilder baseElasticSearchSortBuilder(
+      Map<String, ElasticSearchIndexField> indexMap, String index, SortOrder order) {
+
+    ElasticSearchIndexField field = indexMap.get(index);
+    String indexField = index;
+
+    if (field != null) {
+      switch (field.getType()) {
+        case TEXT: {
+          indexField += ".keyword";
+          break;
+
+        }
+
+      }
+    } else {
+      logger.warn("Index field " + index + " not found");
+    }
+
+    return SortBuilders.fieldSort(indexField).order(order);
   }
 
   public static <E> List<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr,
