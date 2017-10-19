@@ -221,8 +221,8 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
 
     if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-      List<String> orgWithChildren = new ArrayList<>();
-      OrganizationSearchCriterion.fillWithChildOus(orgWithChildren, getSelectedOrgUnit());
+      List<String> orgWithChildren =
+          ApplicationBean.INSTANCE.getOrganizationService().getIdPath(getSelectedOrgUnit());
       BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
       nonCandidateBoolQuery.must(ouBoolQuery);
       for (String ouId : orgWithChildren) {
@@ -281,8 +281,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
         if (query != null) {
           
           if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-            List<String> orgWithChildren = new ArrayList<>();
-            OrganizationSearchCriterion.fillWithChildOus(orgWithChildren, getSelectedOrgUnit());
+            List<String> orgWithChildren = ApplicationBean.INSTANCE.getOrganizationService().getIdPath(getSelectedOrgUnit());
             BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
             query.must(ouBoolQuery);
             for(String ouId : orgWithChildren)

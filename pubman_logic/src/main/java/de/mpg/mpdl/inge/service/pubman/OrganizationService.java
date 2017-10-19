@@ -30,7 +30,7 @@ public interface OrganizationService extends GenericService<AffiliationVO, Strin
   public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<String> getIdPath(String id, String token) throws IngeTechnicalException,
-      IngeApplicationException, AuthenticationException, AuthorizationException;
+  public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException,
+      AuthenticationException, AuthorizationException;
 
 }

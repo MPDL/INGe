@@ -80,6 +80,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.ModifiedBy
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
@@ -454,58 +455,17 @@ public abstract class SearchCriterionBase implements Serializable {
   public static QueryBuilder baseElasticSearchQueryBuilder(String[] indexFields,
       String... searchString) {
 
-
-    if (indexFields.length == 1) {
-
-
-      return baseElasticSearchQueryBuilder(indexFields[0], searchString);
-
-    } else {
-
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
-
-      for (String indexField : indexFields) {
-        bq.must(baseElasticSearchQueryBuilder(indexField, searchString));
-      }
-      return bq;
-
-    }
+    Map<String, ElasticSearchIndexField> indexMap =
+        ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
+    return SearchUtils.baseElasticSearchQueryBuilder(indexMap, indexFields, searchString);
   }
 
 
   public static QueryBuilder baseElasticSearchQueryBuilder(String index, String... value) {
     Map<String, ElasticSearchIndexField> indexMap =
         ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
-    ElasticSearchIndexField field = indexMap.get(index);
+    return SearchUtils.baseElasticSearchQueryBuilder(indexMap, index, value);
 
-    switch (field.getType()) {
-      case TEXT: {
-        if (value.length == 1) {
-          return QueryBuilders.matchQuery(index, value[0]);
-        } else {
-          BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          for (String searchString : value) {
-            bq.should(QueryBuilders.matchQuery(index, searchString));
-          }
-          return bq;
-        }
-
-      }
-      default: {
-        if (value.length == 1) {
-          return QueryBuilders.termQuery(index, value[0]);
-        } else {
-          BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          for (String searchString : value) {
-            bq.should(QueryBuilders.termQuery(index, searchString));
-          }
-          return bq;
-        }
-
-      }
-
-
-    }
   }
 
   /**

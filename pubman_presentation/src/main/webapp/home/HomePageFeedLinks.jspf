@@ -4,12 +4,9 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
+
 	<link
-		href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/rss_2.0/releases"
-		rel="alternate" type="application/rss+xml"
-		title="#{lbl.Feed_Recent_Releases}|rss_2.0" />
-	<link
-		href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/atom_1.0/releases"
+		href="#{ApplicationBean.pubmanInstanceUrl}/rest/feed/recent"
 		rel="alternate" type="application/atom+xml"
 		title="#{lbl.Feed_Recent_Releases}|atom_1.0" />
 		

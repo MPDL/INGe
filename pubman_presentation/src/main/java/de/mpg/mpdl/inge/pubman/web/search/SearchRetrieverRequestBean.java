@@ -259,16 +259,8 @@ public class SearchRetrieverRequestBean extends
     return "";
   }
 
-  /**
-   * @return link to the rss feed for the current search
-   * @throws PubManVersionNotAvailableException
-   */
-  public String getRssFeedLink() throws PubManVersionNotAvailableException {
-    return "<link href='"
-        + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl()
-        + "/syndication/feed/rss_2.0/search?q=" + this.getNormalizedCqlQuery()
-        + "' rel='alternate' type='application/rss+xml' title='Current Search | rss 2.0' />";
-  }
+
+  
 
   /**
    * @return link to the atom feed for the current search
@@ -277,7 +269,7 @@ public class SearchRetrieverRequestBean extends
   public String getAtomFeedLink() throws PubManVersionNotAvailableException {
     return "<link href='"
         + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl()
-        + "/syndication/feed/atom_1.0/search?q=" + this.getNormalizedCqlQuery()
+        + "/rest/feed/search?q=" + this.getUrlEncodedQueryString()
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 

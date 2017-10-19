@@ -77,7 +77,7 @@ public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
   public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir")
-      + "/modules/pubman/main/sitemap/";
+      + "/standalone/data/sitemap/";
 
   private ArrayList<String> contentModels;
 

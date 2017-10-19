@@ -6,12 +6,9 @@
 	
 	<ui:repeat id="detailsDescription" var="topAffiliation"
 		value="#{AffiliationBean.topLevelAffs}">
+
 		<link
-			href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/rss_2.0/publications/organization/#{topAffiliation.reference.objectId}"
-			rel="alternate" type="application/rss+xml"
-			title="#{lbl.Feed_Recent_Releases}, #{topAffiliation.name}|rss_2.0" />
-		<link
-			href="#{ApplicationBean.pubmanInstanceUrl}/syndication/feed/atom_1.0/publications/organization/#{topAffiliation.reference.objectId}"
+			href="#{ApplicationBean.pubmanInstanceUrl}/rest/feed/organization/#{topAffiliation.reference.objectId}"
 			rel="alternate" type="application/atom+xml"
 			title="#{lbl.Feed_Recent_Releases}, #{topAffiliation.name}|atom_1.0" />
 	</ui:repeat>

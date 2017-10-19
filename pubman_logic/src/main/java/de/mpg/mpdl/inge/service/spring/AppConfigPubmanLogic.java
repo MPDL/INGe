@@ -71,6 +71,8 @@ public class AppConfigPubmanLogic {
     String jbossHomeDir = System.getProperty("jboss.home.dir");
     if (jbossHomeDir != null) {
       brokerService.setDataDirectoryFile(new File(jbossHomeDir + "/standalone/data/activemq"));
+    } else {
+      brokerService.setDataDirectory(System.getProperty("java.io.tmpdir"));
     }
     brokerService.setUseJmx(false);
     brokerService.addConnector(DEFAULT_BROKER_URL);

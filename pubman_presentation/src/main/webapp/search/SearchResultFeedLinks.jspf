@@ -4,9 +4,6 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<h:outputText value='#{SearchRetrieverRequestBean.rssFeedLink}'
-		rendered='#{SearchRetrieverRequestBean.normalizedCqlQuery != ""}'
-		escape="false" />
 	<h:outputText value='#{SearchRetrieverRequestBean.atomFeedLink}'
 		rendered='#{SearchRetrieverRequestBean.normalizedCqlQuery != ""}'
 		escape="false" />

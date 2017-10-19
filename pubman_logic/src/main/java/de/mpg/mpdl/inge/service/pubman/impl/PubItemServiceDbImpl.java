@@ -140,6 +140,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_VERSION_STATE = "version.state";
   public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
   public static String INDEX_LATESTVERSION_STATE = "latestVersion.state";
+  public static String INDEX_LATESTRELEASE_DATE = "latestRelease.modificationDate";
   public static String INDEX_VERSION_VERSIONNUMBER = "version.versionNumber";
   public static String INDEX_VERSION_OBJECT_ID = "version.objectId";
   public static String INDEX_VERSION_PID = "version.pid";
@@ -154,11 +155,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
       "metadata.creators.person.organizations.identifier";
   public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER =
-      "metadata.creators.organizations.identifier";
+      "metadata.creators.organization.identifier";
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME =
       "metadata.creators.person.organizations.name";
   public static String INDEX_METADATA_CREATOR_ORGANIZATION_NAME =
-      "metadata.creators.organizations.name";
+      "metadata.creators.organization.name";
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
 
   public static String INDEX_METADATA_TITLE = "metadata.title";
@@ -197,7 +198,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
       "metadata.sources.creators.person.organization.identifier";
 
-  public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "file.metadata.embargoUntil";
+  public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
+
+  public static String INDEX_FILE_VISIBILITY = "files.visibility";
+
+  public static String INDEX_FILE_CONTENTCATEGORY = "files.contentCategory";
+
+  public static String INDEX_FILE_STORAGE = "files.storage";
 
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
   public static final String REST_COMPONENT_PATH = PropertyReader
