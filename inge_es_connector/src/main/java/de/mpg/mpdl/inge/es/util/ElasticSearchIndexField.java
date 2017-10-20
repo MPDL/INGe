@@ -116,22 +116,6 @@ public class ElasticSearchIndexField {
                 createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, type);
             indexMap.put(newCurrentPath.toString(), indexField);
 
-            if (mappingMap.containsKey("copy_to")) {
-              Object copyTo = mappingMap.get("copy_to");
-              if (copyTo instanceof List) {
-                for (String copyToEntry : (List<String>) copyTo) {
-                  ElasticSearchIndexField copyToField =
-                      createIndexFieldObject(copyToEntry, null, type);
-                  indexMap.put(copyToEntry, copyToField);
-                }
-              } else {
-                ElasticSearchIndexField copyToField =
-                    createIndexFieldObject((String) copyTo, null, type);
-                indexMap.put((String) copyTo, copyToField);
-              }
-
-            }
-
           }
         }
         if (entry.getValue() instanceof Map) {
