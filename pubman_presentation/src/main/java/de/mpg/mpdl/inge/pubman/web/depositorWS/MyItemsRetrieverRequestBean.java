@@ -164,7 +164,7 @@ public class MyItemsRetrieverRequestBean extends
     }
 
     try {
-      this.checkSortCriterias(sc);
+
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
@@ -203,8 +203,6 @@ public class MyItemsRetrieverRequestBean extends
 
 
       for (String index : sc.getIndex()) {
-        System.out.println(index);
-        System.out.println(pis.getElasticSearchIndexFields());
         if (!index.isEmpty()) {
           ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(),
               index,

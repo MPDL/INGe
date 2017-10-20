@@ -12,9 +12,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -37,7 +39,9 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Quality
@@ -99,40 +103,47 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
     try {
       this.checkSortCriterias(sc);
-      
+
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "WITHDRAWN"));
-        if(getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name()) || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name()))
-        {
-          //filter out possible duplicates
-          bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.valueOf(getSelectedItemState())));
+        if (getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name())
+            || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name())) {
+          // filter out possible duplicates
+          bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(),
+              State.valueOf(getSelectedItemState())));
         }
-        
+
       }
 
       else if (getSelectedItemState().toLowerCase().equals("all")) {
         BoolQueryBuilder stateQueryBuilder = QueryBuilders.boolQuery();
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "SUBMITTED"));
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "IN_REVISION"));
+        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
+            "SUBMITTED"));
+        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
+            "RELEASED"));
+        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
+            "IN_REVISION"));
         bq.must(stateQueryBuilder);
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
-        
-        //filter out duplicates
-        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.SUBMITTED));
-        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(), State.IN_REVISION));
+
+        // filter out duplicates
+        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(),
+            State.SUBMITTED));
+        bq.mustNot(ItemStateListSearchCriterion.filterOut(getLoginHelper().getAccountUser(),
+            State.IN_REVISION));
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-            ItemVO.State.valueOf(getSelectedItemState()).name()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State
+            .valueOf(getSelectedItemState()).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
-      
+
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
+        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS,
+            this.getSelectedImport()).operator(Operator.AND));
       }
 
       if (this.getSelectedContext().toLowerCase().equals("all")) {
@@ -142,8 +153,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         bq.must(contextQueryBuilder);
         for (int i = 1; i < this.getContextSelectItems().size(); i++) {
           final String contextId = (String) this.getContextSelectItems().get(i).getValue();
-          contextQueryBuilder.should(
-              QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, contextId));
+          contextQueryBuilder.should(QueryBuilders.termQuery(
+              PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, contextId));
         }
       } else {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
@@ -154,19 +165,33 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
         // TODO org unit filter!!
       }
 
-      // TODO Sorting!!
-      SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-      SearchRetrieveRequestVO srr =
-          new SearchRetrieveRequestVO(bq, limit, offset, ssc);
 
-      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
-          .search(srr, getLoginHelper().getAuthenticationToken());
 
-      this.numberOfRecords = resp.getNumberOfRecords();
-      
-      List<PubItemVO> pubItemList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
-          .collect(Collectors.toList());
-      
+      PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+      SearchSourceBuilder ssb = new SearchSourceBuilder();
+      ssb.query(bq);
+      ssb.from(offset);
+      ssb.size(limit);
+
+
+      for (String index : sc.getIndex()) {
+        if (!index.isEmpty()) {
+          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(),
+              index,
+              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
+                  : org.elasticsearch.search.sort.SortOrder.DESC));
+        }
+      }
+
+
+
+      SearchResponse resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+
+      this.numberOfRecords = (int) resp.getHits().getTotalHits();
+
+      List<PubItemVO> pubItemList =
+          SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyTasksRetrieverRequestBean.logger.error("Error in retrieving items", e);

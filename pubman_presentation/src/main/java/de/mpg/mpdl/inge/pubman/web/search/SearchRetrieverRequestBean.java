@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.pubman.web.search;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +12,18 @@ import javax.faces.bean.ManagedBean;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
@@ -25,6 +33,9 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.util.JsonUtil;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Search result
@@ -73,6 +84,7 @@ public class SearchRetrieverRequestBean extends
   private String queryString;
 
   private String elasticSearchQuery;
+
 
   /**
    * The total number of records from the search request
@@ -148,6 +160,7 @@ public class SearchRetrieverRequestBean extends
 
     } else {
       this.setElasticSearchQuery(elasticSearchQuery);
+
     }
 
 
@@ -168,55 +181,37 @@ public class SearchRetrieverRequestBean extends
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     // checkSortCriterias(sc);
     try {
-
-
-
       final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
-      final SearchRetrieveRequestVO query = new SearchRetrieveRequestVO(qb, limit, offset);
-      final SearchRetrieveResponseVO result;
 
-      if ("admin".equals(getSearchType())) {
-        result =
-            ApplicationBean.INSTANCE.getPubItemService().search(query,
-                getLoginHelper().getAuthenticationToken());
-      } else {
-        result = ApplicationBean.INSTANCE.getPubItemService().search(query, null);
+      PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+      SearchSourceBuilder ssb = new SearchSourceBuilder();
+      ssb.query(qb);
+      ssb.from(offset);
+      ssb.size(limit);
+
+
+      for (String index : sc.getIndex()) {
+        if (!index.isEmpty()) {
+          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(),
+              index,
+              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
+                  : org.elasticsearch.search.sort.SortOrder.DESC));
+        }
       }
 
-      this.numberOfRecords = result.getNumberOfRecords();
+      SearchResponse resp;
+      if ("admin".equals(getSearchType())) {
+        resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+      } else {
+        resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+      }
+      this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-      pubItemList = extractItemsOfSearchResult(result);
+      pubItemList =
+          pubItemList =
+              CommonUtils.convertToPubItemVOPresentationList(SearchUtils
+                  .getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class));
 
-
-
-      /*
-       * PlainCqlQuery query = new PlainCqlQuery(getCqlQuery()); query.setStartRecord(new
-       * PositiveInteger(String.valueOf(offset + 1))); query.setMaximumRecords(new
-       * NonNegativeInteger(String.valueOf(limit)));
-       * 
-       * if (sc.getIndex() != null) { if ("admin".equals(getSearchType())) {
-       * query.setSortKeys(sc.getSortPath()); } else { query.setSortKeys(sc.getIndex()); }
-       * 
-       * }
-       * 
-       * if (sc.getIndex() == null || !sc.getIndex().equals("")) { if
-       * (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING)) {
-       * 
-       * query.setSortOrder(SortingOrder.DESCENDING); }
-       * 
-       * else { query.setSortOrder(SortingOrder.ASCENDING); } } ItemContainerSearchResult result =
-       * null;
-       * 
-       * if ("admin".equals(getSearchType())) { result =
-       * SearchService.searchForItemContainerAdmin(query, getLoginHelper() .getESciDocUserHandle());
-       * } else { result = SearchService.searchForItemContainer(query); }
-       * 
-       * 
-       * 
-       * 
-       * pubItemList = extractItemsOfSearchResult(result); this.numberOfRecords =
-       * Integer.parseInt(result.getTotalNumberOfResults().toString());
-       */
     } catch (final Exception e) {
       this.error("Error in search!");
       SearchRetrieverRequestBean.logger.error("Error during search. ", e);
@@ -366,5 +361,15 @@ public class SearchRetrieverRequestBean extends
     this.getBasePaginatorListSessionBean().getParameterMap()
         .put(SearchRetrieverRequestBean.parameterElasticSearchQuery, elasticSearchQuery);
   }
+
+  public String getPrettyElasticSearchQuery() {
+    try {
+      return JsonUtil.prettifyJsonString(getElasticSearchQuery());
+    } catch (Exception e) {
+      logger.error("Cannot parse Json String " + getElasticSearchQuery());
+      return "";
+    }
+  }
+
 
 }
