@@ -47,7 +47,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       .getProperty("inge.inge.filestorage.seaweed_master_server_ip");
 
   private final static String SEAWEED_DIRECT_SUBMIT_PATH = PropertyReader
-      .getProperty("inge.filestroage.seaweed_direct_submit_path");
+      .getProperty("inge.filestorage.seaweed_direct_submit_path");
   @Autowired
   private CloseableHttpClient httpClient;
 

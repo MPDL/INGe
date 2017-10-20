@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.persistence.EntityManager;
@@ -69,7 +67,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -865,12 +862,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
 
     return EntityTransformer.transformToVersionHistory(list);
-  }
-
-
-
-  private void mapFileVOToFileDbVO(PubItemVO pubItemVO) {
-
   }
 
   private void uploadStagedFiles(PubItemVO pubItemVO) throws IngeTechnicalException {
