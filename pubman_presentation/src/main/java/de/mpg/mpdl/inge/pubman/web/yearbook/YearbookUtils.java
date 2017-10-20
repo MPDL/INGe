@@ -84,7 +84,7 @@ public class YearbookUtils {
     // Organizations
     String orgId = yisb.getYearbook().getOrganization().getObjectId();
     List<String> orgWithChildren =
-        ApplicationBean.INSTANCE.getOrganizationService().getIdPath(orgId);
+        ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(orgId);
     BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(ouBoolQuery);
     for (String ouId : orgWithChildren) {

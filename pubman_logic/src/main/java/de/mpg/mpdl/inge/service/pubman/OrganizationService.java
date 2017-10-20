@@ -33,4 +33,7 @@ public interface OrganizationService extends GenericService<AffiliationVO, Strin
   public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException,
       AuthenticationException, AuthorizationException;
 
+  public List<String> getChildIdPath(String id) throws IngeTechnicalException,
+      IngeApplicationException;
+
 }
