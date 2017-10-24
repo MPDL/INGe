@@ -12,32 +12,31 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
-import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-public class ContextServiceTest {
+public class ContextServiceTest extends TestBase {
 
   @Autowired
   ContextService contextService;
-
-  @Autowired
-  UserAccountService userAccountService;
-
-  private static final String ADMIN_LOGIN = "admin";
-  private static final String ADMIN_PASSWORD = "tseT";
 
   private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
   private static final String DEPOSITOR_PASSWORD = "tseT";
 
   @Test
   public void objects() {
+
+    super.logMethodName();
+
     assertTrue(contextService != null);
   }
 
   @Test
   public void openAndClose() throws Exception {
+
+    super.logMethodName();
+
 
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
@@ -65,6 +64,9 @@ public class ContextServiceTest {
 
   @Test(expected = AuthorizationException.class)
   public void openWhenAlreadyOpen() throws Exception {
+
+    super.logMethodName();
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -79,6 +81,9 @@ public class ContextServiceTest {
 
   @Test(expected = AuthenticationException.class)
   public void openWithoutAuthorization() throws Exception {
+
+    super.logMethodName();
+
     String authenticationToken =
         userAccountService.login(USER_OBJECTID_DEPOSITOR, DEPOSITOR_PASSWORD);
     assertTrue(authenticationToken != null);
@@ -94,6 +99,9 @@ public class ContextServiceTest {
 
   @Test(expected = AuthenticationException.class)
   public void openWrongAuthentication() throws Exception {
+
+    super.logMethodName();
+
     String authenticationToken =
         userAccountService.login(USER_OBJECTID_DEPOSITOR, "XXXXXXXXXXXXXX");
     assertTrue(authenticationToken != null);

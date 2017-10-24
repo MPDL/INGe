@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,40 +17,33 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
-import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-public class OrganizationServiceTest {
-
-  private static final String ADMIN_LOGIN = "admin";
-  private static final String ADMIN_PASSWORD = "tseT";
+public class OrganizationServiceTest extends TestBase {
 
   private static final String ORG_OBJECTID_13 = "ou_persistent13";
   private static final String ORG_OBJECTID_25 = "ou_persistent25";
   private static final String ORG_OBJECTID_40048 = "ou_40048";
 
-  static private Logger logger = Logger.getLogger(OrganizationServiceTest.class);
-
   @Autowired
   OrganizationService organizationService;
 
-  @Autowired
-  UserAccountService userAccountService;
-
-  @Before
-  public void setUp() throws Exception {}
-
   @Test
   public void objects() {
+
+    super.logMethodName();
+
     assertTrue(organizationService != null);
   }
 
   @Test
   public void open() throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
+    super.logMethodName();
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -60,6 +51,9 @@ public class OrganizationServiceTest {
 
   @Test
   public void get() throws Exception {
+
+    super.logMethodName();
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -85,6 +79,9 @@ public class OrganizationServiceTest {
 
   @Test
   public void getInvalidId() throws Exception {
+
+    super.logMethodName();
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -94,6 +91,8 @@ public class OrganizationServiceTest {
 
   @Test
   public void getWithUserToken() throws Exception {
+    super.logMethodName();
+
     String authenticationToken =
         userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
             PropertyReader.getProperty("inge.depositor.password"));
@@ -104,12 +103,14 @@ public class OrganizationServiceTest {
 
   @Test(expected = AuthenticationException.class)
   public void getWithInvalidToken() throws Exception {
-
-    AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_25, "afgadgfag");
+    super.logMethodName();
+    organizationService.get(ORG_OBJECTID_25, "afgadgfag");
   }
 
   @Test
   public void openAndClose() throws Exception {
+
+    super.logMethodName();
 
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
@@ -136,6 +137,8 @@ public class OrganizationServiceTest {
   @Test
   public void searchTopLevelOrganizations() throws Exception {
 
+    super.logMethodName();
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -155,7 +158,7 @@ public class OrganizationServiceTest {
   @Test
   public void searchChildOrganizations() throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
-
+    super.logMethodName();
     List<AffiliationVO> affiliationVOs =
         organizationService.searchChildOrganizations(ORG_OBJECTID_13);
     assertTrue(affiliationVOs != null);
@@ -166,7 +169,7 @@ public class OrganizationServiceTest {
 
   @Test
   public void searchChildOrganizationsInvalidId() throws Exception {
-
+    super.logMethodName();
     List<AffiliationVO> affiliationVOs;
     try {
       affiliationVOs = organizationService.searchChildOrganizations("XXXX");
@@ -181,7 +184,7 @@ public class OrganizationServiceTest {
   @Test
   public void searchSuccessors() throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
-
+    super.logMethodName();
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -190,25 +193,26 @@ public class OrganizationServiceTest {
     assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">",
         affiliationVOs.size() == 1);
     assertTrue(affiliationVOs.get(0).getReference().getObjectId().equals(ORG_OBJECTID_13));
-
   }
 
   @Test
-  public void getIdPath() throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
-
-    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_13);
+  public void getIdPathChild() throws Exception {
+    super.logMethodName();
+    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_25);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">",
         affiliationVOs.size() == 1);
-    assertTrue(affiliationVOs.get(0).equals(ORG_OBJECTID_13));
+    assertTrue(affiliationVOs.contains(ORG_OBJECTID_25));
+  }
 
-    affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_25);
+  @Test
+  public void getIdPathParent() throws Exception {
+    super.logMethodName();
+    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_13);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <2> affiliations - found <" + affiliationVOs.size() + ">",
         affiliationVOs.size() == 2);
     assertTrue(affiliationVOs.contains(ORG_OBJECTID_25) && affiliationVOs.contains(ORG_OBJECTID_13));
-
   }
 
 }
