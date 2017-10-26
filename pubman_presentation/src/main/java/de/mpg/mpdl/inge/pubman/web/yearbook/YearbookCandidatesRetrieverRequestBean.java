@@ -8,8 +8,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -27,7 +29,9 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean.YBWORKSPACE;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
  * This bean is an implementation of the BaseListRetrieverRequestBean class for the Yearbook
@@ -222,7 +226,7 @@ public class YearbookCandidatesRetrieverRequestBean extends
 
     if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
       List<String> orgWithChildren =
-          ApplicationBean.INSTANCE.getOrganizationService().getIdPath(getSelectedOrgUnit());
+          ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getSelectedOrgUnit());
       BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
       nonCandidateBoolQuery.must(ouBoolQuery);
       for (String ouId : orgWithChildren) {
@@ -279,61 +283,51 @@ public class YearbookCandidatesRetrieverRequestBean extends
         }
 
         if (query != null) {
-          
+
           if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-            List<String> orgWithChildren = ApplicationBean.INSTANCE.getOrganizationService().getIdPath(getSelectedOrgUnit());
+            List<String> orgWithChildren =
+                ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(
+                    getSelectedOrgUnit());
             BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
             query.must(ouBoolQuery);
-            for(String ouId : orgWithChildren)
-            {
-              ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
-              ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
+            for (String ouId : orgWithChildren) {
+              ouBoolQuery
+                  .should(QueryBuilders.termQuery(
+                      PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
+                      ouId));
+              ouBoolQuery.should(QueryBuilders.termQuery(
+                  PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
             }
           }
-          
-          
-          
-          
 
-          /*
-          if (sc.getIndex() != null) {
-            query.setSortKeys(sc.getIndex());
+
+
+          PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+          SearchSourceBuilder ssb = new SearchSourceBuilder();
+          ssb.query(query);
+          ssb.from(offset);
+          ssb.size(limit);
+
+
+          for (String index : sc.getIndex()) {
+            if (!index.isEmpty()) {
+              ssb.sort(SearchUtils.baseElasticSearchSortBuilder(
+                  pis.getElasticSearchIndexFields(),
+                  index,
+                  SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
+                      : org.elasticsearch.search.sort.SortOrder.DESC));
+            }
           }
 
-          if (sc.getIndex() == null || !sc.getIndex().equals("")) {
-            if (sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING)) {
+          SearchResponse resp = pis.searchDetailed(ssb, null);
 
-              query.setSortOrder(SortingOrder.DESCENDING);
-            }
+          this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-            else {
-              query.setSortOrder(SortingOrder.ASCENDING);
-            }
-          }
-          */
-          
-          
-          
-          //TODO Sorting!!!
+          List<PubItemVO> pubItemList =
+              SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
 
-          
-          SearchSortCriteria ssc = new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-          
-          SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(query, limit, offset, ssc);
-              
-              
-          SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
-              .search(srr, null);
-
-          this.numberOfRecords = resp.getNumberOfRecords();
-
-          List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
-              .collect(Collectors.toList());
-
-          return CommonUtils.convertToPubItemVOPresentationList(resultList);
-        }
-        else
-        {
+          return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+        } else {
           this.numberOfRecords = 0;
           return new ArrayList<>();
         }

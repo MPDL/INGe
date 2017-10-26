@@ -37,21 +37,37 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
 
   private static final String TEMP_FOLDER = "./target/es/";
   private static final String CLUSTER_NAME = "myLocalCluster";
-  private static final String[] indexNames = {/* "pure", */"db_users", "db_contexts", "db_ous"};
+  private static final String[] indexNames = {"db_items", "db_users", "db_contexts", "db_ous",
+      "db_yearbooks"};
 
 
-  public Client getClient() {
-    init();
+  public synchronized Client getClient() {
+
+    if (theNode == null) {
+      init();
+    }
     return theNode.client();
   }
 
-  private synchronized void init() {
+  private void init() {
+
+    /*
+     * try { theNode = getNode(TEMP_FOLDER, CLUSTER_NAME); } catch (NodeValidationException e) {
+     * logger.warn("Could not initialize test node", e); }
+     */
+
+    Settings settings =
+        Settings.builder().put("path.home", TEMP_FOLDER).put("cluster.name", CLUSTER_NAME)
+            .put("transport.type", "local").put("http.enabled", false)
+            .put("node.max_local_storage_nodes", "10").build();
 
     try {
-      theNode = getNode(TEMP_FOLDER, CLUSTER_NAME);
+      theNode = new Node(settings).start();
     } catch (NodeValidationException e) {
       logger.warn("Could not initialize test node", e);
     }
+
+    logger.info("Created successfully theNode <" + theNode + ">");
 
     for (String indexName : indexNames) {
       try {
@@ -61,27 +77,16 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
           | URISyntaxException e) {
         logger.warn("Could not create index <" + indexName + ">", e);
       }
-
       doBulkImport(indexName, theNode.client());
     }
   }
 
-  private Node getNode(String tempFolder, String clusterName) throws NodeValidationException {
-    logger.info("theNode <" + theNode + ">");
-
-    if (theNode != null)
-      return theNode;
-    Settings settings =
-        Settings.builder().put("path.home", tempFolder).put("cluster.name", clusterName)
-            .put("transport.type", "local").put("http.enabled", false)
-            .put("node.max_local_storage_nodes", "10").build();
-
-    theNode = new Node(settings).start();
-
-    logger.info("Created successfully theNode <" + theNode + ">");
-
-    return theNode;
-  }
+  /*
+   * private Node getNode(String tempFolder, String clusterName) throws NodeValidationException {
+   * 
+   * 
+   * return theNode; } }
+   */
 
   public void clear() {
     try {
@@ -109,34 +114,27 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
         .field("filter", new String[] {"autocomplete_filter", "lowercase"}).endObject().endObject()
         .endObject().endObject().endObject();
 
-    logger.info(indexSettings.string());
+    logger.info("IndexSettings for index <" + index + ">" + indexSettings.string());
 
-    ActionFuture<IndicesExistsResponse> indicesExistsResponseAction =
-        client.admin().indices().exists(new IndicesExistsRequest(index));
+    CreateIndexRequestBuilder createIndexRequestBuilder =
+        client.admin().indices().prepareCreate(index).setSettings(indexSettings);
 
-    IndicesExistsResponse indicesExistsResponse = indicesExistsResponseAction.actionGet();
-
-    if (!indicesExistsResponse.isExists()) {
-
-      CreateIndexRequestBuilder createIndexRequestBuilder =
-          client.admin().indices().prepareCreate(index).setSettings(indexSettings);
-
-      StringBuffer mappingNameStringBuffer = new StringBuffer("./es_scripts/mapping_");
-      mappingNameStringBuffer.append(index).append(".txt");
-      String mappingString =
-          new String(FileUtils.readFileToByteArray(new File(this.getClass().getClassLoader()
-              .getResource(mappingNameStringBuffer.toString()).toURI())));
+    StringBuffer mappingNameStringBuffer = new StringBuffer("./es_scripts/mapping_");
+    mappingNameStringBuffer.append(index).append(".txt");
+    String mappingString =
+        new String(FileUtils.readFileToByteArray(new File(this.getClass().getClassLoader()
+            .getResource(mappingNameStringBuffer.toString()).toURI())));
 
 
 
-      CreateIndexResponse createIndexResponse =
-          createIndexRequestBuilder.addMapping(getType(index), mappingString).execute().actionGet();
+    CreateIndexResponse createIndexResponse =
+        createIndexRequestBuilder.addMapping(getType(index), mappingString).execute().actionGet();
 
-      if (!createIndexResponse.isAcknowledged()) {
-        throw new IllegalStateException("Failed to create index " + index);
-      }
-      logger.info("Index <" + index + "> created successfully");
+    if (!createIndexResponse.isAcknowledged()) {
+      throw new IllegalStateException("Failed to create index " + index);
     }
+    logger.info("Index <" + index + "> created successfully");
+
   }
 
   private void doBulkImport(String indexName, Client client) {
@@ -153,6 +151,11 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
               .getResource(importFileStringBuffer.toString()).toURI()));
     } catch (IOException | URISyntaxException e) {
       logger.warn("Error occured when reading bulk import file", e);
+    }
+
+    if (lines.size() == 0) {
+      logger.info("Got no import data for index <" + indexName + ">");
+      return;
     }
 
     String _id = null;
@@ -178,29 +181,29 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     if (bulkResponse.hasFailures()) {
       logger.warn(bulkResponse.buildFailureMessage());
     } else {
-      logger.info("Imported successfully <" + bulkResponse.getItems().length + "> objects");
+      logger.info("Imported successfully <" + bulkResponse.getItems().length
+          + "> objects into index <" + indexName + ">");
       for (int i = 0; i < bulkResponse.getItems().length; i++) {
-        logger.info("Imported item id <" + bulkResponse.getItems()[i].getItemId() + ">");
-        logger.info("Imported id <" + bulkResponse.getItems()[i].getId() + ">");
+        logger.debug("Imported item id <" + bulkResponse.getItems()[i].getItemId() + ">");
+        logger.debug("Imported id <" + bulkResponse.getItems()[i].getId() + ">");
       }
 
-
-      SearchResponse response =
-          client.prepareSearch(indexName).setTypes(getType(indexName)).setSize(100).execute()
-              .actionGet();
-
-      SearchHit[] results = response.getHits().getHits();
-
-      for (SearchHit hit : results) {
-
-        Map<String, Object> map = hit.getSource();
-
-        for (String key : map.keySet()) {
-          logger.info("key <" + key + "> value <" + map.get(key).toString() + ">");
-
-        }
-        logger.info("*****************************");
-      }
+      /*
+       * SearchResponse response =
+       * client.prepareSearch(indexName).setTypes(getType(indexName)).setSize(100).execute()
+       * .actionGet();
+       * 
+       * SearchHit[] results = response.getHits().getHits();
+       * 
+       * for (SearchHit hit : results) {
+       * 
+       * Map<String, Object> map = hit.getSource();
+       * 
+       * for (String key : map.keySet()) { logger.debug("key <" + key + "> value <" +
+       * map.get(key).toString() + ">");
+       * 
+       * } logger.debug("*****************************"); }
+       */
     }
   }
 
@@ -212,6 +215,10 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
         return "context";
       case "db_ous":
         return "organization";
+      case "db_items":
+        return "item";
+      case "db_yearbooks":
+        return "yearbook";
       default:
         return "";
     }

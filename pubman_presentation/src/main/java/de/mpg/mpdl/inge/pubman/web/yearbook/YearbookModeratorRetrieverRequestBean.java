@@ -183,11 +183,9 @@ public class YearbookModeratorRetrieverRequestBean extends
 
       
       
-      SortOrder sortOrder =
-          sc.getSortOrder().equals(OrderFilter.ORDER_DESCENDING) ? SearchSortCriteria.SortOrder.DESC
-              : SearchSortCriteria.SortOrder.ASC;
 
-      SearchSortCriteria elsc = new SearchSortCriteria(sc.getIndex(), sortOrder);
+
+      SearchSortCriteria elsc = new SearchSortCriteria(sc.getIndex(), SortOrder.valueOf(sc.getSortOrder()));
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, elsc);
       SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService()

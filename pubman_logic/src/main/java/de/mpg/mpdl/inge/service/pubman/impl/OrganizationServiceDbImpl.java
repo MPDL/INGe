@@ -291,23 +291,29 @@ public class OrganizationServiceDbImpl extends
    */
   @Transactional
   public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
-    /*
-     * AffiliationDbVO affVo = organizationRepository.findOne(id); if (affVo == null) throw new
-     * IngeApplicationException("Could not find organization with id " + id);
-     * 
-     * List<String> idPath = new ArrayList<>(); idPath.add(affVo.getObjectId()); while
-     * (affVo.getParentAffiliation() != null) {
-     * idPath.add(affVo.getParentAffiliation().getObjectId()); affVo = (AffiliationDbVO)
-     * affVo.getParentAffiliation(); }
-     * 
-     * return idPath;
-     */
+
+    AffiliationDbVO affVo = organizationRepository.findOne(id);
+    if (affVo == null)
+      throw new IngeApplicationException("Could not find organization with id " + id);
+
+    List<String> idPath = new ArrayList<>();
+    idPath.add(affVo.getObjectId());
+    while (affVo.getParentAffiliation() != null) {
+      idPath.add(affVo.getParentAffiliation().getObjectId());
+      affVo = (AffiliationDbVO) affVo.getParentAffiliation();
+    }
+
+    return idPath;
+
+  }
 
 
+  @Transactional
+  public List<String> getChildIdPath(String id) throws IngeTechnicalException,
+      IngeApplicationException {
     List<String> ouIds = new ArrayList<>();
     fillWithChildOus(ouIds, id);
     return ouIds;
-
   }
 
 

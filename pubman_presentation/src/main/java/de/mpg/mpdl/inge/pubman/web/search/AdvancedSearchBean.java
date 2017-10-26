@@ -86,6 +86,7 @@ import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")
@@ -844,7 +845,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       // cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
 
       qb = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
-      AdvancedSearchBean.logger.info(qb.toString());
 
     } catch (final SearchParseException e1) {
       this.error(this.getMessage("search_ParseError"));
@@ -874,7 +874,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
             "AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
       }
       FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&q="
+          "SearchResultListPage.jsp?esq="
+              + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8") + "&q="
               + URLEncoder.encode(this.query, "UTF-8") + "&"
               + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
     } catch (final Exception e) {

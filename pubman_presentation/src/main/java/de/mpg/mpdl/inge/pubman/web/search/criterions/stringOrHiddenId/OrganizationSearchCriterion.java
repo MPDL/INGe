@@ -222,7 +222,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
 
       try {
-        idList = ApplicationBean.INSTANCE.getOrganizationService().getIdPath(getHiddenId());
+        idList = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getHiddenId());
 
       } catch (Exception e) {
         logger.error("Error retrieving id path for organizational unit " + getHiddenId());

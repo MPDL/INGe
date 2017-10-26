@@ -21,36 +21,29 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PubItemServiceTest {
+public class PubItemServiceTest extends TestBase {
 
   private static String CTX_MPG_ID = "ctx_2322554";
-
-  @Autowired
-  UserAccountService userAccountService;
 
   @Autowired
   PubItemService pubItemService;
 
   @Test
-  public void createByDepositor() {
+  public void createByDepositor() throws Exception {
+
+    super.logMethodName();
 
     String authenticationToken = loginDepositor();
 
     PubItemVO pubItemVO = getPubItemVO();
-    try {
-      pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
+
 
     assertTrue(pubItemVO != null);
     assertTrue(pubItemVO.getCreationDate() != null);
@@ -72,11 +65,17 @@ public class PubItemServiceTest {
 
   @Test
   public void submitPubItem() {
+
+    super.logMethodName();
+
     fail("Not yet implemented");
   }
 
   @Test
   public void releasePubItem() {
+
+    super.logMethodName();
+
     fail("Not yet implemented");
   }
 

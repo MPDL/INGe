@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,7 +19,7 @@ import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 @ComponentScan("de.mpg.mpdl.inge.service")
 @Import({AppConfigTest.class, JPATestConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
-// @PropertySource("es_connector.properties")
+@PropertySource("classpath:es_connector.properties")
 public class AppConfigPubmanLogicTest {
   private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogicTest.class);
 

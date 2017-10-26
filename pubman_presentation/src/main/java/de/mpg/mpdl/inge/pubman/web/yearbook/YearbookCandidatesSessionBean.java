@@ -33,7 +33,8 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     this.pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.pilsb.setSelectedSortBy(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.name());
-    this.pilsb.setSelectedSortOrder(OrderFilter.ORDER_ASCENDING);
+    this.pilsb.setSelectedSortOrder(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE
+        .getSortOrder().name());
   }
 
 

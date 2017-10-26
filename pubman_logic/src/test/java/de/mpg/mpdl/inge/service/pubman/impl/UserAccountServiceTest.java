@@ -10,7 +10,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,25 +19,20 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UserAccountServiceTest {
+public class UserAccountServiceTest extends TestBase {
 
-  private static final String ADMIN_LOGIN = "admin";
-  private static final String ADMIN_PASSWORD = "tseT";
   private static final String USER_OBJECTID_MODERATOR = "user_3000165";
   private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
   private static final String USER_OBJECTID_DEACTIVATED = "user_3000166";
 
   // password may change during the tests depending on the test order
   private static String actualDepositorPassword = "tseT";
-  @Autowired
-  UserAccountService userAccountService;
 
   @Test
   public void objects() {

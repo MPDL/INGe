@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCrit
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.service.util.JsonUtil;
 
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")
@@ -78,7 +79,8 @@ public class Search extends FacesBean {
     try {
       final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8"));
+          "SearchResultListPage.jsp?esq="
+              + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8"));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));

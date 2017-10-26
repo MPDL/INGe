@@ -69,7 +69,7 @@ public class FeedServiceImpl {
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
-    List<String> ouIdsWithChild = organizationService.getIdPath(ouId);
+    List<String> ouIdsWithChild = organizationService.getChildIdPath(ouId);
     String[] indexes =
         new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
             PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER};
