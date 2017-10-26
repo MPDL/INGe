@@ -636,14 +636,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
                       latestVersion.getObjectId()));
           pubItemObject.setPid(pidService.createPid(url).getIdentifier());
         }
-        if (latestVersion.getVersionPid() == null) {
-          URI url =
-              new URI(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
-                      latestVersion.getObjectIdAndVersion()));
-          latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
-        }
+        URI url =
+            new URI(PropertyReader.getProperty("escidoc.pubman.instance.url")
+                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+                    latestVersion.getObjectIdAndVersion()));
+        latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]",
             e);
