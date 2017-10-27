@@ -2,15 +2,12 @@ package de.mpg.mpdl.inge.es.spring;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
-import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.es")

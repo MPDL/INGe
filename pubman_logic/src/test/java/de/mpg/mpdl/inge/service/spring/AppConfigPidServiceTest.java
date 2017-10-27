@@ -1,0 +1,25 @@
+package de.mpg.mpdl.inge.service.spring;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import de.mpg.mpdl.inge.service.pubman.PidService;
+import de.mpg.mpdl.inge.service.pubman.impl.PidServiceMock;
+
+@Configuration
+@ComponentScan("de.mpg.mpdl.inge.service")
+public class AppConfigPidServiceTest {
+  private final static Logger logger = LogManager.getLogger(AppConfigPidServiceTest.class);
+
+  @Bean(name = "pidService")
+  @Primary
+  public PidService pidService() {
+    logger.info("Initializing PidServiceMock");
+    return new PidServiceMock();
+  }
+
+}
