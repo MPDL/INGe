@@ -192,7 +192,7 @@ public class OrganizationServiceTest extends TestBase {
   @Test
   public void searchChildOrganizationsInvalidId() throws Exception {
     super.logMethodName();
-    List<AffiliationVO> affiliationVOs;
+    List<AffiliationVO> affiliationVOs = null;
     try {
       affiliationVOs = organizationService.searchChildOrganizations("XXXX");
     } catch (Exception e) {
@@ -200,6 +200,7 @@ public class OrganizationServiceTest extends TestBase {
       e.printStackTrace();
       logger.info("Exception of class: " + e.getClass().getName());
     }
+    assertTrue(affiliationVOs.size() == 0);
     logger.info("Hope to stop here");
   }
 

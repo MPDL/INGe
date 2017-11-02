@@ -61,7 +61,7 @@ public class TestBase {
 
     if (!havingSlept) {
       try {
-        Thread.currentThread().sleep(20000);
+        Thread.currentThread().sleep(15000);
 
         havingSlept = true;
       } catch (InterruptedException e) {
