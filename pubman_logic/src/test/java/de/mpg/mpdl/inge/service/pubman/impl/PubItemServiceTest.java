@@ -49,7 +49,8 @@ public class PubItemServiceTest extends TestBase {
     PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    assertTrue("Objectid expected after create", pubItemVO.getLatestVersion().getObjectId() != null && !"".equals(pubItemVO.getLatestVersion().getObjectId()));
+    assertTrue("Objectid expected after create", pubItemVO.getLatestVersion().getObjectId() != null
+        && !"".equals(pubItemVO.getLatestVersion().getObjectId()));
     assertTrue("Create PubItemVO failed", pubItemVO != null);
     assertTrue("Creation date missing in PubItemVO", pubItemVO.getCreationDate() != null);
     assertTrue("Context missing or wrong  context id", pubItemVO.getContext() != null
@@ -237,28 +238,28 @@ public class PubItemServiceTest extends TestBase {
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationTokenModerator);
   }
-  
+
   @Test(expected = AuthorizationException.class)
   public void updateSubmittedItemByDepositorStandardWorkflow() throws Exception {
     super.logMethodName();
-    
+
     String authenticationToken = loginDepositor();
-    
+
     PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
-    
+
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
   }
-  
+
   @Test
   public void updateSubmittedItemByModeratorStandardWorkflow() throws Exception {
     super.logMethodName();
-    
+
     String authenticationTokenModerator = loginModerator();
-    
+
     PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
-    
+
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationTokenModerator);
@@ -292,7 +293,7 @@ public class PubItemServiceTest extends TestBase {
     assertTrue(pubItemVO.getLatestVersion().getModifiedByRO().getObjectId()
         .equals(USER_OBJECTID_MODERATOR));
   }
-  
+
   @Test
   public void releasePubItemSimpleWorkflow() throws Exception {
 
@@ -338,7 +339,7 @@ public class PubItemServiceTest extends TestBase {
   public void revisePubItemStandardWorkflow() throws Exception {
 
     super.logMethodName();
-    
+
     PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
 
     String authenticationTokenModerator = loginModerator();
@@ -424,7 +425,7 @@ public class PubItemServiceTest extends TestBase {
 
     return pubItemVO;
   }
-  
+
   private PubItemVO createReleasedItemSimpleWorkflow() throws Exception {
 
     PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
@@ -437,7 +438,7 @@ public class PubItemServiceTest extends TestBase {
 
     return pubItemVO;
   }
-  
+
   private PubItemVO createSubmittedItemStandardWorkflow() throws Exception {
     String authenticationTokenDepositor = loginDepositor();
 
