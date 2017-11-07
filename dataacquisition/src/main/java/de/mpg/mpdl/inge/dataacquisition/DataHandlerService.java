@@ -324,7 +324,7 @@ public class DataHandlerService {
    * @throws DataaquisitionException
    */
   private String fetchOAIRecord(MetadataVO md, String encoding) throws DataaquisitionException {
-    String itemXML = null;
+    StringBuffer itemXML = new StringBuffer();
 
     try {
       URLConnection con = ProxyHelper.openConnection(md.getMdUrl());
@@ -374,7 +374,7 @@ public class DataHandlerService {
 
       String line = "";
       while ((line = bReader.readLine()) != null) {
-        itemXML += line + "\n";
+        itemXML.append(line + "\n");
       }
 
       httpCon.disconnect();
@@ -385,7 +385,7 @@ public class DataHandlerService {
       throw new DataaquisitionException(e);
     }
 
-    return itemXML;
+    return itemXML.toString();
   }
 
   private void setFileProperties(FullTextVO fulltext) {

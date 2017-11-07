@@ -104,11 +104,21 @@ public class FileServiceFSImpl implements FileService {
       throws IngeTechnicalException {
     String[] fileNameParts = fileName.split("\\.");
     Path tmpFilePath = null;
-    if (fileNameParts[0] != null && !("".equals(fileNameParts[0])) && fileNameParts[1] != null
-        && !("".equals(fileNameParts[1]))) {
+    if (fileNameParts.length > 1) {
+      if (fileNameParts[0] != null && !("".equals(fileNameParts[0])) && fileNameParts[1] != null
+          && !("".equals(fileNameParts[1]))) {
+        int fileHashValue = (fileNameParts[0] + System.currentTimeMillis()).hashCode();
+        tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH + fileHashValue + "." + fileNameParts[1]);
+      }
+    } else if (fileNameParts.length == 1 && fileNameParts[0] != null
+        && !("".equals(fileNameParts[0]))) {
       int fileHashValue = (fileNameParts[0] + System.currentTimeMillis()).hashCode();
-      tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH + fileHashValue + "." + fileNameParts[1]);
+      tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH + fileHashValue);
+    } else {
+      throw new IngeTechnicalException("Could not write staged file [" + tmpFilePath
+          + "] for file [" + fileName + "]. No filename defined");
     }
+
 
     try {
       Files.copy(fileInputStream, tmpFilePath);

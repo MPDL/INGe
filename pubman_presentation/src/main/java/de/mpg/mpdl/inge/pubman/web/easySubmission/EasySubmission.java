@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
@@ -58,6 +59,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -98,6 +100,8 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
+import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -144,11 +148,22 @@ public class EasySubmission extends FacesBean {
   private UploadedFile uploadedFile;
   private boolean overwriteCreators;
 
+  @ManagedProperty(value = "#{fileServiceFSImpl}")
+  private FileService fileService;
+
+
+
   public EasySubmission() {
     this.init();
   }
 
   public void init() {
+    // try {
+    // fileService = new FileServiceFSImpl();
+    // } catch (IngeTechnicalException e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
     this.SUBMISSION_METHOD_MANUAL =
         new SelectItem("MANUAL", this.getLabel("easy_submission_method_manual"));
     this.SUBMISSION_METHOD_FETCH_IMPORT =
@@ -725,11 +740,14 @@ public class EasySubmission extends FacesBean {
                 .getCurrentExternalServiceType(), this.getServiceID(), fullTextFormats
                 .toArray(new TransformerFactory.FORMAT[fullTextFormats.size()]));
         final ByteArrayInputStream in = new ByteArrayInputStream(ba);
-        final URL fileURL =
-            this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
-                .getESciDocUserHandle());
+        String fileId =
+            fileService.createStageFile(in,
+                this.getServiceID().trim() + dataHandler.getFileEnding()).toString();
+        // final URL fileURL =
+        // this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
+        // .getESciDocUserHandle());
 
-        if (fileURL != null && !fileURL.toString().trim().equals("")) {
+        if (fileId != null && !fileId.trim().equals("")) {
           final FileVO fileVO = dataHandler.getComponentVO();
           final MdsFileVO fileMd = fileVO.getDefaultMetadata();
           fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
@@ -744,7 +762,7 @@ public class EasySubmission extends FacesBean {
           formatVO.setType("dcterms:IMT");
           formatVO.setValue(dataHandler.getContentType());
           fileVO.getDefaultMetadata().getFormats().add(formatVO);
-          fileVO.setContent(fileURL.toString());
+          fileVO.setContent(fileId);
           fileVO.getDefaultMetadata().setSize(ba.length);
           fileVO.getDefaultMetadata().setDescription(
               "File downloaded from " + service + " at " + CommonUtils.currentDate());
@@ -752,12 +770,6 @@ public class EasySubmission extends FacesBean {
           fileVOs.add(fileVO);
         }
       }
-    } catch (final AccessException inre) {
-      EasySubmission.logger.error("Error fetching from external import source", inre);
-      this.error(this
-          .getMessage("easy_submission_import_from_external_service_access_denied_error")
-          + this.getServiceID());
-      return null;
     } catch (final DataaquisitionException inre) {
       EasySubmission.logger.error(inre.getMessage(), inre);
       this.error(this.getMessage("easy_submission_import_from_external_service_identifier_error")
@@ -1611,6 +1623,14 @@ public class EasySubmission extends FacesBean {
 
   public String getHiddenIdsField() {
     return this.hiddenIdsField;
+  }
+
+  public FileService getFileService() {
+    return fileService;
+  }
+
+  public void setFileService(FileService fileService) {
+    this.fileService = fileService;
   }
 
   /**

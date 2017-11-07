@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Import-Sources
-	xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource"
+	xmlns="http://dataaquisition.inge.mpdl.mpg.de/ExplainSources"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource explain-sources.xsd">
+	xsi:schemaLocation="http://dataaquisition.inge.mpdl.mpg.de/ExplainSources explain-sources.xsd">
 
 	<Import-Source name="arXiv">
 		<dc:description>ArXiv is an e-print service in the fields of physics,
