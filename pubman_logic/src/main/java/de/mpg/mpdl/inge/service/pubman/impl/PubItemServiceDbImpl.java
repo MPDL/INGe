@@ -162,6 +162,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
 
   public static String INDEX_METADATA_TITLE = "metadata.title";
+  public static String INDEX_METADATA_ALTERNATIVETITLE_VALUE = "metadata.alternativeTitles.value";
   public static String INDEX_METADATA_DATE_ANY = "metadata.anyDates";
   public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
