@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,12 @@ public class TestBase {
 
   protected static final String ADMIN_LOGIN = "admin";
   protected static final String ADMIN_PASSWORD = "tseT";
+
+
+  protected static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
+  protected static final String USER_OBJECTID_MODERATOR = "user_3000057";
+  protected static final String DEPOSITOR_PASSWORD = "tseT";
+
   protected static Logger logger = Logger.getLogger(TestBase.class);
 
   @Rule
@@ -56,7 +61,7 @@ public class TestBase {
 
     if (!havingSlept) {
       try {
-        Thread.currentThread().sleep(20000);
+        Thread.currentThread().sleep(15000);
 
         havingSlept = true;
       } catch (InterruptedException e) {

@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -39,14 +40,35 @@ public class OrganizationServiceTest extends TestBase {
     assertTrue(organizationService != null);
   }
 
-  @Test
-  public void open() throws IngeTechnicalException, AuthenticationException,
+  @Test(expected = AuthorizationException.class)
+  public void deleteInStateClosed() throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
     super.logMethodName();
 
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
+    AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
+    assertTrue(affiliationVO != null);
+    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+
+    organizationService.delete(ORG_OBJECTID_25, authenticationToken);
+  }
+
+  @Test
+  public void deleteInStateCreated() throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AffiliationVO affiliationVO =
+        organizationService.create(getAffiliationVO(), authenticationToken);
+    assertTrue(affiliationVO != null);
+    assertTrue(affiliationVO.getPublicStatus().equals("CREATED"));
+
+    organizationService.delete(affiliationVO.getReference().getObjectId(), authenticationToken);
   }
 
   @Test
@@ -170,7 +192,7 @@ public class OrganizationServiceTest extends TestBase {
   @Test
   public void searchChildOrganizationsInvalidId() throws Exception {
     super.logMethodName();
-    List<AffiliationVO> affiliationVOs;
+    List<AffiliationVO> affiliationVOs = null;
     try {
       affiliationVOs = organizationService.searchChildOrganizations("XXXX");
     } catch (Exception e) {
@@ -178,13 +200,16 @@ public class OrganizationServiceTest extends TestBase {
       e.printStackTrace();
       logger.info("Exception of class: " + e.getClass().getName());
     }
+    assertTrue(affiliationVOs.size() == 0);
     logger.info("Hope to stop here");
   }
 
   @Test
   public void searchSuccessors() throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
+
     super.logMethodName();
+
     String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
@@ -197,22 +222,58 @@ public class OrganizationServiceTest extends TestBase {
 
   @Test
   public void getIdPathChild() throws Exception {
-    super.logMethodName();
-    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_25);
-    assertTrue(affiliationVOs != null);
-    assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">",
-        affiliationVOs.size() == 1);
-    assertTrue(affiliationVOs.contains(ORG_OBJECTID_25));
-  }
 
-  @Test
-  public void getIdPathParent() throws Exception {
     super.logMethodName();
-    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_13);
+
+    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_25);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <2> affiliations - found <" + affiliationVOs.size() + ">",
         affiliationVOs.size() == 2);
     assertTrue(affiliationVOs.contains(ORG_OBJECTID_25) && affiliationVOs.contains(ORG_OBJECTID_13));
+  }
+
+  @Test
+  public void getIdPathParent() throws Exception {
+
+    super.logMethodName();
+
+    List<String> affiliationVOs = organizationService.getIdPath(ORG_OBJECTID_13);
+    assertTrue(affiliationVOs != null);
+    assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">",
+        affiliationVOs.size() == 1);
+    assertTrue(affiliationVOs.contains(ORG_OBJECTID_13));
+  }
+
+  @Test
+  public void reindexListener() throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
+
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    organizationService.reindex(ORG_OBJECTID_25, authenticationToken);
+  }
+
+  @Test(expected = AuthorizationException.class)
+  public void reindexListenerInvalidToken() throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
+
+    super.logMethodName();
+
+    organizationService.reindex(ORG_OBJECTID_25, "hsfhsfhsfhshsgfh");
+  }
+
+  private AffiliationVO getAffiliationVO() {
+
+    AffiliationVO affiliationVO = new AffiliationVO();
+    MdsOrganizationalUnitDetailsVO mdsOrganizationalUnitDetailsVO =
+        new MdsOrganizationalUnitDetailsVO();
+    mdsOrganizationalUnitDetailsVO.setName("Kurzes Leben");
+    affiliationVO.setDefaultMetadata(mdsOrganizationalUnitDetailsVO);
+
+    return affiliationVO;
   }
 
 }

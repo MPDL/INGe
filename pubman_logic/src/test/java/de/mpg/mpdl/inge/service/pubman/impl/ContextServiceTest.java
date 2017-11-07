@@ -21,9 +21,6 @@ public class ContextServiceTest extends TestBase {
   @Autowired
   ContextService contextService;
 
-  private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
-  private static final String DEPOSITOR_PASSWORD = "tseT";
-
   @Test
   public void objects() {
 

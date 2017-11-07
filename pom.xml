@@ -324,17 +324,6 @@
             </dependency>
             <dependency>
                 <groupId>de.mpg.mpdl.inge</groupId>
-                <artifactId>structuredexportmanager</artifactId>
-                <version>1.0.98-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>de.mpg.mpdl.inge</groupId>
-                <artifactId>syndication_presentation</artifactId>
-                <version>1.0.79-SNAPSHOT</version>
-                <type>war</type>
-            </dependency>
-            <dependency>
-                <groupId>de.mpg.mpdl.inge</groupId>
                 <artifactId>transformationManager</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
