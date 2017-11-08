@@ -53,8 +53,7 @@ public class OaiRestController {
 
     int count = 0;
     int countInterval = 0;
-    int maxIntervals = max != null ? max : 10; // TODO: maxIntervals wieder löschen
-                                               // (nur für Testzwecke gedacht)
+    int maxIntervals = max != null ? max : 500; // TODO: maxIntervals wieder löschen -> max 500.000 Datensätze
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
