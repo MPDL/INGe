@@ -5,8 +5,7 @@ public class PidServiceResponseVO extends ValueObject {
   protected String identifier;
   protected String url;
 
-  public PidServiceResponseVO() {
-  }
+  public PidServiceResponseVO() {}
 
   public String getUrl() {
     return url;
