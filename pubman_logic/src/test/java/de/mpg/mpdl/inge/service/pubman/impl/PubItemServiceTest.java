@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class PubItemServiceTest extends TestBase {
 
   @Autowired
   OrganizationService organizationService;
+
+  @Autowired
+  EntityManager em;
 
   @Test
   public void createByDepositor() throws Exception {
@@ -89,9 +94,52 @@ public class PubItemServiceTest extends TestBase {
 
     pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationToken);
 
+
     pubItemVO = pubItemService.get(pubItemVO.getVersion().getObjectId(), authenticationToken);
 
+
     assertTrue("Found item even though it has been deleted in state PENDING!", pubItemVO == null);
+
+
+  }
+  
+  
+  @Test
+  public void createAndDeleteByAdmin() throws Exception {
+
+    super.logMethodName();
+
+    String authenticationToken = loginAdmin();
+
+    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
+    
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test submit", authenticationToken);
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test release", authenticationToken);
+    
+    pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
+    
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test submit", authenticationToken);
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test release", authenticationToken);
+    
+    pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
+    
+
+    pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationToken);
+
+
+    pubItemVO = pubItemService.get(pubItemVO.getVersion().getObjectId(), authenticationToken);
+
+
+    assertTrue("Found item even though it has been deleted!", pubItemVO == null);
+
+
+  }
+
+  @Test
+  public void myTest() throws Exception {
+    String authenticationToken = loginDepositor();
+    pubItemService.delete("item_1000", authenticationToken);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -379,6 +427,19 @@ public class PubItemServiceTest extends TestBase {
     String token = null;
     try {
       token = userAccountService.login(username, password);
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
+        | IngeApplicationException e) {
+      e.printStackTrace();
+      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
+    }
+    return token;
+  }
+  
+  private String loginAdmin() {
+  
+    String token = null;
+    try {
+      token = userAccountService.login("admin", "tseT");
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();
