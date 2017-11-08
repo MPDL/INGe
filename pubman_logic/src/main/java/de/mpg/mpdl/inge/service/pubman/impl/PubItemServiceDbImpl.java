@@ -504,16 +504,17 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
             .getObjectId()));
     checkAa("delete", userAccount, latestPubItem, context);
 
-    //Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not deleted by EntityManager.
-    //See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
-    PubItemObjectDbVO pubItemObjectToDelete = itemObjectRepository.findOne(latestPubItemDbVersion.getObject().getObjectId());
-    ((PubItemVersionDbVO)pubItemObjectToDelete.getLatestVersion()).setObject(null);
-    if(pubItemObjectToDelete.getLatestRelease()!=null) 
-    {
-      ((PubItemVersionDbVO)pubItemObjectToDelete.getLatestRelease()).setObject(null);
+    // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
+    // deleted by EntityManager.
+    // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
+    PubItemObjectDbVO pubItemObjectToDelete =
+        itemObjectRepository.findOne(latestPubItemDbVersion.getObject().getObjectId());
+    ((PubItemVersionDbVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
+    if (pubItemObjectToDelete.getLatestRelease() != null) {
+      ((PubItemVersionDbVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
     }
-    
-    
+
+
     itemObjectRepository.delete(pubItemObjectToDelete);
 
     SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);

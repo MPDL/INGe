@@ -102,8 +102,8 @@ public class PubItemServiceTest extends TestBase {
 
 
   }
-  
-  
+
+
   @Test
   public void createAndDeleteByAdmin() throws Exception {
 
@@ -113,17 +113,25 @@ public class PubItemServiceTest extends TestBase {
 
     PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
-    
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test submit", authenticationToken);
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test release", authenticationToken);
-    
+
+    pubItemVO =
+        pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(),
+            pubItemVO.getModificationDate(), "test submit", authenticationToken);
+    pubItemVO =
+        pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(),
+            pubItemVO.getModificationDate(), "test release", authenticationToken);
+
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
-    
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test submit", authenticationToken);
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test release", authenticationToken);
-    
+
+    pubItemVO =
+        pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(),
+            pubItemVO.getModificationDate(), "test submit", authenticationToken);
+    pubItemVO =
+        pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(),
+            pubItemVO.getModificationDate(), "test release", authenticationToken);
+
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
-    
+
 
     pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationToken);
 
@@ -434,9 +442,9 @@ public class PubItemServiceTest extends TestBase {
     }
     return token;
   }
-  
+
   private String loginAdmin() {
-  
+
     String token = null;
     try {
       token = userAccountService.login("admin", "tseT");
