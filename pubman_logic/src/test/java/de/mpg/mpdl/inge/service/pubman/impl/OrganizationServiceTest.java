@@ -24,10 +24,6 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 public class OrganizationServiceTest extends TestBase {
 
-  private static final String ORG_OBJECTID_13 = "ou_persistent13";
-  private static final String ORG_OBJECTID_25 = "ou_persistent25";
-  private static final String ORG_OBJECTID_40048 = "ou_40048";
-
   @Autowired
   OrganizationService organizationService;
 

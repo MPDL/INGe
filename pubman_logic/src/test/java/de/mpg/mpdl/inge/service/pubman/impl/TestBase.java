@@ -35,6 +35,10 @@ public class TestBase {
 
   protected static final String DEACTIVATED_OBJECTID = "user_3000166";
 
+  protected static final String ORG_OBJECTID_13 = "ou_persistent13";
+  protected static final String ORG_OBJECTID_25 = "ou_persistent25";
+  protected static final String ORG_OBJECTID_40048 = "ou_40048";
+
 
 
   protected static Logger logger = Logger.getLogger(TestBase.class);
