@@ -83,8 +83,8 @@ public class ContextServiceTest extends TestBase {
             authenticationToken);
   }
 
-  @Test(expected = AuthenticationException.class)
-  public void openWithoutAuthorization() throws Exception {
+  @Test(expected = AuthorizationException.class)
+  public void closeWithoutAuthorization() throws Exception {
 
     super.logMethodName();
 
@@ -96,7 +96,7 @@ public class ContextServiceTest extends TestBase {
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
     contextVO =
-        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
+        contextService.close("ctx_persistent3", contextVO.getLastModificationDate(),
             authenticationToken);
   }
 
@@ -105,7 +105,7 @@ public class ContextServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(DEPOSITOR_OBJECTID, "XXXXXXXXXXXXXX");
+    String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, "XXXXXXXXXXXXXX");
     assertTrue(authenticationToken != null);
 
     ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
