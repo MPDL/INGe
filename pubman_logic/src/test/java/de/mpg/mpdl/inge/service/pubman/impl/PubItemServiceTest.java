@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import javax.persistence.EntityManager;
 
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -20,13 +18,10 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
@@ -70,7 +65,7 @@ public class PubItemServiceTest extends TestBase {
         + ">", pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
     assertTrue("Expected PublicStatus PENDING - found <" + pubItemVO.getPublicStatus() + ">",
         pubItemVO.getPublicStatus().equals(ItemVO.State.PENDING));
-    assertTrue("Wrong owner", pubItemVO.getOwner().getObjectId().equals(USER_OBJECTID_DEPOSITOR));
+    assertTrue("Wrong owner", pubItemVO.getOwner().getObjectId().equals(DEPOSITOR_OBJECTID));
   }
 
   @Test(expected = AuthorizationException.class)
@@ -184,7 +179,7 @@ public class PubItemServiceTest extends TestBase {
         .equals(ItemVO.State.SUBMITTED));
     assertTrue("Expected PublicStatus SUBMITTED - found <" + pubItemVO.getPublicStatus() + ">",
         pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue("Wrong owner", pubItemVO.getOwner().getObjectId().equals(USER_OBJECTID_DEPOSITOR));
+    assertTrue("Wrong owner", pubItemVO.getOwner().getObjectId().equals(DEPOSITOR_OBJECTID));
     assertTrue(pubItemVO.getLatestVersion().getModifiedByRO() != null);
     assertTrue(pubItemVO.getLatestVersion().getVersionNumber() == 1);
   }
@@ -347,7 +342,7 @@ public class PubItemServiceTest extends TestBase {
         pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
     assertTrue(pubItemVO.getLatestRelease().equals(pubItemVO.getLatestVersion()));
     assertTrue(pubItemVO.getLatestVersion().getModifiedByRO().getObjectId()
-        .equals(USER_OBJECTID_MODERATOR));
+        .equals(MODERATOR_OBJECTID));
   }
 
   @Test
@@ -365,7 +360,7 @@ public class PubItemServiceTest extends TestBase {
         pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
     assertTrue(pubItemVO.getLatestRelease().equals(pubItemVO.getLatestVersion()));
     assertTrue(pubItemVO.getLatestVersion().getModifiedByRO().getObjectId()
-        .equals(USER_OBJECTID_DEPOSITOR));
+        .equals(DEPOSITOR_OBJECTID));
   }
 
   @Test
@@ -415,46 +410,7 @@ public class PubItemServiceTest extends TestBase {
   // --------------------------------------------------------------------- helper methods
   // --------------------------------------------------------------
 
-  private String loginDepositor() {
-    String username = PropertyReader.getProperty("inge.depositor.loginname");
-    String password = PropertyReader.getProperty("inge.depositor.password");
-    String token = null;
-    try {
-      token = userAccountService.login(username, password);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
-      e.printStackTrace();
-      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
-    }
-    return token;
-  }
 
-  private String loginModerator() {
-    String username = PropertyReader.getProperty("inge.moderator.loginname");
-    String password = PropertyReader.getProperty("inge.moderator.password");
-    String token = null;
-    try {
-      token = userAccountService.login(username, password);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
-      e.printStackTrace();
-      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
-    }
-    return token;
-  }
-
-  private String loginAdmin() {
-
-    String token = null;
-    try {
-      token = userAccountService.login("admin", "tseT");
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
-      e.printStackTrace();
-      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
-    }
-    return token;
-  }
 
   private PubItemVO getPubItemVO(String contextId) {
     PubItemVO pubItemVO = new PubItemVO();
