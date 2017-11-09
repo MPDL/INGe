@@ -46,6 +46,8 @@ public class OaiFileTools {
           + "]", e);
     }
 
+    logger.info("File created.");
+    
     return filePath.toString();
   }
 
