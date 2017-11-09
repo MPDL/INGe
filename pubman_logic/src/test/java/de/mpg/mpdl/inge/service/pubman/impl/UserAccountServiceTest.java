@@ -31,14 +31,54 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void objects() {
+    super.logMethodName();
+
     assertTrue(userAccountService != null);
   }
 
   @Test
+  public void get() throws Exception {
+    super.logMethodName();
+
+    String token = null;
+
+    token = loginAdmin();
+    assertTrue(token != null);
+
+    AccountUserVO accountUserVO = userAccountService.get(DEPOSITOR_OBJECTID, token);
+
+    assertTrue(accountUserVO != null);
+    assertTrue(accountUserVO.alreadyExistsInFramework());
+    assertTrue(accountUserVO.getAffiliations().size() == 1);
+    assertTrue(accountUserVO.getAffiliations().get(0).getObjectId().equals("ou_persistent25"));
+    assertTrue(accountUserVO.getGrants().size() == 2);
+    assertTrue(accountUserVO.getName().equals("Test Depositor"));
+
+    assertTrue(accountUserVO.getPassword().equals(DEPOSITOR_PASSWORD));
+    assertTrue(accountUserVO.getUserid().equals(DEPOSITOR_OBJECTID));
+  }
+
+  @Test
+  public void getInvalidId() throws Exception {
+    super.logMethodName();
+
+    String token = null;
+
+    token = loginAdmin();
+    assertTrue(token != null);
+
+    AccountUserVO accountUserVO = userAccountService.get("fgsdgsgdgadfgd", token);
+
+    assertTrue(accountUserVO == null);
+  }
+
+  @Test
   public void login() {
+    super.logMethodName();
+
     String token = null;
     try {
-      token = userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
+      token = userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();
@@ -49,7 +89,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test(expected = AuthenticationException.class)
   public void loginWrongPassword() throws Exception {
-    String username = DEPOSITOR_USER_NAME;
+    super.logMethodName();
+
+    String username = DEPOSITOR_LOGIN_NAME;
     String password = "xxxxxx";
 
     userAccountService.login(username, password);
@@ -58,6 +100,8 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test(expected = AuthenticationException.class)
   public void loginInvalidUser() throws Exception {
+    super.logMethodName();
+
     String username = "user_does_not_exists";
     String password = DEPOSITOR_PASSWORD;
 
@@ -66,8 +110,10 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void getDepositor() throws Exception {
+    super.logMethodName();
+
     String authenticationToken =
-        userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
 
     assertTrue(authenticationToken != null);
 
@@ -81,7 +127,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void getModerator() throws Exception {
-    String authenticationToken = userAccountService.login(MODERATOR_USER_NAME, MODERATOR_PASSWORD);
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
@@ -94,7 +142,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void removeGrants() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserGrantsToBeRemoved =
@@ -117,6 +167,8 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void addGrants() throws Exception {
+    super.logMethodName();
+
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
@@ -140,7 +192,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void activateByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserToBeActivated =
@@ -155,6 +209,8 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void deactivateByAdmin() throws Exception {
+    super.logMethodName();
+
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
@@ -170,8 +226,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test(expected = AuthorizationException.class)
   public void deactivateByOwner() throws Exception {
+    super.logMethodName();
 
-    String username = DEPOSITOR_USER_NAME;
+    String username = DEPOSITOR_LOGIN_NAME;
     String password = actualDepositorPassword;
 
     String authenticationToken = userAccountService.login(username, password);
@@ -187,8 +244,10 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void changePasswordByUser() throws Exception {
+    super.logMethodName();
+
     String authenticationToken =
-        userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
     assertTrue(authenticationToken != null);
     actualDepositorPassword = "newPassword";
 
@@ -204,7 +263,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void changePasswordByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserPwdToBeChanged =
@@ -216,7 +277,7 @@ public class UserAccountServiceTest extends TestBase {
         authenticationToken);
 
     String userAuthenticationToken =
-        userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
 
     assertTrue(userAuthenticationToken != null);
   }

@@ -21,16 +21,16 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 public class TestBase {
 
-  protected static final String ADMIN_USER_NAME = "admin";
+  protected static final String ADMIN_LOGIN_NAME = "admin";
   protected static final String ADMIN_PASSWORD = "tseT";
 
 
   protected static final String DEPOSITOR_OBJECTID = "user_3000056";
-  protected static final String DEPOSITOR_USER_NAME = "test_depositor";
+  protected static final String DEPOSITOR_LOGIN_NAME = "test_depositor";
   protected static final String DEPOSITOR_PASSWORD = "tseT";
 
   protected static final String MODERATOR_OBJECTID = "user_3000057";
-  protected static final String MODERATOR_USER_NAME = "test_moderator";
+  protected static final String MODERATOR_LOGIN_NAME = "test_moderator";
   protected static final String MODERATOR_PASSWORD = "tseT";
 
   protected static final String DEACTIVATED_OBJECTID = "user_3000166";
@@ -92,7 +92,7 @@ public class TestBase {
 
     String token = null;
     try {
-      token = userAccountService.login(DEPOSITOR_USER_NAME, DEPOSITOR_PASSWORD);
+      token = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();
@@ -105,7 +105,7 @@ public class TestBase {
 
     String token = null;
     try {
-      token = userAccountService.login(MODERATOR_USER_NAME, MODERATOR_PASSWORD);
+      token = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();
@@ -118,7 +118,7 @@ public class TestBase {
 
     String token = null;
     try {
-      token = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
+      token = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();

@@ -571,7 +571,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     }
 
     if (requestedItem == null) {
-      throw new IngeApplicationException("Item " + id + " not found");
+      logger.info("Item " + id + " not found");
+      return null;
     }
 
     long time = System.currentTimeMillis() - start;

@@ -89,9 +89,7 @@ public class PubItemServiceTest extends TestBase {
 
     pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationToken);
 
-
     pubItemVO = pubItemService.get(pubItemVO.getVersion().getObjectId(), authenticationToken);
-
 
     assertTrue("Found item even though it has been deleted in state PENDING!", pubItemVO == null);
 
@@ -140,9 +138,11 @@ public class PubItemServiceTest extends TestBase {
   }
 
   @Test
-  public void myTest() throws Exception {
-    String authenticationToken = loginDepositor();
-    pubItemService.delete("item_1000", authenticationToken);
+  public void getInvalidId() throws Exception {
+    String authenticationToken = loginAdmin();
+    PubItemVO pubItemVO = pubItemService.get("item_xyc", authenticationToken);
+
+    assertTrue(pubItemVO == null);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -380,8 +380,10 @@ public class PubItemServiceTest extends TestBase {
         pubItemVO.getPublicStatus().equals(ItemVO.State.WITHDRAWN));
     assertTrue("Wrong or missing withdrawl comment",
         pubItemVO.getWithdrawalComment().equals("Weg damit"));
-    assertTrue("Expected state WITHDRAWN",
-        pubItemVO.getLatestVersion().getState().equals(ItemVO.State.WITHDRAWN));
+    assertTrue("Expected state RELEASED",
+        pubItemVO.getLatestVersion().getState().equals(ItemVO.State.RELEASED));
+    assertTrue("Expected state RELEASED",
+        pubItemVO.getLatestRelease().getState().equals(ItemVO.State.RELEASED));
     assertTrue("Expected version number <1> - got <" + pubItemVO.getVersion().getVersionNumber()
         + ">", pubItemVO.getVersion().getVersionNumber() == 1);
   }
