@@ -44,6 +44,7 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.http.client.fluent.Request;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
@@ -147,6 +148,10 @@ public class EasySubmission extends FacesBean {
   private String suggestConeUrl = null;
   private UploadedFile uploadedFile;
   private boolean overwriteCreators;
+
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
+  public static final String REST_COMPONENT_PATH = PropertyReader
+      .getProperty("inge.rest.file_path");
 
   @ManagedProperty(value = "#{fileServiceFSImpl}")
   private FileService fileService;
@@ -740,12 +745,19 @@ public class EasySubmission extends FacesBean {
                 .getCurrentExternalServiceType(), this.getServiceID(), fullTextFormats
                 .toArray(new TransformerFactory.FORMAT[fullTextFormats.size()]));
         final ByteArrayInputStream in = new ByteArrayInputStream(ba);
-        String fileId =
-            fileService.createStageFile(in,
-                this.getServiceID().trim() + dataHandler.getFileEnding()).toString();
-        // final URL fileURL =
-        // this.uploadFile(in, dataHandler.getContentType(), this.getLoginHelper()
-        // .getESciDocUserHandle());
+        // String fileId = fileService
+        // .createStageFile(in, this.getServiceID().trim() + dataHandler.getFileEnding())
+        // .toString();
+        String fileId = null;
+        String fileName = this.getServiceID().trim() + dataHandler.getFileEnding();
+        try {
+          fileId =
+              Request.Put(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileName).bodyStream(in)
+                  .execute().returnContent().asString();
+        } catch (IOException e) {
+          logger.error("Could not upload staged file [" + fileId + "]", e);
+          error("Could not upload staged file [" + fileId + "]");
+        }
 
         if (fileId != null && !fileId.trim().equals("")) {
           final FileVO fileVO = dataHandler.getComponentVO();

@@ -26,7 +26,7 @@ public interface FileService extends FileStorageInterface {
    * @return Path for the created stage-file
    * @throws IOException
    */
-  public Path createStageFile(InputStream fileInputStream, String fileName)
+  public String createStageFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException;
 
   /**
@@ -36,7 +36,7 @@ public interface FileService extends FileStorageInterface {
    * @return String representing the
    * @throws IngeTechnicalException
    */
-  public InputStream readStageFile(Path stagedFilePath) throws IngeTechnicalException;
+  public InputStream readStageFile(String stagedFilePath) throws IngeTechnicalException;
 
   /**
    * delete a staged file
@@ -44,7 +44,7 @@ public interface FileService extends FileStorageInterface {
    * @param path
    * @throws IngeTechnicalException
    */
-  public void deleteStageFile(Path stagedFilePath) throws IngeTechnicalException;
+  public void deleteStageFile(String stagedFilePath) throws IngeTechnicalException;
 
   /**
    * @param fileInputStream

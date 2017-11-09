@@ -100,15 +100,17 @@ public class FileServiceFSImpl implements FileService {
    * java.lang.String)
    */
   @Override
-  public Path createStageFile(InputStream fileInputStream, String fileName)
+  public String createStageFile(InputStream fileInputStream, String fileName)
       throws IngeTechnicalException {
     String[] fileNameParts = fileName.split("\\.");
+    String hashedFileName = null;
     Path tmpFilePath = null;
     if (fileNameParts.length > 1) {
       if (fileNameParts[0] != null && !("".equals(fileNameParts[0])) && fileNameParts[1] != null
           && !("".equals(fileNameParts[1]))) {
         int fileHashValue = (fileNameParts[0] + System.currentTimeMillis()).hashCode();
-        tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH + fileHashValue + "." + fileNameParts[1]);
+        hashedFileName = fileHashValue + "." + fileNameParts[1];
+        tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH + hashedFileName);
       }
     } else if (fileNameParts.length == 1 && fileNameParts[0] != null
         && !("".equals(fileNameParts[0]))) {
@@ -128,7 +130,7 @@ public class FileServiceFSImpl implements FileService {
       throw new IngeTechnicalException("Could not write staged file [" + tmpFilePath
           + "] for file [" + fileName + "]", e);
     }
-    return tmpFilePath;
+    return hashedFileName;
   }
 
   /*
@@ -137,10 +139,10 @@ public class FileServiceFSImpl implements FileService {
    * @see de.mpg.mpdl.inge.service.pubman.FileService#readStageFile(java.nio.file.Path)
    */
   @Override
-  public InputStream readStageFile(Path stagedFilePath) throws IngeTechnicalException {
+  public InputStream readStageFile(String stagedFilePath) throws IngeTechnicalException {
     InputStream in = null;
     try {
-      in = Files.newInputStream(stagedFilePath);
+      in = Files.newInputStream(Paths.get(TMP_FILE_ROOT_PATH + stagedFilePath));
     } catch (IOException e) {
       logger.error("Could not read staged file [" + stagedFilePath.toString() + "]", e);
       throw new IngeTechnicalException("Could not read staged file [" + stagedFilePath.toString()
@@ -155,11 +157,11 @@ public class FileServiceFSImpl implements FileService {
    * @see de.mpg.mpdl.inge.service.pubman.FileService#deleteStageFile(java.nio.file.Path)
    */
   @Override
-  public void deleteStageFile(Path path) throws IngeTechnicalException {
+  public void deleteStageFile(String stagedFileName) throws IngeTechnicalException {
     try {
-      Files.deleteIfExists(path);
+      Files.deleteIfExists(Paths.get(TMP_FILE_ROOT_PATH + stagedFileName));
     } catch (IOException e) {
-      logger.error("Could not delete staged file [" + path + "]", e);
+      logger.error("Could not delete staged file [" + stagedFileName + "]", e);
       throw new IngeTechnicalException("Could not delete staged file", e);
     }
   }

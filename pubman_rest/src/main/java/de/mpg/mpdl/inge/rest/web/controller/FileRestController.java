@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Path;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,19 +61,26 @@ public class FileRestController {
     }
   }
 
+  /**
+   * generate a staged File, that can be integrated in PubItems by using the delivered reference
+   * 
+   * @param componentName
+   * @param request
+   * @return stagedFileId
+   */
   @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.CREATED)
-  public String createComponent(@PathVariable String componentName, HttpServletRequest request) {
+  public String createStageComponent(@PathVariable String componentName, HttpServletRequest request) {
 
     // HttpHeaders headers = new HttpHeaders();
     // headers.setContentType(MediaType.TEXT_HTML);
     String responseBody = null;
     try {
-      responseBody = fileService.createFile(request.getInputStream(), componentName);
+      responseBody = fileService.createStageFile(request.getInputStream(), componentName);
     } catch (IngeTechnicalException | IOException e) {
       logger.error("could not create file [" + componentName + "]");
     }
-    return responseBody;
+    return responseBody.toString();
     // return new ResponseEntity<String>(responseBody, headers, HttpStatus.CREATED);
   }
 

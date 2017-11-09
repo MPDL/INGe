@@ -865,17 +865,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   private void uploadStagedFiles(PubItemVO pubItemVO) throws IngeTechnicalException {
     for (FileVO fileVO : pubItemVO.getFiles()) {
       if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
-        String stagedPath = fileVO.getContent();
-        try {
-          String persistentPath =
-              Request.Put(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileVO.getName())
-                  .bodyStream(fileService.readStageFile(Paths.get(stagedPath))).execute()
-                  .returnContent().asString();
-          fileVO.setContent(persistentPath);
-        } catch (IOException e) {
-          logger.error("Could not upload staged file [" + stagedPath + "]", e);
-          throw new IngeTechnicalException("Could not upload staged file [" + stagedPath + "]", e);
-        }
+        String stagedFileName = fileVO.getContent();
+        String persistentPath =
+            fileService.createFile(fileService.readStageFile(stagedFileName), fileVO.getName());
+        fileVO.setContent(persistentPath);
       }
     }
   }

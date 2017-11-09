@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +41,7 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.http.client.fluent.Request;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
@@ -135,6 +137,10 @@ public class EditItem extends FacesBean {
   // Flag for the binding method to avoid unnecessary binding
   private boolean bindFilesAndLocators = true;
   private UIRepeat fileIterator;
+
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
+  public static final String REST_COMPONENT_PATH = PropertyReader
+      .getProperty("inge.rest.file_path");
 
   @ManagedProperty(value = "#{fileServiceFSImpl}")
   private FileService fileService;
@@ -722,10 +728,18 @@ public class EditItem extends FacesBean {
   public String stageFile(UploadedFile file) {
     if (file != null && file.getSize() > 0) {
       try {
-        String path =
-            fileService.createStageFile(file.getInputstream(), file.getFileName()).toString();
         final FileVO fileVO = new FileVO();
         final MdsFileVO mdsFileVO = new MdsFileVO();
+        String path = null;
+        try {
+          path =
+              Request.Put(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + file.getFileName())
+                  .bodyStream(file.getInputstream()).execute().returnContent().asString();
+        } catch (IOException e) {
+          logger.error("Could not upload staged file [" + path + "]", e);
+          error("Could not upload staged file [" + path + "]");
+        }
+
         mdsFileVO.getIdentifiers().add(new IdentifierVO());
         fileVO.getMetadataSets().add(mdsFileVO);
         fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
