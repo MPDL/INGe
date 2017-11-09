@@ -19,15 +19,10 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 public class OrganizationServiceTest extends TestBase {
-
-  private static final String ORG_OBJECTID_13 = "ou_persistent13";
-  private static final String ORG_OBJECTID_25 = "ou_persistent25";
-  private static final String ORG_OBJECTID_40048 = "ou_40048";
 
   @Autowired
   OrganizationService organizationService;
@@ -45,7 +40,7 @@ public class OrganizationServiceTest extends TestBase {
       AuthorizationException, IngeApplicationException {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
@@ -53,6 +48,8 @@ public class OrganizationServiceTest extends TestBase {
     assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
 
     organizationService.delete(ORG_OBJECTID_25, authenticationToken);
+
+    assertTrue(organizationService.get(ORG_OBJECTID_25, authenticationToken) == null);
   }
 
   @Test
@@ -60,7 +57,7 @@ public class OrganizationServiceTest extends TestBase {
       AuthorizationException, IngeApplicationException {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AffiliationVO affiliationVO =
@@ -69,6 +66,9 @@ public class OrganizationServiceTest extends TestBase {
     assertTrue(affiliationVO.getPublicStatus().equals("CREATED"));
 
     organizationService.delete(affiliationVO.getReference().getObjectId(), authenticationToken);
+
+    assertTrue(organizationService.get(affiliationVO.getReference().getObjectId(),
+        authenticationToken) == null);
   }
 
   @Test
@@ -76,7 +76,7 @@ public class OrganizationServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
@@ -104,7 +104,7 @@ public class OrganizationServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AffiliationVO affiliationVO = organizationService.get("XXXXXXXXXXXXXXX", authenticationToken);
@@ -115,9 +115,8 @@ public class OrganizationServiceTest extends TestBase {
   public void getWithUserToken() throws Exception {
     super.logMethodName();
 
-    String authenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            PropertyReader.getProperty("inge.depositor.password"));
+    String authenticationToken = loginDepositor();
+    assertTrue(authenticationToken != null);
     AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
 
     assertTrue(affiliationVO != null);
@@ -134,7 +133,7 @@ public class OrganizationServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
@@ -161,7 +160,7 @@ public class OrganizationServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     List<AffiliationVO> affiliationVOs = organizationService.searchTopLevelOrganizations();
@@ -210,7 +209,7 @@ public class OrganizationServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     List<AffiliationVO> affiliationVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
@@ -250,7 +249,7 @@ public class OrganizationServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     organizationService.reindex(ORG_OBJECTID_25, authenticationToken);

@@ -327,6 +327,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
             from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED, from, to));
         return bq;

@@ -53,8 +53,8 @@ public class OaiRestController {
 
     int count = 0;
     int countInterval = 0;
-    int maxIntervals = max != null ? max : 10; // TODO: maxIntervals wieder löschen
-                                               // (nur für Testzwecke gedacht)
+    int maxIntervals = max != null ? max : 500; // TODO: maxIntervals wieder löschen -> max 500.000
+                                                // Datensätze
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
@@ -72,11 +72,13 @@ public class OaiRestController {
     do {
       for (SearchHit hit : scrollResp.getHits().getHits()) {
         count++;
-        PubItemVO pubItemVO;
+        PubItemVO pubItemVO = null;
         try {
           pubItemVO = mapper.readValue(hit.getSourceAsString(), PubItemVO.class);
+          logger.info(count + ":" + pubItemVO.getVersion().getObjectIdAndVersion());
         } catch (IOException e) {
           logger.error(e);
+          logger.error(pubItemVO);
           throw new IngeTechnicalException(e);
         }
         String s;
@@ -91,7 +93,6 @@ public class OaiRestController {
       }
 
       countInterval++;
-      logger.info(countInterval);
 
       scrollResp = this.client.getClient().prepareSearchScroll(scrollResp.getScrollId()) //
           .setScroll(new TimeValue(60000)) //

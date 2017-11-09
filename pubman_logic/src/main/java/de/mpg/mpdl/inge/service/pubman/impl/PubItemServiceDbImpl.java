@@ -162,6 +162,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
 
   public static String INDEX_METADATA_TITLE = "metadata.title";
+  public static String INDEX_METADATA_ALTERNATIVETITLE_VALUE = "metadata.alternativeTitles.value";
   public static String INDEX_METADATA_DATE_ANY = "metadata.anyDates";
   public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
   public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
@@ -503,7 +504,18 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
             .getObjectId()));
     checkAa("delete", userAccount, latestPubItem, context);
 
-    itemObjectRepository.delete(latestPubItemDbVersion.getObject());
+    // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
+    // deleted by EntityManager.
+    // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
+    PubItemObjectDbVO pubItemObjectToDelete =
+        itemObjectRepository.findOne(latestPubItemDbVersion.getObject().getObjectId());
+    ((PubItemVersionDbVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
+    if (pubItemObjectToDelete.getLatestRelease() != null) {
+      ((PubItemVersionDbVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
+    }
+
+
+    itemObjectRepository.delete(pubItemObjectToDelete);
 
     SearchRetrieveResponseVO<PubItemVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<PubItemVO> rec : resp.getRecords()) {
@@ -559,7 +571,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     }
 
     if (requestedItem == null) {
-      throw new IngeApplicationException("Item " + id + " not found");
+      logger.info("Item " + id + " not found");
+      return null;
     }
 
     long time = System.currentTimeMillis() - start;

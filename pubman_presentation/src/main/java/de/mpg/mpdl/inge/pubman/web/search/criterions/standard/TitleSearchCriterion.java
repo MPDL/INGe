@@ -47,7 +47,8 @@ public class TitleSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_TITLE};
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_TITLE,
+        PubItemServiceDbImpl.INDEX_METADATA_ALTERNATIVETITLE_VALUE};
   }
 
   @Override

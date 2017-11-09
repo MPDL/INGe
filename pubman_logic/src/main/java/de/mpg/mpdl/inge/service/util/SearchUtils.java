@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -58,7 +59,7 @@ public class SearchUtils {
           } else {
             BoolQueryBuilder bq = QueryBuilders.boolQuery();
             for (String searchString : value) {
-              bq.should(QueryBuilders.matchQuery(index, searchString));
+              bq.should(QueryBuilders.matchQuery(index, searchString).operator(Operator.AND));
             }
             return bq;
           }

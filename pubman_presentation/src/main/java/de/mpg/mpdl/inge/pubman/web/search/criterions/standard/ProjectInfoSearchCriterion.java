@@ -55,7 +55,8 @@ public class ProjectInfoSearchCriterion extends StandardSearchCriterion {
 
     PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE,
 
-    PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE
+    PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE,
+        PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID
 
     };
 
