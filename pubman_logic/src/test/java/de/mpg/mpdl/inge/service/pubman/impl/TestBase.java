@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -9,19 +11,31 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 
 
 public class TestBase {
 
-  protected static final String ADMIN_LOGIN = "admin";
+  protected static final String ADMIN_USER_NAME = "admin";
   protected static final String ADMIN_PASSWORD = "tseT";
 
 
-  protected static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
-  protected static final String USER_OBJECTID_MODERATOR = "user_3000057";
+  protected static final String DEPOSITOR_OBJECTID = "user_3000056";
+  protected static final String DEPOSITOR_USER_NAME = "test_depositor";
   protected static final String DEPOSITOR_PASSWORD = "tseT";
+
+  protected static final String MODERATOR_OBJECTID = "user_3000057";
+  protected static final String MODERATOR_USER_NAME = "test_moderator";
+  protected static final String MODERATOR_PASSWORD = "tseT";
+
+  protected static final String DEACTIVATED_OBJECTID = "user_3000166";
+
+
 
   protected static Logger logger = Logger.getLogger(TestBase.class);
 
@@ -72,5 +86,44 @@ public class TestBase {
     logger.info("--------------------------------------- Starting " + name.getMethodName()
         + "---------------------------------------");
 
+  }
+
+  protected String loginDepositor() {
+
+    String token = null;
+    try {
+      token = userAccountService.login(DEPOSITOR_USER_NAME, DEPOSITOR_PASSWORD);
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
+        | IngeApplicationException e) {
+      e.printStackTrace();
+      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
+    }
+    return token;
+  }
+
+  protected String loginModerator() {
+
+    String token = null;
+    try {
+      token = userAccountService.login(MODERATOR_USER_NAME, MODERATOR_PASSWORD);
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
+        | IngeApplicationException e) {
+      e.printStackTrace();
+      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
+    }
+    return token;
+  }
+
+  protected String loginAdmin() {
+
+    String token = null;
+    try {
+      token = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
+        | IngeApplicationException e) {
+      e.printStackTrace();
+      fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
+    }
+    return token;
   }
 }

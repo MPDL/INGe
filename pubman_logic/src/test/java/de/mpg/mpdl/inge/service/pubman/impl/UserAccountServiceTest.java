@@ -20,16 +20,11 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserAccountServiceTest extends TestBase {
-
-  private static final String USER_OBJECTID_MODERATOR = "user_3000165";
-  private static final String USER_OBJECTID_DEPOSITOR = "user_3000056";
-  private static final String USER_OBJECTID_DEACTIVATED = "user_3000166";
 
   // password may change during the tests depending on the test order
   private static String actualDepositorPassword = "tseT";
@@ -41,11 +36,9 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void login() {
-    String username = PropertyReader.getProperty("inge.depositor.loginname");
-    String password = actualDepositorPassword;
     String token = null;
     try {
-      token = userAccountService.login(username, password);
+      token = userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();
@@ -56,7 +49,7 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test(expected = AuthenticationException.class)
   public void loginWrongPassword() throws Exception {
-    String username = PropertyReader.getProperty("inge.depositor.loginname");
+    String username = DEPOSITOR_USER_NAME;
     String password = "xxxxxx";
 
     userAccountService.login(username, password);
@@ -66,7 +59,7 @@ public class UserAccountServiceTest extends TestBase {
   @Test(expected = AuthenticationException.class)
   public void loginInvalidUser() throws Exception {
     String username = "user_does_not_exists";
-    String password = PropertyReader.getProperty("inge.depositor.password");
+    String password = DEPOSITOR_PASSWORD;
 
     userAccountService.login(username, password);
   }
@@ -74,8 +67,8 @@ public class UserAccountServiceTest extends TestBase {
   @Test
   public void getDepositor() throws Exception {
     String authenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
+
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
@@ -88,9 +81,7 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void getModerator() throws Exception {
-    String authenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.moderator.loginname"),
-            PropertyReader.getProperty("inge.moderator.password"));
+    String authenticationToken = userAccountService.login(MODERATOR_USER_NAME, MODERATOR_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
@@ -103,61 +94,60 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void removeGrants() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserGrantsToBeRemoved =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     List<GrantVO> grants = accountUserGrantsToBeRemoved.getGrants();
     int sizeBeforeRemove = grants.size();
     assertTrue(sizeBeforeRemove > 0);
 
-    userAccountService.removeGrants(USER_OBJECTID_DEPOSITOR,
+    userAccountService.removeGrants(DEPOSITOR_OBJECTID,
         accountUserGrantsToBeRemoved.getLastModificationDate(), new GrantVO[] {grants.get(0)},
         authenticationToken);
 
-    assertTrue("Expected <" + (sizeBeforeRemove - 1) + "> grants - found <"
-        + userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).getGrants().size()
-        + ">", userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken).getGrants()
-        .size() + 1 == sizeBeforeRemove);
+    assertTrue(
+        "Expected <" + (sizeBeforeRemove - 1) + "> grants - found <"
+            + userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrants().size()
+            + ">",
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrants().size() + 1 == sizeBeforeRemove);
   }
 
   @Test
   public void addGrants() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserGrantsToBeAdded =
-        userAccountService.get(USER_OBJECTID_MODERATOR, authenticationToken);
+        userAccountService.get(MODERATOR_OBJECTID, authenticationToken);
 
     List<GrantVO> grants = accountUserGrantsToBeAdded.getGrants();
     int sizeBeforeAdd = grants.size();
     assertTrue(sizeBeforeAdd >= 0);
 
-    userAccountService.addGrants(USER_OBJECTID_MODERATOR, accountUserGrantsToBeAdded
-        .getLastModificationDate(), new GrantVO[] {new GrantVO("MODERATOR", "ctx_persistent3")},
+    userAccountService.addGrants(MODERATOR_OBJECTID, accountUserGrantsToBeAdded
+        .getLastModificationDate(), new GrantVO[] {new GrantVO("DEPOSITOR", "ctx_persistent3")},
         authenticationToken);
 
     assertTrue(
-        "Expected <"
-            + (sizeBeforeAdd + 1)
-            + "> grants - found <"
-            + userAccountService.get(USER_OBJECTID_MODERATOR, authenticationToken).getGrants()
-                .size() + ">", userAccountService.get(USER_OBJECTID_MODERATOR, authenticationToken)
-            .getGrants().size() - 1 == sizeBeforeAdd);
+        "Expected <" + (sizeBeforeAdd + 1) + "> grants - found <"
+            + userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants().size()
+            + ">", userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants()
+            .size() - 1 == sizeBeforeAdd);
   }
 
   @Test
   public void activateByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserToBeActivated =
-        userAccountService.get(USER_OBJECTID_DEACTIVATED, authenticationToken);
+        userAccountService.get(DEACTIVATED_OBJECTID, authenticationToken);
 
     accountUserToBeActivated =
-        userAccountService.activate(USER_OBJECTID_DEACTIVATED,
+        userAccountService.activate(DEACTIVATED_OBJECTID,
             accountUserToBeActivated.getLastModificationDate(), authenticationToken);
 
     assertTrue(accountUserToBeActivated.isActive());
@@ -165,14 +155,14 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void deactivateByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserToBeDeactivated =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     accountUserToBeDeactivated =
-        userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
+        userAccountService.deactivate(DEPOSITOR_OBJECTID,
             accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
 
     assertFalse(accountUserToBeDeactivated.isActive());
@@ -181,32 +171,31 @@ public class UserAccountServiceTest extends TestBase {
   @Test(expected = AuthorizationException.class)
   public void deactivateByOwner() throws Exception {
 
-    String username = PropertyReader.getProperty("inge.depositor.loginname");
+    String username = DEPOSITOR_USER_NAME;
     String password = actualDepositorPassword;
 
     String authenticationToken = userAccountService.login(username, password);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserToBeDeactivated =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     accountUserToBeDeactivated =
-        userAccountService.deactivate(USER_OBJECTID_DEPOSITOR,
+        userAccountService.deactivate(DEPOSITOR_OBJECTID,
             accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
   }
 
   @Test
   public void changePasswordByUser() throws Exception {
     String authenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
     assertTrue(authenticationToken != null);
     actualDepositorPassword = "newPassword";
 
     AccountUserVO accountUserPwdToBeChanged =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
-    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
+    userAccountService.changePassword(DEPOSITOR_OBJECTID,
         accountUserPwdToBeChanged.getLastModificationDate(), actualDepositorPassword,
         authenticationToken);
 
@@ -215,20 +204,19 @@ public class UserAccountServiceTest extends TestBase {
 
   @Test
   public void changePasswordByAdmin() throws Exception {
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN, ADMIN_PASSWORD);
+    String authenticationToken = userAccountService.login(ADMIN_USER_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
     AccountUserVO accountUserPwdToBeChanged =
-        userAccountService.get(USER_OBJECTID_DEPOSITOR, authenticationToken);
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     actualDepositorPassword = "anotherPassword";
-    userAccountService.changePassword(USER_OBJECTID_DEPOSITOR,
+    userAccountService.changePassword(DEPOSITOR_OBJECTID,
         accountUserPwdToBeChanged.getLastModificationDate(), actualDepositorPassword,
         authenticationToken);
 
     String userAuthenticationToken =
-        userAccountService.login(PropertyReader.getProperty("inge.depositor.loginname"),
-            actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_USER_NAME, actualDepositorPassword);
 
     assertTrue(userAuthenticationToken != null);
   }
