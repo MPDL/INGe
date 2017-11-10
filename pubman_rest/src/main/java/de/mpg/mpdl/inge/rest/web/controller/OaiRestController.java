@@ -51,11 +51,13 @@ public class OaiRestController {
       IngeApplicationException {
 
     int count = 0;
+    int countSuccess = 0;
+    int countFailure = 0;
     int countInterval = 0;
     int upperBorder = 500;
     int readSize = 1000;
     int maxIntervals = max != null ? max : upperBorder; // -> max 500.000 Datensätze
-    
+
     logger.info("Es werden maximal " + (readSize * upperBorder) + " Datensätze generiert");
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
@@ -88,9 +90,12 @@ public class OaiRestController {
           s = XmlTransformingService.transformToItem(pubItemVO);
           OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
               .getObjectIdAndVersion() + ".xml");
+          countSuccess++;
         } catch (Exception e) {
-          logger.error(e); // Kein Abbruch. Dann kann die jeweilige Datei eben nicht generiert werden...
-//          throw new IngeTechnicalException(e);
+          countFailure++;
+          logger.error(e); // Kein Abbruch. Dann kann die jeweilige Datei eben nicht generiert
+                           // werden...
+          // throw new IngeTechnicalException(e);
         }
       }
 
@@ -104,7 +109,7 @@ public class OaiRestController {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.TEXT_PLAIN);
-    String srResponse = "Everything is fine: " + count + " files generated";
+    String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
 
     return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
   }
