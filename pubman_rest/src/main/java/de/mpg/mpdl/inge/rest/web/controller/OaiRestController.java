@@ -28,7 +28,6 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -52,9 +51,14 @@ public class OaiRestController {
       IngeApplicationException {
 
     int count = 0;
+    int countSuccess = 0;
+    int countFailure = 0;
     int countInterval = 0;
-    int maxIntervals = max != null ? max : 500; // TODO: maxIntervals wieder löschen -> max 500.000
-                                                // Datensätze
+    int upperBorder = 500;
+    int readSize = 1000;
+    int maxIntervals = max != null ? max : upperBorder; // -> max 500.000 Datensätze
+
+    logger.info("Es werden maximal " + (readSize * upperBorder) + " Datensätze generiert");
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
@@ -63,7 +67,7 @@ public class OaiRestController {
             .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
             .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
             .setQuery(qb) //
-            .setSize(1000) // max of 1000 hits will be returned for each scroll
+            .setSize(readSize) // max of 1000 hits will be returned for each scroll
             .get();
     // Scroll until no hits are returned
 
@@ -79,17 +83,20 @@ public class OaiRestController {
         } catch (IOException e) {
           logger.error(e);
           logger.error(pubItemVO);
-          throw new IngeTechnicalException(e);
+          throw new IngeTechnicalException(e); // Abbruch. Hier stimmt was grundsätzliches nicht...
         }
         String s;
         try {
           s = XmlTransformingService.transformToItem(pubItemVO);
-        } catch (TechnicalException e) {
-          logger.error(e);
-          throw new IngeTechnicalException(e);
+          OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
+              .getObjectIdAndVersion() + ".xml");
+          countSuccess++;
+        } catch (Exception e) {
+          countFailure++;
+          logger.error(e); // Kein Abbruch. Dann kann die jeweilige Datei eben nicht generiert
+                           // werden...
+          // throw new IngeTechnicalException(e);
         }
-        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
-            .getObjectIdAndVersion() + ".xml");
       }
 
       countInterval++;
@@ -102,7 +109,7 @@ public class OaiRestController {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.TEXT_PLAIN);
-    String srResponse = "Everything is fine: " + count + " files generated";
+    String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
 
     return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
   }
