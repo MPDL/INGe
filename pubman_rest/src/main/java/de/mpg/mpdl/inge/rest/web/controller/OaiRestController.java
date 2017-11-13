@@ -109,7 +109,8 @@ public class OaiRestController {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.TEXT_PLAIN);
-    String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
+    String srResponse =
+        "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
 
     return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
   }
