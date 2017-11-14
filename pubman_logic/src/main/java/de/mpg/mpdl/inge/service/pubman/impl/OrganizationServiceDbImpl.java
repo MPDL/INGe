@@ -224,7 +224,6 @@ public class OrganizationServiceDbImpl extends
       AffiliationDbVO toBeUpdatedAff, AccountUserVO userAccount, boolean createNew)
       throws IngeTechnicalException, IngeApplicationException {
 
-
     if (createNew) {
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
       toBeUpdatedAff.setPublicStatus(AffiliationDbVO.State.CREATED);
@@ -239,8 +238,6 @@ public class OrganizationServiceDbImpl extends
       throw new IngeApplicationException("Please provide a name for the organization.");
     }
 
-    List<String> reindexList = new ArrayList<>();
-
     // Set new parents, parents must be in state CREATED or OPENED
     String oldParentAffId =
         toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation()
@@ -250,6 +247,20 @@ public class OrganizationServiceDbImpl extends
             .getParentAffiliations().get(0).getObjectId()
             : null;
 
+    if (givenAff.getPredecessorAffiliations() != null) {
+      toBeUpdatedAff.getPredecessorAffiliations().clear();
+      for (AffiliationRO affRo : givenAff.getPredecessorAffiliations()) {
+        AffiliationDbRO newAffRo = new AffiliationDbRO();
+        newAffRo.setObjectId(affRo.getObjectId());
+        toBeUpdatedAff.getPredecessorAffiliations().add(newAffRo);
+      }
+    }
+
+    List<String> reindexList = new ArrayList<>();
+
+    if (oldParentAffId == null && newParentAffId == null) {
+      return reindexList;
+    }
 
     if ((oldParentAffId != null && newParentAffId == null)
         || (oldParentAffId == null && newParentAffId != null)
@@ -273,14 +284,6 @@ public class OrganizationServiceDbImpl extends
     }
 
 
-    if (givenAff.getPredecessorAffiliations() != null) {
-      toBeUpdatedAff.getPredecessorAffiliations().clear();
-      for (AffiliationRO affRo : givenAff.getPredecessorAffiliations()) {
-        AffiliationDbRO newAffRo = new AffiliationDbRO();
-        newAffRo.setObjectId(affRo.getObjectId());
-        toBeUpdatedAff.getPredecessorAffiliations().add(newAffRo);
-      }
-    }
 
     return reindexList;
   }
