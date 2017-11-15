@@ -1311,17 +1311,14 @@
             </activation>
             <properties>
                 <sonar.jdbc.url>jdbc:postgresql://localhost:5432/sonar</sonar.jdbc.url>
-                <sonar.jdbc.username>${sonar.jdbc.username}</sonar.jdbc.username>
-                <sonar.jdbc.password>${sonar.jdbc.password}</sonar.jdbc.password>
-                <sonar.host.url>${sonar.host.url}</sonar.host.url>
                 <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
                 <!--jacoco.version>0.7.4.201502262128</jacoco.version -->
                 <jacoco.version>0.7.9</jacoco.version>
                 <jacoco.outputDir>${project.build.directory}/jacoco</jacoco.outputDir>
                 <jacoco.out.ut.file>jacoco-ut.exec</jacoco.out.ut.file>
                 <jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
-                <sonar.jacoco.reportPath>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPath>
-                <sonar.jacoco.itReportPath>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPath>
+                <sonar.jacoco.reportPaths>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPaths>
+                <sonar.jacoco.itReportPaths>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPaths>
                 <!-- command line arguments when starting test for test coverage analysis -->
                 <jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m
                     -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
