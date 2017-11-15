@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * SourceTitleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
+public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
     Validator<List<SourceVO>> {
 
   @Override
@@ -33,7 +33,7 @@ public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceV
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
-          if (sourceVO.getTitle() == null && //
+          if (ValidationTools.isEmpty(sourceVO.getTitle()) && //
               (ValidationTools.isNotEmpty(sourceVO.getAlternativeTitles()) //
                   || ValidationTools.isNotEmpty(sourceVO.getCreators()) //
                   || sourceVO.getDatePublishedInPrint() != null //

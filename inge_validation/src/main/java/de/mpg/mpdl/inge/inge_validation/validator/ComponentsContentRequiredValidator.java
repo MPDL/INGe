@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 // escidocComponents:content/@xlink:href
 // -> FileVO.content
 
-public class ComponentContentRequiredValidator extends ValidatorHandler<List<FileVO>> implements
+public class ComponentsContentRequiredValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
   @Override

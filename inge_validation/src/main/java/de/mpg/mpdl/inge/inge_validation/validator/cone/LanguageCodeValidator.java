@@ -34,7 +34,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
           ConeCache.getInstance().getIso639_3_IdentifierSet();
 
       if (ValidationTools.isEmpty(iso639_3_IdentifierSet)) {
-        context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE));
+        context.addErrorMsg(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE);
         return false;
       }
 

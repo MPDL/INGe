@@ -21,7 +21,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
  * '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">
  * DateFormatIncorrect</iso:assert> </iso:rule> </iso:pattern>
  */
-public class FileDateFormatValidator extends ValidatorHandler<List<FileVO>> implements
+public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
   @Override

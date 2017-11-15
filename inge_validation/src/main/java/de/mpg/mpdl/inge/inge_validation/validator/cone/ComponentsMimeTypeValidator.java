@@ -38,7 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
  * FileVO.content
  */
 
-public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> implements
+public class ComponentsMimeTypeValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
   public static final String IMT = "dcterms:IMT";
@@ -53,7 +53,7 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
       final Set<String> mimeTypesTitleSet = ConeCache.getInstance().getMimeTypesTitleSet();
 
       if (ValidationTools.isEmpty(mimeTypesTitleSet)) {
-        context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_MIME_TYPE));
+        context.addErrorMsg(ErrorMessages.CONE_EMPTY_MIME_TYPE);
         return false;
       }
 
@@ -66,7 +66,7 @@ public class ComponentMimeTypesValidator extends ValidatorHandler<List<FileVO>> 
           int j = 1;
           for (final FormatVO formatVO : fileVO.getDefaultMetadata().getFormats()) {
 
-            if (ComponentMimeTypesValidator.IMT.equals(formatVO.getType()) //
+            if (ComponentsMimeTypeValidator.IMT.equals(formatVO.getType()) //
                 && !mimeTypesTitleSet.contains(formatVO.getValue())) {
               context.addError(ValidationError.create(ErrorMessages.MIME_TYPE_NOT_VALID).setField(
                   "file[" + i + "].format[" + j + "]"));

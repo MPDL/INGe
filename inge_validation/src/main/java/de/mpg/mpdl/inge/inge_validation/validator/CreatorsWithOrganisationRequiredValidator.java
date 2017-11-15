@@ -30,7 +30,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * </iso:pattern>
  */
 
-public class CreatorWithOrganisationRequiredValidator extends ValidatorHandler<List<CreatorVO>>
+public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<List<CreatorVO>>
     implements Validator<List<CreatorVO>> {
 
   @Override
@@ -72,7 +72,7 @@ public class CreatorWithOrganisationRequiredValidator extends ValidatorHandler<L
           case PERSON:
 
             final PersonVO p = creatorVO.getPerson();
-            if (p == null || p.getFamilyName() == null) {
+            if (p == null || ValidationTools.isEmpty(p.getFamilyName())) {
               errorPers = true;
               continue;
             }

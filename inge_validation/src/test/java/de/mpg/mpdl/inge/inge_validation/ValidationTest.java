@@ -15,25 +15,25 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
-import de.mpg.mpdl.inge.inge_validation.validator.ComponentContentRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.ComponentDataRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.CreatorWithOrganisationRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsContentRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDataRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.CreatorsWithOrganisationRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.NoSlashesInFileNameValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.OrganizationNameRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsNoSlashesInNameValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.CreatorsOrganizationsNameRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.SourceGenresRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourcesGenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.SourceTitlesRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourcesTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.UriAsLocatorValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentMimeTypesValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentsMimeTypeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -198,7 +198,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-            new ComponentContentRequiredValidator());
+            new ComponentsContentRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -237,7 +237,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-            new ComponentContentRequiredValidator());
+            new ComponentsContentRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -276,7 +276,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-            new ComponentDataRequiredValidator());
+            new ComponentsDataRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -318,7 +318,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
-            new ComponentDataRequiredValidator());
+            new ComponentsDataRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -340,7 +340,7 @@ public class ValidationTest {
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
     final FormatVO fo1 = new FormatVO();
-    fo1.setType(ComponentMimeTypesValidator.IMT);
+    fo1.setType(ComponentsMimeTypeValidator.IMT);
     fo1.setValue("blubb");
     m1.getFormats().add(0, fo1);
     final FormatVO fo2 = new FormatVO();
@@ -356,7 +356,7 @@ public class ValidationTest {
     final MdsFileVO m2 = new MdsFileVO();
     m2.setTitle("blubb");
     final FormatVO fo3 = new FormatVO();
-    fo3.setType(ComponentMimeTypesValidator.IMT);
+    fo3.setType(ComponentsMimeTypeValidator.IMT);
     fo3.setValue("blubb");
     m2.getFormats().add(0, fo3);
     final FormatVO fo4 = new FormatVO();
@@ -369,7 +369,7 @@ public class ValidationTest {
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v =
-        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentMimeTypesValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsMimeTypeValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -391,7 +391,7 @@ public class ValidationTest {
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
     final FormatVO fo1 = new FormatVO();
-    fo1.setType(ComponentMimeTypesValidator.IMT);
+    fo1.setType(ComponentsMimeTypeValidator.IMT);
     fo1.setValue("application/andrew-inset");
     m1.getFormats().add(0, fo1);
     final FormatVO fo2 = new FormatVO();
@@ -407,7 +407,7 @@ public class ValidationTest {
     final MdsFileVO m2 = new MdsFileVO();
     m2.setTitle("blubb");
     final FormatVO fo3 = new FormatVO();
-    fo3.setType(ComponentMimeTypesValidator.IMT);
+    fo3.setType(ComponentsMimeTypeValidator.IMT);
     fo3.setValue("application/andrew-inset");
     m2.getFormats().add(0, fo3);
     final FormatVO fo4 = new FormatVO();
@@ -420,7 +420,7 @@ public class ValidationTest {
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v =
-        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentMimeTypesValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsMimeTypeValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -457,7 +457,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new CreatorWithOrganisationRequiredValidator());
+            new CreatorsWithOrganisationRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -484,7 +484,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new CreatorWithOrganisationRequiredValidator());
+            new CreatorsWithOrganisationRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -514,7 +514,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new CreatorWithOrganisationRequiredValidator());
+            new CreatorsWithOrganisationRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1060,8 +1060,8 @@ public class ValidationTest {
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v =
-        FluentValidator.checkAll()
-            .on(this.pubItemVO.getFiles(), new NoSlashesInFileNameValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentsNoSlashesInNameValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1096,8 +1096,8 @@ public class ValidationTest {
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v =
-        FluentValidator.checkAll()
-            .on(this.pubItemVO.getFiles(), new NoSlashesInFileNameValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentsNoSlashesInNameValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1142,7 +1142,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new OrganizationNameRequiredValidator());
+            new CreatorsOrganizationsNameRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1192,7 +1192,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getCreators(),
-            new OrganizationNameRequiredValidator());
+            new CreatorsOrganizationsNameRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1465,7 +1465,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-            new SourceGenresRequiredValidator());
+            new SourcesGenreRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1495,7 +1495,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-            new SourceGenresRequiredValidator());
+            new SourcesGenreRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1610,7 +1610,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-            new SourceTitlesRequiredValidator());
+            new SourcesTitleRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1695,7 +1695,7 @@ public class ValidationTest {
 
     final FluentValidator v =
         FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getSources(),
-            new SourceTitlesRequiredValidator());
+            new SourcesTitleRequiredValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1761,7 +1761,8 @@ public class ValidationTest {
     this.pubItemVO.getFiles().add(f1);
 
     final FluentValidator v =
-        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new UriAsLocatorValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentsUriAsLocatorValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
@@ -1805,7 +1806,8 @@ public class ValidationTest {
     this.pubItemVO.getFiles().add(f5);
 
     final FluentValidator v =
-        FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new UriAsLocatorValidator());
+        FluentValidator.checkAll().on(this.pubItemVO.getFiles(),
+            new ComponentsUriAsLocatorValidator());
 
     final ComplexResult complexResult =
         v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());

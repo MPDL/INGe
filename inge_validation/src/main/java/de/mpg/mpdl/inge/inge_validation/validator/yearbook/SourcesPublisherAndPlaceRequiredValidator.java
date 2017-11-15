@@ -9,14 +9,11 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-/*
- * <iso:report test="not(escidoc:volume != '')">SourceVolumeNotProvided</iso:report>
- */
-
-public class SourceVolumesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<List<SourceVO>>
+    implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -29,12 +26,28 @@ public class SourceVolumesRequiredValidator extends ValidatorHandler<List<Source
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
-          if (sourceVO.getTitle() == null) {
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED)
-                .setField("source[" + i + "]"));
+
+          PublishingInfoVO p = sourceVO.getPublishingInfo();
+
+          if (p == null || ValidationTools.isEmpty(p.getPublisher())) {
+
+            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField(
+                "source[" + i + "]"));
+
             ok = false;
-          }
-        }
+
+          } // if
+
+          if (p != null && ValidationTools.isEmpty(p.getPlace())) {
+
+            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED)
+                .setField("source[" + i + "]"));
+
+            ok = false;
+
+          } // if
+
+        } // if
 
         i++;
       } // for

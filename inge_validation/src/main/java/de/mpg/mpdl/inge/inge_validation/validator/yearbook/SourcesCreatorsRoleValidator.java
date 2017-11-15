@@ -12,12 +12,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-/*
- * <iso:report test=
- * "not(source:source[1]/escidoc:creator/@role = 'http://www.loc.gov/loc.terms/relators/AUT' or source:source[1]/escidoc:creator/@role = 'http://www.loc.gov/loc.terms/relators/EDT' or source:source[2]/escidoc:creator/@role = 'http://www.loc.gov/loc.terms/relators/AUT' or source:source[2]/escidoc:creator/@role = 'http://www.loc.gov/loc.terms/relators/EDT')"
- * >SourceCreatorRoleInvalid</iso:report>
- */
-public class SourceCreatorsRoleValidator extends ValidatorHandler<List<SourceVO>> implements
+public class SourcesCreatorsRoleValidator extends ValidatorHandler<List<SourceVO>> implements
     Validator<List<SourceVO>> {
 
   @Override
@@ -35,13 +30,16 @@ public class SourceCreatorsRoleValidator extends ValidatorHandler<List<SourceVO>
           int j = 1;
           for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
-            if (creatorVO != null
-                && (creatorVO.getRole() == null || !CreatorVO.CreatorRole.AUTHOR.equals(creatorVO
-                    .getRole()) && !CreatorVO.CreatorRole.EDITOR.equals(creatorVO.getRole()))) {
+            if (creatorVO != null && (creatorVO.getRole() == null //
+                || !CreatorVO.CreatorRole.AUTHOR.equals(creatorVO.getRole()) //
+                    && !CreatorVO.CreatorRole.EDITOR.equals(creatorVO.getRole()))) {
+
               context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_INVALID)
                   .setField("source[" + i + "].creator[" + j + "]"));
+
               ok = false;
-            }
+
+            } // if
 
             j++;
           } // for

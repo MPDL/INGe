@@ -8,15 +8,15 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
-public class PublishingDateRequiredValidator extends ValidatorHandler<MdsPublicationVO> implements
+public class DateAcceptedRequiredValidator extends ValidatorHandler<MdsPublicationVO> implements
     Validator<MdsPublicationVO> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
 
-    if (ValidationTools.isEmpty(m.getDatePublishedOnline()) //
-        && ValidationTools.isEmpty(m.getDatePublishedInPrint())) {
-      context.addErrorMsg(ErrorMessages.PUBLISHING_DATE_NOT_PROVIDED);
+    if (ValidationTools.isEmpty(m.getDateAccepted())) {
+
+      context.addErrorMsg(ErrorMessages.DATE_ACCEPTED_NOT_PROVIDED);
 
       return false;
 

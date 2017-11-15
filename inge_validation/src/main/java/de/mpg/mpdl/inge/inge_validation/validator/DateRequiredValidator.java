@@ -5,6 +5,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /*
@@ -26,19 +27,15 @@ public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> im
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
 
-    if (m != null) {
+    if (ValidationTools.isEmpty(m.getDateAccepted()) //
+        && ValidationTools.isEmpty(m.getDateCreated()) //
+        && ValidationTools.isEmpty(m.getDateModified()) //
+        && ValidationTools.isEmpty(m.getDatePublishedInPrint()) //
+        && ValidationTools.isEmpty(m.getDatePublishedOnline()) //
+        && ValidationTools.isEmpty(m.getDateSubmitted())) {
+      context.addErrorMsg(ErrorMessages.DATE_NOT_PROVIDED);
 
-      if (m.getDateAccepted() == null //
-          && m.getDateCreated() == null //
-          && m.getDateModified() == null //
-          && m.getDatePublishedInPrint() == null //
-          && m.getDatePublishedOnline() == null //
-          && m.getDateSubmitted() == null) {
-        context.addErrorMsg(ErrorMessages.DATE_NOT_PROVIDED);
-
-        return false;
-      }
-
+      return false;
     }
 
     return true;

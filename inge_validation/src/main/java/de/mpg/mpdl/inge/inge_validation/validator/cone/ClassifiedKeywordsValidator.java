@@ -65,7 +65,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           if (ClassifiedKeywordsValidator.ISO639_3.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(iso639_3_TitleSet)) {
-              context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_ISO639_3_TITLE));
+              context.addErrorMsg(ErrorMessages.CONE_EMPTY_ISO639_3_TITLE);
               return false;
             }
             if (!iso639_3_TitleSet.contains(subjectVO.getValue())) {
@@ -76,7 +76,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           } else if (ClassifiedKeywordsValidator.DDC.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(ddcTitleSet)) {
-              context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_DDC_TITLE));
+              context.addErrorMsg(ErrorMessages.CONE_EMPTY_DDC_TITLE);
               return false;
             }
             if (!ddcTitleSet.contains(subjectVO.getValue())) {
@@ -87,7 +87,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           } else if (ClassifiedKeywordsValidator.MPIPKS.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(mpipksTitleSet)) { //
-              context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_MPIPKS_TITLE));
+              context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIPKS_TITLE);
               return false;
             }
             if (!mpipksTitleSet.contains(subjectVO.getValue())) {
@@ -99,7 +99,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           } else if (ClassifiedKeywordsValidator.MPIRG.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(mpirgTitleSet)) {//
-              context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_MPIRG_TITLE));
+              context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIRG_TITLE);
               return false;
             }
             if (!mpirgTitleSet.contains(subjectVO.getValue())) {
@@ -110,7 +110,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           } else if (ClassifiedKeywordsValidator.MPIS_GROUPS.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(mpisGroupsTitleSet)) { //
-              context.addError(ValidationError.create(ErrorMessages.CONE_EMPTY_MPIS_GROUPS_TITLE));
+              context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIS_GROUPS_TITLE);
               return false;
             }
             if (!mpisGroupsTitleSet.contains(subjectVO.getValue())) {
@@ -122,8 +122,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
 
           } else if (ClassifiedKeywordsValidator.MPIS_PROJECTS.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(mpisProjectsTitleSet)) { //
-              context
-                  .addError(ValidationError.create(ErrorMessages.CONE_EMPTY_MPIS_PROJECTS_TITLE));
+              context.addErrorMsg(ErrorMessages.CONE_EMPTY_MPIS_PROJECTS_TITLE);
               return false;
             }
             if (!mpisProjectsTitleSet.contains(subjectVO.getValue())) {

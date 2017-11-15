@@ -32,7 +32,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * -> FileVO.name
  */
 
-public class NoSlashesInFileNameValidator extends ValidatorHandler<List<FileVO>> implements
+public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<FileVO>> implements
     Validator<List<FileVO>> {
 
   @Override

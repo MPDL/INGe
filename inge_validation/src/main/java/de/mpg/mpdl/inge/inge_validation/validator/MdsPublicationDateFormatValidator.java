@@ -36,77 +36,73 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
     boolean ok = true;
 
-    if (m != null) {
+    if (!ValidationTools.checkDate(m.getDateAccepted())) {
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+          "dateAccepted"));
+      ok = false;
+    }
 
-      if (!ValidationTools.checkDate(m.getDateAccepted())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "dateAccepted"));
-        ok = false;
-      }
+    if (!ValidationTools.checkDate(m.getDateCreated())) {
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+          "dateCreated"));
+      ok = false;
+    }
 
-      if (!ValidationTools.checkDate(m.getDateCreated())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "dateCreated"));
-        ok = false;
-      }
+    if (!ValidationTools.checkDate(m.getDateModified())) {
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+          "dateModified"));
+      ok = false;
+    }
 
-      if (!ValidationTools.checkDate(m.getDateModified())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "dateModified"));
-        ok = false;
-      }
+    if (!ValidationTools.checkDate(m.getDatePublishedInPrint())) {
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+          "datePublishedInPrint"));
+      ok = false;
+    }
 
-      if (!ValidationTools.checkDate(m.getDatePublishedInPrint())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "datePublishedInPrint"));
-        ok = false;
-      }
+    if (!ValidationTools.checkDate(m.getDatePublishedOnline())) {
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+          "datePublishedOnline"));
+      ok = false;
+    }
 
-      if (!ValidationTools.checkDate(m.getDatePublishedOnline())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "datePublishedOnline"));
-        ok = false;
-      }
+    if (!ValidationTools.checkDate(m.getDateSubmitted())) {
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+          "dateSubmitted"));
+      ok = false;
+    }
 
-      if (!ValidationTools.checkDate(m.getDateSubmitted())) {
+    if (m.getLegalCase() != null) {
+
+      if (!ValidationTools.checkDate(m.getLegalCase().getDatePublished())) {
         context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
             "dateSubmitted"));
         ok = false;
       }
 
-      if (m.getLegalCase() != null) {
+    } // if
 
-        if (!ValidationTools.checkDate(m.getLegalCase().getDatePublished())) {
-          context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-              "dateSubmitted"));
-          ok = false;
-        }
+    if (m.getEvent() != null) {
 
-      } // if
+      final String startDate = m.getEvent().getStartDate();
+      final String endDate = m.getEvent().getEndDate();
 
-      if (m.getEvent() != null) {
+      if (!ValidationTools.checkDate(startDate)) {
+        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+            "startDate"));
+        ok = false;
+      }
 
-        final String startDate = m.getEvent().getStartDate();
-        final String endDate = m.getEvent().getEndDate();
+      if (!ValidationTools.checkDate(endDate)) {
+        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
+            "endDate"));
+        ok = false;
+      }
 
-        if (!ValidationTools.checkDate(startDate)) {
-          context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-              "startDate"));
-          ok = false;
-        }
-
-        if (!ValidationTools.checkDate(endDate)) {
-          context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-              "endDate"));
-          ok = false;
-        }
-
-        if (endDate != null && startDate == null) {
-          context.addErrorMsg(ErrorMessages.END_DATE_WITHOUT_START_DATE);
-          ok = false;
-        }
-
-      } // if
+      if (endDate != null && startDate == null) {
+        context.addErrorMsg(ErrorMessages.END_DATE_WITHOUT_START_DATE);
+        ok = false;
+      }
 
     } // if
 

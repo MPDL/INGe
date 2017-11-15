@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.inge_validation.validator;
+package de.mpg.mpdl.inge.inge_validation.validator.yearbook;
 
 import java.util.List;
 
@@ -11,14 +11,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-/*
- * <!-- If source name is given, the source genre has to be given, too --> <iso:pattern
- * name="source_genre_required" id="source_genre_required" flag="restrictive"> <iso:rule
- * context="publication:publication/source:source"> <iso:assert test="not(dc:title != '') or (@type
- * and @type != '')"> SourceGenreNotProvided</iso:assert> </iso:rule> </iso:pattern>
- */
-
-public class SourceGenresRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
+public class SourcesSequenceInfomationValidator extends ValidatorHandler<List<SourceVO>> implements
     Validator<List<SourceVO>> {
 
   @Override
@@ -32,13 +25,19 @@ public class SourceGenresRequiredValidator extends ValidatorHandler<List<SourceV
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
-          if (ValidationTools.isNotEmpty(sourceVO.getTitle()) //
-              && sourceVO.getGenre() == null) {
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_NOT_PROVIDED)
+
+          if (ValidationTools.isEmpty(sourceVO.getSequenceNumber())
+              || (ValidationTools.isEmpty(sourceVO.getStartPage()) && ValidationTools
+                  .isEmpty(sourceVO.getEndPage()))) {
+
+            context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN)
                 .setField("source[" + i + "]"));
+
             ok = false;
-          }
-        }
+
+          } // if
+
+        } // if
 
         i++;
       } // for

@@ -22,8 +22,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * escidoc:address = ''"> OrganizationNameNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class OrganizationNameRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements
-    Validator<List<CreatorVO>> {
+public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler<List<CreatorVO>>
+    implements Validator<List<CreatorVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {

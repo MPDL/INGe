@@ -11,12 +11,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-/*
- * <iso:report test="not(source:source[1]/dc:title != '' or source:source[2]/dc:title != '')"
- * >SourceTitleNotProvided</iso:report>
- */
-
-public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
+public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
     Validator<List<SourceVO>> {
 
   @Override
@@ -30,12 +25,17 @@ public class SourceTitlesRequiredValidator extends ValidatorHandler<List<SourceV
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
-          if (sourceVO.getTitle() == null) {
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED)
+
+          if (ValidationTools.isEmpty(sourceVO.getVolume())) {
+
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED)
                 .setField("source[" + i + "]"));
+
             ok = false;
-          }
-        }
+
+          } // if
+
+        } // if
 
         i++;
       } // for

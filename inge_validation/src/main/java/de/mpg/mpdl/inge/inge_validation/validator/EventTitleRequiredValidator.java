@@ -23,7 +23,7 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
 
     if (e != null) {
 
-      if (e.getTitle() == null //
+      if (ValidationTools.isEmpty(e.getTitle()) //
           && (ValidationTools.isNotEmpty(e.getEndDate()) //
               || e.getInvitationStatus() != null //
               || ValidationTools.isNotEmpty(e.getPlace()) //
