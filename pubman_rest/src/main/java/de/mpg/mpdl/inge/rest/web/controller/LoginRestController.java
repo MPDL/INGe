@@ -4,6 +4,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,11 +38,12 @@ public class LoginRestController {
   }
 
   @RequestMapping(path = "", method = POST, produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> login(@RequestBody String credendials) throws AuthenticationException,
-      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<?> login(@RequestBody String credendials, HttpServletRequest request,
+      HttpServletResponse response) throws AuthenticationException, AuthorizationException,
+      IngeTechnicalException, IngeApplicationException {
     String username = credendials.split(":")[0];
     String password = credendials.split(":")[1];
-    String token = userSvc.login(username, password);
+    String token = userSvc.login(username, password, request, response);
     if (token != null && !token.isEmpty()) {
       HttpHeaders headers = new HttpHeaders();
       headers.add(TOKEN_HEADER, token);

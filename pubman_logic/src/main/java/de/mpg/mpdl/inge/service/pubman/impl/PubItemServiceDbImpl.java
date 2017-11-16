@@ -4,7 +4,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -45,6 +47,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
@@ -233,15 +236,16 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         contextRepository.findOne(pubItemVO.getContext().getObjectId());
     ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
 
-    uploadStagedFiles(pubItemVO);
+
 
     PubItemUtil.cleanUpItem(pubItemVO);
 
     PubItemVersionDbVO pubItemToCreate =
-        buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(), pubItemVO.getFiles(),
+        buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
             pubItemVO.getLocalTags(), userAccount.getReference().getTitle(), userAccount
                 .getReference().getObjectId());
 
+    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, userAccount));
     PubItemVO pubItemToCreateOld = EntityTransformer.transformToOld(pubItemToCreate);
 
     checkAa("create", userAccount, pubItemToCreateOld, contextOld);
@@ -287,7 +291,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
   private PubItemVersionDbVO buildPubItemToCreate(String objectId,
       de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context, MdsPublicationVO md,
-      List<FileVO> files, List<String> localTags, String modifierName, String modifierId) {
+      List<String> localTags, String modifierName, String modifierId) {
     Date currentDate = new Date();
 
     PubItemVersionDbVO pubItem = new PubItemVersionDbVO();
@@ -316,39 +320,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     pubItemObject.setPublicStatus(PubItemDbRO.State.PENDING);
     pubItemObject.setPublicStatusComment(null);
 
-    pubItem.getFiles().clear();
-    for (FileVO fileVO : files) {
-      pubItem.getFiles().add(generateFileDbVOFromFileVO(fileVO, mod, currentDate));
-    }
-
     pubItem.setObject(pubItemObject);
     return pubItem;
   }
 
-  private FileDbVO generateFileDbVOFromFileVO(FileVO fileVO, AccountUserDbRO accountUser,
-      Date currentDate) {
-    FileDbVO fileDbVO = new FileDbVO();
-    fileDbVO.setChecksum(fileVO.getChecksum());
-    // fileDbVO.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(fileVO.getChecksumAlgorithm()
-    // .name()));
-    fileDbVO.setContent(fileVO.getContent());
-    fileDbVO.setContentCategory(fileVO.getContentCategory());
-    fileDbVO.setCreationDate(fileVO.getCreationDate());
-    fileDbVO.setCreator(accountUser);
-    fileDbVO.setDescription(fileVO.getDescription());
-    fileDbVO.setLastModificationDate(fileVO.getLastModificationDate());
-    fileDbVO.setMetadata(fileVO.getDefaultMetadata());
-    fileDbVO.setMimeType(fileVO.getMimeType());
-    fileDbVO.setName(fileVO.getName());
-    fileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES)); // TODO check if no
-    // transformation is
-    // needed
-    fileDbVO.setPid(fileVO.getPid());
-    fileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVO.getStorage().name()));
-    fileDbVO.setVisibility(FileDbVO.Visibility.valueOf(fileVO.getVisibility().name()));
-
-    return fileDbVO;
-  }
 
   private PubItemDbRO updatePubItemWithTechnicalMd(PubItemVersionDbVO latestVersion,
       String modifierName, String modifierId) {
@@ -413,59 +388,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getReference()
         .getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
-    ArrayList<FileDbVO> fileDbVOList = new ArrayList<FileDbVO>();
-    for (FileVO fileVo : pubItemVO.getFiles()) {
-      if ((fileVo.getReference() == null || fileVo.getReference().getObjectId() == null)
-          && (fileVo.getContent() == null || fileVo.getContent().length() == 0)) {
-        break;
-      }
 
-      FileDbVO newFileDbVo = new FileDbVO();
-      newFileDbVo.setChecksum(fileVo.getChecksum());
-      // TODO
-      // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
-      // .getChecksumAlgorithm().name()));
-      newFileDbVo.setContent(fileVo.getContent());
-      newFileDbVo.setContentCategory(fileVo.getContentCategory());
-
-      AccountUserRO accountUserRo = fileVo.getCreatedByRO();
-      AccountUserDbRO modifier = new AccountUserDbRO();
-      if (accountUserRo != null) {
-        modifier.setObjectId(accountUserRo.getObjectId());
-        modifier.setName(accountUserRo.getTitle());
-        newFileDbVo.setCreator(modifier);
-      } else {
-        modifier.setObjectId(userAccount.getUserid());
-        modifier.setName(userAccount.getName());
-      }
-
-      if (fileVo.getCreationDate() != null) {
-        newFileDbVo.setCreationDate(fileVo.getCreationDate());
-      } else {
-        Date currentDate = new Date();
-        newFileDbVo.setCreationDate(currentDate);
-      }
-
-      newFileDbVo.setMetadata(fileVo.getDefaultMetadata());
-      newFileDbVo.setDescription(fileVo.getDescription());
-      newFileDbVo.setLastModificationDate(fileVo.getLastModificationDate());
-      newFileDbVo.setMimeType(fileVo.getMimeType());
-      newFileDbVo.setName(fileVo.getName());
-      newFileDbVo.setPid(fileVo.getPid());
-
-      if (fileVo.getReference() != null) {
-        newFileDbVo.setObjectId(fileVo.getReference().getObjectId());
-        newFileDbVo.setName(fileVo.getName());
-      } else {
-        newFileDbVo.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
-      }
-
-      newFileDbVo.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
-      newFileDbVo.setVisibility(FileDbVO.Visibility.valueOf(fileVo.getVisibility().name()));
-
-      fileDbVOList.add(newFileDbVo);
-    }
+    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, userAccount);
     latestVersion.setFiles(fileDbVOList);
+
     latestVersion.getObject().setLocalTags(pubItemVO.getLocalTags());
 
     latestVersionOld = EntityTransformer.transformToOld(latestVersion);
@@ -483,6 +409,87 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     logger.info("PubItem " + latestVersion.getObjectIdAndVersion() + " successfully updated in "
         + (System.currentTimeMillis() - start) + " ms");
     return itemToReturn;
+  }
+
+
+  private List<FileDbVO> handleFiles(PubItemVO newPubItemVO, PubItemVersionDbVO currentPubItemVO,
+      AccountUserVO userAccount) throws IngeApplicationException, IngeTechnicalException {
+
+    List<FileDbVO> updatedFileList = new ArrayList<>();
+
+    Map<String, FileDbVO> currentFiles = new HashMap<>();
+    if (currentPubItemVO != null) {
+      for (FileDbVO file : currentPubItemVO.getFiles()) {
+        currentFiles.put(file.getObjectId(), file);
+      }
+    }
+
+    Date currentDate = new Date();
+    for (FileVO fileVo : newPubItemVO.getFiles()) {
+
+      if (fileVo.getReference() != null && fileVo.getReference().getObjectId() != null) {
+
+      }
+
+      FileDbVO currentFileDbVO;
+
+      if (fileVo.getReference() != null && fileVo.getReference().getObjectId() != null) {
+
+
+        if (!currentFiles.containsKey(fileVo.getReference().getObjectId())) {
+          throw new IngeApplicationException("File with id [" + fileVo.getReference().getObjectId()
+              + "] does not exist for this item. Please remove identifier to create as new file");
+        }
+
+        // Already existing file, just update some fields
+        currentFileDbVO = currentFiles.remove(fileVo.getReference().getObjectId());
+
+
+      } else {
+
+        // New file
+        currentFileDbVO = new FileDbVO();
+        if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
+          String stagedFileId = fileVo.getContent();
+          String persistentPath =
+              fileService.createFileFromStagedFile(Integer.parseInt(stagedFileId),
+                  fileVo.getName(), userAccount);
+          currentFileDbVO.setLocalFileIdentifier(persistentPath);
+          // TODO Set content to a REST path
+          fileVo.setContent(null);
+        }
+
+
+        currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
+        currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
+        // TODO Checksum
+        currentFileDbVO.setChecksum(fileVo.getChecksum());
+        // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
+        // .getChecksumAlgorithm().name()));
+        currentFileDbVO.setContent(fileVo.getContent());
+        currentFileDbVO.setCreationDate(currentDate);
+        AccountUserDbRO creator = new AccountUserDbRO();
+        creator.setObjectId(userAccount.getUserid());
+        creator.setName(userAccount.getName());
+        currentFileDbVO.setCreator(creator);
+
+        // TODO Pid ?
+        currentFileDbVO.setPid(fileVo.getPid());
+
+      }
+
+      currentFileDbVO.setLastModificationDate(currentDate);
+      currentFileDbVO.setMetadata(fileVo.getDefaultMetadata());
+      currentFileDbVO.setName(fileVo.getDefaultMetadata().getTitle());
+      currentFileDbVO.setDescription(fileVo.getDefaultMetadata().getDescription());
+      currentFileDbVO.setContentCategory(fileVo.getDefaultMetadata().getContentCategory());
+      currentFileDbVO.setMimeType(fileVo.getMimeType());
+      currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
+
+
+      updatedFileList.add(currentFileDbVO);
+    }
+    return updatedFileList;
   }
 
   @Override
@@ -875,16 +882,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     return EntityTransformer.transformToVersionHistory(list);
   }
 
-  private void uploadStagedFiles(PubItemVO pubItemVO) throws IngeTechnicalException {
-    for (FileVO fileVO : pubItemVO.getFiles()) {
-      if ((Storage.INTERNAL_MANAGED).equals(fileVO.getStorage())) {
-        String stagedFileName = fileVO.getContent();
-        String persistentPath =
-            fileService.createFile(fileService.readStageFile(stagedFileName), fileVO.getName());
-        fileVO.setContent(persistentPath);
-      }
-    }
-  }
+
 
   private void rollbackSavedFiles(PubItemVO pubItemVO) throws IngeTechnicalException {
     for (FileVO fileVO : pubItemVO.getFiles()) {

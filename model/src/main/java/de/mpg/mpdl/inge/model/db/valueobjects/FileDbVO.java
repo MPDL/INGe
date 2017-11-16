@@ -164,6 +164,9 @@ public class FileDbVO extends FileDbRO implements Serializable {
   @Type(type = "MdsFileVOJsonUserType")
   private MdsFileVO metadata;
 
+  @JsonIgnore
+  private String localFileIdentifier;
+
   /**
    * Public contructor.
    * 
@@ -464,5 +467,15 @@ public class FileDbVO extends FileDbRO implements Serializable {
   public void setMetadata(MdsFileVO metadata) {
     this.metadata = metadata;
   }
+
+  public String getLocalFileIdentifier() {
+    return localFileIdentifier;
+  }
+
+  public void setLocalFileIdentifier(String localFileIdentifier) {
+    this.localFileIdentifier = localFileIdentifier;
+  }
+
+
 
 }

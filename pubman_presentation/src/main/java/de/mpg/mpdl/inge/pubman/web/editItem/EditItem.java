@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
@@ -727,10 +728,11 @@ public class EditItem extends FacesBean {
         final MdsFileVO mdsFileVO = new MdsFileVO();
         String path = null;
         try {
-          path =
-              Request.Put(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + file.getFileName())
-                  .bodyStream(file.getInputstream()).execute().returnContent().asString();
-        } catch (IOException e) {
+          StagedFileDbVO stagedFile =
+              ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(),
+                  file.getFileName(), getLoginHelper().getAuthenticationToken());
+          path = String.valueOf(stagedFile.getId());
+        } catch (Exception e) {
           logger.error("Could not upload staged file [" + path + "]", e);
           error("Could not upload staged file [" + path + "]");
         }

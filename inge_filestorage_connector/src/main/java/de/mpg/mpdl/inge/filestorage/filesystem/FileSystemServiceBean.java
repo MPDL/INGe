@@ -108,8 +108,11 @@ public class FileSystemServiceBean implements FileStorageInterface {
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
     Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
     try {
+      logger.debug("Trying to read file from " + path.toString());
       if (Files.exists(path)) {
         Files.copy(path, out);
+      } else {
+        logger.error("Path " + path.toString() + " does not exist");
       }
     } catch (IOException e) {
       logger.error("An error occoured, when trying to retrieve file [" + path.toString() + "]", e);

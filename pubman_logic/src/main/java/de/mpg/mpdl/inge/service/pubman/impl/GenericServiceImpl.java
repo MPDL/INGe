@@ -143,7 +143,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
 
 
-  protected void updateWithTechnicalMetadata(DbObject object, AccountUserVO userAccount,
+  protected static void updateWithTechnicalMetadata(BasicDbRO object, AccountUserVO userAccount,
       boolean create) {
     Date currentDate = new Date();
     AccountUserDbRO mod = new AccountUserDbRO();
@@ -158,6 +158,8 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
     object.setLastModificationDate(currentDate);
     object.setModifier(mod);
   }
+
+
 
   protected abstract DbObject createEmptyDbObject();
 

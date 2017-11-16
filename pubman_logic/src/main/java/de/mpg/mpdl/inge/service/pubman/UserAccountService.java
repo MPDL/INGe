@@ -2,6 +2,9 @@ package de.mpg.mpdl.inge.service.pubman;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -17,6 +20,14 @@ public interface UserAccountService extends GenericService<AccountUserVO, String
 
   public String login(String username, String password) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public String login(String username, String password, HttpServletRequest request,
+      HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException;
+
+  public void logout(String authenticationToken, HttpServletRequest request,
+      HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException;
 
   public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,

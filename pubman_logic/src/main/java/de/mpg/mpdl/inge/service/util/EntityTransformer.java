@@ -263,6 +263,7 @@ public class EntityTransformer {
     oldFileVo.setMimeType(newFileVo.getMimeType());
     oldFileVo.setName(newFileVo.getName());
     oldFileVo.setPid(newFileVo.getPid());
+    oldFileVo.setLocalFileIdentifier(newFileVo.getLocalFileIdentifier());
 
     FileRO oldFileRo = new FileRO();
     oldFileRo.setObjectId(newFileVo.getObjectId());

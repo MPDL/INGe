@@ -44,7 +44,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
   private static Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
 
   private final static String SEAWEED_MASTER_URL = PropertyReader
-      .getProperty("inge.inge.filestorage.seaweed_master_server_ip");
+      .getProperty("inge.filestorage.seaweed_master_server_ip");
 
   private final static String SEAWEED_DIRECT_SUBMIT_PATH = PropertyReader
       .getProperty("inge.filestorage.seaweed_direct_submit_path");
@@ -76,7 +76,8 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     CloseableHttpResponse response = null;
 
     try {
-      System.out.println("Trying to create new File [" + fileName + "]");
+      System.out.println("Trying to create new File [" + fileName + "] on host "
+          + httpPost.getURI());
       response = httpClient.execute(httpPost);
       logger.info(response.getStatusLine());
       HttpEntity responseEntity = response.getEntity();
@@ -93,7 +94,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     } finally {
       try {
         response.close();
-      } catch (IOException e) {
+      } catch (Exception e) {
         logger.error("An error occoured, when trying to close response for [" + fileName + "]", e);
         throw new IngeTechnicalException("An error occoured, when trying to close response for ["
             + fileName + "]", e);

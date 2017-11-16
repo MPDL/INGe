@@ -35,7 +35,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
     encodingFilter.setEncoding("UTF-8");
     encodingFilter.setForceEncoding(true);
-    return new Filter[] {encodingFilter};
+    return new Filter[] {encodingFilter, new AuthCookieToHeaderFilter()};
   }
 
   @Override

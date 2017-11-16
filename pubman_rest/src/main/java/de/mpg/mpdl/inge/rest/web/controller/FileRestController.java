@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Path;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,9 @@ import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,7 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 
 /**
  * Rest controller for components
@@ -38,7 +44,7 @@ public class FileRestController {
   private static final String COMPONENT_METADATA_PATH = "/metadata";
 
   @Autowired
-  private FileService fileService;
+  private FileServiceExternal fileService;
 
   /**
    * Retrieve a file with a given ID
@@ -47,17 +53,21 @@ public class FileRestController {
    * @param response
    */
   @RequestMapping(path = COMPONENT_ID_PATH, method = RequestMethod.GET)
-  public void getComponentContent(@PathVariable String componentId, HttpServletResponse response) {
+  public void getComponentContent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER,
+      required = false) String token, @PathVariable String componentId, HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
     try {
       OutputStream output = response.getOutputStream();
       response.setContentType(fileService.getFileType(componentId));
       response.setHeader("Content-disposition",
           "attachment; filename=" + fileService.getFileName(componentId));
-      fileService.readFile(componentId, output);
+      fileService.readFile(componentId, output, token);
       output.flush();
       output.close();
-    } catch (IngeTechnicalException | IOException e) {
+    } catch (IOException e) {
       logger.error("could not read file [" + componentId + "]");
+      throw new IngeTechnicalException("Error while opening input stream", e);
     }
   }
 
@@ -70,17 +80,26 @@ public class FileRestController {
    */
   @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.CREATED)
-  public String createStageComponent(@PathVariable String componentName, HttpServletRequest request) {
+  public String createStageComponent(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable String componentName, HttpServletRequest request)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
 
     // HttpHeaders headers = new HttpHeaders();
     // headers.setContentType(MediaType.TEXT_HTML);
-    String responseBody = null;
+
+    int stagedFileId;
     try {
-      responseBody = fileService.createStageFile(request.getInputStream(), componentName);
-    } catch (IngeTechnicalException | IOException e) {
-      logger.error("could not create file [" + componentName + "]");
+      stagedFileId =
+          fileService.createStageFile(request.getInputStream(), componentName, token).getId();
+    } catch (IOException e) {
+
+      logger.error("Error while opening input stream", e);
+      throw new IngeTechnicalException("Error while opening input stream", e);
     }
-    return responseBody.toString();
+
+    return String.valueOf(stagedFileId);
     // return new ResponseEntity<String>(responseBody, headers, HttpStatus.CREATED);
   }
 
@@ -95,7 +114,10 @@ public class FileRestController {
    */
   @RequestMapping(path = COMPONENT_ID_PATH + COMPONENT_METADATA_PATH, method = RequestMethod.GET,
       produces = MediaType.TEXT_PLAIN_VALUE)
-  public String getTechnicalMetadataByTika(@PathVariable String componentId) {
-    return fileService.getFileMetadata(componentId);
+  public String getTechnicalMetadataByTika(@RequestHeader(
+      value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable String componentId) throws AuthenticationException, AuthorizationException,
+      IngeTechnicalException, IngeApplicationException {
+    return fileService.getFileMetadata(componentId, token);
   }
 }

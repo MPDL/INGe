@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -283,6 +287,38 @@ public class UserAccountServiceImpl extends
 
   }
 
+
+
+  @Override
+  public String login(String username, String password, HttpServletRequest request,
+      HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
+    String token = login(username, password);
+    Cookie cookie = new Cookie("inge_auth_token", token);
+    cookie.setPath("/");
+    response.addCookie(cookie);
+    return token;
+  }
+
+
+  @Override
+  public void logout(String authenticationToken, HttpServletRequest request,
+      HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
+      AuthorizationException, IngeApplicationException {
+
+    //Delete cookie
+    if (request != null && request.getCookies() != null) {
+      for (Cookie cookie : request.getCookies()) {
+        if ("inge_auth_token".equals(cookie.getName())) {
+          cookie.setValue("");
+          cookie.setMaxAge(0);
+          cookie.setPath("/");
+          response.addCookie(cookie);
+        }
+      }
+    }
+
+  }
 
 
   @Override

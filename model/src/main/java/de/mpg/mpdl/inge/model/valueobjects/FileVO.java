@@ -143,6 +143,11 @@ public class FileVO extends ValueObject implements Cloneable {
 
   private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
+
+  // Internal reference to the files content
+  @JsonIgnore
+  private String localFileIdentifier;
+
   /**
    * Public contructor.
    * 
@@ -494,6 +499,14 @@ public class FileVO extends ValueObject implements Cloneable {
 
   public void setChecksumAlgorithm(ChecksumAlgorithm checksumAlgorithm) {
     this.checksumAlgorithm = checksumAlgorithm;
+  }
+
+  public String getLocalFileIdentifier() {
+    return localFileIdentifier;
+  }
+
+  public void setLocalFileIdentifier(String localFileIdentifier) {
+    this.localFileIdentifier = localFileIdentifier;
   }
 
   @Override

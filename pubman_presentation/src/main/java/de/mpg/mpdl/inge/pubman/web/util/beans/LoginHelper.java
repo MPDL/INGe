@@ -32,11 +32,16 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -50,6 +55,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -112,14 +119,21 @@ public class LoginHelper extends FacesBean {
    */
   public String login() {
     try {
+
+      HttpServletRequest request =
+          (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      HttpServletResponse response =
+          (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+              .getResponse();
       final String token =
           ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(),
-              this.getPassword());
+              this.getPassword(), request, response);
       this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(token);
       if (token != null) {
         this.authenticationToken = token;
         this.loggedIn = true;
         this.detailedMode = true;
+
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
         if (this.accountUser.isDepositor()) {
@@ -143,6 +157,17 @@ public class LoginHelper extends FacesBean {
   }
 
   public String logout() {
+    HttpServletRequest request =
+        (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    HttpServletResponse response =
+        (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+    try {
+      ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request,
+          response);
+    } catch (Exception e) {
+      logger.error("Error while logging out", e);
+    }
     final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
 

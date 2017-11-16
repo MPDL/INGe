@@ -58,6 +58,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -736,10 +737,11 @@ public class EasySubmission extends FacesBean {
         String fileId = null;
         String fileName = this.getServiceID().trim() + dataHandler.getFileEnding();
         try {
-          fileId =
-              Request.Put(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileName).bodyStream(in)
-                  .execute().returnContent().asString();
-        } catch (IOException e) {
+          StagedFileDbVO stagedFile =
+              ApplicationBean.INSTANCE.getFileService().createStageFile(in, fileName,
+                  getLoginHelper().getAuthenticationToken());
+          fileId = String.valueOf(stagedFile.getId());
+        } catch (Exception e) {
           logger.error("Could not upload staged file [" + fileId + "]", e);
           error("Could not upload staged file [" + fileId + "]");
         }
