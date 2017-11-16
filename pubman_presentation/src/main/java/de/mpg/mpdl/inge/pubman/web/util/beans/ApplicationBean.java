@@ -42,6 +42,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;
@@ -51,7 +52,11 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.SourceVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -65,7 +70,6 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 @ApplicationScoped
 @SuppressWarnings("serial")
 public class ApplicationBean extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ApplicationBean.class);
 
   /** system type enum */
   public enum SystemType {
@@ -81,8 +85,12 @@ public class ApplicationBean extends FacesBean {
     Production_Server
   }
 
+  private static final Logger logger = Logger.getLogger(ApplicationBean.class);
+
   private static final String PROPERTY_FILENAME = "solution.properties";
   private static final String ALTERNATE_STYLESHEET = "alternate stylesheet";
+
+  public static ApplicationBean INSTANCE;
 
   private Map<String, SelectItem[]> languageSelectItems;
   private Map<String, String> contentCategoryMap;
@@ -108,26 +116,29 @@ public class ApplicationBean extends FacesBean {
 
   private boolean handlesActivated;
 
-  @ManagedProperty("#{organizationServiceDbImpl}")
-  private OrganizationService organizationService;
-
   @ManagedProperty("#{contextServiceDbImpl}")
   private ContextService contextService;
-
-  @ManagedProperty("#{pubItemServiceDbImpl}")
-  private de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService;
-
-  @ManagedProperty("#{userAccountServiceImpl}")
-  private de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService;
-
-
-  @ManagedProperty("#{yearbookServiceDbImpl}")
-  private de.mpg.mpdl.inge.service.pubman.YearbookService yearbookService;
 
   @ManagedProperty("#{restDataSource}")
   private DataSource dataSource;
 
-  public static ApplicationBean INSTANCE;
+  @ManagedProperty(value = "#{fileServiceFSImpl}")
+  private FileService fileService;
+
+  @ManagedProperty(value = "#{itemValidatingService}")
+  private ItemValidatingService itemValidatingService;
+
+  @ManagedProperty("#{organizationServiceDbImpl}")
+  private OrganizationService organizationService;
+
+  @ManagedProperty("#{pubItemServiceDbImpl}")
+  private PubItemService pubItemService;
+
+  @ManagedProperty("#{userAccountServiceImpl}")
+  private UserAccountService userAccountService;
+
+  @ManagedProperty("#{yearbookServiceDbImpl}")
+  private YearbookService yearbookService;
 
   public ApplicationBean() {
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
@@ -136,129 +147,8 @@ public class ApplicationBean extends FacesBean {
     this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
 
     ApplicationBean.INSTANCE = this;
+
     this.loadProperties();
-  }
-
-  private void loadProperties() {
-    try {
-      final Properties solProperties = CommonUtils.getProperties(ApplicationBean.PROPERTY_FILENAME);
-      this.version = solProperties.getProperty("escidoc.pubman.version");
-      this.shortVersion = "";
-      int whereToCut;
-      try {
-        this.shortVersion = solProperties.getProperty("escidoc.pubman.version");
-        // get the position of the first blank before the word 'build'
-        whereToCut = this.shortVersion.indexOf(" ");
-        this.shortVersion = this.shortVersion.substring(0, whereToCut + 1);
-      } catch (final Exception e) {
-        ApplicationBean.logger.warn("The version of the application cannot be retrieved.");
-      }
-
-      this.appTitle = this.getLabel("Pubman_browserTitle");
-      // hide the version information if system type is production
-      if (!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server)
-          && this.version != null) {
-        this.appTitle += " " + this.version;
-      }
-
-      this.pubmanInstanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
-
-      this.commonPresentationUrl =
-          PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
-      if (this.commonPresentationUrl == null) {
-        this.commonPresentationUrl = "";
-      }
-
-      this.pubmanBlogFeedUrl = PropertyReader.getProperty("escidoc.pubman.blog.news");
-      if (this.pubmanBlogFeedUrl == null) {
-        this.pubmanBlogFeedUrl = "";
-      }
-
-      try {
-        this.pubmanStyleTags = this.buildPubmanStyleTags();
-      } catch (final Exception e) {
-        ApplicationBean.logger.error("Error while building style tags", e);
-      }
-
-      this.cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
-      if (this.cookieVersion == null) {
-        this.cookieVersion = "";
-      }
-
-      this.instanceContextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-
-      this.appContext =
-          PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "/faces/";
-
-      this.logoUrl = PropertyReader.getProperty("escidoc.pubman.logo.url");
-
-      this.additionalLogoCss = PropertyReader.getProperty("escidoc.pubman.logo.css");
-      if (this.additionalLogoCss == null) {
-        this.additionalLogoCss = "";
-      }
-
-      try {
-        this.handlesActivated =
-            Boolean.parseBoolean(PropertyReader.getProperty("escidoc.handles.activated"));
-      } catch (final Exception e) {
-        ApplicationBean.logger.error("Error reading property 'escidoc.handles.activated'", e);
-        this.handlesActivated = false;
-      }
-
-      final String footerFileName = PropertyReader.getProperty("escidoc.pubman.footer.fileName");
-      try {
-        if (footerFileName != null && !footerFileName.isEmpty()) {
-          this.footerSnippet =
-              ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
-        }
-      } catch (final Exception e) {
-        ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
-      }
-
-      this.cslEditorInstanceUrl = PropertyReader.getProperty("escidoc.pubman.csl_editor.instance");
-    } catch (final Exception e) {
-      ApplicationBean.logger.error("Error while reading properties", e);
-    }
-  }
-
-  /**
-   * Returns the title and version of the application, shown in the header.
-   * 
-   * @return applicationtitle, including version
-   */
-  public String getAppTitle() {
-    return this.appTitle;
-  }
-
-  /**
-   * Provides the escidoc version string without build date.
-   * 
-   * @return the escidoc version without build date
-   * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
-   */
-  public String getShortVersion() {
-
-    return this.shortVersion;
-  }
-
-  /**
-   * Provides the escidoc instance string.
-   * 
-   * @return the escidoc instance
-   * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
-   */
-  public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException {
-    return this.pubmanInstanceUrl;
-  }
-
-  /**
-   * Provides the url for the pubman blog feed.
-   * 
-   * @return the escidoc instance
-   * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
-   */
-  public String getPubmanBlogFeedUrl() {
-    return this.pubmanBlogFeedUrl;
   }
 
   /**
@@ -382,56 +272,6 @@ public class ApplicationBean extends FacesBean {
     return styleTags.toString();
   }
 
-  public String getPubmanStyleTags() {
-    return this.pubmanStyleTags;
-  }
-
-  /**
-   * This method returns the cookie version for PubMan hold in the pubman.properties
-   * 
-   * @return String cookie version for PubMan
-   * @throws PubManVersionNotAvailableException
-   */
-  public String getCookieVersion() throws PubManVersionNotAvailableException {
-    return this.cookieVersion;
-  }
-
-  /**
-   * Returns the current application context.
-   * 
-   * @return the application context
-   */
-  public String getAppContext() {
-    return this.appContext;
-  }
-
-  /**
-   * Sets the application context.
-   * 
-   * @param appContext the new application context
-   */
-  public void setAppContext(String appContext) {
-    this.appContext = appContext;
-  }
-
-  /**
-   * Returns the current instance context path.
-   * 
-   * @return the instance context path
-   */
-  public String getInstanceContextPath() {
-    return this.instanceContextPath;
-  }
-
-  /**
-   * Sets the instance context path.
-   * 
-   * @param newInstanceContextPath the new instance context path
-   */
-  public void setInstanceContextPath(String newInstanceContextPath) {
-    this.instanceContextPath = newInstanceContextPath;
-  }
-
   /**
    * Provides the escidoc instance string.
    * 
@@ -456,6 +296,129 @@ public class ApplicationBean extends FacesBean {
     }
   }
 
+  public String getAdditionalLogoCss() {
+    return this.additionalLogoCss;
+  }
+
+  public String getAppContext() {
+    return this.appContext;
+  }
+
+  /**
+   * Returns the title and version of the application, shown in the header.
+   * 
+   * @return applicationtitle, including version
+   */
+  public String getAppTitle() {
+    return this.appTitle;
+  }
+
+  public synchronized Map<String, String> getContentCategoryMap() {
+    if (this.contentCategoryMap == null) {
+      this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+    }
+
+    return this.contentCategoryMap;
+  }
+
+  public ContextService getContextService() {
+    return this.contextService;
+  }
+
+  /**
+   * This method returns the cookie version for PubMan hold in the pubman.properties
+   * 
+   * @return String cookie version for PubMan
+   * @throws PubManVersionNotAvailableException
+   */
+  public String getCookieVersion() throws PubManVersionNotAvailableException {
+    return this.cookieVersion;
+  }
+
+  public synchronized Map<String, String> getCreatorRoleMap() {
+    if (this.creatorRoleMap == null) {
+      this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
+    }
+
+    return this.creatorRoleMap;
+  }
+
+  public String getCslEditorInstanceUrl() {
+    return this.cslEditorInstanceUrl;
+  }
+
+  public DataSource getDataSource() {
+    return this.dataSource;
+  }
+
+  public synchronized Map<String, String> getExcludedSourceGenreMap() {
+    if (this.excludedSourceGenreMap == null) {
+      this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
+    }
+
+    return this.excludedSourceGenreMap;
+  }
+
+  public FileService getFileService() {
+    return this.fileService;
+  }
+
+  public String getFooterSnippet() {
+    return this.footerSnippet;
+  }
+
+  public String getInstanceContextPath() {
+    return this.instanceContextPath;
+  }
+
+  public ItemValidatingService getItemValidatingService() {
+    return this.itemValidatingService;
+  }
+
+  public Map<String, SelectItem[]> getLanguageSelectItems() {
+    return this.languageSelectItems;
+  }
+
+  public String getLogoUrl() {
+    return this.logoUrl;
+  }
+
+  public OrganizationService getOrganizationService() {
+    return this.organizationService;
+  }
+
+  public Set<AffiliationVO> getOuList() {
+    return this.ouList;
+  }
+
+  public PubItemService getPubItemService() {
+    return this.pubItemService;
+  }
+
+  /**
+   * Provides the url for the pubman blog feed.
+   * 
+   * @return the escidoc instance
+   * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
+   */
+  public String getPubmanBlogFeedUrl() {
+    return this.pubmanBlogFeedUrl;
+  }
+
+  /**
+   * Provides the escidoc instance string.
+   * 
+   * @return the escidoc instance
+   * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
+   */
+  public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException {
+    return this.pubmanInstanceUrl;
+  }
+
+  public String getPubmanStyleTags() {
+    return this.pubmanStyleTags;
+  }
+
   public String getReloadResourceBundlesAndProperties() throws Exception {
     ResourceBundle.clearCache();
     PropertyReader.forceReloadProperties();
@@ -469,120 +432,165 @@ public class ApplicationBean extends FacesBean {
     return "... Resource bundles and properties reloaded, language selection menu reset, Journal citation styles from CoNE reloaded.";
   }
 
-  public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {
-    this.languageSelectItems = languageSelectItems;
+  /**
+   * Provides the escidoc version string without build date.
+   * 
+   * @return the escidoc version without build date
+   * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
+   */
+  public String getShortVersion() {
+
+    return this.shortVersion;
   }
 
-  public Map<String, SelectItem[]> getLanguageSelectItems() {
-    return this.languageSelectItems;
+  public UserAccountService getUserAccountService() {
+    return this.userAccountService;
   }
 
-  public Set<AffiliationVO> getOuList() {
-    return this.ouList;
-  }
-
-  public void setOuList(Set<AffiliationVO> ouList) {
-    this.ouList = ouList;
-  }
-
-  public String getLogoUrl() {
-    return this.logoUrl;
-  }
-
-  public String getAdditionalLogoCss() {
-    return this.additionalLogoCss;
-  }
-
-  public synchronized Map<String, String> getContentCategoryMap() {
-    if (this.contentCategoryMap == null) {
-      this.contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
-    }
-
-    return this.contentCategoryMap;
-  }
-
-  public synchronized Map<String, String> getExcludedSourceGenreMap() {
-    if (this.excludedSourceGenreMap == null) {
-      this.excludedSourceGenreMap = SourceVOPresentation.getExcludedSourceGenreMap();
-    }
-
-    return this.excludedSourceGenreMap;
-  }
-
-  public synchronized Map<String, String> getCreatorRoleMap() {
-    if (this.creatorRoleMap == null) {
-      this.creatorRoleMap = CreatorVOPresentation.getCreatorRoleMap();
-    }
-
-    return this.creatorRoleMap;
+  public YearbookService getYearbookService() {
+    return this.yearbookService;
   }
 
   public boolean isHandlesActivated() {
     return this.handlesActivated;
   }
 
-  public String getFooterSnippet() {
-    return this.footerSnippet;
+  private void loadProperties() {
+    try {
+      final Properties solProperties = CommonUtils.getProperties(ApplicationBean.PROPERTY_FILENAME);
+      this.version = solProperties.getProperty("escidoc.pubman.version");
+      this.shortVersion = "";
+      int whereToCut;
+      try {
+        this.shortVersion = solProperties.getProperty("escidoc.pubman.version");
+        // get the position of the first blank before the word 'build'
+        whereToCut = this.shortVersion.indexOf(" ");
+        this.shortVersion = this.shortVersion.substring(0, whereToCut + 1);
+      } catch (final Exception e) {
+        ApplicationBean.logger.warn("The version of the application cannot be retrieved.");
+      }
+
+      this.appTitle = this.getLabel("Pubman_browserTitle");
+      // hide the version information if system type is production
+      if (!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server)
+          && this.version != null) {
+        this.appTitle += " " + this.version;
+      }
+
+      this.pubmanInstanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+
+      this.commonPresentationUrl =
+          PropertyReader.getProperty("escidoc.pubman.common.presentation.url");
+      if (this.commonPresentationUrl == null) {
+        this.commonPresentationUrl = "";
+      }
+
+      this.pubmanBlogFeedUrl = PropertyReader.getProperty("escidoc.pubman.blog.news");
+      if (this.pubmanBlogFeedUrl == null) {
+        this.pubmanBlogFeedUrl = "";
+      }
+
+      try {
+        this.pubmanStyleTags = this.buildPubmanStyleTags();
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error while building style tags", e);
+      }
+
+      this.cookieVersion = PropertyReader.getProperty("escidoc.pubman.cookie.version");
+      if (this.cookieVersion == null) {
+        this.cookieVersion = "";
+      }
+
+      this.instanceContextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+
+      this.appContext =
+          PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "/faces/";
+
+      this.logoUrl = PropertyReader.getProperty("escidoc.pubman.logo.url");
+
+      this.additionalLogoCss = PropertyReader.getProperty("escidoc.pubman.logo.css");
+      if (this.additionalLogoCss == null) {
+        this.additionalLogoCss = "";
+      }
+
+      try {
+        this.handlesActivated =
+            Boolean.parseBoolean(PropertyReader.getProperty("escidoc.handles.activated"));
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error reading property 'escidoc.handles.activated'", e);
+        this.handlesActivated = false;
+      }
+
+      final String footerFileName = PropertyReader.getProperty("escidoc.pubman.footer.fileName");
+      try {
+        if (footerFileName != null && !footerFileName.isEmpty()) {
+          this.footerSnippet =
+              ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
+        }
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
+      }
+
+      this.cslEditorInstanceUrl = PropertyReader.getProperty("escidoc.pubman.csl_editor.instance");
+    } catch (final Exception e) {
+      ApplicationBean.logger.error("Error while reading properties", e);
+    }
   }
 
-  public void setFooterSnippet(String footerSnippet) {
-    this.footerSnippet = footerSnippet;
-  }
-
-  public String getCslEditorInstanceUrl() {
-    return this.cslEditorInstanceUrl;
-  }
-
-  public void setCslEditorInstanceUrl(String cslEditorInstanceUrl) {
-    this.cslEditorInstanceUrl = cslEditorInstanceUrl;
-  }
-
-  public OrganizationService getOrganizationService() {
-    return this.organizationService;
-  }
-
-  public void setOrganizationService(OrganizationService organizationService) {
-    this.organizationService = organizationService;
-  }
-
-  public ContextService getContextService() {
-    return this.contextService;
+  public void setAppContext(String appContext) {
+    this.appContext = appContext;
   }
 
   public void setContextService(ContextService contextService) {
     this.contextService = contextService;
   }
 
-  public de.mpg.mpdl.inge.service.pubman.PubItemService getPubItemService() {
-    return this.pubItemService;
-  }
-
-  public void setPubItemService(de.mpg.mpdl.inge.service.pubman.PubItemService pubItemService) {
-    this.pubItemService = pubItemService;
-  }
-
-  public de.mpg.mpdl.inge.service.pubman.UserAccountService getUserAccountService() {
-    return this.userAccountService;
-  }
-
-  public void setUserAccountService(
-      de.mpg.mpdl.inge.service.pubman.UserAccountService userAccountService) {
-    this.userAccountService = userAccountService;
-  }
-
-  public DataSource getDataSource() {
-    return this.dataSource;
+  public void setCslEditorInstanceUrl(String cslEditorInstanceUrl) {
+    this.cslEditorInstanceUrl = cslEditorInstanceUrl;
   }
 
   public void setDataSource(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
-  public de.mpg.mpdl.inge.service.pubman.YearbookService getYearbookService() {
-    return yearbookService;
+  public void setFileService(FileService fileService) {
+    this.fileService = fileService;
   }
 
-  public void setYearbookService(de.mpg.mpdl.inge.service.pubman.YearbookService yearbookService) {
+  public void setFooterSnippet(String footerSnippet) {
+    this.footerSnippet = footerSnippet;
+  }
+
+  public void setInstanceContextPath(String newInstanceContextPath) {
+    this.instanceContextPath = newInstanceContextPath;
+  }
+
+  public void setItemValidatingService(ItemValidatingService itemValidatingService) {
+    this.itemValidatingService = itemValidatingService;
+  }
+
+  public void setLanguageSelectItems(Map<String, SelectItem[]> languageSelectItems) {
+    this.languageSelectItems = languageSelectItems;
+  }
+
+  public void setOrganizationService(OrganizationService organizationService) {
+    this.organizationService = organizationService;
+  }
+
+  public void setOuList(Set<AffiliationVO> ouList) {
+    this.ouList = ouList;
+  }
+
+  public void setPubItemService(PubItemService pubItemService) {
+    this.pubItemService = pubItemService;
+  }
+
+  public void setUserAccountService(UserAccountService userAccountService) {
+    this.userAccountService = userAccountService;
+  }
+
+  public void setYearbookService(YearbookService yearbookService) {
     this.yearbookService = yearbookService;
   }
+
 }

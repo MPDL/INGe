@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -95,6 +96,9 @@ public class ImportProcess extends Thread {
   private Connection connection = null;
 
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
+
+  @Autowired
+  private ItemValidatingService itemValidatingService;
 
   public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format,
       ContextRO escidocContext, AccountUserVO user, boolean rollback, int duplicateStrategy,
@@ -459,7 +463,7 @@ public class ImportProcess extends Thread {
           this.connection);
       try {
         PubItemUtil.cleanUpItem(pubItemVO);
-        ItemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
+        this.itemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
         this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
             "import_process_default_validation_successful", this.connection);
 
@@ -467,7 +471,7 @@ public class ImportProcess extends Thread {
         this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
             "import_process_release_validation", this.connection);
         try {
-          ItemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
+          this.itemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE,
               "import_process_release_validation_successful", this.connection);
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_generate_item",

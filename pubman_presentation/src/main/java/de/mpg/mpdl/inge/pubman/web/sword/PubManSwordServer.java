@@ -49,6 +49,7 @@ import org.purl.sword.base.SWORDAuthenticationException;
 import org.purl.sword.base.SWORDContentTypeException;
 import org.purl.sword.base.SWORDEntry;
 import org.purl.sword.base.ServiceDocumentRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -86,6 +87,9 @@ public class PubManSwordServer {
 
   private AccountUserVO currentUser;
   private String verbose = "";
+
+  @Autowired
+  private ItemValidatingService itemValidatingService;
 
   /**
    * Process the deposit.
@@ -139,7 +143,7 @@ public class PubManSwordServer {
     // Validate Item
     try {
       PubItemUtil.cleanUpItem(depositItem);
-      ItemValidatingService.validate(depositItem, ValidationPoint.STANDARD);
+      this.itemValidatingService.validate(depositItem, ValidationPoint.STANDARD);
     } catch (final ValidationServiceException e) {
       this.setVerbose("Following validation error(s) occurred: " + e);
       throw e;

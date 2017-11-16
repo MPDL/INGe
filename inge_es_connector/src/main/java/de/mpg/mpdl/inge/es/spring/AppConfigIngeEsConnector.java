@@ -11,8 +11,8 @@ import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.es")
-public class AppConfig {
-  private final static Logger logger = LogManager.getLogger(AppConfig.class);
+public class AppConfigIngeEsConnector {
+  private final static Logger logger = LogManager.getLogger(AppConfigIngeEsConnector.class);
 
   @Bean
   @Primary

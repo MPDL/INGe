@@ -1,9 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
-import org.apache.http.client.fluent.Request;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -113,6 +110,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
   @Autowired
   private PidService pidService;
+
+  @Autowired
+  private ItemValidatingService itemValidatingService;
 
   @PersistenceContext
   EntityManager entityManager;
@@ -739,7 +739,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   private void validate(PubItemVO pubItem, ValidationPoint vp) throws IngeTechnicalException,
       AuthenticationException, AuthorizationException, IngeApplicationException {
     try {
-      ItemValidatingService.validate(pubItem, vp);
+      this.itemValidatingService.validate(pubItem, vp);
     } catch (ValidationException e) {
       throw new IngeApplicationException("Invalid metadata", e);
     } catch (Exception e) {

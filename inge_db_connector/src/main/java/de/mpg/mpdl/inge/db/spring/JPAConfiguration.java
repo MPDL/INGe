@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.spring_config;
+package de.mpg.mpdl.inge.db.spring;
 
 import java.util.Properties;
 
@@ -92,7 +92,7 @@ public class JPAConfiguration {
   Properties hibernateProperties() {
     return new Properties() {
       {
-        setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring_config.JsonPostgreSQL9Dialect");
+        setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring.JsonPostgreSQL9Dialect");
 
         setProperty("hibernate.cache.use_second_level_cache", "true");
         setProperty("hibernate.cache.use_query_cache", "true");

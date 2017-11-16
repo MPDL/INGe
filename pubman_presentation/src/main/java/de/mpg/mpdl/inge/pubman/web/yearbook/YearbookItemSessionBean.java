@@ -15,10 +15,8 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
-import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -45,8 +43,6 @@ public class YearbookItemSessionBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemSessionBean.class);
 
   private YBWORKSPACE selectedWorkspace;
-  // private PubItemVO yearbookItem;
-  // private ContextVO yearbookContext;
 
   private YearbookDbVO yearbook;
 
@@ -57,7 +53,6 @@ public class YearbookItemSessionBean extends FacesBean {
       new HashMap<String, YearbookInvalidItemRO>();
   private final Map<String, YearbookInvalidItemRO> validItemMap =
       new HashMap<String, YearbookInvalidItemRO>();
-
 
   private YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
 
@@ -73,11 +68,9 @@ public class YearbookItemSessionBean extends FacesBean {
 
   @PostConstruct
   public void postConstruct() {
-
     if (this.getLoginHelper().getIsYearbookEditor()) {
       this.initYearbook(null);
     }
-
   }
 
   public void initYearbook(String id) {
@@ -333,7 +326,8 @@ public class YearbookItemSessionBean extends FacesBean {
       ValidationReportVO rep = new ValidationReportVO();
 
       try {
-        ItemValidatingService.validateYearbook(new PubItemVO(pubItem));
+        ApplicationBean.INSTANCE.getItemValidatingService()
+            .validateYearbook(new PubItemVO(pubItem));
       } catch (final ValidationException e) {
         rep = e.getReport();
       }

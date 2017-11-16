@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,12 +54,10 @@ import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -102,7 +99,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.service.pubman.FileService;
-import de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -122,6 +118,10 @@ public class EasySubmission extends FacesBean {
 
   public static final String LOAD_EASYSUBMISSION = "loadEasySubmission";
   public static final String INTERNAL_MD_FORMAT = "eSciDoc-publication-item";
+
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
+  public static final String REST_COMPONENT_PATH = PropertyReader
+      .getProperty("inge.rest.file_path");
 
   public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL",
       this.getLabel("easy_submission_method_manual"));
@@ -149,26 +149,11 @@ public class EasySubmission extends FacesBean {
   private UploadedFile uploadedFile;
   private boolean overwriteCreators;
 
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
-  public static final String REST_COMPONENT_PATH = PropertyReader
-      .getProperty("inge.rest.file_path");
-
-  @ManagedProperty(value = "#{fileServiceFSImpl}")
-  private FileService fileService;
-
-
-
   public EasySubmission() {
     this.init();
   }
 
   public void init() {
-    // try {
-    // fileService = new FileServiceFSImpl();
-    // } catch (IngeTechnicalException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
     this.SUBMISSION_METHOD_MANUAL =
         new SelectItem("MANUAL", this.getLabel("easy_submission_method_manual"));
     this.SUBMISSION_METHOD_FETCH_IMPORT =
@@ -1032,7 +1017,7 @@ public class EasySubmission extends FacesBean {
       }
 
       try {
-        ItemValidatingService.validate(itemVO, validationPoint);
+        ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, validationPoint);
       } catch (final ValidationException e) {
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
           this.error(this.getMessage(item.getContent()));
@@ -1635,14 +1620,6 @@ public class EasySubmission extends FacesBean {
 
   public String getHiddenIdsField() {
     return this.hiddenIdsField;
-  }
-
-  public FileService getFileService() {
-    return fileService;
-  }
-
-  public void setFileService(FileService fileService) {
-    this.fileService = fileService;
   }
 
   /**

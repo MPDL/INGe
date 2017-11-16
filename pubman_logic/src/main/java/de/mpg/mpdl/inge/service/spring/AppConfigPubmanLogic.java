@@ -26,13 +26,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
-import de.mpg.mpdl.inge.es.spring.AppConfig;
+import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
+import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
 import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
+import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
-@Import({AppConfig.class, JPAConfiguration.class, AppConfigFileStorage.class})
+@Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class,
+    AppConfigIngeValidation.class})
 @EnableTransactionManagement
 @EnableScheduling
 @EnableJms

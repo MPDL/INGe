@@ -12,12 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
-import de.mpg.mpdl.inge.es.spring.AppConfig;
+import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class})
+@ContextConfiguration(classes = {AppConfigIngeEsConnector.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContextServiceHandlerTest extends TestBase {
   private static final Logger logger = Logger.getLogger(ContextServiceHandlerTest.class);

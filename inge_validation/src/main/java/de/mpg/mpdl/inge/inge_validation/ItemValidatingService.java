@@ -1,16 +1,18 @@
 package de.mpg.mpdl.inge.inge_validation;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
+@Service
 public class ItemValidatingService {
   private static final Logger logger = Logger.getLogger(ItemValidatingService.class);
 
-  public static void validate(final ItemVO itemVO, final ValidationPoint validationPoint)
+  public void validate(final ItemVO itemVO, final ValidationPoint validationPoint)
       throws ValidationServiceException, ValidationException {
 
     try {
@@ -26,7 +28,7 @@ public class ItemValidatingService {
     }
   }
 
-  public static void validateYearbook(final ItemVO itemVO) throws ValidationServiceException,
+  public void validateYearbook(final ItemVO itemVO) throws ValidationServiceException,
       ValidationException {
 
     try {

@@ -27,13 +27,11 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.model.SelectItem;
@@ -49,7 +47,6 @@ import org.primefaces.model.UploadedFile;
 
 import com.sun.faces.facelets.component.UIRepeat;
 
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -88,6 +85,7 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.GenreSpecificItemManager;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.ListItem;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -97,7 +95,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTa
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
-import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -141,9 +138,6 @@ public class EditItem extends FacesBean {
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
   public static final String REST_COMPONENT_PATH = PropertyReader
       .getProperty("inge.rest.file_path");
-
-  @ManagedProperty(value = "#{fileServiceFSImpl}")
-  private FileService fileService;
 
   public EditItem() {
     this.init();
@@ -500,7 +494,8 @@ public class EditItem extends FacesBean {
       PubItemVO itemVO = new PubItemVO(this.getPubItem()); // Validierung arbeitet mit Kopie
       PubItemUtil.cleanUpItem(itemVO);
       cleanUp(itemVO);
-      ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
+      ApplicationBean.INSTANCE.getItemValidatingService()
+          .validate(itemVO, ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);
     } catch (final ValidationException e) {
@@ -1304,14 +1299,6 @@ public class EditItem extends FacesBean {
     this.fileIterator = fileIterator;
   }
 
-  public FileService getFileService() {
-    return fileService;
-  }
-
-  public void setFileService(FileService fileService) {
-    this.fileService = fileService;
-  }
-
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
       this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
@@ -1320,9 +1307,9 @@ public class EditItem extends FacesBean {
     return this.suggestConeUrl;
   }
 
-  // public void setSuggestConeUrl(String suggestConeUrl) {
-  // this.suggestConeUrl = suggestConeUrl;
-  // }
+  public void setSuggestConeUrl(String suggestConeUrl) {
+    this.suggestConeUrl = suggestConeUrl;
+  }
 
   public HtmlSelectOneMenu getGenreSelect() {
     return this.genreSelect;

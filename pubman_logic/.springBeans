@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.1.201710100539-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/main/resources/beanRefContext.xml</config>
+		<config>java:de.mpg.mpdl.inge.service.spring.AppConfigPidService</config>
+		<config>java:de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic</config>
+		<config>java:de.mpg.mpdl.inge.service.listener.OaiPmhItemChangeListener</config>
+	</configs>
+	<autoconfigs>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

@@ -43,7 +43,6 @@ import org.apache.log4j.Logger;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -730,7 +729,8 @@ public class ViewItemFull extends FacesBean {
     try {
       PubItemVO itemVO = new PubItemVO(this.getPubItem());
       // PubItemUtil.cleanUpItem(itemVO);
-      ItemValidatingService.validate(itemVO, ValidationPoint.STANDARD);
+      ApplicationBean.INSTANCE.getItemValidatingService()
+          .validate(itemVO, ValidationPoint.STANDARD);
     } catch (final ValidationException e) {
       this.showValidationMessages(e.getReport());
       return false;
