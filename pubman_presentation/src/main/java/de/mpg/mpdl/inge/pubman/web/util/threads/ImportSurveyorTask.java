@@ -25,9 +25,9 @@ public class ImportSurveyorTask {
 
   public ImportSurveyorTask() {}
 
-  @Scheduled(cron = "${inge.import.surveyor.cron}")
+  @Scheduled(cron = "${inge.cron.import.surveyor}")
   public void run() {
-    ImportSurveyorTask.logger.info("Import surveyor task checks logs...");
+    ImportSurveyorTask.logger.info("CRON: Import surveyor task checks logs...");
 
     Connection connection = null;
     ResultSet rs = null;
@@ -72,6 +72,6 @@ public class ImportSurveyorTask {
       DbTools.closeConnection(connection);
     }
 
-    ImportSurveyorTask.logger.info("Import surveyor task finished.");
+    ImportSurveyorTask.logger.info("CRON: Import surveyor task finished.");
   }
 }

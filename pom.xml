@@ -975,7 +975,6 @@
         <escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
         <escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
         <escidoc.pubman.sitemap.retrieve.items>1000</escidoc.pubman.sitemap.retrieve.items>
-        <inge.pubman.sitemap.cron>0 0 3 * * *</inge.pubman.sitemap.cron>
         <escidoc.pubman.statistics.nims.context.ids />
         <escidoc.pubman.statistics.nims.link />
         <escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
@@ -1042,7 +1041,6 @@
         <escidoc.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</escidoc.transformation.zfn.stylesheet.filename>      
         <escidoc.unapi.view.server>http://localhost:8080/rest/unapi</escidoc.unapi.view.server>
         <escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
-        <escidoc.validation.refresh.interval>180</escidoc.validation.refresh.interval>
         <escidoc.validation.source.classname>de.mpg.mpdl.inge.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
         <framework.admin.displayname>System Administrator User</framework.admin.displayname>
         <framework.admin.id>escidoc:exuser1</framework.admin.id>
@@ -1060,16 +1058,18 @@
         <framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
         <framework.scientist.id>escidoc:2078316</framework.scientist.id>
         <framework.scientist.username>test_dep_scientist</framework.scientist.username>
+        <inge.cron.conecache.refresh>0 0 */1 * * *</inge.cron.conecache.refresh>
+        <inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
+        <inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
         <inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>      
-        <inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>   
         <inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>   
+        <inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>   
         <inge.depositor.loginname>test_depositor</inge.depositor.loginname>
         <inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
         <inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
         <inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
         <inge.filestorage.seaweed_master_server_ip>http://localhost:9333</inge.filestorage.seaweed_master_server_ip>
         <inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
-        <inge.import.surveyor.cron>0 */10 * * * *</inge.import.surveyor.cron>
         <inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
         <inge.moderator.loginname>test_moderator</inge.moderator.loginname>
         <inge.rest.file_path>/component</inge.rest.file_path>

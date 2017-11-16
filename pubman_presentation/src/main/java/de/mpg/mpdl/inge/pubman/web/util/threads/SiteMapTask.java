@@ -110,10 +110,10 @@ public class SiteMapTask {
   /**
    * {@inheritDoc}
    */
-  @Scheduled(cron = "${inge.pubman.sitemap.cron}")
+  @Scheduled(cron = "${inge.cron.pubman.sitemap}")
   public void run() {
     try {
-      SiteMapTask.logger.info("Starting to create Sitemap.");
+      SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
       this.instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
       this.contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
       this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
@@ -208,7 +208,7 @@ public class SiteMapTask {
         SiteMapTask.logger.debug("Renaming succeeded: " + success);
       }
 
-      SiteMapTask.logger.info("Finished creating Sitemap.");
+      SiteMapTask.logger.info("CRON: Finished creating Sitemap.");
     } catch (final Exception e) {
       SiteMapTask.logger.error("Error creating Sitemap", e);
     }

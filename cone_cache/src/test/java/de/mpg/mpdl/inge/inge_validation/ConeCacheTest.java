@@ -170,7 +170,7 @@ public class ConeCacheTest {
       while (true) {
         System.out.println("Start refreshCache");
         try {
-          this.cache.refreshCache();
+          ConeCache.refreshCache();
         } catch (final ConeCacheConfigException e) {
           System.out.println(e);
         }
