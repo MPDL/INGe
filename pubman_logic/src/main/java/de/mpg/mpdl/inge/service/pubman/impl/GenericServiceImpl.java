@@ -2,37 +2,25 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.Scroll;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
-import org.hibernate.tool.schema.internal.exec.GenerationTargetToStdout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +29,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
