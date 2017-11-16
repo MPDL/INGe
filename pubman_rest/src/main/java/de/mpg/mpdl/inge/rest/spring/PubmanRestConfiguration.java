@@ -7,10 +7,7 @@ import org.springframework.context.annotation.PropertySources;
 
 @Configuration
 @PropertySources({@PropertySource(value = "file:${catalina.home}/conf/pubman.properties",
-    ignoreResourceNotFound = true)
-
-})
+    ignoreResourceNotFound = true)})
 @ComponentScan(basePackages = {"de.mpg.mpdl.inge.rest"})
 public class PubmanRestConfiguration {
-
 }
