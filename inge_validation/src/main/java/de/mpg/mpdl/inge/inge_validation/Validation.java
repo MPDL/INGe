@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.inge_validation;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
@@ -14,22 +16,22 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsContentRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDataRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDateFormatValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsNoSlashesInNameValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.CreatorsOrganizationsNameRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.CreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsWithOrganisationRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.ComponentsNoSlashesInNameValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.CreatorsOrganizationsNameRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.CreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.SourcesGenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourcesGenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourcesTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentsMimeTypeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
@@ -38,9 +40,8 @@ import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsPersonRoleReq
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.DateAcceptedRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.EventTitleAndPlaceRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsMaxPlanckAffiliationValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.PublishingDateRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesSequenceInfomationValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesTotalNumberOfPagesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsOrganizationNamesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsPersonNamesRequiredValidator;
@@ -50,15 +51,20 @@ import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreProceedin
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreSeriesValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesPublisherAndPlaceRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesPublisherEditionRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesSequenceInfomationValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesTotalNumberOfPagesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesVolumeRequiredValidator;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class Validation {
+
   private static final Logger logger = Logger.getLogger(Validation.class);
 
-  public static void validate(final ItemVO itemVO, ValidationPoint validationPoint)
+  public Validation() {}
+
+  public void validate(final ItemVO itemVO, ValidationPoint validationPoint)
       throws ValidationServiceException, ValidationException {
 
     if (itemVO instanceof PubItemVO == false) {
@@ -78,7 +84,7 @@ public class Validation {
 
         logger.info(resultSave);
 
-        Validation.checkResult(resultSave);
+        checkResult(resultSave);
 
         break;
 
@@ -114,7 +120,7 @@ public class Validation {
 
         logger.info(resultSimple);
 
-        Validation.checkResult(resultSimple);
+        checkResult(resultSimple);
 
         break;
 
@@ -167,7 +173,7 @@ public class Validation {
 
         logger.info(resultStandard);
 
-        Validation.checkResult(resultStandard);
+        checkResult(resultStandard);
 
         break;
 
@@ -187,7 +193,7 @@ public class Validation {
 
         logger.info(resultEasy3);
 
-        Validation.checkResult(resultEasy3);
+        checkResult(resultEasy3);
 
         break;
 
@@ -213,7 +219,7 @@ public class Validation {
 
         logger.info(resultEasy4);
 
-        Validation.checkResult(resultEasy4);
+        checkResult(resultEasy4);
 
         break;
 
@@ -223,8 +229,8 @@ public class Validation {
     }
   }
 
-  public static void validateYearbook(final ItemVO itemVO) throws ValidationServiceException,
-      ValidationException {
+  public void validateYearbook(final ItemVO itemVO, List<String> childsOfMPG)
+      throws ValidationServiceException, ValidationException {
 
     if (itemVO instanceof PubItemVO == false) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
@@ -240,6 +246,8 @@ public class Validation {
             .failOver()
             // Allgemein
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+            .on(pubItemVO.getMetadata().getCreators(),
+                new CreatorsMaxPlanckAffiliationValidator(childsOfMPG))
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsPersonNamesRequiredValidator())
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsPersonRoleRequiredValidator())
             .on(pubItemVO.getMetadata(), new PublishingDateRequiredValidator())
@@ -343,10 +351,10 @@ public class Validation {
 
     logger.info(result);
 
-    Validation.checkResult(result);
+    checkResult(result);
   }
 
-  private static void checkResult(ComplexResult complexResult) throws ValidationException {
+  private void checkResult(ComplexResult complexResult) throws ValidationException {
     final ValidationReportVO v = new ValidationReportVO();
 
     if (complexResult.isSuccess() == false) {
@@ -362,7 +370,7 @@ public class Validation {
   }
 
   // ### Yearbook Section ########################################
-  private static boolean isArticle(MdsPublicationVO.Genre genre) {
+  private boolean isArticle(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.ARTICLE.equals(genre)
         || MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre)
         || MdsPublicationVO.Genre.CASE_NOTE.equals(genre)
@@ -372,7 +380,7 @@ public class Validation {
         || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre);
   }
 
-  private static boolean isBookChapter(MdsPublicationVO.Genre genre) {
+  private boolean isBookChapter(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.BOOK_ITEM.equals(genre)
         || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)
         || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre)
@@ -380,16 +388,16 @@ public class Validation {
         || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre);
   }
 
-  private static boolean isConferencePaper(MdsPublicationVO.Genre genre) {
+  private boolean isConferencePaper(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre)
         || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre);
   }
 
-  private static boolean isProceedings(MdsPublicationVO.Genre genre) {
+  private boolean isProceedings(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.PROCEEDINGS.equals(genre);
   }
 
-  private static boolean isBook(MdsPublicationVO.Genre genre) {
+  private boolean isBook(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.BOOK.equals(genre)
         || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre)
         || MdsPublicationVO.Genre.COMMENTARY.equals(genre)
@@ -398,28 +406,28 @@ public class Validation {
         || MdsPublicationVO.Genre.MONOGRAPH.equals(genre);
   }
 
-  private static boolean isThesis(MdsPublicationVO.Genre genre) {
+  private boolean isThesis(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.THESIS.equals(genre);
   }
 
-  private static boolean isIssue(MdsPublicationVO.Genre genre) {
+  private boolean isIssue(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.ISSUE.equals(genre);
   }
 
-  private static boolean isJournal(MdsPublicationVO.Genre genre) {
+  private boolean isJournal(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.JOURNAL.equals(genre);
   }
 
-  private static boolean isSeries(MdsPublicationVO.Genre genre) {
+  private boolean isSeries(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.SERIES.equals(genre);
   }
 
-  private static boolean isPaper(MdsPublicationVO.Genre genre) {
+  private boolean isPaper(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.PAPER.equals(genre)
         || MdsPublicationVO.Genre.OPINION.equals(genre);
   }
 
-  private static boolean isReport(MdsPublicationVO.Genre genre) {
+  private boolean isReport(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.REPORT.equals(genre);
   }
 

@@ -39,6 +39,7 @@ public class ErrorMessages {
       "IncorrectMPISProjectsClassification";
   public static final String LOCATOR_IS_NO_URI = "LocatorIsNoUri";
   public static final String MIME_TYPE_NOT_VALID = "MimeTypeNotValid";
+  public static final String NO_MAX_PLANCK_AFFILIATION = "NoMaxPlanckAffiliation";
   public static final String NO_SEQUENCE_INFORMATION_GIVEN = "NoSequenceInformationGiven";
   public static final String NO_YEARBOOK_GENRE = "NoYearbookGenre";
   public static final String ORGANIZATIONAL_METADATA_NOT_PROVIDED =

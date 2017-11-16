@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
@@ -28,9 +29,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped
@@ -54,7 +57,13 @@ public class YearbookItemSessionBean extends FacesBean {
   private final Map<String, YearbookInvalidItemRO> validItemMap =
       new HashMap<String, YearbookInvalidItemRO>();
 
-  private YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
+  private final YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
+  private final OrganizationService organizationService = ApplicationBean.INSTANCE
+      .getOrganizationService();
+  private final ItemValidatingService itemValidatingService = ApplicationBean.INSTANCE
+      .getItemValidatingService();
+
+  private final String mpgId = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
 
   public YearbookItemSessionBean() {
     try {
@@ -326,8 +335,9 @@ public class YearbookItemSessionBean extends FacesBean {
       ValidationReportVO rep = new ValidationReportVO();
 
       try {
-        ApplicationBean.INSTANCE.getItemValidatingService()
-            .validateYearbook(new PubItemVO(pubItem));
+        // TODO: childsOfMPG in OrganizationService auslagern und dort evtl. cachen
+        List<String> childsOfMPG = this.organizationService.getChildIdPath(mpgId);
+        this.itemValidatingService.validateYearbook(new PubItemVO(pubItem), childsOfMPG);
       } catch (final ValidationException e) {
         rep = e.getReport();
       }
