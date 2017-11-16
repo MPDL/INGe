@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
 import de.mpg.mpdl.inge.filestorage.seaweedfs.SeaweedFileServiceBean;
+import de.mpg.mpdl.inge.filestorage.spring.FileStorageConnectorConfiguration;
 
 /**
  * Unit test FileServiceBean

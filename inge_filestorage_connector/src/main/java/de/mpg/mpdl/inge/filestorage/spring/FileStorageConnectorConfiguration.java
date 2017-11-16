@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.filestorage;
+package de.mpg.mpdl.inge.filestorage.spring;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
