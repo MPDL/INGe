@@ -306,7 +306,7 @@ public class UserAccountServiceImpl extends
       HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
 
-    //Delete cookie
+    // Delete cookie
     if (request != null && request.getCookies() != null) {
       for (Cookie cookie : request.getCookies()) {
         if ("inge_auth_token".equals(cookie.getName())) {

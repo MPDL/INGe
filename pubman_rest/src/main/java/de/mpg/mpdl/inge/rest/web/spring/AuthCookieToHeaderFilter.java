@@ -42,7 +42,7 @@ public class AuthCookieToHeaderFilter implements Filter {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
     if (httpServletRequest.getHeader(AUTHZ_HEADER) == null
-        || !httpServletRequest.getHeader(AUTHZ_HEADER).isEmpty()) {
+        || httpServletRequest.getHeader(AUTHZ_HEADER).isEmpty()) {
 
       Cookie[] cookies = httpServletRequest.getCookies();
 
