@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import de.mpg.mpdl.inge.db.spring_config.JPATestConfiguration;
+import de.mpg.mpdl.inge.db.spring.JPATestConfiguration;
 import de.mpg.mpdl.inge.es.connector.spring.AppConfigTest;
 import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 

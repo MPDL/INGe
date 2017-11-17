@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.db.spring_config;
+package de.mpg.mpdl.inge.db.spring;
 
 import java.util.Properties;
 
