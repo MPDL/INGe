@@ -70,7 +70,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriter
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentContentCategory;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.StandardSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.TitleSearchCriterion;

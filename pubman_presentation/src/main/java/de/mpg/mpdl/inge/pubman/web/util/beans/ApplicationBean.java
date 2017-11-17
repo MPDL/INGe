@@ -122,10 +122,10 @@ public class ApplicationBean extends FacesBean {
   @ManagedProperty("#{restDataSource}")
   private DataSource dataSource;
 
-  @ManagedProperty(value = "#{fileServiceFSImpl}")
+  @ManagedProperty("#{fileServiceFSImpl}")
   private FileService fileService;
 
-  @ManagedProperty(value = "#{itemValidatingService}")
+  @ManagedProperty("#{itemValidatingService}")
   private ItemValidatingService itemValidatingService;
 
   @ManagedProperty("#{organizationServiceDbImpl}")

@@ -28,8 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.Application;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
