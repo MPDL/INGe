@@ -53,18 +53,18 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
   @Scheduled(fixedDelay = 3600000, initialDelay = 0)
   public void initSearchIndexFields() {
     try {
+      logger.info("CRON: initSearchIndexFields() started...");
       Map<String, ElasticSearchIndexField> indexFields = getElasticDao().getIndexFields();
       this.indexFields = indexFields;
-
+      logger.info("CRON: initSearchIndexFields() finished (" + this.indexFields.size() + ").");
     } catch (IngeTechnicalException e) {
-      logger.error("Error while renewing list of index fields", e);
+      logger.info("CRON: initSearchIndexFields() failed!");
     }
-
   }
 
 
   public Map<String, ElasticSearchIndexField> getElasticSearchIndexFields() {
-    return indexFields;
+    return this.indexFields;
   }
 
 

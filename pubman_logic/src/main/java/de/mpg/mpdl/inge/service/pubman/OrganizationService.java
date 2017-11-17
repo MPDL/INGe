@@ -36,4 +36,7 @@ public interface OrganizationService extends GenericService<AffiliationVO, Strin
   public List<String> getChildIdPath(String id) throws IngeTechnicalException,
       IngeApplicationException;
 
+  public List<String> getAllChildrenOfMpg() throws IngeTechnicalException, IngeApplicationException;
+
+  public void refreshAllChildrenOfMpg();
 }

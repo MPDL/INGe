@@ -33,7 +33,6 @@ import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped
@@ -62,8 +61,6 @@ public class YearbookItemSessionBean extends FacesBean {
       .getOrganizationService();
   private final ItemValidatingService itemValidatingService = ApplicationBean.INSTANCE
       .getItemValidatingService();
-
-  private final String mpgId = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
 
   public YearbookItemSessionBean() {
     try {
@@ -335,8 +332,7 @@ public class YearbookItemSessionBean extends FacesBean {
       ValidationReportVO rep = new ValidationReportVO();
 
       try {
-        // TODO: childsOfMPG in OrganizationService auslagern und dort evtl. cachen
-        List<String> childsOfMPG = this.organizationService.getChildIdPath(mpgId);
+        List<String> childsOfMPG = this.organizationService.getAllChildrenOfMpg();
         this.itemValidatingService.validateYearbook(new PubItemVO(pubItem), childsOfMPG);
       } catch (final ValidationException e) {
         rep = e.getReport();

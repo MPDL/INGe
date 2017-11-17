@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,7 @@ import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 @Primary
@@ -59,6 +61,10 @@ public class OrganizationServiceDbImpl extends
       "predecessorAffiliations.objectId";
 
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
+
+  private final String mpgId = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
+
+  private List<String> allChildrenOfMpg = new ArrayList<String>();
 
   @Autowired
   private OrganizationDaoEs organizationDao;
@@ -352,6 +358,25 @@ public class OrganizationServiceDbImpl extends
   @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AffiliationVO")
   public void reindexListener(String id) throws IngeTechnicalException {
     reindex(id, false);
-
   }
+
+  @Override
+  public List<String> getAllChildrenOfMpg() throws IngeTechnicalException, IngeApplicationException {
+    return this.allChildrenOfMpg;
+  }
+
+  @Override
+  @Scheduled(fixedDelay = 600000, initialDelay = 60000)
+  public void refreshAllChildrenOfMpg() {
+    try {
+      logger.info("CRON: refreshAllChildrenOfMpg() started...");
+      List<String> allChildrenOfMpg_ = this.getChildIdPath(this.mpgId);
+      this.allChildrenOfMpg = allChildrenOfMpg_;
+      logger.info("CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size()
+          + ").");
+    } catch (IngeTechnicalException | IngeApplicationException e) {
+      logger.error("CRON: refreshAllChildrenOfMpg() failed!", e);
+    }
+  }
+
 }
