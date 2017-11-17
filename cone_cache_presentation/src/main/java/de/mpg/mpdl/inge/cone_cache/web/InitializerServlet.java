@@ -28,8 +28,8 @@ public class InitializerServlet extends HttpServlet {
   // initial refreshed wird)
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+      IOException {
     this.initTask = new ConeCacheInitTask();
     this.initTask.start();
     resp.getWriter().write("CONE CACHE refresh requested!");
