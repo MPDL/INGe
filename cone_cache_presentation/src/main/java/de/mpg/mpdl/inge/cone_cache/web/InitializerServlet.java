@@ -22,10 +22,14 @@ public class InitializerServlet extends HttpServlet {
     this.initTask.start();
   }
 
-  // TODO: Authorisierung
+  // TODO: Authorisierung + Umstellung auf REST service
+  // (dabei ConeCacheRefreshTask umstellen von @Scheduled(cron = "${inge.cron.conecache.refresh})"
+  // auf @Scheduled(fixedDelay = 3600000, initialDelay = 0) da sonst beim Deployen der Cache nicht
+  // initial refreshed wird)
+
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
     this.initTask = new ConeCacheInitTask();
     this.initTask.start();
     resp.getWriter().write("CONE CACHE refresh requested!");

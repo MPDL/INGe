@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+// TODO: Authorization
 @RestController
 @RequestMapping("/oai")
 public class OaiRestController {
