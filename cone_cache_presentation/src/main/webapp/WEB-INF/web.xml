@@ -13,4 +13,10 @@
 		<servlet-class>de.mpg.mpdl.inge.cone_cache.web.InitializerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>InitializerServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
