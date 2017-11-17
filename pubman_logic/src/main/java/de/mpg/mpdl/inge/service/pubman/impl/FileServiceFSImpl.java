@@ -42,7 +42,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**

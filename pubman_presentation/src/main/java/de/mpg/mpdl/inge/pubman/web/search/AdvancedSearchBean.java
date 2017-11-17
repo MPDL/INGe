@@ -90,7 +90,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")
 @SessionScoped
-// @javax.enterprise.context.SessionScoped
 @SuppressWarnings("serial")
 public class AdvancedSearchBean extends FacesBean implements Serializable, LanguageChangeObserver {
   private static final Logger logger = Logger.getLogger(AdvancedSearchBean.class);

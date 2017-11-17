@@ -53,7 +53,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;

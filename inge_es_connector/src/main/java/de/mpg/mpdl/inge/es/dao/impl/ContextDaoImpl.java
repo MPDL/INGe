@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.es.dao.impl;
 
-import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;

@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.es.dao;
 
 import java.util.Map;
 
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
