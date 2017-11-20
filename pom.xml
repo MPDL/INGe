@@ -972,7 +972,7 @@
         <escidoc.pubman.logo.url>/resources/images/pubman_logo_web.png</escidoc.pubman.logo.url>
         <escidoc.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</escidoc.pubman.policy.url>
         <escidoc.pubman.presentation.url>/common/</escidoc.pubman.presentation.url>
-        <escidoc.pubman.root.organisation.id>escidoc:215001</escidoc.pubman.root.organisation.id>
+        <escidoc.pubman.root.organisation.id>ou_persistent13</escidoc.pubman.root.organisation.id>
         <escidoc.pubman.sitemap.max.items>50000</escidoc.pubman.sitemap.max.items>
         <escidoc.pubman.sitemap.retrieve.items>1000</escidoc.pubman.sitemap.retrieve.items>
         <escidoc.pubman.statistics.nims.context.ids />
