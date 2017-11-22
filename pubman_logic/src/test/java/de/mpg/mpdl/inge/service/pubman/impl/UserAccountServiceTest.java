@@ -26,9 +26,6 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserAccountServiceTest extends TestBase {
 
-  // password may change during the tests depending on the test order
-  private static String actualDepositorPassword = "tseT";
-
   @Test
   public void objects() {
     super.logMethodName();
@@ -50,7 +47,7 @@ public class UserAccountServiceTest extends TestBase {
     assertTrue(accountUserVO != null);
     assertTrue(accountUserVO.alreadyExistsInFramework());
     assertTrue(accountUserVO.getAffiliations().size() == 1);
-    assertTrue(accountUserVO.getAffiliations().get(0).getObjectId().equals("ou_persistent25"));
+    assertTrue(accountUserVO.getAffiliations().get(0).getObjectId().equals(ORG_OBJECTID_25));
     assertTrue(accountUserVO.getGrants().size() == 2);
     assertTrue(accountUserVO.getName().equals("Test Depositor"));
 
@@ -78,7 +75,7 @@ public class UserAccountServiceTest extends TestBase {
 
     String token = null;
     try {
-      token = userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
+      token = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
         | IngeApplicationException e) {
       e.printStackTrace();
@@ -112,8 +109,7 @@ public class UserAccountServiceTest extends TestBase {
   public void getDepositor() throws Exception {
     super.logMethodName();
 
-    String authenticationToken =
-        userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
+    String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
 
     assertTrue(authenticationToken != null);
 
@@ -222,6 +218,8 @@ public class UserAccountServiceTest extends TestBase {
             accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
 
     assertFalse(accountUserToBeDeactivated.isActive());
+
+    activateDepositor();
   }
 
   @Test(expected = AuthorizationException.class)
@@ -229,7 +227,7 @@ public class UserAccountServiceTest extends TestBase {
     super.logMethodName();
 
     String username = DEPOSITOR_LOGIN_NAME;
-    String password = actualDepositorPassword;
+    String password = DEPOSITOR_PASSWORD;
 
     String authenticationToken = userAccountService.login(username, password);
     assertTrue(authenticationToken != null);
@@ -246,19 +244,20 @@ public class UserAccountServiceTest extends TestBase {
   public void changePasswordByUser() throws Exception {
     super.logMethodName();
 
-    String authenticationToken =
-        userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
+    String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
     assertTrue(authenticationToken != null);
-    actualDepositorPassword = "newPassword";
+    String newDepositorPassword = "myPassword";
 
     AccountUserVO accountUserPwdToBeChanged =
         userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     userAccountService.changePassword(DEPOSITOR_OBJECTID,
-        accountUserPwdToBeChanged.getLastModificationDate(), actualDepositorPassword,
+        accountUserPwdToBeChanged.getLastModificationDate(), newDepositorPassword,
         authenticationToken);
 
-    assertTrue(userAccountService.login("test_depositor", actualDepositorPassword) != null);
+    assertTrue(userAccountService.login("test_depositor", newDepositorPassword) != null);
+
+    resetDepositorPassword();
   }
 
   @Test
@@ -271,15 +270,53 @@ public class UserAccountServiceTest extends TestBase {
     AccountUserVO accountUserPwdToBeChanged =
         userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
-    actualDepositorPassword = "anotherPassword";
+    String veryNewDepositorPassword = "veryNewDepositorPassword";
     userAccountService.changePassword(DEPOSITOR_OBJECTID,
-        accountUserPwdToBeChanged.getLastModificationDate(), actualDepositorPassword,
+        accountUserPwdToBeChanged.getLastModificationDate(), veryNewDepositorPassword,
         authenticationToken);
 
     String userAuthenticationToken =
-        userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
+        userAccountService.login(DEPOSITOR_LOGIN_NAME, veryNewDepositorPassword);
 
     assertTrue(userAuthenticationToken != null);
+
+    resetDepositorPassword();
+  }
+
+
+  private void resetDepositorPassword() throws Exception {
+    super.logMethodName();
+
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserPwdToReset =
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+
+    userAccountService.changePassword(DEPOSITOR_OBJECTID,
+        accountUserPwdToReset.getLastModificationDate(), DEPOSITOR_PASSWORD, authenticationToken);
+
+    String userAuthenticationToken =
+        userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
+
+    assertTrue(userAuthenticationToken != null);
+
+  }
+
+  private void activateDepositor() throws Exception {
+    super.logMethodName();
+
+    String authenticationToken = loginAdmin();
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeActivated =
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+
+    accountUserToBeActivated =
+        userAccountService.activate(DEPOSITOR_OBJECTID,
+            accountUserToBeActivated.getLastModificationDate(), authenticationToken);
+
+    assertTrue(accountUserToBeActivated.isActive());
   }
 
 }
