@@ -27,7 +27,7 @@
 	All rights reserved. Use is subject to license terms.
 -->
 
-<binding name="StatisticReport">
+<binding name="StatisticReport" package="de.mpg.mpdl.inge.model.valueobjects">
 	<namespace prefix="report" uri="${xsd.soap.statistic.report}" default="none" />
 	<namespace prefix="report-parameters" uri="${xsd.soap.statistic.reportparameters}" default="none" />
 	<namespace prefix="report-definition-list" uri="${xsd.soap.statistic.reportdefinitionlist}" default="none" />

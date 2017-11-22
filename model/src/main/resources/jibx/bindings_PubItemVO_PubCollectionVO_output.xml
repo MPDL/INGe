@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding direction="output" name="PubItemVO_PubCollectionVO_output">
+<binding direction="output" name="PubItemVO_PubCollectionVO_output" package="de.mpg.mpdl.inge.model.valueobjects">
 	
 	<namespace prefix="escidocContext" uri="${xsd.soap.context.context}" default="none" />
 	<namespace prefix="escidocContextList" uri="${xsd.soap.context.contextlist}" default="none" />

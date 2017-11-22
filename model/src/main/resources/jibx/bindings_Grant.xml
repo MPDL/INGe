@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding name="GrantVOListWrapper">
+<binding name="GrantVOListWrapper" package="de.mpg.mpdl.inge.model.valueobjects">
 	
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none"/>
 	<namespace prefix="common-types" uri="${xsd.soap.common.commontypes}" default="none" />

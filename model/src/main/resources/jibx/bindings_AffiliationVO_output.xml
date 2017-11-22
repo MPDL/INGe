@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding direction="output" name="AffiliationVO_output">
+<binding direction="output" name="AffiliationVO_output" package="de.mpg.mpdl.inge.model.valueobjects">
 
 	<namespace prefix="escidocOrganizationalUnit" uri="${xsd.soap.ou.ou}" default="none" />
 	<namespace prefix="escidocOrganizationalUnitList" uri="${xsd.soap.ou.oulist}" default="none" />

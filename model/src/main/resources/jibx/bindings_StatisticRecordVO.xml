@@ -27,7 +27,7 @@
 	All rights reserved. Use is subject to license terms.
 -->
 
-<binding name="StatisticRecord">
+<binding name="StatisticRecord" package="de.mpg.mpdl.inge.model.valueobjects">
 
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 
