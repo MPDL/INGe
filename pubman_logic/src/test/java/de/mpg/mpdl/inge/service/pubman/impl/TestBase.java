@@ -22,16 +22,16 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 public class TestBase {
 
   protected static final String ADMIN_LOGIN_NAME = "admin";
-  protected static final String ADMIN_PASSWORD = "tseT";
+  protected static final String ADMIN_PASSWORD = "myPassword";
 
 
   protected static final String DEPOSITOR_OBJECTID = "user_3000056";
   protected static final String DEPOSITOR_LOGIN_NAME = "test_depositor";
-  protected static final String DEPOSITOR_PASSWORD = "tseT";
+  protected static final String DEPOSITOR_PASSWORD = "myPassword";
 
   protected static final String MODERATOR_OBJECTID = "user_3000057";
   protected static final String MODERATOR_LOGIN_NAME = "test_moderator";
-  protected static final String MODERATOR_PASSWORD = "tseT";
+  protected static final String MODERATOR_PASSWORD = "myPassword";
 
   protected static final String DEACTIVATED_OBJECTID = "user_3000166";
 
