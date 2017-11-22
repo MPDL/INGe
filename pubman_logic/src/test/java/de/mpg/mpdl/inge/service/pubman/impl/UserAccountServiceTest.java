@@ -218,6 +218,8 @@ public class UserAccountServiceTest extends TestBase {
             accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
 
     assertFalse(accountUserToBeDeactivated.isActive());
+
+    activateDepositor();
   }
 
   @Test(expected = AuthorizationException.class)
@@ -299,6 +301,22 @@ public class UserAccountServiceTest extends TestBase {
 
     assertTrue(userAuthenticationToken != null);
 
+  }
+
+  private void activateDepositor() throws Exception {
+    super.logMethodName();
+
+    String authenticationToken = loginAdmin();
+    assertTrue(authenticationToken != null);
+
+    AccountUserVO accountUserToBeActivated =
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+
+    accountUserToBeActivated =
+        userAccountService.activate(DEPOSITOR_OBJECTID,
+            accountUserToBeActivated.getLastModificationDate(), authenticationToken);
+
+    assertTrue(accountUserToBeActivated.isActive());
   }
 
 }
