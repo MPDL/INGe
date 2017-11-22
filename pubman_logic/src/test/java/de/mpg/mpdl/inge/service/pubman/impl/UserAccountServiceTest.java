@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -268,6 +269,23 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
+    AccountUserVO accountUserPwdToReset =
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+
+    userAccountService.changePassword(DEPOSITOR_OBJECTID,
+        accountUserPwdToReset.getLastModificationDate(), DEPOSITOR_PASSWORD, authenticationToken);
+
+    String userAuthenticationToken =
+        userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
+
+    assertTrue(userAuthenticationToken != null);
+  }
+
+  @After
+  public void resetPassword() throws Exception {
+    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
+    assertTrue(authenticationToken != null);
+
     AccountUserVO accountUserPwdToBeChanged =
         userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
@@ -280,6 +298,7 @@ public class UserAccountServiceTest extends TestBase {
         userAccountService.login(DEPOSITOR_LOGIN_NAME, actualDepositorPassword);
 
     assertTrue(userAuthenticationToken != null);
+
   }
 
 }

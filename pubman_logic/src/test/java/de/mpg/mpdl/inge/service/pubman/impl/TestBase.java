@@ -49,13 +49,6 @@ public class TestBase {
   @Autowired
   protected UserAccountService userAccountService;
 
-
-  /*
-   * @BeforeClass public static void setUp() throws Exception { FileUtils.deleteDirectory(new
-   * File("./target/es")); logger.info("Removed successfully previous Elasticsearch test index <" +
-   * (new File("./target/es")).getCanonicalPath() + ">"); }
-   */
-
   static {
     try {
       FileUtils.deleteDirectory(new File("./target/es"));

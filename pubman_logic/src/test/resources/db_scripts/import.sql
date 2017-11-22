@@ -42,7 +42,7 @@ CREATE TABLE user_login (loginname character varying(255) NOT NULL, password cha
 ALTER TABLE user_login OWNER TO postgres;
 
 INSERT INTO user_login (loginname, password) VALUES ('test_depositor', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
-INSERT INTO user_login (loginname, password) VALUES ('test_moderator', '$2a$10$bl82eVlP4Z7g/w4dvFVjKeaoPdzP8ZKo5ag88JNgdXaBMghAHKqQm');
+INSERT INTO user_login (loginname, password) VALUES ('test_moderator', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
 INSERT INTO user_login (loginname, password) VALUES ('testCreateUserWithGrant', '$2a$10$G5rsfixnZQFICdYaCFKqzerkWSkaZPemUh7kgKW5meapNC4DeHbFu');
 INSERT INTO user_login (loginname, password) VALUES ('testDeactivated', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
 INSERT INTO user_login (loginname, password) VALUES ('admin', '$2a$10$o9SkKt3AS1sVfVyh/J81IuVPThsYoclC7sDKsU7fDt9hlBldiSjXO');
