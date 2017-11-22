@@ -89,21 +89,24 @@ public class RedirectServlet extends HttpServlet {
         resp.sendError(404, "File not found");
       }
 
+      final StringBuffer redirectUrl = new StringBuffer("/rest/items/");
+      redirectUrl.append(pieces[0]);
+      redirectUrl.append("/component/");
+      redirectUrl.append(pieces[2]);
+
       // open component or download it
       if (req.getParameter("mode") == null || download) {
-        final StringBuffer redirectUrl = new StringBuffer("/rest/component/");
-        redirectUrl.append(pieces[2]);
-        resp.sendRedirect(redirectUrl.toString());
-        return;
+        redirectUrl.append("/content");
       }
+
       // view technical metadata
       if (tme) {
-        final StringBuffer redirectUrl = new StringBuffer("/rest/component/");
-        redirectUrl.append(pieces[2]);
         redirectUrl.append("/metadata");
-        resp.sendRedirect(redirectUrl.toString());
+
       }
+      resp.sendRedirect(redirectUrl.toString());
     }
+
   }
 
   /**

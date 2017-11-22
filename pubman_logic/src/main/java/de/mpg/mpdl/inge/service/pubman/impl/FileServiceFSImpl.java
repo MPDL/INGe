@@ -36,12 +36,15 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -72,6 +75,9 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   @Autowired
   private AuthorizationService aaService;
 
+  @Autowired
+  private PubItemService pubItemService;
+
   public FileServiceFSImpl() throws IngeTechnicalException {
     Path rootDirectory = Paths.get(TMP_FILE_ROOT_PATH);
     if (Files.notExists(rootDirectory)) {
@@ -95,14 +101,37 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    * java.io.OutputStream)
    */
   @Override
-  public void readFile(String fileId, OutputStream out, String authentitationToken)
-      throws IngeTechnicalException {
+  @Transactional(readOnly = true)
+  public FileVO readFile(String itemId, String fileId, OutputStream out, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+      IngeApplicationException {
 
-    // TODO auth
-    logger.info("readFile Token: " + authentitationToken);
+
+    PubItemVO item = pubItemService.get(itemId, authenticationToken);
+    FileVO selectedFile = null;
+    for (FileVO file : item.getFiles()) {
+      if (file.getReference().getObjectId().equals(fileId)) {
+        selectedFile = file;
+        break;
+      }
+
+    }
+
     FileDbVO fileDbVO = fr.findOne(fileId);
-    System.out.println(fileDbVO.getLocalFileIdentifier());
+
+    if (selectedFile == null || fileDbVO == null || fileDbVO.getLocalFileIdentifier() == null) {
+      throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ "
+          + itemId + "].");
+    }
+    AccountUserVO user = null;
+    if (authenticationToken != null) {
+      user = aaService.checkLoginRequired(authenticationToken);
+    }
+    checkAa("readFile", user, selectedFile, item);
+
     fsi.readFile(fileDbVO.getLocalFileIdentifier(), out);
+
+    return selectedFile;
   }
 
   @Override
@@ -245,23 +274,23 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileMetadata(java.lang.String)
    */
   @Override
-  public String getFileMetadata(String componentId, String authenticationToken)
+  public String getFileMetadata(String itemId, String componentId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
       AuthenticationException {
 
     // Auth is covered by readFile method
 
-    final StringBuffer b = new StringBuffer(2048);
+
     final Metadata metadata = new Metadata();
-    final AutoDetectParser parser = new AutoDetectParser();
-    final BodyContentHandler handler = new BodyContentHandler();
-    ParseContext context = new ParseContext();
 
     ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
     try {
-      this.readFile(componentId, fileOutput, authenticationToken);
+      this.readFile(itemId, componentId, fileOutput, authenticationToken);
       final TikaInputStream input =
           TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
+      final AutoDetectParser parser = new AutoDetectParser();
+      final BodyContentHandler handler = new BodyContentHandler();
+      ParseContext context = new ParseContext();
       parser.parse(input, handler, metadata, context);
       fileOutput.close();
       input.close();
@@ -269,8 +298,15 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       logger.error("could not read file [" + componentId + "] for Metadata extraction");
       throw new IngeTechnicalException("could not read file [" + componentId
           + "] for Metadata extraction", e);
+    } finally {
+      try {
+        fileOutput.close();
+      } catch (IOException e) {
+        logger.error("Could not close output stream", e);
+      }
     }
 
+    final StringBuffer b = new StringBuffer(2048);
     for (final String name : metadata.names()) {
       b.append(name).append(": ").append(metadata.get(name))
           .append(System.getProperty("line.separator"));
@@ -284,6 +320,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileType(java.lang.String)
    */
   @Override
+  @Transactional(readOnly = true)
   public String getFileType(String fileId) {
     return fr.findOne(fileId).getMimeType();
   }
@@ -294,6 +331,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileName(java.lang.String)
    */
   @Override
+  @Transactional(readOnly = true)
   public String getFileName(String fileName) {
     return fr.findOne(fileName).getName();
   }

@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 /**
  * Reads cookie with authorization key and adds it as authorization header
  * 
@@ -29,6 +32,8 @@ public class AuthCookieToHeaderFilter implements Filter {
 
   public static final String COOKIE_NAME = "inge_auth_token";
   public static final String AUTHZ_HEADER = "Authorization";
+
+  private static final Logger logger = LogManager.getLogger(AuthCookieToHeaderFilter.class);
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -46,15 +51,20 @@ public class AuthCookieToHeaderFilter implements Filter {
 
       Cookie[] cookies = httpServletRequest.getCookies();
 
-      for (Cookie cookie : cookies) {
-        if (COOKIE_NAME.equals(cookie.getName())) {
-          HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
-          requestWrapper.addHeader(AUTHZ_HEADER, cookie.getValue());
-          request = requestWrapper;
+      logger.info("Cookies: " + cookies);
+      if(cookies!=null)
+      {
+        for (Cookie cookie : cookies) {
+          if (COOKIE_NAME.equals(cookie.getName())) {
+            HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
+            requestWrapper.addHeader(AUTHZ_HEADER, cookie.getValue());
+            request = requestWrapper;
 
 
+          }
         }
       }
+      
     }
 
 

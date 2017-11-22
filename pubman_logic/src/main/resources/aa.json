@@ -384,7 +384,8 @@
 		"create" : [
 			{
 				"user" : {
-					"role" : "YEARBOOK-EDITOR"
+					"role" : "YEARBOOK-EDITOR",
+					"field_grant_id_match" : "yearbook.organization.objectId"
 				}
 			}
 		],
@@ -392,7 +393,8 @@
 		"update" : [
 			{
 				"user" : {
-					"role" : "YEARBOOK-EDITOR"
+					"role" : "YEARBOOK-EDITOR",
+					"field_grant_id_match" : "yearbook.organization.objectId"
 				}
 			}
 		],
@@ -428,9 +430,18 @@
 		
 		"submit" : [
 			{
+				
 				"user" : {
 					"role" : "YEARBOOK-EDITOR"
-				}
+				},
+				"yearbook.state" : ["CREATED"]
+				
+			},
+			{
+				"user" : {
+					"role" : "YEARBOOK-ADMIN"
+				},
+				"yearbook.state" : ["CREATED"]
 				
 			}
 		],
@@ -439,7 +450,8 @@
 			{
 				"user" : {
 					"role" : "YEARBOOK-ADMIN"
-				}
+				},
+				"yearbook.state" : ["SUBMITTED"]
 				
 			}
 		],
@@ -448,9 +460,41 @@
 				"user" : {
 					"role" : "YEARBOOK-ADMIN"
 				}
+				,
+				"yearbook.state" : ["SUBMITTED", "RELEASED"]
 				
 			}
 		]
 		
+	},
+	"de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl" : {
+		"technical" : {
+			"order" : [ "user", "file", "item"],
+			"indices" : {
+			}
+		}, 
+		"readFile" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"file.visibility" : "PUBLIC"
+			},
+			{
+				"user" : {
+					"field_user_id_match" : "file.createdByRO.objectId"
+				}
+			},
+			{
+				"user" : {
+					"role" : "MODERATOR",
+					"field_grant_id_match" : "item.context.objectId"
+				}
+				
+			}
+			
+		]
 	}
 }

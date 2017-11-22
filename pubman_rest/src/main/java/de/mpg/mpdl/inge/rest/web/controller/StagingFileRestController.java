@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -33,41 +34,16 @@ import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
  * 
  */
 @RestController
-@RequestMapping("/component")
-public class FileRestController {
+@RequestMapping("/staging")
+public class StagingFileRestController {
 
-  private static final Logger logger = Logger.getLogger(FileRestController.class);
-  private static final String COMPONENT_ID_PATH = "/{componentId}";
+  private static final Logger logger = Logger.getLogger(StagingFileRestController.class);
   private static final String COMPONENT_NAME_PATH = "/{componentName:.*\\..*}";
-  private static final String COMPONENT_METADATA_PATH = "/metadata";
 
   @Autowired
   private FileServiceExternal fileService;
 
-  /**
-   * Retrieve a file with a given ID
-   * 
-   * @param componentId
-   * @param response
-   */
-  @RequestMapping(path = COMPONENT_ID_PATH, method = RequestMethod.GET)
-  public void getComponentContent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER,
-      required = false) String token, @PathVariable String componentId, HttpServletResponse response)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
-    try {
-      OutputStream output = response.getOutputStream();
-      response.setContentType(fileService.getFileType(componentId));
-      response.setHeader("Content-disposition",
-          "attachment; filename=" + fileService.getFileName(componentId));
-      fileService.readFile(componentId, output, token);
-      output.flush();
-      output.close();
-    } catch (IOException e) {
-      logger.error("could not read file [" + componentId + "]");
-      throw new IngeTechnicalException("Error while opening input stream", e);
-    }
-  }
+
 
   /**
    * generate a staged File, that can be integrated in PubItems by using the delivered reference
@@ -101,21 +77,5 @@ public class FileRestController {
     // return new ResponseEntity<String>(responseBody, headers, HttpStatus.CREATED);
   }
 
-  /**
-   * Retrive the technical Metadata of a file
-   * 
-   * @param componentId
-   * @return
-   * @throws IOException
-   * @throws SAXException
-   * @throws TikaException
-   */
-  @RequestMapping(path = COMPONENT_ID_PATH + COMPONENT_METADATA_PATH, method = RequestMethod.GET,
-      produces = MediaType.TEXT_PLAIN_VALUE)
-  public String getTechnicalMetadataByTika(@RequestHeader(
-      value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @PathVariable String componentId) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
-    return fileService.getFileMetadata(componentId, token);
-  }
+
 }

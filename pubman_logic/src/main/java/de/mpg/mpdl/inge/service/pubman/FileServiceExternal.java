@@ -9,6 +9,7 @@ import java.io.OutputStream;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -35,7 +36,7 @@ public interface FileServiceExternal {
 
 
 
-  public void readFile(String fileId, OutputStream out, String authentitationToken)
+  public FileVO readFile(String itemId, String fileId, OutputStream out, String authentitationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
       AuthenticationException;
 
@@ -47,7 +48,7 @@ public interface FileServiceExternal {
    * @param fileId
    * @return
    */
-  public String getFileMetadata(String fileId, String authenticationToken)
+  public String getFileMetadata(String itemId, String fileId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
       AuthenticationException;
 
