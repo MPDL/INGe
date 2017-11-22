@@ -1310,7 +1310,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <sonar.jdbc.url>jdbc:postgresql://localhost:5432/sonar</sonar.jdbc.url>
                 <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
                 <!--jacoco.version>0.7.4.201502262128</jacoco.version -->
                 <jacoco.version>0.7.9</jacoco.version>
@@ -1320,7 +1319,7 @@
                 <sonar.jacoco.reportPaths>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPaths>
                 <sonar.jacoco.itReportPaths>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPaths>
                 <!-- command line arguments when starting test for test coverage analysis -->
-                <jacoco.arguments.ut>-Xmx1G -XX:MaxPermSize=512m
+                <jacoco.arguments.ut>-Xmx1G 
                     -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled
                     ${jacoco.agent.ut.arg}</jacoco.arguments.ut>
                 <jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
