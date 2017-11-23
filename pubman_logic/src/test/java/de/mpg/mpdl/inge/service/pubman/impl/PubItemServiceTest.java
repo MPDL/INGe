@@ -94,8 +94,6 @@ public class PubItemServiceTest extends TestBase {
     pubItemVO = pubItemService.get(pubItemVO.getVersion().getObjectId(), authenticationToken);
 
     assertTrue("Found item even though it has been deleted in state PENDING!", pubItemVO == null);
-
-
   }
 
 

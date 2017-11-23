@@ -276,5 +276,4 @@ public class OrganizationServiceTest extends TestBase {
 
     return affiliationVO;
   }
-
 }

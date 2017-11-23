@@ -81,8 +81,7 @@ public class ContextServiceTest extends TestBase {
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
     contextVO =
-        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
-            authenticationToken);
+        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);          
   }
 
   @Test(expected = AuthorizationException.class)
