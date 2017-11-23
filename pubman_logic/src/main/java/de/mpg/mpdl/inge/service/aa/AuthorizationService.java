@@ -378,6 +378,10 @@ public class AuthorizationService {
     }
   }
 
+  private void check(List<String> order, Object[] objects, Object key, Object value, Object current) {
+
+  }
+
   private String getFieldValueOrString(List<String> order, Object[] objects, String field)
       throws AuthorizationException {
     if (field.contains(".")) {

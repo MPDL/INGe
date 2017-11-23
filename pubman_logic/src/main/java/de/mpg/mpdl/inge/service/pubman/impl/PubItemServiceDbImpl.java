@@ -426,10 +426,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     Date currentDate = new Date();
     for (FileVO fileVo : newPubItemVO.getFiles()) {
 
-      if (fileVo.getReference() != null && fileVo.getReference().getObjectId() != null) {
-
-      }
-
       FileDbVO currentFileDbVO;
 
       if (fileVo.getReference() != null && fileVo.getReference().getObjectId() != null) {
@@ -456,13 +452,19 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
           currentFileDbVO.setLocalFileIdentifier(persistentPath);
           // TODO Set content to a REST path
           fileVo.setContent(null);
+
+          // TODO Checksum
+          // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
+          // .getChecksumAlgorithm().name()));
+          currentFileDbVO.setChecksum(fileVo.getChecksum());
         }
 
 
+
+        currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
         currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
-        // TODO Checksum
-        currentFileDbVO.setChecksum(fileVo.getChecksum());
+
         // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
         // .getChecksumAlgorithm().name()));
         currentFileDbVO.setContent(fileVo.getContent());
@@ -484,10 +486,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       currentFileDbVO.setContentCategory(fileVo.getDefaultMetadata().getContentCategory());
       currentFileDbVO.setMimeType(fileVo.getMimeType());
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
-
-
       updatedFileList.add(currentFileDbVO);
     }
+
+    // TODO
+    // Delete files which are left in currentFiles Map if they are not part of an released item
     return updatedFileList;
   }
 

@@ -55,6 +55,10 @@
 					onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false"
 					value="#{lbl.contact}" />
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
+				
+				<!-- Contact -->
+				<h:outputText styleClass="free_area0_p8 endline" value="Ip: #{LoginHelper.currentIp}"/>
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 				<!-- LogIn, LogOut -->
 				<h:panelGroup id="login" layout="block"

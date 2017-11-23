@@ -366,4 +366,10 @@ public class LoginHelper extends FacesBean {
   public boolean isDetailedMode() {
     return this.detailedMode;
   }
+
+  public String getCurrentIp() {
+    return FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap()
+        .get("X-Forwarded-For");
+
+  }
 }
