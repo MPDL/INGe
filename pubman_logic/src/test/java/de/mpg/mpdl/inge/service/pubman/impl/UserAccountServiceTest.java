@@ -6,10 +6,9 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +22,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserAccountServiceTest extends TestBase {
 
   @Test
@@ -218,8 +217,6 @@ public class UserAccountServiceTest extends TestBase {
             accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
 
     assertFalse(accountUserToBeDeactivated.isActive());
-
-    activateDepositor();
   }
 
   @Test(expected = AuthorizationException.class)
@@ -256,8 +253,6 @@ public class UserAccountServiceTest extends TestBase {
         authenticationToken);
 
     assertTrue(userAccountService.login("test_depositor", newDepositorPassword) != null);
-
-    resetDepositorPassword();
   }
 
   @Test
@@ -279,44 +274,6 @@ public class UserAccountServiceTest extends TestBase {
         userAccountService.login(DEPOSITOR_LOGIN_NAME, veryNewDepositorPassword);
 
     assertTrue(userAuthenticationToken != null);
-
-    resetDepositorPassword();
-  }
-
-
-  private void resetDepositorPassword() throws Exception {
-    super.logMethodName();
-
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
-
-    AccountUserVO accountUserPwdToReset =
-        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
-
-    userAccountService.changePassword(DEPOSITOR_OBJECTID,
-        accountUserPwdToReset.getLastModificationDate(), DEPOSITOR_PASSWORD, authenticationToken);
-
-    String userAuthenticationToken =
-        userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
-
-    assertTrue(userAuthenticationToken != null);
-
-  }
-
-  private void activateDepositor() throws Exception {
-    super.logMethodName();
-
-    String authenticationToken = loginAdmin();
-    assertTrue(authenticationToken != null);
-
-    AccountUserVO accountUserToBeActivated =
-        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
-
-    accountUserToBeActivated =
-        userAccountService.activate(DEPOSITOR_OBJECTID,
-            accountUserToBeActivated.getLastModificationDate(), authenticationToken);
-
-    assertTrue(accountUserToBeActivated.isActive());
   }
 
 }
