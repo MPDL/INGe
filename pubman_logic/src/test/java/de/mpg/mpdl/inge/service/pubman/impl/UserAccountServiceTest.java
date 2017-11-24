@@ -181,8 +181,9 @@ public class UserAccountServiceTest extends TestBase {
     assertTrue(
         "Expected <" + (sizeBeforeAdd + 1) + "> grants - found <"
             + userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants().size()
-            + ">", userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants().size() - 1 == sizeBeforeAdd);
-            
+            + ">", userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants()
+            .size() - 1 == sizeBeforeAdd);
+
   }
 
   @Test

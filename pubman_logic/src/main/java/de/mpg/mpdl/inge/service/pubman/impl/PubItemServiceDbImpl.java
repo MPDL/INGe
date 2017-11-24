@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
@@ -446,17 +447,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         currentFileDbVO = new FileDbVO();
         if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
           String stagedFileId = fileVo.getContent();
-          String persistentPath =
-              fileService.createFileFromStagedFile(Integer.parseInt(stagedFileId),
-                  fileVo.getName(), userAccount);
-          currentFileDbVO.setLocalFileIdentifier(persistentPath);
+          fileService.createFileFromStagedFile(fileVo, userAccount);
+          currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
           // TODO Set content to a REST path
           fileVo.setContent(null);
 
-          // TODO Checksum
-          // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
-          // .getChecksumAlgorithm().name()));
           currentFileDbVO.setChecksum(fileVo.getChecksum());
+          currentFileDbVO.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(fileVo
+              .getChecksumAlgorithm().name()));
+
         }
 
 
@@ -551,32 +550,41 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     PubItemVO requestedItem = null;
 
-    if (authenticationToken == null && version == null) {
-      requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
-    } else if (version != null) {
-      requestedItem =
-          EntityTransformer.transformToOld(itemRepository.findOne(new VersionableId(objectId,
-              Integer.parseInt(version))));
-    } else {
-      requestedItem = EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
+    AccountUserVO userAccount = null;
+
+    if (authenticationToken != null) {
+      userAccount = aaService.checkLoginRequired(authenticationToken);
     }
 
-    if (requestedItem != null && (authenticationToken != null || version != null)) {
-      ContextVO context =
-          EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
-              .getObjectId()));
-      try {
-        AccountUserVO userAccount = null;
-        if (authenticationToken != null) {
-          userAccount = aaService.checkLoginRequired(authenticationToken);
-        }
-        checkAa("get", userAccount, requestedItem, context);
-      } catch (AuthenticationException e) {
-        if (version == null) {
+
+    if (version == null) {
+      if (authenticationToken == null) {
+        // Return latest release
+        requestedItem =
+            EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
+      } else {
+        // Check if user is allowed to see latest version
+        requestedItem =
+            EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
+        ContextVO context =
+            EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
+                .getObjectId()));
+        try {
+          checkAa("get", userAccount, requestedItem, context);
+        } catch (AuthenticationException | AuthorizationException e) {
           requestedItem =
               EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
         }
       }
+    } else // version != null
+    {
+      requestedItem =
+          EntityTransformer.transformToOld(itemRepository.findOne(new VersionableId(objectId,
+              Integer.parseInt(version))));
+      ContextVO context =
+          EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
+              .getObjectId()));
+      checkAa("get", userAccount, requestedItem, context);
     }
 
     if (requestedItem == null) {

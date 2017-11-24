@@ -7,6 +7,7 @@ import java.io.InputStream;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -32,7 +33,7 @@ public interface FileService extends FileServiceExternal {
    * @throws AuthorizationException
    * @throws AuthenticationException
    */
-  public String createFileFromStagedFile(int stagedFileId, String fileName, AccountUserVO user)
+  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO user)
       throws IngeTechnicalException, IngeApplicationException;
 
 

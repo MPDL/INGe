@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RestController
@@ -136,11 +137,13 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException {
     try {
-      OutputStream output = response.getOutputStream();
-      FileVO fileVO = fileService.readFile(itemId, componentId, output, token);
-      response.setContentType(fileVO.getMimeType());
-      response.setHeader("Content-disposition", "attachment; filename=" + fileVO.getName());
 
+
+      FileVOWrapper fileVOWrapper = fileService.readFile(itemId, componentId, token);
+      response.setContentType(fileVOWrapper.getFileVO().getMimeType());
+      response.setHeader("Content-disposition", "attachment; filename="
+          + fileVOWrapper.getFileVO().getName());
+      OutputStream output = response.getOutputStream();
       output.flush();
       output.close();
     } catch (IOException e) {

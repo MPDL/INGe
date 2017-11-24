@@ -81,13 +81,15 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       response = httpClient.execute(httpPost);
       logger.info(response.getStatusLine());
       HttpEntity responseEntity = response.getEntity();
+      String resp = EntityUtils.toString(responseEntity);
+      logger.info("Received from SeaweedFS: " + resp);
       ObjectMapper mapper = new ObjectMapper();
-      JsonNode jsonObject = mapper.readTree(responseEntity.getContent());
+      JsonNode jsonObject = mapper.readTree(resp);
       System.out.println("Created Object [" + jsonObject + "]");
       // ensure it is fully consumed
       EntityUtils.consume(responseEntity);
       fileId = jsonObject.findValuesAsText("fid").get(0);
-    } catch (IOException e) {
+    } catch (Exception e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
       throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
           + "]", e);

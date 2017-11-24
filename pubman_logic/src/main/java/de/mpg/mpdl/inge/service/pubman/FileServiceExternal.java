@@ -13,6 +13,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 
 /**
  * FileService Interface - staging, storing and indexing files
@@ -36,7 +37,7 @@ public interface FileServiceExternal {
 
 
 
-  public FileVO readFile(String itemId, String fileId, OutputStream out, String authentitationToken)
+  public FileVOWrapper readFile(String itemId, String fileId, String authentitationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
       AuthenticationException;
 
@@ -52,19 +53,5 @@ public interface FileServiceExternal {
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
       AuthenticationException;
 
-  /**
-   * get the file mime type
-   * 
-   * @param fileId
-   * @return mime-type of the file
-   */
-  public String getFileType(String fileId);
 
-  /**
-   * get the file name
-   * 
-   * @param fileId
-   * @return name of the file
-   */
-  public String getFileName(String fileName);
 }

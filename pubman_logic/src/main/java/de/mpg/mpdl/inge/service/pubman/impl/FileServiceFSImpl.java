@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -37,6 +38,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -102,12 +104,15 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    */
   @Override
   @Transactional(readOnly = true)
-  public FileVO readFile(String itemId, String fileId, OutputStream out, String authenticationToken)
+  public FileVOWrapper readFile(String itemId, String fileId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
       IngeApplicationException {
 
-
+    logger.info("Trying to read file " + fileId + " with authenticationToken "
+        + authenticationToken);
+    // Item-based aa covered by this method
     PubItemVO item = pubItemService.get(itemId, authenticationToken);
+
     FileVO selectedFile = null;
     for (FileVO file : item.getFiles()) {
       if (file.getReference().getObjectId().equals(fileId)) {
@@ -129,9 +134,10 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     }
     checkAa("readFile", user, selectedFile, item);
 
-    fsi.readFile(fileDbVO.getLocalFileIdentifier(), out);
 
-    return selectedFile;
+    // fsi.readFile(fileDbVO.getLocalFileIdentifier(), out);
+
+    return new FileVOWrapper(fileDbVO.getLocalFileIdentifier(), selectedFile, fsi);
   }
 
   @Override
@@ -186,33 +192,48 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public String createFileFromStagedFile(int stagedFileId, String fileName,
-      AccountUserVO userAccount) throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO userAccount)
+      throws IngeTechnicalException, IngeApplicationException {
 
 
-
-    StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(stagedFileId);
+    StagedFileDbVO stagedFileVo =
+        stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
     if (!stagedFileVo.getCreatorId().equals(userAccount.getReference().getObjectId())) {
       throw new IngeTechnicalException("Staged file is read by another user than its creator");
 
     }
 
-    File stagedFile;
-    String relativePath;
+
     try {
-      stagedFile = new File(stagedFileVo.getPath());
-      relativePath = fsi.createFile(new FileInputStream(stagedFile), fileName);
+      File stagedFile = new File(stagedFileVo.getPath());
+
+      try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
+        String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
+        fileVO.setLocalFileIdentifier(relativePath);
+      }
+
+
+
+      fileVO.getDefaultMetadata().setSize((int) stagedFile.length());
+      fileVO.setName(stagedFileVo.getFilename());
+      fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
+      fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
+
     } catch (FileNotFoundException e) {
       String msg =
           "Staged file with path [" + stagedFileVo.getPath() + "] and name ["
               + stagedFileVo.getFilename() + "] does not exist.";
       logger.error(msg);
-      throw new IngeTechnicalException(msg);
+      throw new IngeTechnicalException(msg, e);
+    } catch (Exception e) {
+
+      logger.error("Error while creating file", e);
+      throw new IngeTechnicalException("Error while creating file", e);
     }
 
+
     deleteStageFile(stagedFileVo);
-    return relativePath;
 
 
     /*
@@ -285,7 +306,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
     try {
-      this.readFile(itemId, componentId, fileOutput, authenticationToken);
+      FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);
+      wrapper.readFile(fileOutput);
       final TikaInputStream input =
           TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
       final AutoDetectParser parser = new AutoDetectParser();
@@ -314,27 +336,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     return b.toString();
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileType(java.lang.String)
-   */
-  @Override
-  @Transactional(readOnly = true)
-  public String getFileType(String fileId) {
-    return fr.findOne(fileId).getMimeType();
-  }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.service.pubman.FileService#getFileName(java.lang.String)
-   */
-  @Override
-  @Transactional(readOnly = true)
-  public String getFileName(String fileName) {
-    return fr.findOne(fileName).getName();
-  }
 
   protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException,
@@ -345,6 +347,38 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     objects =
         Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
+  }
+
+  private static String getFileChecksum(MessageDigest digest, File file) throws IOException {
+    // Get file input stream for reading the file content
+
+    try (FileInputStream fis = new FileInputStream(file)) {
+
+      // Create byte array to read data in chunks
+      byte[] byteArray = new byte[1024];
+      int bytesCount = 0;
+
+      // Read file data and update in message digest
+      while ((bytesCount = fis.read(byteArray)) != -1) {
+        digest.update(byteArray, 0, bytesCount);
+      };
+
+      // close the stream; We don't need it now.
+      fis.close();
+    }
+
+    // Get the hash's bytes
+    byte[] bytes = digest.digest();
+
+    // This bytes[] has bytes in decimal format;
+    // Convert it to hexadecimal format
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < bytes.length; i++) {
+      sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+    }
+
+    // return complete hash
+    return sb.toString();
   }
 
 }

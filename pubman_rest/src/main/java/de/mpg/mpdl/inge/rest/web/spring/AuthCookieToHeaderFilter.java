@@ -52,11 +52,11 @@ public class AuthCookieToHeaderFilter implements Filter {
       Cookie[] cookies = httpServletRequest.getCookies();
 
       logger.info("Cookies: " + cookies);
-      if(cookies!=null)
-      {
+      if (cookies != null) {
         for (Cookie cookie : cookies) {
           if (COOKIE_NAME.equals(cookie.getName())) {
-            HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
+            HeaderMapRequestWrapper requestWrapper =
+                new HeaderMapRequestWrapper(httpServletRequest);
             requestWrapper.addHeader(AUTHZ_HEADER, cookie.getValue());
             request = requestWrapper;
 
@@ -64,7 +64,7 @@ public class AuthCookieToHeaderFilter implements Filter {
           }
         }
       }
-      
+
     }
 
 
