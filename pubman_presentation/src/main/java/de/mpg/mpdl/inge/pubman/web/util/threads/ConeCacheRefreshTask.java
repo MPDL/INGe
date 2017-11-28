@@ -12,7 +12,7 @@ public class ConeCacheRefreshTask {
 
   public ConeCacheRefreshTask() {}
 
-  @Scheduled(cron = "${inge.cron.conecache.refresh}")
+  @Scheduled(fixedDelay = 3600000, initialDelay = 0)
   public void run() {
     logger.info("CRON: CONE-Cache refresh task starts...");
 

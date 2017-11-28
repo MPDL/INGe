@@ -29,7 +29,6 @@
         <module>citation_style_language_manager</module>
         <module>citationmanager</module>
         <module>cone_cache</module>
-        <module>cone_cache_presentation</module>
         <module>cone</module>
         <module>cone_presentation</module>
         <module>dataacquisition</module>
@@ -299,12 +298,6 @@
                 <groupId>de.mpg.mpdl.inge</groupId>
                 <artifactId>cone_cache</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>de.mpg.mpdl.inge</groupId>
-                <artifactId>cone_cache_presentation</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-                <type>war</type>
             </dependency>
             <dependency>
                 <groupId>de.mpg.mpdl.inge</groupId>
@@ -1058,7 +1051,6 @@
         <framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
         <framework.scientist.id>escidoc:2078316</framework.scientist.id>
         <framework.scientist.username>test_dep_scientist</framework.scientist.username>
-        <inge.cron.conecache.refresh>0 0 */1 * * *</inge.cron.conecache.refresh>
         <inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
         <inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
         <inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>      

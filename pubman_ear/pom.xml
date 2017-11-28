@@ -57,11 +57,6 @@
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>cone_cache_presentation</artifactId>
-							<contextRoot>/cone_cache</contextRoot>
-						</webModule>
-						<webModule>
-							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>pubman_rest</artifactId>
 							<contextRoot>/rest</contextRoot>
 						</webModule>
@@ -313,11 +308,6 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
 			<classifier>${escidoc.pubman.build.mode}</classifier>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>cone_cache_presentation</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>

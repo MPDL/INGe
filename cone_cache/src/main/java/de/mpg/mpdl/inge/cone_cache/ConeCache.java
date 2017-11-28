@@ -57,7 +57,7 @@ public class ConeCache {
   }
 
   public static void refreshCache() throws ConeCacheConfigException {
-    logger.info("*** Start CONE CACHE Refresh-Cycle ***");
+    logger.info("*** Start CONE-Cache Refresh-Cycle ***");
 
     String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
 
@@ -78,7 +78,7 @@ public class ConeCache {
     ConeCache.refresh(mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
         + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
 
-    logger.info("*** Ende CONE CASH Refresh-Cycle ***");
+    logger.info("*** Ende CONE-Cache Refresh-Cycle ***");
   }
 
   private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
