@@ -27,12 +27,11 @@
 package de.mpg.mpdl.inge.dataacquisition;
 
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Test suite for unit test of dataAcquisition service.
@@ -45,11 +44,9 @@ public class DataAcquisitionUnitTest {
   private final static String arxivId = "arXiv:0904.3933";
 
   @Before
-  public void setup() throws Exception {
-    // skip tests in case of a release build
-    Assume.assumeTrue(!PropertyReader.getProperty("escidoc.common.release.build").equals("true"));
-  }
+  public void setup() throws Exception {}
 
+  @Ignore
   @Test
   public void fetchFromCone() throws Exception {
     String fileEnding = Util.retrieveFileEndingFromCone("application/pdf");
@@ -57,6 +54,7 @@ public class DataAcquisitionUnitTest {
     Assert.assertTrue(fileEnding.equals(".pdf"));
   }
 
+  @Ignore
   @Test
   public void fetchArxiv() throws Exception {
     byte[] test =

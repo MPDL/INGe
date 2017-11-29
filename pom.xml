@@ -913,7 +913,7 @@
         <escidoc.common.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
         <escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
         <escidoc.cone.database.name>cone</escidoc.cone.database.name>
-        <escidoc.cone.database.server.name>dev-pubman.mpdl.mpg.de</escidoc.cone.database.server.name>
+        <escidoc.cone.database.server.name>dev.inge.mpdl.mpg.de</escidoc.cone.database.server.name>
         <escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
         <escidoc.cone.language.default>en</escidoc.cone.language.default>
         <escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
