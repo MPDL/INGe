@@ -104,6 +104,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>iso639-1</name>
 		<aliases>
@@ -127,6 +128,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/publisher&gt;,&lt;http://purl.org/dc/ter
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>iso639-2</name>
 		<aliases>
@@ -154,6 +156,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>iso639-3</name>
 		<aliases>
@@ -177,6 +180,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>persons</name>
 		<aliases>
@@ -275,6 +279,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>ddc</name>
 		<aliases>
@@ -297,6 +302,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mpipks</name>
 		<aliases>
@@ -315,6 +321,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mpinp</name>
 		<aliases>
@@ -333,6 +340,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mimetypes</name>
 		<aliases>
@@ -352,6 +360,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>escidocmimetypes</name>
 		<aliases>
@@ -372,6 +381,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>cclicenses</name>
 		<aliases>
@@ -404,6 +414,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mpirg</name>
 		<aliases>
@@ -427,6 +438,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mpis-groups</name>
 		<aliases>
@@ -449,6 +461,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mpis-projects</name>
 		<aliases>
@@ -471,6 +484,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 			</result>
 		</results>
 	</model>
+	
 	<model>
 		<name>mpiwg-projects</name>
 		<aliases>
@@ -515,71 +529,6 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 		</results>
 	</model>
 	
-		<!-- 
-	<model>
-		<name>imago</name>
-		<aliases>
-			<alias>imago</alias>
-		</aliases>
-		<description>Imago Thesaurus</description>
-		<open>true</open>
-		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
-		<predicates>
-			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="true" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
-			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" localized="true" mandatory="false" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
-			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" localized="false" mandatory="false" multiple="true" modify="true" resourceModel="imago" includeResource="true" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
-		</predicates>
-		<results>
-			<result>
-				<result-pattern>
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/title&gt;
-				</result-pattern>
-			</result>
-		</results>
-	</model>
-	
-
-	<model>
-		<name>imago</name>
-		<aliases>
-			<alias>imago</alias>
-		</aliases>
-		<description>Imago Thesaurus</description>
-		<open>true</open>
-		<primary-identifier control="false" generate-cone-id="false"></primary-identifier>
-		<predicates>
-			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" localized="true" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
-			<predicate name="Alternative Name" value="http://purl.org/dc/terms/alternative" localized="true" mandatory="false" multiple="true" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
-			<predicate name="Parent" value="http://purl.org/dc/elements/1.1/relation" generateObject="false" localized="false" mandatory="false" multiple="true" modify="true" resourceModel="imago" includeResource="true" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
-		</predicates>
-		<results>
-			<result>
-				<result-pattern>
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;
-AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/title&gt;,x}: &gt;
-&lt;http://purl.org/dc/elements/1.1/title&gt;
-				</result-pattern>
-			</result>
-		</results>
-	</model>
-	
-	-->
-	
-	
 	<model>
 		<name>imago</name>
 		<aliases>
@@ -604,43 +553,11 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 		</results>
 	</model>
 	
-	<!-- 
-	
-	<model>
-		<name>open-aire-funding</name>
-		<description>Funding organizations with their programs and the correspondent OpenAire Identifiers</description>
-		<open>false</open>
-		<primary-identifier control="true" subject-prefix="open-aire-funding/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
-		<predicates>
-			<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
-			<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
-			
-			<predicate name="Program" value="http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
-				<predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
-				<predicate name="Open Aire Identifier Code" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
-			</predicate>
-		</predicates>
-		<results>
-			<result>
-				<result-pattern>
-&lt;http://purl.org/dc/elements/1.1/title&gt;
- (
-&lt;http://purl.org/dc/elements/1.1/identifier&gt;
-)
-OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/title&gt;}: - 
-OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/title&gt;
-OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/identifier&gt;}: (
-OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/identifier&gt;}:&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/identifier&gt;
-OR{&lt;http://purl.org/escidoc/metadata/profiles/0.1/project/funding-program|http://purl.org/dc/elements/1.1/identifier&gt;}:)
-				</result-pattern>
-			</result>
-		</results>
-	</model>
-	-->
-	
-	
 	<model>
 		<name>funding-organizations</name>
+		<aliases>
+			<alias>funding-organizations</alias>
+		</aliases>
 		<description>Funding organizations and the correspondent OpenAire Identifiers</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="true"/>
@@ -660,9 +577,11 @@ OR{&lt;http://purl.org/dc/elements/1.1/identifier&gt;}:)
 		</results>
 	</model>
 	
-	
 	<model>
 		<name>funding-programs</name>
+		<aliases>
+			<alias>funding-programs</alias>
+		</aliases>
 		<description>Funding programs and the correspondent OpenAire Identifiers</description>
 		<open>false</open>
 		<primary-identifier control="true" generate-cone-id="true"/>
@@ -688,9 +607,11 @@ OR{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1/
 		</results>
 	</model>
 	
-	
 	<model>
 		<name>citation-styles</name>
+		<aliases>
+			<alias>citation-styles</alias>
+		</aliases>
 		<description>Citation styles in CSL format</description>
 		<open>true</open>
 		<primary-identifier control="true" generate-cone-id="true"/>
@@ -730,13 +651,6 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			</result>
 		</results>
 	</model>
-	
-	
-				
-
-	
-	
-	
 
 	<formats>
 		<format id="html">
@@ -760,6 +674,7 @@ OR{&lt;http://purl.org/escidoc/metadata/terms/0.1/abbreviation&gt;}:)
 			<mime-type id="application/vnd.cone-options"/>
 		</format>
 	</formats>
+	
 	<config>
 		<default-namespace uri="http://purl.org/dc/elements/1.1/" prefix="dc"/>
 		<default-namespace uri="http://dewey.info/" prefix="ddc"/>
