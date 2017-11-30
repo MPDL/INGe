@@ -40,7 +40,7 @@ public class PidServiceImpl implements PidService {
   private static final String URL = "url";
 
   private String createPath;
-  
+
   private WebTarget target;
 
   public PidServiceImpl() {
