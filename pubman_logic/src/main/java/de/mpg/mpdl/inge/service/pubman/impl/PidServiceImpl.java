@@ -40,7 +40,7 @@ public class PidServiceImpl implements PidService {
   private static final String URL = "url";
 
   private String createPath;
-
+  
   private WebTarget target;
 
   public PidServiceImpl() {
@@ -48,11 +48,11 @@ public class PidServiceImpl implements PidService {
   }
 
   private void init() {
-    String user = PropertyReader.getProperty("escidoc.pid.service.user");
-    String passwd = PropertyReader.getProperty("escidoc.pid.service.password");
-    int timeout = Integer.parseInt(PropertyReader.getProperty("escidoc.pid.service.timeout"));
-    String serviceUrl = PropertyReader.getProperty("escidoc.pid.service.url");
-    createPath = PropertyReader.getProperty("escidoc.pid.service.create.path");
+    this.createPath = PropertyReader.getProperty("inge.pid.service.create.path");
+    String user = PropertyReader.getProperty("inge.pid.service.user");
+    String passwd = PropertyReader.getProperty("inge.pid.service.password");
+    int timeout = Integer.parseInt(PropertyReader.getProperty("inge.pid.service.timeout"));
+    String serviceUrl = PropertyReader.getProperty("inge.pid.service.url");
 
     ClientConfig clientConfig = new ClientConfig();
 
@@ -81,7 +81,7 @@ public class PidServiceImpl implements PidService {
     form.param(URL, url.toString());
 
     Response response =
-        target.path(createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
+        target.path(this.createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
 
     if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
       String xml = response.readEntity(String.class);

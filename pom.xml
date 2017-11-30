@@ -942,9 +942,9 @@
         <escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
         <escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
         <escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
-        <escidoc.pid.service.create.path>/doxi/rest/pid/create</escidoc.pid.service.create.path>
-        <escidoc.pid.service.timeout>5000</escidoc.pid.service.timeout>
-        <escidoc.pid.service.url>https://test.doi.mpdl.mpg.de</escidoc.pid.service.url>
+        <inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
+        <inge.pid.service.timeout>5000</inge.pid.service.timeout>
+        <inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
         <escidoc.pubman.blog.baseUrl />
         <escidoc.pubman.blog.news />
         <escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
@@ -1032,9 +1032,7 @@
         <escidoc.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</escidoc.transformation.wos.stylesheet.filename>
         <escidoc.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</escidoc.transformation.zfn.configuration.filename>
         <escidoc.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</escidoc.transformation.zfn.stylesheet.filename>      
-        <escidoc.unapi.view.server>http://localhost:8080/rest/unapi</escidoc.unapi.view.server>
-        <escidoc.validation.content-model>escidoc:validation1</escidoc.validation.content-model>
-        <escidoc.validation.source.classname>de.mpg.mpdl.inge.validation.VoidValidationSchemaSource</escidoc.validation.source.classname>
+        <inge.unapi.view.server>http://localhost:8080/rest/unapi</inge.unapi.view.server>
         <framework.admin.displayname>System Administrator User</framework.admin.displayname>
         <framework.admin.id>escidoc:exuser1</framework.admin.id>
         <framework.admin.username>roland</framework.admin.username>
@@ -1064,8 +1062,8 @@
         <inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
         <inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
         <inge.moderator.loginname>test_moderator</inge.moderator.loginname>
-        <inge.rest.file_path>/component</inge.rest.file_path>
-        <inge.rest.service_url>http://localhost:8080/rest</inge.rest.service_url>
+        <inge.rest.file.path>/component</inge.rest.file.path>
+        <inge.rest.service.url>http://localhost:8080/rest</inge.rest.service.url>
         <item_index_name>db_items</item_index_name>
         <item_index_sort>metadata.title.sorted</item_index_sort>
         <item_index_type>item</item_index_type>
@@ -1212,7 +1210,7 @@
                 <escidoc.pubman.instance.url>https://dev.inge.mpdl.mpg.de</escidoc.pubman.instance.url>
                 <escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
                 <escidoc.systemtype>dev</escidoc.systemtype>
-                <escidoc.unapi.view.server>https://dev.inge.mpdl.mpg.de/rest/unapi</escidoc.unapi.view.server>
+                <inge.unapi.view.server>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.view.server>
                 <jboss.deploy.port>8889</jboss.deploy.port>
                 <jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
                 <jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>

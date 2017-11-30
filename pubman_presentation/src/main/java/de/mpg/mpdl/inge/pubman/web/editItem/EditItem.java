@@ -135,9 +135,9 @@ public class EditItem extends FacesBean {
   private boolean bindFilesAndLocators = true;
   private UIRepeat fileIterator;
 
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service_url");
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
   public static final String REST_COMPONENT_PATH = PropertyReader
-      .getProperty("inge.rest.file_path");
+      .getProperty("inge.rest.file.path");
 
   public EditItem() {
     this.init();
