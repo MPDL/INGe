@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -196,6 +195,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       throws IngeTechnicalException, IngeApplicationException {
 
 
+    // TODO: Das kann nie funktionieren: Inhalt von fileVO.getContent() z.B.
+    // "http://p5.focus.de/img/fotos/crop7916800/6004876006-cv21_9-w630-h270-oc-q75-p5/eu-afrika-gipfel.jpg"
     StagedFileDbVO stagedFileVo =
         stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
