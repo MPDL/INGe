@@ -11,7 +11,6 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-
 public class ElasticSearchTransportClientProvider implements ElasticSearchClientProvider {
 
   private TransportClient client;
@@ -19,9 +18,9 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
   public ElasticSearchTransportClientProvider() {
     this.client =
         new PreBuiltTransportClient(Settings.builder()
-            .put("cluster.name", PropertyReader.getProperty("es_cluster_name"))
+            .put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
             .put("client.transport.sniff", true).build());
-    String transportIps = PropertyReader.getProperty("es_transport_ips");
+    String transportIps = PropertyReader.getProperty("inge.es.transport.ips");
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];
       int port = Integer.valueOf(ip.split(":")[1]);
@@ -32,8 +31,6 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
         e.printStackTrace();
       }
     }
-
-    // super(settings);
   }
 
   public Client getClient() {

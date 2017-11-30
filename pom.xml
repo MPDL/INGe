@@ -887,8 +887,8 @@
         <context_index_name>db_contexts</context_index_name>
         <context_index_sort>name.sorted</context_index_sort>
         <context_index_type>context</context_index_type>
-        <es_cluster_name>elastic_inge</es_cluster_name> 
-        <es_transport_ips>134.76.28.200:8080</es_transport_ips> 
+        <inge.es.cluster.name>elastic_inge</inge.es.cluster.name> 
+        <inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips> 
         <escidoc.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
         <escidoc.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
         <escidoc.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
@@ -938,13 +938,6 @@
         <escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
         <escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
         <escidoc.handles.activated>true</escidoc.handles.activated>
-        <escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-        <escidoc.import.sources.xml>resources/sources.xml</escidoc.import.sources.xml>
-        <escidoc.import.surveyor.interval>10</escidoc.import.surveyor.interval>
-        <escidoc.import.task.content-model>escidoc:299002</escidoc.import.task.content-model>
-        <inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
-        <inge.pid.service.timeout>5000</inge.pid.service.timeout>
-        <inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
         <escidoc.pubman.blog.baseUrl />
         <escidoc.pubman.blog.news />
         <escidoc.pubman.component.pattern>/item/$1/component/$2/$3</escidoc.pubman.component.pattern>
@@ -1032,7 +1025,6 @@
         <escidoc.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</escidoc.transformation.wos.stylesheet.filename>
         <escidoc.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</escidoc.transformation.zfn.configuration.filename>
         <escidoc.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</escidoc.transformation.zfn.stylesheet.filename>      
-        <inge.unapi.view.server>http://localhost:8080/rest/unapi</inge.unapi.view.server>
         <framework.admin.displayname>System Administrator User</framework.admin.displayname>
         <framework.admin.id>escidoc:exuser1</framework.admin.id>
         <framework.admin.username>roland</framework.admin.username>
@@ -1062,8 +1054,12 @@
         <inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
         <inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
         <inge.moderator.loginname>test_moderator</inge.moderator.loginname>
+        <inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
+        <inge.pid.service.timeout>5000</inge.pid.service.timeout>
+        <inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
         <inge.rest.file.path>/component</inge.rest.file.path>
         <inge.rest.service.url>http://localhost:8080/rest</inge.rest.service.url>
+        <inge.unapi.view.server>http://localhost:8080/rest/unapi</inge.unapi.view.server>
         <item_index_name>db_items</item_index_name>
         <item_index_sort>metadata.title.sorted</item_index_sort>
         <item_index_type>item</item_index_type>
