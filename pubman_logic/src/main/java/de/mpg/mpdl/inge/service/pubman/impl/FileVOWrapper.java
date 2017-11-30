@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 
 public class FileVOWrapper {
 
