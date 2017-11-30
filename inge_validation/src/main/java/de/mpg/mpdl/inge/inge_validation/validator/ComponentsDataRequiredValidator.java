@@ -10,6 +10,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
 // <iso:pattern name="component_data_required" id="component_data_required">
 
@@ -93,7 +94,8 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileV
             ok = false;
           }
 
-          if (ValidationTools.isEmpty(fileVO.getMimeType())) {
+          if (!Storage.EXTERNAL_URL.equals(fileVO.getStorage())
+              && ValidationTools.isEmpty(fileVO.getMimeType())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED)
                 .setField("file[" + i + "]"));
             ok = false;
