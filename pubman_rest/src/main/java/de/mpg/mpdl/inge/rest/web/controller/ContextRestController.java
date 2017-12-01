@@ -54,7 +54,7 @@ public class ContextRestController {
       AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("context_index_sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.context.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);
@@ -72,7 +72,7 @@ public class ContextRestController {
         QueryBuilders.boolQuery().filter(
             QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("context_index_sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.context.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<ContextVO> srResponse = ctxSvc.search(srRequest, token);

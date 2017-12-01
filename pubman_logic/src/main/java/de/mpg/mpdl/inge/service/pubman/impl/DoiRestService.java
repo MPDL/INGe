@@ -85,13 +85,13 @@ public class DoiRestService {
       HttpClient client = new HttpClient();
       client.getParams().setAuthenticationPreemptive(true);
       Credentials defaultcreds =
-          new UsernamePasswordCredentials(PropertyReader.getProperty("escidoc.doi.service.user"),
-              PropertyReader.getProperty("escidoc.doi.service.password"));
+          new UsernamePasswordCredentials(PropertyReader.getProperty("inge.doi.service.user"),
+              PropertyReader.getProperty("inge.doi.service.password"));
       client.getState().setCredentials(AuthScope.ANY, defaultcreds);
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       PutMethod putMethod =
-          new PutMethod(PropertyReader.getProperty("escidoc.doi.service.url")
-              + PropertyReader.getProperty("escidoc.doi.service.create.url") + queryParams);
+          new PutMethod(PropertyReader.getProperty("inge.doi.service.url")
+              + PropertyReader.getProperty("inge.doi.service.create.url") + queryParams);
       putMethod.setRequestEntity(xmlEntity);
       int statusCode = client.executeMethod(putMethod);
 

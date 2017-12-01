@@ -72,7 +72,7 @@ public class ItemRestController {
       IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("item_index_sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.item.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
@@ -90,7 +90,7 @@ public class ItemRestController {
         QueryBuilders.boolQuery().filter(
             QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("item_index_sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.item.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);

@@ -884,11 +884,6 @@
     <properties>
         <auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
         <auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
-        <context_index_name>db_contexts</context_index_name>
-        <context_index_sort>name.sorted</context_index_sort>
-        <context_index_type>context</context_index_type>
-        <inge.es.cluster.name>elastic_inge</inge.es.cluster.name> 
-        <inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips> 
         <escidoc.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
         <escidoc.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
         <escidoc.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
@@ -927,8 +922,6 @@
         <escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
         <escidoc.content.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
         <escidoc.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
-        <escidoc.doi.service.create.url>/doxi/rest/doi</escidoc.doi.service.create.url>
-        <escidoc.doi.service.url>https://test.doi.mpdl.mpg.de</escidoc.doi.service.url>
         <escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
         <escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
         <escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
@@ -1047,11 +1040,29 @@
         <inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>   
         <inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>   
         <inge.depositor.loginname>test_depositor</inge.depositor.loginname>
+        <inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
+        <inge.doi.service.url>https://test.doi.mpdl.mpg.de</inge.doi.service.url>
+        <inge.es.cluster.name>elastic_inge</inge.es.cluster.name> 
+        <inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips> 
         <inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
         <inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
         <inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
         <inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
         <inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
+        <inge.index.context.name>db_contexts</inge.index.context.name>
+        <inge.index.context.sort>name.sorted</inge.index.context.sort>
+        <inge.index.context.type>context</inge.index.context.type>
+        <inge.index.item.name>db_items</inge.index.item.name>
+        <inge.index.item.sort>metadata.title.sorted</inge.index.item.sort>
+        <inge.index.item.type>item</inge.index.item.type>
+        <inge.index.organization.name>db_ous</inge.index.organization.name>
+        <inge.index.organization.sort>defaultMetadata.name.sorted</inge.index.organization.sort>
+        <inge.index.organization.type>organization</inge.index.organization.type>
+        <inge.index.user.name>db_users</inge.index.user.name>
+        <inge.index.user.sort>name.sorted</inge.index.user.sort>
+        <inge.index.user.type>user</inge.index.user.type>
+        <inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
+        <inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
         <inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
         <inge.moderator.loginname>test_moderator</inge.moderator.loginname>
         <inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
@@ -1060,17 +1071,8 @@
         <inge.rest.file.path>/component</inge.rest.file.path>
         <inge.rest.service.url>http://localhost:8080/rest</inge.rest.service.url>
         <inge.unapi.view.server>http://localhost:8080/rest/unapi</inge.unapi.view.server>
-        <item_index_name>db_items</item_index_name>
-        <item_index_sort>metadata.title.sorted</item_index_sort>
-        <item_index_type>item</item_index_type>
         <jdk.version>1.8</jdk.version>
-        <organization_index_name>db_ous</organization_index_name>
-        <organization_index_sort>defaultMetadata.name.sorted</organization_index_sort>
-        <organization_index_type>organization</organization_index_type>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <user_index_name>db_users</user_index_name>
-        <user_index_sort>name.sorted</user_index_sort>
-        <user_index_type>user</user_index_type>
         <xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
         <xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
         <xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>
@@ -1132,8 +1134,6 @@
         <xsd.soap.useraccount.useraccountlist>http://www.escidoc.de/schemas/useraccountlist/0.7</xsd.soap.useraccount.useraccountlist>
         <xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.6</xsd.soap.usergroup.usergroup>
         <xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.6</xsd.soap.usergroup.usergrouplist>
-        <yearbook_index_name>db_yearbooks</yearbook_index_name>
-        <yearbook_index_type>yearbook</yearbook_index_type>
     </properties>
 
     <profiles>

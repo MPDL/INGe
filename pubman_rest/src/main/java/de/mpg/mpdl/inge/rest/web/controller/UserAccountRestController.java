@@ -56,7 +56,7 @@ public class UserAccountRestController {
       AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("user_index_sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
@@ -74,7 +74,7 @@ public class UserAccountRestController {
         QueryBuilders.boolQuery().filter(
             QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("user_index_sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);

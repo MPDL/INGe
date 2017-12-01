@@ -10,8 +10,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class YearbookDaoImpl extends ElasticSearchGenericDAOImpl<YearbookDbVO> implements
     YearbookDaoEs {
 
-  private static final String indexName = PropertyReader.getProperty("yearbook_index_name");
-  private static final String indexType = PropertyReader.getProperty("yearbook_index_type");
+  private static final String indexName = PropertyReader.getProperty("inge.index.yearbook.name");
+  private static final String indexType = PropertyReader.getProperty("inge.index.yearbook.type");
   private static final Class<YearbookDbVO> typeParameterClass = YearbookDbVO.class;
 
 
