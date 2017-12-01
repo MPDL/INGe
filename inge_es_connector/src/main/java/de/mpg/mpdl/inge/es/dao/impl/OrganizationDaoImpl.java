@@ -10,8 +10,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class OrganizationDaoImpl extends ElasticSearchGenericDAOImpl<AffiliationVO> implements
     OrganizationDaoEs {
 
-  private static final String indexName = PropertyReader.getProperty("inge.index.organization.name");
-  private static final String indexType = PropertyReader.getProperty("inge.index.organization.type");
+  private static final String indexName = PropertyReader
+      .getProperty("inge.index.organization.name");
+  private static final String indexType = PropertyReader
+      .getProperty("inge.index.organization.type");
   private static final Class<AffiliationVO> typeParameterClass = AffiliationVO.class;
 
 

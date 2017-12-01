@@ -56,7 +56,8 @@ public class OrganizationRestController {
       AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"),
+            SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
@@ -74,7 +75,8 @@ public class OrganizationRestController {
         QueryBuilders.boolQuery().filter(
             QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
     SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"), SortOrder.ASC);
+        new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"),
+            SortOrder.ASC);
     SearchRetrieveRequestVO srRequest =
         new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);

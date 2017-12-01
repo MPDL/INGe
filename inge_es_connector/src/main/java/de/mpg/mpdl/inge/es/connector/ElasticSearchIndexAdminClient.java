@@ -121,7 +121,8 @@ public enum ElasticSearchIndexAdminClient {
     TransportClient client = null;
     try {
       Settings settings =
-          Settings.builder().put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
+          Settings.builder()
+              .put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
               .put("client.transport.sniff", true).build();
       client = new PreBuiltTransportClient(settings);
       for (String ip : PropertyReader.getProperty("inge.es.transport.ips").split(" ")) {
