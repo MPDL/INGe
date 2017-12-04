@@ -80,16 +80,12 @@ public class ExportItemsSessionBean extends FacesBean {
   private String emailAuthPwdProp = "";
   private String citationStyleName = "";
 
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME =
-      "escidoc.pubman_presentation.email.mailservername";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER =
-      "escidoc.pubman_presentation.email.sender";
+  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME = "inge.email.mailservername";
+  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER = "inge.email.sender";
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION =
-      "escidoc.pubman_presentation.email.withauthentication";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER =
-      "escidoc.pubman_presentation.email.authenticationuser";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD =
-      "escidoc.pubman_presentation.email.authenticationpwd";
+      "inge.email.withauthentication";
+  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER = "inge.email.authenticationuser";
+  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD = "inge.email.authenticationpwd";
 
   public ExportItemsSessionBean() {
     this.init();

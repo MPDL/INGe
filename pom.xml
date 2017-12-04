@@ -906,10 +906,6 @@
         <escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
         <escidoc.common.stylesheet.standard.type>alternate stylesheet</escidoc.common.stylesheet.standard.type>
         <escidoc.common.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
-        <escidoc.cone.database.driver.class>org.postgresql.Driver</escidoc.cone.database.driver.class>
-        <escidoc.cone.database.name>cone</escidoc.cone.database.name>
-        <escidoc.cone.database.server.name>dev.inge.mpdl.mpg.de</escidoc.cone.database.server.name>
-        <escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
         <escidoc.cone.language.default>en</escidoc.cone.language.default>
         <escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
         <escidoc.cone.mimetype.pattern>application/vnd.cone-(.+)</escidoc.cone.mimetype.pattern>
@@ -919,7 +915,7 @@
         <escidoc.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</escidoc.cone.querier.class>
         <escidoc.cone.rdfs.template>models2rdfs.xsl</escidoc.cone.rdfs.template>
         <escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
-        <escidoc.cone.subjectVocab>ddc;iso639-3</escidoc.cone.subjectVocab>
+        <escidoc.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects</escidoc.cone.subjectVocab>
         <escidoc.content.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
         <escidoc.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
         <escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
@@ -982,8 +978,6 @@
         <escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
         <escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
         <escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
-        <escidoc.statistics.max_mind_geo_lite_city_db.location />
-        <escidoc.statistics.shortenedIps>true</escidoc.statistics.shortenedIps>
         <escidoc.syndication.feeds.xml.path>resources/feeds.xml</escidoc.syndication.feeds.xml.path>
         <escidoc.syndication.maximum.records>50</escidoc.syndication.maximum.records>
         <escidoc.syndication.service.url>http://localhost:8080/syndication</escidoc.syndication.service.url>
@@ -1034,6 +1028,10 @@
         <framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
         <framework.scientist.id>escidoc:2078316</framework.scientist.id>
         <framework.scientist.username>test_dep_scientist</framework.scientist.username>
+        <inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
+        <inge.cone.database.name>cone</inge.cone.database.name>
+        <inge.cone.database.server.name>dev.inge.mpdl.mpg.de</inge.cone.database.server.name>
+        <inge.cone.database.server.port>5432</inge.cone.database.server.port>
         <inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
         <inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
         <inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>      
@@ -1041,13 +1039,11 @@
         <inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>   
         <inge.depositor.loginname>test_depositor</inge.depositor.loginname>
         <inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
-        <inge.doi.service.url>https://test.doi.mpdl.mpg.de</inge.doi.service.url>
         <inge.es.cluster.name>elastic_inge</inge.es.cluster.name> 
         <inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips> 
         <inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
         <inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
         <inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
-        <inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
         <inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
         <inge.index.context.name>db_contexts</inge.index.context.name>
         <inge.index.context.sort>name.sorted</inge.index.context.sort>
@@ -1067,10 +1063,7 @@
         <inge.moderator.loginname>test_moderator</inge.moderator.loginname>
         <inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
         <inge.pid.service.timeout>5000</inge.pid.service.timeout>
-        <inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
         <inge.rest.file.path>/component</inge.rest.file.path>
-        <inge.rest.service.url>http://localhost:8080/rest</inge.rest.service.url>
-        <inge.unapi.view.server>http://localhost:8080/rest/unapi</inge.unapi.view.server>
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
@@ -1145,10 +1138,9 @@
             </activation>
             <properties>
                 <escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
-                <escidoc.systemtype>workstation</escidoc.systemtype>
+                <inge.systemtype>workstation</inge.systemtype>
                 <escidoc.handles.activated>false</escidoc.handles.activated>
-                <!-- Name of the organization its (sub-)authors are shown in the overview 
-                    page -->
+                <!-- Name of the organization its (sub-)authors are shown in the overview page -->
                 <escidoc.pubman_presentation.overview_page.authors_ou />
                 <escidoc.pubman.build.mode />
                 <escidoc.pubman.build.hyphen />
@@ -1171,19 +1163,18 @@
             <properties>
                 <escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
                 <escidoc.pubman.logo.url>/resources/images/pure_logo_web.png</escidoc.pubman.logo.url>
-                <escidoc.systemtype>workstation</escidoc.systemtype>
+                <inge.systemtype>workstation</inge.systemtype>
                 <!-- Instance of the CSL-Editor -->
                 <escidoc.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</escidoc.pubman.csl_editor.instance>
                 <escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
-                <!-- Name of the organization its (sub-)authors are shown in the overview 
-                    page -->
+                <!-- Name of the organization its (sub-)authors are shown in the overview page -->
                 <escidoc.pubman_presentation.overview_page.authors_ou>Max Planck
                     Society</escidoc.pubman_presentation.overview_page.authors_ou>
                 <escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
                 <escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
                 <escidoc.pubman.blog.baseUrl>http://blog.pure.mpg.de/</escidoc.pubman.blog.baseUrl>
                 <escidoc.pubman.blog.news>http://blog.pure.mpg.de/feed/</escidoc.pubman.blog.news>
-                <escidoc.cone.subjectVocab>ddc;iso639-3;mpipks;mpis-groups;mpis-projects;mpinp;mpirg</escidoc.cone.subjectVocab>
+                <escidoc.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects</escidoc.cone.subjectVocab>
             </properties>
             <distributionManagement>
                 <site>
@@ -1202,10 +1193,10 @@
             <properties>
                 <!-- URL of the FIZ framework instance -->
                 <escidoc.cone.service.url>https://dev.inge.mpdl.mpg.de/cone/</escidoc.cone.service.url>
-                <escidoc.cone.database.server.name>dev.inge.mpdl.mpg.de</escidoc.cone.database.server.name>
+                <inge.cone.database.server.name>dev.inge.mpdl.mpg.de</inge.cone.database.server.name>
                 <escidoc.pubman.instance.url>https://dev.inge.mpdl.mpg.de</escidoc.pubman.instance.url>
                 <escidoc.pubman.instance.seal_number>ZDB-97-MPR </escidoc.pubman.instance.seal_number>
-                <escidoc.systemtype>dev</escidoc.systemtype>
+                <inge.systemtype>dev</inge.systemtype>
                 <inge.unapi.view.server>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.view.server>
                 <jboss.deploy.port>8889</jboss.deploy.port>
                 <jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>

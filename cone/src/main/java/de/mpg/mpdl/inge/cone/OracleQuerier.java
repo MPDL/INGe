@@ -63,14 +63,14 @@ public class OracleQuerier implements Querier {
 
     // jdbc:oracle:thin:@myhost:1521:orcl
 
-    Class.forName(PropertyReader.getProperty("escidoc.cone.database.driver.class"));
+    Class.forName(PropertyReader.getProperty("inge.cone.database.driver.class"));
     connection =
         DriverManager.getConnection(
-            "jdbc:oracle:thin:" + PropertyReader.getProperty("escidoc.cone.database.server.name")
-                + ":" + PropertyReader.getProperty("escidoc.cone.database.server.port") + ":"
-                + PropertyReader.getProperty("escidoc.cone.database.name"),
-            PropertyReader.getProperty("escidoc.cone.database.user.name"),
-            PropertyReader.getProperty("escidoc.cone.database.user.password"));
+            "jdbc:oracle:thin:" + PropertyReader.getProperty("inge.cone.database.server.name")
+                + ":" + PropertyReader.getProperty("inge.cone.database.server.port") + ":"
+                + PropertyReader.getProperty("inge.cone.database.name"),
+            PropertyReader.getProperty("inge.cone.database.user.name"),
+            PropertyReader.getProperty("inge.cone.database.user.password"));
 
     // connection = dataSource.getConnection();
   }

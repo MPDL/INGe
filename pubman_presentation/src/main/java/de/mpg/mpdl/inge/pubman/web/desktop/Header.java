@@ -78,7 +78,7 @@ public class Header extends FacesBean {
    */
   public String getType() throws Exception {
     if (this.type == null) {
-      this.type = PropertyReader.getProperty("escidoc.systemtype");
+      this.type = PropertyReader.getProperty("inge.systemtype");
       if (this.type == null) {
         this.type = "";
       }
