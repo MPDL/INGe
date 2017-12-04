@@ -198,29 +198,32 @@ public class ContextListSessionBean extends FacesBean {
                 .getGrants()) {
               
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
-                if (grant.getObjectRef().equals(context.getReference().getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
-                    && context.getType().toLowerCase().equals(("PubMan".toLowerCase()))) {
-                  this.depositorContextList.add(context);
-                }
                 
-                if (grant.getObjectRef().equals(context.getReference().getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
-                    && context.getType().toLowerCase().equals(("PubMan".toLowerCase()))) {
-                  this.moderatorContextList.add(context);
-                }
-
                 if (grant.getObjectRef().equals(context.getReference().getObjectId())
                     && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
                     && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
                   this.yearbookContextList.add(context);
                 }
 
-                if (!grant.getObjectRef().equals(context.getReference().getObjectId())
+                else if (!grant.getObjectRef().equals(context.getReference().getObjectId())
                     && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
                     && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
                   this.yearbookModeratorContextList.add(context);
                 }
+                
+                else if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
+                    ) {
+                  this.depositorContextList.add(context);
+                }
+                
+                else if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
+                   ) {
+                  this.moderatorContextList.add(context);
+                }
+
+               
               }
             }
           }
