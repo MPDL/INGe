@@ -6,6 +6,9 @@
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}" />
+    <ui:fragment rendered="#{ViewItemFull.pubItem == null or ViewItemFull.isStateWithdrawn}">
+		<meta name="robots" content="noindex" />
+	</ui:fragment>	
     <h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
     <meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />

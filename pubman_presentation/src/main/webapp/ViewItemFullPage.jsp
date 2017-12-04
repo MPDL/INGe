@@ -6,6 +6,9 @@
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${ViewItemFull.unapiURLview}" />
+    <ui:fragment rendered="#{ViewItemFull.pubItem == null or ViewItemFull.isStateWithdrawn}">
+		<meta name="robots" content="noindex" />
+	</ui:fragment>		
     <h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
     <meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
@@ -29,7 +32,7 @@
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />
         <f:loadBundle var="tip" basename="Tooltip" />
-        <f:loadBundle var="genre" basename="Genre_#{ViewItemFull.pubItem.metadata.genre}" />
+        <f:loadBundle var="genre" basename="Genre_#{ViewItemFull.pubItem!=null ? ViewItemFull.pubItem.metadata.genre : 'ARTICLE' }" />
         <!-- The unAPI Identifier for this item -->
         <h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
         <div class="full wrapper">
