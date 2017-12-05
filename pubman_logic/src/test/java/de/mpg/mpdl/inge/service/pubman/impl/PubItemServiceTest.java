@@ -138,12 +138,22 @@ public class PubItemServiceTest extends TestBase {
   }
 
   @Test
-  public void getInvalidId() throws Exception {
+  public void getInvalidIdWithAuthentication() throws Exception {
 
     super.logMethodName();
 
     String authenticationToken = loginAdmin();
     PubItemVO pubItemVO = pubItemService.get("item_xyc", authenticationToken);
+
+    assertTrue(pubItemVO == null);
+  }
+  
+  @Test
+  public void getInvalidIdWithoutAuthentication() throws Exception {
+
+    super.logMethodName();
+
+    PubItemVO pubItemVO = pubItemService.get("item_xyc", null);
 
     assertTrue(pubItemVO == null);
   }
