@@ -64,6 +64,10 @@ public class Parenthesis extends SearchCriterionBase {
 
     return "";
   }
+  
+  public String getQueryStringContent() {
+    return null;
+  }
 
   @Override
   public void parseQueryStringContent(String content) {

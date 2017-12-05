@@ -147,7 +147,7 @@ public class PubItemServiceTest extends TestBase {
 
     assertTrue(pubItemVO == null);
   }
-  
+
   @Test
   public void getInvalidIdWithoutAuthentication() throws Exception {
 

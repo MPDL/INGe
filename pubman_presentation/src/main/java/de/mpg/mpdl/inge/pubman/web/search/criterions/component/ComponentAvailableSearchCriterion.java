@@ -110,8 +110,8 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
   public abstract String getStorageType();
 
   @Override
-  public String toQueryString() {
-    return this.getSearchCriterion() + "=\"" + this.getSelectedAvailability() + "\"";
+  public String getQueryStringContent() {
+    return this.getSelectedAvailability().name();
   }
 
   @Override

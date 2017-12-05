@@ -678,7 +678,7 @@
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selComponentAvailabilityOptions" styleClass="replace"
-									value="#{AdvancedSearchBean.fileAvailableSearchCriterion.selectedAvailability}"
+									value="#{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability}"
 									onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
 									<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}" />
 									<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}" />
@@ -693,39 +693,60 @@
 							<h:outputLabel id="lblComponentVisibilityOptions" styleClass="medium_label clear"
 								value="#{lbl.adv_search_fileComponentVisibility}" style="margin-top:0.7272em;" />
 							<span class="free_area0 clear">
-								<ui:repeat value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumList}" var="visibility">
+								<ui:repeat value="#{AdvancedSearchBean.fileSectionSearchCriterion.visibilityListSearchCriterion.enumList}" var="visibility">
 									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
 										<ui:param name="label" value="ENUM_SELECTCOMPONENTVISIBILITY_SELECT_COMPONENT_#{visibility}" />
 										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{visibility}" id="visibilityCriterion"
-											value="#{AdvancedSearchBean.componentVisibilityListSearchCriterion.enumMap[visibility]}">
+											value="#{AdvancedSearchBean.fileSectionSearchCriterion.visibilityListSearchCriterion.enumMap[visibility]}">
 										</h:selectBooleanCheckbox>
 										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="visibilityCriterion" />
 									</h:panelGroup>
 								</ui:repeat>
 							</span>
-							<!-- 
-						<span class="double_checkbox fileCriterionHasEmbargoDate" style="margin-top:0.4545em;">
-							<h:selectBooleanCheckbox id="fileCriterionHasEmbargoDate" value="#{AdvancedSearchBean.componentEmbargoDateAvailableSearchCriterion.withEmbargoDate}"/>
-							<h:outputLabel for="fileCriterionHasEmbargoDate" value="#{lbl.adv_search_abb_fileComponentEmbargoDate}" title="#{lbl.adv_search_fileComponentEmbargoDate}"/>
-						</span>
-						-->
 							<h:outputLabel id="lblComponentEmbargoDate" styleClass="medium_label clear"
 								value="#{lbl.adv_search_fileComponentEmbargoDate}" style="margin-top:0.7272em;" />
 							<span class="free_area0 fileCriterionEmbargoDate">
 								<h:outputLabel id="lblStartDateFirst" styleClass="small_label label_keyword" for="startDateFirst"
 									value="#{lbl.adv_search_lblFrom}: " />
 								<h:inputText styleClass="large_txtInput" id="startDateFirst"
-									value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.from}"
+									value="#{AdvancedSearchBean.fileSectionSearchCriterion.embargoDateSearchCriterion.from}"
 									pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}" />
 							</span>
 							<span class="free_area0 clear fileCriterionEmbargoDate">
 								<h:outputLabel id="lblEndDateFirst" styleClass="small_label label_keyword" for="endDateFirst"
 									value="#{lbl.adv_search_lblTo}: " />
 								<h:inputText styleClass="large_txtInput" id="endDateFirst"
-									value="#{AdvancedSearchBean.componentEmbargoDateSearchCriterion.to}"
+									value="#{AdvancedSearchBean.fileSectionSearchCriterion.embargoDateSearchCriterion.to}"
 									pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}" />
 							</span>
 						</span>
+						<span class="double_area0 tiny_marginRIncl">
+							<h:outputLabel id="lblContentCategories" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}" />
+							<span class="free_area0 clear">
+								<ui:repeat value="#{AdvancedSearchBean.fileSectionSearchCriterion.contentCategoryListSearchCriterion.enumList}" var="cc">
+									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
+										<ui:param name="label" value="ENUM_CONTENTCATEGORY_#{cc}" />
+										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{cc}" id="contentCategoryCriterion"
+											value="#{AdvancedSearchBean.fileSectionSearchCriterion.contentCategoryListSearchCriterion.enumMap[cc]}">
+										</h:selectBooleanCheckbox>
+										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="contentCategoryCriterion" />
+									</h:panelGroup>
+								</ui:repeat>
+							</span>
+						</span>
+					</span>
+				</span>
+			</h:panelGroup>
+		</div>
+		<!-- locator criterions -->
+		<div class="full_area0 itemBlock">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{lbl.adv_search_lbHeaderFiles}" />
+			</h3>
+			<span class="seperator">&#160;</span>
+			<h:panelGroup id="editLocators" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
+				<span class="free_area0 xTiny_marginLExcl endline">
+					<span class="free_area0">
 						<span class="double_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="double_label" value="#{lbl.adv_search_lblLocatorAvailable}" />
 							<h:panelGroup layout="block" styleClass="large_area1 endline selectContainer clear">
@@ -734,7 +755,7 @@
 									<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selLocatorAvailabilityOptions" styleClass="replace"
-									value="#{AdvancedSearchBean.locatorAvailableSearchCriterion.selectedAvailability}"
+									value="#{AdvancedSearchBean.locatorSectionSearchCriterion.selectedAvailability}"
 									onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
 									<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}" />
 									<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}" />
@@ -743,13 +764,13 @@
 							</h:panelGroup>
 						</span>
 						<span class="double_area0 tiny_marginRIncl">
-							<h:outputLabel id="lblContentCategories" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}" />
+							<h:outputLabel id="lblContentCategoriesLocator" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}" />
 							<span class="free_area0 clear">
-								<ui:repeat value="#{AdvancedSearchBean.componentContentCategoryListSearchCriterion.enumList}" var="cc">
+								<ui:repeat value="#{AdvancedSearchBean.locatorSectionSearchCriterion.contentCategoryListSearchCriterion.enumList}" var="cc">
 									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
 										<ui:param name="label" value="ENUM_CONTENTCATEGORY_#{cc}" />
 										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{cc}" id="contentCategoryCriterion"
-											value="#{AdvancedSearchBean.componentContentCategoryListSearchCriterion.enumMap[cc]}">
+											value="#{AdvancedSearchBean.locatorSectionSearchCriterion.contentCategoryListSearchCriterion.enumMap[cc]}">
 										</h:selectBooleanCheckbox>
 										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="contentCategoryCriterion" />
 									</h:panelGroup>

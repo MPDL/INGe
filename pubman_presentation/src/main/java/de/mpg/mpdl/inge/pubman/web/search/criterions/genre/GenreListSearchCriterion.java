@@ -142,9 +142,9 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public String toQueryString() {
+  public String getQueryStringContent() {
     final StringBuffer sb = new StringBuffer();
-    sb.append(this.getSearchCriterion() + "=\"");
+   
 
     boolean allGenres = true;
     boolean allDegrees = true;
@@ -184,7 +184,6 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
     }
 
-    sb.append("\"");
     if (!allGenres || !allDegrees) {
       return sb.toString();
     } else {

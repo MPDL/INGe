@@ -67,6 +67,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilit
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.DegreeSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.EventTitleSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.JournalSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.KeywordSearchCriterion;
@@ -140,7 +141,9 @@ public abstract class SearchCriterionBase implements Serializable {
     OPENING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(
         Parenthesis.class, DisplayType.PARENTHESIS),
 
-    FLEXIBLE(FlexibleStandardSearchCriterion.class, null);
+    FLEXIBLE(FlexibleStandardSearchCriterion.class, null),
+    FILE_SECTION(FileSectionSearchCriterion.class, null),
+    LOCATOR_SECTION(FileSectionSearchCriterion.class, null);
 
     private Class<?> relatedClass;
     private DisplayType displayType;
@@ -199,7 +202,11 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public abstract String getElasticSearchNestedPath();
 
-  public abstract String toQueryString();
+  public String toQueryString() {
+    return this.getSearchCriterion().name() + "=\"" + getQueryStringContent() + "\"";
+  }
+  
+  public abstract String getQueryStringContent();
 
   public abstract void parseQueryStringContent(String content) throws SearchParseException;
 
