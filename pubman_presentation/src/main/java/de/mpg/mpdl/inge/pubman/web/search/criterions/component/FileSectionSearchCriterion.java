@@ -31,11 +31,9 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
   public FileSectionSearchCriterion(SearchCriterion type) {
     super();
-    setSearchCriterion(type);
-
-    if (SearchCriterion.FILE_AVAILABLE.equals(type)) {
+    if (SearchCriterion.FILE_SECTION.equals(type)) {
       storageType = Storage.INTERNAL_MANAGED;
-    } else if (SearchCriterion.LOCATOR_AVAILABLE.equals(type)) {
+    } else if (SearchCriterion.LOCATOR_SECTION.equals(type)) {
       storageType = Storage.EXTERNAL_URL;
     }
   }
@@ -55,8 +53,6 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
       case YES: {
-
-
         bq.must(this.baseElasticSearchQueryBuilder(new String[] {"files.storage"},
             storageType.name()));
 
@@ -114,7 +110,6 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   @Override
   public void parseQueryStringContent(String content) throws SearchParseException {
     String[] parts = content.split("\\|\\|", -1);
-    System.out.println(parts[1]);
     this.selectedAvailability = ComponentAvailability.valueOf(parts[0]);
     this.visibilityListSearchCriterion.parseQueryStringContent(parts[1]);
     this.embargoDateSearchCriterion.parseQueryStringContent(parts[2]);
