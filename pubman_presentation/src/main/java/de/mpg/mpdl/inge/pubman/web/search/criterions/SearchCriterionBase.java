@@ -141,9 +141,9 @@ public abstract class SearchCriterionBase implements Serializable {
     OPENING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(
         Parenthesis.class, DisplayType.PARENTHESIS),
 
-    FLEXIBLE(FlexibleStandardSearchCriterion.class, null),
-    FILE_SECTION(FileSectionSearchCriterion.class, null),
-    LOCATOR_SECTION(FileSectionSearchCriterion.class, null);
+    FLEXIBLE(FlexibleStandardSearchCriterion.class, null), FILE_SECTION(
+        FileSectionSearchCriterion.class, null), LOCATOR_SECTION(FileSectionSearchCriterion.class,
+        null);
 
     private Class<?> relatedClass;
     private DisplayType displayType;
@@ -205,7 +205,7 @@ public abstract class SearchCriterionBase implements Serializable {
   public String toQueryString() {
     return this.getSearchCriterion().name() + "=\"" + getQueryStringContent() + "\"";
   }
-  
+
   public abstract String getQueryStringContent();
 
   public abstract void parseQueryStringContent(String content) throws SearchParseException;

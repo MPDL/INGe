@@ -76,14 +76,13 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public String getQueryStringContent() {
 
-    return 
-        SearchCriterionBase.escapeForQueryString(this.searchString) + "||"
+    return SearchCriterionBase.escapeForQueryString(this.searchString) + "||"
         + SearchCriterionBase.escapeForQueryString(this.hiddenId);
 
 
   }
-  
- 
+
+
 
   @Override
   public QueryBuilder toElasticSearchQuery() {

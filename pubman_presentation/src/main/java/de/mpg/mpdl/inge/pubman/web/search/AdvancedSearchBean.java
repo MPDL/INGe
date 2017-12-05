@@ -101,10 +101,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> componentVisibilityListMenu = this.initComponentVisibilityListMenu();
   private List<SelectItem> contentCategoryListMenu = this.initContentCategoryListMenu();
   private List<SelectItem> contextListMenu;
-  private List<SelectItem> criterionTypeListMenu =
-      this.initCriterionTypeListMenu(Index.ESCIDOC_ALL);
-  private List<SelectItem> criterionTypeListMenuAdmin =
-      this.initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN);
+  private List<SelectItem> criterionTypeListMenu = this
+      .initCriterionTypeListMenu(Index.ESCIDOC_ALL);
+  private List<SelectItem> criterionTypeListMenuAdmin = this
+      .initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN);
   private List<SelectItem> genreListMenu = this.initGenreListMenu();
   private List<SelectItem> operatorTypeListMenu = this.initOperatorListMenu();
   private List<SelectItem> reviewMethodListMenu = this.initReviewMethodListMenu();
@@ -155,7 +155,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
     this.balanceMap.clear();
     this.setFileSectionSearchCriterion(new FileSectionSearchCriterion(SearchCriterion.FILE_SECTION));
-    this.setLocatorSectionSearchCriterion(new FileSectionSearchCriterion(SearchCriterion.LOCATOR_SECTION));
+    this.setLocatorSectionSearchCriterion(new FileSectionSearchCriterion(
+        SearchCriterion.LOCATOR_SECTION));
 
     this.currentlyOpenedParenthesis = null;
     this.excludeComponentContentCategory = false;
@@ -296,8 +297,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     personRoleMenu.add(new SelectItem(null, this.getLabel("adv_search_lblSearchPerson")));
     for (final CreatorRole role : CreatorRole.values()) {
-      personRoleMenu
-          .add(new SelectItem(role.name(), this.getLabel("ENUM_CREATORROLE_" + role.name())));
+      personRoleMenu.add(new SelectItem(role.name(), this.getLabel("ENUM_CREATORROLE_"
+          + role.name())));
     }
     return personRoleMenu;
 
@@ -306,31 +307,31 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> initCriterionTypeListMenu(Index indexName) {
     final List<SelectItem> criterionTypeList = new ArrayList<SelectItem>();
     // General
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.TITLE, this.getLabel("adv_search_lblRgbTitle")));
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.KEYWORD, this.getLabel("adv_search_lblRgbTopic")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.CLASSIFICATION,
-        this.getLabel("adv_search_lblClassification")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.TITLE, this
+        .getLabel("adv_search_lblRgbTitle")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.KEYWORD, this
+        .getLabel("adv_search_lblRgbTopic")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.CLASSIFICATION, this
+        .getLabel("adv_search_lblClassification")));
     criterionTypeList
         .add(new SelectItem(SearchCriterion.ANY, this.getLabel("adv_search_lblRgbAny")));
-    criterionTypeList.add(
-        new SelectItem(SearchCriterion.ANYFULLTEXT, this.getLabel("adv_search_lblRgbAnyFulltext")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.ANYFULLTEXT, this
+        .getLabel("adv_search_lblRgbAnyFulltext")));
 
     // AdminStuff
     if (indexName == Index.ITEM_CONTAINER_ADMIN) {
       final List<SelectItem> adminGroupList = new ArrayList<SelectItem>();
       final SelectItemGroup adminGroup =
           new SelectItemGroup(this.getLabel("adv_search_lblSearchAdmin"));
-      adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL,
-          this.getLabel("adv_search_lblItemCreationDate")));
-      adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL,
-          this.getLabel("adv_search_lblItemLastModificationDate")));
+      adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL, this
+          .getLabel("adv_search_lblItemCreationDate")));
+      adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL, this
+          .getLabel("adv_search_lblItemLastModificationDate")));
 
-      adminGroupList.add(
-          new SelectItem(SearchCriterion.CREATED_BY, this.getLabel("adv_search_lblItemCreatedBy")));
-      adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY,
-          this.getLabel("adv_search_lblItemModifiedBy")));
+      adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY, this
+          .getLabel("adv_search_lblItemCreatedBy")));
+      adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY, this
+          .getLabel("adv_search_lblItemModifiedBy")));
 
       adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
       criterionTypeList.add(adminGroup);
@@ -377,30 +378,30 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
      * personGroup.setSelectItems(personGroupList.toArray(new SelectItem[0]));
      */
 
-    criterionTypeList.add(
-        new SelectItem(SearchCriterion.ANYPERSON, this.getLabel("adv_search_lblSearchPerson")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.ANYPERSON, this
+        .getLabel("adv_search_lblSearchPerson")));
 
 
     // Organisation
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.ORGUNIT, this.getLabel("adv_search_lbHeaderOrgan")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.ORGUNIT, this
+        .getLabel("adv_search_lbHeaderOrgan")));
 
     // Dates
     final List<SelectItem> dateGroupList = new ArrayList<SelectItem>();
-    dateGroupList
-        .add(new SelectItem(SearchCriterion.ANYDATE, this.getLabel("adv_search_lbHeaderDate")));
-    dateGroupList.add(new SelectItem(SearchCriterion.PUBLISHEDPRINT,
-        this.getLabel("adv_search_lblChkType_abb_publishedpr")));
-    dateGroupList.add(new SelectItem(SearchCriterion.PUBLISHED,
-        this.getLabel("adv_search_lblChkType_publishedon")));
-    dateGroupList.add(
-        new SelectItem(SearchCriterion.ACCEPTED, this.getLabel("adv_search_lblChkType_accepted")));
-    dateGroupList.add(new SelectItem(SearchCriterion.SUBMITTED,
-        this.getLabel("adv_search_lblChkType_submitted")));
-    dateGroupList.add(
-        new SelectItem(SearchCriterion.MODIFIED, this.getLabel("adv_search_lblChkType_modified")));
-    dateGroupList.add(
-        new SelectItem(SearchCriterion.CREATED, this.getLabel("adv_search_lblChkType_created")));
+    dateGroupList.add(new SelectItem(SearchCriterion.ANYDATE, this
+        .getLabel("adv_search_lbHeaderDate")));
+    dateGroupList.add(new SelectItem(SearchCriterion.PUBLISHEDPRINT, this
+        .getLabel("adv_search_lblChkType_abb_publishedpr")));
+    dateGroupList.add(new SelectItem(SearchCriterion.PUBLISHED, this
+        .getLabel("adv_search_lblChkType_publishedon")));
+    dateGroupList.add(new SelectItem(SearchCriterion.ACCEPTED, this
+        .getLabel("adv_search_lblChkType_accepted")));
+    dateGroupList.add(new SelectItem(SearchCriterion.SUBMITTED, this
+        .getLabel("adv_search_lblChkType_submitted")));
+    dateGroupList.add(new SelectItem(SearchCriterion.MODIFIED, this
+        .getLabel("adv_search_lblChkType_modified")));
+    dateGroupList.add(new SelectItem(SearchCriterion.CREATED, this
+        .getLabel("adv_search_lblChkType_created")));
 
     final SelectItemGroup dateGroup = new SelectItemGroup(this.getLabel("adv_search_lbHeaderDate"));
     dateGroup.setSelectItems(dateGroupList.toArray(new SelectItem[0]));
@@ -409,14 +410,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     // Event
     final List<SelectItem> eventGroupList = new ArrayList<SelectItem>();
-    eventGroupList
-        .add(new SelectItem(SearchCriterion.EVENT, this.getLabel("adv_search_lbHeaderEvent")));
-    eventGroupList.add(new SelectItem(SearchCriterion.EVENT_STARTDATE,
-        this.getLabel("adv_search_lblChkType_abb_event_start_date")));
-    eventGroupList.add(new SelectItem(SearchCriterion.EVENT_ENDDATE,
-        this.getLabel("adv_search_lblChkType_abb_event_end_date")));
-    eventGroupList.add(new SelectItem(SearchCriterion.EVENT_INVITATION,
-        this.getLabel("ENUM_INVITATIONSTATUS_INVITED")));
+    eventGroupList.add(new SelectItem(SearchCriterion.EVENT, this
+        .getLabel("adv_search_lbHeaderEvent")));
+    eventGroupList.add(new SelectItem(SearchCriterion.EVENT_STARTDATE, this
+        .getLabel("adv_search_lblChkType_abb_event_start_date")));
+    eventGroupList.add(new SelectItem(SearchCriterion.EVENT_ENDDATE, this
+        .getLabel("adv_search_lblChkType_abb_event_end_date")));
+    eventGroupList.add(new SelectItem(SearchCriterion.EVENT_INVITATION, this
+        .getLabel("ENUM_INVITATIONSTATUS_INVITED")));
 
     final SelectItemGroup eventGroup =
         new SelectItemGroup(this.getLabel("adv_search_lbHeaderEvent"));
@@ -426,38 +427,38 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
 
     // Genre
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.GENRE, this.getLabel("adv_search_lbHeaderGenre")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.GENRE, this
+        .getLabel("adv_search_lbHeaderGenre")));
 
-    criterionTypeList.add(new SelectItem(SearchCriterion.REVIEW_METHOD,
-        this.getLabel("ViewItemFull_lblRevisionMethod")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.REVIEW_METHOD, this
+        .getLabel("ViewItemFull_lblRevisionMethod")));
 
     // Language
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.LANG, this.getLabel("adv_search_lblLanguageTerm")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.LANG, this
+        .getLabel("adv_search_lblLanguageTerm")));
 
     // Source
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.SOURCE, this.getLabel("adv_search_lbHeaderSource")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.JOURNAL,
-        " - " + this.getLabel("adv_search_lblSourceJournal")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.SOURCE, this
+        .getLabel("adv_search_lbHeaderSource")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.JOURNAL, " - "
+        + this.getLabel("adv_search_lblSourceJournal")));
 
     // LocalTag
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.LOCAL, this.getLabel("adv_search_lbHeaderLocalTag")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.LOCAL, this
+        .getLabel("adv_search_lbHeaderLocalTag")));
 
     // Identifier
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.IDENTIFIER, this.getLabel("adv_search_lbHeaderIdent")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.IDENTIFIER, this
+        .getLabel("adv_search_lbHeaderIdent")));
 
 
     // Collection
-    criterionTypeList.add(
-        new SelectItem(SearchCriterion.COLLECTION, this.getLabel("adv_search_lbHeaderCollection")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.COLLECTION, this
+        .getLabel("adv_search_lbHeaderCollection")));
 
     // ProjectInfo
-    criterionTypeList
-        .add(new SelectItem(SearchCriterion.PROJECT_INFO, this.getLabel("g_project_info")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.PROJECT_INFO, this
+        .getLabel("g_project_info")));
 
     return criterionTypeList;
 
@@ -467,12 +468,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     final List<SelectItem> operatorTypeList = new ArrayList<SelectItem>();
 
     // General
-    operatorTypeList
-        .add(new SelectItem(SearchCriterion.AND_OPERATOR, this.getLabel("adv_search_logicop_and")));
-    operatorTypeList
-        .add(new SelectItem(SearchCriterion.OR_OPERATOR, this.getLabel("adv_search_logicop_or")));
-    operatorTypeList
-        .add(new SelectItem(SearchCriterion.NOT_OPERATOR, this.getLabel("adv_search_logicop_not")));
+    operatorTypeList.add(new SelectItem(SearchCriterion.AND_OPERATOR, this
+        .getLabel("adv_search_logicop_and")));
+    operatorTypeList.add(new SelectItem(SearchCriterion.OR_OPERATOR, this
+        .getLabel("adv_search_logicop_or")));
+    operatorTypeList.add(new SelectItem(SearchCriterion.NOT_OPERATOR, this
+        .getLabel("adv_search_logicop_not")));
 
 
     return operatorTypeList;
@@ -507,8 +508,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public void copyValuesFromOldToNew(SearchCriterionBase oldSc, SearchCriterionBase newSc) {
     if (oldSc instanceof PersonSearchCriterion && newSc instanceof PersonSearchCriterion) {
-      ((PersonSearchCriterion) newSc)
-          .setSearchString(((PersonSearchCriterion) oldSc).getSearchString());
+      ((PersonSearchCriterion) newSc).setSearchString(((PersonSearchCriterion) oldSc)
+          .getSearchString());
       ((PersonSearchCriterion) newSc).setHiddenId(((PersonSearchCriterion) oldSc).getHiddenId());
     }
 
@@ -520,13 +521,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     else if (oldSc instanceof StandardSearchCriterion && newSc instanceof StandardSearchCriterion
         && !(oldSc instanceof CollectionSearchCriterion)
         && !(newSc instanceof CollectionSearchCriterion)) {
-      ((StandardSearchCriterion) newSc)
-          .setSearchString(((StandardSearchCriterion) oldSc).getSearchString());
+      ((StandardSearchCriterion) newSc).setSearchString(((StandardSearchCriterion) oldSc)
+          .getSearchString());
 
-    } else if ((oldSc instanceof CreatedBySearchCriterion
-        && newSc instanceof ModifiedBySearchCriterion)
-        || (oldSc instanceof ModifiedBySearchCriterion
-            && newSc instanceof CreatedBySearchCriterion)) {
+    } else if ((oldSc instanceof CreatedBySearchCriterion && newSc instanceof ModifiedBySearchCriterion)
+        || (oldSc instanceof ModifiedBySearchCriterion && newSc instanceof CreatedBySearchCriterion)) {
       ((StringOrHiddenIdSearchCriterion) newSc)
           .setHiddenId(((StringOrHiddenIdSearchCriterion) oldSc).getHiddenId());
       ((StringOrHiddenIdSearchCriterion) newSc)
@@ -540,8 +539,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     if (evt.getNewValue() != null && position != null) {
 
       final SearchCriterion newValue = SearchCriterion.valueOf(evt.getNewValue().toString());
-      AdvancedSearchBean.logger
-          .debug("Changing sortCriteria at position " + position + " to " + newValue);
+      AdvancedSearchBean.logger.debug("Changing sortCriteria at position " + position + " to "
+          + newValue);
 
       final SearchCriterionBase oldSearchCriterion = this.criterionList.remove(position.intValue());
       final SearchCriterionBase newSearchCriterion =
@@ -734,8 +733,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
       try {
 
-        QueryBuilder qb = QueryBuilders.boolQuery()
-            .must(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
+        QueryBuilder qb =
+            QueryBuilders.boolQuery().must(
+                QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 1000, 0);
         SearchRetrieveResponseVO<ContextVO> result =
@@ -744,8 +744,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         this.contextListMenu = new ArrayList<SelectItem>();
 
         for (final SearchRetrieveRecordVO<ContextVO> c : result.getRecords()) {
-          this.contextListMenu
-              .add(new SelectItem(c.getData().getReference().getObjectId(), c.getData().getName()));
+          this.contextListMenu.add(new SelectItem(c.getData().getReference().getObjectId(), c
+              .getData().getName()));
         }
 
         Collections.sort(this.contextListMenu, new SelectItemComparator());
@@ -833,17 +833,18 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     }
 
     try {
-      final BreadcrumbItemHistorySessionBean bihsb = (BreadcrumbItemHistorySessionBean) FacesTools
-          .findBean("BreadcrumbItemHistorySessionBean");
+      final BreadcrumbItemHistorySessionBean bihsb =
+          (BreadcrumbItemHistorySessionBean) FacesTools
+              .findBean("BreadcrumbItemHistorySessionBean");
       if (bihsb.getCurrentItem().getDisplayValue().equals("AdvancedSearchPage")) {
-        bihsb.getCurrentItem()
-            .setPage("AdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
+        bihsb.getCurrentItem().setPage(
+            "AdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
       } else if (bihsb.getCurrentItem().getDisplayValue().equals("AdminAdvancedSearchPage")) {
-        bihsb.getCurrentItem()
-            .setPage("AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
+        bihsb.getCurrentItem().setPage(
+            "AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
       }
-      FacesTools.getExternalContext()
-          .redirect("SearchResultListPage.jsp?esq="
+      FacesTools.getExternalContext().redirect(
+          "SearchResultListPage.jsp?esq="
               + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8") + "&q="
               + URLEncoder.encode(this.query, "UTF-8") + "&"
               + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);

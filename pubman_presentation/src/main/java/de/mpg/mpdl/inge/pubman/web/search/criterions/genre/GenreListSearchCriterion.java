@@ -144,7 +144,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   @Override
   public String getQueryStringContent() {
     final StringBuffer sb = new StringBuffer();
-   
+
 
     boolean allGenres = true;
     boolean allDegrees = true;

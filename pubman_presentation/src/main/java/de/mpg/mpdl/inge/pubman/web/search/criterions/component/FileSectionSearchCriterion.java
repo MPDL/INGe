@@ -14,33 +14,33 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 
 public class FileSectionSearchCriterion extends SearchCriterionBase {
 
-  
+
   private Storage storageType = Storage.INTERNAL_MANAGED;
-  
+
   private ComponentAvailability selectedAvailability = ComponentAvailability.WHATEVER;
-  
-  private ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion = new ComponentContentCategoryListSearchCriterion();
-  
-  private DateSearchCriterion embargoDateSearchCriterion = new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
-  
-  private ComponentVisibilityListSearchCriterion visibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
-  
-  
+
+  private ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion =
+      new ComponentContentCategoryListSearchCriterion();
+
+  private DateSearchCriterion embargoDateSearchCriterion = new DateSearchCriterion(
+      SearchCriterion.COMPONENT_EMBARGO_DATE);
+
+  private ComponentVisibilityListSearchCriterion visibilityListSearchCriterion =
+      new ComponentVisibilityListSearchCriterion();
+
+
   public FileSectionSearchCriterion(SearchCriterion type) {
     super();
     setSearchCriterion(type);
-    
-    if(SearchCriterion.FILE_AVAILABLE.equals(type))
-    {
+
+    if (SearchCriterion.FILE_AVAILABLE.equals(type)) {
       storageType = Storage.INTERNAL_MANAGED;
-    }
-    else if (SearchCriterion.LOCATOR_AVAILABLE.equals(type))
-    {
+    } else if (SearchCriterion.LOCATOR_AVAILABLE.equals(type)) {
       storageType = Storage.EXTERNAL_URL;
     }
   }
-  
-  
+
+
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
     // TODO Auto-generated method stub
@@ -49,34 +49,32 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
-    
+
     BoolQueryBuilder bq = QueryBuilders.boolQuery();
     switch (this.selectedAvailability) {
 
-      
+
       case YES: {
-        
-        
-        bq.must(this.baseElasticSearchQueryBuilder(new String[] {"files.storage"}, storageType.name()));
-        
-        if(!visibilityListSearchCriterion.isEmpty(QueryType.CQL))
-        {
+
+
+        bq.must(this.baseElasticSearchQueryBuilder(new String[] {"files.storage"},
+            storageType.name()));
+
+        if (!visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(visibilityListSearchCriterion.toElasticSearchQuery());
         }
-        if(!embargoDateSearchCriterion.isEmpty(QueryType.CQL))
-        {
+        if (!embargoDateSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(embargoDateSearchCriterion.toElasticSearchQuery());
         }
-        if(!contentCategoryListSearchCriterion.isEmpty(QueryType.CQL))
-        {
+        if (!contentCategoryListSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(contentCategoryListSearchCriterion.toElasticSearchQuery());
         }
         break;
       }
 
       case NO: {
-        bq.mustNot(
-            SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage", storageType.name()));
+        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage",
+            storageType.name()));
         break;
       }
 
@@ -97,34 +95,31 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     StringBuilder sb = new StringBuilder();
     sb.append(this.getSelectedAvailability());
     sb.append("||");
-    if(!visibilityListSearchCriterion.isEmpty(QueryType.INTERNAL))
-    {
+    if (!visibilityListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
       sb.append(visibilityListSearchCriterion.getQueryStringContent());
     }
     sb.append("||");
-    if(!embargoDateSearchCriterion.isEmpty(QueryType.INTERNAL))
-    {
+    if (!embargoDateSearchCriterion.isEmpty(QueryType.INTERNAL)) {
       sb.append(embargoDateSearchCriterion.getQueryStringContent());
     }
     sb.append("||");
-    if(!contentCategoryListSearchCriterion.isEmpty(QueryType.INTERNAL))
-    {
+    if (!contentCategoryListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
       sb.append(contentCategoryListSearchCriterion.getQueryStringContent());
     }
-    
+
     return sb.toString();
 
   }
 
   @Override
   public void parseQueryStringContent(String content) throws SearchParseException {
-    String[] parts = content.split("\\|\\|",-1);
+    String[] parts = content.split("\\|\\|", -1);
     System.out.println(parts[1]);
     this.selectedAvailability = ComponentAvailability.valueOf(parts[0]);
     this.visibilityListSearchCriterion.parseQueryStringContent(parts[1]);
     this.embargoDateSearchCriterion.parseQueryStringContent(parts[2]);
     this.contentCategoryListSearchCriterion.parseQueryStringContent(parts[3]);
-    
+
   }
 
   @Override

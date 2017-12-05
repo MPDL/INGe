@@ -42,8 +42,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
 
   @Override
   public String getQueryStringContent() {
-    return 
-        SearchCriterionBase.escapeForQueryString(this.searchString);
+    return SearchCriterionBase.escapeForQueryString(this.searchString);
   }
 
   @Override

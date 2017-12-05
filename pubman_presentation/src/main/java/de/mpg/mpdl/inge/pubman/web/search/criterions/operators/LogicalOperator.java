@@ -63,7 +63,7 @@ public class LogicalOperator extends SearchCriterionBase {
 
     return "";
   }
-  
+
   public String getQueryStringContent() {
     return null;
   }

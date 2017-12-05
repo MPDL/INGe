@@ -157,7 +157,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
   protected String getQueryString() {
     final StringBuffer sb = new StringBuffer();
-   
+
     int i = 0;
     for (final Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
