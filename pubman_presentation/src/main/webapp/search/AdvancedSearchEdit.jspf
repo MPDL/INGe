@@ -741,7 +741,7 @@
 		<!-- locator criterions -->
 		<div class="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				<h:outputText value="#{lbl.adv_search_lbHeaderFiles}" />
+				<h:outputText value="#{lbl.adv_search_lbHeaderLocators}" />
 			</h3>
 			<span class="seperator">&#160;</span>
 			<h:panelGroup id="editLocators" layout="block" styleClass="free_area0 itemBlockContent itemLine endline noTopBorder">
