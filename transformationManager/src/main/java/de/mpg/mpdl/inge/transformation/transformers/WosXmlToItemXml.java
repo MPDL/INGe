@@ -51,8 +51,7 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(
-        "inge.transformation.wos.configuration.filename",
+    return getAllConfigurationValuesFromProperty("inge.transformation.wos.configuration.filename",
         "transformations/otherFormats/conf/wos.properties").get(key);
   }
 

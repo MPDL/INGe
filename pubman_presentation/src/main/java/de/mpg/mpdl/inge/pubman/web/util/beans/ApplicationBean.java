@@ -503,8 +503,7 @@ public class ApplicationBean extends FacesBean {
 
       this.instanceContextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
 
-      this.appContext =
-          PropertyReader.getProperty("inge.pubman.instance.context.path") + "/faces/";
+      this.appContext = PropertyReader.getProperty("inge.pubman.instance.context.path") + "/faces/";
 
       this.logoUrl = PropertyReader.getProperty("inge.pubman.logo.url");
 

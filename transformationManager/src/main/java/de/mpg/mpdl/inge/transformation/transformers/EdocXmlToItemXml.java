@@ -60,8 +60,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(
-        "inge.transformation.edoc.configuration.filename",
+    return getAllConfigurationValuesFromProperty("inge.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties").get(key);
   }
 
