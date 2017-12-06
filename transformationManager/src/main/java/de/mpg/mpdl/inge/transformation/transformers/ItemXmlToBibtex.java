@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.util.LocalUriResolver;
 public class ItemXmlToBibtex extends XslTransformer implements ChainableTransformer {
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.escidoc2bibtex.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.escidoc2bibtex.stylesheet.filename",
         "transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl");
   }
 

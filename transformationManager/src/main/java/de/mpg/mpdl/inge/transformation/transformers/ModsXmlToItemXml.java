@@ -16,7 +16,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ModsXmlToItemXml extends XslTransformer implements ChainableTransformer {
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.mods_item.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.mods_item.stylesheet.filename",
         "transformations/standardFormats/xslt/mods2escidoc-publication-item.xsl");
   }
 

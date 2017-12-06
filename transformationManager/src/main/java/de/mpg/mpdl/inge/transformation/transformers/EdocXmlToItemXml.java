@@ -22,7 +22,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.edoc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.edoc.stylesheet.filename",
         "transformations/otherFormats/xslt/edoc-to-escidoc.xslt");
   }
 
@@ -49,7 +49,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.edoc.configuration.filename",
+        "inge.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties");
   }
 
@@ -61,7 +61,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.edoc.configuration.filename",
+        "inge.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties").get(key);
   }
 

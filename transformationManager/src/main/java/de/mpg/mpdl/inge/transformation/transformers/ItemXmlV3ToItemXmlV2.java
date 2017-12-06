@@ -20,7 +20,7 @@ public class ItemXmlV3ToItemXmlV2 extends XslTransformer implements ChainableTra
   @Override
   public Source getXsltSource() throws TransformationException {
     return getXmlSourceFromProperty(
-        "escidoc.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename",
+        "inge.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename",
         "transformations/otherFormats/xslt/escidoc-xml-v13-to-v12.xsl");
   }
 

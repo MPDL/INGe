@@ -25,11 +25,11 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
 
     if (FORMAT.HTML_METATAGS_DC_XML.equals(getTargetFormat())) {
       return getXmlSourceFromProperty(
-          "escidoc.transformation.html_metatags_dc.stylesheet.filename",
+          "inge.transformation.html_metatags_dc.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-dc.xsl");
     } else if (FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML.equals(getTargetFormat())) {
       return getXmlSourceFromProperty(
-          "escidoc.transformation.html_metatags_highwire.stylesheet.filename",
+          "inge.transformation.html_metatags_highwire.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-highwire-press-citation.xsl");
     } else {
       return null;

@@ -22,7 +22,7 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.marcxml2escidoc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.marcxml2escidoc.stylesheet.filename",
         "transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl");
   }
 
@@ -59,14 +59,14 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.marcxml2escidoc.configuration.filename",
+        "inge.transformation.marcxml2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.marcxml2escidoc.configuration.filename",
+        "inge.transformation.marcxml2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties").get(key);
   }
 

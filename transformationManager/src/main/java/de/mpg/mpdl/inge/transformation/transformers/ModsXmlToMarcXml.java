@@ -17,7 +17,7 @@ public class ModsXmlToMarcXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.mods2marc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.mods2marc.stylesheet.filename",
         "transformations/standardFormats/xslt/mods2marc21.xsl");
   }
 

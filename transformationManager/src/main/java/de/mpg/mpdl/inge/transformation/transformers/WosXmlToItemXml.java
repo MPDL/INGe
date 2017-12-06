@@ -19,7 +19,7 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.wos.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.wos.stylesheet.filename",
         "transformations/otherFormats/xslt/wosxml2escidoc.xsl");
   }
 
@@ -45,14 +45,14 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return getDefaultConfigurationFromProperty("escidoc.transformation.wos.configuration.filename",
+    return getDefaultConfigurationFromProperty("inge.transformation.wos.configuration.filename",
         "transformations/otherFormats/conf/wos.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.wos.configuration.filename",
+        "inge.transformation.wos.configuration.filename",
         "transformations/otherFormats/conf/wos.properties").get(key);
   }
 

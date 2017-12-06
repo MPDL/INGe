@@ -15,7 +15,7 @@ public class BmcFulltextXmlToBmcFulltextHtml extends XslTransformer implements C
   @Override
   public Source getXsltSource() throws TransformationException {
     return getXmlSourceFromProperty(
-        "escidoc.transformation.bmcfulltext2bmcfulltexthtml.stylesheet.filename",
+        "inge.transformation.bmcfulltext2bmcfulltexthtml.stylesheet.filename",
         "transformations/thirdParty/xslt/bmc-fulltext-xml2bmc-fulltext-html.xsl");
   }
 
@@ -29,7 +29,7 @@ public class BmcFulltextXmlToBmcFulltextHtml extends XslTransformer implements C
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     /**
      * return SingleTransformer.getDefaultConfigurationFromProperty(
-     * "escidoc.transformation.bmcfulltext2bmcfulltexthtml.configuration.filename",
+     * "inge.transformation.bmcfulltext2bmcfulltexthtml.configuration.filename",
      * "transformations/commonPublicationFormats/conf/bmcfulltext2bmcfulltexthtml.properties");
      */
     return null;

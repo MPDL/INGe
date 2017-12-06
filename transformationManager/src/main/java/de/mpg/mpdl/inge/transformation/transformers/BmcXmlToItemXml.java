@@ -61,7 +61,7 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.bmc2escidoc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.bmc2escidoc.stylesheet.filename",
         "transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl");
   }
 
@@ -94,14 +94,14 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.bmc2escidoc.configuration.filename",
+        "inge.transformation.bmc2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return SingleTransformer.getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.bmc2escidoc.configuration.filename",
+        "inge.transformation.bmc2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties").get(key);
   }
 

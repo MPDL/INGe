@@ -19,7 +19,7 @@ public class SpiresXmlToItemXml extends XslTransformer implements ChainableTrans
   public Source getXsltSource() throws TransformationException {
 
     return getXmlSourceFromProperty(
-        "escidoc.transformation.spires2escidoc_publication_item.stylesheet.filename",
+        "inge.transformation.spires2escidoc_publication_item.stylesheet.filename",
         "transformations/thirdParty/xslt/spires2escidoc-publication-item.xsl");
 
 

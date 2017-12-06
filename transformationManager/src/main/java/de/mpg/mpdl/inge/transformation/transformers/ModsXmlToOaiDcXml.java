@@ -15,7 +15,7 @@ public class ModsXmlToOaiDcXml extends XslTransformer implements ChainableTransf
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.mods2oaidc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.mods2oaidc.stylesheet.filename",
         "transformations/standardFormats/xslt/mods2oai_dc.xsl");
   }
 

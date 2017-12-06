@@ -20,7 +20,7 @@ public class ArxivOaiPmhXmlToComponentXml extends XslTransformer implements Chai
   public Source getXsltSource() throws TransformationException {
 
     return getXmlSourceFromProperty(
-        "escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename",
+        "inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename",
         "transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl");
 
 

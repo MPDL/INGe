@@ -20,7 +20,7 @@ public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTran
   @Override
   public Source getXsltSource() throws TransformationException {
 
-    return getXmlSourceFromProperty("escidoc.transformation.peer.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.peer.stylesheet.filename",
         "transformations/standardFormats/xslt/peer_tei2escidoc-publication-item.xsl");
 
 

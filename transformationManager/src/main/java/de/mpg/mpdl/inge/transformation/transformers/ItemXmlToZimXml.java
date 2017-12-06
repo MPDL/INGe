@@ -19,7 +19,7 @@ public class ItemXmlToZimXml extends XslTransformer implements ChainableTransfor
   @Override
   public Source getXsltSource() throws TransformationException {
     return getXmlSourceFromProperty(
-        "escidoc.transformation.escidoc2edoc_import.stylesheet.filename",
+        "inge.transformation.escidoc2edoc_import.stylesheet.filename",
         "transformations/otherFormats/xslt/escidoc2edoc_import.xsl");
   }
 

@@ -19,7 +19,7 @@ public class ItemXmlToEdocXml extends XslTransformer implements ChainableTransfo
   @Override
   public Source getXsltSource() throws TransformationException {
     return getXmlSourceFromProperty(
-        "escidoc.transformation.escidoc2edoc_export.stylesheet.filename",
+        "inge.transformation.escidoc2edoc_export.stylesheet.filename",
         "transformations/otherFormats/xslt/escidoc2edoc_export.xsl");
   }
 

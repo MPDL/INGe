@@ -19,7 +19,7 @@ public class RisXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.ris.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.ris.stylesheet.filename",
         "transformations/otherFormats/xslt/risxml2escidoc.xsl");
   }
 
@@ -45,14 +45,14 @@ public class RisXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return getDefaultConfigurationFromProperty("escidoc.transformation.ris.configuration.filename",
+    return getDefaultConfigurationFromProperty("inge.transformation.ris.configuration.filename",
         "transformations/otherFormats/conf/ris.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.ris.configuration.filename",
+        "inge.transformation.ris.configuration.filename",
         "transformations/otherFormats/conf/ris.properties").get(key);
   }
 

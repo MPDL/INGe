@@ -17,7 +17,7 @@ import de.mpg.mpdl.inge.util.LocalUriResolver;
 public class ItemXmlToEndNote extends XslTransformer implements ChainableTransformer {
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.escidoc2endnote.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.escidoc2endnote.stylesheet.filename",
         "transformations/commonPublicationFormats/xslt/eSciDoc_to_EndNote.xsl");
   }
 

@@ -19,7 +19,7 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.escidoc2marcxml.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.escidoc2marcxml.stylesheet.filename",
         "transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl");
   }
 
