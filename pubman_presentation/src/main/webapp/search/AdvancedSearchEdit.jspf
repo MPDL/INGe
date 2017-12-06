@@ -210,7 +210,7 @@
 	margin-right: 22.5em;
 }
 
-input:disabled + label {
+.disabled label{
     color: #888B8B;
 }
 
@@ -716,6 +716,7 @@ input:disabled + label {
 									white-space: nowrap;
 								}
 							</style>
+							<h:panelGroup styleClass="#{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
 							<h:outputLabel id="lblComponentVisibilityOptions" styleClass="medium_label clear"
 								value="#{lbl.adv_search_fileComponentVisibility}" style="margin-top:0.7272em;" />
 							<span class="free_area0 clear">
@@ -745,8 +746,9 @@ input:disabled + label {
 									value="#{AdvancedSearchBean.fileSectionSearchCriterion.embargoDateSearchCriterion.to}"
 									pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}" disabled="#{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES'}" />
 							</span>
+							</h:panelGroup>
 						</span>
-						<span class="double_area0 tiny_marginRIncl">
+						<h:panelGroup styleClass="double_area0 tiny_marginRIncl #{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
 							<h:outputLabel id="lblContentCategories" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}" />
 							<span class="free_area0 clear">
 								<ui:repeat value="#{AdvancedSearchBean.fileSectionSearchCriterion.contentCategoryListSearchCriterion.enumList}" var="cc">
@@ -759,7 +761,7 @@ input:disabled + label {
 									</h:panelGroup>
 								</ui:repeat>
 							</span>
-						</span>
+						</h:panelGroup>
 					</span>
 				</span>
 			</h:panelGroup>
@@ -790,7 +792,7 @@ input:disabled + label {
 								</h:selectOneMenu>
 							</h:panelGroup>
 						</span>
-						<span class="double_area0 tiny_marginRIncl">
+						<h:panelGroup styleClass="double_area0 tiny_marginRIncl #{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
 							<h:outputLabel id="lblContentCategoriesLocator" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}" />
 							<span class="free_area0 clear">
 								<ui:repeat value="#{AdvancedSearchBean.locatorSectionSearchCriterion.contentCategoryListSearchCriterion.enumList}" var="cc">
@@ -803,7 +805,7 @@ input:disabled + label {
 									</h:panelGroup>
 								</ui:repeat>
 							</span>
-						</span>
+						</h:panelGroup>
 					</span>
 				</span>
 			</h:panelGroup>
