@@ -64,6 +64,11 @@ public class LogicalOperator extends SearchCriterionBase {
     return "";
   }
 
+  public String getQueryStringContent() {
+    return null;
+  }
+
+
   @Override
   public void parseQueryStringContent(String content) {
     // TODO Auto-generated method stub

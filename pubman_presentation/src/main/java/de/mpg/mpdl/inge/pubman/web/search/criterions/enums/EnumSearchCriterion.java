@@ -62,9 +62,8 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
   public abstract String[] getCqlIndexes(Index indexName);
 
   @Override
-  public String toQueryString() {
-    return this.getSearchCriterion().name() + "=\""
-        + SearchCriterionBase.escapeForQueryString(this.getSelectedEnum().name()) + "\"";
+  public String getQueryStringContent() {
+    return SearchCriterionBase.escapeForQueryString(this.getSelectedEnum().name());
   }
 
 

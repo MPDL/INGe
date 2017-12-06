@@ -156,9 +156,6 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
-
-
-
     if (selectedRole == null) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),

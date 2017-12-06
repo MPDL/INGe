@@ -147,7 +147,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   }
 
   @Override
-  public String toQueryString() {
+  public String getQueryStringContent() {
     if (!this.isEmpty(QueryType.INTERNAL)) {
       return this.getQueryString();
     }
@@ -157,7 +157,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
   protected String getQueryString() {
     final StringBuffer sb = new StringBuffer();
-    sb.append(this.getSearchCriterion() + "=\"");
+
     int i = 0;
     for (final Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
       if (entry.getValue()) {
@@ -172,9 +172,6 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
        * else { allChecked = false; }
        */
     }
-
-
-    sb.append("\"");
     return sb.toString();
   }
 

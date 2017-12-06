@@ -571,14 +571,17 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         // Check if user is allowed to see latest version
         requestedItem =
             EntityTransformer.transformToOld(itemRepository.findLatestVersion(objectId));
-        ContextVO context =
-            EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
-                .getObjectId()));
-        try {
-          checkAa("get", userAccount, requestedItem, context);
-        } catch (AuthenticationException | AuthorizationException e) {
-          requestedItem =
-              EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
+        if (requestedItem != null) {
+
+          ContextVO context =
+              EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
+                  .getObjectId()));
+          try {
+            checkAa("get", userAccount, requestedItem, context);
+          } catch (AuthenticationException | AuthorizationException e) {
+            requestedItem =
+                EntityTransformer.transformToOld(itemRepository.findLatestRelease(objectId));
+          }
         }
       }
     } else // version != null
@@ -586,10 +589,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       requestedItem =
           EntityTransformer.transformToOld(itemRepository.findOne(new VersionableId(objectId,
               Integer.parseInt(version))));
-      ContextVO context =
-          EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
-              .getObjectId()));
-      checkAa("get", userAccount, requestedItem, context);
+      if (requestedItem != null) {
+        ContextVO context =
+            EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getContext()
+                .getObjectId()));
+        checkAa("get", userAccount, requestedItem, context);
+      }
     }
 
     if (requestedItem == null) {

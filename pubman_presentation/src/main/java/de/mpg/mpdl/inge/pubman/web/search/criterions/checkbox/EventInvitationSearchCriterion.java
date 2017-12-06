@@ -50,8 +50,8 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public String toQueryString() {
-    return this.getSearchCriterion() + "=\"" + this.invited + "\"";
+  public String getQueryStringContent() {
+    return String.valueOf(this.invited);
   }
 
   @Override

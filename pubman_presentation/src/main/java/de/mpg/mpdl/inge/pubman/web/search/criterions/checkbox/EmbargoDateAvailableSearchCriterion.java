@@ -52,8 +52,8 @@ public class EmbargoDateAvailableSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public String toQueryString() {
-    return this.getSearchCriterion() + "=\"" + this.withEmbargoDate + "\"";
+  public String getQueryStringContent() {
+    return String.valueOf(this.withEmbargoDate);
   }
 
   @Override

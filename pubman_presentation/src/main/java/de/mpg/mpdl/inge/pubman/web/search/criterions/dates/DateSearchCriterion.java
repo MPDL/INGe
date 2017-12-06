@@ -54,10 +54,9 @@ public class DateSearchCriterion extends SearchCriterionBase {
   }
 
   @Override
-  public String toQueryString() {
-    return this.getSearchCriterion().name() + "=\""
-        + SearchCriterionBase.escapeForQueryString(this.from) + "|"
-        + SearchCriterionBase.escapeForQueryString(this.to) + "\"";
+  public String getQueryStringContent() {
+    return SearchCriterionBase.escapeForQueryString(this.from) + "|"
+        + SearchCriterionBase.escapeForQueryString(this.to);
   }
 
   @Override
