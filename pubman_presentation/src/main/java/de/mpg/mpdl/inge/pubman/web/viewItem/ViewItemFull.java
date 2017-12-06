@@ -414,7 +414,7 @@ public class ViewItemFull extends FacesBean {
       this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
       this.defaultSize =
           Integer.parseInt(PropertyReader.getProperty(
-              "escidoc.pubman_presentation.viewFullItem.defaultSize", "20"));
+              "inge.pubman_presentation.viewFullItem.defaultSize", "20"));
 
       // Submenu
       final String subMenu =
@@ -1363,11 +1363,11 @@ public class ViewItemFull extends FacesBean {
   /**
    * Returns the name of the specified OU its authors will be shown
    * 
-   * @return String name of the specified OU (escidoc.pubman_presentation.overview_page.authors_ou)
+   * @return String name of the specified OU (inge.pubman_presentation.overview_page.authors_ou)
    */
   public String getSpecificOrganization() {
     final String rootOrganization =
-        PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
+        PropertyReader.getProperty("inge.pubman_presentation.overview_page.authors_ou").trim();
 
     if (rootOrganization != null) {
       return rootOrganization;

@@ -44,7 +44,7 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
     Map<String, Object> map = new HashMap<String, Object>();
 
     map.put("indesign-namespace",
-        getConfiguration().get(PropertyReader.getProperty("escidoc.report.indesign.namespace")));
+        getConfiguration().get(PropertyReader.getProperty("inge.report.indesign.namespace")));
 
     try {
 
