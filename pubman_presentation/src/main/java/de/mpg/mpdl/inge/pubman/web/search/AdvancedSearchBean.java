@@ -48,7 +48,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -59,20 +58,14 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Display
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Index;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.AffiliatedContextListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.PublicationStatusListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentContentCategoryListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentVisibilityListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.StandardSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.TitleSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.CreatedBySearchCriterion;
