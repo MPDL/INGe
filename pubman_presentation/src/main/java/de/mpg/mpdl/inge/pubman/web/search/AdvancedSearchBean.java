@@ -48,6 +48,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -64,6 +65,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.PublicationStatusL
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentContentCategoryListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileAvailableSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriterion;
@@ -118,15 +120,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   private SearchCriterionBase affiliatedContextListSearchCriterion;
 
-  private SearchCriterionBase fileAvailableSearchCriterion;
-  private SearchCriterionBase fileComponentContentCategoryListSearchCriterion;
-  private SearchCriterionBase fileComponentEmbargoDateAvailableSearchCriterion;
-  private SearchCriterionBase fileComponentEmbargoDateSearchCriterion;
-  private SearchCriterionBase fileComponentVisibilityListSearchCriterion;
-  private SearchCriterionBase fileComponentVisibilitySearchCriterion;
+  private SearchCriterionBase fileSectionSearchCriterion;
 
+  private SearchCriterionBase locatorSectionSearchCriterion;
 
-  private SearchCriterionBase locatorAvailableSearchCriterion;
 
   private SearchCriterionBase genreListSearchCriterion;
   private SearchCriterionBase itemStateListSearchCriterion;
@@ -157,20 +154,16 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   public void clearAndInit() {
     this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
     this.balanceMap.clear();
-    this.fileComponentContentCategoryListSearchCriterion =
-        new ComponentContentCategoryListSearchCriterion();
-    this.fileComponentEmbargoDateAvailableSearchCriterion =
-        new EmbargoDateAvailableSearchCriterion();
-    this.fileComponentEmbargoDateSearchCriterion =
-        new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
-    this.fileComponentVisibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
-    this.fileComponentVisibilitySearchCriterion = new ComponentVisibilitySearchCriterion();
+    this.setFileSectionSearchCriterion(new FileSectionSearchCriterion(SearchCriterion.FILE_SECTION));
+    this.setLocatorSectionSearchCriterion(new FileSectionSearchCriterion(
+        SearchCriterion.LOCATOR_SECTION));
+
     this.currentlyOpenedParenthesis = null;
     this.excludeComponentContentCategory = false;
-    this.fileAvailableSearchCriterion = new FileAvailableSearchCriterion();
+
     this.genreListSearchCriterion = new GenreListSearchCriterion();
     this.itemStateListSearchCriterion = new ItemStateListSearchCriterion();
-    this.locatorAvailableSearchCriterion = new LocatorAvailableSearchCriterion();
+
     this.possibleCriterionsForClosingParenthesisMap.clear();
     this.publicationStatusListSearchCriterion = new PublicationStatusListSearchCriterion();
 
@@ -197,37 +190,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     for (int i = scList.size() - 1; i >= 0; i--) {
 
       final SearchCriterionBase sc = scList.get(i);
-      if (SearchCriterion.FILE_AVAILABLE.equals(sc.getSearchCriterion())) {
-        this.fileAvailableSearchCriterion = sc;
+
+      if (SearchCriterion.FILE_SECTION.equals(sc.getSearchCriterion())) {
+        this.setFileSectionSearchCriterion(sc);
         toBeRemovedList.add(sc);
-      } else if (SearchCriterion.LOCATOR_AVAILABLE.equals(sc.getSearchCriterion())) {
-        this.locatorAvailableSearchCriterion = sc;
-        toBeRemovedList.add(sc);
-      } else if (SearchCriterion.EMBARGO_DATE_AVAILABLE.equals(sc.getSearchCriterion())) {
-        this.fileComponentEmbargoDateAvailableSearchCriterion = sc;
-        toBeRemovedList.add(sc);
-      }
-      /*
-       * else if(SearchCriterion.COMPONENT_CONTENT_CATEGORY.equals(sc.getSearchCriterion())) {
-       * this.componentContentCategory = sc; toBeRemovedList.add(sc); if(i>0 &&
-       * SearchCriterion.NOT_OPERATOR.equals(scList.get(i-1).getSearchCriterion())) {
-       * this.excludeComponentContentCategory = true; }
-       * 
-       * }
-       */
-      else if (SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST.equals(sc.getSearchCriterion())) {
-        this.fileComponentContentCategoryListSearchCriterion = sc;
-        toBeRemovedList.add(sc);
-      }
-      /*
-       * else if(SearchCriterion.COMPONENT_VISIBILITY.equals(sc.getSearchCriterion())) {
-       * this.componentVisibilitySearchCriterion = sc; toBeRemovedList.add(sc); }
-       */
-      else if (SearchCriterion.COMPONENT_VISIBILITY_LIST.equals(sc.getSearchCriterion())) {
-        this.fileComponentVisibilityListSearchCriterion = sc;
-        toBeRemovedList.add(sc);
-      } else if (SearchCriterion.COMPONENT_EMBARGO_DATE.equals(sc.getSearchCriterion())) {
-        this.fileComponentEmbargoDateSearchCriterion = sc;
+      } else if (SearchCriterion.LOCATOR_SECTION.equals(sc.getSearchCriterion())) {
+        this.setLocatorSectionSearchCriterion(sc);
         toBeRemovedList.add(sc);
       } else if (SearchCriterion.GENRE_DEGREE_LIST.equals(sc.getSearchCriterion())) {
         this.genreListSearchCriterion = sc;
@@ -308,7 +276,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> initSubjectTypesListMenu() {
     final List<SelectItem> vocabs = new ArrayList<SelectItem>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
       final String[] vocabsArr = vocabsStr.split(";");
       for (int i = 0; i < vocabsArr.length; i++) {
         final String type = vocabsArr[i].trim().toUpperCase().replace("-", "_");
@@ -317,7 +285,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         vocabs.add(si);
       }
     } catch (final Exception e) {
-      AdvancedSearchBean.logger.error("Could not read Property: 'inge.cone.subjectVocab'", e);
+      AdvancedSearchBean.logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
     }
     return vocabs;
   }
@@ -491,6 +459,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     // ProjectInfo
     criterionTypeList.add(new SelectItem(SearchCriterion.PROJECT_INFO, this
         .getLabel("g_project_info")));
+
+    // Component content category
+    criterionTypeList.add(new SelectItem(SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST, this
+        .getLabel("adv_search_fileContentCategory")));
+
 
     return criterionTypeList;
 
@@ -897,24 +870,33 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   public List<SearchCriterionBase> getComponentSearchCriterions(Index indexName) {
     final List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    returnList.add(this.fileAvailableSearchCriterion);
+    returnList.add(this.getFileSectionSearchCriterion());
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    returnList.add(this.locatorAvailableSearchCriterion);
-    returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    returnList.add(this.fileComponentEmbargoDateAvailableSearchCriterion);
-    returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    returnList.add(this.fileComponentEmbargoDateSearchCriterion);
+    returnList.add(this.getLocatorSectionSearchCriterion());
 
-    if (this.excludeComponentContentCategory) {
-      returnList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
-    } else {
-      returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    }
-
-    returnList.add(this.fileComponentContentCategoryListSearchCriterion);
-    returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    returnList.add(this.fileComponentVisibilityListSearchCriterion);
-
+    /*
+     * returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+     * returnList.add(this.fileAvailableSearchCriterion);
+     * 
+     * returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+     * returnList.add(this.fileComponentEmbargoDateAvailableSearchCriterion); returnList.add(new
+     * LogicalOperator(SearchCriterion.AND_OPERATOR));
+     * returnList.add(this.fileComponentEmbargoDateSearchCriterion);
+     * 
+     * if (this.excludeComponentContentCategory) { returnList.add(new
+     * LogicalOperator(SearchCriterion.NOT_OPERATOR)); } else { returnList.add(new
+     * LogicalOperator(SearchCriterion.AND_OPERATOR)); }
+     * 
+     * returnList.add(this.fileComponentContentCategoryListSearchCriterion); returnList.add(new
+     * LogicalOperator(SearchCriterion.AND_OPERATOR));
+     * returnList.add(this.fileComponentVisibilityListSearchCriterion);
+     * 
+     * 
+     * returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+     * returnList.add(this.locatorAvailableSearchCriterion); returnList.add(new
+     * LogicalOperator(SearchCriterion.AND_OPERATOR));
+     * returnList.add(this.locatorComponentContentCategoryListSearchCriterion);
+     */
     return returnList;
   }
 
@@ -929,24 +911,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.contextListMenu = contextListMenu;
   }
 
-  public SearchCriterionBase getFileAvailableSearchCriterion() {
-    return this.fileAvailableSearchCriterion;
-  }
-
-  public void setFileAvailableSearchCriterion(SearchCriterionBase fileAvailableSearchCriterion) {
-    this.fileAvailableSearchCriterion = fileAvailableSearchCriterion;
-  }
-
-
-  public SearchCriterionBase getLocatorAvailableSearchCriterion() {
-    return this.locatorAvailableSearchCriterion;
-  }
-
-
-  public void setLocatorAvailableSearchCriterion(SearchCriterionBase locatorAvailableSearchCriterion) {
-    this.locatorAvailableSearchCriterion = locatorAvailableSearchCriterion;
-  }
-
 
 
   public List<SelectItem> getContentCategoryListMenu() {
@@ -958,16 +922,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.contentCategoryListMenu = contentCategoryListMenu;
   }
 
-
-  public SearchCriterionBase getComponentVisibilitySearchCriterion() {
-    return this.fileComponentVisibilitySearchCriterion;
-  }
-
-
-  public void setComponentVisibilitySearchCriterion(
-      SearchCriterionBase componentVisibilitySearchCriterion) {
-    this.fileComponentVisibilitySearchCriterion = componentVisibilitySearchCriterion;
-  }
 
 
   public List<SelectItem> getComponentVisibilityListMenu() {
@@ -1082,28 +1036,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
 
-  public SearchCriterionBase getComponentVisibilityListSearchCriterion() {
-    return this.fileComponentVisibilityListSearchCriterion;
-  }
-
-
-  public void setComponentVisibilityListSearchCriterion(
-      SearchCriterionBase componentVisibilityListSearchCriterion) {
-    this.fileComponentVisibilityListSearchCriterion = componentVisibilityListSearchCriterion;
-  }
-
-
-  public SearchCriterionBase getComponentContentCategoryListSearchCriterion() {
-    return this.fileComponentContentCategoryListSearchCriterion;
-  }
-
-
-  public void setComponentContentCategoryListSearchCriterion(
-      SearchCriterionBase componentContentCategoryListSearchCriterion) {
-    this.fileComponentContentCategoryListSearchCriterion =
-        componentContentCategoryListSearchCriterion;
-  }
-
 
   public List<SelectItem> getReviewMethodListMenu() {
     return this.reviewMethodListMenu;
@@ -1153,24 +1085,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.itemStateListSearchCriterion = itemStateListSearchCriterion;
   }
 
-  public SearchCriterionBase getComponentEmbargoDateSearchCriterion() {
-    return this.fileComponentEmbargoDateSearchCriterion;
-  }
 
-  public void setComponentEmbargoDateSearchCriterion(
-      SearchCriterionBase componentEmbargoDateSearchCriterion) {
-    this.fileComponentEmbargoDateSearchCriterion = componentEmbargoDateSearchCriterion;
-  }
-
-  public SearchCriterionBase getComponentEmbargoDateAvailableSearchCriterion() {
-    return this.fileComponentEmbargoDateAvailableSearchCriterion;
-  }
-
-  public void setComponentEmbargoDateAvailableSearchCriterion(
-      SearchCriterionBase componentEmbargoDateAvailableSearchCriterion) {
-    this.fileComponentEmbargoDateAvailableSearchCriterion =
-        componentEmbargoDateAvailableSearchCriterion;
-  }
 
   public SearchCriterionBase getAffiliatedContextListSearchCriterion() {
     return this.affiliatedContextListSearchCriterion;
@@ -1208,9 +1123,27 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
     }
 
     return this.suggestConeUrl;
   }
+
+  public SearchCriterionBase getFileSectionSearchCriterion() {
+    return fileSectionSearchCriterion;
+  }
+
+  public void setFileSectionSearchCriterion(SearchCriterionBase fileSectionSearchCriterion) {
+    this.fileSectionSearchCriterion = fileSectionSearchCriterion;
+  }
+
+  public SearchCriterionBase getLocatorSectionSearchCriterion() {
+    return locatorSectionSearchCriterion;
+  }
+
+  public void setLocatorSectionSearchCriterion(SearchCriterionBase locatorSectionSearchCriterion) {
+    this.locatorSectionSearchCriterion = locatorSectionSearchCriterion;
+  }
+
+
 }
