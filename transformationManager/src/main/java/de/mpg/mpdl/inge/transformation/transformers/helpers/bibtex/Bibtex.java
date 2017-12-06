@@ -772,7 +772,7 @@ public class Bibtex implements BibtexInterface {
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
                     organization.setIdentifier(PropertyReader
-                        .getProperty("escidoc.pubman.external.organisation.id"));
+                        .getProperty("inge.pubman.external.organisation.id"));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -1126,7 +1126,7 @@ public class Bibtex implements BibtexInterface {
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
                     organization.setIdentifier(PropertyReader
-                        .getProperty("escidoc.pubman.external.organisation.id"));
+                        .getProperty("inge.pubman.external.organisation.id"));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -1173,10 +1173,10 @@ public class Bibtex implements BibtexInterface {
           externalOrganization.setName("External Organizations");
           try {
             externalOrganization.setIdentifier(PropertyReader
-                .getProperty("escidoc.pubman.external.organisation.id"));
+                .getProperty("inge.pubman.external.organisation.id"));
           } catch (Exception e) {
             throw new RuntimeException(
-                "Property escidoc.pubman.external.organisation.id not found", e);
+                "Property inge.pubman.external.organisation.id not found", e);
           }
           if (mds.getCreators().get(0).getPerson() != null) {
             mds.getCreators().get(0).getPerson().getOrganizations().add(externalOrganization);
@@ -1435,7 +1435,7 @@ public class Bibtex implements BibtexInterface {
       organization.setAddress(affiliationAddress);
       try {
         organization.setIdentifier(PropertyReader
-            .getProperty("escidoc.pubman.external.organisation.id"));
+            .getProperty("inge.pubman.external.organisation.id"));
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

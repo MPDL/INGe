@@ -137,7 +137,7 @@ public class YearbookItemSessionBean extends FacesBean {
      * this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId(); //
      * String orgId = "escidoc:persistent25"; filterParams.put( "query", new String[]
      * {"\"/properties/context/id\"=" +
-     * PropertyReader.getProperty("escidoc.pubman.yearbook.context.id") +
+     * PropertyReader.getProperty("inge.pubman.yearbook.context.id") +
      * " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
      * filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS}); final String
      * xmlItemList = this.itemHandler.retrieveItems(filterParams); final

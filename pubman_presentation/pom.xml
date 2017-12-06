@@ -36,7 +36,7 @@
 							<Dependencies>pubman</Dependencies>
 						</manifestEntries>
 					</archive>
-					<classifier>${escidoc.pubman.build.mode}</classifier>
+					<classifier>${inge.pubman.build.mode}</classifier>
 				</configuration>
 			</plugin>
 		</plugins>

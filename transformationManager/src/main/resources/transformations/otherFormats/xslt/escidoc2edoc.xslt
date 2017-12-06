@@ -69,7 +69,7 @@
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-<!--	<xsl:param name="pubman_instance">${escidoc.pubman.instance.url}</xsl:param>-->
+<!--	<xsl:param name="pubman_instance">${inge.pubman.instance.url}</xsl:param>-->
 	<xsl:param name="pubman_instance">http://pubman.mpdl.mpg.de/pubman</xsl:param>
 	<xsl:param name="coreservice_instance">http://coreservice.mpdl.mpg.de:8080</xsl:param>
 	
@@ -900,8 +900,8 @@
 		<xsl:param name="ids"/>
 		<xsl:variable name="result">
 			<xsl:for-each select="$ids[.!='']">
-				<xsl:if test=".='${escidoc.pubman.root.organisation.id}'">true</xsl:if>
-				<xsl:if test=".!='${escidoc.pubman.root.organisation.id}'">
+				<xsl:if test=".='${inge.pubman.root.organisation.id}'">true</xsl:if>
+				<xsl:if test=".!='${inge.pubman.root.organisation.id}'">
 					<xsl:call-template name="checkOU">
 						<xsl:with-param name="id" select="."/>
 					</xsl:call-template>
@@ -929,8 +929,8 @@
 
 
 		<xsl:for-each select="$parents/organizational-unit:parents/srel:parent">
-			<xsl:if test="@xlink:href='/oum/organizational-unit/${escidoc.pubman.root.organisation.id}'">true</xsl:if>
-			<xsl:if test="@xlink:href!='/oum/organizational-unit/${escidoc.pubman.root.organisation.id}'">
+			<xsl:if test="@xlink:href='/oum/organizational-unit/${inge.pubman.root.organisation.id}'">true</xsl:if>
+			<xsl:if test="@xlink:href!='/oum/organizational-unit/${inge.pubman.root.organisation.id}'">
 				<xsl:call-template name="checkOU">
 					<xsl:with-param name="id" select="substring-after(@xlink:href, '/oum/organizational-unit/')"/>
 				</xsl:call-template>

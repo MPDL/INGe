@@ -35,7 +35,7 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external-organization",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
 
 
     return map;

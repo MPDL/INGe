@@ -76,10 +76,10 @@ public class PubManRequestBean extends FacesBean {
   public String getPolicyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.policy.url");
+      url = PropertyReader.getProperty("inge.pubman.policy.url");
     } catch (final Exception e) {
       PubManRequestBean.logger.error(
-          "Could not read property: 'escidoc.pubman.policy.url' from properties file.", e);
+          "Could not read property: 'inge.pubman.policy.url' from properties file.", e);
     }
 
     return url;
@@ -94,10 +94,10 @@ public class PubManRequestBean extends FacesBean {
   public String getContactUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.contact.url");
+      url = PropertyReader.getProperty("inge.pubman.contact.url");
     } catch (final Exception e) {
       PubManRequestBean.logger.error(
-          "Could not read property: 'escidoc.pubman.contact.url' from properties file.", e);
+          "Could not read property: 'inge.pubman.contact.url' from properties file.", e);
     }
 
     return url;

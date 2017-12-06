@@ -110,18 +110,18 @@ public class SiteMapTask {
   public void run() {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
-      this.instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
-      this.contextPath = PropertyReader.getProperty("escidoc.pubman.instance.context.path");
-      this.itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern");
+      this.instanceUrl = PropertyReader.getProperty("inge.pubman.instance.url");
+      this.contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
+      this.itemPattern = PropertyReader.getProperty("inge.pubman.item.pattern");
 
       /*
        * this.interval =
-       * Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.task.interval"));
+       * Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.task.interval"));
        */
       this.maxItemsPerFile =
-          Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.max.items"));
+          Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.max.items"));
       this.maxItemsPerRetrieve =
-          Integer.parseInt(PropertyReader.getProperty("escidoc.pubman.sitemap.retrieve.items"));
+          Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.retrieve.items"));
 
 
 

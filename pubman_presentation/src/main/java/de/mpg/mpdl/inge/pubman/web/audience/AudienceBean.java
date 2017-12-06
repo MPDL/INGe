@@ -425,11 +425,11 @@ public class AudienceBean extends FacesBean {
     String itemPattern = "";
 
     String pubmanUrl =
-        PropertyReader.getProperty("escidoc.pubman.instance.url")
-            + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+        PropertyReader.getProperty("inge.pubman.instance.url")
+            + PropertyReader.getProperty("inge.pubman.instance.context.path");
 
     itemPattern =
-        PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+        PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll(
             "\\$1",
             this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
                 .getObjectIdAndVersion());

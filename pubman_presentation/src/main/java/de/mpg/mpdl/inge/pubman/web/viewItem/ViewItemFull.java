@@ -264,11 +264,11 @@ public class ViewItemFull extends FacesBean {
       // Citation url
       try {
         String pubmanUrl =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+            PropertyReader.getProperty("inge.pubman.instance.url")
+                + PropertyReader.getProperty("inge.pubman.instance.context.path");
 
         this.itemPattern =
-            PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+            PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
                 this.getPubItem().getVersion().getObjectIdAndVersion());
         if (!pubmanUrl.endsWith("/")) {
           pubmanUrl = pubmanUrl + "/";
@@ -282,7 +282,7 @@ public class ViewItemFull extends FacesBean {
         if (this.getPubItem().getLatestVersion() != null
             && this.getPubItem().getLatestVersion().getObjectIdAndVersion() != null) {
           String latestVersionItemPattern =
-              PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+              PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
                   this.getPubItem().getLatestVersion().getObjectIdAndVersion());
           if (latestVersionItemPattern.startsWith("/")) {
             latestVersionItemPattern =
@@ -367,9 +367,9 @@ public class ViewItemFull extends FacesBean {
         String link = null;
         try {
           link =
-              PropertyReader.getProperty("escidoc.pubman.instance.url")
-                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+              PropertyReader.getProperty("inge.pubman.instance.url")
+                  + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                  + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll(
                       "\\$1",
                       this.getPubItem().getVersion().getObjectId()
                           + (this.getPubItem().getLatestVersion().getVersionNumber() != 0 ? ":"
@@ -385,9 +385,9 @@ public class ViewItemFull extends FacesBean {
         String link = null;
         try {
           link =
-              PropertyReader.getProperty("escidoc.pubman.instance.url")
-                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll(
+              PropertyReader.getProperty("inge.pubman.instance.url")
+                  + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                  + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll(
                       "\\$1",
                       this.getPubItem().getVersion().getObjectId()
                           + (this.getPubItem().getLatestRelease().getVersionNumber() != 0 ? ":"
@@ -536,7 +536,7 @@ public class ViewItemFull extends FacesBean {
 
       // SSRN
       try {
-        String contexts = PropertyReader.getProperty("escidoc.pubman.instance.ssrn_contexts");
+        String contexts = PropertyReader.getProperty("inge.pubman.instance.ssrn_contexts");
         if (contexts != null && !"".equals(contexts)) {
           this.ssrnContexts = new ArrayList<String>();
           while (contexts.contains(",")) {

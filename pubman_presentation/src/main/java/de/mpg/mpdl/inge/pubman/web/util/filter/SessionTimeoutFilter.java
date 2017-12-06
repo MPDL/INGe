@@ -63,8 +63,8 @@ public class SessionTimeoutFilter implements Filter {
 
       try {
         final String homePage =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+            PropertyReader.getProperty("inge.pubman.instance.url")
+                + PropertyReader.getProperty("inge.pubman.instance.context.path");
         // define some exceptions (pages that don't require a logged in user)
         if (!"/ViewItemFullPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/HomePage.jsp".equals(httpServletRequest.getPathInfo())

@@ -34,7 +34,7 @@
 	<xsl:param name="citation-link"/>
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
-	<xsl:param name="escidoc.pubman.presentation.url"/>
+	<xsl:param name="inge.pubman.presentation.url"/>
 	<xsl:param name="inge.pubman.stylesheet.contrast.url"/>
 	<xsl:param name="inge.pubman.stylesheet.classic.url"/>
 	<xsl:param name="inge.pubman.stylesheet.standard.url"/>
@@ -53,7 +53,7 @@
 			<head>
 				<title>CoNE - <xsl:value-of select="dc:title"/></title>
 				<link type="text/css" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.presentation.url" /></xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.presentation.url" /></xsl:attribute>
 				</link>
 				<link id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.contrast.url" /></xsl:attribute>

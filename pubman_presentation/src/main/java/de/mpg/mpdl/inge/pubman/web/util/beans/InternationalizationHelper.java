@@ -437,7 +437,7 @@ public class InternationalizationHelper implements Serializable {
 
   /**
    * Part of Pubman's homepage van be drawn from an external html source. The property
-   * escidoc.pubman.home.content.url has to be set with the url. If different languages should be
+   * inge.pubman.home.content.url has to be set with the url. If different languages should be
    * supported, The url source has to be provided with the different lcoale endings, e.g. ".de",
    * ".en", ".ja".
    * 
@@ -446,7 +446,7 @@ public class InternationalizationHelper implements Serializable {
   public String getHomeContent() {
     if ("n/a".equals(this.homeContent)) {
       try {
-        final String contentUrl = PropertyReader.getProperty("escidoc.pubman.home.content.url");
+        final String contentUrl = PropertyReader.getProperty("inge.pubman.home.content.url");
 
         if (contentUrl != null && !contentUrl.equals("")) {
           // Try if there's a specific local version

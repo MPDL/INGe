@@ -155,11 +155,11 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getSearchUrl() {
     try {
-      final String instanceUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+      final String instanceUrl = PropertyReader.getProperty("inge.pubman.instance.url");
       final String searchPath = "/pubman/faces/SearchResultListPage.jsp?";
       return instanceUrl + searchPath;
     } catch (final Exception e) {
-      BrowseByPage.logger.warn("Could not read property: 'escidoc.pubman.instance.url'", e);
+      BrowseByPage.logger.warn("Could not read property: 'inge.pubman.instance.url'", e);
     }
 
     return "";

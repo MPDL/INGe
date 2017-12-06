@@ -680,16 +680,16 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       try {
         if (pubItemObject.getPid() == null) {
           URI url =
-              new URI(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                  + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                  + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+              new URI(PropertyReader.getProperty("inge.pubman.instance.url")
+                  + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                  + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
                       latestVersion.getObjectId()));
           pubItemObject.setPid(pidService.createPid(url).getIdentifier());
         }
         URI url =
-            new URI(PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+            new URI(PropertyReader.getProperty("inge.pubman.instance.url")
+                + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
                     latestVersion.getObjectIdAndVersion()));
         latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {

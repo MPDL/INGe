@@ -175,7 +175,7 @@ public class HtmlFormatter extends AbstractFormatter {
       transformer
           .setParameter(
               "citation-link",
-              PropertyReader.getProperty("escidoc.pubman.instance.url")
+              PropertyReader.getProperty("inge.pubman.instance.url")
                   + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
                   + PropertyReader.getProperty("inge.cone.service.url")
                   + id
@@ -184,9 +184,9 @@ public class HtmlFormatter extends AbstractFormatter {
                   + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
       transformer.setParameter(
           "item-link",
-          PropertyReader.getProperty("escidoc.pubman.instance.url")
-              + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-              + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
+          PropertyReader.getProperty("inge.pubman.instance.url")
+              + PropertyReader.getProperty("inge.pubman.instance.context.path")
+              + PropertyReader.getProperty("inge.pubman.item.pattern"));
       transformer.setParameter("lang", lang);
       transformer.setParameter("subjectTagNamespace", model.getRdfAboutTag().getNamespaceURI());
       transformer.setParameter("subjectTagLocalName", model.getRdfAboutTag().getLocalPart());
