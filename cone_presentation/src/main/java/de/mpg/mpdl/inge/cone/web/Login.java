@@ -9,9 +9,9 @@ import de.mpg.mpdl.inge.aa.Config;
 public class Login {
 
   private static final String PROPERTY_ROLE_CONE_OPEN_VOCABULARY =
-      "escidoc.aa.role.open.vocabulary.id";
+      "inge.aa.role.open.vocabulary.id";
   private static final String PROPERTY_ROLE_CONE_CLOSED_VOCABULARY =
-      "escidoc.aa.role.closed.vocabulary.id";
+      "inge.aa.role.closed.vocabulary.id";
 
   /**
    * Hide constructor of the static class.

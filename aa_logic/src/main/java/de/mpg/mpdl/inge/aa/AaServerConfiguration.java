@@ -59,7 +59,7 @@ public class AaServerConfiguration extends DefaultHandler {
   StringWriter currentValue = null;
 
   public AaServerConfiguration() throws Exception {
-    String file = Config.getProperty("escidoc.aa.config.file");
+    String file = Config.getProperty("inge.aa.config.file");
 
     InputStream inputStream =
         ResourceUtil.getResourceAsStream(file, AaServerConfiguration.class.getClassLoader());

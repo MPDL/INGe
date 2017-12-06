@@ -875,13 +875,6 @@
 	</reporting>
 
 	<properties>
-		<escidoc.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</escidoc.aa.client.finish.class>
-		<escidoc.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</escidoc.aa.client.logout.class>
-		<escidoc.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</escidoc.aa.client.start.class>
-		<escidoc.aa.config.file>conf.xml</escidoc.aa.config.file>
-		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
-		<escidoc.aa.private.key.file>private.key</escidoc.aa.private.key.file>
-		<escidoc.aa.public.key.file>public.key</escidoc.aa.public.key.file>
 		<escidoc.content.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 		<escidoc.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
@@ -911,6 +904,13 @@
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
 		<framework.scientist.id>escidoc:2078316</framework.scientist.id>
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
+		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</inge.aa.client.finish.class>
+		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</inge.aa.client.logout.class>
+		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</inge.aa.client.start.class>
+		<inge.aa.config.file>conf.xml</inge.aa.config.file>
+		<inge.aa.ip.table>ips.xml</inge.aa.ip.table>
+		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
+		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>
 		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
@@ -1130,11 +1130,10 @@
 			<properties>
 				<auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
 				<auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
-				<escidoc.aa.default.target>https://dev.inge.mpdl.mpg.de/cone/auth/clientLogin</escidoc.aa.default.target>
-				<escidoc.aa.instance.url>https://dev.inge.mpdl.mpg.de/cone/auth/</escidoc.aa.instance.url>
 				<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 				<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
-				<escidoc.syndication.service.url>https://dev.inge.mpdl.mpg.de/syndication</escidoc.syndication.service.url>
+				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/cone/auth/clientLogin</inge.aa.default.target>
+				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/cone/auth/</inge.aa.instance.url>
 				<inge.cone.database.server.name>dev.inge.mpdl.mpg.de</inge.cone.database.server.name>
 				<inge.cone.service.url>https://dev.inge.mpdl.mpg.de/cone/</inge.cone.service.url>
 				<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>
@@ -1142,10 +1141,11 @@
 				<inge.es.cluster.name>elastic_inge</inge.es.cluster.name>
 				<inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips>
 				<inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
-                <inge.pid.service.url>test.doi.mpdl.mpg.de</inge.pid.service.url>
+				<inge.pid.service.url>test.doi.mpdl.mpg.de</inge.pid.service.url>
 				<inge.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
+				<inge.syndication.service.url>https://dev.inge.mpdl.mpg.de/syndication</inge.syndication.service.url>
 				<inge.systemtype>dev</inge.systemtype>
 				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>

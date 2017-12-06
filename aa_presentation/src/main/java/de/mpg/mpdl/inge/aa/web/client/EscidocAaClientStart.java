@@ -48,7 +48,7 @@ public class EscidocAaClientStart extends StartClient {
       throws Exception {
     String tan = request.getParameter("tan");
     String from = request.getParameter("target");
-    String aaInstanceUrl = Config.getProperty("escidoc.aa.instance.url");
+    String aaInstanceUrl = Config.getProperty("inge.aa.instance.url");
 
     if (request.getParameter("eSciDocUserHandle") != null) {
       return aaInstanceUrl + "clientReturn?target=" + from + "&tan="

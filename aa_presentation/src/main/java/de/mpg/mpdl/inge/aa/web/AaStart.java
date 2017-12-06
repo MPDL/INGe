@@ -82,7 +82,7 @@ public class AaStart extends HttpServlet {
     String target = request.getParameter("target");
 
     if (target == null) {
-      target = Config.getProperty("escidoc.aa.default.target");
+      target = Config.getProperty("inge.aa.default.target");
     }
 
     String separator = "?";

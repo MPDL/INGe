@@ -65,7 +65,7 @@ public class RSAEncoder {
     StringWriter resultWriter = new StringWriter();
     byte[] bytes = string.getBytes("UTF-8");
     PublicKey pubKey =
-        (PublicKey) readKeyFromFile(Config.getProperty("escidoc.aa.public.key.file"), true);
+        (PublicKey) readKeyFromFile(Config.getProperty("inge.aa.public.key.file"), true);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.ENCRYPT_MODE, pubKey);
     int blockSize = 245;
@@ -86,7 +86,7 @@ public class RSAEncoder {
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrivateKey privateKey =
-        (PrivateKey) readKeyFromFile(Config.getProperty("escidoc.aa.private.key.file"), false);
+        (PrivateKey) readKeyFromFile(Config.getProperty("inge.aa.private.key.file"), false);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.DECRYPT_MODE, privateKey);
     for (String part : string) {
