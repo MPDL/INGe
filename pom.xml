@@ -949,12 +949,6 @@
 		<escidoc.pubman.yearbook.context.id>escidoc:287053</escidoc.pubman.yearbook.context.id>
 		<escidoc.pubman_presentation.viewFullItem.defaultSize>20</escidoc.pubman_presentation.viewFullItem.defaultSize>
 		<escidoc.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</escidoc.report.indesign.namespace>
-		<escidoc.search.and.export.default.sort.keys>_relevance_</escidoc.search.and.export.default.sort.keys>
-		<escidoc.search.and.export.default.sort.order>descending</escidoc.search.and.export.default.sort.order>
-		<escidoc.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:2001</escidoc.search.and.export.default.sql.query>
-		<escidoc.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</escidoc.search.and.export.indexes.explain.query>
-		<escidoc.search.and.export.maximum.records>50</escidoc.search.and.export.maximum.records>
-		<escidoc.search.and.export.start.record>1</escidoc.search.and.export.start.record>
 		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
 		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.password></framework.admin.password>
@@ -1014,6 +1008,12 @@
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.rest.file.path>/component</inge.rest.file.path>
+		<inge.search.and.export.default.sort.keys>_relevance_</inge.search.and.export.default.sort.keys>
+		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
+		<inge.search.and.export.default.sql.query>escidoc.metadata=test and escidoc.content-model.objid=escidoc:2001</inge.search.and.export.default.sql.query>
+		<inge.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</inge.search.and.export.indexes.explain.query>
+		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
+		<inge.search.and.export.start.record>1</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</inge.transformation.bibtex.configuration.filename>
