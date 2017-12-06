@@ -792,7 +792,7 @@
 								</h:selectOneMenu>
 							</h:panelGroup>
 						</span>
-						<h:panelGroup styleClass="double_area0 tiny_marginRIncl #{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
+						<h:panelGroup styleClass="double_area0 tiny_marginRIncl #{AdvancedSearchBean.locatorSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
 							<h:outputLabel id="lblContentCategoriesLocator" styleClass="double_label" value="#{lbl.adv_search_fileContentCategory}" />
 							<span class="free_area0 clear">
 								<ui:repeat value="#{AdvancedSearchBean.locatorSectionSearchCriterion.contentCategoryListSearchCriterion.enumList}" var="cc">
