@@ -882,18 +882,6 @@
 		<escidoc.aa.ip.table>ips.xml</escidoc.aa.ip.table>
 		<escidoc.aa.private.key.file>private.key</escidoc.aa.private.key.file>
 		<escidoc.aa.public.key.file>public.key</escidoc.aa.public.key.file>
-		<escidoc.common.stylesheet.classic.apply>true</escidoc.common.stylesheet.classic.apply>
-		<escidoc.common.stylesheet.classic.type>alternate stylesheet</escidoc.common.stylesheet.classic.type>
-		<escidoc.common.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.common.stylesheet.classic.url>
-		<escidoc.common.stylesheet.contrast.apply>true</escidoc.common.stylesheet.contrast.apply>
-		<escidoc.common.stylesheet.contrast.type>alternate stylesheet</escidoc.common.stylesheet.contrast.type>
-		<escidoc.common.stylesheet.contrast.url>/pubman/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.common.stylesheet.contrast.url>
-		<escidoc.common.stylesheet.special.apply>true</escidoc.common.stylesheet.special.apply>
-		<escidoc.common.stylesheet.special.type>stylesheet</escidoc.common.stylesheet.special.type>
-		<escidoc.common.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.common.stylesheet.special.url>
-		<escidoc.common.stylesheet.standard.apply>true</escidoc.common.stylesheet.standard.apply>
-		<escidoc.common.stylesheet.standard.type>alternate stylesheet</escidoc.common.stylesheet.standard.type>
-		<escidoc.common.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.common.stylesheet.standard.url>
 		<escidoc.content.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
 		<escidoc.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 		<escidoc.pubman.footer.fileName />
@@ -929,18 +917,6 @@
 		<escidoc.pubman.sitemap.retrieve.items>1000</escidoc.pubman.sitemap.retrieve.items>
 		<escidoc.pubman.statistics.nims.context.ids />
 		<escidoc.pubman.statistics.nims.link />
-		<escidoc.pubman.stylesheet.classic.apply>true</escidoc.pubman.stylesheet.classic.apply>
-		<escidoc.pubman.stylesheet.classic.type>alternate stylesheet</escidoc.pubman.stylesheet.classic.type>
-		<escidoc.pubman.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</escidoc.pubman.stylesheet.classic.url>
-		<escidoc.pubman.stylesheet.contrast.apply>true</escidoc.pubman.stylesheet.contrast.apply>
-		<escidoc.pubman.stylesheet.contrast.type>alternate stylesheet</escidoc.pubman.stylesheet.contrast.type>
-		<escidoc.pubman.stylesheet.contrast.url>/pubman/resources/cssFramework/themes/skin_highContrast/styles/theme.css</escidoc.pubman.stylesheet.contrast.url>
-		<escidoc.pubman.stylesheet.special.apply>true</escidoc.pubman.stylesheet.special.apply>
-		<escidoc.pubman.stylesheet.special.type>stylesheet</escidoc.pubman.stylesheet.special.type>
-		<escidoc.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</escidoc.pubman.stylesheet.special.url>
-		<escidoc.pubman.stylesheet.standard.apply>true</escidoc.pubman.stylesheet.standard.apply>
-		<escidoc.pubman.stylesheet.standard.type>alternate stylesheet</escidoc.pubman.stylesheet.standard.type>
-		<escidoc.pubman.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</escidoc.pubman.stylesheet.standard.url>
 		<escidoc.pubman.survey.styles />
 		<escidoc.pubman.survey.text />
 		<escidoc.pubman.survey.title />
@@ -1007,6 +983,18 @@
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
+		<inge.pubman.stylesheet.classic.apply>true</inge.pubman.stylesheet.classic.apply>
+		<inge.pubman.stylesheet.classic.type>alternate stylesheet</inge.pubman.stylesheet.classic.type>
+		<inge.pubman.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</inge.pubman.stylesheet.classic.url>
+		<inge.pubman.stylesheet.contrast.apply>true</inge.pubman.stylesheet.contrast.apply>
+		<inge.pubman.stylesheet.contrast.type>alternate stylesheet</inge.pubman.stylesheet.contrast.type>
+		<inge.pubman.stylesheet.contrast.url>/pubman/resources/cssFramework/themes/skin_highContrast/styles/theme.css</inge.pubman.stylesheet.contrast.url>
+		<inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
+		<inge.pubman.stylesheet.special.type>stylesheet</inge.pubman.stylesheet.special.type>
+		<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.special.url>
+		<inge.pubman.stylesheet.standard.apply>true</inge.pubman.stylesheet.standard.apply>
+		<inge.pubman.stylesheet.standard.type>alternate stylesheet</inge.pubman.stylesheet.standard.type>
+		<inge.pubman.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</inge.pubman.stylesheet.standard.url>
 		<inge.rest.file.path>/component</inge.rest.file.path>
 		<inge.search.and.export.default.sort.keys>_relevance_</inge.search.and.export.default.sort.keys>
 		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>

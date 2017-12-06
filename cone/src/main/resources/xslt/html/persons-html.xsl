@@ -35,11 +35,11 @@
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
 	<xsl:param name="escidoc.pubman.presentation.url"/>
-	<xsl:param name="escidoc.pubman.stylesheet.contrast.url"/>
-	<xsl:param name="escidoc.pubman.stylesheet.classic.url"/>
-	<xsl:param name="escidoc.pubman.stylesheet.standard.url"/>
-	<xsl:param name="escidoc.pubman.stylesheet.special.url"/>
-	<xsl:param name="escidoc.pubman.stylesheet.special.apply"/>
+	<xsl:param name="inge.pubman.stylesheet.contrast.url"/>
+	<xsl:param name="inge.pubman.stylesheet.classic.url"/>
+	<xsl:param name="inge.pubman.stylesheet.standard.url"/>
+	<xsl:param name="inge.pubman.stylesheet.special.url"/>
+	<xsl:param name="inge.pubman.stylesheet.special.apply"/>
 	
 	
 	<xsl:variable name="defaultLang" select="'en'"/>
@@ -56,18 +56,18 @@
 					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.presentation.url" /></xsl:attribute>
 				</link>
 				<link id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.contrast.url" /></xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.contrast.url" /></xsl:attribute>
 				</link>
 				<link id="Classic" type="text/css" title="classic" rel="alternate stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.classic.url" /></xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.classic.url" /></xsl:attribute>
 				</link>
-				<xsl:if test="$escidoc.pubman.stylesheet.special.apply = 'true'">
+				<xsl:if test="$inge.pubman.stylesheet.special.apply = 'true'">
 					<link id="Special" type="text/css" title="special" rel="alternate stylesheet">
-						<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.special.url" /></xsl:attribute>
+						<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.special.url" /></xsl:attribute>
 					</link>
 				</xsl:if>
 				<link id="Standard" type="text/css" title="blue" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$escidoc.pubman.stylesheet.standard.url" /></xsl:attribute>
+					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.standard.url" /></xsl:attribute>
 				</link>
 				
 				
