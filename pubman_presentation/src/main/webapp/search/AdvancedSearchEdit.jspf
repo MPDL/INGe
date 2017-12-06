@@ -209,6 +209,12 @@
 .paranthesis_level_15 .lineToolSection {
 	margin-right: 22.5em;
 }
+
+input:disabled + label {
+    color: #888B8B;
+}
+
+
 </style>
 		<h:panelGroup id="editSearch" layout="block" styleClass="free_area0 itemBlockContent endline" style="padding-top:1em;">
 			<h:outputText value="#{AdvancedSearchBean.readOutParams}" />
@@ -780,6 +786,7 @@
 									<f:selectItem itemValue="#{'WHATEVER'}" itemLabel="#{lbl.adv_search_lblFileAvailable_WHATEVER}" />
 									<f:selectItem itemValue="#{'YES'}" itemLabel="#{lbl.adv_search_lblFileAvailable_YES}" />
 									<f:selectItem itemValue="#{'NO'}" itemLabel="#{lbl.adv_search_lblFileAvailable_NO}" />
+									<f:ajax render="editLocators"/>
 								</h:selectOneMenu>
 							</h:panelGroup>
 						</span>
@@ -790,7 +797,7 @@
 									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
 										<ui:param name="label" value="ENUM_CONTENTCATEGORY_#{cc}" />
 										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{cc}" id="contentCategoryCriterion"
-											value="#{AdvancedSearchBean.locatorSectionSearchCriterion.contentCategoryListSearchCriterion.enumMap[cc]}">
+											value="#{AdvancedSearchBean.locatorSectionSearchCriterion.contentCategoryListSearchCriterion.enumMap[cc]}" disabled="#{AdvancedSearchBean.locatorSectionSearchCriterion.selectedAvailability != 'YES'}">
 										</h:selectBooleanCheckbox>
 										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="contentCategoryCriterion" />
 									</h:panelGroup>
