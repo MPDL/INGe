@@ -1134,8 +1134,6 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<auth.token.url>https://dev.inge.mpdl.mpg.de/auth/token</auth.token.url>
-				<auth.users.url>https://dev.inge.mpdl.mpg.de/auth/users</auth.users.url>
 				<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 				<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
 				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/cone/auth/clientLogin</inge.aa.default.target>
