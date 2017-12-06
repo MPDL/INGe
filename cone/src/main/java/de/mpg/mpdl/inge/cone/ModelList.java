@@ -66,8 +66,7 @@ public class ModelList {
   private ModelList() throws ConeException {
     try {
       InputStream in =
-          ResourceUtil.getResourceAsStream(
-              PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
+          ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
               ModelList.class.getClassLoader());
       ServiceListHandler listHandler = new ServiceListHandler();
       SAXParser parser = SAXParserFactory.newInstance().newSAXParser();

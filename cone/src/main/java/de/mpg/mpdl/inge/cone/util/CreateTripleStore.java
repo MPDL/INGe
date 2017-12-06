@@ -55,8 +55,8 @@ public class CreateTripleStore {
 
   private CreateTripleStore() throws TuplesException, IOException, URISyntaxException,
       ItqlInterpreterException {
-    mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
-    mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
+    mulgaraServer = PropertyReader.getProperty("inge.cone.mulgara.server.name");
+    mulgaraPort = PropertyReader.getProperty("inge.cone.mulgara.server.port");
     File tqlFile =
         ResourceUtil.getResourceAsFile("setup.tql", CreateTripleStore.class.getClassLoader());
     BufferedReader reader = new BufferedReader(new FileReader(tqlFile));

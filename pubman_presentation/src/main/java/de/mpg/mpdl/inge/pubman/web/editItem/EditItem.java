@@ -1302,7 +1302,7 @@ public class EditItem extends FacesBean {
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
     }
 
     return this.suggestConeUrl;

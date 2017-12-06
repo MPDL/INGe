@@ -108,7 +108,7 @@ public class BrowseBySessionBean extends FacesBean {
   public List<String> getControlledVocabs() {
     final List<String> vocabs = new ArrayList<String>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
       if (vocabsStr != null && vocabsStr.trim().length() > 0) {
         final String[] vocabsArr = vocabsStr.split(";");
         for (int i = 0; i < vocabsArr.length; i++) {
@@ -116,7 +116,7 @@ public class BrowseBySessionBean extends FacesBean {
         }
       }
     } catch (final Exception e) {
-      BrowseBySessionBean.logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
+      BrowseBySessionBean.logger.error("Could not read Property: 'inge.cone.subjectVocab'", e);
     }
     return vocabs;
   }
@@ -206,7 +206,7 @@ public class BrowseBySessionBean extends FacesBean {
 
     try {
       final URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + this.selectedValue
+          new URL(PropertyReader.getProperty("inge.cone.service.url") + this.selectedValue
               + "/all?format=options&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;

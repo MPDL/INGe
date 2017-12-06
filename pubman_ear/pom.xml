@@ -106,35 +106,6 @@
 
 	<profiles>
 		<profile>
-			<id>env-pure</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<id>env-opensource</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<escidoc.pubman.build.mode />
-				<escidoc.pubman.build.hyphen />
-				<exclude.module>true</exclude.module>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>env-nims</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<exclude.module>true</exclude.module>
-			</properties>
-		</profile>
-
-		<profile>
 			<id>deploy-artifacts</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -204,10 +175,6 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<properties>
-				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
-				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>

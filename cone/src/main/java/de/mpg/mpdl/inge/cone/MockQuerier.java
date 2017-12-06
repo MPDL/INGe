@@ -223,7 +223,7 @@ public class MockQuerier implements Querier {
       throws ConeException {
     try {
       return query(model, query, lang, modeType,
-          Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")));
+          Integer.parseInt(PropertyReader.getProperty("inge.cone.maximum.results")));
     } catch (NumberFormatException e) {
       throw new ConeException(e);
     }
@@ -254,7 +254,7 @@ public class MockQuerier implements Querier {
    */
   public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType)
       throws ConeException {
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -275,7 +275,7 @@ public class MockQuerier implements Querier {
    */
   public List<Pair> query(String model, String query, ModeType modeType) throws ConeException {
 
-    return query(model, query, PropertyReader.getProperty("escidoc.cone.language.default", "en"),
+    return query(model, query, PropertyReader.getProperty("inge.cone.language.default", "en"),
         modeType);
 
   }

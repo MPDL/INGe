@@ -314,7 +314,7 @@ public class XsltHelper {
     String coneQuery =
     // JUS-Testserver CoNE
     // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
-        PropertyReader.getProperty("escidoc.cone.service.url")
+        PropertyReader.getProperty("inge.cone.service.url")
             + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
     logger.info("cone query:" + coneQuery);
     GetMethod getMethod = new GetMethod(coneQuery);

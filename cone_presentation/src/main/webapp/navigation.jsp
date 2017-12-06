@@ -60,7 +60,7 @@
 			<!-- Login -->
 		
 				<% if (Login.getLoggedIn(request)) { %>
-					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(PropertyReader.getProperty("escidoc.cone.service.url") + request.getServletPath().substring(1), "UTF-8") %>">Logout</a>
+					<a class="medium_area0_p8 endline" href="logout.jsp?target=<%= URLEncoder.encode(PropertyReader.getProperty("inge.cone.service.url") + request.getServletPath().substring(1), "UTF-8") %>">Logout</a>
 				<% } else { %>
 					<a class="medium_area0_p8 endline" href="<%= Aa.getLoginLink(request) %>">Login</a>
 				<% } %>

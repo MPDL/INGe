@@ -121,7 +121,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toRdf(Model model) throws ConeException {
     if (size() == 0) {
 
-      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("escidoc.cone.service.url")
+      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("inge.cone.service.url")
           + subject);
 
     } else {
@@ -138,7 +138,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       if (!subject.startsWith("genid:")) {
         try {
           result.append(" rdf:about=\"");
-          result.append(PropertyReader.getProperty("escidoc.cone.service.url") + subject);
+          result.append(PropertyReader.getProperty("inge.cone.service.url") + subject);
           result.append("\"");
         } catch (Exception e) {
           throw new RuntimeException(e);
@@ -205,10 +205,10 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
               try {
                 if (value.toString().startsWith("/")) {
                   url =
-                      PropertyReader.getProperty("escidoc.cone.service.url")
+                      PropertyReader.getProperty("inge.cone.service.url")
                           + url.substring(0, url.length() - 1);
                 } else {
-                  url = PropertyReader.getProperty("escidoc.cone.service.url") + url;
+                  url = PropertyReader.getProperty("inge.cone.service.url") + url;
                 }
               } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -249,7 +249,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toJson() {
     if (size() == 0) {
       try {
-        return "\"" + PropertyReader.getProperty("escidoc.cone.service.url")
+        return "\"" + PropertyReader.getProperty("inge.cone.service.url")
             + subject.replace("\"", "\\\"") + "\"";
       } catch (Exception e) {
         throw new RuntimeException(e);
@@ -260,7 +260,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       if (!subject.startsWith("genid:")) {
         writer.append("\"id\" : \"");
         try {
-          writer.append(PropertyReader.getProperty("escidoc.cone.service.url")
+          writer.append(PropertyReader.getProperty("inge.cone.service.url")
               + subject.replace("\"", "\\\""));
         } catch (Exception e) {
           throw new RuntimeException(e);

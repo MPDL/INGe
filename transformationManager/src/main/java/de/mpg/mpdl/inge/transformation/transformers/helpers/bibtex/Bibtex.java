@@ -1470,7 +1470,7 @@ public class Bibtex implements BibtexInterface {
   public static Set<String> loadGroupSet() throws Exception {
     HttpClient httpClient = new HttpClient();
     GetMethod getMethod =
-        new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+        new GetMethod(PropertyReader.getProperty("inge.cone.service.url")
             + "mpis-groups/all?f=options");
     httpClient.executeMethod(getMethod);
     InputStream inputStream = getMethod.getResponseBodyAsStream();
@@ -1497,7 +1497,7 @@ public class Bibtex implements BibtexInterface {
   public static Set<String> loadProjectSet() throws Exception {
     HttpClient httpClient = new HttpClient();
     GetMethod getMethod =
-        new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+        new GetMethod(PropertyReader.getProperty("inge.cone.service.url")
             + "mpis-projects/all?f=options");
     httpClient.executeMethod(getMethod);
     InputStream inputStream = getMethod.getResponseBodyAsStream();

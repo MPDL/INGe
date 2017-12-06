@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  */
 public class SQLQuerier implements Querier {
-  private static final String ESCIDOC_CONE_LANGUAGE_DEFAULT = "escidoc.cone.language.default";
+  private static final String ESCIDOC_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
   private static final Logger logger = Logger.getLogger(SQLQuerier.class);
   private Connection connection;
   protected boolean loggedIn;
@@ -87,7 +87,7 @@ public class SQLQuerier implements Querier {
   public List<? extends Describable> query(String model, String query, String language,
       ModeType modeType) throws ConeException {
 
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, query, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -97,7 +97,7 @@ public class SQLQuerier implements Querier {
   public List<? extends Describable> query(String model, Pair<String>[] searchFields,
       String language, ModeType modeType) throws ConeException {
 
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 

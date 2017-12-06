@@ -308,7 +308,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> initSubjectTypesListMenu() {
     final List<SelectItem> vocabs = new ArrayList<SelectItem>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
       final String[] vocabsArr = vocabsStr.split(";");
       for (int i = 0; i < vocabsArr.length; i++) {
         final String type = vocabsArr[i].trim().toUpperCase().replace("-", "_");
@@ -317,7 +317,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         vocabs.add(si);
       }
     } catch (final Exception e) {
-      AdvancedSearchBean.logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
+      AdvancedSearchBean.logger.error("Could not read Property: 'inge.cone.subjectVocab'", e);
     }
     return vocabs;
   }
@@ -1208,7 +1208,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
     }
 
     return this.suggestConeUrl;

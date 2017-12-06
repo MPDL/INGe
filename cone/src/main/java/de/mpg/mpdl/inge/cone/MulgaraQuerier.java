@@ -49,8 +49,8 @@ public class MulgaraQuerier implements Querier {
    * @throws Exception Any exception.
    */
   public MulgaraQuerier() throws Exception {
-    mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
-    mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
+    mulgaraServer = PropertyReader.getProperty("inge.cone.mulgara.server.name");
+    mulgaraPort = PropertyReader.getProperty("inge.cone.mulgara.server.port");
   }
 
   /**
@@ -66,7 +66,7 @@ public class MulgaraQuerier implements Querier {
   public List<Pair> query(String model, String searchString, String language, ModeType modeType,
       int limit) throws ConeException {
     if (language == null) {
-      language = PropertyReader.getProperty("escidoc.cone.language.default", "en");
+      language = PropertyReader.getProperty("inge.cone.language.default", "en");
     }
     String[] searchStringsWithWildcards = formatSearchString(searchString);
     String query =
@@ -119,7 +119,7 @@ public class MulgaraQuerier implements Querier {
       throws ConeException {
     String limitString;
 
-    limitString = PropertyReader.getProperty("escidoc.cone.maximum.results");
+    limitString = PropertyReader.getProperty("inge.cone.maximum.results");
     if (limitString == null) {
       limitString = "50";
     }
@@ -207,7 +207,7 @@ public class MulgaraQuerier implements Querier {
   public List<Pair> query(String model, String query, String language, ModeType modeType)
       throws ConeException {
 
-    String limitString = PropertyReader.getProperty("escidoc.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, query, null, modeType, Integer.parseInt(limitString));
 
   }

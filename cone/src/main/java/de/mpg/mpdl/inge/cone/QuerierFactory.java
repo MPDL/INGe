@@ -45,11 +45,10 @@ public class QuerierFactory {
   public static Querier newQuerier(boolean loggedIn) {
     String querier;
     try {
-      querier = PropertyReader.getProperty("escidoc.cone.querier.class");
+      querier = PropertyReader.getProperty("inge.cone.querier.class");
     } catch (Exception e) {
-      logger
-          .warn("Property \"escidoc.cone.querier.class\" not found, taking default querier class: "
-              + DEFAULT_QUERIER);
+      logger.warn("Property \"inge.cone.querier.class\" not found, taking default querier class: "
+          + DEFAULT_QUERIER);
       querier = DEFAULT_QUERIER;
     }
     try {

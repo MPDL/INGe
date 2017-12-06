@@ -70,7 +70,7 @@ public class RDFHandler extends DefaultHandler {
     this.model = model;
     querier = QuerierFactory.newQuerier(loggedIn);
     try {
-      PropertyReader.getProperty("escidoc.cone.service.url");
+      PropertyReader.getProperty("inge.cone.service.url");
     } catch (Exception e) {
       throw new ConeException(e);
     }

@@ -117,9 +117,9 @@ public class BrowseByPage extends BreadcrumbPage {
         localLang = "en";
       }
       final URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + type
-              + "/query?f=options&" + this.bbBean.getQuery() + "=\""
-              + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
+          new URL(PropertyReader.getProperty("inge.cone.service.url") + type + "/query?f=options&"
+              + this.bbBean.getQuery() + "=\"" + URLEncoder.encode(startChar, "UTF-8")
+              + "*\"&n=0&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();
@@ -286,11 +286,10 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getPortfolioLink() {
     try {
-      final String link =
-          PropertyReader.getProperty("escidoc.cone.service.url") + "persons/resource/";
+      final String link = PropertyReader.getProperty("inge.cone.service.url") + "persons/resource/";
       return link;
     } catch (final Exception e) {
-      BrowseByPage.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
+      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
     }
 
     return "";
@@ -298,10 +297,10 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getConeUrl() {
     try {
-      final String link = PropertyReader.getProperty("escidoc.cone.service.url");
+      final String link = PropertyReader.getProperty("inge.cone.service.url");
       return link;
     } catch (final Exception e) {
-      BrowseByPage.logger.error("Could not read Property: 'escidoc.cone.service.url'", e);
+      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
     }
 
     return "";
