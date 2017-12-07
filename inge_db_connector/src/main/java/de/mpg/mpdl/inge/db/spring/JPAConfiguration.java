@@ -41,18 +41,12 @@ public class JPAConfiguration {
     em.setPackagesToScan(new String[] {"de.mpg.mpdl.inge.model.db"});
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
+    // Hibernate Properties are under /src/main/resources
     // em.setJpaProperties(hibernateProperties());
     em.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
     return em;
   }
 
-  @Bean
-  public HibernateJpaSessionFactoryBean sessionFactory(EntityManagerFactory emf) {
-    HibernateJpaSessionFactoryBean sessionFactory = new HibernateJpaSessionFactoryBean();
-    sessionFactory.setEntityManagerFactory(emf);
-
-    return sessionFactory;
-  }
 
   @Bean
   @Primary
@@ -84,26 +78,5 @@ public class JPAConfiguration {
     return transactionManager;
   }
 
-  /*
-   * @SuppressWarnings("serial") Properties hibernateProperties() { return new Properties() { {
-   * setProperty("hibernate.dialect", "de.mpg.mpdl.inge.db.spring.JsonPostgreSQL9Dialect");
-   * 
-   * setProperty("hibernate.cache.use_second_level_cache", "true");
-   * setProperty("hibernate.cache.use_query_cache", "true");
-   * setProperty("hibernate.cache.region.factory_class",
-   * "org.hibernate.cache.ehcache.EhCacheRegionFactory"); setProperty("hibernate.jdbc.time_zone",
-   * "UTC");
-   * 
-   * // Speed up startup, do not load all metadata from database
-   * setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
-   * 
-   * // setProperty("hibernate.generate_statistics", "true");
-   * 
-   * // Makes it slow if set to true
-   * 
-   * setProperty("hibernate.hbm2ddl.auto", "update"); setProperty("show_sql", "false");
-   * 
-   * 
-   * } }; }
-   */
+ 
 }
