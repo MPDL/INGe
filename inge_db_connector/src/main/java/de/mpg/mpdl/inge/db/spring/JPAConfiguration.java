@@ -75,6 +75,11 @@ public class JPAConfiguration {
     dataSource.setMinPoolSize(5);
     dataSource.setMaxStatements(50);
     dataSource.setInitialPoolSize(10);
+    dataSource.setTestConnectionOnCheckout(false);
+    dataSource.setTestConnectionOnCheckin(true);
+    // Check connections every two minutes
+    dataSource.setIdleConnectionTestPeriod(120);
+
 
     return dataSource;
   }
