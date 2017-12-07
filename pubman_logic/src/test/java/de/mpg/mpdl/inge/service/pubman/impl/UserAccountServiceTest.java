@@ -50,7 +50,7 @@ public class UserAccountServiceTest extends TestBase {
     assertTrue(accountUserVO.getGrants().size() == 2);
     assertTrue(accountUserVO.getName().equals("Test Depositor"));
 
-    assertTrue(accountUserVO.getPassword().equals(DEPOSITOR_PASSWORD));
+    assertTrue(accountUserVO.getPassword() == null);
     assertTrue(accountUserVO.getUserid().equals(DEPOSITOR_OBJECTID));
   }
 
