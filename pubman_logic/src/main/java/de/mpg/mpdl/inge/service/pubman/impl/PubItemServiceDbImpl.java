@@ -471,7 +471,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
-        creator.setObjectId(userAccount.getUserid());
+        creator.setObjectId(userAccount.getReference().getObjectId());
         creator.setName(userAccount.getName());
         currentFileDbVO.setCreator(creator);
 
@@ -485,8 +485,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       currentFileDbVO.setName(fileVo.getDefaultMetadata().getTitle());
       currentFileDbVO.setDescription(fileVo.getDefaultMetadata().getDescription());
 
-      // TODO: fileVo.getDefaultMetadata().getContentCategory() ist immer null;
-      // hingegen ist fileVo.getContentCategory() gefüllt; Korrekt????
       currentFileDbVO.setContentCategory(fileVo.getDefaultMetadata().getContentCategory());
       currentFileDbVO.setMimeType(fileVo.getMimeType());
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));

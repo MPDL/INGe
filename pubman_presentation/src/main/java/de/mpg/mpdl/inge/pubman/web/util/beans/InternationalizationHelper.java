@@ -378,8 +378,9 @@ public class InternationalizationHelper implements Serializable {
     for (final Map.Entry<String, String> entry : values.entrySet()) {
       // Prefix for the label is set to ENUM_CONTENTCATEGORY_
       final SelectItem selectItem =
-          new SelectItem(entry.getValue(), this.getLabel("ENUM_CONTENTCATEGORY_"
-              + entry.getKey().toLowerCase().replace("_", "-")));
+          new SelectItem(entry.getKey().toLowerCase().replace("_", "-"),
+              this.getLabel("ENUM_CONTENTCATEGORY_"
+                  + entry.getKey().toLowerCase().replace("_", "-")));
       selectItems[i] = selectItem;
       i++;
     }

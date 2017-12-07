@@ -291,7 +291,11 @@ public class FileBean extends FacesBean {
   }
 
   public String getContentCategory() {
-    if (this.file.getContentCategory() != null) {
+      if (this.file.getContentCategory() != null) {
+        return this.getLabel("ENUM_CONTENTCATEGORY_"
+            + file.getContentCategory().toLowerCase().replace("_", "-"));
+        /*
+      /*
       for (final Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap()
           .entrySet()) {
         if (contcat.getValue().equals(this.file.getContentCategory())) {
@@ -299,6 +303,7 @@ public class FileBean extends FacesBean {
               + contcat.getKey().toLowerCase().replace("_", "-"));
         }
       }
+      */
     }
 
     return "";

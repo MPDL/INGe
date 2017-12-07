@@ -210,16 +210,19 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
+
+  
     if (this.file.getContentCategory() != null) {
-      @SuppressWarnings({"unchecked", "rawtypes"})
-      final Map<String, String> propertiesMap =
-          new HashMap<String, String>((Map) PubFileVOPresentation.properties);
-      for (final Map.Entry<String, String> entry : propertiesMap.entrySet()) {
-        if (entry.getValue().equals(this.file.getContentCategory())) {
-          return this.getLabel("ENUM_CONTENTCATEGORY_"
-              + entry.getKey().toLowerCase().replace("_", "-"));
-        }
-      }
+      return this.getLabel("ENUM_CONTENTCATEGORY_"
+          + file.getContentCategory().toLowerCase().replace("_", "-"));
+      /*
+       * @SuppressWarnings({"unchecked", "rawtypes"}) final Map<String, String> propertiesMap = new
+       * HashMap<String, String>((Map) PubFileVOPresentation.properties); for (final
+       * Map.Entry<String, String> entry : propertiesMap.entrySet()) { if
+       * (entry.getValue().equals(this.file.getContentCategory())) { return
+       * this.getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-")); }
+       * }
+       */
     }
 
     return "";
@@ -240,6 +243,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @param category The content category as a string according to XML conventions.
    */
   public void setContentCategoryAsXmlString(String category) {
+    this.file.getDefaultMetadata().setContentCategory(category);
     this.file.setContentCategory(category);
   }
 
