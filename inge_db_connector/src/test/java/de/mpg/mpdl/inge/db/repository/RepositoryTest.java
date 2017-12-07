@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.mpg.mpdl.inge.db.spring.JPATestConfiguration;
+import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -18,7 +18,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {JPATestConfiguration.class})
+@ContextConfiguration(classes = {JPAConfiguration.class})
 public class RepositoryTest {
 
   @Autowired
