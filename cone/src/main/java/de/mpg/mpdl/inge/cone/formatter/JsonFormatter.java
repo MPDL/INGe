@@ -90,7 +90,7 @@ public class JsonFormatter extends AbstractFormatter {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
             JsonFormatter.class.getClassLoader());
     InputStream template =
         ResourceUtil.getResourceAsStream("explain/json_explain.xsl",
@@ -154,7 +154,7 @@ public class JsonFormatter extends AbstractFormatter {
 
           result.append("\t\t\"id\" : \"");
           try {
-            result.append(PropertyReader.getProperty("escidoc.cone.service.url")
+            result.append(PropertyReader.getProperty("inge.cone.service.url")
                 + key.replace("\"", "\\\""));
           } catch (Exception e) {
             throw new ConeException(e);
@@ -192,7 +192,7 @@ public class JsonFormatter extends AbstractFormatter {
 
           result.append("\t\t\"id\" : \"");
           try {
-            result.append(PropertyReader.getProperty("escidoc.cone.service.url")
+            result.append(PropertyReader.getProperty("inge.cone.service.url")
                 + key.replace("\"", "\\\""));
           } catch (Exception e) {
             throw new ConeException(e);

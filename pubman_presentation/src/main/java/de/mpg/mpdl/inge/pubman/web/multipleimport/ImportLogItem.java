@@ -70,9 +70,9 @@ public class ImportLogItem extends BaseImportLog {
     if (ImportLogItem.link == null) {
       try {
         ImportLogItem.link =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern");
+            PropertyReader.getProperty("inge.pubman.instance.url")
+                + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                + PropertyReader.getProperty("inge.pubman.item.pattern");
       } catch (final Exception e) {
         throw new RuntimeException(e);
       }

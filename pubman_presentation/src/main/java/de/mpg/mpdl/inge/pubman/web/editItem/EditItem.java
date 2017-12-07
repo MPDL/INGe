@@ -613,9 +613,9 @@ public class EditItem extends FacesBean {
       if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean()
           .getPreviousItem().getPage())) {
         final String viewItemPage =
-            PropertyReader.getProperty("escidoc.pubman.instance.url")
-                + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-                + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1",
+            PropertyReader.getProperty("inge.pubman.instance.url")
+                + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceFirst("\\$1",
                     this.getPubItem().getVersion().getObjectId());
         FacesTools.getExternalContext().redirect(viewItemPage);
       } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage()
@@ -1302,7 +1302,7 @@ public class EditItem extends FacesBean {
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
     }
 
     return this.suggestConeUrl;

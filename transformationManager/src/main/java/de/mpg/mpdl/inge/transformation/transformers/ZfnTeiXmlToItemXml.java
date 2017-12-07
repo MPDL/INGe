@@ -20,7 +20,7 @@ public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTrans
   @Override
   public Source getXsltSource() throws TransformationException {
 
-    return getXmlSourceFromProperty("escidoc.transformation.zfn.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.zfn.stylesheet.filename",
         "transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl");
 
 
@@ -40,14 +40,14 @@ public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTrans
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external_organisation_id",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.zfn.configuration.filename",
+        "inge.transformation.zfn.configuration.filename",
         "transformations/standardFormats/conf/zfn.properties");
   }
 

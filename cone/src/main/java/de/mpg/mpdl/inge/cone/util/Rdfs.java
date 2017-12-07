@@ -58,18 +58,17 @@ public class Rdfs {
   public static Writer getModelAsRdfs(String modelname) throws Exception {
     Source source =
         new StreamSource(ResourceUtil.getResourceAsStream(
-            PropertyReader.getProperty("escidoc.cone.rdfs.template"), Rdfs.class.getClassLoader()));
+            PropertyReader.getProperty("inge.cone.rdfs.template"), Rdfs.class.getClassLoader()));
     Transformer transformer = new TransformerFactoryImpl().newTransformer(source);
     if (modelname != null) {
       transformer.setParameter("model", modelname);
     }
     Writer writer = new StringWriter();
     Result result = new StreamResult(writer);
-    transformer
-        .transform(
-            new StreamSource(ResourceUtil.getResourceAsStream(
-                PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
-                Rdfs.class.getClassLoader())), result);
+    transformer.transform(
+        new StreamSource(ResourceUtil.getResourceAsStream(
+            PropertyReader.getProperty("inge.cone.modelsxml.path"), Rdfs.class.getClassLoader())),
+        result);
     return writer;
   }
 

@@ -62,7 +62,7 @@ public class OrganizationServiceDbImpl extends
 
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
-  private final String mpgId = PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
+  private final String mpgId = PropertyReader.getProperty("inge.pubman.root.organisation.id");
 
   private List<String> allChildrenOfMpg = new ArrayList<String>();
 

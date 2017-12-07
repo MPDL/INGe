@@ -50,7 +50,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.bibtex.configuration.filename",
+        "inge.transformation.bibtex.configuration.filename",
         "transformations/commonPublicationFormats/conf/bibtex.properties").get(key);
   }
 
@@ -62,7 +62,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
       try {
         c =
             getDefaultConfigurationFromProperty(
-                "escidoc.transformation.bibtex.configuration.filename",
+                "inge.transformation.bibtex.configuration.filename",
                 "transformations/commonPublicationFormats/conf/bibtex.properties");
 
         setConfiguration(c);

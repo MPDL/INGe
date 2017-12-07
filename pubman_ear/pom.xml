@@ -30,7 +30,7 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
 					<applicationName>pubman_ear</applicationName>
-					<classifier>${escidoc.pubman.build.mode}</classifier>
+					<classifier>${inge.pubman.build.mode}</classifier>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
 					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
@@ -106,35 +106,6 @@
 
 	<profiles>
 		<profile>
-			<id>env-pure</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-
-		<profile>
-			<id>env-opensource</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<escidoc.pubman.build.mode />
-				<escidoc.pubman.build.hyphen />
-				<exclude.module>true</exclude.module>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>env-nims</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<exclude.module>true</exclude.module>
-			</properties>
-		</profile>
-
-		<profile>
 			<id>deploy-artifacts</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -153,7 +124,7 @@
 								<configuration>
 									<target>
 										<copy overwrite="true"
-											file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
+											file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}"
 											todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
 										<copy overwrite="true"
@@ -204,10 +175,6 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<properties>
-				<escidoc.pubman.build.mode>pure</escidoc.pubman.build.mode>
-				<escidoc.pubman.build.hyphen>-</escidoc.pubman.build.hyphen>
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -223,7 +190,7 @@
 									<target>
 						                <!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
 										<scp
-                                            file="${project.build.directory}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging}"
+                                            file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}"
                                             todir="${jboss.user.scp}:${jboss.tmp.deploy}"
                                             keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
                                             passphrase="" trust="true" verbose="true" />
@@ -269,7 +236,7 @@
 										<sshexec host="${jboss.host}" username="${jboss.username}" 
                                             keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
                                             passphrase="" trust="true" verbose="true"
-                                            command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${escidoc.pubman.build.hyphen}${escidoc.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments"/>  
+                                            command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments"/>  
                                         	
 									</target>
 								</configuration>
@@ -307,7 +274,7 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<classifier>${escidoc.pubman.build.mode}</classifier>
+			<classifier>${inge.pubman.build.mode}</classifier>
 			<type>war</type>
 		</dependency>
 		<dependency>

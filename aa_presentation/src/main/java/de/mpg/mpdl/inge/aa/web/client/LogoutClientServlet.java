@@ -26,7 +26,7 @@ public class LogoutClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      String clientClassName = Config.getProperty("escidoc.aa.client.logout.class");
+      String clientClassName = Config.getProperty("inge.aa.client.logout.class");
       if (clientClassName != null) {
 
         Class<?> clientClass = Class.forName(clientClassName);

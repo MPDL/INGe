@@ -75,9 +75,9 @@
 			{
 				for (LocalizedTripleObject listItem : fragment.get(nodeName))
 				{
-					if (listItem instanceof TreeFragment && ((TreeFragment) listItem).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
+					if (listItem instanceof TreeFragment && ((TreeFragment) listItem).getSubject().startsWith(PropertyReader.getProperty("inge.cone.service.url")))
 				    {
-						((TreeFragment) listItem).setSubject(((TreeFragment) listItem).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length()));
+						((TreeFragment) listItem).setSubject(((TreeFragment) listItem).getSubject().substring(PropertyReader.getProperty("inge.cone.service.url").length()));
 				    }
 				}
 			}
@@ -183,15 +183,15 @@
 												if ((((TreeFragment) result).getSubject() == null) && model.isGenerateIdentifier())
 												{
 													id = model.getSubjectPrefix() + querier.createUniqueIdentifier(model.getName());
-													out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id + " (generated)");
+													out.println(PropertyReader.getProperty("inge.cone.service.url") + id + " (generated)");
 												}
 												else if (((TreeFragment) result).getSubject() != null)
 												{
-												    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("escidoc.cone.service.url")))
+												    if (((TreeFragment) result).getSubject().startsWith(PropertyReader.getProperty("inge.cone.service.url")))
 												    {
-												        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("escidoc.cone.service.url").length());
+												        id = ((TreeFragment) result).getSubject().substring(PropertyReader.getProperty("inge.cone.service.url").length());
 												        TreeFragment existingObject = querier.details(model.getName(), id, "*");
-												        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id);
+												        out.println(PropertyReader.getProperty("inge.cone.service.url") + id);
 												        
 												        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
 												        {
@@ -248,7 +248,7 @@
 												            id = matcher.group();
 													        TreeFragment existingObject = querier.details(model.getName(), id, "*");
 													        
-													        out.println(PropertyReader.getProperty("escidoc.cone.service.url") + id);
+													        out.println(PropertyReader.getProperty("inge.cone.service.url") + id);
 													        
 													        if (existingObject != null && !existingObject.isEmpty() && "skip".equals(workflow))
 													        {

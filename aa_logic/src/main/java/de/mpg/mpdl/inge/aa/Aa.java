@@ -108,7 +108,7 @@ public class Aa {
 
     String from = request.getRequestURI().toString();
 
-    String page = Config.getProperty("escidoc.aa.instance.url");
+    String page = Config.getProperty("inge.aa.instance.url");
 
     String query = request.getQueryString();
     if (query != null && !"".equals(query)) {

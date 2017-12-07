@@ -84,9 +84,8 @@ public class QuerierTest {
     assertTrue("No results for query 'of'", results.size() > 0);
     assertTrue(
         "Retrieved more results than allowed (" + results.size() + " > "
-            + Integer.parseInt(PropertyReader.getProperty("escidoc.cone.maximum.results")) + ")",
-        results.size() <= Integer.parseInt(PropertyReader
-            .getProperty("escidoc.cone.maximum.results")));
+            + Integer.parseInt(PropertyReader.getProperty("inge.cone.maximum.results")) + ")",
+        results.size() <= Integer.parseInt(PropertyReader.getProperty("inge.cone.maximum.results")));
 
     logger.info("Query returned " + results.size() + " hits");
 

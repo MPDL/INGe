@@ -87,7 +87,7 @@ public class HtmlFormatter extends AbstractFormatter {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
             HtmlFormatter.class.getClassLoader());
     InputStream template =
         ResourceUtil.getResourceAsStream("explain/html_explain.xsl",
@@ -175,18 +175,18 @@ public class HtmlFormatter extends AbstractFormatter {
       transformer
           .setParameter(
               "citation-link",
-              PropertyReader.getProperty("escidoc.pubman.instance.url")
+              PropertyReader.getProperty("inge.pubman.instance.url")
                   + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
-                  + PropertyReader.getProperty("escidoc.cone.service.url")
+                  + PropertyReader.getProperty("inge.cone.service.url")
                   + id
                   + "\"&exportFormat="
                   + exportFormat
                   + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
       transformer.setParameter(
           "item-link",
-          PropertyReader.getProperty("escidoc.pubman.instance.url")
-              + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-              + PropertyReader.getProperty("escidoc.pubman.item.pattern"));
+          PropertyReader.getProperty("inge.pubman.instance.url")
+              + PropertyReader.getProperty("inge.pubman.instance.context.path")
+              + PropertyReader.getProperty("inge.pubman.item.pattern"));
       transformer.setParameter("lang", lang);
       transformer.setParameter("subjectTagNamespace", model.getRdfAboutTag().getNamespaceURI());
       transformer.setParameter("subjectTagLocalName", model.getRdfAboutTag().getLocalPart());

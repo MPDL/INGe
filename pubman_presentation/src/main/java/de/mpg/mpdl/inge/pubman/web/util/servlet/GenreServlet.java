@@ -48,7 +48,7 @@ public class GenreServlet extends HttpServlet {
     try {
       final InputStream file =
           ResourceUtil.getResourceAsStream(
-              PropertyReader.getProperty("escidoc.pubman.genres.configuration"),
+              PropertyReader.getProperty("inge.pubman.genres.configuration"),
               GenreServlet.class.getClassLoader());
 
       final SAXParserFactory factory = SAXParserFactory.newInstance();

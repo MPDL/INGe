@@ -20,7 +20,7 @@ public class BmcOaiPmhXmlToComponentXml extends XslTransformer implements Chaina
   public Source getXsltSource() throws TransformationException {
 
     return getXmlSourceFromProperty(
-        "escidoc.transformation.bmc2escidoc_publication_component.stylesheet.filename",
+        "inge.transformation.bmc2escidoc_publication_component.stylesheet.filename",
         "transformations/thirdParty/xslt/bmc2escidoc-publication-component.xsl");
 
 
@@ -32,7 +32,7 @@ public class BmcOaiPmhXmlToComponentXml extends XslTransformer implements Chaina
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external_organization_id",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

@@ -84,7 +84,7 @@ public class RdfFormatter extends AbstractFormatter {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
             RdfFormatter.class.getClassLoader());
     InputStream template =
         ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl",

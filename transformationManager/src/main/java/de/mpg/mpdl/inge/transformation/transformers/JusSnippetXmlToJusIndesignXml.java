@@ -28,10 +28,10 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
 
 
     if (FORMAT.JUS_INDESIGN_XML.equals(getTargetFormat())) {
-      return getXmlSourceFromProperty("escidoc.transformation.jus_indesign.stylesheet.filename",
+      return getXmlSourceFromProperty("inge.transformation.jus_indesign.stylesheet.filename",
           "transformations/reports/xslt/jus_report_snippet2jus_out_indesign.xsl");
     } else if (FORMAT.JUS_HTML_XML.equals(getTargetFormat())) {
-      return getXmlSourceFromProperty("escidoc.transformation.jus_html.stylesheet.filename",
+      return getXmlSourceFromProperty("inge.transformation.jus_html.stylesheet.filename",
           "transformations/reports/xslt/jus_report_snippet2jus_out_html.xsl");
     } else {
       return null;
@@ -44,7 +44,7 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
     Map<String, Object> map = new HashMap<String, Object>();
 
     map.put("indesign-namespace",
-        getConfiguration().get(PropertyReader.getProperty("escidoc.report.indesign.namespace")));
+        getConfiguration().get(PropertyReader.getProperty("inge.report.indesign.namespace")));
 
     try {
 
@@ -53,7 +53,7 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
       DocumentBuilder docBuilder = fac.newDocumentBuilder();
       Document sortDoc =
           docBuilder.parse(ResourceUtil.getResourceAsStream(
-              PropertyReader.getProperty("escidoc.transformation.report.sortorder.filename"),
+              PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
               JusSnippetXmlToJusIndesignXml.class.getClassLoader()));
 
       map.put("sortOrderXml", sortDoc.getDocumentElement());

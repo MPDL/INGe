@@ -26,12 +26,12 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
 
     if (flavor != null && ("ICE".equals(flavor) || "BGC".equals(flavor))) {
 
-      return getXmlSourceFromProperty("escidoc.transformation.endnote.ice.stylesheet.filename",
+      return getXmlSourceFromProperty("inge.transformation.endnote.ice.stylesheet.filename",
           "transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl");
 
     } else {
 
-      return getXmlSourceFromProperty("escidoc.transformation.endnote.stylesheet.filename",
+      return getXmlSourceFromProperty("inge.transformation.endnote.stylesheet.filename",
           "transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl");
     }
 
@@ -52,8 +52,8 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("source-name", "endnote");
-    map.put("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
-    map.put("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+    map.put("root-ou", PropertyReader.getProperty("inge.pubman.root.organisation.id"));
+    map.put("external-ou", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     map.put("frameworkUrl", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
 
     return map;
@@ -69,14 +69,14 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.endnote.configuration.filename",
+        "inge.transformation.endnote.configuration.filename",
         "transformations/commonPublicationFormats/conf/endnote.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return SingleTransformer.getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.endnote.configuration.filename",
+        "inge.transformation.endnote.configuration.filename",
         "transformations/commonPublicationFormats/conf/endnote.properties").get(key);
   }
 

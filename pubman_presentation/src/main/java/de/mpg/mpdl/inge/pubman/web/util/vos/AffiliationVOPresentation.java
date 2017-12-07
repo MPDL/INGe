@@ -109,7 +109,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   public boolean getMps() {
     try {
       final String rootAffiliationMPG =
-          PropertyReader.getProperty("escidoc.pubman.root.organisation.id");
+          PropertyReader.getProperty("inge.pubman.root.organisation.id");
 
       return this.getReference().getObjectId().equals(rootAffiliationMPG);
     } catch (final Exception e) {

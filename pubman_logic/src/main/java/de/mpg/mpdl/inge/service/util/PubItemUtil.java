@@ -59,7 +59,7 @@ public class PubItemUtil {
           for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
               organization.setIdentifier(PropertyReader
-                  .getProperty("escidoc.pubman.external.organisation.id"));
+                  .getProperty("inge.pubman.external.organisation.id"));
             }
           }
         } else {
@@ -67,7 +67,7 @@ public class PubItemUtil {
               && (creator.getOrganization().getIdentifier() == null || creator.getOrganization()
                   .getIdentifier().equals(""))) {
             creator.getOrganization().setIdentifier(
-                PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                PropertyReader.getProperty("inge.pubman.external.organisation.id"));
           }
         }
       }
@@ -79,7 +79,7 @@ public class PubItemUtil {
               for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
                 if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
                   organization.setIdentifier(PropertyReader
-                      .getProperty("escidoc.pubman.external.organisation.id"));
+                      .getProperty("inge.pubman.external.organisation.id"));
                 }
               }
             } else {
@@ -87,7 +87,7 @@ public class PubItemUtil {
                   && (creator.getOrganization().getIdentifier() == null || creator
                       .getOrganization().getIdentifier().equals(""))) {
                 creator.getOrganization().setIdentifier(
-                    PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+                    PropertyReader.getProperty("inge.pubman.external.organisation.id"));
               }
             }
           }

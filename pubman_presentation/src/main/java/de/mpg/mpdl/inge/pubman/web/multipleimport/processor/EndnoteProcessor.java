@@ -167,7 +167,7 @@ public class EndnoteProcessor extends FormatProcessor {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getLength()
+   * @see de.mpg.inge.pubman.multipleimport.processor.FormatProcessor#getLength()
    */
   @Override
   public int getLength() {
@@ -177,7 +177,7 @@ public class EndnoteProcessor extends FormatProcessor {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.escidoc.pubman.multipleimport.processor.FormatProcessor#getDataAsBase64()
+   * @see de.mpg.inge.pubman.multipleimport.processor.FormatProcessor#getDataAsBase64()
    */
   @Override
   public String getDataAsBase64() {

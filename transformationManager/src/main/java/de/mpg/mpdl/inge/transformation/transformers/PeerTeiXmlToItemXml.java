@@ -20,7 +20,7 @@ public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTran
   @Override
   public Source getXsltSource() throws TransformationException {
 
-    return getXmlSourceFromProperty("escidoc.transformation.peer.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.peer.stylesheet.filename",
         "transformations/standardFormats/xslt/peer_tei2escidoc-publication-item.xsl");
 
 
@@ -37,7 +37,7 @@ public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTran
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external_organisation_id",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

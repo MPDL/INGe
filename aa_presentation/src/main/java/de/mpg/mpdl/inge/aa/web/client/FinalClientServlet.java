@@ -55,9 +55,9 @@ public class FinalClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      String clientClassName = Config.getProperty("escidoc.aa.client.class");
+      String clientClassName = Config.getProperty("inge.aa.client.class");
       if (clientClassName == null) {
-        clientClassName = Config.getProperty("escidoc.aa.client.finish.class");
+        clientClassName = Config.getProperty("inge.aa.client.finish.class");
         Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();
         client.process(request, response);

@@ -20,7 +20,7 @@ public class ArxivOaiPmhXmlToComponentXml extends XslTransformer implements Chai
   public Source getXsltSource() throws TransformationException {
 
     return getXmlSourceFromProperty(
-        "escidoc.transformation.arxiv2escidoc_publication_component.stylesheet.filename",
+        "inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename",
         "transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl");
 
 
@@ -32,7 +32,7 @@ public class ArxivOaiPmhXmlToComponentXml extends XslTransformer implements Chai
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external_organization_id",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

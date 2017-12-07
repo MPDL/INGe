@@ -193,7 +193,7 @@ public class ModelHelper {
               && (value instanceof TreeFragment && (lang.equals(value.getLanguage())
                   || value.getLanguage() == null || "".equals(value.getLanguage()) || (""
                   .equals(lang) && value.getLanguage().equals(
-                  PropertyReader.getProperty("escidoc.cone.language.default", "en")))))) {
+                  PropertyReader.getProperty("inge.cone.language.default", "en")))))) {
             TreeFragment treeValue = (TreeFragment) value;
 
             newPermutationList.addAll(getPermutations(model, predicate, treeValue, modelResult,
@@ -229,7 +229,7 @@ public class ModelHelper {
                 || "".equals(value.getLanguage())
                 || (!predicate.isLocalized() && value.getLanguage() == null)
                 || ("".equals(lang) && (value.getLanguage() == null || value.getLanguage().equals(
-                    PropertyReader.getProperty("escidoc.cone.language.default", "en"))))) {
+                    PropertyReader.getProperty("inge.cone.language.default", "en"))))) {
 
               for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
                 Map<String, List<LocalizedTripleObject>> newMap =

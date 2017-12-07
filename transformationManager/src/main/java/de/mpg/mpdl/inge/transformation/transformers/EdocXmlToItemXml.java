@@ -22,7 +22,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.edoc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.edoc.stylesheet.filename",
         "transformations/otherFormats/xslt/edoc-to-escidoc.xslt");
   }
 
@@ -38,8 +38,8 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("source-name", "edoc");
-    map.put("root-ou", PropertyReader.getProperty("escidoc.pubman.root.organisation.id"));
-    map.put("external-ou", PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+    map.put("root-ou", PropertyReader.getProperty("inge.pubman.root.organisation.id"));
+    map.put("external-ou", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     map.put("frameworkUrl", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
 
     return map;
@@ -49,7 +49,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return SingleTransformer.getDefaultConfigurationFromProperty(
-        "escidoc.transformation.edoc.configuration.filename",
+        "inge.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties");
   }
 
@@ -61,7 +61,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     return getAllConfigurationValuesFromProperty(
-        "escidoc.transformation.edoc.configuration.filename",
+        "inge.transformation.edoc.configuration.filename",
         "transformations/otherFormats/conf/edoc.properties").get(key);
   }
 

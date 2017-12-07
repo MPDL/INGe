@@ -56,9 +56,9 @@ public class StartClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      String clientClassName = Config.getProperty("escidoc.aa.client.class");
+      String clientClassName = Config.getProperty("inge.aa.client.class");
       if (clientClassName == null) {
-        clientClassName = Config.getProperty("escidoc.aa.client.start.class");
+        clientClassName = Config.getProperty("inge.aa.client.start.class");
         Class<?> clientClass = Class.forName(clientClassName);
         StartClient client = (StartClient) clientClass.newInstance();
         client.process(request, response);

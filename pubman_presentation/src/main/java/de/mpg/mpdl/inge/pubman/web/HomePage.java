@@ -82,10 +82,10 @@ public class HomePage extends BreadcrumbPage {
   public String getBlogBaseUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.blog.baseUrl");
+      url = PropertyReader.getProperty("inge.pubman.blog.baseUrl");
     } catch (final Exception e) {
       HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.blog.baseUrl' from properties file.", e);
+          "Could not read property: 'inge.pubman.blog.baseUrl' from properties file.", e);
     }
 
     return url;
@@ -99,10 +99,10 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.survey.url");
+      url = PropertyReader.getProperty("inge.pubman.survey.url");
     } catch (final Exception e) {
       HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.url' from properties file.", e);
+          "Could not read property: 'inge.pubman.survey.url' from properties file.", e);
     }
 
     return url;
@@ -114,10 +114,10 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyTitle() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.survey.title");
+      url = PropertyReader.getProperty("inge.pubman.survey.title");
     } catch (final Exception e) {
       HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.title' from properties file.", e);
+          "Could not read property: 'inge.pubman.survey.title' from properties file.", e);
     }
 
     return url;
@@ -129,10 +129,10 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyText() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.survey.text");
+      url = PropertyReader.getProperty("inge.pubman.survey.text");
     } catch (final Exception e) {
       HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.text' from properties file.", e);
+          "Could not read property: 'inge.pubman.survey.text' from properties file.", e);
     }
 
     return url;
@@ -144,10 +144,10 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyStyles() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("escidoc.pubman.survey.styles");
+      url = PropertyReader.getProperty("inge.pubman.survey.styles");
     } catch (final Exception e) {
       HomePage.logger.error(
-          "Could not read property: 'escidoc.pubman.survey.styles' from properties file.", e);
+          "Could not read property: 'inge.pubman.survey.styles' from properties file.", e);
     }
 
     return url;

@@ -16,7 +16,7 @@ public class ItemXmlToDoiMetadataXml extends XslTransformer implements Chainable
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.doi.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.doi.stylesheet.filename",
         "transformations/otherFormats/xslt/escidoc2doi.xsl");
   }
 

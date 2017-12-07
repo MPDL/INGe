@@ -88,7 +88,7 @@ public class JQueryFormatter extends AbstractFormatter {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("escidoc.cone.modelsxml.path"),
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
             JQueryFormatter.class.getClassLoader());
     InputStream template =
         ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl",
@@ -149,7 +149,7 @@ public class JQueryFormatter extends AbstractFormatter {
           result.append(value.toString());
           result.append("|");
           try {
-            result.append(PropertyReader.getProperty("escidoc.cone.service.url") + key);
+            result.append(PropertyReader.getProperty("inge.cone.service.url") + key);
           } catch (Exception e) {
             throw new ConeException(e);
           }

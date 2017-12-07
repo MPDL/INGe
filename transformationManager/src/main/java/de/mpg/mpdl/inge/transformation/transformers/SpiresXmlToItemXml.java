@@ -19,7 +19,7 @@ public class SpiresXmlToItemXml extends XslTransformer implements ChainableTrans
   public Source getXsltSource() throws TransformationException {
 
     return getXmlSourceFromProperty(
-        "escidoc.transformation.spires2escidoc_publication_item.stylesheet.filename",
+        "inge.transformation.spires2escidoc_publication_item.stylesheet.filename",
         "transformations/thirdParty/xslt/spires2escidoc-publication-item.xsl");
 
 
@@ -31,7 +31,7 @@ public class SpiresXmlToItemXml extends XslTransformer implements ChainableTrans
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external_organization_id",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

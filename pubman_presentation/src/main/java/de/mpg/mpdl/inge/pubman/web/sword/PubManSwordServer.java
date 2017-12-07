@@ -291,7 +291,7 @@ public class PubManSwordServer {
 
   public String getBaseURL() {
     try {
-      return PropertyReader.getProperty("escidoc.pubman.instance.url");
+      return PropertyReader.getProperty("inge.pubman.instance.url");
     } catch (final Exception e) {
       PubManSwordServer.logger.warn("Base URL could not be read from property file.", e);
     }

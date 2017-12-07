@@ -48,7 +48,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -59,20 +58,14 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Display
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Index;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.AffiliatedContextListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EmbargoDateAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.PublicationStatusListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentContentCategoryListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentVisibilityListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilitySearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.StandardSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.TitleSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.CreatedBySearchCriterion;
@@ -276,7 +269,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> initSubjectTypesListMenu() {
     final List<SelectItem> vocabs = new ArrayList<SelectItem>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("escidoc.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
       final String[] vocabsArr = vocabsStr.split(";");
       for (int i = 0; i < vocabsArr.length; i++) {
         final String type = vocabsArr[i].trim().toUpperCase().replace("-", "_");
@@ -285,7 +278,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         vocabs.add(si);
       }
     } catch (final Exception e) {
-      AdvancedSearchBean.logger.error("Could not read Property: 'escidoc.cone.subjectVocab'", e);
+      AdvancedSearchBean.logger.error("Could not read Property: 'inge.cone.subjectVocab'", e);
     }
     return vocabs;
   }
@@ -459,8 +452,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     // ProjectInfo
     criterionTypeList.add(new SelectItem(SearchCriterion.PROJECT_INFO, this
         .getLabel("g_project_info")));
-    
- // Component content category
+
+    // Component content category
     criterionTypeList.add(new SelectItem(SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST, this
         .getLabel("adv_search_fileContentCategory")));
 
@@ -1123,7 +1116,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
     }
 
     return this.suggestConeUrl;

@@ -19,7 +19,7 @@ public class PmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTr
   public Source getXsltSource() throws TransformationException {
 
     return getXmlSourceFromProperty(
-        "escidoc.transformation.pmc2escidoc_publication_item.stylesheet.filename",
+        "inge.transformation.pmc2escidoc_publication_item.stylesheet.filename",
         "transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl");
 
 
@@ -31,7 +31,7 @@ public class PmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTr
     map.put("content-model",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external_organization_id",
-        PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

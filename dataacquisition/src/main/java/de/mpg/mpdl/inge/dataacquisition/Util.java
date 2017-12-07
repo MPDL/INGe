@@ -188,7 +188,7 @@ public class Util {
 
     try {
       URL coneUrl =
-          new URL(PropertyReader.getProperty("escidoc.cone.service.url") + coneMethod + coneRel1
+          new URL(PropertyReader.getProperty("inge.cone.service.url") + coneMethod + coneRel1
               + mimeType + coneRel2);
       URLConnection con = ProxyHelper.openConnection(coneUrl);
       HttpURLConnection httpCon = (HttpURLConnection) con;

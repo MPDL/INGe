@@ -25,11 +25,11 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
 
     if (FORMAT.HTML_METATAGS_DC_XML.equals(getTargetFormat())) {
       return getXmlSourceFromProperty(
-          "escidoc.transformation.html_metatags_dc.stylesheet.filename",
+          "inge.transformation.html_metatags_dc.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-dc.xsl");
     } else if (FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML.equals(getTargetFormat())) {
       return getXmlSourceFromProperty(
-          "escidoc.transformation.html_metatags_highwire.stylesheet.filename",
+          "inge.transformation.html_metatags_highwire.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-highwire-press-citation.xsl");
     } else {
       return null;
@@ -40,10 +40,10 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("pubmanInstanceUrl", PropertyReader.getProperty("escidoc.pubman.instance.url"));
+    map.put("pubmanInstanceUrl", PropertyReader.getProperty("inge.pubman.instance.url"));
     map.put("pubmanComponentPattern",
-        PropertyReader.getProperty("escidoc.pubman.component.pattern"));
-    map.put("pubmanContextPath", PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
+        PropertyReader.getProperty("inge.pubman.component.pattern"));
+    map.put("pubmanContextPath", PropertyReader.getProperty("inge.pubman.instance.context.path"));
     return map;
   }
 

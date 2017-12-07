@@ -88,8 +88,8 @@ public class RdfHelper {
           String key = ((Pair) pair).getKey();
           try {
             result.append("\t<rdf:Description rdf:about=\""
-                + PropertyReader.getProperty("escidoc.cone.service.url")
-                + key.replace("\"", "\\\"") + "\">\n");
+                + PropertyReader.getProperty("inge.cone.service.url") + key.replace("\"", "\\\"")
+                + "\">\n");
             if (((Pair) pair).getValue() instanceof LocalizedString) {
               if (((LocalizedString) ((Pair) pair).getValue()).getLanguage() != null) {
                 result.append("\t\t<dc:title xml:lang=\""

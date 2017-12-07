@@ -186,7 +186,7 @@ public class CommonUtils {
     try {
       final HttpClient httpClient = new HttpClient();
       final GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
+          new GetMethod(PropertyReader.getProperty("inge.cone.service.url")
               + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
@@ -263,9 +263,8 @@ public class CommonUtils {
 
       final HttpClient client = new HttpClient();
       final GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("escidoc.cone.service.url")
-              + "iso639-3/resource/" + URLEncoder.encode(code, "UTF-8") + "?format=json&lang="
-              + locale);
+          new GetMethod(PropertyReader.getProperty("inge.cone.service.url") + "iso639-3/resource/"
+              + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
       client.executeMethod(getMethod);
       final String response = getMethod.getResponseBodyAsString();
 
@@ -534,9 +533,9 @@ public class CommonUtils {
 
   public static String getGenericItemLink(String objectId, int version) throws Exception {
     if (objectId != null) {
-      return PropertyReader.getProperty("escidoc.pubman.instance.url")
-          + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
-          + PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1",
+      return PropertyReader.getProperty("inge.pubman.instance.url")
+          + PropertyReader.getProperty("inge.pubman.instance.context.path")
+          + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
               objectId + (version != 0 ? "_" + version : ""));
     }
 

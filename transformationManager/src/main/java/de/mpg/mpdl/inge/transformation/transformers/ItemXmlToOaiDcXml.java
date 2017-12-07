@@ -16,7 +16,7 @@ public class ItemXmlToOaiDcXml extends XslTransformer implements ChainableTransf
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("escidoc.transformation.oai_dc.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.oai_dc.stylesheet.filename",
         "transformations/standardFormats/xslt/escidoc-publication-item2oai_dc.xsl");
   }
 

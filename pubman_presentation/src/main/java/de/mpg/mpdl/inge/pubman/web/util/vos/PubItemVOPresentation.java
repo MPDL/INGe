@@ -500,7 +500,7 @@ public class PubItemVOPresentation extends PubItemVO {
     final List<CreatorVO> creators = this.getMetadata().getCreators();
     final List<CreatorVO> mpgCreators = new ArrayList<CreatorVO>();
     final String rootOrganization =
-        PropertyReader.getProperty("escidoc.pubman_presentation.overview_page.authors_ou").trim();
+        PropertyReader.getProperty("inge.pubman_presentation.overview_page.authors_ou").trim();
     boolean isPartOfTheOrganization = false;
 
     if (rootOrganization != null && !rootOrganization.isEmpty()) {
