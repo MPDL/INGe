@@ -24,8 +24,7 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   public Source getXsltSource() throws TransformationException {
 
     if (FORMAT.HTML_METATAGS_DC_XML.equals(getTargetFormat())) {
-      return getXmlSourceFromProperty(
-          "inge.transformation.html_metatags_dc.stylesheet.filename",
+      return getXmlSourceFromProperty("inge.transformation.html_metatags_dc.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-dc.xsl");
     } else if (FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML.equals(getTargetFormat())) {
       return getXmlSourceFromProperty(
@@ -41,8 +40,7 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("pubmanInstanceUrl", PropertyReader.getProperty("inge.pubman.instance.url"));
-    map.put("pubmanComponentPattern",
-        PropertyReader.getProperty("inge.pubman.component.pattern"));
+    map.put("pubmanComponentPattern", PropertyReader.getProperty("inge.pubman.component.pattern"));
     map.put("pubmanContextPath", PropertyReader.getProperty("inge.pubman.instance.context.path"));
     return map;
   }

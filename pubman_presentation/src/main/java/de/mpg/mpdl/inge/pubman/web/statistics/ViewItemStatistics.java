@@ -157,8 +157,7 @@ public class ViewItemStatistics extends FacesBean {
    */
   public boolean getShowNIMSLink() {
     try {
-      final String contexts =
-          PropertyReader.getProperty("inge.pubman.statistics.nims.context.ids");
+      final String contexts = PropertyReader.getProperty("inge.pubman.statistics.nims.context.ids");
       final ItemControllerSessionBean icsb =
           (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       final ContextVO currentContext = icsb.getCurrentContext();

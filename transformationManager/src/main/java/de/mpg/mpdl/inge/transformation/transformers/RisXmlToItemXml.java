@@ -51,8 +51,7 @@ public class RisXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(
-        "inge.transformation.ris.configuration.filename",
+    return getAllConfigurationValuesFromProperty("inge.transformation.ris.configuration.filename",
         "transformations/otherFormats/conf/ris.properties").get(key);
   }
 

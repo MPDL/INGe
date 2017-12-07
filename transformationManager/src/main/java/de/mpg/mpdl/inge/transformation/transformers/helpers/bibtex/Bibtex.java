@@ -1175,8 +1175,7 @@ public class Bibtex implements BibtexInterface {
             externalOrganization.setIdentifier(PropertyReader
                 .getProperty("inge.pubman.external.organisation.id"));
           } catch (Exception e) {
-            throw new RuntimeException(
-                "Property inge.pubman.external.organisation.id not found", e);
+            throw new RuntimeException("Property inge.pubman.external.organisation.id not found", e);
           }
           if (mds.getCreators().get(0).getPerson() != null) {
             mds.getCreators().get(0).getPerson().getOrganizations().add(externalOrganization);
