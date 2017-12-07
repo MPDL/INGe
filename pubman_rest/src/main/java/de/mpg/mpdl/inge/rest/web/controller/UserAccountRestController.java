@@ -25,12 +25,14 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/users")
@@ -170,6 +172,18 @@ public class UserAccountRestController {
     AccountUserVO updated = null;
     updated = userSvc.deactivate(userId, lmd, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
+  @ApiIgnore
+  public ResponseEntity<?> changePassword(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String params)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
+      IngeApplicationException {
+    Date lmd = utils.string2Date(params.split("#")[0]);
+    String pwd = params.split("#")[1];
+    userSvc.changePassword(userId, lmd, pwd, token);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
