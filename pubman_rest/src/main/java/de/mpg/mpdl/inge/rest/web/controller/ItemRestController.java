@@ -143,6 +143,7 @@ public class ItemRestController {
       response.setHeader("Content-disposition", "attachment; filename="
           + fileVOWrapper.getFileVO().getName());
       OutputStream output = response.getOutputStream();
+      fileVOWrapper.readFile(output);
       output.flush();
       output.close();
     } catch (IOException e) {
