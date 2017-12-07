@@ -64,7 +64,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
   @Autowired
-  @Qualifier("seaweedFileServiceBean")
+  @Qualifier("postgresDbFileServiceBean")
   private FileStorageInterface fsi;
 
   @Autowired

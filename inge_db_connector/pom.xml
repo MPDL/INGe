@@ -63,6 +63,10 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_filestorage_connector</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
 		</dependency>
 		<dependency>
