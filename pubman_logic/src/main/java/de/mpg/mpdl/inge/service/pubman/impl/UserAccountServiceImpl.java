@@ -142,7 +142,7 @@ public class UserAccountServiceImpl extends
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public void changePassword(String userId, Date modificationDate, String newPassword,
+  public AccountUserVO changePassword(String userId, Date modificationDate, String newPassword,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException {
 
@@ -158,9 +158,21 @@ public class UserAccountServiceImpl extends
 
     checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
 
-    checkAa("changePassword", userAccount, transformToOld(userDbToUpdated));
+    checkAa("changePassword", userAccount, userVoToUpdated);
     userLoginRepository.updateLogin(userVoToUpdated.getUserid(),
         passwordEncoder.encode(newPassword));
+    
+    updateWithTechnicalMetadata(userDbToUpdated, userAccount, false);
+    
+    try {
+      userDbToUpdated = getDbRepository().saveAndFlush(userDbToUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+    
+    AccountUserVO objectToReturn = transformToOld(userDbToUpdated);
+    getElasticDao().updateImmediately(userDbToUpdated.getObjectId(), objectToReturn);
+    return objectToReturn;
 
   }
 

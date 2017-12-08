@@ -60,10 +60,9 @@ public class JPAConfiguration {
     dataSource.setUser(PropertyReader.getProperty("inge.database.user.name"));
     dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
 
-    logger.info("Using database <" + PropertyReader.getProperty("inge.database.jdbc.url.test")
+    logger.info("Using database <" + PropertyReader.getProperty("inge.database.jdbc.url") + ">");
+    logger.info("Using database user <" + PropertyReader.getProperty("inge.database.user.name")
         + ">");
-    logger.info("Using database user <"
-        + PropertyReader.getProperty("inge.database.user.name.test") + ">");
 
 
     return dataSource;

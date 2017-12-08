@@ -37,7 +37,7 @@ public interface UserAccountService extends GenericService<AccountUserVO, String
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException;
 
-  public void changePassword(String userId, Date modificationDate, String newPassword,
+  public AccountUserVO changePassword(String userId, Date modificationDate, String newPassword,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException,
       AuthorizationException, IngeApplicationException;
 

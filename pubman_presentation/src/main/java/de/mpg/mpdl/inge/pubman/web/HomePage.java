@@ -32,18 +32,27 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -163,15 +172,24 @@ public class HomePage extends BreadcrumbPage {
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
 
-    SearchSortCriteria sc =
-        new SearchSortCriteria(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC);
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, 4, 0, sc);
-    SearchRetrieveResponseVO<PubItemVO> resp =
-        ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
-    final List<PubItemVOPresentation> list =
-        SearchRetrieverRequestBean.extractItemsOfSearchResult(resp);
+    PubItemService pi = ApplicationBean.INSTANCE.getPubItemService();
+    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(pi.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
 
-    return list;
+    SearchSourceBuilder ssb = new SearchSourceBuilder();
+    ssb.query(bqb);
+    ssb.from(0);
+    ssb.size(4);
+    ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, org.elasticsearch.search.sort.SortOrder.DESC));
+
+    SearchResponse resp = pi.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+
+    List<PubItemVO> pubItemList =
+        SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+
+    return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
   }
 
   @Override

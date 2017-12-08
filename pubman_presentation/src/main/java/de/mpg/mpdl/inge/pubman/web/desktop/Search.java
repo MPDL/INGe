@@ -33,8 +33,11 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
@@ -43,7 +46,10 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCrit
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 @ManagedBean(name = "Search")
 @SuppressWarnings("serial")
@@ -118,7 +124,12 @@ public class Search extends FacesBean {
      * createdBy.setHiddenId(searchString); criteria.add(createdBy);
      */
 
-    final QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(criteria);
+    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService()
+        .getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED
+        .name()));
+    bqb.must(SearchCriterionBase.scListToElasticSearchQuery(criteria));
+
     // final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
 
 
@@ -149,7 +160,7 @@ public class Search extends FacesBean {
      * MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria ); cql =
      * query.getCqlQuery();
      */
-    return qb;
+    return bqb;
   }
 
   public String getOpenSearchRequest() {

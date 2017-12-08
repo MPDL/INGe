@@ -50,9 +50,11 @@ public class FeedServiceImpl {
   private OrganizationService organizationService;
 
   public SyndFeed recentReleases() throws Exception {
-    QueryBuilder qb =
-        SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
-            PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name());
+    BoolQueryBuilder qb = QueryBuilders.boolQuery();
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
     SyndFeed feed =
         getBasicSyndFeed("Recent releases in repository", "Recent releases in repository", qb);
     return feed;
@@ -62,6 +64,8 @@ public class FeedServiceImpl {
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
     List<String> ouIdsWithChild = organizationService.getChildIdPath(ouId);
     String[] indexes =
         new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
@@ -79,6 +83,8 @@ public class FeedServiceImpl {
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
     qb.must(givenQb);
 
     SyndFeed feed = getBasicSyndFeed("Search result as feed", givenQb.toString(), qb);
@@ -89,6 +95,8 @@ public class FeedServiceImpl {
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, Visibility.PUBLIC.name()));
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),

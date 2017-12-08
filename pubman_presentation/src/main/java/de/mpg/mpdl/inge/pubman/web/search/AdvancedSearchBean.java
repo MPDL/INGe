@@ -44,6 +44,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -51,6 +52,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -80,7 +82,9 @@ import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.converter.SelectItemComparator;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")
@@ -812,7 +816,18 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     try {
       // cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
 
-      qb = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
+      if (Index.ESCIDOC_ALL == indexName) {
+        BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+        bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE
+            .getPubItemService().getElasticSearchIndexFields(),
+            PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+        bqb.must(SearchCriterionBase.scListToElasticSearchQuery(allCriterions));
+        qb = bqb;
+      } else {
+        qb = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
+
+      }
+
 
     } catch (final SearchParseException e1) {
       this.error(this.getMessage("search_ParseError"));
