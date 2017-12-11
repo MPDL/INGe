@@ -786,7 +786,7 @@
 					<compilerSource>1.8</compilerSource>
 					<compilerCompliance>1.8</compilerCompliance>
 					<compilerTargetPlatform>1.8</compilerTargetPlatform>
-					<lineEnding>CRLF</lineEnding>
+					<lineEnding>LF</lineEnding>
 					<encoding>UTF-8</encoding>
 					<configFile>${project.parent.basedir}/java-google-style-custom.xml</configFile>
 				</configuration>
