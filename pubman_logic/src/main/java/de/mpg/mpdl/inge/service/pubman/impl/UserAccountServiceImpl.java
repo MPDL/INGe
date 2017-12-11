@@ -161,15 +161,15 @@ public class UserAccountServiceImpl extends
     checkAa("changePassword", userAccount, userVoToUpdated);
     userLoginRepository.updateLogin(userVoToUpdated.getUserid(),
         passwordEncoder.encode(newPassword));
-    
+
     updateWithTechnicalMetadata(userDbToUpdated, userAccount, false);
-    
+
     try {
       userDbToUpdated = getDbRepository().saveAndFlush(userDbToUpdated);
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    
+
     AccountUserVO objectToReturn = transformToOld(userDbToUpdated);
     getElasticDao().updateImmediately(userDbToUpdated.getObjectId(), objectToReturn);
     return objectToReturn;
