@@ -28,7 +28,6 @@ public class HTMLSubSupConverter implements Converter {
     tags.add("SUB");
     tags.add("SUP");
 
-    return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(),
-        tags);
+    return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
   }
 }

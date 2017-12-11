@@ -60,8 +60,7 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String toQueryString() {
-    return this.getSearchCriterion().name() + "=\""
-        + SearchCriterionBase.escapeForQueryString(this.getClassificationType()) + "||"
+    return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.getClassificationType()) + "||"
         + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "\"";
   }
 

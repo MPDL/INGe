@@ -60,8 +60,7 @@ public class FontStyle implements Cloneable {
   private boolean isPdfSimulatedItalic;
 
   public static final String CSS_CLASS_REPORT_TAG = "\"[span class=\\\"%s\\\"]\"+%s+\"[/span]\"";
-  public static final String CSS_CLASS_REGEXP =
-      "\\[span class=&quot;(\\w+?)&quot;\\](.*?)\\[/span\\]";
+  public static final String CSS_CLASS_REGEXP = "\\[span class=&quot;(\\w+?)&quot;\\](.*?)\\[/span\\]";
   public static final String CSS_CLASS_SUBST = "<span class=\"$1\">$2</span>";
 
 
@@ -325,16 +324,14 @@ public class FontStyle implements Cloneable {
 
   public Color getBackColorAwt() {
     String bc = getBackColor().toUpperCase();
-    return bc == null || "".equals(bc.trim()) || "WHITE".equals(bc) ? Color.WHITE : "BLACK"
-        .equals(bc) ? Color.BLACK : "RED".equals(bc) ? Color.RED : "BLUE".equals(bc) ? Color.BLUE
-        : Color.WHITE; // default
+    return bc == null || "".equals(bc.trim()) || "WHITE".equals(bc) ? Color.WHITE
+        : "BLACK".equals(bc) ? Color.BLACK : "RED".equals(bc) ? Color.RED : "BLUE".equals(bc) ? Color.BLUE : Color.WHITE; // default
   }
 
   public Color getForeColorAwt() {
     String fc = getForeColor().toUpperCase();
-    return fc == null || "".equals(fc.trim()) || "BLACK".equals(fc) ? Color.BLACK : "WHITE"
-        .equals(fc) ? Color.WHITE : "RED".equals(fc) ? Color.RED : "BLUE".equals(fc) ? Color.BLUE
-        : Color.BLACK; // default
+    return fc == null || "".equals(fc.trim()) || "BLACK".equals(fc) ? Color.BLACK
+        : "WHITE".equals(fc) ? Color.WHITE : "RED".equals(fc) ? Color.RED : "BLUE".equals(fc) ? Color.BLUE : Color.BLACK; // default
   }
 
 
@@ -398,14 +395,11 @@ public class FontStyle implements Cloneable {
   }
 
   public String getStyleAttributes() {
-    return " fontName=\\\"" + fontName + "\\\"" + " fontSize=\\\"" + fontSize + "\\\""
-        + " isBold=\\\"" + isBold + "\\\"" + " isItalic=\\\"" + isItalic + "\\\""
-        + " isUnderline=\\\"" + isUnderline + "\\\"" + " isStrikeThrough=\\\"" + isStrikeThrough
-        + "\\\"" + " pdfFontName=\\\"" + pdfFontName + "\\\"" + " forecolor=\\\"" + foreColor
-        + "\\\"" + " backcolor=\\\"" + backColor + "\\\"" + " pdfEncoding=\\\"" + pdfEncoding
-        + "\\\"" + " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" + " isPdfSimulatedBold=\\\""
-        + isPdfSimulatedBold + "\\\"" + " isPdfSimulatedItalic=\\\"" + isPdfSimulatedItalic
-        + "\\\"";
+    return " fontName=\\\"" + fontName + "\\\"" + " fontSize=\\\"" + fontSize + "\\\"" + " isBold=\\\"" + isBold + "\\\"" + " isItalic=\\\""
+        + isItalic + "\\\"" + " isUnderline=\\\"" + isUnderline + "\\\"" + " isStrikeThrough=\\\"" + isStrikeThrough + "\\\""
+        + " pdfFontName=\\\"" + pdfFontName + "\\\"" + " forecolor=\\\"" + foreColor + "\\\"" + " backcolor=\\\"" + backColor + "\\\""
+        + " pdfEncoding=\\\"" + pdfEncoding + "\\\"" + " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" + " isPdfSimulatedBold=\\\""
+        + isPdfSimulatedBold + "\\\"" + " isPdfSimulatedItalic=\\\"" + isPdfSimulatedItalic + "\\\"";
 
   }
 
@@ -427,8 +421,7 @@ public class FontStyle implements Cloneable {
 
   public String applyCssClass(String expr) {
 
-    return this.cssClass == null || this.cssClass.trim().equals("") ? expr : String.format(
-        CSS_CLASS_REPORT_TAG, this.cssClass, expr);
+    return this.cssClass == null || this.cssClass.trim().equals("") ? expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
     // expr :
     // "\"&lt;span" +
     // " class=\\\"" + cssClass + "\\\"" +
@@ -436,10 +429,9 @@ public class FontStyle implements Cloneable {
   }
 
   public String toString() {
-    return "[" + def + "," + name + "," + fontSize + "," + fontName + "," + isBold + "," + isItalic
-        + "," + isUnderline + "," + isStrikeThrough + "," + pdfFontName + "," + foreColor + ","
-        + backColor + "," + pdfEncoding + "," + isPdfEmbedded + "," + isPdfSimulatedBold + ","
-        + isPdfSimulatedItalic + "," + cssClass + "]";
+    return "[" + def + "," + name + "," + fontSize + "," + fontName + "," + isBold + "," + isItalic + "," + isUnderline + ","
+        + isStrikeThrough + "," + pdfFontName + "," + foreColor + "," + backColor + "," + pdfEncoding + "," + isPdfEmbedded + ","
+        + isPdfSimulatedBold + "," + isPdfSimulatedItalic + "," + cssClass + "]";
   }
 
 

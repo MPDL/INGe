@@ -61,8 +61,7 @@ public class ImportLog extends BaseImportLog {
     final ImportLog importLog = new ImportLog();
 
     importLog.endDate = resultSet.getTimestamp("enddate");
-    importLog.errorLevel =
-        BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase());
+    importLog.errorLevel = BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase());
     importLog.format = TransformerFactory.FORMAT.valueOf(resultSet.getString("format"));
     importLog.startDate = resultSet.getTimestamp("startdate");
     importLog.status = BaseImportLog.Status.valueOf(resultSet.getString("status"));
@@ -75,13 +74,11 @@ public class ImportLog extends BaseImportLog {
     return importLog;
   }
 
-  private static ImportLogItem fillImportLogItem(ResultSet resultSet, ImportLog importLog)
-      throws SQLException {
+  private static ImportLogItem fillImportLogItem(ResultSet resultSet, ImportLog importLog) throws SQLException {
     final ImportLogItem importLogItem = new ImportLogItem(importLog);
 
     importLogItem.setEndDate(resultSet.getTimestamp("enddate"));
-    importLogItem.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel")
-        .toUpperCase()));
+    importLogItem.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
     importLogItem.setStartDate(resultSet.getTimestamp("startdate"));
     importLogItem.setStatus(BaseImportLog.Status.valueOf(resultSet.getString("status")));
     importLogItem.setId(resultSet.getInt("id"));
@@ -91,12 +88,10 @@ public class ImportLog extends BaseImportLog {
     return importLogItem;
   }
 
-  private static ImportLogItemDetail fillImportLogItemDetail(ResultSet resultSet,
-      ImportLogItem importLogItem) throws SQLException {
+  private static ImportLogItemDetail fillImportLogItemDetail(ResultSet resultSet, ImportLogItem importLogItem) throws SQLException {
     final ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(importLogItem);
 
-    importLogItemDetail.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString(
-        "errorlevel").toUpperCase()));
+    importLogItemDetail.setErrorLevel(BaseImportLog.ErrorLevel.valueOf(resultSet.getString("errorlevel").toUpperCase()));
     importLogItemDetail.setStartDate(resultSet.getTimestamp("startdate"));
     importLogItemDetail.setStatus(BaseImportLog.Status.valueOf(resultSet.getString("status")));
     importLogItemDetail.setMessage(resultSet.getString("message"));
@@ -139,10 +134,9 @@ public class ImportLog extends BaseImportLog {
       // DbTools.closePreparedStatement(ps);
 
       if (loadDetails) {
-        query =
-            "select import_log_item_detail.* from import_log_item, import_log_item_detail "
-                + "where import_log_item.id = import_log_item_detail.parent "
-                + "and import_log_item.parent = ? order by import_log_item_detail.id";
+        query = "select import_log_item_detail.* from import_log_item, import_log_item_detail "
+            + "where import_log_item.id = import_log_item_detail.parent "
+            + "and import_log_item.parent = ? order by import_log_item_detail.id";
         ps = connection.prepareStatement(query);
         ps.setInt(1, id);
         rs = ps.executeQuery();
@@ -163,8 +157,7 @@ public class ImportLog extends BaseImportLog {
               currentImportLogItem.setItems(importLogItemDetails);
             }
 
-            final ImportLogItemDetail importLogItemDetail =
-                ImportLog.fillImportLogItemDetail(rs, currentImportLogItem);
+            final ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, currentImportLogItem);
             importLogItemDetails.add(importLogItemDetail);
           }
         }
@@ -179,16 +172,13 @@ public class ImportLog extends BaseImportLog {
     return importLog;
   }
 
-  public static List<ImportLogItemDetail> getImportLogItemDetails(int id, String userid,
-      Connection connection) {
+  public static List<ImportLogItemDetail> getImportLogItemDetails(int id, String userid, Connection connection) {
     final List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
 
-    final String query =
-        "select import_log_item_detail.* "
-            + "from import_log_item, import_log_item_detail, import_log "
-            + "where import_log_item.id = import_log_item_detail.parent "
-            + "and import_log_item.parent = import_log.id and import_log_item.id = ? "
-            + "and import_log.userid = ? order by import_log_item_detail.id";
+    final String query = "select import_log_item_detail.* " + "from import_log_item, import_log_item_detail, import_log "
+        + "where import_log_item.id = import_log_item_detail.parent "
+        + "and import_log_item.parent = import_log.id and import_log_item.id = ? "
+        + "and import_log.userid = ? order by import_log_item_detail.id";
 
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -201,8 +191,7 @@ public class ImportLog extends BaseImportLog {
       rs = ps.executeQuery();
 
       while (rs.next()) {
-        final ImportLogItemDetail importLogItemDetail =
-            ImportLog.fillImportLogItemDetail(rs, (ImportLogItem) null);
+        final ImportLogItemDetail importLogItemDetail = ImportLog.fillImportLogItemDetail(rs, (ImportLogItem) null);
         importLogItemDetails.add(importLogItemDetail);
       }
 
@@ -215,15 +204,13 @@ public class ImportLog extends BaseImportLog {
     }
   }
 
-  public static List<ImportLog> getImportLogs(AccountUserVO user,
-      ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir, boolean loadDetails,
-      Connection connection) {
+  public static List<ImportLog> getImportLogs(AccountUserVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
+      boolean loadDetails, Connection connection) {
     final List<ImportLog> result = new ArrayList<ImportLog>();
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    final String query =
-        "select id from import_log where userid = ? order by " + sortBy.toSQL() + " " + dir.toSQL();
+    final String query = "select id from import_log where userid = ? order by " + sortBy.toSQL() + " " + dir.toSQL();
 
     try {
       ps = connection.prepareStatement(query);
@@ -247,8 +234,8 @@ public class ImportLog extends BaseImportLog {
     return result;
   }
 
-  public static List<ImportLog> getImportLogs(AccountUserVO user,
-      ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir, Connection connection) {
+  public static List<ImportLog> getImportLogs(AccountUserVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
+      Connection connection) {
 
     return ImportLog.getImportLogs(user, sortBy, dir, true, connection);
   }
@@ -283,8 +270,7 @@ public class ImportLog extends BaseImportLog {
     if (this.currentImportLogItem == null) {
       this.currentImportLogItem = item;
     } else {
-      throw new RuntimeException(
-          "Trying to start logging an item while another is not yet finished");
+      throw new RuntimeException("Trying to start logging an item while another is not yet finished");
     }
   }
 
@@ -296,8 +282,7 @@ public class ImportLog extends BaseImportLog {
    * @param errLevel The error level of this item
    * @param exception The exception that should be added to the item
    */
-  public void addDetail(BaseImportLog.ErrorLevel errLevel, Exception exception,
-      Connection connection) {
+  public void addDetail(BaseImportLog.ErrorLevel errLevel, Exception exception, Connection connection) {
     final String msg = this.getExceptionMessage(exception);
     this.addDetail(errLevel, msg, null, connection);
   }
@@ -324,14 +309,12 @@ public class ImportLog extends BaseImportLog {
    * @param detailId The (eSciDoc) id related to this detail (e.g. the id of an identified
    *        duplicate)
    */
-  public void addDetail(BaseImportLog.ErrorLevel errLevel, String msg, String detailId,
-      Connection connection) {
+  public void addDetail(BaseImportLog.ErrorLevel errLevel, String msg, String detailId, Connection connection) {
     if (this.currentImportLogItem == null) {
       throw new RuntimeException("Trying to add a detail but no log item is started.");
     }
 
-    final ImportLogItemDetail importLogItemDetail =
-        new ImportLogItemDetail(this.currentImportLogItem);
+    final ImportLogItemDetail importLogItemDetail = new ImportLogItemDetail(this.currentImportLogItem);
     importLogItemDetail.setErrorLevel(errLevel, connection);
     importLogItemDetail.setMessage(msg);
     importLogItemDetail.setStartDate(new Date());
@@ -360,8 +343,7 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void deleteAll() {
-    final String authenticationToken =
-        ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
     final Connection connection = DbTools.getNewConnection();
     final DeleteProcess deleteProcess;
@@ -478,8 +460,7 @@ public class ImportLog extends BaseImportLog {
    */
   public String getMyItemsLink() {
     try {
-      return "DepositorWSPage.jsp?import="
-          + URLEncoder.encode(this.getMessage() + " " + this.getStartDateFormatted(), "ISO-8859-1");
+      return "DepositorWSPage.jsp?import=" + URLEncoder.encode(this.getMessage() + " " + this.getStartDateFormatted(), "ISO-8859-1");
     } catch (final UnsupportedEncodingException usee) {
       throw new RuntimeException(usee);
     }
@@ -504,8 +485,7 @@ public class ImportLog extends BaseImportLog {
   private Workflow getWorkflow() {
     if (this.workflow == null) {
       try {
-        final ContextVO contextVO =
-            ApplicationBean.INSTANCE.getContextService().get(this.context, null);
+        final ContextVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
         this.workflow = contextVO.getAdminDescriptor().getWorkflow();
       } catch (final Exception e) {
@@ -532,9 +512,7 @@ public class ImportLog extends BaseImportLog {
     try {
       connection = DbTools.getNewConnection();
 
-      String query =
-          "delete from import_log_item_detail where parent in "
-              + "(select id from import_log_item where parent = ?)";
+      String query = "delete from import_log_item_detail where parent in " + "(select id from import_log_item where parent = ?)";
 
       ps = connection.prepareStatement(query);
       ps.setInt(1, this.id);
@@ -581,10 +559,8 @@ public class ImportLog extends BaseImportLog {
     ResultSet rs = null;
 
     try {
-      ps =
-          connection.prepareStatement("insert into import_log "
-              + "(status, errorlevel, startdate, userid, name, context, format, percentage) "
-              + "values (?, ?, ?, ?, ?, ?, ?, 0)");
+      ps = connection.prepareStatement("insert into import_log "
+          + "(status, errorlevel, startdate, userid, name, context, format, percentage) " + "values (?, ?, ?, ?, ?, ?, ?, 0)");
 
       ps.setString(1, this.status.toString());
       ps.setString(2, this.errorLevel.toString());
@@ -619,10 +595,8 @@ public class ImportLog extends BaseImportLog {
     ResultSet rs = null;
 
     try {
-      ps =
-          connection.prepareStatement("insert into import_log_item "
-              + "(status, errorlevel, startdate, parent, message, item_id) "
-              + "values (?, ?, ?, ?, ?, ?)");
+      ps = connection.prepareStatement(
+          "insert into import_log_item " + "(status, errorlevel, startdate, parent, message, item_id) " + "values (?, ?, ?, ?, ?, ?)");
 
       ps.setString(1, importLogItem.getStatus().toString());
       ps.setString(2, importLogItem.getErrorLevel().toString());
@@ -651,15 +625,13 @@ public class ImportLog extends BaseImportLog {
     }
   }
 
-  private synchronized void saveImportLogItemDetail(ImportLogItemDetail importLogItemDetail,
-      Connection connection) {
+  private synchronized void saveImportLogItemDetail(ImportLogItemDetail importLogItemDetail, Connection connection) {
     PreparedStatement ps = null;
     final ResultSet rs = null;
 
     try {
-      ps =
-          connection.prepareStatement("insert into import_log_item_detail "
-              + "(status, errorlevel, startdate, parent, message) values (?, ?, ?, ?, ?)");
+      ps = connection.prepareStatement(
+          "insert into import_log_item_detail " + "(status, errorlevel, startdate, parent, message) values (?, ?, ?, ?, ?)");
 
       ps.setString(1, importLogItemDetail.getStatus().toString());
       ps.setString(2, importLogItemDetail.getErrorLevel().toString());
@@ -760,11 +732,9 @@ public class ImportLog extends BaseImportLog {
    * @param sDate The start date of this item
    * @param itemId The eSciDoc id of the imported item
    */
-  public void startItem(BaseImportLog.ErrorLevel errLevel, String msg, Date sDate, String itemId,
-      Connection connection) {
+  public void startItem(BaseImportLog.ErrorLevel errLevel, String msg, Date sDate, String itemId, Connection connection) {
     if (this.currentImportLogItem != null) {
-      throw new RuntimeException(
-          "Trying to start logging an item while another is not yet finished");
+      throw new RuntimeException("Trying to start logging an item while another is not yet finished");
     }
 
     final ImportLogItem newItem = new ImportLogItem(this);
@@ -825,8 +795,7 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void submitAll() {
-    final String authenticationToken =
-        ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
     final Connection connection = DbTools.getNewConnection();
     final SubmitProcess submitProcess;
@@ -851,8 +820,7 @@ public class ImportLog extends BaseImportLog {
    * @return Always null.
    */
   public void submitAndReleaseAll() {
-    final String authenticationToken =
-        ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
 
     final Connection connection = DbTools.getNewConnection();
     final SubmitProcess submitProcess;
@@ -913,10 +881,8 @@ public class ImportLog extends BaseImportLog {
     PreparedStatement ps = null;
 
     try {
-      ps =
-          connection.prepareStatement("update import_log set status = ?, errorlevel = ?, "
-              + "startdate = ?, enddate = ?, userid = ?, name = ?, "
-              + "context = ?, format = ?, percentage = ? where id = ?");
+      ps = connection.prepareStatement("update import_log set status = ?, errorlevel = ?, "
+          + "startdate = ?, enddate = ?, userid = ?, name = ?, " + "context = ?, format = ?, percentage = ? where id = ?");
 
       ps.setString(1, this.status.toString());
       ps.setString(2, this.errorLevel.toString());
@@ -947,10 +913,8 @@ public class ImportLog extends BaseImportLog {
     PreparedStatement ps = null;
 
     try {
-      ps =
-          connection.prepareStatement("update import_log_item set status = ?, "
-              + "errorlevel = ?, startdate = ?, enddate = ?, parent = ?, "
-              + "message = ?, item_id = ? where id = ?");
+      ps = connection.prepareStatement("update import_log_item set status = ?, "
+          + "errorlevel = ?, startdate = ?, enddate = ?, parent = ?, " + "message = ?, item_id = ? where id = ?");
 
       ps.setString(1, importLogItem.getStatus().toString());
       ps.setString(2, importLogItem.getErrorLevel().toString());

@@ -84,24 +84,21 @@ public class Search extends FacesBean {
 
     try {
       final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
-      FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?esq="
-              + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8"));
+      FacesTools.getExternalContext()
+          .redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8"));
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);
       this.error(this.getMessage("search_TechnicalError"));
     }
   }
 
-  public static QueryBuilder generateElasticSearchRequest(String searchString, boolean includeFiles)
-      throws Exception {
+  public static QueryBuilder generateElasticSearchRequest(String searchString, boolean includeFiles) throws Exception {
 
     final List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
 
 
     if (includeFiles) {
-      final AnyFieldAndFulltextSearchCriterion anyFulltext =
-          new AnyFieldAndFulltextSearchCriterion();
+      final AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();
       anyFulltext.setSearchString(searchString);
       criteria.add(anyFulltext);
     } else {
@@ -125,9 +122,8 @@ public class Search extends FacesBean {
      */
 
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService()
-        .getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED
-        .name()));
+    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
     bqb.must(SearchCriterionBase.scListToElasticSearchQuery(criteria));
 
     // final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
@@ -168,8 +164,7 @@ public class Search extends FacesBean {
 
     try {
       final QueryBuilder qb = Search.generateElasticSearchRequest(requestDummy, false);
-      final String openSearchRequest =
-          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8");
+      final String openSearchRequest = "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8");
       return openSearchRequest.replaceAll(requestDummy, "{searchTerms}");
     } catch (final Exception e) {
       Search.logger.error("Technical problem while retrieving the search results", e);

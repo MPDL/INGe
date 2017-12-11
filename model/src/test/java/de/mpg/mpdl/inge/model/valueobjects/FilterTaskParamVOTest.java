@@ -54,8 +54,7 @@ public class FilterTaskParamVOTest {
   @Test
   public void testGetFilter() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
-    FilterTaskParamVO.Filter f1 =
-        filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
+    FilterTaskParamVO.Filter f1 = filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
     ItemRefFilter f2 = filter.new ItemRefFilter();
     f2.getIdList().add(new ItemRO("escidoc:item3"));
     f2.getIdList().add(new ItemRO("escidoc:item4"));
@@ -91,8 +90,7 @@ public class FilterTaskParamVOTest {
   public void testToMapTwoItemsAndRoleFilter() {
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
-    FilterTaskParamVO.Filter f1 =
-        filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
+    FilterTaskParamVO.Filter f1 = filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
     ItemRefFilter f2 = filter.new ItemRefFilter();
     f2.getIdList().add(new ItemRO("escidoc:item3"));
     f2.getIdList().add(new ItemRO("escidoc:item4"));
@@ -104,8 +102,7 @@ public class FilterTaskParamVOTest {
     String[] q = map.get("query");
     String s = q[0].trim();
     System.out.println(s);
-    assertTrue(s
-        .equals("( \"/role\"=Depositor and \"/user\"=objectId911 )  and  ( \"/id\" any escidoc:item3 escidoc:item4 )"));
+    assertTrue(s.equals("( \"/role\"=Depositor and \"/user\"=objectId911 )  and  ( \"/id\" any escidoc:item3 escidoc:item4 )"));
   }
 
   @Test

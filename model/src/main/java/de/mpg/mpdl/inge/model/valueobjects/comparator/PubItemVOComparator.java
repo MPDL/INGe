@@ -50,8 +50,21 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMe
  * @updated 04-Sep-2007 11:45:03
  */
 public class PubItemVOComparator implements Comparator<PubItemVO> {
-  public enum Criteria {
-    TITLE, EVENT_TITLE, SOURCE_TITLE, GENRE, DATE, CREATOR, SOURCE_CREATOR, PUBLISHING_INFO, REVIEW_METHOD, MODIFICATION_DATE, CONTEXT, STATE, OWNER
+  public enum Criteria
+  {
+    TITLE,
+    EVENT_TITLE,
+    SOURCE_TITLE,
+    GENRE,
+    DATE,
+    CREATOR,
+    SOURCE_CREATOR,
+    PUBLISHING_INFO,
+    REVIEW_METHOD,
+    MODIFICATION_DATE,
+    CONTEXT,
+    STATE,
+    OWNER
   }
 
   private static final int LESS = -1;
@@ -462,8 +475,7 @@ public class PubItemVOComparator implements Comparator<PubItemVO> {
     // if(creator.getOrganization() != null)
     {
       assert creator.getOrganization() != null : "Invalid pubItem: Neither person nor organization is set in creator object.";
-      creatorname =
-          creator.getOrganization().getName() == null ? null : creator.getOrganization().getName();
+      creatorname = creator.getOrganization().getName() == null ? null : creator.getOrganization().getName();
     }
     return creatorname;
   }

@@ -79,8 +79,7 @@ public class MetadataProvider implements ItemDataProvider {
   public CSLItemData retrieveItem(String id) {
     PubItemVO currentItem = pubItemList.get(ids.indexOf(id));
     MdsPublicationVO metadata = currentItem.getMetadata();
-    CSLItemDataBuilder cslItem =
-        new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
+    CSLItemDataBuilder cslItem = new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
 
     try {
       // helper variables;
@@ -113,41 +112,35 @@ public class MetadataProvider implements ItemDataProvider {
       List<CSLName> composerList = new ArrayList<CSLName>();
       for (CreatorVO creator : metadata.getCreators()) {
         if (CreatorVO.CreatorType.PERSON.equals(creator.getType())) {
-          if (CreatorVO.CreatorRole.AUTHOR.equals(creator.getRole())
-              || CreatorVO.CreatorRole.COMMENTATOR.equals(creator.getRole())
-              || CreatorVO.CreatorRole.ACTOR.equals(creator.getRole())
-              || CreatorVO.CreatorRole.INVENTOR.equals(creator.getRole())) {
-            authorList.add(new CSLNameBuilder().given(creator.getPerson().getGivenName())
-                .family(creator.getPerson().getFamilyName()).build());
-          } else if (CreatorVO.CreatorRole.EDITOR.equals(creator.getRole())
-              || CreatorVO.CreatorRole.PRODUCER.equals(creator.getRole())
-              || CreatorVO.CreatorRole.APPLICANT.equals(creator.getRole())
-              || CreatorVO.CreatorRole.CONTRIBUTOR.equals(creator.getRole())) {
-            editorList.add(new CSLNameBuilder().given(creator.getPerson().getGivenName())
-                .family(creator.getPerson().getFamilyName()).build());
+          if (CreatorVO.CreatorRole.AUTHOR.equals(creator.getRole()) || CreatorVO.CreatorRole.COMMENTATOR.equals(creator.getRole())
+              || CreatorVO.CreatorRole.ACTOR.equals(creator.getRole()) || CreatorVO.CreatorRole.INVENTOR.equals(creator.getRole())) {
+            authorList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
+          } else if (CreatorVO.CreatorRole.EDITOR.equals(creator.getRole()) || CreatorVO.CreatorRole.PRODUCER.equals(creator.getRole())
+              || CreatorVO.CreatorRole.APPLICANT.equals(creator.getRole()) || CreatorVO.CreatorRole.CONTRIBUTOR.equals(creator.getRole())) {
+            editorList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           } else if (CreatorVO.CreatorRole.DIRECTOR.equals(creator.getRole())) {
-            directorList.add(new CSLNameBuilder().given(creator.getPerson().getGivenName())
-                .family(creator.getPerson().getFamilyName()).build());
+            directorList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           } else if (CreatorVO.CreatorRole.ILLUSTRATOR.equals(creator.getRole())
-              || CreatorVO.CreatorRole.PHOTOGRAPHER.equals(creator.getRole())
-              || CreatorVO.CreatorRole.ARTIST.equals(creator.getRole())
+              || CreatorVO.CreatorRole.PHOTOGRAPHER.equals(creator.getRole()) || CreatorVO.CreatorRole.ARTIST.equals(creator.getRole())
               || CreatorVO.CreatorRole.PAINTER.equals(creator.getRole())
               || CreatorVO.CreatorRole.CINEMATOGRAPHER.equals(creator.getRole())) {
-            illustratorList.add(new CSLNameBuilder().given(creator.getPerson().getGivenName())
-                .family(creator.getPerson().getFamilyName()).build());
+            illustratorList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           } else if (CreatorVO.CreatorRole.TRANSLATOR.equals(creator.getRole())
               || CreatorVO.CreatorRole.TRANSCRIBER.equals(creator.getRole())) {
-            translatorList.add(new CSLNameBuilder().given(creator.getPerson().getGivenName())
-                .family(creator.getPerson().getFamilyName()).build());
+            translatorList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           } else if (CreatorVO.CreatorRole.SOUND_DESIGNER.equals(creator.getRole())) {
-            composerList.add(new CSLNameBuilder().given(creator.getPerson().getGivenName())
-                .family(creator.getPerson().getFamilyName()).build());
+            composerList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           }
         } else if (CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType())) {
-          editorList.add(new CSLNameBuilder().given("").family(creator.getOrganization().getName())
-              .build()); // empty
-                         // String
-                         // needed
+          editorList.add(new CSLNameBuilder().given("").family(creator.getOrganization().getName()).build()); // empty
+                                                                                                              // String
+                                                                                                              // needed
         }
       }
       if (authorList.size() > 0) {
@@ -178,8 +171,7 @@ public class MetadataProvider implements ItemDataProvider {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
             if (dateFormats[0].equals(formatString)) {
-              cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-                  calendar.get(Calendar.DAY_OF_MONTH));
+              cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
             } else if (dateFormats[1].equals(formatString)) {
               cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
             } else if (dateFormats[2].equals(formatString)) {
@@ -198,8 +190,7 @@ public class MetadataProvider implements ItemDataProvider {
       {
         for (String formatString : dateFormats) {
           try {
-            Date date =
-                new SimpleDateFormat(formatString).parse(metadata.getDatePublishedInPrint());
+            Date date = new SimpleDateFormat(formatString).parse(metadata.getDatePublishedInPrint());
             setIssued(cslItem, formatString, date);
             break;
           } catch (ParseException e) {
@@ -218,8 +209,7 @@ public class MetadataProvider implements ItemDataProvider {
           } catch (ParseException e) {
             // This ParseException is wanted if the formats are not equal --> not thrown
             if (logger.isDebugEnabled())
-              logger
-                  .debug("Error parsing date issued (published in print). Trying other dateformat");
+              logger.debug("Error parsing date issued (published in print). Trying other dateformat");
           }
         }
       } else if (metadata.getDateAccepted() != null && Genre.THESIS.equals(metadata.getGenre())) // Published
@@ -271,13 +261,11 @@ public class MetadataProvider implements ItemDataProvider {
         Collections.sort(fileList, new FileUrlPriorityComparator());
         if (fileList.get(0) != null) {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
-              && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
-                  .equals(fileList.get(0).getContentCategory())
-                  || "http://purl.org/escidoc/metadata/ves/content-categories/post-print"
-                      .equals(fileList.get(0).getContentCategory())
-                  || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print"
-                      .equals(fileList.get(0).getContentCategory()) || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                    .equals(fileList.get(0).getContentCategory()))) {
+              && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(fileList.get(0).getContentCategory())
+                  || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(fileList.get(0).getContentCategory())
+                  || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(fileList.get(0).getContentCategory())
+                  || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
+                      .equals(fileList.get(0).getContentCategory()))) {
             if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage())) {
               cslItem.URL(fileList.get(0).getContent());
             } else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage())) {
@@ -285,8 +273,7 @@ public class MetadataProvider implements ItemDataProvider {
             }
           } else {
             for (IdentifierVO identifier : metadata.getIdentifiers()) {
-              if (IdentifierVO.IdType.URI.equals(identifier.getType())
-                  || IdentifierVO.IdType.URN.equals(identifier.getType())) {
+              if (IdentifierVO.IdType.URI.equals(identifier.getType()) || IdentifierVO.IdType.URN.equals(identifier.getType())) {
                 cslItem.URL(identifier.getId());
                 break;
               }
@@ -317,19 +304,13 @@ public class MetadataProvider implements ItemDataProvider {
         Collections.sort(identifierList, new IdentfierPriorityComparator());
         IdentifierVO identifier = identifierList.get(0);
         if (identifier != null && !IdentifierVO.IdType.DOI.equals(identifier.getType())
-            && !IdentifierVO.IdType.ISBN.equals(identifier.getType())
-            && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
-            && !IdentifierVO.IdType.URI.equals(identifier.getType())
-            && !IdentifierVO.IdType.URN.equals(identifier.getType())
-            && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
-            && !IdentifierVO.IdType.CONE.equals(identifier.getType())
-            && !IdentifierVO.IdType.EDOC.equals(identifier.getType())
-            && !IdentifierVO.IdType.PMC.equals(identifier.getType())
-            && !IdentifierVO.IdType.PMID.equals(identifier.getType())
-            && !IdentifierVO.IdType.PND.equals(identifier.getType())
+            && !IdentifierVO.IdType.ISBN.equals(identifier.getType()) && !IdentifierVO.IdType.ISSN.equals(identifier.getType())
+            && !IdentifierVO.IdType.URI.equals(identifier.getType()) && !IdentifierVO.IdType.URN.equals(identifier.getType())
+            && !IdentifierVO.IdType.ISSN.equals(identifier.getType()) && !IdentifierVO.IdType.CONE.equals(identifier.getType())
+            && !IdentifierVO.IdType.EDOC.equals(identifier.getType()) && !IdentifierVO.IdType.PMC.equals(identifier.getType())
+            && !IdentifierVO.IdType.PMID.equals(identifier.getType()) && !IdentifierVO.IdType.PND.equals(identifier.getType())
             && !IdentifierVO.IdType.ZDB.equals(identifier.getType())) {
-          cslItem.number(identifierList.get(0).getTypeString() + ": "
-              + identifierList.get(0).getId());
+          cslItem.number(identifierList.get(0).getTypeString() + ": " + identifierList.get(0).getId());
         }
       }
 
@@ -375,12 +356,10 @@ public class MetadataProvider implements ItemDataProvider {
             if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
                 || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
-                collectionEditorList.add(new CSLNameBuilder()
-                    .given(sourceCreator.getPerson().getGivenName())
+                collectionEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
                     .family(sourceCreator.getPerson().getFamilyName()).build());
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
-                collectionEditorList.add(new CSLNameBuilder().given("")
-                    .family(sourceCreator.getOrganization().getName()).build());
+                collectionEditorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
               }
             }
           }
@@ -397,22 +376,18 @@ public class MetadataProvider implements ItemDataProvider {
           for (CreatorVO sourceCreator : source.getCreators()) {
             if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
-                containerAuthorList.add(new CSLNameBuilder()
-                    .given(sourceCreator.getPerson().getGivenName())
+                containerAuthorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
                     .family(sourceCreator.getPerson().getFamilyName()).build());
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
-                containerAuthorList.add(new CSLNameBuilder().given("")
-                    .family(sourceCreator.getOrganization().getName()).build());
+                containerAuthorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
               }
             }
             if (CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
-                sourceEditorList.add(new CSLNameBuilder()
-                    .given(sourceCreator.getPerson().getGivenName())
+                sourceEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
                     .family(sourceCreator.getPerson().getFamilyName()).build());;
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
-                sourceEditorList.add(new CSLNameBuilder().given("")
-                    .family(sourceCreator.getOrganization().getName()).build());
+                sourceEditorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
               }
             }
           }
@@ -426,12 +401,9 @@ public class MetadataProvider implements ItemDataProvider {
 
         // Source short title
         for (AlternativeTitleVO sourceAlternativeTitle : source.getAlternativeTitles()) {
-          if (!SourceVO.AlternativeTitleType.HTML.toString().equals(
-              sourceAlternativeTitle.getType())
-              && !SourceVO.AlternativeTitleType.LATEX.toString().equals(
-                  sourceAlternativeTitle.getType())
-              && !SourceVO.AlternativeTitleType.MATHML.toString().equals(
-                  sourceAlternativeTitle.getType())) {
+          if (!SourceVO.AlternativeTitleType.HTML.toString().equals(sourceAlternativeTitle.getType())
+              && !SourceVO.AlternativeTitleType.LATEX.toString().equals(sourceAlternativeTitle.getType())
+              && !SourceVO.AlternativeTitleType.MATHML.toString().equals(sourceAlternativeTitle.getType())) {
             // TODO mapping to journalAbbreviation is just a workaround for a little bug in
             // citeproc-js,
             // which is fixed in the next version
@@ -488,8 +460,7 @@ public class MetadataProvider implements ItemDataProvider {
         for (IdentifierVO identifier : source.getIdentifiers()) {
           if (IdentifierVO.IdType.ISBN.equals(identifier.getType()) && !publicationIsbnExists) {
             cslItem.ISBN(identifier.getId());
-          } else if (IdentifierVO.IdType.ISSN.equals(identifier.getType())
-              && !publicationIssnExists) {
+          } else if (IdentifierVO.IdType.ISSN.equals(identifier.getType()) && !publicationIssnExists) {
             cslItem.ISSN(identifier.getId());
           }
         }
@@ -512,8 +483,7 @@ public class MetadataProvider implements ItemDataProvider {
               Calendar calendar = Calendar.getInstance();
               calendar.setTime(date);
               if (dateFormats[0].equals(formatString)) {
-                cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-                    calendar.get(Calendar.DAY_OF_MONTH));
+                cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
               } else if (dateFormats[1].equals(formatString)) {
                 cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
               } else if (dateFormats[2].equals(formatString)) {
@@ -540,8 +510,7 @@ public class MetadataProvider implements ItemDataProvider {
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(date);
     if (dateFormats[0].equals(formatString)) {
-      cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,
-          calendar.get(Calendar.DAY_OF_MONTH));
+      cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     } else if (dateFormats[1].equals(formatString)) {
       cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
     } else if (dateFormats[2].equals(formatString)) {
@@ -551,30 +520,22 @@ public class MetadataProvider implements ItemDataProvider {
 
   private CSLType getCslGenre(Genre genre) {
     CSLType cslGenre = null;
-    if (Genre.ARTICLE.equals(genre) || Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre)
-        || Genre.OTHER.equals(genre)) {
+    if (Genre.ARTICLE.equals(genre) || Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)) {
       cslGenre = CSLType.ARTICLE_JOURNAL;
-    } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre)
-        || Genre.OTHER.equals(genre)) {
+    } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)) {
       cslGenre = CSLType.ARTICLE;
-    } else if (Genre.BOOK.equals(genre) || Genre.COLLECTED_EDITION.equals(genre)
-        || Genre.COMMENTARY.equals(genre) || Genre.ENCYCLOPEDIA.equals(genre)
-        || Genre.FESTSCHRIFT.equals(genre) || Genre.HANDBOOK.equals(genre)
-        || Genre.ISSUE.equals(genre) || Genre.JOURNAL.equals(genre) || Genre.MANUAL.equals(genre)
-        || Genre.MONOGRAPH.equals(genre) || Genre.MULTI_VOLUME.equals(genre)
-        || Genre.NEWSPAPER.equals(genre) || Genre.PROCEEDINGS.equals(genre)
-        || Genre.SERIES.equals(genre)) {
+    } else if (Genre.BOOK.equals(genre) || Genre.COLLECTED_EDITION.equals(genre) || Genre.COMMENTARY.equals(genre)
+        || Genre.ENCYCLOPEDIA.equals(genre) || Genre.FESTSCHRIFT.equals(genre) || Genre.HANDBOOK.equals(genre) || Genre.ISSUE.equals(genre)
+        || Genre.JOURNAL.equals(genre) || Genre.MANUAL.equals(genre) || Genre.MONOGRAPH.equals(genre) || Genre.MULTI_VOLUME.equals(genre)
+        || Genre.NEWSPAPER.equals(genre) || Genre.PROCEEDINGS.equals(genre) || Genre.SERIES.equals(genre)) {
       cslGenre = CSLType.BOOK;
-    } else if (Genre.BOOK_ITEM.equals(genre)
-        || Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)
-        || Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre)
-        || Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre)
+    } else if (Genre.BOOK_ITEM.equals(genre) || Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)
+        || Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) || Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre)
         || Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre)) {
       cslGenre = CSLType.CHAPTER;
     } else if (Genre.BOOK_REVIEW.equals(genre)) {
       cslGenre = CSLType.REVIEW_BOOK;
-    } else if (Genre.CONFERENCE_PAPER.equals(genre) || Genre.CONFERENCE_REPORT.equals(genre)
-        || Genre.MEETING_ABSTRACT.equals(genre)) {
+    } else if (Genre.CONFERENCE_PAPER.equals(genre) || Genre.CONFERENCE_REPORT.equals(genre) || Genre.MEETING_ABSTRACT.equals(genre)) {
       cslGenre = CSLType.PAPER_CONFERENCE;
     } else if (Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre)) {
       cslGenre = CSLType.ENTRY_ENCYCLOPEDIA;
@@ -588,13 +549,11 @@ public class MetadataProvider implements ItemDataProvider {
       cslGenre = CSLType.PATENT;
     } else if (Genre.REPORT.equals(genre)) {
       cslGenre = CSLType.REPORT;
-    } else if (Genre.TALK_AT_EVENT.equals(genre) || Genre.POSTER.equals(genre)
-        || Genre.COURSEWARE_LECTURE.equals(genre)) {
+    } else if (Genre.TALK_AT_EVENT.equals(genre) || Genre.POSTER.equals(genre) || Genre.COURSEWARE_LECTURE.equals(genre)) {
       cslGenre = CSLType.SPEECH;
     } else if (Genre.THESIS.equals(genre)) {
       cslGenre = CSLType.THESIS;
-    } else if (Genre.CASE_NOTE.equals(genre) || Genre.CASE_STUDY.equals(genre)
-        || Genre.OPINION.equals(genre)) {
+    } else if (Genre.CASE_NOTE.equals(genre) || Genre.CASE_STUDY.equals(genre) || Genre.OPINION.equals(genre)) {
       cslGenre = CSLType.LEGAL_CASE;
     }
     return cslGenre;
@@ -626,8 +585,7 @@ public class MetadataProvider implements ItemDataProvider {
             if (file1.getContentCategory().equals(file2.getContentCategory())) {
               return 0;
             } else {
-              if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
-                  .equals(file1.getContentCategoryString())) {
+              if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file1.getContentCategoryString())) {
                 return -1;
               } else
                 return checkContentcategory(file1, file2);
@@ -636,8 +594,7 @@ public class MetadataProvider implements ItemDataProvider {
             if (file1.getContentCategory().equals(file2.getContentCategory())) {
               return 0;
             } else {
-              if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
-                  .equals(file1.getContentCategoryString())) {
+              if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file1.getContentCategoryString())) {
                 return -1;
               } else
                 return checkContentcategory(file1, file2);
@@ -647,8 +604,7 @@ public class MetadataProvider implements ItemDataProvider {
           }
         } else if (FileVO.Visibility.PUBLIC.equals(file1.getVisibility())) {
           return -1;
-        } else if (FileVO.Visibility.AUDIENCE.equals(file1.getVisibility())
-            && FileVO.Visibility.PRIVATE.equals(file2.getVisibility())) {
+        } else if (FileVO.Visibility.AUDIENCE.equals(file1.getVisibility()) && FileVO.Visibility.PRIVATE.equals(file2.getVisibility())) {
           return -1;
         } else {
           return 1;
@@ -659,26 +615,19 @@ public class MetadataProvider implements ItemDataProvider {
     }
 
     private int checkContentcategory(FileVO file1, FileVO file2) {
-      if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file2
-          .getContentCategory())) {
+      if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file2.getContentCategory())) {
         return 1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file1
-          .getContentCategory())) {
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file1.getContentCategory())) {
         return -1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file2
-          .getContentCategory())) {
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file2.getContentCategory())) {
         return 1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file1
-          .getContentCategory())) {
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file1.getContentCategory())) {
         return -1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file2
-          .getContentCategory())) {
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file2.getContentCategory())) {
         return 1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-          .equals(file1.getContentCategory())) {
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file1.getContentCategory())) {
         return -1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-          .equals(file2.getContentCategory())) {
+      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file2.getContentCategory())) {
         return 1;
       } else {
         return 1;

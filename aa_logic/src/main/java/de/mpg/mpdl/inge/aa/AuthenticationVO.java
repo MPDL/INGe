@@ -50,8 +50,11 @@ import de.mpg.mpdl.inge.aa.util.ShortContentHandler;
  * 
  */
 public class AuthenticationVO {
-  public enum Type {
-    USER, GROUP, ATTRIBUTE
+  public enum Type
+  {
+    USER,
+    GROUP,
+    ATTRIBUTE
   }
 
   public class Grant {
@@ -105,8 +108,7 @@ public class AuthenticationVO {
     private Role currentRole = null;
 
     @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
+    public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
       super.startElement(uri, localName, name, attributes);
 
       if ("authentication-object".equals(getLocalStack().toString())) {
@@ -121,8 +123,7 @@ public class AuthenticationVO {
     }
 
     @Override
-    public void content(String uri, String localName, String name, String content)
-        throws SAXException {
+    public void content(String uri, String localName, String name, String content) throws SAXException {
       if ("authentication-object/userid".equals(getLocalStack().toString())) {
         userId = content;
       } else if ("authentication-object/username".equals(getLocalStack().toString())) {

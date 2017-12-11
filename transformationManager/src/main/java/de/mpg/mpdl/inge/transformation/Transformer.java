@@ -9,8 +9,7 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 
 public interface Transformer {
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException;
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException;
 
   public Map<String, String> getConfiguration();
 

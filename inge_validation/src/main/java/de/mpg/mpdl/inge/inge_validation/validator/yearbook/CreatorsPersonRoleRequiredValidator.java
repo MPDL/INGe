@@ -12,8 +12,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
-public class CreatorsPersonRoleRequiredValidator extends ValidatorHandler<List<CreatorVO>>
-    implements Validator<List<CreatorVO>> {
+public class CreatorsPersonRoleRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {
@@ -36,8 +35,7 @@ public class CreatorsPersonRoleRequiredValidator extends ValidatorHandler<List<C
               if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                   || ValidationTools.isNotEmpty(p.getGivenName())) {
 
-                context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
-                    .setField("creator[" + i + "]"));
+                context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
 
                 ok = false;
 

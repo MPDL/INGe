@@ -62,18 +62,16 @@ public class EmailService {
   /**
    * {@inheritDoc}
    */
-  public static String sendMail(String smtpHost, String withAuth, String usr, String pwd,
-      String senderAddress, String[] recipientsAddresses, String[] recipientsCCAddresses,
-      String[] recipientsBCCAddresses, String[] replytoAddresses, String subject, String text,
-      String[] attachments) throws TechnicalException {
+  public static String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
+      String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
+      String subject, String text, String[] attachments) throws TechnicalException {
     logger.debug("EmailHandlingBean sendMail...");
     String status = "not sent";
     try {
       logger.debug("Email: smtpHost, usr, pwd (" + smtpHost + ", " + usr + ", " + pwd + ")");
-      logger.debug("Email: subject, text, attachments[0] (" + subject + ", " + text + ", "
-          + attachments[0] + ")");
-      logger.debug("Email: sender, recipients[0], replytoAddresses (" + senderAddress + ", "
-          + recipientsAddresses[0] + ", " + replytoAddresses[0] + ")");
+      logger.debug("Email: subject, text, attachments[0] (" + subject + ", " + text + ", " + attachments[0] + ")");
+      logger.debug("Email: sender, recipients[0], replytoAddresses (" + senderAddress + ", " + recipientsAddresses[0] + ", "
+          + replytoAddresses[0] + ")");
 
       // Setup mail server
       Properties props = System.getProperties();
@@ -165,8 +163,7 @@ public class EmailService {
     return status;
   }
 
-  private static void addAtachments(String[] attachments, Multipart multipart)
-      throws MessagingException, AddressException {
+  private static void addAtachments(String[] attachments, Multipart multipart) throws MessagingException, AddressException {
     for (String filename : attachments) {
       MimeBodyPart attachmentBodyPart = new MimeBodyPart();
 

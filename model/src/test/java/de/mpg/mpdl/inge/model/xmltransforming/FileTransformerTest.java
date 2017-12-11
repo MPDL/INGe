@@ -46,10 +46,8 @@ import javax.xml.transform.stream.StreamSource;
  * 
  */
 public class FileTransformerTest {
-  public static final String STYLESHEET =
-      "C:/repository/common_services/common_logic/src/test/resources/transformTestFiles.xsl";
-  private static TransformerFactory factory = TransformerFactory.newInstance(
-      "net.sf.saxon.TransformerFactoryImpl", null);
+  public static final String STYLESHEET = "C:/repository/common_services/common_logic/src/test/resources/transformTestFiles.xsl";
+  private static TransformerFactory factory = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
 
   /**
    * @param args
@@ -81,8 +79,7 @@ public class FileTransformerTest {
       // TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl",
       // TestFileTransformer.class.getClassLoader());
 
-      Transformer transformer =
-          factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
+      Transformer transformer = factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
 
       transformer.transform(new StreamSource(in), new StreamResult(out));
 

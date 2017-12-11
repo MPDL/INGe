@@ -145,30 +145,24 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable 
           //
           ctx.startTagAttributes(m_index, FILTER_ELEMENT_NAME);
           if (filter instanceof FrameworkItemTypeFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/structural-relations/content-model");
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/content-model");
           } else if (filter instanceof FrameworkContextTypeFilter) {
             ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/type"); // context-type
           } else if (filter instanceof OwnerFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/structural-relations/created-by"); // created-by
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/created-by"); // created-by
           } else if (filter instanceof ItemRefFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://purl.org/dc/elements/1.1/identifier"); // items
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); // items
           } else if (filter instanceof AffiliationRefFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://purl.org/dc/elements/1.1/identifier"); // organizational-units
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); // organizational-units
           } else if (filter instanceof RoleFilter) {
             ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role");
           } else if (filter instanceof PubCollectionStatusFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/properties/public-status"); // public-status
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); // public-status
           } else if (filter instanceof ItemStatusFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/properties/version/status"); // latest-version-status
-                                                                        // (according to FIZ, only
-                                                                        // latest versions are
-                                                                        // filtered)
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/version/status"); // latest-version-status
+                                                                                                                // (according to FIZ, only
+                                                                                                                // latest versions are
+                                                                                                                // filtered)
           } else if (filter instanceof TopLevelAffiliationFilter) {
             ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units"); // see
                                                                                            // OrgUnitHandler
@@ -176,26 +170,20 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable 
                                                                                            // Method
                                                                                            // retrieveOrganizationalUnits()
           } else if (filter instanceof ObjectTypeFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"); // object-type
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"); // object-type
           } else if (filter instanceof ContextFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/structural-relations/context");
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/context");
           } else if (filter instanceof LocalTagFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "/properties/content-model-specific/local-tags/local-tag");
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "/properties/content-model-specific/local-tags/local-tag");
           } else if (filter instanceof ItemPublicStatusFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/properties/public-status"); // public-status
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); // public-status
           } else if (filter instanceof UserAccountStateFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "http://escidoc.de/core/01/properties/active"); // public-status
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active"); // public-status
           } else if (filter instanceof PersonsOrganizationsFilter) {
-            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME,
-                "/md-records/md-record/publication/creator/person/organization/identifier"); // person's
-                                                                                             // organization
-                                                                                             // in
-                                                                                             // metadata
+            ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "/md-records/md-record/publication/creator/person/organization/identifier"); // person's
+                                                                                                                                     // organization
+                                                                                                                                     // in
+                                                                                                                                     // metadata
           }
           ctx.closeStartContent();
 
@@ -228,10 +216,8 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable 
             RoleFilter roleFilter = (RoleFilter) filter;
             ctx.content(roleFilter.getRole());
           } else if (filter instanceof PubCollectionStatusFilter) {
-            PubCollectionStatusFilter pubCollectionStatusFilter =
-                (PubCollectionStatusFilter) filter;
-            ctx.content(pubCollectionStatusFilter.getState().toString().replace('_', '-')
-                .toLowerCase());
+            PubCollectionStatusFilter pubCollectionStatusFilter = (PubCollectionStatusFilter) filter;
+            ctx.content(pubCollectionStatusFilter.getState().toString().replace('_', '-').toLowerCase());
           } else if (filter instanceof ItemStatusFilter) {
             ItemStatusFilter itemStatusFilter = (ItemStatusFilter) filter;
             ctx.content(itemStatusFilter.getState().toString().replace('_', '-').toLowerCase());
@@ -239,8 +225,7 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable 
             FrameworkItemTypeFilter frameworkItemTypeFilter = (FrameworkItemTypeFilter) filter;
             ctx.content(frameworkItemTypeFilter.getType());
           } else if (filter instanceof FrameworkContextTypeFilter) {
-            FrameworkContextTypeFilter frameworkContextTypeFilter =
-                (FrameworkContextTypeFilter) filter;
+            FrameworkContextTypeFilter frameworkContextTypeFilter = (FrameworkContextTypeFilter) filter;
             ctx.content(frameworkContextTypeFilter.getType());
           } else if (filter instanceof ObjectTypeFilter) {
             ObjectTypeFilter objectTypeFilter = (ObjectTypeFilter) filter;

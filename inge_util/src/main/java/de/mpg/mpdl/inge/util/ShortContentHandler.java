@@ -27,16 +27,14 @@ public class ShortContentHandler extends DefaultHandler {
   protected XMLStack localStack = new XMLStack();
 
   private StringBuffer currentContent;
-  private Map<String, Map<String, String>> namespacesMap =
-      new HashMap<String, Map<String, String>>();
+  private Map<String, Map<String, String>> namespacesMap = new HashMap<String, Map<String, String>>();
   private Map<String, String> namespaces = null;
 
   /**
    * Manage stack and namespaces.
    */
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
     Map<String, String> formerNamespaces;
     if (namespacesMap.get(stack.toString()) != null) {
       formerNamespaces = namespacesMap.get(stack.toString());
@@ -105,8 +103,7 @@ public class ShortContentHandler extends DefaultHandler {
    *        available.
    * @param content The string content of the current tag.
    */
-  public void content(String uri, String localName, String name, String content)
-      throws SAXException {
+  public void content(String uri, String localName, String name, String content) throws SAXException {
     // Do nothing by default
   }
 

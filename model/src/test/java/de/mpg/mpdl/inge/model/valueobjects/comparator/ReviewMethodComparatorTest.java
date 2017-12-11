@@ -55,8 +55,7 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase {
     ArrayList<PubItemVO> list = getPubItemList();
     Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD));
     for (PubItemVO itemVO : list) {
-      logger.debug(itemVO.getMetadata().getReviewMethod() + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(itemVO.getMetadata().getReviewMethod() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"1", "1", "3", "2", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -68,11 +67,9 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase {
   @Test
   public void sortReviewMethodDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.REVIEW_METHOD)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD)));
     for (PubItemVO itemVO : list) {
-      logger.debug(itemVO.getMetadata().getReviewMethod() + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(itemVO.getMetadata().getReviewMethod() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "2", "3", "1", "1"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -83,9 +80,7 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase {
    */
   @Test
   public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD).compare(
-            getPubItemVO4(), getPubItemVO4());
+    int rc = new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD).compare(getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }
 }

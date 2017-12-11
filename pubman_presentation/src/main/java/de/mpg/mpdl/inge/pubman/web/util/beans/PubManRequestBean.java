@@ -78,8 +78,7 @@ public class PubManRequestBean extends FacesBean {
     try {
       url = PropertyReader.getProperty("inge.pubman.policy.url");
     } catch (final Exception e) {
-      PubManRequestBean.logger.error(
-          "Could not read property: 'inge.pubman.policy.url' from properties file.", e);
+      PubManRequestBean.logger.error("Could not read property: 'inge.pubman.policy.url' from properties file.", e);
     }
 
     return url;
@@ -96,8 +95,7 @@ public class PubManRequestBean extends FacesBean {
     try {
       url = PropertyReader.getProperty("inge.pubman.contact.url");
     } catch (final Exception e) {
-      PubManRequestBean.logger.error(
-          "Could not read property: 'inge.pubman.contact.url' from properties file.", e);
+      PubManRequestBean.logger.error("Could not read property: 'inge.pubman.contact.url' from properties file.", e);
     }
 
     return url;

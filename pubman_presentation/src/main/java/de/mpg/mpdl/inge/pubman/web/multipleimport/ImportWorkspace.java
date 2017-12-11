@@ -49,32 +49,30 @@ public class ImportWorkspace extends BreadcrumbPage {
   /**
    * enum defining possible sorting columns.
    */
-  public enum SortColumn {
+  public enum SortColumn
+  {
     STARTDATE, ENDDATE, NAME, FORMAT, STATUS, ERRORLEVEL;
 
-    /**
-     * @return A representation of the element that is used for storing in a database
-     */
-    public String toSQL() {
-      return super.toString().toLowerCase();
-    }
-  }
+  /**
+   * @return A representation of the element that is used for storing in a database
+   */
+  public String toSQL() {
+    return super.toString().toLowerCase();
+  }}
 
   /**
    * enum defining sorting directions.
    * 
    */
-  public enum SortDirection {
-    ASCENDING, DESCENDING;
+  public enum SortDirection{ASCENDING,DESCENDING;
 
-    /**
-     * @return A representation of the element that is used for storing in a database
-     */
-    public String toSQL() {
-      final String value = super.toString();
-      return value.replace("ENDING", "").toLowerCase();
-    }
-  }
+  /**
+   * @return A representation of the element that is used for storing in a database
+   */
+  public String toSQL() {
+    final String value = super.toString();
+    return value.replace("ENDING", "").toLowerCase();
+  }}
 
   private ImportWorkspace.SortColumn sortColumn = ImportWorkspace.SortColumn.STARTDATE;
   private ImportWorkspace.SortDirection sortDirection = ImportWorkspace.SortDirection.DESCENDING;
@@ -89,20 +87,17 @@ public class ImportWorkspace extends BreadcrumbPage {
     ImportWorkspace.SortDirection currentDirection = null;
     ImportWorkspace.SortColumn newColumn = null;
 
-    final String sortColumnString =
-        FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
+    final String sortColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("sortColumn");
     if (sortColumnString != null && !"".equals(sortColumnString)) {
       newColumn = ImportWorkspace.SortColumn.valueOf(sortColumnString);
     }
 
-    final String currentColumnString =
-        FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
+    final String currentColumnString = FacesTools.getExternalContext().getRequestParameterMap().get("currentColumn");
     if (currentColumnString != null && !"".equals(currentColumnString)) {
       currentColumn = ImportWorkspace.SortColumn.valueOf(currentColumnString);
     }
 
-    final String currentDirectionString =
-        FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
+    final String currentDirectionString = FacesTools.getExternalContext().getRequestParameterMap().get("currentDirection");
 
     if (currentDirectionString != null && !"".equals(currentDirectionString)) {
       currentDirection = ImportWorkspace.SortDirection.valueOf(currentDirectionString);
@@ -127,8 +122,7 @@ public class ImportWorkspace extends BreadcrumbPage {
     if (user != null) {
       final Connection connection = DbTools.getNewConnection();
       try {
-        return ImportLog
-            .getImportLogs(user, this.sortColumn, this.sortDirection, false, connection);
+        return ImportLog.getImportLogs(user, this.sortColumn, this.sortDirection, false, connection);
       } finally {
         DbTools.closeConnection(connection);
       }

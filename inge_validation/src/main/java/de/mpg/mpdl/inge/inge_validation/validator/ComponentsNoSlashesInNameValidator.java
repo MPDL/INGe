@@ -32,8 +32,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * -> FileVO.name
  */
 
-public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<FileVO>> implements
-    Validator<List<FileVO>> {
+public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -49,10 +48,9 @@ public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<Fi
           if (ValidationTools.isNotEmpty(fileVO.getName()) //
               && fileVO.getName().contains("/") //
               || fileVO.getDefaultMetadata() != null //
-              && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle())
-              && fileVO.getDefaultMetadata().getTitle().contains("/")) {
-            context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField(
-                "file[" + i + "]"));
+                  && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle())
+                  && fileVO.getDefaultMetadata().getTitle().contains("/")) {
+            context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField("file[" + i + "]"));
             ok = false;
           }
         }

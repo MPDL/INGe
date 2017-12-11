@@ -60,7 +60,8 @@ import net.sf.saxon.event.SaxonOutputKeys;
  */
 public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
 
-  public static enum TASKS {
+  public static enum TASKS
+  {
     validate, compile, pdf, rtf, odt, html_plain, html_styled, txt, snippet, escidoc_snippet
   };
 
@@ -71,24 +72,22 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     Utils.checkName(cs, "Citaion Style is not defined");
 
     try {
-      Transformer transformer =
-          XmlHelper.tryTemplCache(
-              CitationUtil.getPathToClasses() + CitationUtil.TRANSFORMATIONS_DIRECTORY
-                  + CitationUtil.CITATION_STYLE_PROCESSING_XSL).newTransformer();
+      Transformer transformer = XmlHelper
+          .tryTemplCache(
+              CitationUtil.getPathToClasses() + CitationUtil.TRANSFORMATIONS_DIRECTORY + CitationUtil.CITATION_STYLE_PROCESSING_XSL)
+          .newTransformer();
 
       transformer.setURIResolver(new compilationURIResolver());
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.setOutputProperty(SaxonOutputKeys.INDENT_SPACES, "4");
 
-      transformer.transform(
-          new StreamSource(
+      transformer.transform(new StreamSource(
 
-          ResourceUtil.getResourceAsStream(CitationUtil.RESOURCES_DIRECTORY_LOCAL
-              + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/" + CitationUtil.CITATION_STYLE_XML,
-              CitationStyleManagerImpl.class.getClassLoader())), new StreamResult(
-              new FileOutputStream(CitationUtil.RESOURCES_DIRECTORY_LOCAL
-                  + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/"
-                  + CitationUtil.CITATION_STYLE_XSL)));
+          ResourceUtil.getResourceAsStream(
+              CitationUtil.RESOURCES_DIRECTORY_LOCAL + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/" + CitationUtil.CITATION_STYLE_XML,
+              CitationStyleManagerImpl.class.getClassLoader())),
+          new StreamResult(new FileOutputStream(CitationUtil.RESOURCES_DIRECTORY_LOCAL + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/"
+              + CitationUtil.CITATION_STYLE_XSL)));
 
     } catch (Exception e) {
       throw new RuntimeException("Cannot compile Citation Style " + cs, e);
@@ -134,11 +133,9 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
 
       try {
         String path =
-            ("cs-processing-xslt-includes.xml".equals(href) ? CitationUtil.getPathToClasses()
-                + CitationUtil.TRANSFORMATIONS_DIRECTORY : CitationUtil.getPathToCitationStyles())
-                + href;
-        is =
-            ResourceUtil.getResourceAsStream(path, CitationStyleManagerImpl.class.getClassLoader());
+            ("cs-processing-xslt-includes.xml".equals(href) ? CitationUtil.getPathToClasses() + CitationUtil.TRANSFORMATIONS_DIRECTORY
+                : CitationUtil.getPathToCitationStyles()) + href;
+        is = ResourceUtil.getResourceAsStream(path, CitationStyleManagerImpl.class.getClassLoader());
       } catch (IOException e) {
         throw new TransformerException(e);
       }
@@ -146,8 +143,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
   }
 
-  public static void main(String args[]) throws IOException, CitationStyleManagerException,
-      JRException {
+  public static void main(String args[]) throws IOException, CitationStyleManagerException, JRException {
     CitationStyleManagerInterface csm = new CitationStyleManagerImpl();
 
     String il = null;
@@ -191,10 +187,8 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       byte[] result =
-          CitationStyleExecuterService
-              .getOutput(ResourceUtil.getResourceAsString(il,
-                  CitationStyleManagerImpl.class.getClassLoader()), new ExportFormatVO(
-                  FormatType.LAYOUT, cs, task));
+          CitationStyleExecuterService.getOutput(ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader()),
+              new ExportFormatVO(FormatType.LAYOUT, cs, task));
       FileOutputStream fos = new FileOutputStream(outFile);
       fos.write(result);
       fos.close();

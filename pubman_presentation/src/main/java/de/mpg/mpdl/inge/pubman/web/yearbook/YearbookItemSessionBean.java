@@ -38,7 +38,8 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 @SessionScoped
 @SuppressWarnings("serial")
 public class YearbookItemSessionBean extends FacesBean {
-  enum YBWORKSPACE {
+  enum YBWORKSPACE
+  {
     CANDIDATES, MEMBERS, INVALID, NON_CANDIDATES
   }
 
@@ -51,16 +52,12 @@ public class YearbookItemSessionBean extends FacesBean {
   private YearbookDbVO yearbookForView;
 
   private PubItemListSessionBean pilsb;
-  private Map<String, YearbookInvalidItemRO> invalidItemMap =
-      new HashMap<String, YearbookInvalidItemRO>();
-  private final Map<String, YearbookInvalidItemRO> validItemMap =
-      new HashMap<String, YearbookInvalidItemRO>();
+  private Map<String, YearbookInvalidItemRO> invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
+  private final Map<String, YearbookInvalidItemRO> validItemMap = new HashMap<String, YearbookInvalidItemRO>();
 
   private final YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
-  private final OrganizationService organizationService = ApplicationBean.INSTANCE
-      .getOrganizationService();
-  private final ItemValidatingService itemValidatingService = ApplicationBean.INSTANCE
-      .getItemValidatingService();
+  private final OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
+  private final ItemValidatingService itemValidatingService = ApplicationBean.INSTANCE.getItemValidatingService();
 
   public YearbookItemSessionBean() {
     try {
@@ -85,19 +82,17 @@ public class YearbookItemSessionBean extends FacesBean {
 
       if (id == null) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        List<String> orgIds =
-            YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
+        List<String> orgIds = YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
         BoolQueryBuilder bqb = QueryBuilders.boolQuery();
 
         bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgIds.get(0)));
         bqb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_YEAR, currentYear));
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bqb);
-        SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService()
-            .search(srr, getLoginHelper().getAuthenticationToken());
+        SearchRetrieveResponseVO<YearbookDbVO> resp =
+            ApplicationBean.INSTANCE.getYearbookService().search(srr, getLoginHelper().getAuthenticationToken());
 
-        List<YearbookDbVO> yearbooks =
-            resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+        List<YearbookDbVO> yearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
         if (yearbooks.size() == 1) {
           id = yearbooks.get(0).getObjectId();
         }
@@ -115,10 +110,8 @@ public class YearbookItemSessionBean extends FacesBean {
       }
 
 
-      if(id!=null)
-      {
-        YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id,
-            getLoginHelper().getAuthenticationToken());
+      if (id != null) {
+        YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id, getLoginHelper().getAuthenticationToken());
         System.out.println("Yearbook: " + yb.getObjectId() + " - " + yb.getLastModificationDate());
         this.setYearbook(yb);
       }
@@ -217,11 +210,9 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private void addRelations(List<String> relList) throws Exception {
 
-    YearbookDbVO retrievedYearbook =
-        yearbookService.get(this.yearbook.getObjectId(), getLoginHelper().getAuthenticationToken());
+    YearbookDbVO retrievedYearbook = yearbookService.get(this.yearbook.getObjectId(), getLoginHelper().getAuthenticationToken());
     retrievedYearbook.getItemIds().addAll(relList);
-    this.yearbook =
-        yearbookService.update(retrievedYearbook, getLoginHelper().getAuthenticationToken());
+    this.yearbook = yearbookService.update(retrievedYearbook, getLoginHelper().getAuthenticationToken());
     // if (relList.size() > 0) {
     // String updatedItemXml =
     // this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
@@ -238,11 +229,9 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private void removeRelations(List<String> relList) throws Exception {
 
-    YearbookDbVO retrievedYearbook =
-        yearbookService.get(this.yearbook.getObjectId(), getLoginHelper().getAuthenticationToken());
+    YearbookDbVO retrievedYearbook = yearbookService.get(this.yearbook.getObjectId(), getLoginHelper().getAuthenticationToken());
     retrievedYearbook.getItemIds().removeAll(relList);
-    this.yearbook =
-        yearbookService.update(retrievedYearbook, getLoginHelper().getAuthenticationToken());
+    this.yearbook = yearbookService.update(retrievedYearbook, getLoginHelper().getAuthenticationToken());
 
     // if (relList.size() > 0) {
     // String updatedItemXml =
@@ -283,8 +272,7 @@ public class YearbookItemSessionBean extends FacesBean {
     BoolQueryBuilder qb = YearbookUtils.getCandidateQuery();
     qb.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id));
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 0, 0, null);
-    SearchRetrieveResponseVO<PubItemVO> resp =
-        ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+    SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
     return resp.getNumberOfRecords() > 0;
   }
 
@@ -324,8 +312,7 @@ public class YearbookItemSessionBean extends FacesBean {
     } else if (this.validItemMap.containsKey(pubItem.getVersion().getObjectId())) {
       storedItem = this.validItemMap.get(pubItem.getVersion().getObjectId());
     }
-    if (storedItem == null
-        || !pubItem.getModificationDate().equals(storedItem.getLastModificationDate())) {
+    if (storedItem == null || !pubItem.getModificationDate().equals(storedItem.getLastModificationDate())) {
       // revalidate
       System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
       // TODO maybe a special validationpoint for the yearbook needs to be created
@@ -339,12 +326,12 @@ public class YearbookItemSessionBean extends FacesBean {
       }
       if (rep.getItems().size() > 0) {
         this.validItemMap.remove(pubItem.getVersion().getObjectId());
-        this.invalidItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(
-            pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        this.invalidItemMap.put(pubItem.getVersion().getObjectId(),
+            new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
       } else {
         this.invalidItemMap.remove(pubItem.getVersion().getObjectId());
-        this.validItemMap.put(pubItem.getVersion().getObjectId(), new YearbookInvalidItemRO(pubItem
-            .getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        this.validItemMap.put(pubItem.getVersion().getObjectId(),
+            new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
       }
       return rep.isValid();
     }
@@ -380,8 +367,7 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String changeToCandidates() {
-    final PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    final PubItemListSessionBean pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.setSelectedWorkspace(YBWORKSPACE.CANDIDATES);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -390,8 +376,7 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String changeToMembers() {
-    final PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    final PubItemListSessionBean pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.setSelectedWorkspace(YBWORKSPACE.MEMBERS);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -400,8 +385,7 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String changeToInvalidItems() {
-    final PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    final PubItemListSessionBean pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.setSelectedWorkspace(YBWORKSPACE.INVALID);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -410,8 +394,7 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String changeToNonCandidates() {
-    final PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    final PubItemListSessionBean pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.setSelectedWorkspace(YBWORKSPACE.NON_CANDIDATES);
     pilsb.setCurrentPageNumber(1);
     pilsb.redirect();
@@ -426,8 +409,7 @@ public class YearbookItemSessionBean extends FacesBean {
       for (final PubItemVOPresentation pubItem : pubItemList) {
         final boolean valid = this.validateItem(pubItem);
         if (!valid) {
-          this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1",
-              "\"" + pubItem.getMetadata().getTitle() + "\""));
+          this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1", "\"" + pubItem.getMetadata().getTitle() + "\""));
           allValid = false;
         }
       }
@@ -435,9 +417,8 @@ public class YearbookItemSessionBean extends FacesBean {
         this.error(this.getMessage("Yearbook_SubmitError"));
       } else {
 
-        YearbookDbVO updatedYb =
-            ApplicationBean.INSTANCE.getYearbookService().submit(this.yearbook.getObjectId(),
-                this.yearbook.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
+        YearbookDbVO updatedYb = ApplicationBean.INSTANCE.getYearbookService().submit(this.yearbook.getObjectId(),
+            this.yearbook.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
         this.setYearbook(updatedYb);
 
         this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));

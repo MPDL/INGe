@@ -51,18 +51,15 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
  * 
  */
 public class TransformSearchResultTest extends XmlTransformingTestBase {
-  private static final String TEST_FILE_ROOT =
-      "xmltransforming/component/transformSearchResultTest/";
+  private static final String TEST_FILE_ROOT = "xmltransforming/component/transformSearchResultTest/";
   private static final String SEARCH_SAMPLE_FILE1 = TEST_FILE_ROOT + "search-result_sample.xml";
   private static final String SEARCH_SAMPLE_FILE3 = TEST_FILE_ROOT + "search-result_sample3.xml";
-  private static final String SEARCH_SAMPLE_FILE4 = TEST_FILE_ROOT
-      + "search-retrieve-response_sample.xml";
+  private static final String SEARCH_SAMPLE_FILE4 = TEST_FILE_ROOT + "search-retrieve-response_sample.xml";
 
   @Test
   public void testItemSearchResult() throws Exception {
     String searchResultXML = readFile(SEARCH_SAMPLE_FILE1);
-    SearchResultElement itemResultVO =
-        XmlTransformingService.transformToSearchResult(searchResultXML);
+    SearchResultElement itemResultVO = XmlTransformingService.transformToSearchResult(searchResultXML);
     assertNotNull(itemResultVO);
     assertTrue(itemResultVO instanceof ItemResultVO);
 
@@ -73,16 +70,14 @@ public class TransformSearchResultTest extends XmlTransformingTestBase {
   @Test
   public void testAffiliationSearchResult() throws Exception {
     String searchResultXML = readFile(SEARCH_SAMPLE_FILE3);
-    SearchResultElement affiliationResultVO =
-        XmlTransformingService.transformToSearchResult(searchResultXML);
+    SearchResultElement affiliationResultVO = XmlTransformingService.transformToSearchResult(searchResultXML);
     assertNotNull(affiliationResultVO);
     assertTrue(affiliationResultVO instanceof AffiliationResultVO);
 
     assertTrue(((AffiliationResultVO) affiliationResultVO).getMetadataSets().size() == 1);
     assertTrue(((AffiliationResultVO) affiliationResultVO).getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO);
     assertEquals("MPI for the History of Science",
-        ((MdsOrganizationalUnitDetailsVO) ((AffiliationResultVO) affiliationResultVO)
-            .getMetadataSets().get(0)).getName());
+        ((MdsOrganizationalUnitDetailsVO) ((AffiliationResultVO) affiliationResultVO).getMetadataSets().get(0)).getName());
   }
 
   @Test
@@ -97,7 +92,6 @@ public class TransformSearchResultTest extends XmlTransformingTestBase {
 
     assertEquals("Wrong Context name", contextVO.getName(), "PubMan Default Context");
     assertEquals("Wrong Context Id", contextVO.getReference().getObjectId(), "escidoc:2001");
-    assertEquals("Wrong Context Created-by", contextVO.getCreator().getObjectId(),
-        "escidoc:exuser1");
+    assertEquals("Wrong Context Created-by", contextVO.getCreator().getObjectId(), "escidoc:exuser1");
   }
 }

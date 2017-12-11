@@ -82,13 +82,11 @@ public class TestBase {
   protected static final String MIME_TYPE = "application/pdf";
   protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
   protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
-  protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION =
-      "This is the sample collection " + "description of the PubMan Test\n"
-          + "collection. Any content can be stored in this collection, which is of relevance\n"
-          + "for the users of the system. You can submit relevant bibliographic information\n"
-          + "for your publication (metadata) and all relevant files. The MPS is the\n"
-          + "responsible affiliation for this collection. Please contact\n"
-          + "u.tschida@zim.mpg.de for any questions.";
+  protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection " + "description of the PubMan Test\n"
+      + "collection. Any content can be stored in this collection, which is of relevance\n"
+      + "for the users of the system. You can submit relevant bibliographic information\n"
+      + "for your publication (metadata) and all relevant files. The MPS is the\n"
+      + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
 
   /**
    * Creates a well-defined PubItemVO without any files attached.
@@ -109,8 +107,7 @@ public class TestBase {
     contextRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     item.setContext(contextRef);
     try {
-      String contentModel =
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
       item.setContentModel(contentModel);
     } catch (Exception e) {
       throw new RuntimeException("Error getting content-model", e);
@@ -201,8 +198,7 @@ public class TestBase {
     event.setTitle("Un bôn vín fràn\uc3a7ais");
     // subject
     String s1 = "This is the subject. Betreffs fußen auf Gerüchten für Äonen.";
-    logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = "
-        + (s1.contains("ü")));
+    logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = " + (s1.contains("ü")));
     mds.setFreeKeywords(s1);
     // table of contents
     mds.setTableOfContents("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.");
@@ -387,8 +383,7 @@ public class TestBase {
     mds.setDegree(DegreeType.MASTER);
 
     // Abstracts
-    mds.getAbstracts().add(
-        new AbstractVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
+    mds.getAbstracts().add(new AbstractVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
     mds.getAbstracts().add(new AbstractVO("This is the summary of the publication.", "en"));
 
     // Subject
@@ -411,8 +406,7 @@ public class TestBase {
     // Event.Title
     event.setTitle("Weekly progress meeting");
     // Event.AlternativeTitle
-    event.getAlternativeTitles().add(
-        new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
+    event.getAlternativeTitles().add(new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
     // Event.StartDate
     event.setStartDate("2004-11-11");
     // Event.EndDate
@@ -437,19 +431,14 @@ public class TestBase {
     // source.setGenre(SourceVO.Genre.SERIES);
     // Source.AlternativeTitle
     source.getAlternativeTitles().add(new AlternativeTitleVO("This is the root of all ???.", "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO(
-            "< and & are illegal characters in XML and therefore have to be escaped.", "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO(
-            "> and ' and ? are problematic characters in XML and therefore should be escaped.",
-            "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO(
-            "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the"
-                + " \\, -, the _, the\n" + "~, the @ and the #)?", "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO("By the way, the Euro sign looks like this: €", "en"));
+    source.getAlternativeTitles()
+        .add(new AlternativeTitleVO("< and & are illegal characters in XML and therefore have to be escaped.", "en"));
+    source.getAlternativeTitles()
+        .add(new AlternativeTitleVO("> and ' and ? are problematic characters in XML and therefore should be escaped.", "en"));
+    source.getAlternativeTitles().add(new AlternativeTitleVO(
+        "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the" + " \\, -, the _, the\n" + "~, the @ and the #)?",
+        "en"));
+    source.getAlternativeTitles().add(new AlternativeTitleVO("By the way, the Euro sign looks like this: €", "en"));
     // Source.Creator
     creator = new CreatorVO();
     // Source.Creator.Role
@@ -533,11 +522,9 @@ public class TestBase {
     person.setFamilyName("Meier");
     // Creator.Person.AlternativeName
     person.getAlternativeNames().add("Werner");
-    person.getAlternativeNames().add(
-        "These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", "
-            + "\"&lt;\", \"&quot;\", \"&apos;\"");
-    person.getAlternativeNames().add(
-        "These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
+    person.getAlternativeNames()
+        .add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", " + "\"&lt;\", \"&quot;\", \"&apos;\"");
+    person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
     // Creator.Person.Title
     person.getTitles().add("Dr. (?)");
     // Creator.Person.Pseudonym
@@ -670,8 +657,7 @@ public class TestBase {
     // Event.Title
     event.setTitle("Länderübergreifende Änderungsüberlegungen");
     // Event.AlternativeTitle
-    event.getAlternativeTitles().add(
-        new AlternativeTitleVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
+    event.getAlternativeTitles().add(new AlternativeTitleVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
     // Event.StartDate
     event.setStartDate("2000-02-29");
     // Event.EndDate

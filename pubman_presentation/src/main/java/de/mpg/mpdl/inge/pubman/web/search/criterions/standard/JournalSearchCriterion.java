@@ -47,8 +47,7 @@ public class JournalSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE,
-        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE};
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, PubItemServiceDbImpl.INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE};
 
   }
 

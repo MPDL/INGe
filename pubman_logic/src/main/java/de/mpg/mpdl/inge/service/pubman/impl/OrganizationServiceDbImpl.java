@@ -49,16 +49,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 @Primary
-public class OrganizationServiceDbImpl extends
-    GenericServiceImpl<AffiliationVO, AffiliationDbVO, String> implements OrganizationService,
-    ReindexListener {
+public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationVO, AffiliationDbVO, String>
+    implements OrganizationService, ReindexListener {
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
   public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";
   public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "defaultMetadata.alternativeNames";
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliations.objectId";
-  public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID =
-      "predecessorAffiliations.objectId";
+  public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
 
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
@@ -87,10 +85,9 @@ public class OrganizationServiceDbImpl extends
    * @return all top-level affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
-    final QueryBuilder qb = QueryBuilders.boolQuery()
-        .mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
+  public List<AffiliationVO> searchTopLevelOrganizations()
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    final QueryBuilder qb = QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
@@ -106,33 +103,28 @@ public class OrganizationServiceDbImpl extends
    * @throws Exception if framework access fails
    */
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
-    final QueryBuilder qb =
-        QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    final QueryBuilder qb = QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
 
-  public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
-    final QueryBuilder qb = QueryBuilders.boolQuery()
-        .must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
+  public List<AffiliationVO> searchSuccessors(String objectId)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    final QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
     final SearchRetrieveResponseVO<AffiliationVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
   }
 
-  private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException,
-      IngeTechnicalException {
+  private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException, IngeTechnicalException {
     idList.add(ouId);
     SearchSourceBuilder ssb = new SearchSourceBuilder();
     ssb.docValueField(INDEX_OBJECT_ID);
-    ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(),
-        INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
+    ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
     SearchResponse resp = organizationDao.searchDetailed(ssb);
 
     if (resp.getHits().getTotalHits() > 0) {
@@ -145,8 +137,8 @@ public class OrganizationServiceDbImpl extends
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void delete(String id, String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void delete(String id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AffiliationDbVO ouDbTobeDeleted = organizationRepository.findOne(id);
     super.delete(id, authenticationToken);
@@ -154,10 +146,8 @@ public class OrganizationServiceDbImpl extends
     if (ouDbTobeDeleted.getParentAffiliation() != null) {
       AffiliationVO ouVoTobeDeleted = EntityTransformer.transformToOld(ouDbTobeDeleted);
 
-      AffiliationDbVO parentVO =
-          organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
-      organizationDao.createImmediately(parentVO.getObjectId(),
-          EntityTransformer.transformToOld(parentVO));
+      AffiliationDbVO parentVO = organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
+      organizationDao.createImmediately(parentVO.getObjectId(), EntityTransformer.transformToOld(parentVO));
     }
 
 
@@ -167,8 +157,7 @@ public class OrganizationServiceDbImpl extends
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public AffiliationVO open(String id, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, AffiliationDbVO.State.OPENED);
   }
 
@@ -176,14 +165,12 @@ public class OrganizationServiceDbImpl extends
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public AffiliationVO close(String id, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, AffiliationDbVO.State.CLOSED);
   }
 
-  private AffiliationVO changeState(String id, Date modificationDate, String authenticationToken,
-      AffiliationDbVO.State state) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  private AffiliationVO changeState(String id, Date modificationDate, String authenticationToken, AffiliationDbVO.State state)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
     if (affDbToBeUpdated == null) {
@@ -195,16 +182,13 @@ public class OrganizationServiceDbImpl extends
     checkEqualModificationDate(modificationDate, getModificationDate(affVoToBeUpdated));
 
     if (affDbToBeUpdated.getParentAffiliation() != null && state == AffiliationDbVO.State.OPENED) {
-      AffiliationDbVO parentVo =
-          organizationRepository.findOne(affDbToBeUpdated.getParentAffiliation().getObjectId());
+      AffiliationDbVO parentVo = organizationRepository.findOne(affDbToBeUpdated.getParentAffiliation().getObjectId());
       if (parentVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
-        throw new IngeApplicationException("Parent organization " + parentVo.getObjectId()
-            + " must be in state OPENED");
+        throw new IngeApplicationException("Parent organization " + parentVo.getObjectId() + " must be in state OPENED");
       }
     }
 
-    checkAa((state == AffiliationDbVO.State.OPENED ? "open" : "close"), userAccount,
-        affVoToBeUpdated);
+    checkAa((state == AffiliationDbVO.State.OPENED ? "open" : "close"), userAccount, affVoToBeUpdated);
 
     affDbToBeUpdated.setPublicStatus(state);
     updateWithTechnicalMetadata(affDbToBeUpdated, userAccount, false);
@@ -226,9 +210,8 @@ public class OrganizationServiceDbImpl extends
 
 
   @Override
-  protected List<String> updateObjectWithValues(AffiliationVO givenAff,
-      AffiliationDbVO toBeUpdatedAff, AccountUserVO userAccount, boolean createNew)
-      throws IngeTechnicalException, IngeApplicationException {
+  protected List<String> updateObjectWithValues(AffiliationVO givenAff, AffiliationDbVO toBeUpdatedAff, AccountUserVO userAccount,
+      boolean createNew) throws IngeTechnicalException, IngeApplicationException {
 
     if (createNew) {
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
@@ -239,19 +222,15 @@ public class OrganizationServiceDbImpl extends
 
     toBeUpdatedAff.setName(givenAff.getDefaultMetadata().getName());
 
-    if (givenAff.getDefaultMetadata().getName() == null
-        || givenAff.getDefaultMetadata().getName().trim().isEmpty()) {
+    if (givenAff.getDefaultMetadata().getName() == null || givenAff.getDefaultMetadata().getName().trim().isEmpty()) {
       throw new IngeApplicationException("Please provide a name for the organization.");
     }
 
     // Set new parents, parents must be in state CREATED or OPENED
-    String oldParentAffId =
-        toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation()
-            .getObjectId() : null;
-    String newParentAffId =
-        givenAff.getParentAffiliations() != null && givenAff.getParentAffiliations().size() > 0 ? givenAff
-            .getParentAffiliations().get(0).getObjectId()
-            : null;
+    String oldParentAffId = toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation().getObjectId() : null;
+    String newParentAffId = givenAff.getParentAffiliations() != null && givenAff.getParentAffiliations().size() > 0
+        ? givenAff.getParentAffiliations().get(0).getObjectId()
+        : null;
 
     if (givenAff.getPredecessorAffiliations() != null) {
       toBeUpdatedAff.getPredecessorAffiliations().clear();
@@ -268,8 +247,7 @@ public class OrganizationServiceDbImpl extends
       return reindexList;
     }
 
-    if ((oldParentAffId != null && newParentAffId == null)
-        || (oldParentAffId == null && newParentAffId != null)
+    if ((oldParentAffId != null && newParentAffId == null) || (oldParentAffId == null && newParentAffId != null)
         || !oldParentAffId.equals(newParentAffId)) {
 
       if (oldParentAffId != null) {
@@ -277,10 +255,9 @@ public class OrganizationServiceDbImpl extends
       }
       if (newParentAffId != null) {
         AffiliationDbVO newAffVo = organizationRepository.findOne(newParentAffId);
-        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.CREATED
-            && newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
-          throw new IngeApplicationException("Parent Affiliation " + newAffVo.getObjectId()
-              + " has wrong state " + newAffVo.getPublicStatus().toString());
+        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.CREATED && newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
+          throw new IngeApplicationException(
+              "Parent Affiliation " + newAffVo.getObjectId() + " has wrong state " + newAffVo.getPublicStatus().toString());
         }
         toBeUpdatedAff.setParentAffiliation(newAffVo);
         reindexList.add(newParentAffId);
@@ -318,8 +295,7 @@ public class OrganizationServiceDbImpl extends
 
 
   @Transactional
-  public List<String> getChildIdPath(String id) throws IngeTechnicalException,
-      IngeApplicationException {
+  public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
     List<String> ouIds = new ArrayList<>();
     fillWithChildOus(ouIds, id);
     return ouIds;
@@ -372,8 +348,7 @@ public class OrganizationServiceDbImpl extends
       logger.info("CRON: refreshAllChildrenOfMpg() started...");
       List<String> allChildrenOfMpg_ = this.getChildIdPath(this.mpgId);
       this.allChildrenOfMpg = allChildrenOfMpg_;
-      logger.info("CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size()
-          + ").");
+      logger.info("CRON: refreshAllChildrenOfMpg() finished (" + this.allChildrenOfMpg.size() + ").");
     } catch (IngeTechnicalException | IngeApplicationException e) {
       logger.error("CRON: refreshAllChildrenOfMpg() failed!", e);
     }

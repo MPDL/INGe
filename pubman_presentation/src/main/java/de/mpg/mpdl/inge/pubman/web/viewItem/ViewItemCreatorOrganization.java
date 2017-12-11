@@ -98,8 +98,7 @@ public class ViewItemCreatorOrganization {
 
     this.organizationInfoPage =
         "'<html><head><title>Organisation</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
-            + CommonUtils.htmlEscape(organizationName)
-            + "</p><p style=font-family:verdana,arial;font-size:12px>"
+            + CommonUtils.htmlEscape(organizationName) + "</p><p style=font-family:verdana,arial;font-size:12px>"
             + CommonUtils.htmlEscape(addr) + "</p></body></html>'";
   }
 }

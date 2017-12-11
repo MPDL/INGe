@@ -151,20 +151,16 @@ public class SourceBean extends FacesBean {
               // if the temporary organization is to be added to the sorted set of organizations
               sortOrganizationList.add(tempOrganizationList.get(j));
               // create new Organization view object
-              this.getSourceOrganizationList().add(
-                  ViewItemFull.formatCreatorOrganization(tempOrganizationList.get(j),
-                      affiliationPosition));
+              this.getSourceOrganizationList()
+                  .add(ViewItemFull.formatCreatorOrganization(tempOrganizationList.get(j), affiliationPosition));
             }
           }
         }
 
-        formattedCreator =
-            formatter.formatCreator(creator1,
-                ViewItemFull.formatCreatorOrganizationIndex(creator1, sortOrganizationList));
+        formattedCreator = formatter.formatCreator(creator1, ViewItemFull.formatCreatorOrganizationIndex(creator1, sortOrganizationList));
         creatorDisplay.setFormattedDisplay(formattedCreator);
 
-        if (creator1.getPerson().getIdentifier() != null
-            && (creator1.getPerson().getIdentifier().getType() == IdType.CONE)) {
+        if (creator1.getPerson().getIdentifier() != null && (creator1.getPerson().getIdentifier().getType() == IdType.CONE)) {
           try {
             creatorDisplay.setPortfolioLink(creator1.getPerson().getIdentifier().getId());
           } catch (final Exception e) {
@@ -186,8 +182,7 @@ public class SourceBean extends FacesBean {
         creatorOrganization.setOrganizationName(formattedCreator);
         creatorOrganization.setPosition(new Integer(counterOrganization).toString());
         creatorOrganization.setOrganizationAddress(creator1.getOrganization().getAddress());
-        creatorOrganization.setOrganizationInfoPage(formattedCreator, creator1.getOrganization()
-            .getAddress());
+        creatorOrganization.setOrganizationInfoPage(formattedCreator, creator1.getOrganization().getAddress());
         creatorOrganization.setIdentifier(creator1.getOrganization().getIdentifier());
         this.sourceCreatorOrganizationsArray.add(creatorOrganization);
         creator.setCreatorType(ViewItemCreators.Type.ORGANIZATION.toString());
@@ -200,13 +195,9 @@ public class SourceBean extends FacesBean {
       this.setSourceAffiliatedOrganizationsList(sortOrganizationList);
       // generate a 'well-formed' list for presentation in the jsp
       for (int k = 0; k < sortOrganizationList.size(); k++) {
-        final String name =
-            sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName()
-                : "";
-        formattedOrganization =
-            "<p>" + (k + 1) + ": " + name + "</p>" + "<p>"
-                + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
-                + sortOrganizationList.get(k).getIdentifier() + "</p>";
+        final String name = sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName() : "";
+        formattedOrganization = "<p>" + (k + 1) + ": " + name + "</p>" + "<p>" + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>"
+            + sortOrganizationList.get(k).getIdentifier() + "</p>";
         this.sourceOrganizationArray.add(formattedOrganization);
       }
     } // end for each creator in the list
@@ -225,31 +216,25 @@ public class SourceBean extends FacesBean {
     if (source.getPublishingInfo() != null) {
 
       // Place
-      if (source.getPublishingInfo().getPlace() != null
-          && !source.getPublishingInfo().getPlace().equals("")) {
+      if (source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().equals("")) {
         publishingInfo.append(source.getPublishingInfo().getPlace().trim());
       }
 
       // colon
-      if (source.getPublishingInfo().getPublisher() != null
-          && !source.getPublishingInfo().getPublisher().trim().equals("")
-          && source.getPublishingInfo().getPlace() != null
-          && !source.getPublishingInfo().getPlace().trim().equals("")) {
+      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().equals("")
+          && source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().equals("")) {
         publishingInfo.append(" : ");
       }
 
       // Publisher
-      if (source.getPublishingInfo().getPublisher() != null
-          && !source.getPublishingInfo().getPublisher().equals("")) {
+      if (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().equals("")) {
         publishingInfo.append(source.getPublishingInfo().getPublisher().trim());
       }
 
       // Comma
-      if ((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo()
-          .getEdition().trim().equals(""))
-          && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo()
-              .getPlace().trim().equals("")) || (source.getPublishingInfo().getPublisher() != null && !source
-              .getPublishingInfo().getPublisher().trim().equals("")))) {
+      if ((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo().getEdition().trim().equals(""))
+          && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().equals(""))
+              || (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().equals("")))) {
         publishingInfo.append(", ");
       }
 
@@ -342,8 +327,7 @@ public class SourceBean extends FacesBean {
     return this.sourceAffiliatedOrganizationsList;
   }
 
-  public void setSourceAffiliatedOrganizationsList(
-      List<OrganizationVO> sourceAffiliatedOrganizationsList) {
+  public void setSourceAffiliatedOrganizationsList(List<OrganizationVO> sourceAffiliatedOrganizationsList) {
     this.sourceAffiliatedOrganizationsList = sourceAffiliatedOrganizationsList;
   }
 
@@ -359,8 +343,7 @@ public class SourceBean extends FacesBean {
     return this.sourceCreatorOrganizationsArray;
   }
 
-  public void setSourceCreatorOrganizationsArray(
-      ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray) {
+  public void setSourceCreatorOrganizationsArray(ArrayList<ViewItemCreatorOrganization> sourceCreatorOrganizationsArray) {
     this.sourceCreatorOrganizationsArray = sourceCreatorOrganizationsArray;
   }
 

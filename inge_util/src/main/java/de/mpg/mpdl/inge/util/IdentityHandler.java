@@ -84,8 +84,7 @@ public class IdentityHandler extends ShortContentHandler {
    * {@inheritDoc}
    */
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
     super.startElement(uri, localName, name, attributes);
 
@@ -130,8 +129,7 @@ public class IdentityHandler extends ShortContentHandler {
    * {@inheritDoc}
    */
   @Override
-  public void content(String uri, String localName, String name, String content)
-      throws SAXException {
+  public void content(String uri, String localName, String name, String content) throws SAXException {
     super.content(uri, localName, name, content);
     result.append(escape(content));
     this.length += escape(content).length();

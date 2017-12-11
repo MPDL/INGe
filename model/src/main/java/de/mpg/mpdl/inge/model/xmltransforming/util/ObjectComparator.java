@@ -49,18 +49,14 @@ public class ObjectComparator {
 
   private static Logger logger = Logger.getLogger(ObjectComparator.class);
 
-  private static final MessageFormat DIFFERENT_LIST_SIZE = new MessageFormat(
-      "Difference in field {1} ({0}): List size [{2}] [{3}]");
-  private static final MessageFormat DIFFERENT_FIELD_VALUE = new MessageFormat(
-      "Difference in field {1} ({0}): [{2}] [{3}]");
-  private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_LIST = new MessageFormat(
-      "Difference in list element of field {1} ({0}) at position {4}: [{2}] [{3}]");
-  private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_ARRAY = new MessageFormat(
-      "Difference in array element of field {1} ({0}) at position {4}: [{2}] [{3}]");
-  private static final MessageFormat FIRST_VALUE_NULL = new MessageFormat(
-      "First object is null, second object is {0}.");
-  private static final MessageFormat SECOND_VALUE_NULL = new MessageFormat(
-      "First object is {0}, second object is null.");
+  private static final MessageFormat DIFFERENT_LIST_SIZE = new MessageFormat("Difference in field {1} ({0}): List size [{2}] [{3}]");
+  private static final MessageFormat DIFFERENT_FIELD_VALUE = new MessageFormat("Difference in field {1} ({0}): [{2}] [{3}]");
+  private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_LIST =
+      new MessageFormat("Difference in list element of field {1} ({0}) at position {4}: [{2}] [{3}]");
+  private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_ARRAY =
+      new MessageFormat("Difference in array element of field {1} ({0}) at position {4}: [{2}] [{3}]");
+  private static final MessageFormat FIRST_VALUE_NULL = new MessageFormat("First object is null, second object is {0}.");
+  private static final MessageFormat SECOND_VALUE_NULL = new MessageFormat("First object is {0}, second object is null.");
 
   private List<String> diffs = new ArrayList<String>();
   private List<String> fieldnames = new ArrayList<String>();
@@ -140,20 +136,18 @@ public class ObjectComparator {
   }
 
   private boolean isSimpleComparableType(Object object) {
-    if (object instanceof String || object instanceof Integer || object instanceof Long
-        || object instanceof Double || object instanceof Byte || object instanceof Boolean
-        || object instanceof Short || object instanceof Float || object instanceof Date
-        || object instanceof Enum || object instanceof URL) {
+    if (object instanceof String || object instanceof Integer || object instanceof Long || object instanceof Double
+        || object instanceof Byte || object instanceof Boolean || object instanceof Short || object instanceof Float
+        || object instanceof Date || object instanceof Enum || object instanceof URL) {
       return true;
     }
     return false;
   }
 
-  private void compareObjects(Object fieldValue1, Object fieldValue2, String fieldname,
-      String enclosingClass) throws IllegalAccessException {
+  private void compareObjects(Object fieldValue1, Object fieldValue2, String fieldname, String enclosingClass)
+      throws IllegalAccessException {
 
-    logger.info("Comparing: <" + fieldValue1 + "> and <" + fieldValue2 + "> (Field: " + fieldname
-        + ")");
+    logger.info("Comparing: <" + fieldValue1 + "> and <" + fieldValue2 + "> (Field: " + fieldname + ")");
 
     if (fieldValue1 == fieldValue2) {
       return;
@@ -169,30 +163,26 @@ public class ObjectComparator {
         return;
       }
       if (fieldValue1 == null || fieldValue2 == null) {
-        diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(),
-            fieldValue1, fieldValue2}));
+        diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
         return;
       }
 
       // check if objects are of same type
       if (!fieldValue1.getClass().isAssignableFrom(fieldValue2.getClass())) {
-        throw new IllegalArgumentException(
-            "Object o2 is not of same type or a subclass of type of o1");
+        throw new IllegalArgumentException("Object o2 is not of same type or a subclass of type of o1");
       }
 
       // check if objects can be compared by simple equals call
       if (isSimpleComparableType(fieldValue1)) {
         if (!equals(fieldValue1, fieldValue2)) {
-          diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(),
-              fieldValue1, fieldValue2}));
+          diffs.add(DIFFERENT_FIELD_VALUE.format(new Object[] {enclosingClass, getFieldNames(), fieldValue1, fieldValue2}));
         }
       } else if (fieldValue1 instanceof List) {
         // Check type of list
         List<?> list1 = (List<?>) fieldValue1;
         List<?> list2 = (List<?>) fieldValue2;
         if (list1.size() != list2.size()) {
-          diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(),
-              list1.size(), list2.size()}));
+          diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.size(), list2.size()}));
           return;
         }
         if (list1.size() > 0) {
@@ -200,8 +190,7 @@ public class ObjectComparator {
           // boolean isSimpleTypeList = isSimpleComparableType(listObject);
           for (int i = 0; i < list1.size(); i++) {
             if (!list2.contains(list1.get(i))) {
-              diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] {enclosingClass,
-                  getFieldNames(), list1, list2, i}));
+              diffs.add(DIFFERENT_FIELD_VALUE_IN_LIST.format(new Object[] {enclosingClass, getFieldNames(), list1, list2, i}));
             }
           }
         }
@@ -210,8 +199,7 @@ public class ObjectComparator {
         Object[] list1 = (Object[]) fieldValue1;
         Object[] list2 = (Object[]) fieldValue2;
         if (list1.length != list2.length) {
-          diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(),
-              list1.length, list2.length}));
+          diffs.add(DIFFERENT_LIST_SIZE.format(new Object[] {enclosingClass, getFieldNames(), list1.length, list2.length}));
           return;
         }
         if (list1.length > 0) {
@@ -220,8 +208,8 @@ public class ObjectComparator {
             Object listObject2 = list2[i];
             if (isSimpleComparableType(listObject1)) {
               if (!equals(listObject1, listObject2)) {
-                diffs.add(DIFFERENT_FIELD_VALUE_IN_ARRAY.format(new Object[] {enclosingClass,
-                    getFieldNames(), listObject1, listObject2, i}));
+                diffs.add(
+                    DIFFERENT_FIELD_VALUE_IN_ARRAY.format(new Object[] {enclosingClass, getFieldNames(), listObject1, listObject2, i}));
               }
             } else {
               compareObjects(listObject1, listObject2, "[" + i + "]", enclosingClass);
@@ -236,15 +224,13 @@ public class ObjectComparator {
     }
   }
 
-  private void checkAllFieldsForClass(Class<?> theClass, Object o1, Object o2)
-      throws IllegalAccessException {
+  private void checkAllFieldsForClass(Class<?> theClass, Object o1, Object o2) throws IllegalAccessException {
     for (Field field : theClass.getDeclaredFields()) {
 
       field.setAccessible(true);
       Object fieldValue1 = field.get(o1);
       Object fieldValue2 = field.get(o2);
-      compareObjects(fieldValue1, fieldValue2, field.getName(), field.getDeclaringClass()
-          .toString());
+      compareObjects(fieldValue1, fieldValue2, field.getName(), field.getDeclaringClass().toString());
     }
     if (theClass.getSuperclass() != null) {
       checkAllFieldsForClass(theClass.getSuperclass(), o1, o2);

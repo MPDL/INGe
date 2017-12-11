@@ -76,8 +76,7 @@ public class PropertyReader {
   }
 
   public static String getProperty(String key, String defaultValue) {
-    return PropertyReader.getInstance().doGetProperty(key) != null ? PropertyReader.getInstance()
-        .doGetProperty(key) : defaultValue;
+    return PropertyReader.getInstance().doGetProperty(key) != null ? PropertyReader.getInstance().doGetProperty(key) : defaultValue;
   }
 
   public static Properties getProperties() {
@@ -201,8 +200,7 @@ public class PropertyReader {
    * @throws IOException If the file could not be found neither in the file system nor in the
    *         classpath.
    */
-  private static InputStream getInputStream(String filepath, Class<PropertyReader> callingClass)
-      throws IOException {
+  private static InputStream getInputStream(String filepath, Class<PropertyReader> callingClass) throws IOException {
     InputStream instream = null;
     // First try to search in file system
     try {

@@ -41,8 +41,7 @@ public class PubItemObjectDbVO implements Serializable {
 
 
   @Embedded
-  @AttributeOverrides({
-      @AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
+  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "owner_name"))})
   private AccountUserDbRO owner;
 

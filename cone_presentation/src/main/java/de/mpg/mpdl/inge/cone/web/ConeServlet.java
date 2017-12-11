@@ -121,8 +121,7 @@ public class ConeServlet extends HttpServlet {
    * @throws IOException
    */
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding(DEFAULT_ENCODING);
     response.setCharacterEncoding(DEFAULT_ENCODING);
 
@@ -146,9 +145,7 @@ public class ConeServlet extends HttpServlet {
     String model = null;
     String action = null;
     String format = DEFAULT_FORMAT;
-    String lang =
-        (request.getParameter("lang") != null ? request.getParameter("lang") : request
-            .getParameter("l"));
+    String lang = (request.getParameter("lang") != null ? request.getParameter("lang") : request.getParameter("l"));
     boolean loggedIn = false;
     if (request.getSession().getAttribute("logged_in") == null
         || !((Boolean) request.getSession().getAttribute("logged_in")).booleanValue()) {
@@ -158,10 +155,8 @@ public class ConeServlet extends HttpServlet {
       loggedIn = ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue();
     }
 
-    if (!loggedIn
-        && ((request.getParameter("eSciDocUserHandle") != null) || "true".equals((request
-            .getParameter("redirect") != null ? request.getParameter("redirect") : request
-            .getParameter("r"))))) {
+    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
+        || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))) {
       try {
         response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
       } catch (Exception e) {
@@ -179,9 +174,7 @@ public class ConeServlet extends HttpServlet {
     }
 
     if (request.getParameter("format") != null || request.getParameter("f") != null) {
-      format =
-          (request.getParameter("format") != null ? request.getParameter("format") : request
-              .getParameter("f"));
+      format = (request.getParameter("format") != null ? request.getParameter("format") : request.getParameter("f"));
     } else {
       ModelList modelList;
       try {
@@ -222,9 +215,7 @@ public class ConeServlet extends HttpServlet {
     }
 
     Querier.ModeType modeType = Querier.ModeType.FAST;
-    String mode =
-        (request.getParameter("mode") != null ? request.getParameter("mode") : request
-            .getParameter("m"));
+    String mode = (request.getParameter("mode") != null ? request.getParameter("mode") : request.getParameter("m"));
     if (mode != null && "full".equals(mode.toLowerCase())) {
       modeType = Querier.ModeType.FULL;
     }
@@ -232,18 +223,14 @@ public class ConeServlet extends HttpServlet {
     if ("query".equals(action)) {
       String query;
       try {
-        query =
-            UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request
-                .getParameter("query") : request.getParameter("q"));
+        query = UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
       } catch (ConeException e1) {
         throw new ServletException(e1);
-      };
+      } ;
       int limit = -1;
 
       try {
-        limit =
-            Integer.parseInt((request.getParameter("number") != null ? request
-                .getParameter("number") : request.getParameter("n")));
+        limit = Integer.parseInt((request.getParameter("number") != null ? request.getParameter("number") : request.getParameter("n")));
       } catch (Exception e) {
         // Ignore n(umber) parameter as it is no number.
       }
@@ -255,12 +242,10 @@ public class ConeServlet extends HttpServlet {
           ArrayList<Pair<String>> searchFields = new ArrayList<Pair<String>>();
           for (Object key : request.getParameterMap().keySet()) {
             if (!RESERVED_PARAMETERS.contains(key)) {
-              searchFields.add(new Pair<String>(key.toString(), UrlHelper.fixURLEncoding(request
-                  .getParameter(key.toString()))));
+              searchFields.add(new Pair<String>(key.toString(), UrlHelper.fixURLEncoding(request.getParameter(key.toString()))));
             }
           }
-          queryFieldsAction(searchFields.toArray(new Pair[] {}), limit, lang, modeType, response,
-              formatter, model, loggedIn);
+          queryFieldsAction(searchFields.toArray(new Pair[] {}), limit, lang, modeType, response, formatter, model, loggedIn);
         }
       } catch (Exception e) {
         throw new ServletException(e);
@@ -286,9 +271,8 @@ public class ConeServlet extends HttpServlet {
     } else if ("explain".equals(action)) {
       response.setContentType("text/xml");
       try {
-        out.print(ResourceUtil.getResourceAsString(
-            PropertyReader.getProperty("inge.cone.modelsxml.path"),
-            ConeServlet.class.getClassLoader()));
+        out.print(
+            ResourceUtil.getResourceAsString(PropertyReader.getProperty("inge.cone.modelsxml.path"), ConeServlet.class.getClassLoader()));
       } catch (Exception e) {
         throw new ServletException(e);
       }
@@ -313,8 +297,8 @@ public class ConeServlet extends HttpServlet {
    * @param model
    * @throws IOException
    */
-  private void allAction(String lang, Querier.ModeType modeType, HttpServletResponse response,
-      AbstractFormatter formatter, String modelName, boolean loggedIn) throws Exception {
+  private void allAction(String lang, Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,
+      String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     if (model != null) {
@@ -352,9 +336,8 @@ public class ConeServlet extends HttpServlet {
    * @param model The requested type of data, e.g. "journals", "languages"
    * @throws IOException
    */
-  private void detailAction(String id, String lang, HttpServletResponse response,
-      AbstractFormatter formatter, PrintWriter out, String modelName, boolean loggedIn)
-      throws Exception {
+  private void detailAction(String id, String lang, HttpServletResponse response, AbstractFormatter formatter, PrintWriter out,
+      String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     if (model != null) {
@@ -396,9 +379,8 @@ public class ConeServlet extends HttpServlet {
    * @param model
    * @throws IOException
    */
-  private void queryAction(String query, int limit, String lang, Querier.ModeType modeType,
-      HttpServletResponse response, AbstractFormatter formatter, String modelName, boolean loggedIn)
-      throws ConeException {
+  private void queryAction(String query, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response,
+      AbstractFormatter formatter, String modelName, boolean loggedIn) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     try {
@@ -450,9 +432,8 @@ public class ConeServlet extends HttpServlet {
    * @param model
    * @throws IOException
    */
-  private void queryFieldsAction(Pair[] searchFields, int limit, String lang,
-      Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,
-      String modelName, boolean loggedIn) throws ConeException {
+  private void queryFieldsAction(Pair[] searchFields, int limit, String lang, Querier.ModeType modeType, HttpServletResponse response,
+      AbstractFormatter formatter, String modelName, boolean loggedIn) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     try {
@@ -506,14 +487,13 @@ public class ConeServlet extends HttpServlet {
     // do not report empty parameters, just return nothing.
   }
 
-  private void reportMissingParameter(String param, HttpServletResponse response)
-      throws IOException {
+  private void reportMissingParameter(String param, HttpServletResponse response) throws IOException {
     response.setStatus(500);
     response.getWriter().println("Error: Parameter '" + param + "' is missing.");
   }
 
   private boolean getLoggedIn(HttpServletRequest request) {
-    return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request
-        .getSession().getAttribute("logged_in")).booleanValue());
+    return (request.getSession().getAttribute("logged_in") != null
+        && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
   }
 }

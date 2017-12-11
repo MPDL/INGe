@@ -89,8 +89,7 @@ public class LocalUriResolver implements URIResolver {
         path = this.base + altBase + "/" + href;
       }
 
-      return new StreamSource(ResourceUtil.getResourceAsStream(path,
-          LocalUriResolver.class.getClassLoader()));
+      return new StreamSource(ResourceUtil.getResourceAsStream(path, LocalUriResolver.class.getClassLoader()));
     } catch (FileNotFoundException e) {
       // throw new TransformerException("Cannot resolve URI: " + href);
       throw new TransformerException("Cannot resolve URI: " + path, e);

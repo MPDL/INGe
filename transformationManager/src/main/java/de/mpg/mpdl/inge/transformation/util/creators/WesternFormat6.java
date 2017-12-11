@@ -31,17 +31,15 @@ public class WesternFormat6 extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + NAME + ", *" + GIVEN_NAME_FORMAT + "( *(;| and | AND | und | et |\\n) *"
-        + NAME + ", *" + GIVEN_NAME_FORMAT + ")*\\s*$";
+    return "^\\s*" + NAME + ", *" + GIVEN_NAME_FORMAT + "( *(;| and | AND | und | et |\\n) *" + NAME + ", *" + GIVEN_NAME_FORMAT
+        + ")*\\s*$";
   }
 
   @Override
   public List<Author> getAuthors(String authorsString) {
 
-    if ((!authorsString.contains(","))
-        || contains(authorsString, "0123456789")
-        || (authorsString.contains(",") && authorsString.contains(";") && authorsString
-            .indexOf(";") < authorsString.indexOf(","))) {
+    if ((!authorsString.contains(",")) || contains(authorsString, "0123456789")
+        || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(";") < authorsString.indexOf(","))) {
       return null;
     }
 

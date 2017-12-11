@@ -67,8 +67,12 @@ public class ContextVO extends ValueObject implements Searchable {
    * 
    * @updated 05-Sep-2007 11:14:08
    */
-  public enum State {
-    CREATED, CLOSED, OPENED, DELETED
+  public enum State
+  {
+    CREATED,
+    CLOSED,
+    OPENED,
+    DELETED
   }
 
   /**
@@ -103,13 +107,11 @@ public class ContextVO extends ValueObject implements Searchable {
   /**
    * The set union of validation points for items in this collection.
    */
-  private java.util.List<ValidationPointVO> validationPoints =
-      new java.util.ArrayList<ValidationPointVO>();
+  private java.util.List<ValidationPointVO> validationPoints = new java.util.ArrayList<ValidationPointVO>();
   /**
    * The list of responsible affiliations for this collection.
    */
-  private java.util.List<AffiliationRO> responsibleAffiliations =
-      new java.util.ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<AffiliationRO>();
 
   private List<AdminDescriptorVO> adminDescriptors = new ArrayList<AdminDescriptorVO>();
 
@@ -267,8 +269,7 @@ public class ContextVO extends ValueObject implements Searchable {
   }
 
   public PublicationAdminDescriptorVO getAdminDescriptor() {
-    if (getAdminDescriptors().size() > 0
-        && getAdminDescriptors().get(0) instanceof PublicationAdminDescriptorVO) {
+    if (getAdminDescriptors().size() > 0 && getAdminDescriptors().get(0) instanceof PublicationAdminDescriptorVO) {
       return (PublicationAdminDescriptorVO) getAdminDescriptors().get(0);
     } else {
       return null;
@@ -325,9 +326,7 @@ public class ContextVO extends ValueObject implements Searchable {
     result = prime * result + ((description == null) ? 0 : description.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((reference == null) ? 0 : reference.hashCode());
-    result =
-        prime * result
-            + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
+    result = prime * result + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
     result = prime * result + ((state == null) ? 0 : state.hashCode());
     result = prime * result + ((type == null) ? 0 : type.hashCode());
     result = prime * result + ((validationPoints == null) ? 0 : validationPoints.hashCode());

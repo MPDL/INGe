@@ -38,6 +38,5 @@ import javax.servlet.http.HttpServletResponse;
  * 
  */
 public abstract class Client {
-  protected abstract void process(HttpServletRequest request, HttpServletResponse response)
-      throws Exception;
+  protected abstract void process(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

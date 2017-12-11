@@ -43,8 +43,7 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  */
 @ManagedBean(name = "SearchRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class SearchRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
   /**
@@ -145,8 +144,7 @@ public class SearchRetrieverRequestBean extends
 
     paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
 
-    final String elasticSearchQuery =
-        paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+    final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
 
     if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
       this.setElasticSearchQuery("");
@@ -186,8 +184,7 @@ public class SearchRetrieverRequestBean extends
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
-          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(),
-              index,
+          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
               SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
                   : org.elasticsearch.search.sort.SortOrder.DESC));
         }
@@ -201,10 +198,8 @@ public class SearchRetrieverRequestBean extends
       }
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-      pubItemList =
-          pubItemList =
-              CommonUtils.convertToPubItemVOPresentationList(SearchUtils
-                  .getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class));
+      pubItemList = pubItemList = CommonUtils
+          .convertToPubItemVOPresentationList(SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class));
 
     } catch (final Exception e) {
       this.error("Error in search!");
@@ -221,8 +216,7 @@ public class SearchRetrieverRequestBean extends
    */
   public void setCqlQuery(String cqlQuery) {
     this.cqlQuery = cqlQuery;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(SearchRetrieverRequestBean.parameterCqlQuery, cqlQuery);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterCqlQuery, cqlQuery);
   }
 
   /**
@@ -255,18 +249,15 @@ public class SearchRetrieverRequestBean extends
    * @throws PubManVersionNotAvailableException
    * @throws UnsupportedEncodingException
    */
-  public String getAtomFeedLink() throws PubManVersionNotAvailableException,
-      UnsupportedEncodingException {
-    return "<link href='"
-        + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl()
-        + "/rest/feed/search?q=" + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
+  public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
+    return "<link href='" + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl() + "/rest/feed/search?q="
+        + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
 
 
-  public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(
-      SearchRetrieveResponseVO result) {
+  public static ArrayList<PubItemVOPresentation> extractItemsOfSearchResult(SearchRetrieveResponseVO result) {
 
     final List<SearchRetrieveRecordVO> results = result.getRecords();
 
@@ -275,8 +266,7 @@ public class SearchRetrieverRequestBean extends
       // check if we have found an item
 
       final SearchRetrieveRecordVO record = results.get(i);
-      final PubItemVOPresentation pubItemPres =
-          new PubItemVOPresentation((PubItemVO) record.getData());
+      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((PubItemVO) record.getData());
       pubItemList.add(pubItemPres);
 
     }
@@ -297,8 +287,7 @@ public class SearchRetrieverRequestBean extends
    */
   public void setSearchType(String searchType) {
     this.searchType = searchType;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(SearchRetrieverRequestBean.parameterSearchType, searchType);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterSearchType, searchType);
   }
 
   /**
@@ -319,8 +308,7 @@ public class SearchRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getIndex() == null || sc.getIndex().equals("")) {
-      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
-          this.getLabel("ENUM_CRITERIA_" + sc.name())));
+      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1", this.getLabel("ENUM_CRITERIA_" + sc.name())));
     }
   }
 
@@ -342,8 +330,7 @@ public class SearchRetrieverRequestBean extends
 
   public void setQueryString(String query) {
     this.queryString = query;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(SearchRetrieverRequestBean.parameterQuery, query);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterQuery, query);
   }
 
   public String getElasticSearchQuery() {
@@ -352,8 +339,8 @@ public class SearchRetrieverRequestBean extends
 
   public void setElasticSearchQuery(String elasticSearchQuery) {
     this.elasticSearchQuery = elasticSearchQuery;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(SearchRetrieverRequestBean.parameterElasticSearchQuery, elasticSearchQuery);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterElasticSearchQuery,
+        elasticSearchQuery);
   }
 
   public String getPrettyElasticSearchQuery() {

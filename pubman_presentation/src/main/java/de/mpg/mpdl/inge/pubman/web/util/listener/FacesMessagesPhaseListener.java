@@ -122,8 +122,7 @@ public class FacesMessagesPhaseListener implements PhaseListener {
     } else {
       final Map<String, Collection<FacesMessage>> messageCache =
           Collections.synchronizedMap(new HashMap<String, Collection<FacesMessage>>());
-      context.getExternalContext().getSessionMap()
-          .put(FacesMessagesPhaseListener.sessionToken, messageCache);
+      context.getExternalContext().getSessionMap().put(FacesMessagesPhaseListener.sessionToken, messageCache);
       return messageCache;
     }
   }

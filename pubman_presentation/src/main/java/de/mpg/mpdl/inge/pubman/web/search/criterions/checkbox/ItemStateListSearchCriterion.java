@@ -27,8 +27,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
   public ItemStateListSearchCriterion() {
 
-    super(ItemStateListSearchCriterion.getItemStateMap(), ItemStateListSearchCriterion
-        .getItemStatePreSelectionMap());
+    super(ItemStateListSearchCriterion.getItemStateMap(), ItemStateListSearchCriterion.getItemStatePreSelectionMap());
   }
 
   private static Map<String, String> getItemStateMap() {
@@ -84,16 +83,14 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
       scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     }
 
-    final SearchCriterionBase flexSc =
-        new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
+    final SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
     scList.add(flexSc);
 
 
     // exclude public status withdrawn
     if (!"withdrawn".equals(searchValue)) {
       scList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
-      scList.add(new FlexibleStandardSearchCriterion(
-          new String[] {"\"/properties/public-status\""}, "withdrawn"));
+      scList.add(new FlexibleStandardSearchCriterion(new String[] {"\"/properties/public-status\""}, "withdrawn"));
       scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
     }
 
@@ -133,32 +130,27 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     BoolQueryBuilder filterOutQuery = QueryBuilders.boolQuery();
 
 
-    filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-        ItemVO.State.RELEASED.name()));
+    filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.RELEASED.name()));
 
     // filterOutQuery.must(QueryBuilders.scriptQuery(new Script("doc['" +
     // PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']!=doc['" +
     // PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
 
 
-    filterOutQuery.must(baseElasticSearchQueryBuilder(
-        PubItemServiceDbImpl.INDEX_LATESTVERSION_STATE, s.name()));
+    filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_LATESTVERSION_STATE, s.name()));
 
     // Filter out released items where user is owner
     BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
     filterOutQuery.must(subQuery);
-    subQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, user
-        .getReference().getObjectId()));
+    subQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, user.getReference().getObjectId()));
 
     // Filter out released items where user is moderator
-    if (user.isModerator()
-        && (ItemVO.State.SUBMITTED.equals(s) || ItemVO.State.IN_REVISION.equals(s))) {
+    if (user.isModerator() && (ItemVO.State.SUBMITTED.equals(s) || ItemVO.State.IN_REVISION.equals(s))) {
       BoolQueryBuilder contextModeratorQuery = QueryBuilders.boolQuery();
       subQuery.should(contextModeratorQuery);
       for (GrantVO grant : user.getGrants()) {
         if (grant.getRole().equals(GrantVO.PredefinedRoles.MODERATOR.frameworkValue())) {
-          contextModeratorQuery.should(baseElasticSearchQueryBuilder(
-              PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, grant.getObjectRef()));
+          contextModeratorQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, grant.getObjectRef()));
         }
       }
 
@@ -182,33 +174,28 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
           switch (ItemVO.State.valueOf(entry.getKey())) {
             case RELEASED: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-                  entry.getKey()));
+              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
               break;
             }
             case SUBMITTED: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-                  entry.getKey()));
+              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
               bq.mustNot(filterOut(loginHelper.getAccountUser(), ItemVO.State.SUBMITTED));
 
               break;
             }
             case PENDING: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-                  entry.getKey()));
+              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
               bq.mustNot(filterOut(loginHelper.getAccountUser(), ItemVO.State.PENDING));
 
               break;
             }
             case IN_REVISION: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE,
-                  entry.getKey()));
+              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
               bq.mustNot(filterOut(loginHelper.getAccountUser(), ItemVO.State.IN_REVISION));
               break;
             }
             case WITHDRAWN: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-                  entry.getKey()));
+              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, entry.getKey()));
               break;
             }
           }

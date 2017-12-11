@@ -17,19 +17,16 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 public interface GenericServiceBase<E> {
 
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO srr, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException;
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public SearchResponse searchDetailed(SearchSourceBuilder ssb, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException;
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException;
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException;
+  public SearchResponse scrollOn(String scrollId, Scroll scroll)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public Map<String, ElasticSearchIndexField> getElasticSearchIndexFields();
 

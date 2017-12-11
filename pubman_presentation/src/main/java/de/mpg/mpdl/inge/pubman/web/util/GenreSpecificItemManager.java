@@ -53,8 +53,7 @@ public class GenreSpecificItemManager {
     final List<Object> objs = new ArrayList<Object>();
     final LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 
-    if (this.pubItem != null && this.pubItem.getMetadata() != null
-        && this.pubItem.getMetadata().getGenre() != null) {
+    if (this.pubItem != null && this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getGenre() != null) {
       final String genre = this.pubItem.getMetadata().getGenre().name();
       final ResourceBundle genreBundle = ResourceBundle.getBundle("Genre_" + genre);
       final Object javaObject = this.pubItem;
@@ -69,9 +68,8 @@ public class GenreSpecificItemManager {
           final String baseKey = mapKey.replace("class_attribute", "");
           final String fullClassAttribute = map.get(mapKey);
           // check if the property should be available in this genre or not
-          if (map.get(baseKey + "display").equals("false")
-              && (map.get(baseKey + "form_id").equals(this.submissionMethod) || map.get(
-                  baseKey + "form_id").equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
+          if (map.get(baseKey + "display").equals("false") && (map.get(baseKey + "form_id").equals(this.submissionMethod)
+              || map.get(baseKey + "form_id").equals(GenreSpecificItemManager.SUBMISSION_METHOD_ALL))) {
             objs.addAll(this.getMappedObject(javaObject, fullClassAttribute));
           }
         }
@@ -81,8 +79,7 @@ public class GenreSpecificItemManager {
     return this.pubItem;
   }
 
-  private List<Object> getMappedObject(Object baseObject, String mappingString)
-      throws NoSuchMethodException, Exception {
+  private List<Object> getMappedObject(Object baseObject, String mappingString) throws NoSuchMethodException, Exception {
     final List<Object> result = new ArrayList<Object>();
     // first get all values in the class attribute String and eliminate the "."
     final String[] attributes = mappingString.split("\\.");
@@ -122,9 +119,7 @@ public class GenreSpecificItemManager {
               result.add(method);
             }
           } else {
-            method =
-                baseObject.getClass().getMethod("set" + renamedAttribute,
-                    new Class[] {javaObjectToNullify.getClass()});
+            method = baseObject.getClass().getMethod("set" + renamedAttribute, new Class[] {javaObjectToNullify.getClass()});
             method.invoke(baseObject, new Object[] {null});
             result.add(method);
           }

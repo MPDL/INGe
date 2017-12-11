@@ -19,14 +19,12 @@ import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.Bibtex;
 
-@TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING,
-    targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
+@TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 public class BibtexToItemXml extends SingleTransformer implements ChainableTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
     try {
 
@@ -49,8 +47,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(
-        "inge.transformation.bibtex.configuration.filename",
+    return getAllConfigurationValuesFromProperty("inge.transformation.bibtex.configuration.filename",
         "transformations/commonPublicationFormats/conf/bibtex.properties").get(key);
   }
 
@@ -60,10 +57,8 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
     if (super.getConfiguration() == null) {
       Map<String, String> c = new HashMap<String, String>();
       try {
-        c =
-            getDefaultConfigurationFromProperty(
-                "inge.transformation.bibtex.configuration.filename",
-                "transformations/commonPublicationFormats/conf/bibtex.properties");
+        c = getDefaultConfigurationFromProperty("inge.transformation.bibtex.configuration.filename",
+            "transformations/commonPublicationFormats/conf/bibtex.properties");
 
         setConfiguration(c);
         return c;

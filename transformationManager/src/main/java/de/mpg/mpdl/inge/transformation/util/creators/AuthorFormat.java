@@ -47,25 +47,20 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   private static Logger logger = Logger.getLogger(AuthorFormat.class);
 
-  protected static final String SYLLABLE =
-      "([A-ZÄÖÜÁÂÀÅÆÇÉÊÈËÍÎÌÏÐÑÓÔÒÕØÚÛÙÝ][a-zäöüßáâàãåæéêèëíîìïñóôòõúûùýÿçøð]+)";
+  protected static final String SYLLABLE = "([A-ZÄÖÜÁÂÀÅÆÇÉÊÈËÍÎÌÏÐÑÓÔÒÕØÚÛÙÝ][a-zäöüßáâàãåæéêèëíîìïñóôòõúûùýÿçøð]+)";
   // protected static final String LOOSE_SYLLABLE = "([\\w\\.'-]+)";
-  protected static final String LOOSE_SYLLABLE =
-      "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
+  protected static final String LOOSE_SYLLABLE = "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
   protected static final String WORD = "((O'|D')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
-  protected static final String PREFIX =
-      "(von|vom|von +und +zu|zu|de +la|dela|la|de|da|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
+  protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|da|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
   protected static final String NAME = "(" + PREFIX + "? *" + WORD + "( *- *" + WORD + ")*)";
   protected static final String INITIAL = "(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
   protected static final String INITIALS = "(" + INITIAL + "( *-? *" + INITIAL + ")*)";
-  protected static final String TITLE =
-      "(Dr\\.|Doktor|Doctor|Prof\\.|Professor|Kardinal|Geheimrat|Bischof|)";
+  protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor|Kardinal|Geheimrat|Bischof|)";
   protected static final String SUFFIX = "(,*)? (sen.?|Sen.?|jr.?|Jr.?)";
   protected static final String MIDDLEFIX = "(y|dela|de la)";
-  protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS
-      + "))*)";
-  protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIAL + ")( *( *"
-      + NAME + "|" + INITIAL + "|(sen\\.?|Sen\\.?|jr\\.?|Jr\\.?)" + "))*)";
+  protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
+  protected static final String GIVEN_NAME_FORMAT_MIXED =
+      "((" + NAME + "|" + INITIAL + ")( *( *" + NAME + "|" + INITIAL + "|(sen\\.?|Sen\\.?|jr\\.?|Jr\\.?)" + "))*)";
 
   protected static final String FORBIDDEN_CHARACTERS =
       "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|†|‡||email|written|et al)";
@@ -196,8 +191,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @throws Exception Any {@link Exception}.
    */
   public static Set<String> getNamesFromFile(String filename) throws Exception {
-    InputStream file =
-        ResourceUtil.getResourceAsStream(filename, AuthorFormat.class.getClassLoader());
+    InputStream file = ResourceUtil.getResourceAsStream(filename, AuthorFormat.class.getClassLoader());
     BufferedReader br = new BufferedReader(new InputStreamReader(file));
     String name = "";
     Set<String> result = new HashSet<String>();
@@ -208,11 +202,11 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   }
 
   /**
-   * Parses authors in the following formats: "Peter Müller" or "Linda McCartney" or
-   * "John Gabriel Smith-Wesson" or "Karl H. Meiser"
+   * Parses authors in the following formats: "Peter Müller" or "Linda McCartney" or "John Gabriel
+   * Smith-Wesson" or "Karl H. Meiser"
    * 
-   * Returns false results with e.g. "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or
-   * "Ban Ki Moon"
+   * Returns false results with e.g. "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki
+   * Moon"
    * 
    * @param authors The authors as string array.
    * @return The authors as list of author objects.
@@ -222,11 +216,11 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
   }
 
   /**
-   * Parses authors in the following formats: "Peter Müller" or "Linda McCartney" or
-   * "John Gabriel Smith-Wesson" or "Karl H. Meiser"
+   * Parses authors in the following formats: "Peter Müller" or "Linda McCartney" or "John Gabriel
+   * Smith-Wesson" or "Karl H. Meiser"
    * 
-   * Returns false results with e.g. "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or
-   * "Ban Ki Moon"
+   * Returns false results with e.g. "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki
+   * Moon"
    * 
    * @param authors The authors as string array.
    * @param separator The separator between first names and lastnames.
@@ -399,8 +393,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
    * @return A {@link List} of {@link Author} beans.
    * @throws Exception Any {@link Exception}
    */
-  public List<Author> getAuthorListCheckingNames(String authorsString, String[] authors)
-      throws Exception {
+  public List<Author> getAuthorListCheckingNames(String authorsString, String[] authors) throws Exception {
     List<Author> result = new ArrayList<Author>();
     for (String authorString : authors) {
 
@@ -518,13 +511,10 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat> {
       } else if (authorString.indexOf(";") != -1) {
         parts = authorString.split(";");
       } else {
-        if (authorString.indexOf("{") != -1 && authorString.indexOf("}") != -1
-            && authorString.indexOf("{") < authorString.indexOf("}")) {
+        if (authorString.indexOf("{") != -1 && authorString.indexOf("}") != -1 && authorString.indexOf("{") < authorString.indexOf("}")) {
           authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
-          if (authorString.indexOf("{", authorString.indexOf("}")) != -1
-              && authorString.indexOf("}", authorString.indexOf("}")) != -1
-              && authorString.indexOf("{", authorString.indexOf("}")) < authorString.indexOf("}",
-                  authorString.indexOf("}"))) {
+          if (authorString.indexOf("{", authorString.indexOf("}")) != -1 && authorString.indexOf("}", authorString.indexOf("}")) != -1
+              && authorString.indexOf("{", authorString.indexOf("}")) < authorString.indexOf("}", authorString.indexOf("}"))) {
             authorString.substring(authorString.indexOf("{", authorString.indexOf("}")) + 1,
                 authorString.indexOf("}", authorString.indexOf("{", authorString.indexOf("}"))));
           }

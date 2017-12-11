@@ -27,13 +27,11 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class YearbookUtils {
 
   public static BoolQueryBuilder getCandidateQuery() throws Exception {
-    final YearbookItemSessionBean yisb =
-        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
+    final YearbookItemSessionBean yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
     BoolQueryBuilder candidateBoolQuery = QueryBuilders.boolQuery();
 
-    candidateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
-        "RELEASED"));
+    candidateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"));
 
     // Genres
     BoolQueryBuilder genreQuery = QueryBuilders.boolQuery();
@@ -42,8 +40,7 @@ public class YearbookUtils {
     String genreProperties = PropertyReader.getProperty("inge.yearbook.allowed_genres");
 
     for (String genre : genreProperties.split(",")) {
-      genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-          genre.trim()));
+      genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE, genre.trim()));
     }
 
 
@@ -53,8 +50,7 @@ public class YearbookUtils {
       BoolQueryBuilder memberQuery = QueryBuilders.boolQuery();
       candidateBoolQuery.must(memberQuery);
       for (final String member : yisb.getYearbook().getItemIds()) {
-        memberQuery.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
-            member));
+        memberQuery.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, member));
       }
     }
 
@@ -64,33 +60,25 @@ public class YearbookUtils {
     String roundedYear = DateSearchCriterion.roundDateString(year);
     BoolQueryBuilder dateBoolQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(dateBoolQuery);
-    dateBoolQuery.should(QueryBuilders
-        .rangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT).gte(roundedYear)
-        .lte(roundedYear));
-    dateBoolQuery.should(QueryBuilders
-        .rangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE).gte(roundedYear)
-        .lte(roundedYear));
+    dateBoolQuery
+        .should(QueryBuilders.rangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT).gte(roundedYear).lte(roundedYear));
+    dateBoolQuery
+        .should(QueryBuilders.rangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE).gte(roundedYear).lte(roundedYear));
 
     BoolQueryBuilder thesisDateBoolQuery = QueryBuilders.boolQuery();
     dateBoolQuery.should(thesisDateBoolQuery);
-    thesisDateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        Genre.THESIS.name()));
-    thesisDateBoolQuery.must(QueryBuilders
-        .rangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED).gte(roundedYear)
-        .lte(roundedYear));
+    thesisDateBoolQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE, Genre.THESIS.name()));
+    thesisDateBoolQuery.must(QueryBuilders.rangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED).gte(roundedYear).lte(roundedYear));
 
 
     // Organizations
     String orgId = yisb.getYearbook().getOrganization().getObjectId();
-    List<String> orgWithChildren =
-        ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(orgId);
+    List<String> orgWithChildren = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(orgId);
     BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(ouBoolQuery);
     for (String ouId : orgWithChildren) {
-      ouBoolQuery.should(QueryBuilders.termQuery(
-          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
-      ouBoolQuery.should(QueryBuilders.termQuery(
-          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
+      ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
+      ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
     }
 
 
@@ -98,8 +86,7 @@ public class YearbookUtils {
     BoolQueryBuilder contextBoolQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(contextBoolQuery);
     for (String contextId : yisb.getYearbook().getContextIds()) {
-      contextBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
-          contextId));
+      contextBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, contextId));
     }
 
 
@@ -121,19 +108,17 @@ public class YearbookUtils {
   }
 
   public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken) throws Exception {
-    
+
     QueryBuilder qb = YearbookUtils.getMemberQuery(yearbook);
-    
+
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-    SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
-        .search(srr, authenticationToken);
+    SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
 
 
-    List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
-        .collect(Collectors.toList());
+    List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
     return CommonUtils.convertToPubItemVOPresentationList(resultList);
-    
+
     /*
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     final MetadataSearchQuery mdQuery =

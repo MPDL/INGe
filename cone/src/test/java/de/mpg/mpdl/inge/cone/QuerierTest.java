@@ -107,8 +107,7 @@ public class QuerierTest {
     List<? extends Describable> results = querier.query("journals", "of", null, ModeType.FAST, 10);
     assertNotNull("No results for query 'of'", results);
     assertTrue("No results for query 'of'", results.size() > 0);
-    assertTrue("Retrieved more results than allowed (" + results.size() + " > 10)",
-        results.size() <= 10);
+    assertTrue("Retrieved more results than allowed (" + results.size() + " > 10)", results.size() <= 10);
 
     logger.info("Query returned " + results.size() + " hits");
 

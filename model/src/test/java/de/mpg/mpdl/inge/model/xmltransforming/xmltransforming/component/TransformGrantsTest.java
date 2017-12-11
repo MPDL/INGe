@@ -58,10 +58,8 @@ public class TransformGrantsTest extends TestBase {
   public void testTransformToGrantVOList() throws Exception {
     logger.info("### TransformGrantsTest ###");
 
-    String grantsXml =
-        ResourceUtil.getResourceAsString(
-            "xmltransforming/component/transformGrantsTest/current-grants.xml",
-            TransformGrantsTest.class.getClassLoader());
+    String grantsXml = ResourceUtil.getResourceAsString("xmltransforming/component/transformGrantsTest/current-grants.xml",
+        TransformGrantsTest.class.getClassLoader());
 
     List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(grantsXml);
 

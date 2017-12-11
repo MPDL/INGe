@@ -104,9 +104,7 @@ public class WoSImport {
    * @return
    */
   public List<String> getItemFromString(String itemStr) {
-    Pattern pattern =
-        Pattern
-            .compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
+    Pattern pattern = Pattern.compile("((([A-Z]{1}[0-9]{1})|([A-Z]{2}))\\s(.*(\\r\\n|\\r|\\n))((\\s\\s\\s.*(\\r\\n|\\r|\\n))?)*)");
     // Pattern pattern =
     // Pattern.compile("(([A-Z]{1}[0-9]{1})|([A-Z]{2})) ((.*(\\r\\n|\\r|\\n))+?)");
 

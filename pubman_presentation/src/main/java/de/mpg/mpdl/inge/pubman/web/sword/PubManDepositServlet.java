@@ -66,8 +66,7 @@ public class PubManDepositServlet extends HttpServlet {
    * Process the GET request. This will return an unimplemented response.
    */
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
   }
 
@@ -80,8 +79,7 @@ public class PubManDepositServlet extends HttpServlet {
    * @throws IOException
    */
   @Override
-  protected void doPut(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     this.doPost(request, response);
   }
 
@@ -94,8 +92,7 @@ public class PubManDepositServlet extends HttpServlet {
    * @throws IOException
    */
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     final PubManSwordServer pubManSwordServer = new PubManSwordServer();
     final SwordUtil util = new SwordUtil();
     Deposit deposit = new Deposit();
@@ -140,8 +137,8 @@ public class PubManDepositServlet extends HttpServlet {
       // Check if user has depositing rights for this collection
       else {
         if (!util.checkCollection(collection, user) && this.validDeposit) {
-          this.errorDoc.setSummary("User: " + deposit.getUsername()
-              + " does not have depositing rights for collection " + collection + ".");
+          this.errorDoc
+              .setSummary("User: " + deposit.getUsername() + " does not have depositing rights for collection " + collection + ".");
           this.errorDoc.setErrorDesc(swordError.AuthorisationFailure);
           this.validDeposit = false;
         }
@@ -257,8 +254,7 @@ public class PubManDepositServlet extends HttpServlet {
    * @param deposit
    * @return
    */
-  private Deposit readHttpHeader(Deposit deposit, HttpServletRequest request)
-      throws SWORDContentTypeException {
+  private Deposit readHttpHeader(Deposit deposit, HttpServletRequest request) throws SWORDContentTypeException {
     // Set the X-No-Op header
     final String noop = request.getHeader("X-No-Op");
     if ((noop != null) && (noop.equals("true"))) {

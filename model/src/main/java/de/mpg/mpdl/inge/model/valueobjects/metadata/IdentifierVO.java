@@ -58,7 +58,8 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    * 
    * @updated 05-Sep-2007 12:59:09
    */
-  public enum IdType {
+  public enum IdType
+  {
     ARXIV("http://purl.org/escidoc/metadata/terms/0.1/ARXIV"), //
     BIBTEX_CITEKEY("http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"), //
     BMC("http://purl.org/escidoc/metadata/terms/0.1/BMC"), //
@@ -85,16 +86,15 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     URN("http://purl.org/escidoc/metadata/terms/0.1/URN"), //
     ZDB("http://purl.org/escidoc/metadata/terms/0.1/ZDB");
 
-    private String uri;
+  private String uri;
 
-    private IdType(String uri) {
+  private IdType(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-  }
+  public String getUri() {
+    return uri;
+  }}
 
   private String id;
 

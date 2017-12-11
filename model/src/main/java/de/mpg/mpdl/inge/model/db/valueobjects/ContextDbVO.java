@@ -60,16 +60,19 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity(name = "ContextVO")
 @Table(name = "context")
-@TypeDef(name = "ContextAdminDescriptorJsonUserType",
-    typeClass = ContextAdminDescriptorJsonUserType.class)
+@TypeDef(name = "ContextAdminDescriptorJsonUserType", typeClass = ContextAdminDescriptorJsonUserType.class)
 public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
   /**
    * The possible states of a collection.
    * 
    * @updated 05-Sep-2007 11:14:08
    */
-  public enum State {
-    CREATED, CLOSED, OPENED, DELETED
+  public enum State
+  {
+    CREATED,
+    CLOSED,
+    OPENED,
+    DELETED
   }
 
   private String type;
@@ -90,8 +93,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    */
   @ManyToMany(fetch = FetchType.EAGER)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-  private java.util.List<AffiliationDbRO> responsibleAffiliations =
-      new java.util.ArrayList<AffiliationDbRO>();
+  private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
 
   @Type(type = "ContextAdminDescriptorJsonUserType")
   private PublicationAdminDescriptorVO adminDescriptor;

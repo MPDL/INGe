@@ -39,8 +39,7 @@ public class ListItem {
   private List<String> stringList;
   private List<ListItem> itemList;
 
-  private final InternationalizationHelper i18nHelper = FacesTools
-      .findBean("InternationalizationHelper");
+  private final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
 
   public int getIndex() {
     return this.index;

@@ -56,13 +56,11 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 public class ExportItems extends FacesBean {
   private static final Logger logger = Logger.getLogger(ExportItems.class);
 
-  public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED =
-      "exportItems_RecipientsAreNotDefined";
+  public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED = "exportItems_RecipientsAreNotDefined";
   public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
   public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
   public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
-  public static final String MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS =
-      "exportItems_UnknownRecipients";
+  public static final String MESSAGE_EXPORT_EMAIL_UNKNOWN_RECIPIENTS = "exportItems_UnknownRecipients";
   public static final String MESSAGE_NO_EXPORTDATA_DELIVERED = "exportItems_NoDataDelivered";
   public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
 
@@ -70,55 +68,38 @@ public class ExportItems extends FacesBean {
 
   public SelectItem[] getEXPORTFORMAT_OPTIONS() {
     // constants for comboBoxes and HtmlSelectOneRadios
-    final SelectItem EXPORTFORMAT_MARCXML =
-        new SelectItem("MARCXML", this.getLabel("Export_ExportFormat_MARCXML"));
-    final SelectItem EXPORTFORMAT_ENDNOTE =
-        new SelectItem("ENDNOTE", this.getLabel("Export_ExportFormat_ENDNOTE"));
-    final SelectItem EXPORTFORMAT_BIBTEX =
-        new SelectItem("BIBTEX", this.getLabel("Export_ExportFormat_BIBTEX"));
-    final SelectItem EXPORTFORMAT_ESCIDOC_XML =
-        new SelectItem("ESCIDOC_XML", this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
-    final SelectItem EXPORTFORMAT_APA =
-        new SelectItem("APA", this.getLabel("Export_ExportFormat_APA"));
-    final SelectItem EXPORTFORMAT_APA_CJK =
-        new SelectItem("APA(CJK)", this.getLabel("Export_ExportFormat_APA_CJK"));
-    final SelectItem EXPORTFORMAT_AJP =
-        new SelectItem("AJP", this.getLabel("Export_ExportFormat_AJP"));
-    final SelectItem EXPORTFORMAT_JUS =
-        new SelectItem("JUS", this.getLabel("Export_ExportFormat_JUS"));
+    final SelectItem EXPORTFORMAT_MARCXML = new SelectItem("MARCXML", this.getLabel("Export_ExportFormat_MARCXML"));
+    final SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", this.getLabel("Export_ExportFormat_ENDNOTE"));
+    final SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", this.getLabel("Export_ExportFormat_BIBTEX"));
+    final SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
+    final SelectItem EXPORTFORMAT_APA = new SelectItem("APA", this.getLabel("Export_ExportFormat_APA"));
+    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem("APA(CJK)", this.getLabel("Export_ExportFormat_APA_CJK"));
+    final SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", this.getLabel("Export_ExportFormat_AJP"));
+    final SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", this.getLabel("Export_ExportFormat_JUS"));
     final SelectItem EXPORTFORMAT_CSL = new SelectItem("CSL", "CSL");
 
-    final SelectItem[] EXPORTFORMAT_OPTIONS =
-        new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX,
-            EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP,
-            EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
+    final SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX,
+        EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
 
     return EXPORTFORMAT_OPTIONS;
   }
 
   // Yearbook
   public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED() {
-    final SelectItem[] EXPORTFORMAT_OPTIONS =
-        Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
-    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] =
-        new SelectItem("EDOC_IMPORT", "EDOC_IMPORT");
+    final SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
+    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] = new SelectItem("EDOC_IMPORT", "EDOC_IMPORT");
 
     return EXPORTFORMAT_OPTIONS;
   }
 
   public SelectItem[] getFILEFORMAT_OPTIONS() {
     final SelectItem FILEFORMAT_PDF = new SelectItem("pdf", this.getLabel("Export_FileFormat_PDF"));
-    final SelectItem FILEFORMAT_DOCX =
-        new SelectItem("docx", this.getLabel("Export_FileFormat_DOCX"));
-    final SelectItem FILEFORMAT_HTML_PLAIN =
-        new SelectItem("html_plain", this.getLabel("Export_FileFormat_HTML_PLAIN"));
-    final SelectItem FILEFORMAT_HTML_LINKED =
-        new SelectItem("html_linked", this.getLabel("Export_FileFormat_HTML_LINKED"));
-    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
-        new SelectItem("escidoc_snippet", this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
+    final SelectItem FILEFORMAT_DOCX = new SelectItem("docx", this.getLabel("Export_FileFormat_DOCX"));
+    final SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", this.getLabel("Export_FileFormat_HTML_PLAIN"));
+    final SelectItem FILEFORMAT_HTML_LINKED = new SelectItem("html_linked", this.getLabel("Export_FileFormat_HTML_LINKED"));
+    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
     final SelectItem[] FILEFORMAT_OPTIONS =
-        new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN,
-            FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
+        new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
 
     return FILEFORMAT_OPTIONS;
   }
@@ -188,10 +169,8 @@ public class ExportItems extends FacesBean {
     final String senderAddress = this.getExportItemsSessionBean().getEmailSenderProp();// someone@web.de
     final String subject = this.getExportItemsSessionBean().getExportEmailSubject();
     final String text = this.getExportItemsSessionBean().getExportEmailTxt();
-    final String[] replyToAddresses =
-        new String[] {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
-    final String[] attachments =
-        new String[] {this.getExportItemsSessionBean().getAttExportFile().getPath()};
+    final String[] replyToAddresses = new String[] {this.getExportItemsSessionBean().getExportEmailReplyToAddr()};
+    final String[] attachments = new String[] {this.getExportItemsSessionBean().getAttExportFile().getPath()};
     final String recipientsAddressesStr = this.getExportItemsSessionBean().getEmailRecipients();
     final String recipientsCCAddressesStr = this.getExportItemsSessionBean().getEmailCCRecipients();
 
@@ -216,9 +195,8 @@ public class ExportItems extends FacesBean {
     final String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
 
     try {
-      status =
-          EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses,
-              recipientsCCAddresses, null, replyToAddresses, subject, text, attachments);
+      status = EmailService.sendMail(smtpHost, withAuth, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, null,
+          replyToAddresses, subject, text, attachments);
       this.cleanUpEmailFields();
     } catch (final TechnicalException e) {
       ExportItems.logger.error("Could not send the export formats." + "\n" + e.toString());
@@ -239,8 +217,7 @@ public class ExportItems extends FacesBean {
 
       // redirect to last breadcrumb
       final BreadcrumbItemHistorySessionBean bhsb =
-          (BreadcrumbItemHistorySessionBean) FacesTools
-              .findBean("BreadcrumbItemHistorySessionBean");
+          (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
       try {
         FacesTools.getExternalContext().redirect(bhsb.getPreviousItem().getPage());
       } catch (final IOException e) {

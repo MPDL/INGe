@@ -18,8 +18,7 @@ public class MabXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.mab.stylesheet.filename",
-        "transformations/otherFormats/xslt/mabxml2escidoc.xsl");
+    return getXmlSourceFromProperty("inge.transformation.mab.stylesheet.filename", "transformations/otherFormats/xslt/mabxml2escidoc.xsl");
   }
 
   @Override
@@ -32,10 +31,8 @@ public class MabXmlToItemXml extends XslTransformer implements ChainableTransfor
       map.put("is-item-list", Boolean.TRUE);
     }
     map.put("localPrefix", PropertyReader.getProperty("inge.transformation.mab.content.url.prefix"));
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    map.put("external-organization",
-        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external-organization", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
 
     return map;
 

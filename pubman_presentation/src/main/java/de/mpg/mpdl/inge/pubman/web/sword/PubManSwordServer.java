@@ -118,11 +118,9 @@ public class PubManSwordServer {
    * @throws AuthorizationException
    * @throws ValidationException
    */
-  public DepositResponse doDeposit(Deposit deposit, String collection)
-      throws ContentStreamNotFoundException, SWORDContentTypeException, AuthenticationException,
-      IngeTechnicalException, IngeApplicationException,
-      de.mpg.mpdl.inge.service.exceptions.AuthorizationException, ValidationException,
-      ValidationServiceException {
+  public DepositResponse doDeposit(Deposit deposit, String collection) throws ContentStreamNotFoundException, SWORDContentTypeException,
+      AuthenticationException, IngeTechnicalException, IngeApplicationException, de.mpg.mpdl.inge.service.exceptions.AuthorizationException,
+      ValidationException, ValidationServiceException {
 
     final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;
@@ -159,12 +157,10 @@ public class PubManSwordServer {
       depositItem = util.doDeposit(depositItem);
       if (ItemVO.State.RELEASED.equals(depositItem.getVersion().getState())) {
         dr = new DepositResponse(Deposit.CREATED);
-        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
-            + depositItem.getPublicStatus() + ").");
+        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getPublicStatus() + ").");
       } else {
         dr = new DepositResponse(Deposit.ACCEPTED);
-        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: "
-            + depositItem.getPublicStatus() + ").");
+        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getPublicStatus() + ").");
       }
     } else {
       this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
@@ -190,16 +186,14 @@ public class PubManSwordServer {
    * @throws URISyntaxException
    * @throws IOException
    */
-  public String doServiceDocument(ServiceDocumentRequest sdr) throws SWORDAuthenticationException,
-      ParserConfigurationException, TransformerException {
+  public String doServiceDocument(ServiceDocumentRequest sdr)
+      throws SWORDAuthenticationException, ParserConfigurationException, TransformerException {
     final SwordUtil util = new SwordUtil();
     List<PubContextVOPresentation> contextList = null;
-    final ContextListSessionBean contextListBean =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean contextListBean = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     contextListBean.init();
     contextList = contextListBean.getDepositorContextList();
-    final DocumentBuilder documentBuilder =
-        DocumentBuilderFactory.newInstance().newDocumentBuilder();
+    final DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
     // Create and return the PubMan ServiceDocument
     final Document document = documentBuilder.newDocument();
@@ -228,8 +222,7 @@ public class PubManSwordServer {
       final Element med = document.createElementNS("http://purl.org/net/sword/", "mediation");
       med.setPrefix("sword");
       med.setTextContent("false");
-      final Element policy =
-          document.createElementNS("http://purl.org/net/sword/", "collectionPolicy");
+      final Element policy = document.createElementNS("http://purl.org/net/sword/", "collectionPolicy");
       policy.setPrefix("sword");
       policy.setTextContent(util.getWorkflowAsString(pubContext));
       // static value
@@ -245,8 +238,7 @@ public class PubManSwordServer {
 
       // static value
       for (int x = 0; x < util.packaging.length; x++) {
-        final Element format =
-            document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
+        final Element format = document.createElementNS("http://purl.org/net/sword/", "acceptPackaging");
         format.setPrefix("sword");
         format.setTextContent(util.packaging[x]);
         collection.appendChild(format);
@@ -261,9 +253,7 @@ public class PubManSwordServer {
     document.appendChild(service);
 
     // Transform to xml
-    final Transformer transformer =
-        TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-            .newTransformer();
+    final Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     final StreamResult result = new StreamResult(new StringWriter());
     final DOMSource source = new DOMSource(document);

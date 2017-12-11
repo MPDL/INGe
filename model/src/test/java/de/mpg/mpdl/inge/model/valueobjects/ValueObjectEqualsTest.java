@@ -102,8 +102,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentAlternativeTitles() {
-    AlternativeTitleVO altTitle =
-        mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
+    AlternativeTitleVO altTitle = mds1.getAlternativeTitles().get(mds1.getAlternativeTitles().size() - 1);
     altTitle.setValue(altTitle.getValue() + "X");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
@@ -209,8 +208,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentCreatorPersonOrganizationAddress() {
-    mds1.getCreators().get(0).getPerson().getOrganizations().get(0)
-        .setAddress("Another org address.");
+    mds1.getCreators().get(0).getPerson().getOrganizations().get(0).setAddress("Another org address.");
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
 

@@ -20,8 +20,7 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.endnote.EndNoteImpor
 public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
     try {
 
 

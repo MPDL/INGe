@@ -81,9 +81,8 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public String create(String id, E entity) throws IngeTechnicalException {
     try {
-      IndexResponse indexResponse =
-          client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-              .setSource(mapper.writeValueAsBytes(entity)).get();
+      IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
+          .setSource(mapper.writeValueAsBytes(entity)).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -103,10 +102,8 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
-      IndexResponse indexResponse =
-          client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-              .setRefreshPolicy(RefreshPolicy.IMMEDIATE)
-              .setSource(mapper.writeValueAsBytes(entity)).get();
+      IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setSource(mapper.writeValueAsBytes(entity)).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -125,8 +122,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public E get(String id) throws IngeTechnicalException {
     try {
-      GetResponse getResponse =
-          client.getClient().prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
+      GetResponse getResponse = client.getClient().prepareGet().setIndex(indexName).setType(indexType).setId(id).get();
       return mapper.readValue(getResponse.getSourceAsBytes(), typeParameterClass);
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
@@ -146,10 +142,8 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public String updateImmediately(String id, E entity) throws IngeTechnicalException {
 
     try {
-      UpdateResponse updateResponse =
-          client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-              .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity))
-              .get();
+      UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity)).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
@@ -160,9 +154,8 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public String update(String id, E entity) throws IngeTechnicalException {
 
     try {
-      UpdateResponse updateResponse =
-          client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-              .setDoc(mapper.writeValueAsBytes(entity)).get();
+      UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
+          .setDoc(mapper.writeValueAsBytes(entity)).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
@@ -180,14 +173,12 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public String delete(String id) {
 
-    DeleteResponse deleteResponse =
-        client.getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();
+    DeleteResponse deleteResponse = client.getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();
     return deleteResponse.getId();
 
   }
 
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
-      throws IngeTechnicalException {
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
 
     SearchRetrieveResponseVO<E> srrVO;
     try {
@@ -235,12 +226,10 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
   }
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll)
-      throws IngeTechnicalException {
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll) throws IngeTechnicalException {
 
     try {
-      SearchRequestBuilder srb =
-          client.getClient().prepareSearch(indexName).setTypes(indexType).setSource(ssb);
+      SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType).setSource(ssb);
       if (scroll != null) {
         srb.setScroll(scroll);
       }
@@ -273,8 +262,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
 
 
-  private SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(
-      SearchResponse sr) throws IOException {
+  private SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr) throws IOException {
     SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
     srrVO.setOriginalResponse(sr);
     srrVO.setNumberOfRecords((int) sr.getHits().getTotalHits());
@@ -300,19 +288,15 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
     String realIndexName = indexName;
 
-    GetAliasesResponse aliasResp =
-        client.getClient().admin().indices().prepareGetAliases(indexName).get();
+    GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
     if (!aliasResp.getAliases().isEmpty()) {
       realIndexName = aliasResp.getAliases().keys().iterator().next().value;
 
     }
-    GetMappingsResponse resp =
-        client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType)
-            .get();
+    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
     MappingMetaData mmd = resp.getMappings().get(realIndexName).get(indexType);
 
-    Map<String, ElasticSearchIndexField> map =
-        ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
+    Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
     ElasticSearchIndexField allField = new ElasticSearchIndexField();
     allField.setIndexName("_all");
     allField.setType(Type.TEXT);

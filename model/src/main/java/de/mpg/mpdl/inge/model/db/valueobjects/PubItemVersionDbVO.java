@@ -77,8 +77,7 @@ public class PubItemVersionDbVO extends PubItemDbRO implements Serializable {
 
   @MapsId("objectId")
   @JoinColumn(name = "objectId", referencedColumnName = "objectId")
-  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE,
-      CascadeType.PERSIST, CascadeType.REFRESH})
+  @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   PubItemObjectDbVO object;

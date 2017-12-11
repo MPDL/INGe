@@ -172,8 +172,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   public void update() {
     final String elementsPerP =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(BasePaginatorListSessionBean.parameterElementsPerPage);
+        FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterElementsPerPage);
 
     if (elementsPerP != null) {
       this.setElementsPerPage(Integer.parseInt(elementsPerP));
@@ -182,8 +181,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     }
 
     final String currentPNumber =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(BasePaginatorListSessionBean.parameterPageNumber);
+        FacesTools.getExternalContext().getRequestParameterMap().get(BasePaginatorListSessionBean.parameterPageNumber);
     if (currentPNumber != null) {
       this.setCurrentPageNumber(Integer.parseInt(currentPNumber));
       this.setGoToPage(currentPNumber);
@@ -194,20 +192,15 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.readOutParameters();
 
     if (this.getListUpdate() && this.getPaginatorListRetriever() != null) {
-      this.currentPartList =
-          this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-              this.getSortCriteria());
+      this.currentPartList = this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
       this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
-      if (this.getTotalNumberOfElements() > 0
-          && this.getTotalNumberOfElements() <= this.getOffset()) {
-        this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this
-            .getElementsPerPage()) + 1);
+      if (this.getTotalNumberOfElements() > 0 && this.getTotalNumberOfElements() <= this.getOffset()) {
+        this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this.getElementsPerPage()) + 1);
         this.currentPartList =
-            this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-                this.getSortCriteria());
+            this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
         this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -232,20 +225,15 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.setCurrentPageNumber(pageNumber);
 
     if (this.getListUpdate()) {
-      this.currentPartList =
-          this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-              this.getSortCriteria());
+      this.currentPartList = this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
       this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
 
       // reset current page and reload list if list is shorter than the given current page number
       // allows
-      if (this.getTotalNumberOfElements() > 0
-          && this.getTotalNumberOfElements() <= this.getOffset()) {
-        this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this
-            .getElementsPerPage()) + 1);
+      if (this.getTotalNumberOfElements() > 0 && this.getTotalNumberOfElements() <= this.getOffset()) {
+        this.setCurrentPageNumber(((this.getTotalNumberOfElements() - 1) / this.getElementsPerPage()) + 1);
         this.currentPartList =
-            this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage,
-                this.getSortCriteria());
+            this.getPaginatorListRetriever().retrieveList(this.getOffset(), this.elementsPerPage, this.getSortCriteria());
         this.totalNumberOfElements = this.getPaginatorListRetriever().getTotalNumberOfRecords();
       }
 
@@ -326,8 +314,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
     this.elementsPerPage = elementsPerPage;
     this.elementsPerPageTop = elementsPerPage;
     this.elementsPerPageBottom = elementsPerPage;
-    this.getParameterMap().put(BasePaginatorListSessionBean.parameterElementsPerPage,
-        String.valueOf(elementsPerPage));
+    this.getParameterMap().put(BasePaginatorListSessionBean.parameterElementsPerPage, String.valueOf(elementsPerPage));
   }
 
   /**
@@ -560,8 +547,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
      * @return
      */
     public String getLink() {
-      return BasePaginatorListSessionBean.this.getModifiedLink(
-          BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(this.number));
+      return BasePaginatorListSessionBean.this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
+          String.valueOf(this.number));
     }
   }
 
@@ -597,8 +584,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
       try {
         if (entrySet.getValue() != null) {
           parameterUrl =
-              parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "="
-                  + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
+              parameterUrl + URLEncoder.encode(entrySet.getKey(), "UTF-8") + "=" + URLEncoder.encode(entrySet.getValue(), "UTF-8") + "&";
         }
       } catch (final UnsupportedEncodingException e) {
         throw new RuntimeException(e);
@@ -653,8 +639,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   public String getLinkForNextPage() {
-    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
-        String.valueOf(this.currentPageNumber + 1));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(this.currentPageNumber + 1));
   }
 
   /**
@@ -663,8 +648,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   public String getLinkForPreviousPage() {
-    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
-        String.valueOf(this.currentPageNumber - 1));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(this.currentPageNumber - 1));
   }
 
   /**
@@ -673,8 +657,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   public String getLinkForFirstPage() {
-    return this
-        .getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(1));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(1));
   }
 
   /**
@@ -683,8 +666,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * @return
    */
   public String getLinkForLastPage() {
-    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber,
-        String.valueOf(this.getPaginatorPageSize()));
+    return this.getModifiedLink(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(this.getPaginatorPageSize()));
   }
 
   /**
@@ -694,8 +676,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    */
   public void setCurrentPageNumber(int currentPageNumber) {
     this.currentPageNumber = currentPageNumber;
-    this.getParameterMap().put(BasePaginatorListSessionBean.parameterPageNumber,
-        String.valueOf(currentPageNumber));
+    this.getParameterMap().put(BasePaginatorListSessionBean.parameterPageNumber, String.valueOf(currentPageNumber));
   }
 
   /**
@@ -703,8 +684,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
    * 
    * @param paginatorListRetriever
    */
-  public void setPaginatorListRetriever(
-      BaseListRetrieverRequestBean<ListElementType, SortCriteria> paginatorListRetriever) {
+  public void setPaginatorListRetriever(BaseListRetrieverRequestBean<ListElementType, SortCriteria> paginatorListRetriever) {
     this.paginatorListRetriever = paginatorListRetriever;
   }
 

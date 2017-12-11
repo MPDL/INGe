@@ -59,8 +59,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class FileServiceFSImpl implements FileService, FileServiceExternal {
   private final static Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
-  private final static String TMP_FILE_ROOT_PATH = System.getProperty("jboss.home.dir")
-      + PropertyReader.getProperty("inge.logic.temporary_filesystem_root_path");
+  private final static String TMP_FILE_ROOT_PATH =
+      System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.logic.temporary_filesystem_root_path");
 
 
   @Autowired
@@ -86,10 +86,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       try {
         Files.createDirectories(rootDirectory);
       } catch (IOException e) {
-        logger.error("An error occoured, when trying to create directory [" + rootDirectory + "]",
-            e);
-        throw new IngeTechnicalException("An error occoured, when trying to create directory ["
-            + rootDirectory + "]", e);
+        logger.error("An error occoured, when trying to create directory [" + rootDirectory + "]", e);
+        throw new IngeTechnicalException("An error occoured, when trying to create directory [" + rootDirectory + "]", e);
       }
     }
   }
@@ -104,11 +102,9 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   @Override
   @Transactional(readOnly = true)
   public FileVOWrapper readFile(String itemId, String fileId, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    logger.info("Trying to read file " + fileId + " with authenticationToken "
-        + authenticationToken);
+    logger.info("Trying to read file " + fileId + " with authenticationToken " + authenticationToken);
     // Item-based aa covered by this method
     PubItemVO item = pubItemService.get(itemId, authenticationToken);
 
@@ -124,8 +120,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     FileDbVO fileDbVO = fr.findOne(fileId);
 
     if (selectedFile == null || fileDbVO == null || fileDbVO.getLocalFileIdentifier() == null) {
-      throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ "
-          + itemId + "].");
+      throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ " + itemId + "].");
     }
     AccountUserVO user = null;
     if (authenticationToken != null) {
@@ -152,9 +147,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    */
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName,
-      String authenticationToken) throws IngeTechnicalException, IngeApplicationException,
-      AuthorizationException, AuthenticationException {
+  public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
 
     AccountUserVO user = aaService.checkLoginRequired(authenticationToken);
     if (fileName == null || fileName.trim().isEmpty()) {
@@ -168,15 +162,12 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     try {
 
-      Path tmpFilePath =
-          Paths.get(TMP_FILE_ROOT_PATH,
-              String.valueOf(stagedFileVo.getId() + "_" + UUID.randomUUID()));
+      Path tmpFilePath = Paths.get(TMP_FILE_ROOT_PATH, String.valueOf(stagedFileVo.getId() + "_" + UUID.randomUUID()));
       Files.copy(fileInputStream, tmpFilePath);
 
       stagedFileVo.setPath(tmpFilePath.toString());
     } catch (IOException e) {
-      throw new IngeTechnicalException("Could not write staged file for file [" + fileName + "].",
-          e);
+      throw new IngeTechnicalException("Could not write staged file for file [" + fileName + "].", e);
     } finally {
       try {
         fileInputStream.close();
@@ -191,14 +182,12 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO userAccount)
-      throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO userAccount) throws IngeTechnicalException, IngeApplicationException {
 
 
     // TODO: Das kann nie funktionieren: Inhalt von fileVO.getContent() z.B.
     // "http://p5.focus.de/img/fotos/crop7916800/6004876006-cv21_9-w630-h270-oc-q75-p5/eu-afrika-gipfel.jpg"
-    StagedFileDbVO stagedFileVo =
-        stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
+    StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
     if (!stagedFileVo.getCreatorId().equals(userAccount.getReference().getObjectId())) {
       throw new IngeTechnicalException("Staged file is read by another user than its creator");
@@ -222,9 +211,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
 
     } catch (FileNotFoundException e) {
-      String msg =
-          "Staged file with path [" + stagedFileVo.getPath() + "] and name ["
-              + stagedFileVo.getFilename() + "] does not exist.";
+      String msg = "Staged file with path [" + stagedFileVo.getPath() + "] and name [" + stagedFileVo.getFilename() + "] does not exist.";
       logger.error(msg);
       throw new IngeTechnicalException(msg, e);
     } catch (Exception e) {
@@ -297,8 +284,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
    */
   @Override
   public String getFileMetadata(String itemId, String componentId, String authenticationToken)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
-      AuthenticationException {
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
 
     // Auth is covered by readFile method
 
@@ -309,8 +295,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     try {
       FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);
       wrapper.readFile(fileOutput);
-      final TikaInputStream input =
-          TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
+      final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
       final AutoDetectParser parser = new AutoDetectParser();
       final BodyContentHandler handler = new BodyContentHandler();
       ParseContext context = new ParseContext();
@@ -319,8 +304,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       input.close();
     } catch (IOException | SAXException | TikaException e) {
       logger.error("could not read file [" + componentId + "] for Metadata extraction");
-      throw new IngeTechnicalException("could not read file [" + componentId
-          + "] for Metadata extraction", e);
+      throw new IngeTechnicalException("could not read file [" + componentId + "] for Metadata extraction", e);
     } finally {
       try {
         fileOutput.close();
@@ -331,8 +315,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     final StringBuffer b = new StringBuffer(2048);
     for (final String name : metadata.names()) {
-      b.append(name).append(": ").append(metadata.get(name))
-          .append(System.getProperty("line.separator"));
+      b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty("line.separator"));
     }
     return b.toString();
   }
@@ -340,13 +323,11 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
   protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];
     }
-    objects =
-        Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
+    objects = Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
   }
 
@@ -362,7 +343,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       // Read file data and update in message digest
       while ((bytesCount = fis.read(byteArray)) != -1) {
         digest.update(byteArray, 0, bytesCount);
-      };
+      } ;
 
       // close the stream; We don't need it now.
       fis.close();

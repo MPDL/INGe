@@ -69,8 +69,7 @@ public class AdminHelper {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static String loginUser(String userid, String password) throws HttpException, IOException,
-      ServiceException, URISyntaxException {
+  public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException {
     String frameworkUrl = PropertyReader.getLoginUrl();
 
     int delim1 = frameworkUrl.indexOf("//");
@@ -98,8 +97,7 @@ public class AdminHelper {
 
     login.releaseConnection();
     CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-    Cookie[] logoncookies =
-        cookiespec.match(host, port, "/", false, client.getState().getCookies());
+    Cookie[] logoncookies = cookiespec.match(host, port, "/", false, client.getState().getCookies());
 
     Cookie sessionCookie = logoncookies[0];
 
@@ -118,8 +116,7 @@ public class AdminHelper {
       if ("Location".equals(headers[i].getName())) {
         String location = headers[i].getValue();
         int index = location.indexOf('=');
-        userHandle =
-            new String(Base64.getDecoder().decode(location.substring(index + 1, location.length())));
+        userHandle = new String(Base64.getDecoder().decode(location.substring(index + 1, location.length())));
       }
     }
 
@@ -139,13 +136,11 @@ public class AdminHelper {
     Date now = new Date();
 
     // Renew every hour
-    if (adminUserHandle == null || loginTime == null
-        || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000) {
+    if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000) {
       try {
         loginTime = new Date();
         adminUserHandle =
-            loginUser(PropertyReader.getProperty("framework.admin.username"),
-                PropertyReader.getProperty("framework.admin.password"));
+            loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
       } catch (Exception e) {
         logger.error("Exception logging on admin user.", e);
       }

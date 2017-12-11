@@ -31,15 +31,13 @@ public interface FileServiceExternal {
    * @return An pbject containing information about the staged file
    * @throws IOException
    */
-  public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName,
-      String authenticationToken) throws IngeTechnicalException, IngeApplicationException,
-      AuthorizationException, AuthenticationException;
+  public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
 
 
   public FileVOWrapper readFile(String itemId, String fileId, String authentitationToken)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
-      AuthenticationException;
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
 
 
@@ -50,8 +48,7 @@ public interface FileServiceExternal {
    * @return
    */
   public String getFileMetadata(String itemId, String fileId, String authenticationToken)
-      throws IngeTechnicalException, IngeApplicationException, AuthorizationException,
-      AuthenticationException;
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
 
 }

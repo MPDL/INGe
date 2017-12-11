@@ -80,10 +80,8 @@ public class CitationStyleExecuterService {
     return XmlHelper.getMimeType(cs, ouf);
   }
 
-  public static byte[] getOutput(String itemList, ExportFormatVO exportFormat)
-      throws CitationStyleManagerException {
-    Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()),
-        "Output format is not defined");
+  public static byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
+    Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()), "Output format is not defined");
     Utils.checkCondition(!Utils.checkVal(itemList), "Empty item-list");
 
     String outputFormat = exportFormat.getSelectedFileFormat().getName();
@@ -93,14 +91,12 @@ public class CitationStyleExecuterService {
     long start = System.currentTimeMillis();
     try {
       if (!XmlHelper.citationStyleHasOutputFormat(exportFormat.getName(), outputFormat)) {
-        throw new CitationStyleManagerException("Output format: " + outputFormat
-            + " is not supported for Citation Style: " + exportFormat.getName());
+        throw new CitationStyleManagerException(
+            "Output format: " + outputFormat + " is not supported for Citation Style: " + exportFormat.getName());
       }
 
       if ("CSL".equals(exportFormat.getName())) {
-        snippet =
-            new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList),
-                "UTF-8");
+        snippet = new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList), "UTF-8");
       } else {
 
         StringWriter sw = new StringWriter();
@@ -114,8 +110,7 @@ public class CitationStyleExecuterService {
 
         transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
 
-        logger.debug("Transformation item-list to snippet takes time: "
-            + (System.currentTimeMillis() - start));
+        logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
 
         snippet = sw.toString();
       }
@@ -126,14 +121,12 @@ public class CitationStyleExecuterService {
       } else if ("snippet".equals(outputFormat)) { // old edoc md set: back transformation
 
         de.mpg.mpdl.inge.transformation.Transformer trans =
-            TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML,
-                FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+            TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
         // TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
         StringWriter wr = new StringWriter();
 
         try {
-          trans.transform(
-              new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
+          trans.transform(new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
               new TransformerStreamResult(wr));
         } catch (Exception e) {
           throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
@@ -194,14 +187,11 @@ public class CitationStyleExecuterService {
     return XmlHelper.isCitationStyle(cs);
   }
 
-  private static String generateHtmlOutput(String snippets, String html_format,
-      String outputMethod, boolean indent) {
+  private static String generateHtmlOutput(String snippets, String html_format, String outputMethod, boolean indent) {
     StringWriter result = new StringWriter();
     try {
       Transformer transformer =
-          XmlHelper.tryTemplCache(
-              CitationUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl")
-              .newTransformer();
+          XmlHelper.tryTemplCache(CitationUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
       transformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
       transformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
 
@@ -220,8 +210,7 @@ public class CitationStyleExecuterService {
   private static String getPubManUrl() {
     try {
       String contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
-      return PropertyReader.getProperty("inge.pubman.instance.url")
-          + (contextPath == null ? "" : contextPath);
+      return PropertyReader.getProperty("inge.pubman.instance.url") + (contextPath == null ? "" : contextPath);
     } catch (Exception e) {
       throw new RuntimeException("Cannot get property:", e);
     }

@@ -8,8 +8,7 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 public class IdentityTransformer extends SingleTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
     String in = getStringFromSource(source);
     writeStringToStreamResult(in, result);

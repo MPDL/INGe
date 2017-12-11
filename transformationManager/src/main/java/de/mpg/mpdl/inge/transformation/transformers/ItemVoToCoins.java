@@ -16,8 +16,7 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.coins.CoinsTransform
 public class ItemVoToCoins extends SingleTransformer implements ChainableTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
     VoSource s = (VoSource) source;
 
     CoinsTransformation coinsTransformation = new CoinsTransformation();

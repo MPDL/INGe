@@ -89,23 +89,23 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue(
-        SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
+    return this.getItemControllerSessionBean()
+        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
   }
 
   public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue(
-        SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
+    return this.getItemControllerSessionBean()
+        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
   }
 
   public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue(
-        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
+    return this.getItemControllerSessionBean()
+        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
   }
 
   public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue(
-        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
+    return this.getItemControllerSessionBean()
+        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
   }
 
   public List<PubFileVOPresentation> getFileList() {
@@ -144,8 +144,7 @@ public class ViewItemStatistics extends FacesBean {
     try {
       return PropertyReader.getProperty("inge.pubman.statistics.nims.link") + this.getItemID();
     } catch (final Exception e) {
-      ViewItemStatistics.logger
-          .error("Could not read inge.pubman.statistics.nims.link from properties");
+      ViewItemStatistics.logger.error("Could not read inge.pubman.statistics.nims.link from properties");
       return null;
     }
   }
@@ -158,8 +157,7 @@ public class ViewItemStatistics extends FacesBean {
   public boolean getShowNIMSLink() {
     try {
       final String contexts = PropertyReader.getProperty("inge.pubman.statistics.nims.context.ids");
-      final ItemControllerSessionBean icsb =
-          (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+      final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       final ContextVO currentContext = icsb.getCurrentContext();
       // logger.info(currentContext.getReference().getObjectId());
       if (contexts != null) {

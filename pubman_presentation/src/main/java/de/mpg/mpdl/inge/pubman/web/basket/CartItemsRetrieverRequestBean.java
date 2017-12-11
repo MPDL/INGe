@@ -37,12 +37,10 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  */
 @ManagedBean(name = "CartItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class CartItemsRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
 
-  public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED =
-      "deleteItemsFromBasket_NoItemSelected";
+  public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBasket_NoItemSelected";
 
   private int numberOfRecords;
 
@@ -82,8 +80,7 @@ public class CartItemsRetrieverRequestBean extends
 
 
     try {
-      final PubItemStorageSessionBean pssb =
-          (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
+      final PubItemStorageSessionBean pssb = (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
 
 
       if (pssb.getStoredPubItems().size() > 0) {
@@ -92,10 +89,8 @@ public class CartItemsRetrieverRequestBean extends
 
         for (final ItemRO id : pssb.getStoredPubItems().values()) {
           BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
-          subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
-              id.getObjectId()));
-          subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
-              id.getVersionNumber()));
+          subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+          subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
           bq.should(subQuery);
         }
 
@@ -108,9 +103,7 @@ public class CartItemsRetrieverRequestBean extends
 
         for (String index : sc.getIndex()) {
           if (!index.isEmpty()) {
-            ssb.sort(SearchUtils.baseElasticSearchSortBuilder(
-                pis.getElasticSearchIndexFields(),
-                index,
+            ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
                 SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
                     : org.elasticsearch.search.sort.SortOrder.DESC));
           }
@@ -120,8 +113,7 @@ public class CartItemsRetrieverRequestBean extends
 
         this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-        List<PubItemVO> pubItemList =
-            SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+        List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
 
         returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
 
@@ -150,20 +142,17 @@ public class CartItemsRetrieverRequestBean extends
    * @return
    */
   public void deleteSelected() {
-    final PubItemStorageSessionBean pssb =
-        (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
+    final PubItemStorageSessionBean pssb = (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
     int countSelected = 0;
 
-    for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean()
-        .getCurrentPartList()) {
+    for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
         pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
       }
     }
     if (countSelected == 0) {
-      this.error(this
-          .getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
+      this.error(this.getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
     }
 
     this.getBasePaginatorListSessionBean().redirect();

@@ -119,15 +119,13 @@ public class XmlComparator {
     private LinkedList<Node> nodeList = new LinkedList<Node>();
 
     @Override
-    public void content(String uri, String localName, String name, String content)
-        throws SAXException {
+    public void content(String uri, String localName, String name, String content) throws SAXException {
       super.content(uri, localName, name, content);
       nodeList.add(new TextNode(content));
     }
 
     @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
+    public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
       super.startElement(uri, localName, name, attributes);
       Map<String, String> attributeMap = new HashMap<String, String>();
@@ -138,21 +136,16 @@ public class XmlComparator {
 
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
-            String namespace =
-                getNamespaces().get(
-                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-            String attributeName =
-                attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
+            String namespace = getNamespaces().get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
+            String attributeName = attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
-            if (!"schemaLocation".equals(attributeName)
-                || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
+            if (!"schemaLocation".equals(attributeName) || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
               attributeMap.put(namespace + ":" + attributeName, attributes.getValue(i));
             }
           }
         }
         // TODO MF: Hack for md-record/@name
-        else if ("name".equals(attributes.getQName(i))
-            && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
+        else if ("name".equals(attributes.getQName(i)) && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
           // Do nothing
 
         } else {
@@ -161,8 +154,8 @@ public class XmlComparator {
 
       }
       if (name.contains(":")) {
-        nodeList.add(new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1),
-            getNamespaces().get(name.substring(0, name.indexOf(":")))));
+        nodeList.add(
+            new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(name.substring(0, name.indexOf(":")))));
       } else {
         nodeList.add(new XmlNode(attributeMap, name, null));
       }
@@ -177,8 +170,7 @@ public class XmlComparator {
     }
 
     @Override
-    public void content(String uri, String localName, String name, String content)
-        throws SAXException {
+    public void content(String uri, String localName, String name, String content) throws SAXException {
       super.content(uri, localName, name, content);
       TextNode textNode = new TextNode(content);
       Node other = firstXmlHandler.nodeList.poll();
@@ -189,8 +181,7 @@ public class XmlComparator {
     }
 
     @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
+    public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
       super.startElement(uri, localName, name, attributes);
       XmlNode xmlNode;
@@ -199,21 +190,16 @@ public class XmlComparator {
 
         if (attributes.getQName(i).contains(":")) {
           if (!attributes.getQName(i).startsWith("xmlns:")) {
-            String namespace =
-                getNamespaces().get(
-                    attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
-            String tagName =
-                attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
+            String namespace = getNamespaces().get(attributes.getQName(i).substring(0, attributes.getQName(i).indexOf(":")));
+            String tagName = attributes.getQName(i).substring(attributes.getQName(i).indexOf(":") + 1);
 
-            if (!"schemaLocation".equals(tagName)
-                || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
+            if (!"schemaLocation".equals(tagName) || !"http://www.w3.org/2001/XMLSchema-instance".equals(namespace)) {
               attributeMap.put(namespace + ":" + tagName, attributes.getValue(i));
             }
           }
         }
         // TODO MF: Hack for md-record/@name
-        else if ("name".equals(attributes.getQName(i))
-            && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
+        else if ("name".equals(attributes.getQName(i)) && "md-record".equals(name.substring(name.indexOf(":") + 1))) {
           // Do nothing
         } else {
           attributeMap.put(attributes.getQName(i), attributes.getValue(i));
@@ -222,8 +208,7 @@ public class XmlComparator {
 
       if (name.contains(":")) {
         xmlNode =
-            new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(
-                name.substring(0, name.indexOf(":"))));
+            new XmlNode(attributeMap, name.substring(name.indexOf(":") + 1), getNamespaces().get(name.substring(0, name.indexOf(":"))));
       } else {
         xmlNode = new XmlNode(attributeMap, name, null);
       }
@@ -278,28 +263,21 @@ public class XmlComparator {
         return false;
       } else {
         for (String attributeName : this.attributes.keySet()) {
-          if (!attributeName.startsWith("xmlns:")
-              && !attributeName.equals("xsi")
-              && !this.attributes.get(attributeName).equals(
-                  ((XmlNode) other).attributes.get(attributeName))) {
+          if (!attributeName.startsWith("xmlns:") && !attributeName.equals("xsi")
+              && !this.attributes.get(attributeName).equals(((XmlNode) other).attributes.get(attributeName))) {
             return false;
           }
         }
 
         for (String attributeName : ((XmlNode) other).attributes.keySet()) {
           if (!attributeName.startsWith("xmlns:")
-              && !((XmlNode) other).attributes.get(attributeName).equals(
-                  this.attributes.get(attributeName))) {
+              && !((XmlNode) other).attributes.get(attributeName).equals(this.attributes.get(attributeName))) {
             return false;
           }
         }
 
-        boolean x1 =
-            (this.name == null ? ((XmlNode) other).name == null : this.name
-                .equals(((XmlNode) other).name));
-        boolean x2 =
-            (this.namespace == null ? ((XmlNode) other).namespace == null : this.namespace
-                .equals(((XmlNode) other).namespace));
+        boolean x1 = (this.name == null ? ((XmlNode) other).name == null : this.name.equals(((XmlNode) other).name));
+        boolean x2 = (this.namespace == null ? ((XmlNode) other).namespace == null : this.namespace.equals(((XmlNode) other).namespace));
 
         return (x1 && x2);
       }

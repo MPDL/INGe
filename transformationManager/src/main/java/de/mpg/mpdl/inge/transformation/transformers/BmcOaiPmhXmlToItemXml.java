@@ -18,8 +18,7 @@ public class BmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTr
   @Override
   public Source getXsltSource() throws TransformationException {
 
-    return getXmlSourceFromProperty(
-        "inge.transformation.bmc2escidoc_publication_component.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.bmc2escidoc_publication_component.stylesheet.filename",
         "transformations/thirdParty/xslt/bmc2escidoc-publication-item.xsl");
 
 
@@ -28,10 +27,8 @@ public class BmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTr
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    map.put("external_organization_id",
-        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external_organization_id", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

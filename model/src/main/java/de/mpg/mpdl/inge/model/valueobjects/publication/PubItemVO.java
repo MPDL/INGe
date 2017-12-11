@@ -41,8 +41,7 @@ public class PubItemVO extends ItemVO {
   }
 
   public MdsPublicationVO getMetadata() {
-    if (getMetadataSets() != null && getMetadataSets().size() > 0
-        && getMetadataSets().get(0) instanceof MdsPublicationVO) {
+    if (getMetadataSets() != null && getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsPublicationVO) {
       return (MdsPublicationVO) getMetadataSets().get(0);
     } else {
       return null;
@@ -58,8 +57,7 @@ public class PubItemVO extends ItemVO {
   }
 
   public MdsYearbookVO getYearbookMetadata() {
-    if (getMetadataSets() != null && getMetadataSets().size() > 0
-        && getMetadataSets().get(0) instanceof MdsYearbookVO) {
+    if (getMetadataSets() != null && getMetadataSets().size() > 0 && getMetadataSets().get(0) instanceof MdsYearbookVO) {
       return (MdsYearbookVO) getMetadataSets().get(0);
     } else {
       return null;

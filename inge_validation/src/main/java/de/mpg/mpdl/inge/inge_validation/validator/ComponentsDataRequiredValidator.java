@@ -65,8 +65,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 // escidocComponents:content/@xlink:href
 // -> FileVO.content
 
-public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileVO>> implements
-    Validator<List<FileVO>> {
+public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -83,28 +82,22 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileV
 
           if (fileVO.getDefaultMetadata() != null //
               && ValidationTools.isEmpty(fileVO.getDefaultMetadata().getTitle())) {
-            context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED)
-                .setField("file[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
           if (ValidationTools.isEmpty(fileVO.getContentCategory())) {
-            context.addError(ValidationError.create(
-                ErrorMessages.COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED).setField("file[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (!Storage.EXTERNAL_URL.equals(fileVO.getStorage())
-              && ValidationTools.isEmpty(fileVO.getMimeType())) {
-            context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED)
-                .setField("file[" + i + "]"));
+          if (!Storage.EXTERNAL_URL.equals(fileVO.getStorage()) && ValidationTools.isEmpty(fileVO.getMimeType())) {
+            context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
           if (fileVO.getVisibility() == null) {
-            context.addError(ValidationError
-                .create(ErrorMessages.COMPONENT_VISIBILITY_NOT_PROVIDED)
-                .setField("file[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.COMPONENT_VISIBILITY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 

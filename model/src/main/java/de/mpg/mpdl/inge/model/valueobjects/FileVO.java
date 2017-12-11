@@ -60,21 +60,29 @@ public class FileVO extends ValueObject implements Cloneable {
    * 
    * @updated 21-Nov-2007 12:05:47
    */
-  public enum Visibility {
-    PUBLIC, PRIVATE, AUDIENCE;
+  public enum Visibility
+  {
+    PUBLIC,
+    PRIVATE,
+    AUDIENCE;
   }
 
   /**
    * The possible storage of a file.
    */
-  public enum Storage {
-    INTERNAL_MANAGED, EXTERNAL_URL, EXTERNAL_MANAGED
+  public enum Storage
+  {
+    INTERNAL_MANAGED,
+    EXTERNAL_URL,
+    EXTERNAL_MANAGED
   }
   /**
    * The possible storage of a file.
    */
-  public enum ChecksumAlgorithm {
-    MD5, SHA1
+  public enum ChecksumAlgorithm
+  {
+    MD5,
+    SHA1
   }
 
   private FileRO reference;
@@ -520,8 +528,7 @@ public class FileVO extends ValueObject implements Cloneable {
     result = prime * result + ((createdByRO == null) ? 0 : createdByRO.hashCode());
     result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
     result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result =
-        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
     result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());

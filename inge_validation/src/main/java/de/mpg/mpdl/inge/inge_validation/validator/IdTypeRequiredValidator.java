@@ -18,8 +18,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
  * != ''"> IdTypeNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>> implements
-    Validator<List<IdentifierVO>> {
+public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>> implements Validator<List<IdentifierVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<IdentifierVO> identifiers) {
@@ -34,8 +33,7 @@ public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>
         if (identifierVO != null) {
           if (ValidationTools.isNotEmpty(identifierVO.getId()) //
               && identifierVO.getType() == null) {
-            context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField(
-                "identifier[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField("identifier[" + i + "]"));
             ok = false;
           }
         }

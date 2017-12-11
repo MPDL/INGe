@@ -49,9 +49,8 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
    */
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
-        PubItemServiceDbImpl.INDEX_PID, PubItemServiceDbImpl.INDEX_VERSION_PID,
-        PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID};
+    return new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_PID,
+        PubItemServiceDbImpl.INDEX_VERSION_PID, PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID};
 
   }
 

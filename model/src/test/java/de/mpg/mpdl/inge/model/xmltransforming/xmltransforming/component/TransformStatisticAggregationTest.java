@@ -50,8 +50,7 @@ public class TransformStatisticAggregationTest extends XmlTransformingTestBase {
   private static final Logger logger = Logger.getLogger(TransformStatisticAggregationTest.class);
 
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformStatisticAggregation/";
-  private static String AGG_DEFINITION_LIST_SAMPLE_FILE = TEST_FILE_ROOT
-      + "pubman_object_stats_aggregation.xml";
+  private static String AGG_DEFINITION_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "pubman_object_stats_aggregation.xml";
 
   /**
    * Test of {@link XmlTransforming#transformToStatisticReportRecordList(String)}
@@ -65,8 +64,7 @@ public class TransformStatisticAggregationTest extends XmlTransformingTestBase {
     logger.info("### testTransformToStatisticAggregationDefinition ###");
 
     String aggDefXml = readFile(AGG_DEFINITION_LIST_SAMPLE_FILE);
-    AggregationDefinitionVO aggDefVO =
-        XmlTransformingService.transformToStatisticAggregationDefinition(aggDefXml);
+    AggregationDefinitionVO aggDefVO = XmlTransformingService.transformToStatisticAggregationDefinition(aggDefXml);
 
     assertEquals("pubman item statistics without version", aggDefVO.getName());
     assertNotNull(aggDefVO.getScopeId());
@@ -78,8 +76,7 @@ public class TransformStatisticAggregationTest extends XmlTransformingTestBase {
     assertEquals("pubman_object_stats", aggTableVO.getName());
     assertEquals(8, aggTableVO.getAggregationFields().size());
 
-    AggregationInfoFieldVO infoField =
-        (AggregationInfoFieldVO) aggTableVO.getAggregationFields().get(0);
+    AggregationInfoFieldVO infoField = (AggregationInfoFieldVO) aggTableVO.getAggregationFields().get(0);
     assertEquals("handler", infoField.getName());
     assertEquals("text", infoField.getType());
     assertEquals("//parameter[@name=\"handler\"]/stringvalue", infoField.getxPath());

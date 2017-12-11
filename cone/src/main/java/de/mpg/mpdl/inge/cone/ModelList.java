@@ -49,11 +49,13 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 public class ModelList {
 
-  public enum Event {
+  public enum Event
+  {
     ONLOAD, ONSAVE
   }
 
-  public enum Type {
+  public enum Type
+  {
     STRING, XML
   }
 
@@ -66,8 +68,7 @@ public class ModelList {
   private ModelList() throws ConeException {
     try {
       InputStream in =
-          ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
-              ModelList.class.getClassLoader());
+          ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), ModelList.class.getClassLoader());
       ServiceListHandler listHandler = new ServiceListHandler();
       SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
       parser.parse(in, listHandler);
@@ -192,8 +193,7 @@ public class ModelList {
     }
 
     @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
+    public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
       super.startElement(uri, localName, name, attributes);
       if ("models/model".equals(localStack.toString())) {
         currentService = new Model();
@@ -203,53 +203,43 @@ public class ModelList {
         currentService.getResults().add(new ModelResult());
       } else if ("predicate".equals(name)) {
         if (attributes.getValue("value") == null) {
-          throw new SAXException("Predicate value for " + attributes.getValue("name")
-              + " in model " + currentService.getName() + " must not be null");
+          throw new SAXException(
+              "Predicate value for " + attributes.getValue("name") + " in model " + currentService.getName() + " must not be null");
         }
 
         // if parent is "predicates" (and therefore not another
         // sub-predicate) and value is same as
         // primary identifier
-        else if (localStack.size() > 1
-            && "predicates".equals(localStack.get(localStack.size() - 2))
+        else if (localStack.size() > 1 && "predicates".equals(localStack.get(localStack.size() - 2))
             && attributes.getValue("value").equals(currentService.getIdentifier())) {
           if (!Boolean.parseBoolean(attributes.getValue("mandatory"))) {
-            throw new SAXException("Identifier predicate " + attributes.getValue("value")
-                + " in model " + currentService.getName() + " must be mandatory");
+            throw new SAXException(
+                "Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must be mandatory");
           } else if (Boolean.parseBoolean(attributes.getValue("multiple"))) {
-            throw new SAXException("Identifier predicate " + attributes.getValue("value")
-                + " in model " + currentService.getName() + " must not be multiple");
+            throw new SAXException(
+                "Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName() + " must not be multiple");
           } else if (Boolean.parseBoolean(attributes.getValue("localized"))) {
-            throw new SAXException("Identifier predicate " + attributes.getValue("value")
-                + " in model " + currentService.getName() + " must not be localized");
+            throw new SAXException("Identifier predicate " + attributes.getValue("value") + " in model " + currentService.getName()
+                + " must not be localized");
           }
         }
 
-        Predicate predicate =
-            new Predicate(attributes.getValue("value"), attributes.getValue("name"),
-                Boolean.parseBoolean(attributes.getValue("multiple")),
-                Boolean.parseBoolean(attributes.getValue("mandatory")),
-                Boolean.parseBoolean(attributes.getValue("localized")),
-                Boolean.parseBoolean(attributes.getValue("generateObject")),
-                (attributes.getValue("includeResource") == null ? true : Boolean
-                    .parseBoolean(attributes.getValue("includeResource"))),
-                Boolean.parseBoolean(attributes.getValue("searchable")),
-                Boolean.parseBoolean(attributes.getValue("restricted")),
-                Boolean.parseBoolean(attributes.getValue("overwrite")),
-                Boolean.parseBoolean(attributes.getValue("shouldBeUnique")),
-                (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes
-                    .getValue("modify"))), attributes.getValue("event"),
-                attributes.getValue("resourceModel"), attributes.getValue("default"),
-                attributes.getValue("suggest-url"), attributes.getValue("type"));
+        Predicate predicate = new Predicate(attributes.getValue("value"), attributes.getValue("name"),
+            Boolean.parseBoolean(attributes.getValue("multiple")), Boolean.parseBoolean(attributes.getValue("mandatory")),
+            Boolean.parseBoolean(attributes.getValue("localized")), Boolean.parseBoolean(attributes.getValue("generateObject")),
+            (attributes.getValue("includeResource") == null ? true : Boolean.parseBoolean(attributes.getValue("includeResource"))),
+            Boolean.parseBoolean(attributes.getValue("searchable")), Boolean.parseBoolean(attributes.getValue("restricted")),
+            Boolean.parseBoolean(attributes.getValue("overwrite")), Boolean.parseBoolean(attributes.getValue("shouldBeUnique")),
+            (attributes.getValue("modify") == null ? true : Boolean.parseBoolean(attributes.getValue("modify"))),
+            attributes.getValue("event"), attributes.getValue("resourceModel"), attributes.getValue("default"),
+            attributes.getValue("suggest-url"), attributes.getValue("type"));
         this.predicateStack.peek().add(predicate);
         this.predicateStack.push(predicate.getPredicates());
       } else if ("models/model/primary-identifier".equals(localStack.toString())) {
-        currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes
-            .getValue("generate-cone-id")));
-        currentService.setIdentifierPrefix((attributes.getValue("identifier-prefix") == null ? ""
-            : attributes.getValue("identifier-prefix")));
-        currentService.setSubjectPrefix((attributes.getValue("subject-prefix") == null ? ""
-            : attributes.getValue("subject-prefix")));
+        currentService.setGenerateIdentifier(Boolean.parseBoolean(attributes.getValue("generate-cone-id")));
+        currentService
+            .setIdentifierPrefix((attributes.getValue("identifier-prefix") == null ? "" : attributes.getValue("identifier-prefix")));
+        currentService.setSubjectPrefix((attributes.getValue("subject-prefix") == null ? "" : attributes.getValue("subject-prefix")));
         currentService.setControlled(Boolean.parseBoolean(attributes.getValue("control")));
       } else if ("models/config/default-namespace".equals(localStack.toString())) {
         defaultNamepaces.put(attributes.getValue("uri"), attributes.getValue("prefix"));
@@ -293,19 +283,15 @@ public class ModelList {
      * @param model
      * @throws ConeException
      */
-    private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> modelStack)
-        throws SAXException, ConeException {
+    private void setI18nFlags(Model model, List<Predicate> predicates, Stack<String> modelStack) throws SAXException, ConeException {
       for (Predicate predicate : predicates) {
         for (ModelResult result : model.getResults()) {
-          if (predicate.isLocalized()
-              && result.getResultPattern().contains("<" + predicate.getId() + ">")) {
+          if (predicate.isLocalized() && result.getResultPattern().contains("<" + predicate.getId() + ">")) {
             model.setLocalizedResultPattern(true);
-          } else if (predicate.isResource()
-              && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(),
-                  result.getResultPattern(), new Stack<String>())) {
+          } else if (predicate.isResource() && isSubResourceLocalized(predicate.getId() + "|", predicate.getResourceModel(),
+              result.getResultPattern(), new Stack<String>())) {
             model.setLocalizedResultPattern(true);
-          } else if (!predicate.isLocalized()
-              && result.getResultPattern().contains("<" + predicate.getId() + ">")) {
+          } else if (!predicate.isLocalized() && result.getResultPattern().contains("<" + predicate.getId() + ">")) {
             model.setGlobalResultPattern(true);
           }
         }
@@ -340,8 +326,7 @@ public class ModelList {
       }
     }
 
-    private boolean isSubResourceLocalized(String prefix, String modelName, String pattern,
-        Stack<String> modelStack) throws SAXException {
+    private boolean isSubResourceLocalized(String prefix, String modelName, String pattern, Stack<String> modelStack) throws SAXException {
       Model model = null;
       try {
         for (Model existingModel : list) {
@@ -349,7 +334,7 @@ public class ModelList {
             model = existingModel;
             break;
           }
-        };
+        } ;
       } catch (Exception e) {
         throw new SAXException("Error getting sub model '" + modelName + "'", e);
       }
@@ -359,8 +344,7 @@ public class ModelList {
           return true;
         } else if (predicate.isResource() && !modelStack.contains(modelName)) {
           modelStack.push(modelName);
-          return isSubResourceLocalized(prefix + predicate.getId() + "|",
-              predicate.getResourceModel(), pattern, modelStack);
+          return isSubResourceLocalized(prefix + predicate.getId() + "|", predicate.getResourceModel(), pattern, modelStack);
         }
       }
       return false;
@@ -380,8 +364,7 @@ public class ModelList {
    * @version $Revision$ $LastChangedDate$
    */
   public class Model {
-    final QName rdfDescriptionTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "Description", "rdf");
+    final QName rdfDescriptionTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "Description", "rdf");
 
     private String name;
     private String description;
@@ -701,11 +684,9 @@ public class ModelList {
      *        mask
      * @param typeString A type indictator for the value of this predicate. See {@link Type}
      */
-    public Predicate(String id, String name, boolean multiple, boolean mandatory,
-        boolean localized, boolean generateObject, boolean includeResource, boolean searchable,
-        boolean restricted, boolean overwrite, boolean shouldBeUnique, boolean modify,
-        String eventString, String resourceModel, String defaultValue, String suggestUrl,
-        String typeString) {
+    public Predicate(String id, String name, boolean multiple, boolean mandatory, boolean localized, boolean generateObject,
+        boolean includeResource, boolean searchable, boolean restricted, boolean overwrite, boolean shouldBeUnique, boolean modify,
+        String eventString, String resourceModel, String defaultValue, String suggestUrl, String typeString) {
       this.id = id;
 
       this.multiple = multiple;
@@ -766,9 +747,7 @@ public class ModelList {
         try {
           int index = this.defaultValue.lastIndexOf(".");
           Class cls = Class.forName(this.defaultValue.substring(0, index));
-          Method method =
-              cls.getMethod(this.defaultValue.substring(index + 1),
-                  new Class[] {HttpServletRequest.class});
+          Method method = cls.getMethod(this.defaultValue.substring(index + 1), new Class[] {HttpServletRequest.class});
           String result = (String) method.invoke(null, new Object[] {request});
           return result;
         } catch (Exception e) {

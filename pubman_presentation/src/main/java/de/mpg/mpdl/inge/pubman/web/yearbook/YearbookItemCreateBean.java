@@ -57,10 +57,8 @@ public class YearbookItemCreateBean extends FacesBean {
   public YearbookItemCreateBean() throws Exception {
     this.selectableYears = new ArrayList<SelectItem>();
 
-    List<String> orgIds =
-        YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
-    this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE
-        .getOrganizationService().get(orgIds.get(0), null)));
+    List<String> orgIds = YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
+    this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE.getOrganizationService().get(orgIds.get(0), null)));
 
 
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
@@ -80,22 +78,19 @@ public class YearbookItemCreateBean extends FacesBean {
 
       QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, getAffiliation().getReference().getObjectId());
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
-              getLoginHelper().getAuthenticationToken());
-      List<YearbookDbVO> yearbooks =
-          resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+      SearchRetrieveResponseVO<YearbookDbVO> resp =
+          ApplicationBean.INSTANCE.getYearbookService().search(srr, getLoginHelper().getAuthenticationToken());
+      List<YearbookDbVO> yearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
 
 
       List<Integer> years = yearbooks.stream().map(yb -> yb.getYear()).collect(Collectors.toList());
-      
-      if(!years.contains(Integer.parseInt(currentYear)))
-      {
-        this.selectableYears.add(new SelectItem(currentYear, currentYear) );
+
+      if (!years.contains(Integer.parseInt(currentYear))) {
+        this.selectableYears.add(new SelectItem(currentYear, currentYear));
       }
-      if(!years.contains(Integer.parseInt(currentYear)-1))
-      {
-        this.selectableYears.add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1),
-            Integer.toString(Integer.valueOf(currentYear) - 1)));
+      if (!years.contains(Integer.parseInt(currentYear) - 1)) {
+        this.selectableYears
+            .add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1), Integer.toString(Integer.valueOf(currentYear) - 1)));
       }
 
     } catch (final Exception e) {
@@ -125,8 +120,7 @@ public class YearbookItemCreateBean extends FacesBean {
   }
 
   public void addContext() {
-    this.contextIds.add(this.getContextPosition() + 1, new ContextRO((String) this
-        .getContextSelectItems().get(0).getValue()));
+    this.contextIds.add(this.getContextPosition() + 1, new ContextRO((String) this.getContextSelectItems().get(0).getValue()));
   }
 
   public void removeContext() {
@@ -271,11 +265,10 @@ public class YearbookItemCreateBean extends FacesBean {
 
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
-    final ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context
-          .getName() + " (" + context.getReference().getObjectId() + ")"));
+      this.contextSelectItems
+          .add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
     }
   }
 

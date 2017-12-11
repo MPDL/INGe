@@ -48,8 +48,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
   public void transform(Source source, Result result) throws TransformationException {
     try {
-      logger
-          .debug("Starting XSL transformation " + getSourceFormat() + " --> " + getTargetFormat());
+      logger.debug("Starting XSL transformation " + getSourceFormat() + " --> " + getTargetFormat());
 
       TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
 
@@ -61,15 +60,13 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
 
 
-      javax.xml.transform.Transformer xslTransformer =
-          xslTransformerFactory.newTransformer(getXsltSource());
+      javax.xml.transform.Transformer xslTransformer = xslTransformerFactory.newTransformer(getXsltSource());
 
       Map<String, String> outputKeys = getOutputKeys();
 
       if (outputKeys != null) {
         for (Entry<String, String> entry : outputKeys.entrySet()) {
-          logger.debug("Set xml transformation output property " + entry.getKey() + " -- "
-              + entry.getValue());
+          logger.debug("Set xml transformation output property " + entry.getKey() + " -- " + entry.getValue());
           xslTransformer.setOutputProperty(entry.getKey(), entry.getValue());
         }
       }
@@ -79,12 +76,10 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       if (parameters != null) {
         for (Entry<String, Object> entry : parameters.entrySet()) {
           if (entry.getValue() != null) {
-            logger.debug("Set xml transformation parameter " + entry.getKey() + " -- "
-                + entry.getValue());
+            logger.debug("Set xml transformation parameter " + entry.getKey() + " -- " + entry.getValue());
             xslTransformer.setParameter(entry.getKey(), entry.getValue());
           } else {
-            logger.warn("Ignoring XSL Parameter " + entry.getKey() + " because it is "
-                + entry.getValue());
+            logger.warn("Ignoring XSL Parameter " + entry.getKey() + " because it is " + entry.getValue());
           }
 
         }
@@ -94,8 +89,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       Map<String, String> config = getConfiguration();
       if (config != null) {
         for (Entry<String, String> entry : getConfiguration().entrySet()) {
-          logger.debug("Set xml transformation parameter from configuration " + entry.getKey()
-              + " -- " + entry.getValue());
+          logger.debug("Set xml transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
           xslTransformer.setParameter(entry.getKey(), entry.getValue());
         }
       }
@@ -113,8 +107,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
   }
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
     this.transform((Source) source, (Result) result);
 
@@ -146,16 +139,13 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
 
 
-  public static Source getXmlSourceFromProperty(String property, String defaultFile)
-      throws TransformationException {
+  public static Source getXmlSourceFromProperty(String property, String defaultFile) throws TransformationException {
     String stylesheetFileName = PropertyReader.getProperty(property);
     if (stylesheetFileName == null || "".equals(stylesheetFileName)) {
       stylesheetFileName = defaultFile;
     }
     try {
-      InputStream stylesheetInputStram =
-          ResourceUtil.getResourceAsStream(stylesheetFileName,
-              XslTransformer.class.getClassLoader());
+      InputStream stylesheetInputStram = ResourceUtil.getResourceAsStream(stylesheetFileName, XslTransformer.class.getClassLoader());
       return new StreamSource(stylesheetInputStram);
     } catch (FileNotFoundException e) {
       throw new TransformationException("Stylesheet file " + stylesheetFileName + " not found", e);
@@ -163,8 +153,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
   }
 
-  public static void xmlSourceToXmlResult(Source s, Result r) throws TransformationException,
-      TransformerException {
+  public static void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
     TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");

@@ -154,11 +154,9 @@ public class MultipleImport extends FacesBean {
     final Connection connection = DbTools.getNewConnection();
     ImportProcess importProcess = null;
     try {
-      importProcess =
-          new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile,
-              this.format, this.context.getReference(), this.getLoginHelper().getAccountUser(),
-              this.rollback, this.duplicateStrategy, configuration, this.getLoginHelper()
-                  .getAuthenticationToken(), connection);
+      importProcess = new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile, this.format,
+          this.context.getReference(), this.getLoginHelper().getAccountUser(), this.rollback, this.duplicateStrategy, configuration,
+          this.getLoginHelper().getAuthenticationToken(), connection);
       importProcess.start();
     } catch (final Exception e) {
       DbTools.closeConnection(connection);
@@ -179,8 +177,7 @@ public class MultipleImport extends FacesBean {
     this.uploadedImportFile = null;
 
     // deselect the selected context
-    final ContextListSessionBean contextListSessionBean =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean contextListSessionBean = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     if (contextListSessionBean.getDepositorContextList() != null) {
       for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++) {
         contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
@@ -188,16 +185,14 @@ public class MultipleImport extends FacesBean {
     }
 
     // set the current submission step to step2
-    if (contextListSessionBean.getDepositorContextList() != null
-        && contextListSessionBean.getDepositorContextList().size() > 1) {
+    if (contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() > 1) {
       final CreateItem createItem = (CreateItem) FacesTools.findBean("CreateItem");
       createItem.setTarget(MultipleImport.LOAD_MULTIPLE_IMPORT);
       createItem.setMethod(SubmissionMethod.MULTIPLE_IMPORT);
       return CreateItem.LOAD_CREATEITEM;
     }
     // Skip Collection selection for Import & Easy Sub if only one Collection
-    else if (contextListSessionBean.getDepositorContextList() != null
-        && contextListSessionBean.getDepositorContextList().size() == 1) {
+    else if (contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() == 1) {
       this.setContext(contextListSessionBean.getDepositorContextList().get(0));
       return MultipleImport.LOAD_MULTIPLE_IMPORT;
     } else {
@@ -211,8 +206,7 @@ public class MultipleImport extends FacesBean {
     Map<String, String> config = null;
 
     if (this.format != null) {
-      transformer =
-          TransformerCache.getTransformer(this.format, TransformerFactory.getInternalFormat());
+      transformer = TransformerCache.getTransformer(this.format, TransformerFactory.getInternalFormat());
       config = transformer.getConfiguration();
     }
 
@@ -290,9 +284,8 @@ public class MultipleImport extends FacesBean {
 
   public void setName(String name) {
     this.name = name;
-    this.name =
-        this.name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe")
-            .replace("ü", "ue").replace("Ü", "Ue").replace("ß", "ss");
+    this.name = this.name.replace("ä", "ae").replace("Ä", "Ae").replace("ö", "oe").replace("Ö", "Oe").replace("ü", "ue").replace("Ü", "Ue")
+        .replace("ß", "ss");
   }
 
   public int getDuplicateStrategy() {

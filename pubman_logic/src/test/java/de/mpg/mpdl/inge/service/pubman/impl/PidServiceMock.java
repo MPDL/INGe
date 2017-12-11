@@ -10,8 +10,7 @@ import de.mpg.mpdl.inge.service.pubman.PidService;
 public class PidServiceMock implements PidService {
 
   @Override
-  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException,
-      TechnicalException {
+  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException {
     PidServiceResponseVO pidServiceResponseVO = new PidServiceResponseVO();
     int idx = url.getPath().indexOf("item_");
     pidServiceResponseVO.setUrl(url.toString());

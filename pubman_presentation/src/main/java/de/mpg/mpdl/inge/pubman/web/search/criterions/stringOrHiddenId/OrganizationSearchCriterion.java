@@ -69,11 +69,9 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
     switch (indexName) {
       case ESCIDOC_ALL:
-        return new String[] {"escidoc.publication.creator.person.organization.title",
-            "escidoc.publication.creator.organization.title"};
+        return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
       case ITEM_CONTAINER_ADMIN:
-        return new String[] {
-            "\"/md-records/md-record/publication/creator/person/organization/title\"",
+        return new String[] {"\"/md-records/md-record/publication/creator/person/organization/title\"",
             "\"/md-records/md-record/publication/creator/organization/title\""};
     }
     return null;
@@ -112,8 +110,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
         return SearchCriterionBase.scListToCql(indexName, scList, false);
       } catch (final Exception e) {
-        System.out
-            .println("Error while retrieving affiliation from id" + e + ": " + e.getMessage());
+        System.out.println("Error while retrieving affiliation from id" + e + ": " + e.getMessage());
         // logger.error("Error while retrieving affiliation from id", e);
         return super.toCqlString(indexName);
       }
@@ -127,10 +124,8 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
     if (!this.includePredecessorsAndSuccessors) {
       return super.toQueryString();
     } else {
-      return this.getSearchCriterion().name() + "=\""
-          + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "||"
-          + SearchCriterionBase.escapeForQueryString(this.getHiddenId()) + "||"
-          + "includePresSuccs" + "\"";
+      return this.getSearchCriterion().name() + "=\"" + SearchCriterionBase.escapeForQueryString(this.getSearchString()) + "||"
+          + SearchCriterionBase.escapeForQueryString(this.getHiddenId()) + "||" + "includePresSuccs" + "\"";
     }
 
 
@@ -171,8 +166,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
     final List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
 
-    final AffiliationVO affiliation =
-        ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
+    final AffiliationVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
 
     allAffs.add(affiliation);
 
@@ -199,7 +193,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   public String[] getElasticSearchFieldForHiddenId() {
     return new String[] {
 
-    PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
         PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER};
   }
 
@@ -207,7 +201,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   public String[] getElasticSearchFieldForSearchString() {
     return new String[] {
 
-    PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME,
         PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_NAME};
   }
 
@@ -228,15 +222,12 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
       bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
-          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
-          idList.toArray(new String[] {})));
-      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
-          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
+          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList.toArray(new String[] {})));
+      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
           idList.toArray(new String[] {})));
       if (includeSource) {
         bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
-            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
-            idList.toArray(new String[] {})));
+            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList.toArray(new String[] {})));
       }
 
 

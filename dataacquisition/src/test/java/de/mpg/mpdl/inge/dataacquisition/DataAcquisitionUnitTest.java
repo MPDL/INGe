@@ -57,8 +57,7 @@ public class DataAcquisitionUnitTest {
   @Ignore
   @Test
   public void fetchArxiv() throws Exception {
-    byte[] test =
-        this.datahandler.doFetchMetaData("arXiv", arxivId, TransformerFactory.getInternalFormat());
+    byte[] test = this.datahandler.doFetchMetaData("arXiv", arxivId, TransformerFactory.getInternalFormat());
     Assert.assertNotNull(test);
   }
 }

@@ -60,10 +60,10 @@ import org.xml.sax.helpers.AttributesImpl;
  * <p/>
  * <p>
  * This class requires a JAXP compliant XML parser and XSLT processor. The underlying SAX2 parser
- * should be namespace aware. In addition this class requires <a
- * href="http://icu.sourceforge.net/">ICU4J </a> to perform Unicode normalization. A stripped down
- * version of 2.6 originating from the <a href="http://www.cafeconleche.org/XOM/">XOM </a> project
- * is included in this distribution.
+ * should be namespace aware. In addition this class requires
+ * <a href="http://icu.sourceforge.net/">ICU4J </a> to perform Unicode normalization. A stripped
+ * down version of 2.6 originating from the <a href="http://www.cafeconleche.org/XOM/">XOM </a>
+ * project is included in this distribution.
  * </p>
  * <p>
  * The following example reads a file with MARC records and writes MARCXML records in UTF-8 encoding

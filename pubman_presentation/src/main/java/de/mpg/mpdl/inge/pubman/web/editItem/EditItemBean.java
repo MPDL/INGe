@@ -34,8 +34,7 @@ public class EditItemBean extends FacesBean {
 
   private List<CreatorVOPresentation> creators = new ArrayList<CreatorVOPresentation>();
 
-  private List<OrganizationVOPresentation> creatorOrganizations =
-      new ArrayList<OrganizationVOPresentation>();
+  private List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
 
   /** The string with authors to parse for author copy&paste. */
   private String creatorParseString;
@@ -62,14 +61,12 @@ public class EditItemBean extends FacesBean {
   }
 
   public void initOrganizationsFromCreators() {
-    final List<OrganizationVOPresentation> creatorOrganizations =
-        new ArrayList<OrganizationVOPresentation>();
+    final List<OrganizationVOPresentation> creatorOrganizations = new ArrayList<OrganizationVOPresentation>();
     for (final CreatorVOPresentation creator : this.creators) {
       if (creator.getType() == CreatorType.PERSON) {
         for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
           if (!creatorOrganizations.contains(organization)) {
-            final OrganizationVOPresentation organizationPresentation =
-                new OrganizationVOPresentation(organization);
+            final OrganizationVOPresentation organizationPresentation = new OrganizationVOPresentation(organization);
             if (!organizationPresentation.isEmpty()) {
               organizationPresentation.setBean(this);
               if (organizationPresentation.getName() == null) {
@@ -146,8 +143,7 @@ public class EditItemBean extends FacesBean {
 
       if (!org.isEmpty() && !this.usedOrganizations.contains(org.getNumber())) {
 
-        this.error(this.getMessage("EntryIsNotBound")
-            .replace("$1", String.valueOf(org.getNumber())));
+        this.error(this.getMessage("EntryIsNotBound").replace("$1", String.valueOf(org.getNumber())));
         return false;
       }
     }
@@ -173,15 +169,13 @@ public class EditItemBean extends FacesBean {
     for (final CreatorVOPresentation creatorVOPresentation : this.getCreators()) {
       CreatorVO creatorVO;
       if (CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
-        creatorVO =
-            new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
+        creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
         if (creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() != null
             || "".equals(creatorVO.getOrganization().getName())) {
           creatorVO.getOrganization().setName(null);
         }
       } else {
-        creatorVO =
-            new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
+        creatorVO = new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
       }
 
       creators.add(creatorVO);
@@ -216,8 +210,7 @@ public class EditItemBean extends FacesBean {
         return false;
       } catch (final Exception e) {
         EditItemBean.logger.error("Unexpected error evaluation creator organizations", e);
-        this.error(this.getMessage("ErrorInOrganizationAssignment").replace("$1",
-            creator.getOuNumbers()));
+        this.error(this.getMessage("ErrorInOrganizationAssignment").replace("$1", creator.getOuNumbers()));
         return false;
       }
     }
@@ -269,8 +262,7 @@ public class EditItemBean extends FacesBean {
    * @param overwrite Indicates if the already existing creators should be overwritten
    * @throws Exception
    */
-  public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite)
-      throws Exception {
+  public void parseCreatorString(String creatorString, List<OrganizationVO> orgs, boolean overwrite) throws Exception {
     final AuthorDecoder authDec = new AuthorDecoder(creatorString);
 
     final List<Author> authorList = authDec.getBestAuthorList();
@@ -286,18 +278,14 @@ public class EditItemBean extends FacesBean {
     if (this.getCreators().size() >= 1) {
       final CreatorVOPresentation creatorVO = this.getCreators().get(this.getCreators().size() - 1);
       // creator is a person
-      if (creatorVO.isPersonType()
-          && creatorVO.getPerson() != null
-          && "".equals(creatorVO.getPerson().getFamilyName())
+      if (creatorVO.isPersonType() && creatorVO.getPerson() != null && "".equals(creatorVO.getPerson().getFamilyName())
           && "".equals(creatorVO.getPerson().getGivenName())
-          && (creatorVO.getPerson().getOrganizations().isEmpty()
-              || creatorVO.getPerson().getOrganizations().get(0).getName() == null || ""
-                .equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
+          && (creatorVO.getPerson().getOrganizations().isEmpty() || creatorVO.getPerson().getOrganizations().get(0).getName() == null
+              || "".equals(creatorVO.getPerson().getOrganizations().get(0).getName()))) {
         this.getCreators().remove(creatorVO);
       }
       // creator is an organisation
-      else if (creatorVO.isOrganizationType() && creatorVO.getOrganization() != null
-          && "".equals(creatorVO.getOrganization().getName())) {
+      else if (creatorVO.isOrganizationType() && creatorVO.getOrganization() != null && "".equals(creatorVO.getOrganization().getName())) {
         this.getCreators().remove(creatorVO);
       }
     }

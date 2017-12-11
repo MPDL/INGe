@@ -83,8 +83,7 @@ public class ReplaceNamespacesWithMavenTokens {
         bufferedReader = new BufferedReader(new FileReader(file));
         while ((line = bufferedReader.readLine()) != null) {
           for (String namespace : namespaces.keySet()) {
-            line =
-                line.replace("=\"" + namespace + "\"", "=\"${" + namespaces.get(namespace) + "}\"");
+            line = line.replace("=\"" + namespace + "\"", "=\"${" + namespaces.get(namespace) + "}\"");
           }
           fileWriter.write(line);
           fileWriter.write("\n");

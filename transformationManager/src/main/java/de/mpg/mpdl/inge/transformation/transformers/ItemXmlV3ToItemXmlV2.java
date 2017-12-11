@@ -10,17 +10,14 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML,
-    targetFormat = FORMAT.ESCIDOC_ITEM_V2_XML)
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML,
-    targetFormat = FORMAT.ESCIDOC_ITEMLIST_V2_XML)
+@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V2_XML)
+@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V2_XML)
 public class ItemXmlV3ToItemXmlV2 extends XslTransformer implements ChainableTransformer {
 
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(
-        "inge.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename",
         "transformations/otherFormats/xslt/escidoc-xml-v13-to-v12.xsl");
   }
 

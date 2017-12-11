@@ -53,19 +53,16 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 public class EscidocAaClientFinish extends FinalClient {
 
   @Override
-  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws Exception {
+  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String escidocUserHandle = request.getParameter("eSciDocUserHandle");
 
     if (escidocUserHandle != null) {
       try {
         escidocUserHandle = new String(Base64.decodeBase64(escidocUserHandle.getBytes()));
-        UserAccountHandler userAccountHandler =
-            ServiceLocator.getUserAccountHandler(escidocUserHandle);
+        UserAccountHandler userAccountHandler = ServiceLocator.getUserAccountHandler(escidocUserHandle);
         String accountData = userAccountHandler.retrieveCurrentUser();
         AccountUserVO accountUserVO = XmlTransformingService.transformToAccountUser(accountData);
-        String grantData =
-            userAccountHandler.retrieveCurrentGrants(accountUserVO.getReference().getObjectId());
+        String grantData = userAccountHandler.retrieveCurrentGrants(accountUserVO.getReference().getObjectId());
         List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(grantData);
         if (grants != null) {
           accountUserVO.getGrants().addAll(grants);

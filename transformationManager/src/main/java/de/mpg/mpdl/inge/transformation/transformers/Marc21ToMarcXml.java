@@ -23,14 +23,12 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.marc.MarcXmlWriterNS
 public class Marc21ToMarcXml extends SingleTransformer implements ChainableTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
     try {
 
 
 
-      MarcReader reader =
-          new MarcStreamReader(((TransformerStreamSource) source).getInputStream(), "UTF-8");
+      MarcReader reader = new MarcStreamReader(((TransformerStreamSource) source).getInputStream(), "UTF-8");
       // OutputStream resultOs = new ByteArrayOutputStream();
 
       MarcXmlWriterNSFix writer = new MarcXmlWriterNSFix((Result) result);

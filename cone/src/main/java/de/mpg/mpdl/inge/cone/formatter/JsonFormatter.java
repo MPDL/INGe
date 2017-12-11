@@ -85,21 +85,17 @@ public class JsonFormatter extends AbstractFormatter {
    * @throws IOException
    * @throws URISyntaxException
    */
-  public void explain(HttpServletResponse response) throws FileNotFoundException,
-      TransformerFactoryConfigurationError, IOException, URISyntaxException {
+  public void explain(HttpServletResponse response)
+      throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
-            JsonFormatter.class.getClassLoader());
-    InputStream template =
-        ResourceUtil.getResourceAsStream("explain/json_explain.xsl",
-            JsonFormatter.class.getClassLoader());
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), JsonFormatter.class.getClassLoader());
+    InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl", JsonFormatter.class.getClassLoader());
 
     try {
       Transformer transformer =
-          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-              .newTransformer(new StreamSource(template));
+          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
       transformer.transform(new StreamSource(source), new StreamResult(response.getWriter()));
     } catch (Exception e) {
@@ -116,15 +112,12 @@ public class JsonFormatter extends AbstractFormatter {
    */
   public OutputStream format(String source) throws IOException {
 
-    InputStream template =
-        ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl",
-            JsonFormatter.class.getClassLoader());
+    InputStream template = ResourceUtil.getResourceAsStream("xslt/rdf2jquery.xsl", JsonFormatter.class.getClassLoader());
     OutputStream result = new ByteArrayOutputStream();
 
     try {
       Transformer transformer =
-          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-              .newTransformer(new StreamSource(template));
+          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
       transformer.transform(new StreamSource(new StringReader(source)), new StreamResult(result));
     } catch (Exception e) {
       logger.error(ERROR_TRANSFORMING_RESULT, e);
@@ -154,8 +147,7 @@ public class JsonFormatter extends AbstractFormatter {
 
           result.append("\t\t\"id\" : \"");
           try {
-            result.append(PropertyReader.getProperty("inge.cone.service.url")
-                + key.replace("\"", "\\\""));
+            result.append(PropertyReader.getProperty("inge.cone.service.url") + key.replace("\"", "\\\""));
           } catch (Exception e) {
             throw new ConeException(e);
           }
@@ -174,8 +166,7 @@ public class JsonFormatter extends AbstractFormatter {
           }
 
           result.append("\t\t\"value\" : \"");
-          result.append(value.toString().replace("\"", "\\\"").replace("\r", "\\r")
-              .replace("\n", "\\n").replace("\t", "\\t"));
+          result.append(value.toString().replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t"));
           result.append("\"\n");
 
           result.append("\t}");
@@ -192,8 +183,7 @@ public class JsonFormatter extends AbstractFormatter {
 
           result.append("\t\t\"id\" : \"");
           try {
-            result.append(PropertyReader.getProperty("inge.cone.service.url")
-                + key.replace("\"", "\\\""));
+            result.append(PropertyReader.getProperty("inge.cone.service.url") + key.replace("\"", "\\\""));
           } catch (Exception e) {
             throw new ConeException(e);
           }
@@ -206,8 +196,7 @@ public class JsonFormatter extends AbstractFormatter {
           }
 
           result.append("\t\t\"value\" : \"");
-          result.append(value.toString().replace("\"", "\\\"").replace("\r", "\\r")
-              .replace("\n", "\\n").replace("\t", "\\t"));
+          result.append(value.toString().replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t"));
           result.append("\"\n");
 
           result.append("\t}");
@@ -234,8 +223,7 @@ public class JsonFormatter extends AbstractFormatter {
    * @param result The RDF.
    * @return A String formatted in a JQuery readable format.
    */
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws ConeException {
+  public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException {
     return triples.toJson();
   }
 

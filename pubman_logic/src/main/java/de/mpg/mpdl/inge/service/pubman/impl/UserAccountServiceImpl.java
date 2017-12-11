@@ -54,9 +54,8 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
-public class UserAccountServiceImpl extends
-    GenericServiceImpl<AccountUserVO, AccountUserDbVO, String> implements UserAccountService,
-    ReindexListener {
+public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, AccountUserDbVO, String>
+    implements UserAccountService, ReindexListener {
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
@@ -102,8 +101,7 @@ public class UserAccountServiceImpl extends
   public UserAccountServiceImpl() throws Exception {
     String key = PropertyReader.getProperty("inge.jwt.shared-secret");
     if (key == null || key.trim().isEmpty()) {
-      logger
-          .warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
+      logger.warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
       key = UUID.randomUUID().toString();
     }
 
@@ -116,22 +114,18 @@ public class UserAccountServiceImpl extends
   @Transactional(rollbackFor = Throwable.class)
   @Override
   public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AccountUserVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
     try {
-      userLoginRepository.insertLogin(accountUser.getUserid(),
-          passwordEncoder.encode(givenUser.getPassword()));
+      userLoginRepository.insertLogin(accountUser.getUserid(), passwordEncoder.encode(givenUser.getPassword()));
     } catch (DataAccessException e) {
       handleDBException(e);
     }
     if (givenUser.getGrants() != null && !givenUser.getGrants().isEmpty()) {
-      accountUser =
-          this.addGrants(accountUser.getReference().getObjectId(), accountUser
-              .getLastModificationDate(), givenUser.getGrants().toArray(new GrantVO[] {}),
-              authenticationToken);
+      accountUser = this.addGrants(accountUser.getReference().getObjectId(), accountUser.getLastModificationDate(),
+          givenUser.getGrants().toArray(new GrantVO[] {}), authenticationToken);
     }
 
 
@@ -142,9 +136,8 @@ public class UserAccountServiceImpl extends
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public AccountUserVO changePassword(String userId, Date modificationDate, String newPassword,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public AccountUserVO changePassword(String userId, Date modificationDate, String newPassword, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
@@ -159,8 +152,7 @@ public class UserAccountServiceImpl extends
     checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
 
     checkAa("changePassword", userAccount, userVoToUpdated);
-    userLoginRepository.updateLogin(userVoToUpdated.getUserid(),
-        passwordEncoder.encode(newPassword));
+    userLoginRepository.updateLogin(userVoToUpdated.getUserid(), passwordEncoder.encode(newPassword));
 
     updateWithTechnicalMetadata(userDbToUpdated, userAccount, false);
 
@@ -178,9 +170,8 @@ public class UserAccountServiceImpl extends
 
 
   @Transactional(rollbackFor = Throwable.class)
-  public AccountUserVO addGrants(String userId, Date modificationDate, GrantVO[] grants,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public AccountUserVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
@@ -196,9 +187,8 @@ public class UserAccountServiceImpl extends
       for (GrantVO existingGrant : objectToBeUpdated.getGrantList()) {
         if (Objects.equals(grantToBeAdded.getRole(), existingGrant.getRole())
             && Objects.equals(grantToBeAdded.getObjectRef(), existingGrant.getObjectRef())) {
-          throw new IngeApplicationException("Grant with given value [role="
-              + grantToBeAdded.getRole() + ", objectRef= " + grantToBeAdded.getObjectRef()
-              + "] already exists in user account " + objectToBeUpdated.getObjectId());
+          throw new IngeApplicationException("Grant with given value [role=" + grantToBeAdded.getRole() + ", objectRef= "
+              + grantToBeAdded.getObjectRef() + "] already exists in user account " + objectToBeUpdated.getObjectId());
         }
       }
 
@@ -216,23 +206,20 @@ public class UserAccountServiceImpl extends
             referencedObject = EntityTransformer.transformToOld(referencedContext);
           }
         } else if (grantToBeAdded.getObjectRef().startsWith(ID_PREFIX.OU.getPrefix())) {
-          AffiliationDbVO referencedOu =
-              organizationRepository.findOne(grantToBeAdded.getObjectRef());
+          AffiliationDbVO referencedOu = organizationRepository.findOne(grantToBeAdded.getObjectRef());
           if (referencedOu != null) {
             referencedObject = EntityTransformer.transformToOld(referencedOu);
           }
         }
 
         if (referencedObject == null) {
-          throw new IngeApplicationException("Unknown identifier reference: "
-              + grantToBeAdded.getObjectRef());
+          throw new IngeApplicationException("Unknown identifier reference: " + grantToBeAdded.getObjectRef());
         }
       }
 
 
 
-      checkAa("addGrants", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded,
-          referencedObject);
+      checkAa("addGrants", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded, referencedObject);
 
 
     }
@@ -253,9 +240,8 @@ public class UserAccountServiceImpl extends
   }
 
   @Transactional(rollbackFor = Throwable.class)
-  public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
@@ -276,9 +262,8 @@ public class UserAccountServiceImpl extends
       }
 
       if (grantToBeRemoved == null) {
-        throw new IngeApplicationException("Grant with given values [role=" + givenGrant.getRole()
-            + ", objectRef= " + givenGrant.getObjectRef() + "] does not exist in user account "
-            + objectToBeUpdated.getObjectId());
+        throw new IngeApplicationException("Grant with given values [role=" + givenGrant.getRole() + ", objectRef= "
+            + givenGrant.getObjectRef() + "] does not exist in user account " + objectToBeUpdated.getObjectId());
       }
 
 
@@ -302,9 +287,8 @@ public class UserAccountServiceImpl extends
 
 
   @Override
-  public String login(String username, String password, HttpServletRequest request,
-      HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public String login(String username, String password, HttpServletRequest request, HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     String token = login(username, password);
     Cookie cookie = new Cookie("inge_auth_token", token);
     cookie.setPath("/");
@@ -314,9 +298,8 @@ public class UserAccountServiceImpl extends
 
 
   @Override
-  public void logout(String authenticationToken, HttpServletRequest request,
-      HttpServletResponse response) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     // Delete cookie
     if (request != null && request.getCookies() != null) {
@@ -334,11 +317,9 @@ public class UserAccountServiceImpl extends
 
 
   @Override
-  public String login(String username, String password) throws IngeTechnicalException,
-      AuthenticationException {
+  public String login(String username, String password) throws IngeTechnicalException, AuthenticationException {
     if (username == null || username.trim().isEmpty()) {
-      throw new AuthenticationException(
-          "Could not login, Please provide correct username and password!");
+      throw new AuthenticationException("Could not login, Please provide correct username and password!");
     }
 
     // Helper to login as any user if you are sysadmin
@@ -347,32 +328,27 @@ public class UserAccountServiceImpl extends
       AccountUserDbVO userAccountSysadmin = userAccountRepository.findByLoginname(parts[0]);
       String encodedPassword = userLoginRepository.findPassword(parts[0]);
 
-      if (userAccountSysadmin != null && encodedPassword != null
-          && passwordEncoder.matches(password, encodedPassword)) {
+      if (userAccountSysadmin != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
         for (GrantVO grant : userAccountSysadmin.getGrantList()) {
           if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
-            AccountUserVO userAccountToLogin =
-                transformToOld(userAccountRepository.findByLoginname(parts[1]));
+            AccountUserVO userAccountToLogin = transformToOld(userAccountRepository.findByLoginname(parts[1]));
             return createToken(userAccountToLogin);
           }
         }
       }
-      throw new AuthenticationException(
-          "Could not login, Please provide correct username and password!");
+      throw new AuthenticationException("Could not login, Please provide correct username and password!");
     }
 
     else {
       AccountUserVO userAccount = transformToOld(userAccountRepository.findByLoginname(username));
       String encodedPassword = userLoginRepository.findPassword(username);
 
-      if (userAccount != null && encodedPassword != null
-          && passwordEncoder.matches(password, encodedPassword)) {
+      if (userAccount != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
 
         return createToken(userAccount);
 
       } else {
-        throw new AuthenticationException(
-            "Could not login, Please provide correct username and password!");
+        throw new AuthenticationException("Could not login, Please provide correct username and password!");
       }
     }
 
@@ -382,8 +358,8 @@ public class UserAccountServiceImpl extends
 
   @Transactional(readOnly = true)
   @Override
-  public AccountUserVO get(String id, String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public AccountUserVO get(String id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     String userId = id;
     if (!id.startsWith(ID_PREFIX.USER.getPrefix())) {
@@ -398,8 +374,7 @@ public class UserAccountServiceImpl extends
 
 
   @Override
-  public AccountUserVO get(String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException {
+  public AccountUserVO get(String authenticationToken) throws IngeTechnicalException, AuthenticationException {
     DecodedJWT jwt = verifyToken(authenticationToken);
     String userId = jwt.getSubject();
     return transformToOld(userAccountRepository.findByLoginname(userId));
@@ -422,12 +397,10 @@ public class UserAccountServiceImpl extends
       Instant now = Instant.now();
       Date issueDate = Date.from(now);
       Date expirationDate = Date.from(now.plus(2, ChronoUnit.HOURS));
-      logger.info("Creating token with issue date: " + issueDate + " and expiration date "
-          + expirationDate);
+      logger.info("Creating token with issue date: " + issueDate + " and expiration date " + expirationDate);
 
-      return JWT.create().withClaim("id", user.getReference().getObjectId())
-          .withSubject(user.getUserid()).withIssuedAt(issueDate).withIssuer(jwtIssuer)
-          .withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
+      return JWT.create().withClaim("id", user.getReference().getObjectId()).withSubject(user.getUserid()).withIssuedAt(issueDate)
+          .withIssuer(jwtIssuer).withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
     } catch (Exception e) {
       throw new IngeTechnicalException("Could not generate token " + e.getMessage(), e);
     }
@@ -442,13 +415,12 @@ public class UserAccountServiceImpl extends
   }
 
   @Override
-  protected List<String> updateObjectWithValues(AccountUserVO givenUser,
-      AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser, boolean create)
-      throws IngeApplicationException {
+  protected List<String> updateObjectWithValues(AccountUserVO givenUser, AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser,
+      boolean create) throws IngeApplicationException {
 
 
-    if (givenUser.getName() == null || givenUser.getName().trim().isEmpty()
-        || givenUser.getUserid() == null || givenUser.getUserid().trim().isEmpty()) {
+    if (givenUser.getName() == null || givenUser.getName().trim().isEmpty() || givenUser.getUserid() == null
+        || givenUser.getUserid().trim().isEmpty()) {
       throw new IngeApplicationException("A name and user id is required");
     }
 
@@ -509,8 +481,7 @@ public class UserAccountServiceImpl extends
     if (password == null || password.trim().isEmpty()) {
       throw new IngeApplicationException("A password has to be provided");
     } else if (!password.matches(PASSWORD_REGEX)) {
-      throw new IngeApplicationException(
-          "Password  must consist of at least 6 characters, no whitespaces");
+      throw new IngeApplicationException("Password  must consist of at least 6 characters, no whitespaces");
     }
 
   }
@@ -534,8 +505,7 @@ public class UserAccountServiceImpl extends
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO activate(String id, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, true);
   }
 
@@ -543,14 +513,12 @@ public class UserAccountServiceImpl extends
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public AccountUserVO deactivate(String id, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, false);
   }
 
-  private AccountUserVO changeState(String id, Date modificationDate, String authenticationToken,
-      boolean active) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  private AccountUserVO changeState(String id, Date modificationDate, String authenticationToken, boolean active)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO accountToBeUpdated = userAccountRepository.findOne(id);
     if (accountToBeUpdated == null) {

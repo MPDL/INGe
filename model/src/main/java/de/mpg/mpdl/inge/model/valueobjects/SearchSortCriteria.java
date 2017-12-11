@@ -2,8 +2,10 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 public class SearchSortCriteria extends ValueObject {
 
-  public enum SortOrder {
-    ASC, DESC
+  public enum SortOrder
+  {
+    ASC,
+    DESC
   }
 
   private String indexField;

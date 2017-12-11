@@ -61,8 +61,7 @@ public class ImportLogItemBean extends FacesBean {
       this.page = Integer.parseInt(pageString);
     }
 
-    final String itemsPerPageString =
-        FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
+    final String itemsPerPageString = FacesTools.getExternalContext().getRequestParameterMap().get("itemsPerPage");
     if (itemsPerPageString != null) {
       this.itemsPerPage = Integer.parseInt(itemsPerPageString);
     }

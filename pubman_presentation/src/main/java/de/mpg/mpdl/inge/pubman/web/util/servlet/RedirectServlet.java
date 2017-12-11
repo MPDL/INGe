@@ -56,8 +56,7 @@ public class RedirectServlet extends HttpServlet {
    * {@inheritDoc}
    */
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     final String id = req.getPathInfo().substring(1);
     final boolean download = ("download".equals(req.getParameter("mode")));
     final boolean tme = ("tme".equals(req.getParameter("mode")));
@@ -68,8 +67,7 @@ public class RedirectServlet extends HttpServlet {
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
       final StringBuffer redirectUrl = new StringBuffer();
-      final LoginHelper loginHelper =
-          (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
+      final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
       if (loginHelper != null && loginHelper.isDetailedMode()) {
         redirectUrl.append("/pubman/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
@@ -113,8 +111,7 @@ public class RedirectServlet extends HttpServlet {
    * {@inheritDoc}
    */
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     // No post action
     return;
   }

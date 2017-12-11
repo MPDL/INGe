@@ -33,8 +33,7 @@ import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
-@Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class,
-    AppConfigIngeValidation.class})
+@Import({AppConfigIngeEsConnector.class, JPAConfiguration.class, AppConfigFileStorage.class, AppConfigIngeValidation.class})
 @EnableTransactionManagement
 @EnableScheduling
 @EnableJms
@@ -84,8 +83,8 @@ public class AppConfigPubmanLogic {
     ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
     connectionFactory.setUseAsyncSend(true);
-    connectionFactory.setTrustedPackages(Arrays.asList("de.mpg.mpdl.inge.model.valueobjects",
-        "de.mpg.mpdl.inge.model.referenceobjects", "java.util", "java.sql"));
+    connectionFactory.setTrustedPackages(
+        Arrays.asList("de.mpg.mpdl.inge.model.valueobjects", "de.mpg.mpdl.inge.model.referenceobjects", "java.util", "java.sql"));
     return connectionFactory;
   }
 
@@ -97,8 +96,7 @@ public class AppConfigPubmanLogic {
 
 
   @Bean
-  public DefaultJmsListenerContainerFactory topicContainerFactory(
-      ConnectionFactory connectionFactory) {
+  public DefaultJmsListenerContainerFactory topicContainerFactory(ConnectionFactory connectionFactory) {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(true);
@@ -123,8 +121,7 @@ public class AppConfigPubmanLogic {
   }
 
   @Bean
-  public DefaultJmsListenerContainerFactory queueContainerFactory(
-      ConnectionFactory connectionFactory) {
+  public DefaultJmsListenerContainerFactory queueContainerFactory(ConnectionFactory connectionFactory) {
     DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setPubSubDomain(false);

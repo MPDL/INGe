@@ -4,7 +4,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 
 @SuppressWarnings("serial")
 public class ValidationReportItemVO extends ValueObject {
-  public static enum Severity {
+  public static enum Severity
+  {
     ERROR, WARNING
   };
 
@@ -35,8 +36,7 @@ public class ValidationReportItemVO extends ValueObject {
 
   @Override
   public String toString() {
-    return "ValidationReportItemVO [content=" + content + ", element=" + element + ", severity="
-        + severity + "]";
+    return "ValidationReportItemVO [content=" + content + ", element=" + element + ", severity=" + severity + "]";
   }
 
 }

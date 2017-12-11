@@ -56,8 +56,13 @@ public class MdsFilmVO extends MetadataSetVO {
    * 
    * @updated 05-Sep-2007 10:54:29
    */
-  public enum FilmType {
-    VIDEO_ART, DOCUMENTARY, SIMULATION, ANIMATION, MIXED
+  public enum FilmType
+  {
+    VIDEO_ART,
+    DOCUMENTARY,
+    SIMULATION,
+    ANIMATION,
+    MIXED
   }
 
   /**

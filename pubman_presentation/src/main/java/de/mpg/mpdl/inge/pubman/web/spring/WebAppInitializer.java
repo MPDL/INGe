@@ -48,57 +48,47 @@ public class WebAppInitializer implements WebApplicationInitializer {
     servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".jsp");
     servletContext.setInitParameter("javax.faces.FACELETS_VIEW_MAPPINGS", "*.jsp");
     servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "client");
-    servletContext.setInitParameter("javax.faces.CONFIG_FILES",
-        "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
+    servletContext.setInitParameter("javax.faces.CONFIG_FILES", "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
 
 
-    ServletRegistration.Dynamic facesServlet =
-        servletContext.addServlet("Faces Servlet", new FacesServlet());
+    ServletRegistration.Dynamic facesServlet = servletContext.addServlet("Faces Servlet", new FacesServlet());
     facesServlet.addMapping("/faces/*");
     facesServlet.setLoadOnStartup(2);
 
-    FilterRegistration.Dynamic sessionTimeoutFilter =
-        servletContext.addFilter("Session Timeout Filter", SessionTimeoutFilter.class);
+    FilterRegistration.Dynamic sessionTimeoutFilter = servletContext.addFilter("Session Timeout Filter", SessionTimeoutFilter.class);
     sessionTimeoutFilter.addMappingForServletNames(null, false, "Faces Servlet");
 
 
     // TODO ???? Was ist mit dem früheren InitializerServlet?
 
     // Sitemap
-    FilterRegistration.Dynamic sitemapFilter =
-        servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
+    FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
     sitemapFilter.addMappingForServletNames(null, false, "Faces Servlet");
 
     // Statistic Servlet
-    ServletRegistration statisticChartServlet =
-        servletContext.addServlet("Statistic Chart Servlet", StatisticChartServlet.class);
+    ServletRegistration statisticChartServlet = servletContext.addServlet("Statistic Chart Servlet", StatisticChartServlet.class);
     statisticChartServlet.addMapping("/statisticchart/*");
 
 
     // Genre Servlet
-    ServletRegistration.Dynamic genreServlet =
-        servletContext.addServlet("Genre Servlet", GenreServlet.class);
+    ServletRegistration.Dynamic genreServlet = servletContext.addServlet("Genre Servlet", GenreServlet.class);
     genreServlet.setLoadOnStartup(1);
 
 
     // Redirect Servlet
-    ServletRegistration.Dynamic redirectServlet =
-        servletContext.addServlet("Redirect Servlet", RedirectServlet.class);
+    ServletRegistration.Dynamic redirectServlet = servletContext.addServlet("Redirect Servlet", RedirectServlet.class);
     redirectServlet.addMapping("/item/*");
 
 
     // SWORD
     ServletRegistration.Dynamic swordServiceDocumentServlet =
-        servletContext.addServlet("Sword Service Document Servlet",
-            PubManServiceDocumentServlet.class);
+        servletContext.addServlet("Sword Service Document Servlet", PubManServiceDocumentServlet.class);
     swordServiceDocumentServlet.addMapping("/sword-app/servicedocument");
 
-    ServletRegistration.Dynamic swordDepositServlet =
-        servletContext.addServlet("Sword Deposit Servlet", PubManDepositServlet.class);
+    ServletRegistration.Dynamic swordDepositServlet = servletContext.addServlet("Sword Deposit Servlet", PubManDepositServlet.class);
     swordDepositServlet.addMapping("/sword-app/deposit");
 
-    servletContext.setInitParameter("server-class",
-        "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
+    servletContext.setInitParameter("server-class", "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
     servletContext.setInitParameter("authentication-method", "Basic");
 
 

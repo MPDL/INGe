@@ -82,21 +82,17 @@ public class HtmlFormatter extends AbstractFormatter {
    * @throws TransformerFactoryConfigurationError
    * @throws IOException
    */
-  public void explain(HttpServletResponse response) throws FileNotFoundException,
-      TransformerFactoryConfigurationError, IOException, URISyntaxException {
+  public void explain(HttpServletResponse response)
+      throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
-            HtmlFormatter.class.getClassLoader());
-    InputStream template =
-        ResourceUtil.getResourceAsStream("explain/html_explain.xsl",
-            HtmlFormatter.class.getClassLoader());
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), HtmlFormatter.class.getClassLoader());
+    InputStream template = ResourceUtil.getResourceAsStream("explain/html_explain.xsl", HtmlFormatter.class.getClassLoader());
 
     try {
       Transformer transformer =
-          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-              .newTransformer(new StreamSource(template));
+          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
       transformer.transform(new StreamSource(source), new StreamResult(response.getWriter()));
     } catch (Exception e) {
@@ -119,9 +115,8 @@ public class HtmlFormatter extends AbstractFormatter {
 
       TransformerFactory factory1 = new net.sf.saxon.TransformerFactoryImpl();
 
-      Transformer transformer =
-          factory1.newTransformer(new StreamSource(ResourceUtil.getResourceAsStream(
-              "xslt/html/resultlist-html.xsl", HtmlFormatter.class.getClassLoader())));
+      Transformer transformer = factory1.newTransformer(
+          new StreamSource(ResourceUtil.getResourceAsStream("xslt/html/resultlist-html.xsl", HtmlFormatter.class.getClassLoader())));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
       transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
     } catch (TransformerException | FileNotFoundException e) {
@@ -139,21 +134,17 @@ public class HtmlFormatter extends AbstractFormatter {
    * 
    * @throws IOException Any i/o exception
    */
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws ConeException {
+  public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException {
 
     String result = RdfHelper.formatMap(id, triples, model);
     StringWriter writer = new StringWriter();
     try {
       URL xsltFile = null;
 
-      xsltFile =
-          HtmlFormatter.class.getClassLoader().getResource(
-              "xslt/html/" + model.getName() + "-html.xsl");
+      xsltFile = HtmlFormatter.class.getClassLoader().getResource("xslt/html/" + model.getName() + "-html.xsl");
 
       if (xsltFile == null) {
-        logger.debug("No HTML template for '" + model.getName()
-            + "' found, using generic template.");
+        logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
         // xsltFile = ResourceUtil.getResourceAsStream("xslt/html/generic-html.xsl");
         xsltFile = HtmlFormatter.class.getClassLoader().getResource("xslt/html/generic-html.xsl");
       }
@@ -172,21 +163,13 @@ public class HtmlFormatter extends AbstractFormatter {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
       }
 
-      transformer
-          .setParameter(
-              "citation-link",
-              PropertyReader.getProperty("inge.pubman.instance.url")
-                  + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
-                  + PropertyReader.getProperty("inge.cone.service.url")
-                  + id
-                  + "\"&exportFormat="
-                  + exportFormat
-                  + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
-      transformer.setParameter(
-          "item-link",
+      transformer.setParameter("citation-link",
           PropertyReader.getProperty("inge.pubman.instance.url")
-              + PropertyReader.getProperty("inge.pubman.instance.context.path")
-              + PropertyReader.getProperty("inge.pubman.item.pattern"));
+              + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
+              + PropertyReader.getProperty("inge.cone.service.url") + id + "\"&exportFormat=" + exportFormat
+              + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+      transformer.setParameter("item-link", PropertyReader.getProperty("inge.pubman.instance.url")
+          + PropertyReader.getProperty("inge.pubman.instance.context.path") + PropertyReader.getProperty("inge.pubman.item.pattern"));
       transformer.setParameter("lang", lang);
       transformer.setParameter("subjectTagNamespace", model.getRdfAboutTag().getNamespaceURI());
       transformer.setParameter("subjectTagLocalName", model.getRdfAboutTag().getLocalPart());

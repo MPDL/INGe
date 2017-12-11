@@ -57,21 +57,18 @@ public class PubManServiceDocumentServlet extends HttpServlet {
     // Instantiate the correct SWORD Server class
     final String className = this.getServletContext().getInitParameter("server-class");
     if (className == null) {
-      PubManServiceDocumentServlet.logger
-          .fatal("Unable to read value of 'sword-server-class' from Servlet context");
+      PubManServiceDocumentServlet.logger.fatal("Unable to read value of 'sword-server-class' from Servlet context");
     } else {
       try {
         this.swordServer = (PubManSwordServer) Class.forName(className).newInstance();
       } catch (final Exception e) {
-        PubManServiceDocumentServlet.logger
-            .fatal("Unable to instantiate class from 'sword-server-class': " + className);
+        PubManServiceDocumentServlet.logger.fatal("Unable to instantiate class from 'sword-server-class': " + className);
       }
     }
   }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Create the ServiceDocumentRequest
     final ServiceDocumentRequest sdr = new ServiceDocumentRequest();
     // SwordUtil util = new SwordUtil();
@@ -114,8 +111,7 @@ public class PubManServiceDocumentServlet extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED);
   }
 

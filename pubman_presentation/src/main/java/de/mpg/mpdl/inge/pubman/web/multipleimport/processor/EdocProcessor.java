@@ -149,8 +149,7 @@ public class EdocProcessor extends FormatProcessor {
      * {@inheritDoc}
      */
     @Override
-    public void startElement(String uri, String localName, String name, Attributes attributes)
-        throws SAXException {
+    public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
       if ("edoc".equals(this.getStack().toString())) {
         this.builder = new StringBuilder();
         this.inItem = true;
@@ -197,8 +196,7 @@ public class EdocProcessor extends FormatProcessor {
      * {@inheritDoc}
      */
     @Override
-    public void content(String uri, String localName, String name, String content)
-        throws SAXException {
+    public void content(String uri, String localName, String name, String content) throws SAXException {
       super.content(uri, localName, name, content);
       if (this.inItem) {
         this.builder.append(this.escape(content));

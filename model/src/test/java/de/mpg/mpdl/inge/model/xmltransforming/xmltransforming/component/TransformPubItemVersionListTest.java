@@ -52,11 +52,9 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTes
 public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
   private static final Logger logger = Logger.getLogger(TransformPubItemVersionListTest.class);
 
-  private static final String TEST_FILE_ROOT =
-      "xmltransforming/component/transformPubItemVersionListTest/";
+  private static final String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemVersionListTest/";
   private static final String VERSION_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "version-list-sample.xml";
-  private static final String VERSION_LIST_SAMPLE_FILE2 = TEST_FILE_ROOT
-      + "version-list-sample2.xml";
+  private static final String VERSION_LIST_SAMPLE_FILE2 = TEST_FILE_ROOT + "version-list-sample2.xml";
 
   /**
    * @throws Exception
@@ -71,8 +69,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
 
     // transform the version history XML to a list of EventVOs
     long zeit = -System.currentTimeMillis();
-    List<VersionHistoryEntryVO> versionList =
-        XmlTransformingService.transformToEventVOList(itemVersionHistoryXml);
+    List<VersionHistoryEntryVO> versionList = XmlTransformingService.transformToEventVOList(itemVersionHistoryXml);
     zeit += System.currentTimeMillis();
     logger.info("transformPubItemVersionList() -> " + zeit + "ms");
 
@@ -112,8 +109,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase {
 
     // transform the version history XML to a list of EventVOs
     long zeit = -System.currentTimeMillis();
-    List<VersionHistoryEntryVO> versionList =
-        XmlTransformingService.transformToEventVOList(itemVersionHistoryXml);
+    List<VersionHistoryEntryVO> versionList = XmlTransformingService.transformToEventVOList(itemVersionHistoryXml);
     zeit += System.currentTimeMillis();
     logger.info("transformPubItemVersionList() -> " + zeit + "ms");
 

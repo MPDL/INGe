@@ -43,8 +43,7 @@ public class ReviseItem extends FacesBean {
           creators.append(", ");
           creators.append(creator.getPerson().getGivenName());
         }
-      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION
-          && creator.getOrganization().getName() != null) {
+      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null) {
         creators.append(creator.getOrganization().getName());
       }
     }
@@ -87,19 +86,15 @@ public class ReviseItem extends FacesBean {
   public String revise() {
     final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
-    final String retVal =
-        this.getItemControllerSessionBean().reviseCurrentPubItem(navigateTo, this.reviseComment);
+    final String retVal = this.getItemControllerSessionBean().reviseCurrentPubItem(navigateTo, this.reviseComment);
 
     if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_REVISED));
       this.getPubItemListSessionBean().update();
 
       try {
-        FacesTools.getExternalContext().redirect(
-            FacesTools.getRequest().getContextPath()
-                + "/faces/ViewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (final IOException e) {
         ReviseItem.logger.error("Could not redirect to View Item Page", e);
       }

@@ -60,10 +60,8 @@ public class BibTeXMixedSurnameAndGivennameFormat extends AuthorFormat {
       }
     }
 
-    List<Author> authorListSurnnameFirst =
-        getAuthorListLeadingSurname(surnameFirst.toArray(new String[surnameFirst.size()]), ",");
-    List<Author> authorListGivennameFirst =
-        getAuthorListNormalFormat(givennameFirst.toArray(new String[givennameFirst.size()]));
+    List<Author> authorListSurnnameFirst = getAuthorListLeadingSurname(surnameFirst.toArray(new String[surnameFirst.size()]), ",");
+    List<Author> authorListGivennameFirst = getAuthorListNormalFormat(givennameFirst.toArray(new String[givennameFirst.size()]));
 
     if (authorListSurnnameFirst == null || authorListGivennameFirst == null) {
       return null;

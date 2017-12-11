@@ -53,12 +53,10 @@ public class CreateTripleStore {
   private String mulgaraServer;
   private String mulgaraPort;
 
-  private CreateTripleStore() throws TuplesException, IOException, URISyntaxException,
-      ItqlInterpreterException {
+  private CreateTripleStore() throws TuplesException, IOException, URISyntaxException, ItqlInterpreterException {
     mulgaraServer = PropertyReader.getProperty("inge.cone.mulgara.server.name");
     mulgaraPort = PropertyReader.getProperty("inge.cone.mulgara.server.port");
-    File tqlFile =
-        ResourceUtil.getResourceAsFile("setup.tql", CreateTripleStore.class.getClassLoader());
+    File tqlFile = ResourceUtil.getResourceAsFile("setup.tql", CreateTripleStore.class.getClassLoader());
     BufferedReader reader = new BufferedReader(new FileReader(tqlFile));
     String line;
     while ((line = reader.readLine()) != null) {
@@ -71,18 +69,15 @@ public class CreateTripleStore {
     }
     for (String model : models) {
       List<String> pattern = new ArrayList<String>();
-      File patternFile =
-          ResourceUtil.getResourceAsFile(model + ".pattern",
-              CreateTripleStore.class.getClassLoader());
+      File patternFile = ResourceUtil.getResourceAsFile(model + ".pattern", CreateTripleStore.class.getClassLoader());
       BufferedReader bufferedReader = new BufferedReader(new FileReader(patternFile));
       while ((line = bufferedReader.readLine()) != null) {
         pattern.add(line);
       }
       bufferedReader.close();
       ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
-      String query =
-          "select $s $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model
-              + "> where $s $p $o order by $s $p $o limit 500;";
+      String query = "select $s $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model
+          + "> where $s $p $o order by $s $p $o limit 500;";
       logger.debug(EXECUTING + query);
       Answer answer = interpreter.executeQuery(query);
       boolean stillMore = true;
@@ -123,9 +118,8 @@ public class CreateTripleStore {
         }
         if (stillMore) {
           page++;
-          query =
-              "select $s $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model
-                  + "> where $s $p $o order by $s $p $o limit 500 offset " + page * 500 + ";";
+          query = "select $s $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model
+              + "> where $s $p $o order by $s $p $o limit 500 offset " + page * 500 + ";";
           logger.debug(EXECUTING + query);
           interpreter = new ItqlInterpreterBean();
           answer = interpreter.executeQuery(query);
@@ -134,8 +128,8 @@ public class CreateTripleStore {
     }
   }
 
-  private void flushSubject(String model, String currentSubject, Map<String, String> poMap,
-      Set<String> languages, List<String> pattern) throws ItqlInterpreterException {
+  private void flushSubject(String model, String currentSubject, Map<String, String> poMap, Set<String> languages, List<String> pattern)
+      throws ItqlInterpreterException {
     if (languages.size() == 0) {
       String result = "";
       for (String line : pattern) {
@@ -156,10 +150,8 @@ public class CreateTripleStore {
         }
         result += string;
       }
-      String query =
-          "insert <" + currentSubject + "> " + "<http://purl.org/dc/elements/1.1/title> " + "'"
-              + escapeForItqlObject(result) + "' " + "into <rmi://" + mulgaraServer + ":"
-              + mulgaraPort + "/cone#" + model + "_result>;";
+      String query = "insert <" + currentSubject + "> " + "<http://purl.org/dc/elements/1.1/title> " + "'" + escapeForItqlObject(result)
+          + "' " + "into <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_result>;";
       logger.debug("Query: " + query);
       ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
       interpreter.executeUpdate(query);
@@ -170,9 +162,7 @@ public class CreateTripleStore {
           String string = line;
           for (String predicate : poMap.keySet()) {
             if (predicate.endsWith("@" + lang)) {
-              string =
-                  string.replace("<" + predicate.substring(0, predicate.indexOf("@")) + ">",
-                      poMap.get(predicate));
+              string = string.replace("<" + predicate.substring(0, predicate.indexOf("@")) + ">", poMap.get(predicate));
             } else if (!predicate.contains("@")) {
               string = string.replace("<" + predicate + ">", poMap.get(predicate));
             }
@@ -191,10 +181,8 @@ public class CreateTripleStore {
           result += string;
         }
         logger.debug("Result: " + result);
-        String query =
-            "insert <" + currentSubject + "> " + "<http://purl.org/dc/elements/1.1/title> " + "'"
-                + escapeForItqlObject(result) + "'@" + lang + " " + "into <rmi://" + mulgaraServer
-                + ":" + mulgaraPort + "/cone#" + model + "_result>;";
+        String query = "insert <" + currentSubject + "> " + "<http://purl.org/dc/elements/1.1/title> " + "'" + escapeForItqlObject(result)
+            + "'@" + lang + " " + "into <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_result>;";
         logger.debug("Query: " + query);
         ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
         interpreter.executeUpdate(query);

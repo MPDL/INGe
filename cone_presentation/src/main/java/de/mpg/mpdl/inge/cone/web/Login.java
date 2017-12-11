@@ -8,10 +8,8 @@ import de.mpg.mpdl.inge.aa.Config;
 
 public class Login {
 
-  private static final String PROPERTY_ROLE_CONE_OPEN_VOCABULARY =
-      "inge.aa.role.open.vocabulary.id";
-  private static final String PROPERTY_ROLE_CONE_CLOSED_VOCABULARY =
-      "inge.aa.role.closed.vocabulary.id";
+  private static final String PROPERTY_ROLE_CONE_OPEN_VOCABULARY = "inge.aa.role.open.vocabulary.id";
+  private static final String PROPERTY_ROLE_CONE_CLOSED_VOCABULARY = "inge.aa.role.closed.vocabulary.id";
 
   /**
    * Hide constructor of the static class.
@@ -75,8 +73,8 @@ public class Login {
       return true;
     } else {
       checkLogin(request, true);
-      return (request.getSession().getAttribute("logged_in") != null && ((Boolean) request
-          .getSession().getAttribute("logged_in")).booleanValue());
+      return (request.getSession().getAttribute("logged_in") != null
+          && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
     }
   }
 }

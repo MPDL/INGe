@@ -82,8 +82,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME = "inge.email.mailservername";
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER = "inge.email.sender";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION =
-      "inge.email.withauthentication";
+  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION = "inge.email.withauthentication";
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER = "inge.email.authenticationuser";
   private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD = "inge.email.authenticationpwd";
 
@@ -107,16 +106,11 @@ public class ExportItemsSessionBean extends FacesBean {
     this.curExportFormatVO.setSelectedFileFormat(this.curFileFormatVO);
 
     try {
-      this.emailSenderProp =
-          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
-      this.emailServernameProp =
-          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
-      this.emailWithAuthProp =
-          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
-      this.emailAuthUserProp =
-          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER);
-      this.emailAuthPwdProp =
-          PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD);
+      this.emailSenderProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
+      this.emailServernameProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
+      this.emailWithAuthProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
+      this.emailAuthUserProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER);
+      this.emailAuthPwdProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD);
     } catch (final Exception e) {
       ExportItemsSessionBean.logger.warn("Propertyfile not readable for emailserver  properties'");
     }
@@ -176,8 +170,7 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setFileFormat(String fileFormat) {
-    if (fileFormat == null || fileFormat.trim().equals("")
-        || this.getExportFormatName().equalsIgnoreCase("ENDNOTE")
+    if (fileFormat == null || fileFormat.trim().equals("") || this.getExportFormatName().equalsIgnoreCase("ENDNOTE")
         || this.getExportFormatName().equalsIgnoreCase("BIBTEX")) {
       fileFormat = FileFormatVO.TEXT_NAME;
     }
@@ -186,8 +179,7 @@ public class ExportItemsSessionBean extends FacesBean {
     this.curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
     this.curExportFormatVO.setSelectedFileFormat(this.curFileFormatVO);
 
-    ExportItemsSessionBean.logger.debug("setFileFormat.....:"
-        + this.curExportFormatVO.getSelectedFileFormat().getName() + ";"
+    ExportItemsSessionBean.logger.debug("setFileFormat.....:" + this.curExportFormatVO.getSelectedFileFormat().getName() + ";"
         + this.curExportFormatVO.getSelectedFileFormat().getMimeType());
 
   }

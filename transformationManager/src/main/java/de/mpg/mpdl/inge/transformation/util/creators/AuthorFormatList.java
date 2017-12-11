@@ -37,17 +37,15 @@ import java.util.Arrays;
  */
 public final class AuthorFormatList {
 
-  private static AuthorFormat[] formats = new AuthorFormat[] {new WesternFormat1(),
-      new WesternFormat2(), new WesternFormat3(), new WesternFormat4(), new WesternFormat5(),
-      new WesternFormat6(), new WesternFormat7(), new WesternFormat8(), new WesternFormat9(),
+  private static AuthorFormat[] formats = new AuthorFormat[] {new WesternFormat1(), new WesternFormat2(), new WesternFormat3(),
+      new WesternFormat4(), new WesternFormat5(), new WesternFormat6(), new WesternFormat7(), new WesternFormat8(), new WesternFormat9(),
       new WesternFormat10(), new WesternFormat11(), new WesternFormat12(), new WesternFormat13(),
       // new WesternFormat14(),
-      new OxfordJournalFormat(), new ScienceDirectFormat(),
-      new BibTeXSpecialFormat1(),
+      new OxfordJournalFormat(), new ScienceDirectFormat(), new BibTeXSpecialFormat1(),
       // new LooseFormat(),
       // new LooseFormatSurnameFirst(),
-      new LooseFormatWithInfoInBraces(), new ResidualFormat(), new EndnoteFormat(),
-      new MpisBibtexFormat(), new MpiKybFormat(), new BibTeXMixedSurnameAndGivennameFormat()};
+      new LooseFormatWithInfoInBraces(), new ResidualFormat(), new EndnoteFormat(), new MpisBibtexFormat(), new MpiKybFormat(),
+      new BibTeXMixedSurnameAndGivennameFormat()};
 
   static {
     Arrays.sort(formats);

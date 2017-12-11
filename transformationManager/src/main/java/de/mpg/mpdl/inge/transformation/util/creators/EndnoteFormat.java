@@ -40,8 +40,7 @@ public class EndnoteFormat extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + "( *\\n *" + NAME + ", ?"
-        + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
+    return "^\\s*" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + "( *\\n *" + NAME + ", ?" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
   }
 
   @Override

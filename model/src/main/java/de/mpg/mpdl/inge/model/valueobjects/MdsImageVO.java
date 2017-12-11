@@ -54,8 +54,17 @@ public class MdsImageVO extends MetadataSetVO {
    * 
    * @updated 05-Sep-2007 10:58:49
    */
-  public enum ImageType {
-    FIGURE, ILLUSTRATION, MAP, PAGE, PAINTING, PHOTOGRAPH, DRAWING, PICTURE, ENGRAVINGS
+  public enum ImageType
+  {
+    FIGURE,
+    ILLUSTRATION,
+    MAP,
+    PAGE,
+    PAINTING,
+    PHOTOGRAPH,
+    DRAWING,
+    PICTURE,
+    ENGRAVINGS
   }
 
   /**

@@ -22,11 +22,9 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   private ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion =
       new ComponentContentCategoryListSearchCriterion();
 
-  private DateSearchCriterion embargoDateSearchCriterion = new DateSearchCriterion(
-      SearchCriterion.COMPONENT_EMBARGO_DATE);
+  private DateSearchCriterion embargoDateSearchCriterion = new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
 
-  private ComponentVisibilityListSearchCriterion visibilityListSearchCriterion =
-      new ComponentVisibilityListSearchCriterion();
+  private ComponentVisibilityListSearchCriterion visibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
 
 
   public FileSectionSearchCriterion(SearchCriterion type) {
@@ -53,8 +51,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
       case YES: {
-        bq.must(this.baseElasticSearchQueryBuilder(new String[] {"files.storage"},
-            storageType.name()));
+        bq.must(this.baseElasticSearchQueryBuilder(new String[] {"files.storage"}, storageType.name()));
 
         if (!visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(visibilityListSearchCriterion.toElasticSearchQuery());
@@ -69,8 +66,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
       }
 
       case NO: {
-        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage",
-            storageType.name()));
+        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage", storageType.name()));
         break;
       }
 
@@ -134,8 +130,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     return contentCategoryListSearchCriterion;
   }
 
-  public void setContentCategoryListSearchCriterion(
-      ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion) {
+  public void setContentCategoryListSearchCriterion(ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion) {
     this.contentCategoryListSearchCriterion = contentCategoryListSearchCriterion;
   }
 
@@ -151,8 +146,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     return visibilityListSearchCriterion;
   }
 
-  public void setVisibilityListSearchCriterion(
-      ComponentVisibilityListSearchCriterion visibilityListSearchCriterion) {
+  public void setVisibilityListSearchCriterion(ComponentVisibilityListSearchCriterion visibilityListSearchCriterion) {
     this.visibilityListSearchCriterion = visibilityListSearchCriterion;
   }
 

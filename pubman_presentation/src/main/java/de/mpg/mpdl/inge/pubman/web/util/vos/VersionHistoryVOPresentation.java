@@ -49,18 +49,15 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
    * @return Nothing
    */
   public String rollback() throws Exception {
-    VersionHistoryVOPresentation.logger.info("Rollback to version "
-        + this.getReference().getVersionNumber());
+    VersionHistoryVOPresentation.logger.info("Rollback to version " + this.getReference().getVersionNumber());
 
     final LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
 
     // Get the two versions
-    final PubItemVO pubItemVOLatestVersion =
-        pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
+    final PubItemVO pubItemVOLatestVersion = pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
     final PubItemVO pubItemVOThisVersion =
-        pubItemService.get(this.getReference().getObjectIdAndVersion(),
-            loginHelper.getAuthenticationToken());
+        pubItemService.get(this.getReference().getObjectIdAndVersion(), loginHelper.getAuthenticationToken());
 
     // Now copy the old stuff into the current item
     pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
@@ -78,17 +75,13 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     // Then process it into the framework ...
     // TODO: An neuen Workflow anpassen (z.B. hat Owner im Standard-Workflow keine Berechtigung von
     // PENDING nach RELEASED)
-    PubItemVO pubItemVONewVersion =
-        pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
+    PubItemVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
     if (ItemVO.State.RELEASED.equals(pubItemVOLatestVersion.getVersion().getState())
         && !ItemVO.State.RELEASED.equals(pubItemVONewVersion.getVersion().getState())) {
-      pubItemVONewVersion =
-          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(
-              pubItemVONewVersion.getVersion().getObjectId(),
-              pubItemVONewVersion.getModificationDate(),
-              "Release after rollback to version " + this.getReference().getVersionNumber(),
-              loginHelper.getAuthenticationToken());
+      pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(pubItemVONewVersion.getVersion().getObjectId(),
+          pubItemVONewVersion.getModificationDate(), "Release after rollback to version " + this.getReference().getVersionNumber(),
+          loginHelper.getAuthenticationToken());
     }
 
     // ... and set the new version as current item in PubMan

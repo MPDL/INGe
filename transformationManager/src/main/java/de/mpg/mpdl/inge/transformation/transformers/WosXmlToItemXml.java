@@ -19,8 +19,7 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.wos.stylesheet.filename",
-        "transformations/otherFormats/xslt/wosxml2escidoc.xsl");
+    return getXmlSourceFromProperty("inge.transformation.wos.stylesheet.filename", "transformations/otherFormats/xslt/wosxml2escidoc.xsl");
   }
 
   @Override
@@ -32,10 +31,8 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    map.put("external-organization",
-        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external-organization", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
 
 
     return map;

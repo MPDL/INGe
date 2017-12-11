@@ -116,14 +116,10 @@ public class LoginHelper extends FacesBean {
   public String login() {
     try {
 
-      HttpServletRequest request =
-          (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-      HttpServletResponse response =
-          (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
-              .getResponse();
+      HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
       final String token =
-          ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(),
-              this.getPassword(), request, response);
+          ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(), this.getPassword(), request, response);
       this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(token);
       if (token != null) {
         this.authenticationToken = token;
@@ -133,8 +129,7 @@ public class LoginHelper extends FacesBean {
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
         if (this.accountUser.isDepositor()) {
-          final DepositorWSSessionBean depWSSessionBean =
-              (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
+          final DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
           // enable the depositor links if necessary
           depWSSessionBean.setMyWorkspace(true);
           depWSSessionBean.setDepositorWS(true);
@@ -153,14 +148,11 @@ public class LoginHelper extends FacesBean {
   }
 
   public String logout() {
-    HttpServletRequest request =
-        (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    HttpServletResponse response =
-        (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 
     try {
-      ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request,
-          response);
+      ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request, response);
     } catch (Exception e) {
       logger.error("Error while logging out", e);
     }
@@ -234,9 +226,8 @@ public class LoginHelper extends FacesBean {
 
   @Override
   public String toString() {
-    return "[Login: "
-        + (this.loggedIn ? "User " + this.authenticationToken + "(" + this.accountUser
-            + ") is logged in]" : "No user is logged in (" + this.accountUser + ")]");
+    return "[Login: " + (this.loggedIn ? "User " + this.authenticationToken + "(" + this.accountUser + ") is logged in]"
+        : "No user is logged in (" + this.accountUser + ")]");
   }
 
   /**
@@ -271,8 +262,7 @@ public class LoginHelper extends FacesBean {
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (final UserAttributeVO ua : this.getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          final AffiliationVO orgUnit =
-              ApplicationBean.INSTANCE.getOrganizationService().get(ua.getValue(), null);
+          final AffiliationVO orgUnit = ApplicationBean.INSTANCE.getOrganizationService().get(ua.getValue(), null);
           this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }
@@ -283,15 +273,13 @@ public class LoginHelper extends FacesBean {
 
   // only active UserGroups!
   public List<UserGroupVO> getAccountUsersUserGroups() {
-    if (this.userAccountUserGroups == null && this.getAccountUser() != null
-        && this.getAccountUser().getReference() != null) {
+    if (this.userAccountUserGroups == null && this.getAccountUser() != null && this.getAccountUser().getReference() != null) {
       final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
       filterParams.put("operation", new String[] {"searchRetrieve"});
       filterParams.put("version", new String[] {"1.1"});
       // String orgId = "escidoc:persistent25";
-      filterParams.put("query", new String[] {"\"/structural-relations/user/id\"="
-          + this.getAccountUser().getReference().getObjectId() + " and "
-          + "\"/properties/active\"=\"true\""});
+      filterParams.put("query", new String[] {"\"/structural-relations/user/id\"=" + this.getAccountUser().getReference().getObjectId()
+          + " and " + "\"/properties/active\"=\"true\""});
       // filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" +
       // getAccountUser().getReference().getObjectId() + " and " +
       // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
@@ -368,8 +356,7 @@ public class LoginHelper extends FacesBean {
   }
 
   public String getCurrentIp() {
-    return FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap()
-        .get("X-Forwarded-For");
+    return FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("X-Forwarded-For");
 
   }
 }

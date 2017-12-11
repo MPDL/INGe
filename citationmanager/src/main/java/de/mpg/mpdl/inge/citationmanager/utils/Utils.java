@@ -67,8 +67,7 @@ public class Utils {
    * @param message
    * @throws ExportManagerException
    */
-  public static void checkCondition(boolean cond, String message)
-      throws CitationStyleManagerException {
+  public static void checkCondition(boolean cond, String message) throws CitationStyleManagerException {
     if (cond)
       throw new CitationStyleManagerException(message);
   }
@@ -169,8 +168,7 @@ public class Utils {
   }
 
   public static String replaceAllTotal(String what, String expr, String replacement) {
-    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what)
-        .replaceAll(replacement);
+    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what).replaceAll(replacement);
   }
 
   public static String replaceAllTotal(String what, Pattern p, String replacement) {

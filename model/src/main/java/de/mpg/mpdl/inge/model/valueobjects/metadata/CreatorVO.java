@@ -56,48 +56,46 @@ public class CreatorVO extends ValueObject implements Cloneable {
    * 
    * @updated 05-Sep-2007 12:48:55
    */
-  public enum CreatorRole {
-    ARTIST("http://www.loc.gov/loc.terms/relators/ART"), AUTHOR(
-        "http://www.loc.gov/loc.terms/relators/AUT"), EDITOR(
-        "http://www.loc.gov/loc.terms/relators/EDT"), PAINTER(
-        "http://purl.org/escidoc/metadata/ves/creator-roles/painter"), ILLUSTRATOR(
-        "http://www.loc.gov/loc.terms/relators/ILL"), PHOTOGRAPHER(
-        "http://www.loc.gov/loc.terms/relators/PHT"), COMMENTATOR(
-        "http://www.loc.gov/loc.terms/relators/CMM"), TRANSCRIBER(
-        "http://www.loc.gov/loc.terms/relators/TRC"), ADVISOR(
-        "http://www.loc.gov/loc.terms/relators/SAD"), TRANSLATOR(
-        "http://www.loc.gov/loc.terms/relators/TRL"), CONTRIBUTOR(
-        "http://www.loc.gov/loc.terms/relators/CTB"), HONOREE(
-        "http://www.loc.gov/loc.terms/relators/HNR"), REFEREE(
-        "http://purl.org/escidoc/metadata/ves/creator-roles/referee"), INVENTOR(
-        "http://www.loc.gov/loc.terms/relators/INV"), APPLICANT(
-        "http://www.loc.gov/loc.terms/relators/APP"), DIRECTOR(
-        "http://www.loc.gov/loc.terms/relators/DRT"), PRODUCER(
-        "http://www.loc.gov/loc.terms/relators/PRO"), ACTOR(
-        "http://www.loc.gov/loc.terms/relators/ACT"), CINEMATOGRAPHER(
-        "http://www.loc.gov/loc.terms/relators/CNG"), SOUND_DESIGNER(
-        "http://www.loc.gov/loc.terms/relators/SDS");
+  public enum CreatorRole
+  {
+    ARTIST("http://www.loc.gov/loc.terms/relators/ART"),
+    AUTHOR("http://www.loc.gov/loc.terms/relators/AUT"),
+    EDITOR("http://www.loc.gov/loc.terms/relators/EDT"),
+    PAINTER("http://purl.org/escidoc/metadata/ves/creator-roles/painter"),
+    ILLUSTRATOR("http://www.loc.gov/loc.terms/relators/ILL"),
+    PHOTOGRAPHER("http://www.loc.gov/loc.terms/relators/PHT"),
+    COMMENTATOR("http://www.loc.gov/loc.terms/relators/CMM"),
+    TRANSCRIBER("http://www.loc.gov/loc.terms/relators/TRC"),
+    ADVISOR("http://www.loc.gov/loc.terms/relators/SAD"),
+    TRANSLATOR("http://www.loc.gov/loc.terms/relators/TRL"),
+    CONTRIBUTOR("http://www.loc.gov/loc.terms/relators/CTB"),
+    HONOREE("http://www.loc.gov/loc.terms/relators/HNR"),
+    REFEREE("http://purl.org/escidoc/metadata/ves/creator-roles/referee"),
+    INVENTOR("http://www.loc.gov/loc.terms/relators/INV"),
+    APPLICANT("http://www.loc.gov/loc.terms/relators/APP"),
+    DIRECTOR("http://www.loc.gov/loc.terms/relators/DRT"),
+    PRODUCER("http://www.loc.gov/loc.terms/relators/PRO"),
+    ACTOR("http://www.loc.gov/loc.terms/relators/ACT"),
+    CINEMATOGRAPHER("http://www.loc.gov/loc.terms/relators/CNG"),
+    SOUND_DESIGNER("http://www.loc.gov/loc.terms/relators/SDS");
 
 
-    private String uri;
+  private String uri;
 
-    private CreatorRole(String uri) {
+  private CreatorRole(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-  }
+  public String getUri() {
+    return uri;
+  }}
 
   /**
    * The possible creator types.
    * 
    * @updated 05-Sep-2007 12:48:55
    */
-  public enum CreatorType {
-    PERSON, ORGANIZATION
-  }
+  public enum CreatorType{PERSON,ORGANIZATION}
 
   private OrganizationVO organization;
   private PersonVO person;

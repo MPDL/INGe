@@ -31,12 +31,10 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
     Map<String, Object> map = new HashMap<String, Object>();
 
     String ns_prefix_xsd_soap_common_srel =
-        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{"
-            + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
             : "{http://escidoc.de/core/01/structural-relations/}";
 
-    map.put(ns_prefix_xsd_soap_common_srel + "context-URI",
-        PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
     map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
@@ -58,15 +56,13 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(
-        "inge.transformation.marcxml2escidoc.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.marcxml2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(
-        "inge.transformation.marcxml2escidoc.configuration.filename",
+    return getAllConfigurationValuesFromProperty("inge.transformation.marcxml2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties").get(key);
   }
 

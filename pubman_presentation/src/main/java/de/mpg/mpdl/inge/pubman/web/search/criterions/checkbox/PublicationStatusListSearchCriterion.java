@@ -86,47 +86,34 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
           switch (value) {
             case "not-specified": {
 
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED));
               break;
 
             }
             case "submitted": {
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
-              bqb.must(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
+              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED));
               break;
             }
             case "accepted": {
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
               bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED));
               break;
             }
             case "published-online": {
-              bqb.mustNot(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
-              bqb.must(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
+              bqb.mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE));
               break;
 
             }
             case "published-in-print": {
-              bqb.must(QueryBuilders
-                  .existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
+              bqb.must(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT));
               break;
             }
 

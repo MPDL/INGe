@@ -93,8 +93,7 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("inge.pubman.blog.baseUrl");
     } catch (final Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'inge.pubman.blog.baseUrl' from properties file.", e);
+      HomePage.logger.error("Could not read property: 'inge.pubman.blog.baseUrl' from properties file.", e);
     }
 
     return url;
@@ -110,8 +109,7 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("inge.pubman.survey.url");
     } catch (final Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'inge.pubman.survey.url' from properties file.", e);
+      HomePage.logger.error("Could not read property: 'inge.pubman.survey.url' from properties file.", e);
     }
 
     return url;
@@ -125,8 +123,7 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("inge.pubman.survey.title");
     } catch (final Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'inge.pubman.survey.title' from properties file.", e);
+      HomePage.logger.error("Could not read property: 'inge.pubman.survey.title' from properties file.", e);
     }
 
     return url;
@@ -140,8 +137,7 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("inge.pubman.survey.text");
     } catch (final Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'inge.pubman.survey.text' from properties file.", e);
+      HomePage.logger.error("Could not read property: 'inge.pubman.survey.text' from properties file.", e);
     }
 
     return url;
@@ -155,8 +151,7 @@ public class HomePage extends BreadcrumbPage {
     try {
       url = PropertyReader.getProperty("inge.pubman.survey.styles");
     } catch (final Exception e) {
-      HomePage.logger.error(
-          "Could not read property: 'inge.pubman.survey.styles' from properties file.", e);
+      HomePage.logger.error("Could not read property: 'inge.pubman.survey.styles' from properties file.", e);
     }
 
     return url;
@@ -174,20 +169,19 @@ public class HomePage extends BreadcrumbPage {
 
     PubItemService pi = ApplicationBean.INSTANCE.getPubItemService();
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(pi.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
+        State.RELEASED.name()));
 
     SearchSourceBuilder ssb = new SearchSourceBuilder();
     ssb.query(bqb);
     ssb.from(0);
     ssb.size(4);
-    ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, org.elasticsearch.search.sort.SortOrder.DESC));
+    ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_MODIFICATION_DATE,
+        org.elasticsearch.search.sort.SortOrder.DESC));
 
     SearchResponse resp = pi.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
 
-    List<PubItemVO> pubItemList =
-        SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+    List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
 
     return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
   }

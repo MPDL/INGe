@@ -40,10 +40,9 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
  */
 @ManagedBean(name = "YearbookModeratorRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class YearbookModeratorRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<YearbookDbVO, YearbookModeratorListSessionBean.SORT_CRITERIA> {
-  private static final Logger logger = Logger
-      .getLogger(YearbookModeratorRetrieverRequestBean.class);
+public class YearbookModeratorRetrieverRequestBean
+    extends BaseListRetrieverRequestBean<YearbookDbVO, YearbookModeratorListSessionBean.SORT_CRITERIA> {
+  private static final Logger logger = Logger.getLogger(YearbookModeratorRetrieverRequestBean.class);
 
   private static String parameterSelectedOrgUnit = "orgUnit";
   /**
@@ -66,8 +65,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   private String selectedItemState;
 
   public YearbookModeratorRetrieverRequestBean() {
-    super((YearbookModeratorListSessionBean) FacesTools
-        .findBean("YearbookModeratorListSessionBean"), false);
+    super((YearbookModeratorListSessionBean) FacesTools.findBean("YearbookModeratorListSessionBean"), false);
   }
 
   @Override
@@ -87,8 +85,7 @@ public class YearbookModeratorRetrieverRequestBean extends
   @Override
   public void readOutParameters() {
     final String orgUnit =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(YearbookModeratorRetrieverRequestBean.parameterSelectedOrgUnit);
+        FacesTools.getExternalContext().getRequestParameterMap().get(YearbookModeratorRetrieverRequestBean.parameterSelectedOrgUnit);
     if (orgUnit == null) {
       this.setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
     } else {
@@ -96,8 +93,7 @@ public class YearbookModeratorRetrieverRequestBean extends
     }
 
     final String selectedItemState =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(YearbookModeratorRetrieverRequestBean.parameterSelectedItemState);
+        FacesTools.getExternalContext().getRequestParameterMap().get(YearbookModeratorRetrieverRequestBean.parameterSelectedItemState);
     if (selectedItemState == null) {
       this.setSelectedItemState("all");
     } else {
@@ -121,8 +117,8 @@ public class YearbookModeratorRetrieverRequestBean extends
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
     this.getYearbookCandidatesSessionBean().setSelectedOrgUnit(selectedOrgUnit);
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(YearbookModeratorRetrieverRequestBean.parameterSelectedOrgUnit, selectedOrgUnit);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(YearbookModeratorRetrieverRequestBean.parameterSelectedOrgUnit,
+        selectedOrgUnit);
   }
 
   public String getSelectedOrgUnit() {
@@ -155,44 +151,37 @@ public class YearbookModeratorRetrieverRequestBean extends
   }
 
   @Override
-  public List<YearbookDbVO> retrieveList(int offset, int limit,
-      YearbookModeratorListSessionBean.SORT_CRITERIA sc) {
+  public List<YearbookDbVO> retrieveList(int offset, int limit, YearbookModeratorListSessionBean.SORT_CRITERIA sc) {
     System.out.println("Retrieve list!!!!!!!!!!!!!!!!!!");
     try {
 
       BoolQueryBuilder qb = null;
-      if(!getLoginHelper().getIsYearbookAdmin())
-      {
+      if (!getLoginHelper().getIsYearbookAdmin()) {
         qb = QueryBuilders.boolQuery();
-        for(String orgId : YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser()))
-        {
-          ((BoolQueryBuilder)qb).should(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
+        for (String orgId : YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser())) {
+          ((BoolQueryBuilder) qb).should(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, orgId));
         }
-        
-        
+
+
       }
-      
+
       if (!this.getSelectedItemState().toLowerCase().equals("all")) {
-        if(qb==null)
-        {
+        if (qb == null) {
           qb = QueryBuilders.boolQuery();
         }
         qb.must(QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_STATE, getSelectedItemState()));
       }
 
-      
-      
 
 
       SearchSortCriteria elsc = new SearchSortCriteria(sc.getIndex(), SortOrder.valueOf(sc.getSortOrder()));
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, elsc);
-      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService()
-          .search(srr, getLoginHelper().getAuthenticationToken());
+      SearchRetrieveResponseVO<YearbookDbVO> resp =
+          ApplicationBean.INSTANCE.getYearbookService().search(srr, getLoginHelper().getAuthenticationToken());
 
       this.numberOfRecords = resp.getNumberOfRecords();
-      List<YearbookDbVO> yearbooks =
-          resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+      List<YearbookDbVO> yearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
       return yearbooks;
     } catch (final Exception e) {
       YearbookModeratorRetrieverRequestBean.logger.error("Error in retrieving items", e);
@@ -234,8 +223,7 @@ public class YearbookModeratorRetrieverRequestBean extends
 
   private List<YearbookDbVO> getSelectedYearbooks() {
     List<YearbookDbVO> yearbookList = new ArrayList<YearbookDbVO>();
-    for (final Map.Entry<YearbookDbVO, Boolean> entry : getBasePaginatorListSessionBean()
-        .getCurrentSelections().entrySet()) {
+    for (final Map.Entry<YearbookDbVO, Boolean> entry : getBasePaginatorListSessionBean().getCurrentSelections().entrySet()) {
       if (entry.getValue()) {
         yearbookList.add(entry.getKey());
       }
@@ -256,8 +244,7 @@ public class YearbookModeratorRetrieverRequestBean extends
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
       for (YearbookDbVO yb : selectedYearbooks) {
 
-        pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper()
-            .getAuthenticationToken()));
+        pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper().getAuthenticationToken()));
       }
 
 
@@ -292,11 +279,10 @@ public class YearbookModeratorRetrieverRequestBean extends
         for (YearbookDbVO yb : getSelectedYearbooks()) {
 
           if (State.SUBMITTED.equals(yb.getState())) {
-            ApplicationBean.INSTANCE.getYearbookService().release(yb.getObjectId(),
-                yb.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
+            ApplicationBean.INSTANCE.getYearbookService().release(yb.getObjectId(), yb.getLastModificationDate(),
+                getLoginHelper().getAuthenticationToken());
           } else {
-            this.warn("\"" + yb.getName() + "\""
-                + this.getMessage("Yearbook_itemNotReleasedWarning"));
+            this.warn("\"" + yb.getName() + "\"" + this.getMessage("Yearbook_itemNotReleasedWarning"));
           }
 
 
@@ -330,11 +316,10 @@ public class YearbookModeratorRetrieverRequestBean extends
         for (YearbookDbVO yb : getSelectedYearbooks()) {
 
           if (State.SUBMITTED.equals(yb.getState()) || State.RELEASED.equals(yb.getState())) {
-            ApplicationBean.INSTANCE.getYearbookService().revise(yb.getObjectId(),
-                yb.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
+            ApplicationBean.INSTANCE.getYearbookService().revise(yb.getObjectId(), yb.getLastModificationDate(),
+                getLoginHelper().getAuthenticationToken());
           } else {
-            this.warn("\"" + yb.getName() + "\""
-                + this.getMessage("Yearbook_itemNotSentBackWarning"));
+            this.warn("\"" + yb.getName() + "\"" + this.getMessage("Yearbook_itemNotSentBackWarning"));
           }
 
 
@@ -380,14 +365,13 @@ public class YearbookModeratorRetrieverRequestBean extends
 
   public List<SelectItem> getItemStateSelectItems() {
     this.itemStateSelectItems = new ArrayList<SelectItem>();
-    this.itemStateSelectItems.add(new SelectItem("all", this
-        .getLabel("ItemList_filterAllExceptWithdrawn")));
-    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.CREATED.name(), this
-        .getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.CREATED))));
-    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.SUBMITTED.name(), this
-        .getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.SUBMITTED))));
-    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.RELEASED.name(), this
-        .getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.RELEASED))));
+    this.itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptWithdrawn")));
+    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.CREATED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.CREATED))));
+    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.SUBMITTED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.SUBMITTED))));
+    this.itemStateSelectItems.add(new SelectItem(YearbookDbVO.State.RELEASED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(YearbookDbVO.State.RELEASED))));
 
     return this.itemStateSelectItems;
   }
@@ -399,8 +383,7 @@ public class YearbookModeratorRetrieverRequestBean extends
    */
   public void setSelectedItemState(String selectedItemState) {
     this.selectedItemState = selectedItemState;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(parameterSelectedItemState, selectedItemState);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(parameterSelectedItemState, selectedItemState);
   }
 
   /**

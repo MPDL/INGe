@@ -64,10 +64,8 @@ public class TransformExportFormatTest extends TestBase {
   public final void testTransformToExportFormatVOList() throws Exception {
     logger.info("### testTransformToExportFormatVOList ###");
 
-    String exportFormatList =
-        readFile("xmltransforming/component/transformExportFormatTest/export-format-list_sample1.xml");
-    List<ExportFormatVO> formatList =
-        XmlTransformingService.transformToExportFormatVOList(exportFormatList);
+    String exportFormatList = readFile("xmltransforming/component/transformExportFormatTest/export-format-list_sample1.xml");
+    List<ExportFormatVO> formatList = XmlTransformingService.transformToExportFormatVOList(exportFormatList);
     assertNotNull(formatList);
     assertFalse(formatList.isEmpty());
     assertEquals(2, formatList.size());
@@ -78,8 +76,7 @@ public class TransformExportFormatTest extends TestBase {
       logger.info("Style Id: " + formatVO.getId());
       logger.info("Style Description : " + formatVO.getDescription());
       for (FileFormatVO fileFormatVO : formatVO.getFileFormats())
-        logger.info("File Format name: " + fileFormatVO.getName() + "; File Format mime-type: "
-            + fileFormatVO.getMimeType());
+        logger.info("File Format name: " + fileFormatVO.getName() + "; File Format mime-type: " + fileFormatVO.getMimeType());
       for (String creator : formatVO.getCreators())
         logger.info("creator: " + creator);
     }

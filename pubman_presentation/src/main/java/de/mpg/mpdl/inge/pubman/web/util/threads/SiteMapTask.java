@@ -72,8 +72,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
-  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir")
-      + "/standalone/data/sitemap/";
+  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir") + "/standalone/data/sitemap/";
 
   private ArrayList<String> contentModels;
 
@@ -118,15 +117,12 @@ public class SiteMapTask {
        * this.interval =
        * Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.task.interval"));
        */
-      this.maxItemsPerFile =
-          Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.max.items"));
-      this.maxItemsPerRetrieve =
-          Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.retrieve.items"));
+      this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.max.items"));
+      this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.retrieve.items"));
 
 
 
-      this.contentModel =
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      this.contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
 
       this.contentModels = new ArrayList<String>();
       this.contentModels.add(this.contentModel);
@@ -167,11 +163,11 @@ public class SiteMapTask {
         final File indexFile = File.createTempFile("sitemap", ".xml");
         final FileWriter indexFileWriter = new FileWriter(indexFile);
 
-        indexFileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
-            + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
-            + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
-            + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
+        indexFileWriter
+            .write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
+                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+                + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
+                + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
 
         for (int i = 0; i < this.files.size(); i++) {
           final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap" + (i + 1) + ".xml");
@@ -182,9 +178,8 @@ public class SiteMapTask {
           }
           this.copySiteMap(this.files.get(i), finalFile, (int) this.files.get(i).length(), true);
 
-          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + this.instanceUrl + this.contextPath
-              + "/sitemap" + (i + 1) + ".xml</loc>\n\t\t<lastmod>" + currentDate
-              + "</lastmod>\n\t</sitemap>\n");
+          indexFileWriter.write("\t<sitemap>\n\t\t<loc>" + this.instanceUrl + this.contextPath + "/sitemap" + (i + 1)
+              + ".xml</loc>\n\t\t<lastmod>" + currentDate + "</lastmod>\n\t</sitemap>\n");
 
         }
 
@@ -199,8 +194,7 @@ public class SiteMapTask {
         } catch (final Exception e) {
           // Unable to delete file, it probably didn't exist
         }
-        final boolean success =
-            this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
+        final boolean success = this.copySiteMap(indexFile, finalFile, (int) indexFile.length(), true);
         SiteMapTask.logger.debug("Renaming succeeded: " + success);
       }
 
@@ -259,10 +253,8 @@ public class SiteMapTask {
     int writtenInThisFile = 0;
 
 
-    QueryBuilder qb =
-        QueryBuilders.boolQuery()
-            .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
-            .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
+    QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
+        .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
 
     SearchResponse resp = null;
     // fileWriter.write("<ul>");
@@ -273,14 +265,12 @@ public class SiteMapTask {
         // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
         // " to " + (firstRecord+maxItemsPerRetrieve));
 
-        logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to "
-            + (firstRecord + this.maxItemsPerRetrieve));
+        logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
 
         if (resp == null) {
           SearchSourceBuilder ssb = new SearchSourceBuilder();
-          ssb.docValueField(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID)
-              .docValueField(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).query(qb)
-              .size(this.maxItemsPerRetrieve);
+          ssb.docValueField(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).docValueField(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE)
+              .query(qb).size(this.maxItemsPerRetrieve);
           resp = pubItemService.searchDetailed(ssb, new Scroll(new TimeValue(120000)), null);
         } else {
           resp = pubItemService.scrollOn(resp.getScrollId(), new Scroll(new TimeValue(120000)));
@@ -296,8 +286,7 @@ public class SiteMapTask {
             this.fileWriter.write("\t<url>\n\t\t<loc>");
             this.fileWriter.write(this.instanceUrl);
             this.fileWriter.write(this.contextPath);
-            this.fileWriter.write(this.itemPattern.replace("$1",
-                result.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).getValue()));
+            this.fileWriter.write(this.itemPattern.replace("$1", result.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).getValue()));
             this.fileWriter.write("</loc>\n\t\t<lastmod>");
             Long lmd = result.field(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).getValue();
             this.fileWriter.write(dateFormat.format(new Date(lmd)));
@@ -321,15 +310,15 @@ public class SiteMapTask {
          * this.addItemsToSitemap(itemSearchResult);
          */
 
-        logger.debug("SiteMapTask: finished with items from offset " + firstRecord + " to "
-            + (firstRecord + this.maxItemsPerRetrieve));
+        logger.debug("SiteMapTask: finished with items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
         firstRecord += this.maxItemsPerRetrieve;
 
 
 
       } catch (final Exception e) {
-        SiteMapTask.logger.error("Error while creating sitemap part for items from offset "
-            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve), e);
+        SiteMapTask.logger.error(
+            "Error while creating sitemap part for items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve),
+            e);
       }
 
 
@@ -357,8 +346,8 @@ public class SiteMapTask {
           this.changeFile();
         }
       } catch (final Exception e) {
-        SiteMapTask.logger.error("Error while creating sitemap part for ous from offset "
-            + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
+        SiteMapTask.logger.error(
+            "Error while creating sitemap part for ous from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
       }
 
 
@@ -393,8 +382,7 @@ public class SiteMapTask {
   private SearchRetrieveResponseVO<AffiliationVO> getOUs(int firstRecord) throws Exception {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
 
-    SearchRetrieveRequestVO srr =
-        new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
     SearchRetrieveResponseVO<AffiliationVO> resp = ouService.search(srr, null);
 
 
@@ -414,8 +402,7 @@ public class SiteMapTask {
   private void startSitemap() {
     try {
       this.fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-          + "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" "
-          + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+          + "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" " + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
           + "xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 "
           + "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">\n");
     } catch (final Exception e) {
@@ -433,11 +420,9 @@ public class SiteMapTask {
         this.fileWriter.write("\t<url>\n\t\t<loc>");
         this.fileWriter.write(this.instanceUrl);
         this.fileWriter.write(this.contextPath);
-        this.fileWriter
-            .write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
+        this.fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
         this.fileWriter.write(result.getData().getReference().getObjectId());
-        this.fileWriter
-            .write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
+        this.fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
         this.fileWriter.write(this.contentModel);
         this.fileWriter.write("%22)&amp;searchType=org");
         this.fileWriter.write("</loc>\n\t</url>\n");

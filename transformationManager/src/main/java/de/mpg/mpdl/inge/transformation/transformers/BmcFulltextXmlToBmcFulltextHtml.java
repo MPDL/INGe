@@ -14,8 +14,7 @@ public class BmcFulltextXmlToBmcFulltextHtml extends XslTransformer implements C
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(
-        "inge.transformation.bmcfulltext2bmcfulltexthtml.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.bmcfulltext2bmcfulltexthtml.stylesheet.filename",
         "transformations/thirdParty/xslt/bmc-fulltext-xml2bmc-fulltext-html.xsl");
   }
 

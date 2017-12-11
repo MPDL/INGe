@@ -36,28 +36,22 @@ public class MockQuerier implements Querier {
 
   private static final Logger logger = Logger.getLogger(MockQuerier.class);
 
-  private static final LocalizedString DIES_IST_DIE_BESCHREIBUNG = new LocalizedString(
-      "Dies ist die Beschreibung. ");
-  private static final LocalizedString DIES_IST_DER_TITEL = new LocalizedString(
-      "Dies ist der Titel");
+  private static final LocalizedString DIES_IST_DIE_BESCHREIBUNG = new LocalizedString("Dies ist die Beschreibung. ");
+  private static final LocalizedString DIES_IST_DER_TITEL = new LocalizedString("Dies ist der Titel");
   private static final String DC_DESCRIPTION = "http://purl.org/dc/elements/1.1/description";
   private static final String DC_TITLE = "http://purl.org/dc/elements/1.1/title";
-  private static final LocalizedString THIS_IS_THE_DESCRIPTION = new LocalizedString(
-      "This is the description. ");
+  private static final LocalizedString THIS_IS_THE_DESCRIPTION = new LocalizedString("This is the description. ");
   private static final LocalizedString THIS_IS_THE_TITLE = new LocalizedString("This is the title");
   protected boolean loggedIn;
 
   private Map<String, String> data = new LinkedHashMap<String, String>();
 
   public MockQuerier() {
-    data.put(
-        "id:0",
-        "Acta Crystallographica Section F: Structural Biology and Crystallization Communications  v.62(Pt 7)");
+    data.put("id:0", "Acta Crystallographica Section F: Structural Biology and Crystallization Communications  v.62(Pt 7)");
     data.put("id:1", "Acta Histochemica et Cytochemica v.41(2)");
     data.put("id:2", "Acta Veterinaria Scandinavica    v.50(1)");
     data.put("id:3", "Advances in Urology  v.2008");
-    data.put("id:4",
-        "The Aesculapian — now published as Journal of the Medical Library Association : JMLA v.1(3-4)");
+    data.put("id:4", "The Aesculapian — now published as Journal of the Medical Library Association : JMLA v.1(3-4)");
     data.put("id:5", "African Health Sciences  v.8(1)");
     data.put("id:6", "Age  v.29(1)");
     data.put("id:7", "AIDS Research and Therapy    v.5");
@@ -66,17 +60,16 @@ public class MockQuerier implements Querier {
     data.put("id:10", "The American Journal of Pathology   v.172(1)");
     data.put("id:11", "American Journal of Pharmaceutical Education    v.72(2)");
     data.put("id:12", "American Journal of Public Health   v.96(7)");
-    data.put("id:13", "American Journal of Public Health (New York, N.Y. : 1912) — "
-        + "now published as American Journal of Public Health  v.17(12)");
-    data.put("id:14", "American Journal of Public Health and the Nation's Health — "
-        + "now published as American Journal of Public Health  v.60(12)");
+    data.put("id:13",
+        "American Journal of Public Health (New York, N.Y. : 1912) — " + "now published as American Journal of Public Health  v.17(12)");
+    data.put("id:14",
+        "American Journal of Public Health and the Nation's Health — " + "now published as American Journal of Public Health  v.60(12)");
     data.put("id:15", "AMIA Annual Symposium Proceedings   v.2006");
     data.put("id:16", "Amphibian & Reptile Conservation    v.3(1)");
     data.put("id:17", "Anesthesia Progress v.54(4)");
     data.put("id:18", "Annals of Clinical Microbiology and Antimicrobials  v.7");
     data.put("id:19", "Annals of Family Medicine   v.6(Suppl 1)");
-    data.put("id:20",
-        "Annals of General Hospital Psychiatry — now published as Annals of General Psychiatry   v.3");
+    data.put("id:20", "Annals of General Hospital Psychiatry — now published as Annals of General Psychiatry   v.3");
     data.put("id:21", "Annals of General Psychiatry    v.7");
     data.put("id:22", "Annals of Surgery   v.246(3)");
     data.put("id:23", "Annals of Surgical Innovation and Rev.2");
@@ -84,22 +77,17 @@ public class MockQuerier implements Querier {
     data.put("id:25", "Annals of The Royal College of Surgeons of England  v.89(5)");
     data.put("id:26", "Antimicrobial Agents and Chemotherapy   v.52(3)");
     data.put("id:27", "Applied and Environmental Microbiology  v.74(6)");
-    data.put("id:28",
-        "Applied Microbiology — now published as Applied and Environmental Microbiology  v.30(6)");
-    data.put("id:29", "Archives of Disease in Childhood — now published as Archives of "
-        + "Disease in Childhood. Fetal and Neonatal Edition    v.90(7)");
+    data.put("id:28", "Applied Microbiology — now published as Applied and Environmental Microbiology  v.30(6)");
+    data.put("id:29",
+        "Archives of Disease in Childhood — now published as Archives of " + "Disease in Childhood. Fetal and Neonatal Edition    v.90(7)");
     data.put("id:30", "Archives of Disease in Childhood. Fetal and Neonatal Edition    v.90(4)");
-    data.put("id:31",
-        "Archives of Emergency Medicine — now published as Emergency Medicine Journal : EMJ  v.10(4)");
+    data.put("id:31", "Archives of Emergency Medicine — now published as Emergency Medicine Journal : EMJ  v.10(4)");
     data.put("id:32", "Arthritis Research — now published as Arthritis Research & Therapy  v.4(6)");
     data.put("id:33", "Arthritis Research & Therapy    v.10(2)");
-    data.put("id:34",
-        "Association Medical Journal — now published as BMJ : British Medical Journal    v.4(208)");
-    data.put("id:35",
-        "Australasian Chiropractic & Osteopathy — now published as Chiropractic & Osteopathy v.12(2)");
+    data.put("id:34", "Association Medical Journal — now published as BMJ : British Medical Journal    v.4(208)");
+    data.put("id:35", "Australasian Chiropractic & Osteopathy — now published as Chiropractic & Osteopathy v.12(2)");
     data.put("id:36", "Australia and New Zealand Health Policy v.5");
-    data.put("id:37", "Bacteriological Reviews — now published as Microbiology and Molecular "
-        + "Biology Reviews : MMBR    v.41(4)");
+    data.put("id:37", "Bacteriological Reviews — now published as Microbiology and Molecular " + "Biology Reviews : MMBR    v.41(4)");
     data.put("id:38", "The Behavior Analyst    v.29(1)");
     data.put("id:39", "Behavioral and Brain Functions : BBF    v.4");
     data.put("id:40", "Beilstein Journal of Organic Chemistry  v.4");
@@ -185,45 +173,36 @@ public class MockQuerier implements Querier {
     data.put("id:120", "British Heart Journal — now published as Heart v.74(6)");
     data.put("id:121", "British Journal of Clinical Pharmacology   v.64(1)");
     data.put("id:122", "The British Journal of General Practice    v.57(540)");
-    data.put("id:123", "British Journal of Industrial Medicine — now published as "
-        + "Occupational and Environmental Medicine  v.50(12)");
+    data.put("id:123", "British Journal of Industrial Medicine — now published as " + "Occupational and Environmental Medicine  v.50(12)");
     data.put("id:124", "The British Journal of Ophthalmology   v.89(7)");
     data.put("id:125", "British Journal of Pharmacology    v.151(6)");
-    data.put("id:126", "British Journal of Pharmacology and Chemotherapy — "
-        + "now published as British Journal of Pharmacology    v.33(3)");
-    data.put("id:127", "British Journal of Preventive & Social Medicine — "
-        + "now published as Journal of Epidemiology and Community Health    v.31(4)");
-    data.put("id:128", "British Journal of Social Medicine — "
-        + "now published as Journal of Epidemiology and Community Health v.6(4)");
+    data.put("id:126",
+        "British Journal of Pharmacology and Chemotherapy — " + "now published as British Journal of Pharmacology    v.33(3)");
+    data.put("id:127",
+        "British Journal of Preventive & Social Medicine — " + "now published as Journal of Epidemiology and Community Health    v.31(4)");
+    data.put("id:128", "British Journal of Social Medicine — " + "now published as Journal of Epidemiology and Community Health v.6(4)");
     data.put("id:129", "British Journal of Sports Medicine v.39(7)");
-    data.put("id:130", "The British Journal of Venereal Diseases — "
-        + "now published as Sexually Transmitted Infections    v.60(6)");
-    data.put("id:131",
-        "British Medical Journal — now published as BMJ : British Medical Journal   v.281(Suppl)");
-    data.put("id:132", "British Medical Journal (Clinical research ed.) — "
-        + "now published as BMJ : British Medical Journal   v.295(Suppl)");
-    data.put("id:133", "Bulletin - British Association of Sport and Medicine — "
-        + "now published as British Journal of Sports Medicine v.3(4)");
+    data.put("id:130", "The British Journal of Venereal Diseases — " + "now published as Sexually Transmitted Infections    v.60(6)");
+    data.put("id:131", "British Medical Journal — now published as BMJ : British Medical Journal   v.281(Suppl)");
+    data.put("id:132",
+        "British Medical Journal (Clinical research ed.) — " + "now published as BMJ : British Medical Journal   v.295(Suppl)");
+    data.put("id:133",
+        "Bulletin - British Association of Sport and Medicine — " + "now published as British Journal of Sports Medicine v.3(4)");
     data.put("id:134", "Bulletin of the Association of Medical Librarians — "
         + "now published as Journal of the Medical Library Association : JMLA v.1(3-4)");
-    data.put("id:135", "Bulletin of the Medical Library Association — "
-        + "now published as Journal of the Medical Library Association : JMLA   v.89(4)");
-    data.put(
-        "id:136",
-        "Bulletin of the New York Academy of Medicine — "
-            + "now published as Journal of Urban Health : Bulletin of the New York Academy of Medicine v.74(2)");
-    data.put("id:137",
-        "Bulletins of the Public Health — now published as Public Health Reports    v.1");
+    data.put("id:135",
+        "Bulletin of the Medical Library Association — " + "now published as Journal of the Medical Library Association : JMLA   v.89(4)");
+    data.put("id:136", "Bulletin of the New York Academy of Medicine — "
+        + "now published as Journal of Urban Health : Bulletin of the New York Academy of Medicine v.74(2)");
+    data.put("id:137", "Bulletins of the Public Health — now published as Public Health Reports    v.1");
   }
 
   /**
    * {@inheritDoc}
    */
-  public List<Pair> query(String model, String query, String lang, ModeType modeType)
-      throws ConeException {
+  public List<Pair> query(String model, String query, String lang, ModeType modeType) throws ConeException {
     try {
-      return query(model, query, lang, modeType,
-          Integer.parseInt(PropertyReader.getProperty("inge.cone.maximum.results")));
+      return query(model, query, lang, modeType, Integer.parseInt(PropertyReader.getProperty("inge.cone.maximum.results")));
     } catch (NumberFormatException e) {
       throw new ConeException(e);
     }
@@ -232,8 +211,7 @@ public class MockQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<Pair> query(String model, String query, String lang, ModeType modeType, int limit)
-      throws ConeException {
+  public List<Pair> query(String model, String query, String lang, ModeType modeType, int limit) throws ConeException {
     List<Pair> resultSet = new ArrayList<Pair>();
     for (String id : data.keySet()) {
       if ("*".equals(query) || data.get(id).toLowerCase().contains(query.toLowerCase())) {
@@ -252,8 +230,7 @@ public class MockQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType)
-      throws ConeException {
+  public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType) throws ConeException {
     String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
@@ -264,8 +241,7 @@ public class MockQuerier implements Querier {
    * @see de.mpg.mpdl.inge.cone.Querier#query(java.lang.String, de.mpg.mpdl.inge.cone.util.Pair[],
    * java.lang.String, int)
    */
-  public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType,
-      int limit) throws ConeException {
+  public List<Pair> query(String model, Pair[] searchFields, String lang, ModeType modeType, int limit) throws ConeException {
     // TODO Auto-generated method stub
     return null;
   }
@@ -275,8 +251,7 @@ public class MockQuerier implements Querier {
    */
   public List<Pair> query(String model, String query, ModeType modeType) throws ConeException {
 
-    return query(model, query, PropertyReader.getProperty("inge.cone.language.default", "en"),
-        modeType);
+    return query(model, query, PropertyReader.getProperty("inge.cone.language.default", "en"), modeType);
 
   }
 
@@ -289,8 +264,7 @@ public class MockQuerier implements Querier {
     triple1.add(THIS_IS_THE_TITLE);
     resultSet.put(DC_TITLE, triple1);
     List<LocalizedTripleObject> triple2 = new ArrayList<LocalizedTripleObject>();
-    triple2.add(THIS_IS_THE_DESCRIPTION.concat(THIS_IS_THE_DESCRIPTION)
-        .concat(THIS_IS_THE_DESCRIPTION).concat(THIS_IS_THE_DESCRIPTION));
+    triple2.add(THIS_IS_THE_DESCRIPTION.concat(THIS_IS_THE_DESCRIPTION).concat(THIS_IS_THE_DESCRIPTION).concat(THIS_IS_THE_DESCRIPTION));
     resultSet.put(DC_DESCRIPTION, triple1);
 
     logger.debug("Details1: " + resultSet.toString());
@@ -308,16 +282,15 @@ public class MockQuerier implements Querier {
       triple1.add(DIES_IST_DER_TITEL);
       resultSet.put(DC_TITLE, triple1);
       List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
-      triple2.add(DIES_IST_DIE_BESCHREIBUNG.concat(DIES_IST_DIE_BESCHREIBUNG)
-          .concat(DIES_IST_DIE_BESCHREIBUNG).concat(DIES_IST_DIE_BESCHREIBUNG));
+      triple2.add(
+          DIES_IST_DIE_BESCHREIBUNG.concat(DIES_IST_DIE_BESCHREIBUNG).concat(DIES_IST_DIE_BESCHREIBUNG).concat(DIES_IST_DIE_BESCHREIBUNG));
       resultSet.put(DC_DESCRIPTION, triple1);
     } else {
       List<LocalizedTripleObject> triple1 = new ArrayList<LocalizedTripleObject>();
       triple1.add(THIS_IS_THE_TITLE);
       resultSet.put(DC_TITLE, triple1);
       List<LocalizedString> triple2 = new ArrayList<LocalizedString>();
-      triple2.add(THIS_IS_THE_DESCRIPTION.concat(THIS_IS_THE_DESCRIPTION)
-          .concat(THIS_IS_THE_DESCRIPTION).concat(THIS_IS_THE_DESCRIPTION));
+      triple2.add(THIS_IS_THE_DESCRIPTION.concat(THIS_IS_THE_DESCRIPTION).concat(THIS_IS_THE_DESCRIPTION).concat(THIS_IS_THE_DESCRIPTION));
       resultSet.put(DC_DESCRIPTION, triple1);
     }
 

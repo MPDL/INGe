@@ -42,23 +42,16 @@ public class GrantVOPresentation extends FacesBean {
     final AudienceSessionBean asb = this.getAudienceSessionBean();
     asb.getFileListNew().get(this.fileIndex).getGrantList().remove(this);
     if (asb.getFileListNew().get(this.fileIndex).getGrantList().size() < 1) {
-      asb.getFileListNew()
-          .get(this.fileIndex)
-          .getGrantList()
-          .add(
-              new GrantVOPresentation(new GrantVO(), asb.getFileListNew().get(this.fileIndex)
-                  .getGrantList().size(), this.fileIndex));
+      asb.getFileListNew().get(this.fileIndex).getGrantList()
+          .add(new GrantVOPresentation(new GrantVO(), asb.getFileListNew().get(this.fileIndex).getGrantList().size(), this.fileIndex));
     }
   }
 
   public void removeGrantForAllFiles() {
     this.getAudienceSessionBean().getGrantsForAllFiles().remove(this);
     if (this.getAudienceSessionBean().getGrantsForAllFiles().size() < 1) {
-      this.getAudienceSessionBean()
-          .getGrantsForAllFiles()
-          .add(
-              new GrantVOPresentation(new GrantVO(), this.getAudienceSessionBean()
-                  .getGrantsForAllFiles().size()));
+      this.getAudienceSessionBean().getGrantsForAllFiles()
+          .add(new GrantVOPresentation(new GrantVO(), this.getAudienceSessionBean().getGrantsForAllFiles().size()));
     }
   }
 

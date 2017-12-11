@@ -37,7 +37,8 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
   private String forcedOperator;
 
-  public enum ComponentAvailability {
+  public enum ComponentAvailability
+  {
     YES, NO, WHATEVER
   }
 
@@ -84,14 +85,11 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
   public QueryBuilder toElasticSearchQuery() {
     switch (this.selectedAvailability) {
       case YES: {
-        return this.baseElasticSearchQueryBuilder(new String[] {"files.storage"},
-            this.getStorageType());
+        return this.baseElasticSearchQueryBuilder(new String[] {"files.storage"}, this.getStorageType());
       }
 
       case NO: {
-        return QueryBuilders.boolQuery().mustNot(
-            SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage",
-                this.getStorageType()));
+        return QueryBuilders.boolQuery().mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage", this.getStorageType()));
       }
 
       case WHATEVER:

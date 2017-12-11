@@ -67,16 +67,14 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
     // first create a map with genre as key and the label as value
     final Map<Genre, String> genreLabelMap = new LinkedHashMap<Genre, String>();
-    final InternationalizationHelper i18nHelper =
-        (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+    final InternationalizationHelper i18nHelper = (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
     for (final Genre g : Genre.values()) {
       genreLabelMap.put(g, i18nHelper.getLabel("ENUM_GENRE_" + g.name()));
     }
 
 
     // Then create a list with the map entries and sort the list by the label
-    final List<Map.Entry<Genre, String>> sortedGenreList =
-        new LinkedList<Map.Entry<Genre, String>>(genreLabelMap.entrySet());
+    final List<Map.Entry<Genre, String>> sortedGenreList = new LinkedList<Map.Entry<Genre, String>>(genreLabelMap.entrySet());
     Collections.sort(sortedGenreList, new Comparator<Map.Entry<Genre, String>>() {
       @Override
       public int compare(Map.Entry<Genre, String> o1, Map.Entry<Genre, String> o2) {
@@ -273,8 +271,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
      * System.out.println("No Degrees: " + noDegreeSelected);
      */
 
-    return (allGenreSelected && allDegreesSelected) || (allGenreSelected && noDegreeSelected)
-        || (noGenreSelected);
+    return (allGenreSelected && allDegreesSelected) || (allGenreSelected && noDegreeSelected) || (noGenreSelected);
     // return (genreSelected && !genreDeselected && )
 
     // return !(genreOrDegreeSelected && genreOrDegreeDeselected);

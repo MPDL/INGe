@@ -31,8 +31,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
  * > IncorrectClassification</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO>> implements
-    Validator<List<SubjectVO>> {
+public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO>> implements Validator<List<SubjectVO>> {
 
   public static final String ISO639_3 = "eterms:ISO639_3";
   public static final String DDC = "eterms:DDC";
@@ -60,8 +59,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
       int i = 1;
       for (final SubjectVO subjectVO : subjects) {
 
-        if (ValidationTools.isNotEmpty(subjectVO.getType())
-            && ValidationTools.isNotEmpty(subjectVO.getValue())) {
+        if (ValidationTools.isNotEmpty(subjectVO.getType()) && ValidationTools.isNotEmpty(subjectVO.getValue())) {
 
           if (ClassifiedKeywordsValidator.ISO639_3.equals(subjectVO.getType())) { //
             if (ValidationTools.isEmpty(iso639_3_TitleSet)) {
@@ -69,8 +67,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               return false;
             }
             if (!iso639_3_TitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
-                  .setField("subject[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
 
@@ -80,8 +77,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               return false;
             }
             if (!ddcTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(ErrorMessages.INCORRECT_DDC_CLASSIFICATION)
-                  .setField("subject[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.INCORRECT_DDC_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
 
@@ -91,9 +87,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               return false;
             }
             if (!mpipksTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError
-                  .create(ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION).setField(
-                      "subject[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIPKS_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
 
@@ -103,8 +97,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               return false;
             }
             if (!mpirgTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION)
-                  .setField("subject[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.INCORRECT_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
 
@@ -114,9 +107,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               return false;
             }
             if (!mpisGroupsTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(
-                  ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION)
-                  .setField("subject[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIS_GROUPS_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
 
@@ -126,9 +117,7 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               return false;
             }
             if (!mpisProjectsTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(
-                  ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION).setField(
-                  "subject[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.INCORRECT_MPIS_PROJECTS_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
           }

@@ -69,8 +69,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemTest/";
   private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
-  private static String RELEASED_ITEM_FILE = TEST_FILE_ROOT
-      + "released_item_with_one_component.xml";
+  private static String RELEASED_ITEM_FILE = TEST_FILE_ROOT + "released_item_with_one_component.xml";
   private static final String REST_ITEM_FILE = TEST_FILE_ROOT + "rest_item.xml";
   private static String SAVED_ITEM_FILE = TEST_FILE_ROOT + "saved_item1.xml";
   private static String WITHDRAWN_ITEM_FILE = TEST_FILE_ROOT + "withdrawn_item1.xml";
@@ -117,8 +116,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // transform the item(XML) back to a PubItemVO
     PubItemVO roundtrippedPubItemVO = XmlTransformingService.transformToPubItem(pubItemXML);
 
-    assertEquals(IdType.CONE, roundtrippedPubItemVO.getMetadata().getCreators().get(0).getPerson()
-        .getIdentifier().getType());
+    assertEquals(IdType.CONE, roundtrippedPubItemVO.getMetadata().getCreators().get(0).getPerson().getIdentifier().getType());
 
     // compare with original PubItemVO
     ObjectComparator oc = new ObjectComparator(pubItemVO, roundtrippedPubItemVO);
@@ -133,12 +131,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     }
     // assertTrue(oc.isEqual());
     logger.info("FileVO.description, vorher:" + pubItemVO.getFiles().get(0).getDescription());
-    logger.info("FileVO.description, vorher (escaped):"
-        + JiBXHelper.xmlEscape(pubItemVO.getFiles().get(0).getDescription()));
-    logger.info("FileVO.description, nachher:"
-        + roundtrippedPubItemVO.getFiles().get(0).getDescription());
-    assertEquals(pubItemVO.getFiles().get(0).getDescription(), roundtrippedPubItemVO.getFiles()
-        .get(0).getDescription());
+    logger.info("FileVO.description, vorher (escaped):" + JiBXHelper.xmlEscape(pubItemVO.getFiles().get(0).getDescription()));
+    logger.info("FileVO.description, nachher:" + roundtrippedPubItemVO.getFiles().get(0).getDescription());
+    assertEquals(pubItemVO.getFiles().get(0).getDescription(), roundtrippedPubItemVO.getFiles().get(0).getDescription());
   }
 
   /**
@@ -150,19 +145,17 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     fileVO.setContent("<blink>organisation</blink>");
     // set some properties of the FileVO (mandatory fields first of all)
     fileVO.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
-    fileVO
-        .setName("Ein Kaufmannsund (&), ein GrÃ¶ÃŸer (>), ein Kleiner (<), AnfÃ¼hrungsstriche (\") und ein Apostroph (').");
-    fileVO
-        .setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
+    fileVO.setName("Ein Kaufmannsund (&), ein GrÃ¶ÃŸer (>), ein Kleiner (<), AnfÃ¼hrungsstriche (\") und ein Apostroph (').");
+    fileVO.setDescription(
+        "This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
     fileVO.setVisibility(Visibility.PUBLIC);
     fileVO.setStorage(Storage.INTERNAL_MANAGED);
     MdsFileVO md = new MdsFileVO();
     md.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
-    md.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
-    md.getIdentifiers().add(
-        new IdentifierVO(IdentifierVO.IdType.URI, "http://www.escidoc.de/12345"));
-    md.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE,
-        TransformPubItemTest.class.getClassLoader()).length());
+    md.setDescription(
+        "This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
+    md.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.escidoc.de/12345"));
+    md.setSize((int) ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE, TransformPubItemTest.class.getClassLoader()).length());
     // md.setTitle(new TextVO(fileVO.getName()));
     fileVO.getMetadataSets().add(md);
     return fileVO;
@@ -230,8 +223,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     final String xPath = "//item/md-records/md-record/publication";
     Document doc = DOMUtilities.createDocument(itemXML, false);
     NodeList publicationMetadataList = DOMUtilities.selectNodeList(doc, xPath);
-    assertEquals("item does not contain exactly one metadata record of type 'publication'",
-        publicationMetadataList.getLength(), 1);
+    assertEquals("item does not contain exactly one metadata record of type 'publication'", publicationMetadataList.getLength(), 1);
     String metadataXML = toString(publicationMetadataList.item(0), false);
     logger.debug("md-record of type 'publication':\n" + metadataXML);
     // Is the metadata part valid according to the metadata schema?
@@ -318,20 +310,14 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // transform the item directly into a PubItemVO
     ItemVO pubItemVO = XmlTransformingService.transformToItem(restPubItemXML);
 
-    assertEquals("ObjectId not transformed correctly", "/ir/item/escidoc:149937", pubItemVO
-        .getVersion().getObjectId());
+    assertEquals("ObjectId not transformed correctly", "/ir/item/escidoc:149937", pubItemVO.getVersion().getObjectId());
     assertEquals("ObjectId and Version not transformed correctly", "/ir/item/escidoc:149937_3",
         pubItemVO.getVersion().getObjectIdAndVersion());
-    assertEquals("Content Model not transformed correctly", "escidoc:persistent4",
-        pubItemVO.getContentModel());
-    assertEquals("Context not transformed correctly", "/ir/context/escidoc:147965", pubItemVO
-        .getContext().getObjectId());
-    assertEquals("Version number not transformed correctly", 3, pubItemVO.getLatestVersion()
-        .getVersionNumber());
-    assertEquals("Owner not transformed correctly", "/aa/user-account/escidoc:146934", pubItemVO
-        .getOwner().getObjectId());
-    assertEquals("Latest release not transformed correctly", "/ir/item/escidoc:149937", pubItemVO
-        .getLatestRelease().getObjectId());
+    assertEquals("Content Model not transformed correctly", "escidoc:persistent4", pubItemVO.getContentModel());
+    assertEquals("Context not transformed correctly", "/ir/context/escidoc:147965", pubItemVO.getContext().getObjectId());
+    assertEquals("Version number not transformed correctly", 3, pubItemVO.getLatestVersion().getVersionNumber());
+    assertEquals("Owner not transformed correctly", "/aa/user-account/escidoc:146934", pubItemVO.getOwner().getObjectId());
+    assertEquals("Latest release not transformed correctly", "/ir/item/escidoc:149937", pubItemVO.getLatestRelease().getObjectId());
   }
 
   /**
@@ -375,8 +361,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     assertXMLValid(toString(itemDoc, false));
     logger.info("Transformed item is valid.");
     // check validity of metadata
-    Node metadataXml =
-        DOMUtilities.selectSingleNode(itemDoc, "//item/md-records/md-record/publication");
+    Node metadataXml = DOMUtilities.selectSingleNode(itemDoc, "//item/md-records/md-record/publication");
     logger.debug("Metadata:\n" + toString(metadataXml, false));
     assertXMLValid(toString(metadataXml, false));
     logger.info("Transformed item metadata is valid.");
@@ -419,8 +404,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     XmlComparator oc = null;
     try {
       oc = new XmlComparator(releasedPubItemXML, roundtrippedPubItem);
-      assertTrue(oc.getErrors().toString() + "\n\nXML1:\n" + releasedPubItemXML + "\n\nXML2:\n"
-          + roundtrippedPubItem, oc.equal());
+      assertTrue(oc.getErrors().toString() + "\n\nXML1:\n" + releasedPubItemXML + "\n\nXML2:\n" + roundtrippedPubItem, oc.equal());
     } catch (AssertionError e) {
       logger.error(oc);
       throw (e);
@@ -439,8 +423,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // read item[XML] from file
     String savedPubItemXML = readFile(SAVED_ITEM_FILE);
     logger.info("Item[XML] read from file.");
-    logger.debug("Item[XML]: " + savedPubItemXML.length() + " chars, "
-        + savedPubItemXML.getBytes("UTF-8").length + " bytes, Ã¼ = "
+    logger.debug("Item[XML]: " + savedPubItemXML.length() + " chars, " + savedPubItemXML.getBytes("UTF-8").length + " bytes, Ã¼ = "
         + (savedPubItemXML.contains("Ã¼")));
 
     // transform the item directly into a PubItemVO
@@ -459,9 +442,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // compare first creator in metadata
     ObjectComparator oc = null;
     try {
-      oc =
-          new ObjectComparator(expectedPubItem.getMetadata().getCreators().get(0), savedItem
-              .getMetadata().getCreators().get(0));
+      oc = new ObjectComparator(expectedPubItem.getMetadata().getCreators().get(0), savedItem.getMetadata().getCreators().get(0));
       assertEquals(0, oc.getDiffs().size());
     } catch (AssertionError e) {
       logger.error(oc);
@@ -472,11 +453,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     oc = null;
     try {
       String s1 = expectedPubItem.getMetadata().getFreeKeywords();
-      logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length
-          + " bytes, \u00FC = " + (s1.contains("\u00FC")));
+      logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, \u00FC = " + (s1.contains("\u00FC")));
       String s2 = savedItem.getMetadata().getFreeKeywords();
-      logger.debug("s2: " + s2.length() + " chars, " + s2.getBytes("UTF-8").length
-          + " bytes, \u00FC = " + (s2.contains("\u00FC")));
+      logger.debug("s2: " + s2.length() + " chars, " + s2.getBytes("UTF-8").length + " bytes, \u00FC = " + (s2.contains("\u00FC")));
       oc = new ObjectComparator(expectedPubItem.getMetadata(), savedItem.getMetadata());
 
       assertTrue("Metadata are not equal" + oc, oc.isEqual());

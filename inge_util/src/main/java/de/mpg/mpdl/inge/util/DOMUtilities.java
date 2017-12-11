@@ -58,8 +58,7 @@ public class DOMUtilities {
    * @return DocumentBuilder
    * @throws ParserConfigurationException
    */
-  private static DocumentBuilder createDocumentBuilder(final boolean namespaceAwareness)
-      throws ParserConfigurationException {
+  private static DocumentBuilder createDocumentBuilder(final boolean namespaceAwareness) throws ParserConfigurationException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setValidating(false);
     dbf.setIgnoringComments(true);
@@ -74,8 +73,7 @@ public class DOMUtilities {
    * @return org.w3c.dom.Document
    * @throws ParserConfigurationException
    */
-  private static Document createDocument(final boolean namespaceAwareness)
-      throws ParserConfigurationException {
+  private static Document createDocument(final boolean namespaceAwareness) throws ParserConfigurationException {
     return createDocumentBuilder(namespaceAwareness).newDocument();
   }
 
@@ -98,8 +96,7 @@ public class DOMUtilities {
    * @throws SAXException
    * @throws UnsupportedEncodingException
    */
-  public static Document createDocument(String xml) throws IOException,
-      ParserConfigurationException, SAXException {
+  public static Document createDocument(String xml) throws IOException, ParserConfigurationException, SAXException {
 
     return createDocument(xml.getBytes("UTF-8"));
   }
@@ -118,8 +115,7 @@ public class DOMUtilities {
    */
   public static Document createDocument(final String xml, final boolean namespaceAwareness)
       throws ParserConfigurationException, UnsupportedEncodingException, IOException, SAXException {
-    return createDocumentBuilder(namespaceAwareness).parse(
-        new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
+    return createDocumentBuilder(namespaceAwareness).parse(new ByteArrayInputStream(xml.getBytes("UTF-8")), "UTF-8");
   }
 
   /**
@@ -131,8 +127,7 @@ public class DOMUtilities {
    * @throws IOExceptionS
    * @throws SAXException
    */
-  private static Document createDocument(byte[] xml) throws ParserConfigurationException,
-      SAXException, IOException {
+  private static Document createDocument(byte[] xml) throws ParserConfigurationException, SAXException, IOException {
     return createDocumentBuilder().parse(new ByteArrayInputStream(xml), "UTF-8");
   }
 
@@ -201,8 +196,7 @@ public class DOMUtilities {
    */
   private static void outputBase(Document doc, StreamResult streamResult) throws IOException {
     DOMSource domSource = new DOMSource(doc);
-    TransformerFactory tf =
-        TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
+    TransformerFactory tf = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null);
     try {
       Transformer serializer = tf.newTransformer();
       // Output properties
@@ -260,8 +254,7 @@ public class DOMUtilities {
    * 
    * @throws TransformerException If anything fails.
    */
-  public static Node selectSingleNode(final Node node, final String xpathExpression)
-      throws TransformerException {
+  public static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
     try {
@@ -279,8 +272,7 @@ public class DOMUtilities {
    * @return The list of children of the node selected by the xPath.
    * @throws TransformerException If anything fails.
    */
-  public static NodeList selectNodeList(final Node node, final String xpathExpression)
-      throws TransformerException {
+  public static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException {
     XPathFactory factory = XPathFactory.newInstance();
     XPath xPath = factory.newXPath();
     try {
@@ -355,8 +347,7 @@ public class DOMUtilities {
    * @return The String representation of the Xml Node.
    * @throws Exception If anything fails.
    */
-  protected static String toString(final Node xml, final boolean omitXMLDeclaration)
-      throws Exception {
+  protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception {
     if (xml == null) {
       throw new IllegalArgumentException("toString:xml is null");
     }
@@ -365,8 +356,7 @@ public class DOMUtilities {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
     // serialize
-    DOMImplementation implementation =
-        DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
+    DOMImplementation implementation = DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
     DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
     LSSerializer serial = feature.createLSSerializer();
     LSOutput output = feature.createLSOutput();

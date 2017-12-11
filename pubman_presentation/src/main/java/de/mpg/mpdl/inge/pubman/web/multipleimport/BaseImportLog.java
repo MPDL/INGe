@@ -16,11 +16,13 @@ public class BaseImportLog {
    * not imported because there were system errors during the import - FATAL: the import was
    * interrupted completely due to system errors
    */
-  public enum ErrorLevel {
+  public enum ErrorLevel
+  {
     ERROR, FATAL, FINE, PROBLEM, WARNING
   }
 
-  public enum Status {
+  public enum Status
+  {
     FINISHED, PENDING, ROLLBACK, SUSPENDED
   }
 
@@ -68,8 +70,7 @@ public class BaseImportLog {
 
   public String getLocalizedMessage() {
     try {
-      return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper"))
-          .getMessage(this.getMessage());
+      return ((InternationalizationHelper) FacesTools.findBean("InternationalizationHelper")).getMessage(this.getMessage());
     } catch (final MissingResourceException mre) {
       // No message entry for this message, it's probably raw data.
       return this.getMessage();
@@ -101,13 +102,11 @@ public class BaseImportLog {
   }
 
   public void setErrorLevel(BaseImportLog.ErrorLevel errorLevel) {
-    if (this.errorLevel == null
-        || errorLevel == BaseImportLog.ErrorLevel.FATAL
+    if (this.errorLevel == null || errorLevel == BaseImportLog.ErrorLevel.FATAL
         || (errorLevel == BaseImportLog.ErrorLevel.ERROR && this.errorLevel != BaseImportLog.ErrorLevel.FATAL)
-        || (errorLevel == BaseImportLog.ErrorLevel.PROBLEM
-            && this.errorLevel != BaseImportLog.ErrorLevel.FATAL && this.errorLevel != BaseImportLog.ErrorLevel.ERROR)
-        || (errorLevel == BaseImportLog.ErrorLevel.WARNING
-            && this.errorLevel != BaseImportLog.ErrorLevel.FATAL
+        || (errorLevel == BaseImportLog.ErrorLevel.PROBLEM && this.errorLevel != BaseImportLog.ErrorLevel.FATAL
+            && this.errorLevel != BaseImportLog.ErrorLevel.ERROR)
+        || (errorLevel == BaseImportLog.ErrorLevel.WARNING && this.errorLevel != BaseImportLog.ErrorLevel.FATAL
             && this.errorLevel != BaseImportLog.ErrorLevel.ERROR && this.errorLevel != BaseImportLog.ErrorLevel.PROBLEM)) {
       this.errorLevel = errorLevel;
     }

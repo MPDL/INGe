@@ -40,8 +40,7 @@ public class WesternFormat12 extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + NAME + " ?" + INITIALS + "( *(;| and | AND | und | et |\\n) *" + NAME + " ?"
-        + INITIALS + ")*\\s*$";
+    return "^\\s*" + NAME + " ?" + INITIALS + "( *(;| and | AND | und | et |\\n) *" + NAME + " ?" + INITIALS + ")*\\s*$";
   }
 
   @Override

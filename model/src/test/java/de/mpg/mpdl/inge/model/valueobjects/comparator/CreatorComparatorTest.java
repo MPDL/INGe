@@ -80,8 +80,7 @@ public class CreatorComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list,
-        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.CREATOR)));
     for (PubItemVO itemVO : list) {
       logger.debug(getCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }

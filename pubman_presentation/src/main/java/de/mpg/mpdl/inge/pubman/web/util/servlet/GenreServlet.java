@@ -46,10 +46,8 @@ public class GenreServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     try {
-      final InputStream file =
-          ResourceUtil.getResourceAsStream(
-              PropertyReader.getProperty("inge.pubman.genres.configuration"),
-              GenreServlet.class.getClassLoader());
+      final InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.pubman.genres.configuration"),
+          GenreServlet.class.getClassLoader());
 
       final SAXParserFactory factory = SAXParserFactory.newInstance();
       final SAXParser parser = factory.newSAXParser();

@@ -44,8 +44,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList)
-      throws IngeTechnicalException {
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList) throws IngeTechnicalException {
 
     byte[] exportData = null;
 
@@ -70,34 +69,28 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         StringWriter wr = new StringWriter();
 
         try {
-          trans =
-              TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML,
-                  map.get(exportFormat.getName()));
+          trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, map.get(exportFormat.getName()));
 
-          trans.transform(
-              new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
+          trans.transform(new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
               new TransformerStreamResult(wr));
 
           exportData = wr.toString().getBytes("UTF-8");
         } catch (UnsupportedEncodingException | TransformationException e) {
-          logger.warn("Exception occured when transforming from <"
-              + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
+          logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
               + map.get(exportFormat.getName()));
           throw new IngeTechnicalException(e);
         }
         break;
 
       default:
-        throw new IngeTechnicalException("format Type <" + exportFormat.getFormatType()
-            + "> is not supported");
+        throw new IngeTechnicalException("format Type <" + exportFormat.getFormatType() + "> is not supported");
     }
 
     return exportData;
   }
 
   @Override
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList)
-      throws TechnicalException {
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList) throws TechnicalException {
 
     String itemList = XmlTransformingService.transformToItemList(pubItemVOList);
 
@@ -122,15 +115,14 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target,
-      String itemXml) throws TransformationException {
+  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String itemXml)
+      throws TransformationException {
     StringWriter wr = new StringWriter();
 
     final Transformer t = TransformerCache.getTransformer(source, target);
 
     try {
-      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
-          new TransformerStreamResult(wr));
+      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
     } catch (UnsupportedEncodingException e) {
       throw new TransformationException(e);
     }
@@ -138,18 +130,15 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
     return wr.toString();
   }
 
-  public String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item)
-      throws TransformationException {
+  public String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item) throws TransformationException {
     StringWriter wr = new StringWriter();
     try {
       String itemXml = XmlTransformingService.transformToItem(item);
 
-      final Transformer t =
-          TransformerCache.getTransformer(TransformerFactory.getInternalFormat(), target);
+      final Transformer t = TransformerCache.getTransformer(TransformerFactory.getInternalFormat(), target);
 
 
-      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))),
-          new TransformerStreamResult(wr));
+      t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
     } catch (Exception e) {
       throw new TransformationException(e);
     }
@@ -158,8 +147,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat,
-      TransformerFactory.FORMAT targetFormat) {
+  public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat) {
     return TransformerCache.isTransformationExisting(sourceFormat, targetFormat);
   }
 }

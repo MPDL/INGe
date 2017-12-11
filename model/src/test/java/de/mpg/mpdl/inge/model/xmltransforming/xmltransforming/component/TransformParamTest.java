@@ -95,10 +95,8 @@ public class TransformParamTest extends TestBase {
   @Test
   public void old_transformToFilterTaskParamCreatorAndState() throws Exception {
     logger.info("### old_transformToFilterTaskParamCreatorAndState ###");
-    String expectedXML =
-        "<filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">escidoc:user1</filter>";
-    String expectedXML2 =
-        "<filter name=\"http://escidoc.de/core/01/properties/version/status\">pending</filter>";
+    String expectedXML = "<filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">escidoc:user1</filter>";
+    String expectedXML2 = "<filter name=\"http://escidoc.de/core/01/properties/version/status\">pending</filter>";
 
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
@@ -109,8 +107,7 @@ public class TransformParamTest extends TestBase {
 
     String xmlparam = XmlTransformingService.transformToFilterTaskParam(filter);
     assertNotNull("XML Tranforming returns a null object!", xmlparam);
-    logger.debug("OwnerFilter + PubItemStatusFilter: " + xmlparam + "\n" + "Expected: "
-        + expectedXML);
+    logger.debug("OwnerFilter + PubItemStatusFilter: " + xmlparam + "\n" + "Expected: " + expectedXML);
 
     if (xmlparam.indexOf(expectedXML) > 0) {
       // data is okay
@@ -135,10 +132,8 @@ public class TransformParamTest extends TestBase {
   @Test
   public void old_transformToFilterTaskParamWithState() throws Exception {
     logger.info("### old_transformToFilterTaskParamWithState ###");
-    String expectedXML =
-        "<filter name=\"http://escidoc.de/core/01/properties/version/status\">pending</filter>";
-    String expectedXML2 =
-        "<filter name=\"http://escidoc.de/core/01/properties/version/status\">submitted</filter>";
+    String expectedXML = "<filter name=\"http://escidoc.de/core/01/properties/version/status\">pending</filter>";
+    String expectedXML2 = "<filter name=\"http://escidoc.de/core/01/properties/version/status\">submitted</filter>";
 
     FilterTaskParamVO filter = new FilterTaskParamVO();
 
@@ -173,8 +168,7 @@ public class TransformParamTest extends TestBase {
   @Test
   public void old_transformToFilterTaskParamWithCreator() throws Exception {
     logger.info("### old_transformToFilterTaskParamWithCreator ###");
-    String expectedXML =
-        "<filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">escidoc:user1</filter>";
+    String expectedXML = "<filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">escidoc:user1</filter>";
 
     FilterTaskParamVO filterParam = new FilterTaskParamVO();
 
@@ -278,8 +272,7 @@ public class TransformParamTest extends TestBase {
   @Test
   public void old_transformToFilterTaskParamWithType() throws Exception {
     logger.info("### old_transformToFilterTaskParamWithType ###");
-    String expectedXML =
-        "<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">escidoc:persistent4</filter>";
+    String expectedXML = "<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">escidoc:persistent4</filter>";
 
     FilterTaskParamVO filterParam = new FilterTaskParamVO();
     Filter filter = filterParam.new FrameworkItemTypeFilter("escidoc:persistent4");

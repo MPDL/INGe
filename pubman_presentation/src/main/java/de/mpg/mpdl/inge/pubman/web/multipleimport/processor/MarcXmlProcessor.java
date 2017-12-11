@@ -42,20 +42,17 @@ public class MarcXmlProcessor extends GenericXmlProcessor {
 
   @Override
   protected void addItems(Node root) {
-    if (root.getLocalName() != null && root.getLocalName().equals("record")
-        && root.getNamespaceURI() != null
+    if (root.getLocalName() != null && root.getLocalName().equals("record") && root.getNamespaceURI() != null
         && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
       this.addItem(root);
-    } else if (root.getLocalName() != null && root.getLocalName().equals("collection")
-        && root.getNamespaceURI() != null
+    } else if (root.getLocalName() != null && root.getLocalName().equals("collection") && root.getNamespaceURI() != null
         && root.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
       NodeList nodes = root.getChildNodes();
 
       for (int i = 0; i < nodes.getLength(); i++) {
         final Node currentNode = nodes.item(i);
-        if (currentNode.getNodeType() == Node.ELEMENT_NODE && root.getLocalName() != null
-            && currentNode.getLocalName().equals("record") && root.getNamespaceURI() != null
-            && currentNode.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
+        if (currentNode.getNodeType() == Node.ELEMENT_NODE && root.getLocalName() != null && currentNode.getLocalName().equals("record")
+            && root.getNamespaceURI() != null && currentNode.getNamespaceURI().equals(MarcXmlProcessor.MARC_NS)) {
           this.addItem(currentNode);
         }
       }
@@ -63,8 +60,7 @@ public class MarcXmlProcessor extends GenericXmlProcessor {
       nodes = null;
     } else // nothing to deliver
     {
-      throw new RuntimeException("document format not supported: root = {" + root.getNamespaceURI()
-          + "}" + root.getLocalName());
+      throw new RuntimeException("document format not supported: root = {" + root.getNamespaceURI() + "}" + root.getLocalName());
     }
 
   }

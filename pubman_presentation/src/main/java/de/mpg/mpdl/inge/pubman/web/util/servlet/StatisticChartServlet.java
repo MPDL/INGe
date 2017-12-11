@@ -88,11 +88,9 @@ public class StatisticChartServlet extends HttpServlet {
   }
 
   @Override
-  public synchronized void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public synchronized void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    final String numberOfMonthsString =
-        request.getParameter(StatisticChartServlet.numberOfMonthsParameterName);
+    final String numberOfMonthsString = request.getParameter(StatisticChartServlet.numberOfMonthsParameterName);
     if (numberOfMonthsString == null) {
       this.numberOfMonths = 12;
     } else {
@@ -139,37 +137,26 @@ public class StatisticChartServlet extends HttpServlet {
    */
   private CategoryDataset createDataset() throws Exception {
     List<StatisticReportRecordVO> reportListAllUsers = new ArrayList<StatisticReportRecordVO>();
-    List<StatisticReportRecordVO> reportListAnonymousUsers =
-        new ArrayList<StatisticReportRecordVO>();
+    List<StatisticReportRecordVO> reportListAnonymousUsers = new ArrayList<StatisticReportRecordVO>();
 
     if (this.type.equals("item")) {
-      reportListAllUsers =
-          SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS,
-              this.id, null);
-      reportListAnonymousUsers =
-          SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS,
-              this.id, null);
+      reportListAllUsers = SimpleStatisticsService
+          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, this.id, null);
+      reportListAnonymousUsers = SimpleStatisticsService
+          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, this.id, null);
     } else if (this.type.equals("file")) {
-      reportListAllUsers =
-          SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, this.id,
-              null);
-      reportListAnonymousUsers =
-          SimpleStatisticsService.getStatisticReportRecord(
-              SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, this.id,
-              null);
+      reportListAllUsers = SimpleStatisticsService
+          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, this.id, null);
+      reportListAnonymousUsers = SimpleStatisticsService
+          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, this.id, null);
     }
 
     // Organize report records in map with month/year as key
-    final Map<String, StatisticReportRecordVOPresentation> mapAllUserRequests =
-        new HashMap<String, StatisticReportRecordVOPresentation>();
+    final Map<String, StatisticReportRecordVOPresentation> mapAllUserRequests = new HashMap<String, StatisticReportRecordVOPresentation>();
 
     for (final StatisticReportRecordVO reportRec : reportListAllUsers) {
       // sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
-      final StatisticReportRecordVOPresentation repRecPres =
-          new StatisticReportRecordVOPresentation(reportRec);
+      final StatisticReportRecordVOPresentation repRecPres = new StatisticReportRecordVOPresentation(reportRec);
       mapAllUserRequests.put(repRecPres.getMonth() + "/" + repRecPres.getYear(), repRecPres);
     }
 
@@ -177,8 +164,7 @@ public class StatisticChartServlet extends HttpServlet {
         new HashMap<String, StatisticReportRecordVOPresentation>();
     for (final StatisticReportRecordVO reportRec : reportListAnonymousUsers) {
 
-      final StatisticReportRecordVOPresentation repRecPres =
-          new StatisticReportRecordVOPresentation(reportRec);
+      final StatisticReportRecordVOPresentation repRecPres = new StatisticReportRecordVOPresentation(reportRec);
       mapAnonymousUserRequests.put(repRecPres.getMonth() + "/" + repRecPres.getYear(), repRecPres);
 
     }
@@ -238,7 +224,7 @@ public class StatisticChartServlet extends HttpServlet {
         true, // include legend
         false, // tooltips?
         false // URLs?
-        );
+    );
 
     // set the background color for the chart
     chart.setBackgroundPaint(Color.white);
@@ -275,8 +261,7 @@ public class StatisticChartServlet extends HttpServlet {
 
     // rotate labels on x-axis
     final CategoryAxis domainAxis = plot.getDomainAxis();
-    domainAxis.setCategoryLabelPositions(CategoryLabelPositions
-        .createUpRotationLabelPositions(Math.PI / 6.0));
+    domainAxis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
 
     return chart;
   }

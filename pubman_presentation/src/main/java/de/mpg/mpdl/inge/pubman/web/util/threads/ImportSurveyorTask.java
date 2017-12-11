@@ -35,10 +35,8 @@ public class ImportSurveyorTask {
 
     // Searches for Import-Items which are in status "pending" OR "rollback" AND which have NOT
     // been changed in the last 60 Minutes
-    final String query =
-        "select id from import_log where (status = 'PENDING' or status = 'ROLLBACK') "
-            + "and id not in (select parent from import_log_item "
-            + "               where localtimestamp - interval '60 minutes' < startdate)";
+    final String query = "select id from import_log where (status = 'PENDING' or status = 'ROLLBACK') "
+        + "and id not in (select parent from import_log_item " + "               where localtimestamp - interval '60 minutes' < startdate)";
 
     try {
       connection = this.dataSource.getConnection();
@@ -46,15 +44,13 @@ public class ImportSurveyorTask {
       rs = ps.executeQuery();
       while (rs.next()) {
         final int id = rs.getInt("id");
-        ImportSurveyorTask.logger.warn("Unfinished import detected (" + id
-            + "). Finishing it with status FATAL.");
+        ImportSurveyorTask.logger.warn("Unfinished import detected (" + id + "). Finishing it with status FATAL.");
         final ImportLog log = ImportLog.getImportLog(id, true, connection);
 
         for (final ImportLogItem item : log.getItems()) {
           if (item.getEndDate() == null) {
             log.activateItem(item);
-            log.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_terminate_item",
-                connection);
+            log.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_terminate_item", connection);
             log.finishItem(connection);
           }
         }

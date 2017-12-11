@@ -38,9 +38,7 @@ public class RISImport {
     List<String> itemList = getItemListFromString(file); // extract items to array
     List<List<Pair>> items = new ArrayList<List<Pair>>();
 
-    Pattern risLinePattern =
-        Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)", Pattern.DOTALL
-            | Pattern.MULTILINE);
+    Pattern risLinePattern = Pattern.compile("^[A-Z0-9]{2}  - .*?(?=^[A-Z0-9]{2}  -)", Pattern.DOTALL | Pattern.MULTILINE);
 
     if (itemList != null) { // transform items to XML
       for (String item : itemList) {
@@ -115,9 +113,7 @@ public class RISImport {
    */
   public List<String> getItemListFromString(String string) {
     // replace first empty lines and BOM
-    String s =
-        Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
-            .replaceFirst("$1");
+    String s = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string).replaceFirst("$1");
 
     Pattern risItemPattern = Pattern.compile("^TY  -.*?^ER  -", Pattern.DOTALL | Pattern.MULTILINE);
     Matcher risItemMatcher = risItemPattern.matcher(s);

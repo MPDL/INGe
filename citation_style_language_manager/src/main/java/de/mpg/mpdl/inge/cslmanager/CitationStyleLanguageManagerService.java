@@ -36,8 +36,7 @@ public class CitationStyleLanguageManagerService {
 
   private static String citationStyle = null;
 
-  public static byte[] getOutput(ExportFormatVO exportFormat, String itemList)
-      throws CitationStyleLanguageException {
+  public static byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();
     StringWriter snippet = new StringWriter();
     byte[] result = null;
@@ -69,8 +68,7 @@ public class CitationStyleLanguageManagerService {
 
 
           if (citation.contains("<div class=\"csl-right-inline\">")) {
-            citation =
-                citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
+            citation = citation.substring(citation.indexOf("<div class=\"csl-right-inline\">") + 30);
             citation = citation.substring(0, citation.lastIndexOf("</div>"));
           } else if (citation.contains("<div class=\"csl-entry\">")) {
             citation = citation.substring(citation.indexOf("<div class=\"csl-entry\">") + 23);
@@ -86,12 +84,10 @@ public class CitationStyleLanguageManagerService {
       }
       // create snippet format
       TransformerFactory factory = new TransformerFactoryImpl();
-      Transformer transformer =
-          factory.newTransformer(new StreamSource(CitationStyleLanguageManagerService.class
-              .getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
+      Transformer transformer = factory.newTransformer(new StreamSource(
+          CitationStyleLanguageManagerService.class.getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
       transformer.setParameter("citations", citationList);
-      transformer
-          .transform(new StreamSource(new StringReader(itemList)), new StreamResult(snippet));
+      transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(snippet));
       if (logger.isDebugEnabled()) {
         logger.debug("eSciDoc-Snippet including Ciation: " + snippet);
       }
@@ -101,8 +97,7 @@ public class CitationStyleLanguageManagerService {
       throw new CitationStyleLanguageException("Error creating CSL processor", e);
     } catch (TransformerConfigurationException e) {
       logger.error("Error preparing transformation itemList to snippet", e);
-      throw new CitationStyleLanguageException(
-          "Error preparing transformation itemList to snippet", e);
+      throw new CitationStyleLanguageException("Error preparing transformation itemList to snippet", e);
     } catch (TransformerException e) {
       logger.error("Error transforming itemList to snippet", e);
       throw new CitationStyleLanguageException("Error transforming itemList to snippet", e);

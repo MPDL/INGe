@@ -60,8 +60,7 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
       if (itemVO.getMetadata().getSources().size() > 0) {
         source = itemVO.getMetadata().getSources().get(0);
       }
-      logger.debug((source != null ? source.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug((source != null ? source.getTitle() : "null") + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"1", "1", "2", "3", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -73,15 +72,13 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.SOURCE_TITLE)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE)));
     for (PubItemVO itemVO : list) {
       SourceVO source = null;
       if (itemVO.getMetadata().getSources().size() > 0) {
         source = itemVO.getMetadata().getSources().get(0);
       }
-      logger.debug((source != null ? source.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug((source != null ? source.getTitle() : "null") + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "3", "2", "1", "1"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -92,9 +89,7 @@ public class SourceTitleComparatorTest extends ComparatorTestBase {
    */
   @Test
   public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE).compare(getPubItemVO4(),
-            getPubItemVO4());
+    int rc = new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_TITLE).compare(getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }
 }

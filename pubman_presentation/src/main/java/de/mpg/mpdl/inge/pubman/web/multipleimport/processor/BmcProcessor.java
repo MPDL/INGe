@@ -62,8 +62,7 @@ public class BmcProcessor extends GenericXmlProcessor {
       }
 
       if (!foundArticle) {
-        throw new RuntimeException("document format not supported: root = {"
-            + root.getNamespaceURI() + "}" + root.getLocalName());
+        throw new RuntimeException("document format not supported: root = {" + root.getNamespaceURI() + "}" + root.getLocalName());
       }
 
       foundArticle = null;

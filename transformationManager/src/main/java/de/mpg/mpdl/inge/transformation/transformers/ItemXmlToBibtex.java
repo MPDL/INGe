@@ -13,8 +13,7 @@ import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
 
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML,
-    targetFormat = FORMAT.BIBTEX_STRING)
+@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.BIBTEX_STRING)
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.BIBTEX_STRING)
 public class ItemXmlToBibtex extends XslTransformer implements ChainableTransformer {
   @Override

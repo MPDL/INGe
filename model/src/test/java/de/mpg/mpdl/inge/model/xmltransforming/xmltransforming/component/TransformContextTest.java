@@ -67,8 +67,7 @@ public class TransformContextTest extends TestBase {
   private static final String CONTEXT_SAMPLE_FILE = TEST_FILE_ROOT + "context_sample.xml";
   private static final String CONTEXT_FULL_SAMPLE_FILE = TEST_FILE_ROOT + "context_full_sample.xml";
   private static final String CONTEXT_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "context-list_sample.xml";
-  private static final String CONTEXT_LIST_SAMPLE_FILE_SEARCH_RETRIEVE = TEST_FILE_ROOT
-      + "context-list_sample_search_retrieve.xml";
+  private static final String CONTEXT_LIST_SAMPLE_FILE_SEARCH_RETRIEVE = TEST_FILE_ROOT + "context-list_sample_search_retrieve.xml";
   private static final String MEMBER_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "member-list_sample.xml";
 
   private static final Logger logger = Logger.getLogger(TransformContextTest.class);

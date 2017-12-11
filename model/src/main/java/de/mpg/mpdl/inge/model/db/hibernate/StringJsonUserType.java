@@ -57,29 +57,26 @@ public abstract class StringJsonUserType implements UserType {
   }
 
   @Override
-  public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session,
-      Object owner) throws HibernateException, SQLException {
+  public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
+      throws HibernateException, SQLException {
     final String cellContent = rs.getString(names[0]);
     if (cellContent == null) {
       return null;
     }
     try {
       // long start = System.currentTimeMillis();
-      Object retVal =
-          JsonObjectMapperFactory.getObjectMapper().readerFor(typeReference)
-              .readValue(cellContent.getBytes("UTF-8"));
+      Object retVal = JsonObjectMapperFactory.getObjectMapper().readerFor(typeReference).readValue(cellContent.getBytes("UTF-8"));
 
       // System.out.println("Conversion of metadata took " + (System.currentTimeMillis() - start));
       return retVal;
     } catch (final Exception ex) {
-      throw new RuntimeException("Failed to convert String to : " + typeReference.toString() + " "
-          + ex.getMessage(), ex);
+      throw new RuntimeException("Failed to convert String to : " + typeReference.toString() + " " + ex.getMessage(), ex);
     }
   }
 
   @Override
-  public void nullSafeSet(PreparedStatement ps, Object value, int idx,
-      SharedSessionContractImplementor session) throws HibernateException, SQLException {
+  public void nullSafeSet(PreparedStatement ps, Object value, int idx, SharedSessionContractImplementor session)
+      throws HibernateException, SQLException {
     if (value == null) {
       ps.setNull(idx, Types.OTHER);
       return;

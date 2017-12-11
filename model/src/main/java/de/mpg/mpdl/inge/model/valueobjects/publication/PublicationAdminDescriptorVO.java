@@ -43,8 +43,10 @@ import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 @SuppressWarnings("serial")
 public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements Validatable {
 
-  public enum Workflow {
-    STANDARD, SIMPLE
+  public enum Workflow
+  {
+    STANDARD,
+    SIMPLE
   }
 
   private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
@@ -80,8 +82,7 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
   /**
    * @param allowedSubjectClassifications the allowedSubjectClassifications to set
    */
-  public void setAllowedSubjectClassifications(
-      List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications) {
+  public void setAllowedSubjectClassifications(List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications) {
     this.allowedSubjectClassifications = allowedSubjectClassifications;
   }
 
@@ -137,18 +138,11 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements V
     final int prime = 31;
     int result = 1;
     result = prime * result + ((this.allowedGenres == null) ? 0 : this.allowedGenres.hashCode());
-    result =
-        prime
-            * result
-            + ((this.allowedSubjectClassifications == null) ? 0
-                : this.allowedSubjectClassifications.hashCode());
+    result = prime * result + ((this.allowedSubjectClassifications == null) ? 0 : this.allowedSubjectClassifications.hashCode());
     result = prime * result + ((this.contactEmail == null) ? 0 : this.contactEmail.hashCode());
     result = prime * result + ((this.templateItem == null) ? 0 : this.templateItem.hashCode());
-    result =
-        prime * result + ((this.validationSchema == null) ? 0 : this.validationSchema.hashCode());
-    result =
-        prime * result
-            + ((this.visibilityOfReferences == null) ? 0 : this.visibilityOfReferences.hashCode());
+    result = prime * result + ((this.validationSchema == null) ? 0 : this.validationSchema.hashCode());
+    result = prime * result + ((this.visibilityOfReferences == null) ? 0 : this.visibilityOfReferences.hashCode());
     result = prime * result + ((this.workflow == null) ? 0 : this.workflow.hashCode());
     return result;
   }

@@ -5,8 +5,7 @@ package de.mpg.mpdl.inge.cone.web.util;
 public class HtmlUtils {
 
   private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "'", "/"};
-  private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&#x27;",
-      "&#x2F;"};
+  private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&#x27;", "&#x2F;"};
 
 
 

@@ -19,6 +19,7 @@ package de.mpg.mpdl.inge.pubman.web;
  * 
  * CDDL HEADER END
  */
+
 /*
  * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der

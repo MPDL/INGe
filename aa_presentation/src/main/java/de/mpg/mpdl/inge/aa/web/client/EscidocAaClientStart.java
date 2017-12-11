@@ -44,24 +44,17 @@ import de.mpg.mpdl.inge.aa.Config;
 public class EscidocAaClientStart extends StartClient {
 
   @Override
-  protected String startAuthentication(HttpServletRequest request, HttpServletResponse response)
-      throws Exception {
+  protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String from = request.getParameter("target");
     String aaInstanceUrl = Config.getProperty("inge.aa.instance.url");
 
     if (request.getParameter("eSciDocUserHandle") != null) {
-      return aaInstanceUrl + "clientReturn?target=" + from + "&tan="
-          + URLEncoder.encode(tan, "ISO-8859-1") + "&eSciDocUserHandle="
+      return aaInstanceUrl + "clientReturn?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1") + "&eSciDocUserHandle="
           + URLEncoder.encode(request.getParameter("eSciDocUserHandle"), "ISO-8859-1");
     } else {
-      return Config.getProperty("escidoc.framework_access.login.url")
-          + "/aa/login"
-          + "?target="
-          + aaInstanceUrl
-          + "clientReturn"
-          + URLEncoder.encode(URLEncoder.encode(
-              "?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"),
+      return Config.getProperty("escidoc.framework_access.login.url") + "/aa/login" + "?target=" + aaInstanceUrl + "clientReturn"
+          + URLEncoder.encode(URLEncoder.encode("?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"),
               "ISO-8859-1");
     }
   }

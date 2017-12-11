@@ -61,16 +61,14 @@ public class AaServerConfiguration extends DefaultHandler {
   public AaServerConfiguration() throws Exception {
     String file = Config.getProperty("inge.aa.config.file");
 
-    InputStream inputStream =
-        ResourceUtil.getResourceAsStream(file, AaServerConfiguration.class.getClassLoader());
+    InputStream inputStream = ResourceUtil.getResourceAsStream(file, AaServerConfiguration.class.getClassLoader());
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
     parser.parse(inputStream, this);
     inputStream.close();
   }
 
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     if ("authentication".equals(qName)) {
       newEntry = true;
     } else if (newEntry && !isKey && !isValue && "name".equals(qName)) {

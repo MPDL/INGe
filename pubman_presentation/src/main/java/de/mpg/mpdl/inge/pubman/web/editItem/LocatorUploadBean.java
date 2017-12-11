@@ -110,8 +110,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
           final FileVO newLocator = new FileVO();
           newLocator.getMetadataSets().add(new MdsFileVO());
           newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-          this.getEditItemSessionBean().getLocators()
-              .add(new PubFileVOPresentation(0, newLocator, true));
+          this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
         }
       }
     }

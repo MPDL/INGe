@@ -83,15 +83,12 @@ public class MpiKybFormat extends AuthorFormat {
       List<String> affiliations = new ArrayList<String>();
       int affiliationCount = 0;
       if (authorString.indexOf("{") != -1) {
-        identifier =
-            authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
+        identifier = authorString.substring(authorString.indexOf("{") + 1, authorString.indexOf("}"));
         String affiliationsString = null;
         if (authorString.indexOf("{", authorString.indexOf("}")) != -1) {
-          affiliationsString =
-              authorString.substring(authorString.indexOf("{", authorString.indexOf("}")));
+          affiliationsString = authorString.substring(authorString.indexOf("{", authorString.indexOf("}")));
           while (affiliationsString.indexOf("{") != -1) {
-            affiliations.add(affiliationsString.substring(affiliationsString.indexOf("{") + 1,
-                affiliationsString.indexOf("}")));
+            affiliations.add(affiliationsString.substring(affiliationsString.indexOf("{") + 1, affiliationsString.indexOf("}")));
             affiliationsString = affiliationsString.substring(affiliationsString.indexOf("}") + 1);
             affiliationCount++;
           }

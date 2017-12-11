@@ -52,16 +52,12 @@ public class ContextServiceTest extends TestBase {
 
     switch (contextVO.getState()) {
       case OPENED:
-        contextVO =
-            contextService.close("ctx_persistent3", contextVO.getLastModificationDate(),
-                authenticationToken);
+        contextVO = contextService.close("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
         assertTrue(contextVO.getState().equals(ContextVO.State.CLOSED));
         break;
       case CLOSED:
       case CREATED:
-        contextVO =
-            contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
-                authenticationToken);
+        contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
         assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
       default:
         break;
@@ -80,9 +76,7 @@ public class ContextServiceTest extends TestBase {
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
-    contextVO =
-        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
-            authenticationToken);
+    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -97,9 +91,7 @@ public class ContextServiceTest extends TestBase {
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
-    contextVO =
-        contextService.close("ctx_persistent3", contextVO.getLastModificationDate(),
-            authenticationToken);
+    contextVO = contextService.close("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
   }
 
   @Test(expected = AuthenticationException.class)
@@ -114,9 +106,7 @@ public class ContextServiceTest extends TestBase {
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
-    contextVO =
-        contextService.open("ctx_persistent3", contextVO.getLastModificationDate(),
-            authenticationToken);
+    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
   }
 
   @Test

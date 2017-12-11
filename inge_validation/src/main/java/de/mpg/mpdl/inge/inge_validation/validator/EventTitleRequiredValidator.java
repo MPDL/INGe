@@ -15,8 +15,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
  * EventTitleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> implements
-    Validator<EventVO> {
+public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> implements Validator<EventVO> {
 
   @Override
   public boolean validate(ValidatorContext context, EventVO e) {
@@ -27,7 +26,7 @@ public class EventTitleRequiredValidator extends ValidatorHandler<EventVO> imple
           && (ValidationTools.isNotEmpty(e.getEndDate()) //
               || e.getInvitationStatus() != null //
               || ValidationTools.isNotEmpty(e.getPlace()) //
-          || ValidationTools.isNotEmpty(e.getStartDate()))) {
+              || ValidationTools.isNotEmpty(e.getStartDate()))) {
         context.addErrorMsg(ErrorMessages.EVENT_TITLE_NOT_PROVIDED);
         return false;
       }

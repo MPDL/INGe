@@ -52,8 +52,7 @@ public class PropertyInitializer extends HttpServlet {
   private static final Logger logger = Logger.getLogger(PropertyInitializer.class);
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     init();
     resp.getWriter().write("Properties reloaded!");
     // resp.getWriter().write(Config.getProperties().toString());
@@ -66,9 +65,7 @@ public class PropertyInitializer extends HttpServlet {
       String propertyFilename = context.substring(1) + ".properties";
       logger.info("Loading properties from " + propertyFilename);
       try {
-        InputStream propertyStream =
-            ResourceUtil.getResourceAsStream(propertyFilename,
-                PropertyInitializer.class.getClassLoader());
+        InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, PropertyInitializer.class.getClassLoader());
         Config.getProperties().load(propertyStream);
         // propertyStream.close();
       } catch (Exception e) {

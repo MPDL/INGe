@@ -6,8 +6,7 @@ public class SearchParseException extends Exception {
 
   public SearchParseException() {}
 
-  public SearchParseException(String message, Throwable cause, boolean enableSuppression,
-      boolean writableStackTrace) {
+  public SearchParseException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
     // TODO Auto-generated constructor stub
   }

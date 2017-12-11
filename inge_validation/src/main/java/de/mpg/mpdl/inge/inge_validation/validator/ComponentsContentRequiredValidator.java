@@ -47,8 +47,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 // escidocComponents:content/@xlink:href
 // -> FileVO.content
 
-public class ComponentsContentRequiredValidator extends ValidatorHandler<List<FileVO>> implements
-    Validator<List<FileVO>> {
+public class ComponentsContentRequiredValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -63,13 +62,11 @@ public class ComponentsContentRequiredValidator extends ValidatorHandler<List<Fi
         if (fileVO != null //
             && ValidationTools.isEmpty(fileVO.getContent())) {
 
-          if (fileVO.getDefaultMetadata() != null
-              && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle()) //
+          if (fileVO.getDefaultMetadata() != null && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle()) //
               || ValidationTools.isNotEmpty(fileVO.getMimeType()) //
               || ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getDescription()) //
               || ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getContentCategory())) {
-            context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED)
-                .setField("file[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 

@@ -89,14 +89,10 @@ public class CitationStylesSubstantialTest {
    * "<filter name=\"/properties/name\">" + CONTEXT +"</filter>" + "</param>";
    */
 
-  private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME =
-      "backup/CitationStyleTestUserAccount.xml";
-  private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME =
-      "backup/CitationStyleTestUserGrants.xml";
-  private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME =
-      "backup/CitationStyleTestContexts.xml";
-  private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME =
-      "backup/CitationStyleTestCollection.xml";
+  private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "backup/CitationStyleTestUserAccount.xml";
+  private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "backup/CitationStyleTestUserGrants.xml";
+  private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "backup/CitationStyleTestContexts.xml";
+  private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "backup/CitationStyleTestCollection.xml";
 
 
   private static String userHandle, adminHandle;
@@ -173,9 +169,8 @@ public class CitationStylesSubstantialTest {
         // generate text citation form the current item
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
-        String snippet =
-            new String(CitationStyleExecuterService.getOutput(DOMUtilities.outputString(doc),
-                new ExportFormatVO(FormatType.LAYOUT, cs, "escidoc_snippet")));
+        String snippet = new String(CitationStyleExecuterService.getOutput(DOMUtilities.outputString(doc),
+            new ExportFormatVO(FormatType.LAYOUT, cs, "escidoc_snippet")));
         logger.info("snippet:" + snippet);
 
         Node snippetNode = XmlHelper.xpathNode(SNIPPET_XPATH, snippet);
@@ -185,8 +180,7 @@ public class CitationStylesSubstantialTest {
 
         // get expected result from the abstract field
         Node checkNode = XmlHelper.xpathNode(EXPECTED_XPATH, doc);
-        String comment =
-            objid + ", xpath:" + EXPECTED_XPATH + ", item:" + DOMUtilities.outputString(doc);
+        String comment = objid + ", xpath:" + EXPECTED_XPATH + ", item:" + DOMUtilities.outputString(doc);
         assertNotNull("expected citation has not been found for " + comment, checkNode);
         expectedCit = checkNode.getTextContent();
         assertNotNull("expected citation element is empty for " + comment, checkNode);
@@ -196,9 +190,8 @@ public class CitationStylesSubstantialTest {
         // compare generated and expected items
         if (!diffStrings(generatedCit, expectedCit)) {
           FAILED++;
-          failedCits.append("\n" + "Item: " + (i + 1) + ", " + objid + "\nGenerated citation:\n"
-              + "[" + generatedCit + "]" + "\n does not match expected citation:\n" + "["
-              + expectedCit + "]");
+          failedCits.append("\n" + "Item: " + (i + 1) + ", " + objid + "\nGenerated citation:\n" + "[" + generatedCit + "]"
+              + "\n does not match expected citation:\n" + "[" + expectedCit + "]");
         }
 
         root.removeChild(itemsArr[i]);
@@ -277,9 +270,7 @@ public class CitationStylesSubstantialTest {
     }
 
     // remove objd
-    userXml =
-        Pattern.compile("objid=\".*?\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL)
-            .matcher(userXml).replaceFirst("");
+    userXml = Pattern.compile("objid=\".*?\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(userXml).replaceFirst("");
 
 
     // logger.info("user:" + userXml);
@@ -298,8 +289,8 @@ public class CitationStylesSubstantialTest {
     // df.setTimeZone(TimeZone.getTimeZone("GMT"));
     // String ldm = df.format(new Date(System.currentTimeMillis()));
 
-    uah_admin.updatePassword(user_id, "<param last-modification-date=\"" + ldm + "\">"
-        + "<password>" + USER_PASSWD + "</password>" + "</param>"
+    uah_admin.updatePassword(user_id,
+        "<param last-modification-date=\"" + ldm + "\">" + "<password>" + USER_PASSWD + "</password>" + "</param>"
 
     );
 
@@ -364,8 +355,7 @@ public class CitationStylesSubstantialTest {
    * ids.append("</param>"); System.out.println(ids.toString()); return ids.toString(); } *
    */
 
-  public void purgeItems() throws ServiceException, URISyntaxException, InvalidXmlException,
-      SystemException, RemoteException {
+  public void purgeItems() throws ServiceException, URISyntaxException, InvalidXmlException, SystemException, RemoteException {
     AdminHandler ah = ServiceLocator.getAdminHandler(adminHandle);
     String param = // "<param><id>escidoc:25202</id></param>";
         // "<param><id>escidoc:25207</id><id>escidoc:25201</id><id>escidoc:25200</id><id>escidoc:25199</id><id>escidoc:25198</id><id>escidoc:25197</id><id>escidoc:25196</id><id>escidoc:25195</id><id>escidoc:25194</id><id>escidoc:25193</id><id>escidoc:25192</id><id>escidoc:25191</id><id>escidoc:25190</id><id>escidoc:25189</id><id>escidoc:25188</id><id>escidoc:25187</id><id>escidoc:25186</id><id>escidoc:25185</id><id>escidoc:25184</id><id>escidoc:25183</id><id>escidoc:25182</id><id>escidoc:25181</id><id>escidoc:25180</id><id>escidoc:25179</id><id>escidoc:25178</id><id>escidoc:25177</id><id>escidoc:25176</id><id>escidoc:25175</id><id>escidoc:25174</id><id>escidoc:25173</id><id>escidoc:25172</id><id>escidoc:25171</id><id>escidoc:25170</id><id>escidoc:25169</id><id>escidoc:25168</id><id>escidoc:25167</id><id>escidoc:25166</id><id>escidoc:25165</id><id>escidoc:25164</id><id>escidoc:25163</id><id>escidoc:25162</id><id>escidoc:25161</id><id>escidoc:25160</id><id>escidoc:25159</id><id>escidoc:25158</id><id>escidoc:25157</id><id>escidoc:25156</id><id>escidoc:25155</id><id>escidoc:25154</id><id>escidoc:25153</id><id>escidoc:25152</id><id>escidoc:25151</id><id>escidoc:25150</id><id>escidoc:25149</id><id>escidoc:25148</id><id>escidoc:25147</id><id>escidoc:25146</id><id>escidoc:25145</id><id>escidoc:25144</id><id>escidoc:25143</id><id>escidoc:25142</id><id>escidoc:25141</id><id>escidoc:25140</id><id>escidoc:25139</id><id>escidoc:25138</id><id>escidoc:25137</id><id>escidoc:25136</id><id>escidoc:25135</id><id>escidoc:25134</id><id>escidoc:25133</id><id>escidoc:25132</id><id>escidoc:25131</id><id>escidoc:25130</id><id>escidoc:25129</id><id>escidoc:25128</id><id>escidoc:25127</id><id>escidoc:25126</id><id>escidoc:25125</id><id>escidoc:25124</id><id>escidoc:25123</id><id>escidoc:25122</id><id>escidoc:25121</id><id>escidoc:25120</id><id>escidoc:25119</id><id>escidoc:25118</id><id>escidoc:25117</id><id>escidoc:25116</id><id>escidoc:25115</id><id>escidoc:25114</id><id>escidoc:25113</id><id>escidoc:25112</id><id>escidoc:25111</id><id>escidoc:25110</id><id>escidoc:25109</id><id>escidoc:25108</id><id>escidoc:25107</id><id>escidoc:25106</id><id>escidoc:25105</id><id>escidoc:25104</id><id>escidoc:25103</id></param>";
@@ -400,16 +390,15 @@ public class CitationStylesSubstantialTest {
    */
   private boolean diffStrings(String str1, String str2) {
     if (str1.length() != str2.length()) {
-      logger.info("strings have different lengths. str1:" + str1.length() + ",str2:"
-          + str2.length());
+      logger.info("strings have different lengths. str1:" + str1.length() + ",str2:" + str2.length());
       return false;
     }
     int i = 0;
     for (char ch1 : str1.toCharArray()) {
       char ch2 = str2.charAt(i);
       if (ch1 != ch2) {
-        logger.info("difference at index: " + (i + 1) + ", str1:[" + ch1 + ",int(" + (int) ch1
-            + ")], str2:[" + ch2 + ",int(" + (int) ch2 + ")]");
+        logger.info(
+            "difference at index: " + (i + 1) + ", str1:[" + ch1 + ",int(" + (int) ch1 + ")], str2:[" + ch2 + ",int(" + (int) ch2 + ")]");
         return false;
       }
       i++;

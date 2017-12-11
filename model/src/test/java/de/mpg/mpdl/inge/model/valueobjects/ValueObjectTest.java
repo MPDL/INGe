@@ -39,8 +39,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({de.mpg.mpdl.inge.model.valueobjects.ValueObjectEqualsTest.class,
-    de.mpg.mpdl.inge.model.valueobjects.ValueObjectCloneTest.class,
-    de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVOTest.class,
+    de.mpg.mpdl.inge.model.valueobjects.ValueObjectCloneTest.class, de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVOTest.class,
     de.mpg.mpdl.inge.model.valueobjects.AccountUserVOTest.class})
 public class ValueObjectTest {
 }

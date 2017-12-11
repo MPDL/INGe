@@ -101,8 +101,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
       return false;
     } else if (this.value != null && !this.value.equals(((LocalizedString) obj).getValue())) {
       return false;
-    } else if (this.language != null
-        && !this.language.equals(((LocalizedString) obj).getLanguage())) {
+    } else if (this.language != null && !this.language.equals(((LocalizedString) obj).getLanguage())) {
       return false;
     } else {
       return true;
@@ -176,9 +175,7 @@ public class LocalizedString implements CharSequence, LocalizedTripleObject {
    * {@inheritDoc}
    */
   public String toJson() {
-    return "\""
-        + getValue().replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n")
-            .replace("\t", "\\t") + "\"";
+    return "\"" + getValue().replace("\"", "\\\"").replace("\r", "\\r").replace("\n", "\\n").replace("\t", "\\t") + "\"";
   }
 
 }

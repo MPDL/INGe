@@ -58,8 +58,7 @@ public class KeyGenerator {
   }
 
   public static void saveToFile(String fileName, BigInteger mod, BigInteger exp) throws IOException {
-    ObjectOutputStream oout =
-        new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
+    ObjectOutputStream oout = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
     try {
       oout.writeObject(mod);
       oout.writeObject(exp);

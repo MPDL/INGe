@@ -62,11 +62,14 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity(name = "AffiliationVO")
 @Table(name = "organization")
-@TypeDef(name = "MdsOrganizationalUnitVOJsonUserType",
-    typeClass = MdsOrganizationalUnitVOJsonUserType.class)
+@TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
-  public enum State {
-    CREATED, CLOSED, OPENED, DELETED
+  public enum State
+  {
+    CREATED,
+    CLOSED,
+    OPENED,
+    DELETED
   }
 
   @Type(type = "MdsOrganizationalUnitVOJsonUserType")
@@ -84,8 +87,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "organization_predecessor")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-  private java.util.List<AffiliationDbRO> predecessorAffiliations =
-      new ArrayList<AffiliationDbRO>();
+  private java.util.List<AffiliationDbRO> predecessorAffiliations = new ArrayList<AffiliationDbRO>();
 
   @Enumerated(EnumType.STRING)
   private AffiliationDbVO.State publicStatus;

@@ -115,8 +115,7 @@ public class PubFileVOPresentation extends FacesBean {
       PubFileVOPresentation.properties = PubFileVOPresentation.loadContentCategoryProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final Map<String, String> propertiesMap =
-        new HashMap<String, String>((Map) PubFileVOPresentation.properties);
+    final Map<String, String> propertiesMap = new HashMap<String, String>((Map) PubFileVOPresentation.properties);
 
     return propertiesMap;
   }
@@ -137,8 +136,8 @@ public class PubFileVOPresentation extends FacesBean {
     }
 
     // this.error("There is no such content category defined (" + key + ")");
-    Logger.getLogger(PubFileVOPresentation.class).warn(
-        "WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
+    Logger.getLogger(PubFileVOPresentation.class)
+        .warn("WARNING: content-category \"" + key + "\" has not been defined valid in Genres.xml");
 
     return null;
   }
@@ -153,25 +152,20 @@ public class PubFileVOPresentation extends FacesBean {
     PubFileVOPresentation.properties = new Properties();
     URL contentCategoryURI = null;
     try {
-      contentCategoryURI =
-          PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
+      contentCategoryURI = PubFileVOPresentation.class.getClassLoader().getResource("content_categories.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(PubFileVOPresentation.class).info(
-            "Content-category properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties URI is " + contentCategoryURI.toString());
         final InputStream in = contentCategoryURI.openStream();
         PubFileVOPresentation.properties.load(in);
         PubFileVOPresentation.properties.putAll(PubFileVOPresentation.properties);
         in.close();
 
-        Logger.getLogger(PubFileVOPresentation.class).info(
-            "Content-category properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(PubFileVOPresentation.class).info("Content-category properties loaded from " + contentCategoryURI.toString());
       } else {
-        Logger.getLogger(PubFileVOPresentation.class).debug(
-            "Content-category properties file not found.");
+        Logger.getLogger(PubFileVOPresentation.class).debug("Content-category properties file not found.");
       }
     } catch (final Exception e) {
-      Logger.getLogger(PubFileVOPresentation.class).warn(
-          "WARNING: content-category properties not found: " + e.getMessage());
+      Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: content-category properties not found: " + e.getMessage());
     }
     return PubFileVOPresentation.properties;
   }
@@ -213,8 +207,7 @@ public class PubFileVOPresentation extends FacesBean {
 
 
     if (this.file.getContentCategory() != null) {
-      return this.getLabel("ENUM_CONTENTCATEGORY_"
-          + file.getContentCategory().toLowerCase().replace("_", "-"));
+      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getContentCategory().toLowerCase().replace("_", "-"));
       /*
        * @SuppressWarnings({"unchecked", "rawtypes"}) final Map<String, String> propertiesMap = new
        * HashMap<String, String>((Map) PubFileVOPresentation.properties); for (final
@@ -280,12 +273,10 @@ public class PubFileVOPresentation extends FacesBean {
   public String getVisibility() {
     String visibility = "";
     if (this.file.getVisibility() != null) {
-      visibility =
-          this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
+      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     } else {
       this.file.setVisibility(FileVO.Visibility.PUBLIC);
-      visibility =
-          this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
+      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
 
     return visibility;
@@ -355,8 +346,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public void removeFile() {
-    final EditItemSessionBean editItemSessionBean =
-        (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    final EditItemSessionBean editItemSessionBean = (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getFiles().remove(this.index);
 
@@ -372,8 +362,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String removeLocatorEditItem() {
-    final EditItemSessionBean editItemSessionBean =
-        (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+    final EditItemSessionBean editItemSessionBean = (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
 
     editItemSessionBean.getLocators().remove(this.index);
 
@@ -409,19 +398,15 @@ public class PubFileVOPresentation extends FacesBean {
   public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
     final String fileID = this.file.getReference().getObjectId();
 
-    final String result =
-        SimpleStatisticsService.getNumberOfItemOrFileRequests(
-            SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID,
-            this.getLoginHelper().getAccountUser());
+    final String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
+        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, this.getLoginHelper().getAccountUser());
     return result;
   }
 
   public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
     final String fileID = this.file.getReference().getObjectId();
-    final String result =
-        SimpleStatisticsService.getNumberOfItemOrFileRequests(
-            SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID,
-            this.getLoginHelper().getAccountUser());
+    final String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
+        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, this.getLoginHelper().getAccountUser());
     return result;
   }
 
@@ -433,8 +418,7 @@ public class PubFileVOPresentation extends FacesBean {
    */
   public boolean getShowEmbargoDate() {
     boolean showEmbargoDate = false;
-    if (FileVO.Visibility.PRIVATE.equals(this.file.getVisibility())
-        || FileVO.Visibility.AUDIENCE.equals(this.file.getVisibility())) {
+    if (FileVO.Visibility.PRIVATE.equals(this.file.getVisibility()) || FileVO.Visibility.AUDIENCE.equals(this.file.getVisibility())) {
       showEmbargoDate = true;
     } else {
       this.file.getDefaultMetadata().setEmbargoUntil(null);

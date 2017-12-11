@@ -79,21 +79,17 @@ public class RdfFormatter extends AbstractFormatter {
    * @throws IOException
    * @throws URISyntaxException
    */
-  public void explain(HttpServletResponse response) throws FileNotFoundException,
-      TransformerFactoryConfigurationError, IOException, URISyntaxException {
+  public void explain(HttpServletResponse response)
+      throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
     InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"),
-            RdfFormatter.class.getClassLoader());
-    InputStream template =
-        ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl",
-            RdfFormatter.class.getClassLoader());
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), RdfFormatter.class.getClassLoader());
+    InputStream template = ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl", RdfFormatter.class.getClassLoader());
 
     try {
       Transformer transformer =
-          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-              .newTransformer(new StreamSource(template));
+          TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer(new StreamSource(template));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
       transformer.transform(new StreamSource(source), new StreamResult(response.getWriter()));
     } catch (Exception e) {
@@ -124,8 +120,7 @@ public class RdfFormatter extends AbstractFormatter {
    * 
    * @throws IOException Any i/o exception
    */
-  public String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws ConeException {
+  public String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException {
 
     String result = RdfHelper.formatMap(id, triples, model);
 

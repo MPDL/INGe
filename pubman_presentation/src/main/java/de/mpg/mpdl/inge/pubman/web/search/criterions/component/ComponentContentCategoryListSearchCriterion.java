@@ -39,13 +39,11 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
   }
 
   private static Map<String, String> getContentCategoryMap() {
-    final Map<String, String> ccMap =
-        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
+    final Map<String, String> ccMap = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
     final Map<String, String> newMap = new HashMap<String, String>();
 
     for (final Entry<String, String> entry : ccMap.entrySet()) {
-      newMap.put(entry.getKey().toLowerCase().replace("_", "-"), entry.getKey().toLowerCase()
-          .replace("_", "-"));
+      newMap.put(entry.getKey().toLowerCase().replace("_", "-"), entry.getKey().toLowerCase().replace("_", "-"));
     }
 
     return newMap;

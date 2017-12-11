@@ -13,28 +13,24 @@ public interface OrganizationService extends GenericService<AffiliationVO, Strin
 
 
   public AffiliationVO open(String id, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException;
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public AffiliationVO close(String id, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException;
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationVO> searchTopLevelOrganizations() throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException;
+  public List<AffiliationVO> searchTopLevelOrganizations()
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException;
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationVO> searchSuccessors(String objectId) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException;
+  public List<AffiliationVO> searchSuccessors(String objectId)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException,
-      AuthenticationException, AuthorizationException;
+  public List<String> getIdPath(String id)
+      throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 
-  public List<String> getChildIdPath(String id) throws IngeTechnicalException,
-      IngeApplicationException;
+  public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException;
 
   public List<String> getAllChildrenOfMpg() throws IngeTechnicalException, IngeApplicationException;
 

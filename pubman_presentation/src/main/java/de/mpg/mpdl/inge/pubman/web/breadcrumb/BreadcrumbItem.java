@@ -68,8 +68,7 @@ public class BreadcrumbItem extends FacesBean {
    * Public constructor(with two parameters, the value to display and the page name that should be
    * displayed). You may only use one of the public static final BreadcrumbItem's defined above.
    */
-  public BreadcrumbItem(String displayValue, String page, Method defaultAction,
-      boolean isItemSpecific) {
+  public BreadcrumbItem(String displayValue, String page, Method defaultAction, boolean isItemSpecific) {
     this.displayValue = displayValue;
     this.page = page;
     this.defaultAction = defaultAction;
@@ -111,9 +110,8 @@ public class BreadcrumbItem extends FacesBean {
 
   @Override
   public String toString() {
-    return "BreadcrumbItem [displayValue=" + this.displayValue + ", page=" + this.page
-        + ", isLast=" + this.isLast + ", defaultAction=" + this.defaultAction + ", isItemSpecific="
-        + this.isItemSpecific + "]";
+    return "BreadcrumbItem [displayValue=" + this.displayValue + ", page=" + this.page + ", isLast=" + this.isLast + ", defaultAction="
+        + this.defaultAction + ", isItemSpecific=" + this.isItemSpecific + "]";
   }
 
   @Override

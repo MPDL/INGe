@@ -47,8 +47,7 @@ public class ExportEmailPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    final ExportItemsSessionBean sb =
-        (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
     sb.setExportEmailTxt(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
     sb.setEnableExport(false);
   }

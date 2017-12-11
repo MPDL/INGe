@@ -57,20 +57,17 @@ public abstract class SingleTransformer implements Transformer {
     this.sourceFormat = sourceFormat;
   }
 
-  protected static Map<String, String> getDefaultConfigurationFromProperty(String property,
-      String defaultFile) throws TransformationException {
+  protected static Map<String, String> getDefaultConfigurationFromProperty(String property, String defaultFile)
+      throws TransformationException {
     String propertyFileName = PropertyReader.getProperty(property);
 
     if (propertyFileName == null) {
-      logger.warn("No property configuration file found for transformer. Property " + property
-          + " not set.");
+      logger.warn("No property configuration file found for transformer. Property " + property + " not set.");
       return null;
     } else {
       try {
         Map<String, String> config = new HashMap<String, String>();
-        InputStream propertyInputStram =
-            ResourceUtil.getResourceAsStream(propertyFileName,
-                SingleTransformer.class.getClassLoader());
+        InputStream propertyInputStram = ResourceUtil.getResourceAsStream(propertyFileName, SingleTransformer.class.getClassLoader());
         Properties props = new Properties();
         props.load(propertyInputStram);
         propertyInputStram.close();
@@ -82,26 +79,22 @@ public abstract class SingleTransformer implements Transformer {
 
         return config;
       } catch (Exception e) {
-        throw new TransformationException("Error while XML transformation configuration file "
-            + propertyFileName, e);
+        throw new TransformationException("Error while XML transformation configuration file " + propertyFileName, e);
       }
     }
   }
 
-  protected static Map<String, List<String>> getAllConfigurationValuesFromProperty(String property,
-      String defaultFile) throws TransformationException {
+  protected static Map<String, List<String>> getAllConfigurationValuesFromProperty(String property, String defaultFile)
+      throws TransformationException {
     String propertyFileName = PropertyReader.getProperty(property);
 
     if (propertyFileName == null) {
-      logger.warn("No property configuration file found for transformer. Property " + property
-          + " not set.");
+      logger.warn("No property configuration file found for transformer. Property " + property + " not set.");
       return null;
     } else {
       try {
         Map<String, List<String>> properties = new HashMap<String, List<String>>();
-        InputStream propertyInputStram =
-            ResourceUtil.getResourceAsStream(propertyFileName,
-                SingleTransformer.class.getClassLoader());
+        InputStream propertyInputStram = ResourceUtil.getResourceAsStream(propertyFileName, SingleTransformer.class.getClassLoader());
         Properties props = new Properties();
         props.load(propertyInputStram);
         propertyInputStram.close();
@@ -117,14 +110,12 @@ public abstract class SingleTransformer implements Transformer {
 
         return properties;
       } catch (Exception e) {
-        throw new TransformationException("Error while XML transformation configuration file "
-            + propertyFileName, e);
+        throw new TransformationException("Error while XML transformation configuration file " + propertyFileName, e);
       }
     }
   }
 
-  public static String getStringFromSource(TransformerSource transformerSource)
-      throws TransformationException {
+  public static String getStringFromSource(TransformerSource transformerSource) throws TransformationException {
 
     TransformerStreamSource s;
     try {
@@ -150,8 +141,7 @@ public abstract class SingleTransformer implements Transformer {
     return ret;
   }
 
-  public static void writeStringToStreamResult(String s, TransformerResult transformerRes)
-      throws TransformationException {
+  public static void writeStringToStreamResult(String s, TransformerResult transformerRes) throws TransformationException {
 
     TransformerStreamResult res;
     try {

@@ -57,8 +57,17 @@ public class ImageInfoVO extends ValueObject {
    * 
    * @updated 05-Sep-2007 12:48:57
    */
-  public enum SizeUnit {
-    FOOT, MILE, INCH, KM, CM, M, MM, UM, NM
+  public enum SizeUnit
+  {
+    FOOT,
+    MILE,
+    INCH,
+    KM,
+    CM,
+    M,
+    MM,
+    UM,
+    NM
   }
 
   /**

@@ -47,10 +47,8 @@ public class DijkstraAlgorithm {
   private void findMinimalDistances(FORMAT node) {
     List<TransformerEdge> adjacentNodes = getNeighbors(node);
     for (TransformerEdge edge : adjacentNodes) {
-      if (getShortestDistance(edge.getTargetFormat()) > getShortestDistance(node)
-          + getDistance(node, edge.getTargetFormat())) {
-        distance.put(edge.getTargetFormat(),
-            getShortestDistance(node) + getDistance(node, edge.getTargetFormat()));
+      if (getShortestDistance(edge.getTargetFormat()) > getShortestDistance(node) + getDistance(node, edge.getTargetFormat())) {
+        distance.put(edge.getTargetFormat(), getShortestDistance(node) + getDistance(node, edge.getTargetFormat()));
 
         predecessors.put(edge.getTargetFormat(), node);
         predecessorEdges.put(edge.getTargetFormat(), edge);

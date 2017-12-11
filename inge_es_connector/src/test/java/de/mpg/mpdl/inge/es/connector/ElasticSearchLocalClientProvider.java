@@ -31,8 +31,7 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
 
   private static final String TEMP_FOLDER = "./target/es/";
   private static final String CLUSTER_NAME = "myLocalCluster";
-  private static final String[] indexNames = {"db_items", "db_users", "db_contexts", "db_ous",
-      "db_yearbooks"};
+  private static final String[] indexNames = {"db_items", "db_users", "db_contexts", "db_ous", "db_yearbooks"};
 
 
   public synchronized Client getClient() {
@@ -50,10 +49,8 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
      * logger.warn("Could not initialize test node", e); }
      */
 
-    Settings settings =
-        Settings.builder().put("path.home", TEMP_FOLDER).put("cluster.name", CLUSTER_NAME)
-            .put("transport.type", "local").put("http.enabled", false)
-            .put("node.max_local_storage_nodes", "10").build();
+    Settings settings = Settings.builder().put("path.home", TEMP_FOLDER).put("cluster.name", CLUSTER_NAME).put("transport.type", "local")
+        .put("http.enabled", false).put("node.max_local_storage_nodes", "10").build();
 
     try {
       theNode = new Node(settings).start();
@@ -67,8 +64,7 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
       try {
         createIndex(indexName, theNode.client());
 
-      } catch (NodeValidationException | InterruptedException | ExecutionException | IOException
-          | URISyntaxException e) {
+      } catch (NodeValidationException | InterruptedException | ExecutionException | IOException | URISyntaxException e) {
         logger.warn("Could not create index <" + indexName + ">", e);
       }
       doBulkImport(indexName, theNode.client());
@@ -96,33 +92,28 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     }
   }
 
-  private void createIndex(String index, Client client) throws NodeValidationException,
-      InterruptedException, ExecutionException, IOException, URISyntaxException {
+  private void createIndex(String index, Client client)
+      throws NodeValidationException, InterruptedException, ExecutionException, IOException, URISyntaxException {
 
     XContentBuilder indexSettings = XContentFactory.jsonBuilder();;
 
-    indexSettings.startObject().startObject("index").startObject("analysis").startObject("filter")
-        .startObject("autocomplete_filter").field("type", "edge_ngram").field("min_gram", "1")
-        .field("max_gram", "20").endObject().endObject().startObject("analyzer")
+    indexSettings.startObject().startObject("index").startObject("analysis").startObject("filter").startObject("autocomplete_filter")
+        .field("type", "edge_ngram").field("min_gram", "1").field("max_gram", "20").endObject().endObject().startObject("analyzer")
         .startObject("autocomplete").field("type", "custom").field("tokenizer", "standard")
-        .field("filter", new String[] {"autocomplete_filter", "lowercase"}).endObject().endObject()
-        .endObject().endObject().endObject();
+        .field("filter", new String[] {"autocomplete_filter", "lowercase"}).endObject().endObject().endObject().endObject().endObject();
 
     logger.info("IndexSettings for index <" + index + ">" + indexSettings.string());
 
-    CreateIndexRequestBuilder createIndexRequestBuilder =
-        client.admin().indices().prepareCreate(index).setSettings(indexSettings);
+    CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate(index).setSettings(indexSettings);
 
     StringBuffer mappingNameStringBuffer = new StringBuffer("./es_scripts/mapping_");
     mappingNameStringBuffer.append(index).append(".txt");
-    String mappingString =
-        new String(FileUtils.readFileToByteArray(new File(this.getClass().getClassLoader()
-            .getResource(mappingNameStringBuffer.toString()).toURI())));
+    String mappingString = new String(
+        FileUtils.readFileToByteArray(new File(this.getClass().getClassLoader().getResource(mappingNameStringBuffer.toString()).toURI())));
 
 
 
-    CreateIndexResponse createIndexResponse =
-        createIndexRequestBuilder.addMapping(getType(index), mappingString).execute().actionGet();
+    CreateIndexResponse createIndexResponse = createIndexRequestBuilder.addMapping(getType(index), mappingString).execute().actionGet();
 
     if (!createIndexResponse.isAcknowledged()) {
       throw new IllegalStateException("Failed to create index " + index);
@@ -138,11 +129,8 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     JSONParser parser = new JSONParser();
 
     try {
-      StringBuffer importFileStringBuffer =
-          new StringBuffer().append("./es_scripts/import_").append(indexName).append(".txt");
-      lines =
-          FileUtils.readLines(new File(this.getClass().getClassLoader()
-              .getResource(importFileStringBuffer.toString()).toURI()));
+      StringBuffer importFileStringBuffer = new StringBuffer().append("./es_scripts/import_").append(indexName).append(".txt");
+      lines = FileUtils.readLines(new File(this.getClass().getClassLoader().getResource(importFileStringBuffer.toString()).toURI()));
     } catch (IOException | URISyntaxException e) {
       logger.warn("Error occured when reading bulk import file", e);
     }
@@ -166,8 +154,7 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
           continue;
         }
       } else {
-        bulkRequestBuilder.add(client.prepareIndex(indexName, getType(indexName), _id).setSource(
-            line));
+        bulkRequestBuilder.add(client.prepareIndex(indexName, getType(indexName), _id).setSource(line));
       }
     }
     BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
@@ -175,8 +162,7 @@ public class ElasticSearchLocalClientProvider implements ElasticSearchClientProv
     if (bulkResponse.hasFailures()) {
       logger.warn(bulkResponse.buildFailureMessage());
     } else {
-      logger.info("Imported successfully <" + bulkResponse.getItems().length
-          + "> objects into index <" + indexName + ">");
+      logger.info("Imported successfully <" + bulkResponse.getItems().length + "> objects into index <" + indexName + ">");
       for (int i = 0; i < bulkResponse.getItems().length; i++) {
         logger.debug("Imported item id <" + bulkResponse.getItems()[i].getItemId() + ">");
         logger.debug("Imported id <" + bulkResponse.getItems()[i].getId() + ">");

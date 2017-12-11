@@ -36,11 +36,9 @@ public class HTMLSubSupShortTitleConverter implements Converter {
     tags.add("SUP");
 
     if (snippet.length() > HTMLSubSupShortTitleConverter.LENGTH) {
-      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet,
-          HTMLSubSupShortTitleConverter.LENGTH, tags) + "...";
+      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, HTMLSubSupShortTitleConverter.LENGTH, tags) + "...";
     } else {
-      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet,
-          snippet.length(), tags);
+      return HtmlUtils.getShortenedHtmlSnippetWithBalancedTagsAndEscaping(snippet, snippet.length(), tags);
     }
   }
 }

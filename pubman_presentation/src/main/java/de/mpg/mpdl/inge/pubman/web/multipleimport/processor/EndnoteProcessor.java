@@ -113,9 +113,7 @@ public class EndnoteProcessor extends FormatProcessor {
       String inputString = new String(this.originalData, this.encoding);
 
       // replace first empty lines and BOM
-      inputString =
-          Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(inputString)
-              .replaceFirst("%");
+      inputString = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(inputString).replaceFirst("%");
 
       final BufferedReader reader = new BufferedReader(new StringReader(inputString));
 

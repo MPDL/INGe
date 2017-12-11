@@ -73,8 +73,7 @@ public class CreatorVOPresentation extends CreatorVO {
     this.bean = bean;
   }
 
-  public CreatorVOPresentation(List<CreatorVOPresentation> list, EditItemBean bean,
-      CreatorVO creatorVO) {
+  public CreatorVOPresentation(List<CreatorVOPresentation> list, EditItemBean bean, CreatorVO creatorVO) {
     this.list = list;
     this.bean = bean;
     if (creatorVO != null) {
@@ -104,8 +103,7 @@ public class CreatorVOPresentation extends CreatorVO {
       CreatorVOPresentation.properties = CreatorVOPresentation.loadCreatorRoleProperties();
     }
     @SuppressWarnings({"unchecked", "rawtypes"})
-    final Map<String, String> propertiesMap =
-        new HashMap<String, String>((Map) CreatorVOPresentation.properties);
+    final Map<String, String> propertiesMap = new HashMap<String, String>((Map) CreatorVOPresentation.properties);
     return propertiesMap;
   }
 
@@ -119,24 +117,19 @@ public class CreatorVOPresentation extends CreatorVO {
     CreatorVOPresentation.properties = new Properties();
     URL contentCategoryURI = null;
     try {
-      contentCategoryURI =
-          CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
+      contentCategoryURI = CreatorVOPresentation.class.getClassLoader().getResource("author_roles.properties");
       if (contentCategoryURI != null) {
-        Logger.getLogger(CreatorVOPresentation.class).info(
-            "Author-Roles properties URI is " + contentCategoryURI.toString());
+        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties URI is " + contentCategoryURI.toString());
         final InputStream in = contentCategoryURI.openStream();
         CreatorVOPresentation.properties.load(in);
         CreatorVOPresentation.properties.putAll(CreatorVOPresentation.properties);
         in.close();
-        Logger.getLogger(CreatorVOPresentation.class).info(
-            "Author-Roles properties loaded from " + contentCategoryURI.toString());
+        Logger.getLogger(CreatorVOPresentation.class).info("Author-Roles properties loaded from " + contentCategoryURI.toString());
       } else {
-        Logger.getLogger(CreatorVOPresentation.class).debug(
-            "Author-Roles properties file not found.");
+        Logger.getLogger(CreatorVOPresentation.class).debug("Author-Roles properties file not found.");
       }
     } catch (final Exception e) {
-      Logger.getLogger(CreatorVOPresentation.class).warn(
-          "WARNING: Author-Roles properties not found: " + e.getMessage());
+      Logger.getLogger(CreatorVOPresentation.class).warn("WARNING: Author-Roles properties not found: " + e.getMessage());
     }
     return CreatorVOPresentation.properties;
   }
@@ -147,8 +140,7 @@ public class CreatorVOPresentation extends CreatorVO {
    * @return Always empty
    */
   public void add() {
-    final CreatorVOPresentation creatorVOPresentation =
-        new CreatorVOPresentation(this.list, this.bean);
+    final CreatorVOPresentation creatorVOPresentation = new CreatorVOPresentation(this.list, this.bean);
     creatorVOPresentation.init(this.getType());
     creatorVOPresentation.setRole(CreatorRole.AUTHOR);
     final int index = this.list.indexOf(this);
@@ -215,8 +207,7 @@ public class CreatorVOPresentation extends CreatorVO {
       CreatorVOPresentation.logger.debug("Creating new OU from: " + this.autoPasteValue);
       this.bean.setOrganizationPasted(true);
       final String[] values = this.autoPasteValue.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-      final List<OrganizationVOPresentation> creatorOrganizations =
-          this.bean.getCreatorOrganizations();
+      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
       final OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
       newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);
@@ -230,8 +221,7 @@ public class CreatorVOPresentation extends CreatorVO {
 
   public String getOuNumbers() {
     if (this.isPersonType() && this.ouNumbers == null) {
-      final List<OrganizationVOPresentation> creatorOrganizations =
-          this.bean.getCreatorOrganizations();
+      final List<OrganizationVOPresentation> creatorOrganizations = this.bean.getCreatorOrganizations();
       for (final OrganizationVO organization : this.getPerson().getOrganizations()) {
         if (this.ouNumbers == null) {
           this.ouNumbers = "";
@@ -263,12 +253,10 @@ public class CreatorVOPresentation extends CreatorVO {
         editItem.error(editItem.getMessage("EntryIsNotANumber").replace("$1", this.getOuNumbers()));
       } catch (final IndexOutOfBoundsException ioobe) {
         EditItem editItem = getEditItem();
-        editItem.error(editItem.getMessage("EntryIsNotInValidRange").replace("$1",
-            this.getOuNumbers()));
+        editItem.error(editItem.getMessage("EntryIsNotInValidRange").replace("$1", this.getOuNumbers()));
       } catch (final Exception e) {
         EditItem editItem = getEditItem();
-        editItem.error(editItem.getMessage("ErrorInOrganizationAssignment").replace("$1",
-            this.getOuNumbers()));
+        editItem.error(editItem.getMessage("ErrorInOrganizationAssignment").replace("$1", this.getOuNumbers()));
       }
       return result;
     } else {

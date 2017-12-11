@@ -44,14 +44,12 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   @Override
   public String toCqlString(Index indexName) throws SearchParseException {
-    return this.baseCqlBuilder(this.getCqlIndexes(indexName),
-        this.getSearchString(this.getSelectedEnum()));
+    return this.baseCqlBuilder(this.getCqlIndexes(indexName), this.getSearchString(this.getSelectedEnum()));
   }
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
-    return this.baseElasticSearchQueryBuilder(this.getElasticIndexes(),
-        this.getSearchString(this.getSelectedEnum()));
+    return this.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.getSearchString(this.getSelectedEnum()));
   }
 
 

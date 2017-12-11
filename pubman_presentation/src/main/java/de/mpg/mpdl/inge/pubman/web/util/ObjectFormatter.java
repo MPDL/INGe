@@ -49,16 +49,14 @@ public class ObjectFormatter {
 
     if (creatorObject.getPerson() != null) {
       creator.append(creatorObject.getPerson().getFamilyName());
-      if (creatorObject.getPerson().getGivenName() != null
-          && !creatorObject.getPerson().getGivenName().equals("")) {
+      if (creatorObject.getPerson().getGivenName() != null && !creatorObject.getPerson().getGivenName().equals("")) {
         creator.append(", " + creatorObject.getPerson().getGivenName());
       }
       if (annotation != null) {
         creator.append(annotation);
       }
     }
-    if (creatorObject.getOrganization() != null
-        && creatorObject.getOrganization().getName() != null) {
+    if (creatorObject.getOrganization() != null && creatorObject.getOrganization().getName() != null) {
       creator.append(creatorObject.getOrganization().getName());
     }
     /*

@@ -25,8 +25,14 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "audit_log")
 public class AuditDbVO implements Serializable {
 
-  public enum EventType {
-    CREATE, SUBMIT, RELEASE, REVISE, WITHDRAW, UPDATE;
+  public enum EventType
+  {
+    CREATE,
+    SUBMIT,
+    RELEASE,
+    REVISE,
+    WITHDRAW,
+    UPDATE;
   }
 
   @Id
@@ -39,8 +45,7 @@ public class AuditDbVO implements Serializable {
   private EventType event;
 
   @Embedded
-  @AttributeOverrides({
-      @AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
+  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
   private AccountUserDbRO modifier;
 

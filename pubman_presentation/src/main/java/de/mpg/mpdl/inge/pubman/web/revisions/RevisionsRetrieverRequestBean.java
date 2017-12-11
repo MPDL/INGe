@@ -26,8 +26,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
  */
 @ManagedBean(name = "RevisionsRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class RevisionsRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
 
   private int numberOfRecords;
 
@@ -69,11 +68,9 @@ public class RevisionsRetrieverRequestBean extends
 
 
     try {
-      final ItemControllerSessionBean icsb =
-          (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+      final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       // get Revisions
-      final List<RelationVOPresentation> relationVOList =
-          icsb.retrieveRevisions(icsb.getCurrentPubItem());
+      final List<RelationVOPresentation> relationVOList = icsb.retrieveRevisions(icsb.getCurrentPubItem());
 
       for (final RelationVOPresentation relationVO : relationVOList) {
         final PubItemVO sourceItem = relationVO.getSourceItem();
@@ -86,8 +83,7 @@ public class RevisionsRetrieverRequestBean extends
 
       // get ParentItems
 
-      final List<RelationVOPresentation> relationVOList2 =
-          icsb.retrieveParentsForRevision(icsb.getCurrentPubItem());
+      final List<RelationVOPresentation> relationVOList2 = icsb.retrieveParentsForRevision(icsb.getCurrentPubItem());
 
       for (final RelationVOPresentation relationVO : relationVOList2) {
         final PubItemVO targetItem = relationVO.getTargetItem();

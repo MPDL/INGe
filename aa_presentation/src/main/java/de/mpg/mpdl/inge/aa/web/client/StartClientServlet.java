@@ -47,14 +47,12 @@ import de.mpg.mpdl.inge.aa.Config;
 public class StartClientServlet extends HttpServlet {
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doPost(request, response);
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
       String clientClassName = Config.getProperty("inge.aa.client.class");
       if (clientClassName == null) {

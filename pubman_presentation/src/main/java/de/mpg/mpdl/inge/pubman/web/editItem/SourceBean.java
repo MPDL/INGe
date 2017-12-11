@@ -120,8 +120,7 @@ public class SourceBean extends EditItemBean {
    */
   public void addSourceAlternativeTitle() {
     if (this.getSource() != null) {
-      if (this.getSource().getAlternativeTitles() == null
-          || this.getSource().getAlternativeTitles().isEmpty()) {
+      if (this.getSource().getAlternativeTitles() == null || this.getSource().getAlternativeTitles().isEmpty()) {
         this.getSource().getAlternativeTitles().add(new AlternativeTitleVO());
       }
     }
@@ -131,8 +130,7 @@ public class SourceBean extends EditItemBean {
    * Adds an empty alternative title for the source after the current one
    */
   public void addSourceAlternativeTitleAtIndex(int index) {
-    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null
-        && !this.getSource().getAlternativeTitles().isEmpty()) {
+    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
     }
   }
@@ -141,8 +139,7 @@ public class SourceBean extends EditItemBean {
    * Removes an alternative title from the current position of the source
    */
   public void removeEventAlternativeTitleAtIndex(int index) {
-    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null
-        && !this.getSource().getAlternativeTitles().isEmpty()) {
+    if (this.getSource() != null && this.getSource().getAlternativeTitles() != null && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().remove(index);
     }
   }
@@ -181,8 +178,7 @@ public class SourceBean extends EditItemBean {
    * @return SelectItem[] with Strings representing source genres
    */
   public SelectItem[] getSourceGenreOptions() {
-    final Map<String, String> excludedSourceGenres =
-        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getExcludedSourceGenreMap();
+    final Map<String, String> excludedSourceGenres = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getExcludedSourceGenreMap();
     final List<SelectItem> sourceGenres = new ArrayList<SelectItem>();
     sourceGenres.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
     for (final SourceVO.Genre value : SourceVO.Genre.values()) {
@@ -231,8 +227,7 @@ public class SourceBean extends EditItemBean {
     idManager.getObjectList().clear();
 
     if (!this.getHiddenAlternativeTitlesField().trim().equals("")) {
-      altTitleList
-          .addAll(SourceBean.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
+      altTitleList.addAll(SourceBean.parseAlternativeTitles(this.getHiddenAlternativeTitlesField()));
     }
     if (!this.getHiddenIdsField().trim().equals("")) {
       // idManager.getDataListFromVO().clear();
@@ -302,8 +297,7 @@ public class SourceBean extends EditItemBean {
     }
 
     final SourceBean newSourceBean = new SourceBean(sourceVO, this.list);
-    final CreatorVOPresentation newSourceCreator =
-        new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
+    final CreatorVOPresentation newSourceCreator = new CreatorVOPresentation(newSourceBean.getCreators(), newSourceBean);
     newSourceCreator.setType(CreatorType.PERSON);
     newSourceCreator.setPerson(new PersonVO());
     newSourceCreator.getPerson().setIdentifier(new IdentifierVO());

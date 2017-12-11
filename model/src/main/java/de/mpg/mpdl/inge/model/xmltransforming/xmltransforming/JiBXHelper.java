@@ -118,8 +118,8 @@ public class JiBXHelper {
   /**
    * UTF-8 control characters that are illegal for XML according to W3C
    */
-  private static final Pattern ILLEGAL_XML_CHARS = Pattern
-      .compile("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\uD800\uDC00-\uDBFF\uDFFF]");
+  private static final Pattern ILLEGAL_XML_CHARS =
+      Pattern.compile("[^\\u0009\\u000A\\u000D\\u0020-\\uD7FF\\uE000-\\uFFFD\uD800\uDC00-\uDBFF\uDFFF]");
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;AffiliationPathVO></code> as the
@@ -689,8 +689,7 @@ public class JiBXHelper {
   public static Date deserializeDate(String dateString) throws WrongDateException {
     Date date = null;
     try {
-      XMLGregorianCalendar xmlGregorianCalendar =
-          DatatypeFactory.newInstance().newXMLGregorianCalendar(dateString);
+      XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateString);
       date = xmlGregorianCalendar.toGregorianCalendar().getTime();
     } catch (Exception e) {
       // if dateString==null, return null as result
@@ -744,8 +743,7 @@ public class JiBXHelper {
     } catch (MalformedURLException e) {
       // log it and give back a null URL
       StringBuffer sb = new StringBuffer();
-      sb.append("MalformedURLException in " + JiBXHelper.class.getSimpleName()
-          + ":deserializeURL(). ");
+      sb.append("MalformedURLException in " + JiBXHelper.class.getSimpleName() + ":deserializeURL(). ");
       sb.append("The affected url [String] was: '" + urlString + "'.");
       // logger.debug(sb.toString());
     }
@@ -820,8 +818,7 @@ public class JiBXHelper {
    * @return Visibility The corresponding <code>FileVO.Visibility</code> Enum (or <code>null</code>)
    * @throws WrongEnumException
    */
-  public static Visibility deserializeFileVisibilityEnum(String enumValue)
-      throws WrongEnumException {
+  public static Visibility deserializeFileVisibilityEnum(String enumValue) throws WrongEnumException {
     Visibility visibility = null;
     if ((enumValue == null) || enumValue.equals("")) {
       /*-
@@ -849,8 +846,7 @@ public class JiBXHelper {
    * @return Genre The corresponding <code>MdsPublicationVO.Genre</code> Enum
    * @throws WrongEnumException
    */
-  public static MdsPublicationVO.Genre deserializeGenreEnum(String enumValue)
-      throws WrongEnumException {
+  public static MdsPublicationVO.Genre deserializeGenreEnum(String enumValue) throws WrongEnumException {
     if (enumValue == null) {
       throw new WrongEnumException("genre is null.");
     } else {
@@ -876,14 +872,12 @@ public class JiBXHelper {
     return null;
   }
 
-  public static MdsPublicationVO.SubjectClassification deserializeSubjectClassificationEnum(
-      String enumValue) throws WrongEnumException {
+  public static MdsPublicationVO.SubjectClassification deserializeSubjectClassificationEnum(String enumValue) throws WrongEnumException {
     if (enumValue == null) {
       throw new WrongEnumException("SubjectClassification is null.");
     } else {
 
-      for (MdsPublicationVO.SubjectClassification g : MdsPublicationVO.SubjectClassification
-          .values()) {
+      for (MdsPublicationVO.SubjectClassification g : MdsPublicationVO.SubjectClassification.values()) {
         if (enumValue.equals(g.getUri())) {
           return g;
         }
@@ -907,8 +901,7 @@ public class JiBXHelper {
     return enumString;
   }
 
-  public static String serializeSubjectClassificationEnum(
-      MdsPublicationVO.SubjectClassification enumeration) {
+  public static String serializeSubjectClassificationEnum(MdsPublicationVO.SubjectClassification enumeration) {
     String enumString = "";
     if (enumeration != null) {
       enumString = enumeration.name();
@@ -930,14 +923,11 @@ public class JiBXHelper {
     if (enumValue == null) {
       throw new WrongEnumException("'xsi:type' attribute of 'identifier' element is null.");
     } else {
-      String upperCaseTextWithoutNamespace =
-          enumValue.substring(enumValue.lastIndexOf(':') + 1).trim().toUpperCase();
+      String upperCaseTextWithoutNamespace = enumValue.substring(enumValue.lastIndexOf(':') + 1).trim().toUpperCase();
       try {
         idType = IdType.valueOf(upperCaseTextWithoutNamespace);
       } catch (IllegalArgumentException e) {
-        throw new WrongEnumException(
-            "IdentifierTypeEnum value ('xsi:type' attribute of 'identifier' element) is '"
-                + enumValue + "'.");
+        throw new WrongEnumException("IdentifierTypeEnum value ('xsi:type' attribute of 'identifier' element) is '" + enumValue + "'.");
       }
     }
     return idType;
@@ -954,8 +944,7 @@ public class JiBXHelper {
     if (value == null) {
       throw new NullPointerException("'xsi:type' attribute of text element is null.");
     } else {
-      String upperCaseTextWithoutNamespace =
-          value.substring(value.lastIndexOf(':') + 1).trim().toUpperCase();
+      String upperCaseTextWithoutNamespace = value.substring(value.lastIndexOf(':') + 1).trim().toUpperCase();
       return upperCaseTextWithoutNamespace;
     }
   }
@@ -1003,8 +992,7 @@ public class JiBXHelper {
    *         Enum
    * @throws WrongEnumException
    */
-  public static InvitationStatus deserializeInvitationStatusEnum(String enumValue)
-      throws WrongEnumException {
+  public static InvitationStatus deserializeInvitationStatusEnum(String enumValue) throws WrongEnumException {
     InvitationStatus invitationStatus = null;
     if (enumValue == null) {
       throw new WrongEnumException("invitation-status is null.");
@@ -1050,8 +1038,7 @@ public class JiBXHelper {
    * @return ChecksumAlgorithm The corresponding <code>FileVO.ChecksumAlgorithm</code> Enum
    * @throws WrongEnumException
    */
-  public static ChecksumAlgorithm deserializeChecksumAlgorithmEnum(String enumValue)
-      throws WrongEnumException {
+  public static ChecksumAlgorithm deserializeChecksumAlgorithmEnum(String enumValue) throws WrongEnumException {
     ChecksumAlgorithm checksumAlgorithm = null;
     if (enumValue == null) {
       throw new WrongEnumException("ChecksumAlgorithm is null.");
@@ -1122,8 +1109,7 @@ public class JiBXHelper {
    * @return ReviewMethod The corresponding <code>MdsPublicationVO.ReviewMethod</code> Enum
    * @throws WrongEnumException
    */
-  public static ReviewMethod deserializeReviewMethodEnum(String enumValue)
-      throws WrongEnumException {
+  public static ReviewMethod deserializeReviewMethodEnum(String enumValue) throws WrongEnumException {
     if (enumValue == null) {
       throw new WrongEnumException("review-method is null.");
     } else {
@@ -1169,8 +1155,7 @@ public class JiBXHelper {
    * @return SearchHitType The corresponding <code>SearchHitVO.SearchHitType</code> Enum
    * @throws WrongEnumException
    */
-  public static SearchHitType deserializeSearchHitTypeEnum(String enumValue)
-      throws WrongEnumException {
+  public static SearchHitType deserializeSearchHitTypeEnum(String enumValue) throws WrongEnumException {
     SearchHitVO.SearchHitType searchHitType = null;
     if (enumValue == null) {
       throw new WrongEnumException("search-hit.@type is null.");
@@ -1193,8 +1178,7 @@ public class JiBXHelper {
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
    * @throws WrongEnumException
    */
-  public static SourceVO.Genre deserializeSourceGenreEnum(String enumValue)
-      throws WrongEnumException {
+  public static SourceVO.Genre deserializeSourceGenreEnum(String enumValue) throws WrongEnumException {
     if (enumValue != null) {
 
       for (SourceVO.Genre g : SourceVO.Genre.values()) {
@@ -1230,8 +1214,7 @@ public class JiBXHelper {
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
    * @throws WrongEnumException
    */
-  public static PublicationAdminDescriptorVO.Workflow deserializeWorkflowEnum(String enumValue)
-      throws WrongEnumException {
+  public static PublicationAdminDescriptorVO.Workflow deserializeWorkflowEnum(String enumValue) throws WrongEnumException {
     PublicationAdminDescriptorVO.Workflow workflow = null;
     if (enumValue != null) {
       String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
@@ -1252,8 +1235,7 @@ public class JiBXHelper {
    * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
    * @throws WrongEnumException
    */
-  public static EventLogEntryVO.EventType deserializeEventTypeEnum(String enumValue)
-      throws WrongEnumException {
+  public static EventLogEntryVO.EventType deserializeEventTypeEnum(String enumValue) throws WrongEnumException {
     EventLogEntryVO.EventType type = null;
     if ("create".equals(enumValue)) {
       return EventLogEntryVO.EventType.CREATE;
@@ -1282,8 +1264,7 @@ public class JiBXHelper {
    * @return ContextVO.State The corresponding <code>ContextVO.State</code> Enum
    * @throws WrongEnumException
    */
-  public static ContextVO.State deserializePubCollectionStateEnum(String enumValue)
-      throws WrongEnumException {
+  public static ContextVO.State deserializePubCollectionStateEnum(String enumValue) throws WrongEnumException {
     ContextVO.State state = null;
     if (enumValue == null) {
       throw new WrongEnumException("context status is null.");
@@ -1330,8 +1311,7 @@ public class JiBXHelper {
    * @return ExportFormatVO.FormatType The corresponding <code>ExportFormatVO.FormatType</code> Enum
    * @throws WrongEnumException
    */
-  public static ExportFormatVO.FormatType deserializeExportFormatTypeEnum(String enumValue)
-      throws WrongEnumException {
+  public static ExportFormatVO.FormatType deserializeExportFormatTypeEnum(String enumValue) throws WrongEnumException {
     ExportFormatVO.FormatType type = null;
     if (enumValue == null) {
       throw new WrongEnumException("formatType is null.");

@@ -53,8 +53,7 @@ public class GenreComparatorTest extends ComparatorTestBase {
     ArrayList<PubItemVO> list = getPubItemList();
     Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE));
     for (PubItemVO itemVO : list) {
-      logger
-          .debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"2", "1", "1", "3", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -66,11 +65,9 @@ public class GenreComparatorTest extends ComparatorTestBase {
   @Test
   public void sortGenreDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list,
-        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE)));
     for (PubItemVO itemVO : list) {
-      logger
-          .debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
+      logger.debug(itemVO.getMetadata().getGenre() + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "3", "1", "1", "2"};
     assertObjectIdOrder(list, expectedIdOrder);

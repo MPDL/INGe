@@ -116,8 +116,7 @@ public class GenreHandler extends ShortContentHandler {
   }
 
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
     // TODO Auto-generated method stub
     super.startElement(uri, localName, name, attributes);
 

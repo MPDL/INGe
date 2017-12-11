@@ -11,8 +11,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -28,8 +27,7 @@ public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<Source
 
           if (ValidationTools.isEmpty(sourceVO.getVolume())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED)
-                .setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED).setField("source[" + i + "]"));
 
             ok = false;
 

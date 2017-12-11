@@ -46,8 +46,7 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  */
 @ManagedBean(name = "MyItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class MyItemsRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
+public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
 
   public static final String LOAD_DEPOSITORWS = "loadDepositorWS";
@@ -126,8 +125,7 @@ public class MyItemsRetrieverRequestBean extends
 
       while (rs.next()) {
         final SelectItem selectItem =
-            new SelectItem(rs.getString("name") + " "
-                + BaseImportLog.DATE_FORMAT.format(rs.getTimestamp("startdate")));
+            new SelectItem(rs.getString("name") + " " + BaseImportLog.DATE_FORMAT.format(rs.getTimestamp("startdate")));
         importSelectItems.add(selectItem);
       }
     } catch (final Exception e) {
@@ -161,12 +159,11 @@ public class MyItemsRetrieverRequestBean extends
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this
-          .getLoginHelper().getAccountUser().getReference().getObjectId()));
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
+          this.getLoginHelper().getAccountUser().getReference().getObjectId()));
 
       // display only latest versions
-      bq.must(QueryBuilders.scriptQuery(new Script("doc['"
-          + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
+      bq.must(QueryBuilders.scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
           + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
 
       if (this.selectedItemState.toLowerCase().equals("withdrawn")) {
@@ -178,14 +175,12 @@ public class MyItemsRetrieverRequestBean extends
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State
-            .valueOf(this.selectedItemState).name()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.valueOf(this.selectedItemState).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS,
-            this.getSelectedImport()).operator(Operator.AND));
+        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
       }
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
@@ -197,8 +192,7 @@ public class MyItemsRetrieverRequestBean extends
 
       for (String index : sc.getIndex()) {
         if (!index.isEmpty()) {
-          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(),
-              index,
+          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pis.getElasticSearchIndexFields(), index,
               SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
                   : org.elasticsearch.search.sort.SortOrder.DESC));
         }
@@ -213,8 +207,7 @@ public class MyItemsRetrieverRequestBean extends
 
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-      List<PubItemVO> pubItemList =
-          SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+      List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
@@ -234,8 +227,7 @@ public class MyItemsRetrieverRequestBean extends
    */
   protected void checkSortCriterias(SORT_CRITERIA sc) {
     if (sc.getIndex() == null || sc.getIndex().equals("")) {
-      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1",
-          this.getLabel("ENUM_CRITERIA_" + sc.name())));
+      this.error(this.getMessage("depositorWS_sortingNotSupported").replace("$1", this.getLabel("ENUM_CRITERIA_" + sc.name())));
       // getBasePaginatorListSessionBean().redirect();
     }
 
@@ -258,18 +250,17 @@ public class MyItemsRetrieverRequestBean extends
    */
   public List<SelectItem> getItemStateSelectItems() {
     this.itemStateSelectItems = new ArrayList<SelectItem>();
-    this.itemStateSelectItems.add(new SelectItem("all", this
-        .getLabel("ItemList_filterAllExceptWithdrawn")));
-    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.PENDING.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(ItemVO.State.PENDING))));
-    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.SUBMITTED.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(ItemVO.State.SUBMITTED))));
-    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.RELEASED.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(ItemVO.State.RELEASED))));
-    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.WITHDRAWN.name(), this.getLabel(this
-        .getI18nHelper().convertEnumToString(ItemVO.State.WITHDRAWN))));
-    this.itemStateSelectItems.add(new SelectItem(ItemVO.State.IN_REVISION.name(), this
-        .getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.IN_REVISION))));
+    this.itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptWithdrawn")));
+    this.itemStateSelectItems
+        .add(new SelectItem(ItemVO.State.PENDING.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.PENDING))));
+    this.itemStateSelectItems.add(
+        new SelectItem(ItemVO.State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.SUBMITTED))));
+    this.itemStateSelectItems
+        .add(new SelectItem(ItemVO.State.RELEASED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.RELEASED))));
+    this.itemStateSelectItems.add(
+        new SelectItem(ItemVO.State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.WITHDRAWN))));
+    this.itemStateSelectItems.add(
+        new SelectItem(ItemVO.State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.IN_REVISION))));
 
     return this.itemStateSelectItems;
   }
@@ -281,8 +272,7 @@ public class MyItemsRetrieverRequestBean extends
    */
   public void setSelectedItemState(String selectedItemState) {
     this.selectedItemState = selectedItemState;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(MyItemsRetrieverRequestBean.parameterSelectedItemState, selectedItemState);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(MyItemsRetrieverRequestBean.parameterSelectedItemState, selectedItemState);
   }
 
   /**
@@ -306,8 +296,7 @@ public class MyItemsRetrieverRequestBean extends
    */
   public void setSelectedImport(String selectedImport) {
     this.selectedImport = selectedImport;
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(MyItemsRetrieverRequestBean.parameterSelectedImport, selectedImport);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(MyItemsRetrieverRequestBean.parameterSelectedImport, selectedImport);
   }
 
   /**
@@ -318,9 +307,7 @@ public class MyItemsRetrieverRequestBean extends
   public String getSelectedItemStateLabel() {
     String returnString = "";
     if (this.getSelectedItemState() != null && !this.getSelectedItemState().equals("all")) {
-      returnString =
-          this.getLabel(this.getI18nHelper().convertEnumToString(
-              ItemVO.State.valueOf(this.getSelectedItemState())));
+      returnString = this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.valueOf(this.getSelectedItemState())));
     }
     return returnString;
 
@@ -369,8 +356,7 @@ public class MyItemsRetrieverRequestBean extends
   @Override
   public void readOutParameters() {
     final String selectedItemState =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(MyItemsRetrieverRequestBean.parameterSelectedItemState);
+        FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedItemState);
     if (selectedItemState == null) {
       this.setSelectedItemState("all");
     } else {
@@ -378,8 +364,7 @@ public class MyItemsRetrieverRequestBean extends
     }
 
     final String selectedItem =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(MyItemsRetrieverRequestBean.parameterSelectedImport);
+        FacesTools.getExternalContext().getRequestParameterMap().get(MyItemsRetrieverRequestBean.parameterSelectedImport);
     if (selectedItem == null) {
       this.setSelectedImport("all");
     } else {

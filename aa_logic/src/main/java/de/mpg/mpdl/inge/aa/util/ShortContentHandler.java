@@ -51,16 +51,14 @@ public class ShortContentHandler extends DefaultHandler {
   private StringBuffer currentContent;
   protected XMLStack stack = new XMLStack();
   protected XMLStack localStack = new XMLStack();
-  protected Map<String, Map<String, String>> namespacesMap =
-      new HashMap<String, Map<String, String>>();
+  protected Map<String, Map<String, String>> namespacesMap = new HashMap<String, Map<String, String>>();
   protected Map<String, String> namespaces = null;
 
   /**
    * Manage stack and namespaces.
    */
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
     Map<String, String> formerNamespaces;
     if (namespacesMap.get(stack.toString()) != null) {
       formerNamespaces = namespacesMap.get(stack.toString());
@@ -129,8 +127,7 @@ public class ShortContentHandler extends DefaultHandler {
    *        available.
    * @param content The string content of the current tag.
    */
-  public void content(String uri, String localName, String name, String content)
-      throws SAXException {
+  public void content(String uri, String localName, String name, String content) throws SAXException {
     // Do nothing by default
   }
 
@@ -142,8 +139,7 @@ public class ShortContentHandler extends DefaultHandler {
    * @return The encoded string
    */
   public String encodeAttribute(String str) {
-    return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-        .replace("\"", "&quot;").replace("'", "&apos;");
+    return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&apos;");
   }
 
   /**

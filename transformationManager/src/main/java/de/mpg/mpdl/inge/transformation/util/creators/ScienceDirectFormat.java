@@ -42,15 +42,14 @@ public class ScienceDirectFormat extends AuthorFormat {
   @Override
   public String getPattern() {
     return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z], "
-        + "Corresponding Author Contact Information, E-mail The Corresponding Author"
-        + "( *(,| and | AND | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z])*\\s*$";
+        + "Corresponding Author Contact Information, E-mail The Corresponding Author" + "( *(,| and | AND | und | et ) *"
+        + GIVEN_NAME_FORMAT + " " + NAME + "[a-z])*\\s*$";
   }
 
   @Override
   public List<Author> getAuthors(String authorsString) throws Exception {
 
-    if (!authorsString.contains("[")
-        || !authorsString.contains("Corresponding Author Contact Information")) {
+    if (!authorsString.contains("[") || !authorsString.contains("Corresponding Author Contact Information")) {
       return null;
     }
 
@@ -75,8 +74,7 @@ public class ScienceDirectFormat extends AuthorFormat {
 
   @Override
   public String getDescription() {
-    return "Vorname Nachname[a], Corresponding Author Contact Information, "
-        + "E-mail The Corresponding Author[, Vor-Name Nach-Name[b]]";
+    return "Vorname Nachname[a], Corresponding Author Contact Information, " + "E-mail The Corresponding Author[, Vor-Name Nach-Name[b]]";
   }
 
   @Override

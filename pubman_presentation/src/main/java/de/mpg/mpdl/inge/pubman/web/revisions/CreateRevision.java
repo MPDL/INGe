@@ -63,21 +63,18 @@ public class CreateRevision extends FacesBean {
   }
 
   public String confirmCollectionChoose() {
-    final ContextVO selectedCollection =
-        this.getCollectionListSessionBean().getSelectedDepositorContext();
+    final ContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedDepositorContext();
 
     if (selectedCollection != null) {
-      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM,
-          selectedCollection.getReference(), this.getRelationListSessionBean().getPubItemVO(),
-          this.getRelationListSessionBean().getRevisionDescription());
+      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, selectedCollection.getReference(),
+          this.getRelationListSessionBean().getPubItemVO(), this.getRelationListSessionBean().getRevisionDescription());
     }
 
     return null;
   }
 
   public String cancelCollectionChoose() {
-    this.getRelationListSessionBean()
-        .setPubItemVO(this.getRelationListSessionBean().getPubItemVO());
+    this.getRelationListSessionBean().setPubItemVO(this.getRelationListSessionBean().getPubItemVO());
 
     return CreateRevision.LOAD_CREATEREVISION;
   }

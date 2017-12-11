@@ -50,8 +50,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
-public class AffiliationVOPresentation extends AffiliationVO implements
-    Comparable<AffiliationVOPresentation> {
+public class AffiliationVOPresentation extends AffiliationVO implements Comparable<AffiliationVOPresentation> {
   private static final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
 
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
@@ -80,17 +79,14 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
       List<AffiliationVO> childOus =
-          (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this
-              .getReference().getObjectId());
+          (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getReference().getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
       for (final AffiliationVOPresentation affiliationVOPresentation : this.children) {
         affiliationVOPresentation.setParent(this);
-        affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName()
-            + ", " + this.getNamePath());
-        affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId()
-            + " " + this.getIdPath());
+        affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", " + this.getNamePath());
+        affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() + " " + this.getIdPath());
       }
     }
 
@@ -98,8 +94,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   }
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
-    if (this.getMetadataSets().size() > 0
-        && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+    if (this.getMetadataSets().size() > 0 && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       return (MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0);
     } else {
       return new MdsOrganizationalUnitDetailsVO();
@@ -108,8 +103,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
 
   public boolean getMps() {
     try {
-      final String rootAffiliationMPG =
-          PropertyReader.getProperty("inge.pubman.root.organisation.id");
+      final String rootAffiliationMPG = PropertyReader.getProperty("inge.pubman.root.organisation.id");
 
       return this.getReference().getObjectId().equals(rootAffiliationMPG);
     } catch (final Exception e) {
@@ -204,8 +198,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
   }
 
   public String getName() {
-    if (this.getMetadataSets().size() > 0
-        && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+    if (this.getMetadataSets().size() > 0 && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();
     }
 
@@ -221,14 +214,12 @@ public class AffiliationVOPresentation extends AffiliationVO implements
       level++;
     }
 
-    if (this.getMetadataSets().size() > 0
-        && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      if (((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
-        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0))
-            .getName()
-            .substring(
-                0,
-                (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
+    if (this.getMetadataSets().size() > 0 && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+      if (((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName()
+          .length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH
+              - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
+        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().substring(0,
+            (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
             + "...";
       } else {
         return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();
@@ -281,14 +272,14 @@ public class AffiliationVOPresentation extends AffiliationVO implements
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
       for (final AffiliationRO id : affiliations) {
         bq.should(QueryBuilders.termQuery(OrganizationServiceDbImpl.INDEX_OBJECT_ID, id.getObjectId()));
-       }
-      
+      }
+
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
       SearchRetrieveResponseVO<AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
       transformedAffs = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
-      
-      
-     
+
+
+
     } catch (final Exception e) {
     }
 
@@ -337,9 +328,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
-        this.successors =
-            ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(
-                this.reference.getObjectId());
+        this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.reference.getObjectId());
 
       } catch (final Exception e) {
         this.successors = new ArrayList<AffiliationVO>();

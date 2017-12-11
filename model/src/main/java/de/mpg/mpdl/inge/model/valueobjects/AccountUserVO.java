@@ -165,8 +165,7 @@ public class AccountUserVO extends ValueObject {
    */
   public boolean isModerator(ReferenceObject refObj) {
     if (refObj == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName()
-          + ":isModerator:objectRef is null");
+      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
     }
     boolean moderator = false;
     for (GrantVO grant : this.grants) {
@@ -194,8 +193,7 @@ public class AccountUserVO extends ValueObject {
    */
   public boolean isPrivilegedViewer(ReferenceObject refObj) {
     if (refObj == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName()
-          + ":isPrivilegedViewer:objectRef is null");
+      throw new IllegalArgumentException(getClass().getSimpleName() + ":isPrivilegedViewer:objectRef is null");
     }
     boolean privilegedViewer = false;
     for (GrantVO grant : this.grants) {
@@ -376,11 +374,9 @@ public class AccountUserVO extends ValueObject {
     result = prime * result + ((attributes == null) ? 0 : attributes.hashCode());
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((grants == null) ? 0 : grants.hashCode());
-    result =
-        prime * result + ((grantsWithoutAudience == null) ? 0 : grantsWithoutAudience.hashCode());
+    result = prime * result + ((grantsWithoutAudience == null) ? 0 : grantsWithoutAudience.hashCode());
     result = prime * result + ((handle == null) ? 0 : handle.hashCode());
-    result =
-        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((password == null) ? 0 : password.hashCode());
     result = prime * result + ((reference == null) ? 0 : reference.hashCode());

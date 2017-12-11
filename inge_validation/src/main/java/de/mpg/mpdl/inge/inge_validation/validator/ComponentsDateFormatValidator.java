@@ -21,8 +21,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
  * '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">
  * DateFormatIncorrect</iso:assert> </iso:rule> </iso:pattern>
  */
-public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileVO>> implements
-    Validator<List<FileVO>> {
+public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<FileVO> files) {
@@ -36,14 +35,12 @@ public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileVO>
         if (fileVO != null && fileVO.getDefaultMetadata() != null) {
 
           if (!ValidationTools.checkDate(fileVO.getDefaultMetadata().getCopyrightDate())) {
-            context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-                "copyrightDate"));
+            context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("copyrightDate"));
             ok = false;
           }
 
           if (!ValidationTools.checkDate(fileVO.getDefaultMetadata().getEmbargoUntil())) {
-            context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-                "available"));
+            context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("available"));
             ok = false;
           }
 

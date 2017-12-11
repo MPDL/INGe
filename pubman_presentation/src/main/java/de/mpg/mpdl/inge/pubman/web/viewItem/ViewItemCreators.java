@@ -13,7 +13,8 @@ public class ViewItemCreators extends FacesBean {
   private Object creatorObj;
   private String creatorRole;
 
-  public enum Type {
+  public enum Type
+  {
     PERSON, ORGANIZATION;
   }
 

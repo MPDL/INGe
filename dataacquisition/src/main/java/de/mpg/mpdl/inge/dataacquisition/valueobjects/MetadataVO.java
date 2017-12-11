@@ -16,8 +16,7 @@ public class MetadataVO {
   private String name;
   private String encoding;
 
-  public MetadataVO(String mdDesc, URL mdUrl, String mdFormat, String mdLabel, boolean mdDefault,
-      String name, String encoding) {
+  public MetadataVO(String mdDesc, URL mdUrl, String mdFormat, String mdLabel, boolean mdDefault, String name, String encoding) {
     this.mdDesc = mdDesc;
     this.mdUrl = mdUrl;
     this.mdFormat = mdFormat;

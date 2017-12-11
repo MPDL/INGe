@@ -16,7 +16,8 @@ import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 public class TransformerFactory {
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
 
-  public enum FORMAT {
+  public enum FORMAT
+  {
     ARXIV_OAIPMH_XML("ArXiv", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     BIBTEX_STRING("BibTex", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
     BMC_XML("Bmc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
@@ -61,27 +62,28 @@ public class TransformerFactory {
     ZFN_TEI_XML("Zfn", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     ZIM_XML("Zim", FileFormatVO.XML_MIMETYPE, "UTF-8");
 
-    private final String name;
-    private final String type;
-    private final String encoding;
+  private final String name;
+  private final String type;
+  private final String encoding;
 
-    FORMAT(String name, String type, String encoding) {
+  FORMAT(String name, String type, String encoding) {
       this.name = name;
       this.type = type;
       this.encoding = encoding;
     }
 
-    public String getName() {
-      return this.name;
-    }
+  public String getName() {
+    return this.name;
+  }
 
-    public String getType() {
-      return this.type;
-    }
+  public String getType() {
+    return this.type;
+  }
 
-    public String getEncoding() {
-      return this.encoding;
-    }
+  public String getEncoding() {
+    return this.encoding;
+  }
+
   }
 
   public static FORMAT getFormat(String formatName) {
@@ -98,8 +100,7 @@ public class TransformerFactory {
     return FORMAT.ESCIDOC_ITEM_V3_XML;
   }
 
-  public static Transformer newInstance(FORMAT sourceFormat, FORMAT targetFormat)
-      throws TransformationException {
+  public static Transformer newInstance(FORMAT sourceFormat, FORMAT targetFormat) throws TransformationException {
     if (sourceFormat.equals(targetFormat)) {
       return new IdentityTransformer();
     }
@@ -115,16 +116,14 @@ public class TransformerFactory {
       Class<Transformer> transformerClass = (Class<Transformer>) t;
       TransformerModule tm = transformerClass.getAnnotation(TransformerModule.class);
 
-      transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm
-          .targetFormat()));
+      transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm.targetFormat()));
     }
 
     for (Class<?> t : transformerModulesClasses) {
       Class<Transformer> transformerClass = (Class<Transformer>) t;
       TransformerModules tms = transformerClass.getAnnotation(TransformerModules.class);
       for (TransformerModule tm : tms.value()) {
-        transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm
-            .targetFormat()));
+        transformerEdges.add(new TransformerEdge(transformerClass, tm.sourceFormat(), tm.targetFormat()));
       }
     }
 
@@ -134,8 +133,7 @@ public class TransformerFactory {
     List<TransformerEdge> edges = da.getPath(targetFormat);
 
     if (edges == null || edges.size() == 0) {
-      throw new TransformationException("No transformation chain found for " + sourceFormat
-          + " --> " + targetFormat);
+      throw new TransformationException("No transformation chain found for " + sourceFormat + " --> " + targetFormat);
     }
 
     if (edges.size() == 1) {

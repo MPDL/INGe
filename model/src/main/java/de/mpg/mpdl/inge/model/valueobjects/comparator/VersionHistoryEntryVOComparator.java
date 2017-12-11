@@ -43,15 +43,18 @@ public class VersionHistoryEntryVOComparator implements Comparator<VersionHistor
   /**
    * The possible sorting criteria.
    */
-  public enum Criteria {
+  public enum Criteria
+  {
     DATE
   }
 
   /**
    * The possible sorting orders.
    */
-  public enum Order {
-    ASCENDING, DESCENDING
+  public enum Order
+  {
+    ASCENDING,
+    DESCENDING
   }
 
   private static final int LESS = -1;

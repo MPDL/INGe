@@ -49,14 +49,12 @@ public class DateSearchCriterion extends SearchCriterionBase {
   @Override
   public String toCqlString(Index indexName) {
 
-    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(),
-        this.getTo());
+    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(), this.getTo());
   }
 
   @Override
   public String getQueryStringContent() {
-    return SearchCriterionBase.escapeForQueryString(this.from) + "|"
-        + SearchCriterionBase.escapeForQueryString(this.to);
+    return SearchCriterionBase.escapeForQueryString(this.from) + "|" + SearchCriterionBase.escapeForQueryString(this.to);
   }
 
   @Override
@@ -75,8 +73,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    return (this.from == null || this.from.trim().isEmpty())
-        && (this.to == null || this.to.trim().isEmpty());
+    return (this.from == null || this.from.trim().isEmpty()) && (this.to == null || this.to.trim().isEmpty());
   }
 
   public String getFrom() {
@@ -102,10 +99,8 @@ public class DateSearchCriterion extends SearchCriterionBase {
       case ESCIDOC_ALL: {
         switch (this.getSearchCriterion()) {
           case ANYDATE:
-            return new String[] {"escidoc.publication.published-online",
-                "escidoc.publication.issued", "escidoc.publication.dateAccepted",
-                "escidoc.publication.dateSubmitted", "escidoc.publication.modified",
-                "escidoc.publication.created"};
+            return new String[] {"escidoc.publication.published-online", "escidoc.publication.issued", "escidoc.publication.dateAccepted",
+                "escidoc.publication.dateSubmitted", "escidoc.publication.modified", "escidoc.publication.created"};
           case PUBLISHED:
             return new String[] {"escidoc.publication.published-online"};
           case PUBLISHEDPRINT:
@@ -141,12 +136,9 @@ public class DateSearchCriterion extends SearchCriterionBase {
       case ITEM_CONTAINER_ADMIN: {
         switch (this.getSearchCriterion()) {
           case ANYDATE:
-            return new String[] {"\"/md-records/md-record/publication/published-online\"",
-                "\"/md-records/md-record/publication/issued\"",
-                "\"/md-records/md-record/publication/dateAccepted\"",
-                "\"/md-records/md-record/publication/dateSubmitted\"",
-                "\"/md-records/md-record/publication/modified\"",
-                "\"/md-records/md-record/publication/created\""};
+            return new String[] {"\"/md-records/md-record/publication/published-online\"", "\"/md-records/md-record/publication/issued\"",
+                "\"/md-records/md-record/publication/dateAccepted\"", "\"/md-records/md-record/publication/dateSubmitted\"",
+                "\"/md-records/md-record/publication/modified\"", "\"/md-records/md-record/publication/created\""};
           case PUBLISHED:
             return new String[] {"\"/md-records/md-record/publication/published-online\""};
           case PUBLISHEDPRINT:
@@ -221,8 +213,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
        */
 
       for (int i = 1; i < majorParts.length; i++) {
-        final String toSubQuery =
-            index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
+        final String toSubQuery = index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
         toQuery += " not ( " + toSubQuery + " ) ";
 
         /*
@@ -294,8 +285,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
         return new String[] {toQuery};
       } else {
         final Calendar calendar = Calendar.getInstance();
-        calendar.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1,
-            Integer.parseInt(parts[2]));
+        calendar.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1, Integer.parseInt(parts[2]));
         final int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         if (Integer.parseInt(parts[2]) == maximumDay) {
           return new String[] {toQuery, parts[0]};
@@ -315,16 +305,13 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   }
 
-  public static QueryBuilder toElasticSearchQuery(SearchCriterion sc, String from, String to)
-      throws SearchParseException {
+  public static QueryBuilder toElasticSearchQuery(SearchCriterion sc, String from, String to) throws SearchParseException {
 
     switch (sc) {
       case ANYDATE: {
         BoolQueryBuilder bq = QueryBuilders.boolQuery();
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-            from, to));
-        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
-            from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, from, to));
+        bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, from, to));
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED, from, to));
@@ -333,11 +320,9 @@ public class DateSearchCriterion extends SearchCriterionBase {
       }
 
       case PUBLISHED:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from,
-            to);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from, to);
       case PUBLISHEDPRINT:
-        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-            from, to);
+        return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT, from, to);
       case ACCEPTED:
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED, from, to);
       case SUBMITTED:

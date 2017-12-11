@@ -31,8 +31,7 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     this.pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.pilsb.setSelectedSortBy(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.name());
-    this.pilsb.setSelectedSortOrder(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE
-        .getSortOrder().name());
+    this.pilsb.setSelectedSortOrder(PubItemListSessionBean.SORT_CRITERIA.CREATION_DATE.getSortOrder().name());
   }
 
 
@@ -52,12 +51,10 @@ public class YearbookCandidatesSessionBean extends FacesBean {
         this.orgUnitSelectItems.add(new SelectItem("all", "-"));
 
         final AffiliationVO affVO =
-            ApplicationBean.INSTANCE.getOrganizationService().get(
-                yisb.getYearbook().getOrganization().getObjectId(), null);
+            ApplicationBean.INSTANCE.getOrganizationService().get(yisb.getYearbook().getOrganization().getObjectId(), null);
         final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
         affList.add(new AffiliationVOPresentation(affVO));
-        YearbookCandidatesSessionBean.addChildAffiliationsToMenu(affList, this.orgUnitSelectItems,
-            0);
+        YearbookCandidatesSessionBean.addChildAffiliationsToMenu(affList, this.orgUnitSelectItems, 0);
       } catch (final Exception e) {
         YearbookCandidatesSessionBean.logger.error("Error retrieving org units", e);
       }
@@ -70,8 +67,8 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     this.orgUnitSelectItems = orgUnitSelectItems;
   }
 
-  private static void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs,
-      List<SelectItem> affSelectItems, int level) throws Exception {
+  private static void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level)
+      throws Exception {
     if (affs == null) {
       return;
     }
@@ -86,10 +83,8 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
-          + aff.getName()));
-      YearbookCandidatesSessionBean.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems,
-          level + 1);
+      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+      YearbookCandidatesSessionBean.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
     }
   }
 }

@@ -69,8 +69,11 @@ public class ExportFormatVO extends ValueObject {
    * @version $Revision$ $LastChangedDate$ by $Author$
    * @updated 05-Sep-2007 10:42:30
    */
-  public enum FormatType {
-    LAYOUT, STRUCTURED, BIBTEX
+  public enum FormatType
+  {
+    LAYOUT,
+    STRUCTURED,
+    BIBTEX
   }
 
 
@@ -87,8 +90,7 @@ public class ExportFormatVO extends ValueObject {
     this.selectedFileFormat.setMimeType(FileFormatVO.getMimeTypeByName(selectedFileFormat));
   }
 
-  public ExportFormatVO(FormatType formatType, String name, String selectedFileFormat,
-      String cslConeId) {
+  public ExportFormatVO(FormatType formatType, String name, String selectedFileFormat, String cslConeId) {
     this.formatType = formatType;
     this.name = name;
     this.selectedFileFormat = new FileFormatVO();
@@ -206,8 +208,7 @@ public class ExportFormatVO extends ValueObject {
    * Returns the String representation of this object.
    */
   public final String toString() {
-    return "[" + name + "(" + id + "): " + selectedFileFormat + ", " + description + ", "
-        + fileFormats + ", " + creators + "]";
+    return "[" + name + "(" + id + "): " + selectedFileFormat + ", " + description + ", " + fileFormats + ", " + creators + "]";
   }
 
 

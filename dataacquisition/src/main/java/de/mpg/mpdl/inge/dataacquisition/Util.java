@@ -102,8 +102,7 @@ public class Util {
 
     // Second: check which format can be transformed into the given format
     TransformerFactory.FORMAT oldFormat = format;
-    TransformerFactory.FORMAT[] possibleFormats =
-        TransformerCache.getAllSourceFormatsFor(oldFormat);
+    TransformerFactory.FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat);
 
     for (int i = 0; i < source.getMdFormats().size(); i++) {
       sourceMd = source.getMdFormats().get(i);
@@ -187,9 +186,7 @@ public class Util {
     String suffix = null;
 
     try {
-      URL coneUrl =
-          new URL(PropertyReader.getProperty("inge.cone.service.url") + coneMethod + coneRel1
-              + mimeType + coneRel2);
+      URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + coneMethod + coneRel1 + mimeType + coneRel2);
       URLConnection con = ProxyHelper.openConnection(coneUrl);
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
@@ -201,8 +198,7 @@ public class Util {
           break;
 
         default:
-          throw new RuntimeException("An error occurred while calling Cone Service: "
-              + responseCode);
+          throw new RuntimeException("An error occurred while calling Cone Service: " + responseCode);
       }
 
       InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
@@ -211,16 +207,13 @@ public class Util {
       String line = "";
       while ((line = bReader.readLine()) != null) {
         if (line.contains("<escidoc:suffix>")) {
-          suffix =
-              line.substring(line.indexOf("<escidoc:suffix>") + "<escidoc:suffix>".length(),
-                  line.indexOf("</escidoc:suffix>"));
+          suffix = line.substring(line.indexOf("<escidoc:suffix>") + "<escidoc:suffix>".length(), line.indexOf("</escidoc:suffix>"));
         }
       }
 
       httpCon.disconnect();
     } catch (Exception e) {
-      logger
-          .warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType + ")", e);
+      logger.warn("Suffix could not be retrieved from cone service (mimetype: " + mimeType + ")", e);
       return null;
     }
 
@@ -232,8 +225,7 @@ public class Util {
     boolean check = false;
 
     try {
-      ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri,
-          Util.class.getClassLoader());
+      ResourceUtil.getResourceAsFile(METADATA_XSLT_LOCATION + "/" + xsltUri, Util.class.getClassLoader());
       check = true;
     } catch (FileNotFoundException e) {
       logger.warn("No transformation file from format: " + formatFrom + " to format: " + formatTo);

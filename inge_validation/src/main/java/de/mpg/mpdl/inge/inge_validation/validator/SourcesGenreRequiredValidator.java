@@ -18,8 +18,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * and @type != '')"> SourceGenreNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourcesGenreRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourcesGenreRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -34,8 +33,7 @@ public class SourcesGenreRequiredValidator extends ValidatorHandler<List<SourceV
         if (sourceVO != null) {
           if (ValidationTools.isNotEmpty(sourceVO.getTitle()) //
               && sourceVO.getGenre() == null) {
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_NOT_PROVIDED)
-                .setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_NOT_PROVIDED).setField("source[" + i + "]"));
             ok = false;
           }
         }

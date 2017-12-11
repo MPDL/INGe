@@ -59,7 +59,8 @@ public class PubManSwordErrorDocument {
   /**
    * Poosible errors during sword deposit.
    */
-  public enum swordError {
+  public enum swordError
+  {
     ErrorContent, ErrorBadRequest, MediationNotAllowed, ValidationFailure, AuthentificationFailure, AuthorisationFailure, InternalError, ChecksumMismatch
   }
 
@@ -71,8 +72,7 @@ public class PubManSwordErrorDocument {
    * @throws TransformerException
    */
   public String createErrorDoc() throws ParserConfigurationException, TransformerException {
-    final DocumentBuilder documentBuilder =
-        DocumentBuilderFactory.newInstance().newDocumentBuilder();
+    final DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 
     this.processError();
     final Document document = documentBuilder.newDocument();
@@ -105,9 +105,7 @@ public class PubManSwordErrorDocument {
     document.appendChild(error);
 
     // Transform to xml
-    final Transformer transformer =
-        TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-            .newTransformer();
+    final Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     final StreamResult result = new StreamResult(new StringWriter());
     final DOMSource source = new DOMSource(document);

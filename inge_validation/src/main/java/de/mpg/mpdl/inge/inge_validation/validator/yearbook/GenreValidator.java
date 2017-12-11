@@ -11,8 +11,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class GenreValidator {
 
   public static void checkGenre(MdsPublicationVO.Genre genre) throws ValidationException {
-    String[] allowedGenres =
-        PropertyReader.getProperty(Properties.YEARBOOK_ALLOWED_GENRES).split(",");
+    String[] allowedGenres = PropertyReader.getProperty(Properties.YEARBOOK_ALLOWED_GENRES).split(",");
 
     boolean found = false;
 
@@ -32,8 +31,7 @@ public class GenreValidator {
       final ValidationReportVO v = new ValidationReportVO();
 
       final ValidationReportItemVO item =
-          new ValidationReportItemVO(ErrorMessages.NO_YEARBOOK_GENRE,
-              ValidationReportItemVO.Severity.ERROR);
+          new ValidationReportItemVO(ErrorMessages.NO_YEARBOOK_GENRE, ValidationReportItemVO.Severity.ERROR);
       item.setElement("genre");
 
       v.addItem(item);

@@ -43,8 +43,7 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
 
-    map.put("indesign-namespace",
-        getConfiguration().get(PropertyReader.getProperty("inge.report.indesign.namespace")));
+    map.put("indesign-namespace", getConfiguration().get(PropertyReader.getProperty("inge.report.indesign.namespace")));
 
     try {
 
@@ -52,14 +51,12 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
       fac.setNamespaceAware(true);
       DocumentBuilder docBuilder = fac.newDocumentBuilder();
       Document sortDoc =
-          docBuilder.parse(ResourceUtil.getResourceAsStream(
-              PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
+          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
               JusSnippetXmlToJusIndesignXml.class.getClassLoader()));
 
       map.put("sortOrderXml", sortDoc.getDocumentElement());
     } catch (Exception e) {
-      throw new TransformationException(
-          "Error while parsing sort order xml for JUS snippet transformation processing", e);
+      throw new TransformationException("Error while parsing sort order xml for JUS snippet transformation processing", e);
     }
 
 

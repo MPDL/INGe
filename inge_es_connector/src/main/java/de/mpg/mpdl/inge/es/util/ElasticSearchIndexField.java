@@ -13,7 +13,8 @@ import org.elasticsearch.cluster.metadata.MappingMetaData;
 public class ElasticSearchIndexField {
 
 
-  public enum Type {
+  public enum Type
+  {
     TEXT, KEYWORD, BOOLEAN, DATE, NUMERIC, UNKNOWN;
 
   }
@@ -73,8 +74,7 @@ public class ElasticSearchIndexField {
    */
   public static class Factory {
 
-    public static Map<String, ElasticSearchIndexField> createIndexMapFromElasticsearch(
-        MappingMetaData mdd) {
+    public static Map<String, ElasticSearchIndexField> createIndexMapFromElasticsearch(MappingMetaData mdd) {
 
       Map<String, ElasticSearchIndexField> indexMap = new TreeMap<>();
 
@@ -89,9 +89,8 @@ public class ElasticSearchIndexField {
 
 
 
-    private static void fillMap(String parentKey, Map<String, Object> mappingMap,
-        Map<String, ElasticSearchIndexField> indexMap, String currentPath,
-        List<String> currentNestedPaths) {
+    private static void fillMap(String parentKey, Map<String, Object> mappingMap, Map<String, ElasticSearchIndexField> indexMap,
+        String currentPath, List<String> currentNestedPaths) {
 
       for (Entry<String, Object> entry : mappingMap.entrySet()) {
 
@@ -112,15 +111,13 @@ public class ElasticSearchIndexField {
           }
 
           else {
-            ElasticSearchIndexField indexField =
-                createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, type);
+            ElasticSearchIndexField indexField = createIndexFieldObject(newCurrentPath.toString(), newCurrentNestedPaths, type);
             indexMap.put(newCurrentPath.toString(), indexField);
 
           }
         }
         if (entry.getValue() instanceof Map) {
-          fillMap(entry.getKey(), (Map<String, Object>) entry.getValue(), indexMap,
-              newCurrentPath.toString(), newCurrentNestedPaths);
+          fillMap(entry.getKey(), (Map<String, Object>) entry.getValue(), indexMap, newCurrentPath.toString(), newCurrentNestedPaths);
         }
 
 
@@ -131,8 +128,7 @@ public class ElasticSearchIndexField {
 
     }
 
-    private static ElasticSearchIndexField createIndexFieldObject(String path,
-        List<String> nestedPath, String type) {
+    private static ElasticSearchIndexField createIndexFieldObject(String path, List<String> nestedPath, String type) {
       ElasticSearchIndexField indexField = new ElasticSearchIndexField();
 
       indexField.setIndexName(path.toString());

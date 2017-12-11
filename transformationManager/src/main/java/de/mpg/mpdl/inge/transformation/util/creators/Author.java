@@ -102,8 +102,7 @@ public class Author {
    * {@inheritDoc}
    */
   public String toString() {
-    return "[Author: givenName=" + givenName + ", initial=" + initial + ", sn=" + surname + "("
-        + format.getName() + ")]";
+    return "[Author: givenName=" + givenName + ", initial=" + initial + ", sn=" + surname + "(" + format.getName() + ")]";
   }
 
   /**

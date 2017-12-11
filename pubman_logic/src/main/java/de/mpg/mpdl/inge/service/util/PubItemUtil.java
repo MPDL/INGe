@@ -21,8 +21,7 @@ public class PubItemUtil {
 
   private final static Logger logger = Logger.getLogger(PubItemUtil.class);
 
-  private static final String PREDICATE_ISREVISIONOF =
-      "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
+  private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
@@ -38,10 +37,8 @@ public class PubItemUtil {
         for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
           // Cleanup MD
           pubItem.getFiles().get(i).getDefaultMetadata().cleanup();
-          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName()
-              .length() == 0)
-              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i)
-                  .getContent().length() == 0)) {
+          if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName().length() == 0)
+              && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i).getContent().length() == 0)) {
             pubItem.getFiles().remove(i);
           }
         }
@@ -58,16 +55,13 @@ public class PubItemUtil {
         if (creator.getPerson() != null) {
           for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-              organization.setIdentifier(PropertyReader
-                  .getProperty("inge.pubman.external.organisation.id"));
+              organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
             }
           }
         } else {
           if (creator.getOrganization() != null
-              && (creator.getOrganization().getIdentifier() == null || creator.getOrganization()
-                  .getIdentifier().equals(""))) {
-            creator.getOrganization().setIdentifier(
-                PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+              && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
+            creator.getOrganization().setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
           }
         }
       }
@@ -78,16 +72,13 @@ public class PubItemUtil {
             if (creator.getPerson() != null) {
               for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
                 if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-                  organization.setIdentifier(PropertyReader
-                      .getProperty("inge.pubman.external.organisation.id"));
+                  organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
                 }
               }
             } else {
               if (creator.getOrganization() != null
-                  && (creator.getOrganization().getIdentifier() == null || creator
-                      .getOrganization().getIdentifier().equals(""))) {
-                creator.getOrganization().setIdentifier(
-                    PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+                  && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
+                creator.getOrganization().setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
               }
             }
           }
@@ -112,8 +103,8 @@ public class PubItemUtil {
     }
   }
 
-  public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem,
-      String relationComment, final ContextRO pubCollection, final AccountUserVO owner) {
+  public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem, String relationComment, final ContextRO pubCollection,
+      final AccountUserVO owner) {
     PubItemVO copiedPubItem = new PubItemVO();
     copiedPubItem.setOwner(owner.getReference());
     copiedPubItem.setContext(pubCollection);

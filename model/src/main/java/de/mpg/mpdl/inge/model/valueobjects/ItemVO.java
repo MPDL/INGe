@@ -46,16 +46,27 @@ import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class ItemVO extends ValueObject implements Searchable {
-  public enum ItemAction {
-    RETRIEVE, SUBMIT, RELEASE, EXPORT
+  public enum ItemAction
+  {
+    RETRIEVE,
+    SUBMIT,
+    RELEASE,
+    EXPORT
   }
 
-  public enum State {
-    PENDING, SUBMITTED, RELEASED, WITHDRAWN, IN_REVISION
+  public enum State
+  {
+    PENDING,
+    SUBMITTED,
+    RELEASED,
+    WITHDRAWN,
+    IN_REVISION
   }
 
-  public enum LockStatus {
-    LOCKED, UNLOCKED
+  public enum LockStatus
+  {
+    LOCKED,
+    UNLOCKED
   }
 
   private AccountUserRO owner;

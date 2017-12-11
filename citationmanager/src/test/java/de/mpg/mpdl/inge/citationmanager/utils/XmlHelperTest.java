@@ -18,8 +18,8 @@ public class XmlHelperTest {
 
   private static Logger logger = Logger.getLogger(CitationStyleManagerTest.class);
 
-  private final Set<String> expectedStyles = new HashSet<String>(Arrays.asList("APA", "APA6",
-      "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "Default"));
+  private final Set<String> expectedStyles =
+      new HashSet<String>(Arrays.asList("APA", "APA6", "APA(CJK)", "AJP", "JUS", "CSL", "JUS_Report", "Default"));
 
 
   /**
@@ -71,7 +71,7 @@ public class XmlHelperTest {
       HashMap<String, String[]> outputFormats = map.get(style);
 
       switch (style) {
-      // the outputFormat contains the same data, irrespective of the style!
+        // the outputFormat contains the same data, irrespective of the style!
 
         case "APA":
           for (String s : outputFormats.keySet()) {
@@ -124,35 +124,26 @@ public class XmlHelperTest {
     String[] mimeTypes = outputFormats.get(s);
     switch (s) {
       case "snippet":
-        assertTrue(Arrays.asList(mimeTypes).equals(
-            Arrays.asList(new String[] {"application/xml", "xml"})));
+        assertTrue(Arrays.asList(mimeTypes).equals(Arrays.asList(new String[] {"application/xml", "xml"})));
         break;
       case "txt":
-        assertTrue(Arrays.asList(mimeTypes).equals(
-            Arrays.asList(new String[] {"text/plain", "txt"})));
+        assertTrue(Arrays.asList(mimeTypes).equals(Arrays.asList(new String[] {"text/plain", "txt"})));
         break;
       case "pdf":
-        assertTrue(Arrays.asList(mimeTypes).equals(
-            Arrays.asList(new String[] {"application/pdf", "pdf"})));
+        assertTrue(Arrays.asList(mimeTypes).equals(Arrays.asList(new String[] {"application/pdf", "pdf"})));
         break;
       case "html_plain":
-        assertTrue(Arrays.asList(mimeTypes).equals(
-            Arrays.asList(new String[] {"text/html", "html"})));
+        assertTrue(Arrays.asList(mimeTypes).equals(Arrays.asList(new String[] {"text/html", "html"})));
         break;
       case "html_linked":
-        assertTrue(Arrays.asList(mimeTypes).equals(
-            Arrays.asList(new String[] {"text/html", "html"})));
+        assertTrue(Arrays.asList(mimeTypes).equals(Arrays.asList(new String[] {"text/html", "html"})));
         break;
       case "docx":
         assertTrue(Arrays.asList(mimeTypes)
-            .equals(
-                Arrays.asList(new String[] {
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    "docx"})));
+            .equals(Arrays.asList(new String[] {"application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"})));
         break;
       case "escidoc_snippet":
-        assertTrue(Arrays.asList(mimeTypes).equals(
-            Arrays.asList(new String[] {"application/xml", "xml"})));
+        assertTrue(Arrays.asList(mimeTypes).equals(Arrays.asList(new String[] {"application/xml", "xml"})));
         break;
     }
   }

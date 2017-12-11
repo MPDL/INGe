@@ -93,21 +93,27 @@ public class GrantVO extends ValueObject {
 
 
 
-  public enum PredefinedRoles {
-    DEPOSITOR("DEPOSITOR"), MODERATOR("MODERATOR"), SYSADMIN("SYSADMIN"), YEARBOOK_EDITOR(
-        "YEARBOOK-EDITOR"), YEARBOOK_ADMIN("YEARBOOK-ADMIN"), PRIVILEGEDVIEWER(
-        "escidoc:role-privileged-viewer"), REPORTER("escidoc:role-reporter"), AUDIENCE(
-        "escidoc:role-audience");
+  public enum PredefinedRoles
+  {
+    DEPOSITOR("DEPOSITOR"),
+    MODERATOR("MODERATOR"),
+    SYSADMIN("SYSADMIN"),
+    YEARBOOK_EDITOR("YEARBOOK-EDITOR"),
+    YEARBOOK_ADMIN("YEARBOOK-ADMIN"),
+    PRIVILEGEDVIEWER("escidoc:role-privileged-viewer"),
+    REPORTER("escidoc:role-reporter"),
+    AUDIENCE("escidoc:role-audience");
 
-    private final String frameworkValue;
+  private final String frameworkValue;
 
-    PredefinedRoles(String frameworkValue) {
+  PredefinedRoles(String frameworkValue) {
       this.frameworkValue = frameworkValue;
     }
 
-    public String frameworkValue() {
-      return frameworkValue;
-    }
+  public String frameworkValue() {
+    return frameworkValue;
+  }
+
   }
 
   /**
@@ -145,11 +151,9 @@ public class GrantVO extends ValueObject {
    */
   public boolean isDepositor(ReferenceObject objRef) {
     if (objRef == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName()
-          + ":isModerator:objectRef is null");
+      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
     }
-    return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.objectRef
-        .equals(objRef));
+    return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
   }
 
   /**
@@ -158,11 +162,9 @@ public class GrantVO extends ValueObject {
    */
   public boolean isModerator(ReferenceObject objRef) {
     if (objRef == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName()
-          + ":isModerator:objectRef is null");
+      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
     }
-    return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.objectRef
-        .equals(objRef));
+    return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
   }
 
   /**
@@ -245,8 +247,7 @@ public class GrantVO extends ValueObject {
     int result = 1;
     result = prime * result + ((grantType == null) ? 0 : grantType.hashCode());
     result = prime * result + ((grantedTo == null) ? 0 : grantedTo.hashCode());
-    result =
-        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((objectRef == null) ? 0 : objectRef.hashCode());
     result = prime * result + ((reference == null) ? 0 : reference.hashCode());
     result = prime * result + ((role == null) ? 0 : role.hashCode());

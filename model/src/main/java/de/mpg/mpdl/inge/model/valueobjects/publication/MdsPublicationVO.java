@@ -69,7 +69,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
    * 
    * @updated 21-Nov-2007 11:48:44
    */
-  public enum DegreeType {
+  public enum DegreeType
+  {
     BACHELOR("http://purl.org/escidoc/metadata/ves/academic-degrees/bachelor"), //
     DIPLOMA("http://purl.org/escidoc/metadata/ves/academic-degrees/diploma"), //
     HABILITATION("http://purl.org/escidoc/metadata/ves/academic-degrees/habilitation"), //
@@ -78,43 +79,43 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     PHD("http://purl.org/escidoc/metadata/ves/academic-degrees/phd"), //
     STAATSEXAMEN("http://purl.org/escidoc/metadata/ves/academic-degrees/staatsexamen");
 
-    private String uri;
+  private String uri;
 
-    private DegreeType(String uri) {
+  private DegreeType(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-  }
+  public String getUri() {
+    return uri;
+  }}
 
   /**
    * The possible review methods for an item.
    * 
    * @updated 21-Nov-2007 11:48:44
    */
-  public enum ReviewMethod {
-    INTERNAL("http://purl.org/escidoc/metadata/ves/review-methods/internal"), //
+  public enum ReviewMethod{
+
+  INTERNAL("http://purl.org/escidoc/metadata/ves/review-methods/internal"), //
     NO_REVIEW("http://purl.org/escidoc/metadata/ves/review-methods/no-review"), //
     PEER("http://purl.org/eprint/status/PeerReviewed");
 
-    private String uri;
+  private String uri;
 
-    private ReviewMethod(String uri) {
+  private ReviewMethod(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-  }
+  public String getUri() {
+    return uri;
+  }}
 
   /**
    * The possible genres for an item.
    */
-  public enum Genre {
-    ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/article"), //
+  public enum Genre{
+
+  ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/article"), //
     BOOK("http://purl.org/eprint/type/Book"), //
     BOOK_ITEM("http://purl.org/eprint/type/BookItem"), //
     BOOK_REVIEW("http://purl.org/escidoc/metadata/ves/publication-types/book-review"), //
@@ -124,16 +125,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     COMMENTARY("http://purl.org/escidoc/metadata/ves/publication-types/commentary"), //
     CONFERENCE_PAPER("http://purl.org/eprint/type/ConferencePaper"), //
     CONFERENCE_REPORT("http://purl.org/escidoc/metadata/ves/publication-types/conference-report"), //
-    CONTRIBUTION_TO_COLLECTED_EDITION(
-        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition"), //
-    CONTRIBUTION_TO_COMMENTARY(
-        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary"), //
-    CONTRIBUTION_TO_ENCYCLOPEDIA(
-        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia"), //
-    CONTRIBUTION_TO_FESTSCHRIFT(
-        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift"), //
-    CONTRIBUTION_TO_HANDBOOK(
-        "http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook"), //
+    CONTRIBUTION_TO_COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-collected-edition"), //
+    CONTRIBUTION_TO_COMMENTARY("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-commentary"), //
+    CONTRIBUTION_TO_ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-encyclopedia"), //
+    CONTRIBUTION_TO_FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift"), //
+    CONTRIBUTION_TO_HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook"), //
     COURSEWARE_LECTURE("http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture"), //
     EDITORIAL("http://purl.org/escidoc/metadata/ves/publication-types/editorial"), //
     ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"), //
@@ -160,19 +156,19 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     TALK_AT_EVENT("http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"), //
     THESIS("http://purl.org/eprint/type/Thesis");
 
-    private String uri;
+  private String uri;
 
-    private Genre(String uri) {
+  private Genre(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-  }
+  public String getUri() {
+    return uri;
+  }}
 
-  public enum SubjectClassification {
-    DDC("http://purl.org/escidoc/metadata/terms/0.1/DDC"), //
+  public enum SubjectClassification{
+
+  DDC("http://purl.org/escidoc/metadata/terms/0.1/DDC"), //
     ISO639_3("http://purl.org/escidoc/metadata/terms/0.1/ISO639-3"), //
     JEL("http://purl.org/escidoc/metadata/terms/0.1/JEL"), //
     JUS("http://purl.org/escidoc/metadata/terms/0.1/JUS"), //
@@ -184,26 +180,24 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     MPIWG_PROJECTS("http://purl.org/escidoc/metadata/terms/0.1/MPIWG_PROJECTS"), //
     PACS("http://purl.org/escidoc/metadata/terms/0.1/PACS");
 
-    private String uri;
+  private String uri;
 
-    private SubjectClassification(String uri) {
+  private SubjectClassification(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-
-    public String toString() {
-      return name();
-    }
+  public String getUri() {
+    return uri;
   }
+
+  public String toString() {
+    return name();
+  }}
 
   /**
    * Alternative titles of the publication, e.g. translations of original title or sub-titles.
    */
-  private java.util.List<AlternativeTitleVO> alternativeTitles =
-      new java.util.ArrayList<AlternativeTitleVO>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
   /**
    * Persons and organizations who essentially participated in creating the content with a specific
    * task, e.g. author, translator, editor.
@@ -586,8 +580,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     result = prime * result + ((dateAccepted == null) ? 0 : dateAccepted.hashCode());
     result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
     result = prime * result + ((dateModified == null) ? 0 : dateModified.hashCode());
-    result =
-        prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
+    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
     result = prime * result + ((datePublishedOnline == null) ? 0 : datePublishedOnline.hashCode());
     result = prime * result + ((dateSubmitted == null) ? 0 : dateSubmitted.hashCode());
     result = prime * result + ((degree == null) ? 0 : degree.hashCode());
@@ -710,8 +703,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
         return false;
     } else if (other.identifiers == null)
       return false;
-    else if (!identifiers.containsAll(other.identifiers)
-        || !other.identifiers.containsAll(identifiers)) {
+    else if (!identifiers.containsAll(other.identifiers) || !other.identifiers.containsAll(identifiers)) {
       return false;
     }
 

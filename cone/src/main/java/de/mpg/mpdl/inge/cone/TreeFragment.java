@@ -25,8 +25,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  */
 @SuppressWarnings("serial")
-public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObject>> implements
-    LocalizedTripleObject {
+public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObject>> implements LocalizedTripleObject {
   private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.# ";
   private static final Pattern NAMESPACE_PATTERN = Pattern.compile("([\\S]+)(([/#])| )([^/# ]+)");
   private String subject;
@@ -80,10 +79,8 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
     for (String predicateName : other.keySet()) {
       if (get(predicateName) != null) {
         for (LocalizedTripleObject otherObject : other.get(predicateName)) {
-          if (overwrite
-              && !removedPredicates.contains(predicateName)
-              && (!(otherObject instanceof LocalizedString) || !""
-                  .equals(((LocalizedString) otherObject).getValue()))) {
+          if (overwrite && !removedPredicates.contains(predicateName)
+              && (!(otherObject instanceof LocalizedString) || !"".equals(((LocalizedString) otherObject).getValue()))) {
             for (int i = 0; i < get(predicateName).size(); i++) {
               LocalizedTripleObject myObject = get(predicateName).get(i);
               if ((myObject.getLanguage() == null && otherObject.getLanguage() == null)
@@ -121,8 +118,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toRdf(Model model) throws ConeException {
     if (size() == 0) {
 
-      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("inge.cone.service.url")
-          + subject);
+      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("inge.cone.service.url") + subject);
 
     } else {
       StringWriter result = new StringWriter();
@@ -131,9 +127,8 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
       int counter = 0;
 
-      result.append("<"
-          + (model.getRdfAboutTag().getPrefix() != null ? model.getRdfAboutTag().getPrefix() + ":"
-              : "") + model.getRdfAboutTag().getLocalPart());
+      result.append("<" + (model.getRdfAboutTag().getPrefix() != null ? model.getRdfAboutTag().getPrefix() + ":" : "")
+          + model.getRdfAboutTag().getLocalPart());
 
       if (!subject.startsWith("genid:")) {
         try {
@@ -204,9 +199,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
             if (!(url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp:"))) {
               try {
                 if (value.toString().startsWith("/")) {
-                  url =
-                      PropertyReader.getProperty("inge.cone.service.url")
-                          + url.substring(0, url.length() - 1);
+                  url = PropertyReader.getProperty("inge.cone.service.url") + url.substring(0, url.length() - 1);
                 } else {
                   url = PropertyReader.getProperty("inge.cone.service.url") + url;
                 }
@@ -236,9 +229,8 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
 
         }
       }
-      result.append("</"
-          + (model.getRdfAboutTag().getPrefix() != null ? model.getRdfAboutTag().getPrefix() + ":"
-              : "") + model.getRdfAboutTag().getLocalPart() + ">\n");
+      result.append("</" + (model.getRdfAboutTag().getPrefix() != null ? model.getRdfAboutTag().getPrefix() + ":" : "")
+          + model.getRdfAboutTag().getLocalPart() + ">\n");
       return result.toString();
     }
   }
@@ -249,8 +241,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toJson() {
     if (size() == 0) {
       try {
-        return "\"" + PropertyReader.getProperty("inge.cone.service.url")
-            + subject.replace("\"", "\\\"") + "\"";
+        return "\"" + PropertyReader.getProperty("inge.cone.service.url") + subject.replace("\"", "\\\"") + "\"";
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
@@ -260,8 +251,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       if (!subject.startsWith("genid:")) {
         writer.append("\"id\" : \"");
         try {
-          writer.append(PropertyReader.getProperty("inge.cone.service.url")
-              + subject.replace("\"", "\\\""));
+          writer.append(PropertyReader.getProperty("inge.cone.service.url") + subject.replace("\"", "\\\""));
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -270,8 +260,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       for (Iterator<String> iterator = keySet().iterator(); iterator.hasNext();) {
         String key = iterator.next();
         writer.append("\"");
-        writer.append(key.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("\"",
-            "\\\""));
+        writer.append(key.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("\"", "\\\""));
         writer.append("\" : ");
         if (get(key).size() == 1) {
           writer.append(get(key).get(0).toJson());

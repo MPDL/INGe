@@ -18,15 +18,13 @@ public class LogoutClient extends Client {
       response.sendRedirect(getLogoutUrl(request, response));
     } catch (IllegalStateException ise) {
       logger.warn("Caught IllegalStateException: DEBUG for more info");
-      logger
-          .debug("LogoutClient tried to send a redirect, but there was probably already a header defined.");
+      logger.debug("LogoutClient tried to send a redirect, but there was probably already a header defined.");
     }
 
 
   }
 
-  protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response)
-      throws Exception {
+  protected String getLogoutUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String target = request.getParameter("target");
 
     if (target != null) {

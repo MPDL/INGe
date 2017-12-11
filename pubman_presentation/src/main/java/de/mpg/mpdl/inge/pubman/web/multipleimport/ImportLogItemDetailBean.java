@@ -69,8 +69,7 @@ public class ImportLogItemDetailBean extends FacesBean {
     if (this.importLogItemDetails == null && this.itemId != 0 && this.userid != null) {
       final Connection connection = DbTools.getNewConnection();
       try {
-        this.importLogItemDetails =
-            ImportLog.getImportLogItemDetails(this.itemId, this.userid, connection);
+        this.importLogItemDetails = ImportLog.getImportLogItemDetails(this.itemId, this.userid, connection);
       } finally {
         DbTools.closeConnection(connection);
       }

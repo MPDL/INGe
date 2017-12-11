@@ -27,13 +27,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 @Entity(name = "YearbookDbVO")
-@Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization",
-    "year"}))
+@Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization", "year"}))
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class YearbookDbVO extends BasicDbRO implements Serializable {
 
-  public enum State {
-    CREATED, SUBMITTED, RELEASED;
+  public enum State
+  {
+    CREATED,
+    SUBMITTED,
+    RELEASED;
   }
 
   private int year;
@@ -41,8 +43,7 @@ public class YearbookDbVO extends BasicDbRO implements Serializable {
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "organization")
   /* Ignore some properties to avoid huge index entries */
-  @JsonIgnoreProperties({"parentAffiliation", "predecessorAffiliations", "hasChildren",
-      "hasPredecessors", "metadata"})
+  @JsonIgnoreProperties({"parentAffiliation", "predecessorAffiliations", "hasChildren", "hasPredecessors", "metadata"})
   private AffiliationDbVO organization;
 
   @Enumerated(EnumType.STRING)

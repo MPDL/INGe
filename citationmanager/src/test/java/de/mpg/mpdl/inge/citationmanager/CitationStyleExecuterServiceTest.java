@@ -35,9 +35,7 @@ public class CitationStyleExecuterServiceTest {
 
     for (String cs : CitationStyleExecuterService.getStyles()) {
       if (!"CSL".equals(cs)) {
-        String itemList =
-            TestHelper.getCitationStyleTestXmlAsString(TestHelper.getTestProperties(cs)
-                .getProperty("plain.test.xml"));
+        String itemList = TestHelper.getCitationStyleTestXmlAsString(TestHelper.getTestProperties(cs).getProperty("plain.test.xml"));
         assertNotNull("Item list xml is not found", itemList);
         itemLists.put(cs, itemList);
       }
@@ -66,8 +64,7 @@ public class CitationStyleExecuterServiceTest {
   @Test
   public final void testArxiv() throws Exception {
 
-    testOutput("APA", "snippet", "arxiv", ResourceUtil.getResourceAsString(
-        "src/test/resources/testFiles/arXiv0904-2.3933.xml",
+    testOutput("APA", "snippet", "arxiv", ResourceUtil.getResourceAsString("src/test/resources/testFiles/arXiv0904-2.3933.xml",
         CitationStyleManagerImpl.class.getClassLoader()));
 
   }
@@ -99,8 +96,7 @@ public class CitationStyleExecuterServiceTest {
    * outPrefix == null: omit output file generation outPrefix == "": generate output file, file name
    * by default outPrefix.length>0 == "": generate output file, use outPrefix as file name prefix
    */
-  public final void testOutput(String cs, String ouf, String outPrefix, String il)
-      throws IOException {
+  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws IOException {
 
     long start;
     byte[] result = null;
@@ -108,9 +104,7 @@ public class CitationStyleExecuterServiceTest {
 
     start = System.currentTimeMillis();
     try {
-      result =
-          CitationStyleExecuterService
-              .getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
+      result = CitationStyleExecuterService.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
     } catch (CitationStyleManagerException e) {
       Assert.fail(e.getMessage());
     }
@@ -120,17 +114,15 @@ public class CitationStyleExecuterServiceTest {
 
     logger.info(ouf + " length: " + result.length);
     if (result != null) {
-      logger
-          .info("***********************************************************************************************");
+      logger.info("***********************************************************************************************");
       logger.info(new String(result));
-      logger
-          .info("***********************************************************************************************");
+      logger.info("***********************************************************************************************");
     }
 
     if (outPrefix != null)
       try {
-        TestHelper.writeToFile("target/" + (!outPrefix.equals("") ? outPrefix + "_" : "") + cs
-            + "_" + ouf + "." + XmlHelper.getExtensionByName(ouf), result);
+        TestHelper.writeToFile(
+            "target/" + (!outPrefix.equals("") ? outPrefix + "_" : "") + cs + "_" + ouf + "." + XmlHelper.getExtensionByName(ouf), result);
       } catch (CitationStyleManagerException e) {
         Assert.fail(e.getMessage());
       }

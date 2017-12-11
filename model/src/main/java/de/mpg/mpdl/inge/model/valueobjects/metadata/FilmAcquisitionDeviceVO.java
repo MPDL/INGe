@@ -40,12 +40,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class FilmAcquisitionDeviceVO extends AbstractAcquisitionDeviceVO {
 
   /**
-	 * 
-	 */
+   * 
+   */
   private static final long serialVersionUID = 1L;
 
-  public enum DeviceType {
-    CAMERA, COMPUTER
+  public enum DeviceType
+  {
+    CAMERA,
+    COMPUTER
   }
 
 }

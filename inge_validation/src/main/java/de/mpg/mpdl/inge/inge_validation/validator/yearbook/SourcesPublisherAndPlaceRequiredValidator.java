@@ -12,8 +12,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<List<SourceVO>>
-    implements Validator<List<SourceVO>> {
+public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -31,8 +30,7 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           if (p == null || ValidationTools.isEmpty(p.getPublisher())) {
 
-            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField(
-                "source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField("source[" + i + "]"));
 
             ok = false;
 
@@ -40,8 +38,7 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           if (p != null && ValidationTools.isEmpty(p.getPlace())) {
 
-            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED)
-                .setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setField("source[" + i + "]"));
 
             ok = false;
 

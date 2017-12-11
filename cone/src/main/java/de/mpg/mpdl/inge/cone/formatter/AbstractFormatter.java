@@ -73,8 +73,8 @@ public abstract class AbstractFormatter {
    * @throws TransformerFactoryConfigurationError From XSLT transformation.
    * @throws IOException From XSLT transformation.
    */
-  public abstract void explain(HttpServletResponse response) throws FileNotFoundException,
-      TransformerFactoryConfigurationError, IOException, URISyntaxException;
+  public abstract void explain(HttpServletResponse response)
+      throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException;
 
   /**
    * Format the results of the query action.
@@ -84,8 +84,7 @@ public abstract class AbstractFormatter {
    * @throws IOException From XSLT transformation.
    * @throws ConeException
    */
-  public abstract String formatQuery(List<? extends Describable> pairs, Model model)
-      throws ConeException;
+  public abstract String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException;
 
   /**
    * Format the results of the details action.
@@ -99,8 +98,7 @@ public abstract class AbstractFormatter {
    * @throws IOException From XSLT transformation.
    * @throws ConeException
    */
-  public abstract String formatDetails(String id, Model model, TreeFragment triples, String lang)
-      throws ConeException;
+  public abstract String formatDetails(String id, Model model, TreeFragment triples, String lang) throws ConeException;
 
   /**
    * An implementing servlet should return the "Content-Type" header value of its format (e.g.

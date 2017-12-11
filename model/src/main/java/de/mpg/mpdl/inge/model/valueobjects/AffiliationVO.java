@@ -59,8 +59,7 @@ public class AffiliationVO extends ValueObject implements Searchable {
    * @author Johannes Mueller
    */
 
-  private java.util.List<AffiliationRO> childAffiliations =
-      new java.util.ArrayList<AffiliationRO>();
+  private java.util.List<AffiliationRO> childAffiliations = new java.util.ArrayList<AffiliationRO>();
 
   private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
@@ -325,14 +324,11 @@ public class AffiliationVO extends ValueObject implements Searchable {
     result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
     result = prime * result + ((creator == null) ? 0 : creator.hashCode());
     result = prime * result + (hasChildren ? 1231 : 1237);
-    result =
-        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((metadataSets == null) ? 0 : metadataSets.hashCode());
     result = prime * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode());
     result = prime * result + ((parentAffiliations == null) ? 0 : parentAffiliations.hashCode());
-    result =
-        prime * result
-            + ((predecessorAffiliations == null) ? 0 : predecessorAffiliations.hashCode());
+    result = prime * result + ((predecessorAffiliations == null) ? 0 : predecessorAffiliations.hashCode());
     result = prime * result + ((publicStatus == null) ? 0 : publicStatus.hashCode());
     result = prime * result + ((reference == null) ? 0 : reference.hashCode());
     return result;

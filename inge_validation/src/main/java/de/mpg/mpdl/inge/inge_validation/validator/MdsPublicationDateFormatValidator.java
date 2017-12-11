@@ -28,8 +28,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * <iso:assert test=". = '' or ../escidoc:start-date != ''"> EndDateWithoutStartDate</iso:assert>
  * </iso:rule>
  */
-public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements
-    Validator<MdsPublicationVO> {
+public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements Validator<MdsPublicationVO> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
@@ -37,46 +36,39 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
     boolean ok = true;
 
     if (!ValidationTools.checkDate(m.getDateAccepted())) {
-      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-          "dateAccepted"));
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("dateAccepted"));
       ok = false;
     }
 
     if (!ValidationTools.checkDate(m.getDateCreated())) {
-      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-          "dateCreated"));
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("dateCreated"));
       ok = false;
     }
 
     if (!ValidationTools.checkDate(m.getDateModified())) {
-      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-          "dateModified"));
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("dateModified"));
       ok = false;
     }
 
     if (!ValidationTools.checkDate(m.getDatePublishedInPrint())) {
-      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-          "datePublishedInPrint"));
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("datePublishedInPrint"));
       ok = false;
     }
 
     if (!ValidationTools.checkDate(m.getDatePublishedOnline())) {
-      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-          "datePublishedOnline"));
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("datePublishedOnline"));
       ok = false;
     }
 
     if (!ValidationTools.checkDate(m.getDateSubmitted())) {
-      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-          "dateSubmitted"));
+      context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("dateSubmitted"));
       ok = false;
     }
 
     if (m.getLegalCase() != null) {
 
       if (!ValidationTools.checkDate(m.getLegalCase().getDatePublished())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "dateSubmitted"));
+        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("dateSubmitted"));
         ok = false;
       }
 
@@ -88,14 +80,12 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
       final String endDate = m.getEvent().getEndDate();
 
       if (!ValidationTools.checkDate(startDate)) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "startDate"));
+        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("startDate"));
         ok = false;
       }
 
       if (!ValidationTools.checkDate(endDate)) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField(
-            "endDate"));
+        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("endDate"));
         ok = false;
       }
 

@@ -22,12 +22,10 @@ import org.xml.sax.helpers.DefaultHandler;
 public class ShortContentHandler extends DefaultHandler {
   private StringBuffer currentContent;
   protected XMLStack stack = new XMLStack();
-  private Map<String, HashMap<String, String>> namespacesMap =
-      new HashMap<String, HashMap<String, String>>();
+  private Map<String, HashMap<String, String>> namespacesMap = new HashMap<String, HashMap<String, String>>();
 
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
     HashMap<String, String> currentNamespaces;
     if ("".equals(stack.toString())) {
       currentNamespaces = new HashMap<String, String>();

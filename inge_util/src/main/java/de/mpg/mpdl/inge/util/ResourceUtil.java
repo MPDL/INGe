@@ -62,8 +62,7 @@ public class ResourceUtil {
    * @return The resource as InputStream.
    * @throws FileNotFoundException Thrown if the resource cannot be located.
    */
-  public static File getResourceAsFile(final String fileName, ClassLoader classLoader)
-      throws FileNotFoundException {
+  public static File getResourceAsFile(final String fileName, ClassLoader classLoader) throws FileNotFoundException {
     URL url = classLoader.getResource(resolveFileName(fileName));
 
     // Maybe it's in a WAR file
@@ -102,8 +101,7 @@ public class ResourceUtil {
    * @return The resource as InputStream.
    * @throws FileNotFoundException Thrown if the resource cannot be located.
    */
-  public static InputStream getResourceAsStream(final String fileName, ClassLoader classLoader)
-      throws FileNotFoundException {
+  public static InputStream getResourceAsStream(final String fileName, ClassLoader classLoader) throws FileNotFoundException {
 
     InputStream fileIn;
     fileIn = classLoader.getResourceAsStream(resolveFileName(fileName));
@@ -127,8 +125,7 @@ public class ResourceUtil {
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
-  public static String getResourceAsString(final String fileName, ClassLoader classLoader)
-      throws IOException {
+  public static String getResourceAsString(final String fileName, ClassLoader classLoader) throws IOException {
     InputStream fileIn = getResourceAsStream(fileName, classLoader);
     BufferedReader br = new BufferedReader(new InputStreamReader(fileIn, "UTF-8"));
     String line = null;
@@ -170,8 +167,7 @@ public class ResourceUtil {
    * @return The resource as String.
    * @throws IOException Thrown if the resource cannot be located.
    */
-  public static byte[] getResourceAsBytes(final String fileName, ClassLoader classLoader)
-      throws IOException {
+  public static byte[] getResourceAsBytes(final String fileName, ClassLoader classLoader) throws IOException {
     InputStream fileIn = getResourceAsStream(fileName, classLoader);
 
     byte[] buffer = new byte[2048];
@@ -192,8 +188,7 @@ public class ResourceUtil {
    * @return Array of files.
    * @throws IOException Thrown if file is not found.
    */
-  public static File[] getFilenamesInDirectory(String dir, ClassLoader classLoader)
-      throws IOException {
+  public static File[] getFilenamesInDirectory(String dir, ClassLoader classLoader) throws IOException {
     File dirFile = getResourceAsFile(resolveFileName(dir), classLoader);
 
     if (dirFile == null) {
@@ -213,8 +208,7 @@ public class ResourceUtil {
       if (file.isFile()) {
         fileArray.add(file);
       } else {
-        fileArray
-            .addAll(Arrays.asList(getFilenamesInDirectory(file.getAbsolutePath(), classLoader)));
+        fileArray.addAll(Arrays.asList(getFilenamesInDirectory(file.getAbsolutePath(), classLoader)));
       }
     }
 
@@ -246,7 +240,6 @@ public class ResourceUtil {
   }
 
   public static void main(String[] args) {
-    System.out
-        .println(resolveFileName("transformations\\commonPublicationFormats\\xslt\\..\\..\\vocabulary-mappings.xsl"));
+    System.out.println(resolveFileName("transformations\\commonPublicationFormats\\xslt\\..\\..\\vocabulary-mappings.xsl"));
   }
 }

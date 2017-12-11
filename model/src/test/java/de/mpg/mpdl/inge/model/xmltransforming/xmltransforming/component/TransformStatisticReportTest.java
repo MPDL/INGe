@@ -57,8 +57,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
 
   private static String TEST_FILE_ROOT = "xmltransforming/component/transformStatisticReport/";
   private static String REPORT_SAMPLE_FILE = TEST_FILE_ROOT + "report_sample.xml";
-  private static String REPORT_DEFINITION_LIST_SAMPLE_FILE = TEST_FILE_ROOT
-      + "report-definition-list_sample.xml";
+  private static String REPORT_DEFINITION_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "report-definition-list_sample.xml";
 
   /**
    * Test of {@link XmlTransforming#transformToStatisticReportRecordList(String)}
@@ -71,8 +70,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
 
     String reportXML = readFile(REPORT_SAMPLE_FILE);
 
-    List<StatisticReportRecordVO> statisticReportRecordList =
-        XmlTransformingService.transformToStatisticReportRecordList(reportXML);
+    List<StatisticReportRecordVO> statisticReportRecordList = XmlTransformingService.transformToStatisticReportRecordList(reportXML);
 
     assertEquals(9, statisticReportRecordList.size());
 
@@ -81,8 +79,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
 
     List<StatisticReportRecordParamVO> statisticParamList = reportRecord1.getParamList();
     assertNotNull("Statistic report record has no parameters", statisticParamList);
-    assertEquals("Statistic param list of repord record has invalid size", 2,
-        statisticParamList.size());
+    assertEquals("Statistic param list of repord record has invalid size", 2, statisticParamList.size());
 
     StatisticReportRecordParamVO statisticParam1 = statisticParamList.get(0);
     assertEquals("itemid", statisticParam1.getName());
@@ -90,8 +87,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
 
     StatisticReportRecordParamVO statisticParam2 = statisticParamList.get(1);
     assertEquals("itemrequests", statisticParam2.getName());
-    assertEquals("2",
-        ((StatisticReportRecordDecimalParamValueVO) statisticParam2.getParamValue()).getValue());
+    assertEquals("2", ((StatisticReportRecordDecimalParamValueVO) statisticParam2.getParamValue()).getValue());
 
 
 
@@ -100,18 +96,15 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
 
     List<StatisticReportRecordParamVO> statisticParamList2 = reportRecord2.getParamList();
     assertNotNull("Statistic report record has no parameters", statisticParamList2);
-    assertEquals("Statistic param list of repord record has invalid size", 2,
-        statisticParamList2.size());
+    assertEquals("Statistic param list of repord record has invalid size", 2, statisticParamList2.size());
 
     StatisticReportRecordParamVO statisticParam3 = statisticParamList2.get(0);
     assertEquals("itemid", statisticParam3.getName());
-    assertEquals("escidoc:1641:3",
-        ((StatisticReportRecordStringParamValueVO) statisticParam3.getParamValue()).getValue());
+    assertEquals("escidoc:1641:3", ((StatisticReportRecordStringParamValueVO) statisticParam3.getParamValue()).getValue());
 
     StatisticReportRecordParamVO statisticParam4 = statisticParamList2.get(1);
     assertEquals("lastitemretrieval", statisticParam4.getName());
-    assertEquals("2005-05-07",
-        ((StatisticReportRecordDateParamValueVO) statisticParam4.getParamValue()).getValue());
+    assertEquals("2005-05-07", ((StatisticReportRecordDateParamValueVO) statisticParam4.getParamValue()).getValue());
 
   }
 
@@ -121,18 +114,15 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     StatisticReportParamsVO repParamsVO = new StatisticReportParamsVO();
     List<StatisticReportRecordParamVO> paramList = new ArrayList<StatisticReportRecordParamVO>();
     StatisticReportRecordParamVO param1 =
-        new StatisticReportRecordParamVO("testParamName1",
-            new StatisticReportRecordDecimalParamValueVO("3424"));
+        new StatisticReportRecordParamVO("testParamName1", new StatisticReportRecordDecimalParamValueVO("3424"));
     paramList.add(param1);
 
     StatisticReportRecordParamVO param2 =
-        new StatisticReportRecordParamVO("testParamName2",
-            new StatisticReportRecordDateParamValueVO("2008-10-12T09:00:00"));
+        new StatisticReportRecordParamVO("testParamName2", new StatisticReportRecordDateParamValueVO("2008-10-12T09:00:00"));
     paramList.add(param2);
 
     StatisticReportRecordParamVO param3 =
-        new StatisticReportRecordParamVO("testParamName3",
-            new StatisticReportRecordStringParamValueVO("ewfewfewf"));
+        new StatisticReportRecordParamVO("testParamName3", new StatisticReportRecordStringParamValueVO("ewfewfewf"));
     paramList.add(param3);
 
     repParamsVO.setReportDefinitionId("23");
@@ -162,13 +152,10 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     assertNotNull("report definition is null", reportDefVO1);
 
 
-    assertEquals("Wrong object id in report-definition", "escidoc:repdef1",
-        reportDefVO1.getObjectId());
+    assertEquals("Wrong object id in report-definition", "escidoc:repdef1", reportDefVO1.getObjectId());
     assertEquals("Wrong scope id in report-definition", "escidoc:scope1", reportDefVO1.getScopeID());
-    assertEquals("Wrong name in report-definition", "Successful Framework Requests",
-        reportDefVO1.getName());
-    assertEquals(
-        "Wrong sql string in report-definition",
+    assertEquals("Wrong name in report-definition", "Successful Framework Requests", reportDefVO1.getName());
+    assertEquals("Wrong sql string in report-definition",
         "select handler, request, day, month, year, sum(requests) from _escidocaggdef1_request_statistics group by handler, request, day, month, year;",
         reportDefVO1.getSql());
 
@@ -176,13 +163,10 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     assertNotNull("report definition is null", reportDefVO2);
 
 
-    assertEquals("Wrong object id in report-definition", "escidoc:repdef9",
-        reportDefVO2.getObjectId());
+    assertEquals("Wrong object id in report-definition", "escidoc:repdef9", reportDefVO2.getObjectId());
     assertEquals("Wrong scope id in report-definition", "escidoc:scope2", reportDefVO2.getScopeID());
-    assertEquals("Wrong name in report-definition", "File downloads, anonymous users",
-        reportDefVO2.getName());
-    assertEquals(
-        "Wrong sql string in report-definition",
+    assertEquals("Wrong name in report-definition", "File downloads, anonymous users", reportDefVO2.getName());
+    assertEquals("Wrong sql string in report-definition",
         "select object_id as fileid, sum(requests) as filerequests from _escidocaggdef1_object_statistics where object_id = {object_id} and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;",
         reportDefVO2.getSql());
 
@@ -209,8 +193,7 @@ public class TransformStatisticReportTest extends XmlTransformingTestBase {
     assertXMLValid(repDefVOXML);
     logger.info(repDefVOXML);
 
-    StatisticReportDefinitionVO repDefVONew =
-        XmlTransformingService.transformToStatisticReportDefinition(repDefVOXML);
+    StatisticReportDefinitionVO repDefVONew = XmlTransformingService.transformToStatisticReportDefinition(repDefVOXML);
 
     assertNotNull(repDefVONew);
     assertEquals(name, repDefVONew.getName());

@@ -39,8 +39,8 @@ public class OxfordJournalFormat extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *"
-        + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?)*\\s*$";
+    return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *" + GIVEN_NAME_FORMAT + " " + NAME
+        + " [0-9]+( \\*)?)*\\s*$";
   }
 
   @Override

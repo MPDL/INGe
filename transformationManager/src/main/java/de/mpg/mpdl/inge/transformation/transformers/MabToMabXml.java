@@ -20,15 +20,13 @@ import de.mpg.mpdl.inge.transformation.transformers.helpers.mab.MABImport;
 public class MabToMabXml extends SingleTransformer implements ChainableTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
     try {
 
       MABImport mab = new MABImport();
       String resultXmlString = mab.transformMAB2XML(getStringFromSource(source));
 
-      XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)),
-          (Result) result);
+      XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)), (Result) result);
 
     } catch (Exception e) {
       throw new TransformationException("Error while transforming Mab Text to Mab XML", e);

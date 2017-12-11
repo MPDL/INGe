@@ -42,15 +42,18 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class InternationalizationHelper implements Serializable {
   private static final Logger logger = Logger.getLogger(InternationalizationHelper.class);
 
-  public enum SelectMultipleItems {
+  public enum SelectMultipleItems
+  {
     SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
   }
 
-  public enum SelectComponentAvailability {
+  public enum SelectComponentAvailability
+  {
     SELECT_HAS_FILES, SELECT_HAS_LOCATORS, SELECT_HAS_COMPONENTS, SELECT_HAS_NO_COMPONENTS, SELECT_HAS_FILES_ONLY, SELECT_HAS_LOCATORS_ONLY
   }
 
-  public enum SelectComponentVisibility {
+  public enum SelectComponentVisibility
+  {
     SELECT_COMPONENT_PRIVATE, SELECT_COMPONENT_PUBLIC, SELECT_COMPONENT_RESTRICTED
   }
 
@@ -69,14 +72,12 @@ public class InternationalizationHelper implements Serializable {
 
   private Locale userLocale;
 
-  private List<LanguageChangeObserver> languageChangeObservers =
-      new ArrayList<LanguageChangeObserver>();
+  private List<LanguageChangeObserver> languageChangeObservers = new ArrayList<LanguageChangeObserver>();
 
   public InternationalizationHelper() {
     this.userLocale = FacesTools.getExternalContext().getRequestLocale();
 
-    final Iterator<Locale> supportedLocales =
-        FacesTools.getCurrentInstance().getApplication().getSupportedLocales();
+    final Iterator<Locale> supportedLocales = FacesTools.getCurrentInstance().getApplication().getSupportedLocales();
 
     boolean found = false;
     while (supportedLocales.hasNext()) {
@@ -130,11 +131,9 @@ public class InternationalizationHelper implements Serializable {
         this.userLocale = locale;
         this.homeContent = "n/a";
         this.notifyLanguageChanged(event.getOldValue().toString(), event.getNewValue().toString());;
-        InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : "
-            + locale);
+        InternationalizationHelper.logger.debug("New locale: " + language + "_" + country + " : " + locale);
       } catch (final Exception e) {
-        InternationalizationHelper.logger.error("unable to switch to locale using language = "
-            + language + " and country = " + country, e);
+        InternationalizationHelper.logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
       }
 
       if (language.equals("de")) {
@@ -178,16 +177,14 @@ public class InternationalizationHelper implements Serializable {
    * @param values The values of an enum.
    * @return An array of SelectItem.
    */
-  public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry,
-      final Object[] values) {
+  public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry, final Object[] values) {
     final Object[] valuesWithoutNull = removeNullValues(values);
     SelectItem[] selectItems = new SelectItem[valuesWithoutNull.length];
 
     for (int i = 0; i < valuesWithoutNull.length; i++) {
       if (valuesWithoutNull[i] != null) {
         final SelectItem selectItem =
-            new SelectItem(valuesWithoutNull[i].toString(), this.getLabel(this
-                .convertEnumToString(valuesWithoutNull[i])));
+            new SelectItem(valuesWithoutNull[i].toString(), this.getLabel(this.convertEnumToString(valuesWithoutNull[i])));
         selectItems[i] = selectItem;
       }
     }
@@ -289,8 +286,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for CreatorRole
    */
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
-    final Map<String, String> negativeRoles =
-        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getCreatorRoleMap();
+    final Map<String, String> negativeRoles = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getCreatorRoleMap();
 
     final List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
     for (final CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
@@ -370,17 +366,14 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for ReviewMethod
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
-    final Map<String, String> values =
-        ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
+    final Map<String, String> values = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
 
     for (final Map.Entry<String, String> entry : values.entrySet()) {
       // Prefix for the label is set to ENUM_CONTENTCATEGORY_
-      final SelectItem selectItem =
-          new SelectItem(entry.getKey().toLowerCase().replace("_", "-"),
-              this.getLabel("ENUM_CONTENTCATEGORY_"
-                  + entry.getKey().toLowerCase().replace("_", "-")));
+      final SelectItem selectItem = new SelectItem(entry.getKey().toLowerCase().replace("_", "-"),
+          this.getLabel("ENUM_CONTENTCATEGORY_" + entry.getKey().toLowerCase().replace("_", "-")));
       selectItems[i] = selectItem;
       i++;
     }
@@ -418,8 +411,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for SelectComponentAvailability
    */
   public SelectItem[] getSelectedItemsComponentAvailability(final boolean includeNoItemSelectedEntry) {
-    final InternationalizationHelper.SelectComponentAvailability[] values =
-        InternationalizationHelper.SelectComponentAvailability.values();
+    final InternationalizationHelper.SelectComponentAvailability[] values = InternationalizationHelper.SelectComponentAvailability.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -430,8 +422,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for SelectComponentAccessability
    */
   public SelectItem[] getSelectedItemsComponentVisibility(final boolean includeNoItemSelectedEntry) {
-    final InternationalizationHelper.SelectComponentVisibility[] values =
-        InternationalizationHelper.SelectComponentVisibility.values();
+    final InternationalizationHelper.SelectComponentVisibility[] values = InternationalizationHelper.SelectComponentVisibility.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
@@ -477,8 +468,7 @@ public class InternationalizationHelper implements Serializable {
     httpClient.executeMethod(getMethod);
 
     if (getMethod.getStatusCode() == 200) {
-      final BufferedReader in =
-          new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+      final BufferedReader in = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
 
       String inputLine = "";
       String content = "";

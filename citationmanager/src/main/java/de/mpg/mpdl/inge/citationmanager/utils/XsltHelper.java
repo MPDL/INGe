@@ -73,17 +73,13 @@ public class XsltHelper {
 
   private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
 
-  private static final Pattern SPANS_WITH_CLASS = Pattern.compile(
-      "<span\\s+class=\"(\\w+)\".*?>(.*?)</span>", FLAGS);
+  private static final Pattern SPANS_WITH_CLASS = Pattern.compile("<span\\s+class=\"(\\w+)\".*?>(.*?)</span>", FLAGS);
   private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
   private static final Pattern ALL_TAGS_EXCEPT_STYLE = Pattern.compile("\\<(?!(\\/?style))", FLAGS);
-  private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile(
-      "\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
-  private static final Pattern I18_TAGS = Pattern.compile("<" + I18N_TAG
-      + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", FLAGS);
+  private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
+  private static final Pattern I18_TAGS = Pattern.compile("<" + I18N_TAG + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", FLAGS);
 
-  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>",
-      Pattern.DOTALL);
+  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
 
 
   /**
@@ -95,8 +91,7 @@ public class XsltHelper {
    * @return converted snippet
    * @throws CitationStyleManagerException
    */
-  public static String convertSnippetToJasperStyledText(String cs, String snippet)
-      throws CitationStyleManagerException {
+  public static String convertSnippetToJasperStyledText(String cs, String snippet) throws CitationStyleManagerException {
 
     // logger.info("input snippet:" + snippet);
 
@@ -156,8 +151,7 @@ public class XsltHelper {
 
       // escape tags except <style> and optionally <sub><sup>
       snippet[i] =
-          Utils.replaceAllTotal(snippet[i], isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE
-              : ALL_TAGS_EXCEPT_STYLE, "&lt;");
+          Utils.replaceAllTotal(snippet[i], isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, "&lt;");
     }
     return snippet;
 
@@ -289,8 +283,7 @@ public class XsltHelper {
         citationStyle = "default";
       } else {
         citationStyle = citationMap.get(keyValue);
-        if (citationStyle.equalsIgnoreCase("Kurztitel_ZS Band, Heft (Jahr)")
-            || citationStyle.equalsIgnoreCase("Titel_ZS Band, Heft (Jahr)")
+        if (citationStyle.equalsIgnoreCase("Kurztitel_ZS Band, Heft (Jahr)") || citationStyle.equalsIgnoreCase("Titel_ZS Band, Heft (Jahr)")
             || citationStyle.equalsIgnoreCase("(Jahr) Band, Heft Titel_ZS")) {
         } else {
           // if the citation style is none of the three above, put it to default
@@ -312,10 +305,9 @@ public class XsltHelper {
     HttpClient client = new HttpClient();
 
     String coneQuery =
-    // JUS-Testserver CoNE
-    // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
-        PropertyReader.getProperty("inge.cone.service.url")
-            + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
+        // JUS-Testserver CoNE
+        // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
+        PropertyReader.getProperty("inge.cone.service.url") + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
     logger.info("cone query:" + coneQuery);
     GetMethod getMethod = new GetMethod(coneQuery);
 
@@ -381,8 +373,7 @@ class JusXmlHandler extends DefaultHandler {
    * Gets every element and set it to currentElement.
    */
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
     if ("".equals(uri)) {
       currentElement = name;

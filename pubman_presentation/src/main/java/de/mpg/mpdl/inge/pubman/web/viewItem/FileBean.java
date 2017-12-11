@@ -134,27 +134,14 @@ public class FileBean extends FacesBean {
               int startPosition = 0;
               int endPosition = 0;
 
-              startPosition =
-                  searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0)
-                      .getStartIndex();
-              endPosition =
-                  searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0)
-                      .getEndIndex() + 1;
+              startPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getStartIndex();
+              endPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getEndIndex() + 1;
 
-              beforeSearchHitString =
-                  "..."
-                      + searchHitList.get(i).getTextFragmentList().get(j).getData()
-                          .substring(0, startPosition);
-              searchHitString =
-                  searchHitList.get(i).getTextFragmentList().get(j).getData()
-                      .substring(startPosition, endPosition);
-              afterSearchHitString =
-                  searchHitList.get(i).getTextFragmentList().get(j).getData()
-                      .substring(endPosition)
-                      + "...";
+              beforeSearchHitString = "..." + searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
+              searchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(startPosition, endPosition);
+              afterSearchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition) + "...";
 
-              this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString,
-                  afterSearchHitString));
+              this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
             }
           }
 
@@ -169,36 +156,28 @@ public class FileBean extends FacesBean {
   private void initializeFileAccessGranted() {
     // examine weather the user holds an audience Grant for the current file or not
     try {
-      if (this.file.getReference() != null
-          && this.file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
-        final UserAccountHandler uah =
-            ServiceLocator
-                .getUserAccountHandler(this.getLoginHelper().getAccountUser().getHandle());
+      if (this.file.getReference() != null && this.file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
+        final UserAccountHandler uah = ServiceLocator.getUserAccountHandler(this.getLoginHelper().getAccountUser().getHandle());
 
         final FilterTaskParamVO filter = new FilterTaskParamVO();
 
-        final Filter accountUserFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/user", this
-                .getLoginHelper().getAccountUser().getReference().getObjectId(), "=", "AND");
+        final Filter accountUserFilter = filter.new StandardFilter("http://escidoc.de/core/01/properties/user",
+            this.getLoginHelper().getAccountUser().getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(accountUserFilter);
 
         final Filter notAudienceRoleFilter =
-            filter.new StandardFilter("/properties/role/id",
-                GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "=", "AND");
+            filter.new StandardFilter("/properties/role/id", GrantVO.PredefinedRoles.AUDIENCE.frameworkValue(), "=", "AND");
         filter.getFilterList().add(notAudienceRoleFilter);
 
-        final Filter assignedOnFilter =
-            filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on", this.file
-                .getReference().getObjectId(), "=", "AND");
+        final Filter assignedOnFilter = filter.new StandardFilter("http://escidoc.de/core/01/properties/assigned-on",
+            this.file.getReference().getObjectId(), "=", "AND");
         filter.getFilterList().add(assignedOnFilter);
 
-        final Filter notRevokedFilter =
-            filter.new StandardFilter("/properties/revocation-date", "\"\"", "=", "AND");
+        final Filter notRevokedFilter = filter.new StandardFilter("/properties/revocation-date", "\"\"", "=", "AND");
         filter.getFilterList().add(notRevokedFilter);
 
         final String userGrantXML = uah.retrieveGrants(filter.toMap());
-        final SearchRetrieveResponseVO searchResult =
-            XmlTransformingService.transformToSearchRetrieveResponseGrantVO(userGrantXML);
+        final SearchRetrieveResponseVO searchResult = XmlTransformingService.transformToSearchRetrieveResponseGrantVO(userGrantXML);
         if (searchResult.getNumberOfRecords() > 0) {
           this.fileAccessGranted = true;
         } else {
@@ -208,8 +187,7 @@ public class FileBean extends FacesBean {
         this.fileAccessGranted = false;
       }
     } catch (final Exception e) {
-      FileBean.logger.error("Problem getting audience-grants for file ["
-          + this.file.getReference().getObjectId() + "]", e);
+      FileBean.logger.error("Problem getting audience-grants for file [" + this.file.getReference().getObjectId() + "]", e);
     }
   }
 
@@ -224,8 +202,7 @@ public class FileBean extends FacesBean {
       System.out.println("MIME: " + contentType);
 
       // application/x-download
-      FacesTools.getResponse().setHeader("Content-disposition",
-          "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
+      FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
       if (this.file.getDefaultMetadata() != null) {
         FacesTools.getResponse().setContentLength(this.file.getDefaultMetadata().getSize());
       }
@@ -292,8 +269,7 @@ public class FileBean extends FacesBean {
 
   public String getContentCategory() {
     if (this.file.getContentCategory() != null) {
-      return this.getLabel("ENUM_CONTENTCATEGORY_"
-          + file.getContentCategory().toLowerCase().replace("_", "-"));
+      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getContentCategory().toLowerCase().replace("_", "-"));
       /*
        * /* for (final Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap()
        * .entrySet()) { if (contcat.getValue().equals(this.file.getContentCategory())) { return
@@ -342,8 +318,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getFileDescription() {
-    if (this.file.getDefaultMetadata() != null
-        && this.file.getDefaultMetadata().getDescription() != null) {
+    if (this.file.getDefaultMetadata() != null && this.file.getDefaultMetadata().getDescription() != null) {
       return this.file.getDefaultMetadata().getDescription();
     }
 
@@ -397,9 +372,8 @@ public class FileBean extends FacesBean {
 
   public boolean getLocatorIsLink() {
     return ((this.getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) //
-    && (this.getFile().getContent().startsWith("http://")
-        || this.getFile().getContent().startsWith("https://") || this.getFile().getContent()
-        .startsWith("ftp://")));
+        && (this.getFile().getContent().startsWith("http://") || this.getFile().getContent().startsWith("https://")
+            || this.getFile().getContent().startsWith("ftp://")));
   }
 
   public boolean getIsVisible() {
@@ -418,12 +392,11 @@ public class FileBean extends FacesBean {
    */
   public String getUrlToLicenceImage() {
     try {
-      if (this.file.getDefaultMetadata() != null
-          && this.file.getDefaultMetadata().getLicense() != null) {
+      if (this.file.getDefaultMetadata() != null && this.file.getDefaultMetadata().getLicense() != null) {
         final String licenceURL = this.file.getDefaultMetadata().getLicense().toLowerCase();
 
-        if (licenceURL != null && !licenceURL.trim().equals("")
-            && licenceURL.indexOf("creative") > -1 && licenceURL.indexOf("commons") > -1) {
+        if (licenceURL != null && !licenceURL.trim().equals("") && licenceURL.indexOf("creative") > -1
+            && licenceURL.indexOf("commons") > -1) {
           final String[] splittedURL = licenceURL.split("\\/");
           // Change for dettecting license url in a string
           int start = 0;
@@ -499,10 +472,8 @@ public class FileBean extends FacesBean {
           filename = "";
         }
 
-        FacesTools.getResponse().setHeader(
-            "Content-disposition",
-            "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "."
-                + this.getChecksumAlgorithmAsString().toLowerCase());
+        FacesTools.getResponse().setHeader("Content-disposition",
+            "attachment; filename=" + URLEncoder.encode(filename, "UTF-8") + "." + this.getChecksumAlgorithmAsString().toLowerCase());
 
         final OutputStream out = FacesTools.getResponse().getOutputStream();
         out.write(this.file.getChecksum().getBytes("UTF-8"));

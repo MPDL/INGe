@@ -55,19 +55,16 @@ public class SessionTimeoutFilter implements Filter {
   public void destroy() {}
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-      throws IOException, ServletException {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
     if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
       final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
       final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
       try {
         final String homePage =
-            PropertyReader.getProperty("inge.pubman.instance.url")
-                + PropertyReader.getProperty("inge.pubman.instance.context.path");
+            PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path");
         // define some exceptions (pages that don't require a logged in user)
-        if (!"/ViewItemFullPage.jsp".equals(httpServletRequest.getPathInfo())
-            && !"/HomePage.jsp".equals(httpServletRequest.getPathInfo())
+        if (!"/ViewItemFullPage.jsp".equals(httpServletRequest.getPathInfo()) && !"/HomePage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/AffiliationTreePage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/AdvancedSearchPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/SearchResultListPage.jsp".equals(httpServletRequest.getPathInfo())
@@ -78,14 +75,11 @@ public class SessionTimeoutFilter implements Filter {
             && !"/AffiliationDetailPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/ExportEmailPage.jsp".equals(httpServletRequest.getPathInfo())
             && !"/OrganizationSuggest.jsp".equals(httpServletRequest.getPathInfo())
-            && !"/ViewItemOverviewPage.jsp".equals(httpServletRequest.getPathInfo())
-            && httpServletRequest.getRequestedSessionId() != null
-            && httpServletRequest.getParameter("expired") == null
-            && httpServletRequest.getParameter("logout") == null
+            && !"/ViewItemOverviewPage.jsp".equals(httpServletRequest.getPathInfo()) && httpServletRequest.getRequestedSessionId() != null
+            && httpServletRequest.getParameter("expired") == null && httpServletRequest.getParameter("logout") == null
             && !httpServletRequest.isRequestedSessionIdValid()) {
           // Deactivated because of import tool.
-          httpServletResponse.sendRedirect(PropertyReader.getLoginUrl()
-              + SessionTimeoutFilter.LOGOUT_URL + "?target="
+          httpServletResponse.sendRedirect(PropertyReader.getLoginUrl() + SessionTimeoutFilter.LOGOUT_URL + "?target="
               + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
           // httpServletResponse.sendRedirect(homePage + "?expired=true");
           return;

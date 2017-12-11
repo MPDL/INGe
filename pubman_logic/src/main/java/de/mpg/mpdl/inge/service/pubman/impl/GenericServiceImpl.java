@@ -53,8 +53,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
   @Transactional(rollbackFor = Throwable.class)
   @Override
   public ModelObject create(ModelObject object, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToCreate = createEmptyDbObject();
     List<Id> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
@@ -79,15 +78,13 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
   @Transactional(rollbackFor = Throwable.class)
   @Override
   public ModelObject update(ModelObject object, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
-    checkEqualModificationDate(getModificationDate(object),
-        getModificationDate(transformToOld(objectToBeUpdated)));
+    checkEqualModificationDate(getModificationDate(object), getModificationDate(transformToOld(objectToBeUpdated)));
     List<Id> reindexList = updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
 
@@ -112,8 +109,8 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public void delete(Id id, String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void delete(Id id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     DbObject objectToBeDeleted = getDbRepository().findOne(id);
     if (objectToBeDeleted == null) {
@@ -129,8 +126,8 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   @Transactional(readOnly = true)
   @Override
-  public ModelObject get(Id id, String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public ModelObject get(Id id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = null;
     ModelObject object = transformToOld(getDbRepository().findOne(id));
     if (authenticationToken != null) {
@@ -143,8 +140,7 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
 
 
-  protected static void updateWithTechnicalMetadata(BasicDbRO object, AccountUserVO userAccount,
-      boolean create) {
+  protected static void updateWithTechnicalMetadata(BasicDbRO object, AccountUserVO userAccount, boolean create) {
     Date currentDate = new Date();
     AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(userAccount.getName());
@@ -163,9 +159,8 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   protected abstract DbObject createEmptyDbObject();
 
-  protected abstract List<Id> updateObjectWithValues(ModelObject givenObject,
-      DbObject objectToBeUpdated, AccountUserVO userAccount, boolean create)
-      throws IngeTechnicalException, IngeApplicationException;
+  protected abstract List<Id> updateObjectWithValues(ModelObject givenObject, DbObject objectToBeUpdated, AccountUserVO userAccount,
+      boolean create) throws IngeTechnicalException, IngeApplicationException;
 
   protected abstract ModelObject transformToOld(DbObject dbObject);
 
@@ -207,8 +202,8 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
   }
 
   @Override
-  public void reindex(Id id, String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindex(Id id, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     // TODO AA
     reindex(id, false);
   }
@@ -217,19 +212,17 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   @Override
   @Transactional(readOnly = true)
-  public void reindexAll(String authenticationToken) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public void reindexAll(String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     // TODO AA
     if (getElasticDao() != null) {
       String entityName =
-          ((Class<ModelObject>) ((ParameterizedType) getClass().getGenericSuperclass())
-              .getActualTypeArguments()[0]).getSimpleName();
+          ((Class<ModelObject>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getSimpleName();
 
 
 
-      Query<Id> query =
-          (Query<Id>) entityManager.createQuery("SELECT e.objectId FROM " + entityName + " e");
+      Query<Id> query = (Query<Id>) entityManager.createQuery("SELECT e.objectId FROM " + entityName + " e");
       query.setReadOnly(true);
       query.setFetchSize(500);
       query.setCacheMode(CacheMode.IGNORE);
@@ -264,14 +257,12 @@ public abstract class GenericServiceImpl<ModelObject, DbObject extends BasicDbRO
 
   protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
     if (date1 == null || date2 == null || !date1.equals(date2)) {
-      throw new IngeApplicationException("Object changed in the meantime: " + date1
-          + "  does not equal  " + date2);
+      throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2);
     }
   }
 
 
-  protected static void handleDBException(DataAccessException exception)
-      throws IngeApplicationException {
+  protected static void handleDBException(DataAccessException exception) throws IngeApplicationException {
 
     try {
       throw exception;

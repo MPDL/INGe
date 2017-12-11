@@ -57,14 +57,11 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     String newLineAsSeparator = authorsString.replaceAll("\\n", " and ").trim();
     newLineAsSeparator = newLineAsSeparator.replaceAll("\\s+", " ");
 
-    List<Author> newLineAsBlankSurnameFirst =
-        getAuthorListLooseFormatSurnameFirst(newLineAsBlank.split("(;| and | AND | und | et )"));
+    List<Author> newLineAsBlankSurnameFirst = getAuthorListLooseFormatSurnameFirst(newLineAsBlank.split("(;| and | AND | und | et )"));
     List<Author> newLineAsSeparatorSurnameFirst =
         getAuthorListLooseFormatSurnameFirst(newLineAsSeparator.split("(;| and | AND | und | et )"));
-    List<Author> newLineAsBlankGivenNameFirst =
-        getAuthorListLooseFormat(prepareAuthorsLooseFormat(newLineAsBlank));
-    List<Author> newLineAsSeparatorGivenNameFirst =
-        getAuthorListLooseFormat(prepareAuthorsLooseFormat(newLineAsSeparator));
+    List<Author> newLineAsBlankGivenNameFirst = getAuthorListLooseFormat(prepareAuthorsLooseFormat(newLineAsBlank));
+    List<Author> newLineAsSeparatorGivenNameFirst = getAuthorListLooseFormat(prepareAuthorsLooseFormat(newLineAsSeparator));
 
 
 
@@ -138,8 +135,8 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
   private boolean testAuthors(List<Author> authorList) {
 
     for (Author a : authorList) {
-      if (a.getGivenName() == null || a.getGivenName().equals("") || a.getSurname() == null
-          || a.getSurname().equals("") || a.getSurname().trim().split(" ").length > 4) {
+      if (a.getGivenName() == null || a.getGivenName().equals("") || a.getSurname() == null || a.getSurname().equals("")
+          || a.getSurname().trim().split(" ").length > 4) {
         return false;
       }
     }

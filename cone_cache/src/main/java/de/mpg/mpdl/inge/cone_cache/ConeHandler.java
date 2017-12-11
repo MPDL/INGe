@@ -20,8 +20,7 @@ public class ConeHandler extends DefaultHandler {
   }
 
   @Override
-  public void startElement(String uri, String localName, String qName, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     if (qName.equalsIgnoreCase(this.searchElement)) {
       this.isSearchElement = true;
       this.tmp = new StringBuffer();

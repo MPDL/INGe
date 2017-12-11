@@ -47,8 +47,7 @@ public class QuerierFactory {
     try {
       querier = PropertyReader.getProperty("inge.cone.querier.class");
     } catch (Exception e) {
-      logger.warn("Property \"inge.cone.querier.class\" not found, taking default querier class: "
-          + DEFAULT_QUERIER);
+      logger.warn("Property \"inge.cone.querier.class\" not found, taking default querier class: " + DEFAULT_QUERIER);
       querier = DEFAULT_QUERIER;
     }
     try {
@@ -58,8 +57,8 @@ public class QuerierFactory {
         ((Querier) querierImpl).setLoggedIn(loggedIn);
         return (Querier) querierImpl;
       } else {
-        throw new ConeException("Instantiated querier class (" + querierImpl.getClass().getName()
-            + ") does not implement the Querier interface.");
+        throw new ConeException(
+            "Instantiated querier class (" + querierImpl.getClass().getName() + ") does not implement the Querier interface.");
       }
     } catch (Exception e) {
       logger.error("Unable to instantiate querier.", e);

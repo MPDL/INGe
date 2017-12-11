@@ -16,17 +16,14 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
   private TransportClient client;
 
   public ElasticSearchTransportClientProvider() {
-    this.client =
-        new PreBuiltTransportClient(Settings.builder()
-            .put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
-            .put("client.transport.sniff", true).build());
+    this.client = new PreBuiltTransportClient(Settings.builder().put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
+        .put("client.transport.sniff", true).build());
     String transportIps = PropertyReader.getProperty("inge.es.transport.ips");
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];
       int port = Integer.valueOf(ip.split(":")[1]);
       try {
-        this.client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(addr),
-            port));
+        this.client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(addr), port));
       } catch (UnknownHostException e) {
         e.printStackTrace();
       }

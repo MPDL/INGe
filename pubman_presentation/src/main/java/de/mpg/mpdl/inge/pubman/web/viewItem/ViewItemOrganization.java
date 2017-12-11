@@ -95,8 +95,7 @@ public class ViewItemOrganization {
     }
     this.organizationInfoPage =
         "'<html><head><title>Organisationp</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px>"
-            + CommonUtils.htmlEscape(organizationName)
-            + "</p><p style=font-family:verdana,arial;font-size:12px>"
+            + CommonUtils.htmlEscape(organizationName) + "</p><p style=font-family:verdana,arial;font-size:12px>"
             + CommonUtils.htmlEscape(addr) + "</p></body></html>'";
   }
 
@@ -108,8 +107,7 @@ public class ViewItemOrganization {
     return true;
   }
 
-  public void setOrganizationDescription(String organizationName, String organizationAddress,
-      String organizationIdentifier) {
+  public void setOrganizationDescription(String organizationName, String organizationAddress, String organizationIdentifier) {
     String addr = organizationName;
     if (organizationAddress != null && organizationAddress != "") {
       addr = addr + ", " + organizationAddress;

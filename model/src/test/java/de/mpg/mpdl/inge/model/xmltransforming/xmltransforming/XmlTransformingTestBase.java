@@ -72,11 +72,8 @@ public class XmlTransformingTestBase extends TestBase {
    * @return The String representation of the Xml Node.
    * @throws Exception If anything fails.
    */
-  protected static String toString(final Node xml, final boolean omitXMLDeclaration)
-      throws Exception {
-    Transformer transformer =
-        TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null)
-            .newTransformer();
+  protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception {
+    Transformer transformer = TransformerFactory.newInstance("net.sf.saxon.TransformerFactoryImpl", null).newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
     // initialize StreamResult with File object to save to file

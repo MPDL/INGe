@@ -30,8 +30,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
 
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
-  private final static String FILESYSTEM_ROOT_PATH = System.getProperty("jboss.home.dir")
-      + PropertyReader.getProperty("inge.filestorage.filesystem_path");
+  private final static String FILESYSTEM_ROOT_PATH =
+      System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.filestorage.filesystem_path");
 
   /*
    * 
@@ -42,8 +42,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
    * java.lang.String)
    */
   @Override
-  public String createFile(InputStream fileInputStream, String fileName)
-      throws IngeTechnicalException {
+  public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     String newFileName = fileName;
     Calendar calendar = Calendar.getInstance();
     int year = calendar.get(Calendar.YEAR);
@@ -51,8 +50,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
     int day = calendar.get(Calendar.DAY_OF_MONTH);
     // Path starting after the the defined filesystemRootPath
     String relativeDirectoryPath = year + "/" + month + "/" + day;
-    Path directoryPath =
-        FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + relativeDirectoryPath);
+    Path directoryPath = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + relativeDirectoryPath);
     Path filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
     try {
 
@@ -62,8 +60,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
       }
 
       if (Files.notExists(filePath)) {
-        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-            + "]");
+        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
         Files.copy(fileInputStream, filePath);
       } else {
         int i = 1;
@@ -86,14 +83,12 @@ public class FileSystemServiceBean implements FileStorageInterface {
           filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
           i++;
         } while (Files.exists(filePath));
-        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString()
-            + "]");
+        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
         Files.copy(fileInputStream, filePath);
       }
     } catch (IOException e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
-          + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName + "]", e);
     }
     return relativeDirectoryPath + "/" + newFileName;
   }
@@ -116,8 +111,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
       }
     } catch (IOException e) {
       logger.error("An error occoured, when trying to retrieve file [" + path.toString() + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to retrieve file["
-          + path.toString() + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + path.toString() + "]", e);
     }
   }
 
@@ -135,10 +129,8 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Files.delete(path);
       }
     } catch (IOException e) {
-      logger
-          .error("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to delete the file ["
-          + path.toString() + "]", e);
+      logger.error("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to delete the file [" + path.toString() + "]", e);
     }
   }
 }

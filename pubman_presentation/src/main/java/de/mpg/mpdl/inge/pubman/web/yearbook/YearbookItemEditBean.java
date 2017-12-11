@@ -54,8 +54,7 @@ public class YearbookItemEditBean extends FacesBean {
 
 
   public YearbookItemEditBean() throws Exception {
-    this.yearbookItemSessionBean =
-        (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
+    this.yearbookItemSessionBean = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     this.init();
   }
 
@@ -90,11 +89,10 @@ public class YearbookItemEditBean extends FacesBean {
    */
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
-    final ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      this.contextSelectItems.add(new SelectItem(context.getReference().getObjectId(), context
-          .getName() + " (" + context.getReference().getObjectId() + ")"));
+      this.contextSelectItems
+          .add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
     }
   }
 
@@ -158,34 +156,35 @@ public class YearbookItemEditBean extends FacesBean {
     final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
     final Calendar calendar = Calendar.getInstance();
     final String currentYear = calendarFormat.format(calendar.getTime());
-    this.selectableYears.add(new SelectItem(String.valueOf(yearbookItemSessionBean.getYearbook().getYear()), String.valueOf(yearbookItemSessionBean.getYearbook().getYear())));
-    
+    this.selectableYears.add(new SelectItem(String.valueOf(yearbookItemSessionBean.getYearbook().getYear()),
+        String.valueOf(yearbookItemSessionBean.getYearbook().getYear())));
+
     try {
-      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, yearbookItemSessionBean.getYearbook().getOrganization().getObjectId());
+      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID,
+          yearbookItemSessionBean.getYearbook().getOrganization().getObjectId());
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-      SearchRetrieveResponseVO<YearbookDbVO> resp = ApplicationBean.INSTANCE.getYearbookService().search(srr,
-              getLoginHelper().getAuthenticationToken());
-      List<YearbookDbVO> yearbooks =
-          resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+      SearchRetrieveResponseVO<YearbookDbVO> resp =
+          ApplicationBean.INSTANCE.getYearbookService().search(srr, getLoginHelper().getAuthenticationToken());
+      List<YearbookDbVO> yearbooks = resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
 
       List<Integer> years = yearbooks.stream().map(yb -> yb.getYear()).collect(Collectors.toList());
-      
-      if(!years.contains(Integer.parseInt(currentYear)) && yearbookItemSessionBean.getYearbook().getYear() != Integer.parseInt(currentYear))
-      {
-        this.selectableYears.add(new SelectItem(currentYear, currentYear) );
+
+      if (!years.contains(Integer.parseInt(currentYear))
+          && yearbookItemSessionBean.getYearbook().getYear() != Integer.parseInt(currentYear)) {
+        this.selectableYears.add(new SelectItem(currentYear, currentYear));
       }
-      if(!years.contains(Integer.parseInt(currentYear)-1) && yearbookItemSessionBean.getYearbook().getYear() != Integer.parseInt(currentYear)-1)
-      {
-        this.selectableYears.add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1),
-            Integer.toString(Integer.valueOf(currentYear) - 1)));
+      if (!years.contains(Integer.parseInt(currentYear) - 1)
+          && yearbookItemSessionBean.getYearbook().getYear() != Integer.parseInt(currentYear) - 1) {
+        this.selectableYears
+            .add(new SelectItem(Integer.toString(Integer.valueOf(currentYear) - 1), Integer.toString(Integer.valueOf(currentYear) - 1)));
       }
-      
-      
-      
+
+
+
     } catch (Exception e) {
       YearbookItemEditBean.logger.error("Problem with yearbook: \n", e);
-    } 
-    
+    }
+
 
   }
 
@@ -245,8 +244,7 @@ public class YearbookItemEditBean extends FacesBean {
    * @return empty String (no navigation wanted)
    */
   public void addContext() {
-    this.contextIds.add(this.getContextPosition() + 1, (String) this.getContextSelectItems().get(0)
-        .getValue());
+    this.contextIds.add(this.getContextPosition() + 1, (String) this.getContextSelectItems().get(0).getValue());
   }
 
   /**
@@ -304,8 +302,7 @@ public class YearbookItemEditBean extends FacesBean {
       clonedYearbook.setYear(Integer.parseInt(getYear()));
 
 
-      YearbookDbVO updatedYearbook =
-          yearbookService.update(clonedYearbook, getLoginHelper().getAuthenticationToken());
+      YearbookDbVO updatedYearbook = yearbookService.update(clonedYearbook, getLoginHelper().getAuthenticationToken());
 
       yearbookItemSessionBean.initYearbook(updatedYearbook.getObjectId());
       this.info(this.getMessage("Yearbook_createdSuccessfully"));

@@ -25,8 +25,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * SourceCreatorRoleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -53,9 +52,8 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                   if (o != null) {
                     if (ValidationTools.isNotEmpty(o.getName()) //
                         || ValidationTools.isNotEmpty(o.getAddress())) {
-                      context.addError(ValidationError.create(
-                          ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                          "source[" + i + "].creator[" + j + "]"));
+                      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
+                          .setField("source[" + i + "].creator[" + j + "]"));
                       ok = false;
                     }
                   }
@@ -68,9 +66,8 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                   if (p != null) {
                     if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                         || ValidationTools.isNotEmpty(p.getGivenName())) {
-                      context.addError(ValidationError.create(
-                          ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                          "source[" + i + "].creator[" + j + "]"));
+                      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
+                          .setField("source[" + i + "].creator[" + j + "]"));
                       ok = false;
 
                       break;
@@ -87,9 +84,8 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                       if (organizationVO != null) {
                         if (ValidationTools.isNotEmpty(organizationVO.getName()) //
                             || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
-                          context.addError(ValidationError.create(
-                              ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED).setField(
-                              "source[" + i + "].creator[" + j + "].organization[" + z + "]"));
+                          context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
+                              .setField("source[" + i + "].creator[" + j + "].organization[" + z + "]"));
                           ok = false;
                         }
                       }

@@ -41,8 +41,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
  * @revised by MuJ: 03.09.2007
  */
 public class DataGatheringService {
-  private static final String PREDICATE_ISREVISIONOF =
-      "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
+  private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
   // private static final String PREDICATE_ISMEMBEROF =
   // "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#hasMember"; //
   // "http://escidoc.de/core/01/structural-relations/member";
@@ -62,16 +61,12 @@ public class DataGatheringService {
    * de.mpg.mpdl.inge.model.xmltransforming.DataGathering#findRevisionsOfItem(de.mpg.mpdl.inge.model
    * .xmltransforming .referenceobjects.ItemRO)
    */
-  public static List<RelationVO> findRevisionsOfItem(String userHandle, ItemRO itemRef)
-      throws TechnicalException {
+  public static List<RelationVO> findRevisionsOfItem(String userHandle, ItemRO itemRef) throws TechnicalException {
     if (itemRef == null) {
-      throw new IllegalArgumentException(DataGatheringService.class.getSimpleName()
-          + ".findRevisionsOfItem:itemRef is null");
+      throw new IllegalArgumentException(DataGatheringService.class.getSimpleName() + ".findRevisionsOfItem:itemRef is null");
     }
-    String param =
-        "<param>" + "<query>* " + PREDICATE_ISREVISIONOF + " &lt;info:fedora/"
-            + itemRef.getObjectId() + "&gt;</query>" + "<format>" + OUTPUT_FORMAT + "</format>"
-            + "</param>";
+    String param = "<param>" + "<query>* " + PREDICATE_ISREVISIONOF + " &lt;info:fedora/" + itemRef.getObjectId() + "&gt;</query>"
+        + "<format>" + OUTPUT_FORMAT + "</format>" + "</param>";
     logger.debug("Param=" + param);
     try {
 
@@ -92,16 +87,12 @@ public class DataGatheringService {
   /**
    * {@inheritDoc}
    */
-  public static List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef)
-      throws TechnicalException {
+  public static List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef) throws TechnicalException {
     if (itemRef == null) {
-      throw new IllegalArgumentException(DataGatheringService.class.getSimpleName()
-          + ".findRevisionsOfItem:itemRef is null");
+      throw new IllegalArgumentException(DataGatheringService.class.getSimpleName() + ".findRevisionsOfItem:itemRef is null");
     }
-    String param =
-        "<param>" + "<query>&lt;info:fedora/" + itemRef.getObjectId() + "&gt; "
-            + PREDICATE_ISREVISIONOF + " *</query>" + "<format>" + OUTPUT_FORMAT + "</format>"
-            + "</param>";
+    String param = "<param>" + "<query>&lt;info:fedora/" + itemRef.getObjectId() + "&gt; " + PREDICATE_ISREVISIONOF + " *</query>"
+        + "<format>" + OUTPUT_FORMAT + "</format>" + "</param>";
     logger.debug("Param=" + param);
     try {
       String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);

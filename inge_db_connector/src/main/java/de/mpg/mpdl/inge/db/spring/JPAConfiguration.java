@@ -26,8 +26,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Configuration
 @ComponentScan({"de.mpg.mpdl.inge.db.repository", "de.mpg.mpdl.inge.db.filestorage"})
-@EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository",
-    entityManagerFactoryRef = "entityManagerFactory", transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(basePackages = "de.mpg.mpdl.inge.db.repository", entityManagerFactoryRef = "entityManagerFactory",
+    transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
 public class JPAConfiguration {
 
@@ -61,8 +61,7 @@ public class JPAConfiguration {
     dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
 
     logger.info("Using database <" + PropertyReader.getProperty("inge.database.jdbc.url") + ">");
-    logger.info("Using database user <" + PropertyReader.getProperty("inge.database.user.name")
-        + ">");
+    logger.info("Using database user <" + PropertyReader.getProperty("inge.database.user.name") + ">");
 
 
     return dataSource;

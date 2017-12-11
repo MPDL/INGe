@@ -41,7 +41,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class SearchResultListSessionBean extends FacesBean {
-  public enum SearchType {
+  public enum SearchType
+  {
     NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
   }
 

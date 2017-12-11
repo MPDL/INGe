@@ -116,23 +116,19 @@ public abstract class ValueObject implements Serializable {
           }
 
           if (cleanup && toBeRemoved.size() > 0) {
-            logger.debug("Cleaning up collection "
-                + fromField.getDeclaringClass().getCanonicalName() + " / " + fromField.getName());
+            logger.debug("Cleaning up collection " + fromField.getDeclaringClass().getCanonicalName() + " / " + fromField.getName());
             coll.removeAll(toBeRemoved);
           }
         }
       } else if (ValueObject.class.isAssignableFrom(obj.getClass())) {
         for (Field f : getAllFields(obj.getClass())) {
-          if ((!Modifier.isStatic(f.getModifiers()))
-              && f.getAnnotation(IgnoreForCleanup.class) == null) {
+          if ((!Modifier.isStatic(f.getModifiers())) && f.getAnnotation(IgnoreForCleanup.class) == null) {
 
             f.setAccessible(true);
             Object fieldObject = f.get(obj);
             boolean fieldIsEmpty = isEmpty(fieldObject, cleanup, f);
-            if (cleanup && fieldIsEmpty && fieldObject != null
-                && !Collection.class.isAssignableFrom(fieldObject.getClass())) {
-              logger.debug("Cleaning up object" + obj.getClass().getCanonicalName() + " / "
-                  + f.getName());
+            if (cleanup && fieldIsEmpty && fieldObject != null && !Collection.class.isAssignableFrom(fieldObject.getClass())) {
+              logger.debug("Cleaning up object" + obj.getClass().getCanonicalName() + " / " + f.getName());
               f.set(obj, null);
             }
 

@@ -43,11 +43,9 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 public class EventLogEntryVOPresentation extends EventLogEntryVO {
   private VersionHistoryEntryVO versionHistoryVO;
 
-  private final InternationalizationHelper i18nHelper = FacesTools
-      .findBean("InternationalizationHelper");
+  private final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
 
-  public EventLogEntryVOPresentation(EventLogEntryVO eventLogVO,
-      VersionHistoryEntryVO versionHistoryVO) {
+  public EventLogEntryVOPresentation(EventLogEntryVO eventLogVO, VersionHistoryEntryVO versionHistoryVO) {
     this.setComment(eventLogVO.getComment());
     this.setDate(eventLogVO.getDate());
     this.setType(eventLogVO.getType());

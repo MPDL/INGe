@@ -136,8 +136,7 @@ public class EditItem extends FacesBean {
   private UIRepeat fileIterator;
 
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
-  public static final String REST_COMPONENT_PATH = PropertyReader
-      .getProperty("inge.rest.file.path");
+  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty("inge.rest.file.path");
 
   public EditItem() {
     this.init();
@@ -157,17 +156,14 @@ public class EditItem extends FacesBean {
       return;
     }
 
-    if (this.getPubItem().getVersion() != null
-        && this.getPubItem().getVersion().getObjectId() != null
+    if (this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null
         && this.getLoginHelper().getIsYearbookEditor()) {
       if (this.getYearbookItemSessionBean().getYearbook() != null
-          && this.getYearbookItemSessionBean().getInvalidItemMap()
-              .get(this.getPubItem().getVersion().getObjectId()) != null) {
+          && this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId()) != null) {
         try {
           this.getYearbookItemSessionBean().validateItem(this.getPubItem());
           final YearbookInvalidItemRO invItem =
-              this.getYearbookItemSessionBean().getInvalidItemMap()
-                  .get(this.getPubItem().getVersion().getObjectId());
+              this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getVersion().getObjectId());
 
           if (invItem != null) {
             (this.getPubItem()).setValidationReport(invItem.getValidationReport());
@@ -179,8 +175,7 @@ public class EditItem extends FacesBean {
     }
 
     // FIXME provide access to parts of my VO to specialized POJO's
-    this.identifierCollection =
-        new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
+    this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
 
     this.contextName = this.getContextName();
   }
@@ -215,9 +210,7 @@ public class EditItem extends FacesBean {
   public String getContextName() {
     if (this.contextName == null && this.getPubItem() != null) {
       try {
-        final ContextVO context =
-            this.getItemControllerSessionBean().retrieveContext(
-                this.getPubItem().getContext().getObjectId());
+        final ContextVO context = this.getItemControllerSessionBean().retrieveContext(this.getPubItem().getContext().getObjectId());
         return context.getName();
       } catch (final Exception e) {
         EditItem.logger.error("Could not retrieve the requested context." + "\n" + e.toString());
@@ -241,14 +234,12 @@ public class EditItem extends FacesBean {
         pubItem.getMetadata().setGenre(Genre.ARTICLE);
         this.getEditItemSessionBean().setGenreBundle("Genre_" + Genre.ARTICLE.toString());
       } else { // if(this.getEditItemSessionBean().getGenreBundle().trim().equals(""))
-        this.getEditItemSessionBean().setGenreBundle(
-            "Genre_" + pubItem.getMetadata().getGenre().name());
+        this.getEditItemSessionBean().setGenreBundle("Genre_" + pubItem.getMetadata().getGenre().name());
       }
 
       this.getItemControllerSessionBean().initializeItem(pubItem);
 
-      if (!this.getEditItemSessionBean().isFilesInitialized()
-          || this.getEditItemSessionBean().getLocators().size() == 0) {
+      if (!this.getEditItemSessionBean().isFilesInitialized() || this.getEditItemSessionBean().getLocators().size() == 0) {
         this.bindFiles();
         this.getEditItemSessionBean().setFilesInitialized(true);
       }
@@ -261,19 +252,16 @@ public class EditItem extends FacesBean {
         for (final CreatorVO creatorVO : pubItem.getMetadata().getCreators()) {
           if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null) {
             creatorVO.setPerson(new PersonVO());
-          } else if (creatorVO.getType() == CreatorType.ORGANIZATION
-              && creatorVO.getOrganization() == null) {
+          } else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null) {
             creatorVO.setOrganization(new OrganizationVO());
           }
-          if (creatorVO.getType() == CreatorType.PERSON
-              && creatorVO.getPerson().getOrganizations() != null) {
+          if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null) {
             for (final OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations()) {
               if (organizationVO.getName() == null) {
                 organizationVO.setName("");
               }
             }
-          } else if (creatorVO.getType() == CreatorType.ORGANIZATION
-              && creatorVO.getOrganization() != null
+          } else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null
               && creatorVO.getOrganization().getName() == null) {
             creatorVO.getOrganization().setName("");
           }
@@ -295,19 +283,16 @@ public class EditItem extends FacesBean {
           for (final CreatorVO creatorVO : source.getCreators()) {
             if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson() == null) {
               creatorVO.setPerson(new PersonVO());
-            } else if (creatorVO.getType() == CreatorType.ORGANIZATION
-                && creatorVO.getOrganization() == null) {
+            } else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() == null) {
               creatorVO.setOrganization(new OrganizationVO());
             }
-            if (creatorVO.getType() == CreatorType.PERSON
-                && creatorVO.getPerson().getOrganizations() != null) {
+            if (creatorVO.getType() == CreatorType.PERSON && creatorVO.getPerson().getOrganizations() != null) {
               for (final OrganizationVO organizationVO : creatorVO.getPerson().getOrganizations()) {
                 if (organizationVO.getName() == null) {
                   organizationVO.setName("");
                 }
               }
-            } else if (creatorVO.getType() == CreatorType.ORGANIZATION
-                && creatorVO.getOrganization() != null
+            } else if (creatorVO.getType() == CreatorType.ORGANIZATION && creatorVO.getOrganization() != null
                 && creatorVO.getOrganization().getName() == null) {
               creatorVO.getOrganization().setName("");
             }
@@ -337,12 +322,11 @@ public class EditItem extends FacesBean {
         // Add identifierVO if not available yet
         if (file.getDefaultMetadata() != null //
             && (file.getDefaultMetadata().getIdentifiers() == null //
-            || file.getDefaultMetadata().getIdentifiers().isEmpty())) {
+                || file.getDefaultMetadata().getIdentifiers().isEmpty())) {
           file.getDefaultMetadata().getIdentifiers().add(new IdentifierVO());
         }
 
-        final PubFileVOPresentation pubFileVOPresentation =
-            new PubFileVOPresentation(fileCount, file, false);
+        final PubFileVOPresentation pubFileVOPresentation = new PubFileVOPresentation(fileCount, file, false);
         files.add(pubFileVOPresentation);
         fileCount++;
       }
@@ -356,16 +340,14 @@ public class EditItem extends FacesBean {
 
     for (final FileVO file : this.getPubItem().getFiles()) {
       if (file.getStorage().equals(FileVO.Storage.EXTERNAL_URL)) {
-        final PubFileVOPresentation pubFileVOPresentation =
-            new PubFileVOPresentation(locatorCount, file, true);
+        final PubFileVOPresentation pubFileVOPresentation = new PubFileVOPresentation(locatorCount, file, true);
 
         // This is a small hack for locators generated out of Bibtex files
         if (pubFileVOPresentation.getLocator() == null && pubFileVOPresentation.getFile() != null
             && pubFileVOPresentation.getFile().getName() != null) {
           pubFileVOPresentation.setLocator(pubFileVOPresentation.getFile().getName().trim());
           pubFileVOPresentation.getFile().getMetadataSets().add(new MdsFileVO());
-          pubFileVOPresentation.getFile().getDefaultMetadata()
-              .setTitle(pubFileVOPresentation.getFile().getName());
+          pubFileVOPresentation.getFile().getDefaultMetadata().setTitle(pubFileVOPresentation.getFile().getName());
         }
 
         // And here it ends
@@ -382,8 +364,7 @@ public class EditItem extends FacesBean {
       final FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-      this.getEditItemSessionBean().getLocators()
-          .add(new PubFileVOPresentation(0, newLocator, true));
+      this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }
   }
 
@@ -440,8 +421,7 @@ public class EditItem extends FacesBean {
    * @return The URL of the uploaded file.
    * @throws Exception If anything goes wrong...
    */
-  protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle)
-      throws Exception {
+  protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception {
     // Prepare the HttpMethod.
     final String fwUrl = PropertyReader.getFrameworkUrl();
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
@@ -466,8 +446,7 @@ public class EditItem extends FacesBean {
         this.getPubItem().getMetadata().getLanguages().add("");
       }
       int counter = 0;
-      for (final Iterator<String> iterator =
-          this.getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
+      for (final Iterator<String> iterator = this.getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
         final String value = iterator.next();
         final ListItem item = new ListItem();
         item.setValue(value);
@@ -494,8 +473,7 @@ public class EditItem extends FacesBean {
       PubItemVO itemVO = new PubItemVO(this.getPubItem()); // Validierung arbeitet mit Kopie
       PubItemUtil.cleanUpItem(itemVO);
       cleanUp(itemVO);
-      ApplicationBean.INSTANCE.getItemValidatingService()
-          .validate(itemVO, ValidationPoint.STANDARD);
+      ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, ValidationPoint.STANDARD);
       final String message = this.getMessage("itemIsValid");
       this.info(message);
     } catch (final ValidationException e) {
@@ -545,8 +523,7 @@ public class EditItem extends FacesBean {
 
   private void cleanUp(PubItemVO pubItem) {
     // cleanup item according to genre specific MD specification
-    final GenreSpecificItemManager itemManager =
-        new GenreSpecificItemManager(pubItem, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
+    final GenreSpecificItemManager itemManager = new GenreSpecificItemManager(pubItem, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
     try {
       pubItem = (PubItemVO) itemManager.cleanupItem();
     } catch (final Exception e) {
@@ -559,8 +536,7 @@ public class EditItem extends FacesBean {
     PubItemVO oldPubItem = null;
     if (newPubItem.getVersion().getObjectId() != null) {
       try {
-        oldPubItem =
-            this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
+        oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
       } catch (final Exception e) {
         EditItem.logger.error("Could not retrieve item." + "\n" + e.toString(), e);
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
@@ -573,8 +549,7 @@ public class EditItem extends FacesBean {
           // create a validation report
           final ValidationReportVO changedReport = new ValidationReportVO();
           final ValidationReportItemVO changedReportItem =
-              new ValidationReportItemVO("itemHasNotBeenChanged",
-                  ValidationReportItemVO.Severity.ERROR);
+              new ValidationReportItemVO("itemHasNotBeenChanged", ValidationReportItemVO.Severity.ERROR);
           changedReport.addItem(changedReportItem);
           // show report and stay on this page
           this.showValidationMessages(changedReport);
@@ -610,19 +585,14 @@ public class EditItem extends FacesBean {
     this.getEditItemSessionBean().setCurrentSubmission("");
 
     try {
-      if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean()
-          .getPreviousItem().getPage())) {
+      if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage())) {
         final String viewItemPage =
-            PropertyReader.getProperty("inge.pubman.instance.url")
-                + PropertyReader.getProperty("inge.pubman.instance.context.path")
-                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceFirst("\\$1",
-                    this.getPubItem().getVersion().getObjectId());
+            PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
+                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceFirst("\\$1", this.getPubItem().getVersion().getObjectId());
         FacesTools.getExternalContext().redirect(viewItemPage);
-      } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage()
-          .contains("ViewItemFullPage.jsp")) {
+      } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {
         FacesTools.getExternalContext().redirect(
-            FacesTools.getRequest().getContextPath() + "/faces/"
-                + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
+            FacesTools.getRequest().getContextPath() + "/faces/" + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
       } else {
         FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
       }
@@ -668,17 +638,11 @@ public class EditItem extends FacesBean {
     if (ViewItemFull.LOAD_VIEWITEM.equals(navigateTo)) {
       try {
         if (this.isFromEasySubmission()) {
-          FacesTools.getExternalContext().redirect(
-              FacesTools.getRequest().getContextPath()
-                  + "/faces/ViewItemFullPage.jsp?itemId="
-                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                      .getObjectId() + "&fromEasySub=true");
+          FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + "&fromEasySub=true");
         } else {
-          FacesTools.getExternalContext().redirect(
-              FacesTools.getRequest().getContextPath()
-                  + "/faces/ViewItemFullPage.jsp?itemId="
-                  + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                      .getObjectId());
+          FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
         }
       } catch (final IOException e) {
         EditItem.logger.error("Could not redirect to View Item Page", e);
@@ -693,8 +657,7 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndSubmit() {
-    if (this.getPubItem().getVersion() == null
-        || this.getPubItem().getVersion().getObjectId() == null) {
+    if (this.getPubItem().getVersion() == null || this.getPubItem().getVersion().getObjectId() == null) {
       String retVal = this.validate();
       if ("".equals(retVal) == false) {
         return retVal;
@@ -705,8 +668,7 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndRelease() {
-    if (this.getPubItem().getVersion() == null
-        || this.getPubItem().getVersion().getObjectId() == null) {
+    if (this.getPubItem().getVersion() == null || this.getPubItem().getVersion().getObjectId() == null) {
       String retVal = this.validate();
       if ("".equals(retVal) == false) {
         return retVal;
@@ -727,9 +689,8 @@ public class EditItem extends FacesBean {
         final MdsFileVO mdsFileVO = new MdsFileVO();
         String path = null;
         try {
-          StagedFileDbVO stagedFile =
-              ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(),
-                  file.getFileName(), getLoginHelper().getAuthenticationToken());
+          StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
+              getLoginHelper().getAuthenticationToken());
           path = String.valueOf(stagedFile.getId());
         } catch (Exception e) {
           logger.error("Could not upload staged file [" + path + "]", e);
@@ -739,11 +700,8 @@ public class EditItem extends FacesBean {
         mdsFileVO.getIdentifiers().add(new IdentifierVO());
         fileVO.getMetadataSets().add(mdsFileVO);
         fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-        this.getEditItemSessionBean()
-            .getFiles()
-            .add(
-                new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO,
-                    false));
+        this.getEditItemSessionBean().getFiles()
+            .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
         fileVO.getDefaultMetadata().setSize((int) file.getSize());
         fileVO.setName(file.getFileName());
         fileVO.getDefaultMetadata().setTitle(file.getFileName());
@@ -754,8 +712,7 @@ public class EditItem extends FacesBean {
           fileVO.setMimeType(tika.detect(fis, file.getFileName()));
           fis.close();
         } catch (final IOException e) {
-          EditItem.logger.info(
-              "Error while trying to detect mimetype of file " + file.getFileName(), e);
+          EditItem.logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
         }
 
         final FormatVO formatVO = new FormatVO();
@@ -803,11 +760,8 @@ public class EditItem extends FacesBean {
       final FileVO newLocator = new FileVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
       newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
-      this.getEditItemSessionBean()
-          .getLocators()
-          .add(
-              new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(),
-                  newLocator, true));
+      this.getEditItemSessionBean().getLocators()
+          .add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
     }
   }
 
@@ -820,24 +774,14 @@ public class EditItem extends FacesBean {
     final int indexUpload = this.getEditItemSessionBean().getLocators().size() - 1;
     if (this.getEditItemSessionBean().getLocators() != null) {
       // Set empty MetadataSet if none exists
-      if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile()
-          .getDefaultMetadata() == null) {
-        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadataSets()
-            .add(new MdsFileVO());
+      if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata() == null) {
+        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadataSets().add(new MdsFileVO());
       }
       // Set file name if not filled
-      if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile()
-          .getDefaultMetadata().getTitle() == null
-          || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile()
-              .getDefaultMetadata().getTitle().trim().equals("")) {
-        this.getEditItemSessionBean()
-            .getLocators()
-            .get(indexUpload)
-            .getFile()
-            .getDefaultMetadata()
-            .setTitle(
-                this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent()
-                    .trim());
+      if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle() == null
+          || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata().getTitle().trim().equals("")) {
+        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getDefaultMetadata()
+            .setTitle(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent().trim());
       }
       final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
       final PubFileVOPresentation pubFile = list.get(indexUpload);
@@ -872,28 +816,24 @@ public class EditItem extends FacesBean {
     boolean isStateInRevision = false;
     // boolean isPublicStateReleased = false;
 
-    if (this.getPubItem() != null && this.getPubItem().getVersion() != null
-        && this.getPubItem().getVersion().getState() != null) {
+    if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getState() != null) {
       isStatePending = ItemVO.State.PENDING.equals(this.getPubItem().getVersion().getState());
       isStateSubmitted = ItemVO.State.SUBMITTED.equals(this.getPubItem().getVersion().getState());
       isStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getVersion().getState());
-      isStateInRevision =
-          ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersion().getState());
+      isStateInRevision = ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersion().getState());
       // isPublicStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getPublicStatus());
     }
 
     boolean isOwner = true;
     if (this.getPubItem() != null && this.getPubItem().getOwner() != null) {
-      isOwner =
-          (this.getLoginHelper().getAccountUser().getReference() != null ? this.getLoginHelper()
-              .getAccountUser().getReference().getObjectId()
-              .equals(this.getPubItem().getOwner().getObjectId()) : false);
+      isOwner = (this.getLoginHelper().getAccountUser().getReference() != null
+          ? this.getLoginHelper().getAccountUser().getReference().getObjectId().equals(this.getPubItem().getOwner().getObjectId())
+          : false);
     }
 
     boolean isModerator = false;
     if (this.getLoginHelper().getAccountUser() != null && this.getPubItem() != null) {
-      isModerator =
-          this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
+      isModerator = this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getContext());
     }
 
     boolean isWorkflowStandard = false;
@@ -902,14 +842,10 @@ public class EditItem extends FacesBean {
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null
           && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
-        isWorkflowStandard =
-            (PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this
-                .getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-                .getWorkflow()));
-        isWorkflowSimple =
-            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this
-                .getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-                .getWorkflow()));
+        isWorkflowStandard = (PublicationAdminDescriptorVO.Workflow.STANDARD
+            .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()));
+        isWorkflowSimple = (PublicationAdminDescriptorVO.Workflow.SIMPLE
+            .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -923,12 +859,10 @@ public class EditItem extends FacesBean {
       this.lnkSaveAndSubmit.setRendered(false);
       this.lnkSave.setRendered(false);
     } else {
-      this.lnkRelease.setRendered(isOwner && isWorkflowSimple
-          && (isStatePending || isStateSubmitted || isStateReleased));
+      this.lnkRelease.setRendered(isOwner && isWorkflowSimple && (isStatePending || isStateSubmitted || isStateReleased));
       this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
       this.lnkSave.setRendered(isOwner || isModerator);
-      this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard
-          && (isStatePending || isStateInRevision));
+      this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && (isStatePending || isStateInRevision));
     }
   }
 
@@ -940,20 +874,17 @@ public class EditItem extends FacesBean {
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null
           && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
-        isWorkflowSimple =
-            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this
-                .getItemControllerSessionBean().getCurrentContext().getAdminDescriptor()
-                .getWorkflow()));
+        isWorkflowSimple = (PublicationAdminDescriptorVO.Workflow.SIMPLE
+            .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
     }
 
     return viewItemFull.getIsLatestVersion()
-        && ((viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted())
-            && viewItemFull.getIsModerator() || (viewItemFull.getIsStatePending()
-            || viewItemFull.getIsStateSubmitted() && isWorkflowSimple || viewItemFull
-              .getIsStateInRevision()) && viewItemFull.getIsOwner());
+        && ((viewItemFull.getIsStateReleased() || viewItemFull.getIsStateSubmitted()) && viewItemFull.getIsModerator()
+            || (viewItemFull.getIsStatePending() || viewItemFull.getIsStateSubmitted() && isWorkflowSimple
+                || viewItemFull.getIsStateInRevision()) && viewItemFull.getIsOwner());
   }
 
   /**
@@ -963,8 +894,7 @@ public class EditItem extends FacesBean {
    */
   public SelectItem[] getGenres() {
     List<MdsPublicationVO.Genre> allowedGenres = null;
-    final List<AdminDescriptorVO> adminDescriptors =
-        this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptors();
+    final List<AdminDescriptorVO> adminDescriptors = this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptors();
 
     for (final AdminDescriptorVO adminDescriptorVO : adminDescriptors) {
       if (adminDescriptorVO instanceof PublicationAdminDescriptorVO) {
@@ -976,8 +906,7 @@ public class EditItem extends FacesBean {
       allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
     }
 
-    return this.getI18nHelper().getSelectItemsForEnum(false,
-        allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
+    return this.getI18nHelper().getSelectItemsForEnum(false, allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
   }
 
   /**
@@ -1028,10 +957,8 @@ public class EditItem extends FacesBean {
    */
   public boolean getInvited() {
     // Changed by FrM: Check for event
-    if (this.getPubItem().getMetadata().getEvent() != null
-        && this.getPubItem().getMetadata().getEvent().getInvitationStatus() != null
-        && this.getPubItem().getMetadata().getEvent().getInvitationStatus()
-            .equals(EventVO.InvitationStatus.INVITED)) {
+    if (this.getPubItem().getMetadata().getEvent() != null && this.getPubItem().getMetadata().getEvent().getInvitationStatus() != null
+        && this.getPubItem().getMetadata().getEvent().getInvitationStatus().equals(EventVO.InvitationStatus.INVITED)) {
       return true;
     }
 
@@ -1046,8 +973,7 @@ public class EditItem extends FacesBean {
    */
   public void setInvited(boolean invited) {
     if (invited) {
-      this.getPubItem().getMetadata().getEvent()
-          .setInvitationStatus(EventVO.InvitationStatus.INVITED);
+      this.getPubItem().getMetadata().getEvent().setInvitationStatus(EventVO.InvitationStatus.INVITED);
     } else {
       this.getPubItem().getMetadata().getEvent().setInvitationStatus(null);
     }
@@ -1078,8 +1004,7 @@ public class EditItem extends FacesBean {
   }
 
   public String getEventTitle() {
-    if (this.getPubItem().getMetadata().getEvent() != null
-        && this.getPubItem().getMetadata().getEvent().getTitle() != null) {
+    if (this.getPubItem().getMetadata().getEvent() != null && this.getPubItem().getMetadata().getEvent().getTitle() != null) {
       return this.getPubItem().getMetadata().getEvent().getTitle();
     }
 
@@ -1087,8 +1012,7 @@ public class EditItem extends FacesBean {
   }
 
   public void setEventTitle(String title) {
-    if (this.getPubItem().getMetadata().getEvent() != null
-        && this.getPubItem().getMetadata().getEvent().getTitle() != null) {
+    if (this.getPubItem().getMetadata().getEvent() != null && this.getPubItem().getMetadata().getEvent().getTitle() != null) {
       this.getPubItem().getMetadata().getEvent().setTitle(title);
     }
   }
@@ -1139,13 +1063,11 @@ public class EditItem extends FacesBean {
 
   public String getOwner() throws Exception {
     if (this.getPubItem().getOwner() != null) {
-      if (this.getPubItem().getOwner().getTitle() != null
-          && this.getPubItem().getOwner().getTitle().trim() != "") {
+      if (this.getPubItem().getOwner().getTitle() != null && this.getPubItem().getOwner().getTitle().trim() != "") {
         return this.getPubItem().getOwner().getTitle();
       }
 
-      if (this.getPubItem().getOwner().getObjectId() != null
-          && this.getPubItem().getOwner().getObjectId() != "") {
+      if (this.getPubItem().getOwner().getObjectId() != null && this.getPubItem().getOwner().getObjectId() != "") {
         return this.getPubItem().getOwner().getObjectId();
       }
     }
@@ -1162,8 +1084,7 @@ public class EditItem extends FacesBean {
   }
 
   public String getLastModifier() throws Exception {
-    if (this.getPubItem().getVersion().getModifiedByRO() != null
-        && this.getPubItem().getVersion().getModifiedByRO().getTitle() != null) {
+    if (this.getPubItem().getVersion().getModifiedByRO() != null && this.getPubItem().getVersion().getModifiedByRO().getTitle() != null) {
       return this.getPubItem().getVersion().getModifiedByRO().getTitle();
     } else if (this.getPubItem().getVersion().getModifiedByRO() != null
         && this.getPubItem().getVersion().getModifiedByRO().getObjectId() != null) {
@@ -1199,8 +1120,7 @@ public class EditItem extends FacesBean {
 
   public void addCreatorString() {
     try {
-      this.getEditItemSessionBean().parseCreatorString(
-          this.getEditItemSessionBean().getCreatorParseString(), null,
+      this.getEditItemSessionBean().parseCreatorString(this.getEditItemSessionBean().getCreatorParseString(), null,
           this.getEditItemSessionBean().getOverwriteCreators());
     } catch (final Exception e) {
       EditItem.logger.error("Could not parse creator string", e);
@@ -1228,16 +1148,13 @@ public class EditItem extends FacesBean {
     final ArrayList<SelectItem> result = new ArrayList<SelectItem>();
 
     final ContextRO contextRO = this.getPubItem().getContext();
-    for (final PubContextVOPresentation context : this.getContextListSessionBean()
-        .getDepositorContextList()) {
+    for (final PubContextVOPresentation context : this.getContextListSessionBean().getDepositorContextList()) {
       if (context.getReference().equals(contextRO)) {
         final PublicationAdminDescriptorVO adminDescriptorVO = context.getAdminDescriptor();
-        final List<SubjectClassification> list =
-            adminDescriptorVO.getAllowedSubjectClassifications();
+        final List<SubjectClassification> list = adminDescriptorVO.getAllowedSubjectClassifications();
         if (list != null) {
           for (final SubjectClassification classification : list) {
-            final SelectItem selectItem =
-                new SelectItem(classification.name(), classification.name().replace("_", "-"));
+            final SelectItem selectItem = new SelectItem(classification.name(), classification.name().replace("_", "-"));
             result.add(selectItem);
           }
           return result.toArray(new SelectItem[] {});
@@ -1260,8 +1177,7 @@ public class EditItem extends FacesBean {
     for (int i = 0; i < possibleGenres.length; i++) {
       if (possibleGenres[i].toString().equals(newGenre)) {
         this.getPubItem().getMetadata().setGenre(possibleGenres[i]);
-        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-            .setGenre(possibleGenres[i]);
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(possibleGenres[i]);
       }
     }
 
@@ -1357,8 +1273,7 @@ public class EditItem extends FacesBean {
    */
   public void parseAndSetAlternativeTitles() {
     // clear old alternative titles
-    final List<AlternativeTitleVO> altTitleList =
-        this.getPubItem().getMetadata().getAlternativeTitles();
+    final List<AlternativeTitleVO> altTitleList = this.getPubItem().getMetadata().getAlternativeTitles();
     altTitleList.clear();
 
     // clear old identifiers
@@ -1405,8 +1320,7 @@ public class EditItem extends FacesBean {
   }
 
   private BreadcrumbItemHistorySessionBean getBreadcrumbItemHistorySessionBean() {
-    return (BreadcrumbItemHistorySessionBean) FacesTools
-        .findBean("BreadcrumbItemHistorySessionBean");
+    return (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
   }
 
   private ContextListSessionBean getContextListSessionBean() {

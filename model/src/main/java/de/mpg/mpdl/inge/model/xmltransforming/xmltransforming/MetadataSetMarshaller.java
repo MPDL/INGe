@@ -82,8 +82,7 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable {
             ((IMarshallable) entry).marshal(ctx);
             ctx.endTag(m_index, RECORD_ELEMENT_NAME);
           } else {
-            throw new JiBXException("Mapped value is not marshallable ("
-                + entry.getClass().getSimpleName() + ")");
+            throw new JiBXException("Mapped value is not marshallable (" + entry.getClass().getSimpleName() + ")");
           }
           first = false;
         }

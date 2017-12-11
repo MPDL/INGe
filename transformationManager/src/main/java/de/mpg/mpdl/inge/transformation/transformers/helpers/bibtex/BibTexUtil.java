@@ -50,7 +50,8 @@ public class BibTexUtil {
   /**
    * Enum that lists all BibTeX genres.
    */
-  public enum Genre {
+  public enum Genre
+  {
     article, book, booklet, conference, inbook, incollection, inproceedings, manual, mastersthesis, misc, phdthesis, proceedings, techreport, unpublished, webpage, collection, talk, poster
   }
 

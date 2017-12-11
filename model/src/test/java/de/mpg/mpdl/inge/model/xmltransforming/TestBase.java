@@ -124,13 +124,11 @@ public class TestBase {
   protected static final String MIME_TYPE = "application/pdf";
   protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
   protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
-  protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION =
-      "This is the sample collection " + "description of the PubMan Test\n"
-          + "collection. Any content can be stored in this collection, which is of relevance\n"
-          + "for the users of the system. You can submit relevant bibliographic information\n"
-          + "for your publication (metadata) and all relevant files. The MPS is the\n"
-          + "responsible affiliation for this collection. Please contact\n"
-          + "u.tschida@zim.mpg.de for any questions.";
+  protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection " + "description of the PubMan Test\n"
+      + "collection. Any content can be stored in this collection, which is of relevance\n"
+      + "for the users of the system. You can submit relevant bibliographic information\n"
+      + "for your publication (metadata) and all relevant files. The MPS is the\n"
+      + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
 
   private static Map<String, Schema> schemas = null;
 
@@ -150,8 +148,8 @@ public class TestBase {
    * @throws SystemException Any system exception
    * @throws AuthenticationException Thrown if the user handle is not valid
    */
-  protected static void logout(String userHandle) throws ServiceException, URISyntaxException,
-      AuthenticationException, SystemException, RemoteException {
+  protected static void logout(String userHandle)
+      throws ServiceException, URISyntaxException, AuthenticationException, SystemException, RemoteException {
     ServiceLocator.getUserManagementWrapper(userHandle).logout();
   }
 
@@ -166,9 +164,7 @@ public class TestBase {
     accountUser = XmlTransformingService.transformToAccountUser(xmlUser);
     // add the user handle to the transformed account user
     accountUser.setHandle(userHandle);
-    String userGrantXML =
-        ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(
-            accountUser.getReference().getObjectId());
+    String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
     List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(userGrantXML);
     List<GrantVO> userGrants = accountUser.getGrants();
     for (GrantVO grant : grants) {
@@ -196,8 +192,7 @@ public class TestBase {
     contextRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     item.setContext(contextRef);
     try {
-      String contentModel =
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
       item.setContentModel(contentModel);
     } catch (Exception e) {
       throw new RuntimeException("Error getting content-model", e);
@@ -289,8 +284,7 @@ public class TestBase {
     event.setTitle("Un bôn vín fràn\uc3a7ais");
     // subject
     String s1 = "This is the subject. Betreffs fußen auf Gerüchten für Äonen.";
-    logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = "
-        + (s1.contains("ü")));
+    logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = " + (s1.contains("ü")));
     mds.setFreeKeywords(s1);
     // table of contents
     mds.setTableOfContents("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.");
@@ -475,8 +469,7 @@ public class TestBase {
     mds.setDegree(DegreeType.MASTER);
 
     // Abstracts
-    mds.getAbstracts().add(
-        new AbstractVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
+    mds.getAbstracts().add(new AbstractVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
     mds.getAbstracts().add(new AbstractVO("This is the summary of the publication.", "en"));
 
     // Subject
@@ -499,8 +492,7 @@ public class TestBase {
     // Event.Title
     event.setTitle("Weekly progress meeting");
     // Event.AlternativeTitle
-    event.getAlternativeTitles().add(
-        new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
+    event.getAlternativeTitles().add(new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
     // Event.StartDate
     event.setStartDate("2004-11-11");
     // Event.EndDate
@@ -525,19 +517,14 @@ public class TestBase {
     // source.setGenre(SourceVO.Genre.SERIES);
     // Source.AlternativeTitle
     source.getAlternativeTitles().add(new AlternativeTitleVO("This is the root of all ???.", "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO(
-            "< and & are illegal characters in XML and therefore have to be escaped.", "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO(
-            "> and ' and ? are problematic characters in XML and therefore should be escaped.",
-            "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO(
-            "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the"
-                + " \\, -, the _, the\n" + "~, the @ and the #)?", "en"));
-    source.getAlternativeTitles().add(
-        new AlternativeTitleVO("By the way, the Euro sign looks like this: €", "en"));
+    source.getAlternativeTitles()
+        .add(new AlternativeTitleVO("< and & are illegal characters in XML and therefore have to be escaped.", "en"));
+    source.getAlternativeTitles()
+        .add(new AlternativeTitleVO("> and ' and ? are problematic characters in XML and therefore should be escaped.", "en"));
+    source.getAlternativeTitles().add(new AlternativeTitleVO(
+        "What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the" + " \\, -, the _, the\n" + "~, the @ and the #)?",
+        "en"));
+    source.getAlternativeTitles().add(new AlternativeTitleVO("By the way, the Euro sign looks like this: €", "en"));
     // Source.Creator
     creator = new CreatorVO();
     // Source.Creator.Role
@@ -621,11 +608,9 @@ public class TestBase {
     person.setFamilyName("Meier");
     // Creator.Person.AlternativeName
     person.getAlternativeNames().add("Werner");
-    person.getAlternativeNames().add(
-        "These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", "
-            + "\"&lt;\", \"&quot;\", \"&apos;\"");
-    person.getAlternativeNames().add(
-        "These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
+    person.getAlternativeNames()
+        .add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", " + "\"&lt;\", \"&quot;\", \"&apos;\"");
+    person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
     // Creator.Person.Title
     person.getTitles().add("Dr. (?)");
     // Creator.Person.Pseudonym
@@ -758,8 +743,7 @@ public class TestBase {
     // Event.Title
     event.setTitle("Länderübergreifende Änderungsüberlegungen");
     // Event.AlternativeTitle
-    event.getAlternativeTitles().add(
-        new AlternativeTitleVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
+    event.getAlternativeTitles().add(new AlternativeTitleVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
     // Event.StartDate
     event.setStartDate("2000-02-29");
     // Event.EndDate
@@ -880,19 +864,15 @@ public class TestBase {
    * @param xPath The xPath.
    * @throws Exception If anything fails.
    */
-  public static void assertXMLExist(final String message, final Node node, final String xPath)
-      throws Exception {
+  public static void assertXMLExist(final String message, final Node node, final String xPath) throws Exception {
     if (message == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLExist:message is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLExist:message is null");
     }
     if (node == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLExist:node is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLExist:node is null");
     }
     if (xPath == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLExist:xPath is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLExist:xPath is null");
     }
     NodeList nodes = DOMUtilities.selectNodeList(node, xPath);
     assertTrue(message, nodes.getLength() > 0);
@@ -907,8 +887,7 @@ public class TestBase {
   public static void assertXMLValid(final String xmlData) throws Exception {
 
     if (xmlData == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":assertXMLValid:xmlData is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLValid:xmlData is null");
     }
 
     if (schemas == null) {
@@ -994,10 +973,8 @@ public class TestBase {
    * @throws SAXException
    * @throws ParserConfigurationException
    */
-  private static void initializeSchemas() throws IOException, SAXException,
-      ParserConfigurationException {
-    File[] schemaFiles =
-        ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
+  private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException {
+    File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/", TestBase.class.getClassLoader());
     schemas = new HashMap<String, Schema>();
     SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     for (File file : schemaFiles) {
@@ -1053,19 +1030,15 @@ public class TestBase {
    * @return The text value of the selected attribute.
    * @throws Exception If anything fails.
    */
-  public static String getAttributeValue(final Node node, final String xPath,
-      final String attributeName) throws Exception {
+  public static String getAttributeValue(final Node node, final String xPath, final String attributeName) throws Exception {
     if (node == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getAttributeValue:node is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getAttributeValue:node is null");
     }
     if (xPath == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getAttributeValue:xPath is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getAttributeValue:xPath is null");
     }
     if (attributeName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getAttributeValue:attributeName is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getAttributeValue:attributeName is null");
     }
     String result = null;
     Node attribute = DOMUtilities.selectSingleNode(node, xPath);
@@ -1084,15 +1057,12 @@ public class TestBase {
    * @throws Exception If anything fails.
    * @throws TransformerException
    */
-  public static String getRootElementAttributeValue(final Document document,
-      final String attributeName) throws Exception {
+  public static String getRootElementAttributeValue(final Document document, final String attributeName) throws Exception {
     if (document == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getRootElementAttributeValue:document is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getRootElementAttributeValue:document is null");
     }
     if (attributeName == null) {
-      throw new IllegalArgumentException(TestBase.class.getSimpleName()
-          + ":getRootElementAttributeValue:attributeName is null");
+      throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getRootElementAttributeValue:attributeName is null");
     }
     String xPath;
     if (attributeName.startsWith("@")) {
@@ -1114,8 +1084,7 @@ public class TestBase {
    * @return The String representation of the Xml Node.
    * @throws Exception If anything fails.
    */
-  protected static String toString(final Node xml, final boolean omitXMLDeclaration)
-      throws Exception {
+  protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception {
     if (xml == null) {
       throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":toString:xml is null");
     }
@@ -1124,8 +1093,7 @@ public class TestBase {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
     // serialize
-    DOMImplementation implementation =
-        DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
+    DOMImplementation implementation = DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
     DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS", "3.0");
     LSSerializer serial = feature.createLSSerializer();
     LSOutput output = feature.createLSOutput();
@@ -1146,8 +1114,7 @@ public class TestBase {
    * @return The URL of the uploaded file.
    * @throws Exception If anything goes wrong...
    */
-  protected URL uploadFile(String filename, String mimetype, final String userHandle)
-      throws Exception {
+  protected URL uploadFile(String filename, String mimetype, final String userHandle) throws Exception {
     // Prepare the HttpMethod.
     String fwUrl = PropertyReader.getFrameworkUrl();
     PutMethod method = new PutMethod(fwUrl + "/st/staging-file");

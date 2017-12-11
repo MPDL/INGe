@@ -37,8 +37,7 @@ public class AffiliationBean extends FacesBean {
 
   public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
 
-  private static final String PROPERTY_CONTENT_MODEL =
-      "escidoc.framework_access.content-model.id.publication";
+  private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
 
   private AffiliationVOPresentation selectedAffiliation = null;
 
@@ -56,8 +55,7 @@ public class AffiliationBean extends FacesBean {
 
   public AffiliationBean() throws Exception {
     this.setTopLevelAffs(CommonUtils
-        .convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService()
-            .searchTopLevelOrganizations()));
+        .convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations()));
 
     this.rootTreeNode = new DefaultTreeNode("Root", null);
     for (final AffiliationVOPresentation aff : this.topLevelAffs) {
@@ -81,8 +79,7 @@ public class AffiliationBean extends FacesBean {
 
     {
       ((OrganizationVO) this.cache).setName(this.selectedAffiliation.getNamePath());
-      ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getReference()
-          .getObjectId());
+      ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getReference().getObjectId());
       String address = "";
       if (this.selectedAffiliation.getDefaultMetadata().getCity() != null) {
         address += this.selectedAffiliation.getDefaultMetadata().getCity();
@@ -242,9 +239,8 @@ public class AffiliationBean extends FacesBean {
 
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
 
-      FacesTools.getExternalContext().redirect(
-          "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
-              + SearchRetrieverRequestBean.parameterSearchType + "=org");
+      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
+          + SearchRetrieverRequestBean.parameterSearchType + "=org");
 
     } catch (final Exception e) {
       AffiliationBean.logger.error("Could not search for items." + "\n" + e.toString());
@@ -285,8 +281,7 @@ public class AffiliationBean extends FacesBean {
 
       this.affiliationSelectItems = list;
 
-      ((QAWSSessionBean) FacesTools.findBean("QAWSSessionBean"))
-          .setOrgUnitSelectItems(this.affiliationSelectItems);
+      ((QAWSSessionBean) FacesTools.findBean("QAWSSessionBean")).setOrgUnitSelectItems(this.affiliationSelectItems);
     }
 
 
@@ -301,8 +296,8 @@ public class AffiliationBean extends FacesBean {
    * @param level
    * @throws Exception
    */
-  private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs,
-      List<SelectItem> affSelectItems, int level) throws Exception {
+  private void addChildAffiliationsToMenu(List<AffiliationVOPresentation> affs, List<SelectItem> affSelectItems, int level)
+      throws Exception {
     if (affs == null) {
       return;
     }
@@ -317,8 +312,7 @@ public class AffiliationBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " "
-          + aff.getName()));
+      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
       this.affiliationMap.put(aff.getReference().getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
@@ -341,10 +335,8 @@ public class AffiliationBean extends FacesBean {
    * @throws Exception Any exception
    */
   public String getResetMessage() throws Exception {
-    this.topLevelAffs =
-        CommonUtils
-            .convertToAffiliationVOPresentationList(((OrganizationServiceDbImpl) ApplicationBean.INSTANCE
-                .getOrganizationService()).searchTopLevelOrganizations());
+    this.topLevelAffs = CommonUtils.convertToAffiliationVOPresentationList(
+        ((OrganizationServiceDbImpl) ApplicationBean.INSTANCE.getOrganizationService()).searchTopLevelOrganizations());
     this.affiliationSelectItems = null;
     return this.getMessage("Affiliations_reloaded");
   }

@@ -22,8 +22,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * escidoc:address = ''"> OrganizationNameNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler<List<CreatorVO>>
-    implements Validator<List<CreatorVO>> {
+public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {
@@ -49,10 +48,8 @@ public class CreatorsOrganizationsNameRequiredValidator extends ValidatorHandler
 
                 if (organizationVO != null) {
 
-                  if (ValidationTools.isEmpty(organizationVO.getName())
-                      && ValidationTools.isNotEmpty(organizationVO.getAddress())) {
-                    context.addError(ValidationError.create(
-                        ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
+                  if (ValidationTools.isEmpty(organizationVO.getName()) && ValidationTools.isNotEmpty(organizationVO.getAddress())) {
+                    context.addError(ValidationError.create(ErrorMessages.ORGANIZATION_NAME_NOT_PROVIDED) //
                         .setField("creator[" + i + "].organization[" + j + "]"));
                     ok = false;
                   }

@@ -64,12 +64,9 @@ public class TestCitationStyleLanguageManager {
   @Before
   public void init() throws Exception {
     BasicConfigurator.configure();
-    IOUtils.toString(
-        TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(
-            PATH_CITATION_STYLE), "UTF-8");
+    IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
-        IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader()
-            .getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
+        IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
     this.exportFormat = new ExportFormatVO(FormatType.LAYOUT, EXPORT_FORMAT_NAME, "html");
   }
 
@@ -80,20 +77,17 @@ public class TestCitationStyleLanguageManager {
   public TestWatcher testWatcher = new TestWatcher() {
     @Override
     protected void starting(Description descritption) {
-      logger.info("\n--------------------\nStarting Test <" + descritption.getMethodName()
-          + ">\n--------------------\n");
+      logger.info("\n--------------------\nStarting Test <" + descritption.getMethodName() + ">\n--------------------\n");
     }
 
     @Override
     protected void succeeded(Description descritption) {
-      logger.info("\n--------------------\nTest <" + descritption.getMethodName()
-          + "> succeeded\n--------------------\n");
+      logger.info("\n--------------------\nTest <" + descritption.getMethodName() + "> succeeded\n--------------------\n");
     }
 
     @Override
     protected void failed(Throwable e, Description descritption) {
-      logger.error("\n--------------------\nTest <" + descritption.getMethodName()
-          + "> failed\n--------------------\n", e);
+      logger.error("\n--------------------\nTest <" + descritption.getMethodName() + "> failed\n--------------------\n", e);
     }
   };
 
@@ -105,12 +99,9 @@ public class TestCitationStyleLanguageManager {
   @Test
   public void testDefaultImplementation() throws Exception {
     String citationSnippet =
-        IOUtils.toString(
-            CitationStyleLanguageManagerService.getOutput(this.exportFormat, this.escidocItemXml),
-            "UTF-8");
+        IOUtils.toString(CitationStyleLanguageManagerService.getOutput(this.exportFormat, this.escidocItemXml), "UTF-8");
     assertEquals(
         "Walter, Matthias, Markus Haarländer, Franky S., - Testmann, G. Hoyden-Siedersleben, and J. C. Alonso. 2015. “CSL Test - Vortrag - Do Not Change!” Edited by Frank Demmig, Hideki ABE, Udo Stenzel, Shan Lu, Daniela Alic, Jana Wäldchen, and Collections, Max Planck Digital Library, Max Planck Gesellschaft. Translated by Martin Boosen. Directed by Michael Franke. <i>International Zoo Yearbook</i>. Habilitation Thesis presented at the EventTitel, EventOrt.",
-        CitationStyleLanguageUtils.parseTagFromXml(citationSnippet, "bibliographicCitation",
-            "http://purl.org/dc/terms/"));
+        CitationStyleLanguageUtils.parseTagFromXml(citationSnippet, "bibliographicCitation", "http://purl.org/dc/terms/"));
   }
 }

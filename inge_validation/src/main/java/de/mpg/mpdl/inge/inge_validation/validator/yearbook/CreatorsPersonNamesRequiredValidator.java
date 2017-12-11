@@ -13,8 +13,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
-public class CreatorsPersonNamesRequiredValidator extends ValidatorHandler<List<CreatorVO>>
-    implements Validator<List<CreatorVO>> {
+public class CreatorsPersonNamesRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {
@@ -34,8 +33,7 @@ public class CreatorsPersonNamesRequiredValidator extends ValidatorHandler<List<
 
             if (ValidationTools.isEmpty(p.getFamilyName())) {
 
-              context.addError(ValidationError.create(
-                  ErrorMessages.CREATOR_FAMILY_NAME_NOT_PROVIDED).setField("creator[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.CREATOR_FAMILY_NAME_NOT_PROVIDED).setField("creator[" + i + "]"));
 
               ok = false;
 
@@ -43,9 +41,7 @@ public class CreatorsPersonNamesRequiredValidator extends ValidatorHandler<List<
 
             if (ValidationTools.isEmpty(p.getGivenName())) {
 
-              context.addError(ValidationError
-                  .create(ErrorMessages.CREATOR_GIVEN_NAME_NOT_PROVIDED).setField(
-                      "creator[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.CREATOR_GIVEN_NAME_NOT_PROVIDED).setField("creator[" + i + "]"));
 
               ok = false;
 

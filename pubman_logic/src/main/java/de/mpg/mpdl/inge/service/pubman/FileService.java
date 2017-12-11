@@ -33,8 +33,7 @@ public interface FileService extends FileServiceExternal {
    * @throws AuthorizationException
    * @throws AuthenticationException
    */
-  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO user)
-      throws IngeTechnicalException, IngeApplicationException;
+  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO user) throws IngeTechnicalException, IngeApplicationException;
 
 
   /**

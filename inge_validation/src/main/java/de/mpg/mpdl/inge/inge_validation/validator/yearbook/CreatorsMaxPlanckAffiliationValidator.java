@@ -14,8 +14,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 
-public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List<CreatorVO>>
-    implements Validator<List<CreatorVO>> {
+public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
 
   private final List<String> childsOfMPG;
 
@@ -46,8 +45,7 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
                   && ValidationTools.isNotEmpty(o.getIdentifier()) //
                   && !this.childsOfMPG.contains(o.getIdentifier())) {
 
-                context.addError(ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION)
-                    .setField("creator[" + i + "]"));
+                context.addError(ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setField("creator[" + i + "]"));
 
                 ok = false;
 
@@ -68,9 +66,8 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
                       && ValidationTools.isNotEmpty(op.getIdentifier()) //
                       && !this.childsOfMPG.contains(op.getIdentifier())) {
 
-                    context.addError(ValidationError
-                        .create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setField(
-                            "creator[" + i + "].person[" + j + "]"));
+                    context.addError(
+                        ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setField("creator[" + i + "].person[" + j + "]"));
 
                     ok = false;
 

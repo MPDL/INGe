@@ -84,10 +84,9 @@ public class CommonUtils {
   private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd HH:mm";
 
   // HTML escaped characters mapping
-  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "\'", "\r\n", "\n",
-      "\r", "\t"};
-  private static final String[] ESCAPED_CHARACTERS = {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;",
-      "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
+  private static final String[] PROBLEMATIC_CHARACTERS = {"&", ">", "<", "\"", "\'", "\r\n", "\n", "\r", "\t"};
+  private static final String[] ESCAPED_CHARACTERS =
+      {"&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>", "<br/>", "&#160;&#160;"};
 
   /**
    * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -156,8 +155,7 @@ public class CommonUtils {
   }
 
   public static SelectItem[] getLanguageOptions() {
-    final ApplicationBean applicationBean =
-        ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
+    final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     String locale = Locale.getDefault().getLanguage();
 
@@ -165,8 +163,7 @@ public class CommonUtils {
       locale = "en";
     }
 
-    if (applicationBean.getLanguageSelectItems().get(locale) != null
-        && applicationBean.getLanguageSelectItems().get(locale).length > 0) {
+    if (applicationBean.getLanguageSelectItems().get(locale) != null && applicationBean.getLanguageSelectItems().get(locale).length > 0) {
       return applicationBean.getLanguageSelectItems().get(locale);
     } else {
       final SelectItem[] languageSelectItems = CommonUtils.retrieveLanguageOptions(locale);
@@ -185,22 +182,19 @@ public class CommonUtils {
 
     try {
       final HttpClient httpClient = new HttpClient();
-      final GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("inge.cone.service.url")
-              + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
+      final GetMethod getMethod = new GetMethod(
+          PropertyReader.getProperty("inge.cone.service.url") + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
       if (getMethod.getStatusCode() == 200) {
         String line;
-        final BufferedReader reader =
-            new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), "UTF-8"));
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream(), "UTF-8"));
         while ((line = reader.readLine()) != null) {
           final String[] pieces = line.split("\\|");
           result.put(pieces[0], pieces[1]);
         }
       } else {
-        CommonUtils.logger.error("Error while retrieving languages from CoNE. Status code "
-            + getMethod.getStatusCode());
+        CommonUtils.logger.error("Error while retrieving languages from CoNE. Status code " + getMethod.getStatusCode());
       }
     } catch (final Exception e) {
       return new SelectItem[0];
@@ -262,14 +256,12 @@ public class CommonUtils {
       }
 
       final HttpClient client = new HttpClient();
-      final GetMethod getMethod =
-          new GetMethod(PropertyReader.getProperty("inge.cone.service.url") + "iso639-3/resource/"
-              + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
+      final GetMethod getMethod = new GetMethod(PropertyReader.getProperty("inge.cone.service.url") + "iso639-3/resource/"
+          + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
       client.executeMethod(getMethod);
       final String response = getMethod.getResponseBodyAsString();
 
-      final Pattern pattern =
-          Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
+      final Pattern pattern = Pattern.compile("\"http_purl_org_dc_elements_1_1_title\" : \\[?\\s*\"(.+)\"");
       final Matcher matcher = pattern.matcher(response);
 
       if (matcher.find()) {
@@ -293,8 +285,7 @@ public class CommonUtils {
    * @return the current value of the comboBox
    */
   public static String getUIValue(HtmlSelectOneRadio radioButton) {
-    if (radioButton.getSubmittedValue() != null
-        && radioButton.getSubmittedValue() instanceof String[]
+    if (radioButton.getSubmittedValue() != null && radioButton.getSubmittedValue() instanceof String[]
         && ((String[]) radioButton.getSubmittedValue()).length > 0) {
       return ((String[]) radioButton.getSubmittedValue())[0];
     }
@@ -340,8 +331,7 @@ public class CommonUtils {
 
     // The escaping has to start with the ampersand (&amp;, '&') !
     for (int i = 0; i < CommonUtils.PROBLEMATIC_CHARACTERS.length; i++) {
-      cdata =
-          cdata.replace(CommonUtils.PROBLEMATIC_CHARACTERS[i], CommonUtils.ESCAPED_CHARACTERS[i]);
+      cdata = cdata.replace(CommonUtils.PROBLEMATIC_CHARACTERS[i], CommonUtils.ESCAPED_CHARACTERS[i]);
     }
 
     return cdata;
@@ -383,8 +373,7 @@ public class CommonUtils {
    * @param list the list of PubItemVOs
    * @return the list of PubItemVOPresentations
    */
-  public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(
-      List<? extends PubItemVO> list) {
+  public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<? extends PubItemVO> list) {
     final List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
@@ -400,8 +389,7 @@ public class CommonUtils {
    * @param list the list of PubItemVOs
    * @return the list of PubItemVOPresentations
    */
-  public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(
-      List<? extends FileVO> list) {
+  public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(List<? extends FileVO> list) {
     final List<PubFileVOPresentation> pubFileList = new ArrayList<PubFileVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
@@ -417,8 +405,7 @@ public class CommonUtils {
    * @param list the list of RelationVO
    * @return the list of RelationVOPresentation
    */
-  public static List<RelationVOPresentation> convertToRelationVOPresentationList(
-      List<RelationVO> list) {
+  public static List<RelationVOPresentation> convertToRelationVOPresentationList(List<RelationVO> list) {
     final List<RelationVOPresentation> relationList = new ArrayList<RelationVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
@@ -434,8 +421,7 @@ public class CommonUtils {
    * @param list the list of ContextVOs
    * @return the list of PubCollectionVOPresentations
    */
-  public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(
-      List<ContextVO> list) {
+  public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<ContextVO> list) {
     final List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
@@ -451,16 +437,13 @@ public class CommonUtils {
    * @param list the list of AffiliationVOs
    * @return the list of AffiliationVOPresentations
    */
-  public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(
-      List<AffiliationVO> list) {
-    final List<AffiliationVOPresentation> affiliationList =
-        new ArrayList<AffiliationVOPresentation>();
+  public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationVO> list) {
+    final List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
       affiliationList.add(new AffiliationVOPresentation(list.get(i)));
     }
-    final AffiliationVOPresentation[] affiliationArray =
-        affiliationList.toArray(new AffiliationVOPresentation[] {});
+    final AffiliationVOPresentation[] affiliationArray = affiliationList.toArray(new AffiliationVOPresentation[] {});
     Arrays.sort(affiliationArray);
 
     return Arrays.asList(affiliationArray);
@@ -492,8 +475,7 @@ public class CommonUtils {
     return valid;
   }
 
-  public static Map<String, String> getDecodedUrlParameterMap(String query)
-      throws UnsupportedEncodingException {
+  public static Map<String, String> getDecodedUrlParameterMap(String query) throws UnsupportedEncodingException {
     CommonUtils.logger.info("query: " + query);
     final String[] parameters = query.split("&");
     final Map<String, String> parameterMap = new HashMap<String, String>();
@@ -533,10 +515,8 @@ public class CommonUtils {
 
   public static String getGenericItemLink(String objectId, int version) throws Exception {
     if (objectId != null) {
-      return PropertyReader.getProperty("inge.pubman.instance.url")
-          + PropertyReader.getProperty("inge.pubman.instance.context.path")
-          + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
-              objectId + (version != 0 ? "_" + version : ""));
+      return PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
+          + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", objectId + (version != 0 ? "_" + version : ""));
     }
 
     return null;

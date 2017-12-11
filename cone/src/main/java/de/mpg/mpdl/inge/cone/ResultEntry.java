@@ -13,8 +13,7 @@ public class ResultEntry extends LocalizedString {
 
 
 
-  private Map<String, List<LocalizedTripleObject>> valueMap =
-      new HashMap<String, List<LocalizedTripleObject>>();
+  private Map<String, List<LocalizedTripleObject>> valueMap = new HashMap<String, List<LocalizedTripleObject>>();
 
 
 

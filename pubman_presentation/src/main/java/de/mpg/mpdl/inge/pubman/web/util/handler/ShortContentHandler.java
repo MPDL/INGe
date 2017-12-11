@@ -52,8 +52,7 @@ public class ShortContentHandler extends DefaultHandler {
   protected Map<String, String> namespaces = new HashMap<String, String>();
 
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
     this.stack.push(name);
     if (name.contains(":")) {
       this.localStack.push(name.substring(name.indexOf(":") + 1));
@@ -99,8 +98,7 @@ public class ShortContentHandler extends DefaultHandler {
   }
 
   public String encodeAttribute(String str) {
-    return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-        .replace("\"", "&quot;").replace("'", "&apos;");
+    return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&apos;");
   }
 
   public String encodeContent(String str) {

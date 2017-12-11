@@ -18,8 +18,7 @@ public class SpiresXmlToItemXml extends XslTransformer implements ChainableTrans
   @Override
   public Source getXsltSource() throws TransformationException {
 
-    return getXmlSourceFromProperty(
-        "inge.transformation.spires2escidoc_publication_item.stylesheet.filename",
+    return getXmlSourceFromProperty("inge.transformation.spires2escidoc_publication_item.stylesheet.filename",
         "transformations/thirdParty/xslt/spires2escidoc-publication-item.xsl");
 
 
@@ -28,10 +27,8 @@ public class SpiresXmlToItemXml extends XslTransformer implements ChainableTrans
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    map.put("external_organization_id",
-        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external_organization_id", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

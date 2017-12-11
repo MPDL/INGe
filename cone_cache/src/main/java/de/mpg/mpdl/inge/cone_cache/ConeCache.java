@@ -25,18 +25,14 @@ public class ConeCache {
 
   private static final Logger logger = Logger.getLogger(ConeCache.class);
 
-  private static final String ISO639_3_IDENTIFIER_QUERY =
-      "iso639-3/query?format=rdf&q=*&mode=full&n=0";
+  private static final String ISO639_3_IDENTIFIER_QUERY = "iso639-3/query?format=rdf&q=*&mode=full&n=0";
   private static final String ISO639_3_TITLE_QUERY = "iso639-3/query?format=rdf&q=*&mode=full&n=0";
   private static final String DDC_TITLE_QUERY = "ddc/query?format=rdf&q=*&mode=full&n=0";
-  private static final String MIME_TYPES_TITLE_QUERY =
-      "escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MIME_TYPES_TITLE_QUERY = "escidocmimetypes/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIPKS_TITLE_QUERY = "mpipks/query?format=rdf&q=*&mode=full&n=0";
   private static final String MPIRG_TITLE_QUERY = "mpirg/query?format=rdf&q=*&mode=full&n=0";
-  private static final String MPIS_GROUPS_TITLE_QUERY =
-      "mpis-groups/query?format=rdf&q=*&mode=full&n=0";
-  private static final String MPIS_PROJECTS_TITLE_QUERY =
-      "mpis-projects/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIS_GROUPS_TITLE_QUERY = "mpis-groups/query?format=rdf&q=*&mode=full&n=0";
+  private static final String MPIS_PROJECTS_TITLE_QUERY = "mpis-projects/query?format=rdf&q=*&mode=full&n=0";
 
   private static final String IDENTIFIER = "dc:identifier";
   private static final String TITLE = "dc:title";
@@ -61,28 +57,19 @@ public class ConeCache {
 
     String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
 
-    ConeCache.refresh(iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl
-        + ConeCache.ISO639_3_IDENTIFIER_QUERY);
-    ConeCache.refresh(iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.ISO639_3_TITLE_QUERY);
-    ConeCache.refresh(ddcTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.DDC_TITLE_QUERY);
-    ConeCache.refresh(mimeTypesTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.MIME_TYPES_TITLE_QUERY);
-    ConeCache.refresh(mpipksTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.MPIPKS_TITLE_QUERY);
-    ConeCache.refresh(mpirgTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.MPIRG_TITLE_QUERY);
-    ConeCache.refresh(mpisGroupsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.MPIS_GROUPS_TITLE_QUERY);
-    ConeCache.refresh(mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl
-        + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
+    ConeCache.refresh(iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
+    ConeCache.refresh(iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.ISO639_3_TITLE_QUERY);
+    ConeCache.refresh(ddcTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.DDC_TITLE_QUERY);
+    ConeCache.refresh(mimeTypesTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MIME_TYPES_TITLE_QUERY);
+    ConeCache.refresh(mpipksTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIPKS_TITLE_QUERY);
+    ConeCache.refresh(mpirgTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIRG_TITLE_QUERY);
+    ConeCache.refresh(mpisGroupsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIS_GROUPS_TITLE_QUERY);
+    ConeCache.refresh(mpisProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIS_PROJECTS_TITLE_QUERY);
 
     logger.info("*** Ende CONE-Cache Refresh-Cycle ***");
   }
 
-  private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl)
-      throws ConeCacheConfigException {
+  private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) throws ConeCacheConfigException {
     logger.info("*** Start refresh: " + queryUrl);
     try {
       final Set<String> result = ConeCache.getData(handler, queryUrl);

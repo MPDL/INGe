@@ -94,8 +94,7 @@ public class CreatorBean extends FacesBean {
 
         this.creator.setOrganization(newOrga);
       }
-      if (this.creator.getOrganization() != null
-          && this.creator.getOrganization().getName() == null) {
+      if (this.creator.getOrganization() != null && this.creator.getOrganization().getName() == null) {
         this.creator.getOrganization().setName("");
       }
     }
@@ -117,12 +116,10 @@ public class CreatorBean extends FacesBean {
    * @return
    */
   public String selectPersonOrganisation() {
-    this.currentOrgaForSelection =
-        (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
+    this.currentOrgaForSelection = (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    final AffiliationBean affiliationBean =
-        (AffiliationBean) FacesTools.findBean("AffiliationBean");
+    final AffiliationBean affiliationBean = (AffiliationBean) FacesTools.findBean("AffiliationBean");
     affiliationBean.setSource("EditItem");
     affiliationBean.setCache(this.currentOrgaForSelection);
 
@@ -134,13 +131,10 @@ public class CreatorBean extends FacesBean {
    * @return true if this element is selecting the organisation.
    */
   public boolean getSelecting() {
-    this.currentOrgaForSelection =
-        (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
+    this.currentOrgaForSelection = (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
 
     // Set this value to let the affiliation tree know where to jump after selection.
-    final OrganizationVO selecting =
-        ((EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean"))
-            .getCurrentlySelecting();
+    final OrganizationVO selecting = ((EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean")).getCurrentlySelecting();
 
     return (this.currentOrgaForSelection.equals(selecting));
   }
@@ -151,15 +145,13 @@ public class CreatorBean extends FacesBean {
    * @return
    */
   public String selectPersonOrganisationEasySubmission() {
-    this.currentOrgaForSelection =
-        (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
+    this.currentOrgaForSelection = (OrganizationVO) this.personOrganisationManager.getObjectDM().getRowData();
 
     // Set this value to let the affiliation tree know where to jump after selection.
     final AffiliationBean affiliationBean = FacesTools.findBean("AffiliationBean");
     affiliationBean.setSource("EasySubmission");
     affiliationBean.setCache(this.currentOrgaForSelection);
-    ((EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean"))
-        .setCurrentlySelecting(this.currentOrgaForSelection);
+    ((EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean")).setCurrentlySelecting(this.currentOrgaForSelection);
 
     // affiliation tree
     return "loadAffiliationTree";
@@ -340,10 +332,8 @@ public class CreatorBean extends FacesBean {
 
   public String getOuNumbers() {
     if (this.personType && this.ouNumber == null) {
-      final EditItemSessionBean editItemSessionBean =
-          (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-      final List<OrganizationVOPresentation> creatorOrganizations =
-          editItemSessionBean.getCreatorOrganizations();
+      final EditItemSessionBean editItemSessionBean = (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+      final List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
       for (final OrganizationVO organization : this.creator.getPerson().getOrganizations()) {
         if (this.ouNumber == null) {
           this.ouNumber = "";
@@ -373,10 +363,8 @@ public class CreatorBean extends FacesBean {
   public void setAutoPasteValue(String value) {
     if (!"".equals(value)) {
       final String[] values = value.split(EditItem.AUTOPASTE_INNER_DELIMITER);
-      final EditItemSessionBean editItemSessionBean =
-          (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-      final List<OrganizationVOPresentation> creatorOrganizations =
-          editItemSessionBean.getCreatorOrganizations();
+      final EditItemSessionBean editItemSessionBean = (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
+      final List<OrganizationVOPresentation> creatorOrganizations = editItemSessionBean.getCreatorOrganizations();
       final OrganizationVOPresentation newOrg = new OrganizationVOPresentation();
       newOrg.setName(values[1]);
       newOrg.setIdentifier(values[0]);

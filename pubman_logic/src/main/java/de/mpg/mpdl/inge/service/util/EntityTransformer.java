@@ -56,8 +56,7 @@ public class EntityTransformer {
     newContext.setAdminDescriptor(contextVo.getAdminDescriptor());
 
 
-    for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : contextVo
-        .getResponsibleAffiliations()) {
+    for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : contextVo.getResponsibleAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", changeId("ou", oldAffRo.getObjectId())));
       newAffRo.setName(oldAffRo.getTitle());
@@ -97,8 +96,7 @@ public class EntityTransformer {
 
       FileDbVO file = new FileDbVO();
       file.setChecksum(oldFile.getChecksum());
-      file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm()
-          .name()));
+      file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
       file.setContent(oldFile.getContent());
       file.setContentCategory(oldFile.getContentCategory());
       file.setCreationDate(oldFile.getCreationDate());
@@ -189,8 +187,7 @@ public class EntityTransformer {
     newAff.setObjectId(changeId("ou", affVo.getReference().getObjectId()));
 
 
-    for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo
-        .getPredecessorAffiliations()) {
+    for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo.getPredecessorAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
       newAffRo.setName(oldAffRo.getTitle());
@@ -371,8 +368,7 @@ public class EntityTransformer {
     }
 
     if (newAffVo.getParentAffiliation() != null) {
-      oldAffVo.getParentAffiliations().add(
-          transformToOld((AffiliationDbRO) newAffVo.getParentAffiliation()));
+      oldAffVo.getParentAffiliations().add(transformToOld((AffiliationDbRO) newAffVo.getParentAffiliation()));
     }
 
     oldAffVo.setPublicStatus(newAffVo.getPublicStatus().name());
@@ -392,8 +388,7 @@ public class EntityTransformer {
 
     for (AuditDbVO audit : auditList) {
 
-      if (vhEntry == null
-          || audit.getPubItem().getVersionNumber() != vhEntry.getReference().getVersionNumber()) {
+      if (vhEntry == null || audit.getPubItem().getVersionNumber() != vhEntry.getReference().getVersionNumber()) {
 
         vhEntry = new VersionHistoryEntryVO();
         vhEntry.setModificationDate(audit.getModificationDate());

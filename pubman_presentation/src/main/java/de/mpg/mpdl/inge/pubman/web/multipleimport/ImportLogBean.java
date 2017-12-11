@@ -56,8 +56,7 @@ public class ImportLogBean extends FacesBean {
       this.importId = Integer.parseInt(idString);
     }
 
-    if (this.getLoginHelper().getAccountUser() != null
-        && this.getLoginHelper().getAccountUser().getReference() != null) {
+    if (this.getLoginHelper().getAccountUser() != null && this.getLoginHelper().getAccountUser().getReference() != null) {
       this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
       this.userHandle = this.getLoginHelper().getAccountUser().getHandle();
     }

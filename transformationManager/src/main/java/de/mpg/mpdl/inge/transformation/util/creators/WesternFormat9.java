@@ -31,17 +31,14 @@ public class WesternFormat9 extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + NAME + ", ?" + INITIALS + "( *(;| and | AND | und | et |\\n) *" + NAME + ", ?"
-        + INITIALS + ")*\\s*$";
+    return "^\\s*" + NAME + ", ?" + INITIALS + "( *(;| and | AND | und | et |\\n) *" + NAME + ", ?" + INITIALS + ")*\\s*$";
   }
 
   @Override
   public List<Author> getAuthors(String authorsString) {
 
-    if ((!authorsString.contains(","))
-        || contains(authorsString, "0123456789")
-        || (authorsString.contains(",") && authorsString.contains(";") && authorsString
-            .indexOf(";") < authorsString.indexOf(","))) {
+    if ((!authorsString.contains(",")) || contains(authorsString, "0123456789")
+        || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(";") < authorsString.indexOf(","))) {
       return null;
     }
 

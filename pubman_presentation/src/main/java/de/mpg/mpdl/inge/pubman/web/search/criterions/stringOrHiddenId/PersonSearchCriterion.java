@@ -89,31 +89,24 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
     if (selectedRole == null) {
       this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
-      this.cqlIndexForSearchString =
-          new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
+      this.cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
 
-      this.cqlIndexForHiddenIdAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
+      this.cqlIndexForHiddenIdAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
       this.cqlIndexForSearchStringAdmin =
           new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
 
       return super.toCqlString(indexName);
     } else {
-      final String roleUri =
-          CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
+      final String roleUri = CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
       final String roleAbbr = roleUri.substring(roleUri.lastIndexOf('/') + 1, roleUri.length());
 
-      this.cqlIndexForHiddenId =
-          new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
-      this.cqlIndexForSearchString =
-          new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+      this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+      this.cqlIndexForSearchString = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
 
       this.cqlIndexForHiddenIdAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/"
-              + roleAbbr + "\""};
+          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/" + roleAbbr + "\""};
       this.cqlIndexForSearchStringAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/"
-              + roleAbbr + "\""};
+          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/" + roleAbbr + "\""};
 
       /*
        * StringBuilder sb = new StringBuilder(); sb.append("("); sb.append(superQuery);
@@ -130,8 +123,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   @Override
   public String toQueryString() {
 
-    return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "||"
-        + escapeForQueryString(getHiddenId()) + "||"
+    return getSearchCriterion().name() + "=\"" + escapeForQueryString(getSearchString()) + "||" + escapeForQueryString(getHiddenId()) + "||"
         + escapeForQueryString(selectedRole == null ? "" : selectedRole.name()) + "\"";
 
 
@@ -158,32 +150,23 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   public QueryBuilder toElasticSearchQuery() {
     if (selectedRole == null) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
-            this.getHiddenId());
+        return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId());
       } else {
-        return QueryBuilders
-            .multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
+        return QueryBuilders.multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
             .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND);
 
       }
 
     } else {
       final String roleUri = selectedRole.getUri();
-      BoolQueryBuilder bq =
-          QueryBuilders.boolQuery().must(
-              SearchCriterionBase.baseElasticSearchQueryBuilder(
-                  PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, roleUri));
+      BoolQueryBuilder bq = QueryBuilders.boolQuery()
+          .must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, roleUri));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        bq =
-            bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
-                this.getHiddenId()));
+        bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId()));
       } else {
-        bq =
-            bq.must(QueryBuilders
-                .multiMatchQuery(this.getSearchString(),
-                    this.getElasticSearchFieldForSearchString())
-                .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND));
+        bq = bq.must(QueryBuilders.multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
+            .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND));
       }
       return QueryBuilders.nestedQuery("metadata.creators", (QueryBuilder) bq, ScoreMode.Avg);
     }

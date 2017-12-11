@@ -23,8 +23,8 @@ public class SearchUtils {
 
   private final static Logger logger = Logger.getLogger(SearchUtils.class);
 
-  public static QueryBuilder baseElasticSearchQueryBuilder(
-      Map<String, ElasticSearchIndexField> indexMap, String[] indexFields, String... searchString) {
+  public static QueryBuilder baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String[] indexFields,
+      String... searchString) {
 
 
     if (indexFields.length == 1) {
@@ -45,8 +45,7 @@ public class SearchUtils {
   }
 
 
-  public static QueryBuilder baseElasticSearchQueryBuilder(
-      Map<String, ElasticSearchIndexField> indexMap, String index, String... value) {
+  public static QueryBuilder baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String index, String... value) {
 
     ElasticSearchIndexField field = indexMap.get(index);
 
@@ -85,8 +84,8 @@ public class SearchUtils {
 
   }
 
-  public static FieldSortBuilder baseElasticSearchSortBuilder(
-      Map<String, ElasticSearchIndexField> indexMap, String index, SortOrder order) {
+  public static FieldSortBuilder baseElasticSearchSortBuilder(Map<String, ElasticSearchIndexField> indexMap, String index,
+      SortOrder order) {
 
     ElasticSearchIndexField field = indexMap.get(index);
     String indexField = index;
@@ -107,13 +106,11 @@ public class SearchUtils {
     return SortBuilders.fieldSort(indexField).order(order);
   }
 
-  public static <E> List<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr,
-      Class<E> clazz) throws IOException {
+  public static <E> List<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr, Class<E> clazz) throws IOException {
     List<E> hitList = new ArrayList<>();
     for (SearchHit hit : sr.getHits().getHits()) {
 
-      E itemVO =
-          JsonObjectMapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
+      E itemVO = JsonObjectMapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
       hitList.add(itemVO);
 
     }

@@ -63,8 +63,7 @@ public class RDFHandler extends DefaultHandler {
 
   private static final Logger logger = Logger.getLogger(RDFHandler.class);
 
-  private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-      "RDF", "rdf");
+  private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF", "rdf");
 
   public RDFHandler(boolean loggedIn, Model model) throws ConeException {
     this.model = model;
@@ -77,13 +76,11 @@ public class RDFHandler extends DefaultHandler {
   }
 
   @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes)
-      throws SAXException {
+  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 
     QName currentTag = new QName(uri, localName);
 
-    if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag)
-        && currentTag.equals(model.getRdfAboutTag())) {
+    if (tagStack.size() == 1 && tagStack.peek().equals(rdfRootTag) && currentTag.equals(model.getRdfAboutTag())) {
       // New element
       String subject = attributes.getValue("rdf:about");
       this.stack.push(new TreeFragment(subject));
@@ -148,8 +145,7 @@ public class RDFHandler extends DefaultHandler {
           if (attributes.getValue("rdf:resource") != null) {
             firstValue.setValue(attributes.getValue("rdf:resource"));
           } else
-            throw new SAXException("Excpected attribute rdf:resource for element" + name
-                + " (namespace " + uri
+            throw new SAXException("Excpected attribute rdf:resource for element" + name + " (namespace " + uri
                 + "), because it has attribute resourceModel and is set as includeResource=false");
 
         }

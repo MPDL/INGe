@@ -43,8 +43,8 @@ public class CitationStyleManagerTest {
    * @throws ParserConfigurationException
    * @throws CitationStyleManagerException
    */
-  public final void testValidation(String cs) throws IOException, CitationStyleManagerException,
-      ParserConfigurationException, SAXException {
+  public final void testValidation(String cs)
+      throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException {
 
     logger.info("Validate Citation Style: " + cs);
     long start = -System.currentTimeMillis();

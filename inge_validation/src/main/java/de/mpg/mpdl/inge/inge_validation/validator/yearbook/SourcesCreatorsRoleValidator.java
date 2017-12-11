@@ -12,8 +12,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-public class SourcesCreatorsRoleValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourcesCreatorsRoleValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -34,8 +33,8 @@ public class SourcesCreatorsRoleValidator extends ValidatorHandler<List<SourceVO
                 || !CreatorVO.CreatorRole.AUTHOR.equals(creatorVO.getRole()) //
                     && !CreatorVO.CreatorRole.EDITOR.equals(creatorVO.getRole()))) {
 
-              context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_INVALID)
-                  .setField("source[" + i + "].creator[" + j + "]"));
+              context.addError(
+                  ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_INVALID).setField("source[" + i + "].creator[" + j + "]"));
 
               ok = false;
 

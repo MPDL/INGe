@@ -31,15 +31,13 @@ public class MpisBibtexFormat extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED
-        + "( +and +" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED
-        + ")*\\s*$";
+    return "^\\s*" + GIVEN_NAME_FORMAT_MIXED + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED + "( +and +" + GIVEN_NAME_FORMAT_MIXED
+        + "(\\{\\})?" + ", +" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
   }
 
   @Override
   public List<Author> getAuthors(String authorsString) {
-    if (authorsString == null || !authorsString.contains("{}")
-        || !authorsString.matches(getPattern())) {
+    if (authorsString == null || !authorsString.contains("{}") || !authorsString.matches(getPattern())) {
       return null;
     }
     String[] authors = authorsString.split(" +and +");

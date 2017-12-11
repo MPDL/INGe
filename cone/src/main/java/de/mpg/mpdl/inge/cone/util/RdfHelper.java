@@ -61,23 +61,18 @@ public class RdfHelper {
    * @return The RDF
    * @throws ConeException
    */
-  public static String formatList(List<? extends Describable> pairs, Model model)
-      throws ConeException {
+  public static String formatList(List<? extends Describable> pairs, Model model) throws ConeException {
 
     StringWriter result = new StringWriter();
 
     result.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-    result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
-        + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\"");
+    result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + "xmlns:dc=\"http://purl.org/dc/elements/1.1/\"");
 
-    if (model.getRdfAboutTag() != null
-        && model.getRdfAboutTag().getNamespaceURI() != null
-        && !model.getRdfAboutTag().getNamespaceURI()
-            .equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#"))
+    if (model.getRdfAboutTag() != null && model.getRdfAboutTag().getNamespaceURI() != null
+        && !model.getRdfAboutTag().getNamespaceURI().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#"))
 
     {
-      result.append(" xmlns:" + model.getRdfAboutTag().getPrefix() + "=\""
-          + model.getRdfAboutTag().getNamespaceURI() + "\"");
+      result.append(" xmlns:" + model.getRdfAboutTag().getPrefix() + "=\"" + model.getRdfAboutTag().getNamespaceURI() + "\"");
     }
 
     result.append(">\n");
@@ -87,25 +82,18 @@ public class RdfHelper {
         if (pair instanceof Pair) {
           String key = ((Pair) pair).getKey();
           try {
-            result.append("\t<rdf:Description rdf:about=\""
-                + PropertyReader.getProperty("inge.cone.service.url") + key.replace("\"", "\\\"")
-                + "\">\n");
+            result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty("inge.cone.service.url")
+                + key.replace("\"", "\\\"") + "\">\n");
             if (((Pair) pair).getValue() instanceof LocalizedString) {
               if (((LocalizedString) ((Pair) pair).getValue()).getLanguage() != null) {
-                result.append("\t\t<dc:title xml:lang=\""
-                    + ((LocalizedString) ((Pair) pair).getValue()).getLanguage()
-                    + "\">"
-                    + StringEscapeUtils.escapeXml10(((LocalizedString) ((Pair) pair).getValue())
-                        .getValue()) + "</dc:title>\n");
+                result.append("\t\t<dc:title xml:lang=\"" + ((LocalizedString) ((Pair) pair).getValue()).getLanguage() + "\">"
+                    + StringEscapeUtils.escapeXml10(((LocalizedString) ((Pair) pair).getValue()).getValue()) + "</dc:title>\n");
               } else {
-                result.append("\t\t<dc:title>"
-                    + StringEscapeUtils.escapeXml10(((LocalizedString) ((Pair) pair).getValue())
-                        .getValue()) + "</dc:title>\n");
+                result.append("\t\t<dc:title>" + StringEscapeUtils.escapeXml10(((LocalizedString) ((Pair) pair).getValue()).getValue())
+                    + "</dc:title>\n");
               }
             } else {
-              result.append("\t\t<dc:title>"
-                  + StringEscapeUtils.escapeXml10(((Pair) pair).getValue().toString())
-                  + "</dc:title>\n");
+              result.append("\t\t<dc:title>" + StringEscapeUtils.escapeXml10(((Pair) pair).getValue().toString()) + "</dc:title>\n");
             }
             result.append("\t</rdf:Description>\n");
           } catch (Exception exception) {
@@ -138,12 +126,9 @@ public class RdfHelper {
       result.append("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"");
 
 
-      if (model.getRdfAboutTag() != null
-          && model.getRdfAboutTag().getNamespaceURI() != null
-          && !model.getRdfAboutTag().getNamespaceURI()
-              .equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#")) {
-        result.append(" xmlns:" + model.getRdfAboutTag().getPrefix() + "=\""
-            + model.getRdfAboutTag().getNamespaceURI() + "\"");
+      if (model.getRdfAboutTag() != null && model.getRdfAboutTag().getNamespaceURI() != null
+          && !model.getRdfAboutTag().getNamespaceURI().equals("http://www.w3.org/1999/02/22-rdf-syntax-ns#")) {
+        result.append(" xmlns:" + model.getRdfAboutTag().getPrefix() + "=\"" + model.getRdfAboutTag().getNamespaceURI() + "\"");
       }
 
 

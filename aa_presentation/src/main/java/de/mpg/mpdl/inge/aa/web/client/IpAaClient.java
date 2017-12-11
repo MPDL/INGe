@@ -49,13 +49,10 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 public class IpAaClient extends FinalClient {
 
   @Override
-  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws Exception {
+  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Properties ips = new Properties();
-    InputStream ipStream =
-        ResourceUtil.getResourceAsStream(Config.getProperty("inge.aa.ip.table"),
-            IpAaClient.class.getClassLoader());
+    InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty("inge.aa.ip.table"), IpAaClient.class.getClassLoader());
     ips.loadFromXML(ipStream);
     ipStream.close();
 

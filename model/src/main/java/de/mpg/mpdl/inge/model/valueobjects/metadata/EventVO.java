@@ -55,12 +55,12 @@ public class EventVO extends ValueObject implements Cloneable {
    * 
    * @updated 22-Okt-2007 15:26:37
    */
-  public enum InvitationStatus {
+  public enum InvitationStatus
+  {
     INVITED
   }
 
-  private java.util.List<AlternativeTitleVO> alternativeTitles =
-      new java.util.ArrayList<AlternativeTitleVO>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
   private String endDate;
 
   @IgnoreForCleanup

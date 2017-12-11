@@ -19,10 +19,10 @@ public class SourceTargetPair {
     } else if (!(other instanceof SourceTargetPair)) {
       return false;
     } else {
-      return (this.getSource() == null ? ((SourceTargetPair) other).getSource() == null : this
-          .getSource().equals(((SourceTargetPair) other).getSource()))
-          && (this.getTarget() == null ? ((SourceTargetPair) other).getTarget() == null : this
-              .getTarget().equals(((SourceTargetPair) other).getTarget()));
+      return (this.getSource() == null ? ((SourceTargetPair) other).getSource() == null
+          : this.getSource().equals(((SourceTargetPair) other).getSource()))
+          && (this.getTarget() == null ? ((SourceTargetPair) other).getTarget() == null
+              : this.getTarget().equals(((SourceTargetPair) other).getTarget()));
 
     }
   }

@@ -34,8 +34,8 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
  */
 @ManagedBean(name = "YearbookArchiveRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class YearbookArchiveRetrieverRequestBean extends
-    BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
+public class YearbookArchiveRetrieverRequestBean
+    extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(YearbookArchiveRetrieverRequestBean.class);
 
   private String selectedSortOrder;
@@ -63,8 +63,7 @@ public class YearbookArchiveRetrieverRequestBean extends
   @Override
   public void readOutParameters() {
     final String orgUnit =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(YearbookArchiveRetrieverRequestBean.parameterSelectedOrgUnit);
+        FacesTools.getExternalContext().getRequestParameterMap().get(YearbookArchiveRetrieverRequestBean.parameterSelectedOrgUnit);
     if (orgUnit == null) {
 
       this.setSelectedOrgUnit(this.getYearbookCandidatesSessionBean().getSelectedOrgUnit());
@@ -91,8 +90,8 @@ public class YearbookArchiveRetrieverRequestBean extends
 
   public void setSelectedOrgUnit(String selectedOrgUnit) {
     this.getYearbookCandidatesSessionBean().setSelectedOrgUnit(selectedOrgUnit);
-    this.getBasePaginatorListSessionBean().getParameterMap()
-        .put(YearbookArchiveRetrieverRequestBean.parameterSelectedOrgUnit, selectedOrgUnit);
+    this.getBasePaginatorListSessionBean().getParameterMap().put(YearbookArchiveRetrieverRequestBean.parameterSelectedOrgUnit,
+        selectedOrgUnit);
   }
 
   public String getSelectedOrgUnit() {
@@ -132,21 +131,19 @@ public class YearbookArchiveRetrieverRequestBean extends
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
     List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
     try {
-      final YearbookItemSessionBean yearbookItemSessionBean =
-          (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
+      final YearbookItemSessionBean yearbookItemSessionBean = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
 
-      
+
       QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookItemSessionBean.getYearbookForView());
-      
+
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, null);
-      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService()
-          .search(srr, getLoginHelper().getAuthenticationToken());
+      SearchRetrieveResponseVO<PubItemVO> resp =
+          ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
 
 
       this.numberOfRecords = resp.getNumberOfRecords();
-      
-      List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData)
-          .collect(Collectors.toList());
+
+      List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
       return CommonUtils.convertToPubItemVOPresentationList(resultList);
 
@@ -160,8 +157,7 @@ public class YearbookArchiveRetrieverRequestBean extends
   }
 
   public void exportSelectedDownload() {
-    final PubItemListSessionBean pilsb =
-        (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
+    final PubItemListSessionBean pilsb = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
 
     try {
       pilsb.downloadExportFile(pilsb.getSelectedItems());

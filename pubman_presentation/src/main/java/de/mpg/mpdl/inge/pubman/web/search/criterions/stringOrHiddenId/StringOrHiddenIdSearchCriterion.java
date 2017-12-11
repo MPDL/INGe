@@ -76,8 +76,7 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public String getQueryStringContent() {
 
-    return SearchCriterionBase.escapeForQueryString(this.searchString) + "||"
-        + SearchCriterionBase.escapeForQueryString(this.hiddenId);
+    return SearchCriterionBase.escapeForQueryString(this.searchString) + "||" + SearchCriterionBase.escapeForQueryString(this.hiddenId);
 
 
   }
@@ -87,11 +86,9 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public QueryBuilder toElasticSearchQuery() {
     if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
-      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(),
-          this.hiddenId);
+      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
     } else {
-      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(),
-          this.searchString);
+      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(), this.searchString);
     }
   }
 

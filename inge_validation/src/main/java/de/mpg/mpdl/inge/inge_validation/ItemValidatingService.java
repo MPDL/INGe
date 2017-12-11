@@ -16,8 +16,7 @@ public class ItemValidatingService {
 
   private final Validation validation = new Validation();
 
-  public void validate(final ItemVO itemVO, final ValidationPoint validationPoint)
-      throws ValidationServiceException, ValidationException {
+  public void validate(final ItemVO itemVO, final ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
 
     try {
       this.validation.validate(itemVO, validationPoint);
@@ -32,8 +31,7 @@ public class ItemValidatingService {
     }
   }
 
-  public void validateYearbook(final ItemVO itemVO, List<String> childsOfMPG)
-      throws ValidationServiceException, ValidationException {
+  public void validateYearbook(final ItemVO itemVO, List<String> childsOfMPG) throws ValidationServiceException, ValidationException {
 
     try {
       this.validation.validateYearbook(itemVO, childsOfMPG);

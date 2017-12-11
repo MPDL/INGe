@@ -106,30 +106,23 @@ public class ServiceLocator {
       ContentModelHandlerServiceLocatorHolder.serviceLocator;
   private static final ContextHandlerServiceLocator authorizedContextHandlerServiceLocator =
       ContextHandlerServiceLocatorHolder.serviceLocator;
-  private static final ItemHandlerServiceLocator authorizedItemHandlerServiceLocator =
-      ItemHandlerServiceLocatorHolder.serviceLocator;
+  private static final ItemHandlerServiceLocator authorizedItemHandlerServiceLocator = ItemHandlerServiceLocatorHolder.serviceLocator;
   private static final ContainerHandlerServiceLocator authorizedContainerHandlerServiceLocator =
       ContainerHandlerServiceLocatorHolder.serviceLocator;
   private static final SemanticStoreHandlerServiceLocator authorizedSemanticScoreHandlerServiceLocator =
       SemanticStoreHandlerServiceLocatorHolder.serviceLocator;
-  private static final ScopeHandlerServiceLocator publicScopeHandlerServiceLocator =
-      ScopeHandlerServiceLocatorHolder.serviceLocator;
+  private static final ScopeHandlerServiceLocator publicScopeHandlerServiceLocator = ScopeHandlerServiceLocatorHolder.serviceLocator;
   private static final AggregationDefinitionHandlerServiceLocator publicAggregationDefinitionHandlerServiceLocator =
       AggregationDefinitionHandlerServiceLocatorHolder.serviceLocator;
   private static final StatisticDataHandlerServiceLocator publicStatisticDataHandlerServiceLocator =
       StatisticDataHandlerServiceLocatorHolder.serviceLocator;
   private static final ReportDefinitionHandlerServiceLocator publicReportDefinitionHandlerServiceLocator =
       ReportDefinitionHandlerServiceLocatorHolder.serviceLocator;
-  private static final ReportHandlerServiceLocator publicReportHandlerServiceLocator =
-      ReportHandlerServiceLocatorHolder.serviceLocator;
-  private static final IngestHandlerServiceLocator authorizedIngestHandlerServiceLocator =
-      IngestHandlerServiceLocatorHolder.serviceLocator;
-  private static final AdminHandlerServiceLocator authorizedAdminHandlerServiceLocator =
-      AdminHandlerServiceLocatorHolder.serviceLocator;
-  private static final RoleHandlerServiceLocator authorizedRoleHandlerServiceLocator =
-      RoleHandlerServiceLocatorHolder.serviceLocator;
-  private static final JhoveHandlerServiceLocator authorizedJhoveHandlerServiceLocator =
-      JhoveHandlerServiceLocatorHolder.serviceLocator;
+  private static final ReportHandlerServiceLocator publicReportHandlerServiceLocator = ReportHandlerServiceLocatorHolder.serviceLocator;
+  private static final IngestHandlerServiceLocator authorizedIngestHandlerServiceLocator = IngestHandlerServiceLocatorHolder.serviceLocator;
+  private static final AdminHandlerServiceLocator authorizedAdminHandlerServiceLocator = AdminHandlerServiceLocatorHolder.serviceLocator;
+  private static final RoleHandlerServiceLocator authorizedRoleHandlerServiceLocator = RoleHandlerServiceLocatorHolder.serviceLocator;
+  private static final JhoveHandlerServiceLocator authorizedJhoveHandlerServiceLocator = JhoveHandlerServiceLocatorHolder.serviceLocator;
 
   // ServiceLocator objects connected to possibly changing or external frameworks
   private static volatile UserAccountHandlerServiceLocator extAuthorizedUserAccountHandlerServiceLocator =
@@ -151,14 +144,11 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static UserManagementWrapper getUserManagementWrapper(final String userHandle)
-      throws ServiceException, URISyntaxException {
+  public static UserManagementWrapper getUserManagementWrapper(final String userHandle) throws ServiceException, URISyntaxException {
     try {
-      UserManagementWrapper handler =
-          authorizedUserManagementWrapperServiceLocator.getUserManagementWrapperService();
-      Logger.getLogger(ServiceLocator.class).info(
-          "authorizedUserManagementWrapperServiceLocator = "
-              + authorizedUserManagementWrapperServiceLocator);
+      UserManagementWrapper handler = authorizedUserManagementWrapperServiceLocator.getUserManagementWrapperService();
+      Logger.getLogger(ServiceLocator.class)
+          .info("authorizedUserManagementWrapperServiceLocator = " + authorizedUserManagementWrapperServiceLocator);
       ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
       return handler;
     } catch (Exception e) {
@@ -174,13 +164,10 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static UserAccountHandler getUserAccountHandler(String userHandle)
-      throws ServiceException, URISyntaxException {
-    UserAccountHandler handler =
-        authorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedUserAccountHandlerServiceLocator = "
-            + authorizedUserAccountHandlerServiceLocator);
+  public static UserAccountHandler getUserAccountHandler(String userHandle) throws ServiceException, URISyntaxException {
+    UserAccountHandler handler = authorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("authorizedUserAccountHandlerServiceLocator = " + authorizedUserAccountHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -194,23 +181,16 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static synchronized UserAccountHandler getUserAccountHandler(String userHandle,
-      URL frameWorkURL) throws ServiceException, URISyntaxException {
+  public static synchronized UserAccountHandler getUserAccountHandler(String userHandle, URL frameWorkURL)
+      throws ServiceException, URISyntaxException {
     StringBuffer b = new StringBuffer(1024);
-    b.append(frameWorkURL.toString())
-        .append(FRAMEWORK_PATH)
-        .append("/")
-        .append(
-            extAuthorizedUserAccountHandlerServiceLocator
-                .getUserAccountHandlerServiceWSDDServiceName());
-    extAuthorizedUserAccountHandlerServiceLocator.setUserAccountHandlerServiceEndpointAddress(b
-        .toString());
+    b.append(frameWorkURL.toString()).append(FRAMEWORK_PATH).append("/")
+        .append(extAuthorizedUserAccountHandlerServiceLocator.getUserAccountHandlerServiceWSDDServiceName());
+    extAuthorizedUserAccountHandlerServiceLocator.setUserAccountHandlerServiceEndpointAddress(b.toString());
 
-    UserAccountHandler handler =
-        extAuthorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "extAuthorizedUserAccountHandlerServiceLocator = "
-            + extAuthorizedUserAccountHandlerServiceLocator + " for " + frameWorkURL.toString());
+    UserAccountHandler handler = extAuthorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
+    Logger.getLogger(ServiceLocator.class).debug("extAuthorizedUserAccountHandlerServiceLocator = "
+        + extAuthorizedUserAccountHandlerServiceLocator + " for " + frameWorkURL.toString());
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -223,12 +203,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static UserGroupHandler getUserGroupHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
-    UserGroupHandler handler =
-        authorizedUserGroupHandlerServiceLocator.getUserGroupHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedUserGroupHandlerServiceLocator = " + authorizedUserGroupHandlerServiceLocator);
+  public static UserGroupHandler getUserGroupHandler(String userHandle) throws ServiceException, URISyntaxException {
+    UserGroupHandler handler = authorizedUserGroupHandlerServiceLocator.getUserGroupHandlerService();
+    Logger.getLogger(ServiceLocator.class).debug("authorizedUserGroupHandlerServiceLocator = " + authorizedUserGroupHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -240,8 +217,7 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static OrganizationalUnitHandler getOrganizationalUnitHandler() throws ServiceException,
-      URISyntaxException {
+  public static OrganizationalUnitHandler getOrganizationalUnitHandler() throws ServiceException, URISyntaxException {
     return getOrganizationalUnitHandler("");
   }
 
@@ -253,13 +229,10 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static OrganizationalUnitHandler getOrganizationalUnitHandler(String userHandle)
-      throws ServiceException, URISyntaxException {
-    OrganizationalUnitHandler handler =
-        authorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedOrganizationalUnitHandlerServiceLocator = "
-            + authorizedOrganizationalUnitHandlerServiceLocator);
+  public static OrganizationalUnitHandler getOrganizationalUnitHandler(String userHandle) throws ServiceException, URISyntaxException {
+    OrganizationalUnitHandler handler = authorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("authorizedOrganizationalUnitHandlerServiceLocator = " + authorizedOrganizationalUnitHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -274,24 +247,16 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static synchronized OrganizationalUnitHandler getOrganizationalUnitHandler(
-      String userHandle, URL frameWorkURL) throws ServiceException, URISyntaxException {
+  public static synchronized OrganizationalUnitHandler getOrganizationalUnitHandler(String userHandle, URL frameWorkURL)
+      throws ServiceException, URISyntaxException {
     StringBuffer b = new StringBuffer(1024);
-    b.append(frameWorkURL.toString())
-        .append(FRAMEWORK_PATH)
-        .append("/")
-        .append(
-            extAuthorizedOrganizationalUnitHandlerServiceLocator
-                .getOrganizationalUnitHandlerServiceWSDDServiceName());
-    extAuthorizedOrganizationalUnitHandlerServiceLocator
-        .setOrganizationalUnitHandlerServiceEndpointAddress(b.toString());
+    b.append(frameWorkURL.toString()).append(FRAMEWORK_PATH).append("/")
+        .append(extAuthorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerServiceWSDDServiceName());
+    extAuthorizedOrganizationalUnitHandlerServiceLocator.setOrganizationalUnitHandlerServiceEndpointAddress(b.toString());
 
-    OrganizationalUnitHandler handler =
-        extAuthorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "extAuthorizedOrganizationalUnitHandlerServiceLocator = "
-            + extAuthorizedOrganizationalUnitHandlerServiceLocator + " for frameWork "
-            + frameWorkURL.toString());
+    OrganizationalUnitHandler handler = extAuthorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
+    Logger.getLogger(ServiceLocator.class).debug("extAuthorizedOrganizationalUnitHandlerServiceLocator = "
+        + extAuthorizedOrganizationalUnitHandlerServiceLocator + " for frameWork " + frameWorkURL.toString());
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -304,13 +269,10 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ContentModelHandler getContentModelHandler(String userHandle)
-      throws ServiceException, URISyntaxException {
-    ContentModelHandler handler =
-        authorizedContentModelHandlerServiceLocator.getContentModelHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedContentModelHandlerServiceLocator = "
-            + authorizedContentModelHandlerServiceLocator);
+  public static ContentModelHandler getContentModelHandler(String userHandle) throws ServiceException, URISyntaxException {
+    ContentModelHandler handler = authorizedContentModelHandlerServiceLocator.getContentModelHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("authorizedContentModelHandlerServiceLocator = " + authorizedContentModelHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -325,23 +287,16 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static synchronized ContentModelHandler getContentModelHandler(String userHandle,
-      URL frameWorkURL) throws ServiceException, URISyntaxException {
+  public static synchronized ContentModelHandler getContentModelHandler(String userHandle, URL frameWorkURL)
+      throws ServiceException, URISyntaxException {
     StringBuffer b = new StringBuffer(1024);
-    b.append(frameWorkURL.toString())
-        .append(FRAMEWORK_PATH)
-        .append("/")
-        .append(
-            extAuthorizedContentModelHandlerServiceLocator
-                .getContentModelHandlerServiceWSDDServiceName());
-    extAuthorizedContentModelHandlerServiceLocator.setContentModelHandlerServiceEndpointAddress(b
-        .toString());
+    b.append(frameWorkURL.toString()).append(FRAMEWORK_PATH).append("/")
+        .append(extAuthorizedContentModelHandlerServiceLocator.getContentModelHandlerServiceWSDDServiceName());
+    extAuthorizedContentModelHandlerServiceLocator.setContentModelHandlerServiceEndpointAddress(b.toString());
 
-    ContentModelHandler handler =
-        extAuthorizedContentModelHandlerServiceLocator.getContentModelHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "extAuthorizedContentModelHandlerServiceLocator = "
-            + extAuthorizedContentModelHandlerServiceLocator + " for " + frameWorkURL.toString());
+    ContentModelHandler handler = extAuthorizedContentModelHandlerServiceLocator.getContentModelHandlerService();
+    Logger.getLogger(ServiceLocator.class).debug("extAuthorizedContentModelHandlerServiceLocator = "
+        + extAuthorizedContentModelHandlerServiceLocator + " for " + frameWorkURL.toString());
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -366,11 +321,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ContextHandler getContextHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static ContextHandler getContextHandler(String userHandle) throws ServiceException, URISyntaxException {
     ContextHandler handler = authorizedContextHandlerServiceLocator.getContextHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedContextHandlerServiceLocator = " + authorizedContextHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("authorizedContextHandlerServiceLocator = " + authorizedContextHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -387,16 +340,13 @@ public class ServiceLocator {
   public static synchronized ContextHandler getContextHandler(String userHandle, URL frameWorkURL)
       throws ServiceException, URISyntaxException {
     StringBuffer b = new StringBuffer(1024);
-    b.append(frameWorkURL.toString())
-        .append(FRAMEWORK_PATH)
-        .append("/")
+    b.append(frameWorkURL.toString()).append(FRAMEWORK_PATH).append("/")
         .append(extAuthorizedContextHandlerServiceLocator.getContextHandlerServiceWSDDServiceName());
     extAuthorizedContextHandlerServiceLocator.setContextHandlerServiceEndpointAddress(b.toString());
 
     ContextHandler handler = extAuthorizedContextHandlerServiceLocator.getContextHandlerService();
     Logger.getLogger(ServiceLocator.class).debug(
-        "extAuthorizedContextHandlerServiceLocator = " + extAuthorizedContextHandlerServiceLocator
-            + " for " + frameWorkURL.toString());
+        "extAuthorizedContextHandlerServiceLocator = " + extAuthorizedContextHandlerServiceLocator + " for " + frameWorkURL.toString());
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -420,11 +370,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ItemHandler getItemHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static ItemHandler getItemHandler(String userHandle) throws ServiceException, URISyntaxException {
     ItemHandler handler = authorizedItemHandlerServiceLocator.getItemHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedItemHandlerServiceLocator = " + authorizedItemHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("authorizedItemHandlerServiceLocator = " + authorizedItemHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -438,8 +386,7 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static synchronized ItemHandler getItemHandler(URL url) throws ServiceException,
-      URISyntaxException {
+  public static synchronized ItemHandler getItemHandler(URL url) throws ServiceException, URISyntaxException {
     StringBuffer b = new StringBuffer(1024);
     b.append(url.toString()).append(FRAMEWORK_PATH).append("/")
         .append(extAuthorizedItemHandlerServiceLocator.getItemHandlerServiceWSDDServiceName());
@@ -447,9 +394,8 @@ public class ServiceLocator {
     extAuthorizedItemHandlerServiceLocator.setItemHandlerServiceEndpointAddress(b.toString());
 
     ItemHandler handler = extAuthorizedItemHandlerServiceLocator.getItemHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "extAuthorizedItemHandlerServiceLocator = " + extAuthorizedItemHandlerServiceLocator
-            + " for " + url);
+    Logger.getLogger(ServiceLocator.class)
+        .debug("extAuthorizedItemHandlerServiceLocator = " + extAuthorizedItemHandlerServiceLocator + " for " + url);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
     return handler;
   }
@@ -473,12 +419,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ContainerHandler getContainerHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
-    ContainerHandler handler =
-        authorizedContainerHandlerServiceLocator.getContainerHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedContainerHandlerServiceLocator = " + authorizedContainerHandlerServiceLocator);
+  public static ContainerHandler getContainerHandler(String userHandle) throws ServiceException, URISyntaxException {
+    ContainerHandler handler = authorizedContainerHandlerServiceLocator.getContainerHandlerService();
+    Logger.getLogger(ServiceLocator.class).debug("authorizedContainerHandlerServiceLocator = " + authorizedContainerHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -490,8 +433,7 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static SemanticStoreHandler getSemanticScoreHandler() throws ServiceException,
-      URISyntaxException {
+  public static SemanticStoreHandler getSemanticScoreHandler() throws ServiceException, URISyntaxException {
     return getSemanticScoreHandler("");
   }
 
@@ -503,13 +445,10 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static SemanticStoreHandler getSemanticScoreHandler(String userHandle)
-      throws ServiceException, URISyntaxException {
-    SemanticStoreHandler handler =
-        authorizedSemanticScoreHandlerServiceLocator.getSemanticStoreHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedSemanticScoreHandlerServiceLocator = "
-            + authorizedSemanticScoreHandlerServiceLocator);
+  public static SemanticStoreHandler getSemanticScoreHandler(String userHandle) throws ServiceException, URISyntaxException {
+    SemanticStoreHandler handler = authorizedSemanticScoreHandlerServiceLocator.getSemanticStoreHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("authorizedSemanticScoreHandlerServiceLocator = " + authorizedSemanticScoreHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -533,11 +472,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ScopeHandler getScopeHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static ScopeHandler getScopeHandler(String userHandle) throws ServiceException, URISyntaxException {
     ScopeHandler handler = publicScopeHandlerServiceLocator.getScopeHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "publicScopeHandlerServiceLocator = " + publicScopeHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("publicScopeHandlerServiceLocator = " + publicScopeHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -549,13 +486,10 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static AggregationDefinitionHandler getAggregationDefinitionHandler()
-      throws ServiceException, URISyntaxException {
-    AggregationDefinitionHandler handler =
-        publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "publicAggregationDefinitionHandlerServiceLocator = "
-            + publicAggregationDefinitionHandlerServiceLocator);
+  public static AggregationDefinitionHandler getAggregationDefinitionHandler() throws ServiceException, URISyntaxException {
+    AggregationDefinitionHandler handler = publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("publicAggregationDefinitionHandlerServiceLocator = " + publicAggregationDefinitionHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
     return handler;
   }
@@ -569,11 +503,9 @@ public class ServiceLocator {
    */
   public static AggregationDefinitionHandler getAggregationDefinitionHandler(String userHandle)
       throws ServiceException, URISyntaxException {
-    AggregationDefinitionHandler handler =
-        publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "publicAggregationDefinitionHandlerServiceLocator = "
-            + publicAggregationDefinitionHandlerServiceLocator);
+    AggregationDefinitionHandler handler = publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("publicAggregationDefinitionHandlerServiceLocator = " + publicAggregationDefinitionHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -585,8 +517,7 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static StatisticDataHandler getStatisticDataHandler() throws ServiceException,
-      URISyntaxException {
+  public static StatisticDataHandler getStatisticDataHandler() throws ServiceException, URISyntaxException {
     return getStatisticDataHandler("");
   }
 
@@ -597,12 +528,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static StatisticDataHandler getStatisticDataHandler(String userHandle)
-      throws ServiceException, URISyntaxException {
-    StatisticDataHandler handler =
-        publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "publicStatisticDataHandlerServiceLocator = " + publicStatisticDataHandlerServiceLocator);
+  public static StatisticDataHandler getStatisticDataHandler(String userHandle) throws ServiceException, URISyntaxException {
+    StatisticDataHandler handler = publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerService();
+    Logger.getLogger(ServiceLocator.class).debug("publicStatisticDataHandlerServiceLocator = " + publicStatisticDataHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -614,8 +542,7 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ReportDefinitionHandler getReportDefinitionHandler() throws ServiceException,
-      URISyntaxException {
+  public static ReportDefinitionHandler getReportDefinitionHandler() throws ServiceException, URISyntaxException {
     return getReportDefinitionHandler("");
   }
 
@@ -626,13 +553,10 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ReportDefinitionHandler getReportDefinitionHandler(String userHandle)
-      throws ServiceException, URISyntaxException {
-    ReportDefinitionHandler handler =
-        publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "publicReportDefinitionHandlerServiceLocator = "
-            + publicReportDefinitionHandlerServiceLocator);
+  public static ReportDefinitionHandler getReportDefinitionHandler(String userHandle) throws ServiceException, URISyntaxException {
+    ReportDefinitionHandler handler = publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerService();
+    Logger.getLogger(ServiceLocator.class)
+        .debug("publicReportDefinitionHandlerServiceLocator = " + publicReportDefinitionHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -649,11 +573,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static ReportHandler getReportHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static ReportHandler getReportHandler(String userHandle) throws ServiceException, URISyntaxException {
     ReportHandler handler = publicReportHandlerServiceLocator.getReportHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "publicReportHandlerServiceLocator = " + publicReportHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("publicReportHandlerServiceLocator = " + publicReportHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -668,11 +590,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static IngestHandler getIngestHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static IngestHandler getIngestHandler(String userHandle) throws ServiceException, URISyntaxException {
     IngestHandler handler = authorizedIngestHandlerServiceLocator.getIngestHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedIngestHandlerServiceLocator = " + authorizedIngestHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("authorizedIngestHandlerServiceLocator = " + authorizedIngestHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -687,11 +607,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static AdminHandler getAdminHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static AdminHandler getAdminHandler(String userHandle) throws ServiceException, URISyntaxException {
     AdminHandler handler = authorizedAdminHandlerServiceLocator.getAdminHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedAdminHandlerServiceLocator = " + authorizedAdminHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("authorizedAdminHandlerServiceLocator = " + authorizedAdminHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -706,11 +624,9 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static RoleHandler getRoleHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static RoleHandler getRoleHandler(String userHandle) throws ServiceException, URISyntaxException {
     RoleHandler handler = authorizedRoleHandlerServiceLocator.getRoleHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedRoleHandlerServiceLocator = " + authorizedRoleHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("authorizedRoleHandlerServiceLocator = " + authorizedRoleHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
@@ -738,17 +654,14 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static JhoveHandler getJhoveHandler(String userHandle) throws ServiceException,
-      URISyntaxException {
+  public static JhoveHandler getJhoveHandler(String userHandle) throws ServiceException, URISyntaxException {
     JhoveHandler handler = authorizedJhoveHandlerServiceLocator.getJhoveHandlerService();
-    Logger.getLogger(ServiceLocator.class).debug(
-        "authorizedJhoveHandlerServiceLocator = " + authorizedJhoveHandlerServiceLocator);
+    Logger.getLogger(ServiceLocator.class).debug("authorizedJhoveHandlerServiceLocator = " + authorizedJhoveHandlerServiceLocator);
     ((Stub) handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
     return handler;
   }
 
-  public static SRWPort getSearchHandler(String databaseIdentifier) throws ServiceException,
-      URISyntaxException {
+  public static SRWPort getSearchHandler(String databaseIdentifier) throws ServiceException, URISyntaxException {
     try {
       return getSearchHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()));
     } catch (MalformedURLException e) {
@@ -756,11 +669,9 @@ public class ServiceLocator {
     }
   }
 
-  public static SRWPort getSearchHandler(String databaseIdentifier, String userHandle)
-      throws ServiceException, URISyntaxException {
+  public static SRWPort getSearchHandler(String databaseIdentifier, String userHandle) throws ServiceException, URISyntaxException {
     try {
-      return getSearchHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()),
-          userHandle);
+      return getSearchHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()), userHandle);
     } catch (MalformedURLException e) {
       throw new ServiceException(e);
     }
@@ -774,8 +685,7 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static SRWPort getSearchHandler(String databaseIdentifier, URL frameWorkURL)
-      throws ServiceException, URISyntaxException {
+  public static SRWPort getSearchHandler(String databaseIdentifier, URL frameWorkURL) throws ServiceException, URISyntaxException {
     try {
       return getSearchHandler(databaseIdentifier, frameWorkURL, "");
     } catch (MalformedURLException e) {
@@ -791,17 +701,14 @@ public class ServiceLocator {
    * @throws ServiceException
    * @throws URISyntaxException
    */
-  public static SRWPort getSearchHandler(String databaseIdentifier, URL frameWorkURL,
-      String userHandle) throws ServiceException, URISyntaxException, MalformedURLException {
+  public static SRWPort getSearchHandler(String databaseIdentifier, URL frameWorkURL, String userHandle)
+      throws ServiceException, URISyntaxException, MalformedURLException {
     if (databaseIdentifier == null) {
       throw new ServiceException("Database identifier is not valid");
     }
 
-    SRWSampleServiceLocator searchHandlerServiceLocator =
-        new SRWSampleServiceLocator(new FileProvider(CONFIGURATION_FILE));
-    String url =
-        frameWorkURL.toString() + SRW_PATH + "/" + databaseIdentifier + "/"
-            + searchHandlerServiceLocator.getSRWWSDDServiceName();
+    SRWSampleServiceLocator searchHandlerServiceLocator = new SRWSampleServiceLocator(new FileProvider(CONFIGURATION_FILE));
+    String url = frameWorkURL.toString() + SRW_PATH + "/" + databaseIdentifier + "/" + searchHandlerServiceLocator.getSRWWSDDServiceName();
     Logger.getLogger(ServiceLocator.class).info("searchHandlerServiceLocator URL=" + url);
     searchHandlerServiceLocator.setSRWEndpointAddress(url);
     SRWPort handler = searchHandlerServiceLocator.getSRW();
@@ -810,8 +717,7 @@ public class ServiceLocator {
   }
 
 
-  public static ExplainPort getExplainHandler(String databaseIdentifier) throws ServiceException,
-      URISyntaxException {
+  public static ExplainPort getExplainHandler(String databaseIdentifier) throws ServiceException, URISyntaxException {
     try {
       return getExplainHandler(databaseIdentifier, new URL(PropertyReader.getFrameworkUrl()));
     } catch (MalformedURLException e) {
@@ -837,8 +743,7 @@ public class ServiceLocator {
     String url = frameWorkURL.toString() + SRW_PATH + "/" + databaseIdentifier;
     Logger.getLogger(ServiceLocator.class).info("publicExplainHandlerServiceLocator URL=" + url);
     explainHandlerServiceLocator.setSRWEndpointAddress(url);
-    ExplainPort handler =
-        explainHandlerServiceLocator.getExplainSOAP(new URL(url + "?operation=explain"));
+    ExplainPort handler = explainHandlerServiceLocator.getExplainSOAP(new URL(url + "?operation=explain"));
     return handler;
   }
 
@@ -858,25 +763,19 @@ public class ServiceLocator {
     public static UserManagementWrapperServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static UserManagementWrapperServiceLocator getServiceLocator() {
-      UserManagementWrapperServiceLocator serviceLocator =
-          new UserManagementWrapperServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of UserManagementWrapperServiceLocator started: " + serviceLocator);
+      UserManagementWrapperServiceLocator serviceLocator = new UserManagementWrapperServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of UserManagementWrapperServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getUserManagementWrapperServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getUserManagementWrapperServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("UserManagementWrapper URL=" + url);
       serviceLocator.setUserManagementWrapperServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing UserManagementWrapperServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing UserManagementWrapperServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -891,25 +790,19 @@ public class ServiceLocator {
     public static UserAccountHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static UserAccountHandlerServiceLocator getServiceLocator() {
-      UserAccountHandlerServiceLocator serviceLocator =
-          new UserAccountHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of UserAccountHandlerServiceLocator started: " + serviceLocator);
+      UserAccountHandlerServiceLocator serviceLocator = new UserAccountHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of UserAccountHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getUserAccountHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getUserAccountHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("UserAccountHandler URL=" + url);
       serviceLocator.setUserAccountHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing UserAccountHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing UserAccountHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -924,25 +817,19 @@ public class ServiceLocator {
     public static UserGroupHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static UserGroupHandlerServiceLocator getServiceLocator() {
-      UserGroupHandlerServiceLocator serviceLocator =
-          new UserGroupHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of UserGroupHandlerServiceLocator started: " + serviceLocator);
+      UserGroupHandlerServiceLocator serviceLocator = new UserGroupHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of UserGroupHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getUserGroupHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getUserGroupHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("UserGroupHandlerServiceLocator URL=" + url);
       serviceLocator.setUserGroupHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing UserGroupHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing UserGroupHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -959,24 +846,18 @@ public class ServiceLocator {
     synchronized private static OrganizationalUnitHandlerServiceLocator getServiceLocator() {
       OrganizationalUnitHandlerServiceLocator serviceLocator =
           new OrganizationalUnitHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of OrganizationalUnitHandlerServiceLocator started: " + serviceLocator);
+      Logger.getLogger(ServiceLocator.class).info("Initialization of OrganizationalUnitHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getOrganizationalUnitHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getOrganizationalUnitHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
-      Logger.getLogger(ServiceLocator.class).info(
-          "OrganizationalUnitHandlerServiceLocator URL=" + url);
+      Logger.getLogger(ServiceLocator.class).info("OrganizationalUnitHandlerServiceLocator URL=" + url);
       serviceLocator.setOrganizationalUnitHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing OrganizationalUnitHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing OrganizationalUnitHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -991,25 +872,19 @@ public class ServiceLocator {
     public static ContentModelHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ContentModelHandlerServiceLocator getServiceLocator() {
-      ContentModelHandlerServiceLocator serviceLocator =
-          new ContentModelHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ContentModelHandlerServiceLocator started: " + serviceLocator);
+      ContentModelHandlerServiceLocator serviceLocator = new ContentModelHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ContentModelHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getContentModelHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getContentModelHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("ContentModelHandlerServiceLocator URL=" + url);
       serviceLocator.setContentModelHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ContentModelHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ContentModelHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1024,25 +899,19 @@ public class ServiceLocator {
     public static ContextHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ContextHandlerServiceLocator getServiceLocator() {
-      ContextHandlerServiceLocator serviceLocator =
-          new ContextHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ContextHandlerServiceLocator started: " + serviceLocator);
+      ContextHandlerServiceLocator serviceLocator = new ContextHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ContextHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getContextHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getContextHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("ContextHandlerServiceLocator URL=" + url);
       serviceLocator.setContextHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ContextHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ContextHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1057,25 +926,19 @@ public class ServiceLocator {
     public static ItemHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ItemHandlerServiceLocator getServiceLocator() {
-      ItemHandlerServiceLocator serviceLocator =
-          new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ItemHandlerServiceLocator started: " + serviceLocator);
+      ItemHandlerServiceLocator serviceLocator = new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ItemHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getItemHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getItemHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("ItemHandlerServiceLocator URL=" + url);
       serviceLocator.setItemHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ItemHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ItemHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1090,25 +953,19 @@ public class ServiceLocator {
     public static ContainerHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ContainerHandlerServiceLocator getServiceLocator() {
-      ContainerHandlerServiceLocator serviceLocator =
-          new ContainerHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ContainerHandlerServiceLocator started: " + serviceLocator);
+      ContainerHandlerServiceLocator serviceLocator = new ContainerHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ContainerHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getContainerHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getContainerHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("ContainerHandlerServiceLocator URL=" + url);
       serviceLocator.setContainerHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ContainerHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ContainerHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1123,25 +980,19 @@ public class ServiceLocator {
     public static SemanticStoreHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static SemanticStoreHandlerServiceLocator getServiceLocator() {
-      SemanticStoreHandlerServiceLocator serviceLocator =
-          new SemanticStoreHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of SemanticStoreHandlerServiceLocator started: " + serviceLocator);
+      SemanticStoreHandlerServiceLocator serviceLocator = new SemanticStoreHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of SemanticStoreHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getSemanticStoreHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getSemanticStoreHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("SemanticStoreHandlerServiceLocator URL=" + url);
       serviceLocator.setSemanticStoreHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing SemanticStoreHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing SemanticStoreHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1156,25 +1007,19 @@ public class ServiceLocator {
     public static ScopeHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ScopeHandlerServiceLocator getServiceLocator() {
-      ScopeHandlerServiceLocator serviceLocator =
-          new ScopeHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ScopeHandlerServiceLocator started: " + serviceLocator);
+      ScopeHandlerServiceLocator serviceLocator = new ScopeHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ScopeHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getScopeHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getScopeHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("ScopeHandlerServiceLocator URL=" + url);
       serviceLocator.setScopeHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ScopeHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ScopeHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1192,25 +1037,19 @@ public class ServiceLocator {
       AggregationDefinitionHandlerServiceLocator serviceLocator =
           new AggregationDefinitionHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
       Logger.getLogger(ServiceLocator.class)
-          .info(
-              "Initialization of AggregationDefinitionHandlerServiceLocator started: "
-                  + serviceLocator);
+          .info("Initialization of AggregationDefinitionHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getAggregationDefinitionHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
+            + serviceLocator.getAggregationDefinitionHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
-      Logger.getLogger(ServiceLocator.class).info(
-          "AggregationDefinitionHandlerServiceLocator URL=" + url);
+      Logger.getLogger(ServiceLocator.class).info("AggregationDefinitionHandlerServiceLocator URL=" + url);
       serviceLocator.setAggregationDefinitionHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing AggregationDefinitionHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing AggregationDefinitionHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1225,25 +1064,19 @@ public class ServiceLocator {
     public static StatisticDataHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static StatisticDataHandlerServiceLocator getServiceLocator() {
-      StatisticDataHandlerServiceLocator serviceLocator =
-          new StatisticDataHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of StatisticDataHandlerServiceLocator started: " + serviceLocator);
+      StatisticDataHandlerServiceLocator serviceLocator = new StatisticDataHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of StatisticDataHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getStatisticDataHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getStatisticDataHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("StatisticDataHandlerServiceLocator URL=" + url);
       serviceLocator.setStatisticDataHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing StatisticDataHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing StatisticDataHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1260,24 +1093,18 @@ public class ServiceLocator {
     synchronized private static ReportDefinitionHandlerServiceLocator getServiceLocator() {
       ReportDefinitionHandlerServiceLocator serviceLocator =
           new ReportDefinitionHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ReportDefinitionHandlerServiceLocator started: " + serviceLocator);
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ReportDefinitionHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getReportDefinitionHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getReportDefinitionHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
-      Logger.getLogger(ServiceLocator.class).info(
-          "ReportDefinitionHandlerServiceLocator URL=" + url);
+      Logger.getLogger(ServiceLocator.class).info("ReportDefinitionHandlerServiceLocator URL=" + url);
       serviceLocator.setReportDefinitionHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ReportDefinitionHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ReportDefinitionHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1292,25 +1119,19 @@ public class ServiceLocator {
     public static ReportHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ReportHandlerServiceLocator getServiceLocator() {
-      ReportHandlerServiceLocator serviceLocator =
-          new ReportHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of ReportHandlerServiceLocator started: " + serviceLocator);
+      ReportHandlerServiceLocator serviceLocator = new ReportHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of ReportHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getReportHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getReportHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("ReportHandlerServiceLocator URL=" + url);
       serviceLocator.setReportHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing ReportHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing ReportHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1325,25 +1146,19 @@ public class ServiceLocator {
     public static IngestHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static IngestHandlerServiceLocator getServiceLocator() {
-      IngestHandlerServiceLocator serviceLocator =
-          new IngestHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of IngestHandlerServiceLocator started: " + serviceLocator);
+      IngestHandlerServiceLocator serviceLocator = new IngestHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of IngestHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getIngestHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getIngestHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("IngestHandlerServiceLocator URL=" + url);
       serviceLocator.setIngestHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing IngestHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing IngestHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1358,25 +1173,19 @@ public class ServiceLocator {
     public static AdminHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static AdminHandlerServiceLocator getServiceLocator() {
-      AdminHandlerServiceLocator serviceLocator =
-          new AdminHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of AdminHandlerServiceLocator started: " + serviceLocator);
+      AdminHandlerServiceLocator serviceLocator = new AdminHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of AdminHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getAdminHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getAdminHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("AdminHandlerServiceLocator URL=" + url);
       serviceLocator.setAdminHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing AdminHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing AdminHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1391,25 +1200,19 @@ public class ServiceLocator {
     public static RoleHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static RoleHandlerServiceLocator getServiceLocator() {
-      RoleHandlerServiceLocator serviceLocator =
-          new RoleHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of RoleHandlerServiceLocator started: " + serviceLocator);
+      RoleHandlerServiceLocator serviceLocator = new RoleHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of RoleHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getRoleHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getRoleHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("RoleHandlerServiceLocator URL=" + url);
       serviceLocator.setRoleHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing RoleHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing RoleHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1424,25 +1227,19 @@ public class ServiceLocator {
     public static JhoveHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static JhoveHandlerServiceLocator getServiceLocator() {
-      JhoveHandlerServiceLocator serviceLocator =
-          new JhoveHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initialization of JhoveHandlerServiceLocator started: " + serviceLocator);
+      JhoveHandlerServiceLocator serviceLocator = new JhoveHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Initialization of JhoveHandlerServiceLocator started: " + serviceLocator);
       String url = null;
 
       try {
-        url =
-            PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/"
-                + serviceLocator.getJhoveHandlerServiceWSDDServiceName();
+        url = PropertyReader.getFrameworkUrl() + FRAMEWORK_PATH + "/" + serviceLocator.getJhoveHandlerServiceWSDDServiceName();
       } catch (Exception e) {
-        Logger.getLogger(ServiceLocator.class).warn(
-            "Error when reading property: escidoc.framework_access.framework.url");
+        Logger.getLogger(ServiceLocator.class).warn("Error when reading property: escidoc.framework_access.framework.url");
       }
 
       Logger.getLogger(ServiceLocator.class).info("JhoveHandlerServiceLocator URL=" + url);
       serviceLocator.setJhoveHandlerServiceEndpointAddress(url);
-      Logger.getLogger(ServiceLocator.class).info(
-          "Initializing JhoveHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Initializing JhoveHandlerServiceLocator finished.");
 
       return serviceLocator;
     }
@@ -1460,10 +1257,8 @@ public class ServiceLocator {
     public static UserAccountHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static UserAccountHandlerServiceLocator getServiceLocator() {
-      UserAccountHandlerServiceLocator serviceLocator =
-          new UserAccountHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Creating UserAccountHandlerServiceLocator finished.");
+      UserAccountHandlerServiceLocator serviceLocator = new UserAccountHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Creating UserAccountHandlerServiceLocator finished.");
       return serviceLocator;
     }
   }
@@ -1472,12 +1267,9 @@ public class ServiceLocator {
     public static ContentModelHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ContentModelHandlerServiceLocator getServiceLocator() {
-      ContentModelHandlerServiceLocator serviceLocator =
-          new ContentModelHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger
-          .getLogger(ServiceLocator.class)
-          .info(
-              "Creating ContentModelHandlerServiceLocator in ExtContentModelHandlerServiceLocatorHolder finished.");
+      ContentModelHandlerServiceLocator serviceLocator = new ContentModelHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class)
+          .info("Creating ContentModelHandlerServiceLocator in ExtContentModelHandlerServiceLocatorHolder finished.");
       return serviceLocator;
     }
   }
@@ -1486,10 +1278,8 @@ public class ServiceLocator {
     public static ContextHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ContextHandlerServiceLocator getServiceLocator() {
-      ContextHandlerServiceLocator serviceLocator =
-          new ContextHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class)
-          .info("Creating ContextHandlerServiceLocator finished.");
+      ContextHandlerServiceLocator serviceLocator = new ContextHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      Logger.getLogger(ServiceLocator.class).info("Creating ContextHandlerServiceLocator finished.");
       return serviceLocator;
     }
   }
@@ -1499,8 +1289,7 @@ public class ServiceLocator {
     public static ItemHandlerServiceLocator serviceLocator = getServiceLocator();
 
     synchronized private static ItemHandlerServiceLocator getServiceLocator() {
-      ItemHandlerServiceLocator serviceLocator =
-          new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+      ItemHandlerServiceLocator serviceLocator = new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
 
       Logger.getLogger(ServiceLocator.class).info("Creating ItemHandlerServiceLocator finished.");
 
@@ -1514,8 +1303,7 @@ public class ServiceLocator {
     synchronized private static OrganizationalUnitHandlerServiceLocator getServiceLocator() {
       OrganizationalUnitHandlerServiceLocator serviceLocator =
           new OrganizationalUnitHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
-      Logger.getLogger(ServiceLocator.class).info(
-          "Creating OrganizationalUnitHandlerServiceLocator finished.");
+      Logger.getLogger(ServiceLocator.class).info("Creating OrganizationalUnitHandlerServiceLocator finished.");
       return serviceLocator;
     }
   }

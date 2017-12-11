@@ -52,8 +52,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
  * @revised by MuJ: 03.09.2007
  */
 public class TransformAffiliationTest extends TestBase {
-  private static final String REST_AFFILIATION_FILE = TEST_FILE_ROOT
-      + "xmltransforming/component/transformAffiliationTest/organizational-unit_rest.xml";
+  private static final String REST_AFFILIATION_FILE =
+      TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_rest.xml";
 
   private Logger logger = Logger.getLogger(getClass());
 
@@ -67,12 +67,10 @@ public class TransformAffiliationTest extends TestBase {
     logger.info("### testTransformToAffiliationList ###");
 
     String organizationalUnitListXml =
-        readFile(TEST_FILE_ROOT
-            + "xmltransforming/component/transformAffiliationTest/organizational-unit-list_sample1.xml");
+        readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit-list_sample1.xml");
     assertXMLValid(organizationalUnitListXml);
     logger.info("The organizational unit list XML is valid");
-    List<AffiliationVO> affList =
-        XmlTransformingService.transformToAffiliationList(organizationalUnitListXml);
+    List<AffiliationVO> affList = XmlTransformingService.transformToAffiliationList(organizationalUnitListXml);
     assertNotNull(affList);
     assertFalse(affList.isEmpty());
     assertEquals(2, affList.size());
@@ -80,8 +78,7 @@ public class TransformAffiliationTest extends TestBase {
     for (AffiliationVO affiliation : affList) {
       assertEqualsMPIWG(affiliation);
     }
-    logger
-        .info("The organizational unit list XML has successfully been transformed into an List<AffilitationVO>.");
+    logger.info("The organizational unit list XML has successfully been transformed into an List<AffilitationVO>.");
   }
 
   /**
@@ -94,11 +91,9 @@ public class TransformAffiliationTest extends TestBase {
     logger.info("### testTransformToAffiliationPathList ###");
 
     String organizationalUnitPathListXml =
-        readFile(TEST_FILE_ROOT
-            + "xmltransforming/component/transformAffiliationTest/organizational-unit-path-list_sample1.xml");
+        readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit-path-list_sample1.xml");
     assertXMLValid(organizationalUnitPathListXml);
-    List<AffiliationPathVO> affPathList =
-        XmlTransformingService.transformToAffiliationPathList(organizationalUnitPathListXml);
+    List<AffiliationPathVO> affPathList = XmlTransformingService.transformToAffiliationPathList(organizationalUnitPathListXml);
     assertNotNull("Transforming delivered null.", affPathList);
     assertFalse("Transforming result list is empty.", affPathList.isEmpty());
     List<AffiliationRO> affPath = null;
@@ -121,11 +116,9 @@ public class TransformAffiliationTest extends TestBase {
   @Test
   public void testTransformToParentAffiliationList() throws Exception {
     String parentOrganizationalUnitListXml =
-        readFile(TEST_FILE_ROOT
-            + "xmltransforming/component/transformAffiliationTest/parent-organizational-unit-list_sample1.xml");
+        readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/parent-organizational-unit-list_sample1.xml");
     assertXMLValid(parentOrganizationalUnitListXml);
-    List<AffiliationRO> affROList =
-        XmlTransformingService.transformToParentAffiliationList(parentOrganizationalUnitListXml);
+    List<AffiliationRO> affROList = XmlTransformingService.transformToParentAffiliationList(parentOrganizationalUnitListXml);
     assertNotNull("Transforming delivered null.", affROList);
     assertFalse("Transforming result list is empty.", affROList.isEmpty());
 
@@ -144,21 +137,17 @@ public class TransformAffiliationTest extends TestBase {
     logger.info("### testTransformToAffiliation ###");
 
     String organizationalUnitXml =
-        readFile(TEST_FILE_ROOT
-            + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
+        readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
     assertXMLValid(organizationalUnitXml);
     if (logger.isDebugEnabled()) {
-      logger.debug("testTransformToAffiliation() - String organizationalUnitXml=\n"
-          + organizationalUnitXml);
+      logger.debug("testTransformToAffiliation() - String organizationalUnitXml=\n" + organizationalUnitXml);
     }
     logger.info("The organizational unit XML is valid");
 
-    AffiliationVO affiliation =
-        XmlTransformingService.transformToAffiliation(organizationalUnitXml);
+    AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(organizationalUnitXml);
     assertNotNull(affiliation);
     assertEqualsMPIWG(affiliation);
-    logger
-        .info("The organizational unit XML has successfully been transformed into an AffilitationVO.");
+    logger.info("The organizational unit XML has successfully been transformed into an AffilitationVO.");
   }
 
   /**
@@ -172,21 +161,16 @@ public class TransformAffiliationTest extends TestBase {
 
     // get a AffiliationVO by transforming the XML file into a AffiliationVO
     String organizationalUnitXml =
-        readFile(TEST_FILE_ROOT
-            + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
+        readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
     assertXMLValid(organizationalUnitXml);
-    AffiliationVO affiliation =
-        XmlTransformingService.transformToAffiliation(organizationalUnitXml);
+    AffiliationVO affiliation = XmlTransformingService.transformToAffiliation(organizationalUnitXml);
     assertNotNull(affiliation);
     assertEqualsMPIWG(affiliation);
 
     // transform it back to XML
-    String roundTripOrganizationalUnitXml =
-        XmlTransformingService.transformToOrganizationalUnit(affiliation);
-    logger.debug("testTransformToOrganizationalUnit() - String organizationalUnitXml=\n"
-        + organizationalUnitXml
-        + "\n\ntestTransformToOrganizationalUnit() - String roundTripOrganizationalUnitXml=\n"
-        + roundTripOrganizationalUnitXml);
+    String roundTripOrganizationalUnitXml = XmlTransformingService.transformToOrganizationalUnit(affiliation);
+    logger.debug("testTransformToOrganizationalUnit() - String organizationalUnitXml=\n" + organizationalUnitXml
+        + "\n\ntestTransformToOrganizationalUnit() - String roundTripOrganizationalUnitXml=\n" + roundTripOrganizationalUnitXml);
   }
 
   /**
@@ -209,10 +193,10 @@ public class TransformAffiliationTest extends TestBase {
 
     assertEquals("ObjectId not transformed correctly", "/oum/organizational-unit/escidoc:830552",
         affiliationVO.getReference().getObjectId());
-    assertEquals("Creator (created-by) not transformed correctly",
-        "/aa/user-account/escidoc:user42", affiliationVO.getCreator().getObjectId());
-    assertEquals("Modifier (modified-by) not transformed correctly",
-        "/aa/user-account/escidoc:user42", affiliationVO.getModifiedBy().getObjectId());
+    assertEquals("Creator (created-by) not transformed correctly", "/aa/user-account/escidoc:user42",
+        affiliationVO.getCreator().getObjectId());
+    assertEquals("Modifier (modified-by) not transformed correctly", "/aa/user-account/escidoc:user42",
+        affiliationVO.getModifiedBy().getObjectId());
 
     List<AffiliationRO> l = affiliationVO.getParentAffiliations();
 
@@ -223,8 +207,7 @@ public class TransformAffiliationTest extends TestBase {
 
   private void assertEqualsMPIWG(AffiliationVO affiliation) {
     MdsOrganizationalUnitDetailsVO details = null;
-    if (affiliation.getMetadataSets().size() > 0
-        && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
+    if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
       details = (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
     }
 
@@ -242,7 +225,6 @@ public class TransformAffiliationTest extends TestBase {
     assertEquals("DE", details.getCountryCode());
     assertEquals("Berlin", details.getCity());
     assertEquals(1, details.getIdentifiers().size());
-    assertEquals(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpgwg-berlin.mpg.de"),
-        details.getIdentifiers().get(0));
+    assertEquals(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpgwg-berlin.mpg.de"), details.getIdentifiers().get(0));
   }
 }

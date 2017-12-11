@@ -22,22 +22,16 @@ public class TransformerCacheTest {
   public void testTransformerCache() {
     Transformer t1 = null, t2 = null, t3 = null, t4 = null;
     try {
-      t1 =
-          TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML,
-              FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+      t1 = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
 
       assertTrue(TransformerCache.getTransformerCacheSize() == 1);
       assertTrue(t1 != null);
 
-      t2 =
-          TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML,
-              FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+      t2 = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
       assertTrue(TransformerCache.getTransformerCacheSize() == 2);
       assertTrue(t2 != null);
 
-      t3 =
-          TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML,
-              FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+      t3 = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
       assertTrue(TransformerCache.getTransformerCacheSize() == 2);
       assertTrue(t3 != null && t1 == t3);
 
@@ -74,29 +68,18 @@ public class TransformerCacheTest {
   @Test
   public void testIsTransformationExisting() {
     // formats used by import
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.BIBTEX_STRING,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.ENDNOTE_STRING,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.RIS_STRING,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.WOS_STRING,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.MAB_STRING,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.EDOC_XML,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.MARC_21_STRING,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.MARC_XML,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache
-        .isTransformationExisting(FORMAT.BMC_XML, FORMAT.ESCIDOC_ITEM_V3_XML));
-    assertTrue(TransformerCache.isTransformationExisting(FORMAT.ZFN_TEI_XML,
-        FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.RIS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.BMC_XML, FORMAT.ESCIDOC_ITEM_V3_XML));
+    assertTrue(TransformerCache.isTransformationExisting(FORMAT.ZFN_TEI_XML, FORMAT.ESCIDOC_ITEM_V3_XML));
 
-    assertTrue("Is " + TransformerCache.getTransformerCacheSize() + " expected 10",
-        TransformerCache.getTransformerCacheSize() == 10);
+    assertTrue("Is " + TransformerCache.getTransformerCacheSize() + " expected 10", TransformerCache.getTransformerCacheSize() == 10);
   }
 
 }

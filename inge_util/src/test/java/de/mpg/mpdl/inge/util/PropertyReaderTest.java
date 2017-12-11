@@ -21,15 +21,12 @@ public class PropertyReaderTest {
   public static void createPropertiesFile() throws IOException {
     FileUtils.deleteQuietly(propertiesFile);
 
-    FileUtils.writeStringToFile(propertiesFile,
-        "escidoc.framework_access.framework.url = http://dev-pubman.mpdl.mpg.de", true);
+    FileUtils.writeStringToFile(propertiesFile, "escidoc.framework_access.framework.url = http://dev-pubman.mpdl.mpg.de", true);
     FileUtils.writeStringToFile(propertiesFile, System.getProperty("line.separator"), true);
-    FileUtils.writeStringToFile(propertiesFile,
-        "escidoc.framework_access.login.url = http://localhost:8080", true);
+    FileUtils.writeStringToFile(propertiesFile, "escidoc.framework_access.login.url = http://localhost:8080", true);
     FileUtils.writeStringToFile(propertiesFile, System.getProperty("line.separator"), true);
 
-    Logger.getLogger(PropertyReaderTest.class).info(
-        "pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
+    Logger.getLogger(PropertyReaderTest.class).info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
   }
 
   @Ignore
@@ -72,8 +69,7 @@ public class PropertyReaderTest {
     assertTrue(loginUrl != null);
     assertTrue(loginUrl.equals("http://localhost:8080"));
 
-    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2",
-        PropertyReader.getCounter() == 2);
+    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2", PropertyReader.getCounter() == 2);
 
   }
 

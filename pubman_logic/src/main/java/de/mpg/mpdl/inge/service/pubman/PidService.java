@@ -20,7 +20,6 @@ public interface PidService {
    * @throws IngeApplicationException
    * @throws TechnicalException
    */
-  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException,
-      TechnicalException;
+  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException;
 
 }

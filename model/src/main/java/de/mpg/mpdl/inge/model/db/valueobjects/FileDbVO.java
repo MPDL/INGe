@@ -76,21 +76,29 @@ public class FileDbVO extends FileDbRO implements Serializable {
    * 
    * @updated 21-Nov-2007 12:05:47
    */
-  public enum Visibility {
-    PUBLIC, PRIVATE, AUDIENCE;
+  public enum Visibility
+  {
+    PUBLIC,
+    PRIVATE,
+    AUDIENCE;
   }
 
   /**
    * The possible storage of a file.
    */
-  public enum Storage {
-    INTERNAL_MANAGED, EXTERNAL_URL, EXTERNAL_MANAGED
+  public enum Storage
+  {
+    INTERNAL_MANAGED,
+    EXTERNAL_URL,
+    EXTERNAL_MANAGED
   }
   /**
    * The possible storage of a file.
    */
-  public enum ChecksumAlgorithm {
-    MD5, SHA1
+  public enum ChecksumAlgorithm
+  {
+    MD5,
+    SHA1
   }
 
 

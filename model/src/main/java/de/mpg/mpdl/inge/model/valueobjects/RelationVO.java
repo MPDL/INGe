@@ -42,8 +42,10 @@ public class RelationVO extends ValueObject {
   /**
    * The type of a relation between two items.
    */
-  public enum RelationType {
-    ISREVISIONOF, HASMEMBER
+  public enum RelationType
+  {
+    ISREVISIONOF,
+    HASMEMBER
   }
 
   /**

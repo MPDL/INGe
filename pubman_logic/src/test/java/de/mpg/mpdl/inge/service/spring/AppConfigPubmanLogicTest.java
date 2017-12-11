@@ -17,8 +17,7 @@ import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
-@Import({AppConfigPidServiceTest.class, AppConfigTest.class, JPAConfiguration.class,
-    AppConfigFileStorage.class})
+@Import({AppConfigPidServiceTest.class, AppConfigTest.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
 @PropertySource("classpath:es_connector.properties")
 public class AppConfigPubmanLogicTest {

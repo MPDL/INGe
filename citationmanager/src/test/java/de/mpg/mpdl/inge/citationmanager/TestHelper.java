@@ -77,25 +77,18 @@ public class TestHelper {
   private static Logger logger = Logger.getLogger(TestHelper.class);
 
   public static final String ITEMS_LIMIT = "50";
-  public static final String PROPERTY_CONTENT_MODEL_PUBLICATION =
-      "escidoc.framework_access.content-model.id.publication";
+  public static final String PROPERTY_CONTENT_MODEL_PUBLICATION = "escidoc.framework_access.content-model.id.publication";
   public static final String USER_NAME = "citman_user";
   public static final String USER_PASSWD = "citman_user";
   public static final String CONTEXT = "Citation Style Testing Context";
-  public static final String SEARCH_CONTEXT =
-      "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
+  public static final String SEARCH_CONTEXT = "escidoc.context.name=%22Citation%20Style%20Testing%20Context%22";
 
 
-  public static String getTestItemListFromFramework() throws IOException, ServiceException,
-      URISyntaxException {
+  public static String getTestItemListFromFramework() throws IOException, ServiceException, URISyntaxException {
     HashMap<String, String[]> filter = new HashMap<String, String[]>();
 
-    filter.put(
-        QUERY,
-        new String[] {
-            "\"/properties/content-model/id\"="
-                + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
-            "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=pending"});
+    filter.put(QUERY, new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
+        "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=pending"});
 
     return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
   }
@@ -113,11 +106,9 @@ public class TestHelper {
 
 
 
-  private static String transformToItemListAsString(SearchRetrieveResponseType searchResult)
-      throws Exception {
+  private static String transformToItemListAsString(SearchRetrieveResponseType searchResult) throws Exception {
     String itemStringList = "";
-    Pattern p =
-        Pattern.compile("(<\\w+?:item.*?</\\w+?:item>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    Pattern p = Pattern.compile("(<\\w+?:item.*?</\\w+?:item>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     if (searchResult.getRecords() != null) {
       for (RecordType record : searchResult.getRecords().getRecord()) {
         StringOrXmlFragment data = record.getRecordData();
@@ -158,8 +149,7 @@ public class TestHelper {
   public static Properties getTestProperties(String cs) throws FileNotFoundException, IOException {
     String path_to_props = CitationUtil.getPathToCitationStyleTestResources(cs) + "test.properties";
     // logger.info("path_to_props:" + path_to_props);
-    InputStream is =
-        ResourceUtil.getResourceAsStream(path_to_props, TestHelper.class.getClassLoader());
+    InputStream is = ResourceUtil.getResourceAsStream(path_to_props, TestHelper.class.getClassLoader());
     Properties props = new Properties();
     props.load(is);
 
@@ -173,13 +163,12 @@ public class TestHelper {
 
   public static String getFileAsString(String fileName) throws IOException {
     logger.info("test XML" + CitationUtil.getPathToTestResources() + fileName);
-    return ResourceUtil.getResourceAsString(CitationUtil.getPathToTestResources() + fileName,
-        TestHelper.class.getClassLoader());
+    return ResourceUtil.getResourceAsString(CitationUtil.getPathToTestResources() + fileName, TestHelper.class.getClassLoader());
   }
 
 
-  public static String getItemListFromFrameworkBase(String USER, String PASSWD,
-      HashMap<String, String[]> filter) throws IOException, ServiceException, URISyntaxException {
+  public static String getItemListFromFrameworkBase(String USER, String PASSWD, HashMap<String, String[]> filter)
+      throws IOException, ServiceException, URISyntaxException {
     // logger.info("Retrieve USER, PASSWD:" + USER + ", " + PASSWD);
     // String userHandle = AdminHelper.loginUser(USER, PASSWD);
     // logger.info("Retrieve filter:" + filter.entrySet().toString());
@@ -202,9 +191,7 @@ public class TestHelper {
     searchRetrieveRequest.setQuery(cql);
     searchRetrieveRequest.setRecordPacking("xml");
 
-    SearchRetrieveResponseType searchResult =
-        ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(
-            searchRetrieveRequest);
+    SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
     if (searchResult.getDiagnostics() != null) {
       // something went wrong
       for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic()) {
@@ -229,12 +216,8 @@ public class TestHelper {
 
     filter.put(VERSION, new String[] {"1.1"});
     filter.put(OPERATION, new String[] {SEARCH_RETRIEVE});
-    filter.put(
-        QUERY,
-        new String[] {
-            "\"/properties/content-model/id\"="
-                + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
-            "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=released"});
+    filter.put(QUERY, new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION),
+        "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=released"});
 
     String itemList = getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
 
@@ -250,16 +233,12 @@ public class TestHelper {
    * @throws URISyntaxException
    * @throws ServiceException
    */
-  public static String getItemListFromFramework() throws IOException, ServiceException,
-      URISyntaxException {
+  public static String getItemListFromFramework() throws IOException, ServiceException, URISyntaxException {
     HashMap<String, String[]> filter = new HashMap<String, String[]>();
 
     filter.put(VERSION, new String[] {"1.1"});
     filter.put(OPERATION, new String[] {SEARCH_RETRIEVE});
-    filter.put(
-        QUERY,
-        new String[] {"\"/properties/content-model/id\"="
-            + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION)});
+    filter.put(QUERY, new String[] {"\"/properties/content-model/id\"=" + PropertyReader.getProperty(PROPERTY_CONTENT_MODEL_PUBLICATION)});
     filter.put(MAX_RECORDS, new String[] {ITEMS_LIMIT});
 
     return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
@@ -298,9 +277,7 @@ public class TestHelper {
   }
 
   private static ArrayList<String> extractTag(String xml, String tag) {
-    Pattern p =
-        Pattern.compile("<(" + tag + ")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE
-            | Pattern.DOTALL);
+    Pattern p = Pattern.compile("<(" + tag + ")\\s.*?>(.*?)</\\1>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     Matcher m = p.matcher(xml);
 
     ArrayList<String> al = new ArrayList<String>();

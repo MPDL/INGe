@@ -61,8 +61,7 @@ public class EventTitleComparatorTest extends ComparatorTestBase {
         event = itemVO.getMetadata().getEvent();
       }
 
-      logger.debug((event != null ? event.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug((event != null ? event.getTitle() : "null") + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"2", "1", "1", "3", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -74,17 +73,14 @@ public class EventTitleComparatorTest extends ComparatorTestBase {
   @Test
   public void sortEventTitleDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections
-        .sort(list, Collections.reverseOrder(new PubItemVOComparator(
-            PubItemVOComparator.Criteria.EVENT_TITLE)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE)));
     for (PubItemVO itemVO : list) {
       EventVO event = null;
       if (itemVO.getMetadata().getEvent() != null) {
         event = itemVO.getMetadata().getEvent();
       }
 
-      logger.debug((event != null ? event.getTitle() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug((event != null ? event.getTitle() : "null") + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "3", "1", "1", "2"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -95,9 +91,7 @@ public class EventTitleComparatorTest extends ComparatorTestBase {
    */
   @Test
   public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE).compare(getPubItemVO4(),
-            getPubItemVO4());
+    int rc = new PubItemVOComparator(PubItemVOComparator.Criteria.EVENT_TITLE).compare(getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }
 }

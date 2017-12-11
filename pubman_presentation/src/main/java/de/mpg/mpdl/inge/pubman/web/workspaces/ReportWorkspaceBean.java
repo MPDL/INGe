@@ -131,9 +131,8 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     try {
-      logger.info("Start generation report for YEAR " + this.reportYear + ", ORG "
-          + this.organization.getIdentifier() + ", FORMAT " + this.format + " "
-          + this.format.name());
+      logger.info("Start generation report for YEAR " + this.reportYear + ", ORG " + this.organization.getIdentifier() + ", FORMAT "
+          + this.format + " " + this.format.name());
 
       itemLsitSearchResult = this.doSearchItems();
       if (itemLsitSearchResult != null) {
@@ -146,10 +145,8 @@ public class ReportWorkspaceBean extends FacesBean {
       if (itemListReportTransformed != null) {
         FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
-        final String fileName =
-            format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
-        FacesTools.getResponse().addHeader("Content-Disposition",
-            "attachment; filename=" + fileName);
+        final String fileName = format.name().contains("HTML") ? "Jus_Report.html" : "Jus_Report_InDesign.xml";
+        FacesTools.getResponse().addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
         final ServletOutputStream stream = FacesTools.getResponse().getOutputStream();
         final ByteArrayInputStream bais = new ByteArrayInputStream(itemListReportTransformed);
@@ -231,16 +228,15 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-      SearchRetrieveResponseVO<PubItemVO> resp =
-          ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
 
 
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
       logger.info("Search result total nr: " + resp.getNumberOfRecords());
       if (totalNrOfSerchResultItems > 0) {
-        itemListAsString = XmlTransformingService.transformToItemList(
-            resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList()));
+        itemListAsString =
+            XmlTransformingService.transformToItemList(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList()));
       } else {
         this.info(this.getMessage("ReportNoItemsFound"));
       }
@@ -255,9 +251,8 @@ public class ReportWorkspaceBean extends FacesBean {
   private byte[] doCitationStyle(String itemListAsString) {
     byte[] exportData = null;
     try {
-      exportData =
-          CitationStyleExecuterService.getOutput(itemListAsString, new ExportFormatVO(
-              FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
+      exportData = CitationStyleExecuterService.getOutput(itemListAsString,
+          new ExportFormatVO(FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
       this.error("Did not find Citation service");
@@ -283,9 +278,7 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     try {
-      result =
-          itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML,
-              this.format, new String(src, "UTF-8"));
+      result = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format, new String(src, "UTF-8"));
 
     } catch (final TransformationException | UnsupportedEncodingException e) {
       throw new RuntimeException(e);

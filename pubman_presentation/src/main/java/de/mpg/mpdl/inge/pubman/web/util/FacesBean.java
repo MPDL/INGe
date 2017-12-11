@@ -253,15 +253,12 @@ public class FacesBean implements Serializable {
   }
 
   public boolean getHasErrorMessages() {
-    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i
-        .hasNext();) {
+    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
       final FacesMessage fm = i.next();
 
-      FacesBean.logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n"
-          + fm.getDetail());
+      FacesBean.logger.info("Message (" + fm.getSeverity() + "): " + fm.getSummary() + ":\n" + fm.getDetail());
 
-      if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR)
-          || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN)
+      if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN)
           || fm.getSeverity().equals(FacesMessage.SEVERITY_FATAL)) {
         return true;
       }
@@ -273,8 +270,7 @@ public class FacesBean implements Serializable {
   public int getNumberOfMessages() {
     int number = 0;
 
-    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i
-        .hasNext();) {
+    for (final Iterator<FacesMessage> i = FacesTools.getCurrentInstance().getMessages(); i.hasNext();) {
       i.next();
       number++;
     }

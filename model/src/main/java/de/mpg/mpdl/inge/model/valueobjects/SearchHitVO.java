@@ -51,15 +51,16 @@ public class SearchHitVO extends ValueObject {
    * 
    * @updated 05-Sep-2007 10:30:53
    */
-  public enum SearchHitType {
-    METADATA, FULLTEXT
+  public enum SearchHitType
+  {
+    METADATA,
+    FULLTEXT
   }
 
   /**
    * List of text fragments belonging to this search hit.
    */
-  private java.util.List<TextFragmentVO> textFragmentList =
-      new java.util.ArrayList<TextFragmentVO>();
+  private java.util.List<TextFragmentVO> textFragmentList = new java.util.ArrayList<TextFragmentVO>();
   private SearchHitType type;
   /**
    * This FileRO points to the File containing the search hit. When the search hit is of type

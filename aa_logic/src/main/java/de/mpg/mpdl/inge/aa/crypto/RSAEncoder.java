@@ -64,14 +64,12 @@ public class RSAEncoder {
   public static String rsaEncrypt(String string) throws Exception {
     StringWriter resultWriter = new StringWriter();
     byte[] bytes = string.getBytes("UTF-8");
-    PublicKey pubKey =
-        (PublicKey) readKeyFromFile(Config.getProperty("inge.aa.public.key.file"), true);
+    PublicKey pubKey = (PublicKey) readKeyFromFile(Config.getProperty("inge.aa.public.key.file"), true);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.ENCRYPT_MODE, pubKey);
     int blockSize = 245;
     for (int i = 0; i < bytes.length; i += blockSize) {
-      byte[] result =
-          cipher.doFinal(bytes, i, (i + blockSize < bytes.length ? blockSize : bytes.length - i));
+      byte[] result = cipher.doFinal(bytes, i, (i + blockSize < bytes.length ? blockSize : bytes.length - i));
       if (i > 0) {
         resultWriter.write("&");
       }
@@ -85,8 +83,7 @@ public class RSAEncoder {
   public static String rsaDecrypt(String[] string) throws Exception {
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    PrivateKey privateKey =
-        (PrivateKey) readKeyFromFile(Config.getProperty("inge.aa.private.key.file"), false);
+    PrivateKey privateKey = (PrivateKey) readKeyFromFile(Config.getProperty("inge.aa.private.key.file"), false);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.DECRYPT_MODE, privateKey);
     for (String part : string) {
@@ -100,8 +97,7 @@ public class RSAEncoder {
   }
 
   public static Key readKeyFromFile(String keyFileName, boolean publ) throws Exception {
-    InputStream in =
-        ResourceUtil.getResourceAsStream(keyFileName, RSAEncoder.class.getClassLoader());
+    InputStream in = ResourceUtil.getResourceAsStream(keyFileName, RSAEncoder.class.getClassLoader());
     ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(in));
     try {
       BigInteger m = (BigInteger) oin.readObject();

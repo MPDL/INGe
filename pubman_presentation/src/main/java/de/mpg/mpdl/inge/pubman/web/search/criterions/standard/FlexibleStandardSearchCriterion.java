@@ -38,8 +38,7 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
   }
 
-  public FlexibleStandardSearchCriterion(String[] cqlIndexes, String[] elIndexes,
-      String searchString) {
+  public FlexibleStandardSearchCriterion(String[] cqlIndexes, String[] elIndexes, String searchString) {
     this.setSearchString(searchString);
     this.elIndexes = elIndexes;
     this.cqlIndexes = cqlIndexes;

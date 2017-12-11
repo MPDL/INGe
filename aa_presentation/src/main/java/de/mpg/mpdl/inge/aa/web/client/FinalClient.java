@@ -65,8 +65,7 @@ public abstract class FinalClient extends Client {
         response.sendRedirect(target + separator + encodedXml);
       } catch (IllegalStateException ise) {
         logger.warn("Caught IllegalStateException: DEBUG for more info");
-        logger
-            .debug("FinalClient tried to send a redirect, but there was probably already a header defined.");
+        logger.debug("FinalClient tried to send a redirect, but there was probably already a header defined.");
       }
 
     } catch (Exception e) {
@@ -74,7 +73,6 @@ public abstract class FinalClient extends Client {
     }
   }
 
-  protected abstract AuthenticationVO finalizeAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws Exception;
+  protected abstract AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 }

@@ -22,8 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubContextVOPresentation extends ContextVO implements
-    Comparable<PubContextVOPresentation> {
+public class PubContextVOPresentation extends ContextVO implements Comparable<PubContextVOPresentation> {
 
   private boolean selected = false;
 
@@ -72,10 +71,8 @@ public class PubContextVOPresentation extends ContextVO implements
       }
     }
 
-    this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION,
-        this.getReference());
-    this.getEasySubmissionSessionBean()
-        .setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+    this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, this.getReference());
+    this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
 
     if (this.getEasySubmissionSessionBean().getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {
       return "loadNewFetchMetadata";

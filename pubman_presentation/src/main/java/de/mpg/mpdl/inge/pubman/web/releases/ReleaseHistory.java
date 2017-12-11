@@ -55,11 +55,10 @@ public class ReleaseHistory extends FacesBean {
   }
 
   public void init() {
-    final ItemVersionListSessionBean ivlsb =
-        (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
+    final ItemVersionListSessionBean ivlsb = (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
     if (ivlsb.getVersionList() == null) {
-      ivlsb.initLists(this.getVersionHistory(((ItemControllerSessionBean) FacesTools
-          .findBean("ItemControllerSessionBean")).getCurrentPubItem().getVersion().getObjectId()));
+      ivlsb.initLists(this.getVersionHistory(
+          ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean")).getCurrentPubItem().getVersion().getObjectId()));
     }
   }
 
@@ -71,8 +70,7 @@ public class ReleaseHistory extends FacesBean {
    */
   public List<VersionHistoryEntryVO> getVersionHistory(String itemID) {
     try {
-      return ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))
-          .retrieveVersionHistoryForItem(itemID);
+      return ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean")).retrieveVersionHistoryForItem(itemID);
     } catch (final Exception e) {
       ReleaseHistory.logger.error("Could not retrieve release list for Item " + itemID, e);
     }

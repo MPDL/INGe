@@ -43,8 +43,7 @@ public class WithdrawItem extends FacesBean {
           creators.append(", ");
           creators.append(creator.getPerson().getGivenName());
         }
-      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION
-          && creator.getOrganization().getName() != null) {
+      } else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null) {
         creators.append(creator.getOrganization().getName());
       }
     }
@@ -54,9 +53,8 @@ public class WithdrawItem extends FacesBean {
 
   public String cancel() {
     try {
-      FacesTools.getExternalContext().redirect(
-          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
-              + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+      FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+          + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     } catch (final IOException e) {
       WithdrawItem.logger.error("Could not redirect to View Item Page", e);
     }
@@ -100,20 +98,15 @@ public class WithdrawItem extends FacesBean {
 
     final String navigateTo = ViewItemFull.LOAD_VIEWITEM;
 
-    final String retVal =
-        this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo,
-            this.withdrawalComment);
+    final String retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, this.withdrawalComment);
 
     if (navigateTo.equals(retVal)) {
       this.info(this.getMessage(DepositorWSPage.MESSAGE_SUCCESSFULLY_WITHDRAWN));
       this.getPubItemListSessionBean().update();
 
       try {
-        FacesTools.getExternalContext().redirect(
-            FacesTools.getRequest().getContextPath()
-                + "/faces/ViewItemFullPage.jsp?itemId="
-                + this.getItemControllerSessionBean().getCurrentPubItem().getVersion()
-                    .getObjectId());
+        FacesTools.getExternalContext().redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId="
+            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
       } catch (final IOException e) {
         WithdrawItem.logger.error("Could not redirect to View Item Page", e);
       }

@@ -14,8 +14,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-public class SourcesCreatorsOrganizationNamesRequiredValidator extends
-    ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
+public class SourcesCreatorsOrganizationNamesRequiredValidator extends ValidatorHandler<List<SourceVO>>
+    implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -40,9 +40,8 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends
 
                 if (ValidationTools.isEmpty(o.getName())) {
 
-                  context.addError(ValidationError.create(
-                      ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED).setField(
-                      "source[" + i + "].creator[" + j + "]"));
+                  context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED)
+                      .setField("source[" + i + "].creator[" + j + "]"));
 
                   ok = false;
 

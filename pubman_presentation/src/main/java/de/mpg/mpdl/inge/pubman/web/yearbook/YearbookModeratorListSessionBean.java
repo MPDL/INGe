@@ -54,8 +54,8 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 @ManagedBean(name = "YearbookModeratorListSessionBean")
 @SessionScoped
 @SuppressWarnings("serial")
-public class YearbookModeratorListSessionBean extends
-    BasePaginatorListSessionBean<YearbookDbVO, YearbookModeratorListSessionBean.SORT_CRITERIA> {
+public class YearbookModeratorListSessionBean
+    extends BasePaginatorListSessionBean<YearbookDbVO, YearbookModeratorListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(YearbookModeratorListSessionBean.class);
 
   /**
@@ -67,7 +67,8 @@ public class YearbookModeratorListSessionBean extends
    * @version $Revision$ $LastChangedDate$
    * 
    */
-  public static enum SORT_CRITERIA {
+  public static enum SORT_CRITERIA
+  {
     // Use dummy value "score" for default sorting
 
     YEAR(YearbookServiceDbImpl.INDEX_YEAR, YearbookServiceDbImpl.INDEX_YEAR, SortOrder.DESC.name()), ORGANIZATION_NAME(
@@ -76,83 +77,80 @@ public class YearbookModeratorListSessionBean extends
         YearbookServiceDbImpl.INDEX_MODIFICATION_DATE,
         YearbookServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC.name()), ;
 
-    /**
-     * The search sorting index
-     */
-    private String index;
+  /**
+   * The search sorting index
+   */
+  private String index;
 
-    /**
-     * The path to the xml by which a list should be sorted
-     */
-    private String sortPath;
+  /**
+   * The path to the xml by which a list should be sorted
+   */
+  private String sortPath;
 
-    /**
-     * An additional attribute indicating the default sort order ("ascending" or "descending")
-     */
-    private String sortOrder;
+  /**
+   * An additional attribute indicating the default sort order ("ascending" or "descending")
+   */
+  private String sortOrder;
 
-    SORT_CRITERIA(String index, String sortPath, String sortOrder) {
+  SORT_CRITERIA(String index, String sortPath, String sortOrder) {
       this.setIndex(index);
       this.setSortPath(sortPath);
       this.sortOrder = sortOrder;
     }
 
-    /**
-     * Sets the sorting search index
-     * 
-     * @param index
-     */
-    public void setIndex(String index) {
-      this.index = index;
-    }
-
-    /**
-     * Returns the sorting search index
-     * 
-     * @return
-     */
-    public String getIndex() {
-      return this.index;
-    }
-
-    /**
-     * Sets the path to the xml tag by which the list should be sorted. Used in filter of
-     * ItemHandler
-     * 
-     * @param sortPath
-     */
-    public void setSortPath(String sortPath) {
-      this.sortPath = sortPath;
-    }
-
-    /**
-     * Sets the path to the xml tag by which the list should be sorted. Used in filter of
-     * ItemHandler
-     * 
-     * @return
-     */
-    public String getSortPath() {
-      return this.sortPath;
-    }
-
-    /**
-     * Sets the sort order. "ascending" or "descending"
-     * 
-     * @param sortOrder
-     */
-    public void setSortOrder(String sortOrder) {
-      this.sortOrder = sortOrder;
-    }
-
-    /**
-     * Returns the sort order. "ascending" or "descending"
-     * 
-     * @param sortOrder
-     */
-    public String getSortOrder() {
-      return this.sortOrder;
-    }
+  /**
+   * Sets the sorting search index
+   * 
+   * @param index
+   */
+  public void setIndex(String index) {
+    this.index = index;
   }
+
+  /**
+   * Returns the sorting search index
+   * 
+   * @return
+   */
+  public String getIndex() {
+    return this.index;
+  }
+
+  /**
+   * Sets the path to the xml tag by which the list should be sorted. Used in filter of ItemHandler
+   * 
+   * @param sortPath
+   */
+  public void setSortPath(String sortPath) {
+    this.sortPath = sortPath;
+  }
+
+  /**
+   * Sets the path to the xml tag by which the list should be sorted. Used in filter of ItemHandler
+   * 
+   * @return
+   */
+  public String getSortPath() {
+    return this.sortPath;
+  }
+
+  /**
+   * Sets the sort order. "ascending" or "descending"
+   * 
+   * @param sortOrder
+   */
+  public void setSortOrder(String sortOrder) {
+    this.sortOrder = sortOrder;
+  }
+
+  /**
+   * Returns the sort order. "ascending" or "descending"
+   * 
+   * @param sortOrder
+   */
+  public String getSortOrder() {
+    return this.sortOrder;
+  }}
 
   /**
    * The HTTP GET parameter name for the sorting criteria.
@@ -444,22 +442,18 @@ public class YearbookModeratorListSessionBean extends
         final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
 
         // only add if index/sorting path is available
-        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
-            .equals("")))
+        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex().equals("")))
             || (!this.getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
-          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
-              + sc.name())));
+          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_" + sc.name())));
         }
       }
     } else {
       for (int i = 0; i < SORT_CRITERIA.values().length; i++) {
         final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
         // only add if index/sorting path is available
-        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex()
-            .equals("")))
+        if ((this.getPageType().equals("SearchResult") && (sc.getIndex() == null || !sc.getIndex().equals("")))
             || (!this.getPageType().equals("SearchResult") && !sc.getSortPath().equals(""))) {
-          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_"
-              + sc.name())));
+          this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_" + sc.name())));
         }
       }
     }
@@ -475,8 +469,7 @@ public class YearbookModeratorListSessionBean extends
    */
   public void setSelectedSortBy(String selectedSortBy) {
     this.selectedSortBy = selectedSortBy;
-    this.getParameterMap().put(YearbookModeratorListSessionBean.parameterSelectedSortBy,
-        selectedSortBy);
+    this.getParameterMap().put(YearbookModeratorListSessionBean.parameterSelectedSortBy, selectedSortBy);
   }
 
   /**
@@ -516,8 +509,7 @@ public class YearbookModeratorListSessionBean extends
    */
   public void setSelectedSortOrder(String selectedSortOrder) {
     this.selectedSortOrder = selectedSortOrder;
-    this.getParameterMap().put(YearbookModeratorListSessionBean.parameterSelectedSortOrder,
-        selectedSortOrder);
+    this.getParameterMap().put(YearbookModeratorListSessionBean.parameterSelectedSortOrder, selectedSortOrder);
   }
 
   /**
@@ -528,8 +520,7 @@ public class YearbookModeratorListSessionBean extends
   protected void readOutParameters() {
     System.out.println("Update!!!!!!!!!!!!");
     final String sortBy =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(YearbookModeratorListSessionBean.parameterSelectedSortBy);
+        FacesTools.getExternalContext().getRequestParameterMap().get(YearbookModeratorListSessionBean.parameterSelectedSortBy);
 
     if (sortBy != null) {
       this.setSelectedSortBy(sortBy);
@@ -548,8 +539,7 @@ public class YearbookModeratorListSessionBean extends
     }
 
     final String sortOrder =
-        FacesTools.getExternalContext().getRequestParameterMap()
-            .get(YearbookModeratorListSessionBean.parameterSelectedSortOrder);
+        FacesTools.getExternalContext().getRequestParameterMap().get(YearbookModeratorListSessionBean.parameterSelectedSortOrder);
     if (sortOrder != null) {
       this.setSelectedSortOrder(sortOrder);
     } else if (this.getSelectedSortOrder() != null) {

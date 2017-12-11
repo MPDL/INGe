@@ -8,8 +8,7 @@ public class TransformationException extends Exception {
 
   }
 
-  public TransformationException(String message, Throwable cause, boolean enableSuppression,
-      boolean writableStackTrace) {
+  public TransformationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
 

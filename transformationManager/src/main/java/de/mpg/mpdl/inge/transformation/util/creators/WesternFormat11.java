@@ -40,16 +40,15 @@ public class WesternFormat11 extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + NAME + "; ?" + GIVEN_NAME_FORMAT_MIXED + "( *(,| and | AND | und | et |\\n) *"
-        + NAME + "; ?" + GIVEN_NAME_FORMAT_MIXED + ")*\\s*$";
+    return "^\\s*" + NAME + "; ?" + GIVEN_NAME_FORMAT_MIXED + "( *(,| and | AND | und | et |\\n) *" + NAME + "; ?" + GIVEN_NAME_FORMAT_MIXED
+        + ")*\\s*$";
   }
 
   @Override
   public List<Author> getAuthors(String authorsString) {
 
     if (!authorsString.contains(";")
-        || (authorsString.contains(",") && authorsString.contains(";") && authorsString
-            .indexOf(",") < authorsString.indexOf(";"))) {
+        || (authorsString.contains(",") && authorsString.contains(";") && authorsString.indexOf(",") < authorsString.indexOf(";"))) {
       return null;
     }
 

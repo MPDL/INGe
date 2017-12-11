@@ -20,8 +20,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @IdClass(VersionableId.class)
 public class PubItemDbRO implements Serializable {
 
-  public enum State {
-    PENDING, SUBMITTED, RELEASED, WITHDRAWN, IN_REVISION
+  public enum State
+  {
+    PENDING,
+    SUBMITTED,
+    RELEASED,
+    WITHDRAWN,
+    IN_REVISION
   }
 
   @Id
@@ -47,8 +52,7 @@ public class PubItemDbRO implements Serializable {
    * The eSciDoc ID of the user that modified that version.
    */
   @Embedded
-  @AttributeOverrides({
-      @AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
+  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
   private AccountUserDbRO modifiedBy;
   /**

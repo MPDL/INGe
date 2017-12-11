@@ -120,72 +120,62 @@ public class FilterTaskParamVO extends ValueObject {
       else {
         // here the queryString for the "query" key is built
         if (filter instanceof FrameworkItemTypeFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/content-model/id\"="
-              + ((FrameworkItemTypeFilter) filter).getType(), previousFilter, filter);
+          enhanceQuery(queryBuffer, "\"/properties/content-model/id\"=" + ((FrameworkItemTypeFilter) filter).getType(), previousFilter,
+              filter);
         } else if (filter instanceof FrameworkContextTypeFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/type\"="
-              + ((FrameworkContextTypeFilter) filter).getType().toString().replace('_', '-')
-                  .toLowerCase(), previousFilter, filter);
+          enhanceQuery(queryBuffer,
+              "\"/properties/type\"=" + ((FrameworkContextTypeFilter) filter).getType().toString().replace('_', '-').toLowerCase(),
+              previousFilter, filter);
         } else if (filter instanceof OwnerFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/created-by/id\"="
-              + ((OwnerFilter) filter).getUserRef().getObjectId(), previousFilter, filter);
+          enhanceQuery(queryBuffer, "\"/properties/created-by/id\"=" + ((OwnerFilter) filter).getUserRef().getObjectId(), previousFilter,
+              filter);
         } else if (filter instanceof ItemRefFilter) {
           enhanceQuery(queryBuffer, "\"/id\" any", previousFilter, ((ItemRefFilter) filter));
         } else if (filter instanceof ItemRefVersionFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/version/id\" any", previousFilter,
-              ((ItemRefVersionFilter) filter));
+          enhanceQuery(queryBuffer, "\"/properties/version/id\" any", previousFilter, ((ItemRefVersionFilter) filter));
         } else if (filter instanceof AffiliationRefFilter) {
           enhanceQuery(queryBuffer, "\"/id\"=", previousFilter, ((AffiliationRefFilter) filter));
         } else if (filter instanceof RoleFilter) {
-          enhanceQuery(queryBuffer, "\"/role\"=" + ((RoleFilter) filter).getRole(), previousFilter,
-              filter);
+          enhanceQuery(queryBuffer, "\"/role\"=" + ((RoleFilter) filter).getRole(), previousFilter, filter);
           previousFilter = filter;
-          enhanceQuery(queryBuffer,
-              "\"/user\"=" + ((RoleFilter) filter).getUserRef().getObjectId(), previousFilter,
-              filter);
+          enhanceQuery(queryBuffer, "\"/user\"=" + ((RoleFilter) filter).getUserRef().getObjectId(), previousFilter, filter);
         } else if (filter instanceof PubCollectionStatusFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/public-status\"="
-              + ((PubCollectionStatusFilter) filter).getState().toString().replace('_', '-')
-                  .toLowerCase(), previousFilter, filter);
+          enhanceQuery(queryBuffer,
+              "\"/properties/public-status\"=" + ((PubCollectionStatusFilter) filter).getState().toString().replace('_', '-').toLowerCase(),
+              previousFilter, filter);
         } else if (filter instanceof ItemStatusFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/version/status\"="
-              + ((ItemStatusFilter) filter).getState().toString().replace('_', '-').toLowerCase(),
+          enhanceQuery(queryBuffer,
+              "\"/properties/version/status\"=" + ((ItemStatusFilter) filter).getState().toString().replace('_', '-').toLowerCase(),
               previousFilter, filter);
         } else if (filter instanceof TopLevelAffiliationFilter) // todo
         {
           // ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units"); //see
           // OrgUnitHandler - Method retrieveOrganizationalUnits()
         } else if (filter instanceof ObjectTypeFilter) {
-          enhanceQuery(queryBuffer, "\"/type\"=" + ((ObjectTypeFilter) filter).getObjectType(),
-              previousFilter, filter);
+          enhanceQuery(queryBuffer, "\"/type\"=" + ((ObjectTypeFilter) filter).getObjectType(), previousFilter, filter);
         } else if (filter instanceof ContextFilter) {
-          enhanceQuery(queryBuffer,
-              "\"/properties/context/id\"=" + ((ContextFilter) filter).getContextId(),
-              previousFilter, filter);
+          enhanceQuery(queryBuffer, "\"/properties/context/id\"=" + ((ContextFilter) filter).getContextId(), previousFilter, filter);
         } else if (filter instanceof LocalTagFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/content-model-specific/local-tags/local-tag\"="
-              + "\"" + ((LocalTagFilter) filter).getLocalTagId() + "\"", previousFilter, filter);
-        } else if (filter instanceof ItemPublicStatusFilter) {
-          enhanceQuery(queryBuffer, "\"/properties/public-status\"="
-              + ((ItemPublicStatusFilter) filter).getState().toString().replace('_', '-')
-                  .toLowerCase(), previousFilter, filter);
-        } else if (filter instanceof UserAccountStateFilter) {
           enhanceQuery(queryBuffer,
-              "\"/properties/active\"=" + ((UserAccountStateFilter) filter).getActive(),
+              "\"/properties/content-model-specific/local-tags/local-tag\"=" + "\"" + ((LocalTagFilter) filter).getLocalTagId() + "\"",
               previousFilter, filter);
-        } else if (filter instanceof PersonsOrganizationsFilter) {
+        } else if (filter instanceof ItemPublicStatusFilter) {
           enhanceQuery(queryBuffer,
-              "\"/md-records/md-record/publication/creator/person/organization/identifier\"="
-                  + ((PersonsOrganizationsFilter) filter).getOrgUnitId(), previousFilter, filter);
+              "\"/properties/public-status\"=" + ((ItemPublicStatusFilter) filter).getState().toString().replace('_', '-').toLowerCase(),
+              previousFilter, filter);
+        } else if (filter instanceof UserAccountStateFilter) {
+          enhanceQuery(queryBuffer, "\"/properties/active\"=" + ((UserAccountStateFilter) filter).getActive(), previousFilter, filter);
+        } else if (filter instanceof PersonsOrganizationsFilter) {
+          enhanceQuery(queryBuffer, "\"/md-records/md-record/publication/creator/person/organization/identifier\"="
+              + ((PersonsOrganizationsFilter) filter).getOrgUnitId(), previousFilter, filter);
         } else if (filter instanceof StandardFilter) {
           StandardFilter standardFilter = (StandardFilter) filter;
           if (standardFilter.getOperator() != null) {
             enhanceQuery(queryBuffer,
-                "\"" + standardFilter.getFilterName() + "\"" + standardFilter.getOperator()
-                    + standardFilter.getValue(), previousFilter, filter);
+                "\"" + standardFilter.getFilterName() + "\"" + standardFilter.getOperator() + standardFilter.getValue(), previousFilter,
+                filter);
           } else {
-            enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"="
-                + standardFilter.getValue(), previousFilter, filter);
+            enhanceQuery(queryBuffer, "\"" + standardFilter.getFilterName() + "\"=" + standardFilter.getValue(), previousFilter, filter);
           }
         } else if (filter instanceof CqlFilter) {
           CqlFilter cqlfilterFilter = (CqlFilter) filter;
@@ -204,8 +194,7 @@ public class FilterTaskParamVO extends ValueObject {
     return filterMap;
   }
 
-  private void enhanceQuery(StringBuffer b, String querySnippet, Filter previousFilter,
-      Filter filter) {
+  private void enhanceQuery(StringBuffer b, String querySnippet, Filter previousFilter, Filter filter) {
     logger.debug("snippet " + querySnippet);
     if (querySnippet == null)
       return;
@@ -237,8 +226,7 @@ public class FilterTaskParamVO extends ValueObject {
       // filter has not changed - connect snippets with OR without brackets (except for RoleFilters)
       if (filter instanceof RoleFilter)
         b.append(AND);
-      else if (filter instanceof StandardFilter
-          && ((StandardFilter) filter).getLogicalOperator() != null
+      else if (filter instanceof StandardFilter && ((StandardFilter) filter).getLogicalOperator() != null
           && "and".equals(((StandardFilter) filter).getLogicalOperator().toLowerCase())) {
         b.append(AND);
       } else
@@ -698,10 +686,8 @@ public class FilterTaskParamVO extends ValueObject {
   public class ObjectTypeFilter extends AbstractFilter implements Filter {
 
     public final static String OBJECT_TYPE_ITEM = "http://escidoc.de/core/01/resources/Item";
-    public final static String OBJECT_TYPE_CONTAINER =
-        "http://escidoc.de/core/01/resources/Container";
-    public final static String OBJECT_TYPE_ORGANIZATIONAL_UNIT =
-        "http://escidoc.de/core/01/resources/OrganizationalUnit";
+    public final static String OBJECT_TYPE_CONTAINER = "http://escidoc.de/core/01/resources/Container";
+    public final static String OBJECT_TYPE_ORGANIZATIONAL_UNIT = "http://escidoc.de/core/01/resources/OrganizationalUnit";
 
 
     private String objectType;

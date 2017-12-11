@@ -49,8 +49,7 @@ import de.mpg.mpdl.inge.model.valueobjects.RelationVO.RelationType;
  */
 public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable {
   private static final String RDF_NAMESPACE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-  private static final String CONTENT_RELATIONS_NAMESPACE =
-      "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#";
+  private static final String CONTENT_RELATIONS_NAMESPACE = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#";
   private static final String RDF_DESCRIPTION_ELEMENT_NAME = "Description";
   private static final String RDF_SUBJECT_ATTRIBUTE_NAME = "about";
   private static final String RDF_PREDICATE_ATTRIBUTE_NAME = "resource";

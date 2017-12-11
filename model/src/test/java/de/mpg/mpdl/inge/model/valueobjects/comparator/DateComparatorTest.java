@@ -61,8 +61,7 @@ public class DateComparatorTest extends ComparatorTestBase {
   @Test
   public void sortDateDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list,
-        Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.DATE)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.DATE)));
     String[] expectedIdOrder = new String[] {"4", "2", "3", "1", "1"};
     assertObjectIdOrder(list, expectedIdOrder);
   }
@@ -72,9 +71,7 @@ public class DateComparatorTest extends ComparatorTestBase {
    */
   @Test
   public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.DATE).compare(getPubItemVO4(),
-            getPubItemVO4());
+    int rc = new PubItemVOComparator(PubItemVOComparator.Criteria.DATE).compare(getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }
 

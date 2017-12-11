@@ -61,15 +61,12 @@ public class OrganizationSuggest extends EditItemBean {
 
     // Perform search request
     if (query != null) {
-      QueryBuilder qb =
-          QueryBuilders.boolQuery().should(
-              QueryBuilders.multiMatchQuery(query, OrganizationServiceDbImpl.INDEX_METADATA_TITLE,
-                  OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES));
+      QueryBuilder qb = QueryBuilders.boolQuery().should(QueryBuilders.multiMatchQuery(query,
+          OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES));
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0);
 
-      SearchRetrieveResponseVO<AffiliationVO> response =
-          ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      SearchRetrieveResponseVO<AffiliationVO> response = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 
       for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {
         final AffiliationVO affiliationVO = rec.getData();
@@ -78,8 +75,7 @@ public class OrganizationSuggest extends EditItemBean {
         final List<List<AffiliationVO>> pathList = this.getPaths(initList);
 
         for (final List<AffiliationVO> path : pathList) {
-          final OrganizationVOPresentation organizationVOPresentation =
-              new OrganizationVOPresentation();
+          final OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
           organizationVOPresentation.setIdentifier(affiliationVO.getReference().getObjectId());
 
           final String city = affiliationVO.getDefaultMetadata().getCity();
@@ -138,8 +134,7 @@ public class OrganizationSuggest extends EditItemBean {
   }
 
   private AffiliationVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
-    final ApplicationBean applicationBean =
-        ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
+    final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     for (final AffiliationVO element : applicationBean.getOuList()) {
       if (element.getReference().equals(affiliationRO)) {

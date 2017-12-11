@@ -51,8 +51,7 @@ public class DataSourceHandlerService {
    * @return List of DataSourceVO
    * @throws RuntimeException
    */
-  public List<DataSourceVO> getSources(String transformationFormat, String sourceStatus)
-      throws RuntimeException {
+  public List<DataSourceVO> getSources(String transformationFormat, String sourceStatus) throws RuntimeException {
     List<DataSourceVO> sources = new ArrayList<DataSourceVO>();
 
     try {

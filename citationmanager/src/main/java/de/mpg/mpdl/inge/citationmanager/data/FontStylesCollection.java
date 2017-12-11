@@ -171,8 +171,7 @@ public class FontStylesCollection implements Cloneable {
    * @throws IOException
    * @throws SAXException
    */
-  public static FontStylesCollection loadFromXml(InputStream inputStream) throws IOException,
-      SAXException {
+  public static FontStylesCollection loadFromXml(InputStream inputStream) throws IOException, SAXException {
 
     Digester digester = new Digester();
     digester.setValidating(false);
@@ -219,10 +218,8 @@ public class FontStylesCollection implements Cloneable {
    * @throws IOException
    * @throws SAXException
    */
-  public static FontStylesCollection loadFromXml(String xmlFileName) throws IOException,
-      SAXException {
-    return loadFromXml(ResourceUtil.getResourceAsStream(xmlFileName,
-        FontStylesCollection.class.getClassLoader()));
+  public static FontStylesCollection loadFromXml(String xmlFileName) throws IOException, SAXException {
+    return loadFromXml(ResourceUtil.getResourceAsStream(xmlFileName, FontStylesCollection.class.getClassLoader()));
   }
 
   public Object clone() {
@@ -253,8 +250,7 @@ public class FontStylesCollection implements Cloneable {
    * @throws CitationStyleManagerException
    * @throws ParserConfigurationException
    */
-  public void writeToXml(String xmlFileName) throws IOException, SAXException,
-      CitationStyleManagerException, ParserConfigurationException {
+  public void writeToXml(String xmlFileName) throws IOException, SAXException, CitationStyleManagerException, ParserConfigurationException {
 
     Document doc = DOMUtilities.createDocument();
 
@@ -292,12 +288,9 @@ public class FontStylesCollection implements Cloneable {
 
   }
 
-  public static void main(String[] args) throws IOException, SAXException,
-      CitationStyleManagerException {
+  public static void main(String[] args) throws IOException, SAXException, CitationStyleManagerException {
 
-    FontStylesCollection fsc =
-        FontStylesCollection
-            .loadFromXml("src/main/resources/CitationStyles/Default/FontStyles.xml");
+    FontStylesCollection fsc = FontStylesCollection.loadFromXml("src/main/resources/CitationStyles/Default/FontStyles.xml");
 
     FontStylesCollection fscclone = (FontStylesCollection) fsc.clone();
 

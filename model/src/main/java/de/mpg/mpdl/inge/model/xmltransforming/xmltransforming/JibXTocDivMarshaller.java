@@ -32,8 +32,7 @@ public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasa
   private static final String PTR_REFLINK_ATTRIBUTE_NAME = "href";
   // private static final String XSI_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
   // private static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
-  private static final String TABLE_OF_CONTENT_NS =
-      "http://www.escidoc.de/schemas/tableofcontent/0.1";
+  private static final String TABLE_OF_CONTENT_NS = "http://www.escidoc.de/schemas/tableofcontent/0.1";
   private static final String XLINK_NS = "http://www.w3.org/1999/xlink";
   // private static final String[] SCHEMA_NAMESPACE_URIS = {XSI_NAMESPACE_URI, XSD_NAMESPACE_URI};
   // private static final String XSI_NAMESPACE_PREFIX = "xsi";

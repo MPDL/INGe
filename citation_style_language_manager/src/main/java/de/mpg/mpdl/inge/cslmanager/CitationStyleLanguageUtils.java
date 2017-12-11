@@ -86,8 +86,7 @@ public class CitationStyleLanguageUtils {
       throw new Exception(e);
     }
     if (logger.isDebugEnabled()) {
-      logger.debug("Successfully parsed CSL-XML from URL (" + url + ")\n--------------------\n"
-          + xml + "\n--------------------\n");
+      logger.debug("Successfully parsed CSL-XML from URL (" + url + ")\n--------------------\n" + xml + "\n--------------------\n");
     }
     return xml;
   }
@@ -103,8 +102,7 @@ public class CitationStyleLanguageUtils {
       Document doc = DOMUtilities.createDocument(style);
       NodeList styleTagList = doc.getElementsByTagName("style");
       if (styleTagList != null && styleTagList.getLength() != 0) {
-        defaultLocale =
-            styleTagList.item(0).getAttributes().getNamedItem("default-locale").getNodeValue();
+        defaultLocale = styleTagList.item(0).getAttributes().getNamedItem("default-locale").getNodeValue();
       }
     } catch (ParserConfigurationException e) {
       logger.error("Wrong parser configuration", e);

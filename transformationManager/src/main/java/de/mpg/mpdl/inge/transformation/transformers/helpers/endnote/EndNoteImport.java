@@ -57,9 +57,7 @@ public class EndNoteImport {
     int counter = 0;
 
     // replace first empty lines and BOM
-    itemsStr =
-        Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(itemsStr)
-            .replaceFirst("%");
+    itemsStr = Pattern.compile("^.*?%", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(itemsStr).replaceFirst("%");
 
     BufferedReader reader = new BufferedReader(new StringReader(itemsStr));
 

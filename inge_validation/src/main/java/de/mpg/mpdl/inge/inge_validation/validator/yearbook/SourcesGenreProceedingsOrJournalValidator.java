@@ -11,8 +11,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<List<SourceVO>>
-    implements Validator<List<SourceVO>> {
+public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
@@ -29,9 +28,8 @@ public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<
           if (!SourceVO.Genre.PROCEEDINGS.equals(sourceVO.getGenre()) //
               && !SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(
-                ErrorMessages.SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL).setField(
-                "source[" + i + "]"));
+            context
+                .addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL).setField("source[" + i + "]"));
 
             ok = false;
 

@@ -57,8 +57,7 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase {
     Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO));
     for (PubItemVO itemVO : list) {
       PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
-      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"1", "1", "3", "2", "4"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -70,12 +69,10 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase {
   @Test
   public void sortPublishingInfoDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.PUBLISHING_INFO)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO)));
     for (PubItemVO itemVO : list) {
       PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
-      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " ("
-          + itemVO.getVersion().getObjectId() + ")");
+      logger.debug((pubInfo != null ? pubInfo.getPublisher() : "null") + " (" + itemVO.getVersion().getObjectId() + ")");
     }
     String[] expectedIdOrder = new String[] {"4", "2", "3", "1", "1"};
     assertObjectIdOrder(list, expectedIdOrder);
@@ -86,9 +83,7 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase {
    */
   @Test
   public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO).compare(
-            getPubItemVO4(), getPubItemVO4());
+    int rc = new PubItemVOComparator(PubItemVOComparator.Criteria.PUBLISHING_INFO).compare(getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }
 }

@@ -37,17 +37,14 @@ public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTrans
 
 
     map.put("zfnId", getConfiguration().get("id"));
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    map.put("external_organisation_id",
-        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external_organisation_id", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(
-        "inge.transformation.zfn.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.zfn.configuration.filename",
         "transformations/standardFormats/conf/zfn.properties");
   }
 

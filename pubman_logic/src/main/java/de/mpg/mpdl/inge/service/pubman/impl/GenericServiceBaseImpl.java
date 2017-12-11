@@ -32,8 +32,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericServiceBase;
 
-public abstract class GenericServiceBaseImpl<ModelObject> implements
-    GenericServiceBase<ModelObject> {
+public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServiceBase<ModelObject> {
 
 
   @Autowired
@@ -68,16 +67,13 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
   }
 
 
-  public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO srr,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public SearchRetrieveResponseVO<ModelObject> search(SearchRetrieveRequestVO srr, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     if (getElasticDao() != null) {
       QueryBuilder qb = srr.getQueryBuilder();
       if (authenticationToken != null) {
-        qb =
-            aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb,
-                aaService.checkLoginRequired(authenticationToken));
+        qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, aaService.checkLoginRequired(authenticationToken));
       } else {
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
@@ -90,16 +86,13 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
 
 
   @Override
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     if (getElasticDao() != null) {
       QueryBuilder qb = ssb.query();
       if (authenticationToken != null) {
-        qb =
-            aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb,
-                aaService.checkLoginRequired(authenticationToken));
+        qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, aaService.checkLoginRequired(authenticationToken));
       } else {
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
@@ -109,29 +102,26 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
     return null;
   }
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  public SearchResponse scrollOn(String scrollId, Scroll scroll)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return getElasticDao().scrollOn(scrollId, scroll);
   }
 
 
   @Override
   public SearchResponse searchDetailed(SearchSourceBuilder ssb, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     return searchDetailed(ssb, null, authenticationToken);
   }
 
 
   protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];
     }
-    objects =
-        Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
+    objects = Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
   }
 
@@ -142,17 +132,14 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements
 
 
   protected void checkEqualModificationDate(Date date1, Date date2) throws IngeApplicationException {
-    if (date1 == null || date2 == null
-        || !new Date(date1.getTime()).equals(new Date(date2.getTime()))) {
-      throw new IngeApplicationException("Object changed in the meantime: " + date1
-          + "  does not equal  " + date2);
+    if (date1 == null || date2 == null || !new Date(date1.getTime()).equals(new Date(date2.getTime()))) {
+      throw new IngeApplicationException("Object changed in the meantime: " + date1 + "  does not equal  " + date2);
     }
   }
 
 
 
-  protected static void handleDBException(DataAccessException exception)
-      throws IngeApplicationException {
+  protected static void handleDBException(DataAccessException exception) throws IngeApplicationException {
 
     try {
       throw exception;

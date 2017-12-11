@@ -10,23 +10,19 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
-public class AffiliatedContextListSearchCriterion extends
-    MapListSearchCriterion<PubContextVOPresentation> {
+public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion<PubContextVOPresentation> {
 
 
 
   public AffiliatedContextListSearchCriterion() {
-    super(AffiliatedContextListSearchCriterion.getItemStateMap(),
-        AffiliatedContextListSearchCriterion.getItemStatePreSelectionMap());
+    super(AffiliatedContextListSearchCriterion.getItemStateMap(), AffiliatedContextListSearchCriterion.getItemStatePreSelectionMap());
     // TODO Auto-generated constructor stub
   }
 
   private static Map<String, PubContextVOPresentation> getItemStateMap() {
 
-    final ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    final Map<String, PubContextVOPresentation> contextMap =
-        new LinkedHashMap<String, PubContextVOPresentation>();
+    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final Map<String, PubContextVOPresentation> contextMap = new LinkedHashMap<String, PubContextVOPresentation>();
 
 
     for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
@@ -42,8 +38,7 @@ public class AffiliatedContextListSearchCriterion extends
 
   private static Map<String, Boolean> getItemStatePreSelectionMap() {
 
-    final ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     final Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
 
     for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {

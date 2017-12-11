@@ -184,8 +184,7 @@ public class CitationUtil {
    * @throws IOException
    */
   public static String getUriToResources() throws IOException {
-    return RESOURCES_DIRECTORY_JAR.equals(getPathToClasses()) ? RESOURCES_DIRECTORY_JAR
-        : RESOURCES_DIRECTORY_LOCAL;
+    return RESOURCES_DIRECTORY_JAR.equals(getPathToClasses()) ? RESOURCES_DIRECTORY_JAR : RESOURCES_DIRECTORY_LOCAL;
   }
 
   /*
@@ -196,9 +195,8 @@ public class CitationUtil {
   public static String getExplainStyles() throws CitationStyleManagerException {
     String fileString = null;
     try {
-      fileString =
-          de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsString(getPathToSchemas()
-              + CitationUtil.EXPLAIN_FILE, CitationUtil.class.getClassLoader());
+      fileString = de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsString(getPathToSchemas() + CitationUtil.EXPLAIN_FILE,
+          CitationUtil.class.getClassLoader());
     } catch (IOException e) {
       throw new CitationStyleManagerException(e);
     }
@@ -216,11 +214,9 @@ public class CitationUtil {
    * @throws FileNotFoundException
    * @throws IOException
    */
-  public static Properties getProperties(String path, String fileName)
-      throws FileNotFoundException, IOException {
-    InputStream is =
-        de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(CitationUtil.getPathToResources()
-            + path + fileName, CitationUtil.class.getClassLoader());
+  public static Properties getProperties(String path, String fileName) throws FileNotFoundException, IOException {
+    InputStream is = de.mpg.mpdl.inge.util.ResourceUtil.getResourceAsStream(CitationUtil.getPathToResources() + path + fileName,
+        CitationUtil.class.getClassLoader());
     Properties props = new Properties();
     props.load(is);
 
@@ -270,8 +266,7 @@ public class CitationUtil {
    * @throws IOException
    * @throws Exception
    */
-  public static void deleteCitationStyleBundle(String name) throws IllegalArgumentException,
-      CitationStyleManagerException, IOException {
+  public static void deleteCitationStyleBundle(String name) throws IllegalArgumentException, CitationStyleManagerException, IOException {
 
     Utils.checkName(name, "Empty name of CitationStyleBundle");
 

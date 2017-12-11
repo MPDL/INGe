@@ -48,8 +48,7 @@ public abstract class BreadcrumbPage extends FacesBean {
 
     final BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean =
         (BreadcrumbItemHistorySessionBean) FacesTools.findBean("BreadcrumbItemHistorySessionBean");
-    breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, this
-        .isItemSpecific()));
+    breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction, this.isItemSpecific()));
     this.previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
   }
 
@@ -64,8 +63,7 @@ public abstract class BreadcrumbPage extends FacesBean {
   public void cancel() {
     final String result = this.previousItem.getPage();
     try {
-      FacesTools.getExternalContext().redirect(
-          ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getAppContext() + result);
+      FacesTools.getExternalContext().redirect(((ApplicationBean) FacesTools.findBean("ApplicationBean")).getAppContext() + result);
     } catch (final IOException e) {
       BreadcrumbPage.logger.error("Error redirecting to previous page", e);
     }

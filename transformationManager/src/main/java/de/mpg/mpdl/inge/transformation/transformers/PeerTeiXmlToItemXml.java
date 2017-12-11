@@ -12,8 +12,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.PEER_TEI_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
-@TransformerModule(sourceFormat = FORMAT.PEER_TEI_XML,
-    targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
+@TransformerModule(sourceFormat = FORMAT.PEER_TEI_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
 
@@ -34,10 +33,8 @@ public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTran
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
-    map.put("external_organisation_id",
-        PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("external_organisation_id", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
     return map;
   }
 

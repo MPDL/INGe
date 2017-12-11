@@ -57,8 +57,7 @@ public class TestBase {
       e.printStackTrace();
     }
     try {
-      logger.info("Removed successfully previous Elasticsearch test index <"
-          + (new File("./target/es")).getCanonicalPath() + ">");
+      logger.info("Removed successfully previous Elasticsearch test index <" + (new File("./target/es")).getCanonicalPath() + ">");
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -80,8 +79,7 @@ public class TestBase {
         e.printStackTrace();
       }
     }
-    logger.info("--------------------------------------- Starting " + name.getMethodName()
-        + "---------------------------------------");
+    logger.info("--------------------------------------- Starting " + name.getMethodName() + "---------------------------------------");
 
   }
 
@@ -90,8 +88,7 @@ public class TestBase {
     String token = null;
     try {
       token = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
@@ -103,8 +100,7 @@ public class TestBase {
     String token = null;
     try {
       token = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
@@ -116,8 +112,7 @@ public class TestBase {
     String token = null;
     try {
       token = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException
-        | IngeApplicationException e) {
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }

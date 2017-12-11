@@ -50,14 +50,11 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.VersionHistoryVOPresentation;
 @SessionScoped
 @SuppressWarnings("serial")
 public class ItemVersionListSessionBean extends FacesBean {
-  private List<VersionHistoryVOPresentation> versionList =
-      new ArrayList<VersionHistoryVOPresentation>();
+  private List<VersionHistoryVOPresentation> versionList = new ArrayList<VersionHistoryVOPresentation>();
 
-  private List<EventLogEntryVOPresentation> releaseList =
-      new ArrayList<EventLogEntryVOPresentation>();
+  private List<EventLogEntryVOPresentation> releaseList = new ArrayList<EventLogEntryVOPresentation>();
 
-  private List<EventLogEntryVOPresentation> eventLogList =
-      new ArrayList<EventLogEntryVOPresentation>();
+  private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 
   public ItemVersionListSessionBean() {}
 

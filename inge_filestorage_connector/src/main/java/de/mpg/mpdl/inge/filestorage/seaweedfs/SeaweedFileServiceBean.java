@@ -43,11 +43,9 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
 
   private static Logger logger = Logger.getLogger(SeaweedFileServiceBean.class);
 
-  private final static String SEAWEED_MASTER_URL = PropertyReader
-      .getProperty("inge.filestorage.seaweed_master_server_ip");
+  private final static String SEAWEED_MASTER_URL = PropertyReader.getProperty("inge.filestorage.seaweed_master_server_ip");
 
-  private final static String SEAWEED_DIRECT_SUBMIT_PATH = PropertyReader
-      .getProperty("inge.filestorage.seaweed_direct_submit_path");
+  private final static String SEAWEED_DIRECT_SUBMIT_PATH = PropertyReader.getProperty("inge.filestorage.seaweed_direct_submit_path");
   @Autowired
   private CloseableHttpClient httpClient;
 
@@ -63,21 +61,17 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
    * @throws IOException
    */
   @Override
-  public String createFile(InputStream fileInputStream, String fileName)
-      throws IngeTechnicalException {
+  public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     String fileId;
     HttpEntity entity =
-        MultipartEntityBuilder.create()
-            .addBinaryBody("upload_file", fileInputStream, ContentType.DEFAULT_BINARY, fileName)
-            .build();
+        MultipartEntityBuilder.create().addBinaryBody("upload_file", fileInputStream, ContentType.DEFAULT_BINARY, fileName).build();
 
     HttpPost httpPost = new HttpPost(SEAWEED_MASTER_URL + SEAWEED_DIRECT_SUBMIT_PATH);
     httpPost.setEntity(entity);
     CloseableHttpResponse response = null;
 
     try {
-      System.out.println("Trying to create new File [" + fileName + "] on host "
-          + httpPost.getURI());
+      System.out.println("Trying to create new File [" + fileName + "] on host " + httpPost.getURI());
       response = httpClient.execute(httpPost);
       logger.info(response.getStatusLine());
       HttpEntity responseEntity = response.getEntity();
@@ -91,15 +85,13 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       fileId = jsonObject.findValuesAsText("fid").get(0);
     } catch (Exception e) {
       logger.error("An error occoured, when trying to create file [" + fileName + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName
-          + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to create file [" + fileName + "]", e);
     } finally {
       try {
         response.close();
       } catch (Exception e) {
         logger.error("An error occoured, when trying to close response for [" + fileName + "]", e);
-        throw new IngeTechnicalException("An error occoured, when trying to close response for ["
-            + fileName + "]", e);
+        throw new IngeTechnicalException("An error occoured, when trying to close response for [" + fileName + "]", e);
       }
     }
     return fileId;
@@ -135,15 +127,13 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       EntityUtils.consume(responseEntity);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to retrieve file [" + fileId + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileId
-          + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileId + "]", e);
     } finally {
       try {
         response.close();
       } catch (IOException e) {
         logger.error("An error occoured, when trying to close response for [" + fileId + "]", e);
-        throw new IngeTechnicalException("An error occoured, when trying to close response for ["
-            + fileId + "]", e);
+        throw new IngeTechnicalException("An error occoured, when trying to close response for [" + fileId + "]", e);
       }
     }
   }
@@ -163,8 +153,7 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
     System.out.println("Trying to delete Id [" + fileId + "]");
     CloseableHttpResponse response = null;
     try {
-      HttpDelete httpDelete =
-          new HttpDelete(SEAWEED_MASTER_URL + "/" + URLEncoder.encode(fileId, "UTF-8"));
+      HttpDelete httpDelete = new HttpDelete(SEAWEED_MASTER_URL + "/" + URLEncoder.encode(fileId, "UTF-8"));
       logger.info("Delete request: " + httpDelete.getURI().toString());
 
       response = httpClient.execute(httpDelete);
@@ -186,21 +175,16 @@ public class SeaweedFileServiceBean implements FileStorageInterface {
       EntityUtils.consume(responseEntity);
     } catch (IOException e) {
       logger.error("An error occoured, when trying to delete the file [" + fileId + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to delete the file ["
-          + fileId + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to delete the file [" + fileId + "]", e);
     } catch (URISyntaxException e) {
-      logger.error("An error with the generated URI occoured, "
-          + "when trying to delete the file [" + fileId + "]", e);
-      throw new IngeTechnicalException("An error with the generated URI occoured, "
-          + "when trying to delete the file [" + fileId + "]", e);
+      logger.error("An error with the generated URI occoured, " + "when trying to delete the file [" + fileId + "]", e);
+      throw new IngeTechnicalException("An error with the generated URI occoured, " + "when trying to delete the file [" + fileId + "]", e);
     } finally {
       try {
         response.close();
       } catch (IOException e) {
-        logger
-            .error("An error occoured, when trying to close repsons for file [" + fileId + "]", e);
-        throw new IngeTechnicalException(
-            "An error occoured, when trying to close repsons for file [" + fileId + "]", e);
+        logger.error("An error occoured, when trying to close repsons for file [" + fileId + "]", e);
+        throw new IngeTechnicalException("An error occoured, when trying to close repsons for file [" + fileId + "]", e);
       }
     }
   }

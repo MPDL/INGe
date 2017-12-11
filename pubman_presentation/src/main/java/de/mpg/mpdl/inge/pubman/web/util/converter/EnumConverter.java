@@ -86,8 +86,7 @@ public class EnumConverter implements Converter {
     } else if (string.length() == 0) {
       retVal = null;
     } else {
-      EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string
-          + "' to object!");
+      EnumConverter.logger.warn("ValueList is NULL. Cannot convert string '" + string + "' to object!");
     }
 
 
@@ -146,10 +145,8 @@ public class EnumConverter implements Converter {
     }
 
 
-    EnumConverter.logger
-        .warn("ValueList for searchString '"
-            + searchString
-            + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
+    EnumConverter.logger.warn("ValueList for searchString '" + searchString
+        + "' is unknown. Did you add a new comboBox in a JSP with a converter and forgot to add the possible values in the guessValueList() method?");
 
     return null;
   }

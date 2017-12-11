@@ -46,8 +46,7 @@ import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 public class BasicAaClient extends FinalClient {
 
   @Override
-  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws Exception {
+  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     AuthenticationVO authenticationVO = new AuthenticationVO();
     authenticationVO.setType(Type.USER);
@@ -63,8 +62,7 @@ public class BasicAaClient extends FinalClient {
     return authenticationVO;
   }
 
-  private boolean testLogin(HttpServletRequest request, HttpServletResponse response)
-      throws Exception {
+  private boolean testLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String auth = request.getHeader("authorization");
     if (auth == null) {
       response.addHeader("WWW-Authenticate", "Basic realm=\"Validation Service\"");

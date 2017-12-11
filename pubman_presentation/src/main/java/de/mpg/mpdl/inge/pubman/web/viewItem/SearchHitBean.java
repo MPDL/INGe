@@ -44,8 +44,7 @@ public class SearchHitBean {
    * @param searchHitString
    * @param afterSearchHitString
    */
-  public SearchHitBean(String beforeSearchHitString, String searchHitString,
-      String afterSearchHitString) {
+  public SearchHitBean(String beforeSearchHitString, String searchHitString, String afterSearchHitString) {
     this.beforeSearchHitString = beforeSearchHitString;
     this.searchHitString = searchHitString;
     this.afterSearchHitString = afterSearchHitString;

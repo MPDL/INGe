@@ -90,8 +90,7 @@ public class BrowseBySessionBean extends FacesBean {
 
   public BrowseBySessionBean() {
     try {
-      this.pubContentModel =
-          PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
     } catch (final Exception e) {
       BrowseBySessionBean.logger.warn("Could not read property content model.", e);
     }
@@ -205,9 +204,7 @@ public class BrowseBySessionBean extends FacesBean {
     final List<LinkVO> links = new ArrayList<LinkVO>();
 
     try {
-      final URL coneUrl =
-          new URL(PropertyReader.getProperty("inge.cone.service.url") + this.selectedValue
-              + "/all?format=options&lang=en");
+      final URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + this.selectedValue + "/all?format=options&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();
@@ -217,8 +214,8 @@ public class BrowseBySessionBean extends FacesBean {
           BrowseBySessionBean.logger.debug("Cone Service responded with 200.");
           break;
         default:
-          throw new RuntimeException("An error occurred while calling Cone Service: "
-              + responseCode + ": " + httpConn.getResponseMessage());
+          throw new RuntimeException(
+              "An error occurred while calling Cone Service: " + responseCode + ": " + httpConn.getResponseMessage());
       }
 
       final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
@@ -253,15 +250,13 @@ public class BrowseBySessionBean extends FacesBean {
 
       for (String index : indexes) {
         AggregationBuilder aggBuilder =
-            AggregationBuilders.dateHistogram(index).field(index)
-                .dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
+            AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
         srr.getAggregationBuilders().add(aggBuilder);
       }
 
       srr.setLimit(0);
 
-      SearchRetrieveResponseVO<PubItemVO> resp =
-          ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
 
       for (String index : indexes) {
@@ -299,10 +294,8 @@ public class BrowseBySessionBean extends FacesBean {
   public void setYearStartAny() {
 
     fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
+        PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
         PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED,});
   }
 

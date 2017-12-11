@@ -38,8 +38,7 @@ public class BibTeXSpecialFormat1 extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | AND | und | et ) *"
-        + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
+    return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | AND | und | et ) *" + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
   }
 
   /**

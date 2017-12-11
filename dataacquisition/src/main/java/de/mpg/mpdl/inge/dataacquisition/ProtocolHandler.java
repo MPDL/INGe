@@ -82,15 +82,13 @@ public class ProtocolHandler {
       }
 
       if (errorCode.getTextContent().equals(error2)) {
-        throw new DataaquisitionException("OAI-Record returned with error Code "
-            + "'cannotDisseminateFormat "
+        throw new DataaquisitionException("OAI-Record returned with error Code " + "'cannotDisseminateFormat "
             + "(The value of the metadataPrefix argument is not supported by the item "
             + "identified by the value of the identifier argument)'.");
       }
 
       if (errorCode.getTextContent().equals(error3)) {
-        throw new DataaquisitionException("OAI-Record returned with error Code "
-            + "'idDoesNotExist "
+        throw new DataaquisitionException("OAI-Record returned with error Code " + "'idDoesNotExist "
             + "(The value of the identifier argument is unknown or illegal in this repository)'.");
       }
     }

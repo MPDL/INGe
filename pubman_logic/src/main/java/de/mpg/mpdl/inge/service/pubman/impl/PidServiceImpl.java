@@ -56,8 +56,7 @@ public class PidServiceImpl implements PidService {
 
     ClientConfig clientConfig = new ClientConfig();
 
-    HttpAuthenticationFeature feature =
-        HttpAuthenticationFeature.basicBuilder().credentials(user, passwd).build();
+    HttpAuthenticationFeature feature = HttpAuthenticationFeature.basicBuilder().credentials(user, passwd).build();
 
     clientConfig.register(feature);
 
@@ -75,24 +74,20 @@ public class PidServiceImpl implements PidService {
    * @see de.mpg.mpdl.inge.service.pubman.PidService#createPid(java.net.URI)
    */
   @Override
-  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException,
-      TechnicalException {
+  public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException {
     Form form = new Form();
     form.param(URL, url.toString());
 
-    Response response =
-        target.path(this.createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
+    Response response = target.path(this.createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
 
     if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
       String xml = response.readEntity(String.class);
-      PidServiceResponseVO pidServiceResponseVO =
-          XmlTransformingService.transformToPidServiceResponse(xml);
+      PidServiceResponseVO pidServiceResponseVO = XmlTransformingService.transformToPidServiceResponse(xml);
       return pidServiceResponseVO;
     }
 
     logger.error("Error occured, when contacting DOxI. StatusCode=" + response.getStatus());
-    throw new IngeApplicationException("Error occured, when contacting DOxI: "
-        + response.readEntity(String.class));
+    throw new IngeApplicationException("Error occured, when contacting DOxI: " + response.readEntity(String.class));
   }
 
 }

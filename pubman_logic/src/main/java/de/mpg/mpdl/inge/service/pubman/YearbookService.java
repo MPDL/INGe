@@ -16,17 +16,14 @@ public interface YearbookService extends GenericService<YearbookDbVO, String> {
    * IngeApplicationException;
    */
 
-  public YearbookDbVO submit(String yearbookId, Date lastModificationDate,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException;
+  public YearbookDbVO submit(String yearbookId, Date lastModificationDate, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public YearbookDbVO release(String yearbookId, Date lastModificationDate,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException;
+  public YearbookDbVO release(String yearbookId, Date lastModificationDate, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public YearbookDbVO revise(String yearbookId, Date lastModificationDate,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException;
+  public YearbookDbVO revise(String yearbookId, Date lastModificationDate, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 
 

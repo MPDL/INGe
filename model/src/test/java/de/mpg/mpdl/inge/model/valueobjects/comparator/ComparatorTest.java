@@ -37,9 +37,8 @@ import org.junit.runners.Suite;
  * @version $Revision$ $LastChangedDate$ Revised by BrP: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TitleComparatorTest.class, DateComparatorTest.class,
-    GenreComparatorTest.class, CreatorComparatorTest.class, PublishingInfoComparatorTest.class,
-    ReviewMethodComparatorTest.class, SourceCreatorComparatorTest.class,
+@Suite.SuiteClasses({TitleComparatorTest.class, DateComparatorTest.class, GenreComparatorTest.class, CreatorComparatorTest.class,
+    PublishingInfoComparatorTest.class, ReviewMethodComparatorTest.class, SourceCreatorComparatorTest.class,
     SourceTitleComparatorTest.class, EventTitleComparatorTest.class})
 public class ComparatorTest {
 }

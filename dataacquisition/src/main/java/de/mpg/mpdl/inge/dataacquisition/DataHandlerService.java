@@ -86,8 +86,7 @@ public class DataHandlerService {
     this.sourceHandler = new DataSourceHandlerService();
   }
 
-  public byte[] doFetchMetaData(String service, String serviceId,
-      TransformerFactory.FORMAT targetFormat) throws DataaquisitionException {
+  public byte[] doFetchMetaData(String service, String serviceId, TransformerFactory.FORMAT targetFormat) throws DataaquisitionException {
     byte[] fetchedData = null;
 
     try {
@@ -104,8 +103,8 @@ public class DataHandlerService {
     return fetchedData;
   }
 
-  public byte[] doFetchFullText(String service, String serviceId,
-      TransformerFactory.FORMAT[] targetFormats) throws DataaquisitionException {
+  public byte[] doFetchFullText(String service, String serviceId, TransformerFactory.FORMAT[] targetFormats)
+      throws DataaquisitionException {
     byte[] fetchedData = null;
 
     try {
@@ -120,12 +119,10 @@ public class DataHandlerService {
   }
 
   private String fetchTextualData(String identifier, TransformerFactory.FORMAT targetFormat)
-      throws DataaquisitionException, TransformationException, UnsupportedEncodingException,
-      MalformedURLException {
+      throws DataaquisitionException, TransformationException, UnsupportedEncodingException, MalformedURLException {
     MetadataVO metaDataVO = Util.getMdObjectToFetch(this.currentSource, targetFormat);
 
-    String decoded =
-        URLDecoder.decode(metaDataVO.getMdUrl().toString(), this.currentSource.getEncoding());
+    String decoded = URLDecoder.decode(metaDataVO.getMdUrl().toString(), this.currentSource.getEncoding());
     metaDataVO.setMdUrl(new URL(decoded));
     metaDataVO.setMdUrl(new URL(metaDataVO.getMdUrl().toString().replaceAll(REGEX, identifier)));
 
@@ -143,10 +140,8 @@ public class DataHandlerService {
     }
 
     if (!supportedProtocol) {
-      logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol()
-          + " not supported.");
-      throw new DataaquisitionException("Harvesting protocol "
-          + this.currentSource.getHarvestProtocol() + " not supported.");
+      logger.warn("Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
+      throw new DataaquisitionException("Harvesting protocol " + this.currentSource.getHarvestProtocol() + " not supported.");
     }
 
     String fetchedItem = item;
@@ -155,31 +150,26 @@ public class DataHandlerService {
     // Transform the itemXML if necessary
     if (item != null && !targetFormat.getName().equalsIgnoreCase(metaDataVO.getName())) {
 
-      Transformer transformer =
-          TransformerCache.getTransformer(TransformerFactory.getFormat(metaDataVO.getName()),
-              targetFormat);
+      Transformer transformer = TransformerCache.getTransformer(TransformerFactory.getFormat(metaDataVO.getName()), targetFormat);
       StringWriter wr = new StringWriter();
 
-      transformer.transform(
-          new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(targetFormat
-              .getEncoding()))), new TransformerStreamResult(wr));
+      transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(targetFormat.getEncoding()))),
+          new TransformerStreamResult(wr));
 
       itemAfterTransformaton = wr.toString();
 
       if (this.currentSource.getItemUrl() != null) {
-        this.itemUrl =
-            new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier));
+        this.itemUrl = new URL(this.currentSource.getItemUrl().toString().replace("GETID", identifier));
       }
 
       try {
-        Transformer componentTransformer =
-            TransformerCache.getTransformer(TransformerFactory.getFormat(metaDataVO.getName()),
-                TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML);
+        Transformer componentTransformer = TransformerCache.getTransformer(TransformerFactory.getFormat(metaDataVO.getName()),
+            TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML);
         if (componentTransformer != null) {
           wr = new StringWriter();
 
-          componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(
-              fetchedItem.getBytes())), new TransformerStreamResult(wr));
+          componentTransformer.transform(new TransformerStreamSource(new ByteArrayInputStream(fetchedItem.getBytes())),
+              new TransformerStreamResult(wr));
           byte[] componentBytes = wr.toString().getBytes();
 
           if (componentBytes != null) {
@@ -198,8 +188,7 @@ public class DataHandlerService {
   }
 
 
-  private byte[] fetchFileData(String identifier, TransformerFactory.FORMAT[] targetFormats)
-      throws DataaquisitionException {
+  private byte[] fetchFileData(String identifier, TransformerFactory.FORMAT[] targetFormats) throws DataaquisitionException {
     byte[] in = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ZipOutputStream zos = new ZipOutputStream(baos);
@@ -210,12 +199,9 @@ public class DataHandlerService {
         TransformerFactory.FORMAT format = targetFormats[i];
         FullTextVO fulltextVO = Util.getFtObjectToFetch(this.currentSource, format);
         // Replace regex with identifier
-        String decoded =
-            java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(),
-                this.currentSource.getEncoding());
+        String decoded = java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(), this.currentSource.getEncoding());
         fulltextVO.setFtUrl(new URL(decoded));
-        fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString()
-            .replaceAll(REGEX, identifier.trim())));
+        fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString().replaceAll(REGEX, identifier.trim())));
 
         in = this.fetchFile(fulltextVO);
 
@@ -256,8 +242,7 @@ public class DataHandlerService {
       zos.close();
     } catch (DataaquisitionException e) {
       logger.error("Import this.source " + this.currentSource + " not available.", e);
-      throw new DataaquisitionException("Import this.source " + this.currentSource
-          + " not available.", e);
+      throw new DataaquisitionException("Import this.source " + this.currentSource + " not available.", e);
     } catch (IOException e) {
       throw new DataaquisitionException(e);
     }
@@ -291,20 +276,17 @@ public class DataHandlerService {
           return fetchFile(fulltext);
 
         case 403:
-          throw new DataaquisitionException("Access to url " + this.currentSource.getName()
-              + " is restricted.");
+          throw new DataaquisitionException("Access to url " + this.currentSource.getName() + " is restricted.");
 
         case 503:
           // request was not processed by this.source
-          logger.warn("Import this.source " + this.currentSource.getName()
-              + "did not provide data in format " + fulltext.getFtLabel());
-          throw new DataaquisitionException("Import this.source " + this.currentSource.getName()
-              + "did not provide data in format " + fulltext.getFtLabel());
+          logger.warn("Import this.source " + this.currentSource.getName() + "did not provide data in format " + fulltext.getFtLabel());
+          throw new DataaquisitionException(
+              "Import this.source " + this.currentSource.getName() + "did not provide data in format " + fulltext.getFtLabel());
 
         default:
           throw new DataaquisitionException(
-              "An error occurred during importing from external system: " + responseCode + ": "
-                  + httpCon.getResponseMessage());
+              "An error occurred during importing from external system: " + responseCode + ": " + httpCon.getResponseMessage());
       }
     } catch (AccessException e) {
       logger.error("Access denied.", e);
@@ -344,8 +326,7 @@ public class DataHandlerService {
           return fetchOAIRecord(md, encoding);
 
         case 403:
-          throw new AccessException("Access to url " + this.currentSource.getName()
-              + " is restricted.");
+          throw new AccessException("Access to url " + this.currentSource.getName() + " is restricted.");
 
         case 503:
           String retryAfterHeader = con.getHeaderField("Retry-After");
@@ -353,19 +334,15 @@ public class DataHandlerService {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
             Date retryAfter = dateFormat.parse(retryAfterHeader);
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-            throw new DataaquisitionException("Source responded with 503, retry after "
-                + retryAfter + ".");
+            throw new DataaquisitionException("Source responded with 503, retry after " + retryAfter + ".");
           } else {
-            logger.debug("Source responded with 503, retry after "
-                + this.currentSource.getRetryAfter() + ".");
-            throw new DataaquisitionException("Source responded with 503, retry after "
-                + this.currentSource.getRetryAfter() + ".");
+            logger.debug("Source responded with 503, retry after " + this.currentSource.getRetryAfter() + ".");
+            throw new DataaquisitionException("Source responded with 503, retry after " + this.currentSource.getRetryAfter() + ".");
           }
 
         default:
           throw new DataaquisitionException(
-              "An error occurred during importing from external system: " + responseCode + ": "
-                  + httpCon.getResponseMessage());
+              "An error occurred during importing from external system: " + responseCode + ": " + httpCon.getResponseMessage());
       }
 
       // Get itemXML
@@ -430,13 +407,11 @@ public class DataHandlerService {
 
   public FileVO getComponentVO() {
     if (this.componentVO != null) {
-      if (this.componentVO.getDefaultMetadata().getRights() == null
-          || this.componentVO.getDefaultMetadata().getRights().equals("")) {
+      if (this.componentVO.getDefaultMetadata().getRights() == null || this.componentVO.getDefaultMetadata().getRights().equals("")) {
         this.componentVO.getDefaultMetadata().setRights(this.currentSource.getCopyright());
       }
 
-      if (this.componentVO.getDefaultMetadata().getLicense() == null
-          || this.componentVO.getDefaultMetadata().getLicense().equals("")) {
+      if (this.componentVO.getDefaultMetadata().getLicense() == null || this.componentVO.getDefaultMetadata().getLicense().equals("")) {
         this.componentVO.getDefaultMetadata().setLicense(this.currentSource.getLicense());
       }
 

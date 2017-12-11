@@ -73,8 +73,7 @@ public class PostgresDbFileServiceBean implements FileStorageInterface {
    */
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public String createFile(InputStream fileInputStream, String fileName)
-      throws IngeTechnicalException {
+  public String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     try {
 
       LargeObjectManager lobm = getConnection().getLargeObjectAPI();

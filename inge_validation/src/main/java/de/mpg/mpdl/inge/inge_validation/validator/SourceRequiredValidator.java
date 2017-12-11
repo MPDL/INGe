@@ -20,8 +20,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
  * (source:source/dc:title != '')"> SourceNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class SourceRequiredValidator extends ValidatorHandler<List<SourceVO>> implements
-    Validator<List<SourceVO>> {
+public class SourceRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {

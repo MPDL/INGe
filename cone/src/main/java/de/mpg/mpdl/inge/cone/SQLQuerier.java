@@ -62,13 +62,10 @@ public class SQLQuerier implements Querier {
     // dataSource = (DataSource) context.lookup("Cone");
 
     Class.forName(PropertyReader.getProperty("inge.cone.database.driver.class"));
-    connection =
-        DriverManager.getConnection(
-            "jdbc:postgresql://" + PropertyReader.getProperty("inge.cone.database.server.name")
-                + ":" + PropertyReader.getProperty("inge.cone.database.server.port") + "/"
-                + PropertyReader.getProperty("inge.cone.database.name"),
-            PropertyReader.getProperty("inge.cone.database.user.name"),
-            PropertyReader.getProperty("inge.cone.database.user.password"));
+    connection = DriverManager.getConnection(
+        "jdbc:postgresql://" + PropertyReader.getProperty("inge.cone.database.server.name") + ":"
+            + PropertyReader.getProperty("inge.cone.database.server.port") + "/" + PropertyReader.getProperty("inge.cone.database.name"),
+        PropertyReader.getProperty("inge.cone.database.user.name"), PropertyReader.getProperty("inge.cone.database.user.password"));
 
     // connection = dataSource.getConnection();
   }
@@ -76,16 +73,14 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String query, ModeType modeType)
-      throws ConeException {
+  public List<? extends Describable> query(String model, String query, ModeType modeType) throws ConeException {
     return query(model, query, null, modeType);
   }
 
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String query, String language,
-      ModeType modeType) throws ConeException {
+  public List<? extends Describable> query(String model, String query, String language, ModeType modeType) throws ConeException {
 
     String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, query, language, modeType, Integer.parseInt(limitString));
@@ -94,8 +89,8 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields,
-      String language, ModeType modeType) throws ConeException {
+  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String language, ModeType modeType)
+      throws ConeException {
 
     String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
@@ -104,12 +99,11 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String searchString, String language,
-      ModeType modeType, int limit) throws ConeException {
+  public List<? extends Describable> query(String model, String searchString, String language, ModeType modeType, int limit)
+      throws ConeException {
     if (logger.isDebugEnabled()) {
-      logger.debug("query:  model = '" + model + "' searchString = '" + searchString
-          + "' language = '" + language + "' modeType = '" + modeType.toString() + "' linit = '"
-          + limit + "'");
+      logger.debug("query:  model = '" + model + "' searchString = '" + searchString + "' language = '" + language + "' modeType = '"
+          + modeType.toString() + "' linit = '" + limit + "'");
     }
     if (modeType == ModeType.FAST) {
       return queryFast(model, searchString, language, limit);
@@ -121,8 +115,7 @@ public class SQLQuerier implements Querier {
 
   }
 
-  public List<? extends Describable> queryFast(String model, String searchString, String language,
-      int limit) throws ConeException {
+  public List<? extends Describable> queryFast(String model, String searchString, String language, int limit) throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -141,31 +134,21 @@ public class SQLQuerier implements Querier {
       for (int i = 0; i < searchStrings.length; i++) {
         subQuery += " and";
         if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-          subQuery +=
-              " ('|' || matches.value || '|') ilike '%|"
-                  + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+          subQuery += " ('|' || matches.value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
         } else {
           subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
           order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
-          order2 +=
-              "('|' || matches.value || '|') ilike '%|" + searchStrings[i]
-                  + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i]
-                  + "%' desc, ";
+          order2 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "%' desc, ('|' || matches.value || '|') ilike '% "
+              + searchStrings[i] + "%' desc, ";
 
         }
       }
-      String query =
-          "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id "
-              + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and "
-              + subQuery;
+      String query = "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id "
+          + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and " + subQuery;
 
       if (!"*".equals(language)) {
-        query +=
-            " and (r1.lang = '"
-                + language
-                + "' or (r1.lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
       if (limit > 0) {
@@ -187,8 +170,7 @@ public class SQLQuerier implements Querier {
         String lang = result.getString("lang");
         String type = result.getString("type");
         String sortKey = result.getString("sort");
-        Pair<LocalizedString> pair =
-            new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
         resultSet.add(pair);
       }
 
@@ -203,8 +185,7 @@ public class SQLQuerier implements Querier {
 
   }
 
-  public List<? extends Describable> queryFull(String model, String searchString, String language,
-      int limit) throws ConeException {
+  public List<? extends Describable> queryFull(String model, String searchString, String language, int limit) throws ConeException {
 
     try {
       if (connection.isClosed()) {
@@ -224,29 +205,19 @@ public class SQLQuerier implements Querier {
       for (int i = 0; i < searchStrings.length; i++) {
         subQuery += " and";
         if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-          subQuery +=
-              " ('|' || matches.value || '|') ilike '%|"
-                  + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
+          subQuery += " ('|' || matches.value || '|') ilike '%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%'";
         } else {
           subQuery += " matches.value ilike '%" + searchStrings[i] + "%'";
           order1 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "|%' desc, ";
-          order2 +=
-              "('|' || matches.value || '|') ilike '%|" + searchStrings[i]
-                  + "%' desc, ('|' || matches.value || '|') ilike '% " + searchStrings[i]
-                  + "%' desc, ";
+          order2 += "('|' || matches.value || '|') ilike '%|" + searchStrings[i] + "%' desc, ('|' || matches.value || '|') ilike '% "
+              + searchStrings[i] + "%' desc, ";
         }
       }
-      String query =
-          "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id "
-              + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and "
-              + subQuery;
+      String query = "select r1.id, r1.value, r1.lang from results r1 inner join matches on r1.id = matches.id "
+          + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and " + subQuery;
       if (!"*".equals(language)) {
-        query +=
-            " and (r1.lang = '"
-                + language
-                + "' or (r1.lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.value, r1.id";
 
@@ -282,8 +253,8 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs,
-      String language, ModeType modeType, int limit) throws ConeException {
+  public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit)
+      throws ConeException {
     if (modeType == ModeType.FAST) {
       return queryFast(modelName, searchPairs, language, limit);
     } else if (modeType == ModeType.FULL) {
@@ -293,8 +264,8 @@ public class SQLQuerier implements Querier {
     }
   }
 
-  public List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs,
-      String language, int limit) throws ConeException {
+  public List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs, String language, int limit)
+      throws ConeException {
 
     try {
       if (connection.isClosed()) {
@@ -315,18 +286,12 @@ public class SQLQuerier implements Querier {
       String order1 = subQueries[3];
       String order2 = subQueries[4];
 
-      String query =
-          "select distinct r1.*" + fromExtension
-              + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
-              + joinClause + "where " + subQuery;
+      String query = "select distinct r1.*" + fromExtension
+          + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject " + joinClause + "where " + subQuery;
 
       if (!"*".equals(language)) {
-        query +=
-            " and (r1.lang = '"
-                + language
-                + "' or (r1.lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
       if (limit > 0) {
@@ -349,8 +314,7 @@ public class SQLQuerier implements Querier {
         String lang = result.getString("lang");
         String type = result.getString("type");
         String sortKey = result.getString("sort");
-        Pair<LocalizedString> pair =
-            new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
         resultSet.add(pair);
       }
 
@@ -367,13 +331,12 @@ public class SQLQuerier implements Querier {
     return getSubqueries(modelName, searchPairs, 0);
   }
 
-  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, int level)
-      throws ConeException {
+  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, int level) throws ConeException {
     return getSubqueries(modelName, searchPairs, null, level, 0);
   }
 
-  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs,
-      Predicate parentPredicate, int level, int counter) throws ConeException {
+  private String[] getSubqueries(String modelName, Pair<String>[] searchPairs, Predicate parentPredicate, int level, int counter)
+      throws ConeException {
     String fromExtension = "";
     String subQuery = "";
     String joinClause = "";
@@ -391,9 +354,7 @@ public class SQLQuerier implements Querier {
       } else {
         counter++;
         table = "triples" + counter + "_" + level;
-        joinClause +=
-            " inner join triples " + table + " on triples" + (counter - 1) + "_" + level
-                + ".subject = " + table + ".subject ";
+        joinClause += " inner join triples " + table + " on triples" + (counter - 1) + "_" + level + ".subject = " + table + ".subject ";
       }
 
       if (counter > 0 || level > 0) {
@@ -429,9 +390,7 @@ public class SQLQuerier implements Querier {
           String[] results = formatSearchString(pair.getValue());
           for (String result : results) {
             if (result.startsWith("\"") && result.endsWith("\"")) {
-              subQuery +=
-                  " and " + table + ".object ilike '" + result.substring(1, result.length() - 1)
-                      + "'";
+              subQuery += " and " + table + ".object ilike '" + result.substring(1, result.length() - 1) + "'";
             } else {
               subQuery += " and " + table + ".object ilike '%" + result + "%'";
             }
@@ -440,13 +399,10 @@ public class SQLQuerier implements Querier {
             order1 += "r1.value ilike '" + pair.getValue() + "' desc, ";
             fromExtension += ", r1.value ilike '" + pair.getValue() + "'";
 
-            order2 +=
-                "r1.value ilike '" + pair.getValue() + "%' desc, " + "r1.value ilike '% "
-                    + pair.getValue() + "%' desc, " + "r1.value ilike '%" + pair.getValue()
-                    + "%' desc, ";
-            fromExtension +=
-                ", r1.value ilike '" + pair.getValue() + "%'" + ", r1.value ilike '% "
-                    + pair.getValue() + "%'" + ", r1.value ilike '%" + pair.getValue() + "%'";
+            order2 += "r1.value ilike '" + pair.getValue() + "%' desc, " + "r1.value ilike '% " + pair.getValue() + "%' desc, "
+                + "r1.value ilike '%" + pair.getValue() + "%' desc, ";
+            fromExtension += ", r1.value ilike '" + pair.getValue() + "%'" + ", r1.value ilike '% " + pair.getValue() + "%'"
+                + ", r1.value ilike '%" + pair.getValue() + "%'";
           }
 
           break;
@@ -454,19 +410,15 @@ public class SQLQuerier implements Querier {
           String[] subResult;
           if (predicate.isResource()) {
             String subModelName = predicate.getResourceModel();
-            Pair<String> subPair =
-                new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
-            joinClause +=
-                " inner join triples triples" + counter + "_" + (level + 1) + " on " + table
-                    + ".object = triples" + counter + "_" + (level + 1) + ".subject ";
+            Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
+            joinClause += " inner join triples triples" + counter + "_" + (level + 1) + " on " + table + ".object = triples" + counter + "_"
+                + (level + 1) + ".subject ";
             subQuery += " and " + table + ".predicate = '" + predicate.getId() + "' ";
             subResult = getSubqueries(subModelName, new Pair[] {subPair}, null, level + 1, counter);
           } else {
-            Pair<String> subPair =
-                new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
-            joinClause +=
-                " inner join triples triples" + counter + "_" + (level + 1) + " on " + table
-                    + ".object = triples" + counter + "_" + (level + 1) + ".subject ";
+            Pair<String> subPair = new Pair<String>(key.replaceFirst(predicate.getId() + "/", ""), pair.getValue());
+            joinClause += " inner join triples triples" + counter + "_" + (level + 1) + " on " + table + ".object = triples" + counter + "_"
+                + (level + 1) + ".subject ";
             subQuery += " and " + table + ".predicate = '" + predicate.getId() + "' ";
             subResult = getSubqueries(null, new Pair[] {subPair}, predicate, level + 1, counter);
           }
@@ -483,8 +435,8 @@ public class SQLQuerier implements Querier {
     return new String[] {fromExtension, joinClause, subQuery, order1, order2};
   }
 
-  public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs,
-      String language, int limit) throws ConeException {
+  public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit)
+      throws ConeException {
 
     try {
       if (connection.isClosed()) {
@@ -505,18 +457,12 @@ public class SQLQuerier implements Querier {
       String order1 = subQueries[3];
       String order2 = subQueries[4];
 
-      String query =
-          "select distinct r1.*" + fromExtension
-              + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
-              + joinClause + "where " + subQuery;
+      String query = "select distinct r1.*" + fromExtension
+          + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject " + joinClause + "where " + subQuery;
 
       if (!"*".equals(language)) {
-        query +=
-            " and (r1.lang = '"
-                + language
-                + "' or (r1.lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       query += " order by " + order1 + order2 + "r1.value, r1.id";
       if (limit > 0) {
@@ -562,8 +508,7 @@ public class SQLQuerier implements Querier {
     Matcher matcher = pattern.matcher(searchString);
     int start = 0;
     while (start < searchString.length() && matcher.find(start)) {
-      if (start < matcher.start()
-          && !"".equals(searchString.substring(start, matcher.start()).trim())) {
+      if (start < matcher.start() && !"".equals(searchString.substring(start, matcher.start()).trim())) {
         list.addAll(Arrays.asList(searchString.substring(start, matcher.start()).split(" ")));
       }
       list.add(matcher.group(1));
@@ -607,8 +552,8 @@ public class SQLQuerier implements Querier {
     }
   }
 
-  public TreeFragment details(String modelName, String id, String language, Stack<String> idStack,
-      Connection connection) throws ConeException {
+  public TreeFragment details(String modelName, String id, String language, Stack<String> idStack, Connection connection)
+      throws ConeException {
     if (modelName != null) {
       Model model = ModelList.getInstance().getModelByAlias(modelName);
       return details(modelName, model.getPredicates(), id, language, idStack, connection);
@@ -620,8 +565,8 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String modelName, List<Predicate> predicates, String id,
-      String language, Stack<String> idStack, Connection connection) throws ConeException {
+  public TreeFragment details(String modelName, List<Predicate> predicates, String id, String language, Stack<String> idStack,
+      Connection connection) throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -663,17 +608,13 @@ public class SQLQuerier implements Querier {
         for (Predicate predicate : predicates) {
           if (predicate.getId().equals(predicateValue)) {
             if (!predicate.isRestricted() || loggedIn) {
-              if (predicate.isResource() && !(idStack.contains(object))
-                  && predicate.isIncludeResource()) {
+              if (predicate.isResource() && !(idStack.contains(object)) && predicate.isIncludeResource()) {
                 idStack.push(object);
-                localizedTripleObject =
-                    details(predicate.getResourceModel(), object, language, idStack, connection);
+                localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
                 idStack.pop();
                 localizedTripleObject.setLanguage(lang);
-              } else if (!predicate.isResource() && predicate.getPredicates() != null
-                  && predicate.getPredicates().size() > 0) {
-                localizedTripleObject =
-                    details(null, predicate.getPredicates(), object, language, idStack, connection);
+              } else if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
+                localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
                 localizedTripleObject.setLanguage(lang);
               } else {
                 localizedTripleObject = new LocalizedString(object, lang);
@@ -696,8 +637,7 @@ public class SQLQuerier implements Querier {
           }
         }
         if (!found) {
-          logger.error("Predicate '" + predicateValue + "' (subject = '" + id
-              + "') not found in model '" + modelName + "'");
+          logger.error("Predicate '" + predicateValue + "' (subject = '" + id + "') not found in model '" + modelName + "'");
         }
       }
 
@@ -739,8 +679,7 @@ public class SQLQuerier implements Querier {
         int count = result.getInt("cnt");
         if (count > 0) {
           if (modelName != null) {
-            throw new ConeException("Trying to create a resource that is already existing: "
-                + modelName + " " + id);
+            throw new ConeException("Trying to create a resource that is already existing: " + modelName + " " + id);
           } else {
             // Won't update an existing resource linked from this
             // resource
@@ -750,12 +689,10 @@ public class SQLQuerier implements Querier {
           }
         }
       } else {
-        throw new ConeException(
-            "Select count statement should always return a result, but did not.");
+        throw new ConeException("Select count statement should always return a result, but did not.");
       }
 
-      query =
-          "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
+      query = "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
 
       result.close();
       statement.close();
@@ -767,8 +704,7 @@ public class SQLQuerier implements Querier {
         statement.setString(5, modelName);
 
         for (LocalizedTripleObject object : values.get(predicate)) {
-          if (object instanceof LocalizedString
-              && !"".equals(((LocalizedString) object).getValue())) {
+          if (object instanceof LocalizedString && !"".equals(((LocalizedString) object).getValue())) {
             statement.setString(3, ((LocalizedString) object).getValue());
           } else if (object instanceof TreeFragment) {
             statement.setString(3, ((TreeFragment) object).getSubject());
@@ -793,8 +729,7 @@ public class SQLQuerier implements Querier {
 
         statement.setString(1, id);
 
-        List<Pair<ResultEntry>> results =
-            ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
+        List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
 
         for (Pair<ResultEntry> pair : results) {
           if (pair.getValue() != null && !"".equals(pair.getValue())) {
@@ -820,8 +755,7 @@ public class SQLQuerier implements Querier {
         statement.setString(1, id);
         statement.setString(4, modelName);
 
-        List<Pair<LocalizedString>> matchResults =
-            ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
+        List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
 
         for (Pair<LocalizedString> pair : matchResults) {
           if (pair.getValue() != null && !"".equals(pair.getValue())) {
@@ -863,8 +797,7 @@ public class SQLQuerier implements Querier {
       PreparedStatement statement = connection.prepareStatement(query);
 
       for (Predicate predicate : predicates) {
-        if (!predicate.isResource() && predicate.getPredicates() != null
-            && predicate.getPredicates().size() > 0) {
+        if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
 
           statement.setString(1, id);
           statement.setString(2, predicate.getId());
@@ -1031,8 +964,7 @@ public class SQLQuerier implements Querier {
       statement.executeUpdate();
       statement.close();
 
-      query =
-          "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
+      query = "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
       statement = connection.prepareStatement(query);
       statement.executeUpdate();
 

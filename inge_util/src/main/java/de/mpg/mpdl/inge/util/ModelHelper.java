@@ -10,8 +10,7 @@ import java.io.Serializable;
 public class ModelHelper {
 
 
-  public static <T extends Serializable> T makeClone(T object) throws IOException,
-      ClassNotFoundException {
+  public static <T extends Serializable> T makeClone(T object) throws IOException, ClassNotFoundException {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     ObjectOutputStream out = new ObjectOutputStream(outputStream);
     out.writeObject(object);

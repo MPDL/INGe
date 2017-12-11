@@ -56,7 +56,8 @@ public class CreateItem extends FacesBean {
 
   public static final String LOAD_CREATEITEM = "loadCreateItem";
 
-  public enum SubmissionMethod {
+  public enum SubmissionMethod
+  {
     FULL_SUBMISSION, MULTIPLE_IMPORT, EASY_SUBMISSION
   }
 
@@ -80,8 +81,7 @@ public class CreateItem extends FacesBean {
     this.getEditItemSessionBean().initEmptyComponents();
 
     // set the current submission method for edit item to full submission (for GUI purpose)
-    this.getEditItemSessionBean().setCurrentSubmission(
-        EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
+    this.getEditItemSessionBean().setCurrentSubmission(EditItemSessionBean.SUBMISSION_METHOD_FULL_SUBMISSION);
 
     // if there is only one context for this user we can skip the CreateItem-Dialog and
     // create the new item directly
@@ -93,19 +93,15 @@ public class CreateItem extends FacesBean {
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
       final ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
-      navigateTo =
-          this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
-              contextVO.getReference());
+      navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO.getReference());
 
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
-        if (!contextVO.getAdminDescriptor().getAllowedGenres()
-            .contains(MdsPublicationVO.Genre.ARTICLE)) {
+        if (!contextVO.getAdminDescriptor().getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE)) {
           this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
               .setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
         } else {
-          this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-              .setGenre(MdsPublicationVO.Genre.ARTICLE);
+          this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
         }
 
         this.getEditItemSessionBean().setGenreBundle(genreBundle);
@@ -115,14 +111,12 @@ public class CreateItem extends FacesBean {
       }
     } else {
       // more than one context exists for this user; let him choose the right one
-      navigateTo =
-          this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
-              this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
+      navigateTo = this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
+          this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
 
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
-        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-            .setGenre(Genre.ARTICLE);
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(Genre.ARTICLE);
         this.getEditItemSessionBean().setGenreBundle(genreBundle);
         this.getEditItem().setItem(null);
         this.getEditItem().init();

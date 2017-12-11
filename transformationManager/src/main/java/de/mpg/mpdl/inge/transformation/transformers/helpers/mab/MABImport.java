@@ -36,22 +36,19 @@ public class MABImport {
   public String transformMAB2XML(String file) {
     String result = "";
 
-    String[] itemList =
-        getItemListFromString(file,
-            "(\\n|\\r|\\r\\n)(\\s{4})([0-9]*.)?([0-9]*,[0-9]*)(\\n|\\r|\\r\\n)"); // extract items
-                                                                                  // to array
-                                                                                  // for (String
-                                                                                  // item :
-                                                                                  // itemList) {
-    // // System.out.print(item+"\n*******************************************");
-    // }
+    String[] itemList = getItemListFromString(file, "(\\n|\\r|\\r\\n)(\\s{4})([0-9]*.)?([0-9]*,[0-9]*)(\\n|\\r|\\r\\n)"); // extract items
+                                                                                                                          // to array
+                                                                                                                          // for (String
+                                                                                                                          // item :
+                                                                                                                          // itemList) {
+                                                                                                                          // // System.out.print(item+"\n*******************************************");
+                                                                                                                          // }
     List<List<Pair>> items = new ArrayList<List<Pair>>();
     if (itemList != null && itemList.length > 1) { // transform items to XML
 
       for (String item : itemList) {
         List<Pair> itemPairs =
-            getItemPairs(getItemFromString(item,
-                "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
+            getItemPairs(getItemFromString(item, "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
         // for (Pair p : itemPairs) {
         // // System.out.print(p.getKey()+" : "+p.getValue()+"\n");
         // }
@@ -61,8 +58,7 @@ public class MABImport {
 
     } else if (itemList != null && itemList.length == 1) {
       List<Pair> item =
-          getItemPairs(getItemFromString(itemList[0],
-              "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
+          getItemPairs(getItemFromString(itemList[0], "(\\s{6})[0-9]\\s*(.*(\\n|\\r|\\r\\n)(\\s{14}\\s*.*(\\n|\\r|\\r\\n))*)"));
       result = transformItemToXML(item);
     }
 
@@ -146,9 +142,7 @@ public class MABImport {
    */
   public String[] getItemListFromString(String string, String pattern) {
     // replace first empty lines and BOM
-    String s =
-        Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string)
-            .replaceFirst("$1");
+    String s = Pattern.compile("^.*?(\\w)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(string).replaceFirst("$1");
     String itemList[] = s.split(pattern);
 
     return itemList;

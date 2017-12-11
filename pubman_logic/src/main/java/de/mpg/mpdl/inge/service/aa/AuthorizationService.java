@@ -46,10 +46,7 @@ public class AuthorizationService {
   public AuthorizationService() {
 
     try {
-      aaMap =
-          modelMapper.readValue(
-              ResourceUtil.getResourceAsStream("aa.json",
-                  AuthorizationService.class.getClassLoader()), Map.class);
+      aaMap = modelMapper.readValue(ResourceUtil.getResourceAsStream("aa.json", AuthorizationService.class.getClassLoader()), Map.class);
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing aa.json file.", e);
     }
@@ -74,10 +71,8 @@ public class AuthorizationService {
   }
 
 
-  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
-      throws AuthorizationException {
-    Map<String, Map<String, Object>> serviceMap =
-        (Map<String, Map<String, Object>>) aaMap.get(serviceName);
+  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects) throws AuthorizationException {
+    Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
 
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     Map<String, String> indices = (Map<String, String>) serviceMap.get("technical").get("indices");
@@ -119,8 +114,7 @@ public class AuthorizationService {
               if (userMap.containsKey("field_user_id_match")) {
                 String value = (String) userMap.get("field_user_id_match");
 
-                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference()
-                    .getObjectId()));
+                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference().getObjectId()));
                 userMatch = true;
 
               }
@@ -133,8 +127,8 @@ public class AuthorizationService {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
-                      grantQueryBuilder.should(QueryBuilders.termQuery(
-                          indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
+                      grantQueryBuilder
+                          .should(QueryBuilders.termQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
                     }
 
                   }
@@ -210,8 +204,7 @@ public class AuthorizationService {
 
 
   public AccountUserVO checkLoginRequired(String authenticationToken)
-      throws AuthenticationException, IngeTechnicalException, IngeApplicationException,
-      AuthorizationException {
+      throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
     return userAccountService.get(authenticationToken);
   }
 
@@ -220,10 +213,8 @@ public class AuthorizationService {
   public void checkAuthorization(String serviceName, String methodName, Object... objects)
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
 
-    Map<String, Map<String, Object>> serviceMap =
-        (Map<String, Map<String, Object>>) aaMap.get(serviceName);
-    if(serviceMap==null)
-    {
+    Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
+    if (serviceMap == null) {
       throw new AuthorizationException("Nor rules for service " + serviceName);
     }
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
@@ -252,18 +243,15 @@ public class AuthorizationService {
                 boolean check = false;
                 if (rule.getValue() instanceof Collection<?>) {
                   List<String> valuesToCompare = (List<String>) rule.getValue();
-                  check = valuesToCompare.stream().anyMatch(
-                      val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
+                  check = valuesToCompare.stream().anyMatch(val -> keyValue != null && val != null && val.equalsIgnoreCase(keyValue));
                   if (!check) {
-                    throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key
-                        + " (" + keyValue + ")");
+                    throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key + " (" + keyValue + ")");
                   }
                 } else {
                   String value = getFieldValueOrString(order, objects, (String) rule.getValue());
                   check = (keyValue != null && keyValue.equalsIgnoreCase(value));
                   if (!check) {
-                    throw new AuthorizationException(
-                        "Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
+                    throw new AuthorizationException("Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
                   }
                 }
 
@@ -273,7 +261,7 @@ public class AuthorizationService {
 
 
             }
-          } catch (AuthorizationException|AuthenticationException e ) {
+          } catch (AuthorizationException | AuthenticationException e) {
             lastExceptionOfRule = e;
             lastExceptionOfAll = e;
             break;
@@ -289,10 +277,9 @@ public class AuthorizationService {
       if (lastExceptionOfAll == null) {
         return;
       } else {
-        if(lastExceptionOfAll instanceof AuthorizationException)
-          throw (AuthorizationException)lastExceptionOfAll;
-        else if (lastExceptionOfAll instanceof AuthenticationException)
-        {
+        if (lastExceptionOfAll instanceof AuthorizationException)
+          throw (AuthorizationException) lastExceptionOfAll;
+        else if (lastExceptionOfAll instanceof AuthenticationException) {
           throw (AuthenticationException) lastExceptionOfAll;
         }
       }
@@ -316,18 +303,16 @@ public class AuthorizationService {
     if (userIdFieldMatch != null) {
       String expectedUserId = getFieldValueOrString(order, objects, userIdFieldMatch);
 
-      if (expectedUserId == null
-          || !expectedUserId.equals(userAccount.getReference().getObjectId())) {
+      if (expectedUserId == null || !expectedUserId.equals(userAccount.getReference().getObjectId())) {
         throw new AuthorizationException("User is not owner of object.");
       }
     }
 
 
-    if (ruleMap.containsKey("role")
-        || ruleMap.containsKey("field_grant_id_match")) {
+    if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match")) {
       boolean check = false;
       String role = (String) ruleMap.get("role");
-     
+
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
 
       List<String> grantFieldMatchValues = new ArrayList<>();
@@ -337,7 +322,7 @@ public class AuthorizationService {
 
 
       // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-      if (grantFieldMatch!=null && grantFieldMatchValues.get(0).startsWith("ou")) {
+      if (grantFieldMatch != null && grantFieldMatchValues.get(0).startsWith("ou")) {
         List<AffiliationVO> childList = new ArrayList<>();
         searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
         grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getReference().getObjectId()).collect(Collectors.toList()));
@@ -346,9 +331,8 @@ public class AuthorizationService {
 
 
       for (GrantVO grant : userAccount.getGrants()) {
-        check = (role == null || role.equals(grant.getRole()))
-            && (grantFieldMatch == null || (grant.getObjectRef() != null
-                && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
+        check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch == null
+            || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
 
         if (check) {
           return;
@@ -356,7 +340,8 @@ public class AuthorizationService {
       }
 
       if (!check) {
-        throw new AuthorizationException("Expected user with role [" + role + "], on object [" + (grantFieldMatch!=null ? grantFieldMatchValues.get(0) : null) + "]");
+        throw new AuthorizationException(
+            "Expected user with role [" + role + "], on object [" + (grantFieldMatch != null ? grantFieldMatchValues.get(0) : null) + "]");
       }
 
     }
@@ -364,9 +349,8 @@ public class AuthorizationService {
 
   }
 
-  private void searchAllChildOrganizations(String parentAffiliationId,
-      List<AffiliationVO> completeList) throws IngeTechnicalException, AuthenticationException,
-      AuthorizationException, IngeApplicationException {
+  private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationVO> completeList)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
 
     List<AffiliationVO> children = ouService.searchChildOrganizations(parentAffiliationId);
@@ -382,8 +366,7 @@ public class AuthorizationService {
 
   }
 
-  private String getFieldValueOrString(List<String> order, Object[] objects, String field)
-      throws AuthorizationException {
+  private String getFieldValueOrString(List<String> order, Object[] objects, String field) throws AuthorizationException {
     if (field.contains(".")) {
       String[] fieldHierarchy = field.split("\\.");
       Object object;
@@ -395,8 +378,7 @@ public class AuthorizationService {
       if (object == null) {
         return null;
       } else {
-        return getFieldValueViaGetter(object,
-            field.substring(field.indexOf(".") + 1, field.length()));
+        return getFieldValueViaGetter(object, field.substring(field.indexOf(".") + 1, field.length()));
       }
 
 
@@ -410,8 +392,7 @@ public class AuthorizationService {
     try {
       String[] fieldHierarchy = field.split("\\.");
 
-      for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass())
-          .getPropertyDescriptors()) {
+      for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
 
         if (pd.getName().equals(fieldHierarchy[0])) {
           Object value = pd.getReadMethod().invoke(object);
@@ -423,8 +404,7 @@ public class AuthorizationService {
             return value.toString();
 
           } else {
-            return getFieldValueViaGetter(value,
-                field.substring(field.indexOf(".") + 1, field.length()));
+            return getFieldValueViaGetter(value, field.substring(field.indexOf(".") + 1, field.length()));
           }
         }
 

@@ -31,8 +31,7 @@ public class WesternFormat8 extends AuthorFormat {
 
   @Override
   public String getPattern() {
-    return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *"
-        + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
+    return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | AND | und | et |\\n) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
   }
 
   @Override

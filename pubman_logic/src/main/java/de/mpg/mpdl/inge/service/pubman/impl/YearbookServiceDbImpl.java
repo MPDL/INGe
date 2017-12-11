@@ -69,8 +69,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public YearbookDbVO submit(String yearbookId, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     return changeState(yearbookId, modificationDate, authenticationToken, State.SUBMITTED, "submit");
   }
@@ -78,22 +77,19 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public YearbookDbVO release(String yearbookId, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(yearbookId, modificationDate, authenticationToken, State.RELEASED, "release");
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public YearbookDbVO revise(String yearbookId, Date modificationDate, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException,
-      IngeApplicationException {
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(yearbookId, modificationDate, authenticationToken, State.CREATED, "revise");
   }
 
-  private YearbookDbVO changeState(String id, Date modificationDate, String authenticationToken,
-      YearbookDbVO.State state, String methodName) throws IngeTechnicalException,
-      AuthenticationException, AuthorizationException, IngeApplicationException {
+  private YearbookDbVO changeState(String id, Date modificationDate, String authenticationToken, YearbookDbVO.State state,
+      String methodName) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
     YearbookDbVO yearbookDbToBeUpdated = yearbookRepository.findOne(id);
     if (yearbookDbToBeUpdated == null) {
@@ -149,9 +145,8 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   }
 
 
-  protected List<String> updateObjectWithValues(YearbookDbVO givenObject,
-      YearbookDbVO objectToBeUpdated, AccountUserVO userAccount, boolean create)
-      throws IngeTechnicalException, IngeApplicationException {
+  protected List<String> updateObjectWithValues(YearbookDbVO givenObject, YearbookDbVO objectToBeUpdated, AccountUserVO userAccount,
+      boolean create) throws IngeTechnicalException, IngeApplicationException {
 
     objectToBeUpdated.setContextIds(givenObject.getContextIds());
     objectToBeUpdated.setItemIds(givenObject.getItemIds());

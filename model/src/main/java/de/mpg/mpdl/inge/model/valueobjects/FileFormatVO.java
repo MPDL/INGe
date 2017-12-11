@@ -96,8 +96,7 @@ public class FileFormatVO extends ValueObject {
   public static final String EDOC_EXPORT_MIMETYPE = "application/xml";
 
   public static final String DOCX_NAME = "docx";
-  public static final String DOCX_MIMETYPE =
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  public static final String DOCX_MIMETYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
   public static final String DEFAULT_NAME = PDF_NAME;
   public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
@@ -179,8 +178,7 @@ public class FileFormatVO extends ValueObject {
     name = name == null || name.trim().equals("") ? "" : name.trim();
     // if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
     // by default
-    return formatMimeTypes.containsKey(name) ? formatMimeTypes.get(name) : formatMimeTypes
-        .get(DEFAULT_NAME);
+    return formatMimeTypes.containsKey(name) ? formatMimeTypes.get(name) : formatMimeTypes.get(DEFAULT_NAME);
   }
 
   /**
@@ -188,8 +186,7 @@ public class FileFormatVO extends ValueObject {
    */
   public static String getExtensionByName(String name) {
     name = name == null || name.trim().equals("") ? "" : name.trim();
-    return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions
-        .get(DEFAULT_NAME);
+    return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get(DEFAULT_NAME);
   }
 
   /**
@@ -204,8 +201,7 @@ public class FileFormatVO extends ValueObject {
   // TODO: should be taken directly from xml description of the export
   // rather then hardcoded in FileFormatVO class
   public static boolean isOutputFormatSupported(String outputFormat) {
-    return !(getMimeTypeByName(outputFormat).equals(DEFAULT_MIMETYPE) && !outputFormat
-        .equals(DEFAULT_NAME));
+    return !(getMimeTypeByName(outputFormat).equals(DEFAULT_MIMETYPE) && !outputFormat.equals(DEFAULT_NAME));
   }
 
   /**

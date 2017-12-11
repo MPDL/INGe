@@ -27,7 +27,8 @@ import java.util.Map;
  */
 public interface Querier {
 
-  public enum ModeType {
+  public enum ModeType
+  {
     FAST, FULL;
   }
 
@@ -52,8 +53,7 @@ public interface Querier {
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, String query, String lang,
-      ModeType modeType) throws ConeException;
+  public List<? extends Describable> query(String model, String query, String lang, ModeType modeType) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
@@ -66,8 +66,7 @@ public interface Querier {
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, String query, String lang,
-      ModeType modeType, int limit) throws ConeException;
+  public List<? extends Describable> query(String model, String query, String lang, ModeType modeType, int limit) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
@@ -79,8 +78,7 @@ public interface Querier {
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang,
-      ModeType modeType) throws ConeException;
+  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang, ModeType modeType) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
@@ -93,8 +91,8 @@ public interface Querier {
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang,
-      ModeType modeType, int limit) throws ConeException;
+  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang, ModeType modeType, int limit)
+      throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id.

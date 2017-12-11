@@ -54,8 +54,7 @@ public class SourceVO extends ValueObject implements Cloneable {
    */
   private static final long serialVersionUID = 1L;
   private String title;
-  private java.util.List<AlternativeTitleVO> alternativeTitles =
-      new java.util.ArrayList<AlternativeTitleVO>();
+  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
   private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
   private String volume;
   private String issue;
@@ -72,7 +71,8 @@ public class SourceVO extends ValueObject implements Cloneable {
   /**
    * The possible genres for an source.
    */
-  public enum Genre {
+  public enum Genre
+  {
     BOOK("http://purl.org/eprint/type/Book"), //
     PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), //
     JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"), //
@@ -88,37 +88,38 @@ public class SourceVO extends ValueObject implements Cloneable {
     COLLECTED_EDITION("http://purl.org/escidoc/metadata/ves/publication-types/collected-edition"), //
     FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift");
 
-    private String uri;
+  private String uri;
 
-    private Genre(String uri) {
+  private Genre(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
-  }
+  public String getUri() {
+    return uri;
+  }}
 
   /**
    * The possible genres for an source.
    */
-  public enum AlternativeTitleType {
-    ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"), //
+  public enum AlternativeTitleType{
+
+  ABBREVIATION("http://purl.org/escidoc/metadata/terms/0.1/ABBREVIATION"), //
     HTML("http://purl.org/escidoc/metadata/terms/0.1/HTML"), //
     LATEX("http://purl.org/escidoc/metadata/terms/0.1/LATEX"), //
     MATHML("http://purl.org/escidoc/metadata/terms/0.1/MATHML"), //
     SUBTITLE("http://purl.org/escidoc/metadata/terms/0.1/SUBTITLE"), //
     OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER");
 
-    private String uri;
+  private String uri;
 
-    private AlternativeTitleType(String uri) {
+  private AlternativeTitleType(String uri) {
       this.uri = uri;
     }
 
-    public String getUri() {
-      return uri;
-    }
+  public String getUri() {
+    return uri;
+  }
+
   }
 
   /**
@@ -353,8 +354,7 @@ public class SourceVO extends ValueObject implements Cloneable {
     int result = 1;
     result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
     result = prime * result + ((creators == null) ? 0 : creators.hashCode());
-    result =
-        prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
+    result = prime * result + ((datePublishedInPrint == null) ? 0 : datePublishedInPrint.hashCode());
     result = prime * result + ((endPage == null) ? 0 : endPage.hashCode());
     result = prime * result + ((genre == null) ? 0 : genre.hashCode());
     result = prime * result + ((identifiers == null) ? 0 : identifiers.hashCode());

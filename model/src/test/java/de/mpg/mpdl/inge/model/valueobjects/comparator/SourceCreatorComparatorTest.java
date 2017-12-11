@@ -85,8 +85,7 @@ public class SourceCreatorComparatorTest extends ComparatorTestBase {
   @Test
   public void sortCreatorDescending() {
     ArrayList<PubItemVO> list = getPubItemList();
-    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(
-        PubItemVOComparator.Criteria.SOURCE_CREATOR)));
+    Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR)));
     for (PubItemVO itemVO : list) {
       logger.debug(getSourceCreatorName(itemVO) + " (" + itemVO.getVersion().getObjectId() + ")");
     }
@@ -99,9 +98,7 @@ public class SourceCreatorComparatorTest extends ComparatorTestBase {
    */
   @Test
   public void compareTwoNullValues() {
-    int rc =
-        new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR).compare(
-            getPubItemVO4(), getPubItemVO4());
+    int rc = new PubItemVOComparator(PubItemVOComparator.Criteria.SOURCE_CREATOR).compare(getPubItemVO4(), getPubItemVO4());
     assertEquals(0, rc);
   }
 }

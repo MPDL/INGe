@@ -43,8 +43,7 @@ public class HTMLEscapeConverter implements Converter {
   public HTMLEscapeConverter() {}
 
   @Override
-  public String getAsString(FacesContext context, UIComponent c, Object object)
-      throws ConverterException {
+  public String getAsString(FacesContext context, UIComponent c, Object object) throws ConverterException {
     final String textValue = (String) object;
     return CommonUtils.htmlEscape(textValue);
   }

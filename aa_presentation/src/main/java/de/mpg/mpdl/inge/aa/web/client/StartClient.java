@@ -51,6 +51,5 @@ public abstract class StartClient extends Client {
     }
   }
 
-  protected abstract String startAuthentication(HttpServletRequest request,
-      HttpServletResponse response) throws Exception;
+  protected abstract String startAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

@@ -55,16 +55,14 @@ public class LogStartEndInterceptor {
 
     Logger logger = Logger.getLogger(className);
 
-    logger
-        .debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_START, new Object[] {target}));
+    logger.debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_START, new Object[] {target}));
 
     try {
       return ctx.proceed();
     } catch (Exception e) {
       throw e;
     } finally {
-      logger.debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_FINISHED,
-          new Object[] {target}));
+      logger.debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_FINISHED, new Object[] {target}));
     }
   }
 }

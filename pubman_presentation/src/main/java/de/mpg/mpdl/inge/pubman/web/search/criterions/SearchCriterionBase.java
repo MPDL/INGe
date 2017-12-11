@@ -88,11 +88,13 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public abstract class SearchCriterionBase implements Serializable {
   private static final Logger logger = Logger.getLogger(SearchCriterionBase.class);
 
-  public enum Index {
+  public enum Index
+  {
     ESCIDOC_ALL, ITEM_CONTAINER_ADMIN
   }
 
-  public enum SearchCriterion {
+  public enum SearchCriterion
+  {
     TITLE(TitleSearchCriterion.class, DisplayType.STANDARD), KEYWORD(KeywordSearchCriterion.class,
         DisplayType.STANDARD), CLASSIFICATION(ClassificationSearchCriterion.class, null), ANY(
         AnyFieldSearchCriterion.class, DisplayType.STANDARD), ANYFULLTEXT(
@@ -145,50 +147,45 @@ public abstract class SearchCriterionBase implements Serializable {
         FileSectionSearchCriterion.class, null), LOCATOR_SECTION(FileSectionSearchCriterion.class,
         null);
 
-    private Class<?> relatedClass;
-    private DisplayType displayType;
+  private Class<?> relatedClass;
+  private DisplayType displayType;
 
-    SearchCriterion(Class<?> classToInstantiate, DisplayType dt) {
+  SearchCriterion(Class<?> classToInstantiate, DisplayType dt) {
       this.relatedClass = classToInstantiate;
       this.displayType = dt;
     }
 
-    public Class<?> getRelatedClass() {
+  public Class<?> getRelatedClass() {
       return this.relatedClass;
     }
 
-    public void setRelatedClass(Class<?> relatedClass) {
+  public void setRelatedClass(Class<?> relatedClass) {
       this.relatedClass = relatedClass;
     }
 
-    public DisplayType getDisplayType() {
+  public DisplayType getDisplayType() {
       return this.displayType;
     }
 
 
-    public void setDisplayType(DisplayType displayType) {
-      this.displayType = displayType;
-    }
+  public void setDisplayType(DisplayType displayType) {
+    this.displayType = displayType;
+  }
 
   }
 
-  public enum DisplayType {
-    STANDARD, DATE, PERSON, OPERATOR, PARENTHESIS;
-  }
+  public enum DisplayType{STANDARD,DATE,PERSON,OPERATOR,PARENTHESIS;}
 
 
 
-  public enum QueryType {
-    CQL, INTERNAL
-  }
+  public enum QueryType{CQL,INTERNAL}
 
 
 
   private static final String INDEX_CONTENT_MODEL = "escidoc.content-model.objid";
   private static final String INDEX_OBJECTTYPE = "escidoc.objecttype";
 
-  private static final String PROPERTY_CONTENT_MODEL =
-      "escidoc.framework_access.content-model.id.publication";
+  private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
 
 
   private String queryValue;
@@ -257,16 +254,14 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public static SearchCriterionBase initSearchCriterion(SearchCriterion sc) {
     try {
-      final Constructor<?> ctor =
-          sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
+      final Constructor<?> ctor = sc.getRelatedClass().getDeclaredConstructor(SearchCriterion.class);
       ctor.setAccessible(true);
       final SearchCriterionBase scb = (SearchCriterionBase) ctor.newInstance(sc);
       scb.setSearchCriterion(sc);
       return scb;
 
     } catch (final Exception e) {
-      SearchCriterionBase.logger.debug(
-          "No one-argument constructor with SearchCriterion found for " + sc.getRelatedClass(), e);
+      SearchCriterionBase.logger.debug("No one-argument constructor with SearchCriterion found for " + sc.getRelatedClass(), e);
       // return search criterion with default constructor
 
     }
@@ -340,8 +335,7 @@ public abstract class SearchCriterionBase implements Serializable {
    * @param searchString
    * @return the cql string or null, if no search string or indexes are given
    */
-  protected String baseCqlBuilder(String[] cqlIndexes, String searchString)
-      throws SearchParseException {
+  protected String baseCqlBuilder(String[] cqlIndexes, String searchString) throws SearchParseException {
 
     if (searchString != null) {
       // Bugfix for PUBMAN-2221: Remove Questionmark at the end
@@ -376,8 +370,7 @@ public abstract class SearchCriterionBase implements Serializable {
       // Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
 
       // /u3000 is the Unicode for Japanese full-width-space
-      final Pattern pattern =
-          Pattern.compile("(?<=[\\s\\u3000]|^)\"(.*?)\"(?=[\\s\\u3000]|$)|([^\\s\\u3000]+)");
+      final Pattern pattern = Pattern.compile("(?<=[\\s\\u3000]|^)\"(.*?)\"(?=[\\s\\u3000]|$)|([^\\s\\u3000]+)");
       final Matcher m = pattern.matcher(searchString);
 
       while (m.find()) {
@@ -459,18 +452,15 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-  public static QueryBuilder baseElasticSearchQueryBuilder(String[] indexFields,
-      String... searchString) {
+  public static QueryBuilder baseElasticSearchQueryBuilder(String[] indexFields, String... searchString) {
 
-    Map<String, ElasticSearchIndexField> indexMap =
-        ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
+    Map<String, ElasticSearchIndexField> indexMap = ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
     return SearchUtils.baseElasticSearchQueryBuilder(indexMap, indexFields, searchString);
   }
 
 
   public static QueryBuilder baseElasticSearchQueryBuilder(String index, String... value) {
-    Map<String, ElasticSearchIndexField> indexMap =
-        ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
+    Map<String, ElasticSearchIndexField> indexMap = ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields();
     return SearchUtils.baseElasticSearchQueryBuilder(indexMap, index, value);
 
   }
@@ -482,11 +472,10 @@ public abstract class SearchCriterionBase implements Serializable {
    * @param criterionList
    * @return
    */
-  public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList,
-      boolean appendStandardCriterions) throws SearchParseException {
+  public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)
+      throws SearchParseException {
 
-    final List<SearchCriterionBase> removedList =
-        SearchCriterionBase.removeEmptyFields(criterionList, QueryType.CQL);
+    final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.CQL);
 
 
     String appendOperator = "AND";
@@ -533,22 +522,17 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-        final String contentModelId =
-            PropertyReader.getProperty(SearchCriterionBase.PROPERTY_CONTENT_MODEL);
+        final String contentModelId = PropertyReader.getProperty(SearchCriterionBase.PROPERTY_CONTENT_MODEL);
 
         String standardCriterions = null;
         switch (indexName) {
           case ESCIDOC_ALL: {
-            standardCriterions =
-                SearchCriterionBase.INDEX_OBJECTTYPE + "=\"item\" AND "
-                    + SearchCriterionBase.INDEX_CONTENT_MODEL + "=\""
-                    + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
+            standardCriterions = SearchCriterionBase.INDEX_OBJECTTYPE + "=\"item\" AND " + SearchCriterionBase.INDEX_CONTENT_MODEL + "=\""
+                + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
             break;
           }
           case ITEM_CONTAINER_ADMIN: {
-            standardCriterions =
-                "\"/properties/content-model/id\"=\""
-                    + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
+            standardCriterions = "\"/properties/content-model/id\"=\"" + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
             break;
           }
 
@@ -558,13 +542,11 @@ public abstract class SearchCriterionBase implements Serializable {
 
         if (!sb.toString().isEmpty()) {
 
-          standardCriterions =
-              standardCriterions + " " + appendOperator + " (" + sb.toString() + ")";
+          standardCriterions = standardCriterions + " " + appendOperator + " (" + sb.toString() + ")";
         }
         return standardCriterions;
       } catch (final Exception e) {
-        SearchCriterionBase.logger.error("Could not read property "
-            + SearchCriterionBase.PROPERTY_CONTENT_MODEL, e);
+        SearchCriterionBase.logger.error("Could not read property " + SearchCriterionBase.PROPERTY_CONTENT_MODEL, e);
       }
     }
 
@@ -574,10 +556,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-  public static QueryBuilder scListToElasticSearchQuery(List<SearchCriterionBase> scList)
-      throws SearchParseException {
-    final List<SearchCriterionBase> cleanedScList =
-        SearchCriterionBase.removeEmptyFields(scList, QueryType.CQL);
+  public static QueryBuilder scListToElasticSearchQuery(List<SearchCriterionBase> scList) throws SearchParseException {
+    final List<SearchCriterionBase> cleanedScList = SearchCriterionBase.removeEmptyFields(scList, QueryType.CQL);
 
     // Set partner parenthesis for every parenthesis
     final Stack<Parenthesis> parenthesisStack = new Stack<Parenthesis>();
@@ -598,8 +578,8 @@ public abstract class SearchCriterionBase implements Serializable {
     return SearchCriterionBase.cleanedScListToElasticSearchQuery(cleanedScList, null);
   }
 
-  private static QueryBuilder cleanedScListToElasticSearchQuery(List<SearchCriterionBase> scList,
-      String parentNestedPath) throws SearchParseException {
+  private static QueryBuilder cleanedScListToElasticSearchQuery(List<SearchCriterionBase> scList, String parentNestedPath)
+      throws SearchParseException {
 
     SearchCriterionBase.logger.info("Call with list: " + scList);
     QueryBuilder resultedQueryBuilder = null;
@@ -618,11 +598,8 @@ public abstract class SearchCriterionBase implements Serializable {
 
     // Remove unnecessary parenthesis
     while (SearchCriterion.OPENING_PARENTHESIS.equals(criterionList.get(0).getSearchCriterion())
-        && SearchCriterion.CLOSING_PARENTHESIS
-            .equals(criterionList.get(criterionList.size() - 1).getSearchCriterion())
-        && ((Parenthesis) criterionList.get(0))
-            .getPartnerParenthesis() == ((Parenthesis) criterionList
-                .get(criterionList.size() - 1))) {
+        && SearchCriterion.CLOSING_PARENTHESIS.equals(criterionList.get(criterionList.size() - 1).getSearchCriterion())
+        && ((Parenthesis) criterionList.get(0)).getPartnerParenthesis() == ((Parenthesis) criterionList.get(criterionList.size() - 1))) {
 
       criterionList.remove(0);
       criterionList.remove(criterionList.size() - 1);
@@ -641,18 +618,17 @@ public abstract class SearchCriterionBase implements Serializable {
           final LogicalOperator op = (LogicalOperator) sc;
           mainOperators.add(op);
           //Check if this operator changes from last 
-          if (lastOperator != null
-              && ((lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
-                  && !op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
-                  || (!lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
-                      && op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
+          if (lastOperator != null && ((lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
+              && !op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
+              || (!lastOperator.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR)
+                  && op.getSearchCriterion().equals(SearchCriterion.OR_OPERATOR))
 
-              )) {
+          )) {
             mixedOrAndAnd = true;
           }
           lastOperator = op;
 
-         
+
         }
 
       } else if (SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) {
@@ -668,10 +644,8 @@ public abstract class SearchCriterionBase implements Serializable {
         // nested
         // criteria, set a new nested query
         if ((sharedNestedField != null && sharedNestedField.isEmpty()
-            && !(parentNestedPath != null
-                && sc.getElasticSearchNestedPath().equals(parentNestedPath)))
-            || (sc.getElasticSearchNestedPath() != null
-                && sc.getElasticSearchNestedPath().equals(sharedNestedField)
+            && !(parentNestedPath != null && sc.getElasticSearchNestedPath().equals(parentNestedPath)))
+            || (sc.getElasticSearchNestedPath() != null && sc.getElasticSearchNestedPath().equals(sharedNestedField)
                 && !sc.getElasticSearchNestedPath().equals(parentNestedPath))) {
           sharedNestedField = sc.getElasticSearchNestedPath();
         } else {
@@ -703,15 +677,14 @@ public abstract class SearchCriterionBase implements Serializable {
       // If there are AND/NOTAND operators mixed with OR operators, divide by OR operators ->
       // Remove all AND / NOTAND operators
       if (mixedOrAndAnd) {
-        mainOperators
-            .removeIf(item -> !SearchCriterion.OR_OPERATOR.equals(item.getSearchCriterion()));
+        mainOperators.removeIf(item -> !SearchCriterion.OR_OPERATOR.equals(item.getSearchCriterion()));
       }
 
       for (int i = 0; i < mainOperators.size(); i++) {
         final LogicalOperator op = mainOperators.get(i);
         final int indexOfOperator = criterionList.indexOf(op);
-        final int nextIndexOfOperator = (mainOperators.size() > i + 1)
-            ? criterionList.indexOf(mainOperators.get(i + 1)) : criterionList.size();
+        final int nextIndexOfOperator =
+            (mainOperators.size() > i + 1) ? criterionList.indexOf(mainOperators.get(i + 1)) : criterionList.size();
 
         if (i == 0) {
           final List<SearchCriterionBase> leftList = criterionList.subList(0, indexOfOperator);
@@ -725,8 +698,7 @@ public abstract class SearchCriterionBase implements Serializable {
           }
         }
 
-        final List<SearchCriterionBase> rightList =
-            criterionList.subList(indexOfOperator + 1, nextIndexOfOperator);
+        final List<SearchCriterionBase> rightList = criterionList.subList(indexOfOperator + 1, nextIndexOfOperator);
 
         if (SearchCriterion.OR_OPERATOR.equals(op.getSearchCriterion())) {
           bq.should(SearchCriterionBase.cleanedScListToElasticSearchQuery(rightList, sharedNestedField));
@@ -751,18 +723,17 @@ public abstract class SearchCriterionBase implements Serializable {
       return QueryBuilders.nestedQuery(sharedNestedField, resultedQueryBuilder, ScoreMode.Avg);
     }
     
-
+    
     else {
     */
-      return resultedQueryBuilder;
+    return resultedQueryBuilder;
     //}
 
   }
 
   public static String scListToQueryString(List<SearchCriterionBase> criterionList) {
 
-    final List<SearchCriterionBase> removedList =
-        SearchCriterionBase.removeEmptyFields(criterionList, QueryType.INTERNAL);
+    final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.INTERNAL);
 
     final StringBuilder sb = new StringBuilder();
     for (int i = 0; i < removedList.size(); i++) {
@@ -785,8 +756,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
   }
 
-  public static List<SearchCriterionBase> queryStringToScList(String queryString)
-      throws RuntimeException {
+  public static List<SearchCriterionBase> queryStringToScList(String queryString) throws RuntimeException {
     final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
 
 
@@ -802,8 +772,7 @@ public abstract class SearchCriterionBase implements Serializable {
       while ((ch = sr.read()) != -1) {
 
 
-        if (ch == '=' && substringBuffer.length() > 0
-            && substringBuffer.charAt(substringBuffer.length() - 1) != '\\') {
+        if (ch == '=' && substringBuffer.length() > 0 && substringBuffer.charAt(substringBuffer.length() - 1) != '\\') {
           currentSearchCriterionName = SearchCriterion.valueOf(substringBuffer.toString());
 
           if (sr.read() != '"') {
@@ -814,16 +783,13 @@ public abstract class SearchCriterionBase implements Serializable {
           final StringBuffer contentBuffer = new StringBuffer();
           while ((contentChar = sr.read()) != -1) {
 
-            if (contentChar == '"'
-                && !(contentBuffer.length() > 0 && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
+            if (contentChar == '"' && !(contentBuffer.length() > 0 && contentBuffer.charAt(contentBuffer.length() - 1) == '\\')) {
               // end of content
-              currentSearchCriterion =
-                  SearchCriterionBase.initSearchCriterion(currentSearchCriterionName);
+              currentSearchCriterion = SearchCriterionBase.initSearchCriterion(currentSearchCriterionName);
               try {
                 currentSearchCriterion.parseQueryStringContent(contentBuffer.toString());
               } catch (final Exception e) {
-                throw new RuntimeException("Error while parsing query string content: "
-                    + contentBuffer.toString(), e);
+                throw new RuntimeException("Error while parsing query string content: " + contentBuffer.toString(), e);
               }
               scList.add(currentSearchCriterion);
               break;
@@ -891,25 +857,22 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-  public static String queryStringToCqlString(Index indexName, String query,
-      boolean appendStandardCqlCriteria) throws SearchParseException {
+  public static String queryStringToCqlString(Index indexName, String query, boolean appendStandardCqlCriteria)
+      throws SearchParseException {
     final List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
     return SearchCriterionBase.scListToCql(indexName, scList, appendStandardCqlCriteria);
   }
 
 
 
-  public static List<SearchCriterionBase> removeEmptyFields(
-      List<SearchCriterionBase> criterionList, QueryType queryType) {
+  public static List<SearchCriterionBase> removeEmptyFields(List<SearchCriterionBase> criterionList, QueryType queryType) {
     if (criterionList == null) {
       return new ArrayList<SearchCriterionBase>();
     } else {
 
 
-      final List<SearchCriterionBase> copyForRemoval =
-          new ArrayList<SearchCriterionBase>(criterionList);
-      final List<SearchCriterionBase> copyForIteration =
-          new ArrayList<SearchCriterionBase>(criterionList);
+      final List<SearchCriterionBase> copyForRemoval = new ArrayList<SearchCriterionBase>(criterionList);
+      final List<SearchCriterionBase> copyForIteration = new ArrayList<SearchCriterionBase>(criterionList);
       // Collections.copy(copy, criterionList);
 
       for (final SearchCriterionBase sc : copyForIteration) {
@@ -921,9 +884,7 @@ public abstract class SearchCriterionBase implements Serializable {
       }
 
       // if first in list is an operator except "NOT", remove it
-      if (copyForRemoval.size() > 0
-          && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion()
-              .getDisplayType())
+      if (copyForRemoval.size() > 0 && DisplayType.OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion().getDisplayType())
           && !SearchCriterion.NOT_OPERATOR.equals(copyForRemoval.get(0).getSearchCriterion())) {
         copyForRemoval.remove(0);
       }
@@ -931,8 +892,7 @@ public abstract class SearchCriterionBase implements Serializable {
     }
   }
 
-  public static void removeSearchCriterionWithOperator(List<SearchCriterionBase> criterionList,
-      SearchCriterionBase criterion) {
+  public static void removeSearchCriterionWithOperator(List<SearchCriterionBase> criterionList, SearchCriterionBase criterion) {
 
     final int position = criterionList.indexOf(criterion);
     // try to delete

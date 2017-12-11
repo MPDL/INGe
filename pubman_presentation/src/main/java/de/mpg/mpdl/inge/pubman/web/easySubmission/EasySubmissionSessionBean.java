@@ -215,8 +215,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
     for (int i = 0; i < this.FULLTEXT_OPTIONS.length; i++) {
       if (this.FULLTEXT_OPTIONS[i].getValue().equals(EasySubmissionSessionBean.FULLTEXT_ALL)) {
         this.FULLTEXT_OPTIONS[i].setLabel(this.getLabel("easy_submission_lblFulltext_all"));
-      } else if (this.FULLTEXT_OPTIONS[i].getValue()
-          .equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
+      } else if (this.FULLTEXT_OPTIONS[i].getValue().equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
         this.FULLTEXT_OPTIONS[i].setLabel(this.getLabel("easy_submission_lblFulltext_none"));
       } else {
         this.FULLTEXT_OPTIONS[i].setLabel(this.getCurrentFTLabel());
@@ -253,8 +252,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.genreBundle = genreBundle;
   }
 
-  public void setAuthorCopyPasteOrganizationsCreatorBean(
-      CreatorBean authorCopyPasteOrganizationsCreatorBean) {
+  public void setAuthorCopyPasteOrganizationsCreatorBean(CreatorBean authorCopyPasteOrganizationsCreatorBean) {
     this.authorCopyPasteOrganizationsCreatorBean = authorCopyPasteOrganizationsCreatorBean;
   }
 

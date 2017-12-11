@@ -41,8 +41,7 @@ import java.util.regex.Pattern;
  */
 public class HtmlUtils {
 
-  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>",
-      Pattern.DOTALL);
+  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
 
 
 
@@ -81,8 +80,7 @@ public class HtmlUtils {
    * @param tagsNotToBeEscaped
    * @return
    */
-  public static String getShortenedHtmlSnippetWithBalancedTagsAndEscaping(String snippet,
-      int length, List<String> tagsNotToBeEscaped) {
+  public static String getShortenedHtmlSnippetWithBalancedTagsAndEscaping(String snippet, int length, List<String> tagsNotToBeEscaped) {
     boolean balanced = true;
     int removeLastCharacters = 0;
 
@@ -117,8 +115,7 @@ public class HtmlUtils {
           }
 
           SubSupTag beginTag = s.pop();
-          if (!TagType.BEGIN.equals(beginTag.getTagType())
-              || !beginTag.getTagContent().equals(subSupTag.getTagContent())) {
+          if (!TagType.BEGIN.equals(beginTag.getTagType()) || !beginTag.getTagContent().equals(subSupTag.getTagContent())) {
             balanced = false;
             break;
           }
@@ -156,9 +153,7 @@ public class HtmlUtils {
 
   public static String escapeHtmlExcept(String snippet, List<String> tagNameExceptions) {
 
-    snippet =
-        Pattern.compile("\\&(?!amp;)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet)
-            .replaceAll("&amp;");
+    snippet = Pattern.compile("\\&(?!amp;)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(snippet).replaceAll("&amp;");
 
     StringBuffer exceptions = new StringBuffer();
     if (tagNameExceptions != null) {
@@ -171,9 +166,7 @@ public class HtmlUtils {
     }
 
     if (tagNameExceptions != null && !tagNameExceptions.isEmpty()) {
-      snippet =
-          Pattern.compile("\\<(?!(\\/?(" + exceptions.toString() + ")))", Pattern.DOTALL)
-              .matcher(snippet).replaceAll("&lt;");
+      snippet = Pattern.compile("\\<(?!(\\/?(" + exceptions.toString() + ")))", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
     } else {
       snippet = Pattern.compile("\\<", Pattern.DOTALL).matcher(snippet).replaceAll("&lt;");
     }
@@ -197,7 +190,8 @@ public class HtmlUtils {
 
   }
 
-  private enum TagType {
+  private enum TagType
+  {
     BEGIN, END;
   }
 
@@ -274,8 +268,7 @@ public class HtmlUtils {
     tags.add("sub");
 
 
-    System.out.println(getShortenedHtmlSnippetWithBalancedTagsAndEscaping(testTitle, 80, tags)
-        + "...");
+    System.out.println(getShortenedHtmlSnippetWithBalancedTagsAndEscaping(testTitle, 80, tags) + "...");
   }
 
 }

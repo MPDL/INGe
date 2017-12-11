@@ -65,8 +65,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class BrowseByPage extends BreadcrumbPage {
   private static final Logger logger = Logger.getLogger(BrowseByPage.class);
 
-  private final BrowseBySessionBean bbBean = (BrowseBySessionBean) FacesTools
-      .findBean("BrowseBySessionBean");
+  private final BrowseBySessionBean bbBean = (BrowseBySessionBean) FacesTools.findBean("BrowseBySessionBean");
 
   private List<String> creators;
   private List<String> subjects;
@@ -116,10 +115,8 @@ public class BrowseByPage extends BreadcrumbPage {
       if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {
         localLang = "en";
       }
-      final URL coneUrl =
-          new URL(PropertyReader.getProperty("inge.cone.service.url") + type + "/query?f=options&"
-              + this.bbBean.getQuery() + "=\"" + URLEncoder.encode(startChar, "UTF-8")
-              + "*\"&n=0&lang=en");
+      final URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + type + "/query?f=options&" + this.bbBean.getQuery()
+          + "=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();
@@ -128,8 +125,8 @@ public class BrowseByPage extends BreadcrumbPage {
           BrowseByPage.logger.debug("Cone Service responded with 200.");
           break;
         default:
-          throw new RuntimeException("An error occurred while calling Cone Service: "
-              + responseCode + ": " + httpConn.getResponseMessage());
+          throw new RuntimeException(
+              "An error occurred while calling Cone Service: " + responseCode + ": " + httpConn.getResponseMessage());
       }
       final InputStreamReader isReader = new InputStreamReader(coneUrl.openStream(), "UTF-8");
       final BufferedReader bReader = new BufferedReader(isReader);
@@ -245,9 +242,8 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public SelectItem[] getDateOptions() {
-    this.dateOptions =
-        new SelectItem[] {new SelectItem("published", this.getLabel("dateOptionPublished")),
-            new SelectItem("any", this.getLabel("dateOptionAny"))};
+    this.dateOptions = new SelectItem[] {new SelectItem("published", this.getLabel("dateOptionPublished")),
+        new SelectItem("any", this.getLabel("dateOptionAny"))};
 
     return this.dateOptions;
   }
@@ -365,9 +361,8 @@ public class BrowseByPage extends BreadcrumbPage {
 
 
   private void search(QueryBuilder qb) throws Exception {
-    FacesTools.getExternalContext().redirect(
-        "SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
-            + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
+    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
+        + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
   }
 
 

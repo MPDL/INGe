@@ -62,8 +62,7 @@ public class LogMethodDurationInterceptor {
       throw e;
     } finally {
       long time = System.currentTimeMillis() - start;
-      logger.debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_DURATION, new Object[] {
-          target, time}));
+      logger.debug(MessageCreator.getMessage(CommonLogicMessages.METHOD_DURATION, new Object[] {target, time}));
     }
   }
 }

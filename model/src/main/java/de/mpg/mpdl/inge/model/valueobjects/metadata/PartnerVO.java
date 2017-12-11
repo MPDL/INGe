@@ -54,8 +54,11 @@ public class PartnerVO extends ValueObject implements Cloneable {
    * 
    * @updated 05-Sep-2007 12:48:57
    */
-  public enum PartnerRole {
-    AUTHOR, OWNER, EDITOR
+  public enum PartnerRole
+  {
+    AUTHOR,
+    OWNER,
+    EDITOR
   }
 
   private PartnerRole role;
@@ -137,7 +140,6 @@ public class PartnerVO extends ValueObject implements Cloneable {
       return false;
     }
     PartnerVO vo = (PartnerVO) o;
-    return equals(getOrganization(), vo.getOrganization()) && equals(getPerson(), vo.getPerson())
-        && equals(getRole(), vo.getRole());
+    return equals(getOrganization(), vo.getOrganization()) && equals(getPerson(), vo.getPerson()) && equals(getRole(), vo.getRole());
   }
 }

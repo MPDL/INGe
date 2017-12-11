@@ -24,8 +24,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
  * CreatorRoleNotProvided</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements
-    Validator<List<CreatorVO>> {
+public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<CreatorVO>> implements Validator<List<CreatorVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {
@@ -47,8 +46,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
               if (o != null) {
                 if (ValidationTools.isNotEmpty(o.getName()) //
                     || ValidationTools.isNotEmpty(o.getAddress())) {
-                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
-                      .setField("creator[" + i + "]"));
+                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
                   ok = false;
                 }
               }
@@ -61,8 +59,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
               if (p != null) {
                 if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                     || ValidationTools.isNotEmpty(p.getGivenName())) {
-                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED)
-                      .setField("creator[" + i + "]"));
+                  context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
                   ok = false;
                 }
               }
@@ -77,8 +74,7 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
                   if (organizationVO != null) {
                     if (ValidationTools.isNotEmpty(organizationVO.getName()) //
                         || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
-                      context.addError(ValidationError.create(
-                          ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
+                      context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
                           .setField("creator[" + i + "].organization[" + j + "]"));
                       ok = false;
                     }

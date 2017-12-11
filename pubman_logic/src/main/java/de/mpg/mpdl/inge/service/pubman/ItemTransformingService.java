@@ -11,23 +11,19 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 public interface ItemTransformingService {
 
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList)
-      throws TechnicalException;
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList) throws TechnicalException;
 
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList)
-      throws IngeTechnicalException;
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList) throws IngeTechnicalException;
 
   public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target);
 
   public TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT source);
 
-  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target,
-      String xml) throws TransformationException;
-
-  public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat,
-      TransformerFactory.FORMAT targetFormat);
-
-  public String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item)
+  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String xml)
       throws TransformationException;
+
+  public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat);
+
+  public String transformPubItemTo(TransformerFactory.FORMAT target, PubItemVO item) throws TransformationException;
 
 }

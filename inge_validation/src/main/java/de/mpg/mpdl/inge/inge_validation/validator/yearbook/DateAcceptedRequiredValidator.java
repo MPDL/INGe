@@ -8,8 +8,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
-public class DateAcceptedRequiredValidator extends ValidatorHandler<MdsPublicationVO> implements
-    Validator<MdsPublicationVO> {
+public class DateAcceptedRequiredValidator extends ValidatorHandler<MdsPublicationVO> implements Validator<MdsPublicationVO> {
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {

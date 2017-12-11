@@ -62,8 +62,7 @@ public class FileServiceTests {
     // Initialize stuff once for ALL tests (run once)
     try {
       System.out.println("\nStarte SeaweadServer...");
-      Runtime.getRuntime().exec(
-          "c:/Tools/SeaweedFS/start_seaweed.bat > c:/Tools/SeaweedFS/start.log");
+      Runtime.getRuntime().exec("c:/Tools/SeaweedFS/start_seaweed.bat > c:/Tools/SeaweedFS/start.log");
       Thread.currentThread();
       System.out.println("\nwarte...");
       Thread.sleep(40000);
@@ -77,8 +76,7 @@ public class FileServiceTests {
     // Do something after ALL tests have been run (run once)
     try {
       System.out.println("\nBeende SeaweadServer...");
-      Runtime.getRuntime()
-          .exec("c:/Tools/SeaweedFS/kill_seaweed.bat > c:/Tools/SeaweedFS/kill.log");
+      Runtime.getRuntime().exec("c:/Tools/SeaweedFS/kill_seaweed.bat > c:/Tools/SeaweedFS/kill.log");
     } catch (Exception e) {
       System.out.println("\nException" + e);
     }
@@ -104,8 +102,7 @@ public class FileServiceTests {
       seaweedFileServiceBean.deleteFile(fileId);
       retrievedFileOutputStream = new ByteArrayOutputStream();
       seaweedFileServiceBean.readFile(fileId, retrievedFileOutputStream);
-      assertEquals("",
-          new String(((ByteArrayOutputStream) retrievedFileOutputStream).toByteArray()));
+      assertEquals("", new String(((ByteArrayOutputStream) retrievedFileOutputStream).toByteArray()));
       logger.info("--------------------");
     }
   }

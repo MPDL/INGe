@@ -44,13 +44,11 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, SortCriteria
    * @param refreshAlways Set this flag to true if the list should be refreshed any time the page is
    *        called, not only if a get parameter has changed.
    */
-  public BaseListRetrieverRequestBean(
-      BasePaginatorListSessionBean<ListElementType, SortCriteria> plb, boolean refreshAlways) {
+  public BaseListRetrieverRequestBean(BasePaginatorListSessionBean<ListElementType, SortCriteria> plb, boolean refreshAlways) {
     try {
       this.unapiURLview = PropertyReader.getProperty("inge.unapi.service.url");
     } catch (final Exception e) {
-      BaseListRetrieverRequestBean.logger.warn(
-          "Reading in unAPI server URL from properties failed.", e);
+      BaseListRetrieverRequestBean.logger.warn("Reading in unAPI server URL from properties failed.", e);
     }
 
     this.basePaginatorListSessionBean = plb;
@@ -106,8 +104,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, SortCriteria
    * @param sortCriteria Additional filters that have to be included when retrieving the list.
    * @return
    */
-  public abstract List<ListElementType> retrieveList(int offset, int limit,
-      SortCriteria sortCriteria);
+  public abstract List<ListElementType> retrieveList(int offset, int limit, SortCriteria sortCriteria);
 
   /**
    * Must return the total size of the retrieved list without limit and offset parameters. E.g. for

@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
 
 /**
  * 
- <para> Following you will find information which elements and attributes are "required",
+ * <para> Following you will find information which elements and attributes are "required",
  * "optional", "not-allowed" or will be "discarded" in the input XML-stream when creating or
  * updating such an object. </para> <para> In "create" the rule for creating a new object is
  * defined. </para> <para> In "update" the rule for updating an object is defined. </para> <para>
@@ -355,8 +355,7 @@ public class UserGroupVO extends ValueObject {
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((grants == null) ? 0 : grants.hashCode());
     result = prime * result + ((label == null) ? 0 : label.hashCode());
-    result =
-        prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
     result = prime * result + ((members == null) ? 0 : members.hashCode());
     result = prime * result + ((modifiedBy == null) ? 0 : modifiedBy.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());

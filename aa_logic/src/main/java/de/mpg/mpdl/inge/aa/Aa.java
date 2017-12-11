@@ -77,8 +77,7 @@ public class Aa {
         String propertyFilename = context.substring(1) + ".properties";
         logger.info("Loading properties from " + propertyFilename);
         try {
-          InputStream propertyStream =
-              ResourceUtil.getResourceAsStream(propertyFilename, Aa.class.getClassLoader());
+          InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, Aa.class.getClassLoader());
           Config.getProperties().load(propertyStream);
           Config.setLoaded(true);
           // propertyStream.close();
@@ -117,8 +116,7 @@ public class Aa {
       query = "";
     }
 
-    return page + "login.jsp?from=" + URLEncoder.encode(from + query, "UTF-8") + "&tan="
-        + URLEncoder.encode(tan, "UTF-8");
+    return page + "login.jsp?from=" + URLEncoder.encode(from + query, "UTF-8") + "&tan=" + URLEncoder.encode(tan, "UTF-8");
   }
 
 

@@ -13,10 +13,8 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML,
-    targetFormat = FORMAT.HTML_METATAGS_DC_XML)
-@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML,
-    targetFormat = FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML)
+@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.HTML_METATAGS_DC_XML)
+@TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML)
 public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements ChainableTransformer {
 
 
@@ -27,8 +25,7 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
       return getXmlSourceFromProperty("inge.transformation.html_metatags_dc.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-dc.xsl");
     } else if (FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML.equals(getTargetFormat())) {
-      return getXmlSourceFromProperty(
-          "inge.transformation.html_metatags_highwire.stylesheet.filename",
+      return getXmlSourceFromProperty("inge.transformation.html_metatags_highwire.stylesheet.filename",
           "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-highwire-press-citation.xsl");
     } else {
       return null;

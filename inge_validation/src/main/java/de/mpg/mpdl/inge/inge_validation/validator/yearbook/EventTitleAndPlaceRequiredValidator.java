@@ -8,8 +8,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 
-public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventVO> implements
-    Validator<EventVO> {
+public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventVO> implements Validator<EventVO> {
 
   @Override
   public boolean validate(ValidatorContext context, EventVO e) {

@@ -76,14 +76,12 @@ public interface GenericDaoEs<E> {
    * @return
    * @throws IngeTechnicalException
    */
-  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery)
-      throws IngeTechnicalException;
+  public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException;
 
 
   public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException;
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll)
-      throws IngeTechnicalException;
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll) throws IngeTechnicalException;
 
   public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException;
 

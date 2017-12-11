@@ -40,12 +40,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ImageAcquisitionDeviceVO extends AbstractAcquisitionDeviceVO {
 
   /**
-	 * 
-	 */
+   * 
+   */
   private static final long serialVersionUID = 1L;
 
-  public enum DeviceType {
-    SCANNER, MICROSCOPE, TELESCOPE, COMPUTER
+  public enum DeviceType
+  {
+    SCANNER,
+    MICROSCOPE,
+    TELESCOPE,
+    COMPUTER
   }
 
 

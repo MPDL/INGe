@@ -9,7 +9,8 @@ public abstract class AbstractAcquisitionDeviceVO extends ValueObject {
   protected String productionComment;
   protected DeviceType type;
 
-  protected enum DeviceType {
+  protected enum DeviceType
+  {
   }
 
 

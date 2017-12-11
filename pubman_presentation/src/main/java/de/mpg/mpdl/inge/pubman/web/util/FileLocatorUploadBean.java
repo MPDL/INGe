@@ -105,8 +105,8 @@ public abstract class FileLocatorUploadBean extends FacesBean {
           return false;
         default:
           this.error = this.getMessage("errorLocatorTechnicalException");
-          this.logger.warn("An error occurred during importing from external system: "
-              + responseCode + ": " + httpConn.getResponseMessage() + ".");
+          this.logger.warn(
+              "An error occurred during importing from external system: " + responseCode + ": " + httpConn.getResponseMessage() + ".");
           return false;
       }
     } catch (final AccessException e) {

@@ -52,25 +52,21 @@ import de.mpg.mpdl.inge.util.ProxyHelper;
  */
 public class CCCrawler {
 
-  private static final String ccUrl = "http://creativecommons.org/license/results-one?"
-      + "q_1=2&q_1=1&field_format=&field_worktitle=&field_attribute_to_name=&"
-      + "field_attribute_to_url=&field_sourceurl=&field_morepermissionsurl=&n_questions=3";
+  private static final String ccUrl =
+      "http://creativecommons.org/license/results-one?" + "q_1=2&q_1=1&field_format=&field_worktitle=&field_attribute_to_name=&"
+          + "field_attribute_to_url=&field_sourceurl=&field_morepermissionsurl=&n_questions=3";
 
-  public enum YesNo {
+  public enum YesNo
+  {
     n, yes;
 
-    public String toBoolean() {
-      return (this == YesNo.yes) + "";
-    }
-  }
+  public String toBoolean() {
+    return (this == YesNo.yes) + "";
+  }}
 
-  public enum Language {
-    af, bg, ca, cs, da, de, en, en_CA, en_GB, en_HK, en_SG, en_US, eo, es, es_AR, es_CL, es_CO, es_EC, es_GT, es_MX, es_PE, eu, fi, fr, fr_CA, gl, he, hr, hu, it, ja, ko, mk, ms, nl, no, nso, pl, pt, ro, sl, sr, sr_LATN, st, sv, th, zh, zh_HK, zh_TW, zu
-  }
+  public enum Language{af,bg,ca,cs,da,de,en,en_CA,en_GB,en_HK,en_SG,en_US,eo,es,es_AR,es_CL,es_CO,es_EC,es_GT,es_MX,es_PE,eu,fi,fr,fr_CA,gl,he,hr,hu,it,ja,ko,mk,ms,nl,no,nso,pl,pt,ro,sl,sr,sr_LATN,st,sv,th,zh,zh_HK,zh_TW,zu}
 
-  public enum Jurisdiction {
-    ar, at, au, be, bg, br, ca, ch, cl, cn, co, cz, de, dk, ec, es, fi, fr, gr, gt, hk, hr, hu, il, in, it, jp, kr, lu, mk, mt, mx, my, nl, no, nz, pe, ph, pl, pr, pt, ro, rs, scotland, se, sg, si, th, tw, uk, us, za
-  }
+  public enum Jurisdiction{ar,at,au,be,bg,br,ca,ch,cl,cn,co,cz,de,dk,ec,es,fi,fr,gr,gt,hk,hr,hu,il,in,it,jp,kr,lu,mk,mt,mx,my,nl,no,nz,pe,ph,pl,pr,pt,ro,rs,scotland,se,sg,si,th,tw,uk,us,za}
 
   // &field_commercial=yes
   // &field_derivatives=yes

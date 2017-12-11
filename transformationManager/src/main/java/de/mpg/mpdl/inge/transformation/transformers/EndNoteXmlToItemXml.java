@@ -49,8 +49,7 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
       map.put("is-item-list", Boolean.TRUE);
     }
 
-    map.put("content-model",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("source-name", "endnote");
     map.put("root-ou", PropertyReader.getProperty("inge.pubman.root.organisation.id"));
     map.put("external-ou", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
@@ -68,15 +67,13 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(
-        "inge.transformation.endnote.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.endnote.configuration.filename",
         "transformations/commonPublicationFormats/conf/endnote.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return SingleTransformer.getAllConfigurationValuesFromProperty(
-        "inge.transformation.endnote.configuration.filename",
+    return SingleTransformer.getAllConfigurationValuesFromProperty("inge.transformation.endnote.configuration.filename",
         "transformations/commonPublicationFormats/conf/endnote.properties").get(key);
   }
 

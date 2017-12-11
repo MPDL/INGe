@@ -64,34 +64,25 @@ public class DoiRestService {
       // Generate metadata xml for the DOI service
       String itemXml = XmlTransformingService.transformToItem(pubItem);
       Transformer transformer =
-          TransformerCache.getTransformer(TransformerFactory.getInternalFormat(),
-              TransformerFactory.FORMAT.DOI_METADATA_XML);
+          TransformerCache.getTransformer(TransformerFactory.getInternalFormat(), TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();
 
-      transformer.transform(new TransformerStreamSource(
-          new ByteArrayInputStream(itemXml.getBytes())), new TransformerStreamResult(wr));
+      transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes())), new TransformerStreamResult(wr));
 
       // REST request to the DOI service for creating a new DOI
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       String queryParams =
-          "?url="
-              + PropertyReader.getProperty("inge.pubman.instance.url")
-              + PropertyReader.getProperty("inge.pubman.instance.context.path")
-              + (PropertyReader.getProperty("inge.pubman.item.pattern")).replace("$1", pubItem
-                  .getVersion().getObjectId())
-              + "&suffix="
-              + pubItem.getVersion().getObjectId()
-                  .substring(pubItem.getVersion().getObjectId().indexOf(":") + 1);
+          "?url=" + PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
+              + (PropertyReader.getProperty("inge.pubman.item.pattern")).replace("$1", pubItem.getVersion().getObjectId()) + "&suffix="
+              + pubItem.getVersion().getObjectId().substring(pubItem.getVersion().getObjectId().indexOf(":") + 1);
       HttpClient client = new HttpClient();
       client.getParams().setAuthenticationPreemptive(true);
-      Credentials defaultcreds =
-          new UsernamePasswordCredentials(PropertyReader.getProperty("inge.doi.service.user"),
-              PropertyReader.getProperty("inge.doi.service.password"));
+      Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty("inge.doi.service.user"),
+          PropertyReader.getProperty("inge.doi.service.password"));
       client.getState().setCredentials(AuthScope.ANY, defaultcreds);
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      PutMethod putMethod =
-          new PutMethod(PropertyReader.getProperty("inge.doi.service.url")
-              + PropertyReader.getProperty("inge.doi.service.create.url") + queryParams);
+      PutMethod putMethod = new PutMethod(
+          PropertyReader.getProperty("inge.doi.service.url") + PropertyReader.getProperty("inge.doi.service.create.url") + queryParams);
       putMethod.setRequestEntity(xmlEntity);
       int statusCode = client.executeMethod(putMethod);
 
@@ -100,21 +91,18 @@ public class DoiRestService {
         String responseBody = putMethod.getResponseBodyAsString();
         logger.error("Error occured, when contacting DOxI. StatusCode=" + statusCode);
         logger.error(putMethod.getResponseBodyAsString());
-        throw new Exception("Error occured, when contacting DOxI. StatusCode=" + statusCode
-            + "\nServer responded with: " + responseBody);
+        throw new Exception("Error occured, when contacting DOxI. StatusCode=" + statusCode + "\nServer responded with: " + responseBody);
       }
 
       doi = putMethod.getResponseBodyAsString();
 
     } catch (Exception e) {
       logger.error("Error getting new DOI for [" + pubItem.getVersion().getObjectId() + "]", e);
-      throw new Exception("Error getting new DOI for [" + pubItem.getVersion().getObjectId() + "]",
-          e);
+      throw new Exception("Error getting new DOI for [" + pubItem.getVersion().getObjectId() + "]", e);
     }
 
     if (logger.isDebugEnabled()) {
-      logger.debug("Successfully retrieved new DOI for [" + pubItem.getVersion().getObjectId()
-          + "]");
+      logger.debug("Successfully retrieved new DOI for [" + pubItem.getVersion().getObjectId() + "]");
     }
 
     return doi;
@@ -141,13 +129,10 @@ public class DoiRestService {
     // Item must include at least one fulltext to create a DOI
     for (FileVO file : pubItem.getFiles()) {
       if (file.getVisibility() == FileVO.Visibility.PUBLIC
-          && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file
-              .getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file
-                  .getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file
-                  .getContentCategory()) || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                .equals(file.getContentCategory()))) {
+          && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getContentCategory())
+              || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file.getContentCategory())
+              || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file.getContentCategory())
+              || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file.getContentCategory()))) {
         doiReady = true;
       }
     }

@@ -30,8 +30,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class BmcXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
   @Override
-  public void transform(TransformerSource source, TransformerResult result)
-      throws TransformationException {
+  public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
 
     // For the source, a sax source is required which resolves the doctype system id's in the source
@@ -70,13 +69,11 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
     Map<String, Object> map = new HashMap<String, Object>();
 
     String ns_prefix_xsd_soap_common_srel =
-        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{"
-            + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
             : "{http://escidoc.de/core/01/structural-relations/}";
 
 
-    map.put(ns_prefix_xsd_soap_common_srel + "context-URI",
-        PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
     map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
         PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
@@ -93,15 +90,13 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(
-        "inge.transformation.bmc2escidoc.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.bmc2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return SingleTransformer.getAllConfigurationValuesFromProperty(
-        "inge.transformation.bmc2escidoc.configuration.filename",
+    return SingleTransformer.getAllConfigurationValuesFromProperty("inge.transformation.bmc2escidoc.configuration.filename",
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties").get(key);
   }
 

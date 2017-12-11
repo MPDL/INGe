@@ -64,13 +64,10 @@ public class OracleQuerier implements Querier {
     // jdbc:oracle:thin:@myhost:1521:orcl
 
     Class.forName(PropertyReader.getProperty("inge.cone.database.driver.class"));
-    connection =
-        DriverManager.getConnection(
-            "jdbc:oracle:thin:" + PropertyReader.getProperty("inge.cone.database.server.name")
-                + ":" + PropertyReader.getProperty("inge.cone.database.server.port") + ":"
-                + PropertyReader.getProperty("inge.cone.database.name"),
-            PropertyReader.getProperty("inge.cone.database.user.name"),
-            PropertyReader.getProperty("inge.cone.database.user.password"));
+    connection = DriverManager.getConnection(
+        "jdbc:oracle:thin:" + PropertyReader.getProperty("inge.cone.database.server.name") + ":"
+            + PropertyReader.getProperty("inge.cone.database.server.port") + ":" + PropertyReader.getProperty("inge.cone.database.name"),
+        PropertyReader.getProperty("inge.cone.database.user.name"), PropertyReader.getProperty("inge.cone.database.user.password"));
 
     // connection = dataSource.getConnection();
   }
@@ -78,16 +75,14 @@ public class OracleQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String query, ModeType modeType)
-      throws ConeException {
+  public List<? extends Describable> query(String model, String query, ModeType modeType) throws ConeException {
     return query(model, query, null, modeType);
   }
 
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String query, String language,
-      ModeType modeType) throws ConeException {
+  public List<? extends Describable> query(String model, String query, String language, ModeType modeType) throws ConeException {
 
     String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
 
@@ -97,8 +92,8 @@ public class OracleQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields,
-      String language, ModeType modeType) throws ConeException {
+  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String language, ModeType modeType)
+      throws ConeException {
 
     String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
 
@@ -108,8 +103,8 @@ public class OracleQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String searchString, String language,
-      ModeType modeType, int limit) throws ConeException {
+  public List<? extends Describable> query(String model, String searchString, String language, ModeType modeType, int limit)
+      throws ConeException {
     if (modeType == ModeType.FAST) {
       return queryFast(model, searchString, language, limit);
     } else if (modeType == ModeType.FULL) {
@@ -120,8 +115,7 @@ public class OracleQuerier implements Querier {
 
   }
 
-  public List<? extends Describable> queryFast(String model, String searchString, String language,
-      int limit) throws ConeException {
+  public List<? extends Describable> queryFast(String model, String searchString, String language, int limit) throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection already closed.");
@@ -137,23 +131,16 @@ public class OracleQuerier implements Querier {
       for (int i = 0; i < searchStrings.length; i++) {
         subQuery += " and";
         if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-          subQuery +=
-              " lower('|' || value || '|') like lower('%|"
-                  + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%')";
+          subQuery += " lower('|' || value || '|') like lower('%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%')";
         } else {
           subQuery += " lower(value) like lower('%" + searchStrings[i] + "%')";
         }
       }
-      String query =
-          "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
+      String query = "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
       query += ")";
       if (!"*".equals(language)) {
-        query +=
-            "and (lang = '"
-                + language
-                + "' or (lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += "and (lang = '" + language + "' or (lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
       if (limit > 0) {
         query += " and rownum <= " + limit;
@@ -173,8 +160,7 @@ public class OracleQuerier implements Querier {
         String id = result.getString("id");
         String value = result.getString("value");
         String lang = result.getString("lang");
-        Pair<LocalizedString> pair =
-            new Pair<LocalizedString>(id, new LocalizedString(value, lang));
+        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new LocalizedString(value, lang));
         resultSet.add(pair);
       }
 
@@ -187,8 +173,7 @@ public class OracleQuerier implements Querier {
     }
   }
 
-  public List<? extends Describable> queryFull(String model, String searchString, String language,
-      int limit) throws ConeException {
+  public List<? extends Describable> queryFull(String model, String searchString, String language, int limit) throws ConeException {
 
     try {
       if (connection.isClosed()) {
@@ -206,23 +191,16 @@ public class OracleQuerier implements Querier {
       for (int i = 0; i < searchStrings.length; i++) {
         subQuery += " and";
         if (searchStrings[i].startsWith("\"") && searchStrings[i].endsWith("\"")) {
-          subQuery +=
-              " lower('|' || value || '|') like lower('%|"
-                  + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%')";
+          subQuery += " lower('|' || value || '|') like lower('%|" + searchStrings[i].substring(1, searchStrings[i].length() - 1) + "|%')";
         } else {
           subQuery += " lower(value) like lower('%" + searchStrings[i] + "%')";
         }
       }
-      String query =
-          "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
+      String query = "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
       query += ")";
       if (!"*".equals(language)) {
-        query +=
-            "and (lang = '"
-                + language
-                + "' or (lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += "and (lang = '" + language + "' or (lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
 
       if (limit > 0) {
@@ -256,8 +234,8 @@ public class OracleQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs,
-      String language, ModeType modeType, int limit) throws ConeException {
+  public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit)
+      throws ConeException {
     if (modeType == ModeType.FAST) {
       return queryFast(modelName, searchPairs, language, limit);
     } else if (modeType == ModeType.FULL) {
@@ -267,8 +245,8 @@ public class OracleQuerier implements Querier {
     }
   }
 
-  private List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs,
-      String language, int limit) throws ConeException {
+  private List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs, String language, int limit)
+      throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -304,23 +282,16 @@ public class OracleQuerier implements Querier {
       for (Pair<String> pair : allPairs) {
         subQuery += " and (predicate = '" + pair.getKey() + "' and ";
         if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\"")) {
-          subQuery +=
-              " lower(object) like lower('"
-                  + pair.getValue().substring(1, pair.getValue().length() - 1) + "'))";
+          subQuery += " lower(object) like lower('" + pair.getValue().substring(1, pair.getValue().length() - 1) + "'))";
         } else {
           subQuery += " lower(object) like lower('%" + pair.getValue() + "%'))";
         }
       }
-      String query =
-          "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
+      String query = "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
       query += ")";
       if (!"*".equals(language)) {
-        query +=
-            "and (lang = '"
-                + language
-                + "' or (lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += "and (lang = '" + language + "' or (lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
 
       if (limit > 0) {
@@ -340,8 +311,7 @@ public class OracleQuerier implements Querier {
         String id = result.getString("id");
         String value = result.getString("value");
         String lang = result.getString("lang");
-        Pair<LocalizedString> pair =
-            new Pair<LocalizedString>(id, new LocalizedString(value, lang));
+        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new LocalizedString(value, lang));
         resultSet.add(pair);
       }
 
@@ -354,8 +324,8 @@ public class OracleQuerier implements Querier {
     }
   }
 
-  private List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs,
-      String language, int limit) throws ConeException {
+  private List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit)
+      throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -390,23 +360,16 @@ public class OracleQuerier implements Querier {
       for (Pair<String> pair : allPairs) {
         subQuery += " and (predicate = '" + pair.getKey() + "' and ";
         if (pair.getValue().startsWith("\"") && pair.getValue().endsWith("\"")) {
-          subQuery +=
-              " lower(object) like lower('"
-                  + pair.getValue().substring(1, pair.getValue().length() - 1) + "'))";
+          subQuery += " lower(object) like lower('" + pair.getValue().substring(1, pair.getValue().length() - 1) + "'))";
         } else {
           subQuery += " lower(object) like lower('%" + pair.getValue() + "%'))";
         }
       }
-      String query =
-          "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
+      String query = "select distinct r1.id, r1.value, r1.lang" + " from results r1 where id in (" + subQuery;
       query += ")";
       if (!"*".equals(language)) {
-        query +=
-            "and (lang = '"
-                + language
-                + "' or (lang is null and '"
-                + language
-                + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+        query += "and (lang = '" + language + "' or (lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
 
       if (limit > 0) {
@@ -449,8 +412,7 @@ public class OracleQuerier implements Querier {
     Matcher matcher = pattern.matcher(searchString);
     int start = 0;
     while (start < searchString.length() && matcher.find(start)) {
-      if (start < matcher.start()
-          && !"".equals(searchString.substring(start, matcher.start()).trim())) {
+      if (start < matcher.start() && !"".equals(searchString.substring(start, matcher.start()).trim())) {
         list.addAll(Arrays.asList(searchString.substring(start, matcher.start()).split(" ")));
       }
       list.add(matcher.group(1));
@@ -494,8 +456,8 @@ public class OracleQuerier implements Querier {
     }
   }
 
-  private TreeFragment details(String modelName, String id, String language, Stack<String> idStack,
-      Connection connection) throws ConeException {
+  private TreeFragment details(String modelName, String id, String language, Stack<String> idStack, Connection connection)
+      throws ConeException {
 
     try {
       Model model = ModelList.getInstance().getModelByAlias(modelName);
@@ -508,8 +470,8 @@ public class OracleQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  private TreeFragment details(String modelName, List<Predicate> predicates, String id,
-      String language, Stack<String> idStack, Connection connection) throws ConeException {
+  private TreeFragment details(String modelName, List<Predicate> predicates, String id, String language, Stack<String> idStack,
+      Connection connection) throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -550,13 +512,11 @@ public class OracleQuerier implements Querier {
             if (!predicate.isRestricted() || loggedIn) {
               if (predicate.isResource() && !(idStack.contains(object))) {
                 idStack.push(object);
-                localizedTripleObject =
-                    details(predicate.getResourceModel(), object, language, idStack, connection);
+                localizedTripleObject = details(predicate.getResourceModel(), object, language, idStack, connection);
                 idStack.pop();
                 localizedTripleObject.setLanguage(lang);
               } else if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
-                localizedTripleObject =
-                    details(null, predicate.getPredicates(), object, language, idStack, connection);
+                localizedTripleObject = details(null, predicate.getPredicates(), object, language, idStack, connection);
                 localizedTripleObject.setLanguage(lang);
               } else {
                 localizedTripleObject = new LocalizedString(object, lang);
@@ -579,8 +539,7 @@ public class OracleQuerier implements Querier {
           }
         }
         if (!found) {
-          logger.error("Predicate '" + predicateValue + "' (subject = '" + id
-              + "') not found in model '" + modelName + "'");
+          logger.error("Predicate '" + predicateValue + "' (subject = '" + id + "') not found in model '" + modelName + "'");
           // throw new ConeException("Predicate '" + predicateValue
           // +
           // "' not found in model.");
@@ -625,8 +584,7 @@ public class OracleQuerier implements Querier {
         int count = result.getInt("cnt");
         if (count > 0) {
           if (modelName != null) {
-            throw new ConeException("Trying to create a resource that is already existing: "
-                + modelName + " " + id);
+            throw new ConeException("Trying to create a resource that is already existing: " + modelName + " " + id);
           } else {
             // Won't update an existing resource linked from this
             // resource
@@ -636,12 +594,10 @@ public class OracleQuerier implements Querier {
           }
         }
       } else {
-        throw new ConeException(
-            "Select count statement should always return a result, but did not.");
+        throw new ConeException("Select count statement should always return a result, but did not.");
       }
 
-      query =
-          "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
+      query = "insert into triples (subject, predicate, object, lang, model) values (?, ?,  ?, ?, ?)";
 
       result.close();
       statement.close();
@@ -653,8 +609,7 @@ public class OracleQuerier implements Querier {
         statement.setString(5, modelName);
 
         for (LocalizedTripleObject object : values.get(predicate)) {
-          if (object instanceof LocalizedString
-              && !"".equals(((LocalizedString) object).getValue())) {
+          if (object instanceof LocalizedString && !"".equals(((LocalizedString) object).getValue())) {
             statement.setString(3, ((LocalizedString) object).getValue());
           } else if (object instanceof TreeFragment) {
             statement.setString(3, ((TreeFragment) object).getSubject());
@@ -679,8 +634,7 @@ public class OracleQuerier implements Querier {
 
         statement.setString(1, id);
 
-        List<Pair<ResultEntry>> results =
-            ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
+        List<Pair<ResultEntry>> results = ModelHelper.buildObjectFromPatternNew(modelName, id, values, loggedIn);
 
         for (Pair<ResultEntry> pair : results) {
           if (pair.getValue() != null && !"".equals(pair.getValue())) {
@@ -701,8 +655,7 @@ public class OracleQuerier implements Querier {
         statement.setString(1, id);
         statement.setString(4, modelName);
 
-        List<Pair<LocalizedString>> matchResults =
-            ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
+        List<Pair<LocalizedString>> matchResults = ModelHelper.buildMatchStringFromModel(modelName, id, values, loggedIn);
 
         for (Pair<LocalizedString> pair : matchResults) {
           if (pair.getValue() != null && !"".equals(pair.getValue())) {
@@ -744,8 +697,7 @@ public class OracleQuerier implements Querier {
       PreparedStatement statement = connection.prepareStatement(query);
 
       for (Predicate predicate : predicates) {
-        if (!predicate.isResource() && predicate.getPredicates() != null
-            && predicate.getPredicates().size() > 0) {
+        if (!predicate.isResource() && predicate.getPredicates() != null && predicate.getPredicates().size() > 0) {
 
           statement.setString(1, id);
           statement.setString(2, predicate.getId());
@@ -909,8 +861,7 @@ public class OracleQuerier implements Querier {
       statement.executeUpdate();
       statement.close();
 
-      query =
-          "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
+      query = "delete from results r1 where r1.id in ( select id from results left join triples on id = subject where subject is null)";
       statement = connection.prepareStatement(query);
       statement.executeUpdate();
 

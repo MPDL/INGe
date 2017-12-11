@@ -20,8 +20,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
  * .))"> UnknownLanguageCode</iso:assert> </iso:rule> </iso:pattern>
  */
 
-public class LanguageCodeValidator extends ValidatorHandler<List<String>> implements
-    Validator<List<String>> {
+public class LanguageCodeValidator extends ValidatorHandler<List<String>> implements Validator<List<String>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<String> languages) {
@@ -30,8 +29,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     if (ValidationTools.isNotEmpty(languages)) {
 
-      final Set<String> iso639_3_IdentifierSet =
-          ConeCache.getInstance().getIso639_3_IdentifierSet();
+      final Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
 
       if (ValidationTools.isEmpty(iso639_3_IdentifierSet)) {
         context.addErrorMsg(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE);
@@ -42,8 +40,7 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
       for (final String language : languages) {
 
         if (!iso639_3_IdentifierSet.contains(language)) {
-          context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField(
-              "language[" + i + "]"));
+          context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField("language[" + i + "]"));
           ok = false;
         }
 
