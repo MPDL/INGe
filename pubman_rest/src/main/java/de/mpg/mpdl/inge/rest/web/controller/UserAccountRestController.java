@@ -176,14 +176,16 @@ public class UserAccountRestController {
 
   @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
   @ApiIgnore
-  public ResponseEntity<?> changePassword(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String params)
+  public ResponseEntity<AccountUserVO> changePassword(
+      @RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String changedPassword)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException {
-    Date lmd = utils.string2Date(params.split("#")[0]);
-    String pwd = params.split("#")[1];
-    userSvc.changePassword(userId, lmd, pwd, token);
-    return new ResponseEntity<>(HttpStatus.OK);
+    AccountUserVO user = userSvc.get(userId, token);
+    Date lmd = user.getLastModificationDate();
+    AccountUserVO updated = null;
+    updated = userSvc.changePassword(userId, lmd, changedPassword, token);
+    return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
