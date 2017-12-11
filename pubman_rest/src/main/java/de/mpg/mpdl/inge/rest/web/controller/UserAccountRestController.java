@@ -51,53 +51,42 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> getAll(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit",
-      required = true, defaultValue = "10") int limit, @RequestParam(value = "offset",
-      required = true, defaultValue = "0") int offset) throws AuthenticationException,
-      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-    SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
-    SearchRetrieveRequestVO srRequest =
-        new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
+    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> filter(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true,
-          defaultValue = "10") int limit, @RequestParam(value = "offset", required = true,
-          defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
-    QueryBuilder matchQueryParam =
-        QueryBuilders.boolQuery().filter(
-            QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-    SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
-    SearchRetrieveRequestVO srRequest =
-        new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
+    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> query(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException, IOException {
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>> query(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestBody JsonNode query)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AccountUserVO> srResponse = userSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<AccountUserVO> get(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @PathVariable(
-          value = USER_ID_VAR) String userId) throws AuthenticationException,
-      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<AccountUserVO> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = USER_ID_VAR) String userId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO user = null;
     if (token != null && !token.isEmpty()) {
       user = userSvc.get(userId, token);
@@ -108,9 +97,8 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<AccountUserVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @RequestBody AccountUserVO user) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<AccountUserVO> create(@RequestHeader(value = AUTHZ_HEADER) String token, @RequestBody AccountUserVO user)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO created = null;
     created = userSvc.create(user, token);
     return new ResponseEntity<AccountUserVO>(created, HttpStatus.CREATED);
@@ -119,8 +107,7 @@ public class UserAccountRestController {
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.PUT)
   public ResponseEntity<AccountUserVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody AccountUserVO user)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO updated = null;
     updated = userSvc.update(user, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
@@ -129,8 +116,7 @@ public class UserAccountRestController {
   @RequestMapping(value = USER_ID_PATH + "/add", method = RequestMethod.PUT)
   public ResponseEntity<AccountUserVO> addGrant(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO user2AddGrants2 = userSvc.get(userId, token);
     AccountUserVO updated = null;
     updated = userSvc.addGrants(userId, user2AddGrants2.getLastModificationDate(), grants, token);
@@ -138,24 +124,19 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = USER_ID_PATH + "/remove", method = RequestMethod.PUT)
-  public ResponseEntity<AccountUserVO> removeGrant(
-      @RequestHeader(value = AUTHZ_HEADER) String token,
+  public ResponseEntity<AccountUserVO> removeGrant(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO user2RemoveGrantsFrom = userSvc.get(userId, token);
     AccountUserVO updated = null;
-    updated =
-        userSvc
-            .removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
+    updated = userSvc.removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
     return new ResponseEntity<AccountUserVO>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = USER_ID_PATH + "/activate", method = RequestMethod.PUT)
   public ResponseEntity<AccountUserVO> activate(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Date lmd = utils.string2Date(modificationDate);
     AccountUserVO updated = null;
     updated = userSvc.activate(userId, lmd, token);
@@ -163,11 +144,9 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = USER_ID_PATH + "/deactivate", method = RequestMethod.PUT)
-  public ResponseEntity<AccountUserVO> deactivate(
-      @RequestHeader(value = AUTHZ_HEADER) String token,
+  public ResponseEntity<AccountUserVO> deactivate(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Date lmd = utils.string2Date(modificationDate);
     AccountUserVO updated = null;
     updated = userSvc.deactivate(userId, lmd, token);
@@ -176,11 +155,9 @@ public class UserAccountRestController {
 
   @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
   @ApiIgnore
-  public ResponseEntity<AccountUserVO> changePassword(
-      @RequestHeader(value = AUTHZ_HEADER) String token,
+  public ResponseEntity<AccountUserVO> changePassword(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String changedPassword)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO user = userSvc.get(userId, token);
     Date lmd = user.getLastModificationDate();
     AccountUserVO updated = null;
@@ -189,9 +166,8 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.DELETE)
-  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = USER_ID_VAR) String userId) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = USER_ID_VAR) String userId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     userSvc.delete(userId, token);
     return new ResponseEntity<>(HttpStatus.OK);
   }

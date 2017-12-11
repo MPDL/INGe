@@ -124,7 +124,7 @@ public class ReportFHI {
       months = new Integer(rprops.getProperty("FHI.report.months.range")).intValue();
     } catch (Exception e) {
       throw new RuntimeException("Cannot read/convert FHI.report.months.range:", e);
-    };
+    } ;
 
     // from
     Calendar fromMonth = GregorianCalendar.getInstance();
@@ -136,8 +136,7 @@ public class ReportFHI {
     toMonth.add(Calendar.MONTH, -1);
     String toYearMonth = dateformatter.format(toMonth.getTime());
 
-    return new String[] {
-        fromYearMonth + String.format("%02d", fromMonth.getActualMinimum(Calendar.DAY_OF_MONTH)),
+    return new String[] {fromYearMonth + String.format("%02d", fromMonth.getActualMinimum(Calendar.DAY_OF_MONTH)),
         toYearMonth + toMonth.getActualMaximum(Calendar.DAY_OF_MONTH)};
   }
 
@@ -145,8 +144,7 @@ public class ReportFHI {
   private static String getTimeRangeQuery() {
     String[] dd = getStartEndDateOfQuery();
 
-    return "(\"/properties/creation-date\">=\"" + dd[0] + "\""
-        + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
+    return "(\"/properties/creation-date\">=\"" + dd[0] + "\"" + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
   }
 
   public static String getItemListFromFramework() {
@@ -158,11 +156,8 @@ public class ReportFHI {
     try {
       method = new GetMethod(PropertyReader.getFrameworkUrl() + "/ir/items");
       method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
-      String query =
-          "operation=searchRetrieve&maximumRecords=1000&query="
-              + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8") + "%20and%20"
-              + URLEncoder.encode(getTimeRangeQuery(), "UTF-8")
-              + URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");
+      String query = "operation=searchRetrieve&maximumRecords=1000&query=" + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8")
+          + "%20and%20" + URLEncoder.encode(getTimeRangeQuery(), "UTF-8") + URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");
       logger.info("query <" + query + ">");
 
       method.setQueryString(query);
@@ -203,12 +198,8 @@ public class ReportFHI {
     Transformer transformer;
     try {
       // resolution of containers, like authors and source names
-      transformer =
-          tf.newTemplates(
-              new StreamSource(JRLoader.getLocationInputStream("schemas/make-containers.xsl")))
-              .newTransformer();
-      transformer.transform(new StreamSource(new StringReader(getItemListFromFramework())),
-          new StreamResult(sw));
+      transformer = tf.newTemplates(new StreamSource(JRLoader.getLocationInputStream("schemas/make-containers.xsl"))).newTransformer();
+      transformer.transform(new StreamSource(new StringReader(getItemListFromFramework())), new StreamResult(sw));
 
     } catch (Exception e) {
       throw new RuntimeException("Cannot transform item-list XML containers:", e);
@@ -255,8 +246,7 @@ public class ReportFHI {
 
     // fill report in memory
     JasperPrint jasperPrint;
-    jasperPrint =
-        JasperFillManager.fillReport(jr, params, new JRXmlDataSource(doc, jr.getQuery().getText()));
+    jasperPrint = JasperFillManager.fillReport(jr, params, new JRXmlDataSource(doc, jr.getQuery().getText()));
 
     ArrayList<String> atts = new ArrayList<String>();
     String fn;
@@ -289,17 +279,13 @@ public class ReportFHI {
    */
   public static void sendReport(String[] attFileNames, boolean testing) {
     // send email with attachments
-    String toEmails =
-        (testing ? rprops.getProperty("FHI.recipients.addresses.test") : rprops
-            .getProperty("FHI.recipients.addresses"));
+    String toEmails = (testing ? rprops.getProperty("FHI.recipients.addresses.test") : rprops.getProperty("FHI.recipients.addresses"));
     if (toEmails != null && !toEmails.trim().equals("")) {
       String[] timeRange = getStartEndDateOfQuery();
       try {
-        EmailService.sendMail(emailServernameProp, emailWithAuthProp, emailAuthUserProp,
-            emailAuthPwdProp, rprops.getProperty("FHI.sender.address"), toEmails.split(","), rprops
-                .getProperty("FHI.recipients.cc.addresses").split(","),
-            rprops.getProperty("FHI.recipients.bcc.addresses").split(","),
-            rprops.getProperty("FHI.reply.to.addresses").split(","),
+        EmailService.sendMail(emailServernameProp, emailWithAuthProp, emailAuthUserProp, emailAuthPwdProp,
+            rprops.getProperty("FHI.sender.address"), toEmails.split(","), rprops.getProperty("FHI.recipients.cc.addresses").split(","),
+            rprops.getProperty("FHI.recipients.bcc.addresses").split(","), rprops.getProperty("FHI.reply.to.addresses").split(","),
             rprops.getProperty("FHI.subject") + ", von " + timeRange[0] + " bis " + timeRange[1],
             new String(rprops.getProperty("FHI.body")), attFileNames);
       } catch (TechnicalException e) {
@@ -366,8 +352,7 @@ public class ReportFHI {
   }
 
   public static String replaceAllTotal(String what, String expr, String replacement) {
-    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what)
-        .replaceAll(replacement);
+    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what).replaceAll(replacement);
   }
 
   public static String replaceAllTotal(String what, Pattern p, String replacement) {

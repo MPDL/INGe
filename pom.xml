@@ -1454,8 +1454,8 @@
 										</pluginExecution>
 										<pluginExecution>
 											<pluginExecutionFilter>
-												<groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-												<artifactId>maven-java-formatter-plugin</artifactId>
+											<groupId>net.revelc.code.formatter</groupId>
+											<artifactId>formatter-maven-plugin</artifactId>
 												<versionRange>[0.4,)</versionRange>
 												<goals>
 													<goal>format</goal>

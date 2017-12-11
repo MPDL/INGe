@@ -26,8 +26,7 @@ public class FeedRestController {
   @Autowired
   private FeedServiceImpl feedService;
 
-  @RequestMapping(value = "/recent", method = RequestMethod.GET,
-      produces = DEFAULT_PRODUCE_MIMETYPE)
+  @RequestMapping(value = "/recent", method = RequestMethod.GET, produces = DEFAULT_PRODUCE_MIMETYPE)
   public String getRecentReleases() throws Exception {
     SyndFeed feed = feedService.recentReleases();
     feed.setFeedType(DEFAULT_FEEDTYPE);
@@ -35,20 +34,16 @@ public class FeedRestController {
 
   }
 
-  @RequestMapping(value = "/organization/{ouId}", method = RequestMethod.GET,
-      produces = DEFAULT_PRODUCE_MIMETYPE)
-  public String getRecentReleasesforOu(@PathVariable(value = "ouId", required = true) String ouId)
-      throws Exception {
+  @RequestMapping(value = "/organization/{ouId}", method = RequestMethod.GET, produces = DEFAULT_PRODUCE_MIMETYPE)
+  public String getRecentReleasesforOu(@PathVariable(value = "ouId", required = true) String ouId) throws Exception {
     SyndFeed feed = feedService.recentReleasesforOrganizationalUnit(ouId);
     feed.setFeedType(DEFAULT_FEEDTYPE);
     return new SyndFeedOutput().outputString(feed);
 
   }
 
-  @RequestMapping(value = "/search", method = RequestMethod.GET,
-      produces = DEFAULT_PRODUCE_MIMETYPE)
-  public String getSearchAsFeed(@RequestParam(value = "q", required = true) String query)
-      throws Exception {
+  @RequestMapping(value = "/search", method = RequestMethod.GET, produces = DEFAULT_PRODUCE_MIMETYPE)
+  public String getSearchAsFeed(@RequestParam(value = "q", required = true) String query) throws Exception {
     QueryBuilder qb = QueryBuilders.wrapperQuery(query);
     SyndFeed feed = feedService.recentReleasesSearchQuery(qb);
     feed.setFeedType(DEFAULT_FEEDTYPE);

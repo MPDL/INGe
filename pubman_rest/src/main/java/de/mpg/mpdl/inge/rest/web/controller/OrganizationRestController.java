@@ -49,70 +49,57 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> getAll(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "limit",
-      required = true, defaultValue = "10") int limit, @RequestParam(value = "offset",
-      required = true, defaultValue = "0") int offset) throws AuthenticationException,
-      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-    SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"),
-            SortOrder.ASC);
-    SearchRetrieveRequestVO srRequest =
-        new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
+    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> filter(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true,
-          defaultValue = "10") int limit, @RequestParam(value = "offset", required = true,
-          defaultValue = "0") int offset) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
-    QueryBuilder matchQueryParam =
-        QueryBuilders.boolQuery().filter(
-            QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-    SearchSortCriteria sorting =
-        new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"),
-            SortOrder.ASC);
-    SearchRetrieveRequestVO srRequest =
-        new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
+    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> query(@RequestHeader(
-      value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException, IOException {
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>> query(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestBody JsonNode query)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AffiliationVO> srResponse = organizationSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/toplevel", method = RequestMethod.GET)
-  public ResponseEntity<List<AffiliationVO>> topLevel() throws AuthenticationException,
-      AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<List<AffiliationVO>> topLevel()
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AffiliationVO> response = organizationSvc.searchTopLevelOrganizations();
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
   }
 
   @RequestMapping(value = OU_ID_PATH + "/children", method = RequestMethod.GET)
-  public ResponseEntity<List<AffiliationVO>> childOrganizations(@PathVariable(
-      value = OU_ID_VAR) String parentAffiliationId) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<List<AffiliationVO>> childOrganizations(@PathVariable(value = OU_ID_VAR) String parentAffiliationId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AffiliationVO> response = organizationSvc.searchChildOrganizations(parentAffiliationId);
     response.sort((ou1, ou2) -> ou1.getDefaultMetadata().getName().compareTo(ou2.getDefaultMetadata().getName()));
     return new ResponseEntity<List<AffiliationVO>>(response, HttpStatus.OK);
   }
 
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<AffiliationVO> get(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @PathVariable(
-          value = OU_ID_VAR) String ouId) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<AffiliationVO> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationVO ou = null;
     if (token != null && !token.isEmpty()) {
       ou = organizationSvc.get(ouId, token);
@@ -123,19 +110,17 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<AffiliationVO> create(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @RequestBody AffiliationVO ou) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<AffiliationVO> create(@RequestHeader(value = AUTHZ_HEADER) String token, @RequestBody AffiliationVO ou)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationVO created = null;
     created = organizationSvc.create(ou, token);
     return new ResponseEntity<AffiliationVO>(created, HttpStatus.CREATED);
   }
 
   @RequestMapping(value = OU_ID_PATH + "/open", method = RequestMethod.PUT)
-  public ResponseEntity<AffiliationVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+  public ResponseEntity<AffiliationVO> open(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = OU_ID_VAR) String ouId,
+      @RequestBody String modificationDate)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationVO opened = null;
     Date lmd = utils.string2Date(modificationDate);
     opened = organizationSvc.open(ouId, lmd, token);
@@ -145,8 +130,7 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH + "/close", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationVO closed = null;
     Date lmd = utils.string2Date(modificationDate);
     closed = organizationSvc.close(ouId, lmd, token);
@@ -156,17 +140,15 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.PUT)
   public ResponseEntity<AffiliationVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody AffiliationVO ou)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationVO updated = null;
     updated = organizationSvc.update(ou, token);
     return new ResponseEntity<AffiliationVO>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.DELETE)
-  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(
-      value = OU_ID_VAR) String ouId) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = OU_ID_VAR) String ouId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     organizationSvc.delete(ouId, token);
     return new ResponseEntity<>(HttpStatus.OK);
   }

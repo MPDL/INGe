@@ -48,19 +48,16 @@ public class StagingFileRestController {
    */
   @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.CREATED)
-  public String createStageComponent(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+  public String createStageComponent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable String componentName, HttpServletRequest request)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     // HttpHeaders headers = new HttpHeaders();
     // headers.setContentType(MediaType.TEXT_HTML);
 
     int stagedFileId;
     try {
-      stagedFileId =
-          fileService.createStageFile(request.getInputStream(), componentName, token).getId();
+      stagedFileId = fileService.createStageFile(request.getInputStream(), componentName, token).getId();
     } catch (IOException e) {
 
       logger.error("Error while opening input stream", e);

@@ -30,8 +30,7 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**").exposedHeaders("Token")
-        .allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
+    registry.addMapping("/**").exposedHeaders("Token").allowedMethods("OPTIONS", "HEAD", "GET", "POST", "PUT", "DELETE");
   }
 
   @Override
@@ -63,11 +62,9 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html").addResourceLocations(
-        "classpath:/META-INF/resources/");
+    registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 
-    registry.addResourceHandler("/webjars/**").addResourceLocations(
-        "classpath:/META-INF/resources/webjars/");
+    registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
 }

@@ -41,8 +41,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       authcErrors = addTheCause(authcErrors, authcException);
       return authcErrors;
     } else {
-      return new VndErrors("401", authcException.getClass().getCanonicalName() + ": "
-          + "no message available!");
+      return new VndErrors("401", authcException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
 
@@ -55,8 +54,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       authzErrors = addTheCause(authzErrors, authzException);
       return authzErrors;
     } else {
-      return new VndErrors("403", authzException.getClass().getCanonicalName() + ": "
-          + "no message available!");
+      return new VndErrors("403", authzException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
 
@@ -69,8 +67,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       techErrors = addTheCause(techErrors, iingeTechnicalException);
       return techErrors;
     } else {
-      return new VndErrors("500", iingeTechnicalException.getClass().getCanonicalName() + ": "
-          + "no message available!");
+      return new VndErrors("500", iingeTechnicalException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
 
@@ -83,8 +80,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       appErrors = addTheCause(appErrors, iingeApplicationException);
       return appErrors;
     } else {
-      return new VndErrors("400", iingeApplicationException.getClass().getCanonicalName() + ": "
-          + "no message available!");
+      return new VndErrors("400", iingeApplicationException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
 
@@ -95,8 +91,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     if (validationException.getMessage() != null) {
       return new VndErrors("400", validationException.getMessage());
     } else {
-      return new VndErrors("400", validationException.getClass().getCanonicalName() + ": "
-          + "no message available!");
+      return new VndErrors("400", validationException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
 
@@ -106,14 +101,11 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   VndErrors genreic(Exception exception) {
     logger.error("pech!", exception);
     if (exception.getMessage() != null) {
-      VndErrors genericErrors =
-          new VndErrors("500", exception.getClass().getCanonicalName() + ": "
-              + exception.getMessage());
+      VndErrors genericErrors = new VndErrors("500", exception.getClass().getCanonicalName() + ": " + exception.getMessage());
       genericErrors = addTheCause(genericErrors, exception);
       return genericErrors;
     } else {
-      return new VndErrors("500", exception.getClass().getCanonicalName() + ": "
-          + "no message available!");
+      return new VndErrors("500", exception.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
 
@@ -131,8 +123,8 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @Override
-  protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex,
-      HttpHeaders headers, HttpStatus status, WebRequest request) {
+  protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status,
+      WebRequest request) {
     Throwable mostSpecificCause = ex.getMostSpecificCause();
     VndError errorMessage;
     if (mostSpecificCause != null) {
@@ -146,21 +138,18 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-      HttpHeaders headers, HttpStatus status, WebRequest request) {
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
+      WebRequest request) {
     List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
     List<ObjectError> globalErrors = ex.getBindingResult().getGlobalErrors();
     List<VndError> errors = new ArrayList<VndError>(fieldErrors.size() + globalErrors.size());
     VndError error;
     for (FieldError fieldError : fieldErrors) {
-      error =
-          new VndError("invalid!!!", fieldError.getField() + ", " + fieldError.getDefaultMessage());
+      error = new VndError("invalid!!!", fieldError.getField() + ", " + fieldError.getDefaultMessage());
       errors.add(error);
     }
     for (ObjectError objectError : globalErrors) {
-      error =
-          new VndError("invalid!!!", objectError.getObjectName() + ", "
-              + objectError.getDefaultMessage());
+      error = new VndError("invalid!!!", objectError.getObjectName() + ", " + objectError.getDefaultMessage());
       errors.add(error);
     }
     VndErrors errorMessage = new VndErrors(errors);

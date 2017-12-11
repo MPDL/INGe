@@ -12,8 +12,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import de.mpg.mpdl.inge.rest.spring.PubmanRestConfiguration;
 
 
-public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements
-    WebApplicationInitializer {
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer implements WebApplicationInitializer {
 
   @Override
   protected Class<?>[] getRootConfigClasses() {

@@ -46,8 +46,7 @@ public class UnapiRestController {
       @RequestParam(value = "show", required = false) Boolean show, //
       @RequestParam(value = "format", required = false) String formatName)
       //
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     String srResponse = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -85,8 +84,7 @@ public class UnapiRestController {
         xmlFormats.setId(identifier);
       }
 
-      TransformerFactory.FORMAT[] targetFormats =
-          this.its.getAllTargetFormatsFor(TransformerFactory.getInternalFormat());
+      TransformerFactory.FORMAT[] targetFormats = this.its.getAllTargetFormatsFor(TransformerFactory.getInternalFormat());
 
       for (TransformerFactory.FORMAT targetFormat : targetFormats) {
         FormatType xmlFormat = xmlFormats.addNewFormat();

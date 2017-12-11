@@ -41,12 +41,10 @@ public class AuthCookieToHeaderFilter implements Filter {
   }
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-    if (httpServletRequest.getHeader(AUTHZ_HEADER) == null
-        || httpServletRequest.getHeader(AUTHZ_HEADER).isEmpty()) {
+    if (httpServletRequest.getHeader(AUTHZ_HEADER) == null || httpServletRequest.getHeader(AUTHZ_HEADER).isEmpty()) {
 
       Cookie[] cookies = httpServletRequest.getCookies();
 
@@ -54,8 +52,7 @@ public class AuthCookieToHeaderFilter implements Filter {
       if (cookies != null) {
         for (Cookie cookie : cookies) {
           if (COOKIE_NAME.equals(cookie.getName())) {
-            HeaderMapRequestWrapper requestWrapper =
-                new HeaderMapRequestWrapper(httpServletRequest);
+            HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
             requestWrapper.addHeader(AUTHZ_HEADER, cookie.getValue());
             request = requestWrapper;
 

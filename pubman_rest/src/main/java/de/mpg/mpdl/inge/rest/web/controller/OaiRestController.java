@@ -46,10 +46,8 @@ public class OaiRestController {
   ElasticSearchClientProvider client;
 
   @RequestMapping(value = "init", method = RequestMethod.POST)
-  public ResponseEntity<String> init(
-      @RequestParam(value = "maxIntervals", required = false) Integer max)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+  public ResponseEntity<String> init(@RequestParam(value = "maxIntervals", required = false) Integer max)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     int count = 0;
     int countSuccess = 0;
@@ -63,13 +61,12 @@ public class OaiRestController {
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
-    SearchResponse scrollResp =
-        this.client.getClient().prepareSearch(PropertyReader.getProperty("inge.index.item.name"))
-            .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
-            .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
-            .setQuery(qb) //
-            .setSize(readSize) // max of 1000 hits will be returned for each scroll
-            .get();
+    SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty("inge.index.item.name"))
+        .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
+        .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
+        .setQuery(qb) //
+        .setSize(readSize) // max of 1000 hits will be returned for each scroll
+        .get();
     // Scroll until no hits are returned
 
     ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
@@ -89,14 +86,13 @@ public class OaiRestController {
         String s;
         try {
           s = XmlTransformingService.transformToItem(pubItemVO);
-          OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
-              .getObjectIdAndVersion() + ".xml");
+          OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion().getObjectIdAndVersion() + ".xml");
           countSuccess++;
         } catch (Exception e) {
           countFailure++;
           logger.error(e); // Kein Abbruch. Dann kann die jeweilige Datei eben nicht generiert
                            // werden...
-          // throw new IngeTechnicalException(e);
+                           // throw new IngeTechnicalException(e);
         }
       }
 
@@ -110,8 +106,7 @@ public class OaiRestController {
 
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.TEXT_PLAIN);
-    String srResponse =
-        "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
+    String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
 
     return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
   }

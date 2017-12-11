@@ -38,9 +38,8 @@ public class LoginRestController {
   }
 
   @RequestMapping(path = "", method = POST, produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> login(@RequestBody String credendials, HttpServletRequest request,
-      HttpServletResponse response) throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<?> login(@RequestBody String credendials, HttpServletRequest request, HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     String username = credendials.split(":")[0];
     String password = credendials.split(":")[1];
     String token = userSvc.login(username, password, request, response);
@@ -54,8 +53,7 @@ public class LoginRestController {
 
   @RequestMapping(path = "/who", method = GET, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountUserVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException,
-      IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserVO user = userSvc.get(token);
     return new ResponseEntity<AccountUserVO>(user, HttpStatus.OK);
   }

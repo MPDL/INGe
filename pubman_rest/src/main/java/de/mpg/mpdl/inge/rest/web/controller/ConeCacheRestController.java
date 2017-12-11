@@ -28,8 +28,8 @@ public class ConeCacheRestController {
   ElasticSearchClientProvider client;
 
   @RequestMapping(value = "refresh", method = RequestMethod.POST)
-  public ResponseEntity<String> refresh() throws AuthenticationException, AuthorizationException,
-      IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<String> refresh()
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     logger.info("REST: CONE-Cache refresh task starts...");
 
