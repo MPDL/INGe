@@ -57,7 +57,7 @@ public class ReindexTests {
 
   @Autowired
   private PubItemService pubItemService;
-  
+
   @Autowired
   private PubItemDaoEs pubItemDao;
 
@@ -66,7 +66,7 @@ public class ReindexTests {
 
   @Autowired
   private OrganizationService organizationService;
-  
+
   @Autowired
   private YearbookService yearbookService;
 
@@ -92,7 +92,7 @@ public class ReindexTests {
   @Autowired
   ElasticSearchClientProvider client;
 
-  
+
   @Test
   public void test() throws Exception {
 
@@ -101,9 +101,9 @@ public class ReindexTests {
 
     /*
     List<String> idList = organizationService.getIdPath("ou_1753285");
-
+    
     System.out.println(idList);
-*/
+    */
 
     /*
      * 
@@ -197,7 +197,7 @@ public class ReindexTests {
     userAccountService.reindexAll(null);
 
   }
-  
+
   @Test
   @Ignore
   public void testReindexYearbooks() throws Exception {
@@ -227,8 +227,7 @@ public class ReindexTests {
     for (PubItemObjectDbVO pi : resultList) {
       try {
 
-        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object =
-            (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) pi;
+        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object = (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) pi;
 
         try {
           long time = System.currentTimeMillis();
@@ -259,8 +258,7 @@ public class ReindexTests {
     AccountUserVO userAccount = userAccountService.get("user_104231", token);
 
     StringWriter sw = new StringWriter();
-    JsonObjectMapperFactory.getObjectMapper().writerFor(AccountUserVO.class)
-        .writeValue(sw, userAccount);
+    JsonObjectMapperFactory.getObjectMapper().writerFor(AccountUserVO.class).writeValue(sw, userAccount);
     System.out.println(sw.toString());
 
 
@@ -342,8 +340,7 @@ public class ReindexTests {
     System.out.println(now.toLocaleString());
 
 
-    JavaType jt =
-        TypeFactory.defaultInstance().constructRawMapLikeType(MdsOrganizationalUnitDetailsVO.class);
+    JavaType jt = TypeFactory.defaultInstance().constructRawMapLikeType(MdsOrganizationalUnitDetailsVO.class);
     System.out.println(jt.getRawClass());
 
     validateLoginname("mark");
@@ -357,13 +354,12 @@ public class ReindexTests {
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
-    SearchResponse scrollResp =
-        this.client.getClient().prepareSearch(PropertyReader.getProperty("inge.index.item.name"))
-            .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
-            .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
-            .setQuery(qb) //
-            .setSize(1000) // max of 1000 hits will be returned for each scroll
-            .get();
+    SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty("inge.index.item.name"))
+        .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
+        .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
+        .setQuery(qb) //
+        .setSize(1000) // max of 1000 hits will be returned for each scroll
+        .get();
     // Scroll until no hits are returned
 
     ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
@@ -373,8 +369,7 @@ public class ReindexTests {
         count++;
         PubItemVO pubItemVO = mapper.readValue(hit.getSourceAsString(), PubItemVO.class);
         String s = XmlTransformingService.transformToItem(pubItemVO);
-        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion()
-            .getObjectIdAndVersion() + ".xml");
+        OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion().getObjectIdAndVersion() + ".xml");
       }
 
       countIntervall++;

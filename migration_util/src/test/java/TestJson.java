@@ -38,48 +38,24 @@ public class TestJson {
   @Test
   @Ignore
   public void testJson() {
-    JsonObjectBuilder jsob =
-        Json.createObjectBuilder()
-            .add(
-                "update",
-                Json.createArrayBuilder()
-                    .add(
-                        Json.createArrayBuilder()
-                            .add(getFieldStringMatchJson("context.workflow", "SIMPLE"))
-                            .add(getUserJson(null, null, null, "item.owner.objectId"))
-                            .add(
-                                getFieldStringMatchJson("item.version.state", "PENDING", "RELEASED"))
-                            .add(
-                                getFieldStringMatchJson("item.publicStatus", "PENDING",
-                                    "SUBMITTED", "RELEASED")))
-                    .add(
-                        Json.createArrayBuilder()
-                            .add(getFieldStringMatchJson("context.workflow", "SIMPLE"))
-                            .add(getUserJson("MODERATOR", "CONTEXT", "item.context.objectId", null))
-                            .add(getFieldStringMatchJson("item.version.state", "RELEASED"))
-                            .add(
-                                getFieldStringMatchJson("item.publicStatus", "PENDING",
-                                    "SUBMITTED", "RELEASED")))
-                    .add(
-                        Json.createArrayBuilder()
-                            .add(getFieldStringMatchJson("context.workflow", "STANDARD"))
-                            .add(getUserJson(null, null, null, "item.owner.objectId"))
-                            .add(
-                                getFieldStringMatchJson("item.version.state", "PENDING",
-                                    "RELEASED", "IN_REVISION"))
-                            .add(
-                                getFieldStringMatchJson("item.publicStatus", "PENDING",
-                                    "SUBMITTED", "RELEASED")))
-                    .add(
-                        Json.createArrayBuilder()
-                            .add(getFieldStringMatchJson("context.workflow", "STANDARD"))
-                            .add(getUserJson("MODERATOR", "CONTEXT", "item.context.objectId", null))
-                            .add(
-                                getFieldStringMatchJson("item.version.state", "RELEASED",
-                                    "SUBMITTED"))
-                            .add(
-                                getFieldStringMatchJson("item.publicStatus", "PENDING",
-                                    "SUBMITTED", "RELEASED"))));
+    JsonObjectBuilder jsob = Json.createObjectBuilder().add("update",
+        Json.createArrayBuilder()
+            .add(Json.createArrayBuilder().add(getFieldStringMatchJson("context.workflow", "SIMPLE"))
+                .add(getUserJson(null, null, null, "item.owner.objectId"))
+                .add(getFieldStringMatchJson("item.version.state", "PENDING", "RELEASED"))
+                .add(getFieldStringMatchJson("item.publicStatus", "PENDING", "SUBMITTED", "RELEASED")))
+            .add(Json.createArrayBuilder().add(getFieldStringMatchJson("context.workflow", "SIMPLE"))
+                .add(getUserJson("MODERATOR", "CONTEXT", "item.context.objectId", null))
+                .add(getFieldStringMatchJson("item.version.state", "RELEASED"))
+                .add(getFieldStringMatchJson("item.publicStatus", "PENDING", "SUBMITTED", "RELEASED")))
+            .add(Json.createArrayBuilder().add(getFieldStringMatchJson("context.workflow", "STANDARD"))
+                .add(getUserJson(null, null, null, "item.owner.objectId"))
+                .add(getFieldStringMatchJson("item.version.state", "PENDING", "RELEASED", "IN_REVISION"))
+                .add(getFieldStringMatchJson("item.publicStatus", "PENDING", "SUBMITTED", "RELEASED")))
+            .add(Json.createArrayBuilder().add(getFieldStringMatchJson("context.workflow", "STANDARD"))
+                .add(getUserJson("MODERATOR", "CONTEXT", "item.context.objectId", null))
+                .add(getFieldStringMatchJson("item.version.state", "RELEASED", "SUBMITTED"))
+                .add(getFieldStringMatchJson("item.publicStatus", "PENDING", "SUBMITTED", "RELEASED"))));
     StringWriter wr = new StringWriter();
     Map<String, Boolean> config = new HashMap<String, Boolean>();
     config.put(JsonGenerator.PRETTY_PRINTING, true);
@@ -87,8 +63,7 @@ public class TestJson {
     System.out.println(wr.toString());
   }
 
-  private JsonObjectBuilder getUserJson(String role, String grantType, String grantMatchId,
-      String ownerIdMatchField) {
+  private JsonObjectBuilder getUserJson(String role, String grantType, String grantMatchId, String ownerIdMatchField) {
 
 
     JsonObjectBuilder jsob = Json.createObjectBuilder().add("type", "user_match");
@@ -117,14 +92,12 @@ public class TestJson {
       jab.add(s);
     }
 
-    return Json.createObjectBuilder().add("type", "field_string_match").add("field", matchField)
-        .add("values", jab);
+    return Json.createObjectBuilder().add("type", "field_string_match").add("field", matchField).add("values", jab);
   }
 
   private JsonObjectBuilder getFieldFieldMatchJson(String matchField1, String matchField2) {
 
-    return Json.createObjectBuilder().add("type", "field_field_match").add("field2", matchField1)
-        .add("field2", matchField2);
+    return Json.createObjectBuilder().add("type", "field_field_match").add("field2", matchField1).add("field2", matchField2);
   }
 
 }

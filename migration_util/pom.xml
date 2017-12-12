@@ -7,6 +7,231 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>migration_util</artifactId>
+	
+	<properties>
+		<project.finalName>migration.jar</project.finalName>
+		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
+		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
+		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
+		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
+		<escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
+		<escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
+		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
+		<framework.admin.id>escidoc:exuser1</framework.admin.id>
+		<framework.admin.password></framework.admin.password>
+		<framework.admin.username>roland</framework.admin.username>
+		<framework.author.displayname>Author User for Tests</framework.author.displayname>
+		<framework.author.id>escidoc:2078317</framework.author.id>
+		<framework.author.username>test_author</framework.author.username>
+		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
+		<framework.editor.id>escidoc:2078318</framework.editor.id>
+		<framework.editor.username>test_editor</framework.editor.username>
+		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
+		<framework.librarian.id>escidoc:2078315</framework.librarian.id>
+		<framework.librarian.username>test_dep_lib</framework.librarian.username>
+		<framework.organizational_unit.id>escidoc:persistent25</framework.organizational_unit.id>
+		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
+		<framework.scientist.id>escidoc:2078316</framework.scientist.id>
+		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
+		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</inge.aa.client.finish.class>
+		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</inge.aa.client.logout.class>
+		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</inge.aa.client.start.class>
+		<inge.aa.config.file>conf.xml</inge.aa.config.file>
+		<inge.aa.ip.table>ips.xml</inge.aa.ip.table>
+		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
+		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
+		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
+		<inge.cone.database.name>cone</inge.cone.database.name>
+		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
+		<inge.cone.language.default>en</inge.cone.language.default>
+		<inge.cone.maximum.results>50</inge.cone.maximum.results>
+		<inge.cone.mimetype.pattern>application/vnd.cone-(.+)</inge.cone.mimetype.pattern>
+		<inge.cone.modelsxml.path>models.xml</inge.cone.modelsxml.path>
+		<inge.cone.mulgara.server.name />
+		<inge.cone.mulgara.server.port />
+		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
+		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
+		<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects</inge.cone.subjectVocab>
+		<inge.context.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</inge.context.model.pattern>
+		<inge.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</inge.context.pattern>
+		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
+		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
+		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
+		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
+		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
+		<inge.email.mailservername>mail.mpisoc.mpg.de</inge.email.mailservername>
+		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
+		<inge.email.withauthentication>true</inge.email.withauthentication>
+		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
+		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
+		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
+		<inge.handles.activated>true</inge.handles.activated>
+		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
+		<inge.index.context.name>contexts</inge.index.context.name>
+		<inge.index.context.sort>name.sorted</inge.index.context.sort>
+		<inge.index.context.type>context</inge.index.context.type>
+		<inge.index.item.name>items</inge.index.item.name>
+		<inge.index.item.sort>metadata.title.sorted</inge.index.item.sort>
+		<inge.index.item.type>item</inge.index.item.type>
+		<inge.index.organization.name>ous</inge.index.organization.name>
+		<inge.index.organization.sort>defaultMetadata.name.sorted</inge.index.organization.sort>
+		<inge.index.organization.type>organization</inge.index.organization.type>
+		<inge.index.user.name>users</inge.index.user.name>
+		<inge.index.user.sort>name.sorted</inge.index.user.sort>
+		<inge.index.user.type>user</inge.index.user.type>
+		<inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
+		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
+		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
+		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
+		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
+		<inge.pubman.blog.baseUrl />
+		<inge.pubman.blog.news />
+		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
+		<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
+		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
+		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
+		<inge.pubman.external.organisation.id>escidoc:9019</inge.pubman.external.organisation.id>
+		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
+		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
+		<inge.pubman.footer.fileName />
+		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
+		<inge.pubman.home.content.url />
+		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
+		<inge.pubman.instance.seal_number />
+		<inge.pubman.instance.ssrn_contexts>escidoc:167026,escidoc:1002</inge.pubman.instance.ssrn_contexts>
+		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
+		<inge.pubman.logo.css />
+		<inge.pubman.logo.url>/resources/images/pubman_logo_web.png</inge.pubman.logo.url>
+		<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
+		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
+		<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
+		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
+		<inge.pubman.statistics.nims.context.ids />
+		<inge.pubman.statistics.nims.link />
+		<inge.pubman.stylesheet.classic.apply>true</inge.pubman.stylesheet.classic.apply>
+		<inge.pubman.stylesheet.classic.type>alternate stylesheet</inge.pubman.stylesheet.classic.type>
+		<inge.pubman.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</inge.pubman.stylesheet.classic.url>
+		<inge.pubman.stylesheet.contrast.apply>true</inge.pubman.stylesheet.contrast.apply>
+		<inge.pubman.stylesheet.contrast.type>alternate stylesheet</inge.pubman.stylesheet.contrast.type>
+		<inge.pubman.stylesheet.contrast.url>/pubman/resources/cssFramework/themes/skin_highContrast/styles/theme.css</inge.pubman.stylesheet.contrast.url>
+		<inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
+		<inge.pubman.stylesheet.special.type>stylesheet</inge.pubman.stylesheet.special.type>
+		<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.special.url>
+		<inge.pubman.stylesheet.standard.apply>true</inge.pubman.stylesheet.standard.apply>
+		<inge.pubman.stylesheet.standard.type>alternate stylesheet</inge.pubman.stylesheet.standard.type>
+		<inge.pubman.stylesheet.standard.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</inge.pubman.stylesheet.standard.url>
+		<inge.pubman.survey.styles />
+		<inge.pubman.survey.text />
+		<inge.pubman.survey.title />
+		<inge.pubman.survey.url />
+		<inge.pubman.yearbook.content-model.id>escidoc:119021</inge.pubman.yearbook.content-model.id>
+		<inge.pubman.yearbook.context.id>escidoc:287053</inge.pubman.yearbook.context.id>
+		<inge.pubman_presentation.overview_page.authors_ou />
+		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
+		<inge.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</inge.report.indesign.namespace>
+		<inge.rest.file.path>/component</inge.rest.file.path>
+		<inge.search.and.export.default.sort.keys>_relevance_</inge.search.and.export.default.sort.keys>
+		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
+		<inge.search.and.export.default.sql.query>escidoc.metadata=test and
+			escidoc.content-model.objid=escidoc:2001</inge.search.and.export.default.sql.query>
+		<inge.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</inge.search.and.export.indexes.explain.query>
+		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
+		<inge.search.and.export.start.record>1</inge.search.and.export.start.record>
+		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
+		<inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
+		<inge.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</inge.transformation.bibtex.configuration.filename>
+		<inge.transformation.bmc2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/bmc2escidoc.properties</inge.transformation.bmc2escidoc.configuration.filename>
+		<inge.transformation.bmc2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl</inge.transformation.bmc2escidoc.stylesheet.filename>
+		<inge.transformation.bmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-component.xsl</inge.transformation.bmc2escidoc_publication_component.stylesheet.filename>
+		<inge.transformation.bmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-item.xsl</inge.transformation.bmc2escidoc_publication_item.stylesheet.filename>
+		<inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>transformations/thirdParty/xslt/bmc-fulltext-xml2bms-fulltext-html.xsl</inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
+		<inge.transformation.doi.stylesheet.filename>transformations/otherFormats/xslt/escidoc2doi.xsl</inge.transformation.doi.stylesheet.filename>
+		<inge.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</inge.transformation.edoc.configuration.filename>
+		<inge.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</inge.transformation.edoc.stylesheet.filename>
+		<inge.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</inge.transformation.endnote.configuration.filename>
+		<inge.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</inge.transformation.endnote.ice.stylesheet.filename>
+		<inge.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</inge.transformation.endnote.stylesheet.filename>
+		<inge.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</inge.transformation.escidoc2marcxml.stylesheet.filename>
+		<inge.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</inge.transformation.mab.content.url.prefix>
+		<inge.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</inge.transformation.mab.stylesheet.filename>
+		<inge.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</inge.transformation.marcxml2escidoc.configuration.filename>
+		<inge.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</inge.transformation.marcxml2escidoc.stylesheet.filename>
+		<inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl</inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>
+		<inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl</inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>
+		<inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>transformations/thirdParty/xslt/pmc_fulltext_xml2pmc_fulltext_xslfo.xsl</inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
+		<inge.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</inge.transformation.report.sortorder.filename>
+		<inge.transformation.ris.configuration.filename>transformations/otherFormats/conf/ris.properties</inge.transformation.ris.configuration.filename>
+		<inge.transformation.ris.stylesheet.filename>transformations/otherFormats/xslt/risxml2escidoc.xsl</inge.transformation.ris.stylesheet.filename>
+		<inge.transformation.wos.configuration.filename>transformations/otherFormats/conf/wos.properties</inge.transformation.wos.configuration.filename>
+		<inge.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</inge.transformation.wos.stylesheet.filename>
+		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
+		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
+		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
+		<jdk.version>1.8</jdk.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
+		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>
+		<xsd.metadata.dcmitype>http://purl.org/dc/dcmitype/</xsd.metadata.dcmitype>
+		<xsd.metadata.dcterms>http://purl.org/dc/terms/</xsd.metadata.dcterms>
+		<xsd.metadata.escidocprofile.idtypes>http://purl.org/escidoc/metadata/terms/0.1/idtypes/</xsd.metadata.escidocprofile.idtypes>
+		<xsd.metadata.escidocprofile.types>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.escidocprofile.types>
+		<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
+		<xsd.metadata.event>http://purl.org/escidoc/metadata/profiles/0.1/event</xsd.metadata.event>
+		<xsd.metadata.face>http://purl.org/escidoc/metadata/profiles/0.1/face</xsd.metadata.face>
+		<xsd.metadata.file>http://purl.org/escidoc/metadata/profiles/0.1/file</xsd.metadata.file>
+		<xsd.metadata.organization>http://purl.org/escidoc/metadata/profiles/0.1/organization</xsd.metadata.organization>
+		<xsd.metadata.organizationalunit>http://purl.org/escidoc/metadata/profiles/0.1/organizationalunit</xsd.metadata.organizationalunit>
+		<xsd.metadata.person>http://purl.org/escidoc/metadata/profiles/0.1/person</xsd.metadata.person>
+		<xsd.metadata.project>http://purl.org/escidoc/metadata/profiles/0.1/project</xsd.metadata.project>
+		<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
+		<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
+		<xsd.metadata.terms>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.terms>
+		<xsd.metadata.yearbook>http://purl.org/escidoc/metadata/profiles/0.1/yearbook</xsd.metadata.yearbook>
+		<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
+		<xsd.soap.attributes>http://www.escidoc.de/schemas/attributes/0.1</xsd.soap.attributes>
+		<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
+		<xsd.soap.common.mdrecords>http://www.escidoc.de/schemas/metadatarecords/0.5</xsd.soap.common.mdrecords>
+		<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.10</xsd.soap.common.memberlist>
+		<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.5</xsd.soap.common.metadatarecords>
+		<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
+		<xsd.soap.common.relations>http://www.escidoc.de/schemas/relations/0.3</xsd.soap.common.relations>
+		<xsd.soap.common.release>http://escidoc.de/core/01/properties/release/</xsd.soap.common.release>
+		<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
+		<xsd.soap.common.version>http://escidoc.de/core/01/properties/version/</xsd.soap.common.version>
+		<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.3</xsd.soap.common.versionhistory>
+		<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.9</xsd.soap.container.container>
+		<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.9</xsd.soap.container.containerlist>
+		<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
+		<xsd.soap.contentmodel.contentstreams>http://www.escidoc.de/schemas/contentstreams/0.7</xsd.soap.contentmodel.contentstreams>
+		<xsd.soap.contentmodel>http://www.escidoc.de/schemas/contentmodel/0.1</xsd.soap.contentmodel>
+		<xsd.soap.context.context>http://www.escidoc.de/schemas/context/0.7</xsd.soap.context.context>
+		<xsd.soap.context.contextlist>http://www.escidoc.de/schemas/contextlist/0.7</xsd.soap.context.contextlist>
+		<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.9</xsd.soap.item.components>
+		<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.10</xsd.soap.item.item>
+		<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.10</xsd.soap.item.itemlist>
+		<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.8</xsd.soap.ou.ou>
+		<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.8</xsd.soap.ou.oulist>
+		<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
+		<xsd.soap.ou.ouref>http://www.escidoc.de/schemas/organizationalunitref/0.4</xsd.soap.ou.ouref>
+		<xsd.soap.ou.ousuccessors>http://www.escidoc.de/schemas/organizationalunitsuccessors/0.7</xsd.soap.ou.ousuccessors>
+		<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
+		<xsd.soap.role.role>http://www.escidoc.de/schemas/role/0.5</xsd.soap.role.role>
+		<xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
+		<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.8</xsd.soap.searchresult.searchresult>
+		<xsd.soap.statistic.aggregation-definition>http://www.escidoc.de/schemas/aggregationdefinition/0.4</xsd.soap.statistic.aggregation-definition>
+		<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.4</xsd.soap.statistic.report>
+		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.4</xsd.soap.statistic.reportdefinition>
+		<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.4</xsd.soap.statistic.reportdefinitionlist>
+		<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.4</xsd.soap.statistic.reportparameters>
+		<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
+		<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
+		<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.5</xsd.soap.useraccount.grants>
+		<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.7</xsd.soap.useraccount.useraccount>
+		<xsd.soap.useraccount.useraccountlist>http://www.escidoc.de/schemas/useraccountlist/0.7</xsd.soap.useraccount.useraccountlist>
+		<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.6</xsd.soap.usergroup.usergroup>
+		<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.6</xsd.soap.usergroup.usergrouplist>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -19,4 +244,89 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>copy-to-tomcat</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+
+						<configuration>
+							<tasks>
+								<copy overwrite="true"
+									file="${project.build.directory}/classes/migration.properties" 
+									todir="${user.home}/data/migration">
+								</copy>
+								<copy overwrite="true"
+									file="${project.build.directory}/${project.finalName}"
+									todir="${user.home}/data/migration">
+								</copy>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-trax</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>de.mpg.mpdl.inge.migration.Main</mainClass>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+							</transformers>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<finalName>migration</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

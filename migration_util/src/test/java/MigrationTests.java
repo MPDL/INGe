@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
-import de.mpg.mpdl.inge.db.spring_config.JPAConfiguration;
+import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -84,7 +84,6 @@ public class MigrationTests {
 
 
 
-  
   @Autowired
   private ItemObjectRepository itemObjectRepository;
 
@@ -127,15 +126,14 @@ public class MigrationTests {
     cookie.setDomain("qa-coreservice.mpdl.mpg.de");
     cookie.setPath("/");
     cookieStore.addCookie(cookie);
-    httpClientWithEscidocCookie =
-        HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
+    httpClientWithEscidocCookie = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
   }
 
   @Test
-  public void testYearbook() throws Exception{
-    
- 
-    
+  public void testYearbook() throws Exception {
+
+
+
     /*
      * Page<PubItemObjectDbVO> result = itemObjectRepository.findAll(new PageRequest(0, 10));
      * 
@@ -193,8 +191,7 @@ public class MigrationTests {
        * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount();
        */
       long time = System.currentTimeMillis();
-      PubItemVersionDbVO returnedfindOne1 =
-          itemRepository.findOne(new VersionableId("item_1000592", 1));
+      PubItemVersionDbVO returnedfindOne1 = itemRepository.findOne(new VersionableId("item_1000592", 1));
       // PubItemVersionDbVO returnedfindOne1 = entityManager.find(PubItemVersionDbVO.class, new
       // VersionableId("item_1000592", 1));
       System.out.println("1st findOne needed " + (System.currentTimeMillis() - time) + " ms");
@@ -211,8 +208,7 @@ public class MigrationTests {
        * oldHitCount = newHitCount; oldMissCount = newMissCount;
        */
       time = System.currentTimeMillis();
-      PubItemVersionDbVO returnedfindOne2 =
-          itemRepository.findOne(new VersionableId("item_1000592", 1));
+      PubItemVersionDbVO returnedfindOne2 = itemRepository.findOne(new VersionableId("item_1000592", 1));
       // PubItemVersionDbVO returnedfindOne2 = entityManager.find(PubItemVersionDbVO.class, new
       // VersionableId("item_1000592", 1));
       System.out.println("2nd findOne needed " + (System.currentTimeMillis() - time) + " ms");
@@ -220,14 +216,12 @@ public class MigrationTests {
 
       time = System.currentTimeMillis();
       PubItemVersionDbVO returnedLatestRelease1 = itemRepository.findLatestRelease("item_1000592");
-      System.out.println("1st findLastestRelease needed " + (System.currentTimeMillis() - time)
-          + " ms");
+      System.out.println("1st findLastestRelease needed " + (System.currentTimeMillis() - time) + " ms");
       entityManager.clear();
 
       time = System.currentTimeMillis();
       PubItemVersionDbVO returnedLatestRelease2 = itemRepository.findLatestRelease("item_1000592");
-      System.out.println("2nd findLatestRelease needed " + (System.currentTimeMillis() - time)
-          + " ms ");
+      System.out.println("2nd findLatestRelease needed " + (System.currentTimeMillis() - time) + " ms ");
       entityManager.clear();
       /*
        * newMissCount =
@@ -341,9 +335,7 @@ public class MigrationTests {
 
 
   private void importContexts() throws Exception {
-    URI uri =
-        new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/contexts").addParameter(
-            "maximumRecords", "5000").build();
+    URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/contexts").addParameter("maximumRecords", "5000").build();
     System.out.println(uri.toString());
     String contextXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
 
@@ -354,8 +346,7 @@ public class MigrationTests {
           XmlTransformingService.transformToSearchRetrieveResponse(contextXml);
 
 
-      for (SearchRetrieveRecordVO<de.mpg.mpdl.inge.model.valueobjects.ContextVO> rec : contextList
-          .getRecords()) {
+      for (SearchRetrieveRecordVO<de.mpg.mpdl.inge.model.valueobjects.ContextVO> rec : contextList.getRecords()) {
         saveContext(rec.getData());
       }
 
@@ -381,16 +372,14 @@ public class MigrationTests {
 
 
   private void importAffs() throws Exception {
-    URI uri =
-        new URIBuilder("https://qa-coreservice.mpdl.mpg.de/oum/organizational-units").addParameter(
-            "query", "\"/id\"=\"e*\" not \"/parents/parent/id\">\"''\"").build();
+    URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/oum/organizational-units")
+        .addParameter("query", "\"/id\"=\"e*\" not \"/parents/parent/id\">\"''\"").build();
     System.out.println(uri.toString());
     String ouXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
 
 
     try {
-      SearchRetrieveResponseVO<AffiliationVO> ouList =
-          XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
+      SearchRetrieveResponseVO<AffiliationVO> ouList = XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
 
       saveOuList(ouList);
 
@@ -415,40 +404,32 @@ public class MigrationTests {
 
 
   private void importUsers() throws Exception {
-    URI uri =
-        new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-accounts")
-            .addParameter("maximumRecords", String.valueOf(5000))
-            .addParameter("startRecord", String.valueOf(1)).build();
+    URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-accounts").addParameter("maximumRecords", String.valueOf(5000))
+        .addParameter("startRecord", String.valueOf(1)).build();
     final HttpGet request = new HttpGet(uri);
     HttpResponse response = httpClientWithEscidocCookie.execute(request);
     String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     // System.out.println(xml);
 
-    SearchRetrieveResponseVO<AccountUserVO> userList =
-        XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xml);
+    SearchRetrieveResponseVO<AccountUserVO> userList = XmlTransformingService.transformToSearchRetrieveResponseAccountUser(xml);
     for (SearchRetrieveRecordVO<AccountUserVO> accountUser : userList.getRecords()) {
 
       String objectId = accountUser.getData().getReference().getObjectId();
       objectId = objectId.substring(objectId.lastIndexOf("/") + 1, objectId.length());
 
-      uri =
-          new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-account/" + objectId
-              + "/resources/current-grants").addParameter("maximumRecords", String.valueOf(5000))
-              .addParameter("startRecord", String.valueOf(1)).build();
+      uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-account/" + objectId + "/resources/current-grants")
+          .addParameter("maximumRecords", String.valueOf(5000)).addParameter("startRecord", String.valueOf(1)).build();
       final HttpGet requestGrant = new HttpGet(uri);
       HttpResponse responseGrant = httpClientWithEscidocCookie.execute(requestGrant);
       String grantXml = EntityUtils.toString(responseGrant.getEntity(), StandardCharsets.UTF_8);
       List<GrantVO> grantList = XmlTransformingService.transformToGrantVOList(grantXml);
 
-      uri =
-          new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-account/" + objectId
-              + "/resources/attributes").addParameter("maximumRecords", String.valueOf(5000))
-              .addParameter("startRecord", String.valueOf(1)).build();
+      uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-account/" + objectId + "/resources/attributes")
+          .addParameter("maximumRecords", String.valueOf(5000)).addParameter("startRecord", String.valueOf(1)).build();
       final HttpGet requestAttrs = new HttpGet(uri);
       HttpResponse responseAttrs = httpClientWithEscidocCookie.execute(requestAttrs);
       String attrXml = EntityUtils.toString(responseAttrs.getEntity(), StandardCharsets.UTF_8);
-      List<UserAttributeVO> userAttrList =
-          XmlTransformingService.transformToUserAttributesList(attrXml);
+      List<UserAttributeVO> userAttrList = XmlTransformingService.transformToUserAttributesList(attrXml);
 
 
 
@@ -456,8 +437,7 @@ public class MigrationTests {
 
       // List<GrantVO> grantList = srrList.getRecords().stream().map(srr ->
       // srr.getData()).collect(Collectors.toList());
-      System.out.println("Saving user" + accountUser.getData().getName() + " - "
-          + accountUser.getData().getReference().getObjectId());
+      System.out.println("Saving user" + accountUser.getData().getName() + " - " + accountUser.getData().getReference().getObjectId());
       try {
         userRepository.save(transformToNew(accountUser.getData(), grantList, userAttrList));
       } catch (Exception e) {
@@ -481,13 +461,11 @@ public class MigrationTests {
 
         saveOuWithoutPredecessor(affRecord.getData());
 
-        URI uri =
-            new URIBuilder("https://qa-coreservice.mpdl.mpg.de/oum/organizational-units")
-                .addParameter("query", "\"/parents/parent/id\"=\"" + objectId + "\"").build();
+        URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/oum/organizational-units")
+            .addParameter("query", "\"/parents/parent/id\"=\"" + objectId + "\"").build();
         String ouXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
 
-        SearchRetrieveResponseVO<AffiliationVO> ouList =
-            XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
+        SearchRetrieveResponseVO<AffiliationVO> ouList = XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
         saveOuList(ouList);
 
       }
@@ -526,40 +504,40 @@ public class MigrationTests {
   }
 
 
-  private void importPubItems() throws Exception
-  {
+  private void importPubItems() throws Exception {
     String contentModelId = "escidoc:persistent4";
-    
- 
+
+
     int limit = 5000;
     int startRecord = 1;
     int allRecords = Integer.MAX_VALUE;
-    
-    while(allRecords > startRecord + limit)
-    {
+
+    while (allRecords > startRecord + limit) {
       System.out.println("Searching from " + startRecord + " to " + (startRecord + limit));
-      URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/items").addParameter("query", "\"/properties/content-model/id\"=\"" + contentModelId +  "\"").addParameter("maximumRecords", String.valueOf(limit)).addParameter("startRecord", String.valueOf(startRecord)).build();
+      URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/items")
+          .addParameter("query", "\"/properties/content-model/id\"=\"" + contentModelId + "\"")
+          .addParameter("maximumRecords", String.valueOf(limit)).addParameter("startRecord", String.valueOf(startRecord)).build();
       final HttpGet request = new HttpGet(uri);
       HttpResponse response = httpClientWithEscidocCookie.execute(request);
       String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
       //System.out.println(xml);
-      
+
       SearchRetrieveResponseVO<PubItemVO> pubItemList = XmlTransformingService.transformToSearchRetrieveResponse(xml);
-      
+
       allRecords = pubItemList.getNumberOfRecords();
       startRecord = startRecord + limit;
       System.out.println("Found " + allRecords + "items.");
-      
+
       //pubItemList.getRecords().stream().map(i->i.getData()).collect(Collectors.toList()).stream().parallel().forEach(i -> sa);;
       pubItemList.getRecords().parallelStream().forEach(i -> saveAllVersionsOfPubItem(i.getData()));
-      
+
       /*
       for(SearchRetrieveRecordVO<PubItemVO> rec : pubItemList.getRecords())
       {
-
+      
       }
       */
-      
+
     }
 
   }
@@ -572,8 +550,7 @@ public class MigrationTests {
         String href = pubItemVo.getVersion().getObjectId() + ":" + i;
         String objectId = href.substring(href.lastIndexOf("/") + 1, href.length());
         System.out.println("Getting " + objectId);
-        URI itemUri =
-            new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/item/" + objectId).build();
+        URI itemUri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/item/" + objectId).build();
         final HttpGet requestItem = new HttpGet(itemUri);
         HttpResponse itemResponse = httpClientWithEscidocCookie.execute(requestItem);
         String itemXml = EntityUtils.toString(itemResponse.getEntity(), StandardCharsets.UTF_8);
@@ -603,8 +580,7 @@ public class MigrationTests {
   }
 
 
-  private static AffiliationDbVO transformToNew(
-      de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo) {
+  private static AffiliationDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -687,8 +663,7 @@ public class MigrationTests {
   }
 
 
-  private static PubItemVersionDbVO transformToNew(
-      de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
+  private static PubItemVersionDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -758,11 +733,9 @@ public class MigrationTests {
     if (itemVo.getLatestRelease() != null) {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
-      } else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion()
-          .getVersionNumber()) {
+      } else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion().getVersionNumber()) {
         PubItemDbRO latestRelease = new PubItemDbRO();
-        latestRelease.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease()
-            .getObjectId()));
+        latestRelease.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease().getObjectId()));
         latestRelease.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
         pubItemObject.setLatestRelease(latestRelease);
       }
@@ -775,8 +748,7 @@ public class MigrationTests {
       pubItemObject.setLatestVersion(newPubItem);
     } else {
       PubItemDbRO latestVersion = new PubItemDbRO();
-      latestVersion.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion()
-          .getObjectId()));
+      latestVersion.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion().getObjectId()));
       latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());
       pubItemObject.setLatestVersion(latestVersion);
     }
@@ -786,8 +758,7 @@ public class MigrationTests {
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
     pubItemObject.setPid(itemVo.getPid());
-    pubItemObject
-        .setPublicStatus(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
+    pubItemObject.setPublicStatus(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
     pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
@@ -796,8 +767,7 @@ public class MigrationTests {
   }
 
 
-  private AccountUserDbVO transformToNew(AccountUserVO oldAccountUserVO, List<GrantVO> grants,
-      List<UserAttributeVO> attributes) {
+  private AccountUserDbVO transformToNew(AccountUserVO oldAccountUserVO, List<GrantVO> grants, List<UserAttributeVO> attributes) {
 
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
@@ -898,8 +868,7 @@ public class MigrationTests {
 
     Connection conn = dataSource.getConnection();
 
-    ResultSet res =
-        conn.createStatement().executeQuery("SELECT loginname,password FROM aa.user_account;");
+    ResultSet res = conn.createStatement().executeQuery("SELECT loginname,password FROM aa.user_account;");
 
     PasswordEncoder pe = new BCryptPasswordEncoder();
 
@@ -919,8 +888,7 @@ public class MigrationTests {
 
 
   private static String changeId(String prefix, String href) {
-    return href.substring(href.lastIndexOf("/") + 1, href.length())
-        .replaceAll("escidoc:", prefix + "_").replaceAll(":", "_");
+    return href.substring(href.lastIndexOf("/") + 1, href.length()).replaceAll("escidoc:", prefix + "_").replaceAll(":", "_");
   }
 
 
