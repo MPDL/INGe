@@ -57,7 +57,6 @@ import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.util.DOMUtilities;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 
 /**
  * Test class for citation manager processing component Can be started from eclipse. The system
@@ -300,33 +299,6 @@ public class CitationStylesSubstantialTest {
 
 
   /**
-   * Saves Items of the Context into the file
-   * 
-   * @throws Exception
-   */
-
-  public void backupItems() throws Exception {
-    filterMap.put("query", new String[] {"\"/properties/title\"=" + CONTEXT});
-
-    String itemList = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterMap);
-    writeToFile(CITATION_STYLE_TEST_COLLECTION_FILE_NAME, itemList);
-  }
-
-  /**
-   * Saves Context into the file
-   * 
-   * @throws Exception
-   */
-  public void backupContext() throws Exception {
-    filterMap.put("query", new String[] {"\"/properties/title\"=" + CONTEXT});
-
-    ContextHandler ch = ServiceLocator.getContextHandler(userHandle);
-    String contextList = ch.retrieveContexts(filterMap);
-    writeToFile(CITATION_STYLE_TEST_CONTEXTS_FILE_NAME + ".xml", contextList);
-  }
-
-
-  /**
    * Saves User Account and Grants assigned to the user into the file
    * 
    * @throws Exception
@@ -344,25 +316,6 @@ public class CitationStylesSubstantialTest {
     writeToFile(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME + ".xml", grants);
   }
 
-  /*
-   * private static void administration(String userHandle) throws Exception { File f = new
-   * File("/home/frank/data/escidoc/VIRR/ingestion/cleanup/ids.txt"); AdminHandler admHandler =
-   * ServiceLocator.getAdminHandler(userHandle); String param = createTaskParam(f);
-   * //admHandler.deleteObjects(param); System.out.println(admHandler.getPurgeStatus()); } private
-   * static String createTaskParam(File file) throws Exception { BufferedReader reader = new
-   * BufferedReader(new FileReader(file)); StringBuffer ids = new StringBuffer("<param>"); String
-   * line; while ((line = reader.readLine()) != null) { ids.append("<id>" + line + "</id>"); }
-   * ids.append("</param>"); System.out.println(ids.toString()); return ids.toString(); } *
-   */
-
-  public void purgeItems() throws ServiceException, URISyntaxException, InvalidXmlException, SystemException, RemoteException {
-    AdminHandler ah = ServiceLocator.getAdminHandler(adminHandle);
-    String param = // "<param><id>escidoc:25202</id></param>";
-        // "<param><id>escidoc:25207</id><id>escidoc:25201</id><id>escidoc:25200</id><id>escidoc:25199</id><id>escidoc:25198</id><id>escidoc:25197</id><id>escidoc:25196</id><id>escidoc:25195</id><id>escidoc:25194</id><id>escidoc:25193</id><id>escidoc:25192</id><id>escidoc:25191</id><id>escidoc:25190</id><id>escidoc:25189</id><id>escidoc:25188</id><id>escidoc:25187</id><id>escidoc:25186</id><id>escidoc:25185</id><id>escidoc:25184</id><id>escidoc:25183</id><id>escidoc:25182</id><id>escidoc:25181</id><id>escidoc:25180</id><id>escidoc:25179</id><id>escidoc:25178</id><id>escidoc:25177</id><id>escidoc:25176</id><id>escidoc:25175</id><id>escidoc:25174</id><id>escidoc:25173</id><id>escidoc:25172</id><id>escidoc:25171</id><id>escidoc:25170</id><id>escidoc:25169</id><id>escidoc:25168</id><id>escidoc:25167</id><id>escidoc:25166</id><id>escidoc:25165</id><id>escidoc:25164</id><id>escidoc:25163</id><id>escidoc:25162</id><id>escidoc:25161</id><id>escidoc:25160</id><id>escidoc:25159</id><id>escidoc:25158</id><id>escidoc:25157</id><id>escidoc:25156</id><id>escidoc:25155</id><id>escidoc:25154</id><id>escidoc:25153</id><id>escidoc:25152</id><id>escidoc:25151</id><id>escidoc:25150</id><id>escidoc:25149</id><id>escidoc:25148</id><id>escidoc:25147</id><id>escidoc:25146</id><id>escidoc:25145</id><id>escidoc:25144</id><id>escidoc:25143</id><id>escidoc:25142</id><id>escidoc:25141</id><id>escidoc:25140</id><id>escidoc:25139</id><id>escidoc:25138</id><id>escidoc:25137</id><id>escidoc:25136</id><id>escidoc:25135</id><id>escidoc:25134</id><id>escidoc:25133</id><id>escidoc:25132</id><id>escidoc:25131</id><id>escidoc:25130</id><id>escidoc:25129</id><id>escidoc:25128</id><id>escidoc:25127</id><id>escidoc:25126</id><id>escidoc:25125</id><id>escidoc:25124</id><id>escidoc:25123</id><id>escidoc:25122</id><id>escidoc:25121</id><id>escidoc:25120</id><id>escidoc:25119</id><id>escidoc:25118</id><id>escidoc:25117</id><id>escidoc:25116</id><id>escidoc:25115</id><id>escidoc:25114</id><id>escidoc:25113</id><id>escidoc:25112</id><id>escidoc:25111</id><id>escidoc:25110</id><id>escidoc:25109</id><id>escidoc:25108</id><id>escidoc:25107</id><id>escidoc:25106</id><id>escidoc:25105</id><id>escidoc:25104</id><id>escidoc:25103</id></param>";
-        "<param><id>escidoc:24655</id></param>";
-    ah.deleteObjects(param);
-    logger.info("deletion status:" + ah.getPurgeStatus());
-  }
 
 
   /**
