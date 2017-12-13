@@ -34,7 +34,6 @@
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
-<%@ page import="de.mpg.mpdl.inge.framework.ServiceLocator" %>
 <%@ page import="de.mpg.mpdl.inge.util.PropertyReader" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.List" %>

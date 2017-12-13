@@ -69,11 +69,6 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>model</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>framework_access</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- Spring dependencies -->
 				<!-- 

@@ -32,7 +32,6 @@
 		<module>cone</module>
 		<module>cone_presentation</module>
 		<module>dataacquisition</module>
-		<module>framework_access</module>
 		<module>inge_es_connector</module>
 		<module>inge_db_connector</module>
 		<module>inge_filestorage_connector</module>
@@ -308,11 +307,6 @@
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
 				<version>1.0.91-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>de.mpg.mpdl.inge</groupId>
-				<artifactId>framework_access</artifactId>
-				<version>1.3.40-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>

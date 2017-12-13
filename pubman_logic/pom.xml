@@ -47,10 +47,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>framework_access</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citationmanager</artifactId>
 		</dependency>
 		<dependency>

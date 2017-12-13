@@ -70,7 +70,7 @@ public class DataGatheringService {
         + "<format>" + OUTPUT_FORMAT + "</format>" + "</param>";
     logger.debug("Param=" + param);
     try {
-
+    
       String result;
       if (userHandle == null) {
         result = ServiceLocator.getSemanticScoreHandler().spo(param);

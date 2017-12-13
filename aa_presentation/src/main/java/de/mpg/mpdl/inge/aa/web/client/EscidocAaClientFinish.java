@@ -24,23 +24,10 @@
  */
 package de.mpg.mpdl.inge.aa.web.client;
 
-import java.util.List;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
-
-import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Grant;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
  * TODO Description
@@ -56,6 +43,7 @@ public class EscidocAaClientFinish extends FinalClient {
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String escidocUserHandle = request.getParameter("eSciDocUserHandle");
 
+    /*
     if (escidocUserHandle != null) {
       try {
         escidocUserHandle = new String(Base64.decodeBase64(escidocUserHandle.getBytes()));
@@ -67,17 +55,17 @@ public class EscidocAaClientFinish extends FinalClient {
         if (grants != null) {
           accountUserVO.getGrants().addAll(grants);
         }
-
+    
         AuthenticationVO authenticationVO = new AuthenticationVO();
         authenticationVO.setType(Type.USER);
         authenticationVO.setUsername(accountUserVO.getUserid());
         authenticationVO.setUserId(accountUserVO.getReference().getObjectId());
         authenticationVO.setFullName(accountUserVO.getName());
-
+    
         for (GrantVO grantVO : accountUserVO.getGrants()) {
           if (grantVO.getObjectRef() == null) {
             Role role = authenticationVO.new Role();
-
+    
             role.setKey(grantVO.getRole());
             authenticationVO.getRoles().add(role);
             authenticationVO.getRoles().add(role);
@@ -93,6 +81,7 @@ public class EscidocAaClientFinish extends FinalClient {
         throw new ServletException(e);
       }
     }
+    */
     return null;
   }
 }
