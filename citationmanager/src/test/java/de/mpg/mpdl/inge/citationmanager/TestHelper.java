@@ -41,7 +41,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -51,11 +50,6 @@ import org.w3c.dom.NodeList;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import gov.loc.www.zing.srw.RecordType;
-import gov.loc.www.zing.srw.SearchRetrieveRequestType;
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
-import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 
 /**
@@ -90,30 +84,6 @@ public class TestHelper {
         "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=pending"});
 
     return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
-  }
-
-
-
-  private static String transformToItemListAsString(SearchRetrieveResponseType searchResult) throws Exception {
-    String itemStringList = "";
-    Pattern p = Pattern.compile("(<\\w+?:item.*?</\\w+?:item>)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-    if (searchResult.getRecords() != null) {
-      for (RecordType record : searchResult.getRecords().getRecord()) {
-        StringOrXmlFragment data = record.getRecordData();
-        MessageElement[] messages = data.get_any();
-        // Data is in the first record
-        if (messages.length == 1) {
-          Matcher m = null;
-          String str = messages[0].getAsString();
-          m = p.matcher(str);
-          if (m.find()) {
-            itemStringList += m.group(1);
-          }
-        }
-      }
-    }
-    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><il:item-list xmlns:il=\"http://www.escidoc.de/schemas/itemlist/0.7\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\">"
-        + itemStringList + "</il:item-list>";
   }
 
 

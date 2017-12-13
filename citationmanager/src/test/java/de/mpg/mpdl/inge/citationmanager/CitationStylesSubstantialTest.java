@@ -29,13 +29,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.regex.Pattern;
-
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -46,11 +42,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
-import de.escidoc.core.common.exceptions.system.SystemException;
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.adm.AdminHandler;
-import de.escidoc.www.services.om.ContextHandler;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
@@ -95,7 +86,6 @@ public class CitationStylesSubstantialTest {
 
 
   private static String userHandle, adminHandle;
-  private static UserAccountHandler uah_user, uah_admin;
 
   private static HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
 
@@ -221,23 +211,6 @@ public class CitationStylesSubstantialTest {
     // backupItems();
   }
 
-  /**
-   * Restores the bundle of the XML files needed to create citation style testing collection in the
-   * current eSciDoc framework
-   * 
-   * @throws Exception
-   */
-  @Test
-  @Ignore
-  public void restoreAll() throws Exception {
-    restoreUser();
-    // restoreContext();
-    // restoreGrants();
-    // // for (int i = 1; i <= 35; i++) {
-    // restoreItems();
-    // }
-
-  }
 
 
   /**
@@ -246,75 +219,6 @@ public class CitationStylesSubstantialTest {
    * @return <code>true</code> if successful, <code>false</code> otherwise
    * @throws Exception
    */
-
-  private boolean restoreUser() throws Exception {
-    String userXml = null;
-    // check user
-
-    try {
-      userXml = uah_admin.retrieve(USER_NAME);
-    } catch (Exception e) {
-    }
-    if (userXml != null) {
-      logger.info("The user:" + USER_NAME + " already exists.");
-      return false;
-    }
-
-    // user does not exist, create them
-    // get saved xml
-    userXml = TestHelper.getFileAsString(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME);
-    if (!Utils.checkVal(userXml)) {
-      logger.info("empty user account xml");
-      return false;
-    }
-
-    // remove objd
-    userXml = Pattern.compile("objid=\".*?\"", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(userXml).replaceFirst("");
-
-
-    // logger.info("user:" + userXml);
-
-    // create user
-    uah_admin.create(userXml);
-
-
-
-    // change password
-    userXml = uah_admin.retrieve(USER_NAME);
-    String user_id = XmlHelper.xpathString("/user-account/@objid", userXml);
-    String ldm = XmlHelper.xpathString("/user-account/@last-modification-date", userXml);;
-
-    // DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'.'SSS'Z'");
-    // df.setTimeZone(TimeZone.getTimeZone("GMT"));
-    // String ldm = df.format(new Date(System.currentTimeMillis()));
-
-    uah_admin.updatePassword(user_id,
-        "<param last-modification-date=\"" + ldm + "\">" + "<password>" + USER_PASSWD + "</password>" + "</param>"
-
-    );
-
-    return true;
-  }
-
-
-
-  /**
-   * Saves User Account and Grants assigned to the user into the file
-   * 
-   * @throws Exception
-   */
-  public void backupUser() throws Exception {
-    // GET USER ACCOUNT INFO
-    String userXml = uah_user.retrieve(USER_NAME);
-    writeToFile(CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME + ".xml", userXml);
-
-    // GET GRANTS FOR THE USER
-    // get user_id for citman_user
-    String user_id = getUserId(userXml);
-
-    String grants = uah_admin.retrieveCurrentGrants(user_id);
-    writeToFile(CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME + ".xml", grants);
-  }
 
 
 
