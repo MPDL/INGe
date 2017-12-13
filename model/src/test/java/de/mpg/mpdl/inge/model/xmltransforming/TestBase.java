@@ -75,7 +75,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SystemException;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -137,41 +136,7 @@ public class TestBase {
    */
   private static final Logger logger = Logger.getLogger(TestBase.class);
 
-  /**
-   * Logs the user with the given userHandle out from the system.
-   * 
-   * @param userHandle The current user handle
-   * 
-   * @throws ServiceException Thrown if the service is not available
-   * @throws URISyntaxException Thrown if a wrong uri is handed over
-   * @throws RemoteException Any remote exception
-   * @throws SystemException Any system exception
-   * @throws AuthenticationException Thrown if the user handle is not valid
-   */
-  protected static void logout(String userHandle)
-      throws ServiceException, URISyntaxException, AuthenticationException, SystemException, RemoteException {
-    ServiceLocator.getUserManagementWrapper(userHandle).logout();
-  }
 
-  /**
-   * @param userHandle The user handle
-   * @return The AccountUserVO
-   * @throws Exception Any exception
-   */
-  protected AccountUserVO getAccountUser(String userHandle) throws Exception {
-    AccountUserVO accountUser = new AccountUserVO();
-    String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-    accountUser = XmlTransformingService.transformToAccountUser(xmlUser);
-    // add the user handle to the transformed account user
-    accountUser.setHandle(userHandle);
-    String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(accountUser.getReference().getObjectId());
-    List<GrantVO> grants = XmlTransformingService.transformToGrantVOList(userGrantXML);
-    List<GrantVO> userGrants = accountUser.getGrants();
-    for (GrantVO grant : grants) {
-      userGrants.add(grant);
-    }
-    return accountUser;
-  }
 
   /**
    * Creates a well-defined PubItemVO without any files attached.
@@ -1132,48 +1097,6 @@ public class TestBase {
     return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
-  /**
-   * Creates an item with a file in the framework.
-   * 
-   * @param userHandle The userHandle of a user with the appropriate grants.
-   * @return The XML of the created item with a file, given back by the framework.
-   * @throws Exception Any exception
-   */
-  protected String createItemWithFile(String userHandle) throws Exception {
-    // Prepare the HttpMethod.
-    PutMethod method = new PutMethod(PropertyReader.getFrameworkUrl() + "/st/staging-file");
-    method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
-    method.setRequestHeader("Content-Type", MIME_TYPE);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
 
-    // Execute the method with HttpClient.
-    HttpClient client = new HttpClient();
-    ProxyHelper.executeMethod(client, method);
-    logger.debug("Status=" + method.getStatusCode()); // >= HttpServletResponse.SC_MULTIPLE_CHOICE
-                                                      // 300 ???
-    assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-    String response = method.getResponseBodyAsString();
-    logger.debug("Response=" + response);
-
-    // Create a document from the response.
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-    Document document = docBuilder.parse(method.getResponseBodyAsStream());
-    document.getDocumentElement().normalize();
-
-    // Extract the file information.
-    String href = DOMUtilities.getValue(document, "/staging-file/@href");
-    assertNotNull(href);
-
-    // Create an item with the href in the component.
-    String item = readFile(ITEM_FILE);
-    item = item.replaceFirst("XXX_CONTENT_REF_XXX", PropertyReader.getFrameworkUrl() + href);
-    logger.debug("Item=" + item);
-    item = ServiceLocator.getItemHandler(userHandle).create(item);
-    assertNotNull(item);
-    logger.debug("Item=" + item);
-
-    return item;
-  }
 
 }

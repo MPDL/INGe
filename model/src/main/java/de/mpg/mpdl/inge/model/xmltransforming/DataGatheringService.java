@@ -30,7 +30,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -62,6 +61,8 @@ public class DataGatheringService {
    * .xmltransforming .referenceobjects.ItemRO)
    */
   public static List<RelationVO> findRevisionsOfItem(String userHandle, ItemRO itemRef) throws TechnicalException {
+    return null;
+    /*
     if (itemRef == null) {
       throw new IllegalArgumentException(DataGatheringService.class.getSimpleName() + ".findRevisionsOfItem:itemRef is null");
     }
@@ -82,12 +83,15 @@ public class DataGatheringService {
       logger.error("Error retrieving revisions.", e);
       throw new TechnicalException(e);
     }
+    */
   }
 
   /**
    * {@inheritDoc}
    */
   public static List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef) throws TechnicalException {
+    return null;
+    /*
     if (itemRef == null) {
       throw new IllegalArgumentException(DataGatheringService.class.getSimpleName() + ".findRevisionsOfItem:itemRef is null");
     }
@@ -102,6 +106,7 @@ public class DataGatheringService {
       logger.error("Error retrieving revisions.", e);
       throw new TechnicalException(e);
     }
+    */
   }
 
 
