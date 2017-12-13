@@ -49,7 +49,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
-import de.mpg.mpdl.inge.framework.ServiceLocator;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import gov.loc.www.zing.srw.RecordType;
@@ -91,17 +90,6 @@ public class TestHelper {
         "\"/properties/context/title\"=" + CONTEXT, "\"/properties/public-status\"=pending"});
 
     return getItemListFromFrameworkBase(USER_NAME, USER_PASSWD, filter);
-  }
-
-
-  public static String getItemsFromFramework_APA() throws Exception {
-
-    return getItemsFromFramework("escidoc.abstract=%22APA:%22%20AND%20" + SEARCH_CONTEXT);
-  }
-
-  public static String getItemsFromFramework_AJP() throws Exception {
-
-    return getItemsFromFramework("escidoc.abstract=%22AJP:%22%20AND%20" + SEARCH_CONTEXT);
   }
 
 
@@ -181,29 +169,6 @@ public class TestHelper {
   }
 
 
-  public static String getItemsFromFramework(String cql) throws Exception {
-
-    // http://localhost:8080/search/SearchAndExport?cqlQuery=escidoc.abstract=%22APA:%22%20AND%20escidoc.context.name=%22Citation%20Style%20Testing%20Context%22&exportFormat=APA_revised&outputFormat=pdf&language=all&sortKeys=&sortOrder=ascending&startRecord=&maximumRecords=
-
-
-    SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-    searchRetrieveRequest.setVersion("1.1");
-    searchRetrieveRequest.setQuery(cql);
-    searchRetrieveRequest.setRecordPacking("xml");
-
-    SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
-    if (searchResult.getDiagnostics() != null) {
-      // something went wrong
-      for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic()) {
-        logger.warn(diagnostic.getUri());
-        logger.warn(diagnostic.getMessage());
-        logger.warn(diagnostic.getDetails());
-      }
-    }
-
-    return transformToItemListAsString(searchResult);
-
-  }
 
   /**
    * Get itemList from the current Framework instance on hand of CONTENT_MODEL, CONTEXT, all

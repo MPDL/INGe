@@ -232,15 +232,15 @@ public class PubItemVOPresentation extends PubItemVO {
     for (final FileVO file : this.getFiles()) {
       // add locators
       if (file.getStorage() == FileVO.Storage.EXTERNAL_URL) {
-        this.locatorBeanList.add(new FileBean(file, this.getVersion().getState()));
+        this.locatorBeanList.add(new FileBean(file, this));
       }
       // add files
       else {
         if (this.searchHitList != null && this.searchHitList.size() > 0
             && ItemVO.State.WITHDRAWN.equals(this.getVersion().getState()) == false) {
-          this.fileBeanList.add(new FileBean(file, this.getVersion().getState(), this.searchHitList));
+          this.fileBeanList.add(new FileBean(file, this, this.searchHitList));
         } else {
-          this.fileBeanList.add(new FileBean(file, this.getVersion().getState()));
+          this.fileBeanList.add(new FileBean(file, this));
         }
       }
     }
