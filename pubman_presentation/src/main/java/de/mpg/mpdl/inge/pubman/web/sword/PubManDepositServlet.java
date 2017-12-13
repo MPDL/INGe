@@ -41,7 +41,6 @@ import org.purl.sword.base.Deposit;
 import org.purl.sword.base.DepositResponse;
 import org.purl.sword.base.SWORDContentTypeException;
 
-import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -159,10 +158,6 @@ public class PubManDepositServlet extends HttpServlet {
     } catch (final SWORDContentTypeException e) {
       this.errorDoc.setSummary("File format not supported.");
       this.errorDoc.setErrorDesc(swordError.ErrorContent);
-      this.validDeposit = false;
-    } catch (final ContentStreamNotFoundException e) {
-      this.errorDoc.setSummary("No metadata File was found.");
-      this.errorDoc.setErrorDesc(swordError.ErrorBadRequest);
       this.validDeposit = false;
     } catch (final ValidationException e) {
       ValidationReportItemVO itemReport = null;

@@ -32,11 +32,10 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
-
-import org.apache.axis.encoding.Base64;
 
 /**
  * TODO Description
@@ -183,6 +182,6 @@ public class EndnoteProcessor extends FormatProcessor {
       return null;
     }
 
-    return Base64.encode(this.originalData);
+    return Base64.getEncoder().encodeToString(this.originalData);
   }
 }

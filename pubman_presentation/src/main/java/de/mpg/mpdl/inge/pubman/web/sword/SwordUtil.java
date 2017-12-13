@@ -62,8 +62,6 @@ import org.w3.atom.Source;
 import org.w3.atom.Summary;
 import org.w3.atom.Title;
 
-import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -86,6 +84,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -295,7 +294,7 @@ public class SwordUtil extends FacesBean {
    * @throws NamingException
    * @throws SWORDContentTypeException
    */
-  public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws ContentStreamNotFoundException, SWORDContentTypeException {
+  public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws SWORDContentTypeException {
     String item = null;
     final List<FileVO> attachements = new ArrayList<FileVO>();
     PubItemVO pubItem = null;
@@ -409,11 +408,11 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws SWORDContentTypeException
    */
-  private PubItemVO createItem(String item, AccountUserVO user) throws ValidationException, ContentStreamNotFoundException, Exception {
+  private PubItemVO createItem(String item, AccountUserVO user) throws ValidationException, Exception {
     PubItemVO itemVO = null;
 
     if (item == null) {
-      throw new ContentStreamNotFoundException();
+      throw new IngeTechnicalException();
     }
 
     String transformedItem = null;

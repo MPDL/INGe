@@ -53,8 +53,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import de.escidoc.core.common.exceptions.application.notfound.ContentStreamNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
@@ -118,9 +116,9 @@ public class PubManSwordServer {
    * @throws AuthorizationException
    * @throws ValidationException
    */
-  public DepositResponse doDeposit(Deposit deposit, String collection) throws ContentStreamNotFoundException, SWORDContentTypeException,
-      AuthenticationException, IngeTechnicalException, IngeApplicationException, de.mpg.mpdl.inge.service.exceptions.AuthorizationException,
-      ValidationException, ValidationServiceException {
+  public DepositResponse doDeposit(Deposit deposit, String collection)
+      throws SWORDContentTypeException, AuthenticationException, IngeTechnicalException, IngeApplicationException,
+      de.mpg.mpdl.inge.service.exceptions.AuthorizationException, ValidationException, ValidationServiceException {
 
     final SwordUtil util = new SwordUtil();
     PubItemVO depositItem = null;

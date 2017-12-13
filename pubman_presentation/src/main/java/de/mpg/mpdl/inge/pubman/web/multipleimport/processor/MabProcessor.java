@@ -31,9 +31,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.NoSuchElementException;
-
-import org.apache.axis.encoding.Base64;
 
 /**
  * TODO Description
@@ -152,6 +151,6 @@ public class MabProcessor extends FormatProcessor {
       return null;
     }
 
-    return Base64.encode(this.originalData);
+    return Base64.getEncoder().encodeToString(this.originalData);
   }
 }

@@ -31,8 +31,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Base64;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.tika.io.IOUtils;
 import org.marc4j.MarcStreamReader;
 import org.marc4j.MarcXmlWriter;
@@ -140,7 +140,7 @@ public class Marc21Processor extends FormatProcessor {
 
     try {
       final InputStream is = new FileInputStream(this.getSourceFile());
-      final String base64 = Base64.encode(IOUtils.toByteArray(is));
+      final String base64 = Base64.getEncoder().encodeToString(IOUtils.toByteArray(is));
       is.close();
       return base64;
     } catch (final Exception e) {

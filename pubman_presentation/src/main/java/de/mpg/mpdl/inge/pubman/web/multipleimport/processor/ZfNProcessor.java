@@ -38,12 +38,12 @@ import java.net.FileNameMap;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -352,7 +352,7 @@ public class ZfNProcessor extends FormatProcessor {
       return null;
     }
 
-    return Base64.encode(this.originalData);
+    return Base64.getEncoder().encodeToString(this.originalData);
   }
 
   public Map<String, String> getConfig() {

@@ -27,13 +27,13 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.axis.encoding.Base64;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -129,7 +129,7 @@ public class EdocProcessor extends FormatProcessor {
       return null;
     }
 
-    return Base64.encode(this.originalData);
+    return Base64.getEncoder().encodeToString(this.originalData);
   }
 
   /**

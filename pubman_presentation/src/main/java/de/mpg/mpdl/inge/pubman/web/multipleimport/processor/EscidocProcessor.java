@@ -30,9 +30,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
-
-import org.apache.axis.encoding.Base64;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -64,7 +63,7 @@ public class EscidocProcessor extends FormatProcessor {
       return null;
     }
 
-    return Base64.encode(this.originalData);
+    return Base64.getEncoder().encodeToString(this.originalData);
   }
 
   /**

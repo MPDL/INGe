@@ -27,7 +27,6 @@
 package de.mpg.mpdl.inge.model.xmltransforming;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
@@ -37,9 +36,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +44,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -73,12 +67,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;

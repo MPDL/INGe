@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -43,7 +44,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.axis.encoding.Base64;
 import org.apache.tika.io.IOUtils;
 import org.apache.xml.resolver.tools.CatalogResolver;
 import org.w3c.dom.Document;
@@ -171,6 +171,6 @@ public abstract class GenericXmlProcessor extends FormatProcessor {
       this.initialize();
     }
 
-    return Base64.encode(this.originalData);
+    return Base64.getEncoder().encodeToString(this.originalData);
   }
 }

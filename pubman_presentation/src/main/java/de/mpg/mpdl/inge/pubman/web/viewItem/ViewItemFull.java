@@ -41,8 +41,6 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -106,6 +104,8 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
