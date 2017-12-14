@@ -29,7 +29,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page import="de.escidoc.www.services.aa.UserAccountHandler" %>
 <%@ page import="de.mpg.mpdl.inge.aa.Aa"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
