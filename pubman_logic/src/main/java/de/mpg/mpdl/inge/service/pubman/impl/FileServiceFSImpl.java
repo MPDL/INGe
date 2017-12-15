@@ -185,8 +185,6 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public void createFileFromStagedFile(FileVO fileVO, AccountUserVO userAccount) throws IngeTechnicalException, IngeApplicationException {
 
 
-    // TODO: Das kann nie funktionieren: Inhalt von fileVO.getContent() z.B.
-    // "http://p5.focus.de/img/fotos/crop7916800/6004876006-cv21_9-w630-h270-oc-q75-p5/eu-afrika-gipfel.jpg"
     StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
     if (!stagedFileVo.getCreatorId().equals(userAccount.getReference().getObjectId())) {

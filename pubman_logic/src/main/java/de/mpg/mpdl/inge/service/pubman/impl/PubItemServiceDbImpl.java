@@ -414,8 +414,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
         // New file
         currentFileDbVO = new FileDbVO();
         if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
-          // TODO: kann nicht stimmen: Inhalt von fileVO.getContent() z.B.
-          // "http://p5.focus.de/img/fotos/crop7916800/6004876006-cv21_9-w630-h270-oc-q75-p5/eu-afrika-gipfel.jpg"
           String stagedFileId = fileVo.getContent();
           fileService.createFileFromStagedFile(fileVo, userAccount);
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
