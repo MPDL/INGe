@@ -194,13 +194,13 @@ public class ContextListSessionBean extends FacesBean {
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
 
                 if (grant.getObjectRef().equals(context.getReference().getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())
+                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) && context.getType() != null
                     && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
                   this.yearbookContextList.add(context);
                 }
 
                 else if (!grant.getObjectRef().equals(context.getReference().getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())
+                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) && context.getType() != null
                     && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
                   this.yearbookModeratorContextList.add(context);
                 }
