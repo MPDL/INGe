@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.net.URI;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
@@ -12,7 +13,6 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
-import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -60,8 +60,8 @@ public class PidServiceImpl implements PidService {
 
     clientConfig.register(feature);
 
-    //  Client client = ClientBuilder.newClient(clientConfig);
-    Client client = JerseyClientBuilder.newClient(clientConfig);
+    Client client = ClientBuilder.newClient(clientConfig);
+    //    Client client = JerseyClientBuilder.newClient(clientConfig);
 
     client.property(ClientProperties.CONNECT_TIMEOUT, timeout);
     client.property(ClientProperties.READ_TIMEOUT, timeout);
