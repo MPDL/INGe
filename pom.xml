@@ -254,6 +254,10 @@
 						<groupId>c3p0</groupId>
 						<artifactId>*</artifactId>
 					</exclusion>
+					<exclusion>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-rt-rs-client</artifactId>
+					</exclusion>
 				</exclusions>
 			</dependency>
 			<dependency>
