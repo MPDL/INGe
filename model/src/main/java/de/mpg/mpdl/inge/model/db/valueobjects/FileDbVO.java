@@ -304,24 +304,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
   }
 
   /**
-   * Delivers the creation date of the file.
-   */
-  public java.util.Date getCreationDate() {
-    return creationDate;
-  }
-
-  /**
-   * Sets the creation date of the file.
-   * 
-   * @param newVal
-   */
-  public void setCreationDate(java.util.Date newVal) {
-    this.creationDate = newVal;
-  }
-
-
-
-  /**
    * Delivers the value of the contentCategory Enum as a String. If the Enum is not set, an empty
    * String is returned.
    */
