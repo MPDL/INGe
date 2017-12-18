@@ -123,14 +123,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
   @Column(columnDefinition = "TEXT")
   private String description;
 
-
-
-  /**
-   * This date gives the moment in time the file was created.
-   */
-  private java.util.Date creationDate;
-
-
   /**
    * The persistent identifier of the file if the item is released.
    */
