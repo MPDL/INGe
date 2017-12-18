@@ -32,8 +32,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * This is a dump relation object. There is no foreign key generated in the DB.
- * !!!Because of that it is NOT the RO for the AccountUserDbVO!!!
+ * This is a dump relation object. There is no foreign key generated in the DB. !!!Because of that
+ * it is NOT the RO for the AccountUserDbVO!!!
  * 
  * @revised by MuJ: 27.08.2007
  * @author $Author$ (last modification)

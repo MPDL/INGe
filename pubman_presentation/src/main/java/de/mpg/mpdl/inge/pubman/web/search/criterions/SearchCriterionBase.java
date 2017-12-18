@@ -88,12 +88,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public abstract class SearchCriterionBase implements Serializable {
   private static final Logger logger = Logger.getLogger(SearchCriterionBase.class);
 
-  public enum Index {
+  public enum Index
+  {
     ESCIDOC_ALL,
     ITEM_CONTAINER_ADMIN
   }
 
-  public enum SearchCriterion {
+  public enum SearchCriterion
+  {
     TITLE(TitleSearchCriterion.class, DisplayType.STANDARD),
     KEYWORD(KeywordSearchCriterion.class, DisplayType.STANDARD),
     CLASSIFICATION(ClassificationSearchCriterion.class, null),
@@ -156,47 +158,38 @@ public abstract class SearchCriterionBase implements Serializable {
     FILE_SECTION(FileSectionSearchCriterion.class, null),
     LOCATOR_SECTION(FileSectionSearchCriterion.class, null);
 
-    private Class<?> relatedClass;
-    private DisplayType displayType;
+  private Class<?> relatedClass;
+  private DisplayType displayType;
 
-    SearchCriterion(Class<?> classToInstantiate, DisplayType dt) {
+  SearchCriterion(Class<?> classToInstantiate, DisplayType dt) {
       this.relatedClass = classToInstantiate;
       this.displayType = dt;
     }
 
-    public Class<?> getRelatedClass() {
+  public Class<?> getRelatedClass() {
       return this.relatedClass;
     }
 
-    public void setRelatedClass(Class<?> relatedClass) {
+  public void setRelatedClass(Class<?> relatedClass) {
       this.relatedClass = relatedClass;
     }
 
-    public DisplayType getDisplayType() {
+  public DisplayType getDisplayType() {
       return this.displayType;
     }
 
 
-    public void setDisplayType(DisplayType displayType) {
-      this.displayType = displayType;
-    }
+  public void setDisplayType(DisplayType displayType) {
+    this.displayType = displayType;
+  }
 
   }
 
-  public enum DisplayType {
-    STANDARD,
-    DATE,
-    PERSON,
-    OPERATOR,
-    PARENTHESIS;
-  }
+  public enum DisplayType{STANDARD,DATE,PERSON,OPERATOR,PARENTHESIS;}
 
 
 
-  public enum QueryType {
-    CQL,
-    INTERNAL
-  }
+  public enum QueryType{CQL,INTERNAL}
 
 
 
