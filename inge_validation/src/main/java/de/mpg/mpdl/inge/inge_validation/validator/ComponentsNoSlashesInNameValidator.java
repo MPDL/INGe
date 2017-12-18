@@ -17,9 +17,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * name="no_slashes_in_filename" id="no_slashes_in_filename"> <iso:rule
  * context="escidocComponents:component"> <iso:assert test="not(escidocComponents:content/@storage =
  * 'internal-managed') or (not(contains(escidocComponents:properties/prop:file-name, '/')) and
- * not(contains
- * (escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:title, '/')))">
- * SlashInFilename</iso:assert> </iso:rule> </iso:pattern>
+ * not(contains(escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:
+ * title, '/')))"> SlashInFilename </iso:assert> </iso:rule> </iso:pattern>
  */
 
 /*

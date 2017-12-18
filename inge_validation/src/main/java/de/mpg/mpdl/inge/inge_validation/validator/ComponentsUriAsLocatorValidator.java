@@ -18,18 +18,12 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * <iso:rule context="escidocComponents:component"> <iso:assert
  * test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage
  * = 'external-url') or matches(escidocComponents:content/@xlink:href,
- * '^(https?|ftp)://([0-9a-zA-Z;/?:@&amp;=+$\.,\-_!~
- * *()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+$\.,\-_!~*()%]+)?$')"> LocatorIsNoUri</iso:assert> </iso:rule>
- * </iso:pattern>
+ * '^(https?|ftp)://([0-9a-zA-Z;/?:@&amp;=+$\.,\-_!~()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+$\.,\-_!~*()%]+)?
+ * $')"> LocatorIsNoUri </iso:assert> </iso:rule> </iso:pattern>
  */
 
 /*
  * escidocComponents:component -> de.mpg.mpdl.inge.model.valueobjects.FileVO
- * escidocMetadataRecords:md-records -> de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO ->
- * FileVO.metadataSets escidocMetadataRecords:md-records/escidocMetadataRecords:md-record ->
- * de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO -> FileVO.getDefaultMetaData()
- * escidocMetadataRecords:md-record.file:file/dc:format ->
- * de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO -> MdsFileVO.formats
  * escidocComponents:content/@storage -> FileVO.storage escidocComponents:content/@xlink:href ->
  * FileVO.content
  */

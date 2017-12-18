@@ -14,13 +14,15 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 /*
  * <!-- Entered dates have to be in the format YYYY, YYYY-MM or YYYY-MM-DD --> <iso:pattern
  * name="correct_date_format" id="correct_date_format"> <iso:rule context="dcterms:available">
- * <iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(.,
- * '-01-01'), 1, 10) castable as xs:date)"> DateFormatIncorrect</iso:assert> </iso:rule>
+ * <iso:assert
+ * test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(.,'-01-01'), 1, 10) castable as xs:date)"
+ * > DateFormatIncorrect </iso:assert> </iso:rule>
  * 
- * <iso:rule context="dcterms:dateCopyrighted"> <iso:assert test=". = '' or (matches(.,
- * '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">
- * DateFormatIncorrect</iso:assert> </iso:rule> </iso:pattern>
+ * <iso:rule context="dcterms:dateCopyrighted"> <iso:assert
+ * test=". = '' or (matches(.,'^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)"
+ * > DateFormatIncorrect </iso:assert> </iso:rule> </iso:pattern>
  */
+
 public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
 
   @Override
