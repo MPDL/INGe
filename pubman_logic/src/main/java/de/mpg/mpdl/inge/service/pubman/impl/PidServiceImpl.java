@@ -61,6 +61,7 @@ public class PidServiceImpl implements PidService {
     clientConfig.register(feature);
 
     Client client = ClientBuilder.newClient(clientConfig);
+    //    Client client = JerseyClientBuilder.newClient(clientConfig);
 
     client.property(ClientProperties.CONNECT_TIMEOUT, timeout);
     client.property(ClientProperties.READ_TIMEOUT, timeout);
@@ -78,7 +79,7 @@ public class PidServiceImpl implements PidService {
     Form form = new Form();
     form.param(URL, url.toString());
 
-    Response response = target.path(this.createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
+    Response response = this.target.path(this.createPath).request(MediaType.TEXT_PLAIN_TYPE).post(Entity.form(form));
 
     if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
       String xml = response.readEntity(String.class);

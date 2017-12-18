@@ -90,62 +90,73 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public enum Index
   {
-    ESCIDOC_ALL, ITEM_CONTAINER_ADMIN
+    ESCIDOC_ALL,
+    ITEM_CONTAINER_ADMIN
   }
 
   public enum SearchCriterion
   {
-    TITLE(TitleSearchCriterion.class, DisplayType.STANDARD), KEYWORD(KeywordSearchCriterion.class,
-        DisplayType.STANDARD), CLASSIFICATION(ClassificationSearchCriterion.class, null), ANY(
-        AnyFieldSearchCriterion.class, DisplayType.STANDARD), ANYFULLTEXT(
-        AnyFieldAndFulltextSearchCriterion.class, DisplayType.STANDARD), ANYPERSON(
-        PersonSearchCriterion.class, DisplayType.PERSON),
+    TITLE(TitleSearchCriterion.class, DisplayType.STANDARD),
+    KEYWORD(KeywordSearchCriterion.class, DisplayType.STANDARD),
+    CLASSIFICATION(ClassificationSearchCriterion.class, null),
+    ANY(AnyFieldSearchCriterion.class, DisplayType.STANDARD),
+    ANYFULLTEXT(AnyFieldAndFulltextSearchCriterion.class, DisplayType.STANDARD),
+    ANYPERSON(PersonSearchCriterion.class, DisplayType.PERSON),
 
     // Person enum names should be the sam as role names in CreatorVO.CreatorRole
     AUTHOR(PersonSearchCriterion.class, DisplayType.PERSON),
 
-    ORGUNIT(OrganizationSearchCriterion.class, null), ANYDATE(DateSearchCriterion.class,
-        DisplayType.DATE), PUBLISHEDPRINT(DateSearchCriterion.class, DisplayType.DATE), PUBLISHED(
-        DateSearchCriterion.class, DisplayType.DATE), ACCEPTED(DateSearchCriterion.class,
-        DisplayType.DATE), SUBMITTED(DateSearchCriterion.class, DisplayType.DATE), MODIFIED(
-        DateSearchCriterion.class, DisplayType.DATE), CREATED(DateSearchCriterion.class,
-        DisplayType.DATE), LANG(LanguageSearchCriterion.class, null), EVENT(
-        EventTitleSearchCriterion.class, DisplayType.STANDARD), EVENT_STARTDATE(
-        DateSearchCriterion.class, DisplayType.DATE), EVENT_ENDDATE(DateSearchCriterion.class,
-        DisplayType.DATE), EVENT_INVITATION(EventInvitationSearchCriterion.class, null), SOURCE(
-        SourceSearchCriterion.class, DisplayType.STANDARD), JOURNAL(JournalSearchCriterion.class,
-        null), LOCAL(LocalTagSearchCriterion.class, DisplayType.STANDARD), IDENTIFIER(
-        IdentifierSearchCriterion.class, DisplayType.STANDARD), COLLECTION(
-        CollectionSearchCriterion.class, null), PROJECT_INFO(ProjectInfoSearchCriterion.class,
-        DisplayType.STANDARD),
+    ORGUNIT(OrganizationSearchCriterion.class, null),
+    ANYDATE(DateSearchCriterion.class, DisplayType.DATE),
+    PUBLISHEDPRINT(DateSearchCriterion.class, DisplayType.DATE),
+    PUBLISHED(DateSearchCriterion.class, DisplayType.DATE),
+    ACCEPTED(DateSearchCriterion.class, DisplayType.DATE),
+    SUBMITTED(DateSearchCriterion.class, DisplayType.DATE),
+    MODIFIED(DateSearchCriterion.class, DisplayType.DATE),
+    CREATED(DateSearchCriterion.class, DisplayType.DATE),
+    LANG(LanguageSearchCriterion.class, null),
+    EVENT(EventTitleSearchCriterion.class, DisplayType.STANDARD),
+    EVENT_STARTDATE(DateSearchCriterion.class, DisplayType.DATE),
+    EVENT_ENDDATE(DateSearchCriterion.class, DisplayType.DATE),
+    EVENT_INVITATION(EventInvitationSearchCriterion.class, null),
+    SOURCE(SourceSearchCriterion.class, DisplayType.STANDARD),
+    JOURNAL(JournalSearchCriterion.class, null),
+    LOCAL(LocalTagSearchCriterion.class, DisplayType.STANDARD),
+    IDENTIFIER(IdentifierSearchCriterion.class, DisplayType.STANDARD),
+    COLLECTION(CollectionSearchCriterion.class, null),
+    PROJECT_INFO(ProjectInfoSearchCriterion.class, DisplayType.STANDARD),
 
-    GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null), GENRE(GenreSearchCriterion.class, null), REVIEW_METHOD(
-        ReviewMethodSearchCriterion.class, null), DEGREE(DegreeSearchCriterion.class, null), FILE_AVAILABLE(
-        FileAvailableSearchCriterion.class, null), LOCATOR_AVAILABLE(
-        LocatorAvailableSearchCriterion.class, null), EMBARGO_DATE_AVAILABLE(
-        EmbargoDateAvailableSearchCriterion.class, null), COMPONENT_CONTENT_CATEGORY(
-        ComponentContentCategory.class, null), COMPONENT_VISIBILITY(
-        ComponentVisibilitySearchCriterion.class, null), COMPONENT_VISIBILITY_LIST(
-        ComponentVisibilityListSearchCriterion.class, null), COMPONENT_CONTENT_CATEGORY_LIST(
-        ComponentContentCategoryListSearchCriterion.class, null), COMPONENT_EMBARGO_DATE(
-        DateSearchCriterion.class, DisplayType.DATE), ITEMSTATE_LIST(
-        ItemStateListSearchCriterion.class, null), AFFILIATED_CONTEXT_LIST(
-        AffiliatedContextListSearchCriterion.class, null), PUBLICATION_STATUS_LIST(
-        PublicationStatusListSearchCriterion.class, null),
+    GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null),
+    GENRE(GenreSearchCriterion.class, null),
+    REVIEW_METHOD(ReviewMethodSearchCriterion.class, null),
+    DEGREE(DegreeSearchCriterion.class, null),
+    FILE_AVAILABLE(FileAvailableSearchCriterion.class, null),
+    LOCATOR_AVAILABLE(LocatorAvailableSearchCriterion.class, null),
+    EMBARGO_DATE_AVAILABLE(EmbargoDateAvailableSearchCriterion.class, null),
+    COMPONENT_CONTENT_CATEGORY(ComponentContentCategory.class, null),
+    COMPONENT_VISIBILITY(ComponentVisibilitySearchCriterion.class, null),
+    COMPONENT_VISIBILITY_LIST(ComponentVisibilityListSearchCriterion.class, null),
+    COMPONENT_CONTENT_CATEGORY_LIST(ComponentContentCategoryListSearchCriterion.class, null),
+    COMPONENT_EMBARGO_DATE(DateSearchCriterion.class, DisplayType.DATE),
+    ITEMSTATE_LIST(ItemStateListSearchCriterion.class, null),
+    AFFILIATED_CONTEXT_LIST(AffiliatedContextListSearchCriterion.class, null),
+    PUBLICATION_STATUS_LIST(PublicationStatusListSearchCriterion.class, null),
 
-    MODIFIED_INTERNAL(DateSearchCriterion.class, DisplayType.DATE), CREATED_INTERNAL(
-        DateSearchCriterion.class, DisplayType.DATE), CREATED_BY(CreatedBySearchCriterion.class,
-        null), MODIFIED_BY(ModifiedBySearchCriterion.class, null),
+    MODIFIED_INTERNAL(DateSearchCriterion.class, DisplayType.DATE),
+    CREATED_INTERNAL(DateSearchCriterion.class, DisplayType.DATE),
+    CREATED_BY(CreatedBySearchCriterion.class, null),
+    MODIFIED_BY(ModifiedBySearchCriterion.class, null),
 
-    AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR), OR_OPERATOR(LogicalOperator.class,
-        DisplayType.OPERATOR), NOT_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
+    AND_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
+    OR_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
+    NOT_OPERATOR(LogicalOperator.class, DisplayType.OPERATOR),
 
-    OPENING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS), CLOSING_PARENTHESIS(
-        Parenthesis.class, DisplayType.PARENTHESIS),
+    OPENING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS),
+    CLOSING_PARENTHESIS(Parenthesis.class, DisplayType.PARENTHESIS),
 
-    FLEXIBLE(FlexibleStandardSearchCriterion.class, null), FILE_SECTION(
-        FileSectionSearchCriterion.class, null), LOCATOR_SECTION(FileSectionSearchCriterion.class,
-        null);
+    FLEXIBLE(FlexibleStandardSearchCriterion.class, null),
+    FILE_SECTION(FileSectionSearchCriterion.class, null),
+    LOCATOR_SECTION(FileSectionSearchCriterion.class, null);
 
   private Class<?> relatedClass;
   private DisplayType displayType;
