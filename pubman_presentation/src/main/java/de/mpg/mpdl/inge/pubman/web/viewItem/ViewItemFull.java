@@ -233,6 +233,7 @@ public class ViewItemFull extends FacesBean {
         } else {
           getLoginHelper().logout();
         }
+        return;
       } catch (Exception e) {
         ViewItemFull.logger.error("Could not retrieve release with id " + itemID, e);
         this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
@@ -339,9 +340,7 @@ public class ViewItemFull extends FacesBean {
         try {
           link = PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
               + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
-                  this.getPubItem().getVersion().getObjectId() + (this.getPubItem().getLatestVersion().getVersionNumber() != 0
-                      ? ":" + this.getPubItem().getLatestVersion().getVersionNumber()
-                      : ""));
+                  this.getPubItem().getLatestVersion().getObjectIdAndVersion());
         } catch (Exception e) {
           ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
         }
@@ -353,9 +352,7 @@ public class ViewItemFull extends FacesBean {
         try {
           link = PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
               + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
-                  this.getPubItem().getVersion().getObjectId() + (this.getPubItem().getLatestRelease().getVersionNumber() != 0
-                      ? ":" + this.getPubItem().getLatestRelease().getVersionNumber()
-                      : ""));
+                  this.getPubItem().getLatestRelease().getObjectIdAndVersion());
         } catch (Exception e) {
           ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
         }
