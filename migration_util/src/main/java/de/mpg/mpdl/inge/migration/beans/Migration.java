@@ -8,14 +8,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -27,14 +27,13 @@ import org.springframework.stereotype.Component;
 
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
+import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
 import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
 import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
-import de.mpg.mpdl.inge.migration.Main;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
@@ -42,12 +41,12 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -58,6 +57,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Component
@@ -67,6 +67,9 @@ public class Migration {
 
   @Value("${escidoc.url}")
   private String escidocUrl;
+
+  @Value("${db.pwd}")
+  private String dbpwd;
 
   @Value("${contexts.path}")
   private String contextsPath;
@@ -106,7 +109,7 @@ public class Migration {
   private YearbookRepository yearbookRepository;
 
   @Autowired
-  private ReIndexing reIndexing;
+  private Reindexing reIndexing;
 
   private Queue<AffiliationVO> updateLaterAffs = new LinkedList<AffiliationVO>();
 
@@ -114,6 +117,17 @@ public class Migration {
 
   public void sayHello(String name) {
     log.info("Starting to migrate " + name);
+  }
+
+  public HttpClient setup() {
+    String userHandle = AdminHelper.getAdminUserHandle();
+    BasicCookieStore cookieStore = new BasicCookieStore();
+    BasicClientCookie cookie = new BasicClientCookie("escidocCookie", userHandle);
+    cookie.setDomain("qa-coreservice.mpdl.mpg.de");
+    cookie.setPath("/");
+    cookieStore.addCookie(cookie);
+    httpClientWithEscidocCookie = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
+    return httpClientWithEscidocCookie;
   }
 
   public void run(String what) throws Exception {
@@ -246,6 +260,7 @@ public class Migration {
   }
 
   private void importUsers() throws Exception {
+    httpClientWithEscidocCookie = setup();
     URI uri = new URIBuilder(escidocUrl + usersPath).addParameter("maximumRecords", String.valueOf(5000))
         .addParameter("startRecord", String.valueOf(1)).build();
     final HttpGet request = new HttpGet(uri);
@@ -577,7 +592,11 @@ public class Migration {
         }
 
         if (attr.getName().equals("email")) {
-          newAccountUser.setEmail(attr.getValue());
+          if (attr.getValue().isEmpty()) {
+            newAccountUser.setEmail(null);
+          } else {
+            newAccountUser.setEmail(attr.getValue());
+          }
         }
       }
     }
@@ -596,7 +615,7 @@ public class Migration {
 
     PGSimpleDataSource dataSource = new PGSimpleDataSource();
     dataSource.setUser("postgres");
-    dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
+    dataSource.setPassword(dbpwd);
     dataSource.setDatabaseName("escidoc-core");
     dataSource.setServerName("srv02.mpdl.mpg.de");
     dataSource.setPortNumber(5432);
