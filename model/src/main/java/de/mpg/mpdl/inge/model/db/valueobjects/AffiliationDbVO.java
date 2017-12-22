@@ -78,13 +78,13 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
 
   // private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   private AffiliationDbRO parentAffiliation;
 
 
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @JoinTable(name = "organization_predecessor")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   private java.util.List<AffiliationDbRO> predecessorAffiliations = new ArrayList<AffiliationDbRO>();

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
 @IdClass(VersionableId.class)
-public class PubItemDbRO implements Serializable {
+public class PubItemVersionDbRO implements Serializable {
 
   public enum State
   {
@@ -47,7 +47,7 @@ public class PubItemDbRO implements Serializable {
    * The state of the item.
    */
   @Enumerated(EnumType.STRING)
-  private PubItemDbRO.State state;
+  private PubItemVersionDbRO.State state;
   /**
    * The eSciDoc ID of the user that modified that version.
    */
@@ -117,7 +117,7 @@ public class PubItemDbRO implements Serializable {
    * 
    * @return The current State.
    */
-  public PubItemDbRO.State getState() {
+  public PubItemVersionDbRO.State getState() {
     return this.state;
   }
 
@@ -126,7 +126,7 @@ public class PubItemDbRO implements Serializable {
    * 
    * @param newVal The new state.
    */
-  public void setState(PubItemDbRO.State newVal) {
+  public void setState(PubItemVersionDbRO.State newVal) {
     state = newVal;
   }
 
@@ -166,9 +166,9 @@ public class PubItemDbRO implements Serializable {
   }
 
   @JsonIgnore
-  public PubItemDbRO.State getStateForXml() {
+  public PubItemVersionDbRO.State getStateForXml() {
     if (state == null) {
-      return PubItemDbRO.State.PENDING;
+      return PubItemVersionDbRO.State.PENDING;
     } else {
       return state;
     }

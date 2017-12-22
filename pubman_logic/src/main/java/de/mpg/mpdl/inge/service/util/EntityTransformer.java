@@ -12,7 +12,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
@@ -71,7 +71,7 @@ public class EntityTransformer {
   }
 
 
-  public static PubItemDbRO transformToNew(PubItemVO itemVo) {
+  public static PubItemVersionDbRO transformToNew(PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -122,7 +122,7 @@ public class EntityTransformer {
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setState(PubItemDbRO.State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setState(PubItemVersionDbRO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
@@ -138,13 +138,13 @@ public class EntityTransformer {
     pubItemObject.setLastModificationDate(itemVo.getLatestVersion().getModificationDate());
 
     if (itemVo.getLatestRelease() != null) {
-      PubItemDbRO pubItemRo = new PubItemDbRO();
+      PubItemVersionDbRO pubItemRo = new PubItemVersionDbRO();
       pubItemRo.setObjectId(itemVo.getLatestRelease().getObjectId());
       pubItemRo.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
       pubItemObject.setLatestRelease(pubItemRo);
     }
 
-    PubItemDbRO pubItemRo = new PubItemDbRO();
+    PubItemVersionDbRO pubItemRo = new PubItemVersionDbRO();
     pubItemRo.setObjectId(itemVo.getLatestVersion().getObjectId());
     pubItemRo.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
     pubItemObject.setLatestRelease(pubItemRo);
@@ -156,7 +156,7 @@ public class EntityTransformer {
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
     pubItemObject.setPid(itemVo.getPid());
-    pubItemObject.setPublicStatus(PubItemDbRO.State.valueOf(itemVo.getPublicStatus().name()));
+    pubItemObject.setPublicStatus(PubItemVersionDbRO.State.valueOf(itemVo.getPublicStatus().name()));
     pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
@@ -209,7 +209,7 @@ public class EntityTransformer {
 
   }
 
-  private static ItemVO.State transformToOld(PubItemDbRO.State state) {
+  private static ItemVO.State transformToOld(PubItemVersionDbRO.State state) {
     return ItemVO.State.valueOf(state.name());
   }
 
@@ -225,7 +225,7 @@ public class EntityTransformer {
     return modifier;
   }
 
-  private static ItemRO transformToOld(PubItemDbRO newItemRo) {
+  private static ItemRO transformToOld(PubItemVersionDbRO newItemRo) {
     ItemRO oldItemRo = new ItemRO();
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setLastMessage(newItemRo.getLastMessage());
@@ -301,7 +301,7 @@ public class EntityTransformer {
     oldPubItem.setPid(itemVo.getObject().getPid());
     oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicStatus()));
     oldPubItem.setPublicStatusComment(itemVo.getObject().getPublicStatusComment());
-    oldPubItem.setVersion(transformToOld((PubItemDbRO) itemVo));
+    oldPubItem.setVersion(transformToOld((PubItemVersionDbRO) itemVo));
 
     for (String localTag : itemVo.getObject().getLocalTags()) {
       oldPubItem.getLocalTags().add(localTag);

@@ -71,8 +71,8 @@ public class BasicDbRO implements Cloneable, Serializable {
   private java.util.Date lastModificationDate;
 
   @Embedded
-  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
-      @AttributeOverride(name = "name", column = @Column(name = "owner_name"))})
+  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "creator_objectId")),
+      @AttributeOverride(name = "name", column = @Column(name = "creator_name"))})
   private AccountUserDbRO creator;
 
   @Embedded

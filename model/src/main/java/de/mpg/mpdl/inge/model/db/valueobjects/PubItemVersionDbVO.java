@@ -69,7 +69,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
-public class PubItemVersionDbVO extends PubItemDbRO implements Serializable {
+public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializable {
 
   /**
    * The version number of the referenced item. This attribute is optional.

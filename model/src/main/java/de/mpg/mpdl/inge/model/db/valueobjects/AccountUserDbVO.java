@@ -41,7 +41,7 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   private List<GrantVO> grantList = new ArrayList<GrantVO>();
 
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   private AffiliationDbRO affiliation;
 
   public boolean isActive() {

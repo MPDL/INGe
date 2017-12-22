@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -498,7 +498,7 @@ public class Migration {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
       } else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion().getVersionNumber()) {
-        PubItemDbRO latestRelease = new PubItemDbRO();
+        PubItemVersionDbRO latestRelease = new PubItemVersionDbRO();
         latestRelease.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease().getObjectId()));
         latestRelease.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
         pubItemObject.setLatestRelease(latestRelease);
@@ -508,7 +508,7 @@ public class Migration {
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
       pubItemObject.setLatestVersion(newPubItem);
     } else {
-      PubItemDbRO latestVersion = new PubItemDbRO();
+      PubItemVersionDbRO latestVersion = new PubItemVersionDbRO();
       latestVersion.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion().getObjectId()));
       latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());
       pubItemObject.setLatestVersion(latestVersion);
