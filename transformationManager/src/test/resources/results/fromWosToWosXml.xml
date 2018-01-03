@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<item>
-   <PT>J</PT>
-   <AU>Richter, S
+<item-list>
+   <item>
+      <PT>J</PT>
+      <AU>Richter, S
    Jia, F
    Heinrich, M
    Doring, S
    Peschel, U
    Tunnermann, A
    Nolte, S</AU>
-   <AF>Richter, Soeren
+      <AF>Richter, Soeren
    Jia, Fei
    Heinrich, Matthias
    Doering, Sven
    Peschel, Ulf
    Tuennermann, Andreas
    Nolte, Stefan</AF>
-   <TI>The role of self-trapped excitons and defects in the formation of
+      <TI>The role of self-trapped excitons and defects in the formation of
    nanogratings in fused silica</TI>
-   <SO>OPTICS LETTERS</SO>
-   <LA>English</LA>
-   <DT>Article</DT>
-   <ID>AMORPHOUS SIO2; LASER; GLASS; PHOTOLUMINESCENCE; SUBPICOSECOND;
+      <SO>OPTICS LETTERS</SO>
+      <LA>English</LA>
+      <DT>Article</DT>
+      <ID>AMORPHOUS SIO2; LASER; GLASS; PHOTOLUMINESCENCE; SUBPICOSECOND;
    LUMINESCENCE; FABRICATION; DYNAMICS; CENTERS; PULSES</ID>
-   <AB>We investigate the role of self-trapped excitons (STEs) and defects in the formation of femtosecond laser pulse induced nanogratings (NGs) in fused silica. Our experiments reveal strongly enhanced NG formation for pulse separations up to the STE lifetime. In addition, the absorption spectra show that the weaker cumulative action of laser pulses for longer temporal separations is predominantly mediated by dangling-bond-type lattice defects that emerge from decaying STEs. (C) 2012 Optical Society of America</AB>
-   <C1>[Richter, Soeren; Jia, Fei; Heinrich, Matthias; Doering, Sven; Tuennermann, Andreas; Nolte, Stefan] Univ Jena, Abbe Ctr Photon, Inst Appl Phys, D-07743 Jena, Germany.
+      <AB>We investigate the role of self-trapped excitons (STEs) and defects in the formation of femtosecond laser pulse induced nanogratings (NGs) in fused silica. Our experiments reveal strongly enhanced NG formation for pulse separations up to the STE lifetime. In addition, the absorption spectra show that the weaker cumulative action of laser pulses for longer temporal separations is predominantly mediated by dangling-bond-type lattice defects that emerge from decaying STEs. (C) 2012 Optical Society of America</AB>
+      <C1>[Richter, Soeren; Jia, Fei; Heinrich, Matthias; Doering, Sven; Tuennermann, Andreas; Nolte, Stefan] Univ Jena, Abbe Ctr Photon, Inst Appl Phys, D-07743 Jena, Germany.
    [Tuennermann, Andreas; Nolte, Stefan] Fraunhofer Inst Appl Opt &amp; Precis Engn, D-07745 Jena, Germany.
    [Peschel, Ulf] Max Planck Inst Sci Light, D-91058 Erlangen, Germany.</C1>
-   <RP>Richter, S (reprint author), Univ Jena, Abbe Ctr Photon, Inst Appl Phys, Max Wien Pl 1, D-07743 Jena, Germany.</RP>
-   <EM>soeren.richter@uni-jena.de</EM>
-   <RI>Peschel, Ulf/C-3356-2013; Heinrich, Matthias/F-3111-2011; Tunnermann,
+      <RP>Richter, S (reprint author), Univ Jena, Abbe Ctr Photon, Inst Appl Phys, Max Wien Pl 1, D-07743 Jena, Germany.</RP>
+      <EM>soeren.richter@uni-jena.de</EM>
+      <RI>Peschel, Ulf/C-3356-2013; Heinrich, Matthias/F-3111-2011; Tunnermann,
    Andreas/K-6453-2016</RI>
-   <OI>Heinrich, Matthias/0000-0003-3552-0789;</OI>
-   <FU>Deutsche Forschungsgemeinschaft [1327]; Hans L. Merkle Stiftung</FU>
-   <FX>The authors gratefully acknowledge financial support by the Deutsche
+      <OI>Heinrich, Matthias/0000-0003-3552-0789;</OI>
+      <FU>Deutsche Forschungsgemeinschaft [1327]; Hans L. Merkle Stiftung</FU>
+      <FX>The authors gratefully acknowledge financial support by the Deutsche
    Forschungsgemeinschaft (priority program 1327). Soren Richter was
    supported by the Hans L. Merkle Stiftung.</FX>
-   <NR>24</NR>
-   <TC>24</TC>
-   <Z9>25</Z9>
-   <U1>2</U1>
-   <U2>23</U2>
-   <PU>OPTICAL SOC AMER</PU>
-   <PI>WASHINGTON</PI>
-   <PA>2010 MASSACHUSETTS AVE NW, WASHINGTON, DC 20036 USA</PA>
-   <SN>0146-9592</SN>
-   <J9>OPT LETT</J9>
-   <JI>Opt. Lett.</JI>
-   <PD>FEB 15</PD>
-   <PY>2012</PY>
-   <VL>37</VL>
-   <IS>4</IS>
-   <BP>482</BP>
-   <EP>484</EP>
-   <PG>3</PG>
-   <WC>Optics</WC>
-   <SC>Optics</SC>
-   <GA>898AF</GA>
-   <UT>WOS:000300706500013</UT>
-   <PM>22344080</PM>
-   <ER/>
-</item>
+      <NR>24</NR>
+      <TC>24</TC>
+      <Z9>25</Z9>
+      <U1>2</U1>
+      <U2>23</U2>
+      <PU>OPTICAL SOC AMER</PU>
+      <PI>WASHINGTON</PI>
+      <PA>2010 MASSACHUSETTS AVE NW, WASHINGTON, DC 20036 USA</PA>
+      <SN>0146-9592</SN>
+      <J9>OPT LETT</J9>
+      <JI>Opt. Lett.</JI>
+      <PD>FEB 15</PD>
+      <PY>2012</PY>
+      <VL>37</VL>
+      <IS>4</IS>
+      <BP>482</BP>
+      <EP>484</EP>
+      <PG>3</PG>
+      <WC>Optics</WC>
+      <SC>Optics</SC>
+      <GA>898AF</GA>
+      <UT>WOS:000300706500013</UT>
+      <PM>22344080</PM>
+   </item>
+</item-list>
