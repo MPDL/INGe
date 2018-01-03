@@ -9,10 +9,6 @@
     <Root level="info">
       <AppenderRef ref="Console"/>
     </Root>
-    <Logger name="org.hibernate.cache" level="debug" />
-    <Logger name="org.hibernate.SQL" level="debug" />
-    <Logger name="org.hibernate.event.internal.DefaultPersistEventListener" level="trace" />
-    <Logger name="net.sf.ehcache" level="info" />
-    <Logger name="de.mpg.mpdl.inge.service.pubman.impl" level="info" />
+    <Logger name="de.mpg.mpdl.inge.model" level="info" />
   </Loggers>
 </Configuration>
