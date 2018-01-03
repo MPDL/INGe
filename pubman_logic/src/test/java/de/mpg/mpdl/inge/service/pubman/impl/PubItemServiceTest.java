@@ -327,21 +327,19 @@ public class PubItemServiceTest extends TestBase {
     pubItemVO = pubItemService.update(pubItemVO, authenticationTokenModerator);
   }
 
-  @Test
+  @Test(expected = AuthorizationException.class)
   public void updateSubmittedItemByDepositorStandardWorkflow() throws Exception {
     super.logMethodName();
 
     String authenticationToken = loginDepositor();
 
     PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    
+    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
-
-    assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
   }
 
   @Test
