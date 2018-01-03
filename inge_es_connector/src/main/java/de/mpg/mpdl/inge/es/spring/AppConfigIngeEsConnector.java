@@ -5,8 +5,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
+import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 
 @Configuration
@@ -15,8 +15,7 @@ public class AppConfigIngeEsConnector {
   private final static Logger logger = LogManager.getLogger(AppConfigIngeEsConnector.class);
 
   @Bean
-  @Primary
-  public ElasticSearchTransportClientProvider elasticSearchClientProvider() {
+  public ElasticSearchClientProvider elasticSearchClientProvider() {
     logger.info("Initializing Spring Bean ElasticSearchTransportClientProvider");
     return new ElasticSearchTransportClientProvider();
   }

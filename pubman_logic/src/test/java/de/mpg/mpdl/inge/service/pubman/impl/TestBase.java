@@ -79,7 +79,8 @@ public class TestBase {
         e.printStackTrace();
       }
     }
-    logger.info("--------------------------------------- Starting " + name.getMethodName() + "---------------------------------------");
+    logger.info("--------------------------------------- Starting " + this.getClass().getSimpleName() + "." + name.getMethodName()
+        + "---------------------------------------");
 
   }
 

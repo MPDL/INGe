@@ -50,8 +50,8 @@ public class UserAccountServiceTest extends TestBase {
     assertTrue(accountUserVO.getGrants().size() == 2);
     assertTrue(accountUserVO.getName().equals("Test Depositor"));
 
-    assertTrue(accountUserVO.getPassword() == null);
-    assertTrue(accountUserVO.getUserid().equals(DEPOSITOR_OBJECTID));
+    assertTrue("Expected null password", accountUserVO.getPassword() == null);
+    assertTrue(accountUserVO.getReference().getObjectId().equals(DEPOSITOR_OBJECTID));
   }
 
   @Test

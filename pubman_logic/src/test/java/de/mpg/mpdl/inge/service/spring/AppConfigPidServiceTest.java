@@ -15,7 +15,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PidServiceMock;
 public class AppConfigPidServiceTest {
   private final static Logger logger = LogManager.getLogger(AppConfigPidServiceTest.class);
 
-  @Bean(name = "pidService")
+  @Bean(name = "pidServiceMock")
   @Primary
   public PidService pidService() {
     logger.info("Initializing PidServiceMock");
