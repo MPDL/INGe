@@ -4,6 +4,8 @@ package de.mpg.mpdl.inge.service.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coremedia.iso.boxes.ItemDataBox;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
@@ -21,6 +23,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
@@ -28,6 +31,8 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 
 public class EntityTransformer {
 
@@ -49,12 +54,11 @@ public class EntityTransformer {
     newContext.setDescription(contextVo.getDescription());
     newContext.setName(contextVo.getName());
     newContext.setObjectId(changeId("ctx", contextVo.getReference().getObjectId()));
-
     newContext.setState(ContextDbVO.State.valueOf(contextVo.getState().name()));
-    newContext.setType(contextVo.getType());
-
-    newContext.setAdminDescriptor(contextVo.getAdminDescriptor());
-
+    newContext.setAllowedGenres(contextVo.getAdminDescriptor().getAllowedGenres());
+    newContext.setAllowedSubjectClassifications(contextVo.getAdminDescriptor().getAllowedSubjectClassifications());
+    newContext.setContactEmail(contextVo.getAdminDescriptor().getContactEmail());
+    newContext.setWorkflow(ContextDbVO.Workflow.valueOf(contextVo.getAdminDescriptor().getWorkflow().name()));
 
     for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : contextVo.getResponsibleAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
@@ -98,10 +102,8 @@ public class EntityTransformer {
       file.setChecksum(oldFile.getChecksum());
       file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
       file.setContent(oldFile.getContent());
-      file.setContentCategory(oldFile.getContentCategory());
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
-      file.setDescription(oldFile.getDescription());
       file.setLastModificationDate(oldFile.getLastModificationDate());
       file.setMetadata(oldFile.getDefaultMetadata());
       file.setMimeType(oldFile.getMimeType());
@@ -117,7 +119,7 @@ public class EntityTransformer {
 
 
 
-    newPubItem.setLastMessage(itemVo.getVersion().getLastMessage());
+    newPubItem.setMessage(itemVo.getVersion().getLastMessage());
     newPubItem.setMetadata(itemVo.getMetadata());
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
@@ -154,10 +156,9 @@ public class EntityTransformer {
 
     pubItemObject.setLocalTags(itemVo.getLocalTags());
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    pubItemObject.setOwner(owner);
-    pubItemObject.setPid(itemVo.getPid());
+    pubItemObject.setCreator(owner);
+    pubItemObject.setObjectPid(itemVo.getPid());
     pubItemObject.setPublicState(PubItemVersionDbRO.State.valueOf(itemVo.getPublicStatus().name()));
-    pubItemObject.setWithdrawComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
 
@@ -228,14 +229,13 @@ public class EntityTransformer {
   private static ItemRO transformToOld(PubItemVersionDbRO newItemRo) {
     ItemRO oldItemRo = new ItemRO();
     oldItemRo.setObjectId(newItemRo.getObjectId());
-    oldItemRo.setLastMessage(newItemRo.getLastMessage());
     oldItemRo.setModificationDate(newItemRo.getModificationDate());
     oldItemRo.setModifiedByRO(transformToOld(newItemRo.getModifiedBy()));
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
 
-    if (newItemRo.getState() != null) {
-      oldItemRo.setVersionState(ItemVO.State.valueOf(newItemRo.getState().name()));
+    if (newItemRo.getVersionState() != null) {
+      oldItemRo.setState(ItemVO.State.valueOf(newItemRo.getVersionState().name()));
     }
 
     oldItemRo.setTitle(null);// TODO
@@ -251,11 +251,11 @@ public class EntityTransformer {
     // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
     // .getChecksumAlgorithm().name()));
     oldFileVo.setContent(newFileVo.getContent());
-    oldFileVo.setContentCategory(newFileVo.getContentCategory());
+    oldFileVo.setContentCategory(newFileVo.getMetadata().getContentCategory());
     oldFileVo.setCreatedByRO(transformToOld(newFileVo.getCreator()));
     oldFileVo.setCreationDate(newFileVo.getCreationDate());
     oldFileVo.setDefaultMetadata(newFileVo.getMetadata());
-    oldFileVo.setDescription(newFileVo.getDescription());
+    oldFileVo.setDescription(newFileVo.getMetadata().getDescription());
     oldFileVo.setLastModificationDate(newFileVo.getLastModificationDate());
     oldFileVo.setMimeType(newFileVo.getMimeType());
     oldFileVo.setName(newFileVo.getName());
@@ -297,10 +297,13 @@ public class EntityTransformer {
 
     oldPubItem.setLatestVersion(transformToOld(itemVo.getObject().getLatestVersion()));
     oldPubItem.setMetadata(itemVo.getMetadata());
-    oldPubItem.setOwner(transformToOld(itemVo.getObject().getOwner()));
-    oldPubItem.setPid(itemVo.getObject().getPid());
+    oldPubItem.setOwner(transformToOld(itemVo.getObject().getCreator()));
+    oldPubItem.setPid(itemVo.getObject().getObjectPid());
     oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicState()));
-    oldPubItem.setPublicStatusComment(itemVo.getObject().getWithdrawComment());
+    if (PubItemVersionDbVO.State.WITHDRAWN.equals(itemVo.getObject().getPublicState())) 
+    {
+      oldPubItem.setPublicStatusComment(itemVo.getMessage());
+    }
     oldPubItem.setVersion(transformToOld((PubItemVersionDbRO) itemVo));
 
     for (String localTag : itemVo.getObject().getLocalTags()) {
@@ -320,7 +323,12 @@ public class EntityTransformer {
     }
 
     ContextVO oldContextVo = new ContextVO();
-    oldContextVo.setAdminDescriptor(newContextVo.getAdminDescriptor());
+    PublicationAdminDescriptorVO adminDescriptorVO = new PublicationAdminDescriptorVO();
+    adminDescriptorVO.setAllowedGenres(newContextVo.getAllowedGenres());
+    adminDescriptorVO.setAllowedSubjectClassifications(newContextVo.getAllowedSubjectClassifications());
+    adminDescriptorVO.setContactEmail(newContextVo.getContactEmail());
+    adminDescriptorVO.setWorkflow(PublicationAdminDescriptorVO.Workflow.valueOf(newContextVo.getWorkflow().name()));
+    oldContextVo.setAdminDescriptor(adminDescriptorVO);
     oldContextVo.setCreationDate(newContextVo.getCreationDate());
     oldContextVo.setCreator(transformToOld(newContextVo.getCreator()));
     oldContextVo.setDescription(newContextVo.getDescription());
@@ -329,7 +337,6 @@ public class EntityTransformer {
     oldContextVo.setName(newContextVo.getName());
     oldContextVo.setReference(transformToOld((ContextDbRO) newContextVo));
     oldContextVo.setState(ContextVO.State.valueOf(newContextVo.getState().name()));
-    oldContextVo.setType(newContextVo.getType());
 
     for (AffiliationDbRO aff : newContextVo.getResponsibleAffiliations()) {
       oldContextVo.getResponsibleAffiliations().add(transformToOld(aff));
@@ -399,7 +406,7 @@ public class EntityTransformer {
         ref.setLastMessage(audit.getComment());
 
         vhEntry.setReference(ref);
-        vhEntry.setVersionState(ItemVO.State.valueOf(audit.getPubItem().getState().name()));
+        vhEntry.setState(ItemVO.State.valueOf(audit.getPubItem().getVersionState().name()));
         vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
 
         vhList.add(vhEntry);
