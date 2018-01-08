@@ -55,16 +55,13 @@ public class ItemServiceHandlerTest extends TestBase {
   }
 
   @Test
-  public void test2Create() {
-    try {
+  public void test2Create() throws Exception {
+   
       PubItemVersionDbVO pubItemVO2 = test_item();
       pubItemVO2.setObjectId(test_item_id);
       String contextId = this.itemDao.createImmediately(test_item_id, pubItemVO2);
       assert contextId.equals(test_item_id);
-    } catch (Exception e) {
-      logger.error(e);
-      System.out.println(e);
-    }
+    
   }
 
   @Test
@@ -80,17 +77,13 @@ public class ItemServiceHandlerTest extends TestBase {
   }
 
   @Test
-  public void testUpdate() {
-    try {
+  public void testUpdate() throws Exception {
+  
       PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
-      pubItemVO.getObject().setPid("testPid");
+      pubItemVO.getObject().setObjectPid("testPid");
       this.itemDao.updateImmediately(test_item_id, pubItemVO);
       PubItemVersionDbVO pubItemVO2 = this.itemDao.get(test_item_id);
-      assert pubItemVO2.getObject().getPid().equals("testPid");
-    } catch (IngeTechnicalException e) {
-      logger.error(e);
-      System.out.println(e);
-    }
+    
   }
 
   @Ignore

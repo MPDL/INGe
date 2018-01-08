@@ -480,7 +480,7 @@ public class Migration {
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setVersionState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
@@ -518,8 +518,8 @@ public class Migration {
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
     pubItemObject.setPid(itemVo.getPid());
-    pubItemObject.setPublicStatus(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
-    pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
+    pubItemObject.setPublicState(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
+    pubItemObject.setWithdrawComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
   }

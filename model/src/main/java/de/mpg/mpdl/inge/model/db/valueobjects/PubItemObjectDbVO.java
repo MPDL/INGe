@@ -39,6 +39,16 @@ public class PubItemObjectDbVO implements Serializable {
   @Id
   private String objectId;
 
+  /**
+   * The date of the last modification of the referenced item.
+   */
+  private Date lastModificationDate;
+  
+  @Enumerated(EnumType.STRING)
+  private PubItemVersionDbRO.State publicState;
+  
+  @Column(name = "objectPid")
+  private String objectPid;
 
   @Embedded
   @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "creator_objectId")),
@@ -66,25 +76,15 @@ public class PubItemObjectDbVO implements Serializable {
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
   private PubItemVersionDbRO latestVersion;
 
-  @Column(name = "objectPid")
-  private String pid;
 
 
-  @Enumerated(EnumType.STRING)
-  private PubItemVersionDbRO.State publicStatus;
 
-  @Column(columnDefinition = "TEXT")
-  private String publicStatusComment;
+
 
   @Type(type = "StringListJsonUserType")
   private List<String> localTags = new ArrayList<String>();
 
-  /**
-   * The date of the last modification of the referenced item.
-   */
-  private Date lastModificationDate;
-
-
+  
   /**
    * Sets the technical objectId-attribute of corresponding ValueObject.
    * 
@@ -101,20 +101,11 @@ public class PubItemObjectDbVO implements Serializable {
     return objectId;
   }
 
-
-  public String getPublicStatusComment() {
-    return this.publicStatusComment;
-  }
-
-  public void setPublicStatusComment(String comment) {
-    this.publicStatusComment = comment;
-  }
-
   /**
    * Helper method for JiBX transformations.
    */
   boolean hasPID() {
-    return (this.pid != null);
+    return (this.objectPid != null);
   }
 
 
@@ -122,8 +113,8 @@ public class PubItemObjectDbVO implements Serializable {
   /**
    * Delivers the persistent identifier of the item.
    */
-  public String getPid() {
-    return this.pid;
+  public String getObjectPid() {
+    return this.objectPid;
   }
 
 
@@ -133,8 +124,8 @@ public class PubItemObjectDbVO implements Serializable {
    * 
    * @param newVal
    */
-  public void setPid(String newVal) {
-    this.pid = newVal;
+  public void setObjectPid(String newVal) {
+    this.objectPid = newVal;
   }
 
 
@@ -176,12 +167,12 @@ public class PubItemObjectDbVO implements Serializable {
 
 
 
-  public PubItemVersionDbRO.State getPublicStatus() {
-    return publicStatus;
+  public PubItemVersionDbRO.State getPublicState() {
+    return publicState;
   }
 
-  public void setPublicStatus(PubItemVersionDbRO.State publicStatus) {
-    this.publicStatus = publicStatus;
+  public void setPublicState(PubItemVersionDbRO.State publicStatus) {
+    this.publicState = publicStatus;
   }
 
 

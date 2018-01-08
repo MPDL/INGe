@@ -305,7 +305,7 @@ public class MigrationTests {
     pubItem.setModificationDate(now);
     pubItem.setModifiedBy(user);
     pubItem.setObjectId("pure_1");
-    pubItem.setState(PubItemVersionDbVO.State.PENDING);
+    pubItem.setVersionState(PubItemVersionDbVO.State.PENDING);
     pubItem.setVersionNumber(1);
     pubItem.setVersionPid("version_pid");
 
@@ -323,8 +323,8 @@ public class MigrationTests {
     object.setObjectId("pure_1");
 
     object.setOwner(user);
-    object.setPublicStatus(PubItemVersionDbVO.State.PENDING);
-    object.setPublicStatusComment("Public status comment");
+    object.setPublicState(PubItemVersionDbVO.State.PENDING);
+    object.setWithdrawComment("Public status comment");
 
     pubItem.setObject(object);
 
@@ -714,7 +714,7 @@ public class MigrationTests {
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setVersionState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
@@ -758,8 +758,8 @@ public class MigrationTests {
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
     pubItemObject.setPid(itemVo.getPid());
-    pubItemObject.setPublicStatus(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
-    pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
+    pubItemObject.setPublicState(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
+    pubItemObject.setWithdrawComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
 

@@ -163,7 +163,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     }
 
     AccountUserVO objectToReturn = transformToOld(userDbToUpdated);
-    getElasticDao().updateImmediately(userDbToUpdated.getObjectId(), objectToReturn);
+    getElasticDao().createImmediately(userDbToUpdated.getObjectId(), objectToReturn);
     return objectToReturn;
 
   }
@@ -233,7 +233,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       handleDBException(e);
     }
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
-    getElasticDao().updateImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
+    getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
 
     return objectToReturn;
 
@@ -278,7 +278,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       handleDBException(e);
     }
     AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
-    getElasticDao().updateImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
+    getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
 
     return objectToReturn;
 

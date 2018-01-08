@@ -82,8 +82,8 @@ public class TestBase {
     child.setObjectId("testChild");
     child.setName("testTitle");
     vo.get.add(child);
-*/
-    
+    */
+
     vo.setCreationDate(DATE);
 
     // Creator
@@ -140,24 +140,24 @@ public class TestBase {
   public ContextDbVO test_context() {
     ContextDbVO vo = new ContextDbVO();
 
-    
+
     vo.getAllowedGenres().add(Genre.ARTICLE);
     vo.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
     vo.setContactEmail("testContactEmail");
     vo.setWorkflow(ContextDbVO.Workflow.STANDARD);
-    
+
     // Creator
     AccountUserDbRO creator = new AccountUserDbRO();
     creator.setObjectId("testCreator");
     creator.setName("testTitle");
     vo.setCreator(creator);
-    
+
     // Modifier
     AccountUserDbRO modifier = new AccountUserDbRO();
     modifier.setObjectId("testModifier");
     modifier.setName("testModifier");
     vo.setModifier(modifier);
-    
+
     // AdminDescriptor
     /*
     PublicationAdminDescriptorVO admin = new PublicationAdminDescriptorVO();
@@ -181,8 +181,8 @@ public class TestBase {
     admin.setWorkflow(Workflow.STANDARD);
     vo.setAdminDescriptor(admin);
      */
-    
-   
+
+
     vo.setDescription("testDescription");
     vo.setName("testName");
 
@@ -217,25 +217,23 @@ public class TestBase {
     // LatestRelease
     PubItemVersionDbRO latestRelease = new PubItemVersionDbRO();
     latestRelease.setObjectId("testLatestRelease");
-    latestRelease.setLastMessage("testLastMessage");
     latestRelease.setModificationDate(DATE);
     AccountUserDbRO modifier = new AccountUserDbRO();
     modifier.setObjectId("testModifier");
     modifier.setName("testTitle");
     latestRelease.setModifiedBy(modifier);
     //latestRelease.setPid("testPid");
-    latestRelease.setState(PubItemVersionDbRO.State.PENDING);
+    latestRelease.setVersionState(PubItemVersionDbRO.State.PENDING);
     latestRelease.setVersionNumber(5);
     vo.getObject().setLatestRelease(latestRelease);
 
     // LatestVersion
     PubItemVersionDbRO latestVersion = new PubItemVersionDbRO();
     latestVersion.setObjectId("testLatestVersion");
-    latestVersion.setLastMessage("testLastMessage");
     latestVersion.setModificationDate(DATE);
     latestVersion.setModifiedBy(modifier);
     //latestVersion.setPid("testPid");
-    latestVersion.setState(PubItemVersionDbRO.State.PENDING);
+    latestVersion.setVersionState(PubItemVersionDbRO.State.PENDING);
     latestVersion.setVersionNumber(5);
     vo.getObject().setLatestVersion(latestVersion);
 
@@ -428,18 +426,17 @@ public class TestBase {
     owner.setName("testTitle");
     vo.getObject().setCreator(owner);
 
-    vo.getObject().setPid("testPid");
-    vo.getObject().setPublicStatus(PubItemVersionDbVO.State.RELEASED);
-    vo.getObject().setPublicStatusComment("testPublicStatusComment");
+    vo.getObject().setObjectPid("testPid");
+    vo.getObject().setPublicState(PubItemVersionDbVO.State.RELEASED);
 
     // Version
-    
-    vo.setLastMessage("testLastMessage");
+
+    vo.setMessage("testLastMessage");
     vo.setModificationDate(DATE);
 
     vo.setModifiedBy(modifier);
     vo.setVersionPid("testPid");
-    vo.setState(PubItemVersionDbRO.State.RELEASED);
+    vo.setVersionState(PubItemVersionDbRO.State.RELEASED);
     vo.setVersionNumber(5);
 
     // Yearbook (erst mal weglassen!)
@@ -477,10 +474,10 @@ public class TestBase {
     file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.MD5);
     file.setContent("testContent");
     file.setSize(5);
- // Owner
+    // Owner
 
     file.setCreator(owner);
-    
+
     file.setCreationDate(DATE);
     MdsFileVO mdsFile = new MdsFileVO();
     mdsFile.setContentCategory("testContentCategory");
@@ -540,8 +537,8 @@ public class TestBase {
     relation.setTargetItemRef(targetItemRef);
     relation.setType("testType");
     vo.getRelations().add(relation);
-
-*/
+    
+    */
     return vo;
   }
 

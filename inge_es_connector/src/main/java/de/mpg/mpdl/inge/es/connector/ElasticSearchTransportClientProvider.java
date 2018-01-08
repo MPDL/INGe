@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -23,7 +23,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
       String addr = ip.split(":")[0];
       int port = Integer.valueOf(ip.split(":")[1]);
       try {
-        this.client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(addr), port));
+        this.client.addTransportAddress(new TransportAddress(InetAddress.getByName(addr), port));
       } catch (UnknownHostException e) {
         e.printStackTrace();
       }

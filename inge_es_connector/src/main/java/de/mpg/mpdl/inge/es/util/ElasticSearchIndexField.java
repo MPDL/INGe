@@ -78,11 +78,9 @@ public class ElasticSearchIndexField {
 
       Map<String, ElasticSearchIndexField> indexMap = new TreeMap<>();
 
-      try {
-        fillMap("", mdd.getSourceAsMap(), indexMap, "", new ArrayList<>());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+     
+      fillMap("", mdd.getSourceAsMap(), indexMap, "", new ArrayList<>());
+      
 
       return indexMap;
     }

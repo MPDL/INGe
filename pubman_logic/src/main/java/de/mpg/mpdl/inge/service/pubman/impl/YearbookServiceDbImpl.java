@@ -109,7 +109,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
       handleDBException(e);
     }
 
-    getElasticDao().updateImmediately(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
+    getElasticDao().createImmediately(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
     return yearbookDbToBeUpdated;
   }
 

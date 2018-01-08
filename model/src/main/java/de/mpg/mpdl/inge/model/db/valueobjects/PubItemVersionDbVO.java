@@ -48,6 +48,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -75,6 +76,13 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
    * The version number of the referenced item. This attribute is optional.
    */
 
+  
+  /**
+   * The message of the last action event of this item.
+   */
+  @Column(columnDefinition = "TEXT")
+  private String message;
+  
   @MapsId("objectId")
   @JoinColumn(name = "objectId", referencedColumnName = "objectId")
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -82,17 +90,14 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   PubItemObjectDbVO object = new PubItemObjectDbVO();
 
+  @Column
+  @Type(type = "MdsPublicationVOJsonUserType")
+  private MdsPublicationVO metadata = new MdsPublicationVO();
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @OrderColumn(name = "creationDate")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
-
-
-  @Column
-  @Type(type = "MdsPublicationVOJsonUserType")
-  private MdsPublicationVO metadata = new MdsPublicationVO();
-
 
   public PubItemObjectDbVO getObject() {
     return object;
@@ -143,5 +148,22 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
    */
   public java.util.List<FileDbVO> getFiles() {
     return this.files;
+  }
+  
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String lastMessage) {
+    this.message = message;
+  }
+  
+  @JsonIgnore
+  public String getLastMessageForXml() {
+    if (message == null) {
+      return "";
+    } else {
+      return message;
+    }
   }
 }

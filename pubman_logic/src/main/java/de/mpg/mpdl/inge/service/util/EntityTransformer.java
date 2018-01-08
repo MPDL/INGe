@@ -122,7 +122,7 @@ public class EntityTransformer {
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setState(PubItemVersionDbRO.State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setVersionState(PubItemVersionDbRO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
@@ -156,8 +156,8 @@ public class EntityTransformer {
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
     pubItemObject.setPid(itemVo.getPid());
-    pubItemObject.setPublicStatus(PubItemVersionDbRO.State.valueOf(itemVo.getPublicStatus().name()));
-    pubItemObject.setPublicStatusComment(itemVo.getPublicStatusComment());
+    pubItemObject.setPublicState(PubItemVersionDbRO.State.valueOf(itemVo.getPublicStatus().name()));
+    pubItemObject.setWithdrawComment(itemVo.getPublicStatusComment());
 
     return newPubItem;
 
@@ -235,7 +235,7 @@ public class EntityTransformer {
     oldItemRo.setPid(newItemRo.getVersionPid());
 
     if (newItemRo.getState() != null) {
-      oldItemRo.setState(ItemVO.State.valueOf(newItemRo.getState().name()));
+      oldItemRo.setVersionState(ItemVO.State.valueOf(newItemRo.getState().name()));
     }
 
     oldItemRo.setTitle(null);// TODO
@@ -299,8 +299,8 @@ public class EntityTransformer {
     oldPubItem.setMetadata(itemVo.getMetadata());
     oldPubItem.setOwner(transformToOld(itemVo.getObject().getOwner()));
     oldPubItem.setPid(itemVo.getObject().getPid());
-    oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicStatus()));
-    oldPubItem.setPublicStatusComment(itemVo.getObject().getPublicStatusComment());
+    oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicState()));
+    oldPubItem.setPublicStatusComment(itemVo.getObject().getWithdrawComment());
     oldPubItem.setVersion(transformToOld((PubItemVersionDbRO) itemVo));
 
     for (String localTag : itemVo.getObject().getLocalTags()) {
@@ -399,7 +399,7 @@ public class EntityTransformer {
         ref.setLastMessage(audit.getComment());
 
         vhEntry.setReference(ref);
-        vhEntry.setState(ItemVO.State.valueOf(audit.getPubItem().getState().name()));
+        vhEntry.setVersionState(ItemVO.State.valueOf(audit.getPubItem().getState().name()));
         vhEntry.setEvents(new ArrayList<EventLogEntryVO>());
 
         vhList.add(vhEntry);

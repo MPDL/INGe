@@ -16,7 +16,7 @@ import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -126,7 +126,7 @@ public enum ElasticSearchIndexAdminClient {
               .put("client.transport.sniff", true).build();
       client = new PreBuiltTransportClient(settings);
       for (String ip : PropertyReader.getProperty("inge.es.transport.ips").split(" ")) {
-        client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName(ip), 9300));
       }
     } catch (IOException e) {
       e.printStackTrace();

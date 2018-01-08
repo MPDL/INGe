@@ -256,7 +256,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
   private void createAuditEntry(PubItemVersionDbVO pubItem, EventType event) throws IngeApplicationException, IngeTechnicalException {
     AuditDbVO audit = new AuditDbVO();
     audit.setEvent(event);
-    audit.setComment(pubItem.getLastMessage());
+    audit.setComment(pubItem.getMessage());
     audit.setModificationDate(pubItem.getModificationDate());
     audit.setModifier(pubItem.getModifiedBy());
     audit.setPubItem(pubItem);
@@ -274,14 +274,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     PubItemVersionDbVO pubItem = new PubItemVersionDbVO();
 
     pubItem.setMetadata(md);
-    pubItem.setLastMessage(null);
+    pubItem.setMessage(null);
     pubItem.setModificationDate(currentDate);
     AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
     pubItem.setModifiedBy(mod);
     pubItem.setObjectId(objectId);
-    pubItem.setState(PubItemVersionDbRO.State.PENDING);
+    pubItem.setVersionState(PubItemVersionDbRO.State.PENDING);
     pubItem.setVersionNumber(1);
     pubItem.setVersionPid(null);// TODO
 
@@ -294,8 +294,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
     pubItemObject.setObjectId(objectId);
     pubItemObject.setOwner(mod);
     pubItemObject.setPid(null);// TODO
-    pubItemObject.setPublicStatus(PubItemVersionDbRO.State.PENDING);
-    pubItemObject.setPublicStatusComment(null);
+    pubItemObject.setPublicState(PubItemVersionDbRO.State.PENDING);
+    pubItemObject.setWithdrawComment(null);
 
     pubItem.setObject(pubItemObject);
     return pubItem;
@@ -345,9 +345,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
       // submitted
 
       if (userAccount.isModerator(context.getReference())) {
-        latestVersion.setState(PubItemVersionDbRO.State.SUBMITTED);
+        latestVersion.setVersionState(PubItemVersionDbRO.State.SUBMITTED);
       } else {
-        latestVersion.setState(PubItemVersionDbRO.State.PENDING);
+        latestVersion.setVersionState(PubItemVersionDbRO.State.PENDING);
       }
 
       latestVersion.setVersionNumber(latestVersion.getVersionNumber() + 1);
@@ -610,12 +610,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     checkAa(aaMethod, userAccount, latestVersionOld, context);
 
-    if (PubItemVersionDbRO.State.SUBMITTED.equals(state) && !PubItemVersionDbRO.State.RELEASED.equals(latestVersion.getObject().getPublicStatus())) {
-      latestVersion.getObject().setPublicStatus(PubItemVersionDbRO.State.SUBMITTED);
+    if (PubItemVersionDbRO.State.SUBMITTED.equals(state) && !PubItemVersionDbRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
+      latestVersion.getObject().setPublicState(PubItemVersionDbRO.State.SUBMITTED);
     }
 
     if (PubItemVersionDbRO.State.RELEASED.equals(state)) {
-      latestVersion.getObject().setPublicStatus(PubItemVersionDbRO.State.RELEASED);
+      latestVersion.getObject().setPublicState(PubItemVersionDbRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
       PubItemObjectDbVO pubItemObject = latestVersion.getObject();
       try {
@@ -652,10 +652,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<PubItemVO> impl
 
     if (PubItemVersionDbRO.State.WITHDRAWN.equals(state)) {
       // change public state to withdrawn, leave version state as is
-      latestVersion.getObject().setPublicStatus(PubItemVersionDbRO.State.WITHDRAWN);
-      latestVersion.getObject().setPublicStatusComment(message);
+      latestVersion.getObject().setPublicState(PubItemVersionDbRO.State.WITHDRAWN);
+      latestVersion.getObject().setWithdrawComment(message);
     } else {
-      latestVersion.setState(state);
+      latestVersion.setVersionState(state);
     }
 
     updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getReference().getObjectId());

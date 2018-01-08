@@ -17,6 +17,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -82,7 +83,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public String create(String id, E entity) throws IngeTechnicalException {
     try {
       IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setSource(mapper.writeValueAsBytes(entity)).get();
+          .setSource(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -102,8 +103,9 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
+      logger.info(new String(mapper.writeValueAsBytes(entity)));
       IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setSource(mapper.writeValueAsBytes(entity)).get();
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setSource(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -143,7 +145,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
     try {
       UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity)).get();
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
