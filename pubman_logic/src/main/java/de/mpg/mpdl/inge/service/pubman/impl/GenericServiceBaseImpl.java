@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -116,7 +117,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   }
 
 
-  protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
+  protected void checkAa(String method, AccountUserDbVO userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];

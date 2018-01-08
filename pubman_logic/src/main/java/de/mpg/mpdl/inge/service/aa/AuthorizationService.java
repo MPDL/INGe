@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -203,7 +205,7 @@ public class AuthorizationService {
 
 
 
-  public AccountUserVO checkLoginRequired(String authenticationToken)
+  public AccountUserDbVO checkLoginRequired(String authenticationToken)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
     return userAccountService.get(authenticationToken);
   }
@@ -323,9 +325,9 @@ public class AuthorizationService {
 
       // If grant is of type "ORGANIZATION", get all children of organization as potential matches
       if (grantFieldMatch != null && grantFieldMatchValues.get(0).startsWith("ou")) {
-        List<AffiliationVO> childList = new ArrayList<>();
+        List<AffiliationDbVO> childList = new ArrayList<>();
         searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
-        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getReference().getObjectId()).collect(Collectors.toList()));
+        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
 
       }
 
@@ -349,15 +351,15 @@ public class AuthorizationService {
 
   }
 
-  private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationVO> completeList)
+  private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationDbVO> completeList)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
 
-    List<AffiliationVO> children = ouService.searchChildOrganizations(parentAffiliationId);
+    List<AffiliationDbVO> children = ouService.searchChildOrganizations(parentAffiliationId);
     if (children != null) {
-      for (AffiliationVO child : children) {
+      for (AffiliationDbVO child : children) {
         completeList.add(child);
-        searchAllChildOrganizations(child.getReference().getObjectId(), completeList);
+        searchAllChildOrganizations(child.getObjectId(), completeList);
       }
     }
   }

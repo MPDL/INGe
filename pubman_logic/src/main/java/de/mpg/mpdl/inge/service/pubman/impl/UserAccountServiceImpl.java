@@ -54,7 +54,7 @@ import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
-public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, AccountUserDbVO, String>
+public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String>
     implements UserAccountService, ReindexListener {
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
@@ -113,19 +113,19 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public AccountUserVO create(AccountUserVO givenUser, String authenticationToken)
+  public AccountUserDbVO create(AccountUserDbVO givenUser, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AccountUserVO accountUser = super.create(givenUser, authenticationToken);
+    AccountUserDbVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
     try {
-      userLoginRepository.insertLogin(accountUser.getUserid(), passwordEncoder.encode(givenUser.getPassword()));
+      userLoginRepository.insertLogin(accountUser.getLoginname(), passwordEncoder.encode(givenUser.getPassword()));
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    if (givenUser.getGrants() != null && !givenUser.getGrants().isEmpty()) {
-      accountUser = this.addGrants(accountUser.getReference().getObjectId(), accountUser.getLastModificationDate(),
-          givenUser.getGrants().toArray(new GrantVO[] {}), authenticationToken);
+    if (givenUser.getGrantList() != null && !givenUser.getGrantList().isEmpty()) {
+      accountUser = this.addGrants(accountUser.getObjectId(), accountUser.getLastModificationDate(),
+          givenUser.getGrantList().toArray(new GrantVO[] {}), authenticationToken);
     }
 
 
@@ -136,10 +136,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public AccountUserVO changePassword(String userId, Date modificationDate, String newPassword, String authenticationToken)
+  public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
     AccountUserDbVO userDbToUpdated = userAccountRepository.findOne(userId);
 
@@ -147,12 +147,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       throw new IngeApplicationException("Object with given id not found.");
     }
 
-    AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(userDbToUpdated);
 
-    checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
+    checkEqualModificationDate(modificationDate, getModificationDate(userDbToUpdated));
 
-    checkAa("changePassword", userAccount, userVoToUpdated);
-    userLoginRepository.updateLogin(userVoToUpdated.getUserid(), passwordEncoder.encode(newPassword));
+    checkAa("changePassword", userAccount, userDbToUpdated);
+    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword));
 
     updateWithTechnicalMetadata(userDbToUpdated, userAccount, false);
 
@@ -162,25 +161,23 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       handleDBException(e);
     }
 
-    AccountUserVO objectToReturn = transformToOld(userDbToUpdated);
-    getElasticDao().createImmediately(userDbToUpdated.getObjectId(), objectToReturn);
-    return objectToReturn;
+    getElasticDao().createImmediately(userDbToUpdated.getObjectId(), userDbToUpdated);
+    return userDbToUpdated;
 
   }
 
 
   @Transactional(rollbackFor = Throwable.class)
-  public AccountUserVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
+  public AccountUserDbVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
 
-    AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(objectToBeUpdated);
 
-    checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
+    checkEqualModificationDate(modificationDate, getModificationDate(objectToBeUpdated));
 
     for (GrantVO grantToBeAdded : grants) {
 
@@ -219,7 +216,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
 
-      checkAa("addGrants", userAccount, transformToOld(objectToBeUpdated), grantToBeAdded, referencedObject);
+      checkAa("addGrants", userAccount, objectToBeUpdated, grantToBeAdded, referencedObject);
 
 
     }
@@ -232,25 +229,23 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
-    getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
+    getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToBeUpdated);
 
-    return objectToReturn;
+    return objectToBeUpdated;
 
   }
 
   @Transactional(rollbackFor = Throwable.class)
-  public AccountUserVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
+  public AccountUserDbVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
 
-    AccountUserVO userVoToUpdated = EntityTransformer.transformToOld(objectToBeUpdated);
 
-    checkEqualModificationDate(modificationDate, getModificationDate(userVoToUpdated));
+    checkEqualModificationDate(modificationDate, getModificationDate(objectToBeUpdated));
 
     for (GrantVO givenGrant : grants) {
       GrantVO grantToBeRemoved = null;
@@ -267,7 +262,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       }
 
 
-      checkAa("removeGrants", userAccount, transformToOld(objectToBeUpdated), givenGrant);
+      checkAa("removeGrants", userAccount, objectToBeUpdated, givenGrant);
       objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
     }
     updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
@@ -277,10 +272,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    AccountUserVO objectToReturn = transformToOld(objectToBeUpdated);
-    getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToReturn);
+    getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToBeUpdated);
 
-    return objectToReturn;
+    return objectToBeUpdated;
 
   }
 
@@ -331,7 +325,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
       if (userAccountSysadmin != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
         for (GrantVO grant : userAccountSysadmin.getGrantList()) {
           if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
-            AccountUserVO userAccountToLogin = transformToOld(userAccountRepository.findByLoginname(parts[1]));
+            AccountUserDbVO userAccountToLogin = userAccountRepository.findByLoginname(parts[1]);
             return createToken(userAccountToLogin);
           }
         }
@@ -340,7 +334,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     }
 
     else {
-      AccountUserVO userAccount = transformToOld(userAccountRepository.findByLoginname(username));
+      AccountUserDbVO userAccount = userAccountRepository.findByLoginname(username);
       String encodedPassword = userLoginRepository.findPassword(username);
 
       if (userAccount != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
@@ -358,7 +352,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   @Transactional(readOnly = true)
   @Override
-  public AccountUserVO get(String id, String authenticationToken)
+  public AccountUserDbVO get(String id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     String userId = id;
@@ -374,10 +368,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
 
   @Override
-  public AccountUserVO get(String authenticationToken) throws IngeTechnicalException, AuthenticationException {
+  public AccountUserDbVO get(String authenticationToken) throws IngeTechnicalException, AuthenticationException {
     DecodedJWT jwt = verifyToken(authenticationToken);
     String userId = jwt.getSubject();
-    return transformToOld(userAccountRepository.findByLoginname(userId));
+    return userAccountRepository.findByLoginname(userId);
   }
 
 
@@ -392,14 +386,14 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-  private String createToken(AccountUserVO user) throws IngeTechnicalException {
+  private String createToken(AccountUserDbVO user) throws IngeTechnicalException {
     try {
       Instant now = Instant.now();
       Date issueDate = Date.from(now);
       Date expirationDate = Date.from(now.plus(2, ChronoUnit.HOURS));
       logger.info("Creating token with issue date: " + issueDate + " and expiration date " + expirationDate);
 
-      return JWT.create().withClaim("id", user.getReference().getObjectId()).withSubject(user.getUserid()).withIssuedAt(issueDate)
+      return JWT.create().withClaim("id", user.getObjectId()).withSubject(user.getObjectId()).withIssuedAt(issueDate)
           .withIssuer(jwtIssuer).withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
     } catch (Exception e) {
       throw new IngeTechnicalException("Could not generate token " + e.getMessage(), e);
@@ -415,33 +409,28 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Override
-  protected List<String> updateObjectWithValues(AccountUserVO givenUser, AccountUserDbVO tobeUpdatedUser, AccountUserVO callingUser,
+  protected List<String> updateObjectWithValues(AccountUserDbVO givenUser, AccountUserDbVO tobeUpdatedUser, AccountUserDbVO callingUser,
       boolean create) throws IngeApplicationException {
 
 
-    if (givenUser.getName() == null || givenUser.getName().trim().isEmpty() || givenUser.getUserid() == null
-        || givenUser.getUserid().trim().isEmpty()) {
+    if (givenUser.getName() == null || givenUser.getName().trim().isEmpty() || givenUser.getLoginname() == null
+        || givenUser.getLoginname().trim().isEmpty()) {
       throw new IngeApplicationException("A name and user id is required");
     }
 
-    validateLoginname(givenUser.getUserid());
+    validateLoginname(givenUser.getLoginname());
 
     if (create) {
       tobeUpdatedUser.setActive(true);
     }
 
 
-    if (givenUser.getAffiliations() == null || givenUser.getAffiliations().size() == 0) {
-      tobeUpdatedUser.setAffiliation(null);
-    } else {
-      AffiliationDbRO affRo = new AffiliationDbRO();
-      affRo.setObjectId(givenUser.getAffiliations().get(0).getObjectId());
-      tobeUpdatedUser.setAffiliation(affRo);
-    }
+    tobeUpdatedUser.setAffiliation(givenUser.getAffiliation());
+    
 
 
     tobeUpdatedUser.setEmail(givenUser.getEmail());
-    tobeUpdatedUser.setLoginname(givenUser.getUserid());
+    tobeUpdatedUser.setLoginname(givenUser.getLoginname());
     tobeUpdatedUser.setName(givenUser.getName());
     // tobeUpdatedUser.setPassword(givenUser.getPassword());
 
@@ -457,10 +446,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   }
 
-  @Override
-  protected AccountUserVO transformToOld(AccountUserDbVO dbObject) {
-    return EntityTransformer.transformToOld(dbObject);
-  }
+
 
   @Override
   protected JpaRepository<AccountUserDbVO, String> getDbRepository() {
@@ -468,13 +454,13 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Override
-  protected GenericDaoEs<AccountUserVO> getElasticDao() {
+  protected GenericDaoEs<AccountUserDbVO> getElasticDao() {
     return userAccountDao;
   }
 
   @Override
-  protected String getObjectId(AccountUserVO object) {
-    return object.getReference().getObjectId();
+  protected String getObjectId(AccountUserDbVO object) {
+    return object.getObjectId();
   }
 
   private void validatePassword(String password) throws IngeApplicationException {
@@ -497,14 +483,14 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
   }
 
   @Override
-  protected Date getModificationDate(AccountUserVO object) {
+  protected Date getModificationDate(AccountUserDbVO object) {
     return object.getLastModificationDate();
   }
 
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public AccountUserVO activate(String id, Date modificationDate, String authenticationToken)
+  public AccountUserDbVO activate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, true);
   }
@@ -512,24 +498,24 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public AccountUserVO deactivate(String id, Date modificationDate, String authenticationToken)
+  public AccountUserDbVO deactivate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, false);
   }
 
-  private AccountUserVO changeState(String id, Date modificationDate, String authenticationToken, boolean active)
+  private AccountUserDbVO changeState(String id, Date modificationDate, String authenticationToken, boolean active)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO accountToBeUpdated = userAccountRepository.findOne(id);
     if (accountToBeUpdated == null) {
       throw new IngeTechnicalException("User account with given id " + id + " not found.");
     }
 
-    AccountUserVO userVoToBeUpdated = transformToOld(accountToBeUpdated);
 
-    checkEqualModificationDate(modificationDate, getModificationDate(userVoToBeUpdated));
 
-    checkAa((active ? "activate" : "deactivate"), userAccount, userVoToBeUpdated);
+    checkEqualModificationDate(modificationDate, getModificationDate(accountToBeUpdated));
+
+    checkAa((active ? "activate" : "deactivate"), userAccount, accountToBeUpdated);
 
     accountToBeUpdated.setActive(active);
     updateWithTechnicalMetadata(accountToBeUpdated, userAccount, false);
@@ -539,9 +525,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserVO, Ac
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    AccountUserVO userToReturn = EntityTransformer.transformToOld(accountToBeUpdated);
-    userAccountDao.updateImmediately(accountToBeUpdated.getObjectId(), userToReturn);
-    return userToReturn;
+    
+    userAccountDao.updateImmediately(accountToBeUpdated.getObjectId(), accountToBeUpdated);
+    return accountToBeUpdated;
   }
 
   @Override

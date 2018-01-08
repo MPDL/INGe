@@ -32,7 +32,9 @@ import org.xml.sax.SAXException;
 import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -106,11 +108,11 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     logger.info("Trying to read file " + fileId + " with authenticationToken " + authenticationToken);
     // Item-based aa covered by this method
-    PubItemVO item = pubItemService.get(itemId, authenticationToken);
+    PubItemVersionDbVO item = pubItemService.get(itemId, authenticationToken);
 
-    FileVO selectedFile = null;
-    for (FileVO file : item.getFiles()) {
-      if (file.getReference().getObjectId().equals(fileId)) {
+    FileDbVO selectedFile = null;
+    for (FileDbVO file : item.getFiles()) {
+      if (file.getObjectId().equals(fileId)) {
         selectedFile = file;
         break;
       }
@@ -122,7 +124,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     if (selectedFile == null || fileDbVO == null || fileDbVO.getLocalFileIdentifier() == null) {
       throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ " + itemId + "].");
     }
-    AccountUserVO user = null;
+    AccountUserDbVO user = null;
     if (authenticationToken != null) {
       user = aaService.checkLoginRequired(authenticationToken);
     }
@@ -150,7 +152,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
 
-    AccountUserVO user = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO user = aaService.checkLoginRequired(authenticationToken);
     if (fileName == null || fileName.trim().isEmpty()) {
       throw new IngeTechnicalException("No filename defined.");
     }
@@ -158,7 +160,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     StagedFileDbVO stagedFileVo = new StagedFileDbVO();
     stagedFileVo.setFilename(fileName);
     stagedFileVo = stagedFileRepository.save(stagedFileVo);
-    stagedFileVo.setCreatorId(user.getReference().getObjectId());
+    stagedFileVo.setCreatorId(user.getObjectId());
 
     try {
 
@@ -182,12 +184,12 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void createFileFromStagedFile(FileVO fileVO, AccountUserVO userAccount) throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount) throws IngeTechnicalException, IngeApplicationException {
 
 
     StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
-    if (!stagedFileVo.getCreatorId().equals(userAccount.getReference().getObjectId())) {
+    if (!stagedFileVo.getCreatorId().equals(userAccount.getObjectId())) {
       throw new IngeTechnicalException("Staged file is read by another user than its creator");
 
     }
@@ -203,9 +205,9 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
 
-      fileVO.getDefaultMetadata().setSize((int) stagedFile.length());
+      fileVO.setSize((int) stagedFile.length());
       fileVO.setName(stagedFileVo.getFilename());
-      fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
+      //fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
 
     } catch (FileNotFoundException e) {
@@ -320,7 +322,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
 
-  protected void checkAa(String method, AccountUserVO userAccount, Object... objects)
+  protected void checkAa(String method, AccountUserDbVO userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -43,6 +44,9 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @ManyToOne(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   private AffiliationDbRO affiliation;
+  
+  @Transient
+  private String password;
 
   public boolean isActive() {
     return active;
@@ -82,6 +86,14 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
 
   public void setAffiliation(AffiliationDbRO affiliation) {
     this.affiliation = affiliation;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 

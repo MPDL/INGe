@@ -9,6 +9,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
@@ -43,28 +44,28 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * escidocComponents:content/@xlink:href -> FileVO.content
  */
 
-public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
+public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileDbVO>> implements Validator<List<FileDbVO>> {
 
   @Override
-  public boolean validate(ValidatorContext context, List<FileVO> files) {
+  public boolean validate(ValidatorContext context, List<FileDbVO> files) {
 
     boolean ok = true;
 
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileVO fileVO : files) {
+      for (final FileDbVO fileVO : files) {
 
         if (fileVO != null //
             && ValidationTools.isNotEmpty(fileVO.getContent())) {
 
-          if (fileVO.getDefaultMetadata() != null //
-              && ValidationTools.isEmpty(fileVO.getDefaultMetadata().getTitle())) {
+          if (fileVO.getMetadata() != null //
+              && ValidationTools.isEmpty(fileVO.getMetadata().getTitle())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (ValidationTools.isEmpty(fileVO.getContentCategory())) {
+          if (ValidationTools.isEmpty(fileVO.getMetadata().getContentCategory())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }

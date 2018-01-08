@@ -54,6 +54,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesPublisherEditi
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesSequenceInfomationValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesTotalNumberOfPagesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesVolumeRequiredValidator;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -64,13 +65,12 @@ public class Validation {
 
   public Validation() {}
 
-  public void validate(final ItemVO itemVO, ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
+  public void validate(final PubItemVersionDbVO pubItemVO, ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
 
-    if (itemVO instanceof PubItemVO == false) {
+    if (pubItemVO instanceof PubItemVersionDbVO == false) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
     }
 
-    final PubItemVO pubItemVO = (PubItemVO) itemVO;
 
     switch (validationPoint) {
 
@@ -196,13 +196,12 @@ public class Validation {
     }
   }
 
-  public void validateYearbook(final ItemVO itemVO, List<String> childsOfMPG) throws ValidationServiceException, ValidationException {
+  public void validateYearbook(final PubItemVersionDbVO pubItemVO, List<String> childsOfMPG) throws ValidationServiceException, ValidationException {
 
-    if (itemVO instanceof PubItemVO == false) {
+    if (pubItemVO instanceof PubItemVersionDbVO == false) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
     }
 
-    final PubItemVO pubItemVO = (PubItemVO) itemVO;
 
     GenreValidator.checkGenre(pubItemVO.getMetadata().getGenre());
 

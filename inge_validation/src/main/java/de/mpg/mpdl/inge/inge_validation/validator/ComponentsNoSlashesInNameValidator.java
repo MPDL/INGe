@@ -9,6 +9,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
@@ -31,24 +32,24 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * -> FileVO.name
  */
 
-public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
+public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<FileDbVO>> implements Validator<List<FileDbVO>> {
 
   @Override
-  public boolean validate(ValidatorContext context, List<FileVO> files) {
+  public boolean validate(ValidatorContext context, List<FileDbVO> files) {
 
     boolean ok = true;
 
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileVO fileVO : files) {
+      for (final FileDbVO fileVO : files) {
 
         if (fileVO != null && fileVO.getStorage().equals(Storage.INTERNAL_MANAGED)) {
           if (ValidationTools.isNotEmpty(fileVO.getName()) //
               && fileVO.getName().contains("/") //
-              || fileVO.getDefaultMetadata() != null //
-                  && ValidationTools.isNotEmpty(fileVO.getDefaultMetadata().getTitle())
-                  && fileVO.getDefaultMetadata().getTitle().contains("/")) {
+              || fileVO.getMetadata() != null //
+                  && ValidationTools.isNotEmpty(fileVO.getMetadata().getTitle())
+                  && fileVO.getMetadata().getTitle().contains("/")) {
             context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField("file[" + i + "]"));
             ok = false;
           }
