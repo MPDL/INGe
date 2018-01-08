@@ -10,6 +10,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -64,20 +73,23 @@ public class TestBase {
 
   ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
 
-  public AffiliationVO test_ou() {
-    AffiliationVO vo = new AffiliationVO();
+  public AffiliationDbVO test_ou() {
+    AffiliationDbVO vo = new AffiliationDbVO();
 
     // ChildAffiliations
-    AffiliationRO child = new AffiliationRO("testChild");
-    child.setForm("testForm");
-    child.setTitle("testTitle");
-    vo.getChildAffiliations().add(child);
-
+    /*
+    AffiliationDbRO child = new AffiliationDbRO();
+    child.setObjectId("testChild");
+    child.setName("testTitle");
+    vo.get.add(child);
+*/
+    
     vo.setCreationDate(DATE);
 
     // Creator
-    AccountUserRO creator = new AccountUserRO("testCreator");
-    creator.setTitle("testTitle");
+    AccountUserDbRO creator = new AccountUserDbRO();
+    creator.setObjectId("testCreator");
+    creator.setName("testTitle");
     vo.setCreator(creator);
 
     // MdsOrganizationalUnitDetails
@@ -95,42 +107,59 @@ public class TestBase {
     md.setStartDate("testStartDate");
     md.setTitle("testTitle");
     md.setType("testType");
-    vo.setDefaultMetadata(md);
+    vo.setMetadata(md);
 
     vo.setLastModificationDate(DATE);
 
     // Modifier
-    AccountUserRO modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testModifier");
-    vo.setModifiedBy(modifier);
+    AccountUserDbRO modifier = new AccountUserDbRO();
+    modifier.setObjectId("testModifier");
+    modifier.setName("testModifier");
+    vo.setModifier(modifier);
 
     // ParentAffiliations
-    AffiliationRO parent = new AffiliationRO("testParent");
-    parent.setForm("testForm");
-    parent.setTitle("testTitle");
-    vo.getParentAffiliations().add(parent);
+    AffiliationDbRO parent = new AffiliationDbRO();
+    parent.setObjectId("testParent");
+    parent.setName("testTitle");
+    vo.setParentAffiliation(parent);
 
     // PredecessorAffiliations
-    AffiliationRO predecessor = new AffiliationRO("testPredecessor");
-    predecessor.setForm("testForm");
-    predecessor.setTitle("testTitle");
+    AffiliationDbRO predecessor = new AffiliationDbRO();
+    predecessor.setObjectId("testPredecessor");
+    predecessor.setName("testTitle");
     vo.getPredecessorAffiliations().add(predecessor);
 
-    vo.setPublicStatus("testPublicStatus");
+    vo.setPublicStatus(State.CREATED);
 
     // Reference
-    AffiliationRO reference = new AffiliationRO("testReference");
-    reference.setForm("testForm");
-    reference.setTitle("testTitle");
-    vo.setReference(reference);
+    vo.setObjectId("testReference");
 
     return vo;
   }
 
-  public ContextVO test_context() {
-    ContextVO vo = new ContextVO();
+  public ContextDbVO test_context() {
+    ContextDbVO vo = new ContextDbVO();
 
+    
+    vo.getAllowedGenres().add(Genre.ARTICLE);
+    vo.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
+    vo.setContactEmail("testContactEmail");
+    vo.setWorkflow(ContextDbVO.Workflow.STANDARD);
+    
+    // Creator
+    AccountUserDbRO creator = new AccountUserDbRO();
+    creator.setObjectId("testCreator");
+    creator.setName("testTitle");
+    vo.setCreator(creator);
+    
+    // Modifier
+    AccountUserDbRO modifier = new AccountUserDbRO();
+    modifier.setObjectId("testModifier");
+    modifier.setName("testModifier");
+    vo.setModifier(modifier);
+    
     // AdminDescriptor
+    /*
     PublicationAdminDescriptorVO admin = new PublicationAdminDescriptorVO();
     admin.getAllowedGenres().add(Genre.ARTICLE);
     admin.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
@@ -151,85 +180,66 @@ public class TestBase {
     admin.setVisibilityOfReferences("testVisibility");
     admin.setWorkflow(Workflow.STANDARD);
     vo.setAdminDescriptor(admin);
-
-    // Creator
-    AccountUserRO creator = new AccountUserRO("testCreator");
-    creator.setTitle("testTitle");
-    vo.setCreator(creator);
-
-    // DefaultMetaData
-    MdsPublicationVO metadata = new MdsPublicationVO();
-    metadata.setTitle("testTitle");
-    vo.setDefaultMetadata(metadata);
-
+     */
+    
+   
     vo.setDescription("testDescription");
     vo.setName("testName");
 
-    // Reference
-    ContextRO reference = new ContextRO("testContext");
-    reference.setTitle("testTitle");
-    vo.setReference(reference);
+    vo.setObjectId("testContext");
+
 
     // ResponsibleAffiliations
-    AffiliationRO responsible = new AffiliationRO("testResponsible");
-    responsible.setForm("testForm");
-    responsible.setTitle("testTitle");
+    AffiliationDbRO responsible = new AffiliationDbRO();
+    responsible.setObjectId("testResponsible");
+    responsible.setName("testTitle");
     vo.getResponsibleAffiliations().add(responsible);
 
-    vo.setState(ContextVO.State.CLOSED);
-    vo.setType("testType");
+    vo.setState(ContextDbVO.State.CLOSED);
 
-    // ValidationPoints
-    ValidationPointVO validationPoint = new ValidationPointVO();
-    validationPoint.setName("testName");
-    vo.getValidationPoints().add(validationPoint);
 
     return vo;
   }
 
-  public PubItemVO test_item() {
-    PubItemVO vo = new PubItemVO();
+  public PubItemVersionDbVO test_item() {
+    PubItemVersionDbVO vo = new PubItemVersionDbVO();
 
-    vo.setBaseUrl("testBaseUrl");
-    vo.setContentModel("testContenModel");
-    vo.setContentModelHref("testContenModelHRef");
+
 
     // Context
-    ContextRO context = new ContextRO("testContext");
-    context.setTitle("testTitle");
-    vo.setContext(context);
+    ContextDbRO context = new ContextDbRO();
+    context.setObjectId("testContext");
+    context.setName("testTitle");
+    vo.getObject().setContext(context);
 
-    vo.setCreationDate(DATE);
+    vo.getObject().setCreationDate(DATE);
 
     // LatestRelease
-    ItemRO latestRelease = new ItemRO("testLatestRelease");
-    latestRelease.setHref("testHref");
+    PubItemVersionDbRO latestRelease = new PubItemVersionDbRO();
+    latestRelease.setObjectId("testLatestRelease");
     latestRelease.setLastMessage("testLastMessage");
     latestRelease.setModificationDate(DATE);
-    AccountUserRO modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testTitle");
-    latestRelease.setModifiedByRO(modifier);
-    latestRelease.setPid("testPid");
-    latestRelease.setState(ItemVO.State.PENDING);
-    latestRelease.setTitle("testTitle");
+    AccountUserDbRO modifier = new AccountUserDbRO();
+    modifier.setObjectId("testModifier");
+    modifier.setName("testTitle");
+    latestRelease.setModifiedBy(modifier);
+    //latestRelease.setPid("testPid");
+    latestRelease.setState(PubItemVersionDbRO.State.PENDING);
     latestRelease.setVersionNumber(5);
-    vo.setLatestRelease(latestRelease);
+    vo.getObject().setLatestRelease(latestRelease);
 
     // LatestVersion
-    ItemRO latestVersion = new ItemRO("testLatestVersion");
-    latestVersion.setHref("testHref");
+    PubItemVersionDbRO latestVersion = new PubItemVersionDbRO();
+    latestVersion.setObjectId("testLatestVersion");
     latestVersion.setLastMessage("testLastMessage");
     latestVersion.setModificationDate(DATE);
-    modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testTitle");
-    latestVersion.setModifiedByRO(modifier);
-    latestVersion.setPid("testPid");
-    latestVersion.setState(ItemVO.State.PENDING);
-    latestVersion.setTitle("testTitle");
+    latestVersion.setModifiedBy(modifier);
+    //latestVersion.setPid("testPid");
+    latestVersion.setState(PubItemVersionDbRO.State.PENDING);
     latestVersion.setVersionNumber(5);
-    vo.setLatestVersion(latestVersion);
+    vo.getObject().setLatestVersion(latestVersion);
 
-    vo.setLockStatus(LockStatus.LOCKED);
+    //vo.setLockStatus(LockStatus.LOCKED);
 
     // MetaData
     MdsPublicationVO mdsPublication = new MdsPublicationVO();
@@ -413,27 +423,24 @@ public class TestBase {
     vo.setMetadata(mdsPublication);
 
     // Owner
-    AccountUserRO owner = new AccountUserRO("testOwner");
-    owner.setTitle("testTitle");
-    vo.setOwner(owner);
+    AccountUserDbRO owner = new AccountUserDbRO();
+    owner.setObjectId("testCreator");
+    owner.setName("testTitle");
+    vo.getObject().setCreator(owner);
 
-    vo.setPid("testPid");
-    vo.setPublicStatus(ItemVO.State.RELEASED);
-    vo.setPublicStatusComment("testPublicStatusComment");
+    vo.getObject().setPid("testPid");
+    vo.getObject().setPublicStatus(PubItemVersionDbVO.State.RELEASED);
+    vo.getObject().setPublicStatusComment("testPublicStatusComment");
 
     // Version
-    ItemRO version = new ItemRO("testVersion");
-    version.setHref("testHref");
-    version.setLastMessage("testLastMessage");
-    version.setModificationDate(DATE);
-    modifier = new AccountUserRO("testModifier");
-    modifier.setTitle("testTitle");
-    version.setModifiedByRO(modifier);
-    version.setPid("testPid");
-    version.setState(ItemVO.State.RELEASED);
-    version.setTitle("testTitle");
-    version.setVersionNumber(5);
-    vo.setVersion(version);
+    
+    vo.setLastMessage("testLastMessage");
+    vo.setModificationDate(DATE);
+
+    vo.setModifiedBy(modifier);
+    vo.setVersionPid("testPid");
+    vo.setState(PubItemVersionDbRO.State.RELEASED);
+    vo.setVersionNumber(5);
 
     // Yearbook (erst mal weglassen!)
     // MdsYearbookVO yearbook = new MdsYearbookVO();
@@ -465,15 +472,15 @@ public class TestBase {
     // vo.setYearbookMetadata(yearbook);
 
     // Files
-    FileVO file = new FileVO();
+    FileDbVO file = new FileDbVO();
     file.setChecksum("testChecksum");
-    file.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
+    file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.MD5);
     file.setContent("testContent");
-    file.setContentCategory("testContentCategory");
-    file.setContentCategoryString("testContentCategoryString");
-    AccountUserRO creator2 = new AccountUserRO("testCreator");
-    creator2.setTitle("testTitle");
-    file.setCreatedByRO(creator2);
+    file.setSize(5);
+ // Owner
+
+    file.setCreator(owner);
+    
     file.setCreationDate(DATE);
     MdsFileVO mdsFile = new MdsFileVO();
     mdsFile.setContentCategory("testContentCategory");
@@ -490,22 +497,22 @@ public class TestBase {
     mdsFile.getFormats().add(format);
     identifier = new IdentifierVO(IdType.DOI, "testIdentifier");
     mdsFile.getIdentifiers().add(identifier);
-    file.setDefaultMetadata(mdsFile);
-    file.setDescription("testDescription");
+    file.setMetadata(mdsFile);
     file.setLastModificationDate(DATE);
     file.setMimeType("testMimeType");
     file.setName("testName");
     file.setPid("testPid");
-    FileRO reference = new FileRO("testReference");
-    reference.setTitle("testTitle");
-    file.setReference(reference);
-    file.setStorage(Storage.EXTERNAL_MANAGED);
-    file.setVisibility(Visibility.PRIVATE);
+    file.setObjectId("testReference");
+
+
+    file.setStorage(FileDbVO.Storage.EXTERNAL_MANAGED);
+    file.setVisibility(FileDbVO.Visibility.PRIVATE);
     vo.getFiles().add(file);
 
-    vo.getLocalTags().add("testTag");
+    vo.getObject().getLocalTags().add("testTag");
 
     // Relations
+    /*
     ItemRO targetItemRef = new ItemRO("testTargetItemRef");
     targetItemRef.setHref("testHref");
     targetItemRef.setLastMessage("testLastMessage");
@@ -534,6 +541,7 @@ public class TestBase {
     relation.setType("testType");
     vo.getRelations().add(relation);
 
+*/
     return vo;
   }
 

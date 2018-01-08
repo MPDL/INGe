@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 
@@ -44,7 +45,7 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testRead() {
     try {
-      ContextVO contextVO = this.contextDao.get(test_context_id);
+      ContextDbVO contextVO = this.contextDao.get(test_context_id);
       assert contextVO.equals(test_context());
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -55,11 +56,11 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testUpdate() {
     try {
-      ContextVO contextVO = this.contextDao.get(test_context_id);
-      contextVO.setState(ContextVO.State.CREATED);
+      ContextDbVO contextVO = this.contextDao.get(test_context_id);
+      contextVO.setState(ContextDbVO.State.CREATED);
       this.contextDao.updateImmediately(test_context_id, contextVO);
-      ContextVO contextVO2 = this.contextDao.get(test_context_id);
-      assert contextVO2.getState().equals(ContextVO.State.CREATED);
+      ContextDbVO contextVO2 = this.contextDao.get(test_context_id);
+      assert contextVO2.getState().equals(ContextDbVO.State.CREATED);
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);

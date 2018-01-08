@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
@@ -45,7 +46,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Ignore
   public void test1Read() {
     try {
-      PubItemVO pubItemVO = this.itemDao.get(test_item_id);
+      PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -56,7 +57,9 @@ public class ItemServiceHandlerTest extends TestBase {
   @Test
   public void test2Create() {
     try {
-      String contextId = this.itemDao.createImmediately(test_item_id, create_item());
+      PubItemVersionDbVO pubItemVO2 = test_item();
+      pubItemVO2.setObjectId(test_item_id);
+      String contextId = this.itemDao.createImmediately(test_item_id, pubItemVO2);
       assert contextId.equals(test_item_id);
     } catch (Exception e) {
       logger.error(e);
@@ -68,7 +71,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Ignore
   public void test2Read() {
     try {
-      PubItemVO pubItemVO = this.itemDao.get(test_item_id);
+      PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(create_item());
     } catch (Exception e) {
       logger.error(e);
@@ -79,11 +82,11 @@ public class ItemServiceHandlerTest extends TestBase {
   @Test
   public void testUpdate() {
     try {
-      PubItemVO pubItemVO = this.itemDao.get(test_item_id);
-      pubItemVO.setPid("testPid");
+      PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
+      pubItemVO.getObject().setPid("testPid");
       this.itemDao.updateImmediately(test_item_id, pubItemVO);
-      PubItemVO pubItemVO2 = this.itemDao.get(test_item_id);
-      assert pubItemVO2.getPid().equals("testPid");
+      PubItemVersionDbVO pubItemVO2 = this.itemDao.get(test_item_id);
+      assert pubItemVO2.getObject().getPid().equals("testPid");
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);

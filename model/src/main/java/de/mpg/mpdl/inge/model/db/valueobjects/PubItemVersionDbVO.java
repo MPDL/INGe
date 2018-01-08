@@ -80,7 +80,7 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  PubItemObjectDbVO object;
+  PubItemObjectDbVO object = new PubItemObjectDbVO();
 
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

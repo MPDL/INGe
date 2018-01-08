@@ -3,15 +3,16 @@ package de.mpg.mpdl.inge.es.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository
-public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<PubItemVO> implements PubItemDaoEs {
+public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<PubItemVersionDbVO> implements PubItemDaoEs {
 
   private static final String indexName = PropertyReader.getProperty("inge.index.item.name");
   private static final String indexType = PropertyReader.getProperty("inge.index.item.type");
-  private static final Class<PubItemVO> typeParameterClass = PubItemVO.class;
+  private static final Class<PubItemVersionDbVO> typeParameterClass = PubItemVersionDbVO.class;
 
 
   public PubItemDaoImpl() {
