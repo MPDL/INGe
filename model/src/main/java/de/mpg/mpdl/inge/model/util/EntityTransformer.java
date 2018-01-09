@@ -36,6 +36,8 @@ public class EntityTransformer {
   private static Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
 
   public static ContextDbVO transformToNew(ContextVO contextVo) {
+    return dozerMapper.map(contextVo, ContextDbVO.class);
+    /*
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -69,6 +71,7 @@ public class EntityTransformer {
 
 
     return newContext;
+    */
 
 
   }
@@ -85,6 +88,8 @@ public class EntityTransformer {
 
 
   public static AffiliationDbVO transformToNew(AffiliationVO affVo) {
+    return dozerMapper.map(affVo, AffiliationDbVO.class);
+    /*
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -124,7 +129,7 @@ public class EntityTransformer {
     newAff.setPublicStatus(AffiliationDbVO.State.valueOf(affVo.getPublicStatus().toUpperCase()));
     return newAff;
 
-
+*/
   }
 
   private static ItemVO.State transformToOld(ItemVersionRO.State state) {
@@ -270,7 +275,9 @@ public class EntityTransformer {
     if (newContextVo == null) {
       return null;
     }
+    return dozerMapper.map(newContextVo, ContextVO.class);
 
+    /*
     ContextVO oldContextVo = new ContextVO();
     PublicationAdminDescriptorVO adminDescriptorVO = new PublicationAdminDescriptorVO();
     adminDescriptorVO.setAllowedGenres(newContextVo.getAllowedGenres());
@@ -292,6 +299,7 @@ public class EntityTransformer {
     }
 
     return oldContextVo;
+    */
   }
 
   private static AffiliationRO transformToOld(AffiliationDbRO newAffiliationRO) {
@@ -310,7 +318,9 @@ public class EntityTransformer {
     if (newAffVo == null) {
       return null;
     }
-
+    return dozerMapper.map(newAffVo, AffiliationVO.class);
+    
+    /*
     AffiliationVO oldAffVo = new AffiliationVO();
     oldAffVo.setCreationDate(newAffVo.getCreationDate());
     oldAffVo.setLastModificationDate(newAffVo.getLastModificationDate());
@@ -331,6 +341,7 @@ public class EntityTransformer {
     oldAffVo.setReference(transformToOld((AffiliationDbRO) newAffVo));
 
     return oldAffVo;
+    */
   }
 
   public static List<VersionHistoryEntryVO> transformToVersionHistory(List<AuditDbVO> auditList) {

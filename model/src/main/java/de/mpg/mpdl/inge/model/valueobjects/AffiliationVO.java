@@ -187,6 +187,10 @@ public class AffiliationVO extends ValueObject implements Searchable {
     return parentAffiliations;
   }
 
+  public void setParentAffiliations(java.util.List<AffiliationRO> parentAffiliations) {
+    this.parentAffiliations = parentAffiliations;
+  }
+
   /**
    * Delivers the affiliations' reference.
    * 
