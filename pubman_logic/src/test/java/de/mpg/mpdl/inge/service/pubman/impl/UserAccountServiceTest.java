@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -41,17 +42,16 @@ public class UserAccountServiceTest extends TestBase {
     token = loginAdmin();
     assertTrue(token != null);
 
-    AccountUserVO accountUserVO = userAccountService.get(DEPOSITOR_OBJECTID, token);
+    AccountUserDbVO accountUserVO = userAccountService.get(DEPOSITOR_OBJECTID, token);
 
     assertTrue(accountUserVO != null);
-    assertTrue(accountUserVO.alreadyExistsInFramework());
-    assertTrue(accountUserVO.getAffiliations().size() == 1);
-    assertTrue(accountUserVO.getAffiliations().get(0).getObjectId().equals(ORG_OBJECTID_25));
-    assertTrue(accountUserVO.getGrants().size() == 2);
+    assertTrue(accountUserVO.getAffiliation() != null);
+    assertTrue(accountUserVO.getAffiliation().getObjectId().equals(ORG_OBJECTID_25));
+    assertTrue(accountUserVO.getGrantList().size() == 2);
     assertTrue(accountUserVO.getName().equals("Test Depositor"));
 
     assertTrue(accountUserVO.getPassword() == null);
-    assertTrue(accountUserVO.getUserid().equals(DEPOSITOR_OBJECTID));
+    assertTrue(accountUserVO.getLoginname().equals(DEPOSITOR_OBJECTID));
   }
 
   @Test
@@ -63,7 +63,7 @@ public class UserAccountServiceTest extends TestBase {
     token = loginAdmin();
     assertTrue(token != null);
 
-    AccountUserVO accountUserVO = userAccountService.get("fgsdgsgdgadfgd", token);
+    AccountUserDbVO accountUserVO = userAccountService.get("fgsdgsgdgadfgd", token);
 
     assertTrue(accountUserVO == null);
   }
@@ -111,11 +111,11 @@ public class UserAccountServiceTest extends TestBase {
 
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
+    AccountUserDbVO accountUserVO = userAccountService.get(authenticationToken);
 
     assertTrue("Got no accountUserVO object", accountUserVO != null);
-    assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliations().size() == 1);
-    assertTrue("Wrong affiliation in list.", accountUserVO.getAffiliations().get(0).getObjectId().equalsIgnoreCase("ou_persistent25"));
+    assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliation() != null);
+    assertTrue("Wrong affiliation in list.", accountUserVO.getAffiliation().getObjectId().equalsIgnoreCase("ou_persistent25"));
   }
 
   @Test
@@ -125,11 +125,11 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserVO = userAccountService.get(authenticationToken);
+    AccountUserDbVO accountUserVO = userAccountService.get(authenticationToken);
 
     assertTrue("Got no accountUserVO object", accountUserVO != null);
-    assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliations().size() == 1);
-    assertTrue("Wrong affiliation in list.", accountUserVO.getAffiliations().get(0).getObjectId().equalsIgnoreCase("ou_persistent25"));
+    assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliation() != null);
+    assertTrue("Wrong affiliation in list.", accountUserVO.getAffiliation().getObjectId().equalsIgnoreCase("ou_persistent25"));
   }
 
   @Test
@@ -139,9 +139,9 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserGrantsToBeRemoved = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserGrantsToBeRemoved = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
-    List<GrantVO> grants = accountUserGrantsToBeRemoved.getGrants();
+    List<GrantVO> grants = accountUserGrantsToBeRemoved.getGrantList();
     int sizeBeforeRemove = grants.size();
     assertTrue(sizeBeforeRemove > 0);
 
@@ -150,8 +150,8 @@ public class UserAccountServiceTest extends TestBase {
 
     assertTrue(
         "Expected <" + (sizeBeforeRemove - 1) + "> grants - found <"
-            + userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrants().size() + ">",
-        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrants().size() + 1 == sizeBeforeRemove);
+            + userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrantList().size() + ">",
+        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrantList().size() + 1 == sizeBeforeRemove);
   }
 
   @Test
@@ -161,9 +161,9 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserGrantsToBeAdded = userAccountService.get(MODERATOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserGrantsToBeAdded = userAccountService.get(MODERATOR_OBJECTID, authenticationToken);
 
-    List<GrantVO> grants = accountUserGrantsToBeAdded.getGrants();
+    List<GrantVO> grants = accountUserGrantsToBeAdded.getGrantList();
     int sizeBeforeAdd = grants.size();
     assertTrue(sizeBeforeAdd >= 0);
 
@@ -172,8 +172,8 @@ public class UserAccountServiceTest extends TestBase {
 
     assertTrue(
         "Expected <" + (sizeBeforeAdd + 1) + "> grants - found <"
-            + userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants().size() + ">",
-        userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrants().size() - 1 == sizeBeforeAdd);
+            + userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrantList().size() + ">",
+        userAccountService.get(MODERATOR_OBJECTID, authenticationToken).getGrantList().size() - 1 == sizeBeforeAdd);
 
   }
 
@@ -184,7 +184,7 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserToBeActivated = userAccountService.get(DEACTIVATED_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserToBeActivated = userAccountService.get(DEACTIVATED_OBJECTID, authenticationToken);
 
     accountUserToBeActivated =
         userAccountService.activate(DEACTIVATED_OBJECTID, accountUserToBeActivated.getLastModificationDate(), authenticationToken);
@@ -199,7 +199,7 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserToBeDeactivated = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserToBeDeactivated = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     accountUserToBeDeactivated =
         userAccountService.deactivate(DEPOSITOR_OBJECTID, accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
@@ -217,7 +217,7 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(username, password);
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserToBeDeactivated = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserToBeDeactivated = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     accountUserToBeDeactivated =
         userAccountService.deactivate(DEPOSITOR_OBJECTID, accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
@@ -231,7 +231,7 @@ public class UserAccountServiceTest extends TestBase {
     assertTrue(authenticationToken != null);
     String newDepositorPassword = "myPassword";
 
-    AccountUserVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), newDepositorPassword,
         authenticationToken);
@@ -246,7 +246,7 @@ public class UserAccountServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     assertTrue(authenticationToken != null);
 
-    AccountUserVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
 
     String veryNewDepositorPassword = "veryNewDepositorPassword";
     userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), veryNewDepositorPassword,

@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
@@ -45,7 +46,7 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
+    AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
     assertTrue(affiliationVO != null);
     assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
 
@@ -62,13 +63,13 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AffiliationVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
+    AffiliationDbVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
     assertTrue(affiliationVO != null);
     assertTrue(affiliationVO.getPublicStatus().equals("CREATED"));
 
-    organizationService.delete(affiliationVO.getReference().getObjectId(), authenticationToken);
+    organizationService.delete(affiliationVO.getObjectId(), authenticationToken);
 
-    assertTrue(organizationService.get(affiliationVO.getReference().getObjectId(), authenticationToken) == null);
+    assertTrue(organizationService.get(affiliationVO.getObjectId(), authenticationToken) == null);
   }
 
   @Test
@@ -79,23 +80,21 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
+    AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getChildAffiliations().size() == 0);
     // assertTrue(affiliationVO.getCreationDate().equals("2007-03-22T09:23:35.562+0000"));
-    assertTrue(affiliationVO.getParentAffiliations().size() == 0);
+    assertTrue(affiliationVO.getParentAffiliation() == null);
     assertTrue(affiliationVO.getPredecessorAffiliations().size() == 1);
 
     affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getChildAffiliations().size() == 0);
-    assertTrue(affiliationVO.getParentAffiliations().size() == 1);
+    
+    assertTrue(affiliationVO.getParentAffiliation()!=null);
     assertTrue(affiliationVO.getPredecessorAffiliations().size() == 0);
 
     affiliationVO = organizationService.get(ORG_OBJECTID_40048, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getChildAffiliations().size() == 0);
-    assertTrue(affiliationVO.getParentAffiliations().size() == 0);
+    assertTrue(affiliationVO.getParentAffiliation() == null);
     assertTrue(affiliationVO.getPredecessorAffiliations().size() == 0);
   }
 
@@ -107,7 +106,7 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AffiliationVO affiliationVO = organizationService.get("XXXXXXXXXXXXXXX", authenticationToken);
+    AffiliationDbVO affiliationVO = organizationService.get("XXXXXXXXXXXXXXX", authenticationToken);
     assertTrue(affiliationVO == null);
   }
 
@@ -117,7 +116,7 @@ public class OrganizationServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
     assertTrue(authenticationToken != null);
-    AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
+    AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
 
     assertTrue(affiliationVO != null);
   }
@@ -136,7 +135,7 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AffiliationVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
+    AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
     assertTrue(affiliationVO != null);
     assertTrue(affiliationVO.getPublicStatus().equals("OPENED"));
 
@@ -159,13 +158,13 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    List<AffiliationVO> affiliationVOs = organizationService.searchTopLevelOrganizations();
+    List<AffiliationDbVO> affiliationVOs = organizationService.searchTopLevelOrganizations();
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <2> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 2);
 
     List<String> topLevelIds = new ArrayList<String>();
-    topLevelIds.add(affiliationVOs.get(0).getReference().getObjectId());
-    topLevelIds.add(affiliationVOs.get(1).getReference().getObjectId());
+    topLevelIds.add(affiliationVOs.get(0).getObjectId());
+    topLevelIds.add(affiliationVOs.get(1).getObjectId());
 
     assertTrue(topLevelIds.contains(ORG_OBJECTID_13) && topLevelIds.contains(ORG_OBJECTID_40048));
 
@@ -175,16 +174,16 @@ public class OrganizationServiceTest extends TestBase {
   public void searchChildOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     super.logMethodName();
-    List<AffiliationVO> affiliationVOs = organizationService.searchChildOrganizations(ORG_OBJECTID_13);
+    List<AffiliationDbVO> affiliationVOs = organizationService.searchChildOrganizations(ORG_OBJECTID_13);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 1);
-    assertTrue(affiliationVOs.get(0).getReference().getObjectId().equals(ORG_OBJECTID_25));
+    assertTrue(affiliationVOs.get(0).getObjectId().equals(ORG_OBJECTID_25));
   }
 
   @Test
   public void searchChildOrganizationsInvalidId() throws Exception {
     super.logMethodName();
-    List<AffiliationVO> affiliationVOs = null;
+    List<AffiliationDbVO> affiliationVOs = null;
     try {
       affiliationVOs = organizationService.searchChildOrganizations("XXXX");
     } catch (Exception e) {
@@ -204,10 +203,10 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    List<AffiliationVO> affiliationVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
+    List<AffiliationDbVO> affiliationVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
     assertTrue(affiliationVOs != null);
     assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 1);
-    assertTrue(affiliationVOs.get(0).getReference().getObjectId().equals(ORG_OBJECTID_13));
+    assertTrue(affiliationVOs.get(0).getObjectId().equals(ORG_OBJECTID_13));
   }
 
   @Test
@@ -252,12 +251,12 @@ public class OrganizationServiceTest extends TestBase {
     organizationService.reindex(ORG_OBJECTID_25, "hsfhsfhsfhshsgfh");
   }
 
-  private AffiliationVO getAffiliationVO() {
+  private AffiliationDbVO getAffiliationVO() {
 
-    AffiliationVO affiliationVO = new AffiliationVO();
+    AffiliationDbVO affiliationVO = new AffiliationDbVO();
     MdsOrganizationalUnitDetailsVO mdsOrganizationalUnitDetailsVO = new MdsOrganizationalUnitDetailsVO();
     mdsOrganizationalUnitDetailsVO.setName("Kurzes Leben");
-    affiliationVO.setDefaultMetadata(mdsOrganizationalUnitDetailsVO);
+    affiliationVO.setMetadata(mdsOrganizationalUnitDetailsVO);
 
     return affiliationVO;
   }

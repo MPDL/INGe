@@ -11,6 +11,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -18,7 +21,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -48,24 +50,24 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
     assertTrue("Objectid expected after create",
-        pubItemVO.getLatestVersion().getObjectId() != null && !"".equals(pubItemVO.getLatestVersion().getObjectId()));
-    assertTrue("Create PubItemVO failed", pubItemVO != null);
-    assertTrue("Creation date missing in PubItemVO", pubItemVO.getCreationDate() != null);
+        pubItemVO.getObject().getLatestVersion().getObjectId() != null && !"".equals(pubItemVO.getObject().getLatestVersion().getObjectId()));
+    assertTrue("Create PubItemVersionDbVO failed", pubItemVO != null);
+    assertTrue("Creation date missing in PubItemVersionDbVO", pubItemVO.getObject().getCreationDate() != null);
     assertTrue("Context missing or wrong  context id",
-        pubItemVO.getContext() != null && pubItemVO.getContext().getObjectId().equals(CTX_SIMPLE));
-    assertTrue("Expected 1 creator in PubItemVO - found <" + pubItemVO.getMetadata().getCreators().size() + ">",
+        pubItemVO.getObject().getContext() != null && pubItemVO.getObject().getContext().getObjectId().equals(CTX_SIMPLE));
+    assertTrue("Expected 1 creator in PubItemVersionDbVO - found <" + pubItemVO.getMetadata().getCreators().size() + ">",
         pubItemVO.getMetadata().getCreators().size() == 1);
     assertTrue(pubItemVO.getMetadata().getCreators().get(0) != null);
-    assertTrue("Modification date missing in PubItemVO", pubItemVO.getLatestVersion().getModificationDate() != null);
-    assertTrue("Expected VersionStatus PENDING - found <" + pubItemVO.getLatestVersion().getState() + ">",
-        pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
-    assertTrue("Expected PublicStatus PENDING - found <" + pubItemVO.getPublicStatus() + ">",
-        pubItemVO.getPublicStatus().equals(ItemVO.State.PENDING));
-    assertTrue("Wrong owner", pubItemVO.getOwner().getObjectId().equals(DEPOSITOR_OBJECTID));
+    assertTrue("Modification date missing in PubItemVersionDbVO", pubItemVO.getObject().getLatestVersion().getModificationDate() != null);
+    assertTrue("Expected VersionStatus PENDING - found <" + pubItemVO.getObject().getLatestVersion().getVersionState() + ">",
+        pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue("Expected PublicStatus PENDING - found <" + pubItemVO.getObject().getPublicState() + ">",
+        pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue("Wrong owner", pubItemVO.getObject().getCreator().getObjectId().equals(DEPOSITOR_OBJECTID));
   }
 
   @Test(expected = AuthorizationException.class)
@@ -73,7 +75,7 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
   }
 
@@ -84,12 +86,12 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationToken);
+    pubItemService.delete(pubItemVO.getObjectId(), authenticationToken);
 
-    pubItemVO = pubItemService.get(pubItemVO.getVersion().getObjectId(), authenticationToken);
+    pubItemVO = pubItemService.get(pubItemVO.getObjectId(), authenticationToken);
 
     assertTrue("Found item even though it has been deleted in state PENDING!", pubItemVO == null);
   }
@@ -102,28 +104,28 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginAdmin();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test submit",
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "test submit",
         authenticationToken);
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test release",
-        authenticationToken);
-
-    pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
-
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test submit",
-        authenticationToken);
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "test release",
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "test release",
         authenticationToken);
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "test submit",
+        authenticationToken);
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "test release",
+        authenticationToken);
 
-    pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationToken);
+    pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
 
-    pubItemVO = pubItemService.get(pubItemVO.getVersion().getObjectId(), authenticationToken);
+    pubItemService.delete(pubItemVO.getObjectId(), authenticationToken);
+
+
+    pubItemVO = pubItemService.get(pubItemVO.getObjectId(), authenticationToken);
 
 
     assertTrue("Found item even though it has been deleted!", pubItemVO == null);
@@ -137,7 +139,7 @@ public class PubItemServiceTest extends TestBase {
     super.logMethodName();
 
     String authenticationToken = loginAdmin();
-    PubItemVO pubItemVO = pubItemService.get("item_xyc", authenticationToken);
+    PubItemVersionDbVO pubItemVO = pubItemService.get("item_xyc", authenticationToken);
 
     assertTrue(pubItemVO == null);
   }
@@ -147,7 +149,7 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = pubItemService.get("item_xyc", null);
+    PubItemVersionDbVO pubItemVO = pubItemService.get("item_xyc", null);
 
     assertTrue(pubItemVO == null);
   }
@@ -160,10 +162,10 @@ public class PubItemServiceTest extends TestBase {
     String authenticationTokenDepositor = loginDepositor();
     String authenticationTokenModerator = loginModerator();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationTokenDepositor);
 
-    pubItemService.delete(pubItemVO.getVersion().getObjectId(), authenticationTokenModerator);
+    pubItemService.delete(pubItemVO.getObjectId(), authenticationTokenModerator);
   }
 
   @Test
@@ -172,21 +174,21 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_STANDARD);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_STANDARD);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
         authenticationToken);
 
-    assertTrue("Expected VersionStatus SUBMITTED - found <" + pubItemVO.getLatestVersion().getState() + ">",
-        pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue("Expected PublicStatus SUBMITTED - found <" + pubItemVO.getPublicStatus() + ">",
-        pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue("Wrong owner", pubItemVO.getOwner().getObjectId().equals(DEPOSITOR_OBJECTID));
-    assertTrue(pubItemVO.getLatestVersion().getModifiedByRO() != null);
-    assertTrue(pubItemVO.getLatestVersion().getVersionNumber() == 1);
+    assertTrue("Expected VersionStatus SUBMITTED - found <" + pubItemVO.getObject().getLatestVersion().getVersionState() + ">",
+        pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue("Expected PublicStatus SUBMITTED - found <" + pubItemVO.getObject().getPublicState() + ">",
+        pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue("Wrong owner", pubItemVO.getObject().getCreator().getObjectId().equals(DEPOSITOR_OBJECTID));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy() != null);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionNumber() == 1);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -195,12 +197,12 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
         authenticationToken);
   }
 
@@ -210,12 +212,12 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
         authenticationToken);
   }
 
@@ -225,14 +227,14 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = createInRevisionItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createInRevisionItemStandardWorkflow();
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(),
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(),
         "testing submit of an item of state IN_REVISION", authenticationToken);
 
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getVersionNumber() == 1);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionNumber() == 1);
   }
 
   @Test
@@ -241,14 +243,14 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationTokenDepositor = loginDepositor();
 
-    PubItemVO pubItemVO = createInRevisionItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createInRevisionItemStandardWorkflow();
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(),
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(),
         "testing submit of an item of state IN_REVISION", authenticationTokenDepositor);
 
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getVersionNumber() == 1);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionNumber() == 1);
   }
 
   @Test
@@ -257,19 +259,19 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getLatestVersion().getVersionNumber() == 1);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionNumber() == 1);
   }
 
   @Test
@@ -278,19 +280,19 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_STANDARD);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_STANDARD);
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getLatestVersion().getVersionNumber() == 1);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionNumber() == 1);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -300,10 +302,10 @@ public class PubItemServiceTest extends TestBase {
     String authenticationTokenDepositor = loginDepositor();
     String authenticationTokenModerator = loginModerator();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
     pubItemVO = pubItemService.create(pubItemVO, authenticationTokenDepositor);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
@@ -317,10 +319,10 @@ public class PubItemServiceTest extends TestBase {
     String authenticationTokenDepositor = loginDepositor();
     String authenticationTokenModerator = loginModerator();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_STANDARD);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_STANDARD);
     pubItemVO = pubItemService.create(pubItemVO, authenticationTokenDepositor);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
@@ -333,15 +335,15 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemStandardWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
   }
 
   @Test
@@ -350,17 +352,17 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationTokenModerator = loginModerator();
 
-    PubItemVO pubItemVO = createSubmittedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemSimpleWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationTokenModerator);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue("Expected version number <2> - got <" + pubItemVO.getVersion().getVersionNumber() + ">",
-        pubItemVO.getVersion().getVersionNumber() == 2);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue("Expected version number <2> - got <" + pubItemVO.getVersionNumber() + ">",
+        pubItemVO.getVersionNumber() == 2);
   }
 
   @Test
@@ -369,17 +371,17 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationTokenModerator = loginModerator();
 
-    PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemStandardWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationTokenModerator);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersion().getVersionNumber() + ">",
-        pubItemVO.getVersion().getVersionNumber() == 1);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersionNumber() + ">",
+        pubItemVO.getVersionNumber() == 1);
   }
 
   @Test
@@ -388,16 +390,16 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = createReleasedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemSimpleWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestRelease().getVersionNumber() == pubItemVO.getLatestVersion().getVersionNumber() - 1);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestRelease().getVersionNumber() == pubItemVO.getObject().getLatestVersion().getVersionNumber() - 1);
   }
 
   @Test
@@ -406,16 +408,16 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = createReleasedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemStandardWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestRelease().getVersionNumber() == pubItemVO.getLatestVersion().getVersionNumber() - 1);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestRelease().getVersionNumber() == pubItemVO.getObject().getLatestVersion().getVersionNumber() - 1);
   }
 
   @Test
@@ -424,16 +426,16 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = createReleasedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemSimpleWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestRelease().getVersionNumber() == pubItemVO.getLatestVersion().getVersionNumber() - 1);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestRelease().getVersionNumber() == pubItemVO.getObject().getLatestVersion().getVersionNumber() - 1);
   }
 
   @Test
@@ -442,16 +444,16 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = createReleasedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemStandardWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestRelease().getVersionNumber() == pubItemVO.getLatestVersion().getVersionNumber() - 1);
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestRelease().getVersionNumber() == pubItemVO.getObject().getLatestVersion().getVersionNumber() - 1);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -460,7 +462,7 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = createInRevisionItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createInRevisionItemStandardWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
@@ -472,14 +474,14 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = createInRevisionItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createInRevisionItemStandardWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
     pubItemVO = pubItemService.update(pubItemVO, authenticationToken);
 
     assertTrue(pubItemVO.getMetadata().getTitle().equals("Der neue Titel"));
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.IN_REVISION));
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.IN_REVISION));
   }
 
   @Test
@@ -487,21 +489,21 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemStandardWorkflow();
 
     String authenticationTokenModerator = loginModerator();
 
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a release",
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a release",
         authenticationTokenModerator);
 
-    assertTrue(pubItemVO.getLatestRelease().getPid() != null);
-    assertTrue(pubItemVO.getPid() != null);
-    assertTrue(pubItemVO.getVersion().getState().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getVersion().getVersionNumber() == 1);
-    assertTrue("Expected PublicStatus RELEASED - found <" + pubItemVO.getPublicStatus() + ">",
-        pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestRelease().equals(pubItemVO.getLatestVersion()));
-    assertTrue(pubItemVO.getLatestVersion().getModifiedByRO().getObjectId().equals(MODERATOR_OBJECTID));
+    assertTrue(pubItemVO.getObject().getLatestRelease().getVersionPid() != null);
+    assertTrue(pubItemVO.getObject().getObjectPid() != null);
+    assertTrue(pubItemVO.getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getVersionNumber() == 1);
+    assertTrue("Expected PublicStatus RELEASED - found <" + pubItemVO.getObject().getPublicState() + ">",
+        pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestRelease().equals(pubItemVO.getObject().getLatestVersion()));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy().getObjectId().equals(MODERATOR_OBJECTID));
   }
 
   @Test
@@ -509,16 +511,16 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createReleasedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemSimpleWorkflow();
 
-    assertTrue(pubItemVO.getLatestRelease().getPid() != null);
-    assertTrue(pubItemVO.getPid() != null);
-    assertTrue(pubItemVO.getVersion().getState().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getVersion().getVersionNumber() == 1);
-    assertTrue("Expected PublicStatus RELEASED - found <" + pubItemVO.getPublicStatus() + ">",
-        pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestRelease().equals(pubItemVO.getLatestVersion()));
-    assertTrue(pubItemVO.getLatestVersion().getModifiedByRO().getObjectId().equals(DEPOSITOR_OBJECTID));
+    assertTrue(pubItemVO.getObject().getLatestRelease().getVersionPid() != null);
+    assertTrue(pubItemVO.getObject().getObjectPid() != null);
+    assertTrue(pubItemVO.getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getVersionNumber() == 1);
+    assertTrue("Expected PublicStatus RELEASED - found <" + pubItemVO.getObject().getPublicState() + ">",
+        pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestRelease().equals(pubItemVO.getObject().getLatestVersion()));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy().getObjectId().equals(DEPOSITOR_OBJECTID));
   }
 
   @Test
@@ -526,19 +528,19 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createReleasedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemStandardWorkflow();
 
     String authenticationTokenModerator = loginModerator();
 
-    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getVersion().getModificationDate(),
+    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(),
         "Weg damit", authenticationTokenModerator);
 
-    assertTrue("Expected state WITHDRAWN", pubItemVO.getPublicStatus().equals(ItemVO.State.WITHDRAWN));
-    assertTrue("Wrong or missing withdrawl comment", pubItemVO.getWithdrawalComment().equals("Weg damit"));
-    assertTrue("Expected state RELEASED", pubItemVO.getLatestVersion().getState().equals(ItemVO.State.RELEASED));
-    assertTrue("Expected state RELEASED", pubItemVO.getLatestRelease().getState().equals(ItemVO.State.RELEASED));
-    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersion().getVersionNumber() + ">",
-        pubItemVO.getVersion().getVersionNumber() == 1);
+    assertTrue("Expected state WITHDRAWN", pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.WITHDRAWN));
+    assertTrue("Wrong or missing withdrawl comment", pubItemVO.getMessage().equals("Weg damit"));
+    assertTrue("Expected state RELEASED", pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue("Expected state RELEASED", pubItemVO.getObject().getLatestRelease().getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersionNumber() + ">",
+        pubItemVO.getVersionNumber() == 1);
   }
 
   @Test
@@ -546,19 +548,19 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createReleasedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemSimpleWorkflow();
 
     String authenticationTokenModerator = loginModerator();
 
-    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getVersion().getModificationDate(),
+    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(),
         "Weg damit", authenticationTokenModerator);
 
-    assertTrue("Expected state WITHDRAWN", pubItemVO.getPublicStatus().equals(ItemVO.State.WITHDRAWN));
-    assertTrue("Wrong or missing withdrawl comment", pubItemVO.getWithdrawalComment().equals("Weg damit"));
-    assertTrue("Expected state RELEASED", pubItemVO.getLatestVersion().getState().equals(ItemVO.State.RELEASED));
-    assertTrue("Expected state RELEASED", pubItemVO.getLatestRelease().getState().equals(ItemVO.State.RELEASED));
-    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersion().getVersionNumber() + ">",
-        pubItemVO.getVersion().getVersionNumber() == 1);
+    assertTrue("Expected state WITHDRAWN", pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.WITHDRAWN));
+    assertTrue("Wrong or missing withdrawl comment", pubItemVO.getMessage().equals("Weg damit"));
+    assertTrue("Expected state RELEASED", pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue("Expected state RELEASED", pubItemVO.getObject().getLatestRelease().getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersionNumber() + ">",
+        pubItemVO.getVersionNumber() == 1);
   }
 
   @Test
@@ -566,19 +568,19 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createReleasedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemSimpleWorkflow();
 
     String authenticationTokenDepositor = loginDepositor();
 
-    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getVersion().getModificationDate(),
+    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(),
         "Weg damit", authenticationTokenDepositor);
 
-    assertTrue("Expected state WITHDRAWN", pubItemVO.getPublicStatus().equals(ItemVO.State.WITHDRAWN));
-    assertTrue("Wrong or missing withdrawl comment", pubItemVO.getWithdrawalComment().equals("Weg damit"));
-    assertTrue("Expected state RELEASED", pubItemVO.getLatestVersion().getState().equals(ItemVO.State.RELEASED));
-    assertTrue("Expected state RELEASED", pubItemVO.getLatestRelease().getState().equals(ItemVO.State.RELEASED));
-    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersion().getVersionNumber() + ">",
-        pubItemVO.getVersion().getVersionNumber() == 1);
+    assertTrue("Expected state WITHDRAWN", pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.WITHDRAWN));
+    assertTrue("Wrong or missing withdrawl comment", pubItemVO.getMessage().equals("Weg damit"));
+    assertTrue("Expected state RELEASED", pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue("Expected state RELEASED", pubItemVO.getObject().getLatestRelease().getVersionState().equals(PubItemVersionDbVO.State.RELEASED));
+    assertTrue("Expected version number <1> - got <" + pubItemVO.getVersionNumber() + ">",
+        pubItemVO.getVersionNumber() == 1);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -586,11 +588,11 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createReleasedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemStandardWorkflow();
 
     String authenticationTokenDepositor = loginDepositor();
 
-    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getVersion().getModificationDate(),
+    pubItemVO = pubItemService.withdrawPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(),
         "Weg damit", authenticationTokenDepositor);
   }
 
@@ -599,17 +601,17 @@ public class PubItemServiceTest extends TestBase {
 
     super.logMethodName();
 
-    PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemStandardWorkflow();
 
     String authenticationTokenModerator = loginModerator();
 
-    pubItemVO = pubItemService.revisePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getVersion().getModificationDate(), "Schrott",
+    pubItemVO = pubItemService.revisePubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "Schrott",
         authenticationTokenModerator);
 
-    assertTrue("Expected state IN_REVISION", pubItemVO.getLatestVersion().getState().equals(ItemVO.State.IN_REVISION));
-    assertTrue("Expected state SUBMITTED", pubItemVO.getPublicStatus().equals(ItemVO.State.SUBMITTED));
-    assertTrue("Expected version number <2> - got <" + pubItemVO.getVersion().getVersionNumber() + ">",
-        pubItemVO.getVersion().getVersionNumber() == 1);
+    assertTrue("Expected state IN_REVISION", pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.IN_REVISION));
+    assertTrue("Expected state SUBMITTED", pubItemVO.getObject().getPublicState().equals(PubItemVersionDbVO.State.SUBMITTED));
+    assertTrue("Expected version number <2> - got <" + pubItemVO.getVersionNumber() + ">",
+        pubItemVO.getVersionNumber() == 1);
   }
 
   @Test
@@ -618,11 +620,11 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginDepositor();
 
-    PubItemVO pubItemVO = createInRevisionItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createInRevisionItemStandardWorkflow();
 
-    pubItemService.delete(pubItemVO.getLatestVersion().getObjectId(), authenticationToken);
+    pubItemService.delete(pubItemVO.getObject().getLatestVersion().getObjectId(), authenticationToken);
 
-    assertTrue(pubItemService.get(pubItemVO.getLatestVersion().getObjectId(), authenticationToken) == null);
+    assertTrue(pubItemService.get(pubItemVO.getObject().getLatestVersion().getObjectId(), authenticationToken) == null);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -631,9 +633,9 @@ public class PubItemServiceTest extends TestBase {
 
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = createInRevisionItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createInRevisionItemStandardWorkflow();
 
-    pubItemService.delete(pubItemVO.getLatestVersion().getObjectId(), authenticationToken);
+    pubItemService.delete(pubItemVO.getObject().getLatestVersion().getObjectId(), authenticationToken);
   }
 
   // --------------------------------------------------------------------- helper methods
@@ -641,8 +643,8 @@ public class PubItemServiceTest extends TestBase {
 
 
 
-  private PubItemVO getPubItemVO(String contextId) {
-    PubItemVO pubItemVO = new PubItemVO();
+  private PubItemVersionDbVO getPubItemVersionDbVO(String contextId) {
+    PubItemVersionDbVO pubItemVO = new PubItemVersionDbVO();
     CreatorVO creatorVO = new CreatorVO();
     PersonVO personVO = new PersonVO();
 
@@ -652,9 +654,10 @@ public class PubItemServiceTest extends TestBase {
     personVO.setGivenName("Hans");
     creatorVO.setPerson(personVO);
 
-    pubItemVO.setContext(new ContextRO(contextId));
-    pubItemVO.setLatestRelease(new ItemRO());
-    pubItemVO.setLatestVersion(new ItemRO());
+    ContextDbRO context = new ContextDbRO();
+    context.setObjectId(contextId);
+    pubItemVO.getObject().setLatestRelease(new PubItemVersionDbRO());
+    pubItemVO.getObject().setLatestVersion(new PubItemVersionDbRO());
 
     MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
     mdsPublicationVO.setGenre(MdsPublicationVO.Genre.BOOK);
@@ -667,75 +670,75 @@ public class PubItemServiceTest extends TestBase {
     return pubItemVO;
   }
 
-  private PubItemVO createReleasedItemStandardWorkflow() throws Exception {
+  private PubItemVersionDbVO createReleasedItemStandardWorkflow() throws Exception {
 
-    PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemStandardWorkflow();
 
     String authenticationTokenModerator = loginModerator();
 
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a release",
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a release",
         authenticationTokenModerator);
 
     return pubItemVO;
   }
 
-  private PubItemVO createReleasedItemSimpleWorkflow() throws Exception {
+  private PubItemVersionDbVO createReleasedItemSimpleWorkflow() throws Exception {
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_SIMPLE);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_SIMPLE);
 
     String authenticationToken = loginDepositor();
     pubItemVO = pubItemService.create(pubItemVO, authenticationToken);
-    pubItemVO = pubItemService.releasePubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a release",
+    pubItemVO = pubItemService.releasePubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a release",
         authenticationToken);
 
     return pubItemVO;
   }
 
-  private PubItemVO createSubmittedItemStandardWorkflow() throws Exception {
+  private PubItemVersionDbVO createSubmittedItemStandardWorkflow() throws Exception {
     String authenticationTokenDepositor = loginDepositor();
 
-    PubItemVO pubItemVO = getPubItemVO(CTX_STANDARD);
+    PubItemVersionDbVO pubItemVO = getPubItemVersionDbVO(CTX_STANDARD);
     pubItemVO = pubItemService.create(pubItemVO, authenticationTokenDepositor);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.PENDING));
-    assertTrue(pubItemVO.getCreationDate() != null);
-    assertTrue(pubItemVO.getLatestVersion().getModifiedByRO() != null);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.PENDING));
+    assertTrue(pubItemVO.getObject().getCreationDate() != null);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy() != null);
 
-    pubItemVO = pubItemService.submitPubItem(pubItemVO.getVersion().getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
+    pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
         authenticationTokenDepositor);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
 
     return pubItemVO;
   }
 
   // Creating an item in version state SUBMITTED in an simple workflow environment can only be done
   // by making a detour over a released item.
-  private PubItemVO createSubmittedItemSimpleWorkflow() throws Exception {
+  private PubItemVersionDbVO createSubmittedItemSimpleWorkflow() throws Exception {
     String authenticationTokenModerator = loginModerator();
 
-    PubItemVO pubItemVO = createReleasedItemSimpleWorkflow();
+    PubItemVersionDbVO pubItemVO = createReleasedItemSimpleWorkflow();
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
 
     pubItemVO = pubItemService.update(pubItemVO, authenticationTokenModerator);
 
-    assertTrue(pubItemVO.getPublicStatus().equals(ItemVO.State.RELEASED));
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
+    assertTrue(pubItemVO.getObject().getPublicState().equals(PubItemVersionDbRO.State.RELEASED));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.SUBMITTED));
 
     return pubItemVO;
   }
 
 
-  private PubItemVO createInRevisionItemStandardWorkflow() throws Exception {
+  private PubItemVersionDbVO createInRevisionItemStandardWorkflow() throws Exception {
     String authenticationToken = loginModerator();
 
-    PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
+    PubItemVersionDbVO pubItemVO = createSubmittedItemStandardWorkflow();
 
-    pubItemVO = pubItemService.revisePubItem(pubItemVO.getLatestVersion().getObjectId(), pubItemVO.getModificationDate(), "To Revision",
+    pubItemVO = pubItemService.revisePubItem(pubItemVO.getObject().getLatestVersion().getObjectId(), pubItemVO.getModificationDate(), "To Revision",
         authenticationToken);
 
-    assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.IN_REVISION));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(PubItemVersionDbVO.State.IN_REVISION));
 
     return pubItemVO;
   }
