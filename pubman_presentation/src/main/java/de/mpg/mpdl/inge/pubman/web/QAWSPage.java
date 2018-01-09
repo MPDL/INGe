@@ -51,7 +51,7 @@ public class QAWSPage extends BreadcrumbPage {
 
   public boolean getIsModerator() {
     if (this.getLoginHelper().isLoggedIn()) {
-      return this.getLoginHelper().getAccountUser().isModerator();
+      return this.getLoginHelper().getIsModerator();
     }
 
     return false;

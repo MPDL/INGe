@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -85,7 +86,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubManSwordServer {
   private static final Logger logger = Logger.getLogger(PubManSwordServer.class);
 
-  private AccountUserVO currentUser;
+  private AccountUserDbVO currentUser;
   private String verbose = "";
 
   @Autowired
@@ -263,11 +264,11 @@ public class PubManSwordServer {
     return xmlString;
   }
 
-  public AccountUserVO getCurrentUser() {
+  public AccountUserDbVO getCurrentUser() {
     return this.currentUser;
   }
 
-  public void setCurrentUser(AccountUserVO currentUser) {
+  public void setCurrentUser(AccountUserDbVO currentUser) {
     this.currentUser = currentUser;
   }
 

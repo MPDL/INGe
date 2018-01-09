@@ -83,7 +83,7 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+      affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       YearbookCandidatesSessionBean.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
     }
   }
