@@ -34,8 +34,8 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -50,7 +50,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
-public class AffiliationVOPresentation extends AffiliationVO implements Comparable<AffiliationVOPresentation> {
+public class AffiliationVOPresentation extends AffiliationDbVO implements Comparable<AffiliationVOPresentation> {
   private static final Logger logger = Logger.getLogger(AffiliationVOPresentation.class);
 
   private static final int SHORTENED_NAME_STANDARD_LENGTH = 65;
@@ -58,8 +58,8 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 
   private AffiliationVOPresentation parent = null;
 
-  private List<AffiliationVO> predecessors = new ArrayList<AffiliationVO>();
-  private List<AffiliationVO> successors = null;
+  private List<AffiliationDbVO> predecessors = new ArrayList<AffiliationDbVO>();
+  private List<AffiliationDbVO> successors = null;
   private List<AffiliationVOPresentation> children = null;
 
   private String idPath;
@@ -68,7 +68,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
   private boolean hasChildren = false;
   private boolean selectedForAuthor = false;
 
-  public AffiliationVOPresentation(AffiliationVO affiliation) {
+  public AffiliationVOPresentation(AffiliationDbVO affiliation) {
     super(affiliation);
     this.namePath = this.getDetails().getName();
     this.idPath = this.getReference().getObjectId();
@@ -78,7 +78,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
-      List<AffiliationVO> childOus =
+      List<AffiliationDbVO> childOus =
           (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getReference().getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
@@ -184,13 +184,13 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
   }
 
   public String getSortOrder() {
-    if ("closed".equals(this.getPublicStatus())) {
+    if ("closed".equals(this.getObject().getPublicState())) {
       return "3" + this.getName().toLowerCase();
-    } else if (this.getMps() && "opened".equals(this.getPublicStatus())) {
+    } else if (this.getMps() && "opened".equals(this.getObject().getPublicState())) {
       return "0" + this.getName().toLowerCase();
-    } else if ("opened".equals(this.getPublicStatus())) {
+    } else if ("opened".equals(this.getObject().getPublicState())) {
       return "1" + this.getName().toLowerCase();
-    } else if ("created".equals(this.getPublicStatus())) {
+    } else if ("created".equals(this.getObject().getPublicState())) {
       return "2" + this.getName().toLowerCase();
     } else {
       return "9" + this.getName().toLowerCase();
@@ -230,7 +230,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
   }
 
   public List<String> getUris() {
-    final List<IdentifierVO> identifiers = this.getDefaultMetadata().getIdentifiers();
+    final List<IdentifierVO> identifiers = this.getMetadata().getIdentifiers();
     final List<String> uriList = new ArrayList<String>();
 
     for (final IdentifierVO identifier : identifiers) {
@@ -243,7 +243,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
   }
 
   public boolean getIsClosed() {
-    return this.getPublicStatus().equals("closed");
+    return this.getObject().getPublicState().equals("closed");
   }
 
   @Override
@@ -251,7 +251,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
     return this.getSortOrder().compareTo(other.getSortOrder());
   }
 
-  private List<AffiliationVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) {
+  private List<AffiliationDbVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) {
     return this.retrieveAllOrganizationalUnits(affiliations);
   }
 
@@ -261,9 +261,9 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
    * @throws SecurityException
    * @throws TechnicalException
    */
-  private List<AffiliationVO> retrieveAllOrganizationalUnits(List<AffiliationRO> affiliations) {
+  private List<AffiliationDbVO> retrieveAllOrganizationalUnits(List<AffiliationRO> affiliations) {
 
-    List<AffiliationVO> transformedAffs = new ArrayList<AffiliationVO>();
+    List<AffiliationDbVO> transformedAffs = new ArrayList<AffiliationDbVO>();
 
     if (affiliations.size() == 0) {
       return transformedAffs;
@@ -275,7 +275,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
       }
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
-      SearchRetrieveResponseVO<AffiliationVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      SearchRetrieveResponseVO<AffiliationDbVO> resp = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
       transformedAffs = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
 
@@ -289,21 +289,21 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
   /**
    * @return the predecessors
    */
-  public List<AffiliationVO> getPredecessors() {
+  public List<AffiliationDbVO> getPredecessors() {
     return this.predecessors;
   }
 
   /**
    * @param predecessors the predecessors to set
    */
-  public void setPredecessors(List<AffiliationVO> predecessors) {
+  public void setPredecessors(List<AffiliationDbVO> predecessors) {
     this.predecessors = predecessors;
   }
 
   /**
    * @return the successors
    */
-  public List<AffiliationVO> getSuccessors() {
+  public List<AffiliationDbVO> getSuccessors() {
     this.fetchSuccessors();
     return this.successors;
   }
@@ -331,7 +331,7 @@ public class AffiliationVOPresentation extends AffiliationVO implements Comparab
         this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.reference.getObjectId());
 
       } catch (final Exception e) {
-        this.successors = new ArrayList<AffiliationVO>();
+        this.successors = new ArrayList<AffiliationDbVO>();
       }
     }
   }

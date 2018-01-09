@@ -50,7 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -336,7 +336,7 @@ public class SiteMapTask {
     // fileWriter.write("<ul>");
     do {
       try {
-        final SearchRetrieveResponseVO<AffiliationVO> ouSearchResult = this.getOUs(firstRecord);
+        final SearchRetrieveResponseVO<AffiliationDbVO> ouSearchResult = this.getOUs(firstRecord);
         totalRecords = ouSearchResult.getNumberOfRecords();
         this.addOUsToSitemap(ouSearchResult);
 
@@ -379,11 +379,11 @@ public class SiteMapTask {
    * @throws TechnicalException
    * @throws Exception
    */
-  private SearchRetrieveResponseVO<AffiliationVO> getOUs(int firstRecord) throws Exception {
+  private SearchRetrieveResponseVO<AffiliationDbVO> getOUs(int firstRecord) throws Exception {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
 
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<AffiliationVO> resp = ouService.search(srr, null);
+    SearchRetrieveResponseVO<AffiliationDbVO> resp = ouService.search(srr, null);
 
 
     return resp;
@@ -412,9 +412,9 @@ public class SiteMapTask {
 
 
 
-  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationVO> searchResult) {
+  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationDbVO> searchResult) {
 
-    for (final SearchRetrieveRecordVO<AffiliationVO> result : searchResult.getRecords()) {
+    for (final SearchRetrieveRecordVO<AffiliationDbVO> result : searchResult.getRecords()) {
 
       try {
         this.fileWriter.write("\t<url>\n\t\t<loc>");

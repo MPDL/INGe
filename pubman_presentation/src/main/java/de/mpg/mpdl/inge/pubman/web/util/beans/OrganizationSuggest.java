@@ -35,8 +35,8 @@ import javax.faces.bean.ManagedBean;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -66,20 +66,20 @@ public class OrganizationSuggest extends EditItemBean {
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0);
 
-      SearchRetrieveResponseVO<AffiliationVO> response = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      SearchRetrieveResponseVO<AffiliationDbVO> response = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
 
-      for (final SearchRetrieveRecordVO<AffiliationVO> rec : response.getRecords()) {
-        final AffiliationVO affiliationVO = rec.getData();
-        final List<AffiliationVO> initList = new ArrayList<AffiliationVO>();
+      for (final SearchRetrieveRecordVO<AffiliationDbVO> rec : response.getRecords()) {
+        final AffiliationDbVO affiliationVO = rec.getData();
+        final List<AffiliationDbVO> initList = new ArrayList<AffiliationDbVO>();
         initList.add(affiliationVO);
-        final List<List<AffiliationVO>> pathList = this.getPaths(initList);
+        final List<List<AffiliationDbVO>> pathList = this.getPaths(initList);
 
-        for (final List<AffiliationVO> path : pathList) {
+        for (final List<AffiliationDbVO> path : pathList) {
           final OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
           organizationVOPresentation.setIdentifier(affiliationVO.getReference().getObjectId());
 
-          final String city = affiliationVO.getDefaultMetadata().getCity();
-          final String countryCode = affiliationVO.getDefaultMetadata().getCountryCode();
+          final String city = affiliationVO.getMetadata().getCity();
+          final String countryCode = affiliationVO.getMetadata().getCountryCode();
           String address = "";
 
           if (city != null) {
@@ -97,11 +97,11 @@ public class OrganizationSuggest extends EditItemBean {
           organizationVOPresentation.setAddress(address);
 
           String name = "";
-          for (final AffiliationVO affVO : path) {
+          for (final AffiliationDbVO affVO : path) {
             if (!"".equals(name)) {
               name = name + ", ";
             }
-            name = name + affVO.getDefaultMetadata().getName();
+            name = name + affVO.getMetadata().getName();
           }
           organizationVOPresentation.setName(name);
           organizationVOPresentation.setBean(this);
@@ -112,18 +112,18 @@ public class OrganizationSuggest extends EditItemBean {
     }
   }
 
-  private List<List<AffiliationVO>> getPaths(List<AffiliationVO> currentPath) throws Exception {
-    final List<List<AffiliationVO>> result = new ArrayList<List<AffiliationVO>>();
-    final AffiliationVO affiliationVO = currentPath.get(currentPath.size() - 1);
+  private List<List<AffiliationDbVO>> getPaths(List<AffiliationDbVO> currentPath) throws Exception {
+    final List<List<AffiliationDbVO>> result = new ArrayList<List<AffiliationDbVO>>();
+    final AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
 
     if (affiliationVO != null) {
       if (affiliationVO.getParentAffiliations().isEmpty()) {
         result.add(currentPath);
       } else {
         for (final AffiliationRO parent : affiliationVO.getParentAffiliations()) {
-          final List<AffiliationVO> list = new ArrayList<AffiliationVO>();
+          final List<AffiliationDbVO> list = new ArrayList<AffiliationDbVO>();
           list.addAll(currentPath);
-          final AffiliationVO parentVO = this.getAffiliation(parent);
+          final AffiliationDbVO parentVO = this.getAffiliation(parent);
           list.add(parentVO);
           result.addAll(this.getPaths(list));
         }
@@ -133,10 +133,10 @@ public class OrganizationSuggest extends EditItemBean {
     return result;
   }
 
-  private AffiliationVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
+  private AffiliationDbVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
     final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
-    for (final AffiliationVO element : applicationBean.getOuList()) {
+    for (final AffiliationDbVO element : applicationBean.getOuList()) {
       if (element.getReference().equals(affiliationRO)) {
         return element;
       }

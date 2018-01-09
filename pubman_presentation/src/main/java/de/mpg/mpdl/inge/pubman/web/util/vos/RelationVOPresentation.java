@@ -1,7 +1,7 @@
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
-import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 
 @SuppressWarnings("serial")
 public class RelationVOPresentation extends RelationVO {

@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.search;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -46,7 +46,7 @@ public class SearchResultListSessionBean extends FacesBean {
     NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
   }
 
-  private AffiliationVO affiliation;
+  private AffiliationDbVO affiliation;
   private SearchType type;
   private String searchString;
   private boolean includeFiles = false;
@@ -78,11 +78,11 @@ public class SearchResultListSessionBean extends FacesBean {
   }
 
 
-  public AffiliationVO getAffiliation() {
+  public AffiliationDbVO getAffiliation() {
     return this.affiliation;
   }
 
-  public void setAffiliation(AffiliationVO affiliation) {
+  public void setAffiliation(AffiliationDbVO affiliation) {
     this.affiliation = affiliation;
   }
 }

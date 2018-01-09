@@ -18,12 +18,12 @@ import org.elasticsearch.index.query.QueryBuilders;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -145,10 +145,10 @@ public class YearbookItemSessionBean extends FacesBean {
      * (yearbookPubItem.getYearbookMetadata().getYear() != null &&
      * (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
      * .getYearbookMetadata().getYear() .equals(Integer.toString((Integer.valueOf(year) - 1)))) &&
-     * !yearbookPubItem.getPublicStatus().equals(State.RELEASED)) {
+     * !yearbookPubItem.getObject().getPublicState().equals(State.RELEASED)) {
      * this.setYearbookItem(yearbookPubItem); final ContextHandler contextHandler =
      * ServiceLocator.getContextHandler(this.getLoginHelper().getESciDocUserHandle()); final String
-     * contextXml = contextHandler.retrieve(this.getYearbookItem().getContext().getObjectId());
+     * contextXml = contextHandler.retrieve(this.getYearbookItem().getObject().getContext().getObjectId());
      * this.yearbookContext = XmlTransformingService.transformToContext(contextXml); } } } }
      */
   }
@@ -215,14 +215,14 @@ public class YearbookItemSessionBean extends FacesBean {
     this.yearbook = yearbookService.update(retrievedYearbook, getLoginHelper().getAuthenticationToken());
     // if (relList.size() > 0) {
     // String updatedItemXml =
-    // this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // this.itemHandler.retrieve(this.yearbookItem.getObjectId());
     // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
     // final String taskParam =
     // YearbookItemSessionBean.createRelationTaskParam(relList,
     // this.yearbookItem.getModificationDate());
-    // this.itemHandler.addContentRelations(this.yearbookItem.getVersion().getObjectId(),
+    // this.itemHandler.addContentRelations(this.yearbookItem.getObjectId(),
     // taskParam);
-    // updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getObjectId());
     // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
     // }
   }
@@ -235,14 +235,14 @@ public class YearbookItemSessionBean extends FacesBean {
 
     // if (relList.size() > 0) {
     // String updatedItemXml =
-    // this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // this.itemHandler.retrieve(this.yearbookItem.getObjectId());
     // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
     // final String taskParam =
     // YearbookItemSessionBean.createRelationTaskParam(relList,
     // this.yearbookItem.getModificationDate());
-    // this.itemHandler.removeContentRelations(this.yearbookItem.getVersion().getObjectId(),
+    // this.itemHandler.removeContentRelations(this.yearbookItem.getObjectId(),
     // taskParam);
-    // updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getVersion().getObjectId());
+    // updatedItemXml = this.itemHandler.retrieve(this.yearbookItem.getObjectId());
     // this.yearbookItem = XmlTransformingService.transformToPubItem(updatedItemXml);
     // }
   }
@@ -261,10 +261,10 @@ public class YearbookItemSessionBean extends FacesBean {
   // }
 
   /*
-   * public void setYearbookContext(ContextVO yearbookContext) { this.yearbookContext =
+   * public void setYearbookContext(ContextDbVO yearbookContext) { this.yearbookContext =
    * yearbookContext; }
    * 
-   * public ContextVO getYearbookContext() { return this.yearbookContext; }
+   * public ContextDbVO getYearbookContext() { return this.yearbookContext; }
    */
 
   public boolean isCandidate(String id) throws Exception {
@@ -307,14 +307,14 @@ public class YearbookItemSessionBean extends FacesBean {
         }
       }
     }
-    if (this.invalidItemMap.containsKey(pubItem.getVersion().getObjectId())) {
-      storedItem = this.invalidItemMap.get(pubItem.getVersion().getObjectId());
-    } else if (this.validItemMap.containsKey(pubItem.getVersion().getObjectId())) {
-      storedItem = this.validItemMap.get(pubItem.getVersion().getObjectId());
+    if (this.invalidItemMap.containsKey(pubItem.getObjectId())) {
+      storedItem = this.invalidItemMap.get(pubItem.getObjectId());
+    } else if (this.validItemMap.containsKey(pubItem.getObjectId())) {
+      storedItem = this.validItemMap.get(pubItem.getObjectId());
     }
     if (storedItem == null || !pubItem.getModificationDate().equals(storedItem.getLastModificationDate())) {
       // revalidate
-      System.out.println("Yearbook Validating: " + pubItem.getVersion().getObjectId());
+      System.out.println("Yearbook Validating: " + pubItem.getObjectId());
       // TODO maybe a special validationpoint for the yearbook needs to be created
       ValidationReportVO rep = new ValidationReportVO();
 
@@ -325,13 +325,13 @@ public class YearbookItemSessionBean extends FacesBean {
         rep = e.getReport();
       }
       if (rep.getItems().size() > 0) {
-        this.validItemMap.remove(pubItem.getVersion().getObjectId());
-        this.invalidItemMap.put(pubItem.getVersion().getObjectId(),
-            new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        this.validItemMap.remove(pubItem.getObjectId());
+        this.invalidItemMap.put(pubItem.getObjectId(),
+            new YearbookInvalidItemRO(pubItem.getObjectId(), rep, pubItem.getModificationDate()));
       } else {
-        this.invalidItemMap.remove(pubItem.getVersion().getObjectId());
-        this.validItemMap.put(pubItem.getVersion().getObjectId(),
-            new YearbookInvalidItemRO(pubItem.getVersion().getObjectId(), rep, pubItem.getModificationDate()));
+        this.invalidItemMap.remove(pubItem.getObjectId());
+        this.validItemMap.put(pubItem.getObjectId(),
+            new YearbookInvalidItemRO(pubItem.getObjectId(), rep, pubItem.getModificationDate()));
       }
       return rep.isValid();
     }

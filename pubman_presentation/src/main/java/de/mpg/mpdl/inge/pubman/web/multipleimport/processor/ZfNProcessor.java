@@ -51,8 +51,8 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -138,7 +138,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @return
    * @throws Exception
    */
-  public FileVO getFileforImport(Map<String, String> config, AccountUserVO user) throws Exception {
+  public FileDbVO getFileforImport(Map<String, String> config, AccountUserVO user) throws Exception {
     this.setConfig(config);
     this.setCurrentFile(this.processZfnFileName(this.fileNames.get(0)));
 
@@ -151,19 +151,19 @@ public class ZfNProcessor extends FormatProcessor {
   }
 
   /**
-   * Converts an inputstream into a FileVO.
+   * Converts an inputstream into a FileDbVO.
    * 
    * @param file
    * @param name
    * @param user
-   * @return FileVO
+   * @return FileDbVO
    * @throws Exception
    */
-  private FileVO createPubFile(InputStream in, AccountUserVO user) throws Exception {
+  private FileDbVO createPubFile(InputStream in, AccountUserVO user) throws Exception {
     ZfNProcessor.logger.debug("Creating PubFile: " + this.getCurrentFile());
 
     final MdsFileVO mdSet = new MdsFileVO();
-    final FileVO fileVO = new FileVO();
+    final FileDbVO fileVO = new FileDbVO();
 
     final FileNameMap fileNameMap = URLConnection.getFileNameMap();
     final String mimeType = fileNameMap.getContentTypeFor(this.getCurrentFile());
@@ -171,15 +171,15 @@ public class ZfNProcessor extends FormatProcessor {
     final URL fileURL = this.uploadFile(in, mimeType, user.getHandle());
 
     if (fileURL != null && !fileURL.toString().trim().equals("")) {
-      fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-      fileVO.setVisibility(FileVO.Visibility.PUBLIC);
+      fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+      fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.setDefaultMetadata(mdSet);
-      fileVO.getDefaultMetadata().setTitle(this.getCurrentFile());
+      fileVO.getMetadata().setTitle(this.getCurrentFile());
       fileVO.setMimeType(mimeType);
       fileVO.setName(this.getCurrentFile());
       fileVO.setContent(fileURL.toString());
       System.out.println("SIZE:" + this.fileSize);
-      fileVO.getDefaultMetadata().setSize(this.fileSize);
+      fileVO.getMetadata().setSize(this.fileSize);
       String contentCategory = null;
       if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
         contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
@@ -192,12 +192,12 @@ public class ZfNProcessor extends FormatProcessor {
         }
       }
       fileVO.setContentCategory(contentCategory);
-      fileVO.getDefaultMetadata().setLicense(this.getConfig().get("License"));
+      fileVO.getMetadata().setLicense(this.getConfig().get("License"));
 
       final FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
-      fileVO.getDefaultMetadata().getFormats().add(formatVO);
+      fileVO.getMetadata().getFormats().add(formatVO);
     }
     this.setCurrentFile("");
     this.fileNames.remove(0);

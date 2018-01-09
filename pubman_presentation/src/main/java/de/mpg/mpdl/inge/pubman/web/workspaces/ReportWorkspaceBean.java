@@ -20,13 +20,13 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
@@ -290,7 +290,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
   public List<String> getChildOUs(String orgId) throws Exception {
     final List<String> affListAsString = new ArrayList<String>();
-    final AffiliationVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null);
+    final AffiliationDbVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null);
     final AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
     final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 

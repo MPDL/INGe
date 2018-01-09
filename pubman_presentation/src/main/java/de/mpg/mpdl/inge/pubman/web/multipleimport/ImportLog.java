@@ -39,9 +39,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -485,7 +485,7 @@ public class ImportLog extends BaseImportLog {
   private Workflow getWorkflow() {
     if (this.workflow == null) {
       try {
-        final ContextVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
+        final ContextDbVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
         this.workflow = contextVO.getAdminDescriptor().getWorkflow();
       } catch (final Exception e) {

@@ -703,8 +703,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     for (final PubItemVOPresentation pubItem : selectedPubItems) {
 
       if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_ITEMS) {
-        if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion())) {
-          pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
+        if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
+          pubItemStorage.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem.getVersion());
           added++;
         } else {
           existing++;
@@ -744,9 +744,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   private void saveSelections() {
     for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
-        this.getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
+        this.getSelectedItemRefs().put(pubItem.getObjectIdAndVersion(), pubItem.getVersion());
       } else {
-        this.getSelectedItemRefs().remove(pubItem.getVersion().getObjectIdAndVersion());
+        this.getSelectedItemRefs().remove(pubItem.getObjectIdAndVersion());
       }
     }
   }
@@ -757,7 +757,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   private void updateSelections() {
     if (!this.getSelectedItemRefs().isEmpty()) {
       for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
-        if (this.getSelectedItemRefs().containsKey(pubItem.getVersion().getObjectIdAndVersion())) {
+        if (this.getSelectedItemRefs().containsKey(pubItem.getObjectIdAndVersion())) {
           pubItem.setSelected(true);
         }
       }
@@ -1010,7 +1010,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
-        if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId())) {
+        if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
           // Case: not the last item of a part-list --> get next Item without any pagechange
           if ((i + 1) < this.getCurrentPartList().size()) {
             positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
@@ -1055,7 +1055,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     int positionFirstPartListItem;
     try {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
-        if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId())) {
+        if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
           // Case: not the first item of a part-list --> Go one item back without pagechange
           if ((i - 1) >= 0) {
             positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
@@ -1101,7 +1101,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     if (this.getCurrentPartList() != null) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
-        if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId())) {
+        if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
           if ((i + 1) >= this.getCurrentPartList().size() && this.getCurrentPageNumber() >= this.getPaginatorPageSize()) {
             return false;
           }
@@ -1120,7 +1120,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     if (this.getCurrentPartList() != null) {
       for (int i = 0; i < this.getCurrentPartList().size(); i++) {
-        if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId())) {
+        if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
           if ((i - 1) < 0 && this.getCurrentPageNumber() <= 1) {
             return false;
           }
@@ -1166,7 +1166,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     final PubItemVOPresentation currentItem = this.getItemControllerSessionBean().getCurrentPubItem();
     final int positionFirstPartListItem = ((this.getCurrentPageNumber() - 1) * this.getElementsPerPage()) + 1;
     for (int i = 0; i < this.getCurrentPartList().size(); i++) {
-      if (this.getCurrentPartList().get(i).getVersion().getObjectId().equals(currentItem.getVersion().getObjectId())) {
+      if (this.getCurrentPartList().get(i).getObjectId().equals(currentItem.getObjectId())) {
         this.itemPosition = positionFirstPartListItem + i;
       }
     }

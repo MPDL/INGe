@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
@@ -66,8 +66,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
     // Do not forget the files and locators
     pubItemVOLatestVersion.getFiles().clear();
-    for (final FileVO fileVO : pubItemVOThisVersion.getFiles()) {
-      final FileVO clonedFile = new FileVO(fileVO);
+    for (final FileDbVO fileVO : pubItemVOThisVersion.getFiles()) {
+      final FileDbVO clonedFile = new FileDbVO(fileVO);
       clonedFile.setReference(fileVO.getReference());
       pubItemVOLatestVersion.getFiles().add(clonedFile);
     }
@@ -77,9 +77,9 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     // PENDING nach RELEASED)
     ItemVersionVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
-    if (ItemVO.State.RELEASED.equals(pubItemVOLatestVersion.getVersion().getState())
-        && !ItemVO.State.RELEASED.equals(pubItemVONewVersion.getVersion().getState())) {
-      pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(pubItemVONewVersion.getVersion().getObjectId(),
+    if (ItemVO.State.RELEASED.equals(pubItemVOLatestVersion.getVersionState())
+        && !ItemVO.State.RELEASED.equals(pubItemVONewVersion.getVersionState())) {
+      pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(pubItemVONewVersion.getObjectId(),
           pubItemVONewVersion.getModificationDate(), "Release after rollback to version " + this.getReference().getVersionNumber(),
           loginHelper.getAuthenticationToken());
     }

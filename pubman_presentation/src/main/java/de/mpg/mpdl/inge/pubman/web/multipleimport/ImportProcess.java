@@ -39,14 +39,14 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BibtexProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BmcProcessor;
@@ -362,7 +362,7 @@ public class ImportProcess extends Thread {
               if (this.format.equals(TransformerFactory.FORMAT.ZFN_TEI_XML)) {
                 try {
                   // Set file
-                  final FileVO file = ((ZfNProcessor) this.formatProcessor).getFileforImport(this.configuration, this.user);
+                  final FileDbVO file = ((ZfNProcessor) this.formatProcessor).getFileforImport(this.configuration, this.user);
                   item.getItemVO().getFiles().add(file);
                 } catch (final Exception e) {
                   this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
@@ -374,7 +374,7 @@ public class ImportProcess extends Thread {
               final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);
 
-              final String objid = savedPubItem.getVersion().getObjectId();
+              final String objid = savedPubItem.getObjectId();
               this.importLog.setItemId(objid, this.connection);
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_item_imported", this.connection);
               this.importLog.finishItem(this.connection);
@@ -519,14 +519,14 @@ public class ImportProcess extends Thread {
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, "import_process_duplicate_detected", this.connection);
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,
-                    duplicatePubItemVO.getVersion().getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getVersion().getObjectId(), this.connection);
+                    duplicatePubItemVO.getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
+                    duplicatePubItemVO.getObjectId(), this.connection);
                 return true;
               } else {
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_duplicate_detected", this.connection);
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
-                    duplicatePubItemVO.getVersion().getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getVersion().getObjectId(), this.connection);
+                    duplicatePubItemVO.getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
+                    duplicatePubItemVO.getObjectId(), this.connection);
               }
             } else {
               this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_detected_duplicate_no_publication",

@@ -40,8 +40,8 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
@@ -262,7 +262,7 @@ public class LoginHelper extends FacesBean {
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
       for (final UserAttributeVO ua : this.getAccountUser().getAttributes()) {
         if ("o".equals(ua.getName())) {
-          final AffiliationVO orgUnit = ApplicationBean.INSTANCE.getOrganizationService().get(ua.getValue(), null);
+          final AffiliationDbVO orgUnit = ApplicationBean.INSTANCE.getOrganizationService().get(ua.getValue(), null);
           this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
         }
       }

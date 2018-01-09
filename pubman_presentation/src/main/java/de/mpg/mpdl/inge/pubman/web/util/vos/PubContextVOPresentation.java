@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 import java.text.Collator;
 import java.util.Locale;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
@@ -22,16 +22,16 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubContextVOPresentation extends ContextVO implements Comparable<PubContextVOPresentation> {
+public class PubContextVOPresentation extends ContextDbVO implements Comparable<PubContextVOPresentation> {
 
   private boolean selected = false;
 
-  public PubContextVOPresentation(ContextVO item) {
+  public PubContextVOPresentation(ContextDbVO item) {
     super(item);
   }
 
   public boolean getDisabled() {
-    if (ContextVO.State.CLOSED.equals(this.getState())) {
+    if (ContextDbVO.State.CLOSED.equals(this.getState())) {
       return Boolean.TRUE;
     } else {
       return Boolean.FALSE;

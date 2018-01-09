@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -169,15 +169,15 @@ public class ContextListSessionBean extends FacesBean {
         // ... and transform filter to xml
         if (hasGrants) {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          bq.must(QueryBuilders.termQuery("state", ContextVO.State.OPENED.name()));
+          bq.must(QueryBuilders.termQuery("state", ContextDbVO.State.OPENED.name()));
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_OBJECT_ID, id));
           }
 
-          SearchRetrieveResponseVO<ContextVO> response =
+          SearchRetrieveResponseVO<ContextDbVO> response =
               ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO(bq), null);
-          List<ContextVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+          List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
           // ... and transform to PubCollections.
           List<PubContextVOPresentation> allPrivilegedContextList = CommonUtils.convertToPubCollectionVOPresentationList(ctxList);

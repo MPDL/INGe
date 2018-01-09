@@ -55,13 +55,13 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -389,7 +389,7 @@ public class CommonUtils {
    * @param list the list of PubItemVOs
    * @return the list of PubItemVOPresentations
    */
-  public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(List<? extends FileVO> list) {
+  public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(List<? extends FileDbVO> list) {
     final List<PubFileVOPresentation> pubFileList = new ArrayList<PubFileVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
@@ -421,7 +421,7 @@ public class CommonUtils {
    * @param list the list of ContextVOs
    * @return the list of PubCollectionVOPresentations
    */
-  public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<ContextVO> list) {
+  public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<ContextDbVO> list) {
     final List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {
@@ -437,7 +437,7 @@ public class CommonUtils {
    * @param list the list of AffiliationVOs
    * @return the list of AffiliationVOPresentations
    */
-  public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationVO> list) {
+  public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationDbVO> list) {
     final List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {

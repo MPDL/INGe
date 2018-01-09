@@ -38,8 +38,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
@@ -50,7 +49,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
 
 /**
- * Presentation wrapper for {@link FileVO}.
+ * Presentation wrapper for {@link FileDbVO}.
  * 
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -61,38 +60,38 @@ import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
 public class PubFileVOPresentation extends FacesBean {
   private static Properties properties;
 
-  private FileVO file;
+  private FileDbVO file;
   private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
   private String fileType;
   private boolean isLocator = false;
   private int index;
 
   public PubFileVOPresentation() {
-    this.file = new FileVO();
-    this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    this.file = new FileDbVO();
+    this.file.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     this.init();
   }
 
   public PubFileVOPresentation(int fileIndex, boolean isLocator) {
-    this.file = new FileVO();
+    this.file = new FileDbVO();
     this.index = fileIndex;
     this.isLocator = isLocator;
     if (isLocator) {
-      this.file.setStorage(FileVO.Storage.EXTERNAL_URL);
+      this.file.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     } else {
-      this.file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+      this.file.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     }
     this.init();
   }
 
-  public PubFileVOPresentation(int fileIndex, FileVO file) {
+  public PubFileVOPresentation(int fileIndex, FileDbVO file) {
     this.index = fileIndex;
     this.file = file;
 
     this.init();
   }
 
-  public PubFileVOPresentation(int fileIndex, FileVO file, boolean isLocator) {
+  public PubFileVOPresentation(int fileIndex, FileDbVO file, boolean isLocator) {
     this.index = fileIndex;
     this.file = file;
     this.isLocator = isLocator;
@@ -178,11 +177,11 @@ public class PubFileVOPresentation extends FacesBean {
     this.index = index;
   }
 
-  public FileVO getFile() {
+  public FileDbVO getFile() {
     return this.file;
   }
 
-  public void setFile(FileVO file) {
+  public void setFile(FileDbVO file) {
     this.file = file;
   }
 
@@ -236,7 +235,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @param category The content category as a string according to XML conventions.
    */
   public void setContentCategoryAsXmlString(String category) {
-    this.file.getDefaultMetadata().setContentCategory(category);
+    this.file.getMetadata().setContentCategory(category);
     this.file.setContentCategory(category);
   }
 
@@ -246,27 +245,27 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The number of bytes.
    */
   public int getSize() {
-    if (this.file.getDefaultMetadata() != null) {
-      return this.file.getDefaultMetadata().getSize();
+    if (this.file.getMetadata() != null) {
+      return this.file.getMetadata().getSize();
     }
 
     return 0;
   }
 
   public String getDescription() {
-    if (this.file.getDefaultMetadata() != null) {
-      return this.file.getDefaultMetadata().getDescription();
+    if (this.file.getMetadata() != null) {
+      return this.file.getMetadata().getDescription();
     }
 
     return "";
   }
 
   public void setDescription(String description) {
-    if (this.file.getDefaultMetadata() != null) {
-      this.file.getDefaultMetadata().setDescription(description);
+    if (this.file.getMetadata() != null) {
+      this.file.getMetadata().setDescription(description);
     } else {
       this.file.getMetadataSets().add(new MdsFileVO());
-      this.file.getDefaultMetadata().setDescription(description);
+      this.file.getMetadata().setDescription(description);
     }
   }
 
@@ -275,7 +274,7 @@ public class PubFileVOPresentation extends FacesBean {
     if (this.file.getVisibility() != null) {
       visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     } else {
-      this.file.setVisibility(FileVO.Visibility.PUBLIC);
+      this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
       visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
     }
 
@@ -284,19 +283,19 @@ public class PubFileVOPresentation extends FacesBean {
 
   private void setVisibility() {
     if (this.file.getVisibility() == null) {
-      this.file.setVisibility(FileVO.Visibility.PUBLIC);
+      this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
     }
   }
 
   public void setMimeType(String mimeType) {
-    if (this.file.getDefaultMetadata() == null) {
+    if (this.file.getMetadata() == null) {
       this.file.getMetadataSets().add(new MdsFileVO());
     }
 
     // set in properties
     this.file.setMimeType(mimeType);
 
-    final List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+    final List<FormatVO> formats = this.file.getMetadata().getFormats();
     boolean found = false;
     for (final FormatVO formatVO : formats) {
       if ("dcterms:IMT".equals(formatVO.getType())) {
@@ -314,11 +313,11 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getMimeType() {
-    if (this.file.getDefaultMetadata() == null) {
+    if (this.file.getMetadata() == null) {
       return null;
     }
 
-    final List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+    final List<FormatVO> formats = this.file.getMetadata().getFormats();
     for (final FormatVO formatVO : formats) {
       if ("dcterms:IMT".equals(formatVO.getType())) {
         return formatVO.getValue();
@@ -352,9 +351,9 @@ public class PubFileVOPresentation extends FacesBean {
 
     // ensure that at least one file component is visible
     if (editItemSessionBean.getFiles().size() == 0) {
-      final FileVO newFile = new FileVO();
+      final FileDbVO newFile = new FileDbVO();
       newFile.getMetadataSets().add(new MdsFileVO());
-      newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+      newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, newFile, false));
     }
 
@@ -368,9 +367,9 @@ public class PubFileVOPresentation extends FacesBean {
 
     // ensure that at least one locator component is visible
     if (editItemSessionBean.getLocators().size() == 0) {
-      final FileVO newLocator = new FileVO();
+      final FileDbVO newLocator = new FileDbVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
-      newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+      newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, newLocator, true));
     }
 
@@ -418,10 +417,10 @@ public class PubFileVOPresentation extends FacesBean {
    */
   public boolean getShowEmbargoDate() {
     boolean showEmbargoDate = false;
-    if (FileVO.Visibility.PRIVATE.equals(this.file.getVisibility()) || FileVO.Visibility.AUDIENCE.equals(this.file.getVisibility())) {
+    if (FileDbVO.Visibility.PRIVATE.equals(this.file.getVisibility()) || FileDbVO.Visibility.AUDIENCE.equals(this.file.getVisibility())) {
       showEmbargoDate = true;
     } else {
-      this.file.getDefaultMetadata().setEmbargoUntil(null);
+      this.file.getMetadata().setEmbargoUntil(null);
       showEmbargoDate = false;
     }
 

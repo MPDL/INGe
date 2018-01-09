@@ -31,7 +31,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -92,7 +92,7 @@ public class CreateItem extends FacesBean {
 
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
-      final ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
+      final ContextDbVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
       navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO.getReference());
 
       // re-init the edit item bean to make sure that all data is removed

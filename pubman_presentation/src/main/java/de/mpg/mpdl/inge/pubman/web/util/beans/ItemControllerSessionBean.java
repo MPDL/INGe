@@ -38,10 +38,11 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -67,7 +68,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -100,7 +100,7 @@ public class ItemControllerSessionBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
   private PubItemVOPresentation currentPubItem = null;
-  private ContextVO currentContext = null;
+  private ContextDbVO currentContext = null;
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ItemControllerSessionBean() {}
@@ -115,7 +115,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String acceptCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       final ItemVersionVO updatedPubItem =
-          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getVersion().getObjectId(),
+          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getObjectId(),
               this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -168,7 +168,7 @@ public class ItemControllerSessionBean extends FacesBean {
     this.setCurrentPubItem(new PubItemVOPresentation(newItem));
 
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1) {
-      final ContextVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
+      final ContextDbVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
       newItem.setContext(context.getReference());
 
       this.setCurrentPubItem(new PubItemVOPresentation(newItem));
@@ -237,7 +237,7 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String deleteCurrentPubItem(String navigationRuleWhenSuccessfull) {
     try {
-      ApplicationBean.INSTANCE.getPubItemService().delete(this.currentPubItem.getVersion().getObjectId(),
+      ApplicationBean.INSTANCE.getPubItemService().delete(this.currentPubItem.getObjectId(),
           this.getLoginHelper().getAuthenticationToken());
       this.setCurrentPubItem(null);
       return navigationRuleWhenSuccessfull;
@@ -259,13 +259,13 @@ public class ItemControllerSessionBean extends FacesBean {
     return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 
-  public ContextVO getCurrentContext() {
+  public ContextDbVO getCurrentContext() {
     // retrieve current context newly if the current item has changed or if the context has not been
     // retrieved so far
     if (this.currentPubItem != null) {
       if (this.currentContext == null
-          || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem.getContext().getObjectId()))) {
-        final ContextVO context = this.retrieveContext(this.currentPubItem.getContext().getObjectId());
+          || !(this.currentContext.getReference().getObjectId().equals(this.currentPubItem.getObject().getContext().getObjectId()))) {
+        final ContextDbVO context = this.retrieveContext(this.currentPubItem.getObject().getContext().getObjectId());
         this.setCurrentCollection(context);
       }
     }
@@ -293,7 +293,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getStatisticValue(String reportDefinitionType) throws Exception {
-    return SimpleStatisticsService.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem.getVersion().getObjectId(),
+    return SimpleStatisticsService.getNumberOfItemOrFileRequests(reportDefinitionType, this.currentPubItem.getObjectId(),
         this.getLoginHelper().getAccountUser());
   }
 
@@ -335,7 +335,7 @@ public class ItemControllerSessionBean extends FacesBean {
     }
 
     // Status
-    if (newPubItem.getVersion().getState() == null) {
+    if (newPubItem.getVersionState() == null) {
       newPubItem.getVersion().setState(ItemVO.State.PENDING);
     }
 
@@ -346,7 +346,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     // Genre
     if (newPubItem.getMetadata().getGenre() == null) {
-      final ContextVO contextVO = this.retrieveContext(newPubItem.getContext().getObjectId());
+      final ContextDbVO contextVO = this.retrieveContext(newPubItem.getObject().getContext().getObjectId());
       final PublicationAdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptor();
       if (adminDescriptorVO.getAllowedGenres().contains(Genre.ARTICLE)) {
         newPubItem.getMetadata().setGenre(Genre.ARTICLE);
@@ -503,7 +503,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String submitCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       final ItemVersionVO updatedPubItem =
-          ApplicationBean.INSTANCE.getPubItemService().submitPubItem(this.currentPubItem.getVersion().getObjectId(),
+          ApplicationBean.INSTANCE.getPubItemService().submitPubItem(this.currentPubItem.getObjectId(),
               this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -522,8 +522,8 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param contextID the ID of the context that should be retrieved
    * @return the context with the given ID
    */
-  public ContextVO retrieveContext(final String contextID) {
-    ContextVO context = null;
+  public ContextDbVO retrieveContext(final String contextID) {
+    ContextDbVO context = null;
 
     try {
       context = ApplicationBean.INSTANCE.getContextService().get(contextID, null);
@@ -626,7 +626,7 @@ public class ItemControllerSessionBean extends FacesBean {
     final List<ItemVersionVO> targetItemList = this.retrieveItems(targetItemRefs);
     for (final RelationVOPresentation revision : revisionVOList) {
       for (final ItemVersionVO pubItem : targetItemList) {
-        if (revision.getTargetItemRef().getObjectId().equals(pubItem.getVersion().getObjectId())) {
+        if (revision.getTargetItemRef().getObjectId().equals(pubItem.getObjectId())) {
           revision.setTargetItem(pubItem);
           break;
         }
@@ -663,7 +663,7 @@ public class ItemControllerSessionBean extends FacesBean {
     final List<ItemVersionVO> sourceItemList = this.retrieveItems(sourceItemRefs);
     for (final RelationVOPresentation revision : revisionVOList) {
       for (final ItemVersionVO pubItem : sourceItemList) {
-        if (revision.getSourceItemRef().getObjectId().equals(pubItem.getVersion().getObjectId())) {
+        if (revision.getSourceItemRef().getObjectId().equals(pubItem.getObjectId())) {
           revision.setSourceItem(pubItem);
           break;
         }
@@ -690,7 +690,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String reviseCurrentPubItem(String navigationRuleWhenSuccesfull, String comment) {
     try {
       final ItemVersionVO updatedPubItem =
-          ApplicationBean.INSTANCE.getPubItemService().revisePubItem(this.currentPubItem.getVersion().getObjectId(),
+          ApplicationBean.INSTANCE.getPubItemService().revisePubItem(this.currentPubItem.getObjectId(),
               this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -715,7 +715,7 @@ public class ItemControllerSessionBean extends FacesBean {
     try {
       ItemVersionVO updatedPubItem = null;
 
-      if (this.currentPubItem.getVersion() == null || this.currentPubItem.getVersion().getObjectId() == null) {
+      if (this.currentPubItem.getVersion() == null || this.currentPubItem.getObjectId() == null) {
         updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().create(new ItemVersionVO(this.currentPubItem),
             this.getLoginHelper().getAuthenticationToken());
       } else {
@@ -745,7 +745,7 @@ public class ItemControllerSessionBean extends FacesBean {
     return "";
   }
 
-  public void setCurrentCollection(ContextVO currentCollection) {
+  public void setCurrentCollection(ContextDbVO currentCollection) {
     this.currentContext = currentCollection;
   }
 
@@ -764,7 +764,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String releaseCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       final ItemVersionVO updatedPubItem =
-          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getVersion().getObjectId(),
+          ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getObjectId(),
               this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
@@ -788,7 +788,7 @@ public class ItemControllerSessionBean extends FacesBean {
   public String withdrawCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
     try {
       final ItemVersionVO updatedPubItem =
-          ApplicationBean.INSTANCE.getPubItemService().withdrawPubItem(this.currentPubItem.getVersion().getObjectId(),
+          ApplicationBean.INSTANCE.getPubItemService().withdrawPubItem(this.currentPubItem.getObjectId(),
               this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
 
       this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));

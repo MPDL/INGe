@@ -56,11 +56,11 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
@@ -76,7 +76,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -172,10 +171,10 @@ public class EasySubmission extends FacesBean {
           }
         }
 
-        final FileVO newLocator = new FileVO();
-        newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+        final FileDbVO newLocator = new FileDbVO();
+        newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
         newLocator.setContentCategory(contentCategory);
-        newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+        newLocator.setVisibility(FileDbVO.Visibility.PUBLIC);
         newLocator.setDefaultMetadata(new MdsFileVO());
         this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
       }
@@ -330,11 +329,11 @@ public class EasySubmission extends FacesBean {
 
     final List<PubFileVOPresentation> files = this.getFiles();
 
-    if (files != null && files.size() > 0 && files.get(files.size() - 1).getFile().getDefaultMetadata().getSize() > 0) {
+    if (files != null && files.size() > 0 && files.get(files.size() - 1).getFile().getMetadata().getSize() > 0) {
 
-      final FileVO newFile = new FileVO();
-      newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-      newFile.setVisibility(FileVO.Visibility.PUBLIC);
+      final FileDbVO newFile = new FileDbVO();
+      newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+      newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
       newFile.setDefaultMetadata(new MdsFileVO());
 
       files.add(new PubFileVOPresentation(files.size(), newFile, false));
@@ -372,7 +371,7 @@ public class EasySubmission extends FacesBean {
 
       final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
       newLocator.getFile().setContentCategory(contentCategory);
-      newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
+      newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
       newLocator.getFile().setDefaultMetadata(new MdsFileVO());
       locators.add(newLocator);
     }
@@ -406,15 +405,15 @@ public class EasySubmission extends FacesBean {
   public String saveLocator() {
     final List<PubFileVOPresentation> locators = this.getLocators();
 
-    if (locators.get(locators.size() - 1).getFile().getDefaultMetadata().getTitle() == null
-        || locators.get(locators.size() - 1).getFile().getDefaultMetadata().getTitle().trim().equals("")) {
-      locators.get(locators.size() - 1).getFile().getDefaultMetadata().setTitle(locators.get(locators.size() - 1).getFile().getContent());
+    if (locators.get(locators.size() - 1).getFile().getMetadata().getTitle() == null
+        || locators.get(locators.size() - 1).getFile().getMetadata().getTitle().trim().equals("")) {
+      locators.get(locators.size() - 1).getFile().getMetadata().setTitle(locators.get(locators.size() - 1).getFile().getContent());
     }
 
     // set a dummy file size for rendering purposes
     if (locators.get(locators.size() - 1).getFile().getContent() != null
         && !locators.get(locators.size() - 1).getFile().getContent().trim().equals("")) {
-      locators.get(locators.size() - 1).getFile().getDefaultMetadata().setSize(11);
+      locators.get(locators.size() - 1).getFile().getMetadata().setSize(11);
     }
 
     // Visibility PUBLIC is static default value for locators
@@ -511,16 +510,16 @@ public class EasySubmission extends FacesBean {
         final String contentURL = this.uploadFile(file);
         final String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
         if (contentURL != null && !contentURL.trim().equals("")) {
-          final FileVO newFile = new FileVO();
-          newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-          newFile.setVisibility(FileVO.Visibility.PUBLIC);
+          final FileDbVO newFile = new FileDbVO();
+          newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+          newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
           newFile.setDefaultMetadata(new MdsFileVO());
 
           this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
 
-          newFile.getDefaultMetadata().setTitle(fixedFileName);
+          newFile.getMetadata().setTitle(fixedFileName);
           newFile.setName(fixedFileName);
-          newFile.getDefaultMetadata().setSize((int) file.getSize());
+          newFile.getMetadata().setSize((int) file.getSize());
 
           final Tika tika = new Tika();
           try {
@@ -534,7 +533,7 @@ public class EasySubmission extends FacesBean {
           final FormatVO formatVO = new FormatVO();
           formatVO.setType("dcterms:IMT");
           formatVO.setValue(newFile.getMimeType());
-          newFile.getDefaultMetadata().getFormats().add(formatVO);
+          newFile.getMetadata().getFormats().add(formatVO);
           newFile.setContent(contentURL);
         }
 
@@ -645,7 +644,7 @@ public class EasySubmission extends FacesBean {
     }
 
     final DataHandlerService dataHandler = new DataHandlerService();
-    final List<FileVO> fileVOs = new ArrayList<FileVO>();
+    final List<FileDbVO> fileVOs = new ArrayList<FileDbVO>();
     String fetchedItem = null;
 
     try {
@@ -695,21 +694,21 @@ public class EasySubmission extends FacesBean {
         }
 
         if (fileId != null && !fileId.trim().equals("")) {
-          final FileVO fileVO = dataHandler.getComponentVO();
-          final MdsFileVO fileMd = fileVO.getDefaultMetadata();
-          fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+          final FileDbVO fileVO = dataHandler.getComponentVO();
+          final MdsFileVO fileMd = fileVO.getMetadata();
+          fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
           fileVO.setVisibility(dataHandler.getVisibility());
           fileVO.setDefaultMetadata(fileMd);
-          fileVO.getDefaultMetadata().setTitle(this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
+          fileVO.getMetadata().setTitle(this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
           fileVO.setMimeType(dataHandler.getContentType());
           fileVO.setName(this.replaceSlashes(this.getServiceID().trim() + dataHandler.getFileEnding()));
           final FormatVO formatVO = new FormatVO();
           formatVO.setType("dcterms:IMT");
           formatVO.setValue(dataHandler.getContentType());
-          fileVO.getDefaultMetadata().getFormats().add(formatVO);
+          fileVO.getMetadata().getFormats().add(formatVO);
           fileVO.setContent(fileId);
-          fileVO.getDefaultMetadata().setSize(ba.length);
-          fileVO.getDefaultMetadata().setDescription("File downloaded from " + service + " at " + CommonUtils.currentDate());
+          fileVO.getMetadata().setSize(ba.length);
+          fileVO.getMetadata().setDescription("File downloaded from " + service + " at " + CommonUtils.currentDate());
           fileVO.setContentCategory(dataHandler.getContentCategory());
           fileVOs.add(fileVO);
         }
@@ -729,7 +728,7 @@ public class EasySubmission extends FacesBean {
       try {
         ItemVersionVO itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
         itemVO.getFiles().clear();
-        itemVO.setContext(this.getItem().getContext());
+        itemVO.setContext(this.getItem().getObject().getContext());
 
         if (dataHandler.getItemUrl() != null) {
           final IdentifierVO id = new IdentifierVO();
@@ -745,7 +744,7 @@ public class EasySubmission extends FacesBean {
         if (this.getEasySubmissionSessionBean().isFulltext()
             && !this.getEasySubmissionSessionBean().getRadioSelectFulltext().equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {
           for (int i = 0; i < fileVOs.size(); i++) {
-            final FileVO tmp = fileVOs.get(i);
+            final FileDbVO tmp = fileVOs.get(i);
             itemVO.getFiles().add(tmp);
           }
 
@@ -852,20 +851,20 @@ public class EasySubmission extends FacesBean {
 
     // add an empty file and an empty locator if necessary for display purposes
     // TODO: das passiert an tausend Stellen und ist teilweise unterschiedlich. WARUM????
-    // -> Suche nach Konstruktor PubFileVOPresentation(int fileIndex, FileVO file, boolean
+    // -> Suche nach Konstruktor PubFileVOPresentation(int fileIndex, FileDbVO file, boolean
     // isLocator)
     if (files != null && files.size() > 0) {
-      if (files.get(files.size() - 1).getFile().getDefaultMetadata().getSize() > 0) {
-        final FileVO newFile = new FileVO();
-        newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-        newFile.setVisibility(FileVO.Visibility.PUBLIC);
+      if (files.get(files.size() - 1).getFile().getMetadata().getSize() > 0) {
+        final FileDbVO newFile = new FileDbVO();
+        newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+        newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
         newFile.setDefaultMetadata(new MdsFileVO());
         files.add(new PubFileVOPresentation(files.size(), newFile, false));
       }
     }
 
     if (locators != null && locators.size() > 0) {
-      if (locators.get(locators.size() - 1).getFile().getDefaultMetadata().getSize() > 0) {
+      if (locators.get(locators.size() - 1).getFile().getMetadata().getSize() > 0) {
         String contentCategory = null;
         if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
           contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
@@ -881,7 +880,7 @@ public class EasySubmission extends FacesBean {
 
         final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
         newLocator.getFile().setContentCategory(contentCategory);
-        newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
+        newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
         newLocator.getFile().setDefaultMetadata(new MdsFileVO());
         locators.add(newLocator);
       }
@@ -1600,7 +1599,7 @@ public class EasySubmission extends FacesBean {
   public String getContextName() {
     if (this.contextName == null) {
       try {
-        final ContextVO context = this.getItemControllerSessionBean().retrieveContext(this.getItem().getContext().getObjectId());
+        final ContextDbVO context = this.getItemControllerSessionBean().retrieveContext(this.getItem().getObject().getContext().getObjectId());
         this.contextName = context.getName();
         return this.contextName;
       } catch (final Exception e) {

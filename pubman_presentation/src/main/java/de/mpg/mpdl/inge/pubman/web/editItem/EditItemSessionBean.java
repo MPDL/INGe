@@ -30,7 +30,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
@@ -77,9 +77,9 @@ public class EditItemSessionBean extends EditItemBean {
     this.clean();
 
     if (this.getLocators().size() < 1) {
-      final FileVO newLocator = new FileVO();
+      final FileDbVO newLocator = new FileDbVO();
       newLocator.getMetadataSets().add(new MdsFileVO());
-      newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+      newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }
   }

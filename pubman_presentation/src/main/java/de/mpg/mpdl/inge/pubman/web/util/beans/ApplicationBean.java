@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
@@ -98,7 +98,7 @@ public class ApplicationBean extends FacesBean {
   private Map<String, String> creatorRoleMap;
   private Map<String, String> excludedSourceGenreMap;
 
-  private Set<AffiliationVO> ouList = new HashSet<AffiliationVO>();
+  private Set<AffiliationDbVO> ouList = new HashSet<AffiliationDbVO>();
 
   private String additionalLogoCss;
   private String appContext = "";
@@ -364,7 +364,7 @@ public class ApplicationBean extends FacesBean {
     return this.organizationService;
   }
 
-  public Set<AffiliationVO> getOuList() {
+  public Set<AffiliationDbVO> getOuList() {
     return this.ouList;
   }
 
@@ -549,7 +549,7 @@ public class ApplicationBean extends FacesBean {
     this.organizationService = organizationService;
   }
 
-  public void setOuList(Set<AffiliationVO> ouList) {
+  public void setOuList(Set<AffiliationDbVO> ouList) {
     this.ouList = ouList;
   }
 

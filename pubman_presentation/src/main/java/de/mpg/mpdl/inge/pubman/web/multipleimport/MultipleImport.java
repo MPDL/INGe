@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
@@ -72,7 +72,7 @@ public class MultipleImport extends FacesBean {
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
 
-  private ContextVO context;
+  private ContextDbVO context;
   private TransformerFactory.FORMAT format;
   private File uploadedFile;
   private List<SelectItem> configParameters = null;
@@ -235,11 +235,11 @@ public class MultipleImport extends FacesBean {
     return this.parametersValues;
   }
 
-  public ContextVO getContext() {
+  public ContextDbVO getContext() {
     return this.context;
   }
 
-  public void setContext(ContextVO context) {
+  public void setContext(ContextDbVO context) {
     this.context = context;
   }
 

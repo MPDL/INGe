@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.PublicationStatusL
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentContentCategoryListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileAvailableSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
@@ -67,7 +68,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilit
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.DegreeSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.EventTitleSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.JournalSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.KeywordSearchCriterion;

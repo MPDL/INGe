@@ -66,13 +66,13 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -296,7 +296,7 @@ public class SwordUtil extends FacesBean {
    */
   public ItemVersionVO readZipFile(InputStream in, AccountUserVO user) throws SWORDContentTypeException {
     String item = null;
-    final List<FileVO> attachements = new ArrayList<FileVO>();
+    final List<FileDbVO> attachements = new ArrayList<FileDbVO>();
     ItemVersionVO pubItem = null;
     final int bufLength = 1024;
     final char[] buffer = new char[bufLength];
@@ -353,13 +353,13 @@ public class SwordUtil extends FacesBean {
 
       // Now add the components to the Pub Item (if they do not exist. If they exist, use the
       // existing component metadata and just change the content)
-      for (final FileVO newFile : attachements) {
+      for (final FileDbVO newFile : attachements) {
         boolean existing = false;
-        for (final FileVO existingFile : pubItem.getFiles()) {
+        for (final FileDbVO existingFile : pubItem.getFiles()) {
           if (existingFile.getName().replaceAll("/", "_slsh_").equals(newFile.getName())) {
             // file already exists, replace content
             existingFile.setContent(newFile.getContent());
-            existingFile.getDefaultMetadata().setSize(newFile.getDefaultMetadata().getSize());
+            existingFile.getMetadata().setSize(newFile.getMetadata().getSize());
             existing = true;
           }
         }
@@ -379,13 +379,13 @@ public class SwordUtil extends FacesBean {
             TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
 
         try {
-          final FileVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
-          for (final FileVO pubItemFile : pubItem.getFiles()) {
-            pubItemFile.getDefaultMetadata().setRights(transformdedFileVO.getDefaultMetadata().getRights());
-            pubItemFile.getDefaultMetadata().setCopyrightDate(transformdedFileVO.getDefaultMetadata().getCopyrightDate());
+          final FileDbVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
+          for (final FileDbVO pubItemFile : pubItem.getFiles()) {
+            pubItemFile.getMetadata().setRights(transformdedFileVO.getMetadata().getRights());
+            pubItemFile.getMetadata().setCopyrightDate(transformdedFileVO.getMetadata().getCopyrightDate());
           }
         } catch (final TechnicalException e) {
-          SwordUtil.logger.error("File Xml could not be transformed into FileVO. ", e);
+          SwordUtil.logger.error("File Xml could not be transformed into FileDbVO. ", e);
         }
       }
 
@@ -503,13 +503,13 @@ public class SwordUtil extends FacesBean {
 
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
       depositedItem = pubItemService.create(item, authenticationToken);
-      depositedItem = pubItemService.submitPubItem(depositedItem.getVersion().getObjectId(), depositedItem.getModificationDate(), "",
+      depositedItem = pubItemService.submitPubItem(depositedItem.getObjectId(), depositedItem.getModificationDate(), "",
           authenticationToken);
     }
 
     if (method.equals("RELEASE")) {
       depositedItem = pubItemService.create(item, authenticationToken);
-      depositedItem = pubItemService.releasePubItem(depositedItem.getVersion().getObjectId(), depositedItem.getModificationDate(), "",
+      depositedItem = pubItemService.releasePubItem(depositedItem.getObjectId(), depositedItem.getModificationDate(), "",
           authenticationToken);
     }
 
@@ -541,10 +541,10 @@ public class SwordUtil extends FacesBean {
     boolean isStateSubmitted = false;
     boolean isStateInRevision = false;
 
-    if (item != null && item.getVersion() != null && item.getVersion().getState() != null) {
-      isStatePending = ItemVO.State.PENDING.equals(item.getVersion().getState());
-      isStateSubmitted = ItemVO.State.SUBMITTED.equals(item.getVersion().getState());
-      isStateInRevision = ItemVO.State.IN_REVISION.equals(item.getVersion().getState());
+    if (item != null && item.getVersion() != null && item.getVersionState() != null) {
+      isStatePending = ItemVO.State.PENDING.equals(item.getVersionState());
+      isStateSubmitted = ItemVO.State.SUBMITTED.equals(item.getVersionState());
+      isStateInRevision = ItemVO.State.IN_REVISION.equals(item.getVersionState());
     }
 
     isWorkflowStandard = PublicationAdminDescriptorVO.Workflow.STANDARD
@@ -552,11 +552,11 @@ public class SwordUtil extends FacesBean {
     isWorkflowSimple = PublicationAdminDescriptorVO.Workflow.SIMPLE
         .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow());
 
-    final boolean isModerator = this.getLoginHelper().getAccountUser().isModerator(item.getContext());
+    final boolean isModerator = this.getLoginHelper().getAccountUser().isModerator(item.getObject().getContext());
     boolean isOwner = true;
-    if (item.getOwner() != null) {
+    if (item.getObject().getCreator() != null) {
       isOwner = (this.getLoginHelper().getAccountUser().getReference() != null
-          ? this.getLoginHelper().getAccountUser().getReference().getObjectId().equals(item.getOwner().getObjectId())
+          ? this.getLoginHelper().getAccountUser().getReference().getObjectId().equals(item.getObject().getCreator().getObjectId())
           : false);
     }
 
@@ -597,17 +597,17 @@ public class SwordUtil extends FacesBean {
   }
 
   /**
-   * Converts a byte[] into a FileVO.
+   * Converts a byte[] into a FileDbVO.
    * 
    * @param file
    * @param name
    * @param user
-   * @return FileVO
+   * @return FileDbVO
    * @throws Exception
    */
-  private FileVO convertToFileAndAdd(InputStream zipinputstream, String name, AccountUserVO user, ZipEntry zipEntry) throws Exception {
+  private FileDbVO convertToFileAndAdd(InputStream zipinputstream, String name, AccountUserVO user, ZipEntry zipEntry) throws Exception {
     final MdsFileVO mdSet = new MdsFileVO();
-    final FileVO fileVO = new FileVO();
+    final FileDbVO fileVO = new FileDbVO();
     final FileNameMap fileNameMap = URLConnection.getFileNameMap();
     String mimeType = fileNameMap.getContentTypeFor(name);
 
@@ -626,19 +626,19 @@ public class SwordUtil extends FacesBean {
         name = this.currentDeposit.getContentDisposition();
       }
 
-      fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-      fileVO.setVisibility(FileVO.Visibility.PUBLIC);
+      fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+      fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
       fileVO.setDefaultMetadata(mdSet);
-      fileVO.getDefaultMetadata().setTitle(name);
+      fileVO.getMetadata().setTitle(name);
       fileVO.setMimeType(mimeType);
       fileVO.setName(name);
 
       final FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(mimeType);
-      fileVO.getDefaultMetadata().getFormats().add(formatVO);
+      fileVO.getMetadata().getFormats().add(formatVO);
       fileVO.setContent(fileURL.toString());
-      fileVO.getDefaultMetadata().setSize((int) zipEntry.getSize());
+      fileVO.getMetadata().setSize((int) zipEntry.getSize());
       // This is the provided metadata file which we store as a component
       if (!name.endsWith(".pdf")) {
         String contentCategory = null;
@@ -731,8 +731,8 @@ public class SwordUtil extends FacesBean {
 
     // // Only set content if item was deposited
     if (!deposit.isNoOp() && item != null) {
-      content.setSource(server.getCoreserviceURL() + "/ir/item/" + item.getVersion().getObjectId());
-      se.setId(server.getBaseURL() + SwordUtil.itemPath + item.getVersion().getObjectId());
+      content.setSource(server.getCoreserviceURL() + "/ir/item/" + item.getObjectId());
+      se.setId(server.getBaseURL() + SwordUtil.itemPath + item.getObjectId());
     }
     se.setContent(content);
 

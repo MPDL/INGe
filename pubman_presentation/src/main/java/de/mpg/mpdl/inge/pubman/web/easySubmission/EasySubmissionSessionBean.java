@@ -33,7 +33,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
@@ -70,7 +70,7 @@ public class EasySubmissionSessionBean extends EditItemBean {
   private String currentDateType = EasySubmissionSessionBean.DATE_PUBLISHED_IN_PRINT;
 
   private OrganizationVO currentlySelecting = null;
-  private ContextVO context;
+  private ContextDbVO context;
 
   private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
   private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
@@ -137,11 +137,11 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.currentSubmissionStep = currentSubmissionStep;
   }
 
-  public ContextVO getContext() {
+  public ContextDbVO getContext() {
     return this.context;
   }
 
-  public void setContext(ContextVO context) {
+  public void setContext(ContextDbVO context) {
     this.context = context;
   }
 

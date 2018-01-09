@@ -57,17 +57,18 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -153,12 +154,12 @@ public class PubManSwordServer {
     // Deposit item
     if (!deposit.isNoOp()) {
       depositItem = util.doDeposit(depositItem);
-      if (ItemVO.State.RELEASED.equals(depositItem.getVersion().getState())) {
+      if (ItemVO.State.RELEASED.equals(depositItem.getVersionState())) {
         dr = new DepositResponse(Deposit.CREATED);
-        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getPublicStatus() + ").");
+        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getObject().getPublicState() + ").");
       } else {
         dr = new DepositResponse(Deposit.ACCEPTED);
-        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getPublicStatus() + ").");
+        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getObject().getPublicState() + ").");
       }
     } else {
       this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");

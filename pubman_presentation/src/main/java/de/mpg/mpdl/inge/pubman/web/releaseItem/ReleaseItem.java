@@ -6,10 +6,9 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -56,7 +55,7 @@ public class ReleaseItem extends FacesBean {
   public String cancel() {
     try {
       FacesTools.getExternalContext().redirect(
-          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getVersion().getObjectId());
+          FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
     } catch (final IOException e) {
       ReleaseItem.logger.error("Could not redirect to View Item Page", e);
     }
@@ -65,7 +64,7 @@ public class ReleaseItem extends FacesBean {
   }
 
   public boolean getHasAudienceFiles() {
-    for (final FileVO file : this.getPubItem().getFiles()) {
+    for (final FileDbVO file : this.getPubItem().getFiles()) {
       if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
         return true;
       }
@@ -80,10 +79,10 @@ public class ReleaseItem extends FacesBean {
    * @return true if at least one rights information field filled
    */
   public boolean getHasRightsInformation() {
-    for (final FileVO file : this.getPubItem().getFiles()) {
-      if ((file.getDefaultMetadata().getCopyrightDate() != null && !"".equals(file.getDefaultMetadata().getCopyrightDate()))
-          || (file.getDefaultMetadata().getLicense() != null && !"".equals(file.getDefaultMetadata().getLicense()))
-          || (file.getDefaultMetadata().getRights() != null && !"".equals(file.getDefaultMetadata().getRights()))) {
+    for (final FileDbVO file : this.getPubItem().getFiles()) {
+      if ((file.getMetadata().getCopyrightDate() != null && !"".equals(file.getMetadata().getCopyrightDate()))
+          || (file.getMetadata().getLicense() != null && !"".equals(file.getMetadata().getLicense()))
+          || (file.getMetadata().getRights() != null && !"".equals(file.getMetadata().getRights()))) {
         return true;
       }
     }

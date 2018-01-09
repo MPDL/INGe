@@ -196,7 +196,7 @@ public class YearbookModeratorRetrieverRequestBean
      * // define the filter criteria final FilterTaskParamVO filter = new FilterTaskParamVO();
      * 
      * // add all contexts for which the user has moderator rights (except the "all" item of the //
-     * menu) for (final ContextVO context : this.getContextListSessionBean()
+     * menu) for (final ContextDbVO context : this.getContextListSessionBean()
      * .getYearbookModeratorContextList()) { filter.getFilterList().add(filter.new
      * ContextFilter(context.getReference().getObjectId())); } // add views per page limit final
      * Filter f8 = filter.new LimitFilter(String.valueOf(limit)); filter.getFilterList().add(f8);

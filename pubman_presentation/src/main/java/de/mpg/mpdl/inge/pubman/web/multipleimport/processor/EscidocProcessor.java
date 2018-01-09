@@ -33,8 +33,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**

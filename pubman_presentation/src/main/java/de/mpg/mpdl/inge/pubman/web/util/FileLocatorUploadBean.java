@@ -37,10 +37,10 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 /**
  * Class to handle the file upload of locators.
@@ -183,13 +183,13 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     return input;
   }
 
-  public Vector<FileVO> getLocators(ItemVersionVO item) {
-    final Vector<FileVO> locators = new Vector<FileVO>();
+  public Vector<FileDbVO> getLocators(ItemVersionVO item) {
+    final Vector<FileDbVO> locators = new Vector<FileDbVO>();
 
-    final List<FileVO> files = item.getFiles();
+    final List<FileDbVO> files = item.getFiles();
     for (int i = 0; i < files.size(); i++) {
-      final FileVO currentFile = files.get(i);
-      if (currentFile.getStorage() == FileVO.Storage.EXTERNAL_URL) {
+      final FileDbVO currentFile = files.get(i);
+      if (currentFile.getStorage() == FileDbVO.Storage.EXTERNAL_URL) {
         locators.add(currentFile);
       }
     }
@@ -197,26 +197,26 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     return locators;
   }
 
-  public FileVO uploadLocatorAsFile(FileVO locator) {
-    FileVO fileVO = null;
+  public FileDbVO uploadLocatorAsFile(FileDbVO locator) {
+    FileDbVO fileVO = null;
 
     final boolean check = this.checkLocator(locator.getContent());
 
     if (check) {
       try {
-        fileVO = new FileVO();
+        fileVO = new FileDbVO();
         fileVO.getMetadataSets().add(new MdsFileVO());
-        fileVO.getDefaultMetadata().setSize(this.getSize());
-        fileVO.getDefaultMetadata().setTitle(this.getFileName(this.getLocator()));
+        fileVO.getMetadata().setSize(this.getSize());
+        fileVO.getMetadata().setTitle(this.getFileName(this.getLocator()));
         fileVO.setMimeType(this.getType());
         fileVO.setName(this.getFileName(this.getLocator()));
 
         final FormatVO formatVO = new FormatVO();
         formatVO.setType("dcterms:IMT");
         formatVO.setValue(this.getType());
-        fileVO.getDefaultMetadata().getFormats().add(formatVO);
+        fileVO.getMetadata().getFormats().add(formatVO);
         fileVO.setContent(this.getLocator());
-        fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+        fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
 
       } catch (final Exception e) {
         this.logger.error(e);

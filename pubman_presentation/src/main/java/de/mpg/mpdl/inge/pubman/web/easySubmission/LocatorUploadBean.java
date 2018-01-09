@@ -29,8 +29,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
@@ -53,19 +52,19 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   @Override
   public void locatorUploaded() {
     try {
-      final FileVO fileVO = new FileVO();
+      final FileDbVO fileVO = new FileDbVO();
       fileVO.getMetadataSets().add(new MdsFileVO());
-      fileVO.getDefaultMetadata().setSize(this.getSize());
-      fileVO.getDefaultMetadata().setTitle(super.getFileName(this.getLocator()));
+      fileVO.getMetadata().setSize(this.getSize());
+      fileVO.getMetadata().setTitle(super.getFileName(this.getLocator()));
       fileVO.setMimeType(this.getType());
       fileVO.setName(super.getFileName(this.getLocator()));
 
       final FormatVO formatVO = new FormatVO();
       formatVO.setType("dcterms:IMT");
       formatVO.setValue(this.getType());
-      fileVO.getDefaultMetadata().getFormats().add(formatVO);
+      fileVO.getMetadata().getFormats().add(formatVO);
       fileVO.setContent(this.getLocator());
-      fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+      fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       // Public is static default value for locators
       fileVO.setVisibility(Visibility.PUBLIC);
 
@@ -113,9 +112,9 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
 
         // Make sure at least one locator exists
         if (listClean.size() == 0) {
-          final FileVO newLocator = new FileVO();
+          final FileDbVO newLocator = new FileDbVO();
           newLocator.getMetadataSets().add(new MdsFileVO());
-          newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+          newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
           this.easySubmission.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
         }
       }

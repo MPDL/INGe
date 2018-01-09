@@ -12,9 +12,9 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -113,7 +113,7 @@ public class YearbookCandidatesRetrieverRequestBean
     final YearbookItemSessionBean yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     final List<String> selected = new ArrayList<String>();
     for (final PubItemVOPresentation item : ((PubItemListSessionBean) this.getBasePaginatorListSessionBean()).getSelectedItems()) {
-      selected.add(item.getVersion().getObjectId());
+      selected.add(item.getObjectId());
     }
     yisb.addMembers(selected);
     this.getBasePaginatorListSessionBean().update();
@@ -124,7 +124,7 @@ public class YearbookCandidatesRetrieverRequestBean
     final YearbookItemSessionBean yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
     final List<String> selected = new ArrayList<String>();
     for (final PubItemVOPresentation item : ((PubItemListSessionBean) this.getBasePaginatorListSessionBean()).getSelectedItems()) {
-      selected.add(item.getVersion().getObjectId());
+      selected.add(item.getObjectId());
     }
     yisb.removeMembers(selected);
     this.getBasePaginatorListSessionBean().update();

@@ -137,9 +137,9 @@ public class YearbookItemEditBean extends FacesBean {
    * (UserGroupVO) record.getData(); if (userGroup != null) { this.userGroups.add(userGroup); } } if
    * (this.userGroups.size() > 1) { YearbookItemEditBean.logger
    * .error("More than one UserGroup active and related to the YearbookItem: \"" + this.title +
-   * "\" (" + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId() + ")");
+   * "\" (" + this.yearbookItemSessionBean.getYearbookItem().getObjectId() + ")");
    * throw new Exception("More than one UserGroup active and related to the YearbookItem: \"" +
-   * this.title + "\" (" + this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId()
+   * this.title + "\" (" + this.yearbookItemSessionBean.getYearbookItem().getObjectId()
    * + ")"); } else if (this.userGroups.size() == 1) { this.setUserGroup(this.userGroups.get(0));
    * for (final MemberVO user : this.getUserGroup().getMembers()) { if
    * (user.getName().equals("user-account")) { this.collaboratorUserIds.add(user.getMemberId()); } }
@@ -274,7 +274,7 @@ public class YearbookItemEditBean extends FacesBean {
        * final ItemHandler itemHandler =
        * ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
        * itemHandler.delete
-       * (this.yearbookItemSessionBean.getYearbookItem().getVersion().getObjectId());
+       * (this.yearbookItemSessionBean.getYearbookItem().getObjectId());
        * this.yearbookItemSessionBean.initYearbook(); final UserGroupHandler userGroupHandler =
        * ServiceLocator.getUserGroupHandler(this.getLoginHelper().getESciDocUserHandle());
        * userGroupHandler.delete(this.getUserGroup().getObjid()); return "loadYearbookPage";
