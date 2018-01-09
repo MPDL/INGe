@@ -205,7 +205,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     if (check) {
       try {
         fileVO = new FileDbVO();
-        fileVO.getMetadataSets().add(new MdsFileVO());
+        fileVO.setMetadata(new MdsFileVO());
         fileVO.getMetadata().setSize(this.getSize());
         fileVO.getMetadata().setTitle(this.getFileName(this.getLocator()));
         fileVO.setMimeType(this.getType());

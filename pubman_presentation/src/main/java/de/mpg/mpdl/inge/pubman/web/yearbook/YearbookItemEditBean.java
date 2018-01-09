@@ -92,7 +92,7 @@ public class YearbookItemEditBean extends FacesBean {
     final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
       this.contextSelectItems
-          .add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
+          .add(new SelectItem(context.getObjectId(), context.getName() + " (" + context.getObjectId() + ")"));
     }
   }
 

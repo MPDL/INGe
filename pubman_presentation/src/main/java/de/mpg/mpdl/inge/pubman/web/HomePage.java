@@ -152,11 +152,11 @@ public class HomePage extends BreadcrumbPage {
   }
 
   public boolean isDepositor() {
-    return this.getLoginHelper().getAccountUser().isDepositor();
+    return this.getLoginHelper().getIsDepositor();
   }
 
   public boolean isModerator() {
-    return this.getLoginHelper().getAccountUser().isModerator();
+    return this.getLoginHelper().getIsModerator();
   }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
