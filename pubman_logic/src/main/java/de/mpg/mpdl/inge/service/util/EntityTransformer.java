@@ -317,6 +317,19 @@ public class EntityTransformer {
     return oldPubItem;
   }
 
+  public static List<ItemVersionVO> transformToNew(List<PubItemVO> oldItemList)
+  {
+    List<ItemVersionVO> newItemList = new ArrayList<>();
+    if (oldItemList != null)
+    {
+      for(PubItemVO itemVO : oldItemList)
+      {
+        newItemList.add(transformToNew(itemVO));
+      }
+    }
+    return newItemList;
+  }
+  
   public static List<PubItemVO> transformToOld(List<ItemVersionVO> newItemList)
   {
     List<PubItemVO> oldList = new ArrayList<>();
