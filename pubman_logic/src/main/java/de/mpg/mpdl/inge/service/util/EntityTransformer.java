@@ -75,7 +75,7 @@ public class EntityTransformer {
   }
 
 
-  public static ItemVersionRO transformToNew(PubItemVO itemVo) {
+  public static ItemVersionVO transformToNew(PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -124,7 +124,7 @@ public class EntityTransformer {
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setVersionState(ItemVersionRO.State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setVersionState(ItemVersionVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
