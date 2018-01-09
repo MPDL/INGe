@@ -71,6 +71,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -92,7 +93,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -383,16 +383,16 @@ public class SwordUtil extends FacesBean {
         final String fileXml = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
             TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
 
-        
+
         try {
-          //TODO
-          /*
-          final FileDbVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
+
+
+          final FileDbVO transformdedFileVO = EntityTransformer.transformToNew(XmlTransformingService.transformToFileVO(fileXml));
           for (final FileDbVO pubItemFile : pubItem.getFiles()) {
             pubItemFile.getMetadata().setRights(transformdedFileVO.getMetadata().getRights());
             pubItemFile.getMetadata().setCopyrightDate(transformdedFileVO.getMetadata().getCopyrightDate());
           }
-          */
+
         } catch (final Exception e) {
           SwordUtil.logger.error("File Xml could not be transformed into FileDbVO. ", e);
         }
@@ -512,14 +512,14 @@ public class SwordUtil extends FacesBean {
 
     if (method.equals("SAVE_SUBMIT") || method.equals("SUBMIT")) {
       depositedItem = pubItemService.create(item, authenticationToken);
-      depositedItem = pubItemService.submitPubItem(depositedItem.getObjectId(), depositedItem.getModificationDate(), "",
-          authenticationToken);
+      depositedItem =
+          pubItemService.submitPubItem(depositedItem.getObjectId(), depositedItem.getModificationDate(), "", authenticationToken);
     }
 
     if (method.equals("RELEASE")) {
       depositedItem = pubItemService.create(item, authenticationToken);
-      depositedItem = pubItemService.releasePubItem(depositedItem.getObjectId(), depositedItem.getModificationDate(), "",
-          authenticationToken);
+      depositedItem =
+          pubItemService.releasePubItem(depositedItem.getObjectId(), depositedItem.getModificationDate(), "", authenticationToken);
     }
 
     return depositedItem;
@@ -556,12 +556,13 @@ public class SwordUtil extends FacesBean {
       isStateInRevision = ItemVO.State.IN_REVISION.equals(item.getVersionState());
     }
 
-    isWorkflowStandard = PublicationAdminDescriptorVO.Workflow.STANDARD
-        .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
-    isWorkflowSimple = PublicationAdminDescriptorVO.Workflow.SIMPLE
-        .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
+    isWorkflowStandard =
+        PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
+    isWorkflowSimple =
+        PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
 
-    final boolean isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, item.getObject().getContext().getObjectId());
+    final boolean isModerator =
+        GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, item.getObject().getContext().getObjectId());
     boolean isOwner = true;
     if (item.getObject().getCreator() != null) {
       isOwner = (this.getLoginHelper().getAccountUser() != null

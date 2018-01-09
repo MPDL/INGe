@@ -36,8 +36,8 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
 
-public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id extends Serializable>
-    extends GenericServiceBaseImpl<ModelObject> implements GenericService<ModelObject, Id> {
+public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id extends Serializable> extends GenericServiceBaseImpl<ModelObject>
+    implements GenericService<ModelObject, Id> {
 
   @Autowired
   private AuthorizationService aaService;
@@ -65,7 +65,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    
+
     if (getElasticDao() != null) {
       getElasticDao().createImmediately(objectToCreate.getObjectId(), objectToCreate);
     }

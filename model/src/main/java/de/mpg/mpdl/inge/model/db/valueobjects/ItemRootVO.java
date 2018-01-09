@@ -43,10 +43,10 @@ public class ItemRootVO implements Serializable {
    * The date of the last modification of the referenced item.
    */
   private Date lastModificationDate;
-  
+
   @Enumerated(EnumType.STRING)
   private ItemVersionRO.State publicState;
-  
+
   @Column(name = "objectPid")
   private String objectPid;
 
@@ -56,7 +56,7 @@ public class ItemRootVO implements Serializable {
   private AccountUserDbRO creator;
 
 
-  @ManyToOne(fetch = FetchType.EAGER, targetEntity=ContextDbVO.class)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity = ContextDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
   private ContextDbRO context;
 
@@ -78,13 +78,10 @@ public class ItemRootVO implements Serializable {
 
 
 
-
-
-
   @Type(type = "StringListJsonUserType")
   private List<String> localTags = new ArrayList<String>();
 
-  
+
   /**
    * Sets the technical objectId-attribute of corresponding ValueObject.
    * 

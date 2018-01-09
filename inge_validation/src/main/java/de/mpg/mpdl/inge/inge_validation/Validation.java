@@ -65,7 +65,8 @@ public class Validation {
 
   public Validation() {}
 
-  public void validate(final ItemVersionVO pubItemVO, ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
+  public void validate(final ItemVersionVO pubItemVO, ValidationPoint validationPoint)
+      throws ValidationServiceException, ValidationException {
 
     if (pubItemVO instanceof ItemVersionVO == false) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
@@ -196,7 +197,8 @@ public class Validation {
     }
   }
 
-  public void validateYearbook(final ItemVersionVO pubItemVO, List<String> childsOfMPG) throws ValidationServiceException, ValidationException {
+  public void validateYearbook(final ItemVersionVO pubItemVO, List<String> childsOfMPG)
+      throws ValidationServiceException, ValidationException {
 
     if (pubItemVO instanceof ItemVersionVO == false) {
       throw new ValidationServiceException("itemVO instanceof PubItemVO == false");

@@ -28,8 +28,7 @@ import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 
 @Service
-public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, String>
-    implements YearbookService, ReindexListener {
+public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, String> implements YearbookService, ReindexListener {
 
   public final static String INDEX_MODIFICATION_DATE = "lastModificationDate";
   public final static String INDEX_OBJECT_ID = "objectId.keyword";

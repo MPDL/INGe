@@ -263,11 +263,12 @@ public class LoginHelper extends FacesBean {
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
-      if(accountUser.getAffiliation()!=null) {
-        final AffiliationDbVO orgUnit = ApplicationBean.INSTANCE.getOrganizationService().get(accountUser.getAffiliation().getObjectId(), null);
+      if (accountUser.getAffiliation() != null) {
+        final AffiliationDbVO orgUnit =
+            ApplicationBean.INSTANCE.getOrganizationService().get(accountUser.getAffiliation().getObjectId(), null);
         this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
       }
-      
+
     }
 
     return this.userAccountAffiliations;
@@ -286,9 +287,9 @@ public class LoginHelper extends FacesBean {
       // filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" +
       // getAccountUser().getReference().getObjectId() + " and " +
       // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
-
+  
     }
-
+  
     return this.userAccountUserGroups;
   }
   */

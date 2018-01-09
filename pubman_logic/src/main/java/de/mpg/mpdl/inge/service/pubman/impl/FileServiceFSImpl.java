@@ -184,7 +184,8 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount) throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount)
+      throws IngeTechnicalException, IngeApplicationException {
 
 
     StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));

@@ -149,8 +149,8 @@ public class FileDbVO extends FileDbRO implements Serializable {
    * The MIME-type of this format. Valid values see http://www.iana.org/assignments/media-types/
    */
   private String mimeType;
-  
-  
+
+
   /**
    * Size of the file. Use this field instead of metadata.size
    */
@@ -170,8 +170,8 @@ public class FileDbVO extends FileDbRO implements Serializable {
    * @author Thomas Diebaecker
    */
   public FileDbVO() {}
-  
- 
+
+
 
   /**
    * Copy constructor.
@@ -213,7 +213,7 @@ public class FileDbVO extends FileDbRO implements Serializable {
     pid = newVal;
   }
 
-  
+
 
   /**
    * Delivers a reference to the content of the file, i. e. to the data of the file.
@@ -231,7 +231,7 @@ public class FileDbVO extends FileDbRO implements Serializable {
     this.content = newVal;
   }
 
- 
+
   /**
    * Delivers the visibility of the file.
    */

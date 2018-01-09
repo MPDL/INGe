@@ -98,8 +98,7 @@ public class CreateItem extends FacesBean {
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
         if (!contextVO.getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE)) {
-          this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-              .setGenre(contextVO.getAllowedGenres().get(0));
+          this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAllowedGenres().get(0));
         } else {
           this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
         }

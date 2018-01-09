@@ -107,8 +107,8 @@ public class PubItemUtil {
     }
   }
 
-  public static ItemVersionVO createRevisionOfPubItem(final ItemVersionVO originalPubItem, String relationComment, final ContextDbRO pubCollection,
-      final AccountUserDbVO owner) {
+  public static ItemVersionVO createRevisionOfPubItem(final ItemVersionVO originalPubItem, String relationComment,
+      final ContextDbRO pubCollection, final AccountUserDbVO owner) {
     ItemVersionVO copiedPubItem = new ItemVersionVO();
     AccountUserDbRO itemCreator = new AccountUserDbRO();
     itemCreator.setObjectId(owner.getObjectId());

@@ -18,13 +18,13 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -42,7 +42,7 @@ public class DoiRestService {
 
   private static final Logger logger = Logger.getLogger(DoiRestService.class);
 
-  
+
   /**
    * creates a new DOI for the given item
    * 
@@ -130,11 +130,11 @@ public class DoiRestService {
     }
     // Item must include at least one fulltext to create a DOI
     for (FileDbVO file : pubItem.getFiles()) {
-      if (file.getVisibility() == Visibility.PUBLIC
-          && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getMetadata().getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file.getMetadata().getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file.getMetadata().getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file.getMetadata().getContentCategory()))) {
+      if (file.getVisibility() == Visibility.PUBLIC && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext"
+          .equals(file.getMetadata().getContentCategory())
+          || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file.getMetadata().getContentCategory())
+          || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file.getMetadata().getContentCategory())
+          || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file.getMetadata().getContentCategory()))) {
         doiReady = true;
       }
     }

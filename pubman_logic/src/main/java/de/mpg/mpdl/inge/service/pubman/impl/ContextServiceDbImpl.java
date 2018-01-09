@@ -27,6 +27,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -35,7 +36,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 @Primary
@@ -122,7 +122,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
     toBeUpdatedContext.setDescription(givenContext.getDescription());
     toBeUpdatedContext.setName(givenContext.getName());
-    
+
     toBeUpdatedContext.setResponsibleAffiliations(givenContext.getResponsibleAffiliations());
 
     if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {

@@ -88,8 +88,8 @@ public class OrganizationServiceTest extends TestBase {
 
     affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
     assertTrue(affiliationVO != null);
-    
-    assertTrue(affiliationVO.getParentAffiliation()!=null);
+
+    assertTrue(affiliationVO.getParentAffiliation() != null);
     assertTrue(affiliationVO.getPredecessorAffiliations().size() == 0);
 
     affiliationVO = organizationService.get(ORG_OBJECTID_40048, authenticationToken);

@@ -48,8 +48,7 @@ public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<Fi
           if (ValidationTools.isNotEmpty(fileVO.getName()) //
               && fileVO.getName().contains("/") //
               || fileVO.getMetadata() != null //
-                  && ValidationTools.isNotEmpty(fileVO.getMetadata().getTitle())
-                  && fileVO.getMetadata().getTitle().contains("/")) {
+                  && ValidationTools.isNotEmpty(fileVO.getMetadata().getTitle()) && fileVO.getMetadata().getTitle().contains("/")) {
             context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField("file[" + i + "]"));
             ok = false;
           }

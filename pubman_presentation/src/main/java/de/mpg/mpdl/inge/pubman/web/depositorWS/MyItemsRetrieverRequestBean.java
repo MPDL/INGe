@@ -159,8 +159,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
-          this.getLoginHelper().getAccountUser().getObjectId()));
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getObjectId()));
 
       // display only latest versions
       bq.must(QueryBuilders.scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"

@@ -77,13 +77,13 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
    * The version number of the referenced item. This attribute is optional.
    */
 
-  
+
   /**
    * The message of the last action event of this item.
    */
   @Column(columnDefinition = "TEXT")
   private String message;
-  
+
   @MapsId("objectId")
   @JoinColumn(name = "objectId", referencedColumnName = "objectId")
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -126,11 +126,11 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
    * @author Thomas Diebaecker
    */
   public ItemVersionVO() {}
-  
-  
+
+
   public ItemVersionVO(ItemVersionVO other) {
     MapperFactory.getDozerMapper().map(other, this);
-    
+
   }
 
   /**
@@ -156,7 +156,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   public java.util.List<FileDbVO> getFiles() {
     return this.files;
   }
-  
+
   public String getMessage() {
     return message;
   }
@@ -164,7 +164,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   public void setMessage(String lastMessage) {
     this.message = message;
   }
-  
+
   @JsonIgnore
   public String getLastMessageForXml() {
     if (message == null) {

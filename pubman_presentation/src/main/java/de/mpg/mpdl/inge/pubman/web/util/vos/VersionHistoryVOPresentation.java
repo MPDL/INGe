@@ -55,7 +55,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
 
     // Get the two versions
-    final ItemVersionVO pubItemVOLatestVersion = pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
+    final ItemVersionVO pubItemVOLatestVersion =
+        pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
     final ItemVersionVO pubItemVOThisVersion =
         pubItemService.get(this.getReference().getObjectIdAndVersion(), loginHelper.getAuthenticationToken());
 

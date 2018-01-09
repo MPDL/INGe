@@ -220,7 +220,7 @@ public class ZfNProcessor extends FormatProcessor {
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);
-//    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+    //    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
     // Execute the method with HttpClient.
     final HttpClient client = new HttpClient();
     client.executeMethod(method);

@@ -236,8 +236,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       }
       // add files
       else {
-        if (this.searchHitList != null && this.searchHitList.size() > 0
-            && ItemVO.State.WITHDRAWN.equals(this.getVersionState()) == false) {
+        if (this.searchHitList != null && this.searchHitList.size() > 0 && ItemVO.State.WITHDRAWN.equals(this.getVersionState()) == false) {
           this.fileBeanList.add(new FileBean(file, this, this.searchHitList));
         } else {
           this.fileBeanList.add(new FileBean(file, this));
@@ -417,7 +416,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
         } else if (this.getMetadata().getCreators().get(i).getOrganization() != null) {
           creators.append(this.getMetadata().getCreators().get(i).getOrganization().getName());
         }
-      } 
+      }
 
       if (i < creatorMaximum - 1) {
         creators.append("; ");
@@ -434,7 +433,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     if (this.getMetadata() != null) {
       creatorsNo = this.getMetadata().getCreators().size();
-    } 
+    }
 
     String creators;
     if (creatorsNo <= creatorsMax) {
@@ -1007,7 +1006,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   public String getLinkLatestRelease() throws Exception {
     if (this.getObject().getLatestRelease() != null && this.getObject().getLatestRelease().getObjectId() != null) {
-      return CommonUtils.getGenericItemLink(this.getObject().getLatestRelease().getObjectId(), this.getObject().getLatestRelease().getVersionNumber());
+      return CommonUtils.getGenericItemLink(this.getObject().getLatestRelease().getObjectId(),
+          this.getObject().getLatestRelease().getVersionNumber());
     }
 
     return null;
@@ -1430,13 +1430,13 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return this.descriptionMetaTag;
   }
 
-//  public int getNumberOfRelations() {
-//    if (this.getRelations() != null) {
-//      return this.getRelations().size();
-//    }
-//
-//    return 0;
-//  }
+  //  public int getNumberOfRelations() {
+  //    if (this.getRelations() != null) {
+  //      return this.getRelations().size();
+  //    }
+  //
+  //    return 0;
+  //  }
 
   public void setValidationReport(ValidationReportVO validationReport) {
     this.validationReport = validationReport;

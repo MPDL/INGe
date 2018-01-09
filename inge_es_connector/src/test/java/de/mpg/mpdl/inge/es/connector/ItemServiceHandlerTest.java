@@ -78,12 +78,12 @@ public class ItemServiceHandlerTest extends TestBase {
 
   @Test
   public void testUpdate() throws Exception {
-  
-      ItemVersionVO pubItemVO = this.itemDao.get(test_item_id);
-      pubItemVO.getObject().setObjectPid("testPid");
-      this.itemDao.updateImmediately(test_item_id, pubItemVO);
-      ItemVersionVO pubItemVO2 = this.itemDao.get(test_item_id);
-    
+
+    ItemVersionVO pubItemVO = this.itemDao.get(test_item_id);
+    pubItemVO.getObject().setObjectPid("testPid");
+    this.itemDao.updateImmediately(test_item_id, pubItemVO);
+    ItemVersionVO pubItemVO2 = this.itemDao.get(test_item_id);
+
   }
 
   @Ignore

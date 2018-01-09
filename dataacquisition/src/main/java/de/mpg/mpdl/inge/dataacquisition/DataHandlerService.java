@@ -42,6 +42,8 @@ import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import javax.persistence.EntityTransaction;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
@@ -51,6 +53,7 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
@@ -174,7 +177,7 @@ public class DataHandlerService {
 
           if (componentBytes != null) {
             String componentXml = new String(componentBytes);
-            this.componentVO = XmlTransformingService.transformToFileVO(componentXml);
+            this.componentVO = EntityTransformer.transformToNew(XmlTransformingService.transformToFileVO(componentXml));
           }
         }
       } catch (Exception e) {

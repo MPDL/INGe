@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -65,14 +66,14 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCr
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
-  public enum DuplicateStrategy {
+  public enum DuplicateStrategy
+  {
     NO_CHECK,
     CHECK,
     ROLLBACK

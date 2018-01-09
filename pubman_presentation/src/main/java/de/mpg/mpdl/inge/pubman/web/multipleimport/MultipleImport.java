@@ -155,8 +155,8 @@ public class MultipleImport extends FacesBean {
     final Connection connection = DbTools.getNewConnection();
     ImportProcess importProcess = null;
     try {
-      importProcess = new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile, this.format,
-          this.context, this.getLoginHelper().getAccountUser(), this.rollback, this.duplicateStrategy, configuration,
+      importProcess = new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile, this.format, this.context,
+          this.getLoginHelper().getAccountUser(), this.rollback, this.duplicateStrategy, configuration,
           this.getLoginHelper().getAuthenticationToken(), connection);
       importProcess.start();
     } catch (final Exception e) {

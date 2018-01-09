@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
@@ -50,12 +51,10 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
-public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String>
-    implements UserAccountService, ReindexListener {
+public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String> implements UserAccountService, ReindexListener {
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
@@ -393,8 +392,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       Date expirationDate = Date.from(now.plus(2, ChronoUnit.HOURS));
       logger.info("Creating token with issue date: " + issueDate + " and expiration date " + expirationDate);
 
-      return JWT.create().withClaim("id", user.getObjectId()).withSubject(user.getObjectId()).withIssuedAt(issueDate)
-          .withIssuer(jwtIssuer).withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
+      return JWT.create().withClaim("id", user.getObjectId()).withSubject(user.getObjectId()).withIssuedAt(issueDate).withIssuer(jwtIssuer)
+          .withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
     } catch (Exception e) {
       throw new IngeTechnicalException("Could not generate token " + e.getMessage(), e);
     }
@@ -426,7 +425,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
 
     tobeUpdatedUser.setAffiliation(givenUser.getAffiliation());
-    
+
 
 
     tobeUpdatedUser.setEmail(givenUser.getEmail());
@@ -525,7 +524,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     } catch (DataAccessException e) {
       handleDBException(e);
     }
-    
+
     userAccountDao.updateImmediately(accountToBeUpdated.getObjectId(), accountToBeUpdated);
     return accountToBeUpdated;
   }

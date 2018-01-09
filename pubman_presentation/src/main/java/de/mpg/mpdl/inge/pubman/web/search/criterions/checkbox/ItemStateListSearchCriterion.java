@@ -149,7 +149,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     subQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, user.getObjectId()));
 
     // Filter out released items where user is moderator
-    if (GrantUtil.hasRole(user,PredefinedRoles.MODERATOR) && (State.SUBMITTED.equals(s) || State.IN_REVISION.equals(s))) {
+    if (GrantUtil.hasRole(user, PredefinedRoles.MODERATOR) && (State.SUBMITTED.equals(s) || State.IN_REVISION.equals(s))) {
       BoolQueryBuilder contextModeratorQuery = QueryBuilders.boolQuery();
       subQuery.should(contextModeratorQuery);
       for (GrantVO grant : user.getGrantList()) {

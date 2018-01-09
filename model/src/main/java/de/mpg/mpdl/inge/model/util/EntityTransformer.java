@@ -1,10 +1,11 @@
-package de.mpg.mpdl.inge.service.util;
+package de.mpg.mpdl.inge.model.util;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coremedia.iso.boxes.ItemDataBox;
+import org.dozer.DozerBeanMapperBuilder;
+import org.dozer.Mapper;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -15,15 +16,12 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
@@ -32,9 +30,10 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 
 public class EntityTransformer {
+
+  private static Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
 
   public static ContextDbVO transformToNew(ContextVO contextVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
@@ -76,95 +75,13 @@ public class EntityTransformer {
 
 
   public static ItemVersionVO transformToNew(PubItemVO itemVo) {
-    AccountUserDbRO owner = new AccountUserDbRO();
-    AccountUserDbRO modifier = new AccountUserDbRO();
-
-    owner.setObjectId(changeId("user", itemVo.getOwner().getObjectId()));
-    owner.setName(itemVo.getOwner().getTitle());
-
-    modifier.setObjectId(changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
-    modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
-
-
-    ItemVersionVO newPubItem = new ItemVersionVO();
-    for (de.mpg.mpdl.inge.model.valueobjects.FileVO oldFile : itemVo.getFiles()) {
-
-      AccountUserDbRO fileOwner = new AccountUserDbRO();
-      // AccountUserRO fileModifier = new AccountUserRO();
-
-      fileOwner.setObjectId(changeId("user", oldFile.getCreatedByRO().getObjectId()));
-      fileOwner.setName(oldFile.getCreatedByRO().getTitle());
-
-      // fileModifier.setObjectId(changeId("user", oldFile.getM.getObjectId()));
-      // fileModifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
-
-      FileDbVO file = new FileDbVO();
-      file.setChecksum(oldFile.getChecksum());
-      file.setChecksumAlgorithm(FileDbVO.ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
-      file.setContent(oldFile.getContent());
-      file.setCreationDate(oldFile.getCreationDate());
-      file.setCreator(fileOwner);
-      file.setLastModificationDate(oldFile.getLastModificationDate());
-      file.setMetadata(oldFile.getDefaultMetadata());
-      file.setMimeType(oldFile.getMimeType());
-      // file.setModifier(oldFile.getM);
-      file.setName(oldFile.getName());
-      file.setObjectId(changeId("file", oldFile.getReference().getObjectId()));
-      file.setPid(oldFile.getPid());
-      file.setStorage(FileDbVO.Storage.valueOf(oldFile.getStorage().name()));
-      file.setVisibility(FileDbVO.Visibility.valueOf(oldFile.getVisibility().name()));
-
-      newPubItem.getFiles().add(file);
-    }
-
-
-
-    newPubItem.setMessage(itemVo.getVersion().getLastMessage());
-    newPubItem.setMetadata(itemVo.getMetadata());
-    newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
-    newPubItem.setModifiedBy(owner);
-    newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setVersionState(ItemVersionVO.State.valueOf(itemVo.getVersion().getState().name()));
-    newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
-    newPubItem.setVersionPid(itemVo.getVersion().getPid());
-
-
-    ItemRootVO pubItemObject = new ItemRootVO();
-    newPubItem.setObject(pubItemObject);
-
-    ContextDbRO context = new ContextDbRO();
-    context.setObjectId(changeId("ctx", itemVo.getContext().getObjectId()));
-    pubItemObject.setContext(context);
-
-    pubItemObject.setCreationDate(itemVo.getCreationDate());
-    pubItemObject.setLastModificationDate(itemVo.getLatestVersion().getModificationDate());
-
-    if (itemVo.getLatestRelease() != null) {
-      ItemVersionRO pubItemRo = new ItemVersionRO();
-      pubItemRo.setObjectId(itemVo.getLatestRelease().getObjectId());
-      pubItemRo.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
-      pubItemObject.setLatestRelease(pubItemRo);
-    }
-
-    ItemVersionRO pubItemRo = new ItemVersionRO();
-    pubItemRo.setObjectId(itemVo.getLatestVersion().getObjectId());
-    pubItemRo.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
-    pubItemObject.setLatestRelease(pubItemRo);
-    pubItemObject.setLatestVersion(newPubItem);
-
-
-
-    pubItemObject.setLocalTags(itemVo.getLocalTags());
-    pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    pubItemObject.setCreator(owner);
-    pubItemObject.setObjectPid(itemVo.getPid());
-    pubItemObject.setPublicState(ItemVersionRO.State.valueOf(itemVo.getPublicStatus().name()));
-
-    return newPubItem;
-
-
+    return dozerMapper.map(itemVo, ItemVersionVO.class);
   }
 
+
+  public static FileDbVO transformToNew(FileVO fileVo) {
+    return dozerMapper.map(fileVo, FileDbVO.class);
+  }
 
 
   public static AffiliationDbVO transformToNew(AffiliationVO affVo) {
@@ -227,24 +144,30 @@ public class EntityTransformer {
   }
 
   private static ItemRO transformToOld(ItemVersionRO newItemRo) {
+    return dozerMapper.map(newItemRo, ItemRO.class);
+    /*
     ItemRO oldItemRo = new ItemRO();
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setModificationDate(newItemRo.getModificationDate());
     oldItemRo.setModifiedByRO(transformToOld(newItemRo.getModifiedBy()));
     oldItemRo.setObjectId(newItemRo.getObjectId());
     oldItemRo.setPid(newItemRo.getVersionPid());
-
+    
     if (newItemRo.getVersionState() != null) {
       oldItemRo.setState(ItemVO.State.valueOf(newItemRo.getVersionState().name()));
     }
-
+    
     oldItemRo.setTitle(null);// TODO
     oldItemRo.setVersionNumber(newItemRo.getVersionNumber());
-
+    
     return oldItemRo;
+    */
   }
 
   private static FileVO transformToOld(FileDbVO newFileVo) {
+    return dozerMapper.map(newFileVo, FileVO.class);
+
+    /*
     FileVO oldFileVo = new FileVO();
     oldFileVo.setChecksum(newFileVo.getChecksum());
     // TODO
@@ -261,16 +184,17 @@ public class EntityTransformer {
     oldFileVo.setName(newFileVo.getName());
     oldFileVo.setPid(newFileVo.getPid());
     oldFileVo.setLocalFileIdentifier(newFileVo.getLocalFileIdentifier());
-
+    
     FileRO oldFileRo = new FileRO();
     oldFileRo.setObjectId(newFileVo.getObjectId());
     oldFileRo.setTitle(newFileVo.getName());
     oldFileVo.setReference(oldFileRo);
-
+    
     oldFileVo.setStorage(FileVO.Storage.valueOf(newFileVo.getStorage().name()));
     oldFileVo.setVisibility(FileVO.Visibility.valueOf(newFileVo.getVisibility().name()));
-
+    
     return oldFileVo;
+    */
   }
 
   private static ContextRO transformToOld(ContextDbRO newContextRo) {
@@ -286,15 +210,19 @@ public class EntityTransformer {
       return null;
     }
 
+    return dozerMapper.map(itemVo, PubItemVO.class);
+
+
+    /*
     PubItemVO oldPubItem = new PubItemVO();
     oldPubItem.setContentModel("escidoc:persistent4");
     oldPubItem.setContext(transformToOld(itemVo.getObject().getContext()));
     oldPubItem.setCreationDate(itemVo.getObject().getCreationDate());
-
+    
     if (itemVo.getObject().getLatestRelease() != null) {
-      oldPubItem.setLatestRelease(transformToOld(itemVo.getObject().getLatestRelease()));
+     oldPubItem.setLatestRelease(transformToOld(itemVo.getObject().getLatestRelease()));
     }
-
+    
     oldPubItem.setLatestVersion(transformToOld(itemVo.getObject().getLatestVersion()));
     oldPubItem.setMetadata(itemVo.getMetadata());
     oldPubItem.setOwner(transformToOld(itemVo.getObject().getCreator()));
@@ -302,47 +230,42 @@ public class EntityTransformer {
     oldPubItem.setPublicStatus(transformToOld(itemVo.getObject().getPublicState()));
     if (ItemVersionVO.State.WITHDRAWN.equals(itemVo.getObject().getPublicState())) 
     {
-      oldPubItem.setPublicStatusComment(itemVo.getMessage());
+     oldPubItem.setPublicStatusComment(itemVo.getMessage());
     }
     oldPubItem.setVersion(transformToOld((ItemVersionRO) itemVo));
-
+    
     for (String localTag : itemVo.getObject().getLocalTags()) {
-      oldPubItem.getLocalTags().add(localTag);
+     oldPubItem.getLocalTags().add(localTag);
     }
-
+    
     for (FileDbVO newFile : itemVo.getFiles()) {
-      oldPubItem.getFiles().add(transformToOld(newFile));
+     oldPubItem.getFiles().add(transformToOld(newFile));
     }
-
+    
     return oldPubItem;
+    */
   }
 
-  public static List<ItemVersionVO> transformToNew(List<PubItemVO> oldItemList)
-  {
+  public static List<ItemVersionVO> transformToNew(List<PubItemVO> oldItemList) {
     List<ItemVersionVO> newItemList = new ArrayList<>();
-    if (oldItemList != null)
-    {
-      for(PubItemVO itemVO : oldItemList)
-      {
+    if (oldItemList != null) {
+      for (PubItemVO itemVO : oldItemList) {
         newItemList.add(transformToNew(itemVO));
       }
     }
     return newItemList;
   }
-  
-  public static List<PubItemVO> transformToOld(List<ItemVersionVO> newItemList)
-  {
+
+  public static List<PubItemVO> transformToOld(List<ItemVersionVO> newItemList) {
     List<PubItemVO> oldList = new ArrayList<>();
-    if (newItemList != null)
-    {
-      for(ItemVersionVO itemVO : newItemList)
-      {
+    if (newItemList != null) {
+      for (ItemVersionVO itemVO : newItemList) {
         oldList.add(transformToOld(itemVO));
       }
     }
     return oldList;
   }
-  
+
   public static ContextVO transformToOld(ContextDbVO newContextVo) {
     if (newContextVo == null) {
       return null;

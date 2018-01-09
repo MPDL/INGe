@@ -330,8 +330,7 @@ public class YearbookItemSessionBean extends FacesBean {
             new YearbookInvalidItemRO(pubItem.getObjectId(), rep, pubItem.getModificationDate()));
       } else {
         this.invalidItemMap.remove(pubItem.getObjectId());
-        this.validItemMap.put(pubItem.getObjectId(),
-            new YearbookInvalidItemRO(pubItem.getObjectId(), rep, pubItem.getModificationDate()));
+        this.validItemMap.put(pubItem.getObjectId(), new YearbookInvalidItemRO(pubItem.getObjectId(), rep, pubItem.getModificationDate()));
       }
       return rep.isValid();
     }

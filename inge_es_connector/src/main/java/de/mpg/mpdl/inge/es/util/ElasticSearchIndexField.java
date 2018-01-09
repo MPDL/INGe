@@ -78,9 +78,9 @@ public class ElasticSearchIndexField {
 
       Map<String, ElasticSearchIndexField> indexMap = new TreeMap<>();
 
-     
+
       fillMap("", mdd.getSourceAsMap(), indexMap, "", new ArrayList<>());
-      
+
 
       return indexMap;
     }

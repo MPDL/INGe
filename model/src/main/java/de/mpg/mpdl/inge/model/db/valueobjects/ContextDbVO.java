@@ -80,7 +80,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
     DELETED
   }
 
-  
+
   public enum Workflow
   {
     STANDARD,
@@ -97,7 +97,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   private Workflow workflow;
 
   private String contactEmail;
-  
+
   /**
    * The state of the PubCollection.
    */
@@ -122,7 +122,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    * Default constructor.
    */
   public ContextDbVO() {}
-  
+
   public ContextDbVO(ContextDbVO other) {
     MapperFactory.getDozerMapper().map(other, this);
   }

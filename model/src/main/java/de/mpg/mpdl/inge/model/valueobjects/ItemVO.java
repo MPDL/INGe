@@ -223,12 +223,20 @@ public class ItemVO extends ValueObject implements Searchable {
     return this.files;
   }
 
+  public void setFiles(List<FileVO> files) {
+    this.files = files;
+  }
+
   /**
    * Delivers the metadata sets of the item.
    */
   @JsonIgnore
   public List<MetadataSetVO> getMetadataSets() {
     return this.metadataSets;
+  }
+
+  public void setMetadataSets(List<MetadataSetVO> metadataSets) {
+    this.metadataSets = metadataSets;
   }
 
   /**
@@ -404,6 +412,10 @@ public class ItemVO extends ValueObject implements Searchable {
 
   public java.util.List<String> getLocalTags() {
     return this.localTags;
+  }
+
+  public void setLocalTags(List<String> localTags) {
+    this.localTags = localTags;
   }
 
   public String getBaseUrl() {

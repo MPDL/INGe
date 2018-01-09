@@ -118,17 +118,17 @@ public class OrganizationSuggest extends EditItemBean {
     final AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
 
     if (affiliationVO != null) {
-      if (affiliationVO.getParentAffiliation()==null) {
+      if (affiliationVO.getParentAffiliation() == null) {
         result.add(currentPath);
       } else {
-        
-          final List<AffiliationDbVO> list = new ArrayList<AffiliationDbVO>();
-          list.addAll(currentPath);
-          final AffiliationDbVO parentVO = this.getAffiliation(affiliationVO.getParentAffiliation());
-          list.add(parentVO);
-          result.addAll(this.getPaths(list));
-        }
-      
+
+        final List<AffiliationDbVO> list = new ArrayList<AffiliationDbVO>();
+        list.addAll(currentPath);
+        final AffiliationDbVO parentVO = this.getAffiliation(affiliationVO.getParentAffiliation());
+        list.add(parentVO);
+        result.addAll(this.getPaths(list));
+      }
+
     }
 
     return result;

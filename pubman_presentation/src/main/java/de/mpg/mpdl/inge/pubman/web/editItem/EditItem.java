@@ -159,14 +159,12 @@ public class EditItem extends FacesBean {
       return;
     }
 
-    if (this.getPubItem().getObjectId() != null
-        && this.getLoginHelper().getIsYearbookEditor()) {
+    if (this.getPubItem().getObjectId() != null && this.getLoginHelper().getIsYearbookEditor()) {
       if (this.getYearbookItemSessionBean().getYearbook() != null
           && this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getObjectId()) != null) {
         try {
           this.getYearbookItemSessionBean().validateItem(this.getPubItem());
-          final YearbookInvalidItemRO invItem =
-              this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getObjectId());
+          final YearbookInvalidItemRO invItem = this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getObjectId());
 
           if (invItem != null) {
             (this.getPubItem()).setValidationReport(invItem.getValidationReport());
@@ -213,7 +211,8 @@ public class EditItem extends FacesBean {
   public String getContextName() {
     if (this.contextName == null && this.getPubItem() != null) {
       try {
-        final ContextDbVO context = this.getItemControllerSessionBean().retrieveContext(this.getPubItem().getObject().getContext().getObjectId());
+        final ContextDbVO context =
+            this.getItemControllerSessionBean().retrieveContext(this.getPubItem().getObject().getContext().getObjectId());
         return context.getName();
       } catch (final Exception e) {
         EditItem.logger.error("Could not retrieve the requested context." + "\n" + e.toString());
@@ -836,7 +835,8 @@ public class EditItem extends FacesBean {
 
     boolean isModerator = false;
     if (this.getLoginHelper().getAccountUser() != null && this.getPubItem() != null) {
-      isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, this.getPubItem().getObject().getContext().getObjectId());
+      isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR,
+          this.getPubItem().getObject().getContext().getObjectId());
     }
 
     boolean isWorkflowStandard = false;
@@ -844,10 +844,10 @@ public class EditItem extends FacesBean {
 
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
-        isWorkflowStandard = (PublicationAdminDescriptorVO.Workflow.STANDARD
-            .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
-        isWorkflowSimple = (PublicationAdminDescriptorVO.Workflow.SIMPLE
-            .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowStandard =
+            (PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowSimple =
+            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -875,8 +875,8 @@ public class EditItem extends FacesBean {
 
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
-        isWorkflowSimple = (PublicationAdminDescriptorVO.Workflow.SIMPLE
-            .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowSimple =
+            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -894,7 +894,8 @@ public class EditItem extends FacesBean {
    * @return SelectItem[] with Strings representing genres.
    */
   public SelectItem[] getGenres() {
-    return this.getI18nHelper().getSelectItemsForEnum(false, this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres().toArray(new MdsPublicationVO.Genre[] {}));
+    return this.getI18nHelper().getSelectItemsForEnum(false,
+        this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres().toArray(new MdsPublicationVO.Genre[] {}));
   }
 
   /**
@@ -1051,11 +1052,13 @@ public class EditItem extends FacesBean {
 
   public String getOwner() throws Exception {
     if (this.getPubItem().getObject().getCreator() != null) {
-      if (this.getPubItem().getObject().getCreator().getName() != null && this.getPubItem().getObject().getCreator().getName().trim() != "") {
+      if (this.getPubItem().getObject().getCreator().getName() != null
+          && this.getPubItem().getObject().getCreator().getName().trim() != "") {
         return this.getPubItem().getObject().getCreator().getName();
       }
 
-      if (this.getPubItem().getObject().getCreator().getObjectId() != null && this.getPubItem().getObject().getCreator().getObjectId() != "") {
+      if (this.getPubItem().getObject().getCreator().getObjectId() != null
+          && this.getPubItem().getObject().getCreator().getObjectId() != "") {
         return this.getPubItem().getObject().getCreator().getObjectId();
       }
     }
@@ -1074,8 +1077,7 @@ public class EditItem extends FacesBean {
   public String getLastModifier() throws Exception {
     if (this.getPubItem().getModifiedBy() != null && this.getPubItem().getModifiedBy().getName() != null) {
       return this.getPubItem().getModifiedBy().getName();
-    } else if (this.getPubItem().getModifiedBy() != null
-        && this.getPubItem().getModifiedBy().getObjectId() != null) {
+    } else if (this.getPubItem().getModifiedBy() != null && this.getPubItem().getModifiedBy().getObjectId() != null) {
       return this.getPubItem().getModifiedBy().getObjectId();
     }
 

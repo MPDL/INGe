@@ -51,7 +51,8 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> getAll(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
@@ -63,8 +64,9 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> filter(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
+      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
@@ -75,8 +77,8 @@ public class UserAccountRestController {
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> query(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestBody JsonNode query)
+  public ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>> query(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);

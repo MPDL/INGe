@@ -108,8 +108,8 @@ public class ContextRestController {
   }
 
   @RequestMapping(value = CTX_ID_PATH + "/close", method = RequestMethod.PUT)
-  public ResponseEntity<ContextDbVO> close(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = CTX_ID_VAR) String ctxId,
-      @RequestBody String modificatioDate)
+  public ResponseEntity<ContextDbVO> close(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody String modificatioDate)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Date lmd = utils.string2Date(modificatioDate);
     ContextDbVO closed = null;
@@ -118,8 +118,9 @@ public class ContextRestController {
   }
 
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.PUT)
-  public ResponseEntity<ContextDbVO> update(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = CTX_ID_VAR) String ctxId,
-      @RequestBody ContextDbVO ctx) throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  public ResponseEntity<ContextDbVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = CTX_ID_VAR) String ctxId, @RequestBody ContextDbVO ctx)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ContextDbVO updated = null;
     updated = ctxSvc.update(ctx, token);
     return new ResponseEntity<ContextDbVO>(updated, HttpStatus.OK);

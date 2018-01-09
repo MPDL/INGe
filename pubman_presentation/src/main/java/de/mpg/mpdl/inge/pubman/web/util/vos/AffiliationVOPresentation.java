@@ -79,8 +79,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
 
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
-      List<AffiliationDbVO> childOus =
-          (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getObjectId());
+      List<AffiliationDbVO> childOus = (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
@@ -95,7 +94,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
-    if (this.getMetadata() !=null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+    if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
       return (MdsOrganizationalUnitDetailsVO) this.getMetadata();
     } else {
       return new MdsOrganizationalUnitDetailsVO();
@@ -215,7 +214,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
       level++;
     }
 
-    if (this.getMetadata()!=null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+    if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
       if (((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName()
           .length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH
               - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {

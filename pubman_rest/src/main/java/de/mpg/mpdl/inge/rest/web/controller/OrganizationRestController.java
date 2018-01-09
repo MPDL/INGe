@@ -49,7 +49,8 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> getAll(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
@@ -61,8 +62,9 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> filter(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
+      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
@@ -73,8 +75,8 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> query(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestBody JsonNode query)
+  public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> query(
+      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
@@ -118,8 +120,8 @@ public class OrganizationRestController {
   }
 
   @RequestMapping(value = OU_ID_PATH + "/open", method = RequestMethod.PUT)
-  public ResponseEntity<AffiliationDbVO> open(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = OU_ID_VAR) String ouId,
-      @RequestBody String modificationDate)
+  public ResponseEntity<AffiliationDbVO> open(@RequestHeader(value = AUTHZ_HEADER) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String modificationDate)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationDbVO opened = null;
     Date lmd = utils.string2Date(modificationDate);

@@ -22,6 +22,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -42,7 +43,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
@@ -236,8 +236,8 @@ public class ReportWorkspaceBean extends FacesBean {
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
       logger.info("Search result total nr: " + resp.getNumberOfRecords());
       if (totalNrOfSerchResultItems > 0) {
-        itemListAsString =
-            XmlTransformingService.transformToItemList(EntityTransformer.transformToOld(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())));
+        itemListAsString = XmlTransformingService.transformToItemList(
+            EntityTransformer.transformToOld(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())));
       } else {
         this.info(this.getMessage("ReportNoItemsFound"));
       }

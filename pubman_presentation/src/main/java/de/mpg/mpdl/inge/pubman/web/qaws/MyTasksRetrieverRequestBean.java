@@ -279,14 +279,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     final List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
 
     itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptPendingWithdrawn")));
-    itemStateSelectItems.add(
-        new SelectItem(State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.SUBMITTED))));
+    itemStateSelectItems
+        .add(new SelectItem(State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.SUBMITTED))));
     itemStateSelectItems
         .add(new SelectItem(State.RELEASED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.RELEASED))));
-    itemStateSelectItems.add(
-        new SelectItem(State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.IN_REVISION))));
-    itemStateSelectItems.add(
-        new SelectItem(State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.WITHDRAWN))));
+    itemStateSelectItems
+        .add(new SelectItem(State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.IN_REVISION))));
+    itemStateSelectItems
+        .add(new SelectItem(State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.WITHDRAWN))));
     this.setItemStateSelectItems(itemStateSelectItems);
 
     return itemStateSelectItems;
@@ -321,8 +321,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       if (contextVOList.get(i).getWorkflow() != null) {
         workflow = contextVOList.get(i).getWorkflow().toString();
       }
-      this.contextSelectItems
-          .add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
+      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
     }
 
     String contextString = ",";

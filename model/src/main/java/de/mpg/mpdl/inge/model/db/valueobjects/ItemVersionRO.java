@@ -39,18 +39,18 @@ public class ItemVersionRO implements Serializable {
    * The date of the last modification of the referenced item.
    */
   private Date modificationDate;
-  
+
   /**
    * The state of the item.
    */
   @Enumerated(EnumType.STRING)
   private ItemVersionRO.State versionState;
-  
+
   /**
    * The version PID of the item.
    */
   private String versionPid;
- 
+
 
   /**
    * The eSciDoc ID of the user that modified that version.
@@ -61,7 +61,7 @@ public class ItemVersionRO implements Serializable {
   private AccountUserDbRO modifiedBy;
 
 
-  
+
   /**
    * Get the full identification of an item version.
    * 
@@ -77,7 +77,7 @@ public class ItemVersionRO implements Serializable {
     }
 
   }
-  
+
   public String getObjectId() {
     return objectId;
   }
@@ -122,7 +122,7 @@ public class ItemVersionRO implements Serializable {
     this.modificationDate = modificationDate;
   }
 
- 
+
 
   /**
    * Delivers the state of the item.
@@ -176,6 +176,6 @@ public class ItemVersionRO implements Serializable {
       return modificationDate;
     }
   }
- 
+
 
 }

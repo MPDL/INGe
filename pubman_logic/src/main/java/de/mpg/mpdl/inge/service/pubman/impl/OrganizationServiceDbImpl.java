@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -44,14 +45,12 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Service
 @Primary
-public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbVO, String>
-    implements OrganizationService, ReindexListener {
+public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbVO, String> implements OrganizationService, ReindexListener {
 
   public final static String INDEX_OBJECT_ID = "reference.objectId";
   public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";
@@ -178,7 +177,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
 
-    
+
 
     checkEqualModificationDate(modificationDate, affDbToBeUpdated.getLastModificationDate());
 
@@ -229,12 +228,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     // Set new parents, parents must be in state CREATED or OPENED
     String oldParentAffId = toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation().getObjectId() : null;
-    String newParentAffId = givenAff.getParentAffiliation() != null 
-        ? givenAff.getParentAffiliation().getObjectId()
-        : null;
+    String newParentAffId = givenAff.getParentAffiliation() != null ? givenAff.getParentAffiliation().getObjectId() : null;
 
     toBeUpdatedAff.setPredecessorAffiliations(givenAff.getPredecessorAffiliations());
-    
+
     List<String> reindexList = new ArrayList<>();
 
     if (oldParentAffId == null && newParentAffId == null) {

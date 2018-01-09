@@ -67,10 +67,10 @@ public class BasicDbRO implements Cloneable, Serializable {
   private String name;
 
   private java.util.Date lastModificationDate;
-  
+
   private java.util.Date creationDate;
 
-  
+
 
   @Embedded
   @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "creator_objectId")),

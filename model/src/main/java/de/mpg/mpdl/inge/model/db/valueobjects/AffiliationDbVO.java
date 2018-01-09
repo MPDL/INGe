@@ -103,7 +103,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   public AffiliationDbVO() {
 
   }
-  
+
   public AffiliationDbVO(AffiliationDbVO other) {
     MapperFactory.getDozerMapper().map(other, this);
   }

@@ -84,8 +84,7 @@ public class AffiliationBean extends FacesBean {
       if (this.selectedAffiliation.getMetadata().getCity() != null) {
         address += this.selectedAffiliation.getMetadata().getCity();
       }
-      if (this.selectedAffiliation.getMetadata().getCity() != null
-          && !this.selectedAffiliation.getMetadata().getCity().equals("")
+      if (this.selectedAffiliation.getMetadata().getCity() != null && !this.selectedAffiliation.getMetadata().getCity().equals("")
           && this.selectedAffiliation.getMetadata().getCountryCode() != null
           && !this.selectedAffiliation.getMetadata().getCountryCode().equals("")) {
         address += ", ";

@@ -59,6 +59,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
@@ -97,7 +98,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -372,7 +372,7 @@ public class EasySubmission extends FacesBean {
       }
 
       final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
-      
+
       newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
       newLocator.getFile().setMetadata(new MdsFileVO());
       newLocator.getFile().getMetadata().setContentCategory(contentCategory);
@@ -883,7 +883,7 @@ public class EasySubmission extends FacesBean {
         }
 
         final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
-        
+
         newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
         newLocator.getFile().setMetadata(new MdsFileVO());
         newLocator.getFile().getMetadata().setContentCategory(contentCategory);
@@ -1079,7 +1079,8 @@ public class EasySubmission extends FacesBean {
    * @return SelectItem[] with Strings representing genres.
    */
   public SelectItem[] getGenres() {
-    return this.getI18nHelper().getSelectItemsForEnum(false, this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres().toArray(new MdsPublicationVO.Genre[] {})); 
+    return this.getI18nHelper().getSelectItemsForEnum(false,
+        this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres().toArray(new MdsPublicationVO.Genre[] {}));
   }
 
   /**
@@ -1594,7 +1595,8 @@ public class EasySubmission extends FacesBean {
   public String getContextName() {
     if (this.contextName == null) {
       try {
-        final ContextDbVO context = this.getItemControllerSessionBean().retrieveContext(this.getItem().getObject().getContext().getObjectId());
+        final ContextDbVO context =
+            this.getItemControllerSessionBean().retrieveContext(this.getItem().getObject().getContext().getObjectId());
         this.contextName = context.getName();
         return this.contextName;
       } catch (final Exception e) {

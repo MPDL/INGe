@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class MapperFactory {
 
   private final static ObjectMapper jsonObjectMapper = new ObjectMapper();
-  
+
   private final static Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
 
   static {
@@ -24,10 +24,9 @@ public class MapperFactory {
   public static ObjectMapper getObjectMapper() {
     return jsonObjectMapper;
   }
-  
-  
-  public static Mapper getDozerMapper()
-  {
+
+
+  public static Mapper getDozerMapper() {
     return dozerMapper;
   }
 

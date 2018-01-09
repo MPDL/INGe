@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -114,7 +115,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -268,8 +268,8 @@ public class ViewItemFull extends FacesBean {
         String pubmanUrl =
             PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path");
 
-        this.itemPattern = PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
-            this.getPubItem().getObjectIdAndVersion());
+        this.itemPattern =
+            PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", this.getPubItem().getObjectIdAndVersion());
         if (!pubmanUrl.endsWith("/")) {
           pubmanUrl = pubmanUrl + "/";
         }
@@ -279,7 +279,8 @@ public class ViewItemFull extends FacesBean {
         // MF: Removed exclusion of pending items here
         this.citationURL = pubmanUrl + this.itemPattern;
 
-        if (this.getPubItem().getObject().getLatestVersion() != null && this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion() != null) {
+        if (this.getPubItem().getObject().getLatestVersion() != null
+            && this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion() != null) {
           String latestVersionItemPattern = PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
               this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion());
           if (latestVersionItemPattern.startsWith("/")) {
@@ -300,11 +301,12 @@ public class ViewItemFull extends FacesBean {
             ? this.getLoginHelper().getAccountUser().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
             : false);
 
-        if (this.getLoginHelper().getAccountUser() != null
-            && this.getLoginHelper().getAccountUser().getGrantList() != null) {
-          this.isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, this.getPubItem().getObject().getContext().getObjectId());
+        if (this.getLoginHelper().getAccountUser() != null && this.getLoginHelper().getAccountUser().getGrantList() != null) {
+          this.isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR,
+              this.getPubItem().getObject().getContext().getObjectId());
           this.isDepositor = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.DEPOSITOR);
-          this.isPrivilegedViewer = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.PRIVILEGEDVIEWER, this.getPubItem().getObject().getContext().getObjectId());
+          this.isPrivilegedViewer = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.PRIVILEGEDVIEWER,
+              this.getPubItem().getObject().getContext().getObjectId());
 
           if (!this.isOwner) {
             for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
@@ -340,9 +342,8 @@ public class ViewItemFull extends FacesBean {
       this.isStateInRevision = ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
 
       // Warn message if the item version is not the latest
-      if (this.isLatestVersion == false
-          && this.getPubItem().getObject().getLatestVersion().getVersionNumber() != this.getPubItem().getObject().getLatestRelease().getVersionNumber()
-          && this.isLoggedIn) {
+      if (this.isLatestVersion == false && this.getPubItem().getObject().getLatestVersion().getVersionNumber() != this.getPubItem()
+          .getObject().getLatestRelease().getVersionNumber() && this.isLoggedIn) {
         String link = null;
         try {
           link = PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
@@ -607,8 +608,7 @@ public class ViewItemFull extends FacesBean {
     // Set submission method for correct redirect
     ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(SubmissionMethod.FULL_SUBMISSION);
 
-    return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context, this.getPubItem(),
-        null);
+    return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context, this.getPubItem(), null);
   }
 
   /**
@@ -1563,8 +1563,9 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean getHasAudience() {
-    if (this.pubItem != null && (ItemVO.State.RELEASED.equals(this.pubItem.getVersionState())
-        || ItemVO.State.SUBMITTED.equals(this.pubItem.getVersionState())) && (this.getIsModerator() || this.getIsDepositor())) {
+    if (this.pubItem != null
+        && (ItemVO.State.RELEASED.equals(this.pubItem.getVersionState()) || ItemVO.State.SUBMITTED.equals(this.pubItem.getVersionState()))
+        && (this.getIsModerator() || this.getIsDepositor())) {
 
       for (final FileDbVO file : this.pubItem.getFiles()) {
         if (Visibility.AUDIENCE.equals(file.getVisibility())) {
@@ -1647,8 +1648,7 @@ public class ViewItemFull extends FacesBean {
 
   public String addToBasket() {
     if (!this.getPubItemStorageSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectIdAndVersion())) {
-      this.getPubItemStorageSessionBean().getStoredPubItems().put(this.pubItem.getObjectIdAndVersion(),
-          this.pubItem);
+      this.getPubItemStorageSessionBean().getStoredPubItems().put(this.pubItem.getObjectIdAndVersion(), this.pubItem);
       this.info(this.getMessage("basket_SingleAddedSuccessfully"));
     } else {
       this.error(this.getMessage("basket_SingleAlreadyInBasket"));
@@ -2026,8 +2026,7 @@ public class ViewItemFull extends FacesBean {
       this.canShowReleaseHistory = true;
     }
 
-    if (this.pubItem != null && this.pubItem.getMessage() != null
-        && !this.pubItem.getMessage().contentEquals("")) {
+    if (this.pubItem != null && this.pubItem.getMessage() != null && !this.pubItem.getMessage().contentEquals("")) {
       this.canShowLastMessage = true;
     }
   }
