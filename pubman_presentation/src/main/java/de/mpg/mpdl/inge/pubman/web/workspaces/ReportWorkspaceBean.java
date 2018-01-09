@@ -42,6 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
@@ -236,7 +237,7 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.info("Search result total nr: " + resp.getNumberOfRecords());
       if (totalNrOfSerchResultItems > 0) {
         itemListAsString =
-            XmlTransformingService.transformToItemList(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList()));
+            XmlTransformingService.transformToItemList(EntityTransformer.transformToOld(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())));
       } else {
         this.info(this.getMessage("ReportNoItemsFound"));
       }

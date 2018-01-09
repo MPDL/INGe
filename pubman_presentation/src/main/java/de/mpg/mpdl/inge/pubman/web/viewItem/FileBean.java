@@ -43,6 +43,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
@@ -121,7 +122,7 @@ public class FileBean extends FacesBean {
     for (int i = 0; i < searchHitList.size(); i++) {
       if (searchHitList.get(i).getType() == SearchHitType.FULLTEXT) {
         if (searchHitList.get(i).getHitReference() != null) {
-          if (searchHitList.get(i).getHitReference().equals(this.file.getReference())) {
+          if (searchHitList.get(i).getHitReference().getObjectId().equals(this.file.getObjectId())) {
             for (int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++) {
               int startPosition = 0;
               int endPosition = 0;
@@ -148,9 +149,9 @@ public class FileBean extends FacesBean {
   private void initializeFileAccessGranted() {
     // examine weather the user holds an audience Grant for the current file or not
     //TODO
-    if (this.file.getReference() != null && this.file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
+    if (this.file.getObjectId() != null && this.file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
       try {
-        ApplicationBean.INSTANCE.getFileService().readFile(item.getObjectIdAndVersion(), file.getReference().getObjectId(),
+        ApplicationBean.INSTANCE.getFileService().readFile(item.getObjectIdAndVersion(), file.getObjectId(),
             getLoginHelper().getAuthenticationToken());
       } catch (Exception e) {
         fileAccessGranted = false;
@@ -276,8 +277,8 @@ public class FileBean extends FacesBean {
   }
 
   public String getContentCategory() {
-    if (this.file.getContentCategory() != null) {
-      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getContentCategory().toLowerCase().replace("_", "-"));
+    if (this.file.getMetadata().getContentCategory() != null) {
+      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
       /*
        * /* for (final Entry<String, String> contcat : PubFileVOPresentation.getContentCategoryMap()
        * .entrySet()) { if (contcat.getValue().equals(this.file.getContentCategory())) { return

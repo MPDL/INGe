@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -60,7 +61,7 @@ public class DataGatheringService {
    * de.mpg.mpdl.inge.model.xmltransforming.DataGathering#findRevisionsOfItem(de.mpg.mpdl.inge.model
    * .xmltransforming .referenceobjects.ItemRO)
    */
-  public static List<RelationVO> findRevisionsOfItem(String userHandle, ItemRO itemRef) throws TechnicalException {
+  public static List<RelationVO> findRevisionsOfItem(String userHandle, ItemVersionRO itemRef) throws TechnicalException {
     return null;
     /*
     if (itemRef == null) {
@@ -89,7 +90,7 @@ public class DataGatheringService {
   /**
    * {@inheritDoc}
    */
-  public static List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef) throws TechnicalException {
+  public static List<RelationVO> findParentItemsOfRevision(String userHandle, ItemVersionRO itemRef) throws TechnicalException {
     return null;
     /*
     if (itemRef == null) {

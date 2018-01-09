@@ -92,6 +92,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -382,13 +383,17 @@ public class SwordUtil extends FacesBean {
         final String fileXml = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
             TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
 
+        
         try {
+          //TODO
+          /*
           final FileDbVO transformdedFileVO = XmlTransformingService.transformToFileVO(fileXml);
           for (final FileDbVO pubItemFile : pubItem.getFiles()) {
             pubItemFile.getMetadata().setRights(transformdedFileVO.getMetadata().getRights());
             pubItemFile.getMetadata().setCopyrightDate(transformdedFileVO.getMetadata().getCopyrightDate());
           }
-        } catch (final TechnicalException e) {
+          */
+        } catch (final Exception e) {
           SwordUtil.logger.error("File Xml could not be transformed into FileDbVO. ", e);
         }
       }
@@ -451,7 +456,7 @@ public class SwordUtil extends FacesBean {
       }
 
       // Create item
-      itemVO = XmlTransformingService.transformToPubItem(transformedItem);
+      itemVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(transformedItem));
 
       // Set Version to null in order to force PubItemPubItemService to create a new item.
       itemVO.setObjectId(null);
@@ -692,7 +697,8 @@ public class SwordUtil extends FacesBean {
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+    //TODO
+    //method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
 
     final HttpClient client = new HttpClient();
     client.executeMethod(method);

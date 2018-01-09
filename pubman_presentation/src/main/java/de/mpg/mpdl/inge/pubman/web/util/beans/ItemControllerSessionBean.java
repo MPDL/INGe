@@ -611,19 +611,19 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return a list of wrapped ReleationVOs that contain information about the items from which this
    *         revision was created
    */
-  /*
+  
   public List<RelationVOPresentation> retrieveParentsForRevision(ItemVersionVO pubItemVO) throws Exception {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
     if (this.getLoginHelper().getESciDocUserHandle() != null) {
       revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findParentItemsOfRevision(this.getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
+          DataGatheringService.findParentItemsOfRevision(this.getLoginHelper().getESciDocUserHandle(), pubItemVO));
     } else {
       final String adminHandle = AdminHelper.getAdminUserHandle();
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
       revisionVOList = CommonUtils
-          .convertToRelationVOPresentationList(DataGatheringService.findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
+          .convertToRelationVOPresentationList(DataGatheringService.findParentItemsOfRevision(adminHandle, pubItemVO));
     }
 
     final List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
@@ -643,25 +643,25 @@ public class ItemControllerSessionBean extends FacesBean {
 
     return revisionVOList;
   }
-  */
+  
 
   /**
    * @author Tobias Schraut
    * @param pubItemVO the pubitem for which the revisions should be fetched
    * @return a list of wrapped released ReleationVOs
    */
-  /*
+  
   public List<RelationVOPresentation> retrieveRevisions(ItemVersionVO pubItemVO) throws Exception {
     List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
 
     if (this.getLoginHelper().getESciDocUserHandle() != null) {
       revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findRevisionsOfItem(this.getLoginHelper().getESciDocUserHandle(), pubItemVO.getVersion()));
+          DataGatheringService.findRevisionsOfItem(this.getLoginHelper().getESciDocUserHandle(), pubItemVO));
     } else {
       // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
       // changes this retrieve method for unauthorized users)
       revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findRevisionsOfItem(AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
+          DataGatheringService.findRevisionsOfItem(AdminHelper.getAdminUserHandle(), pubItemVO));
     }
 
     final List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
@@ -682,7 +682,7 @@ public class ItemControllerSessionBean extends FacesBean {
 
     return revisionVOList;
   }
-  */
+  
 
   /**
    * Returns an item by its id.

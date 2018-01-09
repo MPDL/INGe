@@ -421,7 +421,7 @@ public class SiteMapTask {
         this.fileWriter.write(this.instanceUrl);
         this.fileWriter.write(this.contextPath);
         this.fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
-        this.fileWriter.write(result.getData().getReference().getObjectId());
+        this.fileWriter.write(result.getData().getObjectId());
         this.fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
         this.fileWriter.write(this.contentModel);
         this.fileWriter.write("%22)&amp;searchType=org");

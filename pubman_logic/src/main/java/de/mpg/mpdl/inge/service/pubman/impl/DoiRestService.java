@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -63,7 +64,7 @@ public class DoiRestService {
 
     try {
       // Generate metadata xml for the DOI service
-      String itemXml = XmlTransformingService.transformToItem(pubItem);
+      String itemXml = XmlTransformingService.transformToItem(EntityTransformer.transformToOld(pubItem));
       Transformer transformer =
           TransformerCache.getTransformer(TransformerFactory.getInternalFormat(), TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();

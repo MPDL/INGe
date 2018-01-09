@@ -66,7 +66,7 @@ public class CreateRevision extends FacesBean {
     final ContextDbVO selectedCollection = this.getCollectionListSessionBean().getSelectedDepositorContext();
 
     if (selectedCollection != null) {
-      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, selectedCollection.getReference(),
+      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, selectedCollection,
           this.getRelationListSessionBean().getPubItemVO(), this.getRelationListSessionBean().getRevisionDescription());
     }
 
