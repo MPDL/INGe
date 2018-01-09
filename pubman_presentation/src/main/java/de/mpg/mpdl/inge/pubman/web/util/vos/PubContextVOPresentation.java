@@ -50,7 +50,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
     this.selected = true;
 
     if (this.getCreateItem().getMethod() == SubmissionMethod.FULL_SUBMISSION) {
-      this.getItemControllerSessionBean().getCurrentPubItem().setContext(this.getReference());
+      this.getItemControllerSessionBean().getCurrentPubItem().getObject().setContext(this);
       return EditItem.LOAD_EDITITEM;
     } else if (this.getCreateItem().getMethod() == SubmissionMethod.MULTIPLE_IMPORT) {
       final MultipleImport multipleImport = (MultipleImport) FacesTools.findBean("MultipleImport");
@@ -71,7 +71,7 @@ public class PubContextVOPresentation extends ContextDbVO implements Comparable<
       }
     }
 
-    this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, this.getReference());
+    this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, this);
     this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
 
     if (this.getEasySubmissionSessionBean().getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {

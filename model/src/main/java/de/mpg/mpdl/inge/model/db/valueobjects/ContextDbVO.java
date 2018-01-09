@@ -49,6 +49,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import de.mpg.mpdl.inge.model.db.hibernate.ContextAdminDescriptorJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -124,6 +125,10 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    * Default constructor.
    */
   public ContextDbVO() {}
+  
+  public ContextDbVO(ContextDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+  }
 
   /**
    * Delivers the description of the collection, i. e. a short description of the collection and the

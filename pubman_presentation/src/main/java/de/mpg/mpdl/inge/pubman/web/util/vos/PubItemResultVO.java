@@ -54,7 +54,7 @@ public class PubItemResultVO extends ItemVersionVO {
     return this.searchHitList;
   }
 
-  public PubItemResultVO(ItemVO itemVO, List<SearchHitVO> searchHits, float score) {
+  public PubItemResultVO(ItemVersionVO itemVO, List<SearchHitVO> searchHits, float score) {
     super(itemVO);
     if (searchHits.size() > 0) {
       this.searchHitList = new java.util.ArrayList<SearchHitVO>();

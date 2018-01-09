@@ -251,7 +251,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
       for (final PubContextVOPresentation contextVO : contextVOList) {
-        if (contextVO.getReference().getObjectId().equals(this.getSelectedContext())) {
+        if (contextVO.getObjectId().equals(this.getSelectedContext())) {
           return contextVO.getName();
         }
       }
@@ -318,16 +318,16 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     this.contextSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
     for (int i = 0; i < contextVOList.size(); i++) {
       String workflow = "null";
-      if (contextVOList.get(i).getAdminDescriptor().getWorkflow() != null) {
-        workflow = contextVOList.get(i).getAdminDescriptor().getWorkflow().toString();
+      if (contextVOList.get(i).getWorkflow() != null) {
+        workflow = contextVOList.get(i).getWorkflow().toString();
       }
       this.contextSelectItems
-          .add(new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
+          .add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
     }
 
     String contextString = ",";
     for (final PubContextVOPresentation pubContextVOPresentation : contextVOList) {
-      contextString += pubContextVOPresentation.getReference().getObjectId() + ",";
+      contextString += pubContextVOPresentation.getObjectId() + ",";
     }
 
     // Init imports
@@ -444,9 +444,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+      affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       final AffiliationBean affTree = (AffiliationBean) FacesTools.findBean("AffiliationBean");
-      affTree.getAffiliationMap().put(aff.getReference().getObjectId(), aff);
+      affTree.getAffiliationMap().put(aff.getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
       }
