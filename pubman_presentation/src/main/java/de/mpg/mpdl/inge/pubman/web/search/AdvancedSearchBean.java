@@ -690,7 +690,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         this.contextListMenu = new ArrayList<SelectItem>();
 
         for (final SearchRetrieveRecordVO<ContextDbVO> c : result.getRecords()) {
-          this.contextListMenu.add(new SelectItem(c.getData().getReference().getObjectId(), c.getData().getName()));
+          this.contextListMenu.add(new SelectItem(c.getData().getObjectId(), c.getData().getName()));
         }
 
         Collections.sort(this.contextListMenu, new SelectItemComparator());

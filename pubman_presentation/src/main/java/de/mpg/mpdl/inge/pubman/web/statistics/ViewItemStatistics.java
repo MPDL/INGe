@@ -163,7 +163,7 @@ public class ViewItemStatistics extends FacesBean {
       if (contexts != null) {
         final String[] contextArray = contexts.split(",");
         for (final String contextId : contextArray) {
-          if (contextId.trim().equals(currentContext.getReference().getObjectId())) {
+          if (contextId.trim().equals(currentContext.getObjectId())) {
             return true;
           }
         }

@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -131,9 +132,9 @@ public class PubManSwordServer {
     util.setCurrentDeposit(deposit);
     depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
     this.setVerbose("Escidoc Publication Item successfully created.");
-    final ContextRO context = new ContextRO();
+    final ContextDbRO context = new ContextDbRO();
     context.setObjectId(collection);
-    depositItem.setContext(context);
+    depositItem.getObject().setContext(context);
 
     util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(depositItem));
 
@@ -211,7 +212,7 @@ public class PubManSwordServer {
       final PubContextVOPresentation pubContext = contextList.get(i);
 
       final Element collection = document.createElement("collection");
-      collection.setAttribute("href", pubContext.getReference().getObjectId());
+      collection.setAttribute("href", pubContext.getObjectId());
       final Element colTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
       colTitle.setPrefix("atom");
       colTitle.setTextContent(pubContext.getName());

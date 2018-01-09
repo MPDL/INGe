@@ -5,6 +5,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentAvailableSearchCriterion.ComponentAvailability;

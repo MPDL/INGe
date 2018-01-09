@@ -222,7 +222,7 @@ public class ItemControllerSessionBean extends FacesBean {
    * @param comment the description for the new revision
    * @return string, identifying the page that should be navigated to after this methodcall
    */
-  public String createNewRevision(String navigationRuleWhenSuccessfull, final ContextRO pubContextRO, final ItemVersionVO pubItem,
+  public String createNewRevision(String navigationRuleWhenSuccessfull, final ContextDbRO pubContextRO, final ItemVersionVO pubItem,
       String comment) {
     final ItemVersionVO newRevision =
         PubItemUtil.createRevisionOfPubItem(pubItem, comment, pubContextRO, this.getLoginHelper().getAccountUser());

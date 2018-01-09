@@ -35,6 +35,7 @@ import javax.faces.bean.ManagedBean;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -76,7 +77,7 @@ public class OrganizationSuggest extends EditItemBean {
 
         for (final List<AffiliationDbVO> path : pathList) {
           final OrganizationVOPresentation organizationVOPresentation = new OrganizationVOPresentation();
-          organizationVOPresentation.setIdentifier(affiliationVO.getReference().getObjectId());
+          organizationVOPresentation.setIdentifier(affiliationVO.getObjectId());
 
           final String city = affiliationVO.getMetadata().getCity();
           final String countryCode = affiliationVO.getMetadata().getCountryCode();
@@ -117,27 +118,27 @@ public class OrganizationSuggest extends EditItemBean {
     final AffiliationDbVO affiliationVO = currentPath.get(currentPath.size() - 1);
 
     if (affiliationVO != null) {
-      if (affiliationVO.getParentAffiliations().isEmpty()) {
+      if (affiliationVO.getParentAffiliation()==null) {
         result.add(currentPath);
       } else {
-        for (final AffiliationRO parent : affiliationVO.getParentAffiliations()) {
+        
           final List<AffiliationDbVO> list = new ArrayList<AffiliationDbVO>();
           list.addAll(currentPath);
-          final AffiliationDbVO parentVO = this.getAffiliation(parent);
+          final AffiliationDbVO parentVO = this.getAffiliation(affiliationVO.getParentAffiliation());
           list.add(parentVO);
           result.addAll(this.getPaths(list));
         }
-      }
+      
     }
 
     return result;
   }
 
-  private AffiliationDbVO getAffiliation(AffiliationRO affiliationRO) throws Exception {
+  private AffiliationDbVO getAffiliation(AffiliationDbRO affiliationRO) throws Exception {
     final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
 
     for (final AffiliationDbVO element : applicationBean.getOuList()) {
-      if (element.getReference().equals(affiliationRO)) {
+      if (element.getObjectId().equals(affiliationRO.getObjectId())) {
         return element;
       }
     }

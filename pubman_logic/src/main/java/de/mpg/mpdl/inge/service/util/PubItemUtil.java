@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -104,11 +107,14 @@ public class PubItemUtil {
     }
   }
 
-  public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem, String relationComment, final ContextRO pubCollection,
-      final AccountUserVO owner) {
-    PubItemVO copiedPubItem = new PubItemVO();
-    copiedPubItem.setOwner(owner.getReference());
-    copiedPubItem.setContext(pubCollection);
+  public static ItemVersionVO createRevisionOfPubItem(final ItemVersionVO originalPubItem, String relationComment, final ContextDbRO pubCollection,
+      final AccountUserDbVO owner) {
+    ItemVersionVO copiedPubItem = new ItemVersionVO();
+    AccountUserDbRO itemCreator = new AccountUserDbRO();
+    itemCreator.setObjectId(owner.getObjectId());
+    itemCreator.setName(owner.getName());
+    copiedPubItem.getObject().setCreator(itemCreator);
+    copiedPubItem.getObject().setContext(pubCollection);
     copiedPubItem.setMetadata(new MdsPublicationVO());
     copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
 
@@ -138,12 +144,13 @@ public class PubItemUtil {
       }
     }
 
+    /*
     ItemRelationVO relation = new ItemRelationVO();
     relation.setType(PREDICATE_ISREVISIONOF);
     relation.setTargetItemRef(originalPubItem.getVersion());
     relation.setDescription(relationComment);
     copiedPubItem.getRelations().add(relation);
-
+     */
     return copiedPubItem;
   }
 

@@ -102,7 +102,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
           final OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
           ous.setSearchString(aff.getMetadata().getName());
-          ous.setHiddenId(aff.getReference().getObjectId());
+          ous.setHiddenId(aff.getObjectId());
           scList.add(ous);
           i++;
         }

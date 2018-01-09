@@ -46,8 +46,13 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
@@ -55,6 +60,7 @@ import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -108,6 +114,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -288,18 +295,18 @@ public class ViewItemFull extends FacesBean {
       this.isOwner = true;
 
       if (this.pubItem.getObject().getCreator() != null) {
-        this.isOwner = (this.getLoginHelper().getAccountUser().getReference() != null
-            ? this.getLoginHelper().getAccountUser().getReference().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
+        this.isOwner = (this.getLoginHelper().getAccountUser() != null
+            ? this.getLoginHelper().getAccountUser().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
             : false);
 
-        if (this.getLoginHelper().getAccountUser().getReference() != null
-            && this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants() != null) {
-          this.isModerator = this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getObject().getContext());
-          this.isDepositor = this.getLoginHelper().getIsDepositor();
-          this.isPrivilegedViewer = this.getLoginHelper().getAccountUser().isPrivilegedViewer(this.getPubItem().getObject().getContext());
+        if (this.getLoginHelper().getAccountUser() != null
+            && this.getLoginHelper().getAccountUser().getGrantList() != null) {
+          this.isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, this.getPubItem().getObject().getContext().getObjectId());
+          this.isDepositor = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.DEPOSITOR);
+          this.isPrivilegedViewer = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.PRIVILEGEDVIEWER, this.getPubItem().getObject().getContext().getObjectId());
 
           if (!this.isOwner) {
-            for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantsWithoutAudienceGrants()) {
+            for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
               if (grant.getRole().equals("escidoc:role-system-administrator")) {
                 this.isOwner = true;
                 break;
@@ -362,8 +369,8 @@ public class ViewItemFull extends FacesBean {
       // Prerequisites
       // Workflow
       try {
-        this.isWorkflowStandard = (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-        this.isWorkflowSimple = (this.getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+        this.isWorkflowStandard = (this.getContext().getWorkflow() == Workflow.STANDARD);
+        this.isWorkflowSimple = (this.getContext().getWorkflow() == Workflow.SIMPLE);
       } catch (Exception e) {
         this.isWorkflowSimple = true;
         this.isWorkflowStandard = false;
@@ -508,7 +515,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean isSsrnTagged() {
-    if (this.getPubItem().getLocalTags().contains(ViewItemFull.SSRN_LOCAL_TAG)) {
+    if (this.getPubItem().getObject().getLocalTags().contains(ViewItemFull.SSRN_LOCAL_TAG)) {
       return true;
     }
 
@@ -590,7 +597,7 @@ public class ViewItemFull extends FacesBean {
 
     if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1) {
       final ContextDbVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
-      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, context.getReference(), this.getPubItem(), null);
+      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, context, this.getPubItem(), null);
     }
 
     final ContextDbVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
@@ -599,7 +606,7 @@ public class ViewItemFull extends FacesBean {
     // Set submission method for correct redirect
     ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(SubmissionMethod.FULL_SUBMISSION);
 
-    return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context.getReference(), this.getPubItem(),
+    return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context, this.getPubItem(),
         null);
   }
 
@@ -1209,7 +1216,7 @@ public class ViewItemFull extends FacesBean {
     return contextName;
   }
 
-  public AccountUserRO getOwner() {
+  public AccountUserDbRO getOwner() {
     return this.pubItem.getObject().getCreator();
   }
 
@@ -1231,7 +1238,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String getAffiliations() {
     final StringBuffer affiliations = new StringBuffer();
-    List<AffiliationRO> affiliationRefList = new ArrayList<AffiliationRO>();
+    List<AffiliationDbRO> affiliationRefList = new ArrayList<AffiliationDbRO>();
     final List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
     if (this.context == null) {
       try {
@@ -1307,7 +1314,7 @@ public class ViewItemFull extends FacesBean {
     return CommonUtils.formatTimestamp(this.pubItem.getModificationDate());
   }
 
-  public AccountUserRO getLatestModifier() throws Exception {
+  public AccountUserDbRO getLatestModifier() throws Exception {
     /*
      * if (this.latestModifier == null && this.pubItem.getVersion().getModifiedByRO() != null &&
      * this.pubItem.getVersion().getModifiedByRO().getObjectId() != null) { try {
@@ -1316,7 +1323,7 @@ public class ViewItemFull extends FacesBean {
      * ViewItemFull.logger.error("Error retrieving latest modifier", e); } }
      */
 
-    return this.pubItem.getVersion().getModifiedByRO();
+    return this.pubItem.getModifiedBy();
   }
 
   /**
@@ -1325,7 +1332,7 @@ public class ViewItemFull extends FacesBean {
    * @return String the formatted date of modification
    */
   public String getCreationDate() {
-    return CommonUtils.formatTimestamp(this.pubItem.getCreationDate());
+    return CommonUtils.formatTimestamp(this.pubItem.getObject().getCreationDate());
   }
 
   /**
@@ -1640,7 +1647,7 @@ public class ViewItemFull extends FacesBean {
   public String addToBasket() {
     if (!this.getPubItemStorageSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectIdAndVersion())) {
       this.getPubItemStorageSessionBean().getStoredPubItems().put(this.pubItem.getObjectIdAndVersion(),
-          this.pubItem.getVersion());
+          this.pubItem);
       this.info(this.getMessage("basket_SingleAddedSuccessfully"));
     } else {
       this.error(this.getMessage("basket_SingleAlreadyInBasket"));
@@ -1774,7 +1781,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String getModeratorContactEmail() {
     String contactEmail = "";
-    contactEmail = this.getObject().getContext().getAdminDescriptor().getContactEmail();
+    contactEmail = this.getContext().getContactEmail();
     if (contactEmail == null || contactEmail.trim().equals("")) {
       contactEmail = ViewItemFull.ALTERNATIVE_MODERATOR_EMAIL;
     }
@@ -2018,8 +2025,8 @@ public class ViewItemFull extends FacesBean {
       this.canShowReleaseHistory = true;
     }
 
-    if (this.pubItem != null && this.pubItem.getVersion().getLastMessage() != null
-        && !this.pubItem.getVersion().getLastMessage().contentEquals("")) {
+    if (this.pubItem != null && this.pubItem.getMessage() != null
+        && !this.pubItem.getMessage().contentEquals("")) {
       this.canShowLastMessage = true;
     }
   }
@@ -2152,13 +2159,13 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addSsrnTag() {
-    this.getPubItem().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
+    this.getPubItem().getObject().getLocalTags().add(ViewItemFull.SSRN_LOCAL_TAG);
 
     return this.getSsrnReturnValue("Submission during adding SSRN-Tag.", "ViewItem_ssrnAddedSuccessfully", "ViewItem_ssrnAddingProblem");
   }
 
   public String removeSsrnTag() {
-    this.getPubItem().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
+    this.getPubItem().getObject().getLocalTags().remove(ViewItemFull.SSRN_LOCAL_TAG);
 
     return this.getSsrnReturnValue("Submission during removing SSRN-Tag.", "ViewItem_ssrnRemovedSuccessfully",
         "ViewItem_ssrnRemovingProblem");
@@ -2168,7 +2175,7 @@ public class ViewItemFull extends FacesBean {
     String navigateTo = ViewItemFull.LOAD_VIEWITEM;
     String retVal = "";
     final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
-    final ItemVO.State state = this.getPubItem().getVersionState();
+    final State state = this.getPubItem().getVersionState();
 
     try {
       retVal = icsb.saveCurrentPubItem(navigateTo);

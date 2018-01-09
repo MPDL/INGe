@@ -13,6 +13,10 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -37,10 +41,7 @@ public class DoiRestService {
 
   private static final Logger logger = Logger.getLogger(DoiRestService.class);
 
-  public void main(String[] args) throws Exception {
-    logger.info("DOI: " + getNewDoi(new PubItemVO()));
-  }
-
+  
   /**
    * creates a new DOI for the given item
    * 
@@ -48,9 +49,9 @@ public class DoiRestService {
    * @return new DOI
    */
   // TODO change PubManException
-  public static String getNewDoi(PubItemVO pubItem) throws Exception {
+  public static String getNewDoi(ItemVersionVO pubItem) throws Exception {
     if (logger.isDebugEnabled()) {
-      logger.debug("Getting new DOI for [" + pubItem.getVersion().getObjectId() + "]");
+      logger.debug("Getting new DOI for [" + pubItem.getObjectId() + "]");
     }
 
     // validate if a DOI can be generated for the given item
@@ -73,8 +74,8 @@ public class DoiRestService {
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       String queryParams =
           "?url=" + PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-              + (PropertyReader.getProperty("inge.pubman.item.pattern")).replace("$1", pubItem.getVersion().getObjectId()) + "&suffix="
-              + pubItem.getVersion().getObjectId().substring(pubItem.getVersion().getObjectId().indexOf(":") + 1);
+              + (PropertyReader.getProperty("inge.pubman.item.pattern")).replace("$1", pubItem.getObjectId()) + "&suffix="
+              + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf(":") + 1);
       HttpClient client = new HttpClient();
       client.getParams().setAuthenticationPreemptive(true);
       Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty("inge.doi.service.user"),
@@ -97,12 +98,12 @@ public class DoiRestService {
       doi = putMethod.getResponseBodyAsString();
 
     } catch (Exception e) {
-      logger.error("Error getting new DOI for [" + pubItem.getVersion().getObjectId() + "]", e);
-      throw new Exception("Error getting new DOI for [" + pubItem.getVersion().getObjectId() + "]", e);
+      logger.error("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
+      throw new Exception("Error getting new DOI for [" + pubItem.getObjectId() + "]", e);
     }
 
     if (logger.isDebugEnabled()) {
-      logger.debug("Successfully retrieved new DOI for [" + pubItem.getVersion().getObjectId() + "]");
+      logger.debug("Successfully retrieved new DOI for [" + pubItem.getObjectId() + "]");
     }
 
     return doi;
@@ -114,10 +115,10 @@ public class DoiRestService {
    * @param pubItem
    * @return
    */
-  public static boolean isDoiReady(PubItemVO pubItem) {
+  public static boolean isDoiReady(ItemVersionVO pubItem) {
     boolean doiReady = false;
     // Item must be released to create a DOI
-    if (ItemVO.State.RELEASED.equals(pubItem.getVersion().getState()) == false) {
+    if (State.RELEASED.equals(pubItem.getVersionState()) == false) {
       return false;
     }
     // Item must not contain any DOI to create a DOI
@@ -127,12 +128,12 @@ public class DoiRestService {
       }
     }
     // Item must include at least one fulltext to create a DOI
-    for (FileVO file : pubItem.getFiles()) {
-      if (file.getVisibility() == FileVO.Visibility.PUBLIC
-          && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file.getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file.getContentCategory())
-              || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file.getContentCategory()))) {
+    for (FileDbVO file : pubItem.getFiles()) {
+      if (file.getVisibility() == Visibility.PUBLIC
+          && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getMetadata().getContentCategory())
+              || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file.getMetadata().getContentCategory())
+              || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file.getMetadata().getContentCategory())
+              || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file.getMetadata().getContentCategory()))) {
         doiReady = true;
       }
     }

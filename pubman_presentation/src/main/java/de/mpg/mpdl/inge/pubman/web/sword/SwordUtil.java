@@ -66,10 +66,13 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
@@ -89,6 +92,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -172,7 +176,7 @@ public class SwordUtil extends FacesBean {
     contextListBean.init();
     contextList = contextListBean.getDepositorContextList();
     for (int i = 0; i < contextList.size(); i++) {
-      final String context = contextList.get(i).getReference().getObjectId();
+      final String context = contextList.get(i).getObjectId();
       if (context.toLowerCase().equals(collection.toLowerCase().trim())) {
         return true;
       }
@@ -276,7 +280,7 @@ public class SwordUtil extends FacesBean {
    * @param pwd
    * @return AccountUserVO
    */
-  public AccountUserVO getAccountUser(String user, String pwd) {
+  public AccountUserDbVO getAccountUser(String user, String pwd) {
     try {
       final String token = ApplicationBean.INSTANCE.getUserAccountService().login(user, pwd);
       return ApplicationBean.INSTANCE.getUserAccountService().get(token);
@@ -541,22 +545,22 @@ public class SwordUtil extends FacesBean {
     boolean isStateSubmitted = false;
     boolean isStateInRevision = false;
 
-    if (item != null && item.getVersion() != null && item.getVersionState() != null) {
+    if (item != null && item.getObjectId() != null && item.getVersionState() != null) {
       isStatePending = ItemVO.State.PENDING.equals(item.getVersionState());
       isStateSubmitted = ItemVO.State.SUBMITTED.equals(item.getVersionState());
       isStateInRevision = ItemVO.State.IN_REVISION.equals(item.getVersionState());
     }
 
     isWorkflowStandard = PublicationAdminDescriptorVO.Workflow.STANDARD
-        .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow());
+        .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
     isWorkflowSimple = PublicationAdminDescriptorVO.Workflow.SIMPLE
-        .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow());
+        .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
 
-    final boolean isModerator = this.getLoginHelper().getAccountUser().isModerator(item.getObject().getContext());
+    final boolean isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, item.getObject().getContext().getObjectId());
     boolean isOwner = true;
     if (item.getObject().getCreator() != null) {
-      isOwner = (this.getLoginHelper().getAccountUser().getReference() != null
-          ? this.getLoginHelper().getAccountUser().getReference().getObjectId().equals(item.getObject().getCreator().getObjectId())
+      isOwner = (this.getLoginHelper().getAccountUser() != null
+          ? this.getLoginHelper().getAccountUser().getObjectId().equals(item.getObject().getCreator().getObjectId())
           : false);
     }
 
@@ -582,8 +586,8 @@ public class SwordUtil extends FacesBean {
    * @return workflow type as string
    */
   public String getWorkflowAsString(PubContextVOPresentation pubContext) {
-    final boolean isWorkflowStandard = pubContext.getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD;
-    final boolean isWorkflowSimple = pubContext.getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE;
+    final boolean isWorkflowStandard = pubContext.getWorkflow() == Workflow.STANDARD;
+    final boolean isWorkflowSimple = pubContext.getWorkflow() == Workflow.SIMPLE;
 
     if (isWorkflowStandard) {
       return "Standard Workflow";
@@ -628,7 +632,7 @@ public class SwordUtil extends FacesBean {
 
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
-      fileVO.setDefaultMetadata(mdSet);
+      fileVO.setMetadata(mdSet);
       fileVO.getMetadata().setTitle(name);
       fileVO.setMimeType(mimeType);
       fileVO.setName(name);
@@ -653,7 +657,7 @@ public class SwordUtil extends FacesBean {
             Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
           }
         }
-        fileVO.setContentCategory(contentCategory);
+        fileVO.getMetadata().setContentCategory(contentCategory);
       } else {
         String contentCategory = null;
         if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
@@ -667,7 +671,7 @@ public class SwordUtil extends FacesBean {
             Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
           }
         }
-        fileVO.setContentCategory(contentCategory);
+        fileVO.getMetadata().setContentCategory(contentCategory);
       }
     }
 

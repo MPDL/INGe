@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
