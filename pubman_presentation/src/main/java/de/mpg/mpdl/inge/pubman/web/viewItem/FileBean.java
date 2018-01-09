@@ -43,6 +43,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
@@ -65,7 +66,7 @@ public class FileBean extends FacesBean {
 
   private FileDbVO file;
   private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
-  private final ItemVO item;
+  private final ItemVersionVO item;
   private boolean fileAccessGranted = false;
 
   /**
@@ -75,7 +76,7 @@ public class FileBean extends FacesBean {
    * @param position
    * @param itemState
    */
-  public FileBean(FileDbVO file, ItemVO item) {
+  public FileBean(FileDbVO file, ItemVersionVO item) {
     this.file = file;
     this.item = item;
     if (this.getLoginHelper().getLoggedIn() == true) {
@@ -91,7 +92,7 @@ public class FileBean extends FacesBean {
    * @param itemState
    * @param resultitem
    */
-  public FileBean(FileDbVO file, ItemVO item, List<SearchHitVO> searchHitList) {
+  public FileBean(FileDbVO file, ItemVersionVO item, List<SearchHitVO> searchHitList) {
     this.file = file;
     this.item = item;
     this.initialize(file, item, searchHitList);
@@ -108,7 +109,7 @@ public class FileBean extends FacesBean {
    * @param itemState
    * @param resultitem
    */
-  protected void initialize(FileDbVO file, ItemVO item, List<SearchHitVO> searchHitList) {
+  protected void initialize(FileDbVO file, ItemVersionVO item, List<SearchHitVO> searchHitList) {
     // set some html elements which cannot be completely constructed in the jsp
 
     String beforeSearchHitString;

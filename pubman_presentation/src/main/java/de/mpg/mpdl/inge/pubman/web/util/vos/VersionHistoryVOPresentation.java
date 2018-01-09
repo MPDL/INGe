@@ -60,15 +60,14 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
         pubItemService.get(this.getReference().getObjectIdAndVersion(), loginHelper.getAuthenticationToken());
 
     // Now copy the old stuff into the current item
-    pubItemVOLatestVersion.getMetadataSets().set(0, pubItemVOThisVersion.getMetadata());
-    pubItemVOLatestVersion.getLocalTags().clear();
-    pubItemVOLatestVersion.getLocalTags().addAll(pubItemVOThisVersion.getLocalTags());
+    pubItemVOLatestVersion.setMetadata(pubItemVOThisVersion.getMetadata());
+    pubItemVOLatestVersion.getObject().getLocalTags().clear();
+    pubItemVOLatestVersion.getObject().getLocalTags().addAll(pubItemVOThisVersion.getObject().getLocalTags());
 
     // Do not forget the files and locators
     pubItemVOLatestVersion.getFiles().clear();
     for (final FileDbVO fileVO : pubItemVOThisVersion.getFiles()) {
       final FileDbVO clonedFile = new FileDbVO(fileVO);
-      clonedFile.setReference(fileVO.getReference());
       pubItemVOLatestVersion.getFiles().add(clonedFile);
     }
 

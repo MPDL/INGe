@@ -156,7 +156,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       this.score = ((PubItemResultVO) item).getScore();
     }
 
-    if (this.getVersion() != null && this.getVersionState() != null) {
+    if (this != null && this.getVersionState() != null) {
       this.released = ItemVO.State.RELEASED.equals(this.getVersionState());
     }
 
@@ -170,15 +170,15 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.setSearchHitBeanList();
 
     // Check the local tags
-    if (this.getLocalTags().isEmpty()) {
-      this.getLocalTags().add("");
+    if (this.getObject().getLocalTags().isEmpty()) {
+      this.getObject().getLocalTags().add("");
     }
 
     this.wrappedLocalTags = new ArrayList<WrappedLocalTag>();
-    for (int i = 0; i < this.getLocalTags().size(); i++) {
+    for (int i = 0; i < this.getObject().getLocalTags().size(); i++) {
       final WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
       wrappedLocalTag.setParent(this);
-      wrappedLocalTag.setValue(this.getLocalTags().get(i));
+      wrappedLocalTag.setValue(this.getObject().getLocalTags().get(i));
       if (wrappedLocalTag.getValue().length() > 0 || this.wrappedLocalTags.size() == 0) {
         this.wrappedLocalTags.add(wrappedLocalTag);
       }
@@ -393,11 +393,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
       return this.getCreators(creatorsNo);
     }
 
-    if (this.getYearbookMetadata() != null) {
-      final int creatorsNo = this.getYearbookMetadata().getCreators().size();
-      return this.getCreators(creatorsNo);
-    }
-
     return "";
   }
 
@@ -422,19 +417,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
         } else if (this.getMetadata().getCreators().get(i).getOrganization() != null) {
           creators.append(this.getMetadata().getCreators().get(i).getOrganization().getName());
         }
-      } else if (this.getYearbookMetadata() != null) {
-        if (this.getYearbookMetadata().getCreators().get(i).getPerson() != null) {
-          if (this.getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName() != null) {
-            creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName());
-            if (this.getYearbookMetadata().getCreators().get(i).getPerson().getGivenName() != null) {
-              creators.append(", ");
-              creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson().getGivenName());
-            }
-          }
-        } else if (this.getYearbookMetadata().getCreators().get(i).getOrganization() != null) {
-          creators.append(this.getYearbookMetadata().getCreators().get(i).getOrganization().getName());
-        }
-      }
+      } 
 
       if (i < creatorMaximum - 1) {
         creators.append("; ");
@@ -451,9 +434,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
     if (this.getMetadata() != null) {
       creatorsNo = this.getMetadata().getCreators().size();
-    } else if (this.getYearbookMetadata() != null) {
-      creatorsNo = this.getYearbookMetadata().getCreators().size();
-    }
+    } 
 
     String creators;
     if (creatorsNo <= creatorsMax) {
@@ -643,7 +624,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return pid (String) the object PID without leading "hdl:"
    */
   public String getObjectPidWithoutPrefix() {
-    final String pid = this.getPid();
+    final String pid = this.getVersionPid();
     if (pid != null && pid.startsWith("hdl:")) {
       return pid.substring(4);
     } else {
@@ -812,10 +793,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
   public String getFullTitle() {
     if (this.getMetadata() != null && this.getMetadata().getTitle() != null) {
       return this.getMetadata().getTitle();
-    }
-
-    if (this.getYearbookMetadata() != null) {
-      return this.getYearbookMetadata().getTitle();
     }
 
     return "#### NO TITLE!!! ####";
@@ -1021,7 +998,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public String getLink() throws Exception {
-    if (this.getVersion() != null && this.getObjectId() != null) {
+    if (this != null && this.getObjectId() != null) {
       return CommonUtils.getGenericItemLink(this.getObjectId(), this.getVersionNumber());
     }
 
@@ -1041,9 +1018,9 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   public void writeBackLocalTags() {
-    this.getLocalTags().clear();
+    this.getObject().getLocalTags().clear();
     for (final WrappedLocalTag wrappedLocalTag : this.getWrappedLocalTags()) {
-      this.getLocalTags().add(wrappedLocalTag.getValue());
+      this.getObject().getLocalTags().add(wrappedLocalTag.getValue());
     }
   }
 
@@ -1316,7 +1293,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     final List<FileBean> fulltexts = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getFile().getContentCategory())) {
+        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1337,10 +1314,10 @@ public class PubItemVOPresentation extends ItemVersionVO {
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getFile().getContentCategory()))) {
+            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getContentCategory()))) {
           fulltexts.add(file);
         }
       }
@@ -1358,7 +1335,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     final List<FileBean> supplementaryMaterial = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getFile().getContentCategory())) {
+        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getContentCategory())) {
           supplementaryMaterial.add(file);
         }
       }
@@ -1379,7 +1356,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getFile().getContentCategory())) {
+            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1453,13 +1430,13 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return this.descriptionMetaTag;
   }
 
-  public int getNumberOfRelations() {
-    if (this.getRelations() != null) {
-      return this.getRelations().size();
-    }
-
-    return 0;
-  }
+//  public int getNumberOfRelations() {
+//    if (this.getRelations() != null) {
+//      return this.getRelations().size();
+//    }
+//
+//    return 0;
+//  }
 
   public void setValidationReport(ValidationReportVO validationReport) {
     this.validationReport = validationReport;
