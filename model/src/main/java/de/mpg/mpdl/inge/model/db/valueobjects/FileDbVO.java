@@ -45,6 +45,7 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 
 /**
@@ -169,6 +170,8 @@ public class FileDbVO extends FileDbRO implements Serializable {
    * @author Thomas Diebaecker
    */
   public FileDbVO() {}
+  
+ 
 
   /**
    * Copy constructor.
@@ -176,14 +179,9 @@ public class FileDbVO extends FileDbRO implements Serializable {
    * @author Thomas Diebaecker
    * @param other The instance to copy.
    */
-  /*
-   * public FileVO(FileVO other) { content = other.content; contentCategory = other.contentCategory;
-   * creationDate = other.creationDate; description = other.description; lastModificationDate =
-   * other.lastModificationDate; mimeType = other.mimeType; name = other.name; pid = other.pid;
-   * //reference = other.reference; // size = other.size; visibility = other.visibility; storage =
-   * other.storage; metadataSets = other.metadataSets; checksum = other.checksum; checksumAlgorithm
-   * = other.checksumAlgorithm; }
-   */
+  public FileDbVO(FileDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+  }
 
 
 

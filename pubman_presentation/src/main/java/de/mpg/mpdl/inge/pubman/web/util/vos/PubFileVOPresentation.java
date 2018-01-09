@@ -39,6 +39,7 @@ import javax.faces.event.ValueChangeEvent;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmission;
@@ -205,8 +206,8 @@ public class PubFileVOPresentation extends FacesBean {
   public String getContentCategory() {
 
 
-    if (this.file.getContentCategory() != null) {
-      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getContentCategory().toLowerCase().replace("_", "-"));
+    if (this.file.getMetadata().getContentCategory() != null) {
+      return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
       /*
        * @SuppressWarnings({"unchecked", "rawtypes"}) final Map<String, String> propertiesMap = new
        * HashMap<String, String>((Map) PubFileVOPresentation.properties); for (final
@@ -226,7 +227,7 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The content category of the file.
    */
   public String getContentCategoryAsXmlString() {
-    return this.file.getContentCategory();
+    return this.file.getMetadata().getContentCategory();
   }
 
   /**
@@ -236,7 +237,6 @@ public class PubFileVOPresentation extends FacesBean {
    */
   public void setContentCategoryAsXmlString(String category) {
     this.file.getMetadata().setContentCategory(category);
-    this.file.setContentCategory(category);
   }
 
   /**
@@ -264,7 +264,7 @@ public class PubFileVOPresentation extends FacesBean {
     if (this.file.getMetadata() != null) {
       this.file.getMetadata().setDescription(description);
     } else {
-      this.file.getMetadataSets().add(new MdsFileVO());
+      this.file.setMetadata(new MdsFileVO());
       this.file.getMetadata().setDescription(description);
     }
   }
@@ -289,7 +289,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public void setMimeType(String mimeType) {
     if (this.file.getMetadata() == null) {
-      this.file.getMetadataSets().add(new MdsFileVO());
+      this.file.setMetadata(new MdsFileVO());
     }
 
     // set in properties
@@ -352,7 +352,7 @@ public class PubFileVOPresentation extends FacesBean {
     // ensure that at least one file component is visible
     if (editItemSessionBean.getFiles().size() == 0) {
       final FileDbVO newFile = new FileDbVO();
-      newFile.getMetadataSets().add(new MdsFileVO());
+      newFile.setMetadata(new MdsFileVO());
       newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, newFile, false));
     }
@@ -368,7 +368,7 @@ public class PubFileVOPresentation extends FacesBean {
     // ensure that at least one locator component is visible
     if (editItemSessionBean.getLocators().size() == 0) {
       final FileDbVO newLocator = new FileDbVO();
-      newLocator.getMetadataSets().add(new MdsFileVO());
+      newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, newLocator, true));
     }
@@ -395,7 +395,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
-    final String fileID = this.file.getReference().getObjectId();
+    final String fileID = this.file.getObjectId();
 
     final String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
         SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, this.getLoginHelper().getAccountUser());
@@ -403,7 +403,7 @@ public class PubFileVOPresentation extends FacesBean {
   }
 
   public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
-    final String fileID = this.file.getReference().getObjectId();
+    final String fileID = this.file.getObjectId();
     final String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
         SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, this.getLoginHelper().getAccountUser());
     return result;

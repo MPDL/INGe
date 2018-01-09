@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -71,7 +72,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   public AffiliationVOPresentation(AffiliationDbVO affiliation) {
     super(affiliation);
     this.namePath = this.getDetails().getName();
-    this.idPath = this.getReference().getObjectId();
+    this.idPath = this.getObjectId();
     this.predecessors = this.getAffiliationVOfromRO(this.getPredecessorAffiliations());
     this.hasChildren = affiliation.getHasChildren();
   }
@@ -79,14 +80,14 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   public List<AffiliationVOPresentation> getChildren() throws Exception {
     if (this.children == null && this.isHasChildren()) {
       List<AffiliationDbVO> childOus =
-          (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getReference().getObjectId());
+          (ApplicationBean.INSTANCE.getOrganizationService()).searchChildOrganizations(this.getObjectId());
 
       this.children = CommonUtils.convertToAffiliationVOPresentationList(childOus);
 
       for (final AffiliationVOPresentation affiliationVOPresentation : this.children) {
         affiliationVOPresentation.setParent(this);
         affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName() + ", " + this.getNamePath());
-        affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() + " " + this.getIdPath());
+        affiliationVOPresentation.setIdPath(affiliationVOPresentation.getObjectId() + " " + this.getIdPath());
       }
     }
 
@@ -94,8 +95,8 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public MdsOrganizationalUnitDetailsVO getDetails() {
-    if (this.getMetadataSets().size() > 0 && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      return (MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0);
+    if (this.getMetadata() !=null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+      return (MdsOrganizationalUnitDetailsVO) this.getMetadata();
     } else {
       return new MdsOrganizationalUnitDetailsVO();
     }
@@ -105,7 +106,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     try {
       final String rootAffiliationMPG = PropertyReader.getProperty("inge.pubman.root.organisation.id");
 
-      return this.getReference().getObjectId().equals(rootAffiliationMPG);
+      return this.getObjectId().equals(rootAffiliationMPG);
     } catch (final Exception e) {
       AffiliationVOPresentation.logger.error("Error reading Properties", e);
       return false;
@@ -184,13 +185,13 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public String getSortOrder() {
-    if ("closed".equals(this.getObject().getPublicState())) {
+    if ("closed".equals(this.getPublicStatus())) {
       return "3" + this.getName().toLowerCase();
-    } else if (this.getMps() && "opened".equals(this.getObject().getPublicState())) {
+    } else if (this.getMps() && "opened".equals(this.getPublicStatus())) {
       return "0" + this.getName().toLowerCase();
-    } else if ("opened".equals(this.getObject().getPublicState())) {
+    } else if ("opened".equals(this.getPublicStatus())) {
       return "1" + this.getName().toLowerCase();
-    } else if ("created".equals(this.getObject().getPublicState())) {
+    } else if ("created".equals(this.getPublicStatus())) {
       return "2" + this.getName().toLowerCase();
     } else {
       return "9" + this.getName().toLowerCase();
@@ -198,8 +199,8 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public String getName() {
-    if (this.getMetadataSets().size() > 0 && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();
+    if (this.getMetadata() != null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+      return ((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName();
     }
 
     return null;
@@ -214,15 +215,15 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
       level++;
     }
 
-    if (this.getMetadataSets().size() > 0 && this.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO) {
-      if (((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName()
+    if (this.getMetadata()!=null && this.getMetadata() instanceof MdsOrganizationalUnitDetailsVO) {
+      if (((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName()
           .length() > (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH
               - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH))) {
-        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName().substring(0,
+        return ((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName().substring(0,
             (AffiliationVOPresentation.SHORTENED_NAME_STANDARD_LENGTH - (level * AffiliationVOPresentation.SHORTENED_LEVEL_LENGTH)))
             + "...";
       } else {
-        return ((MdsOrganizationalUnitDetailsVO) this.getMetadataSets().get(0)).getName();
+        return ((MdsOrganizationalUnitDetailsVO) this.getMetadata()).getName();
       }
     }
 
@@ -243,7 +244,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public boolean getIsClosed() {
-    return this.getObject().getPublicState().equals("closed");
+    return this.getPublicStatus().equals("closed");
   }
 
   @Override
@@ -251,7 +252,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     return this.getSortOrder().compareTo(other.getSortOrder());
   }
 
-  private List<AffiliationDbVO> getAffiliationVOfromRO(List<AffiliationRO> affiliations) {
+  private List<AffiliationDbVO> getAffiliationVOfromRO(List<AffiliationDbRO> affiliations) {
     return this.retrieveAllOrganizationalUnits(affiliations);
   }
 
@@ -261,7 +262,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
    * @throws SecurityException
    * @throws TechnicalException
    */
-  private List<AffiliationDbVO> retrieveAllOrganizationalUnits(List<AffiliationRO> affiliations) {
+  private List<AffiliationDbVO> retrieveAllOrganizationalUnits(List<AffiliationDbRO> affiliations) {
 
     List<AffiliationDbVO> transformedAffs = new ArrayList<AffiliationDbVO>();
 
@@ -270,7 +271,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
     }
     try {
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      for (final AffiliationRO id : affiliations) {
+      for (final AffiliationDbRO id : affiliations) {
         bq.should(QueryBuilders.termQuery(OrganizationServiceDbImpl.INDEX_OBJECT_ID, id.getObjectId()));
       }
 
@@ -328,7 +329,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
         // TODO tendres: This admin login is neccessary because of bug
         // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
         // If the org tree structure is fetched via search, this is obsolete
-        this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.reference.getObjectId());
+        this.successors = ApplicationBean.INSTANCE.getOrganizationService().searchSuccessors(this.getObjectId());
 
       } catch (final Exception e) {
         this.successors = new ArrayList<AffiliationDbVO>();

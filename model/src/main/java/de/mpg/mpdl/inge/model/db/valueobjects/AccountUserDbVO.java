@@ -19,6 +19,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
 @Entity(name = "AccountUserVO")
@@ -48,6 +49,13 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   @Transient
   private String password;
 
+  public AccountUserDbVO() {
+  }
+  
+  public AccountUserDbVO(AccountUserDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+  }
+  
   public boolean isActive() {
     return active;
   }

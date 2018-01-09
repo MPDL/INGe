@@ -48,6 +48,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsOrganizationalUnitVOJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
 /**
@@ -101,6 +102,10 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
    */
   public AffiliationDbVO() {
 
+  }
+  
+  public AffiliationDbVO(AffiliationDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
   }
 
 
