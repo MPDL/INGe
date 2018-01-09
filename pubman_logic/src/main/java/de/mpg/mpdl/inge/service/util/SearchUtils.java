@@ -17,7 +17,7 @@ import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 
 public class SearchUtils {
 
@@ -110,7 +110,7 @@ public class SearchUtils {
     List<E> hitList = new ArrayList<>();
     for (SearchHit hit : sr.getHits().getHits()) {
 
-      E itemVO = JsonObjectMapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
+      E itemVO = MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
       hitList.add(itemVO);
 
     }

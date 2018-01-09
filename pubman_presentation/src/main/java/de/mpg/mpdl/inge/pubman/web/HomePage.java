@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -181,7 +181,7 @@ public class HomePage extends BreadcrumbPage {
 
     SearchResponse resp = pi.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
 
-    List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+    List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
 
     return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
   }

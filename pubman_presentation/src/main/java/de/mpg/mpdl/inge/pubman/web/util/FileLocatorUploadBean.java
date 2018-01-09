@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 /**
  * Class to handle the file upload of locators.
@@ -183,7 +183,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
     return input;
   }
 
-  public Vector<FileVO> getLocators(PubItemVO item) {
+  public Vector<FileVO> getLocators(ItemVersionVO item) {
     final Vector<FileVO> locators = new Vector<FileVO>();
 
     final List<FileVO> files = item.getFiles();

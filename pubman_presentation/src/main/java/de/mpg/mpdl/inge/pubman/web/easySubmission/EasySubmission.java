@@ -76,7 +76,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -727,7 +727,7 @@ public class EasySubmission extends FacesBean {
     // Generate item ValueObject
     if (fetchedItem != null && !fetchedItem.trim().equals("")) {
       try {
-        PubItemVO itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
+        ItemVersionVO itemVO = XmlTransformingService.transformToPubItem(fetchedItem);
         itemVO.getFiles().clear();
         itemVO.setContext(this.getItem().getContext());
 
@@ -930,14 +930,14 @@ public class EasySubmission extends FacesBean {
         return null;
       }
 
-      final PubItemVO pubItem = this.getItem();
+      final ItemVersionVO pubItem = this.getItem();
 
       // write creators back to VO
       if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep() == EasySubmissionSessionBean.ES_STEP4) {
         this.getEasySubmissionSessionBean().bindCreatorsToVO(pubItem.getMetadata().getCreators());
       }
 
-      PubItemVO itemVO = new PubItemVO(pubItem);
+      ItemVersionVO itemVO = new ItemVersionVO(pubItem);
       PubItemUtil.cleanUpItem(itemVO);
 
       // cleanup item according to genre specific MD specification
@@ -1384,7 +1384,7 @@ public class EasySubmission extends FacesBean {
   }
 
   public void setSourceIdentifier(String id) {
-    final PubItemVO pubItem = this.getItem();
+    final ItemVersionVO pubItem = this.getItem();
     pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setId(id);
     if (!id.trim().equals("")) {
       pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER);

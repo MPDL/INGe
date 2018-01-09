@@ -46,7 +46,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BibtexProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BmcProcessor;
@@ -371,7 +371,7 @@ public class ImportProcess extends Thread {
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
 
-              final PubItemVO savedPubItem =
+              final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);
 
               final String objid = savedPubItem.getVersion().getObjectId();
@@ -419,7 +419,7 @@ public class ImportProcess extends Thread {
 
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
-      final PubItemVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
+      final ItemVersionVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
       pubItemVO.setContext(this.escidocContext);
       pubItemVO.setContentModel(this.publicationContentModel);
       pubItemVO.getVersion().setObjectId(null);
@@ -480,7 +480,7 @@ public class ImportProcess extends Thread {
     }
   }
 
-  private boolean checkDuplicatesByIdentifier(PubItemVO itemVO) {
+  private boolean checkDuplicatesByIdentifier(ItemVersionVO itemVO) {
     try {
       if (itemVO.getMetadata().getIdentifiers().size() > 0) {
 
@@ -501,7 +501,7 @@ public class ImportProcess extends Thread {
 
         QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-        SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
+        SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
 
 
 
@@ -515,7 +515,7 @@ public class ImportProcess extends Thread {
 
           for (final ItemVO duplicate : resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())) {
             if (this.itemContentModel.equals(duplicate.getContentModel())) {
-              final PubItemVO duplicatePubItemVO = new PubItemVO(duplicate);
+              final ItemVersionVO duplicatePubItemVO = new ItemVersionVO(duplicate);
               if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, "import_process_duplicate_detected", this.connection);
                 this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,

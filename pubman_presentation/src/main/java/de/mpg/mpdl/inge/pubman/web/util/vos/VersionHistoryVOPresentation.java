@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
@@ -55,8 +55,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
 
     // Get the two versions
-    final PubItemVO pubItemVOLatestVersion = pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
-    final PubItemVO pubItemVOThisVersion =
+    final ItemVersionVO pubItemVOLatestVersion = pubItemService.get(this.getReference().getObjectId(), loginHelper.getAuthenticationToken());
+    final ItemVersionVO pubItemVOThisVersion =
         pubItemService.get(this.getReference().getObjectIdAndVersion(), loginHelper.getAuthenticationToken());
 
     // Now copy the old stuff into the current item
@@ -75,7 +75,7 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     // Then process it into the framework ...
     // TODO: An neuen Workflow anpassen (z.B. hat Owner im Standard-Workflow keine Berechtigung von
     // PENDING nach RELEASED)
-    PubItemVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
+    ItemVersionVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
     if (ItemVO.State.RELEASED.equals(pubItemVOLatestVersion.getVersion().getState())
         && !ItemVO.State.RELEASED.equals(pubItemVONewVersion.getVersion().getState())) {

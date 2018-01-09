@@ -13,7 +13,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -137,13 +137,13 @@ public class YearbookArchiveRetrieverRequestBean
       QueryBuilder qb = YearbookUtils.getMemberQuery(yearbookItemSessionBean.getYearbookForView());
 
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, limit, offset, null);
-      SearchRetrieveResponseVO<PubItemVO> resp =
+      SearchRetrieveResponseVO<ItemVersionVO> resp =
           ApplicationBean.INSTANCE.getPubItemService().search(srr, getLoginHelper().getAuthenticationToken());
 
 
       this.numberOfRecords = resp.getNumberOfRecords();
 
-      List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+      List<ItemVersionVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
       return CommonUtils.convertToPubItemVOPresentationList(resultList);
 

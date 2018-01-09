@@ -61,7 +61,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
@@ -357,11 +357,11 @@ public class CommonUtils {
    * @param list the list of PubItemVOPresentations
    * @return the list of PubItemVOs
    */
-  public static ArrayList<PubItemVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
-    final ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+  public static ArrayList<ItemVersionVO> convertToPubItemVOList(List<PubItemVOPresentation> list) {
+    final ArrayList<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
 
     for (int i = 0; i < list.size(); i++) {
-      pubItemList.add(new PubItemVO(list.get(i)));
+      pubItemList.add(new ItemVersionVO(list.get(i)));
     }
 
     return pubItemList;
@@ -373,7 +373,7 @@ public class CommonUtils {
    * @param list the list of PubItemVOs
    * @return the list of PubItemVOPresentations
    */
-  public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<? extends PubItemVO> list) {
+  public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<? extends ItemVersionVO> list) {
     final List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
     for (int i = 0; i < list.size(); i++) {

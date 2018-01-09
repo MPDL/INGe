@@ -19,13 +19,13 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.referenceobjects.FileRO;
 import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.types.Coordinates;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
@@ -71,7 +71,7 @@ public class TestBase {
   private static final Date DATE = new Date();
 
 
-  ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+  ObjectMapper mapper = MapperFactory.getObjectMapper();
 
   public AffiliationDbVO test_ou() {
     AffiliationDbVO vo = new AffiliationDbVO();

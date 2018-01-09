@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -95,7 +95,7 @@ public class SubmitItem extends FacesBean {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
-  public PubItemVO getPubItem() {
+  public ItemVersionVO getPubItem() {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 

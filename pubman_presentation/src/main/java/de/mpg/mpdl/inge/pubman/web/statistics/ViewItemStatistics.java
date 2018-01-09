@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -65,7 +65,7 @@ public class ViewItemStatistics extends FacesBean {
   private List<PubFileVOPresentation> fileList;
 
   /** The current pub item */
-  private PubItemVO pubItem;
+  private ItemVersionVO pubItem;
 
   public ViewItemStatistics() {
     this.init();
@@ -120,11 +120,11 @@ public class ViewItemStatistics extends FacesBean {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
-  public PubItemVO getPubItem() {
+  public ItemVersionVO getPubItem() {
     return this.pubItem;
   }
 
-  public void setPubItem(PubItemVO pubItem) {
+  public void setPubItem(ItemVersionVO pubItem) {
     this.pubItem = pubItem;
   }
 

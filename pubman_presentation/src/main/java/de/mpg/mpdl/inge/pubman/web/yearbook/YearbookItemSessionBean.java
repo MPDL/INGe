@@ -23,7 +23,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -134,13 +134,13 @@ public class YearbookItemSessionBean extends FacesBean {
      * " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
      * filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS}); final String
      * xmlItemList = this.itemHandler.retrieveItems(filterParams); final
-     * SearchRetrieveResponseVO<PubItemVO> result =
+     * SearchRetrieveResponseVO<ItemVersionVO> result =
      * XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList); set current yearbook
-     * if already existent if (result.getNumberOfRecords() > 0) { PubItemVO yearbookPubItem = null;
+     * if already existent if (result.getNumberOfRecords() > 0) { ItemVersionVO yearbookPubItem = null;
      * final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy"); final Calendar calendar
      * = Calendar.getInstance(); final String year = calendarFormat.format(calendar.getTime()); for
-     * (final SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
-     * yearbookPubItem = (PubItemVO) yearbookRecord.getData(); if (yearbookPubItem != null &&
+     * (final SearchRetrieveRecordVO<ItemVersionVO> yearbookRecord : result.getRecords()) {
+     * yearbookPubItem = (ItemVersionVO) yearbookRecord.getData(); if (yearbookPubItem != null &&
      * yearbookPubItem.getYearbookMetadata() != null) { if
      * (yearbookPubItem.getYearbookMetadata().getYear() != null &&
      * (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
@@ -272,7 +272,7 @@ public class YearbookItemSessionBean extends FacesBean {
     BoolQueryBuilder qb = YearbookUtils.getCandidateQuery();
     qb.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id));
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 0, 0, null);
-    SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+    SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
     return resp.getNumberOfRecords() > 0;
   }
 
@@ -293,7 +293,7 @@ public class YearbookItemSessionBean extends FacesBean {
     return YearbookUtils.retrieveAllMembers(yearbook, getLoginHelper().getAuthenticationToken());
   }
 
-  public boolean validateItem(PubItemVO pubItem) throws Exception {
+  public boolean validateItem(ItemVersionVO pubItem) throws Exception {
     YearbookInvalidItemRO storedItem = null;
     for (final CreatorVO creator : pubItem.getMetadata().getCreators()) {
       if (creator.getOrganization() != null && creator.getOrganization().getIdentifier() != null) {
@@ -320,7 +320,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
       try {
         List<String> childsOfMPG = this.organizationService.getAllChildrenOfMpg();
-        this.itemValidatingService.validateYearbook(new PubItemVO(pubItem), childsOfMPG);
+        this.itemValidatingService.validateYearbook(new ItemVersionVO(pubItem), childsOfMPG);
       } catch (final ValidationException e) {
         rep = e.getReport();
       }

@@ -205,12 +205,12 @@ public class YearbookModeratorRetrieverRequestBean
      * ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
      * .retrieveItems(filter.toMap());
      * 
-     * final SearchRetrieveResponseVO<PubItemVO> result =
+     * final SearchRetrieveResponseVO<ItemVersionVO> result =
      * XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
      * 
-     * final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>(); for (final
-     * SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
-     * pubItemList.add((PubItemVO) yearbookRecord.getData()); }
+     * final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>(); for (final
+     * SearchRetrieveRecordVO<ItemVersionVO> yearbookRecord : result.getRecords()) {
+     * pubItemList.add((ItemVersionVO) yearbookRecord.getData()); }
      * 
      * this.numberOfRecords = result.getNumberOfRecords(); returnList =
      * CommonUtils.convertToPubItemVOPresentationList(pubItemList); } catch (final Exception e) {

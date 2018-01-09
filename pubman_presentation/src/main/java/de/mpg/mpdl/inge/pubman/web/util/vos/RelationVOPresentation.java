@@ -1,18 +1,18 @@
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import de.mpg.mpdl.inge.model.valueobjects.RelationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 @SuppressWarnings("serial")
 public class RelationVOPresentation extends RelationVO {
-  private PubItemVO sourceItem;
-  private PubItemVO targetItem;
+  private ItemVersionVO sourceItem;
+  private ItemVersionVO targetItem;
 
-  public PubItemVO getTargetItem() {
+  public ItemVersionVO getTargetItem() {
     return this.targetItem;
   }
 
-  public void setTargetItem(PubItemVO targetItem) {
+  public void setTargetItem(ItemVersionVO targetItem) {
     this.targetItem = targetItem;
   }
 
@@ -20,11 +20,11 @@ public class RelationVOPresentation extends RelationVO {
     super(relation);
   }
 
-  public PubItemVO getSourceItem() {
+  public ItemVersionVO getSourceItem() {
     return this.sourceItem;
   }
 
-  public void setSourceItem(PubItemVO item) {
+  public void setSourceItem(ItemVersionVO item) {
     this.sourceItem = item;
   }
 }

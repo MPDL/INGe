@@ -63,7 +63,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -668,7 +668,7 @@ public class ViewItemFull extends FacesBean {
 
   private boolean validate() {
     try {
-      PubItemVO itemVO = new PubItemVO(this.getPubItem());
+      ItemVersionVO itemVO = new ItemVersionVO(this.getPubItem());
       // PubItemUtil.cleanUpItem(itemVO);
       ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, ValidationPoint.STANDARD);
     } catch (final ValidationException e) {
@@ -1132,7 +1132,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String getDates() {
-    final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
     pubItemList.add(this.getPubItem());
     final List<PubItemVOPresentation> pubItemPresentationList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     final PubItemVOPresentation pubItemPresentation = pubItemPresentationList.get(0);
@@ -1340,7 +1340,7 @@ public class ViewItemFull extends FacesBean {
     return ReleaseHistory.LOAD_RELEASE_HISTORY;
   }
 
-  public PubItemVO getPubItem() {
+  public ItemVersionVO getPubItem() {
     return this.pubItem;
   }
 
@@ -1687,7 +1687,7 @@ public class ViewItemFull extends FacesBean {
    * @author: StG
    */
   public String exportEmail() {
-    final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
     pubItemList.add(this.getPubItem());
     final ExportFormatVO curExportFormat = this.getExportItemsSessionBean().getCurExportFormatVO();
     byte[] exportFileData;
@@ -1738,7 +1738,7 @@ public class ViewItemFull extends FacesBean {
    * @author: StG
    */
   public String exportDownload() {
-    final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
     pubItemList.add(this.getPubItem());
     // export format and file format.
     final ExportFormatVO curExportFormat = this.getExportItemsSessionBean().getCurExportFormatVO();
@@ -1874,8 +1874,8 @@ public class ViewItemFull extends FacesBean {
 
   public String getCitationHtml() {
     try {
-      final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-      pubItemList.add(new PubItemVO(this.getPubItem()));
+      final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
+      pubItemList.add(new ItemVersionVO(this.getPubItem()));
 
       final ExportFormatVO expFormat = new ExportFormatVO();
       expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
@@ -2103,7 +2103,7 @@ public class ViewItemFull extends FacesBean {
 
   public String getHtmlMetaTags() {
     try {
-      final String itemXml = XmlTransformingService.transformToItem(new PubItemVO(this.pubItem));
+      final String itemXml = XmlTransformingService.transformToItem(new ItemVersionVO(this.pubItem));
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
       final String resHighwire = itemTransformingService.transformFromTo(TransformerFactory.getInternalFormat(),

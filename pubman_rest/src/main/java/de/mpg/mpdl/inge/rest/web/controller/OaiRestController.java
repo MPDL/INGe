@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -69,7 +69,7 @@ public class OaiRestController {
         .get();
     // Scroll until no hits are returned
 
-    ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+    ObjectMapper mapper = MapperFactory.getObjectMapper();
 
     do {
       for (SearchHit hit : scrollResp.getHits().getHits()) {

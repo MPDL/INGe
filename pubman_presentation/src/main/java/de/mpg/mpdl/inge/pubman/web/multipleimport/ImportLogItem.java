@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class ImportLogItem extends BaseImportLog {
@@ -39,7 +39,7 @@ public class ImportLogItem extends BaseImportLog {
 
   private List<ImportLogItemDetail> importLogItemDetails = new ArrayList<ImportLogItemDetail>();
   private String itemId;
-  private PubItemVO itemVO;
+  private ItemVersionVO itemVO;
   private ImportLog parent;
 
   public ImportLogItem(ImportLog parent) {
@@ -62,7 +62,7 @@ public class ImportLogItem extends BaseImportLog {
     return this.importLogItemDetails;
   }
 
-  public PubItemVO getItemVO() {
+  public ItemVersionVO getItemVO() {
     return this.itemVO;
   }
 
@@ -99,7 +99,7 @@ public class ImportLogItem extends BaseImportLog {
     this.importLogItemDetails = items;
   }
 
-  public void setItemVO(PubItemVO itemVO) {
+  public void setItemVO(ItemVersionVO itemVO) {
     this.itemVO = itemVO;
   }
 

@@ -34,7 +34,7 @@ import java.util.Base64;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 
 /**
@@ -116,13 +116,13 @@ public class EscidocProcessor extends FormatProcessor {
 
         this.originalData = byteArrayOutputStream.toByteArray();
 
-        List<PubItemVO> itemList;
+        List<ItemVersionVO> itemList;
         final String source = new String(this.originalData, "UTF-8");
         if (source.contains("item-list")) {
           itemList = XmlTransformingService.transformToPubItemList(source);
         } else {
-          itemList = new ArrayList<PubItemVO>();
-          final PubItemVO itemVO = XmlTransformingService.transformToPubItem(source);
+          itemList = new ArrayList<ItemVersionVO>();
+          final ItemVersionVO itemVO = XmlTransformingService.transformToPubItem(source);
           itemList.add(itemVO);
         }
         this.items = new ArrayList<String>();

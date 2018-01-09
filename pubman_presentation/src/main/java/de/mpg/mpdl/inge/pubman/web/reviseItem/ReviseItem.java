@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.qaws.MyTasksRetrieverRequestBean;
@@ -59,7 +59,7 @@ public class ReviseItem extends FacesBean {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
-  public PubItemVO getPubItem() {
+  public ItemVersionVO getPubItem() {
     return this.getItemControllerSessionBean().getCurrentPubItem();
   }
 

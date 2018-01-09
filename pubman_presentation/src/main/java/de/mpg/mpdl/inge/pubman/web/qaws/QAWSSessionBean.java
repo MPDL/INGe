@@ -33,7 +33,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -58,7 +58,7 @@ public class QAWSSessionBean extends FacesBean {
 
   private String selectedItemState = "SUBMITTED";
 
-  private List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+  private List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
 
   /**
    * The currently selected context filter.
@@ -78,11 +78,11 @@ public class QAWSSessionBean extends FacesBean {
 
   public QAWSSessionBean() {}
 
-  public List<PubItemVO> getPubItemList() {
+  public List<ItemVersionVO> getPubItemList() {
     return this.pubItemList;
   }
 
-  public void setPubItemList(List<PubItemVO> pubItemList) {
+  public void setPubItemList(List<ItemVersionVO> pubItemList) {
     this.pubItemList = pubItemList;
   }
 

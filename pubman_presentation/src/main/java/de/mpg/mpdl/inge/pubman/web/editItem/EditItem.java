@@ -70,7 +70,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -227,7 +227,7 @@ public class EditItem extends FacesBean {
    */
   private void initializeItem() throws Exception {
     // get the item that is currently edited
-    final PubItemVO pubItem = this.getPubItem();
+    final ItemVersionVO pubItem = this.getPubItem();
     if (pubItem != null) {
       // set the default genre to article
       if (pubItem.getMetadata().getGenre() == null) {
@@ -470,7 +470,7 @@ public class EditItem extends FacesBean {
     }
 
     try {
-      PubItemVO itemVO = new PubItemVO(this.getPubItem()); // Validierung arbeitet mit Kopie
+      ItemVersionVO itemVO = new ItemVersionVO(this.getPubItem()); // Validierung arbeitet mit Kopie
       PubItemUtil.cleanUpItem(itemVO);
       cleanUp(itemVO);
       ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, ValidationPoint.STANDARD);
@@ -521,19 +521,19 @@ public class EditItem extends FacesBean {
     return this.getPubItem() != null && this.restoreVO();
   }
 
-  private void cleanUp(PubItemVO pubItem) {
+  private void cleanUp(ItemVersionVO pubItem) {
     // cleanup item according to genre specific MD specification
     final GenreSpecificItemManager itemManager = new GenreSpecificItemManager(pubItem, GenreSpecificItemManager.SUBMISSION_METHOD_FULL);
     try {
-      pubItem = (PubItemVO) itemManager.cleanupItem();
+      pubItem = (ItemVersionVO) itemManager.cleanupItem();
     } catch (final Exception e) {
       throw new RuntimeException("Error while cleaning up item genre specificly", e);
     }
   }
 
   private String checkItemChanged(String navigateTo) {
-    final PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    PubItemVO oldPubItem = null;
+    final ItemVersionVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+    ItemVersionVO oldPubItem = null;
     if (newPubItem.getVersion().getObjectId() != null) {
       try {
         oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
@@ -1190,7 +1190,7 @@ public class EditItem extends FacesBean {
   }
 
   /**
-   * Adds a new local tag to the PubItemVO and a new wrapped local tag to PubItemVOPresentation.
+   * Adds a new local tag to the ItemVersionVO and a new wrapped local tag to PubItemVOPresentation.
    * 
    * @return Returns always null.
    */

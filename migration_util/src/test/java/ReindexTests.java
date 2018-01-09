@@ -31,8 +31,8 @@ import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
@@ -258,7 +258,7 @@ public class ReindexTests {
     AccountUserVO userAccount = userAccountService.get("user_104231", token);
 
     StringWriter sw = new StringWriter();
-    JsonObjectMapperFactory.getObjectMapper().writerFor(AccountUserVO.class).writeValue(sw, userAccount);
+    MapperFactory.getObjectMapper().writerFor(AccountUserVO.class).writeValue(sw, userAccount);
     System.out.println(sw.toString());
 
 
@@ -362,7 +362,7 @@ public class ReindexTests {
         .get();
     // Scroll until no hits are returned
 
-    ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+    ObjectMapper mapper = MapperFactory.getObjectMapper();
 
     do {
       for (SearchHit hit : scrollResp.getHits().getHits()) {

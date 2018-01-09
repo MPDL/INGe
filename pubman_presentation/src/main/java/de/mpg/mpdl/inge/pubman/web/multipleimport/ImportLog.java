@@ -41,7 +41,7 @@ import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -683,7 +683,7 @@ public class ImportLog extends BaseImportLog {
   /**
    * @param itemVO Assigns a value object to the focused item.
    */
-  public void setItemVO(PubItemVO itemVO) {
+  public void setItemVO(ItemVersionVO itemVO) {
     this.currentImportLogItem.setItemVO(itemVO);
   }
 

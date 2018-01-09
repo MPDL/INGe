@@ -30,14 +30,14 @@ import java.util.List;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 /**
  * @author endres
  * 
  */
 @SuppressWarnings("serial")
-public class PubItemResultVO extends PubItemVO {
+public class PubItemResultVO extends ItemVersionVO {
   /**
    * List of hits. Every hit in files contains the file reference and the text fragments of the
    * search hit.

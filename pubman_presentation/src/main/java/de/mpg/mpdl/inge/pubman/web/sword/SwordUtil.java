@@ -72,7 +72,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -294,10 +294,10 @@ public class SwordUtil extends FacesBean {
    * @throws NamingException
    * @throws SWORDContentTypeException
    */
-  public PubItemVO readZipFile(InputStream in, AccountUserVO user) throws SWORDContentTypeException {
+  public ItemVersionVO readZipFile(InputStream in, AccountUserVO user) throws SWORDContentTypeException {
     String item = null;
     final List<FileVO> attachements = new ArrayList<FileVO>();
-    PubItemVO pubItem = null;
+    ItemVersionVO pubItem = null;
     final int bufLength = 1024;
     final char[] buffer = new char[bufLength];
     int readReturn;
@@ -408,8 +408,8 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws SWORDContentTypeException
    */
-  private PubItemVO createItem(String item, AccountUserVO user) throws ValidationException, Exception {
-    PubItemVO itemVO = null;
+  private ItemVersionVO createItem(String item, AccountUserVO user) throws ValidationException, Exception {
+    ItemVersionVO itemVO = null;
 
     if (item == null) {
       throw new IngeTechnicalException();
@@ -488,10 +488,10 @@ public class SwordUtil extends FacesBean {
    * @throws PubManException
    * @throws DepositingException
    */
-  public PubItemVO doDeposit(PubItemVO item) throws AuthenticationException, IngeTechnicalException,
+  public ItemVersionVO doDeposit(ItemVersionVO item) throws AuthenticationException, IngeTechnicalException,
       de.mpg.mpdl.inge.service.exceptions.AuthorizationException, IngeApplicationException {
 
-    PubItemVO depositedItem = null;
+    ItemVersionVO depositedItem = null;
     final String method = this.getMethod(item);
 
     if (method == null) {
@@ -533,7 +533,7 @@ public class SwordUtil extends FacesBean {
   // return null;
   // }
 
-  private String getMethod(PubItemVO item) {
+  private String getMethod(ItemVersionVO item) {
     boolean isWorkflowStandard = false;
     boolean isWorkflowSimple = true;
 
@@ -697,7 +697,7 @@ public class SwordUtil extends FacesBean {
     return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
-  public SWORDEntry createResponseAtom(PubItemVO item, Deposit deposit) {
+  public SWORDEntry createResponseAtom(ItemVersionVO item, Deposit deposit) {
     final SWORDEntry se = new SWORDEntry();
     final PubManSwordServer server = new PubManSwordServer();
 

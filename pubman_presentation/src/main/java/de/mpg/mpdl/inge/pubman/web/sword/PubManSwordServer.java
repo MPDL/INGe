@@ -61,7 +61,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -121,7 +121,7 @@ public class PubManSwordServer {
       de.mpg.mpdl.inge.service.exceptions.AuthorizationException, ValidationException, ValidationServiceException {
 
     final SwordUtil util = new SwordUtil();
-    PubItemVO depositItem = null;
+    ItemVersionVO depositItem = null;
     DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
 
     this.setVerbose("Start depositing process ... ");

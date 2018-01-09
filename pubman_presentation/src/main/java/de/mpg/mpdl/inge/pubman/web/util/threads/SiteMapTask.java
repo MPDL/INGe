@@ -281,7 +281,7 @@ public class SiteMapTask {
 
         for (final SearchHit result : resp.getHits().getHits()) {
 
-          // final PubItemVO pubItemVO = new PubItemVO(result.getData());
+          // final ItemVersionVO pubItemVO = new ItemVersionVO(result.getData());
           try {
             this.fileWriter.write("\t<url>\n\t\t<loc>");
             this.fileWriter.write(this.instanceUrl);

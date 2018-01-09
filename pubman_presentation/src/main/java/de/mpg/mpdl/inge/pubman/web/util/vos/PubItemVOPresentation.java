@@ -46,7 +46,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -65,7 +65,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubItemVOPresentation extends PubItemVO {
+public class PubItemVOPresentation extends ItemVersionVO {
   private final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
 
   private boolean selected = false;
@@ -146,7 +146,7 @@ public class PubItemVOPresentation extends PubItemVO {
 
   private float score;
 
-  public PubItemVOPresentation(PubItemVO item) {
+  public PubItemVOPresentation(ItemVersionVO item) {
     super(item);
 
     if (item instanceof PubItemResultVO) {

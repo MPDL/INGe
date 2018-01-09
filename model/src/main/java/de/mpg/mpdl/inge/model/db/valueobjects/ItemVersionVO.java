@@ -53,6 +53,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsPublicationVOJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 
@@ -125,6 +126,12 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
    * @author Thomas Diebaecker
    */
   public ItemVersionVO() {}
+  
+  
+  public ItemVersionVO(ItemVersionVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+    
+  }
 
   /**
    * {@inheritDoc}
