@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -52,10 +52,10 @@ public class LoginRestController {
   }
 
   @RequestMapping(path = "/who", method = GET, produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountUserVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
+  public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    AccountUserVO user = userSvc.get(token);
-    return new ResponseEntity<AccountUserVO>(user, HttpStatus.OK);
+    AccountUserDbVO user = userSvc.get(token);
+    return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
   }
 
 }

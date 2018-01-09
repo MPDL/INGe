@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatType;
 import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsDocument;
 import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsType;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -24,6 +25,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
@@ -110,12 +112,12 @@ public class UnapiRestController {
 
       // public byte[] unapi(String identifier, String format)
     } else if (identifier != null && show == null && formatName != null) {
-      PubItemVO pubItemVO = this.pis.get(identifier, null);
+      ItemVersionVO pubItemVO = this.pis.get(identifier, null);
 
       TransformerFactory.FORMAT targetFormat = TransformerFactory.getFormat(formatName);
 
       try {
-        srResponse = this.its.transformPubItemTo(targetFormat, pubItemVO);
+        srResponse = this.its.transformPubItemTo(targetFormat, EntityTransformer.transformToOld(pubItemVO));
       } catch (TransformationException e) {
         throw new IngeApplicationException(e);
       }
