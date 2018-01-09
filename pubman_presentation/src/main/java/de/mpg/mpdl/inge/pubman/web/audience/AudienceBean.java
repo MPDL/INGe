@@ -34,6 +34,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -106,7 +107,7 @@ public class AudienceBean extends FacesBean {
             // ensure that at least one grant is in the list (for presentation)
             if (fileForNewList.getGrantList().size() == 0) {
               final GrantVO newGrant = new GrantVO();
-              newGrant.setObjectRef(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i).getReference().getObjectId());
+              newGrant.setObjectRef(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(i).getObjectId());
               newGrant.setGrantType(GrantVOPresentation.GRANT_TYPE_USER_GROUP);
               // TODO set role for INGe
               // newGrant.setRole(Grant.CoreserviceRole.AUDIENCE.getRoleId());
@@ -236,7 +237,7 @@ public class AudienceBean extends FacesBean {
         if (this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo() != null
             && !this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo().trim().equals("")) {
           final GrantVO newGrant = new GrantVO();
-          newGrant.setObjectRef(this.getAudienceSessionBean().getFileListNew().get(i).getFile().getReference().getObjectId());
+          newGrant.setObjectRef(this.getAudienceSessionBean().getFileListNew().get(i).getFile().getObjectId());
           newGrant.setGrantedTo(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantedTo());
           newGrant.setGrantType(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getGrantType());
           newGrant.setRole(this.getAudienceSessionBean().getGrantsForAllFiles().get(j).getGrant().getRole());

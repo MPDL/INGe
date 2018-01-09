@@ -79,7 +79,7 @@ public class AffiliationBean extends FacesBean {
 
     {
       ((OrganizationVO) this.cache).setName(this.selectedAffiliation.getNamePath());
-      ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getReference().getObjectId());
+      ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getObjectId());
       String address = "";
       if (this.selectedAffiliation.getMetadata().getCity() != null) {
         address += this.selectedAffiliation.getMetadata().getCity();
@@ -233,8 +233,8 @@ public class AffiliationBean extends FacesBean {
 
       List<SearchCriterionBase> scList = new ArrayList<>();
       OrganizationSearchCriterion sc = new OrganizationSearchCriterion();
-      sc.setHiddenId(affiliation.getReference().getObjectId());
-      sc.setSearchString(affiliation.getReference().getTitle());
+      sc.setHiddenId(affiliation.getObjectId());
+      sc.setSearchString(affiliation.getName());
       scList.add(sc);
 
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
@@ -312,8 +312,8 @@ public class AffiliationBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
-      this.affiliationMap.put(aff.getReference().getObjectId(), aff);
+      affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
+      this.affiliationMap.put(aff.getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
       }

@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 
 import java.sql.Connection;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -59,7 +60,6 @@ public class SubmitProcess extends Thread {
       this.importLog.startItem("import_process_submit_items", connection);
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_submit_process", connection);
       this.user = new AccountUserVO();
-      this.user.setHandle(importLog.getUserHandle());
       this.user.setUserid(importLog.getUser());
     } catch (final Exception e) {
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_initialize_submit_process_error", connection);
@@ -94,15 +94,15 @@ public class SubmitProcess extends Thread {
 
           try {
             final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
-            final ItemVO itemVO = pubItemService.get(item.getItemId(), this.authenticationToken);
+            final ItemVersionVO itemVersionVO = pubItemService.get(item.getItemId(), this.authenticationToken);
             if (this.alsoRelease) {
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_item", this.connection);
-              pubItemService.releasePubItem(item.getItemId(), itemVO.getModificationDate(),
+              pubItemService.releasePubItem(item.getItemId(), itemVersionVO.getModificationDate(),
                   "Batch submit/release from import " + this.importLog.getMessage(), this.authenticationToken);
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_successful", this.connection);
             } else {
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item", this.connection);
-              pubItemService.submitPubItem(item.getItemId(), itemVO.getModificationDate(),
+              pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
                   "Batch submit from import " + this.importLog.getMessage(), this.authenticationToken);
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_successful", this.connection);
             }

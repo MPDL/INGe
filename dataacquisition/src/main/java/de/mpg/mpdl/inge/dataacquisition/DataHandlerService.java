@@ -49,8 +49,8 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
@@ -77,7 +77,7 @@ public class DataHandlerService {
   private String fileEnding;
   private String contentCategorie;
   private String visibility;
-  private FileVO componentVO;
+  private FileDbVO componentVO;
   private URL itemUrl;
 
   private DataSourceVO currentSource = null;
@@ -394,35 +394,35 @@ public class DataHandlerService {
   }
 
   public Visibility getVisibility() {
-    if (FileVO.Visibility.PUBLIC.name().equals(this.visibility)) {
-      return FileVO.Visibility.PUBLIC;
+    if (FileDbVO.Visibility.PUBLIC.name().equals(this.visibility)) {
+      return FileDbVO.Visibility.PUBLIC;
     }
 
-    return FileVO.Visibility.PRIVATE;
+    return FileDbVO.Visibility.PRIVATE;
   }
 
   public URL getItemUrl() {
     return this.itemUrl;
   }
 
-  public FileVO getComponentVO() {
+  public FileDbVO getComponentVO() {
     if (this.componentVO != null) {
-      if (this.componentVO.getDefaultMetadata().getRights() == null || this.componentVO.getDefaultMetadata().getRights().equals("")) {
-        this.componentVO.getDefaultMetadata().setRights(this.currentSource.getCopyright());
+      if (this.componentVO.getMetadata().getRights() == null || this.componentVO.getMetadata().getRights().equals("")) {
+        this.componentVO.getMetadata().setRights(this.currentSource.getCopyright());
       }
 
-      if (this.componentVO.getDefaultMetadata().getLicense() == null || this.componentVO.getDefaultMetadata().getLicense().equals("")) {
-        this.componentVO.getDefaultMetadata().setLicense(this.currentSource.getLicense());
+      if (this.componentVO.getMetadata().getLicense() == null || this.componentVO.getMetadata().getLicense().equals("")) {
+        this.componentVO.getMetadata().setLicense(this.currentSource.getLicense());
       }
 
       return this.componentVO;
     }
 
-    FileVO file = new FileVO();
+    FileDbVO file = new FileDbVO();
     MdsFileVO md = new MdsFileVO();
     md.setLicense(this.currentSource.getLicense());
     md.setRights(this.currentSource.getCopyright());
-    file.setDefaultMetadata(md);
+    file.setMetadata(md);
 
     return file;
   }

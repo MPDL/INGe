@@ -78,7 +78,7 @@ public class EditItemSessionBean extends EditItemBean {
 
     if (this.getLocators().size() < 1) {
       final FileDbVO newLocator = new FileDbVO();
-      newLocator.getMetadataSets().add(new MdsFileVO());
+      newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }

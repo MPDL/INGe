@@ -17,8 +17,8 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
@@ -54,7 +54,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   /**
    * This workspace's user.
    */
-  AccountUserVO userVO;
+  AccountUserDbVO userAccountDbVO;
 
   /**
    * The GET parameter name for the item state.
@@ -109,7 +109,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       return;
     }
 
-    this.userVO = this.getLoginHelper().getAccountUser();
+    this.userAccountDbVO = this.getLoginHelper().getAccountUser();
 
     Connection connection = null;
     PreparedStatement ps = null;
@@ -120,7 +120,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     try {
       connection = DbTools.getNewConnection();
       ps = connection.prepareStatement(sql);
-      ps.setString(1, this.userVO.getReference().getObjectId());
+      ps.setString(1, this.userAccountDbVO.getObjectId());
       rs = ps.executeQuery();
 
       while (rs.next()) {
@@ -160,7 +160,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
       bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
-          this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+          this.getLoginHelper().getAccountUser().getObjectId()));
 
       // display only latest versions
       bq.must(QueryBuilders.scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"

@@ -50,12 +50,15 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -94,6 +97,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTa
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
@@ -155,7 +159,7 @@ public class EditItem extends FacesBean {
       return;
     }
 
-    if (this.getPubItem().getVersion() != null && this.getPubItem().getObjectId() != null
+    if (this.getPubItem().getObjectId() != null
         && this.getLoginHelper().getIsYearbookEditor()) {
       if (this.getYearbookItemSessionBean().getYearbook() != null
           && this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getObjectId()) != null) {
@@ -345,7 +349,7 @@ public class EditItem extends FacesBean {
         if (pubFileVOPresentation.getLocator() == null && pubFileVOPresentation.getFile() != null
             && pubFileVOPresentation.getFile().getName() != null) {
           pubFileVOPresentation.setLocator(pubFileVOPresentation.getFile().getName().trim());
-          pubFileVOPresentation.getFile().getMetadataSets().add(new MdsFileVO());
+          pubFileVOPresentation.getFile().setMetadata(new MdsFileVO());
           pubFileVOPresentation.getFile().getMetadata().setTitle(pubFileVOPresentation.getFile().getName());
         }
 
@@ -361,7 +365,7 @@ public class EditItem extends FacesBean {
     // TODO: where is the one file??
     if (this.getEditItemSessionBean().getLocators().size() < 1) {
       final FileDbVO newLocator = new FileDbVO();
-      newLocator.getMetadataSets().add(new MdsFileVO());
+      newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     }
@@ -656,7 +660,7 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndSubmit() {
-    if (this.getPubItem().getVersion() == null || this.getPubItem().getObjectId() == null) {
+    if (this.getPubItem().getObjectId() == null) {
       String retVal = this.validate();
       if ("".equals(retVal) == false) {
         return retVal;
@@ -667,7 +671,7 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndRelease() {
-    if (this.getPubItem().getVersion() == null || this.getPubItem().getObjectId() == null) {
+    if (this.getPubItem().getObjectId() == null) {
       String retVal = this.validate();
       if ("".equals(retVal) == false) {
         return retVal;
@@ -697,11 +701,11 @@ public class EditItem extends FacesBean {
         }
 
         mdsFileVO.getIdentifiers().add(new IdentifierVO());
-        fileVO.getMetadataSets().add(mdsFileVO);
+        fileVO.setMetadata(mdsFileVO);
         fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
         this.getEditItemSessionBean().getFiles()
             .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
-        fileVO.getMetadata().setSize((int) file.getSize());
+        fileVO.setSize((int) file.getSize());
         fileVO.setName(file.getFileName());
         fileVO.getMetadata().setTitle(file.getFileName());
 
@@ -757,7 +761,7 @@ public class EditItem extends FacesBean {
   public void addLocator() {
     if (this.getEditItemSessionBean().getLocators() != null) {
       final FileDbVO newLocator = new FileDbVO();
-      newLocator.getMetadataSets().add(new MdsFileVO());
+      newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
       this.getEditItemSessionBean().getLocators()
           .add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
@@ -774,7 +778,7 @@ public class EditItem extends FacesBean {
     if (this.getEditItemSessionBean().getLocators() != null) {
       // Set empty MetadataSet if none exists
       if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadata() == null) {
-        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadataSets().add(new MdsFileVO());
+        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().setMetadata(new MdsFileVO());
       }
       // Set file name if not filled
       if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadata().getTitle() == null
@@ -815,7 +819,7 @@ public class EditItem extends FacesBean {
     boolean isStateInRevision = false;
     // boolean isPublicStateReleased = false;
 
-    if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersionState() != null) {
+    if (this.getPubItem() != null && this.getPubItem().getVersionState() != null) {
       isStatePending = ItemVO.State.PENDING.equals(this.getPubItem().getVersionState());
       isStateSubmitted = ItemVO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
       isStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getVersionState());
@@ -825,26 +829,25 @@ public class EditItem extends FacesBean {
 
     boolean isOwner = true;
     if (this.getPubItem() != null && this.getPubItem().getObject().getCreator() != null) {
-      isOwner = (this.getLoginHelper().getAccountUser().getReference() != null
-          ? this.getLoginHelper().getAccountUser().getReference().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
+      isOwner = (this.getLoginHelper().getAccountUser() != null
+          ? this.getLoginHelper().getAccountUser().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
           : false);
     }
 
     boolean isModerator = false;
     if (this.getLoginHelper().getAccountUser() != null && this.getPubItem() != null) {
-      isModerator = this.getLoginHelper().getAccountUser().isModerator(this.getPubItem().getObject().getContext());
+      isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, this.getPubItem().getObject().getContext().getObjectId());
     }
 
     boolean isWorkflowStandard = false;
     boolean isWorkflowSimple = true;
 
     try {
-      if (this.getItemControllerSessionBean().getCurrentContext() != null
-          && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
+      if (this.getItemControllerSessionBean().getCurrentContext() != null) {
         isWorkflowStandard = (PublicationAdminDescriptorVO.Workflow.STANDARD
-            .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()));
+            .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
         isWorkflowSimple = (PublicationAdminDescriptorVO.Workflow.SIMPLE
-            .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()));
+            .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -871,10 +874,9 @@ public class EditItem extends FacesBean {
     boolean isWorkflowSimple = true;
 
     try {
-      if (this.getItemControllerSessionBean().getCurrentContext() != null
-          && this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor() != null) {
+      if (this.getItemControllerSessionBean().getCurrentContext() != null) {
         isWorkflowSimple = (PublicationAdminDescriptorVO.Workflow.SIMPLE
-            .equals(this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow()));
+            .equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -892,20 +894,7 @@ public class EditItem extends FacesBean {
    * @return SelectItem[] with Strings representing genres.
    */
   public SelectItem[] getGenres() {
-    List<MdsPublicationVO.Genre> allowedGenres = null;
-    final List<AdminDescriptorVO> adminDescriptors = this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptors();
-
-    for (final AdminDescriptorVO adminDescriptorVO : adminDescriptors) {
-      if (adminDescriptorVO instanceof PublicationAdminDescriptorVO) {
-        allowedGenres = ((PublicationAdminDescriptorVO) adminDescriptorVO).getAllowedGenres();
-      }
-    }
-
-    if (allowedGenres == null) {
-      allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
-    }
-
-    return this.getI18nHelper().getSelectItemsForEnum(false, allowedGenres.toArray(new MdsPublicationVO.Genre[] {}));
+    return this.getI18nHelper().getSelectItemsForEnum(false, this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres().toArray(new MdsPublicationVO.Genre[] {}));
   }
 
   /**
@@ -1062,8 +1051,8 @@ public class EditItem extends FacesBean {
 
   public String getOwner() throws Exception {
     if (this.getPubItem().getObject().getCreator() != null) {
-      if (this.getPubItem().getObject().getCreator().getTitle() != null && this.getPubItem().getObject().getCreator().getTitle().trim() != "") {
-        return this.getPubItem().getObject().getCreator().getTitle();
+      if (this.getPubItem().getObject().getCreator().getName() != null && this.getPubItem().getObject().getCreator().getName().trim() != "") {
+        return this.getPubItem().getObject().getCreator().getName();
       }
 
       if (this.getPubItem().getObject().getCreator().getObjectId() != null && this.getPubItem().getObject().getCreator().getObjectId() != "") {
@@ -1075,19 +1064,19 @@ public class EditItem extends FacesBean {
   }
 
   public String getCreationDate() {
-    if (this.getPubItem().getCreationDate() != null) {
-      return this.getPubItem().getCreationDate().toString();
+    if (this.getPubItem().getObject().getCreationDate() != null) {
+      return this.getPubItem().getObject().getCreationDate().toString();
     }
 
     return null;
   }
 
   public String getLastModifier() throws Exception {
-    if (this.getPubItem().getVersion().getModifiedByRO() != null && this.getPubItem().getVersion().getModifiedByRO().getTitle() != null) {
-      return this.getPubItem().getVersion().getModifiedByRO().getTitle();
-    } else if (this.getPubItem().getVersion().getModifiedByRO() != null
-        && this.getPubItem().getVersion().getModifiedByRO().getObjectId() != null) {
-      return this.getPubItem().getVersion().getModifiedByRO().getObjectId();
+    if (this.getPubItem().getModifiedBy() != null && this.getPubItem().getModifiedBy().getName() != null) {
+      return this.getPubItem().getModifiedBy().getName();
+    } else if (this.getPubItem().getModifiedBy() != null
+        && this.getPubItem().getModifiedBy().getObjectId() != null) {
+      return this.getPubItem().getModifiedBy().getObjectId();
     }
 
     return null;
@@ -1146,11 +1135,10 @@ public class EditItem extends FacesBean {
   public SelectItem[] getSubjectTypes() throws Exception {
     final ArrayList<SelectItem> result = new ArrayList<SelectItem>();
 
-    final ContextRO contextRO = this.getPubItem().getObject().getContext();
+    final ContextDbRO contextRO = this.getPubItem().getObject().getContext();
     for (final PubContextVOPresentation context : this.getContextListSessionBean().getDepositorContextList()) {
-      if (context.getReference().equals(contextRO)) {
-        final PublicationAdminDescriptorVO adminDescriptorVO = context.getAdminDescriptor();
-        final List<SubjectClassification> list = adminDescriptorVO.getAllowedSubjectClassifications();
+      if (context.getObjectId().equals(contextRO.getObjectId())) {
+        final List<SubjectClassification> list = context.getAllowedSubjectClassifications();
         if (list != null) {
           for (final SubjectClassification classification : list) {
             final SelectItem selectItem = new SelectItem(classification.name(), classification.name().replace("_", "-"));

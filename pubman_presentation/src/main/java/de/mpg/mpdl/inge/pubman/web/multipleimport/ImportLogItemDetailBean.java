@@ -57,7 +57,7 @@ public class ImportLogItemDetailBean extends FacesBean {
     }
 
     if (this.getLoginHelper().getAccountUser() != null) {
-      this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
+      this.userid = this.getLoginHelper().getAccountUser().getObjectId();
     }
   }
 

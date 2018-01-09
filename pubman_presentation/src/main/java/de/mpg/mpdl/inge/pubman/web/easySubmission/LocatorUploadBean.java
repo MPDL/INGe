@@ -30,6 +30,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
@@ -53,8 +54,8 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
   public void locatorUploaded() {
     try {
       final FileDbVO fileVO = new FileDbVO();
-      fileVO.getMetadataSets().add(new MdsFileVO());
-      fileVO.getMetadata().setSize(this.getSize());
+      fileVO.setMetadata(new MdsFileVO());
+      fileVO.setSize(this.getSize());
       fileVO.getMetadata().setTitle(super.getFileName(this.getLocator()));
       fileVO.setMimeType(this.getType());
       fileVO.setName(super.getFileName(this.getLocator()));
@@ -113,7 +114,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
         // Make sure at least one locator exists
         if (listClean.size() == 0) {
           final FileDbVO newLocator = new FileDbVO();
-          newLocator.getMetadataSets().add(new MdsFileVO());
+          newLocator.setMetadata(new MdsFileVO());
           newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
           this.easySubmission.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
         }

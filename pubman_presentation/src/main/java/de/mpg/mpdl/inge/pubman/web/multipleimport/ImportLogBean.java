@@ -46,7 +46,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 public class ImportLogBean extends FacesBean {
   private int importId = 0;
   private String userid = null;
-  private String userHandle = null;
   private ImportLog importLog = null;
 
   public ImportLogBean() {
@@ -56,9 +55,8 @@ public class ImportLogBean extends FacesBean {
       this.importId = Integer.parseInt(idString);
     }
 
-    if (this.getLoginHelper().getAccountUser() != null && this.getLoginHelper().getAccountUser().getReference() != null) {
-      this.userid = this.getLoginHelper().getAccountUser().getReference().getObjectId();
-      this.userHandle = this.getLoginHelper().getAccountUser().getHandle();
+    if (this.getLoginHelper().getAccountUser() != null) {
+      this.userid = this.getLoginHelper().getAccountUser().getObjectId();
     }
   }
 
@@ -69,7 +67,6 @@ public class ImportLogBean extends FacesBean {
       try {
         this.importLog = ImportLog.getImportLog(this.importId, false, connection);
         this.importLog.setUser(this.userid);
-        this.importLog.setUserHandle(this.userHandle);
       } finally {
         DbTools.closeConnection(connection);
       }

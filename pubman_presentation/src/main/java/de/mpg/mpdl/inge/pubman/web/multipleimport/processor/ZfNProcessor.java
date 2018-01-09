@@ -51,6 +51,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
@@ -138,7 +139,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @return
    * @throws Exception
    */
-  public FileDbVO getFileforImport(Map<String, String> config, AccountUserVO user) throws Exception {
+  public FileDbVO getFileforImport(Map<String, String> config, AccountUserDbVO user) throws Exception {
     this.setConfig(config);
     this.setCurrentFile(this.processZfnFileName(this.fileNames.get(0)));
 
@@ -159,7 +160,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @return FileDbVO
    * @throws Exception
    */
-  private FileDbVO createPubFile(InputStream in, AccountUserVO user) throws Exception {
+  private FileDbVO createPubFile(InputStream in, AccountUserDbVO user) throws Exception {
     ZfNProcessor.logger.debug("Creating PubFile: " + this.getCurrentFile());
 
     final MdsFileVO mdSet = new MdsFileVO();
@@ -168,18 +169,18 @@ public class ZfNProcessor extends FormatProcessor {
     final FileNameMap fileNameMap = URLConnection.getFileNameMap();
     final String mimeType = fileNameMap.getContentTypeFor(this.getCurrentFile());
 
-    final URL fileURL = this.uploadFile(in, mimeType, user.getHandle());
+    final URL fileURL = this.uploadFile(in, mimeType);
 
     if (fileURL != null && !fileURL.toString().trim().equals("")) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
-      fileVO.setDefaultMetadata(mdSet);
+      fileVO.setMetadata(mdSet);
       fileVO.getMetadata().setTitle(this.getCurrentFile());
       fileVO.setMimeType(mimeType);
       fileVO.setName(this.getCurrentFile());
       fileVO.setContent(fileURL.toString());
       System.out.println("SIZE:" + this.fileSize);
-      fileVO.getMetadata().setSize(this.fileSize);
+      fileVO.setSize(this.fileSize);
       String contentCategory = null;
       if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
         contentCategory = PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION");
@@ -191,7 +192,7 @@ public class ZfNProcessor extends FormatProcessor {
           Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
         }
       }
-      fileVO.setContentCategory(contentCategory);
+      fileVO.getMetadata().setContentCategory(contentCategory);
       fileVO.getMetadata().setLicense(this.getConfig().get("License"));
 
       final FormatVO formatVO = new FormatVO();
@@ -213,13 +214,13 @@ public class ZfNProcessor extends FormatProcessor {
    * @return The URL of the uploaded file.
    * @throws Exception If anything goes wrong...
    */
-  private URL uploadFile(InputStream in, String mimetype, String userHandle) throws Exception {
+  private URL uploadFile(InputStream in, String mimetype) throws Exception {
     // Prepare the HttpMethod.
     final String fwUrl = PropertyReader.getFrameworkUrl();
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+//    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
     // Execute the method with HttpClient.
     final HttpClient client = new HttpClient();
     client.executeMethod(method);

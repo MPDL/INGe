@@ -31,7 +31,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
@@ -117,7 +117,7 @@ public class ImportWorkspace extends BreadcrumbPage {
   }
 
   public List<ImportLog> getImports() {
-    final AccountUserVO user = this.getLoginHelper().getAccountUser();
+    final AccountUserDbVO user = this.getLoginHelper().getAccountUser();
 
     if (user != null) {
       final Connection connection = DbTools.getNewConnection();

@@ -44,6 +44,7 @@ import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
@@ -72,7 +73,7 @@ public class MultipleImport extends FacesBean {
   public static final String LOAD_MULTIPLE_IMPORT = "loadMultipleImport";
   public static final String LOAD_MULTIPLE_IMPORT_FORM = "loadMultipleImportForm";
 
-  private ContextDbVO context;
+  private ContextDbRO context;
   private TransformerFactory.FORMAT format;
   private File uploadedFile;
   private List<SelectItem> configParameters = null;
@@ -155,7 +156,7 @@ public class MultipleImport extends FacesBean {
     ImportProcess importProcess = null;
     try {
       importProcess = new ImportProcess(this.name, this.uploadedImportFile.getFileName(), this.uploadedFile, this.format,
-          this.context.getReference(), this.getLoginHelper().getAccountUser(), this.rollback, this.duplicateStrategy, configuration,
+          this.context, this.getLoginHelper().getAccountUser(), this.rollback, this.duplicateStrategy, configuration,
           this.getLoginHelper().getAuthenticationToken(), connection);
       importProcess.start();
     } catch (final Exception e) {
@@ -235,7 +236,7 @@ public class MultipleImport extends FacesBean {
     return this.parametersValues;
   }
 
-  public ContextDbVO getContext() {
+  public ContextDbRO getContext() {
     return this.context;
   }
 

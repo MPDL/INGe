@@ -39,10 +39,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO.Workflow;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
@@ -204,7 +205,7 @@ public class ImportLog extends BaseImportLog {
     }
   }
 
-  public static List<ImportLog> getImportLogs(AccountUserVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
+  public static List<ImportLog> getImportLogs(AccountUserDbVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
       boolean loadDetails, Connection connection) {
     final List<ImportLog> result = new ArrayList<ImportLog>();
     PreparedStatement ps = null;
@@ -214,14 +215,13 @@ public class ImportLog extends BaseImportLog {
 
     try {
       ps = connection.prepareStatement(query);
-      ps.setString(1, user.getReference().getObjectId());
+      ps.setString(1, user.getObjectId());
 
       rs = ps.executeQuery();
 
       while (rs.next()) {
         final int id = rs.getInt("id");
         final ImportLog log = ImportLog.getImportLog(id, loadDetails, connection);
-        log.userHandle = user.getHandle();
         result.add(log);
       }
     } catch (final Exception e) {
@@ -234,7 +234,7 @@ public class ImportLog extends BaseImportLog {
     return result;
   }
 
-  public static List<ImportLog> getImportLogs(AccountUserVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
+  public static List<ImportLog> getImportLogs(AccountUserDbVO user, ImportWorkspace.SortColumn sortBy, ImportWorkspace.SortDirection dir,
       Connection connection) {
 
     return ImportLog.getImportLogs(user, sortBy, dir, true, connection);
@@ -246,7 +246,6 @@ public class ImportLog extends BaseImportLog {
   private List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
   private int percentage;
   private String user;
-  private String userHandle;
   private Workflow workflow;
 
   protected ImportLog() {}
@@ -478,16 +477,12 @@ public class ImportLog extends BaseImportLog {
     return this.user;
   }
 
-  public String getUserHandle() {
-    return this.userHandle;
-  }
-
   private Workflow getWorkflow() {
     if (this.workflow == null) {
       try {
         final ContextDbVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
 
-        this.workflow = contextVO.getAdminDescriptor().getWorkflow();
+        this.workflow = contextVO.getWorkflow();
       } catch (final Exception e) {
         throw new RuntimeException(e);
       }
@@ -704,10 +699,6 @@ public class ImportLog extends BaseImportLog {
 
   public void setUser(String user) {
     this.user = user;
-  }
-
-  public void setUserHandle(String userHandle) {
-    this.userHandle = userHandle;
   }
 
   /**

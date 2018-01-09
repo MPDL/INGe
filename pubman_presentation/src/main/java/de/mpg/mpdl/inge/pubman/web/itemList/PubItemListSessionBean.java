@@ -42,7 +42,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
@@ -228,7 +228,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * A map containing the references of the currently selected pub items of one page. Used to reset
    * selections after a redirect.
    */
-  private final Map<String, ItemRO> selectedItemRefs = new HashMap<String, ItemRO>();
+  private final Map<String, ItemVersionRO> selectedItemRefs = new HashMap<String, ItemVersionRO>();
 
   /**
    * A integer telling about the current items' position in the list
@@ -704,7 +704,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
       if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_ITEMS) {
         if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
-          pubItemStorage.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem.getVersion());
+          pubItemStorage.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
           added++;
         } else {
           existing++;
@@ -744,7 +744,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   private void saveSelections() {
     for (final PubItemVOPresentation pubItem : this.getCurrentPartList()) {
       if (pubItem.getSelected()) {
-        this.getSelectedItemRefs().put(pubItem.getObjectIdAndVersion(), pubItem.getVersion());
+        this.getSelectedItemRefs().put(pubItem.getObjectIdAndVersion(), pubItem);
       } else {
         this.getSelectedItemRefs().remove(pubItem.getObjectIdAndVersion());
       }
@@ -990,7 +990,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * 
    * @return
    */
-  public Map<String, ItemRO> getSelectedItemRefs() {
+  public Map<String, ItemVersionRO> getSelectedItemRefs() {
     return this.selectedItemRefs;
   }
 

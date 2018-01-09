@@ -39,11 +39,10 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -66,20 +65,21 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCr
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
+import de.mpg.mpdl.inge.service.util.EntityTransformer;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
-  public enum DuplicateStrategy
-  {
-    NO_CHECK, CHECK, ROLLBACK
+  public enum DuplicateStrategy {
+    NO_CHECK,
+    CHECK,
+    ROLLBACK
   }
 
-  private AccountUserVO user;
-  private ContextRO escidocContext;
+  private AccountUserDbVO user;
+  private ContextDbRO escidocContext;
   private DuplicateStrategy duplicateStrategy;
   private TransformerFactory.FORMAT format;
   private File file;
@@ -88,8 +88,6 @@ public class ImportProcess extends Thread {
   private Map<String, String> configuration = null;
 
   private String authenticationToken;
-  private String itemContentModel;
-  private String publicationContentModel;
 
   private boolean failed = false;
   private boolean rollback;
@@ -101,20 +99,14 @@ public class ImportProcess extends Thread {
   @Autowired
   private ItemValidatingService itemValidatingService;
 
-  public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextRO escidocContext,
-      AccountUserVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration, String authenticationToken,
+  public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextDbRO escidocContext,
+      AccountUserDbVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration, String authenticationToken,
       Connection connection) {
-    try {
-      this.publicationContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    } catch (final Exception e) {
-      throw new RuntimeException("Error getting property 'escidoc.framework_access.content-model.id.publication'", e);
-    }
 
     this.authenticationToken = authenticationToken;
     this.connection = connection;
 
-    this.importLog = new ImportLog(user.getReference().getObjectId(), format, connection);
-    this.importLog.setUserHandle(user.getHandle());
+    this.importLog = new ImportLog(user.getObjectId(), format, connection);
     this.importLog.startItem("import_process_started", connection);
     this.importLog.finishItem(connection);
 
@@ -144,8 +136,8 @@ public class ImportProcess extends Thread {
     this.importLog.setPercentage(BaseImportLog.PERCENTAGE_IMPORT_START, connection);
   }
 
-  private void initialize(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextRO escidocContext,
-      AccountUserVO user, boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
+  private void initialize(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextDbRO escidocContext,
+      AccountUserDbVO user, boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
     this.importLog.startItem("import_process_initialize", this.connection);
 
     try {
@@ -159,7 +151,6 @@ public class ImportProcess extends Thread {
       this.file = file;
       // this.fileName = fileName;
       this.format = format;
-      this.itemContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
       // this.name = name;
       this.rollback = rollback;
       this.user = user;
@@ -419,30 +410,29 @@ public class ImportProcess extends Thread {
 
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
-      final ItemVersionVO pubItemVO = XmlTransformingService.transformToPubItem(escidocXml);
-      pubItemVO.setContext(this.escidocContext);
-      pubItemVO.setContentModel(this.publicationContentModel);
-      pubItemVO.getVersion().setObjectId(null);
-      pubItemVO.getLocalTags().add("multiple_import");
-      pubItemVO.getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+      final ItemVersionVO itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
+      itemVersionVO.getObject().setContext(this.escidocContext);
+      itemVersionVO.setObjectId(null);
+      itemVersionVO.getObject().getLocalTags().add("multiple_import");
+      itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
 
       // Simple Validation
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_default_validation", this.connection);
       try {
-        PubItemUtil.cleanUpItem(pubItemVO);
-        this.itemValidatingService.validate(pubItemVO, ValidationPoint.SIMPLE);
+        PubItemUtil.cleanUpItem(itemVersionVO);
+        this.itemValidatingService.validate(itemVersionVO, ValidationPoint.SIMPLE);
         this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_default_validation_successful", this.connection);
 
         // Standard Validation
         this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_release_validation", this.connection);
         try {
-          this.itemValidatingService.validate(pubItemVO, ValidationPoint.STANDARD);
+          this.itemValidatingService.validate(itemVersionVO, ValidationPoint.STANDARD);
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_release_validation_successful", this.connection);
           this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_generate_item", this.connection);
-          this.importLog.setItemVO(pubItemVO);
+          this.importLog.setItemVO(itemVersionVO);
           if (this.duplicateStrategy != DuplicateStrategy.NO_CHECK) {
             this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_check_duplicates_by_identifier", this.connection);
-            final boolean duplicatesDetected = this.checkDuplicatesByIdentifier(pubItemVO);
+            final boolean duplicatesDetected = this.checkDuplicatesByIdentifier(itemVersionVO);
             if (duplicatesDetected && this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
               this.rollback = true;
               this.fail();
@@ -513,24 +503,19 @@ public class ImportProcess extends Thread {
 
 
 
-          for (final ItemVO duplicate : resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())) {
-            if (this.itemContentModel.equals(duplicate.getContentModel())) {
-              final ItemVersionVO duplicatePubItemVO = new ItemVersionVO(duplicate);
-              if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
-                this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, "import_process_duplicate_detected", this.connection);
-                this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,
-                    duplicatePubItemVO.getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getObjectId(), this.connection);
-                return true;
-              } else {
-                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_duplicate_detected", this.connection);
-                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
-                    duplicatePubItemVO.getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
-                    duplicatePubItemVO.getObjectId(), this.connection);
-              }
+          for (final ItemVersionVO duplicate : resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())) {
+            final ItemVersionVO duplicatePubItemVO = new ItemVersionVO(duplicate);
+            if (this.duplicateStrategy == DuplicateStrategy.ROLLBACK) {
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, "import_process_duplicate_detected", this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM,
+                  duplicatePubItemVO.getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
+                  duplicatePubItemVO.getObjectId(), this.connection);
+              return true;
             } else {
-              this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_detected_duplicate_no_publication",
-                  this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_duplicate_detected", this.connection);
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING,
+                  duplicatePubItemVO.getObjectId() + " \"" + duplicatePubItemVO.getMetadata().getTitle() + "\"",
+                  duplicatePubItemVO.getObjectId(), this.connection);
             }
           }
         }
