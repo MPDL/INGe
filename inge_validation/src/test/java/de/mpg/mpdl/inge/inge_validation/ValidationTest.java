@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentsMimeTypeValidat
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -63,14 +63,14 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 public class ValidationTest {
   private static final Logger logger = Logger.getLogger(ValidationTest.class);
 
-  private PubItemVersionDbVO pubItemVO;
+  private ItemVersionVO pubItemVO;
   private MdsPublicationVO mdsPublicationVO;
   private final ConeCache coneCache = ConeCache.getInstance(); // zur erstmaligen Befüllung des
                                                                // Caches
 
   @Before
   public void setUp() throws Exception {
-    this.pubItemVO = new PubItemVersionDbVO();
+    this.pubItemVO = new ItemVersionVO();
     this.mdsPublicationVO = new MdsPublicationVO();
     this.pubItemVO.setMetadata(this.mdsPublicationVO);
   }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 
 @Service
@@ -17,7 +17,7 @@ public class ItemValidatingService {
 
   private final Validation validation = new Validation();
 
-  public void validate(final PubItemVersionDbVO itemVO, final ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
+  public void validate(final ItemVersionVO itemVO, final ValidationPoint validationPoint) throws ValidationServiceException, ValidationException {
 
     try {
       this.validation.validate(itemVO, validationPoint);
@@ -32,7 +32,7 @@ public class ItemValidatingService {
     }
   }
 
-  public void validateYearbook(final PubItemVersionDbVO itemVO, List<String> childsOfMPG) throws ValidationServiceException, ValidationException {
+  public void validateYearbook(final ItemVersionVO itemVO, List<String> childsOfMPG) throws ValidationServiceException, ValidationException {
 
     try {
       this.validation.validateYearbook(itemVO, childsOfMPG);

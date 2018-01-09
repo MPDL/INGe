@@ -17,8 +17,8 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
@@ -201,8 +201,8 @@ public class TestBase {
     return vo;
   }
 
-  public PubItemVersionDbVO test_item() {
-    PubItemVersionDbVO vo = new PubItemVersionDbVO();
+  public ItemVersionVO test_item() {
+    ItemVersionVO vo = new ItemVersionVO();
 
 
 
@@ -215,7 +215,7 @@ public class TestBase {
     vo.getObject().setCreationDate(DATE);
 
     // LatestRelease
-    PubItemVersionDbRO latestRelease = new PubItemVersionDbRO();
+    ItemVersionRO latestRelease = new ItemVersionRO();
     latestRelease.setObjectId("testLatestRelease");
     latestRelease.setModificationDate(DATE);
     AccountUserDbRO modifier = new AccountUserDbRO();
@@ -223,17 +223,17 @@ public class TestBase {
     modifier.setName("testTitle");
     latestRelease.setModifiedBy(modifier);
     //latestRelease.setPid("testPid");
-    latestRelease.setVersionState(PubItemVersionDbRO.State.PENDING);
+    latestRelease.setVersionState(ItemVersionRO.State.PENDING);
     latestRelease.setVersionNumber(5);
     vo.getObject().setLatestRelease(latestRelease);
 
     // LatestVersion
-    PubItemVersionDbRO latestVersion = new PubItemVersionDbRO();
+    ItemVersionRO latestVersion = new ItemVersionRO();
     latestVersion.setObjectId("testLatestVersion");
     latestVersion.setModificationDate(DATE);
     latestVersion.setModifiedBy(modifier);
     //latestVersion.setPid("testPid");
-    latestVersion.setVersionState(PubItemVersionDbRO.State.PENDING);
+    latestVersion.setVersionState(ItemVersionRO.State.PENDING);
     latestVersion.setVersionNumber(5);
     vo.getObject().setLatestVersion(latestVersion);
 
@@ -427,7 +427,7 @@ public class TestBase {
     vo.getObject().setCreator(owner);
 
     vo.getObject().setObjectPid("testPid");
-    vo.getObject().setPublicState(PubItemVersionDbVO.State.RELEASED);
+    vo.getObject().setPublicState(ItemVersionVO.State.RELEASED);
 
     // Version
 
@@ -436,7 +436,7 @@ public class TestBase {
 
     vo.setModifiedBy(modifier);
     vo.setVersionPid("testPid");
-    vo.setVersionState(PubItemVersionDbRO.State.RELEASED);
+    vo.setVersionState(ItemVersionRO.State.RELEASED);
     vo.setVersionNumber(5);
 
     // Yearbook (erst mal weglassen!)

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
@@ -46,7 +46,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Ignore
   public void test1Read() {
     try {
-      PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
+      ItemVersionVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(test_item());
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -57,7 +57,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Test
   public void test2Create() throws Exception {
    
-      PubItemVersionDbVO pubItemVO2 = test_item();
+      ItemVersionVO pubItemVO2 = test_item();
       pubItemVO2.setObjectId(test_item_id);
       String contextId = this.itemDao.createImmediately(test_item_id, pubItemVO2);
       assert contextId.equals(test_item_id);
@@ -68,7 +68,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Ignore
   public void test2Read() {
     try {
-      PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
+      ItemVersionVO pubItemVO = this.itemDao.get(test_item_id);
       assert pubItemVO.equals(create_item());
     } catch (Exception e) {
       logger.error(e);
@@ -79,10 +79,10 @@ public class ItemServiceHandlerTest extends TestBase {
   @Test
   public void testUpdate() throws Exception {
   
-      PubItemVersionDbVO pubItemVO = this.itemDao.get(test_item_id);
+      ItemVersionVO pubItemVO = this.itemDao.get(test_item_id);
       pubItemVO.getObject().setObjectPid("testPid");
       this.itemDao.updateImmediately(test_item_id, pubItemVO);
-      PubItemVersionDbVO pubItemVO2 = this.itemDao.get(test_item_id);
+      ItemVersionVO pubItemVO2 = this.itemDao.get(test_item_id);
     
   }
 

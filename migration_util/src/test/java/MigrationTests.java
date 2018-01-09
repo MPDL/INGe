@@ -53,9 +53,9 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
@@ -191,7 +191,7 @@ public class MigrationTests {
        * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount();
        */
       long time = System.currentTimeMillis();
-      PubItemVersionDbVO returnedfindOne1 = itemRepository.findOne(new VersionableId("item_1000592", 1));
+      ItemVersionVO returnedfindOne1 = itemRepository.findOne(new VersionableId("item_1000592", 1));
       // PubItemVersionDbVO returnedfindOne1 = entityManager.find(PubItemVersionDbVO.class, new
       // VersionableId("item_1000592", 1));
       System.out.println("1st findOne needed " + (System.currentTimeMillis() - time) + " ms");
@@ -208,19 +208,19 @@ public class MigrationTests {
        * oldHitCount = newHitCount; oldMissCount = newMissCount;
        */
       time = System.currentTimeMillis();
-      PubItemVersionDbVO returnedfindOne2 = itemRepository.findOne(new VersionableId("item_1000592", 1));
+      ItemVersionVO returnedfindOne2 = itemRepository.findOne(new VersionableId("item_1000592", 1));
       // PubItemVersionDbVO returnedfindOne2 = entityManager.find(PubItemVersionDbVO.class, new
       // VersionableId("item_1000592", 1));
       System.out.println("2nd findOne needed " + (System.currentTimeMillis() - time) + " ms");
       entityManager.clear();
 
       time = System.currentTimeMillis();
-      PubItemVersionDbVO returnedLatestRelease1 = itemRepository.findLatestRelease("item_1000592");
+      ItemVersionVO returnedLatestRelease1 = itemRepository.findLatestRelease("item_1000592");
       System.out.println("1st findLastestRelease needed " + (System.currentTimeMillis() - time) + " ms");
       entityManager.clear();
 
       time = System.currentTimeMillis();
-      PubItemVersionDbVO returnedLatestRelease2 = itemRepository.findLatestRelease("item_1000592");
+      ItemVersionVO returnedLatestRelease2 = itemRepository.findLatestRelease("item_1000592");
       System.out.println("2nd findLatestRelease needed " + (System.currentTimeMillis() - time) + " ms ");
       entityManager.clear();
       /*
@@ -268,14 +268,14 @@ public class MigrationTests {
 
   private void findLatestVersion(String objectId) throws Exception {
     long start = System.currentTimeMillis();
-    PubItemVersionDbRO item = itemRepository.findLatestVersion(objectId);
+    ItemVersionRO item = itemRepository.findLatestVersion(objectId);
     long time = System.currentTimeMillis() - start;
     System.out.println("Took " + time + "  --  " + item.getObjectIdAndVersion());
   }
 
   private void findVersion(VersionableId id) throws Exception {
     long start = System.currentTimeMillis();
-    PubItemVersionDbRO item = itemRepository.findOne(id);
+    ItemVersionRO item = itemRepository.findOne(id);
     long time = System.currentTimeMillis() - start;
     System.out.println("Took " + time + "  --  " + item.getObjectIdAndVersion());
   }
@@ -300,7 +300,7 @@ public class MigrationTests {
     user.setObjectId("pure_boosen");
 
     Date now = new Date();
-    PubItemVersionDbVO pubItem = new PubItemVersionDbVO();
+    ItemVersionVO pubItem = new ItemVersionVO();
     pubItem.setLastMessage("my last message");
     pubItem.setModificationDate(now);
     pubItem.setModifiedBy(user);
@@ -311,7 +311,7 @@ public class MigrationTests {
 
     pubItem.getMetadata().setTitle("My first DB Item");
 
-    PubItemObjectDbVO object = new PubItemObjectDbVO();
+    ItemRootVO object = new ItemRootVO();
     ContextDbRO context = new ContextDbRO();
     context.setObjectId("pure_context_id");
     object.setContext(context);
@@ -571,7 +571,7 @@ public class MigrationTests {
 
   private void savePubItem(PubItemVO pubItem) throws Exception {
     try {
-      PubItemVersionDbVO newVo = transformToNew(pubItem);
+      ItemVersionVO newVo = transformToNew(pubItem);
       System.out.println("Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       itemRepository.save(newVo);
     } catch (Exception e) {
@@ -663,7 +663,7 @@ public class MigrationTests {
   }
 
 
-  private static PubItemVersionDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
+  private static ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -674,7 +674,7 @@ public class MigrationTests {
     modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
 
 
-    PubItemVersionDbVO newPubItem = new PubItemVersionDbVO();
+    ItemVersionVO newPubItem = new ItemVersionVO();
     for (de.mpg.mpdl.inge.model.valueobjects.FileVO oldFile : itemVo.getFiles()) {
 
       AccountUserDbRO fileOwner = new AccountUserDbRO();
@@ -719,7 +719,7 @@ public class MigrationTests {
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
 
-    PubItemObjectDbVO pubItemObject = new PubItemObjectDbVO();
+    ItemRootVO pubItemObject = new ItemRootVO();
     newPubItem.setObject(pubItemObject);
 
     ContextDbRO context = new ContextDbRO();
@@ -734,7 +734,7 @@ public class MigrationTests {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
       } else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion().getVersionNumber()) {
-        PubItemVersionDbRO latestRelease = new PubItemVersionDbRO();
+        ItemVersionRO latestRelease = new ItemVersionRO();
         latestRelease.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease().getObjectId()));
         latestRelease.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
         pubItemObject.setLatestRelease(latestRelease);
@@ -747,7 +747,7 @@ public class MigrationTests {
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
       pubItemObject.setLatestVersion(newPubItem);
     } else {
-      PubItemVersionDbRO latestVersion = new PubItemVersionDbRO();
+      ItemVersionRO latestVersion = new ItemVersionRO();
       latestVersion.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion().getObjectId()));
       latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());
       pubItemObject.setLatestVersion(latestVersion);

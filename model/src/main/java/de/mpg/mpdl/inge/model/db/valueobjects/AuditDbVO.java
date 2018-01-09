@@ -53,9 +53,9 @@ public class AuditDbVO implements Serializable {
   private String comment;
 
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @ManyToOne(targetEntity = PubItemVersionDbVO.class)
+  @ManyToOne(targetEntity = ItemVersionVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  private PubItemVersionDbVO pubItem;
+  private ItemVersionVO pubItem;
 
   public int getId() {
     return id;
@@ -97,11 +97,11 @@ public class AuditDbVO implements Serializable {
     this.comment = comment;
   }
 
-  public PubItemVersionDbVO getPubItem() {
+  public ItemVersionVO getPubItem() {
     return pubItem;
   }
 
-  public void setPubItem(PubItemVersionDbVO pubItem) {
+  public void setPubItem(ItemVersionVO pubItem) {
     this.pubItem = pubItem;
   }
 

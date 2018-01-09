@@ -34,7 +34,7 @@ import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
@@ -108,7 +108,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     logger.info("Trying to read file " + fileId + " with authenticationToken " + authenticationToken);
     // Item-based aa covered by this method
-    PubItemVersionDbVO item = pubItemService.get(itemId, authenticationToken);
+    ItemVersionVO item = pubItemService.get(itemId, authenticationToken);
 
     FileDbVO selectedFile = null;
     for (FileDbVO file : item.getFiles()) {

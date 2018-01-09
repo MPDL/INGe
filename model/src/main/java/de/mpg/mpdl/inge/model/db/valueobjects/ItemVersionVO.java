@@ -70,7 +70,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
-public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializable {
+public class ItemVersionVO extends ItemVersionRO implements Serializable {
 
   /**
    * The version number of the referenced item. This attribute is optional.
@@ -88,7 +88,7 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  PubItemObjectDbVO object = new PubItemObjectDbVO();
+  ItemRootVO object = new ItemRootVO();
 
   @Column
   @Type(type = "MdsPublicationVOJsonUserType")
@@ -99,11 +99,11 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
 
-  public PubItemObjectDbVO getObject() {
+  public ItemRootVO getObject() {
     return object;
   }
 
-  public void setObject(PubItemObjectDbVO object) {
+  public void setObject(ItemRootVO object) {
     this.object = object;
   }
 
@@ -124,7 +124,7 @@ public class PubItemVersionDbVO extends PubItemVersionDbRO implements Serializab
    * 
    * @author Thomas Diebaecker
    */
-  public PubItemVersionDbVO() {}
+  public ItemVersionVO() {}
 
   /**
    * {@inheritDoc}

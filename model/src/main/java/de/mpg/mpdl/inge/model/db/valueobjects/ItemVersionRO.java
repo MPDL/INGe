@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @MappedSuperclass
 @IdClass(VersionableId.class)
-public class PubItemVersionDbRO implements Serializable {
+public class ItemVersionRO implements Serializable {
 
   public enum State
   {
@@ -44,7 +44,7 @@ public class PubItemVersionDbRO implements Serializable {
    * The state of the item.
    */
   @Enumerated(EnumType.STRING)
-  private PubItemVersionDbRO.State versionState;
+  private ItemVersionRO.State versionState;
   
   /**
    * The version PID of the item.
@@ -129,7 +129,7 @@ public class PubItemVersionDbRO implements Serializable {
    * 
    * @return The current State.
    */
-  public PubItemVersionDbRO.State getVersionState() {
+  public ItemVersionRO.State getVersionState() {
     return this.versionState;
   }
 
@@ -138,7 +138,7 @@ public class PubItemVersionDbRO implements Serializable {
    * 
    * @param newVal The new state.
    */
-  public void setVersionState(PubItemVersionDbRO.State newVal) {
+  public void setVersionState(ItemVersionRO.State newVal) {
     versionState = newVal;
   }
 

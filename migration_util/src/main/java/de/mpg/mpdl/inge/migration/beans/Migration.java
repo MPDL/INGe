@@ -44,9 +44,9 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
@@ -390,7 +390,7 @@ public class Migration {
 
   private void savePubItem(PubItemVO pubItem) throws Exception {
     try {
-      PubItemVersionDbVO newVo = transformToNew(pubItem);
+      ItemVersionVO newVo = transformToNew(pubItem);
       log.info("Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       itemRepository.save(newVo);
     } catch (Exception e) {
@@ -436,7 +436,7 @@ public class Migration {
 
   }
 
-  private static PubItemVersionDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
+  private static ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -446,7 +446,7 @@ public class Migration {
     modifier.setObjectId(changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
     modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
 
-    PubItemVersionDbVO newPubItem = new PubItemVersionDbVO();
+    ItemVersionVO newPubItem = new ItemVersionVO();
     for (de.mpg.mpdl.inge.model.valueobjects.FileVO oldFile : itemVo.getFiles()) {
 
       AccountUserDbRO fileOwner = new AccountUserDbRO();
@@ -484,7 +484,7 @@ public class Migration {
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
-    PubItemObjectDbVO pubItemObject = new PubItemObjectDbVO();
+    ItemRootVO pubItemObject = new ItemRootVO();
     newPubItem.setObject(pubItemObject);
 
     ContextDbRO context = new ContextDbRO();
@@ -498,7 +498,7 @@ public class Migration {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
       } else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion().getVersionNumber()) {
-        PubItemVersionDbRO latestRelease = new PubItemVersionDbRO();
+        ItemVersionRO latestRelease = new ItemVersionRO();
         latestRelease.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease().getObjectId()));
         latestRelease.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
         pubItemObject.setLatestRelease(latestRelease);
@@ -508,7 +508,7 @@ public class Migration {
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
       pubItemObject.setLatestVersion(newPubItem);
     } else {
-      PubItemVersionDbRO latestVersion = new PubItemVersionDbRO();
+      ItemVersionRO latestVersion = new ItemVersionRO();
       latestVersion.setObjectId(changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion().getObjectId()));
       latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());
       pubItemObject.setLatestVersion(latestVersion);

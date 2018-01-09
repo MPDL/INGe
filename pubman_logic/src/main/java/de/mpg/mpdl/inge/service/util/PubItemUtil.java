@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
@@ -29,7 +29,7 @@ public class PubItemUtil {
    * 
    * @param pubItem the PubItem to clean up
    */
-  public static void cleanUpItem(final PubItemVersionDbVO pubItem) {
+  public static void cleanUpItem(final ItemVersionVO pubItem) {
     try {
       pubItem.getMetadata().cleanup();
 

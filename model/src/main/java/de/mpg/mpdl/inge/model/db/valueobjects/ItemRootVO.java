@@ -34,7 +34,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
-public class PubItemObjectDbVO implements Serializable {
+public class ItemRootVO implements Serializable {
 
   @Id
   private String objectId;
@@ -45,7 +45,7 @@ public class PubItemObjectDbVO implements Serializable {
   private Date lastModificationDate;
   
   @Enumerated(EnumType.STRING)
-  private PubItemVersionDbRO.State publicState;
+  private ItemVersionRO.State publicState;
   
   @Column(name = "objectPid")
   private String objectPid;
@@ -63,18 +63,18 @@ public class PubItemObjectDbVO implements Serializable {
   private Date creationDate;
 
   // @MapsId("objectId")
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class, optional = true)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
-  private PubItemVersionDbRO latestRelease;
+  private ItemVersionRO latestRelease;
 
   // @MapsId("objectId")
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class, optional = true)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
-  private PubItemVersionDbRO latestVersion;
+  private ItemVersionRO latestVersion;
 
 
 
@@ -149,29 +149,29 @@ public class PubItemObjectDbVO implements Serializable {
 
 
 
-  public PubItemVersionDbRO getLatestVersion() {
+  public ItemVersionRO getLatestVersion() {
     return this.latestVersion;
   }
 
-  public void setLatestVersion(PubItemVersionDbRO latestVersion) {
+  public void setLatestVersion(ItemVersionRO latestVersion) {
     this.latestVersion = latestVersion;
   }
 
-  public PubItemVersionDbRO getLatestRelease() {
+  public ItemVersionRO getLatestRelease() {
     return this.latestRelease;
   }
 
-  public void setLatestRelease(PubItemVersionDbRO latestRelease) {
+  public void setLatestRelease(ItemVersionRO latestRelease) {
     this.latestRelease = latestRelease;
   }
 
 
 
-  public PubItemVersionDbRO.State getPublicState() {
+  public ItemVersionRO.State getPublicState() {
     return publicState;
   }
 
-  public void setPublicState(PubItemVersionDbRO.State publicStatus) {
+  public void setPublicState(ItemVersionRO.State publicStatus) {
     this.publicState = publicStatus;
   }
 
