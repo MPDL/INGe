@@ -18,6 +18,8 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -44,6 +46,7 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
 
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = AffiliationDbVO.class)
+  @JsonSerialize(as = AffiliationDbRO.class)
   private AffiliationDbRO affiliation;
 
   @Transient

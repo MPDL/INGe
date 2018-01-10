@@ -25,6 +25,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 
@@ -67,6 +69,7 @@ public class ItemRootVO implements Serializable {
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
+  @JsonSerialize(as = ItemVersionRO.class)
   private ItemVersionRO latestRelease;
 
   // @MapsId("objectId")
@@ -74,6 +77,7 @@ public class ItemRootVO implements Serializable {
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
   // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
+  @JsonSerialize(as = ItemVersionRO.class)
   private ItemVersionRO latestVersion;
 
 

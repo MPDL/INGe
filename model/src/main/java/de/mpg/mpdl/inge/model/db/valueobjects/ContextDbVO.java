@@ -45,6 +45,7 @@ import org.hibernate.annotations.TypeDef;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.db.hibernate.ContextAdminDescriptorJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
@@ -115,6 +116,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    */
   @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+  @JsonSerialize(contentAs=AffiliationDbRO.class)
   private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
 
 
