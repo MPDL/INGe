@@ -40,13 +40,13 @@ public class EntityTransformer {
     /*
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
-
+    
     owner.setObjectId(changeId("user", contextVo.getCreator().getObjectId()));
     owner.setName(contextVo.getCreator().getTitle());
-
+    
     modifier.setObjectId(changeId("user", contextVo.getModifiedBy().getObjectId()));
     modifier.setName(contextVo.getModifiedBy().getTitle());
-
+    
     ContextDbVO newContext = new ContextDbVO();
     newContext.setCreator(owner);
     newContext.setCreationDate(contextVo.getCreationDate());
@@ -60,16 +60,16 @@ public class EntityTransformer {
     newContext.setAllowedSubjectClassifications(contextVo.getAdminDescriptor().getAllowedSubjectClassifications());
     newContext.setContactEmail(contextVo.getAdminDescriptor().getContactEmail());
     newContext.setWorkflow(ContextDbVO.Workflow.valueOf(contextVo.getAdminDescriptor().getWorkflow().name()));
-
+    
     for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : contextVo.getResponsibleAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", changeId("ou", oldAffRo.getObjectId())));
       newAffRo.setName(oldAffRo.getTitle());
       newContext.getResponsibleAffiliations().add(newAffRo);
     }
-
-
-
+    
+    
+    
     return newContext;
     */
 
@@ -92,15 +92,15 @@ public class EntityTransformer {
     /*
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
-
+    
     owner.setObjectId(changeId("user", affVo.getCreator().getObjectId()));
     owner.setName(affVo.getCreator().getTitle());
     modifier.setObjectId(changeId("user", affVo.getModifiedBy().getObjectId()));
     modifier.setName(affVo.getModifiedBy().getTitle());
-
+    
     AffiliationDbVO newAff = new AffiliationDbVO();
     newAff.setCreationDate(affVo.getCreationDate());
-
+    
     newAff.setCreator(owner);
     newAff.setHasChildren(affVo.getHasChildren());
     newAff.setLastModificationDate(affVo.getLastModificationDate());
@@ -108,15 +108,15 @@ public class EntityTransformer {
     newAff.setModifier(modifier);
     newAff.setName(affVo.getDefaultMetadata().getName());
     newAff.setObjectId(changeId("ou", affVo.getReference().getObjectId()));
-
-
+    
+    
     for (de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO oldAffRo : affVo.getPredecessorAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
       newAffRo.setName(oldAffRo.getTitle());
       newAff.getPredecessorAffiliations().add(newAffRo);
     }
-
+    
     if (affVo.getParentAffiliations().size() > 0) {
       AffiliationRO oldAffRo = affVo.getParentAffiliations().get(0);
       AffiliationDbRO newAffRo = new AffiliationDbRO();
@@ -124,12 +124,12 @@ public class EntityTransformer {
       newAffRo.setName(oldAffRo.getTitle());
       newAff.setParentAffiliation(newAffRo);
     }
-
-
+    
+    
     newAff.setPublicStatus(AffiliationDbVO.State.valueOf(affVo.getPublicStatus().toUpperCase()));
     return newAff;
-
-*/
+    
+    */
   }
 
   private static ItemVO.State transformToOld(ItemVersionRO.State state) {
@@ -293,11 +293,11 @@ public class EntityTransformer {
     oldContextVo.setName(newContextVo.getName());
     oldContextVo.setReference(transformToOld((ContextDbRO) newContextVo));
     oldContextVo.setState(ContextVO.State.valueOf(newContextVo.getState().name()));
-
+    
     for (AffiliationDbRO aff : newContextVo.getResponsibleAffiliations()) {
       oldContextVo.getResponsibleAffiliations().add(transformToOld(aff));
     }
-
+    
     return oldContextVo;
     */
   }
@@ -319,7 +319,7 @@ public class EntityTransformer {
       return null;
     }
     return dozerMapper.map(newAffVo, AffiliationVO.class);
-    
+
     /*
     AffiliationVO oldAffVo = new AffiliationVO();
     oldAffVo.setCreationDate(newAffVo.getCreationDate());
@@ -328,18 +328,18 @@ public class EntityTransformer {
     oldAffVo.setDefaultMetadata(newAffVo.getMetadata());
     oldAffVo.setHasChildren(newAffVo.getHasChildren());
     oldAffVo.setModifiedBy(transformToOld(newAffVo.getModifier()));
-
+    
     for (AffiliationDbRO predecessor : newAffVo.getPredecessorAffiliations()) {
       oldAffVo.getPredecessorAffiliations().add(transformToOld((AffiliationDbRO) predecessor));
     }
-
+    
     if (newAffVo.getParentAffiliation() != null) {
       oldAffVo.getParentAffiliations().add(transformToOld((AffiliationDbRO) newAffVo.getParentAffiliation()));
     }
-
+    
     oldAffVo.setPublicStatus(newAffVo.getPublicStatus().name());
     oldAffVo.setReference(transformToOld((AffiliationDbRO) newAffVo));
-
+    
     return oldAffVo;
     */
   }

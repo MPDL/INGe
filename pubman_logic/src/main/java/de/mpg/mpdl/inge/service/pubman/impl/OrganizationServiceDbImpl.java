@@ -52,10 +52,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Primary
 public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbVO, String> implements OrganizationService, ReindexListener {
 
-  public final static String INDEX_OBJECT_ID = "reference.objectId";
-  public final static String INDEX_METADATA_TITLE = "defaultMetadata.title";
-  public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "defaultMetadata.alternativeNames";
-  public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliations.objectId";
+  public final static String INDEX_OBJECT_ID = "objectId";
+  public final static String INDEX_METADATA_TITLE = "metadata.title";
+  public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "metadata.alternativeNames";
+  public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliation.objectId";
   public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
 
   private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
