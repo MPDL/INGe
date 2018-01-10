@@ -49,8 +49,10 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsPublicationVOJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
@@ -89,6 +91,8 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+  @JsonUnwrapped
+  @JsonIgnoreProperties({"objectId"})
   ItemRootVO object = new ItemRootVO();
 
   @Column
