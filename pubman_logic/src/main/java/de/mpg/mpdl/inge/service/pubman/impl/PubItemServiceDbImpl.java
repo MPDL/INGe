@@ -132,19 +132,19 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
 
   public static String INDEX_MODIFICATION_DATE = "modificationDate";
-  public static String INDEX_CREATION_DATE = "object.creationDate";
+  public static String INDEX_CREATION_DATE = "creationDate";
   public static String INDEX_LOCAL_TAGS = "localTags";
-  public static String INDEX_CONTEXT_OBJECT_ID = "object.context.objectId";
-  public static String INDEX_CONTEXT_TITLE = "object.context.name";
-  public static String INDEX_OWNER_OBJECT_ID = "object.creator.objectId";
-  public static String INDEX_OWNER_TITLE = "object.creator.name";
-  public static String INDEX_PUBLIC_STATE = "object.publicState";
-  public static String INDEX_PID = "object.objectPid";
+  public static String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
+  public static String INDEX_CONTEXT_TITLE = "context.name";
+  public static String INDEX_OWNER_OBJECT_ID = "creator.objectId";
+  public static String INDEX_OWNER_TITLE = "creator.name";
+  public static String INDEX_PUBLIC_STATE = "publicState";
+  public static String INDEX_PID = "objectPid";
 
   public static String INDEX_VERSION_STATE = "versionState";
-  public static String INDEX_LATESTVERSION_VERSIONNUMBER = "object.latestVersion.versionNumber";
-  public static String INDEX_LATESTVERSION_STATE = "object.latestVersion.versionState";
-  public static String INDEX_LATESTRELEASE_DATE = "object.latestRelease.modificationDate";
+  public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
+  public static String INDEX_LATESTVERSION_STATE = "latestVersion.versionState";
+  public static String INDEX_LATESTRELEASE_DATE = "latestRelease.modificationDate";
   public static String INDEX_VERSION_VERSIONNUMBER = "versionNumber";
   public static String INDEX_VERSION_OBJECT_ID = "objectId";
   public static String INDEX_VERSION_PID = "versionPid";
