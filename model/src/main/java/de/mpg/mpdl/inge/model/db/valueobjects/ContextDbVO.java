@@ -48,7 +48,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.db.hibernate.ContextAdminDescriptorJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.GenreListJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.EnumListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -65,8 +67,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity
 @Table(name = "context")
-@TypeDef(name = "ContextAdminDescriptorJsonUserType", typeClass = ContextAdminDescriptorJsonUserType.class)
-@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
+@TypeDef(name = "EnumListJsonUserType", typeClass = EnumListJsonUserType.class)
 public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
   /**
    * The possible states of a collection.
@@ -88,10 +89,10 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
     SIMPLE
   }
 
-  @Type(type = "StringListJsonUserType")
+  @Type(type = "EnumListJsonUserType")
   private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
 
-  @Type(type = "StringListJsonUserType")
+  @Type(type = "EnumListJsonUserType")
   private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
       new ArrayList<MdsPublicationVO.SubjectClassification>();
 
