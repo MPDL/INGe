@@ -162,7 +162,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   }
 
   public void setMessage(String lastMessage) {
-    this.message = message;
+    this.message = lastMessage;
   }
 
   @JsonIgnore
