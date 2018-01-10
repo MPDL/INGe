@@ -169,7 +169,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
 
   @Override
-  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ContextVO")
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ContextDbVO")
   public void reindexListener(String id) throws IngeTechnicalException {
     reindex(id, false);
 

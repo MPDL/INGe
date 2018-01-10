@@ -63,7 +63,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @updated 05-Sep-2007 11:14:08
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "ContextVO")
+@Entity
 @Table(name = "context")
 @TypeDef(name = "ContextAdminDescriptorJsonUserType", typeClass = ContextAdminDescriptorJsonUserType.class)
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)

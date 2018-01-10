@@ -24,7 +24,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
-@Entity(name = "AccountUserVO")
+@Entity
 @Table(name = "user_account")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")

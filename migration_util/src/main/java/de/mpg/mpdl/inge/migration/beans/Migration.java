@@ -220,9 +220,8 @@ public class Migration {
 
     newContext.setState(ContextDbVO.State.valueOf(contextVo.getState().name()));
 
-    newContext.setType(contextVo.getType());
-
-    newContext.setAdminDescriptor(contextVo.getAdminDescriptor());
+    newContext.setAllowedGenres(contextVo.getAdminDescriptor().getAllowedGenres());
+    newContext.setAllowedSubjectClassifications(contextVo.getAdminDescriptor().getAllowedSubjectClassifications());
 
     for (AffiliationRO oldAffRo : contextVo.getResponsibleAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
@@ -458,14 +457,12 @@ public class Migration {
       file.setChecksum(oldFile.getChecksum());
       file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
       file.setContent(oldFile.getContent());
-      file.setContentCategory(oldFile.getContentCategory());
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
-      file.setDescription(oldFile.getDescription());
       file.setLastModificationDate(oldFile.getLastModificationDate());
       file.setMetadata(oldFile.getDefaultMetadata());
       file.setMimeType(oldFile.getMimeType());
-      // file.setModifier(oldFile.getM);
+      file.setSize(oldFile.getDefaultMetadata().getSize());
       file.setName(oldFile.getName());
       file.setObjectId(changeId("file", oldFile.getReference().getObjectId()));
       file.setPid(oldFile.getPid());
@@ -475,12 +472,12 @@ public class Migration {
       newPubItem.getFiles().add(file);
     }
 
-    newPubItem.setLastMessage(itemVo.getVersion().getLastMessage());
+    newPubItem.setMessage(itemVo.getVersion().getLastMessage());
     newPubItem.setMetadata(itemVo.getMetadata());
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifiedBy(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    newPubItem.setVersionState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
+    newPubItem.setVersionState(ItemVersionVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
 
@@ -516,10 +513,9 @@ public class Migration {
 
     pubItemObject.setLocalTags(itemVo.getLocalTags());
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
-    pubItemObject.setOwner(owner);
-    pubItemObject.setPid(itemVo.getPid());
-    pubItemObject.setPublicState(PubItemVersionDbVO.State.valueOf(itemVo.getPublicStatus().name()));
-    pubItemObject.setWithdrawComment(itemVo.getPublicStatusComment());
+    pubItemObject.setCreator(owner);
+    pubItemObject.setObjectPid(itemVo.getPid());
+    pubItemObject.setPublicState(ItemVersionVO.State.valueOf(itemVo.getPublicStatus().name()));
 
     return newPubItem;
   }

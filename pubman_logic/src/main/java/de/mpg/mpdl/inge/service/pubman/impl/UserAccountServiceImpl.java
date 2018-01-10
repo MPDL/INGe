@@ -530,7 +530,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   }
 
   @Override
-  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AccountUserVO")
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AccountUserDbVO")
   public void reindexListener(String id) throws IngeTechnicalException {
     reindex(id, false);
 

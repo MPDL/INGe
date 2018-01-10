@@ -288,15 +288,17 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
 
   public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
+    /*
     String realIndexName = indexName;
-
+    
     GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
     if (!aliasResp.getAliases().isEmpty()) {
       realIndexName = aliasResp.getAliases().keys().iterator().next().value;
-
     }
-    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
-    MappingMetaData mmd = resp.getMappings().get(realIndexName).get(indexType);
+      */
+
+    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(indexName).addTypes(indexType).get();
+    MappingMetaData mmd = resp.getMappings().get(indexName).get(indexType);
 
     Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
     ElasticSearchIndexField allField = new ElasticSearchIndexField();

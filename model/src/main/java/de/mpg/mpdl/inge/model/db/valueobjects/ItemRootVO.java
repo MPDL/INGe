@@ -31,7 +31,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 
 
-@Entity(name = "PubItemObjectVO")
+@Entity
 @Table(name = "item_object")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")

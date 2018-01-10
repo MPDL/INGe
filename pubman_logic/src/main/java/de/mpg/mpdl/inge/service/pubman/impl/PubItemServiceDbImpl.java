@@ -723,7 +723,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Transactional(readOnly = true)
   public void reindexAll(String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Query<String> query = (Query<String>) entityManager.createQuery("SELECT itemObject.objectId FROM PubItemObjectVO itemObject");
+    Query<String> query = (Query<String>) entityManager.createQuery("SELECT itemObject.objectId FROM ItemRootVO itemObject");
     query.setReadOnly(true);
     query.setFetchSize(500);
     query.setCacheMode(CacheMode.IGNORE);

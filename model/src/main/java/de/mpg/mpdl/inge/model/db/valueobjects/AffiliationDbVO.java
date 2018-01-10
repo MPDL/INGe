@@ -62,7 +62,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @updated 07-Sep-2007 13:27:29
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "AffiliationVO")
+@Entity
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO implements Serializable {

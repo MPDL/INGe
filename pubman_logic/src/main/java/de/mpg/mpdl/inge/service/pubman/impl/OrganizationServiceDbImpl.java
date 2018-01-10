@@ -316,7 +316,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   @Override
-  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AffiliationVO")
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-AffiliationDbVO")
   public void reindexListener(String id) throws IngeTechnicalException {
     reindex(id, false);
   }
