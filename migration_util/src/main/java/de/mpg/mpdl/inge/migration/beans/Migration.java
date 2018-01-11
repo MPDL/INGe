@@ -343,6 +343,8 @@ public class Migration {
   }
 
   private void importPubItems() throws Exception {
+    httpClientWithEscidocCookie = setup();
+
     String contentModelId = "escidoc:persistent4";
 
     int limit = 5000;

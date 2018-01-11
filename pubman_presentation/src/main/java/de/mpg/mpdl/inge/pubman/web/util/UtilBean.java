@@ -9,14 +9,13 @@ import javax.faces.bean.SessionScoped;
 @SuppressWarnings("serial")
 public class UtilBean {
 
-  
-  public String getPidWithoutPrefix(String pidWithPrefix)
-  {
-    if (pidWithPrefix!=null && pidWithPrefix.startsWith("hdl:")) {
+
+  public String getPidWithoutPrefix(String pidWithPrefix) {
+    if (pidWithPrefix != null && pidWithPrefix.startsWith("hdl:")) {
       return pidWithPrefix.substring(4);
     } else {
       return pidWithPrefix;
     }
   }
-  
+
 }

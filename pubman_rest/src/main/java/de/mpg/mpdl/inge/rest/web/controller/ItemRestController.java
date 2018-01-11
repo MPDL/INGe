@@ -158,8 +158,8 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/history", method = RequestMethod.GET)
-  public ResponseEntity<List<AuditDbVO>> getVersionHistory(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, @PathVariable(value = ITEM_ID_VAR) String itemId)
+  public ResponseEntity<List<AuditDbVO>> getVersionHistory(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AuditDbVO> list = null;
     list = pis.getVersionHistory(itemId, token);
