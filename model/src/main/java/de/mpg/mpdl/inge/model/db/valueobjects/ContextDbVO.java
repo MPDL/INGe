@@ -97,6 +97,7 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
       new ArrayList<MdsPublicationVO.SubjectClassification>();
 
+  @Enumerated(EnumType.STRING)
   private Workflow workflow;
 
   private String contactEmail;
