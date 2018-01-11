@@ -2,12 +2,12 @@ package de.mpg.mpdl.inge.es.dao.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.admin.indices.alias.get.GetAliasesResponse;
 import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
@@ -17,6 +17,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -82,7 +83,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public String create(String id, E entity) throws IngeTechnicalException {
     try {
       IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setSource(mapper.writeValueAsBytes(entity)).get();
+          .setSource(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -102,8 +103,9 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
+      logger.info(new String(mapper.writeValueAsBytes(entity)));
       IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setSource(mapper.writeValueAsBytes(entity)).get();
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setSource(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -143,7 +145,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
     try {
       UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity)).get();
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
@@ -283,28 +285,30 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
     return srrVO;
   }
 
-
-
+  //SP: Alias-Suche funktioniert in ES 6.1 nicht mehr wie erwartet
   public Map<String, ElasticSearchIndexField> getIndexFields() throws IngeTechnicalException {
-    String realIndexName = indexName;
+    //    String realIndexName = indexName;
+    //
+    //    GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
+    //    if (!aliasResp.getAliases().isEmpty()) {
+    //      realIndexName = aliasResp.getAliases().keys().iterator().next().value;
+    //    }
 
-    GetAliasesResponse aliasResp = client.getClient().admin().indices().prepareGetAliases(indexName).get();
-    if (!aliasResp.getAliases().isEmpty()) {
-      realIndexName = aliasResp.getAliases().keys().iterator().next().value;
+    //    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
+    GetMappingsResponse resp = this.client.getClient().admin().indices().prepareGetMappings(this.indexName).addTypes(this.indexType).get();
 
+    if (resp.getMappings().isEmpty() == false) { // SP: avoiding NullPointerException
+      MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
+
+      Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
+      ElasticSearchIndexField allField = new ElasticSearchIndexField();
+      allField.setIndexName("_all");
+      allField.setType(Type.TEXT);
+      map.put("_all", allField);
+      return map;
     }
-    GetMappingsResponse resp = client.getClient().admin().indices().prepareGetMappings(realIndexName).addTypes(indexType).get();
-    MappingMetaData mmd = resp.getMappings().get(realIndexName).get(indexType);
 
-    Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
-    ElasticSearchIndexField allField = new ElasticSearchIndexField();
-    allField.setIndexName("_all");
-    allField.setType(Type.TEXT);
-    map.put("_all", allField);
-    return map;
-
+    return new HashMap<String, ElasticSearchIndexField>();
   }
-
-
 
 }
