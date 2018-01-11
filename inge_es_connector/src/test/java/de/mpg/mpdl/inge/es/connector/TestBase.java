@@ -221,7 +221,7 @@ public class TestBase {
     AccountUserDbRO modifier = new AccountUserDbRO();
     modifier.setObjectId("testModifier");
     modifier.setName("testTitle");
-    latestRelease.setModifiedBy(modifier);
+    latestRelease.setModifier(modifier);
     //latestRelease.setPid("testPid");
     latestRelease.setVersionState(ItemVersionRO.State.PENDING);
     latestRelease.setVersionNumber(5);
@@ -231,7 +231,7 @@ public class TestBase {
     ItemVersionRO latestVersion = new ItemVersionRO();
     latestVersion.setObjectId("testLatestVersion");
     latestVersion.setModificationDate(DATE);
-    latestVersion.setModifiedBy(modifier);
+    latestVersion.setModifier(modifier);
     //latestVersion.setPid("testPid");
     latestVersion.setVersionState(ItemVersionRO.State.PENDING);
     latestVersion.setVersionNumber(5);
@@ -434,7 +434,7 @@ public class TestBase {
     vo.setMessage("testLastMessage");
     vo.setModificationDate(DATE);
 
-    vo.setModifiedBy(modifier);
+    vo.setModifier(modifier);
     vo.setVersionPid("testPid");
     vo.setVersionState(ItemVersionRO.State.RELEASED);
     vo.setVersionNumber(5);

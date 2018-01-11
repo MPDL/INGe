@@ -1075,10 +1075,10 @@ public class EditItem extends FacesBean {
   }
 
   public String getLastModifier() throws Exception {
-    if (this.getPubItem().getModifiedBy() != null && this.getPubItem().getModifiedBy().getName() != null) {
-      return this.getPubItem().getModifiedBy().getName();
-    } else if (this.getPubItem().getModifiedBy() != null && this.getPubItem().getModifiedBy().getObjectId() != null) {
-      return this.getPubItem().getModifiedBy().getObjectId();
+    if (this.getPubItem().getModifier() != null && this.getPubItem().getModifier().getName() != null) {
+      return this.getPubItem().getModifier().getName();
+    } else if (this.getPubItem().getModifier() != null && this.getPubItem().getModifier().getObjectId() != null) {
+      return this.getPubItem().getModifier().getObjectId();
     }
 
     return null;

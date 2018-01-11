@@ -96,7 +96,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
 
 
-    String itemList = XmlTransformingService.transformToItemList(EntityTransformer.transformToOld(pubItemVOList));
+    List<PubItemVO> transformedList = EntityTransformer.transformToOld(pubItemVOList);
+    String itemList = XmlTransformingService.transformToItemList(transformedList);
 
     byte[] exportData = null;
     try {

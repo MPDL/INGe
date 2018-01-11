@@ -1324,7 +1324,7 @@ public class ViewItemFull extends FacesBean {
      * ViewItemFull.logger.error("Error retrieving latest modifier", e); } }
      */
 
-    return this.pubItem.getModifiedBy();
+    return this.pubItem.getModifier();
   }
 
   /**

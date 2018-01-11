@@ -260,7 +260,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     audit.setEvent(event);
     audit.setComment(pubItem.getMessage());
     audit.setModificationDate(pubItem.getModificationDate());
-    audit.setModifier(pubItem.getModifiedBy());
+    audit.setModifier(pubItem.getModifier());
     audit.setPubItem(pubItem);
     try {
       auditRepository.saveAndFlush(audit);
@@ -281,7 +281,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     AccountUserDbRO mod = new AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
-    pubItem.setModifiedBy(mod);
+    pubItem.setModifier(mod);
     pubItem.setObjectId(objectId);
     pubItem.setVersionState(ItemVersionRO.State.PENDING);
     pubItem.setVersionNumber(1);
@@ -310,7 +310,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
     mod.setName(modifierName);
     mod.setObjectId(modifierId);
-    latestVersion.setModifiedBy(mod);
+    latestVersion.setModifier(mod);
     latestVersion.getObject().setLastModificationDate(currentDate);
 
     return latestVersion;

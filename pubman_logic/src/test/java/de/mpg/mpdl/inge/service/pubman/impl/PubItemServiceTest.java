@@ -185,7 +185,7 @@ public class PubItemServiceTest extends TestBase {
     assertTrue("Expected PublicStatus SUBMITTED - found <" + pubItemVO.getObject().getPublicState() + ">",
         pubItemVO.getObject().getPublicState().equals(ItemVersionVO.State.SUBMITTED));
     assertTrue("Wrong owner", pubItemVO.getObject().getCreator().getObjectId().equals(DEPOSITOR_OBJECTID));
-    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy() != null);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifier() != null);
     assertTrue(pubItemVO.getObject().getLatestVersion().getVersionNumber() == 1);
   }
 
@@ -503,7 +503,7 @@ public class PubItemServiceTest extends TestBase {
     assertTrue("Expected PublicStatus RELEASED - found <" + pubItemVO.getObject().getPublicState() + ">",
         pubItemVO.getObject().getPublicState().equals(ItemVersionVO.State.RELEASED));
     assertTrue(pubItemVO.getObject().getLatestRelease().equals(pubItemVO.getObject().getLatestVersion()));
-    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy().getObjectId().equals(MODERATOR_OBJECTID));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifier().getObjectId().equals(MODERATOR_OBJECTID));
   }
 
   @Test
@@ -520,7 +520,7 @@ public class PubItemServiceTest extends TestBase {
     assertTrue("Expected PublicStatus RELEASED - found <" + pubItemVO.getObject().getPublicState() + ">",
         pubItemVO.getObject().getPublicState().equals(ItemVersionVO.State.RELEASED));
     assertTrue(pubItemVO.getObject().getLatestRelease().equals(pubItemVO.getObject().getLatestVersion()));
-    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy().getObjectId().equals(DEPOSITOR_OBJECTID));
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifier().getObjectId().equals(DEPOSITOR_OBJECTID));
   }
 
   @Test
@@ -699,7 +699,7 @@ public class PubItemServiceTest extends TestBase {
 
     assertTrue(pubItemVO.getObject().getLatestVersion().getVersionState().equals(ItemVersionVO.State.PENDING));
     assertTrue(pubItemVO.getObject().getCreationDate() != null);
-    assertTrue(pubItemVO.getObject().getLatestVersion().getModifiedBy() != null);
+    assertTrue(pubItemVO.getObject().getLatestVersion().getModifier() != null);
 
     pubItemVO = pubItemService.submitPubItem(pubItemVO.getObjectId(), pubItemVO.getModificationDate(), "testing a submit",
         authenticationTokenDepositor);

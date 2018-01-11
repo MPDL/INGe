@@ -71,7 +71,7 @@ public class LoginHelper extends FacesBean {
 
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
 
-  private AccountUserDbVO accountUser = new AccountUserDbVO();
+  private AccountUserDbVO accountUser;
 
   private List<AffiliationVOPresentation> userAccountAffiliations;
   private List<UserGroupVO> userAccountUserGroups;

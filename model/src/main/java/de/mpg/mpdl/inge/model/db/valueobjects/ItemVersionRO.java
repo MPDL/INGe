@@ -58,7 +58,7 @@ public class ItemVersionRO implements Serializable {
   @Embedded
   @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
-  private AccountUserDbRO modifiedBy;
+  private AccountUserDbRO modifier;
 
 
 
@@ -86,12 +86,12 @@ public class ItemVersionRO implements Serializable {
     this.objectId = objectId;
   }
 
-  public AccountUserDbRO getModifiedBy() {
-    return modifiedBy;
+  public AccountUserDbRO getModifier() {
+    return modifier;
   }
 
-  public void setModifiedBy(AccountUserDbRO modifiedBy) {
-    this.modifiedBy = modifiedBy;
+  public void setModifier(AccountUserDbRO modifier) {
+    this.modifier = modifier;
   }
 
   public void setVersionPid(String versionPid) {
