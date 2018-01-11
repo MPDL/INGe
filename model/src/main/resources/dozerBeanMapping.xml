@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
 
-	<mapping>
+	<mapping wildcard="false">
 		<class-a>de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO
 		</class-a>
 		<class-b>de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO
@@ -66,7 +66,7 @@
 		</field>
 
 		<field>
-			<a>metadataSets[0]</a>
+			<a>metadata</a>
 			<b>metadata</b>
 		</field>
 
@@ -74,6 +74,8 @@
 			<a>files</a>
 			<b>files</b>
 		</field>
+		
+		
 	</mapping>
 
 
@@ -116,13 +118,18 @@
 
 		<field>
 			<a>modifiedByRO.objectId</a>
-			<b>modifiedBy.objectId</b>
+			<b>modifier.objectId</b>
 		</field>
 
 		<field>
 			<a>modifiedByRO.title</a>
-			<b>modifiedBy.name</b>
+			<b>modifier.name</b>
 		</field>
+		
+		<field-exclude>
+			<a>objectIdAndVersion</a>
+			<b>objectIdAndVersion</b>
+		</field-exclude>
 
 	</mapping>
 
