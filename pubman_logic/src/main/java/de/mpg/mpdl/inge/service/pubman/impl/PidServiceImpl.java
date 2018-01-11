@@ -69,11 +69,6 @@ public class PidServiceImpl implements PidService {
     this.target = client.target(serviceUrl);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.service.pubman.PidService#createPid(java.net.URI)
-   */
   @Override
   public PidServiceResponseVO createPid(URI url) throws IngeApplicationException, TechnicalException {
     Form form = new Form();
