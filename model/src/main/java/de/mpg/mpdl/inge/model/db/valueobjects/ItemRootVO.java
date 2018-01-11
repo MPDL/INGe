@@ -60,6 +60,7 @@ public class ItemRootVO implements Serializable {
 
   @ManyToOne(fetch = FetchType.EAGER, targetEntity = ContextDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
+  @JsonSerialize(as = ContextDbRO.class)
   private ContextDbRO context;
 
   private Date creationDate;
