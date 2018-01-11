@@ -334,7 +334,7 @@ public class PubItemServiceTest extends TestBase {
     String authenticationToken = loginDepositor();
 
     PubItemVO pubItemVO = createSubmittedItemStandardWorkflow();
-    
+
     assertTrue(pubItemVO.getLatestVersion().getState().equals(ItemVO.State.SUBMITTED));
 
     pubItemVO.getMetadata().setTitle("Der neue Titel");
