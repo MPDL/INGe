@@ -21,6 +21,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity(name = "audit")
 @Table(name = "audit_log")
 public class AuditDbVO implements Serializable {
@@ -55,6 +57,7 @@ public class AuditDbVO implements Serializable {
   @OnDelete(action = OnDeleteAction.CASCADE)
   @ManyToOne(targetEntity = ItemVersionVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+  @JsonSerialize(as=ItemVersionRO.class)
   private ItemVersionVO pubItem;
 
   public int getId() {

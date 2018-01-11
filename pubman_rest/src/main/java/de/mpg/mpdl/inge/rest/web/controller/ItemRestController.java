@@ -25,6 +25,7 @@ import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -157,12 +158,12 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/history", method = RequestMethod.GET)
-  public ResponseEntity<List<VersionHistoryEntryVO>> getVersionHistory(
+  public ResponseEntity<List<AuditDbVO>> getVersionHistory(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, @PathVariable(value = ITEM_ID_VAR) String itemId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    List<VersionHistoryEntryVO> list = null;
+    List<AuditDbVO> list = null;
     list = pis.getVersionHistory(itemId, token);
-    return new ResponseEntity<List<VersionHistoryEntryVO>>(list, HttpStatus.OK);
+    return new ResponseEntity<List<AuditDbVO>>(list, HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST)
