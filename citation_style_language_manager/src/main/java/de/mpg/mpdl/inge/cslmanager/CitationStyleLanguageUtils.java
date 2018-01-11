@@ -4,7 +4,6 @@
 package de.mpg.mpdl.inge.cslmanager;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,7 +22,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
 import de.mpg.mpdl.inge.util.DOMUtilities;
-import de.undercouch.citeproc.helper.CSLUtils;
 
 /**
  * Utility class for static functions that are often needed when working with CSL
@@ -33,26 +31,26 @@ import de.undercouch.citeproc.helper.CSLUtils;
 public class CitationStyleLanguageUtils {
   private final static Logger logger = Logger.getLogger(CitationStyleLanguageUtils.class);
 
-  /**
-   * gets a csl style from a url
-   * 
-   * @param url
-   * @return csl style xml as String or null if no style could be found or read
-   * @throws Exception
-   */
-  protected static String loadStyleFromUrl(String url) throws Exception {
-    String style = null;
-    try {
-      style = CSLUtils.readURLToString(new URL(url), "UTF-8");
-    } catch (MalformedURLException e) {
-      logger.error("URL seems to be malformed, when trying to retrieve the csl style", e);
-      throw new Exception(e);
-    } catch (IOException e) {
-      logger.error("IO-Problem, when trying to retrieve the csl style", e);
-      throw new Exception(e);
-    }
-    return style;
-  }
+  //  /**
+  //   * gets a csl style from a url
+  //   * 
+  //   * @param url
+  //   * @return csl style xml as String or null if no style could be found or read
+  //   * @throws Exception
+  //   */
+  //  protected static String loadStyleFromUrl(String url) throws Exception {
+  //    String style = null;
+  //    try {
+  //      style = CSLUtils.readURLToString(new URL(url), "UTF-8");
+  //    } catch (MalformedURLException e) {
+  //      logger.error("URL seems to be malformed, when trying to retrieve the csl style", e);
+  //      throw new Exception(e);
+  //    } catch (IOException e) {
+  //      logger.error("IO-Problem, when trying to retrieve the csl style", e);
+  //      throw new Exception(e);
+  //    }
+  //    return style;
+  //  }
 
   /**
    * gets a csl style from a cone url delivered in json format

@@ -15,6 +15,7 @@ import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class CitationStyleExecuterServiceTest {
@@ -34,7 +35,7 @@ public class CitationStyleExecuterServiceTest {
     itemLists = new HashMap<String, String>();
 
     for (String cs : CitationStyleExecuterService.getStyles()) {
-      if (!"CSL".equals(cs)) {
+      if (!XmlHelper.CSL.equals(cs)) {
         String itemList = TestHelper.getCitationStyleTestXmlAsString(TestHelper.getTestProperties(cs).getProperty("plain.test.xml"));
         assertNotNull("Item list xml is not found", itemList);
         itemLists.put(cs, itemList);
@@ -46,7 +47,7 @@ public class CitationStyleExecuterServiceTest {
   public final void testOutputs() throws CitationStyleManagerException {
     for (String cs : CitationStyleExecuterService.getStyles()) {
       for (String format : CitationStyleExecuterService.getOutputFormats(cs)) {
-        if (!"CSL".equals(cs)) {
+        if (!XmlHelper.CSL.equals(cs)) {
           logger.info("citationStyle <" + cs + "> format <" + format);
           try {
             testOutput(cs, format);
@@ -64,8 +65,8 @@ public class CitationStyleExecuterServiceTest {
   @Test
   public final void testArxiv() throws Exception {
 
-    testOutput("APA", "snippet", "arxiv", ResourceUtil.getResourceAsString("src/test/resources/testFiles/arXiv0904-2.3933.xml",
-        CitationStyleManagerImpl.class.getClassLoader()));
+    testOutput(XmlHelper.APA, XmlHelper.SNIPPET, TransformerFactory.ARXIV, ResourceUtil
+        .getResourceAsString("src/test/resources/testFiles/arXiv0904-2.3933.xml", CitationStyleManagerImpl.class.getClassLoader()));
 
   }
 

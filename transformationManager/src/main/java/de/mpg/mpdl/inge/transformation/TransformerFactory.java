@@ -17,50 +17,57 @@ public class TransformerFactory {
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
 
   public static final String ARXIV = "arXiv";
-  public static final String OAI_DC = "oai_dc";
+  public static final String BIBTEX = "BibTex";
+  public static final String EDOC_XML = "Edoc_Xml";
+  public static final String ENDNOTE = "Endnote";
+  public static final String ESCIDOC_PUBLICATION_ITEM = "eSciDoc-publication-item";
+  public static final String MARC_XML = "Marc_Xml";
+  public static final String OAI_DC = "Oai_Dc";
+
+  private static final String UTF_8 = "UTF-8";
 
   public enum FORMAT
   {
-    ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    BIBTEX_STRING("BibTex", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    BMC_XML("Bmc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    BMC_OAIPMH_XML("Bmc_Oaipmh", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    BMC_FULLTEXT_XML("Bmc_Fulltext", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    BMC_FULLTEXT_HTML("Bmc_Fulltext", FileFormatVO.HTML_PLAIN_MIMETYPE, "UTF-8"), //
-    COINS_STRING("Coins", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    DOI_METADATA_XML("Doi", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    EDOC_XML("Edoc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ENDNOTE_STRING("EndNote", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    ENDNOTE_XML("EndNote", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEM_V3_XML("eSciDoc-publication-item", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEM_V2_XML("eSciDoc-publication-item-V2", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEM_V1_XML("eSciDoc-publication-item-V1", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEMLIST_V1_XML("eSciDoc-publication-itemlist-V1", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEMLIST_V2_XML("eSciDoc-publication-itemlist-V2", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEMLIST_V3_XML("eSciDoc-publication-itemlist", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_COMPONENT_XML("eSciDoc-publication-component", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ESCIDOC_ITEM_VO("eSciDoc-publication-itemVO", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    HTML_METATAGS_DC_XML("Html_Metatags_dc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML("Html_Metatags_Highwirepress_Cit", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    JUS_SNIPPET_XML("Jus_Snippet", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    JUS_INDESIGN_XML("Jus_Indesign", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    JUS_HTML_XML("Jus_Html", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    DC_XML("Dc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    MAB_STRING("Mab", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    MAB_XML("Mab", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    MARC_21_STRING("Marc21", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    MARC_XML("Marc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    MODS_XML("Mods", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    PEER_TEI_XML("Peer", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    RIS_STRING("Ris", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    RIS_XML("Ris", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    PMC_OAIPMH_XML("Pmc_Oaipmh", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    SPIRES_XML("Spires", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    WOS_STRING("Wos", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
-    WOS_XML("Wos", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ZFN_TEI_XML("Zfn", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    ZIM_XML("Zim", FileFormatVO.XML_MIMETYPE, "UTF-8");
+    ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.XML_MIMETYPE, UTF_8), //
+    BIBTEX_STRING(TransformerFactory.BIBTEX, FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    BMC_FULLTEXT_HTML("Bmc_Fulltext_Html", FileFormatVO.HTML_PLAIN_MIMETYPE, UTF_8), //
+    BMC_FULLTEXT_XML("Bmc_Fulltext", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    BMC_OAIPMH_XML("Bmc_Oaipmh", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    BMC_XML("Bmc", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    COINS_STRING("Coins", FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    DC_XML("Dc", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    DOI_METADATA_XML("Doi", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    EDOC_XML(TransformerFactory.EDOC_XML, FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ENDNOTE_STRING(TransformerFactory.ENDNOTE, FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    ENDNOTE_XML("Endnode_Xml", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_COMPONENT_XML("eSciDoc-publication-component", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEMLIST_V1_XML("eSciDoc-publication-itemlist-V1", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEMLIST_V2_XML("eSciDoc-publication-itemlist-V2", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEMLIST_V3_XML("eSciDoc-publication-itemlist", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEM_V1_XML("eSciDoc-publication-item-V1", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEM_V2_XML("eSciDoc-publication-item-V2", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEM_V3_XML(TransformerFactory.ESCIDOC_PUBLICATION_ITEM, FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ESCIDOC_ITEM_VO("eSciDoc-publication-itemVO", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    HTML_METATAGS_DC_XML("Html_Metatags_dc", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML("Html_Metatags_Highwirepress_Cit", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    JUS_HTML_XML("Jus_Html", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    JUS_INDESIGN_XML("Jus_Indesign", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    JUS_SNIPPET_XML("Jus_Snippet", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    MAB_STRING("Mab", FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    MAB_XML("Mab_Xml", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    MARC_21_STRING("Marc21", FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    MARC_XML(TransformerFactory.MARC_XML, FileFormatVO.XML_MIMETYPE, UTF_8), //
+    MODS_XML("Mods", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.XML_MIMETYPE, UTF_8), //
+    PEER_TEI_XML("Peer", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    PMC_OAIPMH_XML("Pmc_Oaipmh", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    RIS_STRING("Ris", FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    RIS_XML("Ris_Xml", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    SPIRES_XML("Spires", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    WOS_STRING("Wos", FileFormatVO.TXT_MIMETYPE, UTF_8), //
+    WOS_XML("Wos", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ZFN_TEI_XML("Zfn", FileFormatVO.XML_MIMETYPE, UTF_8), //
+    ZIM_XML("Zim", FileFormatVO.XML_MIMETYPE, UTF_8);
 
   private final String name;
   private final String type;

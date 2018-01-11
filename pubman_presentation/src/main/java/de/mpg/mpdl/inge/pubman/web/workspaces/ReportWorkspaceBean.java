@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
@@ -58,7 +59,7 @@ public class ReportWorkspaceBean extends FacesBean {
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
 
-  private final String csExportFormat = "JUS_Report";
+  private final String csExportFormat = XmlHelper.JUS_REPORT;
   private final String csOutputFormat = "escidoc_snippet";
 
   private Map<String, String> configuration = null;

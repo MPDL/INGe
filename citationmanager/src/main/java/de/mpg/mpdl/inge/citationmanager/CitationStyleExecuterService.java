@@ -71,6 +71,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class CitationStyleExecuterService {
   private static final Logger logger = Logger.getLogger(CitationStyleExecuterService.class);
 
+  private static final String UTF_8 = "UTF-8";
+  private static final String HTML = "html";
+  private static final String XHTML = "xhtml";
+
   public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();
   }
@@ -94,8 +98,8 @@ public class CitationStyleExecuterService {
             "Output format: " + outputFormat + " is not supported for Citation Style: " + exportFormat.getName());
       }
 
-      if ("CSL".equals(exportFormat.getName())) {
-        snippet = new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList), "UTF-8");
+      if (XmlHelper.CSL.equals(exportFormat.getName())) {
+        snippet = new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList), UTF_8);
       } else {
 
         StringWriter sw = new StringWriter();
@@ -115,9 +119,9 @@ public class CitationStyleExecuterService {
       }
 
       // new edoc md set
-      if ("escidoc_snippet".equals(outputFormat)) {
-        result = snippet.getBytes("UTF-8");
-      } else if ("snippet".equals(outputFormat)) { // old edoc md set: back transformation
+      if (XmlHelper.ESCIDOC_SNIPPET.equals(outputFormat)) {
+        result = snippet.getBytes(UTF_8);
+      } else if (XmlHelper.SNIPPET.equals(outputFormat)) { // old edoc md set: back transformation
 
         de.mpg.mpdl.inge.transformation.Transformer trans =
             TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
@@ -125,18 +129,17 @@ public class CitationStyleExecuterService {
         StringWriter wr = new StringWriter();
 
         try {
-          trans.transform(new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes("UTF-8"))),
-              new TransformerStreamResult(wr));
+          trans.transform(new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes(UTF_8))), new TransformerStreamResult(wr));
         } catch (Exception e) {
           throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
         }
-        result = wr.toString().getBytes("UTF-8");
-      } else if ("html_plain".equals(outputFormat) || "html_linked".equals(outputFormat)) {
-        result = generateHtmlOutput(snippet, outputFormat, "html", true).getBytes("UTF-8");
-      } else if ("txt".equals(outputFormat)) {
-        result = snippet.getBytes("UTF-8");
-      } else if ("docx".equals(outputFormat) || "pdf".equals(outputFormat)) {
-        String htmlResult = generateHtmlOutput(snippet, "html_plain", "xhtml", false);
+        result = wr.toString().getBytes(UTF_8);
+      } else if (XmlHelper.HTML_PLAIN.equals(outputFormat) || XmlHelper.HTML_LINKED.equals(outputFormat)) {
+        result = generateHtmlOutput(snippet, outputFormat, HTML, true).getBytes(UTF_8);
+      } else if (XmlHelper.TXT.equals(outputFormat)) {
+        result = snippet.getBytes(UTF_8);
+      } else if (XmlHelper.DOCX.equals(outputFormat) || XmlHelper.PDF.equals(outputFormat)) {
+        String htmlResult = generateHtmlOutput(snippet, XmlHelper.HTML_PLAIN, XHTML, false);
         WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
         XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
         MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
@@ -164,9 +167,9 @@ public class CitationStyleExecuterService {
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-        if ("docx".equals(outputFormat)) {
+        if (XmlHelper.DOCX.equals(outputFormat)) {
           wordOutputDoc.save(bos);
-        } else if ("pdf".equals(outputFormat)) {
+        } else if (XmlHelper.PDF.equals(outputFormat)) {
           FOSettings foSettings = Docx4J.createFOSettings();
           foSettings.setWmlPackage(wordOutputDoc);
           Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
@@ -195,8 +198,8 @@ public class CitationStyleExecuterService {
       transformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
 
       transformer.setParameter("pubman_instance", getPubManUrl());
-      if ("html_linked".equals(html_format)) {
-        transformer.setParameter("html_linked", Boolean.TRUE);
+      if (XmlHelper.HTML_LINKED.equals(html_format)) {
+        transformer.setParameter(XmlHelper.HTML_LINKED, Boolean.TRUE);
       }
       transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
     } catch (Exception e) {

@@ -34,6 +34,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -41,6 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
@@ -68,15 +70,16 @@ public class ExportItems extends FacesBean {
 
   public SelectItem[] getEXPORTFORMAT_OPTIONS() {
     // constants for comboBoxes and HtmlSelectOneRadios
-    final SelectItem EXPORTFORMAT_MARCXML = new SelectItem("MARCXML", this.getLabel("Export_ExportFormat_MARCXML"));
-    final SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", this.getLabel("Export_ExportFormat_ENDNOTE"));
-    final SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", this.getLabel("Export_ExportFormat_BIBTEX"));
-    final SelectItem EXPORTFORMAT_ESCIDOC_XML = new SelectItem("ESCIDOC_XML", this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
-    final SelectItem EXPORTFORMAT_APA = new SelectItem("APA", this.getLabel("Export_ExportFormat_APA"));
-    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem("APA(CJK)", this.getLabel("Export_ExportFormat_APA_CJK"));
-    final SelectItem EXPORTFORMAT_AJP = new SelectItem("AJP", this.getLabel("Export_ExportFormat_AJP"));
-    final SelectItem EXPORTFORMAT_JUS = new SelectItem("JUS", this.getLabel("Export_ExportFormat_JUS"));
-    final SelectItem EXPORTFORMAT_CSL = new SelectItem("CSL", "CSL");
+    final SelectItem EXPORTFORMAT_MARCXML = new SelectItem(TransformerFactory.MARC_XML, this.getLabel("Export_ExportFormat_MARCXML"));
+    final SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem(TransformerFactory.ENDNOTE, this.getLabel("Export_ExportFormat_ENDNOTE"));
+    final SelectItem EXPORTFORMAT_BIBTEX = new SelectItem(TransformerFactory.BIBTEX, this.getLabel("Export_ExportFormat_BIBTEX"));
+    final SelectItem EXPORTFORMAT_ESCIDOC_XML =
+        new SelectItem(TransformerFactory.ESCIDOC_PUBLICATION_ITEM, this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
+    final SelectItem EXPORTFORMAT_APA = new SelectItem(XmlHelper.APA, this.getLabel("Export_ExportFormat_APA"));
+    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(XmlHelper.APA_CJK, this.getLabel("Export_ExportFormat_APA_CJK"));
+    final SelectItem EXPORTFORMAT_AJP = new SelectItem(XmlHelper.AJP, this.getLabel("Export_ExportFormat_AJP"));
+    final SelectItem EXPORTFORMAT_JUS = new SelectItem(XmlHelper.JUS, this.getLabel("Export_ExportFormat_JUS"));
+    final SelectItem EXPORTFORMAT_CSL = new SelectItem(XmlHelper.CSL, XmlHelper.CSL); // nicht globalisiert
 
     final SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX,
         EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
@@ -87,17 +90,18 @@ public class ExportItems extends FacesBean {
   // Yearbook
   public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED() {
     final SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
-    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] = new SelectItem("EDOC_IMPORT", "EDOC_IMPORT");
+    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] = new SelectItem(TransformerFactory.EDOC_XML, TransformerFactory.EDOC_XML); // nicht globalisert
 
     return EXPORTFORMAT_OPTIONS;
   }
 
   public SelectItem[] getFILEFORMAT_OPTIONS() {
-    final SelectItem FILEFORMAT_PDF = new SelectItem("pdf", this.getLabel("Export_FileFormat_PDF"));
-    final SelectItem FILEFORMAT_DOCX = new SelectItem("docx", this.getLabel("Export_FileFormat_DOCX"));
-    final SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem("html_plain", this.getLabel("Export_FileFormat_HTML_PLAIN"));
-    final SelectItem FILEFORMAT_HTML_LINKED = new SelectItem("html_linked", this.getLabel("Export_FileFormat_HTML_LINKED"));
-    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET = new SelectItem("escidoc_snippet", this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
+    final SelectItem FILEFORMAT_PDF = new SelectItem(FileFormatVO.PDF_NAME, this.getLabel("Export_FileFormat_PDF"));
+    final SelectItem FILEFORMAT_DOCX = new SelectItem(FileFormatVO.DOCX_NAME, this.getLabel("Export_FileFormat_DOCX"));
+    final SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem(FileFormatVO.HTML_PLAIN_NAME, this.getLabel("Export_FileFormat_HTML_PLAIN"));
+    final SelectItem FILEFORMAT_HTML_LINKED = new SelectItem(FileFormatVO.HTML_LINKED_NAME, this.getLabel("Export_FileFormat_HTML_LINKED"));
+    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
+        new SelectItem(FileFormatVO.ESCIDOC_SNIPPET_NAME, this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
     final SelectItem[] FILEFORMAT_OPTIONS =
         new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
 
@@ -116,28 +120,28 @@ public class ExportItems extends FacesBean {
     final String selExportFormat = sb.getExportFormatName();
     sb.setExportFormatName(selExportFormat);
 
-    if ("APA".equalsIgnoreCase(selExportFormat) //
-        || "AJP".equalsIgnoreCase(selExportFormat) //
-        || "JUS".equalsIgnoreCase(selExportFormat) //
-        || "APA(CJK)".equalsIgnoreCase(selExportFormat) //
-        || "CSL".equalsIgnoreCase(selExportFormat)) {
+    if (XmlHelper.APA.equalsIgnoreCase(selExportFormat) //
+        || XmlHelper.APA_CJK.equalsIgnoreCase(selExportFormat) //
+        || XmlHelper.AJP.equalsIgnoreCase(selExportFormat) //
+        || XmlHelper.JUS.equalsIgnoreCase(selExportFormat) //
+        || XmlHelper.CSL.equalsIgnoreCase(selExportFormat)) {
       // set default fileFormat to pdf
       final String fileFormat = sb.getFileFormat();
 
       if (fileFormat != null || fileFormat != null && fileFormat.trim().equals("")
-          || fileFormat != null && fileFormat.trim().equals(FileFormatVO.TEXT_NAME)) {
+          || fileFormat != null && fileFormat.trim().equals(FileFormatVO.TXT_NAME)) {
         sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
       }
     } else {
       String fileFormat = null;
 
-      if ("ESCIDOC_XML".equals(selExportFormat)) {
+      if (TransformerFactory.ESCIDOC_PUBLICATION_ITEM.equals(selExportFormat)) {
         fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
-      } else if ("MARCXML".equals(selExportFormat)) {
+      } else if (TransformerFactory.MARC_XML.equals(selExportFormat)) {
         fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
       } else {
         // txt for all other
-        fileFormat = FileFormatVO.TEXT_NAME;
+        fileFormat = FileFormatVO.TXT_NAME;
       }
 
       sb.setFileFormat(fileFormat);

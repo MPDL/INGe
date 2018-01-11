@@ -41,6 +41,7 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -1893,9 +1894,9 @@ public class ViewItemFull extends FacesBean {
       }
 
       if (isJapanese || "ja".equalsIgnoreCase(this.getI18nHelper().getLocale())) {
-        expFormat.setName("APA(CJK)");
+        expFormat.setName(XmlHelper.APA_CJK);
       } else {
-        expFormat.setName("APA6");
+        expFormat.setName(XmlHelper.APA6);
       }
 
       final FileFormatVO fileFormat = new FileFormatVO();

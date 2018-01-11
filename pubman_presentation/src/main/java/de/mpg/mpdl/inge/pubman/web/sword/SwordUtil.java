@@ -109,8 +109,8 @@ public class SwordUtil extends FacesBean {
 
   // private static final String acceptedFormat = "application/zip";
   private static final String itemPath = "/pubman/item/";
-  private static final String mdFormatBibTex = "BibTex";
-  private static final String mdFormatEndnote = "EndNote";
+  private static final String mdFormatBibTex = TransformerFactory.BIBTEX;
+  private static final String mdFormatEndnote = TransformerFactory.ENDNOTE;
   private static final String mdFormatEscidoc = "http://purl.org/escidoc/metadata/schemas/0.1/publication";
   private static final String mdFormatPeerTEI = "http://purl.org/net/sword-types/tei/peer";
   private static final String treatmentText =

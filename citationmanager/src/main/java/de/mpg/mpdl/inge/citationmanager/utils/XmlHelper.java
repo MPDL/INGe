@@ -58,16 +58,9 @@ import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
-import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
 import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
 import de.mpg.mpdl.inge.util.DOMUtilities;
 import de.mpg.mpdl.inge.util.ResourceUtil;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRStyle;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
  * 
@@ -78,22 +71,38 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-
 public class XmlHelper {
 
   private static final Logger logger = Logger.getLogger(XmlHelper.class);
 
-  // public final static String DATASOURCES_XML_SCHEMA_FILE =
-  // "escidoc/soap/item/0.3/item-list.xsd";
   public final static String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
   public final static String SCHEMATRON_DIRECTORY = "Schematron/";
   public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
   public final static String FONT_STYLES_COLLECTION_FILE = "font-styles.xml";
 
-  private static TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
+  public final static String AJP = "AJP";
+  public final static String APA = "APA";
+  public final static String APA6 = "APA6";
+  public final static String APA_CJK = "APA(CJK)";
+  public final static String CSL = "CSL";
+  public final static String DEFAULT = "Default";
+  public final static String JUS = "JUS";
+  public final static String JUS_REPORT = "JUS_Report";
+
+  public static final String DOCX = "docx";
+  public static final String ESCIDOC_SNIPPET = "escidoc_snippet";
+  public static final String HTML_LINKED = "html_linked";
+  public static final String HTML_PLAIN = "html_plain";
+  public static final String HTML_STYLED = "html_styled";
+  public static final String ODT = "odt";
+  public static final String PDF = "pdf";
+  public static final String RTF = "rtf";
+  public static final String SNIPPET = "snippet";
+  public static final String TXT = "txt";
+
+  private static TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();
 
   public static HashMap<String, Templates> templCache = new HashMap<String, Templates>(20);
-  public static HashMap<String, JasperReport> jasperCache = new HashMap<String, JasperReport>(20);
 
   // List of all available output formats
   public static HashMap<String, String[]> outputFormatsHash = null;
@@ -104,25 +113,6 @@ public class XmlHelper {
 
   // FontStyleCollectiona Hash
   public static HashMap<String, FontStylesCollection> fsc = new HashMap<String, FontStylesCollection>();
-
-  /**
-   * Builds new DocumentBuilder
-   * 
-   * @return DocumentBuilder
-   * @throws CitationStyleManagerException
-   */
-  public static DocumentBuilder createDocumentBuilder() {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setValidating(false);
-    dbf.setIgnoringComments(true);
-    dbf.setNamespaceAware(false);
-
-    try {
-      return dbf.newDocumentBuilder();
-    } catch (ParserConfigurationException e) {
-      throw new RuntimeException("Failed to create a document builder factory", e);
-    }
-  }
 
   /**
    * Creates new org.w3c.dom.Document with Traversing possibility
@@ -166,62 +156,11 @@ public class XmlHelper {
 
     Templates x = templCache.get(path);
     if (x == null) {
-      x = tf.newTemplates(new StreamSource(is));
+      x = TF.newTemplates(new StreamSource(is));
       templCache.put(path, x);
     }
+
     return x;
-  }
-
-  public static JasperReport tryJasperCache(String cs) throws CitationStyleManagerException, IOException, JRException {
-    Utils.checkName(cs, "Empty style name.");
-
-    JasperReport jr = XmlHelper.jasperCache.get(cs);
-
-    if (jr == null) {
-
-      // get default JasperDesign
-
-      String path = CitationUtil.getPathToCitationStyles() + "citation-style.jrxml";
-      JasperDesign jd = JRXmlLoader.load(ResourceUtil.getResourceAsStream(path, XmlHelper.class.getClassLoader()));
-
-      // populate page header
-      // setPageHeader(jd, cs);
-
-      // set default Report Style
-      setDefaultReportStyle(jd, cs);
-
-      // compile to the JasperReport
-      jr = JasperCompileManager.compileReport(jd);
-
-      XmlHelper.jasperCache.put(cs, jr);
-    }
-
-    return jr;
-  }
-
-  /**
-   * Render report default style with values, taken from font styles collection.
-   * 
-   * @param jasperDesign
-   */
-  private static void setDefaultReportStyle(JasperDesign jasperDesign, String cs) {
-
-    JRStyle jrs = jasperDesign.getDefaultStyle();
-
-    FontStyle dfs = loadFontStylesCollection(cs).getDefaultFontStyle();
-    jrs.setFontName(dfs.getFontName());
-    jrs.setFontSize(dfs.getFontSize());
-
-    jrs.setForecolor(dfs.getForeColorAwt());
-    jrs.setBackcolor(dfs.getBackColorAwt());
-    jrs.setBold(dfs.getIsBold());
-    jrs.setItalic(dfs.getIsItalic());
-    jrs.setUnderline(dfs.getIsUnderline());
-    jrs.setStrikeThrough(dfs.getIsStrikeThrough());
-    jrs.setPdfFontName(dfs.getPdfFontName());
-    jrs.setPdfEncoding(dfs.getPdfEncoding());
-    jrs.setPdfEmbedded(true);
-
   }
 
   /**
@@ -233,17 +172,11 @@ public class XmlHelper {
    */
   public String validateSchema(final String schemaUrl, final String xmlDocumentUrl) {
     try {
-      // System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
-      // "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setNamespaceAware(true);
       factory.setValidating(true);
       factory.setXIncludeAware(true);
       factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-      // factory.setAttribute(
-      // "http://java.sun.com/xml/jaxp/properties/schemaSource",
-      // ResourceUtil.getResourceAsFile(schemaUrl)
-      // );
 
       DocumentBuilder builder = factory.newDocumentBuilder();
       Validator handler = new Validator();
@@ -265,7 +198,6 @@ public class XmlHelper {
 
     return null;
   }
-
 
   /**
    * Validation of CitationStyle XML against 1) XML schema 2) Schematron schema
@@ -380,25 +312,12 @@ public class XmlHelper {
     public void warning(SAXParseException exception) throws SAXException {}
   }
 
-  public static Document getExplainDocument() throws CitationStyleManagerException {
-    Document doc = null;
-    try {
-      doc = parseDocumentForTraversing(new InputSource(
-          ResourceUtil.getResourceAsStream(CitationUtil.getPathToSchemas() + CitationUtil.EXPLAIN_FILE, XmlHelper.class.getClassLoader())));
-    } catch (Exception e) {
-      throw new CitationStyleManagerException("Cannot parse explain file", e);
-    }
-    return doc;
-  }
-
   /*
    * Returns list of Citation Styles
    */
   public static String[] getListOfStyles() {
-
     Object[] oa = getCitationStylesHash().keySet().toArray();
     return Arrays.copyOf(oa, oa.length, String[].class);
-
   }
 
   /**
@@ -412,7 +331,6 @@ public class XmlHelper {
     Utils.checkCondition(!Utils.checkVal(cs), "Empty name of the citation style");
 
     return getCitationStylesHash().containsKey(cs);
-
   }
 
   /**
@@ -482,7 +400,7 @@ public class XmlHelper {
 
     HashMap<String, String[]> of = getOutputFormatsHash();
 
-    return of.containsKey(outputFormat) ? of.get(outputFormat)[1] : of.get("pdf")[1];
+    return of.containsKey(outputFormat) ? of.get(outputFormat)[1] : of.get(XmlHelper.PDF)[1];
   }
 
   /**
@@ -533,6 +451,7 @@ public class XmlHelper {
         );
       }
     }
+
     return outputFormatsHash;
 
   }
@@ -622,22 +541,6 @@ public class XmlHelper {
 
   }
 
-  public static Double xpathNumber(String expr, String xml) {
-    try {
-      return xpathNumber(expr, DOMUtilities.createDocument(xml));
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot evaluate XPath:", e);
-    }
-  }
-
-  public static Double xpathNumber(String expr, Document doc) {
-    try {
-      return (Double) xpath.evaluate(expr, doc, XPathConstants.NUMBER);
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot evaluate XPath:", e);
-    }
-  }
-
   public static NodeList xpathNodeList(String expr, String xml) {
     try {
       return xpathNodeList(expr, DOMUtilities.createDocument(xml));
@@ -686,13 +589,7 @@ class OutputFormatNodeFilter implements NodeFilter {
   public short acceptNode(Node n) {
     Node parent = n.getParentNode();
     if ("output-format".equals(n.getLocalName()) && parent != null && "export-format".equals(parent.getLocalName())
-        && this.cs.equals(parent.getChildNodes().item(3).getTextContent()// name,
-        // style
-        )) {
-      // System.out.println("Matched-->" + n.getLocalName()
-      // + ";parent:" + parent.getLocalName()
-      // + ";n.getNamespaceURI():" + n.getNamespaceURI()
-      // );
+        && this.cs.equals(parent.getChildNodes().item(3).getTextContent())) {
       return FILTER_ACCEPT;
     }
 
@@ -707,16 +604,8 @@ class ExportFormatNodeFilter implements NodeFilter {
   @Override
   public short acceptNode(Node n) {
     Node parent = n.getParentNode();
-    // System.out.println("I am here!!!!-->" + n.getLocalName()
-    // + ";parent:" + parent.getLocalName()
-    // + ";n.getNamespaceURI():" + n.getNamespaceURI()
-    // );
     if ("identifier".equals(n.getLocalName()) && DC_NS.equals(n.getNamespaceURI()) && parent != null
         && "export-format".equals(parent.getLocalName())) {
-      // System.out.println("Matched-->" + n.getLocalName()
-      // + ";parent:" + parent.getLocalName()
-      // + ";n.getNamespaceURI():" + n.getNamespaceURI()
-      // );
       return FILTER_ACCEPT;
     }
 

@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -43,7 +42,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
-import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
@@ -85,7 +83,7 @@ public class CitationStylesSubstantialTest {
   private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "backup/CitationStyleTestCollection.xml";
 
 
-  private static String userHandle, adminHandle;
+  //  private static String userHandle, adminHandle;
 
   private static HashMap<String, String[]> filterMap = new HashMap<String, String[]>();
 
@@ -104,7 +102,7 @@ public class CitationStylesSubstantialTest {
   public final void testCitationStylesSnippetGeneration() throws Exception {
 
     for (String cs : CitationStyleExecuterService.getStyles()) {
-      if (!"CSL".equals(cs)) {
+      if (!XmlHelper.CSL.equals(cs)) {
         testCitationStyleSnippetGeneration(cs);
       }
 

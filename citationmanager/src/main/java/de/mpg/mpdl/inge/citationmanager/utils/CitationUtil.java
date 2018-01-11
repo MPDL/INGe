@@ -25,9 +25,7 @@
 
 package de.mpg.mpdl.inge.citationmanager.utils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -223,59 +221,59 @@ public class CitationUtil {
     return props;
   }
 
-  /**
-   * Load citman properties
-   * 
-   * @param fileName - file name of the properties
-   * @return properties
-   * @throws FileNotFoundException
-   * @throws IOException
-   */
+  //  /**
+  //   * Load citman properties
+  //   * 
+  //   * @param fileName - file name of the properties
+  //   * @return properties
+  //   * @throws FileNotFoundException
+  //   * @throws IOException
+  //   */
+  //
+  //  public static Properties getProperties(String fileName) throws FileNotFoundException, IOException {
+  //    return getProperties("", fileName);
+  //  }
 
-  public static Properties getProperties(String fileName) throws FileNotFoundException, IOException {
-    return getProperties("", fileName);
-  }
+  //  /**
+  //   * Returns list of Citation Styles according to the content of the <code>CitaionStyles</code>
+  //   * directory
+  //   * 
+  //   * @param root
+  //   * @return list of Citation Styles
+  //   * @throws IllegalArgumentException
+  //   * @throws IOException
+  //   */
+  //  public static String[] getCitationStylesList() throws IllegalArgumentException, IOException {
+  //    // File templPath = new File(getCsPath(root).toString());
+  //    File templPath = new File(getPathToCitationStyles());
+  //
+  //    return templPath.list(new FilenameFilter() {
+  //      public boolean accept(File dir, String name) {
+  //        return (new File(dir, name)).isDirectory() && !name.startsWith(".");
+  //      }
+  //    });
+  //  }
 
-  /**
-   * Returns list of Citation Styles according to the content of the <code>CitaionStyles</code>
-   * directory
-   * 
-   * @param root
-   * @return list of Citation Styles
-   * @throws IllegalArgumentException
-   * @throws IOException
-   */
-  public static String[] getCitationStylesList() throws IllegalArgumentException, IOException {
-    // File templPath = new File(getCsPath(root).toString());
-    File templPath = new File(getPathToCitationStyles());
-
-    return templPath.list(new FilenameFilter() {
-      public boolean accept(File dir, String name) {
-        return (new File(dir, name)).isDirectory() && !name.startsWith(".");
-      }
-    });
-  }
-
-  /**
-   * Deletes CitationStyleBundle
-   * 
-   * @param path
-   * @param name A name of CitationStyle
-   * @throws CitationStyleManagerException
-   * @throws IOException
-   * @throws IOException
-   * @throws Exception
-   */
-  public static void deleteCitationStyleBundle(String name) throws IllegalArgumentException, CitationStyleManagerException, IOException {
-
-    Utils.checkName(name, "Empty name of CitationStyleBundle");
-
-    File path = new File(getPathToCitationStyles() + "/" + name);
-    if (!path.isDirectory()) {
-      throw new IllegalArgumentException("deleteCitationStyleBundle: cannot find directory:" + path);
-    }
-    for (String f : path.list())
-      new File(path, f).delete();
-    path.delete();
-  }
+  //  /**
+  //   * Deletes CitationStyleBundle
+  //   * 
+  //   * @param path
+  //   * @param name A name of CitationStyle
+  //   * @throws CitationStyleManagerException
+  //   * @throws IOException
+  //   * @throws IOException
+  //   * @throws Exception
+  //   */
+  //  public static void deleteCitationStyleBundle(String name) throws IllegalArgumentException, CitationStyleManagerException, IOException {
+  //
+  //    Utils.checkName(name, "Empty name of CitationStyleBundle");
+  //
+  //    File path = new File(getPathToCitationStyles() + "/" + name);
+  //    if (!path.isDirectory()) {
+  //      throw new IllegalArgumentException("deleteCitationStyleBundle: cannot find directory:" + path);
+  //    }
+  //    for (String f : path.list())
+  //      new File(path, f).delete();
+  //    path.delete();
+  //  }
 }

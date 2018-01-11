@@ -55,6 +55,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -252,14 +253,14 @@ public class ReportFHI {
     String fn;
     // save in files in formats
     for (String f : formats) {
-      if ("pdf".equalsIgnoreCase(f)) {
+      if (FileFormatVO.PDF_NAME.equalsIgnoreCase(f)) {
         JRPdfExporter pdfExp = new JRPdfExporter();
         pdfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         fn = "FHI_Bibilothek_report.pdf";
         pdfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
         pdfExp.exportReport();
         atts.add(fn);
-      } else if ("rtf".equalsIgnoreCase(f)) {
+      } else if (FileFormatVO.RTF_NAME.equalsIgnoreCase(f)) {
         JRRtfExporter rtfExp = new JRRtfExporter();
         rtfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         fn = "FHI_Bibilothek_report.rtf";

@@ -49,95 +49,80 @@ public class FileFormatVO extends ValueObject {
    * @author Johannes Mueller
    */
 
-  public static final String TEXT_NAME = "txt";
-  public static final String TEXT_MIMETYPE = "text/plain";
-
-  public static final String PDF_NAME = "pdf";
-  public static final String PDF_MIMETYPE = "application/pdf";
-
-  public static final String PS_NAME = "ps";
-  public static final String PS_MIMETYPE = "application/gzip";
-
-  public static final String RTF_NAME = "rtf";
-  public static final String RTF_MIMETYPE = "application/rtf";
-
-  public static final String HTML_PLAIN_NAME = "html_plain";
-  public static final String HTML_PLAIN_MIMETYPE = "text/html";
-
-  public static final String HTML_LINKED_NAME = "html_linked";
-  public static final String HTML_LINKED_MIMETYPE = "text/html";
-
-  public static final String HTML_STYLED_NAME = "html_styled";
-  public static final String HTML_STYLED_MIMETYPE = "text/html";
-
-  public static final String ODT_NAME = "odt";
-  public static final String ODT_MIMETYPE = "application/vnd.oasis.opendocument.text";
-
-  public static final String SNIPPET_NAME = "snippet";
-  public static final String SNIPPET_MIMETYPE = "application/xml";
-
-  public static final String ESCIDOC_SNIPPET_NAME = "escidoc_snippet";
-  public static final String ESCIDOC_SNIPPET_MIMETYPE = "application/xml";
-
-  public static final String XML_NAME = "xml";
-  public static final String XML_MIMETYPE = "application/xml";
-
-  public static final String ESCIDOC_XML_NAME = "escidoc_xml";
-  public static final String ESCIDOC_XML_MIMETYPE = "application/xml";
-
-  public static final String EDOC_IMPORT_NAME = "edoc_import";
-  public static final String EDOC_IMPORT_MIMETYPE = "application/xml";
-
-  public static final String EDOC_EXPORT_NAME = "edoc_export";
-  public static final String EDOC_EXPORT_MIMETYPE = "application/xml";
-
-  public static final String DOCX_NAME = "docx";
   public static final String DOCX_MIMETYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  public static final String DOCX_NAME = "docx";
+  public static final String EDOC_EXPORT_MIMETYPE = "application/xml";
+  public static final String EDOC_EXPORT_NAME = "edoc_export";
+  public static final String EDOC_IMPORT_MIMETYPE = "application/xml";
+  public static final String EDOC_IMPORT_NAME = "edoc_import";
+  public static final String ESCIDOC_SNIPPET_MIMETYPE = "application/xml";
+  public static final String ESCIDOC_SNIPPET_NAME = "escidoc_snippet";
+  public static final String ESCIDOC_XML_MIMETYPE = "application/xml";
+  public static final String ESCIDOC_XML_NAME = "escidoc_xml";
+  public static final String HTML_LINKED_MIMETYPE = "text/html";
+  public static final String HTML_LINKED_NAME = "html_linked";
+  public static final String HTML_PLAIN_MIMETYPE = "text/html";
+  public static final String HTML_PLAIN_NAME = "html_plain";
+  public static final String HTML_STYLED_MIMETYPE = "text/html";
+  public static final String HTML_STYLED_NAME = "html_styled";
+  public static final String ODT_MIMETYPE = "application/vnd.oasis.opendocument.text";
+  public static final String ODT_NAME = "odt";
+  public static final String PDF_MIMETYPE = "application/pdf";
+  public static final String PDF_NAME = "pdf";
+  public static final String PS_MIMETYPE = "application/gzip";
+  public static final String PS_NAME = "ps";
+  public static final String RTF_MIMETYPE = "application/rtf";
+  public static final String RTF_NAME = "rtf";
+  public static final String SNIPPET_MIMETYPE = "application/xml";
+  public static final String SNIPPET_NAME = "snippet";
+  public static final String TXT_MIMETYPE = "text/plain";
+  public static final String TXT_NAME = "txt";
+  public static final String XML_MIMETYPE = "application/xml";
+  public static final String XML_NAME = "xml";
 
-  public static final String DEFAULT_NAME = PDF_NAME;
   public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
-
+  public static final String DEFAULT_NAME = PDF_NAME;
   public static final String DEFAULT_CHARSET = "utf-8";
 
   private static final Map<String, String> formatExtensions = new HashMap<String, String>() {
     {
-      put(TEXT_NAME, "txt");
-      put(PDF_NAME, "pdf");
-      put(RTF_NAME, "rtf");
-      put(HTML_PLAIN_NAME, "html");
-      put(HTML_LINKED_NAME, "html");
-      put(HTML_STYLED_NAME, "html");
-      put(ODT_NAME, "odt");
-      put(SNIPPET_NAME, "xml");
-      put(ESCIDOC_SNIPPET_NAME, "xml");
-      put(XML_NAME, "xml");
-      put(ESCIDOC_XML_NAME, "xml");
-      put(EDOC_IMPORT_NAME, "xml");
-      put(EDOC_EXPORT_NAME, "xml");
       put(DEFAULT_NAME, "pdf");
       put(DOCX_NAME, "docx");
+      put(EDOC_EXPORT_NAME, "xml");
+      put(EDOC_IMPORT_NAME, "xml");
+      put(ESCIDOC_SNIPPET_NAME, "xml");
+      put(ESCIDOC_XML_NAME, "xml");
+      put(HTML_LINKED_NAME, "html");
+      put(HTML_PLAIN_NAME, "html");
+      put(HTML_STYLED_NAME, "html");
+      put(ODT_NAME, "odt");
+      put(PDF_NAME, "pdf");
       put(PS_NAME, "ps");
+      put(RTF_NAME, "rtf");
+      put(SNIPPET_NAME, "xml");
+      put(TXT_NAME, "txt");
+      put(XML_NAME, "xml");
     }
   };
 
   private static final Map<String, String> formatMimeTypes = new HashMap<String, String>() {
     {
-      put(TEXT_NAME, TEXT_MIMETYPE);
-      put(PDF_NAME, PDF_MIMETYPE);
-      put(RTF_NAME, RTF_MIMETYPE);
-      put(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE);
-      put(HTML_LINKED_NAME, HTML_LINKED_MIMETYPE);
-      put(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE);
-      put(ODT_NAME, ODT_MIMETYPE);
-      put(SNIPPET_NAME, SNIPPET_MIMETYPE);
-      put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
-      put(XML_NAME, XML_MIMETYPE);
-      put(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE);
-      put(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE);
-      put(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE);
       put(DEFAULT_NAME, DEFAULT_MIMETYPE);
       put(DOCX_NAME, DOCX_MIMETYPE);
+      put(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE);
+      put(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE);
+      put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
+      put(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE);
+      put(HTML_LINKED_NAME, HTML_LINKED_MIMETYPE);
+      put(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE);
+      put(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE);
+      put(ODT_NAME, ODT_MIMETYPE);
+      put(PDF_NAME, PDF_MIMETYPE);
       put(PS_NAME, PS_MIMETYPE);
+      put(RTF_NAME, RTF_MIMETYPE);
+      put(SNIPPET_NAME, SNIPPET_MIMETYPE);
+      put(TXT_NAME, TXT_MIMETYPE);
+      put(XML_NAME, XML_MIMETYPE);
     }
   };
 
@@ -156,8 +141,6 @@ public class FileFormatVO extends ValueObject {
    */
   public static String getMimeTypeByName(String name) {
     name = name == null || name.trim().equals("") ? "" : name.trim();
-    // if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
-    // by default
     return formatMimeTypes.containsKey(name) ? formatMimeTypes.get(name) : formatMimeTypes.get(DEFAULT_NAME);
   }
 

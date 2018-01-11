@@ -40,7 +40,7 @@
 				</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>Oai_Dc</label>
-				<name>oai_dc</name>
+				<name>Oai_Dc</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
 		</MD-fetch-settings>

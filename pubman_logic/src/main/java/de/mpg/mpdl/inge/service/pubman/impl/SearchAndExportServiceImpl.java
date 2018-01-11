@@ -12,6 +12,7 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -80,7 +81,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     ExportFormatVO exportFormatVO;
 
     if (isStructured(exportFormat)) {
-      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat, outputFormat == null ? "pdf" : outputFormat);
+      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat, outputFormat == null ? FileFormatVO.PDF_NAME : outputFormat);
     } else if (isCitationStyle(exportFormat)) {
       exportFormatVO = new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat, cslConeId);
     } else {

@@ -32,10 +32,12 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -56,7 +58,7 @@ public class ExportItemsSessionBean extends FacesBean {
   private String message = null;
 
   private String exportFormatType = "LAYOUT";
-  private String exportFormatName = "APA";
+  private String exportFormatName = XmlHelper.APA;
   private final ExportFormatVO curExportFormatVO = new ExportFormatVO();
   private final FileFormatVO curFileFormatVO = new FileFormatVO();
 
@@ -97,8 +99,8 @@ public class ExportItemsSessionBean extends FacesBean {
       this.curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
     } else {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-      this.curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
-      this.curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+      this.curFileFormatVO.setName(FileFormatVO.TXT_NAME);
+      this.curFileFormatVO.setMimeType(FileFormatVO.TXT_MIMETYPE);
     }
 
     this.curExportFormatVO.setName(this.exportFormatName);
@@ -143,15 +145,15 @@ public class ExportItemsSessionBean extends FacesBean {
     this.exportFormatName = exportFormatName;
     this.curExportFormatVO.setName(exportFormatName);
 
-    if ("APA".equalsIgnoreCase(exportFormatName) //
-        || "AJP".equalsIgnoreCase(exportFormatName) //
-        || "JUS".equalsIgnoreCase(exportFormatName) //
-        || "APA(CJK)".equalsIgnoreCase(exportFormatName)) {
+    if (XmlHelper.APA.equalsIgnoreCase(exportFormatName) //
+        || XmlHelper.APA_CJK.equalsIgnoreCase(exportFormatName) //
+        || XmlHelper.JUS.equalsIgnoreCase(exportFormatName) //
+        || XmlHelper.AJP.equalsIgnoreCase(exportFormatName)) {
       this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
       this.exportFormatType = FormatType.LAYOUT.toString();
       this.setEnableFileFormats(true);
       this.setEnableCslAutosuggest(false);
-    } else if ("CSL".equalsIgnoreCase(exportFormatName)) {
+    } else if (XmlHelper.CSL.equalsIgnoreCase(exportFormatName)) {
       this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
       this.exportFormatType = FormatType.LAYOUT.toString();
       this.setEnableFileFormats(true);
@@ -169,9 +171,9 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setFileFormat(String fileFormat) {
-    if (fileFormat == null || fileFormat.trim().equals("") || this.getExportFormatName().equalsIgnoreCase("ENDNOTE")
-        || this.getExportFormatName().equalsIgnoreCase("BIBTEX")) {
-      fileFormat = FileFormatVO.TEXT_NAME;
+    if (fileFormat == null || fileFormat.trim().equals("") || TransformerFactory.ENDNOTE.equals(this.getExportFormatName())
+        || TransformerFactory.BIBTEX.equals(this.getExportFormatName())) {
+      fileFormat = FileFormatVO.TXT_NAME;
     }
 
     this.curFileFormatVO.setName(fileFormat);
