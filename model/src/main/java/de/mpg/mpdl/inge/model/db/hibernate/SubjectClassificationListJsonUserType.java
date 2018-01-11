@@ -10,7 +10,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectC
 public class SubjectClassificationListJsonUserType extends StringJsonUserType {
 
   public SubjectClassificationListJsonUserType() {
-    super(TypeFactory.defaultInstance().constructCollectionType(List.class, Enum.class));
+    super(TypeFactory.defaultInstance().constructCollectionType(List.class, SubjectClassification.class));
   }
 
 }
