@@ -11,6 +11,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ import org.xml.sax.SAXException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -40,7 +43,10 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RestController
@@ -61,7 +67,8 @@ public class ItemRestController {
   @Autowired
   private FileServiceExternal fileService;
 
-
+  @Autowired
+  private SearchAndExportService saes;
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> getAll(
@@ -96,6 +103,20 @@ public class ItemRestController {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/searchAndExport", method = RequestMethod.POST)
+  public ResponseEntity<String> searchAndExport(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @RequestBody JsonNode searchAndExportQuery)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+    SearchAndExportRetrieveRequestVO saerrVO = utils.query2SaEVO(searchAndExportQuery);
+    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.parseMediaType(saerVO.getTargetFormat()));
+
+    return new ResponseEntity<String>(new String(saerVO.getResult()), HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
