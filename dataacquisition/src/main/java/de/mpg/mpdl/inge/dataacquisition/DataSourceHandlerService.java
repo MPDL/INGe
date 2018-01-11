@@ -354,26 +354,26 @@ public class DataSourceHandlerService {
     return null;
   }
 
-  /**
-   * This operation returns the metadata informations to fetch. If no format from was specified the
-   * default metadata informations are fetched
-   * 
-   * @param source
-   * @param format the format of which the metadata will be retrieved
-   * @return metadata informations
-   */
-  public MetadataVO getMdObjectfromSource(DataSourceVO source, String format) {
-    MetadataVO md = null;
-
-    for (int i = 0; i < source.getMdFormats().size(); i++) {
-      md = source.getMdFormats().get(i);
-      if (md.getName().equalsIgnoreCase(format)) {
-        return md;
-      }
-    }
-
-    return null;
-  }
+  //  /**
+  //   * This operation returns the metadata informations to fetch. If no format from was specified the
+  //   * default metadata informations are fetched
+  //   * 
+  //   * @param dataSourceVO
+  //   * @param format the format of which the metadata will be retrieved
+  //   * @return metadata informations
+  //   */
+  //  public MetadataVO getMdObjectfromSource(DataSourceVO dataSourceVO, String format) {
+  //    MetadataVO md = null;
+  //
+  //    for (int i = 0; i < dataSourceVO.getMdFormats().size(); i++) {
+  //      md = dataSourceVO.getMdFormats().get(i);
+  //      if (md.getName().equalsIgnoreCase(format)) {
+  //        return md;
+  //      }
+  //    }
+  //
+  //    return null;
+  //  }
 
   /**
    * Returns the default MetadataVO from a source.

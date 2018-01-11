@@ -39,7 +39,7 @@
                 <collection factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.stringListFactory" field="creators">
                     <value name="creator" ns="${xsd.metadata.dc}" type="java.lang.String"/>
                 </collection>
-                <structure name="selected-file-format" field="selectedFileFormat" type="de.mpg.mpdl.inge.model.valueobjects.FileFormatVO" usage="optional"/>
+                <structure name="selected-file-format" field="outputFormat" type="de.mpg.mpdl.inge.model.valueobjects.FileFormatVO" usage="optional"/>
             </structure>
         </collection>
    </mapping>

@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
+import java.util.List;
+
 /**
  * Valueobject representing the export format data needed for the export.
  * 
@@ -33,6 +35,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:42:30
  */
+@SuppressWarnings("serial")
 public class ExportFormatVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -44,24 +47,13 @@ public class ExportFormatVO extends ValueObject {
    * @author Johannes Mueller
    */
 
-  /**
-   * The possible file formats for this export format (i.e. pdf,html,..).
-   */
-  private java.util.List<FileFormatVO> fileFormats;
+  private List<FileFormatVO> fileFormats;
   private FormatType formatType;
   private String name;
-  private java.util.List<String> creators;
+  private List<String> creators;
   private String description;
-
-
-  /**
-   * The id used for the transforming.
-   */
-  private java.lang.String id;
-  /**
-   * The currently selected file format.
-   */
-  private FileFormatVO selectedFileFormat;
+  private String id;
+  private FileFormatVO outputFormat;
 
   /**
    * The possible export format types.
@@ -72,144 +64,84 @@ public class ExportFormatVO extends ValueObject {
   public enum FormatType
   {
     LAYOUT,
-    STRUCTURED,
-    BIBTEX
+    STRUCTURED
   }
 
+  public ExportFormatVO() {}
 
-
-  public ExportFormatVO() {
-
-  }
-
-  public ExportFormatVO(FormatType formatType, String name, String selectedFileFormat) {
+  public ExportFormatVO(FormatType formatType, String name, String outputFormat) {
     this.formatType = formatType;
     this.name = name;
-    this.selectedFileFormat = new FileFormatVO();
-    this.selectedFileFormat.setName(selectedFileFormat);
-    this.selectedFileFormat.setMimeType(FileFormatVO.getMimeTypeByName(selectedFileFormat));
+    this.outputFormat = new FileFormatVO();
+    this.outputFormat.setName(outputFormat);
+    this.outputFormat.setMimeType(FileFormatVO.getMimeTypeByName(outputFormat));
   }
 
-  public ExportFormatVO(FormatType formatType, String name, String selectedFileFormat, String cslConeId) {
+  public ExportFormatVO(FormatType formatType, String name, String outputFormat, String id) {
     this.formatType = formatType;
     this.name = name;
-    this.selectedFileFormat = new FileFormatVO();
-    this.selectedFileFormat.setName(selectedFileFormat);
-    this.selectedFileFormat.setMimeType(FileFormatVO.getMimeTypeByName(selectedFileFormat));
-    this.id = cslConeId;
+    this.outputFormat = new FileFormatVO();
+    this.outputFormat.setName(outputFormat);
+    this.outputFormat.setMimeType(FileFormatVO.getMimeTypeByName(outputFormat));
+    this.id = id;
   }
 
-  /**
-   * Delivers the name of this export format.
-   */
   public String getName() {
-    return name;
+    return this.name;
   }
 
-  /**
-   * Sets the name of this export format.
-   * 
-   * @param newVal
-   */
   public void setName(String newVal) {
-    name = newVal;
+    this.name = newVal;
   }
 
-  /**
-   * Delivers the list of file formats.
-   */
-  public java.util.List<FileFormatVO> getFileFormats() {
-    return fileFormats;
+  public List<FileFormatVO> getFileFormats() {
+    return this.fileFormats;
   }
 
-  /**
-   * Delivers the type of this export format.
-   */
   public FormatType getFormatType() {
-    return formatType;
+    return this.formatType;
   }
 
-  /**
-   * Sets the type of this export format.
-   * 
-   * @param newVal
-   */
   public void setFormatType(FormatType newVal) {
-    formatType = newVal;
+    this.formatType = newVal;
   }
 
-
-  /**
-   * Gets the mime type accordingthe selected file format.
-   */
-  public String getSelectedContentType() {
-    // return selectedContentType;
-    return selectedFileFormat.getMimeType();
+  public void setOutputFormat(FileFormatVO newVal) {
+    this.outputFormat = newVal;
   }
 
-  /**
-   * Sets the name of the selected file format.
-   * 
-   * @param newVal
-   */
-  public void setSelectedFileFormat(FileFormatVO newVal) {
-    selectedFileFormat = newVal;
+  public FileFormatVO getOutputFormat() {
+    return this.outputFormat;
   }
 
-  /**
-   * Delivers the name of the selected file format.
-   */
-  public FileFormatVO getSelectedFileFormat() {
-    return selectedFileFormat;
-  }
-
-
-
-  /**
-   * Delivers the id of this export format.
-   */
   public String getId() {
-    return id;
+    return this.id;
   }
 
-  /**
-   * Sets the id of this export format.
-   * 
-   * @param id
-   */
   public void setId(String id) {
     this.id = id;
   }
 
-  public java.util.List<String> getCreators() {
+  public List<String> getCreators() {
     return creators;
   }
 
-  public void setCreators(java.util.List<String> creators) {
+  public void setCreators(List<String> creators) {
     this.creators = creators;
   }
 
-  /*
-   * set description (optional)
-   */
   public String getDescription() {
     return description;
   }
 
-  /*
-   * get description (optional)
-   */
   public void setDescription(String description) {
     this.description = description;
   }
 
-
-  /**
-   * Returns the String representation of this object.
-   */
-  public final String toString() {
-    return "[" + name + "(" + id + "): " + selectedFileFormat + ", " + description + ", " + fileFormats + ", " + creators + "]";
+  @Override
+  public String toString() {
+    return "ExportFormatVO [fileFormats=" + fileFormats + ", formatType=" + formatType + ", name=" + name + ", id=" + id
+        + ", selectedFileFormat=" + outputFormat + "]";
   }
-
 
 }

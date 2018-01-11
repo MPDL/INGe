@@ -1712,7 +1712,7 @@ public class ViewItemFull extends FacesBean {
     File exportAttFile;
     try {
       exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date,
-          "." + FileFormatVO.getExtensionByName(curExportFormat.getSelectedFileFormat().getName()));
+          "." + FileFormatVO.getExtensionByName(curExportFormat.getOutputFormat().getName()));
       final FileOutputStream fos = new FileOutputStream(exportAttFile);
       fos.write(exportFileData);
       fos.close();
@@ -1749,7 +1749,7 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Cannot export item:", e);
     }
 
-    final String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
+    final String contentType = curExportFormat.getOutputFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
     final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "."
         + FileFormatVO.getExtensionByName(this.getExportItemsSessionBean().getFileFormat());
@@ -1902,7 +1902,7 @@ public class ViewItemFull extends FacesBean {
       fileFormat.setMimeType(FileFormatVO.HTML_PLAIN_MIMETYPE);
       fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
 
-      expFormat.setSelectedFileFormat(fileFormat);
+      expFormat.setOutputFormat(fileFormat);
 
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
       byte[] exportFileData = itemTransformingService.getOutputForExport(expFormat, pubItemList);

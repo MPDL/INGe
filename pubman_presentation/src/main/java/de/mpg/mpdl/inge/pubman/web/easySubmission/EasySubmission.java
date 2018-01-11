@@ -50,6 +50,7 @@ import org.primefaces.model.UploadedFile;
 import de.mpg.mpdl.inge.dataacquisition.DataHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataSourceHandlerService;
 import de.mpg.mpdl.inge.dataacquisition.DataaquisitionException;
+import de.mpg.mpdl.inge.dataacquisition.Util;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -59,6 +60,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AdminDescriptorVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
@@ -649,10 +651,14 @@ public class EasySubmission extends FacesBean {
     String fetchedItem = null;
 
     try {
-      final String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
+      // Im Moment nur arXiv -> definiert in sources.xml
+      final String source = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
+
+      final DataSourceVO dataSourceVO = this.dataSourceHandler.getSourceByName(source);
+      final String identifier = Util.trimIdentifier(dataSourceVO, this.getServiceID());
 
       // Harvest metadata
-      final byte[] fetchedItemByte = dataHandler.doFetchMetaData(service, this.getServiceID(), TransformerFactory.getInternalFormat());
+      final byte[] fetchedItemByte = dataHandler.doFetchMetaData(dataSourceVO, identifier, TransformerFactory.getInternalFormat());
 
       fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length);
 
@@ -660,29 +666,26 @@ public class EasySubmission extends FacesBean {
       if (this.getEasySubmissionSessionBean().isFulltext() && !fetchedItem.equals("")
           && !EasySubmissionSessionBean.FULLTEXT_NONE.equals(this.getEasySubmissionSessionBean().getRadioSelectFulltext())) {
 
-        final DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
-        final List<FullTextVO> ftFormats = source.getFtFormats();
-        final List<TransformerFactory.FORMAT> fullTextFormats = new ArrayList<TransformerFactory.FORMAT>();
+        final List<FullTextVO> ftFormats = dataSourceVO.getFtFormats();
+        final List<String> fullTextFormats = new ArrayList<String>();
 
         if (EasySubmissionSessionBean.FULLTEXT_DEFAULT.equals(this.getEasySubmissionSessionBean().getRadioSelectFulltext())) {
           for (FullTextVO fulltextVO : ftFormats) {
             if (fulltextVO.isFtDefault()) {
-              fullTextFormats.add(TransformerFactory.getFormat(fulltextVO.getName()));
+              fullTextFormats.add(FileFormatVO.getExtensionByName(fulltextVO.getName()));
               break;
             }
           }
         } else if (EasySubmissionSessionBean.FULLTEXT_ALL.equals(this.getEasySubmissionSessionBean().getRadioSelectFulltext())) {
           for (FullTextVO fulltextVO : ftFormats) {
-            fullTextFormats.add(TransformerFactory.getFormat(fulltextVO.getName()));
+            fullTextFormats.add(FileFormatVO.getExtensionByName(fulltextVO.getName()));
           }
         }
 
-        final byte[] ba = dataHandler.doFetchFullText(this.getEasySubmissionSessionBean().getCurrentExternalServiceType(),
-            this.getServiceID(), fullTextFormats.toArray(new TransformerFactory.FORMAT[fullTextFormats.size()]));
+        final byte[] ba =
+            dataHandler.doFetchFullText(dataSourceVO, identifier, fullTextFormats.toArray(new String[fullTextFormats.size()]));
+
         final ByteArrayInputStream in = new ByteArrayInputStream(ba);
-        // String fileId = fileService
-        // .createStageFile(in, this.getServiceID().trim() + dataHandler.getFileEnding())
-        // .toString();
         String fileId = null;
         String fileName = this.getServiceID().trim() + dataHandler.getFileEnding();
         try {
@@ -709,7 +712,7 @@ public class EasySubmission extends FacesBean {
           fileVO.getDefaultMetadata().getFormats().add(formatVO);
           fileVO.setContent(fileId);
           fileVO.getDefaultMetadata().setSize(ba.length);
-          fileVO.getDefaultMetadata().setDescription("File downloaded from " + service + " at " + CommonUtils.currentDate());
+          fileVO.getDefaultMetadata().setDescription("File downloaded from " + source + " at " + CommonUtils.currentDate());
           fileVO.setContentCategory(dataHandler.getContentCategory());
           fileVOs.add(fileVO);
         }

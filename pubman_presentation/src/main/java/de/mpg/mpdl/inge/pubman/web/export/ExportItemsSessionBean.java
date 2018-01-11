@@ -93,17 +93,16 @@ public class ExportItemsSessionBean extends FacesBean {
   public void init() {
     if (this.exportFormatType.equals("LAYOUT")) {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-      // default format for STRUCTURED is pdf
       this.curFileFormatVO.setName(FileFormatVO.PDF_NAME);
       this.curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
     } else {
       this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-      // default format for STRUCTURED is TEXT
       this.curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
       this.curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
     }
+
     this.curExportFormatVO.setName(this.exportFormatName);
-    this.curExportFormatVO.setSelectedFileFormat(this.curFileFormatVO);
+    this.curExportFormatVO.setOutputFormat(this.curFileFormatVO);
 
     try {
       this.emailSenderProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
@@ -153,7 +152,7 @@ public class ExportItemsSessionBean extends FacesBean {
       this.setEnableFileFormats(true);
       this.setEnableCslAutosuggest(false);
     } else if ("CSL".equalsIgnoreCase(exportFormatName)) {
-      this.curExportFormatVO.setFormatType(FormatType.LAYOUT);;
+      this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
       this.exportFormatType = FormatType.LAYOUT.toString();
       this.setEnableFileFormats(true);
       this.setEnableCslAutosuggest(true);
@@ -166,7 +165,7 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public String getFileFormat() {
-    return this.curExportFormatVO.getSelectedFileFormat().getName();
+    return this.curExportFormatVO.getOutputFormat().getName();
   }
 
   public void setFileFormat(String fileFormat) {
@@ -177,10 +176,10 @@ public class ExportItemsSessionBean extends FacesBean {
 
     this.curFileFormatVO.setName(fileFormat);
     this.curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
-    this.curExportFormatVO.setSelectedFileFormat(this.curFileFormatVO);
+    this.curExportFormatVO.setOutputFormat(this.curFileFormatVO);
 
-    ExportItemsSessionBean.logger.debug("setFileFormat.....:" + this.curExportFormatVO.getSelectedFileFormat().getName() + ";"
-        + this.curExportFormatVO.getSelectedFileFormat().getMimeType());
+    ExportItemsSessionBean.logger.debug("setFileFormat.....:" + this.curExportFormatVO.getOutputFormat().getName() + ";"
+        + this.curExportFormatVO.getOutputFormat().getMimeType());
 
   }
 

@@ -47,7 +47,6 @@ import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
 import org.docx4j.wml.PPr;
 import org.docx4j.wml.PPrBase.Spacing;
-import org.docx4j.wml.Style;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
@@ -81,10 +80,10 @@ public class CitationStyleExecuterService {
   }
 
   public static byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-    Utils.checkCondition(!Utils.checkVal(exportFormat.getSelectedFileFormat().getName()), "Output format is not defined");
+    Utils.checkCondition(!Utils.checkVal(exportFormat.getOutputFormat().getName()), "Output format is not defined");
     Utils.checkCondition(!Utils.checkVal(itemList), "Empty item-list");
 
-    String outputFormat = exportFormat.getSelectedFileFormat().getName();
+    String outputFormat = exportFormat.getOutputFormat().getName();
     byte[] result = null;
     String snippet;
 

@@ -31,6 +31,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 /**
@@ -40,6 +41,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
  */
 public class DataAcquisitionUnitTest {
   private DataHandlerService datahandler = new DataHandlerService();
+  private final DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
 
   private final static String arxivId = "arXiv:0904.3933";
 
@@ -57,7 +59,10 @@ public class DataAcquisitionUnitTest {
   @Ignore
   @Test
   public void fetchArxiv() throws Exception {
-    byte[] test = this.datahandler.doFetchMetaData("arXiv", arxivId, TransformerFactory.getInternalFormat());
+    final DataSourceVO dataSourceVO = this.dataSourceHandler.getSourceByName("arXiv");
+    final String identifier = Util.trimIdentifier(dataSourceVO, arxivId);
+
+    byte[] test = this.datahandler.doFetchMetaData(dataSourceVO, identifier, TransformerFactory.getInternalFormat());
     Assert.assertNotNull(test);
   }
 }

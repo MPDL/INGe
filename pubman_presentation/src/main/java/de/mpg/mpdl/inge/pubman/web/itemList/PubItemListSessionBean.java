@@ -970,7 +970,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     } catch (final TechnicalException e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
-    final String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
+    final String contentType = curExportFormat.getOutputFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
     final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + FileFormatVO.getExtensionByName(sb.getFileFormat());
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);

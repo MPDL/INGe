@@ -49,7 +49,6 @@ public class FileFormatVO extends ValueObject {
    * @author Johannes Mueller
    */
 
-
   public static final String TEXT_NAME = "txt";
   public static final String TEXT_MIMETYPE = "text/plain";
 
@@ -86,9 +85,6 @@ public class FileFormatVO extends ValueObject {
   public static final String ESCIDOC_XML_NAME = "escidoc_xml";
   public static final String ESCIDOC_XML_MIMETYPE = "application/xml";
 
-  // public static final String ESCIDOC_XML_V13_NAME = "escidoc_xml_v13";
-  // public static final String ESCIDOC_XML_V13_MIMETYPE = "application/xml";
-
   public static final String EDOC_IMPORT_NAME = "edoc_import";
   public static final String EDOC_IMPORT_MIMETYPE = "application/xml";
 
@@ -116,13 +112,14 @@ public class FileFormatVO extends ValueObject {
       put(ESCIDOC_SNIPPET_NAME, "xml");
       put(XML_NAME, "xml");
       put(ESCIDOC_XML_NAME, "xml");
-      // put(ESCIDOC_XML_V13_NAME, "xml");
       put(EDOC_IMPORT_NAME, "xml");
       put(EDOC_EXPORT_NAME, "xml");
       put(DEFAULT_NAME, "pdf");
       put(DOCX_NAME, "docx");
+      put(PS_NAME, "ps");
     }
   };
+
   private static final Map<String, String> formatMimeTypes = new HashMap<String, String>() {
     {
       put(TEXT_NAME, TEXT_MIMETYPE);
@@ -136,30 +133,13 @@ public class FileFormatVO extends ValueObject {
       put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
       put(XML_NAME, XML_MIMETYPE);
       put(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE);
-      // put(ESCIDOC_XML_V13_NAME, ESCIDOC_XML_MIMETYPE);
       put(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE);
       put(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE);
       put(DEFAULT_NAME, DEFAULT_MIMETYPE);
       put(DOCX_NAME, DOCX_MIMETYPE);
+      put(PS_NAME, PS_MIMETYPE);
     }
   };
-  private static final Map<String, String> formatCharsets = new HashMap<String, String>() {
-    {
-      put(TEXT_NAME, DEFAULT_CHARSET);
-      put(HTML_PLAIN_NAME, DEFAULT_CHARSET);
-      put(HTML_LINKED_NAME, DEFAULT_CHARSET);
-      put(HTML_STYLED_NAME, DEFAULT_CHARSET);
-      put(SNIPPET_NAME, DEFAULT_CHARSET);
-      put(ESCIDOC_SNIPPET_NAME, DEFAULT_CHARSET);
-      put(XML_NAME, DEFAULT_CHARSET);
-      put(ESCIDOC_XML_NAME, DEFAULT_CHARSET);
-      // put(ESCIDOC_XML_V13_NAME, DEFAULT_CHARSET);
-      put(EDOC_IMPORT_NAME, DEFAULT_CHARSET);
-      put(EDOC_EXPORT_NAME, DEFAULT_CHARSET);
-    }
-  };
-
-
 
   /**
    * The mime type of FileFormat
@@ -190,21 +170,6 @@ public class FileFormatVO extends ValueObject {
   }
 
   /**
-   * Delivers the charset of the selected file according to name of format.
-   */
-  public static String getCharsetByName(String name) {
-    name = name == null || name.trim().equals("") ? "" : name.trim();
-    return formatCharsets.containsKey(name) ? formatCharsets.get(name) : null;
-  }
-
-  // workaround to find out whether the output format is presented
-  // TODO: should be taken directly from xml description of the export
-  // rather then hardcoded in FileFormatVO class
-  public static boolean isOutputFormatSupported(String outputFormat) {
-    return !(getMimeTypeByName(outputFormat).equals(DEFAULT_MIMETYPE) && !outputFormat.equals(DEFAULT_NAME));
-  }
-
-  /**
    * get mimeType
    */
   public String getMimeType() {
@@ -230,6 +195,11 @@ public class FileFormatVO extends ValueObject {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  @Override
+  public String toString() {
+    return "FileFormatVO [mimeType=" + mimeType + ", name=" + name + "]";
   }
 
 }

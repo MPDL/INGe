@@ -16,9 +16,12 @@ import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 public class TransformerFactory {
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
 
+  public static final String ARXIV = "arXiv";
+  public static final String OAI_DC = "oai_dc";
+
   public enum FORMAT
   {
-    ARXIV_OAIPMH_XML("ArXiv", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
+    ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     BIBTEX_STRING("BibTex", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
     BMC_XML("Bmc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     BMC_OAIPMH_XML("Bmc_Oaipmh", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
@@ -38,8 +41,7 @@ public class TransformerFactory {
     ESCIDOC_COMPONENT_XML("eSciDoc-publication-component", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     ESCIDOC_ITEM_VO("eSciDoc-publication-itemVO", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     HTML_METATAGS_DC_XML("Html_Metatags_dc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML("Html_Metatags_Highwirepress_Cit",
-        FileFormatVO.XML_MIMETYPE, "UTF-8"), //
+    HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML("Html_Metatags_Highwirepress_Cit", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     JUS_SNIPPET_XML("Jus_Snippet", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     JUS_INDESIGN_XML("Jus_Indesign", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     JUS_HTML_XML("Jus_Html", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
@@ -49,9 +51,7 @@ public class TransformerFactory {
     MARC_21_STRING("Marc21", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
     MARC_XML("Marc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     MODS_XML("Mods", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    OAI_DC("Oai_Dc", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
-    PDF("Pdf", FileFormatVO.PDF_MIMETYPE, "UTF-8"), //
-    PS("Ps", FileFormatVO.PS_MIMETYPE, "UTF-8"), //
+    OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     PEER_TEI_XML("Peer", FileFormatVO.XML_MIMETYPE, "UTF-8"), //
     RIS_STRING("Ris", FileFormatVO.TEXT_MIMETYPE, "UTF-8"), //
     RIS_XML("Ris", FileFormatVO.XML_MIMETYPE, "UTF-8"), //

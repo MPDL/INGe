@@ -40,6 +40,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -68,20 +69,20 @@ public class Util {
   /**
    * This operation return the Metadata Object of the format to fetch from the source.
    * 
-   * @param source
+   * @param dataSourceVO
    * @param trgFormatName
    * @param trgFormatType
    * @param trgFormatEndcoding
    * @return Metadata Object of the format to fetch
    * @throws FormatNotAvailableException
    */
-  public static MetadataVO getMdObjectToFetch(DataSourceVO source, TransformerFactory.FORMAT format) {
+  public static MetadataVO getMdObjectToFetch(DataSourceVO dataSourceVO, TransformerFactory.FORMAT format) {
     MetadataVO sourceMd = null;
-    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
+    //    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
 
     // First: check if format can be fetched directly
-    for (int i = 0; i < source.getMdFormats().size(); i++) {
-      sourceMd = source.getMdFormats().get(i);
+    for (int i = 0; i < dataSourceVO.getMdFormats().size(); i++) {
+      sourceMd = dataSourceVO.getMdFormats().get(i);
 
       if (!sourceMd.getName().equalsIgnoreCase(format.getName())) {
         continue;
@@ -97,17 +98,20 @@ public class Util {
         }
       }
 
-      return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
+      return sourceMd;
+      //      return sourceHandler.getMdObjectfromSource(dataSourceVO, sourceMd.getName());
     }
 
     // Second: check which format can be transformed into the given format
-    TransformerFactory.FORMAT oldFormat = format;
-    TransformerFactory.FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat);
+    //    TransformerFactory.FORMAT oldFormat = format;
+    //    TransformerFactory.FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat);
+    TransformerFactory.FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(format);
 
-    for (int i = 0; i < source.getMdFormats().size(); i++) {
-      sourceMd = source.getMdFormats().get(i);
+    for (int i = 0; i < dataSourceVO.getMdFormats().size(); i++) {
+      sourceMd = dataSourceVO.getMdFormats().get(i);
       if (Arrays.asList(possibleFormats).contains(TransformerFactory.getFormat(sourceMd.getName()))) {
-        return sourceHandler.getMdObjectfromSource(source, sourceMd.getName());
+        return sourceMd;
+        //        return sourceHandler.getMdObjectfromSource(dataSourceVO, sourceMd.getName());
       }
     }
 
@@ -123,21 +127,21 @@ public class Util {
    * @param formatEncoding
    * @return Fulltext Object of the format to fetch
    */
-  public static FullTextVO getFtObjectToFetch(DataSourceVO source, TransformerFactory.FORMAT format) {
+  public static FullTextVO getFtObjectToFetch(DataSourceVO source, String outputFormat) {
     FullTextVO fullTextVO = null;
 
     for (int i = 0; i < source.getFtFormats().size(); i++) {
       fullTextVO = source.getFtFormats().get(i);
       boolean fetchMd = true;
 
-      if (!fullTextVO.getName().equalsIgnoreCase(format.getName())) {
+      if (!fullTextVO.getName().equalsIgnoreCase(outputFormat)) {
         continue;
       }
-      if (!fullTextVO.getFtFormat().equalsIgnoreCase(format.getType())) {
+      if (!fullTextVO.getFtFormat().equalsIgnoreCase(FileFormatVO.getMimeTypeByName(outputFormat))) {
         continue;
       }
-      if ((!"*".equals(fullTextVO.getEncoding())) && (!"*".equals(format.getEncoding()))) {
-        if (!fullTextVO.getEncoding().equalsIgnoreCase(format.getEncoding())) {
+      if ((!"*".equals(fullTextVO.getEncoding())) && (!"*".equals(FileFormatVO.DEFAULT_CHARSET))) {
+        if (!fullTextVO.getEncoding().equalsIgnoreCase(FileFormatVO.DEFAULT_CHARSET)) {
           fetchMd = false;
         }
       }

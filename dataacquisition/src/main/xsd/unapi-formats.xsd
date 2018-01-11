@@ -6,7 +6,7 @@
 	
 	<xs:element name="formats" type="formatsType">
 		<xs:annotation>
-			<xs:documentation>This element contains a selection of all availbale formats for a specific source via the unapi interface</xs:documentation>
+			<xs:documentation>This element contains a selection of all available formats for a specific source via the unapi interface</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	

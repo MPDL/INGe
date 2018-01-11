@@ -44,8 +44,7 @@ public class UnapiRestController {
   public ResponseEntity<String> unapi( //
       @RequestParam(value = "id", required = false) String identifier, //
       @RequestParam(value = "show", required = false) Boolean show, //
-      @RequestParam(value = "format", required = false) String formatName)
-      //
+      @RequestParam(value = "format", required = false) String formatName) //
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
 
     String srResponse = null;

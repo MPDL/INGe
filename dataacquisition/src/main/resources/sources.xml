@@ -15,7 +15,7 @@
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
 		<item-url>http://arxiv.org/abs/GETID</item-url>
-		<source-identifier>arxiv</source-identifier>
+		<source-identifier>arXiv</source-identifier>
 		<source-identifier-example>arXiv:0904.3933</source-identifier-example>
 		<harvest-protocol>oai-pmh</harvest-protocol>
 		<retry-after>0</retry-after>
@@ -39,7 +39,7 @@
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc
 				</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>oai dc</label>
+				<label>Oai_Dc</label>
 				<name>oai_dc</name>
 				<encoding>UTF-8</encoding>
 			</MD-fetch-setting>
