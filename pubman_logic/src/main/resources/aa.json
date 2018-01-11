@@ -3,10 +3,10 @@
 		"technical" : {
 			"order" : ["user", "item", "context"],
 			"indices" : {
-				"item.owner.objectId" : "owner.objectId",
-				"item.context.objectId" : "context.objectId",
-				"item.version.state" : "version.state",
-				"item.publicStatus" : "publicStatus"
+				"item.object.creator.objectId" : "creator.objectId",
+				"item.object.context.objectId" : "context.objectId",
+				"item.versionState" : "versionState",
+				"item.object.publicState" : "publicState"
 			}
 		}, 
 		"create" : [
@@ -18,7 +18,7 @@
 			{
 				"user" : {
 					"role" : "DEPOSITOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				}
 			}
 		],
@@ -30,36 +30,36 @@
 				}
 			},			{
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"context.adminDescriptor.workflow" : "SIMPLE",
-				"item.version.state" : ["PENDING", "SUBMITTED", "RELEASED"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"context.workflow" : "SIMPLE",
+				"item.versionState" : ["PENDING", "SUBMITTED", "RELEASED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"context.adminDescriptor.workflow" : "SIMPLE",
+				"context.workflow" : "SIMPLE",
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				},
-				"item.version.state" : ["RELEASED"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["RELEASED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
-				"context.adminDescriptor.workflow" : "STANDARD",
+				"context.workflow" : "STANDARD",
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"item.version.state" : ["PENDING", "RELEASED", "IN_REVISION"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["PENDING", "RELEASED", "IN_REVISION"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				},
-				"item.version.state" : ["RELEASED", "SUBMITTED"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["RELEASED", "SUBMITTED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
@@ -70,10 +70,10 @@
 				}
 			},			{
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"item.version.state" : ["PENDING", "IN_REVISION"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED"]
+				"item.versionState" : ["PENDING", "IN_REVISION"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED"]
 			}
 		],
 		
@@ -84,23 +84,23 @@
 				}
 			},
 			{
-				"item.version.state" : ["RELEASED"]
+				"item.versionState" : ["RELEASED"]
 			},
 			{
-				"item.publicStatus" : ["WITHDRAWN"]
+				"item.object.publicState" : ["WITHDRAWN"]
 			},
 			{
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"item.version.state" : ["PENDING", "IN_REVISION", "SUBMITTED"]
+				"item.versionState" : ["PENDING", "IN_REVISION", "SUBMITTED"]
 			},
 			{
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				},
-				"item.version.state" : ["SUBMITTED", "IN_REVISION"]
+				"item.versionState" : ["SUBMITTED", "IN_REVISION"]
 			}
 		],
 		
@@ -110,12 +110,12 @@
 					"role" : "SYSADMIN"
 				}
 			},			{
-				"context.adminDescriptor.workflow" : "STANDARD",
+				"context.workflow" : "STANDARD",
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"item.version.state" : ["PENDING", "IN_REVISION"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["PENDING", "IN_REVISION"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
@@ -125,20 +125,20 @@
 					"role" : "SYSADMIN"
 				}
 			},			{
-				"context.adminDescriptor.workflow" : "SIMPLE",
+				"context.workflow" : "SIMPLE",
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"item.version.state" : ["PENDING", "SUBMITTED"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["PENDING", "SUBMITTED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},
 			{
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				},
-				"item.version.state" : ["SUBMITTED"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["SUBMITTED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
@@ -148,13 +148,13 @@
 					"role" : "SYSADMIN"
 				}
 			},			{
-				"context.adminDescriptor.workflow" : "STANDARD",
+				"context.workflow" : "STANDARD",
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				},
-				"item.version.state" : ["SUBMITTED"],
-				"item.publicStatus" : ["PENDING", "SUBMITTED", "RELEASED"]
+				"item.versionState" : ["SUBMITTED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
 		
@@ -164,20 +164,20 @@
 					"role" : "SYSADMIN"
 				}
 			},			{
-				"context.adminDescriptor.workflow" : "SIMPLE",
+				"context.workflow" : "SIMPLE",
 				"user" : {
-					"field_user_id_match" : "item.owner.objectId"
+					"field_user_id_match" : "item.object.creator.objectId"
 				},
-				"item.version.state" : ["RELEASED"],
-				"item.publicStatus" : ["RELEASED"]
+				"item.versionState" : ["RELEASED"],
+				"item.object.publicState" : ["RELEASED"]
 			},
 			{
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				},
-				"item.version.state" : ["RELEASED"],
-				"item.publicStatus" : ["RELEASED"]
+				"item.versionState" : ["RELEASED"],
+				"item.object.publicState" : ["RELEASED"]
 			}
 		]
 	},
@@ -292,7 +292,7 @@
 		"technical" : {
 			"order" : ["user", "givenUser"],
 			"indices" : {
-				"givenUser.reference.objectId" : "reference.objectId"
+				"givenUser.objectId" : "objectId"
 			}
 		}, 
 		"create" : [
@@ -326,7 +326,7 @@
 				}
 			},
 			{
-				"givenUser.reference.objectId": "user.reference.objectId"
+				"givenUser.objectId": "user.objectId"
 
 			}
 		],
@@ -352,7 +352,7 @@
                 }
             },
             {
-                "givenUser.reference.objectId": "user.reference.objectId"
+                "givenUser.objectId": "user.objectId"
 
             }
         ],
@@ -484,13 +484,13 @@
 			},
 			{
 				"user" : {
-					"field_user_id_match" : "file.createdByRO.objectId"
+					"field_user_id_match" : "file.creator.objectId"
 				}
 			},
 			{
 				"user" : {
 					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.context.objectId"
+					"field_grant_id_match" : "item.object.context.objectId"
 				}
 				
 			}

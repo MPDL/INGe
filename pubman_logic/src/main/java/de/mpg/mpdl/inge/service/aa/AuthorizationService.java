@@ -21,8 +21,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -81,9 +79,9 @@ public class AuthorizationService {
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
 
 
-    AccountUserVO userAccount;
+    AccountUserDbVO userAccount;
     try {
-      userAccount = (AccountUserVO) objects[order.indexOf("user")];
+      userAccount = (AccountUserDbVO) objects[order.indexOf("user")];
     } catch (NullPointerException e) {
       userAccount = null;
 
@@ -116,7 +114,7 @@ public class AuthorizationService {
               if (userMap.containsKey("field_user_id_match")) {
                 String value = (String) userMap.get("field_user_id_match");
 
-                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getReference().getObjectId()));
+                subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getObjectId()));
                 userMatch = true;
 
               }
@@ -125,7 +123,7 @@ public class AuthorizationService {
 
 
                 BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
-                for (GrantVO grant : userAccount.getGrants()) {
+                for (GrantVO grant : userAccount.getGrantList()) {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
@@ -294,7 +292,7 @@ public class AuthorizationService {
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
 
-    AccountUserVO userAccount = (AccountUserVO) objects[order.indexOf("user")];
+    AccountUserDbVO userAccount = (AccountUserDbVO) objects[order.indexOf("user")];
 
     if (userAccount == null) {
       throw new AuthenticationException("You have to be logged in.");
@@ -305,7 +303,7 @@ public class AuthorizationService {
     if (userIdFieldMatch != null) {
       String expectedUserId = getFieldValueOrString(order, objects, userIdFieldMatch);
 
-      if (expectedUserId == null || !expectedUserId.equals(userAccount.getReference().getObjectId())) {
+      if (expectedUserId == null || !expectedUserId.equals(userAccount.getObjectId())) {
         throw new AuthorizationException("User is not owner of object.");
       }
     }
@@ -332,7 +330,7 @@ public class AuthorizationService {
       }
 
 
-      for (GrantVO grant : userAccount.getGrants()) {
+      for (GrantVO grant : userAccount.getGrantList()) {
         check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch == null
             || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
 
