@@ -93,7 +93,7 @@ public class SearchUtils {
     if (field != null) {
       switch (field.getType()) {
         case TEXT: {
-          indexField += ".sorted";
+          indexField += ".keyword";
           break;
 
         }
