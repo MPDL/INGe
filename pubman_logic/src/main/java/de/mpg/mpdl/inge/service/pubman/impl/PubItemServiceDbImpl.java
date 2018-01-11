@@ -804,12 +804,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   @Override
   @Transactional(readOnly = true)
-  public List<VersionHistoryEntryVO> getVersionHistory(String pubItemId, String authenticationToken)
+  public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException {
 
     List<AuditDbVO> list = auditRepository.findDistinctAuditByPubItemObjectIdOrderByModificationDateDesc(pubItemId);
 
-    return EntityTransformer.transformToVersionHistory(list);
+    return list;
   }
 
 

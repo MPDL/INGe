@@ -135,7 +135,7 @@
 										converter="GenreLabelConverter" /></label> <h:inputText
 									id="inpLocatorFileDefaultMetadataTitle"
 									styleClass="xDouble_txtInput"
-									value="#{locator.file.defaultMetadata.title}" />
+									value="#{locator.file.metadata.title}" />
 							</span>
 						</h:panelGroup>
 					</span>

@@ -90,19 +90,19 @@
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" />
+										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.versionNumber > 1) }" />
 									<h:commandLink id="lnkshowReleaseHistory"
 										styleClass="free_area0"
 										action="#{ViewItemFull.showReleaseHistory}"
-										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
+										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.versionNumber > 1) }">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator" /> <h:outputLink
 										id="lnkViewItemPage" styleClass="free_area0"
-										value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
+										value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.objectIdAndVersion}">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator" /> <h:outputLink
 										id="lnkViewItemOverviewPage" styleClass="free_area0"
-										value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemOverviewPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
+										value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemOverviewPage.jsp?itemId=#{ViewItemFull.pubItem.objectIdAndVersion}">
 										<h:outputText
 											value="#{lbl.ViewItemOverview_lblLinkOverviewPage}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator" />

@@ -22,7 +22,7 @@
 						value="#{lbl.ViewItemFull_lblSystemIdentifiers}" /><span
 					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-						value="#{ViewItemFull.pubItem.version.objectIdAndVersion}" />
+						value="#{ViewItemFull.pubItem.objectIdAndVersion}" />
 				</span>
 			</div>
 			<!-- Date of last modification -->

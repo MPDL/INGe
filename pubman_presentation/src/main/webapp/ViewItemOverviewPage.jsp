@@ -64,7 +64,7 @@
         <f:loadBundle var="msg" basename="Messages" />
         <f:loadBundle var="tip" basename="Tooltip" />
         <!-- The unAPI Identifier for this item -->
-        <h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
+        <h:outputText value="&lt;abbr class='unapi-id' title='#{ViewItemFull.pubItem.objectIdAndVersion}'&gt;&lt;/abbr&gt;" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
         <div class="full wrapper">
             <h:inputHidden id="offset"></h:inputHidden>
             <ui:include src="header/Header.jspf" />
@@ -186,21 +186,21 @@
                             <!-- content menu ends here -->
                             <!-- Subheadline starts here -->
                             <h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isLoggedIn }">
-                                <h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{ViewItemFull.pubItem.version.objectIdAndVersion}'." rendered="#{ViewItemFull.pubItem.version.objectIdAndVersion != null}" />
+                                <h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{ViewItemFull.pubItem.objectIdAndVersion}'." rendered="#{ViewItemFull.pubItem.objectIdAndVersion != null}" />
                                 <br />
                                 <h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{ViewItemFull.contextName}', #{lbl.ViewItemFull_lblIsAffiliatedTo}: '#{ViewItemFull.affiliations}'." />
                                 <br />
-                                <h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner.title}'" rendered="#{ViewItemFull.owner != null }" />
+                                <h:outputText value="#{lbl.EditItem_lblItemDepositor} '#{ViewItemFull.owner.name}'" rendered="#{ViewItemFull.owner != null }" />
                                 <h:outputText value="." rendered="#{ViewItemFull.owner != null and ViewItemFull.creationDate == null}" />
                                 <h:outputText value=" --- #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner != null }" />
                                 <h:outputText value="#{lbl.EditItem_lblItemlatestChange } #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner == null }" />
                                 <br />
-                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.title}'" rendered="#{ViewItemFull.latestModifier != null}" />
+                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.name}'" rendered="#{ViewItemFull.latestModifier != null}" />
                                 <h:outputText value="." rendered="#{ViewItemFull.latestModifier != null and ViewItemFull.modificationDate == null}" />
                                 <h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier != null }" />
                                 <h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier == null }" />
                                 <br />
-                                <h:outputText value="#{msg.ViewItemFull_latestMessage} #{ViewItemFull.pubItem.version.lastMessage}" rendered="#{ViewItemFull.canShowLastMessage}" />
+                                <h:outputText value="#{msg.ViewItemFull_latestMessage} #{ViewItemFull.pubItem.message}" rendered="#{ViewItemFull.canShowLastMessage}" />
                                 <h:outputText value="#{msg.ViewItemFull_latestMessage} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
                             </h:panelGroup>
                             <!-- Subheadline ends here -->
@@ -316,7 +316,7 @@
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator" /> <h:outputLink
 										id="lnkViewItemPage" styleClass="free_area0"
-										value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.version.objectIdAndVersion}">
+										value="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}ViewItemFullPage.jsp?itemId=#{ViewItemFull.pubItem.objectIdAndVersion}">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemView}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator" /> <h:outputLink
 										id="lnkViewItemOverviewPage" styleClass="free_area0 actual"

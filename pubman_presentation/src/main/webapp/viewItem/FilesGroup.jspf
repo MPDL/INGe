@@ -41,7 +41,7 @@
 									</div>
 									<div class="xHuge_area0 endline marginTExcl6p">
 										<h:outputLink id="lnkCitationURL" target="_blank"
-											value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}"
+											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
 											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 											<span class="std_imgBtn viewFileIcon"></span>
@@ -49,7 +49,7 @@
 										</h:outputLink>
 										<!-- Link for fulltext searchhits with open pdf params-->
 										<h:outputLink id="lnkSearchHitsURL" target="_blank"
-											value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
+											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
 											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 											<span class="std_imgBtn viewFileIcon"></span>
@@ -58,7 +58,7 @@
 										&#160;
 										<h:outputLink id="lnkCitationURLDownload"
 											styleClass="tiny_marginLExcl"
-											value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download"
+											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
 											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 											<span class="std_imgBtn downloadFileIcon "></span>
@@ -67,7 +67,7 @@
 										<!-- Link for fulltext searchhits with open pdf params-->
 										<h:outputLink id="lnkSearchHitsURLDownload"
 											styleClass="tiny_marginLExcl"
-											value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=download#search=#{file.openPDFSearchParameter}"
+											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
 											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 											<span class="std_imgBtn downloadFileIcon"></span>
@@ -87,10 +87,10 @@
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
 								id="lnkFileHandle"
-								value="#{ViewItemFull.resolveHandleService}#{file.file.pidWithoutPrefix}"
+								value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(file.file.pid)}"
 								rendered="#{ViewItemFull.isStateReleased and file.file.pid != null and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 								<h:outputText
-									value="#{ViewItemFull.resolveHandleService}#{file.file.pidWithoutPrefix}" />
+									value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(file.file.pid)}" />
 							</h:outputLink> <h:outputText value="#{lbl.lbl_noEntry}"
 								rendered="#{!ViewItemFull.isStateReleased or file.file.pid == null or !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}" />
 						</span>
@@ -119,8 +119,8 @@
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 								value="#{file.visibility}"
 								rendered="#{ViewItemFull.isStateWithdrawn == false}" /> <h:outputText
-								value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.defaultMetadata.embargoUntil})"
-								rendered="#{ViewItemFull.isStateWithdrawn == false and file.isVisible == false and file.file.defaultMetadata.embargoUntil != null and file.file.defaultMetadata.embargoUntil != ''}" />
+								value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.metadata.embargoUntil})"
+								rendered="#{ViewItemFull.isStateWithdrawn == false and file.isVisible == false and file.file.metadata.embargoUntil != null and file.file.metadata.embargoUntil != ''}" />
 							<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}"
 								rendered="#{ViewItemFull.isStateWithdrawn == true}" />
 						</span>
@@ -149,7 +149,7 @@
 						<div class="xHuge_area0 xTiny_marginLExcl endline">
 							<div class="xHuge_area0 endline marginTExcl6p">
 								<h:outputLink id="lnkCitationURLTme" target="_blank"
-									value="#{ViewItemFull.citationURL}/component/#{file.file.reference.objectId}/#{file.urlEncodedFileName}?mode=tme"
+									value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=tme"
 									rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
 									<span class="std_imgBtn viewFileIcon"></span>
 									<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
@@ -165,9 +165,9 @@
 							class="noDisplay">: <br /></span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-								value="#{file.file.defaultMetadata.copyrightDate}"
+								value="#{file.file.metadata.copyrightDate}"
 								rendered="true" /> <h:outputText value="#{lbl.lbl_noEntry}"
-								rendered="#{file.file.defaultMetadata.copyrightDate == null  || file.file.defaultMetadata.copyrightDate == ''}" />
+								rendered="#{file.file.metadata.copyrightDate == null  || file.file.metadata.copyrightDate == ''}" />
 						</span>
 					</h:panelGroup>
 					<!-- Copyright Info -->
@@ -178,9 +178,9 @@
 							class="noDisplay">: <br /></span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-								value="#{file.file.defaultMetadata.rights}" rendered="true" /> <h:outputText
+								value="#{file.file.metadata.rights}" rendered="true" /> <h:outputText
 								value="#{lbl.lbl_noEntry}"
-								rendered="#{file.file.defaultMetadata.rights == null  || file.file.defaultMetadata.rights == ''}" />
+								rendered="#{file.file.metadata.rights == null  || file.file.metadata.rights == ''}" />
 						</span>
 					</h:panelGroup>
 					<!-- File License -->
@@ -191,13 +191,13 @@
 							class="noDisplay">: <br /></span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
-								target="_blank" value="#{file.file.defaultMetadata.license}"
+								target="_blank" value="#{file.file.metadata.license}"
 								rendered="#{file.isLicenseUrl}">
-								<h:outputText value="#{file.file.defaultMetadata.license}" />
-							</h:outputLink> <h:outputText value="#{file.file.defaultMetadata.license}"
+								<h:outputText value="#{file.file.metadata.license}" />
+							</h:outputLink> <h:outputText value="#{file.file.metadata.license}"
 								rendered="#{!file.isLicenseUrl}" /> <h:outputText
 								value="#{lbl.lbl_noEntry}"
-								rendered="#{file.file.defaultMetadata.license == null  || file.file.defaultMetadata.license == ''}" />
+								rendered="#{file.file.metadata.license == null  || file.file.metadata.license == ''}" />
 						</span>
 						<h:panelGroup styleClass="large_area0_p8 lineToolSection"
 							rendered="#{file.urlToLicenceImage != ''}">

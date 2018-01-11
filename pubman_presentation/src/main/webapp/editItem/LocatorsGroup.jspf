@@ -130,7 +130,7 @@
 							<h:outputText value="#{genre.locators_component_name_label}"
 									converter="GenreLabelConverter" /></label>
 							<h:inputText id="inpLocatorName" styleClass="xDouble_txtInput"
-								value="#{locator.file.defaultMetadata.title}" />
+								value="#{locator.file.metadata.title}" />
 						</h:panelGroup>
 					</span>
 				</h:panelGroup>

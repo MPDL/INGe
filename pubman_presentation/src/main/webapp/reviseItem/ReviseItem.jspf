@@ -24,7 +24,7 @@
 						value="#{lbl.ReviseItem_lblPublication}" /><span
 					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-						value="#{ItemControllerSessionBean.currentPubItem.version.objectId}" />
+						value="#{ItemControllerSessionBean.currentPubItem.objectId}" />
 				</span>
 			</div>
 			<div class="free_area0 endline itemLine noTopBorder">

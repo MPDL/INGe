@@ -214,6 +214,7 @@ public class ItemRestController {
   public ResponseEntity<ItemVersionVO> update(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody ItemVersionVO item)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    //TODO Write itemId into item
     ItemVersionVO updated = null;
     updated = pis.update(item, token);
     return new ResponseEntity<ItemVersionVO>(updated, HttpStatus.OK);

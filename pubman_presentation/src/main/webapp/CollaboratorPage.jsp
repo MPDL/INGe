@@ -90,11 +90,11 @@
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }" />
+										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.versionNumber > 1) }" />
 									<h:commandLink id="lnkShowReleaseHistory"
 										styleClass="free_area0"
 										action="#{ViewItemFull.showReleaseHistory}"
-										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
+										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.versionNumber > 1) }">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator" /> <h:outputLink
 										id="lnkCitationURL" styleClass="free_area0"

@@ -7,7 +7,7 @@
 			<ui:repeat var="ua" value="#{UserAccountSuggest.userAccountList}" varStatus="index">
 				<h:panelGroup>
 					{
-						"id" : "<h:outputText value="#{ua.reference.objectId}" escape="false"/>",
+						"id" : "<h:outputText value="#{ua.objectId}" escape="false"/>",
 						"value" : "<h:outputText value="#{ua.name}" escape="false"/>"
 					}
 					<h:panelGroup rendered="#{index.index lt UserAccountSuggest.userAccountListSize - 1}">,</h:panelGroup>

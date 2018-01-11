@@ -112,13 +112,13 @@
 					<h:panelGroup styleClass="xHuge_area0 endline"
 						rendered="#{fileBean.showSearchHits}">
 						<h:outputLink id="lnkSearchHitsURL" target="."
-							value="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}"
+							value="#{item.link}/component/#{fileBean.file.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}"
 							title="#{fileBean.file.description}"
 							rendered="#{fileBean.file.mimeType=='application/pdf'}">
 							<h:outputText value="#{fileBean.fileName}" />
 						</h:outputLink>
 						<h:outputLink id="lnkFileURL" target="."
-							value="#{item.link}/component/#{fileBean.file.reference.objectId}/#{fileBean.file.name}"
+							value="#{item.link}/component/#{fileBean.file.objectId}/#{fileBean.file.name}"
 							title="#{fileBean.file.description}"
 							rendered="#{fileBean.file.mimeType!='application/pdf'}">
 							<h:outputText value="#{fileBean.fileName}" />

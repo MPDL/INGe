@@ -71,7 +71,7 @@
                             <!-- content menu ends here -->
                             <div class="subHeader">
                                 <!-- Subheadline starts here -->
-                                <h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{EditItem.pubItem.version.objectId}'." rendered="#{EditItem.pubItem.version.objectId != null}" />
+                                <h:outputText value="#{lbl.EditItem_lblItemVersionID} '#{EditItem.pubItem.objectId}'." rendered="#{EditItem.pubItem.objectId != null}" />
                                 <br />
                                 <h:outputText value="#{lbl.EditItem_lblCollectionOfItem} '#{EditItem.contextName}'." />
                                 <br />

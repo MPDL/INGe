@@ -60,7 +60,7 @@
 						</b>
 						<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 							<h:outputLink id="lnkFile" target="."
-								value="#{AudienceBean.fwUrl}/ir/#{AudienceBean.itemPattern}/components/component/#{file.file.reference.objectId}/content"
+								value="#{AudienceBean.fwUrl}/ir/#{AudienceBean.itemPattern}/components/component/#{file.file.objectId}/content"
 								title="#{file.file.description}">
 								<h:outputText value="#{file.file.name}" />
 							</h:outputLink>

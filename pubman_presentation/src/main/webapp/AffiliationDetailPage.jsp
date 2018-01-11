@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
     <title>
-        <h:outputText value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}" />
+        <h:outputText value="#{AffiliationDetailPage.affiliation.metadata.name}" />
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <ui:include src="affiliation/OrganizationDetailFeedLinks.jspf" />
@@ -31,7 +31,7 @@
                             <h:panelGroup styleClass="seperator" />
                             <h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
                                 <b><h:outputText id="detailsTitle"
-										value="#{AffiliationDetailPage.affiliation.defaultMetadata.name}" /></b>
+										value="#{AffiliationDetailPage.affiliation.metadata.name}" /></b>
                             </h:panelGroup>
                         </div>
                         <h:panelGroup layout="block" styleClass="full_area0 itemBlock">
@@ -47,7 +47,7 @@
 										class="noDisplay">: </span>
 									</b> <span class="xHuge_area0 endline"> <ui:repeat
 											id="detailsAltTitles" var="alternative"
-											value="#{AffiliationDetailPage.affiliation.defaultMetadata.alternativeNames}">
+											value="#{AffiliationDetailPage.affiliation.metadata.alternativeNames}">
 											<h:outputText id="txtAffiliationDetailAlternativeTitle"
 												styleClass="xHuge_area0 endline" value="#{alternative} " />
 										</ui:repeat>
@@ -60,9 +60,9 @@
 										class="noDisplay">: </span>
 									</b> <span class="xHuge_area0 endline"> <h:outputText
 											id="detailsCity"
-											value="#{AffiliationDetailPage.affiliation.defaultMetadata.city}, " />
+											value="#{AffiliationDetailPage.affiliation.metadata.city}, " />
 										<h:outputText id="detailsCountry"
-											value="#{AffiliationDetailPage.affiliation.defaultMetadata.countryCode}" />
+											value="#{AffiliationDetailPage.affiliation.metadata.countryCode}" />
 									</span>
                                 </div>
                                 <!-- descriptions -->
@@ -72,7 +72,7 @@
 										class="noDisplay">: </span>
 									</b> <span class="xHuge_area0 endline"> <ui:repeat
 											id="detailsDescription" var="description"
-											value="#{AffiliationDetailPage.affiliation.defaultMetadata.descriptions}">
+											value="#{AffiliationDetailPage.affiliation.metadata.descriptions}">
 											<h:outputText id="txtAffiliationDetailDescription"
 												styleClass="xHuge_area0 endline" value="#{description} " />
 										</ui:repeat>
@@ -85,7 +85,7 @@
 										class="noDisplay">: </span>
 									</b> <span class="xHuge_area0 endline"> <ui:repeat
 											id="detailsIdentifier" var="identifier"
-											value="#{AffiliationDetailPage.affiliation.defaultMetadata.identifiers}">
+											value="#{AffiliationDetailPage.affiliation.metadata.identifiers}">
 											<h:outputText id="txtAffiliationDetailIdentifier"
 												styleClass="xHuge_area0 endline" value="#{identifier.id} " />
 										</ui:repeat>
@@ -107,7 +107,7 @@
 											class="noDisplay">: </span>
 										</b> <span class="xHuge_area0 endline"> <h:outputText
 												styleClass="xHuge_area0 endline"
-												value="#{successors.defaultMetadata.name}" />
+												value="#{successors.metadata.name}" />
 										</span>
                                     </div>
                                 </ui:repeat>
@@ -127,7 +127,7 @@
 											class="noDisplay">: </span>
 										</b> <span class="xHuge_area0 endline"> <h:outputText
 												styleClass="xHuge_area0 endline"
-												value="#{predecessor.defaultMetadata.name}" />
+												value="#{predecessor.metadata.name}" />
 										</span>
                                     </div>
                                 </ui:repeat>

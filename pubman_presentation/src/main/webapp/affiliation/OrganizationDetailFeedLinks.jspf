@@ -6,8 +6,8 @@
 	
 
 	<link
-		href="#{ApplicationBean.pubmanInstanceUrl}/rest/feed/organization/#{AffiliationDetailPage.affiliation.reference.objectId}"
+		href="#{ApplicationBean.pubmanInstanceUrl}/rest/feed/organization/#{AffiliationDetailPage.affiliation.objectId}"
 		rel="alternate" type="application/atom+xml"
-		title="#{lbl.Feed_Recent_Releases}, #{AffiliationDetailPage.affiliation.defaultMetadata.name}|atom_1.0" />
+		title="#{lbl.Feed_Recent_Releases}, #{AffiliationDetailPage.affiliation.metadata.name}|atom_1.0" />
 		
 </ui:composition>

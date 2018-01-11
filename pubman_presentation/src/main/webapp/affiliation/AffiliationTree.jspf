@@ -52,7 +52,7 @@
 						&#160;
 						<h:outputLink id="lnkAffiliationDetails"
 							title="#{tip.Affiliation_details}" value=""
-							onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 980, 400, 'Details');return false">   [<h:outputText
+							onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.objectId}', 980, 400, 'Details');return false">   [<h:outputText
 								value="#{lbl.AffiliationTree_lnkDescription}" />]</h:outputLink>
 					</h:panelGroup>
 				</p:treeNode>
