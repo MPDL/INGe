@@ -34,6 +34,7 @@ import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -204,7 +205,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
       fileVO.setSize((int) stagedFile.length());
       fileVO.setName(stagedFileVo.getFilename());
-      //fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
+      fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
 
     } catch (FileNotFoundException e) {
