@@ -25,11 +25,11 @@
 				value="#{lbl.ViewItemOverview_lblCiteAs}: "
 				rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.versionPid != null}" />
 			<h:outputLink id="lnkCitationURLItemPid"
-				value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.objectPid)}"
+				value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.object.objectPid)}"
 				title="#{tip.ViewItemFull_lblCiteItemAs}"
-				rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.objectPid != null}">
+				rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.object.objectPid != null}">
 				<h:outputText
-					value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.objectPid)}" />
+					value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.object.objectPid)}" />
 			</h:outputLink>
 			<!-- URL if PID is deactivated -->
 			<h:outputLink id="lnkCitationURL" value="#{ViewItemFull.citationURL}"

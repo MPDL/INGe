@@ -480,7 +480,7 @@ public class Migration {
     newPubItem.setMessage(itemVo.getVersion().getLastMessage());
     newPubItem.setMetadata(itemVo.getMetadata());
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
-    newPubItem.setModifiedBy(owner);
+    newPubItem.setModifier(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     newPubItem.setVersionState(ItemVersionVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());

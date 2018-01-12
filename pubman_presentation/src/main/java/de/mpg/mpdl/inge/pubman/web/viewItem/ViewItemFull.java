@@ -52,6 +52,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
@@ -324,22 +325,23 @@ public class ViewItemFull extends FacesBean {
 
       this.isLatestVersion = this.getPubItem().getVersionNumber() == this.getPubItem().getObject().getLatestVersion().getVersionNumber();
 
-      this.isLatestRelease = this.getPubItem().getVersionNumber() == this.getPubItem().getObject().getLatestRelease().getVersionNumber();
+      this.isLatestRelease = this.getPubItem().getObject().getLatestRelease() != null
+          && this.getPubItem().getVersionNumber() == this.getPubItem().getObject().getLatestRelease().getVersionNumber();
 
-      this.isPublicStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
+      this.isPublicStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
 
-      this.isStateWithdrawn = ItemVO.State.WITHDRAWN.equals(this.getPubItem().getObject().getPublicState());
+      this.isStateWithdrawn = ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getObject().getPublicState());
       if (this.isStateWithdrawn) {
         this.getViewItemSessionBean().itemChanged();
       }
 
-      this.isStateSubmitted = ItemVO.State.SUBMITTED.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
+      this.isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
 
-      this.isStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;
+      this.isStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;
 
-      this.isStatePending = ItemVO.State.PENDING.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
+      this.isStatePending = ItemVersionRO.State.PENDING.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
 
-      this.isStateInRevision = ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
+      this.isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(this.getPubItem().getVersionState()) && !this.isStateWithdrawn;;
 
       // Warn message if the item version is not the latest
       if (this.isLatestVersion == false && this.getPubItem().getObject().getLatestVersion().getVersionNumber() != this.getPubItem()
@@ -1131,11 +1133,11 @@ public class ViewItemFull extends FacesBean {
    * @return boolean
    */
   public boolean getShowCiteItem() {
-    if (this.getPubItem().getObject().getPublicState().equals(ItemVO.State.WITHDRAWN)) {
+    if (this.getPubItem().getObject().getPublicState().equals(ItemVersionRO.State.WITHDRAWN)) {
       return false;
     }
 
-    return this.getPubItem().getVersionState().equals(ItemVO.State.RELEASED);
+    return this.getPubItem().getVersionState().equals(ItemVersionRO.State.RELEASED);
   }
 
   public String getDates() {
@@ -1186,7 +1188,7 @@ public class ViewItemFull extends FacesBean {
    */
   public String getWithdrawalDate() {
     String date = "";
-    if (ItemVO.State.WITHDRAWN.equals(this.pubItem.getObject().getPublicState())) {
+    if (ItemVersionRO.State.WITHDRAWN.equals(this.pubItem.getObject().getPublicState())) {
       if (this.pubItem.getModificationDate() != null) {
         date = CommonUtils.format(this.pubItem.getModificationDate());
       }
@@ -1475,7 +1477,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean getIsStateWithdrawn() {
-    return ItemVO.State.WITHDRAWN.equals(this.getPubItem().getObject().getPublicState());
+    return ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getObject().getPublicState());
   }
 
   public void setStateWithdrawn(boolean isStateWithdrawn) {
@@ -1563,9 +1565,8 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean getHasAudience() {
-    if (this.pubItem != null
-        && (ItemVO.State.RELEASED.equals(this.pubItem.getVersionState()) || ItemVO.State.SUBMITTED.equals(this.pubItem.getVersionState()))
-        && (this.getIsModerator() || this.getIsDepositor())) {
+    if (this.pubItem != null && (ItemVersionRO.State.RELEASED.equals(this.pubItem.getVersionState())
+        || ItemVersionRO.State.SUBMITTED.equals(this.pubItem.getVersionState())) && (this.getIsModerator() || this.getIsDepositor())) {
 
       for (final FileDbVO file : this.pubItem.getFiles()) {
         if (Visibility.AUDIENCE.equals(file.getVisibility())) {
@@ -2179,7 +2180,7 @@ public class ViewItemFull extends FacesBean {
 
     try {
       retVal = icsb.saveCurrentPubItem(navigateTo);
-      if (ItemVO.State.RELEASED.equals(state)) {
+      if (ItemVersionRO.State.RELEASED.equals(state)) {
         if (this.isModerator) {
           navigateTo = AcceptItem.LOAD_ACCEPTITEM;
           if (navigateTo.equals(retVal)) {

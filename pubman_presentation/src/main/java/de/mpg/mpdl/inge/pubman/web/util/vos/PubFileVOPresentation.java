@@ -204,8 +204,6 @@ public class PubFileVOPresentation extends FacesBean {
    * @return The internationalized content-category.
    */
   public String getContentCategory() {
-
-
     if (this.file.getMetadata().getContentCategory() != null) {
       return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
       /*

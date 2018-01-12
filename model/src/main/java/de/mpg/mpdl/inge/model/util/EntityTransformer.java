@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
 
 public class EntityTransformer {
 
-  private static Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
+  private static Mapper dozerMapper = MapperFactory.getDozerMapper();
 
   public static ContextDbVO transformToNew(ContextVO contextVo) {
     return dozerMapper.map(contextVo, ContextDbVO.class);

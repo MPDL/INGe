@@ -59,6 +59,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -156,7 +157,7 @@ public class PubManSwordServer {
     // Deposit item
     if (!deposit.isNoOp()) {
       depositItem = util.doDeposit(depositItem);
-      if (ItemVO.State.RELEASED.equals(depositItem.getVersionState())) {
+      if (ItemVersionRO.State.RELEASED.equals(depositItem.getVersionState())) {
         dr = new DepositResponse(Deposit.CREATED);
         this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getObject().getPublicState() + ").");
       } else {

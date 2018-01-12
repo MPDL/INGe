@@ -303,7 +303,7 @@ public class MigrationTests {
     ItemVersionVO pubItem = new ItemVersionVO();
     pubItem.setLastMessage("my last message");
     pubItem.setModificationDate(now);
-    pubItem.setModifiedBy(user);
+    pubItem.setModifier(user);
     pubItem.setObjectId("pure_1");
     pubItem.setVersionState(PubItemVersionDbVO.State.PENDING);
     pubItem.setVersionNumber(1);
@@ -712,7 +712,7 @@ public class MigrationTests {
     newPubItem.setLastMessage(itemVo.getVersion().getLastMessage());
     newPubItem.setMetadata(itemVo.getMetadata());
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
-    newPubItem.setModifiedBy(owner);
+    newPubItem.setModifier(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     newPubItem.setVersionState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());

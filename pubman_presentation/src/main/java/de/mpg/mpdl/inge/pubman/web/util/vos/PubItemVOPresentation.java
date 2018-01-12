@@ -36,6 +36,7 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
@@ -157,7 +158,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
 
     if (this != null && this.getVersionState() != null) {
-      this.released = ItemVO.State.RELEASED.equals(this.getVersionState());
+      this.released = ItemVersionRO.State.RELEASED.equals(this.getVersionState());
     }
 
     // get the first source of the item (if available)
@@ -236,7 +237,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
       }
       // add files
       else {
-        if (this.searchHitList != null && this.searchHitList.size() > 0 && ItemVO.State.WITHDRAWN.equals(this.getVersionState()) == false) {
+        if (this.searchHitList != null && this.searchHitList.size() > 0
+            && ItemVersionRO.State.WITHDRAWN.equals(this.getVersionState()) == false) {
           this.fileBeanList.add(new FileBean(file, this, this.searchHitList));
         } else {
           this.fileBeanList.add(new FileBean(file, this));
@@ -1059,7 +1061,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return Boolean true if item is withdrawn
    */
   public boolean getIsStateWithdrawn() {
-    return ItemVO.State.WITHDRAWN.equals(this.getObject().getPublicState());
+    return ItemVersionRO.State.WITHDRAWN.equals(this.getObject().getPublicState());
   }
 
   /**
@@ -1069,7 +1071,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return Boolean true if item is submitted
    */
   public boolean getIsStateSubmitted() {
-    return ItemVO.State.SUBMITTED.equals(this.getVersionState());
+    return ItemVersionRO.State.SUBMITTED.equals(this.getVersionState());
   }
 
   /**
@@ -1079,7 +1081,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return Boolean true if item is released
    */
   public boolean getIsStateReleased() {
-    return ItemVO.State.RELEASED.equals(this.getVersionState());
+    return ItemVersionRO.State.RELEASED.equals(this.getVersionState());
   }
 
   /**
@@ -1089,7 +1091,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return Boolean true if item is pending
    */
   public boolean getIsStatePending() {
-    return ItemVO.State.PENDING.equals(this.getVersionState());
+    return ItemVersionRO.State.PENDING.equals(this.getVersionState());
   }
 
   /**
@@ -1099,7 +1101,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    * @return Boolean true if item is in revision
    */
   public boolean getIsStateInRevision() {
-    return ItemVO.State.IN_REVISION.equals(this.getVersionState());
+    return ItemVersionRO.State.IN_REVISION.equals(this.getVersionState());
   }
 
 

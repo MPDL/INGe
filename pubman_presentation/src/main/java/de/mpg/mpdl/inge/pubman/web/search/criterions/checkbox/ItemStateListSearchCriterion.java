@@ -11,6 +11,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -176,7 +177,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
         if (entry.getValue()) {
 
-          switch (ItemVO.State.valueOf(entry.getKey())) {
+          switch (ItemVersionRO.State.valueOf(entry.getKey())) {
             case RELEASED: {
               bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
               break;

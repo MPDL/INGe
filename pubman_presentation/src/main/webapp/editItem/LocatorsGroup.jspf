@@ -105,7 +105,7 @@
 									<f:selectItems value="#{EditItem.contentCategories}" />
 								</h:selectOneMenu>
 							</h:panelGroup> <!--
-						<h:selectOneMenu id="selLocatorContentCategory" styleClass="double_select replace" value="#{locator.file.contentCategory}" >
+						<h:selectOneMenu id="selLocatorContentCategory" styleClass="double_select replace" value="#{locator.file.metadata.contentCategory}" >
 	        				<f:selectItems value="#{EditItem.contentCategories}" />
 	       				</h:selectOneMenu>	-->
 						</span>

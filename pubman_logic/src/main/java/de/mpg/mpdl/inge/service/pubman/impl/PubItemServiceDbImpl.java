@@ -47,29 +47,24 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.util.EntityTransformer;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -219,7 +214,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
         contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId());
-    ContextVO contextOld = EntityTransformer.transformToOld(contextNew);
 
 
 
@@ -230,7 +224,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     pubItemToCreate.setFiles(handleFiles(pubItemToCreate, null, userAccount));
 
-    checkAa("create", userAccount, pubItemToCreate, contextOld);
+    checkAa("create", userAccount, pubItemToCreate, contextNew);
 
     validate(pubItemToCreate, ValidationPoint.SAVE);
 
@@ -327,12 +321,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     if (latestVersion == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
-    PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
-    checkEqualModificationDate(pubItemVO.getModificationDate(), latestVersionOld.getVersion().getModificationDate());
 
-    ContextVO context = EntityTransformer.transformToOld(contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId()));
+    checkEqualModificationDate(pubItemVO.getModificationDate(), latestVersion.getModificationDate());
 
-    checkAa("update", userAccount, latestVersionOld, context);
+    ContextDbVO context = contextRepository.findOne(latestVersion.getObject().getContext().getObjectId());
+
+    checkAa("update", userAccount, latestVersion, context);
 
     if (ItemVersionRO.State.RELEASED.equals(latestVersion.getVersionState())) {
       entityManager.detach(latestVersion);
@@ -345,7 +339,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       // if current user is owner, set to status pending. Else, set to status
       // submitted
 
-      if (GrantUtil.hasRole(userAccount, PredefinedRoles.MODERATOR, context.getReference().getObjectId())) {
+      if (GrantUtil.hasRole(userAccount, PredefinedRoles.MODERATOR, context.getObjectId())) {
         latestVersion.setVersionState(ItemVersionRO.State.SUBMITTED);
       } else {
         latestVersion.setVersionState(ItemVersionRO.State.PENDING);
@@ -470,8 +464,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
 
-    ContextVO context =
-        EntityTransformer.transformToOld(contextRepository.findOne(latestPubItemDbVersion.getObject().getContext().getObjectId()));
+    ContextDbVO context = contextRepository.findOne(latestPubItemDbVersion.getObject().getContext().getObjectId());
     checkAa("delete", userAccount, latestPubItemDbVersion, context);
 
     // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
@@ -527,8 +520,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         requestedItem = itemRepository.findLatestVersion(objectId);
         if (requestedItem != null) {
 
-          ContextVO context =
-              EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getObject().getContext().getObjectId()));
+          ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
           try {
             checkAa("get", userAccount, requestedItem, context);
           } catch (AuthenticationException | AuthorizationException e) {
@@ -540,8 +532,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     {
       requestedItem = itemRepository.findOne(new VersionableId(objectId, Integer.parseInt(version)));
       if (requestedItem != null) {
-        ContextVO context =
-            EntityTransformer.transformToOld(contextRepository.findOne(requestedItem.getObject().getContext().getObjectId()));
+        ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
         checkAa("get", userAccount, requestedItem, context);
       }
     }
@@ -602,13 +593,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throw new IngeApplicationException("Object with given id not found.");
     }
 
-    PubItemVO latestVersionOld = EntityTransformer.transformToOld(latestVersion);
 
-    checkEqualModificationDate(modificationDate, latestVersionOld.getModificationDate());
+    checkEqualModificationDate(modificationDate, latestVersion.getModificationDate());
 
-    ContextVO context = EntityTransformer.transformToOld(contextRepository.findOne(latestVersion.getObject().getContext().getObjectId()));
+    ContextDbVO context = contextRepository.findOne(latestVersion.getObject().getContext().getObjectId());
 
-    checkAa(aaMethod, userAccount, latestVersionOld, context);
+    checkAa(aaMethod, userAccount, latestVersion, context);
 
     if (ItemVersionRO.State.SUBMITTED.equals(state) && !ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
       latestVersion.getObject().setPublicState(ItemVersionRO.State.SUBMITTED);
@@ -686,7 +676,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     ValidationPoint vp = ValidationPoint.STANDARD;
 
-    if (pubItem.getObject().getPublicState() != null && ItemVO.State.PENDING.equals(pubItem.getObject().getPublicState())) {
+    if (pubItem.getObject().getPublicState() != null && State.PENDING.equals(pubItem.getObject().getPublicState())) {
       vp = ValidationPoint.SAVE;
     }
 

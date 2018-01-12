@@ -30,13 +30,9 @@ import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
@@ -144,8 +140,6 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     super.delete(id, authenticationToken);
 
     if (ouDbTobeDeleted.getParentAffiliation() != null) {
-      AffiliationVO ouVoTobeDeleted = EntityTransformer.transformToOld(ouDbTobeDeleted);
-
       AffiliationDbVO parentVO = organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
       organizationDao.createImmediately(parentVO.getObjectId(), parentVO);
     }

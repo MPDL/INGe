@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
@@ -77,8 +78,8 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     // PENDING nach RELEASED)
     ItemVersionVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
 
-    if (ItemVO.State.RELEASED.equals(pubItemVOLatestVersion.getVersionState())
-        && !ItemVO.State.RELEASED.equals(pubItemVONewVersion.getVersionState())) {
+    if (ItemVersionRO.State.RELEASED.equals(pubItemVOLatestVersion.getVersionState())
+        && !ItemVersionRO.State.RELEASED.equals(pubItemVONewVersion.getVersionState())) {
       pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(pubItemVONewVersion.getObjectId(),
           pubItemVONewVersion.getModificationDate(), "Release after rollback to version " + this.getReference().getVersionNumber(),
           loginHelper.getAuthenticationToken());

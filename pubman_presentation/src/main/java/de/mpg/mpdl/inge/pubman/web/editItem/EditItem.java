@@ -54,6 +54,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
@@ -185,7 +186,7 @@ public class EditItem extends FacesBean {
     this.getPubItem().writeBackLocalTags();
     this.bindFilesAndLocators = false;
 
-    if (this.getPubItem().getVersionState().equals(ItemVO.State.RELEASED)) {
+    if (this.getPubItem().getVersionState().equals(ItemVersionRO.State.RELEASED)) {
       return this.saveAndAccept();
     }
 
@@ -546,7 +547,7 @@ public class EditItem extends FacesBean {
       }
 
       if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem)) {
-        if (ItemVO.State.RELEASED.equals(newPubItem.getVersionState())) {
+        if (ItemVersionRO.State.RELEASED.equals(newPubItem.getVersionState())) {
           EditItem.logger.warn("Item has not been changed.");
           // create a validation report
           final ValidationReportVO changedReport = new ValidationReportVO();
@@ -819,11 +820,11 @@ public class EditItem extends FacesBean {
     // boolean isPublicStateReleased = false;
 
     if (this.getPubItem() != null && this.getPubItem().getVersionState() != null) {
-      isStatePending = ItemVO.State.PENDING.equals(this.getPubItem().getVersionState());
-      isStateSubmitted = ItemVO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
-      isStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getVersionState());
-      isStateInRevision = ItemVO.State.IN_REVISION.equals(this.getPubItem().getVersionState());
-      // isPublicStateReleased = ItemVO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
+      isStatePending = ItemVersionRO.State.PENDING.equals(this.getPubItem().getVersionState());
+      isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
+      isStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getVersionState());
+      isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(this.getPubItem().getVersionState());
+      // isPublicStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
     }
 
     boolean isOwner = true;

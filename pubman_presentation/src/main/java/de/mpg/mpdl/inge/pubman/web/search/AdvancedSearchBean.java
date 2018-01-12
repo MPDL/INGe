@@ -49,7 +49,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;

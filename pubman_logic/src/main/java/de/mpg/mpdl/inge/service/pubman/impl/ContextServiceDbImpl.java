@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,13 +22,8 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.util.EntityTransformer;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;

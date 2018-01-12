@@ -69,6 +69,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
@@ -551,9 +552,9 @@ public class SwordUtil extends FacesBean {
     boolean isStateInRevision = false;
 
     if (item != null && item.getObjectId() != null && item.getVersionState() != null) {
-      isStatePending = ItemVO.State.PENDING.equals(item.getVersionState());
-      isStateSubmitted = ItemVO.State.SUBMITTED.equals(item.getVersionState());
-      isStateInRevision = ItemVO.State.IN_REVISION.equals(item.getVersionState());
+      isStatePending = ItemVersionRO.State.PENDING.equals(item.getVersionState());
+      isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(item.getVersionState());
+      isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(item.getVersionState());
     }
 
     isWorkflowStandard =

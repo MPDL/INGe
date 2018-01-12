@@ -44,6 +44,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
@@ -299,7 +300,7 @@ public class FileBean extends FacesBean {
   }
 
   public boolean getItemWithdrawn() {
-    return ItemVO.State.WITHDRAWN.equals(item.getObject().getPublicState());
+    return ItemVersionRO.State.WITHDRAWN.equals(item.getObject().getPublicState());
 
   }
 

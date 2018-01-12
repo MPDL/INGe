@@ -22,13 +22,13 @@
 					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
 						id="lnkCitationURLItemPid"
-						value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.objectPid)}"
+						value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.object.objectPid)}"
 						title="#{tip.ViewItemFull_lblCiteItemAs}"
-						rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.objectPid != null}">
+						rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.object.objectPid != null}">
 						<h:outputText
-							value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.objectPid)}" />
+							value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.object.objectPid)}" />
 					</h:outputLink> <h:outputText value="#{lbl.lbl_noEntry}"
-						rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.handlesActivated and ViewItemFull.pubItem.objectPid == null)}" />
+						rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.handlesActivated and ViewItemFull.pubItem.object.objectPid == null)}" />
 				</span> <b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
 						value="#{lbl.ViewItemFull_lblCiteItemVersionAs}" /><span
 					class="noDisplay">: </span>

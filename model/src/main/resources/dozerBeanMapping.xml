@@ -3,6 +3,59 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
 
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO
+		</class-b>
+	</mapping>
+
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO
+		</class-b>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
+	</mapping>
+
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO
+		</class-b>
+	</mapping>
+
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO
+		</class-b>
+	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO
+		</class-b>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
+	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO
+		</class-b>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
+	</mapping>
 
 	<mapping wildcard="false">
 		<class-a>de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO
@@ -74,8 +127,8 @@
 			<a>files</a>
 			<b>files</b>
 		</field>
-		
-		
+
+
 	</mapping>
 
 
@@ -125,7 +178,7 @@
 			<a>modifiedByRO.title</a>
 			<b>modifier.name</b>
 		</field>
-		
+
 		<field-exclude>
 			<a>objectIdAndVersion</a>
 			<b>objectIdAndVersion</b>
