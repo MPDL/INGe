@@ -170,10 +170,6 @@ public class EditItemBean extends FacesBean {
       CreatorVO creatorVO;
       if (CreatorType.ORGANIZATION == creatorVOPresentation.getType()) {
         creatorVO = new CreatorVO(creatorVOPresentation.getOrganization(), creatorVOPresentation.getRole());
-        if (creatorVO.getOrganization() != null && creatorVO.getOrganization().getName() != null
-            || "".equals(creatorVO.getOrganization().getName())) {
-          creatorVO.getOrganization().setName(null);
-        }
       } else {
         creatorVO = new CreatorVO(creatorVOPresentation.getPerson(), creatorVOPresentation.getRole());
       }
