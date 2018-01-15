@@ -726,7 +726,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       try {
         count++;
         String id = (String) results.get(0);
-        queueJmsTemplate.convertAndSend("reindex", id);
+        queueJmsTemplate.convertAndSend("reindex-ItemVersionVO", id);
 
         // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
         if (count % 1000 == 0) {
@@ -743,7 +743,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   @Override
-  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-PubItemVO")
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ItemVersionVO")
   public void reindexListener(String id) throws IngeTechnicalException {
     reindex(id, false);
   }

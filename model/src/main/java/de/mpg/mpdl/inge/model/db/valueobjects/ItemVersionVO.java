@@ -67,7 +67,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @updated 21-Nov-2007 11:52:58
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "PubItemVersionVO")
 @Table(name = "item_version")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
@@ -177,4 +176,5 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
       return message;
     }
   }
+  
 }

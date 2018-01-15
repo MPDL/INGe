@@ -132,9 +132,6 @@ public class EntityTransformer {
     */
   }
 
-  private static ItemVO.State transformToOld(ItemVersionRO.State state) {
-    return ItemVO.State.valueOf(state.name());
-  }
 
   private static AccountUserRO transformToOld(AccountUserDbRO newAccountUserRo) {
     if (newAccountUserRo == null) {
