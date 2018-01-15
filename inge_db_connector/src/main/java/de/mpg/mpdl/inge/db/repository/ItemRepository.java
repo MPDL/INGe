@@ -12,11 +12,11 @@ import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 // @NoRepositoryBean
 public interface ItemRepository extends GenericRepository<ItemVersionVO, VersionableId> {
 
-  @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId)")
+  @Query("SELECT item FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM ItemVersionVO item WHERE item.objectId=:objectId)")
   @QueryHints(@QueryHint(name = "org.hibernate.cacheable", value = "true"))
   public ItemVersionVO findLatestVersion(@Param("objectId") String objectId);
 
-  @Query("SELECT item FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM PubItemVersionVO item WHERE item.objectId=:objectId AND item.versionState='RELEASED')")
+  @Query("SELECT item FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionState='RELEASED')")
   @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
   public ItemVersionVO findLatestRelease(@Param("objectId") String objectId);
 

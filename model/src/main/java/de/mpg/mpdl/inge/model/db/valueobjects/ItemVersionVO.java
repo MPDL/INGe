@@ -66,6 +66,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
  */
+@Entity
 @JsonInclude(value = Include.NON_EMPTY)
 @Table(name = "item_version")
 @Cacheable
@@ -176,5 +177,5 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
       return message;
     }
   }
-  
+
 }

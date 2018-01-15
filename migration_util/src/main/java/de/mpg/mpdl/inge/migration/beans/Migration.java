@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.migration.beans;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -56,6 +57,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -116,15 +118,12 @@ public class Migration {
 
   private HttpClient httpClientWithEscidocCookie;
 
-  public void sayHello(String name) {
-    log.info("Starting to migrate " + name);
-  }
-
-  public HttpClient setup() {
+  public HttpClient setup() throws URISyntaxException {
     String userHandle = AdminHelper.getAdminUserHandle();
     BasicCookieStore cookieStore = new BasicCookieStore();
     BasicClientCookie cookie = new BasicClientCookie("escidocCookie", userHandle);
-    cookie.setDomain("qa-coreservice.mpdl.mpg.de");
+    URI uri = new URIBuilder(escidocUrl).build();
+    cookie.setDomain(uri.getHost());
     cookie.setPath("/");
     cookieStore.addCookie(cookie);
     httpClientWithEscidocCookie = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
@@ -149,6 +148,8 @@ public class Migration {
         importPubItems();
         break;
       case "items_reindex":
+        System.out.println("calling reindexitems");
+
         reIndexing.reindexItems();
         break;
       case "users":
@@ -167,9 +168,17 @@ public class Migration {
         importLogins();
         importPubItems();
         break;
+      case "wf_test":
+        wfTesting();
+        break;
       default:
         log.info("user doesn't really know, what exactly he wants to do!!!");
     }
+  }
+
+  private void wfTesting() throws URISyntaxException {
+    URI uri = new URIBuilder(escidocUrl).build();
+    System.out.println(uri.getHost());
   }
 
   private void importContexts() throws Exception {
@@ -387,7 +396,7 @@ public class Migration {
 
         savePubItem(item);
       } catch (Exception e) {
-        e.printStackTrace();
+        log.error("ERROR "+ pubItemVo.getVersion().getObjectIdAndVersion(), e );
       }
     }
   }
@@ -454,6 +463,9 @@ public class Migration {
     for (de.mpg.mpdl.inge.model.valueobjects.FileVO oldFile : itemVo.getFiles()) {
 
       AccountUserDbRO fileOwner = new AccountUserDbRO();
+      MdsFileVO metadata = oldFile.getDefaultMetadata();
+      String contentCategory = oldFile.getContentCategory().substring(oldFile.getContentCategory().lastIndexOf("/") + 1);
+      metadata.setContentCategory(contentCategory);
 
       fileOwner.setObjectId(changeId("user", oldFile.getCreatedByRO().getObjectId()));
       fileOwner.setName(oldFile.getCreatedByRO().getTitle());
@@ -465,7 +477,7 @@ public class Migration {
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
       file.setLastModificationDate(oldFile.getLastModificationDate());
-      file.setMetadata(oldFile.getDefaultMetadata());
+      file.setMetadata(metadata);
       file.setMimeType(oldFile.getMimeType());
       file.setSize(oldFile.getDefaultMetadata().getSize());
       file.setName(oldFile.getName());
