@@ -926,7 +926,7 @@
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
-		<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>
+		<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge_new_model</inge.database.jdbc.url>
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.email.mailservername>mail.mpisoc.mpg.de</inge.email.mailservername>
