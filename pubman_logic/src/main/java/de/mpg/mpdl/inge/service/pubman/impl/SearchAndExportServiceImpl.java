@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
@@ -43,7 +45,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   @Override
   public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    List<PubItemVO> searchResult = getSearchResult(saerrVO, token);
+    List<ItemVersionVO> searchResult = getSearchResult(saerrVO, token);
 
     String itemList = getItemList(searchResult);
 
@@ -54,22 +56,22 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     return new SearchAndExportResultVO(result, exportFormatVO.getOutputFormat().getMimeType());
   }
 
-  private List<PubItemVO> getSearchResult(SearchAndExportRetrieveRequestVO saerrVO, String token)
+  private List<ItemVersionVO> getSearchResult(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    SearchRetrieveResponseVO<PubItemVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
+    SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
 
-    List<PubItemVO> searchResult = new ArrayList<PubItemVO>();
-    for (SearchRetrieveRecordVO<PubItemVO> record : srrVO.getRecords()) {
+    List<ItemVersionVO> searchResult = new ArrayList<ItemVersionVO>();
+    for (SearchRetrieveRecordVO<ItemVersionVO> record : srrVO.getRecords()) {
       searchResult.add(record.getData());
     }
 
     return searchResult;
   }
 
-  private String getItemList(List<PubItemVO> list) throws IngeTechnicalException {
+  private String getItemList(List<ItemVersionVO> list) throws IngeTechnicalException {
     String itemList;
     try {
-      itemList = XmlTransformingService.transformToItemList(list);
+      itemList = XmlTransformingService.transformToItemList(EntityTransformer.transformToOld(list));
     } catch (TechnicalException e) {
       throw new IngeTechnicalException(e);
     }
