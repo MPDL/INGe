@@ -39,7 +39,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
     map.put(TransformerFactory.MARC_XML, TransformerFactory.FORMAT.MARC_XML);
     map.put(TransformerFactory.ENDNOTE, TransformerFactory.FORMAT.ENDNOTE_STRING);
     map.put(TransformerFactory.BIBTEX, TransformerFactory.FORMAT.BIBTEX_STRING);
-    map.put(TransformerFactory.ESCIDOC_PUBLICATION_ITEM, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
+    map.put(TransformerFactory.ESCIDOC_ITEM_XML, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
     map.put(TransformerFactory.EDOC_XML, TransformerFactory.FORMAT.EDOC_XML);
   }
 
@@ -61,7 +61,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
       case STRUCTURED:
 
-        if (TransformerFactory.ESCIDOC_PUBLICATION_ITEM.equalsIgnoreCase(exportFormat.getName())) {
+        if (TransformerFactory.ESCIDOC_ITEM_XML.equalsIgnoreCase(exportFormat.getName())) {
           return itemList.getBytes();
         }
 

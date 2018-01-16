@@ -74,7 +74,7 @@ public class ExportItems extends FacesBean {
     final SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem(TransformerFactory.ENDNOTE, this.getLabel("Export_ExportFormat_ENDNOTE"));
     final SelectItem EXPORTFORMAT_BIBTEX = new SelectItem(TransformerFactory.BIBTEX, this.getLabel("Export_ExportFormat_BIBTEX"));
     final SelectItem EXPORTFORMAT_ESCIDOC_XML =
-        new SelectItem(TransformerFactory.ESCIDOC_PUBLICATION_ITEM, this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
+        new SelectItem(TransformerFactory.ESCIDOC_ITEM_XML, this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
     final SelectItem EXPORTFORMAT_APA = new SelectItem(XmlHelper.APA, this.getLabel("Export_ExportFormat_APA"));
     final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(XmlHelper.APA_CJK, this.getLabel("Export_ExportFormat_APA_CJK"));
     final SelectItem EXPORTFORMAT_AJP = new SelectItem(XmlHelper.AJP, this.getLabel("Export_ExportFormat_AJP"));
@@ -135,7 +135,7 @@ public class ExportItems extends FacesBean {
     } else {
       String fileFormat = null;
 
-      if (TransformerFactory.ESCIDOC_PUBLICATION_ITEM.equals(selExportFormat)) {
+      if (TransformerFactory.ESCIDOC_ITEM_XML.equals(selExportFormat)) {
         fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
       } else if (TransformerFactory.MARC_XML.equals(selExportFormat)) {
         fileFormat = FileFormatVO.ESCIDOC_XML_NAME;

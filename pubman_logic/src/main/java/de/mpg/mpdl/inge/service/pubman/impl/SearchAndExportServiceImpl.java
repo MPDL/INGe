@@ -81,7 +81,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     ExportFormatVO exportFormatVO;
 
     if (null == exportFormat) {
-      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, TransformerFactory.ESCIDOC_PUBLICATION_ITEM, FileFormatVO.XML_NAME);
+      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, TransformerFactory.ESCIDOC_ITEM_XML, FileFormatVO.XML_NAME);
     } else if (isStructured(exportFormat)) {
       exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat, outputFormat == null ? FileFormatVO.TXT_NAME : outputFormat);
     } else if (isCitationStyle(exportFormat)) {
