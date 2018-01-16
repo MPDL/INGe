@@ -778,7 +778,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
    */
   public String getShortAbstract() {
     if (this.getMetadata().getAbstracts().size() > 0) {
-      if (this.getMetadata().getAbstracts().get(0).getValue().length() > 150) {
+      if (this.getMetadata().getAbstracts().get(0) != null && this.getMetadata().getAbstracts().get(0).getValue().length() > 150) {
         return this.getMetadata().getAbstracts().get(0).getValue().substring(0, 149) + "...";
       }
 
