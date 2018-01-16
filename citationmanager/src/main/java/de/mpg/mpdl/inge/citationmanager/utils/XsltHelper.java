@@ -69,228 +69,228 @@ public class XsltHelper {
 
   // precompiled patterns
 
-    private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
+  private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
 
-    private static final Pattern SPANS_WITH_CLASS = Pattern.compile("<span\\s+class=\"(\\w+)\".*?>(.*?)</span>", FLAGS);
-    private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
-    private static final Pattern ALL_TAGS_EXCEPT_STYLE = Pattern.compile("\\<(?!(\\/?style))", FLAGS);
-    private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
-    private static final Pattern I18_TAGS = Pattern.compile("<" + I18N_TAG + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", FLAGS);
-    private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
+  private static final Pattern SPANS_WITH_CLASS = Pattern.compile("<span\\s+class=\"(\\w+)\".*?>(.*?)</span>", FLAGS);
+  private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
+  private static final Pattern ALL_TAGS_EXCEPT_STYLE = Pattern.compile("\\<(?!(\\/?style))", FLAGS);
+  private static final Pattern ALL_TAGS_EXCEPT_SUB_SUP_STYLE = Pattern.compile("\\<(?!(\\/?style)|(\\/?(su[bp]|SU[BP])))", FLAGS);
+  private static final Pattern I18_TAGS = Pattern.compile("<" + I18N_TAG + "\\s+class=\"\\w+\".*?>(.*?)</" + I18N_TAG + ">", FLAGS);
+  private static final Pattern SUBS_OR_SUPS = Pattern.compile("\\<(\\/?(su[bp]|SU[BP]))\\>", Pattern.DOTALL);
 
 
-    /**
-     * Converts snippet &lt;span&gt; tags to the appropriate JasperReport Styled Text. Note: If at
-     * least one &lt;span&gt; css class will not match FontStyle css, the snippet will be returned
-     * without any changes.
-     * 
-     * @param snippet
-     * @return converted snippet
-     * @throws CitationStyleManagerException
-     */
-    public static String convertSnippetToJasperStyledText(String cs, String snippet) throws CitationStyleManagerException {
-  
-      // logger.info("input snippet:" + snippet);
-  
-      snippet = removeI18N(snippet);
-  
-      FontStylesCollection fsc = XmlHelper.loadFontStylesCollection(cs);
-  
-      if (!Utils.checkVal(snippet) || fsc == null)
+  /**
+   * Converts snippet &lt;span&gt; tags to the appropriate JasperReport Styled Text. Note: If at
+   * least one &lt;span&gt; css class will not match FontStyle css, the snippet will be returned
+   * without any changes.
+   * 
+   * @param snippet
+   * @return converted snippet
+   * @throws CitationStyleManagerException
+   */
+  public static String convertSnippetToJasperStyledText(String cs, String snippet) throws CitationStyleManagerException {
+
+    // logger.info("input snippet:" + snippet);
+
+    snippet = removeI18N(snippet);
+
+    FontStylesCollection fsc = XmlHelper.loadFontStylesCollection(cs);
+
+    if (!Utils.checkVal(snippet) || fsc == null)
+      return snippet;
+
+    FontStyle fs;
+
+    StringBuffer sb = new StringBuffer();
+    Matcher m = SPANS_WITH_CLASS.matcher(snippet);
+    while (m.find()) {
+      fs = fsc.getFontStyleByCssClass(m.group(1));
+      // logger.info("fs:" + fs);
+
+      // Rigorous: if at list once no css class has been found return str
+      // as it is
+      if (fs == null) {
         return snippet;
-  
-      FontStyle fs;
-  
-      StringBuffer sb = new StringBuffer();
-      Matcher m = SPANS_WITH_CLASS.matcher(snippet);
-      while (m.find()) {
-        fs = fsc.getFontStyleByCssClass(m.group(1));
-        // logger.info("fs:" + fs);
-  
-        // Rigorous: if at list once no css class has been found return str
-        // as it is
-        if (fs == null) {
-          return snippet;
-        } else {
-          m.appendReplacement(sb, "<style" + fs.getStyleAttributes() + ">$2</style>");
+      } else {
+        m.appendReplacement(sb, "<style" + fs.getStyleAttributes() + ">$2</style>");
+      }
+    }
+    snippet = m.appendTail(sb).toString();
+
+    /*
+     * //escape all non-escaped & snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
+     * 
+     * snippet = escapeMarkupTags(snippet);
+     */
+    // logger.info("processed snippet:" + snippet);
+
+    return snippet;
+  }
+
+  /**
+   * Escape all xml/html tags except: style: for jasper internal styling sub/sup: will not be
+   * escaped in case of balanced presence all other - to be escaped
+   * 
+   * @param str
+   * @return escaped string
+   */
+  public static String[] escapeMarkupTags(String[] snippet) {
+
+
+    // logger.info("Escape Markup: " + snippet);
+    if (snippet == null)
+      return null;
+
+    for (int i = 0; i < snippet.length; i++) {
+      if (snippet[i] != null)
+        // escape ampersands
+        snippet[i] = Utils.replaceAllTotal(snippet[i], AMPS_ALONE, "&amp;");
+
+      // escape tags except <style> and optionally <sub><sup>
+      snippet[i] =
+          Utils.replaceAllTotal(snippet[i], isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, "&lt;");
+    }
+    return snippet;
+
+
+
+  }
+
+
+
+  /**
+   * Check of the balanced tags sup/sub
+   * 
+   * @param snippet
+   * @return <code>true</code> if balanced, <code>false</code> otherwise
+   */
+  public static boolean isBalanced(String snippet) {
+    if (snippet == null)
+      return true; // ????
+
+    Stack<String> s = new Stack<String>();
+    Matcher m = SUBS_OR_SUPS.matcher(snippet);
+    while (m.find()) {
+      String tag = m.group(1);
+      if (tag.toLowerCase().startsWith("su")) {
+        s.push(tag);
+      } else {
+        if (s.empty() || !tag.equals("/" + s.pop())) {
+          return false;
         }
       }
-      snippet = m.appendTail(sb).toString();
-  
-      /*
-       * //escape all non-escaped & snippet = Utils.replaceAllTotal(snippet, AMPS_ALONE, "&amp;");
-       * 
-       * snippet = escapeMarkupTags(snippet);
-       */
-      // logger.info("processed snippet:" + snippet);
-  
+    }
+
+    return s.empty();
+  }
+
+
+  /**
+   * Converts snippet &lt;span&gt; tags to the HTML formatting, i.e. <code><b>, <i>, <u>, <s></code>
+   * Text. Note: If at least one &lt;span&gt; css class will not match FontStyle css, the snippet
+   * will be returned without any changes.
+   * 
+   * @param snippet
+   * @return converted snippet
+   * @throws CitationStyleManagerException
+   */
+  public static String convertSnippetToHtml(String snippet) throws CitationStyleManagerException {
+
+    FontStyle fs;
+    // snippet = removeI18N(snippet);
+
+    FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
+
+    if (!Utils.checkVal(snippet) || fsc == null)
       return snippet;
-    }
 
-    /**
-     * Escape all xml/html tags except: style: for jasper internal styling sub/sup: will not be
-     * escaped in case of balanced presence all other - to be escaped
-     * 
-     * @param str
-     * @return escaped string
-     */
-    public static String[] escapeMarkupTags(String[] snippet) {
-  
-  
-      // logger.info("Escape Markup: " + snippet);
-      if (snippet == null)
-        return null;
-  
-      for (int i = 0; i < snippet.length; i++) {
-        if (snippet[i] != null)
-          // escape ampersands
-          snippet[i] = Utils.replaceAllTotal(snippet[i], AMPS_ALONE, "&amp;");
-  
-        // escape tags except <style> and optionally <sub><sup>
-        snippet[i] =
-            Utils.replaceAllTotal(snippet[i], isBalanced(snippet[i]) ? ALL_TAGS_EXCEPT_SUB_SUP_STYLE : ALL_TAGS_EXCEPT_STYLE, "&lt;");
-      }
-      return snippet;
-  
-  
-  
-    }
+    // logger.info("passed str:" + snippet);
 
 
+    StringBuffer sb = new StringBuffer();
+    Matcher m = SPANS_WITH_CLASS.matcher(snippet);
+    while (m.find()) {
+      String cssClass = m.group(1);
+      fs = fsc.getFontStyleByCssClass(cssClass);
+      // logger.info("fs:" + fs);
 
-    /**
-     * Check of the balanced tags sup/sub
-     * 
-     * @param snippet
-     * @return <code>true</code> if balanced, <code>false</code> otherwise
-     */
-    public static boolean isBalanced(String snippet) {
-      if (snippet == null)
-        return true; // ????
-  
-      Stack<String> s = new Stack<String>();
-      Matcher m = SUBS_OR_SUPS.matcher(snippet);
-      while (m.find()) {
-        String tag = m.group(1);
-        if (tag.toLowerCase().startsWith("su")) {
-          s.push(tag);
-        } else {
-          if (s.empty() || !tag.equals("/" + s.pop())) {
-            return false;
-          }
-        }
-      }
-  
-      return s.empty();
-    }
-
-
-    /**
-     * Converts snippet &lt;span&gt; tags to the HTML formatting, i.e. <code><b>, <i>, <u>, <s></code>
-     * Text. Note: If at least one &lt;span&gt; css class will not match FontStyle css, the snippet
-     * will be returned without any changes.
-     * 
-     * @param snippet
-     * @return converted snippet
-     * @throws CitationStyleManagerException
-     */
-    public static String convertSnippetToHtml(String snippet) throws CitationStyleManagerException {
-  
-      FontStyle fs;
-      // snippet = removeI18N(snippet);
-  
-      FontStylesCollection fsc = XmlHelper.loadFontStylesCollection();
-  
-      if (!Utils.checkVal(snippet) || fsc == null)
+      // Rigorous: if at list once no css class has been found return str
+      // as it is
+      if (fs == null) {
         return snippet;
-  
-      // logger.info("passed str:" + snippet);
-  
-  
-      StringBuffer sb = new StringBuffer();
-      Matcher m = SPANS_WITH_CLASS.matcher(snippet);
-      while (m.find()) {
-        String cssClass = m.group(1);
-        fs = fsc.getFontStyleByCssClass(cssClass);
-        // logger.info("fs:" + fs);
-  
-        // Rigorous: if at list once no css class has been found return str
-        // as it is
-        if (fs == null) {
-          return snippet;
-        } else {
-          String str = "$2";
-          if (fs.getIsStrikeThrough()) {
-            str = "<s>" + str + "</s>";
-          }
-          if (fs.getIsUnderline()) {
-            str = "<u>" + str + "</u>";
-          }
-          if (fs.getIsItalic()) {
-            str = "<i>" + str + "</i>";
-          }
-          if (fs.getIsBold()) {
-            str = "<b>" + str + "</b>";
-          }
-          str = "<span class=\"" + cssClass + "\">" + str + "</span>";
-          m.appendReplacement(sb, str);
-  
+      } else {
+        String str = "$2";
+        if (fs.getIsStrikeThrough()) {
+          str = "<s>" + str + "</s>";
         }
+        if (fs.getIsUnderline()) {
+          str = "<u>" + str + "</u>";
+        }
+        if (fs.getIsItalic()) {
+          str = "<i>" + str + "</i>";
+        }
+        if (fs.getIsBold()) {
+          str = "<b>" + str + "</b>";
+        }
+        str = "<span class=\"" + cssClass + "\">" + str + "</span>";
+        m.appendReplacement(sb, str);
+
       }
-      snippet = m.appendTail(sb).toString();
-  
-      return snippet;
     }
+    snippet = m.appendTail(sb).toString();
+
+    return snippet;
+  }
 
 
 
-    public static String removeI18N(String snippet) {
-      return Utils.replaceAllTotal(snippet, I18_TAGS, "$1");
-    }
+  public static String removeI18N(String snippet) {
+    return Utils.replaceAllTotal(snippet, I18_TAGS, "$1");
+  }
 
-    /**
-     * Gets the citation style for given idType and idValue. Called from functions.xml for
-     * Jus-citation style. Called for publications of type journal article and case note. If there is
-     * no idType of the source, a default citation style is returned. Else gets the citation style for
-     * the given idValue-Type-Pair.
-     * 
-     * @param idType
-     * @param idValue
-     * @return
-     * @throws Exception
-     */
-    public static String getCitationStyleForJournal(String idType, String idValue) throws Exception {
-      String citationStyle = null;
-      // if there is no idType, put the citation style to default
-      if (idType.equals("")) {
+  /**
+   * Gets the citation style for given idType and idValue. Called from functions.xml for
+   * Jus-citation style. Called for publications of type journal article and case note. If there is
+   * no idType of the source, a default citation style is returned. Else gets the citation style for
+   * the given idValue-Type-Pair.
+   * 
+   * @param idType
+   * @param idValue
+   * @return
+   * @throws Exception
+   */
+  public static String getCitationStyleForJournal(String idType, String idValue) throws Exception {
+    String citationStyle = null;
+    // if there is no idType, put the citation style to default
+    if (idType.equals("")) {
+      citationStyle = "default";
+    } else {
+      // if the type is CoNE, take the ID from the URL
+      if (idType.equals("CONE")) {
+        idValue = idValue.substring(idValue.lastIndexOf("/") + 1);
+      }
+      Pair keyValue = new Pair(idType, idValue);
+      // Update citationMap if empty or if last update > 1h
+      long timeSinceLastUpdate = System.currentTimeMillis() - lastCitationMapUpdate;
+      if (citationMap.size() == 0 || timeSinceLastUpdate > (3600 * 1000)) {
+        getJournalsXML();
+        lastCitationMapUpdate = System.currentTimeMillis();
+      }
+      if (citationMap.get(keyValue) == null) {
         citationStyle = "default";
       } else {
-        // if the type is CoNE, take the ID from the URL
-        if (idType.equals("CONE")) {
-          idValue = idValue.substring(idValue.lastIndexOf("/") + 1);
-        }
-        Pair keyValue = new Pair(idType, idValue);
-        // Update citationMap if empty or if last update > 1h
-        long timeSinceLastUpdate = System.currentTimeMillis() - lastCitationMapUpdate;
-        if (citationMap.size() == 0 || timeSinceLastUpdate > (3600 * 1000)) {
-          getJournalsXML();
-          lastCitationMapUpdate = System.currentTimeMillis();
-        }
-        if (citationMap.get(keyValue) == null) {
-          citationStyle = "default";
+        citationStyle = citationMap.get(keyValue);
+        if (citationStyle.equalsIgnoreCase("Kurztitel_ZS Band, Heft (Jahr)") || citationStyle.equalsIgnoreCase("Titel_ZS Band, Heft (Jahr)")
+            || citationStyle.equalsIgnoreCase("(Jahr) Band, Heft Titel_ZS")) {
         } else {
-          citationStyle = citationMap.get(keyValue);
-          if (citationStyle.equalsIgnoreCase("Kurztitel_ZS Band, Heft (Jahr)") || citationStyle.equalsIgnoreCase("Titel_ZS Band, Heft (Jahr)")
-              || citationStyle.equalsIgnoreCase("(Jahr) Band, Heft Titel_ZS")) {
-          } else {
-            // if the citation style is none of the three above, put it to default
-            citationStyle = "default";
-          }
+          // if the citation style is none of the three above, put it to default
+          citationStyle = "default";
         }
       }
-      return citationStyle;
-  
     }
+    return citationStyle;
+
+  }
 
   /**
    * Reads all CONE-entries with a citation-style field filled in. Generates a Map with citation

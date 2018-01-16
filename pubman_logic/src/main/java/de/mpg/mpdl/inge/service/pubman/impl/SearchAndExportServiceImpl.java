@@ -80,10 +80,13 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   private ExportFormatVO getExportFormatVO(String exportFormat, String outputFormat, String cslConeId) throws IngeTechnicalException {
     ExportFormatVO exportFormatVO;
 
-    if (isStructured(exportFormat)) {
-      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat, outputFormat == null ? FileFormatVO.PDF_NAME : outputFormat);
+    if (null == exportFormat) {
+      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, TransformerFactory.ESCIDOC_PUBLICATION_ITEM, FileFormatVO.XML_NAME);
+    } else if (isStructured(exportFormat)) {
+      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat, outputFormat == null ? FileFormatVO.TXT_NAME : outputFormat);
     } else if (isCitationStyle(exportFormat)) {
-      exportFormatVO = new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat, cslConeId);
+      exportFormatVO =
+          new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat == null ? FileFormatVO.PDF_NAME : outputFormat, cslConeId);
     } else {
       throw new IngeTechnicalException("Undefined export format: " + exportFormat);
     }

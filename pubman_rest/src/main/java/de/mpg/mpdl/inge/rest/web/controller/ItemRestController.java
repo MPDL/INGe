@@ -45,8 +45,6 @@ import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
-import de.mpg.mpdl.inge.transformation.TransformerFactory;
-import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RestController
@@ -110,11 +108,11 @@ public class ItemRestController {
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @RequestBody JsonNode searchAndExportQuery)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
-    SearchAndExportRetrieveRequestVO saerrVO = utils.query2SaEVO(searchAndExportQuery);
+    SearchAndExportRetrieveRequestVO saerrVO = this.utils.query2SaEVO(searchAndExportQuery);
     SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
 
     HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.parseMediaType(saerVO.getTargetFormat()));
+    headers.setContentType(MediaType.parseMediaType(saerVO.getTargetMimetype()));
 
     return new ResponseEntity<String>(new String(saerVO.getResult()), HttpStatus.OK);
   }

@@ -4,19 +4,19 @@ package de.mpg.mpdl.inge.model.valueobjects;
 public class SearchAndExportResultVO extends ValueObject {
 
   private byte[] result;
-  private String targetFormat;
+  private String targetMimeType;
 
-  public SearchAndExportResultVO(byte[] result, String targetFormat) {
+  public SearchAndExportResultVO(byte[] result, String targetMimeType) {
     this.result = result;
-    this.targetFormat = targetFormat;
+    this.targetMimeType = targetMimeType;
   }
 
   public byte[] getResult() {
     return this.result;
   }
 
-  public String getTargetFormat() {
-    return this.targetFormat;
+  public String getTargetMimetype() {
+    return this.targetMimeType;
   }
 
 }

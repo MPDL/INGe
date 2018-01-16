@@ -95,7 +95,7 @@ public class TransformerFactory {
 
   public static FORMAT getFormat(String formatName) {
     for (FORMAT format : FORMAT.values()) {
-      if (format.getName().equalsIgnoreCase(formatName)) {
+      if (format.getName().equals(formatName)) {
         return format;
       }
     }
