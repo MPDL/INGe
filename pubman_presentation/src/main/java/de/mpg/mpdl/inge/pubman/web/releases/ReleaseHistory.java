@@ -58,7 +58,7 @@ public class ReleaseHistory extends FacesBean {
     final ItemVersionListSessionBean ivlsb = (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
     if (ivlsb.getVersionList() == null) {
       ivlsb.initLists(this.getVersionHistory(
-          ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean")).getCurrentPubItem().getVersion().getObjectId()));
+          ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean")).getCurrentPubItem().getObjectId()));
     }
   }
 

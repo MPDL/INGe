@@ -28,16 +28,16 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
  * @author endres
  * 
  */
 @SuppressWarnings("serial")
-public class PubItemResultVO extends PubItemVO {
+public class PubItemResultVO extends ItemVersionVO {
   /**
    * List of hits. Every hit in files contains the file reference and the text fragments of the
    * search hit.
@@ -54,7 +54,7 @@ public class PubItemResultVO extends PubItemVO {
     return this.searchHitList;
   }
 
-  public PubItemResultVO(ItemVO itemVO, List<SearchHitVO> searchHits, float score) {
+  public PubItemResultVO(ItemVersionVO itemVO, List<SearchHitVO> searchHits, float score) {
     super(itemVO);
     if (searchHits.size() > 0) {
       this.searchHitList = new java.util.ArrayList<SearchHitVO>();

@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -155,11 +155,11 @@ public class ContextListSessionBean extends FacesBean {
     this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
     this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
 
-    if (this.getLoginHelper().isLoggedIn() && this.getLoginHelper().getAccountUser().getGrants() != null) {
+    if (this.getLoginHelper().isLoggedIn() && this.getLoginHelper().getAccountUser().getGrantList() != null) {
       try {
         boolean hasGrants = false;
         final ArrayList<String> ctxIdList = new ArrayList<>();
-        for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrants()) {
+        for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
           if (grant.getObjectRef() != null) {
             ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
@@ -169,15 +169,15 @@ public class ContextListSessionBean extends FacesBean {
         // ... and transform filter to xml
         if (hasGrants) {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          bq.must(QueryBuilders.termQuery("state", ContextVO.State.OPENED.name()));
+          bq.must(QueryBuilders.termQuery("state", ContextDbVO.State.OPENED.name()));
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_OBJECT_ID, id));
           }
 
-          SearchRetrieveResponseVO<ContextVO> response =
+          SearchRetrieveResponseVO<ContextDbVO> response =
               ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO(bq), null);
-          List<ContextVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+          List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
           // ... and transform to PubCollections.
           List<PubContextVOPresentation> allPrivilegedContextList = CommonUtils.convertToPubCollectionVOPresentationList(ctxList);
@@ -189,28 +189,16 @@ public class ContextListSessionBean extends FacesBean {
             // At present it only provides this function for Moderator
             // and Privileged viewer
 
-            for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrants()) {
+            for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
 
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
 
-                if (grant.getObjectRef().equals(context.getReference().getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) && context.getType() != null
-                    && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
-                  this.yearbookContextList.add(context);
-                }
-
-                else if (!grant.getObjectRef().equals(context.getReference().getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()) && context.getType() != null
-                    && context.getType().toLowerCase().equals(("Yearbook".toLowerCase()))) {
-                  this.yearbookModeratorContextList.add(context);
-                }
-
-                else if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                if (grant.getObjectRef().equals(context.getObjectId())
                     && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())) {
                   this.depositorContextList.add(context);
                 }
 
-                else if (grant.getObjectRef().equals(context.getReference().getObjectId())
+                else if (grant.getObjectRef().equals(context.getObjectId())
                     && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())) {
                   this.moderatorContextList.add(context);
                 }

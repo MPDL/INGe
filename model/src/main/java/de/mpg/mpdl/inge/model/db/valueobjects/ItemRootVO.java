@@ -25,64 +25,66 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
 
 
-@Entity(name = "PubItemObjectVO")
+@Entity
 @Table(name = "item_object")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
-public class PubItemObjectDbVO implements Serializable {
+public class ItemRootVO implements Serializable {
 
   @Id
   private String objectId;
-
-
-  @Embedded
-  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "owner_objectId")),
-      @AttributeOverride(name = "name", column = @Column(name = "owner_name"))})
-  private AccountUserDbRO owner;
-
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
-  private ContextDbRO context;
-
-  private Date creationDate;
-
-  // @MapsId("objectId")
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
-  // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
-  private PubItemDbRO latestRelease;
-
-  // @MapsId("objectId")
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = PubItemVersionDbVO.class, optional = true)
-  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
-  // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
-  private PubItemDbRO latestVersion;
-
-  @Column(name = "objectPid")
-  private String pid;
-
-
-  @Enumerated(EnumType.STRING)
-  private PubItemDbRO.State publicStatus;
-
-  @Column(columnDefinition = "TEXT")
-  private String publicStatusComment;
-
-  @Type(type = "StringListJsonUserType")
-  private List<String> localTags = new ArrayList<String>();
 
   /**
    * The date of the last modification of the referenced item.
    */
   private Date lastModificationDate;
+
+  @Enumerated(EnumType.STRING)
+  private ItemVersionRO.State publicState;
+
+  @Column(name = "objectPid")
+  private String objectPid;
+
+  @Embedded
+  @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "creator_objectId")),
+      @AttributeOverride(name = "name", column = @Column(name = "creator_name"))})
+  private AccountUserDbRO creator;
+
+
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity = ContextDbVO.class)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "context")
+  @JsonSerialize(as = ContextDbRO.class)
+  private ContextDbRO context;
+
+  private Date creationDate;
+
+  // @MapsId("objectId")
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class, optional = true)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+  // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
+  // @JoinColumn(name="latestRelease_versionNumber", referencedColumnName="versionNumber")})
+  @JsonSerialize(as = ItemVersionRO.class)
+  private ItemVersionRO latestRelease;
+
+  // @MapsId("objectId")
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = ItemVersionVO.class, optional = true)
+  @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
+  // @JoinColumns({@JoinColumn(name="objectId", referencedColumnName="objectId"),
+  // @JoinColumn(name="latestVersion_versionNumber", referencedColumnName="versionNumber")})
+  @JsonSerialize(as = ItemVersionRO.class)
+  private ItemVersionRO latestVersion;
+
+
+
+  @Type(type = "StringListJsonUserType")
+  private List<String> localTags = new ArrayList<String>();
 
 
   /**
@@ -101,20 +103,11 @@ public class PubItemObjectDbVO implements Serializable {
     return objectId;
   }
 
-
-  public String getPublicStatusComment() {
-    return this.publicStatusComment;
-  }
-
-  public void setPublicStatusComment(String comment) {
-    this.publicStatusComment = comment;
-  }
-
   /**
    * Helper method for JiBX transformations.
    */
   boolean hasPID() {
-    return (this.pid != null);
+    return (this.objectPid != null);
   }
 
 
@@ -122,8 +115,8 @@ public class PubItemObjectDbVO implements Serializable {
   /**
    * Delivers the persistent identifier of the item.
    */
-  public String getPid() {
-    return this.pid;
+  public String getObjectPid() {
+    return this.objectPid;
   }
 
 
@@ -133,8 +126,8 @@ public class PubItemObjectDbVO implements Serializable {
    * 
    * @param newVal
    */
-  public void setPid(String newVal) {
-    this.pid = newVal;
+  public void setObjectPid(String newVal) {
+    this.objectPid = newVal;
   }
 
 
@@ -158,30 +151,30 @@ public class PubItemObjectDbVO implements Serializable {
 
 
 
-  public PubItemDbRO getLatestVersion() {
+  public ItemVersionRO getLatestVersion() {
     return this.latestVersion;
   }
 
-  public void setLatestVersion(PubItemDbRO latestVersion) {
+  public void setLatestVersion(ItemVersionRO latestVersion) {
     this.latestVersion = latestVersion;
   }
 
-  public PubItemDbRO getLatestRelease() {
+  public ItemVersionRO getLatestRelease() {
     return this.latestRelease;
   }
 
-  public void setLatestRelease(PubItemDbRO latestRelease) {
+  public void setLatestRelease(ItemVersionRO latestRelease) {
     this.latestRelease = latestRelease;
   }
 
 
 
-  public PubItemDbRO.State getPublicStatus() {
-    return publicStatus;
+  public ItemVersionRO.State getPublicState() {
+    return publicState;
   }
 
-  public void setPublicStatus(PubItemDbRO.State publicStatus) {
-    this.publicStatus = publicStatus;
+  public void setPublicState(ItemVersionRO.State publicStatus) {
+    this.publicState = publicStatus;
   }
 
 
@@ -210,13 +203,6 @@ public class PubItemObjectDbVO implements Serializable {
     this.lastModificationDate = lastModificationDate;
   }
 
-  public AccountUserDbRO getOwner() {
-    return owner;
-  }
-
-  public void setOwner(AccountUserDbRO owner) {
-    this.owner = owner;
-  }
 
   public ContextDbRO getContext() {
     return context;
@@ -228,6 +214,14 @@ public class PubItemObjectDbVO implements Serializable {
 
   public void setLocalTags(List<String> localTags) {
     this.localTags = localTags;
+  }
+
+  public AccountUserDbRO getCreator() {
+    return creator;
+  }
+
+  public void setCreator(AccountUserDbRO creator) {
+    this.creator = creator;
   }
 
 }

@@ -26,6 +26,8 @@ import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
@@ -35,7 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -69,7 +71,7 @@ public class ItemRestController {
   private SearchAndExportService saes;
 
   @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> getAll(
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getAll(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
@@ -77,12 +79,12 @@ public class ItemRestController {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.item.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
-    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
+    SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
-  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> filter(
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> filter(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
       @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
@@ -90,17 +92,17 @@ public class ItemRestController {
     QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.item.sort"), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
-    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
+    SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<PubItemVO>> query(
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> query(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
-    SearchRetrieveResponseVO<PubItemVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<PubItemVO>>(srResponse, HttpStatus.OK);
+    SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
+    return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "/searchAndExport", method = RequestMethod.POST)
@@ -118,16 +120,16 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
-  public ResponseEntity<PubItemVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+  public ResponseEntity<ItemVersionVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO item = null;
+    ItemVersionVO item = null;
     if (token != null && !token.isEmpty()) {
       item = pis.get(itemId, token);
     } else {
       item = pis.get(itemId, null);
     }
-    return new ResponseEntity<PubItemVO>(item, HttpStatus.OK);
+    return new ResponseEntity<ItemVersionVO>(item, HttpStatus.OK);
   }
 
 
@@ -175,66 +177,67 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/history", method = RequestMethod.GET)
-  public ResponseEntity<List<VersionHistoryEntryVO>> getVersionHistory(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token, @PathVariable(value = ITEM_ID_VAR) String itemId)
+  public ResponseEntity<List<AuditDbVO>> getVersionHistory(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    List<VersionHistoryEntryVO> list = null;
+    List<AuditDbVO> list = null;
     list = pis.getVersionHistory(itemId, token);
-    return new ResponseEntity<List<VersionHistoryEntryVO>>(list, HttpStatus.OK);
+    return new ResponseEntity<List<AuditDbVO>>(list, HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<PubItemVO> create(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @RequestBody PubItemVO item)
+  public ResponseEntity<ItemVersionVO> create(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @RequestBody ItemVersionVO item)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO created = null;
+    ItemVersionVO created = null;
     created = pis.create(item, token);
-    return new ResponseEntity<PubItemVO>(created, HttpStatus.CREATED);
+    return new ResponseEntity<ItemVersionVO>(created, HttpStatus.CREATED);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/release", method = RequestMethod.PUT)
-  public ResponseEntity<PubItemVO> release(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+  public ResponseEntity<ItemVersionVO> release(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO released = null;
+    ItemVersionVO released = null;
     released = pis.releasePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<PubItemVO>(released, HttpStatus.OK);
+    return new ResponseEntity<ItemVersionVO>(released, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/revise", method = RequestMethod.PUT)
-  public ResponseEntity<PubItemVO> revise(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+  public ResponseEntity<ItemVersionVO> revise(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO revised = null;
+    ItemVersionVO revised = null;
     revised = pis.revisePubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<PubItemVO>(revised, HttpStatus.OK);
+    return new ResponseEntity<ItemVersionVO>(revised, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/submit", method = RequestMethod.PUT)
-  public ResponseEntity<PubItemVO> submit(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+  public ResponseEntity<ItemVersionVO> submit(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO submitted = null;
+    ItemVersionVO submitted = null;
     submitted = pis.submitPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<PubItemVO>(submitted, HttpStatus.OK);
+    return new ResponseEntity<ItemVersionVO>(submitted, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH + "/withdraw", method = RequestMethod.PUT)
-  public ResponseEntity<PubItemVO> withdraw(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+  public ResponseEntity<ItemVersionVO> withdraw(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody TaskParamVO params)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO withdrawn = null;
+    ItemVersionVO withdrawn = null;
     withdrawn = pis.withdrawPubItem(itemId, params.getLastModificationDate(), params.getComment(), token);
-    return new ResponseEntity<PubItemVO>(withdrawn, HttpStatus.OK);
+    return new ResponseEntity<ItemVersionVO>(withdrawn, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.PUT)
-  public ResponseEntity<PubItemVO> update(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
-      @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody PubItemVO item)
+  public ResponseEntity<ItemVersionVO> update(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
+      @PathVariable(value = ITEM_ID_VAR) String itemId, @RequestBody ItemVersionVO item)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    PubItemVO updated = null;
+    //TODO Write itemId into item
+    ItemVersionVO updated = null;
     updated = pis.update(item, token);
-    return new ResponseEntity<PubItemVO>(updated, HttpStatus.OK);
+    return new ResponseEntity<ItemVersionVO>(updated, HttpStatus.OK);
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.DELETE)

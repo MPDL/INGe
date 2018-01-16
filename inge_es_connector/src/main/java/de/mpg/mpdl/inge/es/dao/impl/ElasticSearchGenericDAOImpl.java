@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField.Type;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -55,7 +55,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   @Autowired
   ElasticSearchClientProvider client;
 
-  ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+  ObjectMapper mapper = MapperFactory.getObjectMapper();
 
 
   private String indexName;
@@ -299,7 +299,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
     if (resp.getMappings().isEmpty() == false) { // SP: avoiding NullPointerException
       MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
-
+    
       Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
       ElasticSearchIndexField allField = new ElasticSearchIndexField();
       allField.setIndexName("_all");

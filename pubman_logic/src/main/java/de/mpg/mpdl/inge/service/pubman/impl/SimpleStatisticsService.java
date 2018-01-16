@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
@@ -60,7 +61,7 @@ public class SimpleStatisticsService {
   private static final String REPORTDEFINITION_FILE = "report-definition-list.xml";
 
   public static List<StatisticReportRecordVO> getStatisticReportRecord(String reportDefinitionId, String objectId,
-      AccountUserVO accountUser) throws Exception {
+      AccountUserDbVO accountUser) throws Exception {
 
     //TODO
     /*
@@ -92,7 +93,7 @@ public class SimpleStatisticsService {
   /**
    * {@inheritDoc}
    */
-  public static String getNumberOfItemOrFileRequests(String reportDefinitionId, String objectId, AccountUserVO accountUser)
+  public static String getNumberOfItemOrFileRequests(String reportDefinitionId, String objectId, AccountUserDbVO accountUser)
       throws Exception {
     List<StatisticReportRecordVO> reportRecordList = getStatisticReportRecord(reportDefinitionId, objectId, accountUser);
 

@@ -40,9 +40,11 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -53,6 +55,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.util.GrantUtil;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -68,7 +71,7 @@ public class LoginHelper extends FacesBean {
 
   public static final String PARAMETERNAME_USERHANDLE = "authenticationToken";
 
-  private AccountUserVO accountUser = new AccountUserVO();
+  private AccountUserDbVO accountUser;
 
   private List<AffiliationVOPresentation> userAccountAffiliations;
   private List<UserGroupVO> userAccountUserGroups;
@@ -128,7 +131,7 @@ public class LoginHelper extends FacesBean {
 
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
-        if (this.accountUser.isDepositor()) {
+        if (GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR)) {
           final DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean) FacesTools.findBean("DepositorWSSessionBean");
           // enable the depositor links if necessary
           depWSSessionBean.setMyWorkspace(true);
@@ -176,11 +179,11 @@ public class LoginHelper extends FacesBean {
     this.authenticationToken = authenticationToken;
   }
 
-  public AccountUserVO getAccountUser() {
+  public AccountUserDbVO getAccountUser() {
     return this.accountUser;
   }
 
-  public void setAccountUser(AccountUserVO accountUser) {
+  public void setAccountUser(AccountUserDbVO accountUser) {
     this.accountUser = accountUser;
   }
 
@@ -236,7 +239,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsModerator() {
-    return this.isLoggedIn() && this.getAccountUser().isModerator();
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.MODERATOR);
   }
 
   /**
@@ -245,7 +248,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsDepositor() {
-    return this.isLoggedIn() && this.getAccountUser().isDepositor();
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR);
   }
 
   /**
@@ -254,24 +257,25 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsReporter() {
-    return this.isLoggedIn() && this.getAccountUser().isReporter();
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.REPORTER);
   }
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {
     if (this.userAccountAffiliations == null) {
       this.userAccountAffiliations = new ArrayList<AffiliationVOPresentation>();
-      for (final UserAttributeVO ua : this.getAccountUser().getAttributes()) {
-        if ("o".equals(ua.getName())) {
-          final AffiliationVO orgUnit = ApplicationBean.INSTANCE.getOrganizationService().get(ua.getValue(), null);
-          this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
-        }
+      if (accountUser.getAffiliation() != null) {
+        final AffiliationDbVO orgUnit =
+            ApplicationBean.INSTANCE.getOrganizationService().get(accountUser.getAffiliation().getObjectId(), null);
+        this.userAccountAffiliations.add(new AffiliationVOPresentation(orgUnit));
       }
+
     }
 
     return this.userAccountAffiliations;
   }
 
   // only active UserGroups!
+  /*
   public List<UserGroupVO> getAccountUsersUserGroups() {
     if (this.userAccountUserGroups == null && this.getAccountUser() != null && this.getAccountUser().getReference() != null) {
       final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
@@ -283,51 +287,27 @@ public class LoginHelper extends FacesBean {
       // filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" +
       // getAccountUser().getReference().getObjectId() + " and " +
       // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
-
-      /*
-       * UserGroupList ugl = new UserGroupList(filterParams, getESciDocUserHandle());
-       * userAccountUserGroups = ugl.getUserGroupLists();
-       */
+  
     }
-
+  
     return this.userAccountUserGroups;
   }
+  */
 
   public boolean getIsYearbookEditor() {
-    // toDo: find better way how to do this
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.YEARBOOK_EDITOR);
 
-    for (GrantVO grant : this.accountUser.getGrants()) {
-      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
-        return true;
-      }
-    }
-
-    /*
-     * final ContextListSessionBean clsb = (ContextListSessionBean)
-     * FacesTools.findBean("ContextListSessionBean"); if (this.getIsDepositor() &&
-     * clsb.getYearbookContextListSize() > 0) { return true; }
-     * 
-     * if (this.getAccountUsersUserGroups() != null) { for (final UserGroupVO ug :
-     * this.getAccountUsersUserGroups()) { if
-     * (ug.getLabel().matches("\\d*? - Yearbook User Group for.*?")) { return true; } } }
-     */
-    return false;
   }
 
   public boolean getIsYearbookAdmin() {
-    for (GrantVO grant : this.accountUser.getGrants()) {
-      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_ADMIN.frameworkValue())) {
-        return true;
-      }
-    }
-    return false;
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.YEARBOOK_ADMIN);
   }
 
   /**
    * @return the userGrants (with inherited grants)
    */
   public List<GrantVO> getUserGrants() {
-    return this.accountUser.getGrants();
+    return this.accountUser.getGrantList();
   }
 
   /**

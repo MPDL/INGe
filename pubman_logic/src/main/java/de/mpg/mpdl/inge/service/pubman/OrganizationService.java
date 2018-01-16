@@ -3,28 +3,29 @@ package de.mpg.mpdl.inge.service.pubman;
 import java.util.Date;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
-public interface OrganizationService extends GenericService<AffiliationVO, String> {
+public interface OrganizationService extends GenericService<AffiliationDbVO, String> {
 
 
-  public AffiliationVO open(String id, Date modificationDate, String authenticationToken)
+  public AffiliationDbVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public AffiliationVO close(String id, Date modificationDate, String authenticationToken)
+  public AffiliationDbVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationVO> searchTopLevelOrganizations()
+  public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationVO> searchChildOrganizations(String parentAffiliationId)
+  public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationVO> searchSuccessors(String objectId)
+  public List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public List<String> getIdPath(String id)

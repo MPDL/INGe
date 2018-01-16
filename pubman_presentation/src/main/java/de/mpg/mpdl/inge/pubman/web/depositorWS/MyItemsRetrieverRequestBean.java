@@ -17,10 +17,11 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
@@ -54,7 +55,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   /**
    * This workspace's user.
    */
-  AccountUserVO userVO;
+  AccountUserDbVO userAccountDbVO;
 
   /**
    * The GET parameter name for the item state.
@@ -109,7 +110,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       return;
     }
 
-    this.userVO = this.getLoginHelper().getAccountUser();
+    this.userAccountDbVO = this.getLoginHelper().getAccountUser();
 
     Connection connection = null;
     PreparedStatement ps = null;
@@ -120,7 +121,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     try {
       connection = DbTools.getNewConnection();
       ps = connection.prepareStatement(sql);
-      ps.setString(1, this.userVO.getReference().getObjectId());
+      ps.setString(1, this.userAccountDbVO.getObjectId());
       rs = ps.executeQuery();
 
       while (rs.next()) {
@@ -159,8 +160,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID,
-          this.getLoginHelper().getAccountUser().getReference().getObjectId()));
+      bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_OWNER_OBJECT_ID, this.getLoginHelper().getAccountUser().getObjectId()));
 
       // display only latest versions
       bq.must(QueryBuilders.scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
@@ -175,7 +175,8 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.valueOf(this.selectedItemState).name()));
+        bq.must(
+            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVersionRO.State.valueOf(this.selectedItemState).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
@@ -207,7 +208,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-      List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+      List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
@@ -251,16 +252,16 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   public List<SelectItem> getItemStateSelectItems() {
     this.itemStateSelectItems = new ArrayList<SelectItem>();
     this.itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptWithdrawn")));
-    this.itemStateSelectItems
-        .add(new SelectItem(ItemVO.State.PENDING.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.PENDING))));
-    this.itemStateSelectItems.add(
-        new SelectItem(ItemVO.State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.SUBMITTED))));
-    this.itemStateSelectItems
-        .add(new SelectItem(ItemVO.State.RELEASED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.RELEASED))));
-    this.itemStateSelectItems.add(
-        new SelectItem(ItemVO.State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.WITHDRAWN))));
-    this.itemStateSelectItems.add(
-        new SelectItem(ItemVO.State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.IN_REVISION))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.PENDING.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.PENDING))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.SUBMITTED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.SUBMITTED))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.RELEASED.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.RELEASED))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.WITHDRAWN.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.WITHDRAWN))));
+    this.itemStateSelectItems.add(new SelectItem(ItemVersionRO.State.IN_REVISION.name(),
+        this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.IN_REVISION))));
 
     return this.itemStateSelectItems;
   }
@@ -307,7 +308,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
   public String getSelectedItemStateLabel() {
     String returnString = "";
     if (this.getSelectedItemState() != null && !this.getSelectedItemState().equals("all")) {
-      returnString = this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.valueOf(this.getSelectedItemState())));
+      returnString = this.getLabel(this.getI18nHelper().convertEnumToString(ItemVersionRO.State.valueOf(this.getSelectedItemState())));
     }
     return returnString;
 

@@ -76,7 +76,7 @@ public class YearbookItemCreateBean extends FacesBean {
     final String currentYear = calendarFormat.format(calendar.getTime());
     try {
 
-      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, getAffiliation().getReference().getObjectId());
+      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, getAffiliation().getObjectId());
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
       SearchRetrieveResponseVO<YearbookDbVO> resp =
           ApplicationBean.INSTANCE.getYearbookService().search(srr, getLoginHelper().getAuthenticationToken());
@@ -181,7 +181,7 @@ public class YearbookItemCreateBean extends FacesBean {
 
       YearbookDbVO yearbook = new YearbookDbVO();
       AffiliationDbVO ou = new AffiliationDbVO();
-      ou.setObjectId(getAffiliation().getReference().getObjectId());
+      ou.setObjectId(getAffiliation().getObjectId());
       yearbook.setOrganization(ou);
       yearbook.setYear(Integer.parseInt(getYear()));
 
@@ -267,8 +267,7 @@ public class YearbookItemCreateBean extends FacesBean {
     this.contextSelectItems = new ArrayList<SelectItem>();
     final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      this.contextSelectItems
-          .add(new SelectItem(context.getReference().getObjectId(), context.getName() + " (" + context.getReference().getObjectId() + ")"));
+      this.contextSelectItems.add(new SelectItem(context.getObjectId(), context.getName() + " (" + context.getObjectId() + ")"));
     }
   }
 

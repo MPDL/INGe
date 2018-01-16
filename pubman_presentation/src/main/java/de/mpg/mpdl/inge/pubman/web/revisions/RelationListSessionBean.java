@@ -31,7 +31,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 
@@ -46,7 +46,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 @SuppressWarnings("serial")
 public class RelationListSessionBean extends FacesBean {
   private List<RelationVOPresentation> relationList = null;
-  private PubItemVO pubItemVO = null;
+  private ItemVersionVO pubItemVO = null;
   private String revisionDescription = new String();
 
   public RelationListSessionBean() {}
@@ -59,11 +59,11 @@ public class RelationListSessionBean extends FacesBean {
     this.relationList = relationList;
   }
 
-  public PubItemVO getPubItemVO() {
+  public ItemVersionVO getPubItemVO() {
     return this.pubItemVO;
   }
 
-  public void setPubItemVO(PubItemVO pubItemVO) {
+  public void setPubItemVO(ItemVersionVO pubItemVO) {
     // re-init the lists as this is a new PubItem
     this.setRevisionDescription(null);
 

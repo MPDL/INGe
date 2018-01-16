@@ -39,7 +39,9 @@ public class Reindexing {
   }
 
   public void reindexItems() throws Exception {
+    System.out.println("calling reindexAll in " + itemService.getClass().getName());
     itemService.reindexAll(null);
+    Thread.sleep(300000);
   }
 
 }

@@ -37,7 +37,6 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
@@ -123,7 +122,7 @@ public class Search extends FacesBean {
 
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State.RELEASED.name()));
     bqb.must(SearchCriterionBase.scListToElasticSearchQuery(criteria));
 
     // final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);

@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemRelationVO;
@@ -28,7 +32,7 @@ public class PubItemUtil {
    * 
    * @param pubItem the PubItem to clean up
    */
-  public static void cleanUpItem(final PubItemVO pubItem) {
+  public static void cleanUpItem(final ItemVersionVO pubItem) {
     try {
       pubItem.getMetadata().cleanup();
 
@@ -36,7 +40,7 @@ public class PubItemUtil {
       if (pubItem.getFiles() != null) {
         for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--) {
           // Cleanup MD
-          pubItem.getFiles().get(i).getDefaultMetadata().cleanup();
+          pubItem.getFiles().get(i).getMetadata().cleanup();
           if ((pubItem.getFiles().get(i).getName() == null || pubItem.getFiles().get(i).getName().length() == 0)
               && (pubItem.getFiles().get(i).getContent() == null || pubItem.getFiles().get(i).getContent().length() == 0)) {
             pubItem.getFiles().remove(i);
@@ -86,15 +90,15 @@ public class PubItemUtil {
       }
 
       // remove empty tags
-      if (pubItem.getLocalTags() != null) {
+      if (pubItem.getObject().getLocalTags() != null) {
         final List<String> emptyTags = new ArrayList<String>();
-        for (final String tag : pubItem.getLocalTags()) {
+        for (final String tag : pubItem.getObject().getLocalTags()) {
           if (tag == null || "".equals(tag)) {
             emptyTags.add(tag);
           }
         }
         for (final String tag : emptyTags) {
-          pubItem.getLocalTags().remove(tag);
+          pubItem.getObject().getLocalTags().remove(tag);
         }
       }
 
@@ -103,11 +107,14 @@ public class PubItemUtil {
     }
   }
 
-  public static PubItemVO createRevisionOfPubItem(final PubItemVO originalPubItem, String relationComment, final ContextRO pubCollection,
-      final AccountUserVO owner) {
-    PubItemVO copiedPubItem = new PubItemVO();
-    copiedPubItem.setOwner(owner.getReference());
-    copiedPubItem.setContext(pubCollection);
+  public static ItemVersionVO createRevisionOfPubItem(final ItemVersionVO originalPubItem, String relationComment,
+      final ContextDbRO pubCollection, final AccountUserDbVO owner) {
+    ItemVersionVO copiedPubItem = new ItemVersionVO();
+    AccountUserDbRO itemCreator = new AccountUserDbRO();
+    itemCreator.setObjectId(owner.getObjectId());
+    itemCreator.setName(owner.getName());
+    copiedPubItem.getObject().setCreator(itemCreator);
+    copiedPubItem.getObject().setContext(pubCollection);
     copiedPubItem.setMetadata(new MdsPublicationVO());
     copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
 
@@ -137,12 +144,13 @@ public class PubItemUtil {
       }
     }
 
+    /*
     ItemRelationVO relation = new ItemRelationVO();
     relation.setType(PREDICATE_ISREVISIONOF);
     relation.setTargetItemRef(originalPubItem.getVersion());
     relation.setDescription(relationComment);
     copiedPubItem.getRelations().add(relation);
-
+     */
     return copiedPubItem;
   }
 

@@ -21,13 +21,14 @@ import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
@@ -229,15 +230,15 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-      SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+      SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
 
 
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
       logger.info("Search result total nr: " + resp.getNumberOfRecords());
       if (totalNrOfSerchResultItems > 0) {
-        itemListAsString =
-            XmlTransformingService.transformToItemList(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList()));
+        itemListAsString = XmlTransformingService.transformToItemList(
+            EntityTransformer.transformToOld(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())));
       } else {
         this.info(this.getMessage("ReportNoItemsFound"));
       }
@@ -291,7 +292,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
   public List<String> getChildOUs(String orgId) throws Exception {
     final List<String> affListAsString = new ArrayList<String>();
-    final AffiliationVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null);
+    final AffiliationDbVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null);
     final AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
     final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 

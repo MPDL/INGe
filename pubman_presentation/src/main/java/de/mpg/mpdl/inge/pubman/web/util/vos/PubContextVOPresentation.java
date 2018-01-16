@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 import java.text.Collator;
 import java.util.Locale;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
@@ -22,16 +22,16 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubContextVOPresentation extends ContextVO implements Comparable<PubContextVOPresentation> {
+public class PubContextVOPresentation extends ContextDbVO implements Comparable<PubContextVOPresentation> {
 
   private boolean selected = false;
 
-  public PubContextVOPresentation(ContextVO item) {
+  public PubContextVOPresentation(ContextDbVO item) {
     super(item);
   }
 
   public boolean getDisabled() {
-    if (ContextVO.State.CLOSED.equals(this.getState())) {
+    if (ContextDbVO.State.CLOSED.equals(this.getState())) {
       return Boolean.TRUE;
     } else {
       return Boolean.FALSE;
@@ -50,7 +50,7 @@ public class PubContextVOPresentation extends ContextVO implements Comparable<Pu
     this.selected = true;
 
     if (this.getCreateItem().getMethod() == SubmissionMethod.FULL_SUBMISSION) {
-      this.getItemControllerSessionBean().getCurrentPubItem().setContext(this.getReference());
+      this.getItemControllerSessionBean().getCurrentPubItem().getObject().setContext(this);
       return EditItem.LOAD_EDITITEM;
     } else if (this.getCreateItem().getMethod() == SubmissionMethod.MULTIPLE_IMPORT) {
       final MultipleImport multipleImport = (MultipleImport) FacesTools.findBean("MultipleImport");
@@ -71,7 +71,7 @@ public class PubContextVOPresentation extends ContextVO implements Comparable<Pu
       }
     }
 
-    this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, this.getReference());
+    this.getItemControllerSessionBean().createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, this);
     this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
 
     if (this.getEasySubmissionSessionBean().getCurrentSubmissionMethod() == EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT) {

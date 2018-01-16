@@ -34,7 +34,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
@@ -95,14 +95,14 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
         final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
         int i = 0;
         scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-        for (final AffiliationVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
+        for (final AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
           if (i > 0) {
             scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
           }
 
           final OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
-          ous.setSearchString(aff.getDefaultMetadata().getName());
-          ous.setHiddenId(aff.getReference().getObjectId());
+          ous.setSearchString(aff.getMetadata().getName());
+          ous.setHiddenId(aff.getObjectId());
           scList.add(ous);
           i++;
         }
@@ -162,25 +162,25 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   }
 
 
-  private List<AffiliationVO> retrievePredecessorsAndSuccessors(String id) throws Exception {
+  private List<AffiliationDbVO> retrievePredecessorsAndSuccessors(String id) throws Exception {
 
-    final List<AffiliationVO> allAffs = new ArrayList<AffiliationVO>();
+    final List<AffiliationDbVO> allAffs = new ArrayList<AffiliationDbVO>();
 
-    final AffiliationVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
+    final AffiliationDbVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
 
     allAffs.add(affiliation);
 
     final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
 
-    final List<AffiliationVO> sucessorsVO = affiliationPres.getSuccessors();
+    final List<AffiliationDbVO> sucessorsVO = affiliationPres.getSuccessors();
 
-    for (final AffiliationVO affiliationVO : sucessorsVO) {
+    for (final AffiliationDbVO affiliationVO : sucessorsVO) {
       allAffs.add(affiliationVO);
     }
 
-    final List<AffiliationVO> predecessorsVO = affiliationPres.getPredecessors();
+    final List<AffiliationDbVO> predecessorsVO = affiliationPres.getPredecessors();
 
-    for (final AffiliationVO affiliationVO : predecessorsVO) {
+    for (final AffiliationDbVO affiliationVO : predecessorsVO) {
       allAffs.add(affiliationVO);
     }
     return allAffs;

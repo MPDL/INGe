@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 
 @SuppressWarnings("serial")
 public class ComponentVisibilityListSearchCriterion extends MapListSearchCriterion<String> {

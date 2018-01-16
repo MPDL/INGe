@@ -14,7 +14,7 @@ import javax.json.stream.JsonGenerator;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemVersionDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 
 public class TestJson {
@@ -22,7 +22,7 @@ public class TestJson {
 
   @Test
   public void getFieldValueViaGetter() throws Exception {
-    PubItemVersionDbVO pi = new PubItemVersionDbVO();
+    ItemVersionVO pi = new ItemVersionVO();
     for (PropertyDescriptor pd : Introspector.getBeanInfo(pi.getClass()).getPropertyDescriptors()) {
       System.out.println(pd.getReadMethod());
       System.out.println(pd.getName());

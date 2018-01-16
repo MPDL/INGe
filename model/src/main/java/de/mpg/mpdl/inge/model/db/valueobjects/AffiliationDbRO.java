@@ -32,6 +32,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -49,11 +50,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @updated 21-Nov-2007 12:08:27
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "AffiliationRO")
-@Table(name = "organization_basic")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-@Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
 public class AffiliationDbRO extends BasicDbRO implements Serializable {
 
 }

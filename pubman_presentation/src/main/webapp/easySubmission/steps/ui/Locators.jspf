@@ -103,13 +103,13 @@
 								</h:panelGroup>
 								<h:selectOneMenu id="selContentCategoryLoc" styleClass="replace"
 									onfocus="updateSelectionBox(this);"
-									value="#{locator.file.contentCategory}"
+									value="#{locator.file.metadata.contentCategory}"
 									onchange="updateSelectionBox(this);">
 									<f:selectItems id="selContentCategorysLoc"
 										value="#{EasySubmission.contentCategories}" />
 								</h:selectOneMenu>
 							</h:panelGroup> <!--
-						<h:selectOneMenu id="selContentCategoryLoc" styleClass="double_select replace" value="#{locator.file.contentCategory}" >
+						<h:selectOneMenu id="selContentCategoryLoc" styleClass="double_select replace" value="#{locator.file.metadata.contentCategory}" >
 							<f:selectItems id="selContentCategorysLoc" value="#{EasySubmission.contentCategories}" />
 						</h:selectOneMenu>	-->
 						</span>
@@ -135,7 +135,7 @@
 										converter="GenreLabelConverter" /></label> <h:inputText
 									id="inpLocatorFileDefaultMetadataTitle"
 									styleClass="xDouble_txtInput"
-									value="#{locator.file.defaultMetadata.title}" />
+									value="#{locator.file.metadata.title}" />
 							</span>
 						</h:panelGroup>
 					</span>

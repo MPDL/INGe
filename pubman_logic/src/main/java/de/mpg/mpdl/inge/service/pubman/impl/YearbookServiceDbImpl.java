@@ -15,6 +15,7 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.YearbookRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.YearbookDaoEs;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -27,8 +28,7 @@ import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 
 @Service
-public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, YearbookDbVO, String>
-    implements YearbookService, ReindexListener {
+public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, String> implements YearbookService, ReindexListener {
 
   public final static String INDEX_MODIFICATION_DATE = "lastModificationDate";
   public final static String INDEX_OBJECT_ID = "objectId.keyword";
@@ -90,7 +90,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
 
   private YearbookDbVO changeState(String id, Date modificationDate, String authenticationToken, YearbookDbVO.State state,
       String methodName) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
     YearbookDbVO yearbookDbToBeUpdated = yearbookRepository.findOne(id);
     if (yearbookDbToBeUpdated == null) {
       throw new IngeApplicationException("Yearbook with given id " + id + " not found.");
@@ -109,7 +109,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
       handleDBException(e);
     }
 
-    getElasticDao().updateImmediately(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
+    getElasticDao().createImmediately(yearbookDbToBeUpdated.getObjectId(), yearbookDbToBeUpdated);
     return yearbookDbToBeUpdated;
   }
 
@@ -117,11 +117,6 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   @Override
   protected YearbookDbVO createEmptyDbObject() {
     return new YearbookDbVO();
-  }
-
-  @Override
-  protected YearbookDbVO transformToOld(YearbookDbVO dbObject) {
-    return dbObject;
   }
 
   @Override
@@ -145,7 +140,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Year
   }
 
 
-  protected List<String> updateObjectWithValues(YearbookDbVO givenObject, YearbookDbVO objectToBeUpdated, AccountUserVO userAccount,
+  protected List<String> updateObjectWithValues(YearbookDbVO givenObject, YearbookDbVO objectToBeUpdated, AccountUserDbVO userAccount,
       boolean create) throws IngeTechnicalException, IngeApplicationException {
 
     objectToBeUpdated.setContextIds(givenObject.getContextIds());

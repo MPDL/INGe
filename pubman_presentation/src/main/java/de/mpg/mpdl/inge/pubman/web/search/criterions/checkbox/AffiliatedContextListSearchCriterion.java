@@ -26,11 +26,11 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
 
     for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
-      contextMap.put(context.getReference().getObjectId(), context);
+      contextMap.put(context.getObjectId(), context);
     }
 
     for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      contextMap.put(context.getReference().getObjectId(), context);
+      contextMap.put(context.getObjectId(), context);
     }
 
     return contextMap;
@@ -42,11 +42,11 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
     final Map<String, Boolean> preSelectionMap = new LinkedHashMap<String, Boolean>();
 
     for (final PubContextVOPresentation context : clsb.getDepositorContextList()) {
-      preSelectionMap.put(context.getReference().getObjectId(), true);
+      preSelectionMap.put(context.getObjectId(), true);
     }
 
     for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      preSelectionMap.put(context.getReference().getObjectId(), true);
+      preSelectionMap.put(context.getObjectId(), true);
     }
 
     return preSelectionMap;
@@ -71,7 +71,7 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
   @Override
   public String getCqlValue(Index indexName, PubContextVOPresentation value) {
-    return value.getReference().getObjectId();
+    return value.getObjectId();
   }
 
   /**

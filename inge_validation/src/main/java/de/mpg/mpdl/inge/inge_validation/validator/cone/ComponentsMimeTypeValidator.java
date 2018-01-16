@@ -11,6 +11,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
@@ -38,12 +39,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
  * FileVO.content
  */
 
-public class ComponentsMimeTypeValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
+public class ComponentsMimeTypeValidator extends ValidatorHandler<List<FileDbVO>> implements Validator<List<FileDbVO>> {
 
   public static final String IMT = "dcterms:IMT";
 
   @Override
-  public boolean validate(ValidatorContext context, List<FileVO> files) {
+  public boolean validate(ValidatorContext context, List<FileDbVO> files) {
 
     boolean ok = true;
 
@@ -57,12 +58,12 @@ public class ComponentsMimeTypeValidator extends ValidatorHandler<List<FileVO>> 
       }
 
       int i = 1;
-      for (final FileVO fileVO : files) {
+      for (final FileDbVO fileVO : files) {
 
         if (ValidationTools.isNotEmpty(fileVO.getContent()) && fileVO.getStorage().equals(Storage.INTERNAL_MANAGED)) {
 
           int j = 1;
-          for (final FormatVO formatVO : fileVO.getDefaultMetadata().getFormats()) {
+          for (final FormatVO formatVO : fileVO.getMetadata().getFormats()) {
 
             if (ComponentsMimeTypeValidator.IMT.equals(formatVO.getType()) //
                 && !mimeTypesTitleSet.contains(formatVO.getValue())) {

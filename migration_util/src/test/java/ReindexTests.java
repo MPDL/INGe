@@ -29,10 +29,10 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
-import de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
 import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
@@ -209,8 +209,8 @@ public class ReindexTests {
   @Test
   @Ignore
   public void testGet() throws Exception {
-    Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO> query =
-        (Query<de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO>) entityManager
+    Query<de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO> query =
+        (Query<de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO>) entityManager
             .createQuery("SELECT itemObject FROM PubItemObjectVO itemObject");
     // query.setHint("org.hibernate.cacheable", "true");
     // query.addQueryHint("org.hibernate.cacheable=true");
@@ -219,15 +219,15 @@ public class ReindexTests {
     query.setFetchSize(500);
     query.setCacheable(false);
     // ScrollableResults results = query.scroll(ScrollMode.FORWARD_ONLY);
-    List<PubItemObjectDbVO> resultList = query.list();
+    List<ItemRootVO> resultList = query.list();
 
     entityManager.clear();
 
     // while (results.next()) {
-    for (PubItemObjectDbVO pi : resultList) {
+    for (ItemRootVO pi : resultList) {
       try {
 
-        de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO object = (de.mpg.mpdl.inge.model.db.valueobjects.PubItemObjectDbVO) pi;
+        de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO object = (de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO) pi;
 
         try {
           long time = System.currentTimeMillis();
@@ -258,7 +258,7 @@ public class ReindexTests {
     AccountUserVO userAccount = userAccountService.get("user_104231", token);
 
     StringWriter sw = new StringWriter();
-    JsonObjectMapperFactory.getObjectMapper().writerFor(AccountUserVO.class).writeValue(sw, userAccount);
+    MapperFactory.getObjectMapper().writerFor(AccountUserVO.class).writeValue(sw, userAccount);
     System.out.println(sw.toString());
 
 
@@ -362,7 +362,7 @@ public class ReindexTests {
         .get();
     // Scroll until no hits are returned
 
-    ObjectMapper mapper = JsonObjectMapperFactory.getObjectMapper();
+    ObjectMapper mapper = MapperFactory.getObjectMapper();
 
     do {
       for (SearchHit hit : scrollResp.getHits().getHits()) {

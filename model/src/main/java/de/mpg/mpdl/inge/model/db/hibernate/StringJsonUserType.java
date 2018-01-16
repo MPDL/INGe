@@ -18,7 +18,7 @@ import org.hibernate.usertype.UserType;
 
 import com.fasterxml.jackson.databind.JavaType;
 
-import de.mpg.mpdl.inge.model.json.util.JsonObjectMapperFactory;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 
 public abstract class StringJsonUserType implements UserType {
 
@@ -65,7 +65,7 @@ public abstract class StringJsonUserType implements UserType {
     }
     try {
       // long start = System.currentTimeMillis();
-      Object retVal = JsonObjectMapperFactory.getObjectMapper().readerFor(typeReference).readValue(cellContent.getBytes("UTF-8"));
+      Object retVal = MapperFactory.getObjectMapper().readerFor(typeReference).readValue(cellContent.getBytes("UTF-8"));
 
       // System.out.println("Conversion of metadata took " + (System.currentTimeMillis() - start));
       return retVal;
@@ -83,7 +83,7 @@ public abstract class StringJsonUserType implements UserType {
     }
     try {
       final StringWriter w = new StringWriter();
-      JsonObjectMapperFactory.getObjectMapper().writerFor(typeReference).writeValue(w, value);
+      MapperFactory.getObjectMapper().writerFor(typeReference).writeValue(w, value);
       ps.setObject(idx, w.toString(), Types.OTHER);
     } catch (final Exception ex) {
       throw new RuntimeException("Failed to convert Invoice to String: " + ex.getMessage(), ex);

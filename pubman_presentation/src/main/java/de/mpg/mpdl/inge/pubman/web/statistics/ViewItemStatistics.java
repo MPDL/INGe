@@ -33,9 +33,9 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -65,7 +65,7 @@ public class ViewItemStatistics extends FacesBean {
   private List<PubFileVOPresentation> fileList;
 
   /** The current pub item */
-  private PubItemVO pubItem;
+  private ItemVersionVO pubItem;
 
   public ViewItemStatistics() {
     this.init();
@@ -73,14 +73,14 @@ public class ViewItemStatistics extends FacesBean {
 
   public void init() {
     this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    this.itemId = this.pubItem.getVersion().getObjectId();
+    this.itemId = this.pubItem.getObjectId();
 
     // get all files, remove Locators, convert to presentation objects and add them to the list
-    final List<FileVO> files = this.pubItem.getFiles();
-    final List<FileVO> realFiles = new ArrayList<FileVO>();
+    final List<FileDbVO> files = this.pubItem.getFiles();
+    final List<FileDbVO> realFiles = new ArrayList<FileDbVO>();
 
-    for (final FileVO fileVO : files) {
-      if (fileVO.getStorage() == FileVO.Storage.INTERNAL_MANAGED) {
+    for (final FileDbVO fileVO : files) {
+      if (fileVO.getStorage() == FileDbVO.Storage.INTERNAL_MANAGED) {
         realFiles.add(fileVO);
       }
     }
@@ -120,11 +120,11 @@ public class ViewItemStatistics extends FacesBean {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
   }
 
-  public PubItemVO getPubItem() {
+  public ItemVersionVO getPubItem() {
     return this.pubItem;
   }
 
-  public void setPubItem(PubItemVO pubItem) {
+  public void setPubItem(ItemVersionVO pubItem) {
     this.pubItem = pubItem;
   }
 
@@ -158,12 +158,12 @@ public class ViewItemStatistics extends FacesBean {
     try {
       final String contexts = PropertyReader.getProperty("inge.pubman.statistics.nims.context.ids");
       final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-      final ContextVO currentContext = icsb.getCurrentContext();
+      final ContextDbVO currentContext = icsb.getCurrentContext();
       // logger.info(currentContext.getReference().getObjectId());
       if (contexts != null) {
         final String[] contextArray = contexts.split(",");
         for (final String contextId : contextArray) {
-          if (contextId.trim().equals(currentContext.getReference().getObjectId())) {
+          if (contextId.trim().equals(currentContext.getObjectId())) {
             return true;
           }
         }

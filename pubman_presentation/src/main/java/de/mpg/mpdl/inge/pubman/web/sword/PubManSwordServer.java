@@ -57,17 +57,21 @@ import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.referenceobjects.ContextRO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -83,7 +87,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubManSwordServer {
   private static final Logger logger = Logger.getLogger(PubManSwordServer.class);
 
-  private AccountUserVO currentUser;
+  private AccountUserDbVO currentUser;
   private String verbose = "";
 
   @Autowired
@@ -121,7 +125,7 @@ public class PubManSwordServer {
       de.mpg.mpdl.inge.service.exceptions.AuthorizationException, ValidationException, ValidationServiceException {
 
     final SwordUtil util = new SwordUtil();
-    PubItemVO depositItem = null;
+    ItemVersionVO depositItem = null;
     DepositResponse dr = new DepositResponse(Deposit.ACCEPTED);
 
     this.setVerbose("Start depositing process ... ");
@@ -130,9 +134,9 @@ public class PubManSwordServer {
     util.setCurrentDeposit(deposit);
     depositItem = util.readZipFile(deposit.getFile(), this.currentUser);
     this.setVerbose("Escidoc Publication Item successfully created.");
-    final ContextRO context = new ContextRO();
+    final ContextDbRO context = new ContextDbRO();
     context.setObjectId(collection);
-    depositItem.setContext(context);
+    depositItem.getObject().setContext(context);
 
     util.getItemControllerSessionBean().setCurrentPubItem(new PubItemVOPresentation(depositItem));
 
@@ -153,12 +157,12 @@ public class PubManSwordServer {
     // Deposit item
     if (!deposit.isNoOp()) {
       depositItem = util.doDeposit(depositItem);
-      if (ItemVO.State.RELEASED.equals(depositItem.getVersion().getState())) {
+      if (ItemVersionRO.State.RELEASED.equals(depositItem.getVersionState())) {
         dr = new DepositResponse(Deposit.CREATED);
-        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getPublicStatus() + ").");
+        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getObject().getPublicState() + ").");
       } else {
         dr = new DepositResponse(Deposit.ACCEPTED);
-        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getPublicStatus() + ").");
+        this.setVerbose("Escidoc Publication Item successfully deposited " + "(state: " + depositItem.getObject().getPublicState() + ").");
       }
     } else {
       this.setVerbose("Escidoc Publication Item not deposited due to X_NO_OP=true.");
@@ -210,7 +214,7 @@ public class PubManSwordServer {
       final PubContextVOPresentation pubContext = contextList.get(i);
 
       final Element collection = document.createElement("collection");
-      collection.setAttribute("href", pubContext.getReference().getObjectId());
+      collection.setAttribute("href", pubContext.getObjectId());
       final Element colTitle = document.createElementNS("http://www.w3.org/2005/Atom", "title");
       colTitle.setPrefix("atom");
       colTitle.setTextContent(pubContext.getName());
@@ -261,11 +265,11 @@ public class PubManSwordServer {
     return xmlString;
   }
 
-  public AccountUserVO getCurrentUser() {
+  public AccountUserDbVO getCurrentUser() {
     return this.currentUser;
   }
 
-  public void setCurrentUser(AccountUserVO currentUser) {
+  public void setCurrentUser(AccountUserDbVO currentUser) {
     this.currentUser = currentUser;
   }
 

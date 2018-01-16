@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,26 +21,22 @@ import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
-import de.mpg.mpdl.inge.service.util.EntityTransformer;
 
 @Service
 @Primary
-public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextDbVO, String> implements ContextService, ReindexListener {
+public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String> implements ContextService, ReindexListener {
   private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
-  public final static String INDEX_OBJECT_ID = "reference.objectId";
+  public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_STATE = "state";
 
   @Autowired
@@ -63,7 +58,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ContextVO open(String id, Date modificationDate, String authenticationToken)
+  public ContextDbVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.OPENED);
   }
@@ -71,24 +66,23 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public ContextVO close(String id, Date modificationDate, String authenticationToken)
+  public ContextDbVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     return changeState(id, modificationDate, authenticationToken, ContextDbVO.State.CLOSED);
   }
 
-  private ContextVO changeState(String id, Date modificationDate, String authenticationToken, ContextDbVO.State state)
+  private ContextDbVO changeState(String id, Date modificationDate, String authenticationToken, ContextDbVO.State state)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextDbToBeUpdated = contextRepository.findOne(id);
     if (contextDbToBeUpdated == null) {
       throw new IngeApplicationException("Context with given id " + id + " not found.");
     }
 
-    ContextVO contextVoToBeUpdated = transformToOld(contextDbToBeUpdated);
 
-    checkEqualModificationDate(modificationDate, getModificationDate(contextVoToBeUpdated));
+    checkEqualModificationDate(modificationDate, contextDbToBeUpdated.getLastModificationDate());
 
-    checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), userAccount, contextVoToBeUpdated);
+    checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), userAccount, contextDbToBeUpdated);
 
     contextDbToBeUpdated.setState(state);
     updateWithTechnicalMetadata(contextDbToBeUpdated, userAccount, false);
@@ -99,10 +93,8 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
       handleDBException(e);
     }
 
-
-    ContextVO contextToReturn = EntityTransformer.transformToOld(contextDbToBeUpdated);
-    getElasticDao().updateImmediately(contextDbToBeUpdated.getObjectId(), contextToReturn);
-    return contextToReturn;
+    getElasticDao().createImmediately(contextDbToBeUpdated.getObjectId(), contextDbToBeUpdated);
+    return contextDbToBeUpdated;
   }
 
 
@@ -115,27 +107,22 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  protected List<String> updateObjectWithValues(ContextVO givenContext, ContextDbVO toBeUpdatedContext, AccountUserVO userAccount,
+  protected List<String> updateObjectWithValues(ContextDbVO givenContext, ContextDbVO toBeUpdatedContext, AccountUserDbVO userAccount,
       boolean createNew) throws IngeTechnicalException, IngeApplicationException {
 
-    toBeUpdatedContext.setAdminDescriptor(givenContext.getAdminDescriptor());
+    toBeUpdatedContext.setAllowedGenres(givenContext.getAllowedGenres());
+    toBeUpdatedContext.setAllowedSubjectClassifications(givenContext.getAllowedSubjectClassifications());
+    toBeUpdatedContext.setContactEmail(givenContext.getContactEmail());
 
     toBeUpdatedContext.setDescription(givenContext.getDescription());
     toBeUpdatedContext.setName(givenContext.getName());
+
+    toBeUpdatedContext.setResponsibleAffiliations(givenContext.getResponsibleAffiliations());
 
     if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
       throw new IngeApplicationException("A name is required");
     }
 
-    if (givenContext.getResponsibleAffiliations() != null) {
-      toBeUpdatedContext.setResponsibleAffiliations(new ArrayList<AffiliationDbRO>());
-      for (AffiliationRO aff : givenContext.getResponsibleAffiliations()) {
-        AffiliationDbRO newAffRo = new AffiliationDbRO();
-        newAffRo.setObjectId(aff.getObjectId());
-        toBeUpdatedContext.getResponsibleAffiliations().add(newAffRo);
-      }
-    }
-    toBeUpdatedContext.setType(givenContext.getType());
 
 
     if (createNew) {
@@ -150,13 +137,6 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  protected ContextVO transformToOld(ContextDbVO dbObject) {
-    return EntityTransformer.transformToOld(dbObject);
-  }
-
-
-
-  @Override
   protected JpaRepository<ContextDbVO, String> getDbRepository() {
     return contextRepository;
   }
@@ -164,26 +144,26 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextVO, ContextD
 
 
   @Override
-  protected String getObjectId(ContextVO object) {
-    return object.getReference().getObjectId();
+  protected String getObjectId(ContextDbVO object) {
+    return object.getObjectId();
   }
 
 
 
   @Override
-  protected GenericDaoEs<ContextVO> getElasticDao() {
+  protected GenericDaoEs<ContextDbVO> getElasticDao() {
     return contextDao;
   }
 
 
   @Override
-  protected Date getModificationDate(ContextVO object) {
+  protected Date getModificationDate(ContextDbVO object) {
     return object.getLastModificationDate();
   }
 
 
   @Override
-  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ContextVO")
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ContextDbVO")
   public void reindexListener(String id) throws IngeTechnicalException {
     reindex(id, false);
 

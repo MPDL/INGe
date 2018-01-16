@@ -31,7 +31,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -92,14 +92,13 @@ public class CreateItem extends FacesBean {
 
     if (this.getContextListSessionBean().getDepositorContextList().size() == 1
         && this.getContextListSessionBean().getOpenContextsAvailable()) {
-      final ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
-      navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO.getReference());
+      final ContextDbVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
+      navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO);
 
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {
-        if (!contextVO.getAdminDescriptor().getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE)) {
-          this.getItemControllerSessionBean().getCurrentPubItem().getMetadata()
-              .setGenre(contextVO.getAdminDescriptor().getAllowedGenres().get(0));
+        if (!contextVO.getAllowedGenres().contains(MdsPublicationVO.Genre.ARTICLE)) {
+          this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(contextVO.getAllowedGenres().get(0));
         } else {
           this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setGenre(MdsPublicationVO.Genre.ARTICLE);
         }
@@ -112,7 +111,7 @@ public class CreateItem extends FacesBean {
     } else {
       // more than one context exists for this user; let him choose the right one
       navigateTo = this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
-          this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
+          this.getContextListSessionBean().getDepositorContextList().get(0));
 
       // re-init the edit item bean to make sure that all data is removed
       if (this.getItemControllerSessionBean().getCurrentPubItem() != null) {

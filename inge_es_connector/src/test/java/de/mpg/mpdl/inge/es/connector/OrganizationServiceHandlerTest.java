@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 
@@ -44,7 +45,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
   @Test
   public void testRead() {
     try {
-      AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
+      AffiliationDbVO affiliationVO = this.organizationDao.get(test_ou_id);
       assert affiliationVO.equals(test_ou());
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -55,11 +56,11 @@ public class OrganizationServiceHandlerTest extends TestBase {
   @Test
   public void testUpdate() {
     try {
-      AffiliationVO affiliationVO = this.organizationDao.get(test_ou_id);
-      affiliationVO.getDefaultMetadata().setCountryCode("DE");
+      AffiliationDbVO affiliationVO = this.organizationDao.get(test_ou_id);
+      affiliationVO.getMetadata().setCountryCode("DE");
       this.organizationDao.updateImmediately(test_ou_id, affiliationVO);
-      AffiliationVO affiliationVO2 = this.organizationDao.get(test_ou_id);
-      assert affiliationVO2.getDefaultMetadata().getCountryCode().equals("DE");
+      AffiliationDbVO affiliationVO2 = this.organizationDao.get(test_ou_id);
+      assert affiliationVO2.getMetadata().getCountryCode().equals("DE");
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);

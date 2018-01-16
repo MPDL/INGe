@@ -12,13 +12,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @MappedSuperclass
 @IdClass(VersionableId.class)
-public class PubItemDbRO implements Serializable {
+public class ItemVersionRO implements Serializable {
 
   public enum State
   {
@@ -38,27 +39,44 @@ public class PubItemDbRO implements Serializable {
    * The date of the last modification of the referenced item.
    */
   private Date modificationDate;
-  /**
-   * The message of the last action event of this item.
-   */
-  @Column(columnDefinition = "TEXT")
-  private String lastMessage;
+
   /**
    * The state of the item.
    */
   @Enumerated(EnumType.STRING)
-  private PubItemDbRO.State state;
+  private ItemVersionRO.State versionState;
+
+  /**
+   * The version PID of the item.
+   */
+  private String versionPid;
+
+
   /**
    * The eSciDoc ID of the user that modified that version.
    */
   @Embedded
   @AttributeOverrides({@AttributeOverride(name = "objectId", column = @Column(name = "modifier_objectId")),
       @AttributeOverride(name = "name", column = @Column(name = "modifier_name"))})
-  private AccountUserDbRO modifiedBy;
+  private AccountUserDbRO modifier;
+
+
+
   /**
-   * The version PID of the item.
+   * Get the full identification of an item version.
+   * 
+   * @return A String in the form objid:versionNumber e.g. "escidoc:345:2"
    */
-  private String versionPid;
+  @Transient
+  @JsonIgnore
+  public String getObjectIdAndVersion() {
+    if (versionNumber != 0) {
+      return getObjectId() + "_" + versionNumber;
+    } else {
+      return getObjectId();
+    }
+
+  }
 
   public String getObjectId() {
     return objectId;
@@ -68,12 +86,12 @@ public class PubItemDbRO implements Serializable {
     this.objectId = objectId;
   }
 
-  public AccountUserDbRO getModifiedBy() {
-    return modifiedBy;
+  public AccountUserDbRO getModifier() {
+    return modifier;
   }
 
-  public void setModifiedBy(AccountUserDbRO modifiedBy) {
-    this.modifiedBy = modifiedBy;
+  public void setModifier(AccountUserDbRO modifier) {
+    this.modifier = modifier;
   }
 
   public void setVersionPid(String versionPid) {
@@ -104,21 +122,15 @@ public class PubItemDbRO implements Serializable {
     this.modificationDate = modificationDate;
   }
 
-  public String getLastMessage() {
-    return lastMessage;
-  }
 
-  public void setLastMessage(String lastMessage) {
-    this.lastMessage = lastMessage;
-  }
 
   /**
    * Delivers the state of the item.
    * 
    * @return The current State.
    */
-  public PubItemDbRO.State getState() {
-    return this.state;
+  public ItemVersionRO.State getVersionState() {
+    return this.versionState;
   }
 
   /**
@@ -126,8 +138,8 @@ public class PubItemDbRO implements Serializable {
    * 
    * @param newVal The new state.
    */
-  public void setState(PubItemDbRO.State newVal) {
-    state = newVal;
+  public void setVersionState(ItemVersionRO.State newVal) {
+    versionState = newVal;
   }
 
   public String getVersionPid() {
@@ -165,36 +177,5 @@ public class PubItemDbRO implements Serializable {
     }
   }
 
-  @JsonIgnore
-  public PubItemDbRO.State getStateForXml() {
-    if (state == null) {
-      return PubItemDbRO.State.PENDING;
-    } else {
-      return state;
-    }
-  }
-
-  @JsonIgnore
-  public String getLastMessageForXml() {
-    if (lastMessage == null) {
-      return "";
-    } else {
-      return lastMessage;
-    }
-  }
-
-  /**
-   * Get the full identification of an item version.
-   * 
-   * @return A String in the form objid:versionNumber e.g. "escidoc:345:2"
-   */
-  public String getObjectIdAndVersion() {
-    if (versionNumber != 0) {
-      return getObjectId() + "_" + versionNumber;
-    } else {
-      return getObjectId();
-    }
-
-  }
 
 }

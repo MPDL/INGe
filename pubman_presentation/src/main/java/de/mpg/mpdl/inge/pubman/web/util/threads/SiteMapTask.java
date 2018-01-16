@@ -50,7 +50,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -281,7 +281,7 @@ public class SiteMapTask {
 
         for (final SearchHit result : resp.getHits().getHits()) {
 
-          // final PubItemVO pubItemVO = new PubItemVO(result.getData());
+          // final ItemVersionVO pubItemVO = new ItemVersionVO(result.getData());
           try {
             this.fileWriter.write("\t<url>\n\t\t<loc>");
             this.fileWriter.write(this.instanceUrl);
@@ -336,7 +336,7 @@ public class SiteMapTask {
     // fileWriter.write("<ul>");
     do {
       try {
-        final SearchRetrieveResponseVO<AffiliationVO> ouSearchResult = this.getOUs(firstRecord);
+        final SearchRetrieveResponseVO<AffiliationDbVO> ouSearchResult = this.getOUs(firstRecord);
         totalRecords = ouSearchResult.getNumberOfRecords();
         this.addOUsToSitemap(ouSearchResult);
 
@@ -379,11 +379,11 @@ public class SiteMapTask {
    * @throws TechnicalException
    * @throws Exception
    */
-  private SearchRetrieveResponseVO<AffiliationVO> getOUs(int firstRecord) throws Exception {
+  private SearchRetrieveResponseVO<AffiliationDbVO> getOUs(int firstRecord) throws Exception {
     // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
 
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<AffiliationVO> resp = ouService.search(srr, null);
+    SearchRetrieveResponseVO<AffiliationDbVO> resp = ouService.search(srr, null);
 
 
     return resp;
@@ -412,16 +412,16 @@ public class SiteMapTask {
 
 
 
-  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationVO> searchResult) {
+  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationDbVO> searchResult) {
 
-    for (final SearchRetrieveRecordVO<AffiliationVO> result : searchResult.getRecords()) {
+    for (final SearchRetrieveRecordVO<AffiliationDbVO> result : searchResult.getRecords()) {
 
       try {
         this.fileWriter.write("\t<url>\n\t\t<loc>");
         this.fileWriter.write(this.instanceUrl);
         this.fileWriter.write(this.contextPath);
         this.fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
-        this.fileWriter.write(result.getData().getReference().getObjectId());
+        this.fileWriter.write(result.getData().getObjectId());
         this.fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
         this.fileWriter.write(this.contentModel);
         this.fileWriter.write("%22)&amp;searchType=org");

@@ -8,6 +8,8 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -15,7 +17,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -112,10 +113,10 @@ public class YearbookUtils {
     QueryBuilder qb = YearbookUtils.getMemberQuery(yearbook);
 
     SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
-    SearchRetrieveResponseVO<PubItemVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
+    SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
 
 
-    List<PubItemVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+    List<ItemVersionVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
     return CommonUtils.convertToPubItemVOPresentationList(resultList);
 
@@ -129,10 +130,10 @@ public class YearbookUtils {
     */
   }
 
-  public static List<String> getYearbookOrganizationIds(AccountUserVO user) {
+  public static List<String> getYearbookOrganizationIds(AccountUserDbVO user) {
     List<String> orgIds = new ArrayList<>();
 
-    for (GrantVO grant : user.getGrants()) {
+    for (GrantVO grant : user.getGrantList()) {
       if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
         orgIds.add(grant.getObjectRef());
 

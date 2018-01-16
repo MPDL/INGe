@@ -10,6 +10,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
@@ -28,19 +29,19 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
  * FileVO.content
  */
 
-public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileVO>> implements Validator<List<FileVO>> {
+public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileDbVO>> implements Validator<List<FileDbVO>> {
 
   public static final String URL_PATTERN = ComponentsUriAsLocatorValidator.getUrlPattern();
 
   @Override
-  public boolean validate(ValidatorContext context, List<FileVO> files) {
+  public boolean validate(ValidatorContext context, List<FileDbVO> files) {
 
     boolean ok = true;
 
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileVO fileVO : files) {
+      for (final FileDbVO fileVO : files) {
 
         if (fileVO != null) {
           if (ValidationTools.isNotEmpty(fileVO.getContent()) //

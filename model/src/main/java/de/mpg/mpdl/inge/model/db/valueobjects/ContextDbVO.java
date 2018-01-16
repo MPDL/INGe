@@ -27,6 +27,8 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,10 +45,15 @@ import org.hibernate.annotations.TypeDef;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.db.hibernate.ContextAdminDescriptorJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.GenreListJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.SubjectClassificationListJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management
@@ -58,9 +65,10 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescripto
  * @updated 05-Sep-2007 11:14:08
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "ContextVO")
+@Entity
 @Table(name = "context")
-@TypeDef(name = "ContextAdminDescriptorJsonUserType", typeClass = ContextAdminDescriptorJsonUserType.class)
+@TypeDef(name = "SubjectClassificationListJsonUserType", typeClass = SubjectClassificationListJsonUserType.class)
+@TypeDef(name = "GenreListJsonUserType", typeClass = GenreListJsonUserType.class)
 public class ContextDbVO extends ContextDbRO implements Searchable, Serializable {
   /**
    * The possible states of a collection.
@@ -75,7 +83,25 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
     DELETED
   }
 
-  private String type;
+
+  public enum Workflow
+  {
+    STANDARD,
+    SIMPLE
+  }
+
+  @Type(type = "GenreListJsonUserType")
+  private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
+
+  @Type(type = "SubjectClassificationListJsonUserType")
+  private List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
+      new ArrayList<MdsPublicationVO.SubjectClassification>();
+
+  @Enumerated(EnumType.STRING)
+  private Workflow workflow;
+
+  private String contactEmail;
+
   /**
    * The state of the PubCollection.
    */
@@ -91,17 +117,20 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   /**
    * The list of responsible affiliations for this collection.
    */
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+  @JsonSerialize(contentAs=AffiliationDbRO.class)
   private java.util.List<AffiliationDbRO> responsibleAffiliations = new java.util.ArrayList<AffiliationDbRO>();
 
-  @Type(type = "ContextAdminDescriptorJsonUserType")
-  private PublicationAdminDescriptorVO adminDescriptor;
 
   /**
    * Default constructor.
    */
   public ContextDbVO() {}
+
+  public ContextDbVO(ContextDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+  }
 
   /**
    * Delivers the description of the collection, i. e. a short description of the collection and the
@@ -144,23 +173,39 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
     return responsibleAffiliations;
   }
 
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public PublicationAdminDescriptorVO getAdminDescriptor() {
-    return adminDescriptor;
-  }
-
-  public void setAdminDescriptor(PublicationAdminDescriptorVO adminDescriptor) {
-    this.adminDescriptor = adminDescriptor;
-  }
-
   public void setResponsibleAffiliations(java.util.List<AffiliationDbRO> responsibleAffiliations) {
     this.responsibleAffiliations = responsibleAffiliations;
+  }
+
+  public List<MdsPublicationVO.Genre> getAllowedGenres() {
+    return allowedGenres;
+  }
+
+  public void setAllowedGenres(List<MdsPublicationVO.Genre> allowedGenres) {
+    this.allowedGenres = allowedGenres;
+  }
+
+  public List<MdsPublicationVO.SubjectClassification> getAllowedSubjectClassifications() {
+    return allowedSubjectClassifications;
+  }
+
+  public void setAllowedSubjectClassifications(List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications) {
+    this.allowedSubjectClassifications = allowedSubjectClassifications;
+  }
+
+  public Workflow getWorkflow() {
+    return workflow;
+  }
+
+  public void setWorkflow(Workflow workflow) {
+    this.workflow = workflow;
+  }
+
+  public String getContactEmail() {
+    return contactEmail;
+  }
+
+  public void setContactEmail(String contactEmail) {
+    this.contactEmail = contactEmail;
   }
 }

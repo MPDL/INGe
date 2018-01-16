@@ -9,13 +9,13 @@
 	</h2>
 	<!-- Affiliation description -->
 	<ui:repeat var="description"
-		value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}">
+		value="#{AffiliationDetail.affiliationVO.metadata.descriptions}">
 		<h:outputText value="#{description}" />
 		<br />
 	</ui:repeat>
 	<br />
 	<h:outputText
-		value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}" />
+		value="#{AffiliationDetail.affiliationVO.metadata.city}, #{AffiliationDetail.affiliationVO.metadata.countryCode}" />
 	<br />
 	<!--URIs as links -->
 	<ui:repeat id="affiliationDetailUri" var="uri"
@@ -28,7 +28,7 @@
 	</ui:repeat>
 	<!--other identifiers as plain text -->
 	<ui:repeat var="identifier"
-		value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}">
+		value="#{AffiliationDetail.affiliationVO.metadata.identifiers}">
 		<h:outputText value="#{identifier.id}"
 			rendered="#{identifier.typeString != 'URI'}" />
 		<br />

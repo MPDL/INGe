@@ -36,6 +36,8 @@ import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidat
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentsMimeTypeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -61,14 +63,14 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 public class ValidationTest {
   private static final Logger logger = Logger.getLogger(ValidationTest.class);
 
-  private PubItemVO pubItemVO;
+  private ItemVersionVO pubItemVO;
   private MdsPublicationVO mdsPublicationVO;
   private final ConeCache coneCache = ConeCache.getInstance(); // zur erstmaligen Befüllung des
                                                                // Caches
 
   @Before
   public void setUp() throws Exception {
-    this.pubItemVO = new PubItemVO();
+    this.pubItemVO = new ItemVersionVO();
     this.mdsPublicationVO = new MdsPublicationVO();
     this.pubItemVO.setMetadata(this.mdsPublicationVO);
   }
@@ -175,18 +177,18 @@ public class ValidationTest {
   public void testComponentContentRequired1() throws Exception {
     logger.info("--------------------- STARTING testComponentContentRequired1 ---------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
-    f1.setDefaultMetadata(m1);
+    f1.setMetadata(m1);
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
+    final FileDbVO f2 = new FileDbVO();
     f2.setMimeType("blubb");
     this.pubItemVO.getFiles().add(f2);
 
-    final FileVO f3 = new FileVO();
-    f3.setDescription("blubb");
+    final FileDbVO f3 = new FileDbVO();
+    f3.getMetadata().setDescription("blubb");
     this.pubItemVO.getFiles().add(f3);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsContentRequiredValidator());
@@ -206,20 +208,20 @@ public class ValidationTest {
   public void testComponentContentRequired2() throws Exception {
     logger.info("--------------------- STARTING testComponentContentRequired2 ---------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
-    f1.setDefaultMetadata(m1);
+    f1.setMetadata(m1);
     f1.setContent("blubb");
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
+    final FileDbVO f2 = new FileDbVO();
     f2.setMimeType("blubb");
     f2.setContent("blubb");
     this.pubItemVO.getFiles().add(f2);
 
-    final FileVO f3 = new FileVO();
-    f3.setDescription("blubb");
+    final FileDbVO f3 = new FileDbVO();
+    f3.getMetadata().setDescription("blubb");
     f3.setContent("blubb");
     this.pubItemVO.getFiles().add(f3);
 
@@ -240,22 +242,22 @@ public class ValidationTest {
   public void testComponentDataRequired1() throws Exception {
     logger.info("--------------------- STARTING testComponentDataRequired1 ---------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
-    f1.setDefaultMetadata(m1);
+    f1.setMetadata(m1);
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
-    f2.setContentCategory("blubb");
+    final FileDbVO f2 = new FileDbVO();
+    f2.getMetadata().setContentCategory("blubb");
     this.pubItemVO.getFiles().add(f2);
 
-    final FileVO f3 = new FileVO();
+    final FileDbVO f3 = new FileDbVO();
     f3.setMimeType("blubb");
     this.pubItemVO.getFiles().add(f3);
 
-    final FileVO f4 = new FileVO();
-    f4.setVisibility(FileVO.Visibility.PUBLIC);
+    final FileDbVO f4 = new FileDbVO();
+    f4.setVisibility(FileDbVO.Visibility.PUBLIC);
     this.pubItemVO.getFiles().add(f4);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsDataRequiredValidator());
@@ -275,25 +277,25 @@ public class ValidationTest {
   public void testComponentDataRequired2() throws Exception {
     logger.info("--------------------- STARTING testComponentDataRequired2 ---------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
-    f1.setDefaultMetadata(m1);
+    f1.setMetadata(m1);
     f1.setContent("blubb");
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
-    f2.setContentCategory("blubb");
+    final FileDbVO f2 = new FileDbVO();
+    f2.getMetadata().setContentCategory("blubb");
     f2.setContent("blubb");
     this.pubItemVO.getFiles().add(f2);
 
-    final FileVO f3 = new FileVO();
+    final FileDbVO f3 = new FileDbVO();
     f3.setMimeType("blubb");
     f3.setContent("blubb");
     this.pubItemVO.getFiles().add(f3);
 
-    final FileVO f4 = new FileVO();
-    f4.setVisibility(FileVO.Visibility.PUBLIC);
+    final FileDbVO f4 = new FileDbVO();
+    f4.setVisibility(FileDbVO.Visibility.PUBLIC);
     f4.setContent("blubb");
     this.pubItemVO.getFiles().add(f4);
 
@@ -314,7 +316,7 @@ public class ValidationTest {
   public void testComponentMimeTypes1() throws Exception {
     logger.info("--------------------- STARTING testComponentMimeTypes1 ---------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
     final FormatVO fo1 = new FormatVO();
@@ -325,12 +327,12 @@ public class ValidationTest {
     fo2.setType("blubb");
     fo2.setValue("blubb");
     m1.getFormats().add(0, fo2);
-    f1.setDefaultMetadata(m1);
+    f1.setMetadata(m1);
     f1.setContent("blubb");
-    f1.setStorage(Storage.EXTERNAL_URL);
+    f1.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
+    final FileDbVO f2 = new FileDbVO();
     final MdsFileVO m2 = new MdsFileVO();
     m2.setTitle("blubb");
     final FormatVO fo3 = new FormatVO();
@@ -341,9 +343,9 @@ public class ValidationTest {
     fo4.setType("blubb");
     fo4.setValue("blubb");
     m2.getFormats().add(0, fo4);
-    f2.setDefaultMetadata(m2);
+    f2.setMetadata(m2);
     f2.setContent("blubb");
-    f2.setStorage(Storage.INTERNAL_MANAGED);
+    f2.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsMimeTypeValidator());
@@ -363,7 +365,7 @@ public class ValidationTest {
   public void testComponentMimeTypes2() throws Exception {
     logger.info("--------------------- STARTING testComponentMimeTypes2 ---------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
     final FormatVO fo1 = new FormatVO();
@@ -374,12 +376,12 @@ public class ValidationTest {
     fo2.setType("blubb");
     fo2.setValue("application/andrew-inset");
     m1.getFormats().add(0, fo2);
-    f1.setDefaultMetadata(m1);
+    f1.setMetadata(m1);
     f1.setContent("blubb");
-    f1.setStorage(Storage.EXTERNAL_URL);
+    f1.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
+    final FileDbVO f2 = new FileDbVO();
     final MdsFileVO m2 = new MdsFileVO();
     m2.setTitle("blubb");
     final FormatVO fo3 = new FormatVO();
@@ -390,9 +392,9 @@ public class ValidationTest {
     fo4.setType("blubb");
     fo4.setValue("application/andrew-inset");
     m2.getFormats().add(0, fo4);
-    f2.setDefaultMetadata(m2);
+    f2.setMetadata(m2);
     f2.setContent("blubb");
-    f2.setStorage(Storage.INTERNAL_MANAGED);
+    f2.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsMimeTypeValidator());
@@ -946,20 +948,20 @@ public class ValidationTest {
   public void testNoSlashesInFileName1() throws Exception {
     logger.info("--------------------- STARTING testNoSlashesInFileName1 ---------------------");
 
-    final FileVO f1 = new FileVO();
-    f1.setStorage(Storage.INTERNAL_MANAGED);
+    final FileDbVO f1 = new FileDbVO();
+    f1.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     f1.setName("blu/bb");
 
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
-    f2.setStorage(Storage.INTERNAL_MANAGED);
+    final FileDbVO f2 = new FileDbVO();
+    f2.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blu/bb");
-    f2.setDefaultMetadata(m1);
+    f2.setMetadata(m1);
     final MdsFileVO m2 = new MdsFileVO();
     m2.setTitle("blu/bb");
-    f2.setDefaultMetadata(m2);
+    f2.setMetadata(m2);
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator());
@@ -979,20 +981,20 @@ public class ValidationTest {
   public void testNoSlashesInFileName2() throws Exception {
     logger.info("--------------------- STARTING testNoSlashesInFileName2 ---------------------");
 
-    final FileVO f1 = new FileVO();
-    f1.setStorage(Storage.INTERNAL_MANAGED);
+    final FileDbVO f1 = new FileDbVO();
+    f1.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     f1.setName("blubb");
 
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
-    f2.setStorage(Storage.INTERNAL_MANAGED);
+    final FileDbVO f2 = new FileDbVO();
+    f2.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
     final MdsFileVO m1 = new MdsFileVO();
     m1.setTitle("blubb");
-    f2.setDefaultMetadata(m1);
+    f2.setMetadata(m1);
     final MdsFileVO m2 = new MdsFileVO();
     m2.setTitle("blubb");
-    f2.setDefaultMetadata(m2);
+    f2.setMetadata(m2);
     this.pubItemVO.getFiles().add(f2);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator());
@@ -1608,9 +1610,9 @@ public class ValidationTest {
   public void testUriAsLocator1() throws Exception {
     logger.info("---------------------- STARTING testUriAsLocator1 ----------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     f1.setContent("blubb");
-    f1.setStorage(Storage.EXTERNAL_URL);
+    f1.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f1);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
@@ -1630,29 +1632,29 @@ public class ValidationTest {
   public void testUriAsLocator2() throws Exception {
     logger.info("---------------------- STARTING testUriAsLocator2 ----------------------");
 
-    final FileVO f1 = new FileVO();
+    final FileDbVO f1 = new FileDbVO();
     f1.setContent("www.google.de");
-    f1.setStorage(Storage.EXTERNAL_URL);
+    f1.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f1);
 
-    final FileVO f2 = new FileVO();
+    final FileDbVO f2 = new FileDbVO();
     f2.setContent("http://www.google.de");
-    f2.setStorage(Storage.EXTERNAL_URL);
+    f2.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f2);
 
-    final FileVO f3 = new FileVO();
+    final FileDbVO f3 = new FileDbVO();
     f3.setContent("https://www.google.de");
-    f3.setStorage(Storage.EXTERNAL_URL);
+    f3.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f3);
 
-    final FileVO f4 = new FileVO();
+    final FileDbVO f4 = new FileDbVO();
     f4.setContent("http://hdl.handle.net/11858/00-001Z-0000-002B-68A6-3");
-    f4.setStorage(Storage.EXTERNAL_URL);
+    f4.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f4);
 
-    final FileVO f5 = new FileVO();
+    final FileDbVO f5 = new FileDbVO();
     f5.setContent("http://www.kyb.tuebingen.mpg.de/fileadmin/user_upload/files/2011/GREAT10.pdf");
-    f5.setStorage(Storage.EXTERNAL_URL);
+    f5.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     this.pubItemVO.getFiles().add(f5);
 
     final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());

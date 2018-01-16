@@ -12,6 +12,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -47,18 +49,18 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
+    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
 
     switch (contextVO.getState()) {
       case OPENED:
         contextVO = contextService.close("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
-        assertTrue(contextVO.getState().equals(ContextVO.State.CLOSED));
+        assertTrue(contextVO.getState().equals(ContextDbVO.State.CLOSED));
         break;
       case CLOSED:
       case CREATED:
         contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
-        assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
+        assertTrue(contextVO.getState().equals(ContextDbVO.State.OPENED));
       default:
         break;
     }
@@ -72,7 +74,7 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
+    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
@@ -87,7 +89,7 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginDepositor();
     assertTrue(authenticationToken != null);
 
-    ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
+    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
@@ -102,7 +104,7 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, "XXXXXXXXXXXXXX");
     assertTrue(authenticationToken != null);
 
-    ContextVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
+    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
@@ -117,14 +119,14 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    ContextVO contextVO = contextService.create(getContextVO(), authenticationToken);
+    ContextDbVO contextVO = contextService.create(getContextVO(), authenticationToken);
 
-    String contextId = contextVO.getReference().getObjectId();
+    String contextId = contextVO.getObjectId();
     assertTrue(contextVO != null);
     assertTrue(contextId != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.CREATED));
 
-    contextService.delete(contextVO.getReference().getObjectId(), authenticationToken);
+    contextService.delete(contextVO.getObjectId(), authenticationToken);
 
     assertTrue(contextService.get(contextId, authenticationToken) == null);
   }
@@ -137,28 +139,23 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    ContextVO contextVO = contextService.get("srhrtshthsfh", authenticationToken);
+    ContextDbVO contextVO = contextService.get("srhrtshthsfh", authenticationToken);
     assertTrue(contextVO == null);
   }
 
-  private ContextVO getContextVO() {
-    ContextVO contextVO = new ContextVO();
+  private ContextDbVO getContextVO() {
+    ContextDbVO contextVO = new ContextDbVO();
 
-    PublicationAdminDescriptorVO adminDescriptorVO = new PublicationAdminDescriptorVO();
-    List<Genre> genres = new ArrayList<Genre>();
-    genres.add(Genre.ARTICLE);
-    genres.add(Genre.BOOK);
+
+    contextVO.getAllowedGenres().add(Genre.ARTICLE);
+    contextVO.getAllowedGenres().add(Genre.BOOK);
 
     List<SubjectClassification> subjectClassification = new ArrayList<SubjectClassification>();
-    subjectClassification.add(SubjectClassification.DDC);
-    subjectClassification.add(SubjectClassification.ISO639_3);
+    contextVO.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
+    contextVO.getAllowedSubjectClassifications().add(SubjectClassification.ISO639_3);
 
-    adminDescriptorVO.setAllowedGenres(new ArrayList<Genre>());
-    adminDescriptorVO.setAllowedSubjectClassifications(subjectClassification);
-    adminDescriptorVO.setValidationSchema("xxxx");
 
-    contextVO.setAdminDescriptor(adminDescriptorVO);
-    contextVO.setCreator(new AccountUserRO());
+    contextVO.setCreator(new AccountUserDbRO());
     contextVO.setName("Test Context");;
 
     return contextVO;

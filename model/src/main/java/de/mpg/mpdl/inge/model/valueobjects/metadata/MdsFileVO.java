@@ -21,6 +21,10 @@ public class MdsFileVO extends MetadataSetVO {
 
   private List<FormatVO> formats = new ArrayList<FormatVO>();
 
+  /**
+   * Please use FileDbVO.size instead
+   */
+  @Deprecated
   private int size;
 
   private String embargoUntil;
@@ -54,10 +58,18 @@ public class MdsFileVO extends MetadataSetVO {
     this.license = other.license;
   }
 
+  /**
+   * Please use FileDbVO.size instead
+   */
+  @Deprecated
   public int getSize() {
     return size;
   }
 
+  /**
+   * Please use FileDbVO.size instead
+   */
+  @Deprecated
   public void setSize(int size) {
     this.size = size;
   }

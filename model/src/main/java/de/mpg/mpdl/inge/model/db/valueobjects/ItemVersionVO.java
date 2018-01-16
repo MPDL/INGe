@@ -48,10 +48,14 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsPublicationVOJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
 
@@ -62,43 +66,49 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 11:52:58
  */
+@Entity
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "PubItemVersionVO")
 @Table(name = "item_version")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
-public class PubItemVersionDbVO extends PubItemDbRO implements Serializable {
+public class ItemVersionVO extends ItemVersionRO implements Serializable {
 
   /**
    * The version number of the referenced item. This attribute is optional.
    */
+
+
+  /**
+   * The message of the last action event of this item.
+   */
+  @Column(columnDefinition = "TEXT")
+  private String message;
 
   @MapsId("objectId")
   @JoinColumn(name = "objectId", referencedColumnName = "objectId")
   @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OnDelete(action = OnDeleteAction.CASCADE)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
-  PubItemObjectDbVO object;
+  @JsonUnwrapped
+  @JsonIgnoreProperties({"objectId"})
+  ItemRootVO object = new ItemRootVO();
 
+  @Column
+  @Type(type = "MdsPublicationVOJsonUserType")
+  private MdsPublicationVO metadata = new MdsPublicationVO();
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @OrderColumn(name = "creationDate")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
 
-
-  @Column
-  @Type(type = "MdsPublicationVOJsonUserType")
-  private MdsPublicationVO metadata = new MdsPublicationVO();
-
-
-  public PubItemObjectDbVO getObject() {
+  public ItemRootVO getObject() {
     return object;
   }
 
-  public void setObject(PubItemObjectDbVO object) {
+  public void setObject(ItemRootVO object) {
     this.object = object;
   }
 
@@ -119,7 +129,13 @@ public class PubItemVersionDbVO extends PubItemDbRO implements Serializable {
    * 
    * @author Thomas Diebaecker
    */
-  public PubItemVersionDbVO() {}
+  public ItemVersionVO() {}
+
+
+  public ItemVersionVO(ItemVersionVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+
+  }
 
   /**
    * {@inheritDoc}
@@ -144,4 +160,22 @@ public class PubItemVersionDbVO extends PubItemDbRO implements Serializable {
   public java.util.List<FileDbVO> getFiles() {
     return this.files;
   }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String lastMessage) {
+    this.message = lastMessage;
+  }
+
+  @JsonIgnore
+  public String getLastMessageForXml() {
+    if (message == null) {
+      return "";
+    } else {
+      return message;
+    }
+  }
+
 }

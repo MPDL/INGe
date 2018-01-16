@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.migration;
 
+import org.apache.commons.httpclient.URI;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -18,11 +20,10 @@ public class Main {
     String furl = ctx.getEnvironment().getProperty("escidoc.url");
     String what = System.getProperty("what");
     if (what != null && !what.isEmpty()) {
-      bean.sayHello(what);
-      System.out.println("from " + furl);
       log.info("... migrating from " + furl);
       try {
         bean.run(what);
+
       } catch (Exception e) {
         e.printStackTrace();
       }

@@ -29,7 +29,7 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -56,7 +56,7 @@ public class AffiliationDetailPage extends FacesBean {
     try {
       final String affiliationId = FacesTools.getExternalContext().getRequestParameterMap().get("id");
 
-      AffiliationVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(affiliationId, null);
+      AffiliationDbVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(affiliationId, null);
       if (affVO == null) {
         AffiliationDetailPage.logger.info("Organizational unit not found: " + affiliationId);
         this.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));

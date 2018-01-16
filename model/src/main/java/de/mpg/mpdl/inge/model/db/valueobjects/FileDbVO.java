@@ -45,6 +45,7 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 
 /**
@@ -118,12 +119,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
   private Visibility visibility;
 
   /**
-   * A short description of the file.
-   */
-  @Column(columnDefinition = "TEXT")
-  private String description;
-
-  /**
    * The persistent identifier of the file if the item is released.
    */
   private String pid;
@@ -139,10 +134,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
   @Enumerated(EnumType.STRING)
   private Storage storage;
 
-  /**
-   * The content type of the file.
-   */
-  private String contentCategory;
 
   private String checksum;
 
@@ -160,6 +151,12 @@ public class FileDbVO extends FileDbRO implements Serializable {
   private String mimeType;
 
 
+  /**
+   * Size of the file. Use this field instead of metadata.size
+   */
+  private long size;
+
+
   @Column
   @Type(type = "MdsFileVOJsonUserType")
   private MdsFileVO metadata;
@@ -174,20 +171,17 @@ public class FileDbVO extends FileDbRO implements Serializable {
    */
   public FileDbVO() {}
 
+
+
   /**
    * Copy constructor.
    * 
    * @author Thomas Diebaecker
    * @param other The instance to copy.
    */
-  /*
-   * public FileVO(FileVO other) { content = other.content; contentCategory = other.contentCategory;
-   * creationDate = other.creationDate; description = other.description; lastModificationDate =
-   * other.lastModificationDate; mimeType = other.mimeType; name = other.name; pid = other.pid;
-   * //reference = other.reference; // size = other.size; visibility = other.visibility; storage =
-   * other.storage; metadataSets = other.metadataSets; checksum = other.checksum; checksumAlgorithm
-   * = other.checksumAlgorithm; }
-   */
+  public FileDbVO(FileDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+  }
 
 
 
@@ -219,22 +213,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
     pid = newVal;
   }
 
-  /**
-   * Delivers the description of the file, i. e. a short description of the file.
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Sets the description of the file, i. e. a short description of the file.
-   * 
-   * @param newVal
-   */
-  public void setDescription(String newVal) {
-    description = newVal;
-  }
-
 
 
   /**
@@ -253,21 +231,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
     this.content = newVal;
   }
 
-  /**
-   * Delivers the content type of the file.
-   */
-  public String getContentCategory() {
-    return contentCategory;
-  }
-
-  /**
-   * Sets the content type of the file.
-   * 
-   * @param newVal
-   */
-  public void setContentCategory(String newVal) {
-    contentCategory = newVal;
-  }
 
   /**
    * Delivers the visibility of the file.
@@ -301,40 +264,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
    */
   public void setMimeType(String newVal) {
     mimeType = newVal;
-  }
-
-  /**
-   * Delivers the value of the contentCategory Enum as a String. If the Enum is not set, an empty
-   * String is returned.
-   */
-  @JsonIgnore
-  public String getContentCategoryString() {
-    if (contentCategory == null || contentCategory.toString() == null) {
-      return "";
-    }
-    return contentCategory.toString();
-  }
-
-  /**
-   * Sets the value of the contentCategory Enum by a String.
-   * 
-   * @param newValString
-   */
-  @JsonIgnore
-  public void setContentCategoryString(String newValString) {
-    contentCategory = newValString;
-  }
-
-  /**
-   * Delivers the value of the visibility Enum as a String. If the enum is not set, an empty String
-   * is returned.
-   */
-  @JsonIgnore
-  public String getVisibilityString() {
-    if (visibility == null || visibility.toString() == null) {
-      return "";
-    }
-    return visibility.toString();
   }
 
 
@@ -456,6 +385,14 @@ public class FileDbVO extends FileDbRO implements Serializable {
 
   public void setLocalFileIdentifier(String localFileIdentifier) {
     this.localFileIdentifier = localFileIdentifier;
+  }
+
+  public long getSize() {
+    return size;
+  }
+
+  public void setSize(long size) {
+    this.size = size;
   }
 
 

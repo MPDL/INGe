@@ -29,7 +29,7 @@ package de.mpg.mpdl.inge.pubman.web.revisions;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlPanelGroup;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -63,10 +63,10 @@ public class CreateRevision extends FacesBean {
   }
 
   public String confirmCollectionChoose() {
-    final ContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedDepositorContext();
+    final ContextDbVO selectedCollection = this.getCollectionListSessionBean().getSelectedDepositorContext();
 
     if (selectedCollection != null) {
-      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, selectedCollection.getReference(),
+      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, selectedCollection,
           this.getRelationListSessionBean().getPubItemVO(), this.getRelationListSessionBean().getRevisionDescription());
     }
 

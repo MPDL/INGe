@@ -11,9 +11,9 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -87,7 +87,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
         BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
-        for (final ItemRO id : pssb.getStoredPubItems().values()) {
+        for (final ItemVersionRO id : pssb.getStoredPubItems().values()) {
           BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
           subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
           subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
@@ -113,7 +113,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
         this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-        List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+        List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
 
         returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
 
@@ -148,7 +148,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
-        pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
+        pssb.getStoredPubItems().remove(pubItem.getObjectIdAndVersion());
       }
     }
     if (countSelected == 0) {

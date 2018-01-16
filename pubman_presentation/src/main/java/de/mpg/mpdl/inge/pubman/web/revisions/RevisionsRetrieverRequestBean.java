@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -64,7 +65,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {
 
     // limit and offset is ignored because no paginator is used
-    final List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
+    final List<ItemVersionVO> pubItemVOList = new ArrayList<ItemVersionVO>();
 
 
     try {
@@ -73,9 +74,9 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
       final List<RelationVOPresentation> relationVOList = icsb.retrieveRevisions(icsb.getCurrentPubItem());
 
       for (final RelationVOPresentation relationVO : relationVOList) {
-        final PubItemVO sourceItem = relationVO.getSourceItem();
+        final ItemVersionVO sourceItem = relationVO.getSourceItem();
 
-        if (sourceItem != null && ItemVO.State.RELEASED.equals(sourceItem.getVersion().getState())) {
+        if (sourceItem != null && ItemVersionRO.State.RELEASED.equals(sourceItem.getVersionState())) {
           pubItemVOList.add(sourceItem);
         }
 
@@ -86,8 +87,8 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
       final List<RelationVOPresentation> relationVOList2 = icsb.retrieveParentsForRevision(icsb.getCurrentPubItem());
 
       for (final RelationVOPresentation relationVO : relationVOList2) {
-        final PubItemVO targetItem = relationVO.getTargetItem();
-        if (targetItem != null && ItemVO.State.RELEASED.equals(targetItem.getVersion().getState())) {
+        final ItemVersionVO targetItem = relationVO.getTargetItem();
+        if (targetItem != null && ItemVersionRO.State.RELEASED.equals(targetItem.getVersionState())) {
           pubItemVOList.add(targetItem);
         }
 

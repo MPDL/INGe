@@ -46,8 +46,10 @@ import org.hibernate.annotations.TypeDef;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsOrganizationalUnitVOJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
 /**
@@ -60,7 +62,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
  * @updated 07-Sep-2007 13:27:29
  */
 @JsonInclude(value = Include.NON_EMPTY)
-@Entity(name = "AffiliationVO")
+@Entity
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
@@ -78,15 +80,17 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
 
   // private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+  @JsonSerialize(as=AffiliationDbRO.class)
   private AffiliationDbRO parentAffiliation;
 
 
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER, targetEntity=AffiliationDbVO.class)
   @JoinTable(name = "organization_predecessor")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
+  @JsonSerialize(contentAs=AffiliationDbRO.class)
   private java.util.List<AffiliationDbRO> predecessorAffiliations = new ArrayList<AffiliationDbRO>();
 
   @Enumerated(EnumType.STRING)
@@ -101,6 +105,10 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
    */
   public AffiliationDbVO() {
 
+  }
+
+  public AffiliationDbVO(AffiliationDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
   }
 
 

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -17,10 +18,13 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import de.mpg.mpdl.inge.model.db.hibernate.GrantVOListJsonUserType;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 
-@Entity(name = "AccountUserVO")
+@Entity
 @Table(name = "user_account")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
@@ -41,8 +45,18 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   private List<GrantVO> grantList = new ArrayList<GrantVO>();
 
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "organization")
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER, targetEntity = AffiliationDbVO.class)
+  @JsonSerialize(as = AffiliationDbRO.class)
   private AffiliationDbRO affiliation;
+
+  @Transient
+  private String password;
+
+  public AccountUserDbVO() {}
+
+  public AccountUserDbVO(AccountUserDbVO other) {
+    MapperFactory.getDozerMapper().map(other, this);
+  }
 
   public boolean isActive() {
     return active;
@@ -82,6 +96,14 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
 
   public void setAffiliation(AffiliationDbRO affiliation) {
     this.affiliation = affiliation;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 

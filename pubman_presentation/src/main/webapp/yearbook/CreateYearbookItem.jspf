@@ -31,7 +31,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						id="selSelectedOrgUnit" styleClass="xDouble_select replace"
-						value="#{YearbookItemCreateBean.affiliation.defaultMetadata.name} (#{YearbookItemCreateBean.affiliation.reference.objectId})" />
+						value="#{YearbookItemCreateBean.affiliation.metadata.name} (#{YearbookItemCreateBean.affiliation.objectId})" />
 				</span>
 			</h:panelGroup> <h:panelGroup layout="block"
 				styleClass="free_area0 endline itemLine noTopBorder">

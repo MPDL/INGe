@@ -35,7 +35,9 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO.SearchHitType;
@@ -46,7 +48,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -65,7 +66,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version: $Revision$ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
 @SuppressWarnings("serial")
-public class PubItemVOPresentation extends PubItemVO {
+public class PubItemVOPresentation extends ItemVersionVO {
   private final InternationalizationHelper i18nHelper = FacesTools.findBean("InternationalizationHelper");
 
   private boolean selected = false;
@@ -146,7 +147,7 @@ public class PubItemVOPresentation extends PubItemVO {
 
   private float score;
 
-  public PubItemVOPresentation(PubItemVO item) {
+  public PubItemVOPresentation(ItemVersionVO item) {
     super(item);
 
     if (item instanceof PubItemResultVO) {
@@ -156,8 +157,8 @@ public class PubItemVOPresentation extends PubItemVO {
       this.score = ((PubItemResultVO) item).getScore();
     }
 
-    if (this.getVersion() != null && this.getVersion().getState() != null) {
-      this.released = ItemVO.State.RELEASED.equals(this.getVersion().getState());
+    if (this != null && this.getVersionState() != null) {
+      this.released = ItemVersionRO.State.RELEASED.equals(this.getVersionState());
     }
 
     // get the first source of the item (if available)
@@ -170,15 +171,15 @@ public class PubItemVOPresentation extends PubItemVO {
     this.setSearchHitBeanList();
 
     // Check the local tags
-    if (this.getLocalTags().isEmpty()) {
-      this.getLocalTags().add("");
+    if (this.getObject().getLocalTags().isEmpty()) {
+      this.getObject().getLocalTags().add("");
     }
 
     this.wrappedLocalTags = new ArrayList<WrappedLocalTag>();
-    for (int i = 0; i < this.getLocalTags().size(); i++) {
+    for (int i = 0; i < this.getObject().getLocalTags().size(); i++) {
       final WrappedLocalTag wrappedLocalTag = new WrappedLocalTag();
       wrappedLocalTag.setParent(this);
-      wrappedLocalTag.setValue(this.getLocalTags().get(i));
+      wrappedLocalTag.setValue(this.getObject().getLocalTags().get(i));
       if (wrappedLocalTag.getValue().length() > 0 || this.wrappedLocalTags.size() == 0) {
         this.wrappedLocalTags.add(wrappedLocalTag);
       }
@@ -229,15 +230,15 @@ public class PubItemVOPresentation extends PubItemVO {
     this.fileBeanList = new ArrayList<FileBean>();
     this.locatorBeanList = new ArrayList<FileBean>();
 
-    for (final FileVO file : this.getFiles()) {
+    for (final FileDbVO file : this.getFiles()) {
       // add locators
-      if (file.getStorage() == FileVO.Storage.EXTERNAL_URL) {
+      if (file.getStorage() == FileDbVO.Storage.EXTERNAL_URL) {
         this.locatorBeanList.add(new FileBean(file, this));
       }
       // add files
       else {
         if (this.searchHitList != null && this.searchHitList.size() > 0
-            && ItemVO.State.WITHDRAWN.equals(this.getVersion().getState()) == false) {
+            && ItemVersionRO.State.WITHDRAWN.equals(this.getVersionState()) == false) {
           this.fileBeanList.add(new FileBean(file, this, this.searchHitList));
         } else {
           this.fileBeanList.add(new FileBean(file, this));
@@ -393,11 +394,6 @@ public class PubItemVOPresentation extends PubItemVO {
       return this.getCreators(creatorsNo);
     }
 
-    if (this.getYearbookMetadata() != null) {
-      final int creatorsNo = this.getYearbookMetadata().getCreators().size();
-      return this.getCreators(creatorsNo);
-    }
-
     return "";
   }
 
@@ -422,18 +418,6 @@ public class PubItemVOPresentation extends PubItemVO {
         } else if (this.getMetadata().getCreators().get(i).getOrganization() != null) {
           creators.append(this.getMetadata().getCreators().get(i).getOrganization().getName());
         }
-      } else if (this.getYearbookMetadata() != null) {
-        if (this.getYearbookMetadata().getCreators().get(i).getPerson() != null) {
-          if (this.getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName() != null) {
-            creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson().getFamilyName());
-            if (this.getYearbookMetadata().getCreators().get(i).getPerson().getGivenName() != null) {
-              creators.append(", ");
-              creators.append(this.getYearbookMetadata().getCreators().get(i).getPerson().getGivenName());
-            }
-          }
-        } else if (this.getYearbookMetadata().getCreators().get(i).getOrganization() != null) {
-          creators.append(this.getYearbookMetadata().getCreators().get(i).getOrganization().getName());
-        }
       }
 
       if (i < creatorMaximum - 1) {
@@ -451,8 +435,6 @@ public class PubItemVOPresentation extends PubItemVO {
 
     if (this.getMetadata() != null) {
       creatorsNo = this.getMetadata().getCreators().size();
-    } else if (this.getYearbookMetadata() != null) {
-      creatorsNo = this.getYearbookMetadata().getCreators().size();
     }
 
     String creators;
@@ -572,8 +554,8 @@ public class PubItemVOPresentation extends PubItemVO {
   }
 
   public String getFormattedLatestReleaseModificationDate() {
-    if (this.getLatestRelease().getModificationDate() != null) {
-      return CommonUtils.format(this.getLatestRelease().getModificationDate());
+    if (this.getObject().getLatestRelease().getModificationDate() != null) {
+      return CommonUtils.format(this.getObject().getLatestRelease().getModificationDate());
     }
 
     return "-";
@@ -643,7 +625,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return pid (String) the object PID without leading "hdl:"
    */
   public String getObjectPidWithoutPrefix() {
-    final String pid = this.getPid();
+    final String pid = this.getVersionPid();
     if (pid != null && pid.startsWith("hdl:")) {
       return pid.substring(4);
     } else {
@@ -814,10 +796,6 @@ public class PubItemVOPresentation extends PubItemVO {
       return this.getMetadata().getTitle();
     }
 
-    if (this.getYearbookMetadata() != null) {
-      return this.getYearbookMetadata().getTitle();
-    }
-
     return "#### NO TITLE!!! ####";
   }
 
@@ -894,14 +872,14 @@ public class PubItemVOPresentation extends PubItemVO {
    * This method examines which file is really a file and not a locator and returns a list of native
    * files
    * 
-   * @return List<FileVO> file list
+   * @return List<FileDbVO> file list
    */
-  private List<FileVO> getFileList() {
-    List<FileVO> fileList = null;
+  private List<FileDbVO> getFileList() {
+    List<FileDbVO> fileList = null;
     if (this.getFiles() != null) {
-      fileList = new ArrayList<FileVO>();
+      fileList = new ArrayList<FileDbVO>();
       for (int i = 0; i < this.getFiles().size(); i++) {
-        if (this.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED) {
+        if (this.getFiles().get(i).getStorage() == FileDbVO.Storage.INTERNAL_MANAGED) {
           fileList.add(this.getFiles().get(i));
         }
       }
@@ -917,14 +895,14 @@ public class PubItemVOPresentation extends PubItemVO {
   /**
    * This method examines which file is a locator and not a file and returns a list of locators
    * 
-   * @return List<FileVO> locator list
+   * @return List<FileDbVO> locator list
    */
-  private List<FileVO> getLocatorList() {
-    List<FileVO> locatorList = null;
+  private List<FileDbVO> getLocatorList() {
+    List<FileDbVO> locatorList = null;
     if (this.getFiles() != null) {
-      locatorList = new ArrayList<FileVO>();
+      locatorList = new ArrayList<FileDbVO>();
       for (int i = 0; i < this.getFiles().size(); i++) {
-        if (this.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL) {
+        if (this.getFiles().get(i).getStorage() == FileDbVO.Storage.EXTERNAL_URL) {
           locatorList.add(this.getFiles().get(i));
         }
       }
@@ -1021,16 +999,17 @@ public class PubItemVOPresentation extends PubItemVO {
   }
 
   public String getLink() throws Exception {
-    if (this.getVersion() != null && this.getVersion().getObjectId() != null) {
-      return CommonUtils.getGenericItemLink(this.getVersion().getObjectId(), this.getVersion().getVersionNumber());
+    if (this != null && this.getObjectId() != null) {
+      return CommonUtils.getGenericItemLink(this.getObjectId(), this.getVersionNumber());
     }
 
     return null;
   }
 
   public String getLinkLatestRelease() throws Exception {
-    if (this.getLatestRelease() != null && this.getLatestRelease().getObjectId() != null) {
-      return CommonUtils.getGenericItemLink(this.getLatestRelease().getObjectId(), this.getLatestRelease().getVersionNumber());
+    if (this.getObject().getLatestRelease() != null && this.getObject().getLatestRelease().getObjectId() != null) {
+      return CommonUtils.getGenericItemLink(this.getObject().getLatestRelease().getObjectId(),
+          this.getObject().getLatestRelease().getVersionNumber());
     }
 
     return null;
@@ -1041,9 +1020,9 @@ public class PubItemVOPresentation extends PubItemVO {
   }
 
   public void writeBackLocalTags() {
-    this.getLocalTags().clear();
+    this.getObject().getLocalTags().clear();
     for (final WrappedLocalTag wrappedLocalTag : this.getWrappedLocalTags()) {
-      this.getLocalTags().add(wrappedLocalTag.getValue());
+      this.getObject().getLocalTags().add(wrappedLocalTag.getValue());
     }
   }
 
@@ -1054,8 +1033,8 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return String public state of the current item
    */
   public String getItemPublicState() {
-    if (this.getPublicStatus() != null) {
-      return this.getLabel(this.i18nHelper.convertEnumToString(this.getPublicStatus()));
+    if (this.getObject().getPublicState() != null) {
+      return this.getLabel(this.i18nHelper.convertEnumToString(this.getObject().getPublicState()));
     }
 
     return "";
@@ -1068,8 +1047,8 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return String state of the current item version
    */
   public String getItemState() {
-    if (this.getVersion().getState() != null) {
-      return this.getLabel(this.i18nHelper.convertEnumToString(this.getVersion().getState()));
+    if (this.getVersionState() != null) {
+      return this.getLabel(this.i18nHelper.convertEnumToString(this.getVersionState()));
     }
 
     return "";
@@ -1082,7 +1061,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return Boolean true if item is withdrawn
    */
   public boolean getIsStateWithdrawn() {
-    return ItemVO.State.WITHDRAWN.equals(this.getPublicStatus());
+    return ItemVersionRO.State.WITHDRAWN.equals(this.getObject().getPublicState());
   }
 
   /**
@@ -1092,7 +1071,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return Boolean true if item is submitted
    */
   public boolean getIsStateSubmitted() {
-    return ItemVO.State.SUBMITTED.equals(this.getVersion().getState());
+    return ItemVersionRO.State.SUBMITTED.equals(this.getVersionState());
   }
 
   /**
@@ -1102,7 +1081,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return Boolean true if item is released
    */
   public boolean getIsStateReleased() {
-    return ItemVO.State.RELEASED.equals(this.getVersion().getState());
+    return ItemVersionRO.State.RELEASED.equals(this.getVersionState());
   }
 
   /**
@@ -1112,7 +1091,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return Boolean true if item is pending
    */
   public boolean getIsStatePending() {
-    return ItemVO.State.PENDING.equals(this.getVersion().getState());
+    return ItemVersionRO.State.PENDING.equals(this.getVersionState());
   }
 
   /**
@@ -1122,7 +1101,7 @@ public class PubItemVOPresentation extends PubItemVO {
    * @return Boolean true if item is in revision
    */
   public boolean getIsStateInRevision() {
-    return ItemVO.State.IN_REVISION.equals(this.getVersion().getState());
+    return ItemVersionRO.State.IN_REVISION.equals(this.getVersionState());
   }
 
 
@@ -1316,7 +1295,7 @@ public class PubItemVOPresentation extends PubItemVO {
     final List<FileBean> fulltexts = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getFile().getContentCategory())) {
+        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1336,11 +1315,11 @@ public class PubItemVOPresentation extends PubItemVO {
     final List<FileBean> fulltexts = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getFile().getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getFile().getContentCategory()))) {
+        if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
+            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getContentCategory())
+                || PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getContentCategory()))) {
           fulltexts.add(file);
         }
       }
@@ -1358,7 +1337,7 @@ public class PubItemVOPresentation extends PubItemVO {
     final List<FileBean> supplementaryMaterial = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getFile().getContentCategory())) {
+        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getContentCategory())) {
           supplementaryMaterial.add(file);
         }
       }
@@ -1378,8 +1357,8 @@ public class PubItemVOPresentation extends PubItemVO {
     final List<FileBean> fulltexts = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if (FileVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getFile().getContentCategory())) {
+        if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
+            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1453,13 +1432,13 @@ public class PubItemVOPresentation extends PubItemVO {
     return this.descriptionMetaTag;
   }
 
-  public int getNumberOfRelations() {
-    if (this.getRelations() != null) {
-      return this.getRelations().size();
-    }
-
-    return 0;
-  }
+  //  public int getNumberOfRelations() {
+  //    if (this.getRelations() != null) {
+  //      return this.getRelations().size();
+  //    }
+  //
+  //    return 0;
+  //  }
 
   public void setValidationReport(ValidationReportVO validationReport) {
     this.validationReport = validationReport;

@@ -8,7 +8,7 @@
 		value="#{AffiliationBean.topLevelAffs}">
 
 		<link
-			href="#{ApplicationBean.pubmanInstanceUrl}/rest/feed/organization/#{topAffiliation.reference.objectId}"
+			href="#{ApplicationBean.pubmanInstanceUrl}/rest/feed/organization/#{topAffiliation.objectId}"
 			rel="alternate" type="application/atom+xml"
 			title="#{lbl.Feed_Recent_Releases}, #{topAffiliation.name}|atom_1.0" />
 	</ui:repeat>

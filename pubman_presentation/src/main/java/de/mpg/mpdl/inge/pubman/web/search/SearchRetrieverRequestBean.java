@@ -15,10 +15,10 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -199,7 +199,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
       pubItemList = pubItemList = CommonUtils
-          .convertToPubItemVOPresentationList(SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class));
+          .convertToPubItemVOPresentationList(SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class));
 
     } catch (final Exception e) {
       this.error("Error in search!");
@@ -266,7 +266,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       // check if we have found an item
 
       final SearchRetrieveRecordVO record = results.get(i);
-      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((PubItemVO) record.getData());
+      final PubItemVOPresentation pubItemPres = new PubItemVOPresentation((ItemVersionVO) record.getData());
       pubItemList.add(pubItemPres);
 
     }

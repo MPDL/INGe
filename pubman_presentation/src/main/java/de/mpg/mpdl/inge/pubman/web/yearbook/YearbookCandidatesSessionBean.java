@@ -9,7 +9,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -50,7 +50,7 @@ public class YearbookCandidatesSessionBean extends FacesBean {
         this.orgUnitSelectItems = new ArrayList<SelectItem>();
         this.orgUnitSelectItems.add(new SelectItem("all", "-"));
 
-        final AffiliationVO affVO =
+        final AffiliationDbVO affVO =
             ApplicationBean.INSTANCE.getOrganizationService().get(yisb.getYearbook().getOrganization().getObjectId(), null);
         final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
         affList.add(new AffiliationVOPresentation(affVO));
@@ -83,7 +83,7 @@ public class YearbookCandidatesSessionBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+      affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       YearbookCandidatesSessionBean.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
     }
   }

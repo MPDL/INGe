@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -90,9 +92,12 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<PubItemVO> pubItemVOList) throws TechnicalException {
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws TechnicalException {
 
-    String itemList = XmlTransformingService.transformToItemList(pubItemVOList);
+
+
+    List<PubItemVO> transformedList = EntityTransformer.transformToOld(pubItemVOList);
+    String itemList = XmlTransformingService.transformToItemList(transformedList);
 
     byte[] exportData = null;
     try {

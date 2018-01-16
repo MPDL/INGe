@@ -196,7 +196,7 @@ public class YearbookModeratorRetrieverRequestBean
      * // define the filter criteria final FilterTaskParamVO filter = new FilterTaskParamVO();
      * 
      * // add all contexts for which the user has moderator rights (except the "all" item of the //
-     * menu) for (final ContextVO context : this.getContextListSessionBean()
+     * menu) for (final ContextDbVO context : this.getContextListSessionBean()
      * .getYearbookModeratorContextList()) { filter.getFilterList().add(filter.new
      * ContextFilter(context.getReference().getObjectId())); } // add views per page limit final
      * Filter f8 = filter.new LimitFilter(String.valueOf(limit)); filter.getFilterList().add(f8);
@@ -205,12 +205,12 @@ public class YearbookModeratorRetrieverRequestBean
      * ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle())
      * .retrieveItems(filter.toMap());
      * 
-     * final SearchRetrieveResponseVO<PubItemVO> result =
+     * final SearchRetrieveResponseVO<ItemVersionVO> result =
      * XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList);
      * 
-     * final List<PubItemVO> pubItemList = new ArrayList<PubItemVO>(); for (final
-     * SearchRetrieveRecordVO<PubItemVO> yearbookRecord : result.getRecords()) {
-     * pubItemList.add((PubItemVO) yearbookRecord.getData()); }
+     * final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>(); for (final
+     * SearchRetrieveRecordVO<ItemVersionVO> yearbookRecord : result.getRecords()) {
+     * pubItemList.add((ItemVersionVO) yearbookRecord.getData()); }
      * 
      * this.numberOfRecords = result.getNumberOfRecords(); returnList =
      * CommonUtils.convertToPubItemVOPresentationList(pubItemList); } catch (final Exception e) {

@@ -22,7 +22,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -354,7 +354,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for visibility
    */
   public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry) {
-    final FileVO.Visibility[] values = FileVO.Visibility.values();
+    final FileDbVO.Visibility[] values = FileDbVO.Visibility.values();
 
     return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }

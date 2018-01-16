@@ -31,7 +31,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
 public class GenreSpecificItemManager {
   public static final String SUBMISSION_METHOD_EASY = "easy-submission";
@@ -39,17 +39,17 @@ public class GenreSpecificItemManager {
 
   private static final String SUBMISSION_METHOD_ALL = "all";
 
-  private PubItemVO pubItem;
+  private ItemVersionVO pubItem;
   private String submissionMethod;
 
   public GenreSpecificItemManager() {}
 
-  public GenreSpecificItemManager(PubItemVO pubItem, String submissionMethod) {
+  public GenreSpecificItemManager(ItemVersionVO pubItem, String submissionMethod) {
     this.pubItem = pubItem;
     this.submissionMethod = submissionMethod;
   }
 
-  public PubItemVO cleanupItem() throws Exception {
+  public ItemVersionVO cleanupItem() throws Exception {
     final List<Object> objs = new ArrayList<Object>();
     final LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 

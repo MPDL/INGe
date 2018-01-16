@@ -48,11 +48,11 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -685,12 +685,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
 
         SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 1000, 0);
-        SearchRetrieveResponseVO<ContextVO> result = ApplicationBean.INSTANCE.getContextService().search(srr, null);
+        SearchRetrieveResponseVO<ContextDbVO> result = ApplicationBean.INSTANCE.getContextService().search(srr, null);
 
         this.contextListMenu = new ArrayList<SelectItem>();
 
-        for (final SearchRetrieveRecordVO<ContextVO> c : result.getRecords()) {
-          this.contextListMenu.add(new SelectItem(c.getData().getReference().getObjectId(), c.getData().getName()));
+        for (final SearchRetrieveRecordVO<ContextDbVO> c : result.getRecords()) {
+          this.contextListMenu.add(new SelectItem(c.getData().getObjectId(), c.getData().getName()));
         }
 
         Collections.sort(this.contextListMenu, new SelectItemComparator());

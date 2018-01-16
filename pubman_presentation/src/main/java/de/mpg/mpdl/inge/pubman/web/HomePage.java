@@ -37,15 +37,9 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -158,11 +152,11 @@ public class HomePage extends BreadcrumbPage {
   }
 
   public boolean isDepositor() {
-    return this.getLoginHelper().getAccountUser().isDepositor();
+    return this.getLoginHelper().getIsDepositor();
   }
 
   public boolean isModerator() {
-    return this.getLoginHelper().getAccountUser().isModerator();
+    return this.getLoginHelper().getIsModerator();
   }
 
   public List<PubItemVOPresentation> getLatest() throws Exception {
@@ -181,7 +175,7 @@ public class HomePage extends BreadcrumbPage {
 
     SearchResponse resp = pi.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
 
-    List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+    List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
 
     return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
   }

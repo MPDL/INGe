@@ -17,10 +17,10 @@ import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
@@ -125,7 +125,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       else {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, ItemVO.State.valueOf(getSelectedItemState()).name()));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.valueOf(getSelectedItemState()).name()));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
       }
 
@@ -173,7 +173,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-      List<PubItemVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+      List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
 
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
@@ -251,7 +251,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
 
       for (final PubContextVOPresentation contextVO : contextVOList) {
-        if (contextVO.getReference().getObjectId().equals(this.getSelectedContext())) {
+        if (contextVO.getObjectId().equals(this.getSelectedContext())) {
           return contextVO.getName();
         }
       }
@@ -279,14 +279,14 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     final List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
 
     itemStateSelectItems.add(new SelectItem("all", this.getLabel("ItemList_filterAllExceptPendingWithdrawn")));
-    itemStateSelectItems.add(
-        new SelectItem(ItemVO.State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.SUBMITTED))));
     itemStateSelectItems
-        .add(new SelectItem(ItemVO.State.RELEASED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.RELEASED))));
-    itemStateSelectItems.add(
-        new SelectItem(ItemVO.State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.IN_REVISION))));
-    itemStateSelectItems.add(
-        new SelectItem(ItemVO.State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(ItemVO.State.WITHDRAWN))));
+        .add(new SelectItem(State.SUBMITTED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.SUBMITTED))));
+    itemStateSelectItems
+        .add(new SelectItem(State.RELEASED.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.RELEASED))));
+    itemStateSelectItems
+        .add(new SelectItem(State.IN_REVISION.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.IN_REVISION))));
+    itemStateSelectItems
+        .add(new SelectItem(State.WITHDRAWN.name(), this.getLabel(this.getI18nHelper().convertEnumToString(State.WITHDRAWN))));
     this.setItemStateSelectItems(itemStateSelectItems);
 
     return itemStateSelectItems;
@@ -318,16 +318,15 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     this.contextSelectItems.add(new SelectItem("all", this.getLabel("EditItem_NO_ITEM_SET")));
     for (int i = 0; i < contextVOList.size(); i++) {
       String workflow = "null";
-      if (contextVOList.get(i).getAdminDescriptor().getWorkflow() != null) {
-        workflow = contextVOList.get(i).getAdminDescriptor().getWorkflow().toString();
+      if (contextVOList.get(i).getWorkflow() != null) {
+        workflow = contextVOList.get(i).getWorkflow().toString();
       }
-      this.contextSelectItems
-          .add(new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
+      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
     }
 
     String contextString = ",";
     for (final PubContextVOPresentation pubContextVOPresentation : contextVOList) {
-      contextString += pubContextVOPresentation.getReference().getObjectId() + ",";
+      contextString += pubContextVOPresentation.getObjectId() + ",";
     }
 
     // Init imports
@@ -444,9 +443,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
+      affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
       final AffiliationBean affTree = (AffiliationBean) FacesTools.findBean("AffiliationBean");
-      affTree.getAffiliationMap().put(aff.getReference().getObjectId(), aff);
+      affTree.getAffiliationMap().put(aff.getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliations(aff.getChildren(), affSelectItems, level + 1);
       }

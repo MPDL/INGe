@@ -15,7 +15,7 @@ import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
@@ -79,19 +79,18 @@ public class AffiliationBean extends FacesBean {
 
     {
       ((OrganizationVO) this.cache).setName(this.selectedAffiliation.getNamePath());
-      ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getReference().getObjectId());
+      ((OrganizationVO) this.cache).setIdentifier(this.selectedAffiliation.getObjectId());
       String address = "";
-      if (this.selectedAffiliation.getDefaultMetadata().getCity() != null) {
-        address += this.selectedAffiliation.getDefaultMetadata().getCity();
+      if (this.selectedAffiliation.getMetadata().getCity() != null) {
+        address += this.selectedAffiliation.getMetadata().getCity();
       }
-      if (this.selectedAffiliation.getDefaultMetadata().getCity() != null
-          && !this.selectedAffiliation.getDefaultMetadata().getCity().equals("")
-          && this.selectedAffiliation.getDefaultMetadata().getCountryCode() != null
-          && !this.selectedAffiliation.getDefaultMetadata().getCountryCode().equals("")) {
+      if (this.selectedAffiliation.getMetadata().getCity() != null && !this.selectedAffiliation.getMetadata().getCity().equals("")
+          && this.selectedAffiliation.getMetadata().getCountryCode() != null
+          && !this.selectedAffiliation.getMetadata().getCountryCode().equals("")) {
         address += ", ";
       }
-      if (this.selectedAffiliation.getDefaultMetadata().getCountryCode() != null) {
-        address += this.selectedAffiliation.getDefaultMetadata().getCountryCode();
+      if (this.selectedAffiliation.getMetadata().getCountryCode() != null) {
+        address += this.selectedAffiliation.getMetadata().getCountryCode();
       }
       ((OrganizationVO) this.cache).setAddress(address);
     }
@@ -228,13 +227,13 @@ public class AffiliationBean extends FacesBean {
    * 
    * @return string, identifying the page that should be navigated to after this method call
    */
-  public String startSearchForAffiliation(AffiliationVO affiliation) {
+  public String startSearchForAffiliation(AffiliationDbVO affiliation) {
     try {
 
       List<SearchCriterionBase> scList = new ArrayList<>();
       OrganizationSearchCriterion sc = new OrganizationSearchCriterion();
-      sc.setHiddenId(affiliation.getReference().getObjectId());
-      sc.setSearchString(affiliation.getReference().getTitle());
+      sc.setHiddenId(affiliation.getObjectId());
+      sc.setSearchString(affiliation.getName());
       scList.add(sc);
 
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
@@ -312,8 +311,8 @@ public class AffiliationBean extends FacesBean {
     // 1 right angle
     prefix += '\u2514';
     for (final AffiliationVOPresentation aff : affs) {
-      affSelectItems.add(new SelectItem(aff.getReference().getObjectId(), prefix + " " + aff.getName()));
-      this.affiliationMap.put(aff.getReference().getObjectId(), aff);
+      affSelectItems.add(new SelectItem(aff.getObjectId(), prefix + " " + aff.getName()));
+      this.affiliationMap.put(aff.getObjectId(), aff);
       if (aff.getChildren() != null) {
         this.addChildAffiliationsToMenu(aff.getChildren(), affSelectItems, level + 1);
       }
