@@ -299,7 +299,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
     if (resp.getMappings().isEmpty() == false) { // SP: avoiding NullPointerException
       MappingMetaData mmd = resp.getMappings().iterator().next().value.get(this.indexType);
-    
+
       Map<String, ElasticSearchIndexField> map = ElasticSearchIndexField.Factory.createIndexMapFromElasticsearch(mmd);
       ElasticSearchIndexField allField = new ElasticSearchIndexField();
       allField.setIndexName("_all");
