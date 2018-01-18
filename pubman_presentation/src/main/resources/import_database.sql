@@ -1,3 +1,16 @@
+-- DROP SEQUENCE public.import_log_id_seq;
+
+-- Sequence: public.import_log_id_seq
+CREATE SEQUENCE public.import_log_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 10;
+
+ALTER SEQUENCE public.import_log_id_seq
+    OWNER TO postgres;
+    
 -- Table: public.import_log
 
 -- DROP TABLE public.import_log;
