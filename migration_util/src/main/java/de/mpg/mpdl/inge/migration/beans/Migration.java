@@ -86,6 +86,8 @@ public class Migration {
   private String usersPath;
   @Value("${user.path}")
   private String userPath;
+  @Value("${maximum.records}")
+  private int limit;
 
   @Autowired
   private ItemRepository itemRepository;
@@ -176,9 +178,16 @@ public class Migration {
     }
   }
 
-  private void wfTesting() throws URISyntaxException {
-    URI uri = new URIBuilder(escidocUrl).build();
-    System.out.println(uri.getHost());
+  private void wfTesting() throws Exception {
+    URI uri = new URIBuilder(escidocUrl + "/ir/context/escidoc:95164").build();
+    log.info(uri.toString());
+    String contextXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
+    try {
+      ContextVO ctx = XmlTransformingService.transformToContext(contextXml);
+      saveContext(ctx);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   private void importContexts() throws Exception {
@@ -356,7 +365,7 @@ public class Migration {
 
     String contentModelId = "escidoc:persistent4";
 
-    int limit = 5000;
+    // int limit = 5000;
     int startRecord = 1;
     int allRecords = Integer.MAX_VALUE;
 
@@ -396,7 +405,7 @@ public class Migration {
 
         savePubItem(item);
       } catch (Exception e) {
-        log.error("ERROR "+ pubItemVo.getVersion().getObjectIdAndVersion(), e );
+        log.error("ERROR " + pubItemVo.getVersion().getObjectIdAndVersion(), e);
       }
     }
   }

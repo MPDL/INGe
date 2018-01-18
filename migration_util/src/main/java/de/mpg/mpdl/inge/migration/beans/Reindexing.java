@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.migration.beans;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import de.mpg.mpdl.inge.service.pubman.ContextService;
@@ -38,10 +39,11 @@ public class Reindexing {
     Thread.sleep(300000);
   }
 
+  // @Async
   public void reindexItems() throws Exception {
     System.out.println("calling reindexAll in " + itemService.getClass().getName());
     itemService.reindexAll(null);
-    Thread.sleep(300000);
+    Thread.sleep(7200000);
   }
 
 }
