@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -96,9 +95,7 @@ public class ImportProcess extends Thread {
   private Connection connection = null;
 
   private final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
-
-  @Autowired
-  private ItemValidatingService itemValidatingService;
+  private final ItemValidatingService itemValidatingService = new ItemValidatingService();
 
   public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextDbRO escidocContext,
       AccountUserDbVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration, String authenticationToken,
