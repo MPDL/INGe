@@ -49,10 +49,10 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.LocalizedString;
+import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.Pair;
 import de.mpg.mpdl.inge.cone.ResultEntry;
 import de.mpg.mpdl.inge.cone.TreeFragment;
-import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 

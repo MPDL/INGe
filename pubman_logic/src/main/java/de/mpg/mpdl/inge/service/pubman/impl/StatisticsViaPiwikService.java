@@ -2,9 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.IOException;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 
 public class StatisticsViaPiwikService {

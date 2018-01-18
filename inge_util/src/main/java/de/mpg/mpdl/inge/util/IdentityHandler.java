@@ -33,8 +33,6 @@ import java.util.Map;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.util.ShortContentHandler;
-
 /**
  * SAX handler to write an XML that is identical to the input XML. Might be useful to make small
  * modifications in an XML.

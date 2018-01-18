@@ -4,7 +4,6 @@ package de.mpg.mpdl.inge.model.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
@@ -29,7 +28,6 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 
 public class EntityTransformer {
 

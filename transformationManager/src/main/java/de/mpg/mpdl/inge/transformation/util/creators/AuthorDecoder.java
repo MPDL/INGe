@@ -30,12 +30,12 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
-
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
  * Main class for author string decoding.

@@ -47,9 +47,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import de.mpg.mpdl.inge.model.db.hibernate.ContextAdminDescriptorJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.GenreListJsonUserType;
-import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.SubjectClassificationListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;

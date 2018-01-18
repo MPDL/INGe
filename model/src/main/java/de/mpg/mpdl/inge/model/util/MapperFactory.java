@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.model.util;
 import org.dozer.DozerBeanMapperBuilder;
 import org.dozer.Mapper;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

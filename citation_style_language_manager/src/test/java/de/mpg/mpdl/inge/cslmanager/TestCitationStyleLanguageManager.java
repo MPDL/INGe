@@ -35,8 +35,6 @@ import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
-import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageUtils;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 

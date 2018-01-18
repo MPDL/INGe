@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository

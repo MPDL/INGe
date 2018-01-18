@@ -31,7 +31,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;

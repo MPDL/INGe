@@ -3,17 +3,12 @@ package de.mpg.mpdl.inge.service.listener;
 
 
 import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.jms.ObjectMessage;
-import javax.jms.TextMessage;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.jms.annotation.JmsListener;
-
 import org.springframework.stereotype.Component;
-
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 @Component
 public class FulltextIndexer {

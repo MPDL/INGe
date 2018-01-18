@@ -6,6 +6,7 @@ package de.mpg.mpdl.inge.citationmanager;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;

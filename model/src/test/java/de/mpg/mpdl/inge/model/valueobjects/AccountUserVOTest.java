@@ -30,7 +30,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.TestBase;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
 
 /**
  * For testing the methods in {@link AccountUserVO}.

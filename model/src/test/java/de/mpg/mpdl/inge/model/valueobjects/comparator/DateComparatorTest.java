@@ -33,7 +33,6 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 /**
