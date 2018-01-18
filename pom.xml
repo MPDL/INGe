@@ -255,8 +255,12 @@
 						<artifactId>*</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId>org.apache.cxf</groupId>
-						<artifactId>cxf-rt-rs-client</artifactId>
+						<groupId>org.bouncycastle</groupId>
+						<artifactId>bcprov-jdk15on</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.bouncycastle</groupId>
+						<artifactId>bcmail-jdk15on</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
