@@ -35,12 +35,12 @@ import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentsMimeTypeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsMaxPlanckAffiliationValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsPersonNamesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsPersonRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.DateAcceptedRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.EventTitleAndPlaceRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsMaxPlanckAffiliationValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.PublishingDateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsOrganizationNamesRequiredValidator;
@@ -55,9 +55,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesSequenceInfoma
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesTotalNumberOfPagesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesVolumeRequiredValidator;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 
 public class Validation {
 

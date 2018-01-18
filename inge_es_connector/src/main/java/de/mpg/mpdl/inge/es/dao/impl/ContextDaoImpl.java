@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 
 import de.mpg.mpdl.inge.es.dao.ContextDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository

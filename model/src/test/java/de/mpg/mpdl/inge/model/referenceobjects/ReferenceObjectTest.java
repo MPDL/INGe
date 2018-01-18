@@ -31,9 +31,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-
 /**
  * Test for class ReferenceObject.
  * 

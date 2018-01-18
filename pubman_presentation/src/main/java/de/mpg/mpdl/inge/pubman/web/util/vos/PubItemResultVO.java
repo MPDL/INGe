@@ -29,7 +29,6 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 import java.util.List;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchHitVO;
 
 /**

@@ -34,7 +34,6 @@ import java.util.Collections;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.mpdl.inge.model.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 

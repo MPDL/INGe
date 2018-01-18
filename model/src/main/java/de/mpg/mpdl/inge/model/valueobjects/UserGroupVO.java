@@ -6,8 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.model.valueobjects.MemberVO;
-
 /**
  * 
  * <para> Following you will find information which elements and attributes are "required",

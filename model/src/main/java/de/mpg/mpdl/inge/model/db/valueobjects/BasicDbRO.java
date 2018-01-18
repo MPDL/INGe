@@ -38,8 +38,6 @@ import javax.persistence.MappedSuperclass;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
-
 /**
  * The class for AccountUser references.
  * 
