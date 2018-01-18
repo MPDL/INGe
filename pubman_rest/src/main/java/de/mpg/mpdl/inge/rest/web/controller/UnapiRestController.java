@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsType;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -44,6 +45,7 @@ public class UnapiRestController {
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<String> unapi( //
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "id", required = false) String identifier, //
       @RequestParam(value = "show", required = false) Boolean show, //
       @RequestParam(value = "format", required = false) String formatName) //
@@ -53,7 +55,7 @@ public class UnapiRestController {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     // public byte[] unapi()
-    if (identifier == null && show == null && formatName == null) {
+    if (identifier == null) {
       FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
       FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
       FormatType xmlFormat = xmlFormats.addNewFormat();
@@ -77,11 +79,11 @@ public class UnapiRestController {
       return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
 
       // public byte[] unapi(String identifier, boolean show)
-    } else if (identifier != null && show != null && formatName == null) {
+    } else if (formatName == null) {
       FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
       FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
 
-      if (show) {
+      if (show != null && show) {
         xmlFormats.setId(identifier);
       }
 
@@ -110,8 +112,8 @@ public class UnapiRestController {
       return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
 
       // public byte[] unapi(String identifier, String format)
-    } else if (identifier != null && show == null && formatName != null) {
-      ItemVersionVO pubItemVO = this.pis.get(identifier, null);
+    } else {
+      ItemVersionVO pubItemVO = this.pis.get(identifier, token);
 
       TransformerFactory.FORMAT targetFormat = TransformerFactory.getFormat(formatName);
 
@@ -126,8 +128,6 @@ public class UnapiRestController {
 
       return new ResponseEntity<String>(srResponse, HttpStatus.OK);
     }
-
-    return new ResponseEntity<String>(srResponse, HttpStatus.BAD_REQUEST);
   }
 
 }
