@@ -1138,6 +1138,7 @@ public class EditItem extends FacesBean {
   public SelectItem[] getSubjectTypes() throws Exception {
     final ArrayList<SelectItem> result = new ArrayList<SelectItem>();
 
+    result.add(new SelectItem(null, "-"));
     final ContextDbRO contextRO = this.getPubItem().getObject().getContext();
     for (final PubContextVOPresentation context : this.getContextListSessionBean().getDepositorContextList()) {
       if (context.getObjectId().equals(contextRO.getObjectId())) {
