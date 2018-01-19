@@ -111,11 +111,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       else if (getSelectedItemState().toLowerCase().equals("all")) {
-        BoolQueryBuilder stateQueryBuilder = QueryBuilders.boolQuery();
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "SUBMITTED"));
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
-        stateQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "IN_REVISION"));
-        bq.must(stateQueryBuilder);
+        bq.must(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "SUBMITTED", "RELEASED", "IN_REVISION"));
         bq.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
 
         // filter out duplicates
@@ -135,18 +131,16 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       if (this.getSelectedContext().toLowerCase().equals("all")) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
-        BoolQueryBuilder contextQueryBuilder = QueryBuilders.boolQuery();
-        bq.must(contextQueryBuilder);
-        for (int i = 1; i < this.getContextSelectItems().size(); i++) {
-          final String contextId = (String) this.getContextSelectItems().get(i).getValue();
-          contextQueryBuilder.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, contextId));
-        }
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
+            getContextSelectItems().stream().map(i -> i.getValue()).toArray(String[]::new)));
       } else {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, getSelectedContext()));
       }
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-        // TODO org unit filter!!
+        List<String> idList = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getSelectedOrgUnit());
+        bq.must(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList));
+
       }
 
 

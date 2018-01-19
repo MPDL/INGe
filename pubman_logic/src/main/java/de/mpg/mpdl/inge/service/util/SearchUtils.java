@@ -64,16 +64,7 @@ public class SearchUtils {
 
         }
         default: {
-          if (value.length == 1) {
-            return QueryBuilders.termQuery(index, value[0]);
-          } else {
-            BoolQueryBuilder bq = QueryBuilders.boolQuery();
-            for (String searchString : value) {
-              bq.should(QueryBuilders.termQuery(index, searchString));
-            }
-            return bq;
-          }
-
+          return QueryBuilders.termsQuery(index, value);
         }
       }
 
