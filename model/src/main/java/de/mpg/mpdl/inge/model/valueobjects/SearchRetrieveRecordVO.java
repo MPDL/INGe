@@ -1,10 +1,16 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(value = Include.NON_EMPTY)
 public class SearchRetrieveRecordVO<T> extends ValueObject {
 
   private String schema;
   private String packing;
+
+  @JsonIgnore
   private int position;
 
   private T data;
