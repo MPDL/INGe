@@ -84,7 +84,7 @@ public class AppConfigPubmanLogic {
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
     connectionFactory.setUseAsyncSend(true);
     connectionFactory.setTrustedPackages(
-        Arrays.asList("de.mpg.mpdl.inge.model.valueobjects", "de.mpg.mpdl.inge.model.referenceobjects", "java.util", "java.sql"));
+        Arrays.asList("de.mpg.mpdl.inge.model.valueobjects","de.mpg.mpdl.inge.model.db", "de.mpg.mpdl.inge.model.referenceobjects", "java.util", "java.sql"));
     return connectionFactory;
   }
 

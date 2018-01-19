@@ -256,11 +256,11 @@
 					</exclusion>
 					<exclusion>
 						<groupId>org.bouncycastle</groupId>
-						<artifactId>bcprov-jdk15on</artifactId>
+						<artifactId>*</artifactId>
 					</exclusion>
 					<exclusion>
-						<groupId>org.bouncycastle</groupId>
-						<artifactId>bcmail-jdk15on</artifactId>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>*</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
@@ -1149,7 +1149,7 @@
 				<inge.es.cluster.name>elastic_inge</inge.es.cluster.name>
 				<inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips>
 				<inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
-				<inge.pid.service.url>test.doi.mpdl.mpg.de</inge.pid.service.url>
+				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
 				<inge.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
