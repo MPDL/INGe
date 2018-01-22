@@ -47,18 +47,19 @@ public class ComponentsContentRequiredValidator extends ValidatorHandler<List<Fi
       int i = 1;
       for (final FileDbVO fileVO : files) {
 
-        if (fileVO != null //
-            && ValidationTools.isEmpty(fileVO.getContent())) {
-
-          if (fileVO.getMetadata() != null && ValidationTools.isNotEmpty(fileVO.getMetadata().getTitle()) //
-              || ValidationTools.isNotEmpty(fileVO.getMimeType()) //
-              || ValidationTools.isNotEmpty(fileVO.getMetadata().getDescription()) //
-              || ValidationTools.isNotEmpty(fileVO.getMetadata().getContentCategory())) {
-            context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED).setField("file[" + i + "]"));
-            ok = false;
-          }
-
-        } // if
+        //TODO content not filled for update at them moment. Think about external representation, fill it again and add following code afterwards
+        //        if (fileVO != null //
+        //            && ValidationTools.isEmpty(fileVO.getContent())) {
+        //
+        //          if (fileVO.getMetadata() != null && ValidationTools.isNotEmpty(fileVO.getMetadata().getTitle()) //
+        //              || ValidationTools.isNotEmpty(fileVO.getMimeType()) //
+        //              || ValidationTools.isNotEmpty(fileVO.getMetadata().getDescription()) //
+        //              || ValidationTools.isNotEmpty(fileVO.getMetadata().getContentCategory())) {
+        //            context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED).setField("file[" + i + "]"));
+        //            ok = false;
+        //          }
+        //
+        //        } // if
 
         i++;
       } // for
