@@ -44,21 +44,29 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   @Override
   public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    List<ItemVersionVO> searchResult = getSearchResult(saerrVO, token);
+    byte[] result;
+    String fileName;
+    String targetMimeType;
 
-    String itemList = getItemList(searchResult);
-
-    ExportFormatVO exportFormatVO = getExportFormatVO(saerrVO.getExportFormat(), saerrVO.getOutputFormat(), saerrVO.getCslConeId());
-
-    byte[] result = this.itemTransformingService.getOutputForExport(exportFormatVO, itemList);
-
-    return new SearchAndExportResultVO(result, exportFormatVO.getOutputFormat().getMimeType());
-  }
-
-  private List<ItemVersionVO> getSearchResult(SearchAndExportRetrieveRequestVO saerrVO, String token)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
 
+    if (saerrVO.getExportFormat() == null) {
+      result = srrVO.getOriginalResponse().toString().getBytes();
+      fileName = FileFormatVO.JSON_NAME + "." + FileFormatVO.getExtensionByName(FileFormatVO.JSON_NAME);
+      targetMimeType = FileFormatVO.JSON_MIMETYPE;
+    } else {
+      List<ItemVersionVO> searchResult = getSearchResult(srrVO);
+      String itemList = getItemList(searchResult);
+      ExportFormatVO exportFormatVO = getExportFormatVO(saerrVO.getExportFormat(), saerrVO.getOutputFormat(), saerrVO.getCslConeId());
+      result = this.itemTransformingService.getOutputForExport(exportFormatVO, itemList);
+      fileName = exportFormatVO.getName() + "." + FileFormatVO.getExtensionByName(exportFormatVO.getOutputFormat().getName());
+      targetMimeType = exportFormatVO.getOutputFormat().getMimeType();
+    }
+
+    return new SearchAndExportResultVO(result, fileName, targetMimeType);
+  }
+
+  private List<ItemVersionVO> getSearchResult(SearchRetrieveResponseVO<ItemVersionVO> srrVO) {
     List<ItemVersionVO> searchResult = new ArrayList<ItemVersionVO>();
     for (SearchRetrieveRecordVO<ItemVersionVO> record : srrVO.getRecords()) {
       searchResult.add(record.getData());
@@ -80,11 +88,9 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
   private ExportFormatVO getExportFormatVO(String exportFormat, String outputFormat, String cslConeId) throws IngeTechnicalException {
     ExportFormatVO exportFormatVO;
-
-    if (null == exportFormat) {
-      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, TransformerFactory.ESCIDOC_ITEM_XML, FileFormatVO.XML_NAME);
-    } else if (isStructured(exportFormat)) {
-      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat, outputFormat == null ? FileFormatVO.TXT_NAME : outputFormat);
+    if (isStructured(exportFormat)) {
+      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat,
+          FileFormatVO.getNameByMimeType(TransformerFactory.getFormat(exportFormat).getMimeType()));
     } else if (isCitationStyle(exportFormat)) {
       exportFormatVO =
           new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat == null ? FileFormatVO.PDF_NAME : outputFormat, cslConeId);

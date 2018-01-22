@@ -11,7 +11,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -104,17 +103,22 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "/searchAndExport", method = RequestMethod.POST)
-  public ResponseEntity<String> searchAndExport(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @RequestBody JsonNode searchAndExportQuery)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
-    SearchAndExportRetrieveRequestVO saerrVO = this.utils.query2SaEVO(searchAndExportQuery);
-    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+  public void searchAndExport(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
+      @RequestBody JsonNode searchAndExportQuery, //
+      HttpServletResponse response) //)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    try {
+      SearchAndExportRetrieveRequestVO saerrVO = this.utils.query2SaEVO(searchAndExportQuery);
+      SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.parseMediaType(saerVO.getTargetMimetype()));
+      response.setContentType(saerVO.getTargetMimetype());
+      response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
 
-    return new ResponseEntity<String>(new String(saerVO.getResult()), HttpStatus.OK);
+      OutputStream output = response.getOutputStream();
+      output.write(saerVO.getResult());
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
+    }
   }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)

@@ -103,12 +103,12 @@ public class TransformerFactory {
     ZIM_XML(TransformerFactory.ZIM_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8);
 
   private final String name;
-  private final String type;
+  private final String mimeType;
   private final String encoding;
 
-  FORMAT(String name, String type, String encoding) {
+  FORMAT(String name, String mimeType, String encoding) {
       this.name = name;
-      this.type = type;
+      this.mimeType = mimeType;
       this.encoding = encoding;
     }
 
@@ -116,8 +116,8 @@ public class TransformerFactory {
     return this.name;
   }
 
-  public String getType() {
-    return this.type;
+  public String getMimeType() {
+    return this.mimeType;
   }
 
   public String getEncoding() {

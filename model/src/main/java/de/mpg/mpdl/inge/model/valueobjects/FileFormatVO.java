@@ -65,6 +65,8 @@ public class FileFormatVO extends ValueObject {
   public static final String HTML_PLAIN_NAME = "html_plain";
   public static final String HTML_STYLED_MIMETYPE = "text/html";
   public static final String HTML_STYLED_NAME = "html_styled";
+  public static final String JSON_MIMETYPE = "application/json";
+  public static final String JSON_NAME = "json";
   public static final String ODT_MIMETYPE = "application/vnd.oasis.opendocument.text";
   public static final String ODT_NAME = "odt";
   public static final String PDF_MIMETYPE = "application/pdf";
@@ -95,6 +97,7 @@ public class FileFormatVO extends ValueObject {
       put(HTML_LINKED_NAME, "html");
       put(HTML_PLAIN_NAME, "html");
       put(HTML_STYLED_NAME, "html");
+      put(JSON_NAME, "json");
       put(ODT_NAME, "odt");
       put(PDF_NAME, "pdf");
       put(PS_NAME, "ps");
@@ -102,6 +105,50 @@ public class FileFormatVO extends ValueObject {
       put(SNIPPET_NAME, "xml");
       put(TXT_NAME, "txt");
       put(XML_NAME, "xml");
+    }
+  };
+
+  private static final Map<String, String> mimeTypeExtensions = new HashMap<String, String>() {
+    {
+      put(DEFAULT_MIMETYPE, "pdf");
+      put(DOCX_MIMETYPE, "docx");
+      put(EDOC_EXPORT_MIMETYPE, "xml");
+      put(EDOC_IMPORT_MIMETYPE, "xml");
+      put(ESCIDOC_SNIPPET_MIMETYPE, "xml");
+      put(ESCIDOC_XML_MIMETYPE, "xml");
+      put(HTML_LINKED_MIMETYPE, "html");
+      put(HTML_PLAIN_MIMETYPE, "html");
+      put(HTML_STYLED_MIMETYPE, "html");
+      put(JSON_MIMETYPE, "json");
+      put(ODT_MIMETYPE, "odt");
+      put(PDF_MIMETYPE, "pdf");
+      put(PS_MIMETYPE, "ps");
+      put(RTF_MIMETYPE, "rtf");
+      put(SNIPPET_MIMETYPE, "xml");
+      put(TXT_MIMETYPE, "txt");
+      put(XML_MIMETYPE, "xml");
+    }
+  };
+
+  private static final Map<String, String> mimeTypeName = new HashMap<String, String>() {
+    {
+      put(DEFAULT_MIMETYPE, DEFAULT_NAME);
+      put(DOCX_MIMETYPE, DOCX_NAME);
+      put(EDOC_EXPORT_MIMETYPE, EDOC_EXPORT_NAME);
+      put(EDOC_IMPORT_MIMETYPE, EDOC_IMPORT_NAME);
+      put(ESCIDOC_SNIPPET_MIMETYPE, ESCIDOC_SNIPPET_NAME);
+      put(ESCIDOC_XML_MIMETYPE, ESCIDOC_XML_NAME);
+      put(HTML_LINKED_MIMETYPE, HTML_LINKED_NAME);
+      put(HTML_PLAIN_MIMETYPE, HTML_PLAIN_NAME);
+      put(HTML_STYLED_MIMETYPE, HTML_STYLED_NAME);
+      put(JSON_MIMETYPE, JSON_NAME);
+      put(ODT_MIMETYPE, ODT_NAME);
+      put(PDF_MIMETYPE, PDF_NAME);
+      put(PS_MIMETYPE, PS_NAME);
+      put(RTF_MIMETYPE, RTF_NAME);
+      put(SNIPPET_MIMETYPE, SNIPPET_NAME);
+      put(TXT_MIMETYPE, TXT_NAME);
+      put(XML_MIMETYPE, XML_NAME);
     }
   };
 
@@ -116,6 +163,7 @@ public class FileFormatVO extends ValueObject {
       put(HTML_LINKED_NAME, HTML_LINKED_MIMETYPE);
       put(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE);
       put(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE);
+      put(JSON_NAME, JSON_MIMETYPE);
       put(ODT_NAME, ODT_MIMETYPE);
       put(PDF_NAME, PDF_MIMETYPE);
       put(PS_NAME, PS_MIMETYPE);
@@ -150,6 +198,22 @@ public class FileFormatVO extends ValueObject {
   public static String getExtensionByName(String name) {
     name = name == null || name.trim().equals("") ? "" : name.trim();
     return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get(DEFAULT_NAME);
+  }
+
+  /**
+   * Delivers the extension of the selected file according to mimeType of format.
+   */
+  public static String getExtensionByMimeType(String mimeType) {
+    mimeType = mimeType == null || mimeType.trim().equals("") ? "" : mimeType.trim();
+    return mimeTypeExtensions.containsKey(mimeType) ? mimeTypeExtensions.get(mimeType) : mimeTypeExtensions.get(DEFAULT_MIMETYPE);
+  }
+
+  /**
+   * Delivers the nmae of the selected file according to mimeType of format.
+   */
+  public static String getNameByMimeType(String mimeType) {
+    mimeType = mimeType == null || mimeType.trim().equals("") ? "" : mimeType.trim();
+    return mimeTypeName.containsKey(mimeType) ? mimeTypeName.get(mimeType) : mimeTypeName.get(DEFAULT_MIMETYPE);
   }
 
   /**
