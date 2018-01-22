@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
 import org.apache.log4j.Logger;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TikaInputStream;
@@ -46,6 +48,7 @@ import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import net.arnx.wmf2svg.util.Base64;
 
 /**
  * FileService implementation using the file system to store staged files
@@ -198,11 +201,21 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       File stagedFile = new File(stagedFileVo.getPath());
 
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
-        String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
-        fileVO.setLocalFileIdentifier(relativePath);
+        if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
+          String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
+          fileVO.setLocalFileIdentifier(relativePath);
+        } else {
+          Response response =
+              Request
+                  .Put(
+                      PropertyReader.getProperty("inge.rest.development.file_url") + stagedFileVo.getFilename())
+                  .addHeader("Authorization", "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username")
+                      + ":" + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
+                  .bodyStream(stagedFileStream).execute();
+          fileVO.setLocalFileIdentifier(response.returnContent().asString());
+        }
+
       }
-
-
 
       fileVO.setSize((int) stagedFile.length());
       fileVO.setName(stagedFileVo.getFilename());
