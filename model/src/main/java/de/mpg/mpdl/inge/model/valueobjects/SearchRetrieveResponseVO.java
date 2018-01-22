@@ -4,12 +4,18 @@ import java.util.List;
 
 import org.elasticsearch.action.search.SearchResponse;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(value = Include.NON_EMPTY)
 public class SearchRetrieveResponseVO<T> extends ValueObject {
 
   private String version;
   private int numberOfRecords;
   private List<SearchRetrieveRecordVO<T>> records;
+
+  @JsonIgnore
   private SearchResponse originalResponse;
 
 

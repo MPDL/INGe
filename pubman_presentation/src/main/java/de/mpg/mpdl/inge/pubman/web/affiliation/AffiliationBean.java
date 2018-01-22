@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.affiliation;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class AffiliationBean extends FacesBean {
 
 
   public AffiliationBean() throws Exception {
+    affiliationMap = new HashMap<String, AffiliationVOPresentation>();
     this.setTopLevelAffs(CommonUtils
         .convertToAffiliationVOPresentationList(ApplicationBean.INSTANCE.getOrganizationService().searchTopLevelOrganizations()));
 

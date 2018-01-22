@@ -74,7 +74,7 @@ public class DataHandlerService {
 
   private DataSourceHandlerService sourceHandler;
 
-  private String contentType;
+  private String contentMimeType;
   private String fileEnding;
   private String contentCategorie;
   private String visibility;
@@ -198,7 +198,7 @@ public class DataHandlerService {
       }
     }
 
-    this.contentType = targetFormat.getType();
+    this.contentMimeType = targetFormat.getMimeType();
 
     return itemAfterTransformaton;
   }
@@ -252,7 +252,7 @@ public class DataHandlerService {
         zos.closeEntry();
       }
 
-      this.contentType = "application/zip";
+      this.contentMimeType = "application/zip";
       this.fileEnding = ".zip";
 
       zos.close();
@@ -385,7 +385,7 @@ public class DataHandlerService {
   private void setFileProperties(FullTextVO fulltext) {
     this.visibility = fulltext.getVisibility();
     this.contentCategorie = fulltext.getContentCategory();
-    this.contentType = fulltext.getFtFormat();
+    this.contentMimeType = fulltext.getFtFormat();
     this.fileEnding = Util.retrieveFileEndingFromCone(fulltext.getFtFormat());
   }
 
@@ -395,7 +395,7 @@ public class DataHandlerService {
   }
 
   public String getContentType() {
-    return this.contentType;
+    return this.contentMimeType;
   }
 
   public String getFileEnding() {

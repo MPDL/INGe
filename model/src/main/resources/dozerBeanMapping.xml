@@ -20,6 +20,17 @@
 			<b>serialVersionUID</b>
 		</field-exclude>
 	</mapping>
+	
+	<mapping wildcard="true">
+		<class-a is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO
+		</class-a>
+		<class-b is-accessible="true">de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO
+		</class-b>
+		<field-exclude>
+			<a>serialVersionUID</a>
+			<b>serialVersionUID</b>
+		</field-exclude>
+	</mapping>
 
 	<mapping wildcard="true">
 		<class-a is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO

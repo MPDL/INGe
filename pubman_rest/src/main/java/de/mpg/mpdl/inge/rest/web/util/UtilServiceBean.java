@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -77,7 +78,7 @@ public class UtilServiceBean {
     return request;
   }
 
-  public SearchAndExportRetrieveRequestVO query2SaEVO(JsonNode query) throws JsonProcessingException, IngeApplicationException {
+  public SearchAndExportRetrieveRequestVO query2SaEVO(JsonNode query) throws IngeApplicationException, IngeTechnicalException {
     String exportFormat = null;
     String outputFormat = null;
     String cslConeId = null;
@@ -89,8 +90,14 @@ public class UtilServiceBean {
     JsonNode queryNode = query.get("query");
     if (queryNode != null) {
       ObjectMapper mapper = new ObjectMapper();
-      Object queryObject = mapper.treeToValue(queryNode, Object.class);
-      String queryString = mapper.writeValueAsString(queryObject);
+      Object queryObject;
+      String queryString;
+      try {
+        queryObject = mapper.treeToValue(queryNode, Object.class);
+        queryString = mapper.writeValueAsString(queryObject);
+      } catch (JsonProcessingException e) {
+        throw new IngeTechnicalException(e);
+      }
       queryBuilder = QueryBuilders.wrapperQuery(queryString);
     } else {
       throw new IngeApplicationException("The request body doesn't contain a query string.");

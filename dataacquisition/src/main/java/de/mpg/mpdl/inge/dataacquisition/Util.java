@@ -88,7 +88,7 @@ public class Util {
         continue;
       }
 
-      if (!sourceMd.getMdFormat().equalsIgnoreCase(format.getType())) {
+      if (!sourceMd.getMdFormat().equalsIgnoreCase(format.getMimeType())) {
         continue;
       }
 
