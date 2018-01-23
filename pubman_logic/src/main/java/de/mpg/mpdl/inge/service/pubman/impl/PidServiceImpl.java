@@ -61,7 +61,6 @@ public class PidServiceImpl implements PidService {
     clientConfig.register(feature);
 
     Client client = ClientBuilder.newClient(clientConfig);
-    //    Client client = JerseyClientBuilder.newClient(clientConfig);
 
     client.property(ClientProperties.CONNECT_TIMEOUT, timeout);
     client.property(ClientProperties.READ_TIMEOUT, timeout);
