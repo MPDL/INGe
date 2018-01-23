@@ -222,7 +222,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
         pubItemVO.getObject().getLocalTags(), userAccount.getName(), userAccount.getObjectId());
 
-    pubItemToCreate.setFiles(handleFiles(pubItemToCreate, null, userAccount));
+    pubItemToCreate.setFiles(getFileListToCreate(pubItemVO, userAccount));
 
     checkAa("create", userAccount, pubItemToCreate, contextNew);
 
@@ -293,6 +293,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItemObject.setPublicState(ItemVersionRO.State.PENDING);
 
     pubItem.setObject(pubItemObject);
+
     return pubItem;
   }
 
@@ -372,6 +373,50 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
+  private List<FileDbVO> getFileListToCreate(ItemVersionVO pubItemVO, AccountUserDbVO userAccount)
+      throws IngeTechnicalException, IngeApplicationException {
+    List<FileDbVO> fileList = new ArrayList<FileDbVO>();
+    Date currentDate = new Date();
+
+    for (FileDbVO fileVo : pubItemVO.getFiles()) {
+      // New file
+      FileDbVO currentFileDbVO = new FileDbVO();
+      if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
+        fileService.createFileFromStagedFile(fileVo, userAccount);
+        currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
+        // TODO Set content to a REST path
+        fileVo.setContent(null);
+
+        currentFileDbVO.setChecksum(fileVo.getChecksum());
+        currentFileDbVO.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(fileVo.getChecksumAlgorithm().name()));
+
+      }
+
+      currentFileDbVO.setContent(fileVo.getContent());
+      currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
+      currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
+
+      // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
+      // .getChecksumAlgorithm().name()));
+      currentFileDbVO.setContent(fileVo.getContent());
+      currentFileDbVO.setCreationDate(currentDate);
+      AccountUserDbRO creator = new AccountUserDbRO();
+      creator.setObjectId(userAccount.getObjectId());
+      creator.setName(userAccount.getName());
+      currentFileDbVO.setCreator(creator);
+
+      // TODO Pid ?
+      currentFileDbVO.setPid(fileVo.getPid());
+      currentFileDbVO.setLastModificationDate(currentDate);
+      currentFileDbVO.setMetadata(fileVo.getMetadata());
+      currentFileDbVO.setName(fileVo.getMetadata().getTitle());
+      currentFileDbVO.setMimeType(fileVo.getMimeType());
+      currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
+      fileList.add(currentFileDbVO);
+    }
+
+    return fileList;
+  }
 
   private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, AccountUserDbVO userAccount)
       throws IngeApplicationException, IngeTechnicalException {
@@ -407,7 +452,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         // New file
         currentFileDbVO = new FileDbVO();
         if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
-          String stagedFileId = fileVo.getContent();
           fileService.createFileFromStagedFile(fileVo, userAccount);
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
           // TODO Set content to a REST path
