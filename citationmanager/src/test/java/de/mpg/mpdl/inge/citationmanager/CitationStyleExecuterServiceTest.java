@@ -14,7 +14,6 @@ import org.junit.Test;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -105,7 +104,7 @@ public class CitationStyleExecuterServiceTest {
 
     start = System.currentTimeMillis();
     try {
-      result = CitationStyleExecuterService.getOutput(il, new ExportFormatVO(FormatType.LAYOUT, cs, ouf));
+      result = CitationStyleExecuterService.getOutput(il, new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, cs, ouf));
     } catch (CitationStyleManagerException e) {
       Assert.fail(e.getMessage());
     }

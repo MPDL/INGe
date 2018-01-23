@@ -36,7 +36,6 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 
 /**
  * Tests for {@link CitationStyleLanguageManagerInterface} implementations
@@ -65,7 +64,7 @@ public class TestCitationStyleLanguageManager {
     IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
-    this.exportFormat = new ExportFormatVO(FormatType.LAYOUT, EXPORT_FORMAT_NAME, "html");
+    this.exportFormat = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, EXPORT_FORMAT_NAME, "html");
   }
 
   /**

@@ -34,7 +34,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
@@ -57,10 +56,8 @@ public class ExportItemsSessionBean extends FacesBean {
 
   private String message = null;
 
-  private String exportFormatType = "LAYOUT";
-  private String exportFormatName = XmlHelper.APA;
-  private final ExportFormatVO curExportFormatVO = new ExportFormatVO();
-  private final FileFormatVO curFileFormatVO = new FileFormatVO();
+  private ExportFormatVO curExportFormatVO = null;
+
 
   private boolean enableFileFormats = true;
   private boolean enableExport = true;
@@ -93,20 +90,8 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void init() {
-    if (this.exportFormatType.equals("LAYOUT")) {
-      this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-      this.curFileFormatVO.setName(FileFormatVO.PDF_NAME);
-      this.curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
-    } else {
-      this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-      this.curFileFormatVO.setName(FileFormatVO.TXT_NAME);
-      this.curFileFormatVO.setMimeType(FileFormatVO.TXT_MIMETYPE);
-    }
-
-    this.curExportFormatVO.setName(this.exportFormatName);
-    this.curExportFormatVO.setOutputFormat(this.curFileFormatVO);
-
     try {
+      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, FileFormatVO.PDF_NAME, FileFormatVO.PDF_NAME);
       this.emailSenderProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
       this.emailServernameProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
       this.emailWithAuthProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
@@ -129,60 +114,42 @@ public class ExportItemsSessionBean extends FacesBean {
     this.message = message;
   }
 
-  public String getExportFormatType() {
-    return this.exportFormatType;
-  }
-
-  public void setExportFormatType(String exportFormatType) {
-    this.exportFormatType = exportFormatType;
-  }
-
   public String getExportFormatName() {
     return this.curExportFormatVO.getName();
   }
 
   public void setExportFormatName(String exportFormatName) {
-    this.exportFormatName = exportFormatName;
-    this.curExportFormatVO.setName(exportFormatName);
-
     if (XmlHelper.APA.equalsIgnoreCase(exportFormatName) //
         || XmlHelper.APA_CJK.equalsIgnoreCase(exportFormatName) //
         || XmlHelper.JUS.equalsIgnoreCase(exportFormatName) //
         || XmlHelper.AJP.equalsIgnoreCase(exportFormatName)) {
-      this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
-      this.exportFormatType = FormatType.LAYOUT.toString();
+      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, exportFormatName, FileFormatVO.DEFAULT_NAME);
       this.setEnableFileFormats(true);
       this.setEnableCslAutosuggest(false);
     } else if (XmlHelper.CSL.equalsIgnoreCase(exportFormatName)) {
-      this.curExportFormatVO.setFormatType(FormatType.LAYOUT);
-      this.exportFormatType = FormatType.LAYOUT.toString();
+      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, exportFormatName, FileFormatVO.DEFAULT_NAME);
       this.setEnableFileFormats(true);
       this.setEnableCslAutosuggest(true);
     } else {
-      this.curExportFormatVO.setFormatType(FormatType.STRUCTURED);
-      this.exportFormatType = FormatType.STRUCTURED.toString();
+      TransformerFactory.FORMAT exportFormat = TransformerFactory.getFormat(exportFormatName);
+      this.curExportFormatVO =
+          new ExportFormatVO(ExportFormatVO.FormatType.STRUCTURED, exportFormatName, exportFormat.getFileFormat().getName());
       this.setEnableFileFormats(false);
       this.setEnableCslAutosuggest(false);
     }
   }
 
   public String getFileFormat() {
-    return this.curExportFormatVO.getOutputFormat().getName();
+    return this.curExportFormatVO.getFileFormat().getName();
   }
 
-  public void setFileFormat(String fileFormat) {
-    if (fileFormat == null || fileFormat.trim().equals("") || TransformerFactory.ENDNOTE.equals(this.getExportFormatName())
-        || TransformerFactory.BIBTEX.equals(this.getExportFormatName())) {
-      fileFormat = FileFormatVO.TXT_NAME;
-    }
-
-    this.curFileFormatVO.setName(fileFormat);
-    this.curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
-    this.curExportFormatVO.setOutputFormat(this.curFileFormatVO);
-
-    ExportItemsSessionBean.logger.debug("setFileFormat.....:" + this.curExportFormatVO.getOutputFormat().getName() + ";"
-        + this.curExportFormatVO.getOutputFormat().getMimeType());
-
+  public void setFileFormat(String fileFormatName) {
+    //    if (XmlHelper.APA.equalsIgnoreCase(this.getExportFormatName()) //
+    //        || XmlHelper.APA_CJK.equalsIgnoreCase(this.getExportFormatName()) //
+    //        || XmlHelper.JUS.equalsIgnoreCase(this.getExportFormatName()) //
+    //        || XmlHelper.AJP.equalsIgnoreCase(this.getExportFormatName())) {
+    this.curExportFormatVO.setFileFormat(fileFormatName);
+    //    }
   }
 
   // ////////////////////////////////////////////////////////////////////////////////////////7

@@ -25,7 +25,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -254,7 +253,7 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
     try {
       exportData = CitationStyleExecuterService.getOutput(itemListAsString,
-          new ExportFormatVO(FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
+          new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
       this.error("Did not find Citation service");

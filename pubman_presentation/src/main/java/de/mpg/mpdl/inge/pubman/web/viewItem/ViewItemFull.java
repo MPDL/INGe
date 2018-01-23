@@ -1717,7 +1717,7 @@ public class ViewItemFull extends FacesBean {
     File exportAttFile;
     try {
       exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date,
-          "." + FileFormatVO.getExtensionByName(curExportFormat.getOutputFormat().getName()));
+          "." + curExportFormat.getFileFormat().getExtension());
       final FileOutputStream fos = new FileOutputStream(exportAttFile);
       fos.write(exportFileData);
       fos.close();
@@ -1754,10 +1754,9 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Cannot export item:", e);
     }
 
-    final String contentType = curExportFormat.getOutputFormat().getMimeType();
+    final String contentType = curExportFormat.getFileFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
-    final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "."
-        + FileFormatVO.getExtensionByName(this.getExportItemsSessionBean().getFileFormat());
+    final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + curExportFormat.getFileFormat().getExtension();
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
       final OutputStream out = FacesTools.getResponse().getOutputStream();
@@ -1882,9 +1881,6 @@ public class ViewItemFull extends FacesBean {
       final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
       pubItemList.add(new ItemVersionVO(this.getPubItem()));
 
-      final ExportFormatVO expFormat = new ExportFormatVO();
-      expFormat.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-
       // Use special apa style if language is set to japanese
       boolean isJapanese = false;
 
@@ -1897,17 +1893,12 @@ public class ViewItemFull extends FacesBean {
         }
       }
 
+      final ExportFormatVO expFormat;
       if (isJapanese || "ja".equalsIgnoreCase(this.getI18nHelper().getLocale())) {
-        expFormat.setName(XmlHelper.APA_CJK);
+        expFormat = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, XmlHelper.APA_CJK, FileFormatVO.HTML_PLAIN_NAME);
       } else {
-        expFormat.setName(XmlHelper.APA6);
+        expFormat = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, XmlHelper.APA6, FileFormatVO.HTML_PLAIN_NAME);
       }
-
-      final FileFormatVO fileFormat = new FileFormatVO();
-      fileFormat.setMimeType(FileFormatVO.HTML_PLAIN_MIMETYPE);
-      fileFormat.setName(FileFormatVO.HTML_PLAIN_NAME);
-
-      expFormat.setOutputFormat(fileFormat);
 
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
       byte[] exportFileData = itemTransformingService.getOutputForExport(expFormat, pubItemList);

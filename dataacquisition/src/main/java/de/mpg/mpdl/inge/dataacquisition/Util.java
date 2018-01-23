@@ -88,12 +88,12 @@ public class Util {
         continue;
       }
 
-      if (!sourceMd.getMdFormat().equalsIgnoreCase(format.getMimeType())) {
+      if (!sourceMd.getMdFormat().equalsIgnoreCase(format.getFileFormat().getMimeType())) {
         continue;
       }
 
-      if ((!sourceMd.getEncoding().equals("*")) && (!format.getEncoding().equals("*"))) {
-        if (!sourceMd.getEncoding().equalsIgnoreCase(format.getEncoding())) {
+      if ((!sourceMd.getEncoding().equals("*")) && (!format.getFileFormat().getCharSet().equals("*"))) {
+        if (!sourceMd.getEncoding().equalsIgnoreCase(format.getFileFormat().getCharSet())) {
           continue;
         }
       }
@@ -127,19 +127,22 @@ public class Util {
    * @param formatEncoding
    * @return Fulltext Object of the format to fetch
    */
-  public static FullTextVO getFtObjectToFetch(DataSourceVO source, String outputFormat) {
+  public static FullTextVO getFtObjectToFetch(DataSourceVO source, String fileFormatName) {
     FullTextVO fullTextVO = null;
 
     for (int i = 0; i < source.getFtFormats().size(); i++) {
       fullTextVO = source.getFtFormats().get(i);
       boolean fetchMd = true;
 
-      if (!fullTextVO.getName().equalsIgnoreCase(outputFormat)) {
+      if (!fullTextVO.getName().equalsIgnoreCase(fileFormatName)) {
         continue;
       }
-      if (!fullTextVO.getFtFormat().equalsIgnoreCase(FileFormatVO.getMimeTypeByName(outputFormat))) {
+
+      FileFormatVO.FILE_FORMAT fileFormat = FileFormatVO.getFileFormat(fileFormatName);
+      if (!fullTextVO.getFtFormat().equalsIgnoreCase(fileFormat.getMimeType())) {
         continue;
       }
+
       if ((!"*".equals(fullTextVO.getEncoding())) && (!"*".equals(FileFormatVO.DEFAULT_CHARSET))) {
         if (!fullTextVO.getEncoding().equalsIgnoreCase(FileFormatVO.DEFAULT_CHARSET)) {
           fetchMd = false;

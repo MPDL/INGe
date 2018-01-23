@@ -22,7 +22,6 @@ import de.mpg.mpdl.inge.dataaquisition.unapiFormats.FormatsType;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -95,7 +94,7 @@ public class UnapiRestController {
         throw new IngeApplicationException(e);
       }
 
-      response.setContentType(targetFormat.getMimeType());
+      response.setContentType(targetFormat.getFileFormat().getMimeType());
 
       try {
         OutputStream output = response.getOutputStream();
@@ -156,9 +155,9 @@ public class UnapiRestController {
         throw new IngeApplicationException(e);
       }
 
-      response.setContentType(targetFormat.getMimeType());
+      response.setContentType(targetFormat.getFileFormat().getMimeType());
       response.setHeader("Content-disposition",
-          "attachment; filename=" + targetFormat.getName() + "." + FileFormatVO.getExtensionByMimeType(targetFormat.getMimeType()));
+          "attachment; filename=" + targetFormat.getName() + "." + targetFormat.getFileFormat().getExtension());
 
       try {
         OutputStream output = response.getOutputStream();
@@ -182,7 +181,7 @@ public class UnapiRestController {
     for (TransformerFactory.FORMAT targetFormat : targetFormats) {
       FormatType xmlFormat = xmlFormats.addNewFormat();
       xmlFormat.setName(targetFormat.getName());
-      xmlFormat.setType(targetFormat.getMimeType());
+      xmlFormat.setType(targetFormat.getFileFormat().getMimeType());
     }
 
     try {
@@ -200,7 +199,7 @@ public class UnapiRestController {
     FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
     FormatType xmlFormat = xmlFormats.addNewFormat();
     xmlFormat.setName(TransformerFactory.getInternalFormat().getName());
-    xmlFormat.setType(TransformerFactory.getInternalFormat().getMimeType());
+    xmlFormat.setType(TransformerFactory.getInternalFormat().getFileFormat().getMimeType());
 
     try {
       XmlOptions xOpts = new XmlOptions();

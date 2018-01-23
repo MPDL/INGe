@@ -44,7 +44,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -777,14 +776,14 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     this.updateSelections();
   }
 
-  /**
-   * Exports the selected items and displays the results.
-   * 
-   * @return
-   */
-  public String exportSelectedDisplay() {
-    return this.showDisplayExportData(this.getSelectedItems());
-  }
+  //  /**
+  //   * Exports the selected items and displays the results.
+  //   * 
+  //   * @return
+  //   */
+  //  public String exportSelectedDisplay() {
+  //    return this.showDisplayExportData(this.getSelectedItems());
+  //  }
 
   /**
    * Exports the selected items and shows the email page.
@@ -804,15 +803,15 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     this.downloadExportFile(this.getSelectedItems());
   }
 
-  /**
-   * Exports all items (without offset and limit filters) and displays them.
-   * 
-   * @return
-   */
-  public String exportAllDisplay() {
-    return this.showDisplayExportData(this.retrieveAll());
-  }
-
+  //  /**
+  //   * Exports all items (without offset and limit filters) and displays them.
+  //   * 
+  //   * @return
+  //   */
+  //  public String exportAllDisplay() {
+  //    return this.showDisplayExportData(this.retrieveAll());
+  //  }
+  //
   /**
    * Exports all items (without offset and limit filters) and and shows the email page.
    * 
@@ -841,49 +840,49 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     return itemList;
   }
 
-  /**
-   * Exports the given items and displays them
-   * 
-   * @param pubItemList
-   * @return
-   */
-  public String showDisplayExportData(List<PubItemVOPresentation> pubItemList) {
-    this.saveSelections();
-
-    final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-    String displayExportData = this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
-    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
-
-
-    // set the currently selected items in the FacesBean
-    // this.setSelectedItemsAndCurrentItem();
-    if (pubItemList.size() != 0) {
-      // save selected file format on the web interface
-      final String selectedFileFormat = sb.getFileFormat();
-      // for the display export data the file format should be always HTML
-      sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
-      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-      try {
-        displayExportData = new String(icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList)));
-      } catch (final TechnicalException e) {
-        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
-        return ErrorPage.LOAD_ERRORPAGE;
-      }
-      if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED) {
-        displayExportData = "<pre>" + displayExportData + "</pre>";
-      }
-      sb.setExportDisplayData(displayExportData);
-      // restore selected file format on the interface
-      sb.setFileFormat(selectedFileFormat);
-      // return "dialog:showDisplayExportItemsPage";
-      return "showDisplayExportItemsPage";
-    } else {
-      this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-      sb.setExportDisplayData(displayExportData);
-      this.redirect();
-      return "";
-    }
-  }
+  //  /**
+  //   * Exports the given items and displays them
+  //   * 
+  //   * @param pubItemList
+  //   * @return
+  //   */
+  //  public String showDisplayExportData(List<PubItemVOPresentation> pubItemList) {
+  //    this.saveSelections();
+  //
+  //    final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+  //    String displayExportData = this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+  //    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+  //
+  //
+  //    // set the currently selected items in the FacesBean
+  //    // this.setSelectedItemsAndCurrentItem();
+  //    if (pubItemList.size() != 0) {
+  //      // save selected file format on the web interface
+  //      final String selectedFileFormat = sb.getFileFormat();
+  //      // for the display export data the file format should be always HTML
+  //      sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
+  //      final ExportFormatVO2 curExportFormat = sb.getCurExportFormatVO();
+  //      try {
+  //        displayExportData = new String(icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList)));
+  //      } catch (final TechnicalException e) {
+  //        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
+  //        return ErrorPage.LOAD_ERRORPAGE;
+  //      }
+  //      if (curExportFormat.getFormatType() == ExportFormatVO2.FormatType.STRUCTURED) {
+  //        displayExportData = "<pre>" + displayExportData + "</pre>";
+  //      }
+  //      sb.setExportDisplayData(displayExportData);
+  //      // restore selected file format on the interface
+  //      sb.setFileFormat(selectedFileFormat);
+  //      // return "dialog:showDisplayExportItemsPage";
+  //      return "showDisplayExportItemsPage";
+  //    } else {
+  //      this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+  //      sb.setExportDisplayData(displayExportData);
+  //      this.redirect();
+  //      return "";
+  //    }
+  //  }
 
   /**
    * Exports the given pub items and shows the email page.
@@ -920,7 +919,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       File exportAttFile;
       try {
         exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date,
-            "." + FileFormatVO.getExtensionByName(sb.getFileFormat()));
+            "." + curExportFormat.getFileFormat().getExtension());
         final FileOutputStream fos = new FileOutputStream(exportAttFile);
         fos.write(exportFileData);
         fos.close();
@@ -970,9 +969,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     } catch (final TechnicalException e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
-    final String contentType = curExportFormat.getOutputFormat().getMimeType();
+    final String contentType = curExportFormat.getFileFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
-    final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + FileFormatVO.getExtensionByName(sb.getFileFormat());
+    final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + curExportFormat.getFileFormat().getExtension();
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
       final OutputStream out = FacesTools.getResponse().getOutputStream();

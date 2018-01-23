@@ -105,12 +105,12 @@ public class DataHandlerService {
     return fetchedData;
   }
 
-  public byte[] doFetchFullText(DataSourceVO dataSourceVO, String identifier, String[] outputFormats) throws DataaquisitionException {
+  public byte[] doFetchFullText(DataSourceVO dataSourceVO, String identifier, String[] fileFormatNames) throws DataaquisitionException {
     byte[] fetchedData = null;
     this.currentDataSourceVO = dataSourceVO;
 
     try {
-      fetchedData = this.fetchFileData(identifier, outputFormats);
+      fetchedData = this.fetchFileData(identifier, fileFormatNames);
     } catch (Exception e) {
       throw new DataaquisitionException(e);
     }
@@ -137,7 +137,7 @@ public class DataHandlerService {
     String item = null;
     boolean supportedProtocol = false;
     if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL)) {
-      item = fetchOAIRecord(metaDataVO, targetFormat.getEncoding());
+      item = fetchOAIRecord(metaDataVO, targetFormat.getFileFormat().getCharSet());
       // Check the record for error codes
       ProtocolHandler protocolHandler = new ProtocolHandler();
       protocolHandler.checkOAIRecord(item);
@@ -167,7 +167,8 @@ public class DataHandlerService {
         Transformer transformer = TransformerCache.getTransformer(metaDataFormat, targetFormat);
         StringWriter wr = new StringWriter();
 
-        transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(targetFormat.getEncoding()))),
+        transformer.transform(
+            new TransformerStreamSource(new ByteArrayInputStream(item.getBytes(targetFormat.getFileFormat().getCharSet()))),
             new TransformerStreamResult(wr));
 
         itemAfterTransformaton = wr.toString();
@@ -198,22 +199,22 @@ public class DataHandlerService {
       }
     }
 
-    this.contentMimeType = targetFormat.getMimeType();
+    this.contentMimeType = targetFormat.getFileFormat().getMimeType();
 
     return itemAfterTransformaton;
   }
 
 
-  private byte[] fetchFileData(String identifier, String[] outputFormats) throws DataaquisitionException {
+  private byte[] fetchFileData(String identifier, String[] fileFormatNames) throws DataaquisitionException {
     byte[] in = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ZipOutputStream zos = new ZipOutputStream(baos);
 
     try {
       // Call fetch file for every given format
-      for (int i = 0; i < outputFormats.length; i++) {
-        String outputFormat = outputFormats[i];
-        FullTextVO fulltextVO = Util.getFtObjectToFetch(this.currentDataSourceVO, outputFormat);
+      for (int i = 0; i < fileFormatNames.length; i++) {
+        String fileFormatName = fileFormatNames[i];
+        FullTextVO fulltextVO = Util.getFtObjectToFetch(this.currentDataSourceVO, fileFormatName);
         // Replace regex with identifier
         String decoded = java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(), this.currentDataSourceVO.getEncoding());
         fulltextVO.setFtUrl(new URL(decoded));
@@ -224,7 +225,7 @@ public class DataHandlerService {
         this.setFileProperties(fulltextVO);
 
         // If only one file => return it in fetched format
-        if (outputFormats.length == 1) {
+        if (fileFormatNames.length == 1) {
           return in;
         }
 

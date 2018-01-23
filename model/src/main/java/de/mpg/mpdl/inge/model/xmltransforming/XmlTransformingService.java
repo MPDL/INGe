@@ -60,7 +60,6 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FilterTaskParamVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
@@ -98,7 +97,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.Affiliati
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.AffiliationVOListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ContextVOListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.EventVOListWrapper;
-import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ExportFormatVOListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.GrantVOListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.MemberListWrapper;
@@ -287,33 +285,33 @@ public class XmlTransformingService {
     return resultList;
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public static final List<ExportFormatVO> transformToExportFormatVOList(String formatList) throws TechnicalException {
-    logger.debug("transformToExportFormatVOList(String) - String formatList=" + formatList);
-    if (formatList == null) {
-      throw new IllegalArgumentException(
-          XmlTransformingService.class.getSimpleName() + ":transformToExportFormatVOList:formatList is null");
-    }
-    ExportFormatVOListWrapper exportFormatVOListWrapper = null;
-    try {
-      // unmarshall ExportFormatVOListWrapper from String
-      IBindingFactory bfact = BindingDirectory.getFactory("ExportFormatVOListWrapper", ExportFormatVOListWrapper.class);
-      IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-      StringReader sr = new StringReader(formatList);
-      exportFormatVOListWrapper = (ExportFormatVOListWrapper) uctx.unmarshalDocument(sr, null);
-    } catch (JiBXException e) {
-      // throw a new UnmarshallingException, log the root cause of the JiBXException first
-      logger.error(e.getRootCause());
-      throw new UnmarshallingException(formatList, e);
-    } catch (ClassCastException e) {
-      throw new TechnicalException(e);
-    }
-    // unwrap the List<ExportFormatVO>
-    List<ExportFormatVO> exportFormatVOList = exportFormatVOListWrapper.getExportFormatVOList();
-    return exportFormatVOList;
-  }
+  //  /**
+  //   * {@inheritDoc}
+  //   */
+  //  public static final List<ExportFormatVO> transformToExportFormatVOList(String formatList) throws TechnicalException {
+  //    logger.debug("transformToExportFormatVOList(String) - String formatList=" + formatList);
+  //    if (formatList == null) {
+  //      throw new IllegalArgumentException(
+  //          XmlTransformingService.class.getSimpleName() + ":transformToExportFormatVOList:formatList is null");
+  //    }
+  //    ExportFormatVOListWrapper exportFormatVOListWrapper = null;
+  //    try {
+  //      // unmarshall ExportFormatVOListWrapper from String
+  //      IBindingFactory bfact = BindingDirectory.getFactory("ExportFormatVOListWrapper", ExportFormatVOListWrapper.class);
+  //      IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+  //      StringReader sr = new StringReader(formatList);
+  //      exportFormatVOListWrapper = (ExportFormatVOListWrapper) uctx.unmarshalDocument(sr, null);
+  //    } catch (JiBXException e) {
+  //      // throw a new UnmarshallingException, log the root cause of the JiBXException first
+  //      logger.error(e.getRootCause());
+  //      throw new UnmarshallingException(formatList, e);
+  //    } catch (ClassCastException e) {
+  //      throw new TechnicalException(e);
+  //    }
+  //    // unwrap the List<ExportFormatVO>
+  //    List<ExportFormatVO> exportFormatVOList = exportFormatVOListWrapper.getExportFormatVOList();
+  //    return exportFormatVOList;
+  //  }
 
   // /**
   // * {@inheritDoc}
