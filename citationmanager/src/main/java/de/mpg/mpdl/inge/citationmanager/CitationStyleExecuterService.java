@@ -84,10 +84,10 @@ public class CitationStyleExecuterService {
   }
 
   public static byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-    Utils.checkCondition(!Utils.checkVal(exportFormat.getOutputFormat().getName()), "Output format is not defined");
+    Utils.checkCondition(!Utils.checkVal(exportFormat.getFileFormat().getName()), "Output format is not defined");
     Utils.checkCondition(!Utils.checkVal(itemList), "Empty item-list");
 
-    String outputFormat = exportFormat.getOutputFormat().getName();
+    String outputFormat = exportFormat.getFileFormat().getName();
     byte[] result = null;
     String snippet;
 

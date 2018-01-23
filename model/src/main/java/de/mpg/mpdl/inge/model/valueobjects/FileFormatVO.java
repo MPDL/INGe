@@ -24,229 +24,133 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-
 package de.mpg.mpdl.inge.model.valueobjects;
-
-import java.util.HashMap;
-import java.util.Map;
-
-/**
- * Valueobject representing the export file format data needed for the export.
- * 
- * @version $Revision$ $LastChangedDate$ by $Author$
- */
 
 @SuppressWarnings("serial")
 public class FileFormatVO extends ValueObject {
-
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
   public static final String DOCX_MIMETYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
   public static final String DOCX_NAME = "docx";
+  public static final String DOCX_EXTENSION = "docx";
+
   public static final String EDOC_EXPORT_MIMETYPE = "application/xml";
+  public static final String EDOC_EXPORT_EXTENSION = "xml";
   public static final String EDOC_EXPORT_NAME = "edoc_export";
+
   public static final String EDOC_IMPORT_MIMETYPE = "application/xml";
   public static final String EDOC_IMPORT_NAME = "edoc_import";
+  public static final String EDOC_IMPORT_EXTENSION = "xml";
+
   public static final String ESCIDOC_SNIPPET_MIMETYPE = "application/xml";
   public static final String ESCIDOC_SNIPPET_NAME = "escidoc_snippet";
+  public static final String ESCIDOC_SNIPPET_EXTENSION = "xml";
+
   public static final String ESCIDOC_XML_MIMETYPE = "application/xml";
   public static final String ESCIDOC_XML_NAME = "escidoc_xml";
+  public static final String ESCIDOC_XML_EXTENSION = "xml";
+
   public static final String HTML_LINKED_MIMETYPE = "text/html";
   public static final String HTML_LINKED_NAME = "html_linked";
+  public static final String HTML_LINKED_EXTENSION = "html";
+
   public static final String HTML_PLAIN_MIMETYPE = "text/html";
   public static final String HTML_PLAIN_NAME = "html_plain";
+  public static final String HTML_PLAIN_EXTENSION = "html";
+
   public static final String HTML_STYLED_MIMETYPE = "text/html";
   public static final String HTML_STYLED_NAME = "html_styled";
+  public static final String HTML_STYLED_EXTENSION = "html";
+
   public static final String JSON_MIMETYPE = "application/json";
   public static final String JSON_NAME = "json";
+  public static final String JSON_EXTENSION = "json";
+
   public static final String ODT_MIMETYPE = "application/vnd.oasis.opendocument.text";
   public static final String ODT_NAME = "odt";
+  public static final String ODT_EXTENSION = "odt";
+
   public static final String PDF_MIMETYPE = "application/pdf";
   public static final String PDF_NAME = "pdf";
+  public static final String PDF_EXTENSION = "pdf";
+
   public static final String PS_MIMETYPE = "application/gzip";
   public static final String PS_NAME = "ps";
+  public static final String PS_EXTENSION = "ps";
+
   public static final String RTF_MIMETYPE = "application/rtf";
   public static final String RTF_NAME = "rtf";
+  public static final String RTF_EXTENSION = "rtf";
+
   public static final String SNIPPET_MIMETYPE = "application/xml";
   public static final String SNIPPET_NAME = "snippet";
+  public static final String SNIPPET_EXTENSION = "xml";
+
   public static final String TXT_MIMETYPE = "text/plain";
   public static final String TXT_NAME = "txt";
+  public static final String TXT_EXTENSION = "txt";
+
   public static final String XML_MIMETYPE = "application/xml";
   public static final String XML_NAME = "xml";
+  public static final String XML_EXTENSION = "xml";
 
-  public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
-  public static final String DEFAULT_NAME = PDF_NAME;
   public static final String DEFAULT_CHARSET = "utf-8";
+  public static final String DEFAULT_NAME = PDF_NAME;
 
-  private static final Map<String, String> formatExtensions = new HashMap<String, String>() {
-    {
-      put(DEFAULT_NAME, "pdf");
-      put(DOCX_NAME, "docx");
-      put(EDOC_EXPORT_NAME, "xml");
-      put(EDOC_IMPORT_NAME, "xml");
-      put(ESCIDOC_SNIPPET_NAME, "xml");
-      put(ESCIDOC_XML_NAME, "xml");
-      put(HTML_LINKED_NAME, "html");
-      put(HTML_PLAIN_NAME, "html");
-      put(HTML_STYLED_NAME, "html");
-      put(JSON_NAME, "json");
-      put(ODT_NAME, "odt");
-      put(PDF_NAME, "pdf");
-      put(PS_NAME, "ps");
-      put(RTF_NAME, "rtf");
-      put(SNIPPET_NAME, "xml");
-      put(TXT_NAME, "txt");
-      put(XML_NAME, "xml");
+  public enum FILE_FORMAT
+  {
+    DOCX(DOCX_NAME, DOCX_MIMETYPE, DOCX_EXTENSION, DEFAULT_CHARSET),
+    EDOC_EXPORT(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE, EDOC_EXPORT_EXTENSION, DEFAULT_CHARSET),
+    EDOC_IMPORT(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE, EDOC_IMPORT_EXTENSION, DEFAULT_CHARSET),
+    ESCIDOC_SNIPPET(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE, ESCIDOC_SNIPPET_EXTENSION, DEFAULT_CHARSET),
+    ESCIDOC_XML(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE, ESCIDOC_XML_EXTENSION, DEFAULT_CHARSET),
+    HTML_LINKED(HTML_LINKED_NAME, HTML_LINKED_MIMETYPE, HTML_LINKED_EXTENSION, DEFAULT_CHARSET),
+    HTML_PLAIN(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE, HTML_PLAIN_EXTENSION, DEFAULT_CHARSET),
+    HTML_STYLED(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE, HTML_STYLED_EXTENSION, DEFAULT_CHARSET),
+    JSON(JSON_NAME, JSON_MIMETYPE, JSON_EXTENSION, DEFAULT_CHARSET),
+    ODT(ODT_NAME, ODT_MIMETYPE, ODT_EXTENSION, DEFAULT_CHARSET),
+    PDF(PDF_NAME, PDF_MIMETYPE, PDF_EXTENSION, DEFAULT_CHARSET),
+    PS(PS_NAME, PS_MIMETYPE, PS_EXTENSION, DEFAULT_CHARSET),
+    RTF(RTF_NAME, RTF_MIMETYPE, RTF_EXTENSION, DEFAULT_CHARSET),
+    SNIPPET(SNIPPET_NAME, SNIPPET_MIMETYPE, SNIPPET_EXTENSION, DEFAULT_CHARSET),
+    TXT(TXT_NAME, TXT_MIMETYPE, TXT_EXTENSION, DEFAULT_CHARSET),
+    XML(XML_NAME, XML_MIMETYPE, XML_EXTENSION, DEFAULT_CHARSET);
+
+  private final String name;
+  private final String mimeType;
+  private final String extension;
+  private final String charSet;
+
+  FILE_FORMAT(String name, String mimeType, String extension, String charSet) {
+      this.name = name;
+      this.mimeType = mimeType;
+      this.extension = extension;
+      this.charSet = charSet;
     }
-  };
 
-  private static final Map<String, String> mimeTypeExtensions = new HashMap<String, String>() {
-    {
-      put(DEFAULT_MIMETYPE, "pdf");
-      put(DOCX_MIMETYPE, "docx");
-      put(EDOC_EXPORT_MIMETYPE, "xml");
-      put(EDOC_IMPORT_MIMETYPE, "xml");
-      put(ESCIDOC_SNIPPET_MIMETYPE, "xml");
-      put(ESCIDOC_XML_MIMETYPE, "xml");
-      put(HTML_LINKED_MIMETYPE, "html");
-      put(HTML_PLAIN_MIMETYPE, "html");
-      put(HTML_STYLED_MIMETYPE, "html");
-      put(JSON_MIMETYPE, "json");
-      put(ODT_MIMETYPE, "odt");
-      put(PDF_MIMETYPE, "pdf");
-      put(PS_MIMETYPE, "ps");
-      put(RTF_MIMETYPE, "rtf");
-      put(SNIPPET_MIMETYPE, "xml");
-      put(TXT_MIMETYPE, "txt");
-      put(XML_MIMETYPE, "xml");
-    }
-  };
-
-  private static final Map<String, String> mimeTypeName = new HashMap<String, String>() {
-    {
-      put(DEFAULT_MIMETYPE, DEFAULT_NAME);
-      put(DOCX_MIMETYPE, DOCX_NAME);
-      put(EDOC_EXPORT_MIMETYPE, EDOC_EXPORT_NAME);
-      put(EDOC_IMPORT_MIMETYPE, EDOC_IMPORT_NAME);
-      put(ESCIDOC_SNIPPET_MIMETYPE, ESCIDOC_SNIPPET_NAME);
-      put(ESCIDOC_XML_MIMETYPE, ESCIDOC_XML_NAME);
-      put(HTML_LINKED_MIMETYPE, HTML_LINKED_NAME);
-      put(HTML_PLAIN_MIMETYPE, HTML_PLAIN_NAME);
-      put(HTML_STYLED_MIMETYPE, HTML_STYLED_NAME);
-      put(JSON_MIMETYPE, JSON_NAME);
-      put(ODT_MIMETYPE, ODT_NAME);
-      put(PDF_MIMETYPE, PDF_NAME);
-      put(PS_MIMETYPE, PS_NAME);
-      put(RTF_MIMETYPE, RTF_NAME);
-      put(SNIPPET_MIMETYPE, SNIPPET_NAME);
-      put(TXT_MIMETYPE, TXT_NAME);
-      put(XML_MIMETYPE, XML_NAME);
-    }
-  };
-
-  private static final Map<String, String> formatMimeTypes = new HashMap<String, String>() {
-    {
-      put(DEFAULT_NAME, DEFAULT_MIMETYPE);
-      put(DOCX_NAME, DOCX_MIMETYPE);
-      put(EDOC_EXPORT_NAME, EDOC_EXPORT_MIMETYPE);
-      put(EDOC_IMPORT_NAME, EDOC_IMPORT_MIMETYPE);
-      put(ESCIDOC_SNIPPET_NAME, ESCIDOC_SNIPPET_MIMETYPE);
-      put(ESCIDOC_XML_NAME, ESCIDOC_XML_MIMETYPE);
-      put(HTML_LINKED_NAME, HTML_LINKED_MIMETYPE);
-      put(HTML_PLAIN_NAME, HTML_PLAIN_MIMETYPE);
-      put(HTML_STYLED_NAME, HTML_STYLED_MIMETYPE);
-      put(JSON_NAME, JSON_MIMETYPE);
-      put(ODT_NAME, ODT_MIMETYPE);
-      put(PDF_NAME, PDF_MIMETYPE);
-      put(PS_NAME, PS_MIMETYPE);
-      put(RTF_NAME, RTF_MIMETYPE);
-      put(SNIPPET_NAME, SNIPPET_MIMETYPE);
-      put(TXT_NAME, TXT_MIMETYPE);
-      put(XML_NAME, XML_MIMETYPE);
-    }
-  };
-
-  /**
-   * The mime type of FileFormat
-   */
-  private String mimeType;
-
-  /**
-   * The name of FileFormat
-   */
-  private String name;
-
-  /**
-   * Delivers the name of the selected file according to name of format.
-   */
-  public static String getMimeTypeByName(String name) {
-    name = name == null || name.trim().equals("") ? "" : name.trim();
-    return formatMimeTypes.containsKey(name) ? formatMimeTypes.get(name) : formatMimeTypes.get(DEFAULT_NAME);
-  }
-
-  /**
-   * Delivers the name of the selected file according to name of format.
-   */
-  public static String getExtensionByName(String name) {
-    name = name == null || name.trim().equals("") ? "" : name.trim();
-    return formatExtensions.containsKey(name) ? formatExtensions.get(name) : formatExtensions.get(DEFAULT_NAME);
-  }
-
-  /**
-   * Delivers the extension of the selected file according to mimeType of format.
-   */
-  public static String getExtensionByMimeType(String mimeType) {
-    mimeType = mimeType == null || mimeType.trim().equals("") ? "" : mimeType.trim();
-    return mimeTypeExtensions.containsKey(mimeType) ? mimeTypeExtensions.get(mimeType) : mimeTypeExtensions.get(DEFAULT_MIMETYPE);
-  }
-
-  /**
-   * Delivers the nmae of the selected file according to mimeType of format.
-   */
-  public static String getNameByMimeType(String mimeType) {
-    mimeType = mimeType == null || mimeType.trim().equals("") ? "" : mimeType.trim();
-    return mimeTypeName.containsKey(mimeType) ? mimeTypeName.get(mimeType) : mimeTypeName.get(DEFAULT_MIMETYPE);
-  }
-
-  /**
-   * get mimeType
-   */
-  public String getMimeType() {
-    return mimeType;
-  }
-
-  /**
-   * set mimeType
-   */
-  public void setMimeType(String mimeType) {
-    this.mimeType = mimeType;
-  }
-
-  /**
-   * get name of the file format
-   */
   public String getName() {
-    return name;
+    return this.name;
   }
 
-  /**
-   * set name of the file format
-   */
-  public void setName(String name) {
-    this.name = name;
+  public String getMimeType() {
+    return this.mimeType;
   }
 
-  @Override
-  public String toString() {
-    return "FileFormatVO [mimeType=" + mimeType + ", name=" + name + "]";
+  public String getExtension() {
+    return this.extension;
   }
 
+  public String getCharSet() {
+    return this.charSet;
+  }
+
+  }
+
+  public static FILE_FORMAT getFileFormat(String fileFormatName) {
+    for (FILE_FORMAT fileFormat : FILE_FORMAT.values()) {
+      if (fileFormat.getName().equals(fileFormatName)) {
+        return fileFormat;
+      }
+    }
+
+    throw new IllegalArgumentException("Format " + fileFormatName + " unknown");
+  }
 }

@@ -44,7 +44,6 @@ import org.w3c.dom.Node;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.util.DOMUtilities;
 
 /**
@@ -157,7 +156,7 @@ public class CitationStylesSubstantialTest {
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
         String snippet = new String(CitationStyleExecuterService.getOutput(DOMUtilities.outputString(doc),
-            new ExportFormatVO(FormatType.LAYOUT, cs, "escidoc_snippet")));
+            new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, cs, "escidoc_snippet")));
         logger.info("snippet:" + snippet);
 
         Node snippetNode = XmlHelper.xpathNode(SNIPPET_XPATH, snippet);

@@ -673,13 +673,15 @@ public class EasySubmission extends FacesBean {
         if (EasySubmissionSessionBean.FULLTEXT_DEFAULT.equals(this.getEasySubmissionSessionBean().getRadioSelectFulltext())) {
           for (FullTextVO fulltextVO : ftFormats) {
             if (fulltextVO.isFtDefault()) {
-              fullTextFormats.add(FileFormatVO.getExtensionByName(fulltextVO.getName()));
+              FileFormatVO.FILE_FORMAT fileFormat = FileFormatVO.getFileFormat(fulltextVO.getName());
+              fullTextFormats.add(fileFormat.getExtension());
               break;
             }
           }
         } else if (EasySubmissionSessionBean.FULLTEXT_ALL.equals(this.getEasySubmissionSessionBean().getRadioSelectFulltext())) {
           for (FullTextVO fulltextVO : ftFormats) {
-            fullTextFormats.add(FileFormatVO.getExtensionByName(fulltextVO.getName()));
+            FileFormatVO.FILE_FORMAT fileFormat = FileFormatVO.getFileFormat(fulltextVO.getName());
+            fullTextFormats.add(fileFormat.getExtension());
           }
         }
 

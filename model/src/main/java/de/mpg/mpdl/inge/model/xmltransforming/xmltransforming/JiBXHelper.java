@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationPathVO;
 import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.ChecksumAlgorithm;
@@ -179,16 +178,6 @@ public class JiBXHelper {
    */
   public static List<FormatVO> formatVOListFactory() {
     return new ArrayList<FormatVO>();
-  }
-
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;ExportFormatVO></code> as the
-   * implementation of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;ExportFormatVO></code>
-   */
-  public static List<ExportFormatVO> exportFormatVOListFactory() {
-    return new ArrayList<ExportFormatVO>();
   }
 
   /**
@@ -1301,29 +1290,6 @@ public class JiBXHelper {
       }
     }
     return state;
-  }
-
-  /**
-   * Deserializes a String containing a format-type to the corresponding
-   * <code>ExportFormatVO.FormatType</code> Enum.
-   * 
-   * @param enumValue The String to deserialize
-   * @return ExportFormatVO.FormatType The corresponding <code>ExportFormatVO.FormatType</code> Enum
-   * @throws WrongEnumException
-   */
-  public static ExportFormatVO.FormatType deserializeExportFormatTypeEnum(String enumValue) throws WrongEnumException {
-    ExportFormatVO.FormatType type = null;
-    if (enumValue == null) {
-      throw new WrongEnumException("formatType is null.");
-    } else {
-      String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
-      try {
-        type = ExportFormatVO.FormatType.valueOf(upperCaseText);
-      } catch (IllegalArgumentException e) {
-        throw new WrongEnumException("formatType value is '" + enumValue + "'.", e);
-      }
-    }
-    return type;
   }
 
   /**

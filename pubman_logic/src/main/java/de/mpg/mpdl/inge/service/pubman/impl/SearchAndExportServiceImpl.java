@@ -13,7 +13,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
@@ -50,17 +49,17 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
     SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
 
-    if (saerrVO.getExportFormat() == null) {
+    if (saerrVO.getExportFormatName() == null) {
       result = srrVO.getOriginalResponse().toString().getBytes();
-      fileName = FileFormatVO.JSON_NAME + "." + FileFormatVO.getExtensionByName(FileFormatVO.JSON_NAME);
+      fileName = FileFormatVO.FILE_FORMAT.JSON.getName() + "." + FileFormatVO.FILE_FORMAT.JSON.getExtension();
       targetMimeType = FileFormatVO.JSON_MIMETYPE;
     } else {
       List<ItemVersionVO> searchResult = getSearchResult(srrVO);
       String itemList = getItemList(searchResult);
-      ExportFormatVO exportFormatVO = getExportFormatVO(saerrVO.getExportFormat(), saerrVO.getOutputFormat(), saerrVO.getCslConeId());
+      ExportFormatVO exportFormatVO = getExportFormatVO(saerrVO.getExportFormatName(), saerrVO.getOutputFormat(), saerrVO.getCslConeId());
       result = this.itemTransformingService.getOutputForExport(exportFormatVO, itemList);
-      fileName = exportFormatVO.getName() + "." + FileFormatVO.getExtensionByName(exportFormatVO.getOutputFormat().getName());
-      targetMimeType = exportFormatVO.getOutputFormat().getMimeType();
+      fileName = exportFormatVO.getName() + "." + exportFormatVO.getFileFormat().getExtension();
+      targetMimeType = exportFormatVO.getFileFormat().getMimeType();
     }
 
     return new SearchAndExportResultVO(result, fileName, targetMimeType);
@@ -86,16 +85,17 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     return itemList;
   }
 
-  private ExportFormatVO getExportFormatVO(String exportFormat, String outputFormat, String cslConeId) throws IngeTechnicalException {
+  private ExportFormatVO getExportFormatVO(String exportFormatName, String outputFormatName, String cslConeId)
+      throws IngeTechnicalException {
     ExportFormatVO exportFormatVO;
-    if (isStructured(exportFormat)) {
-      exportFormatVO = new ExportFormatVO(FormatType.STRUCTURED, exportFormat,
-          FileFormatVO.getNameByMimeType(TransformerFactory.getFormat(exportFormat).getMimeType()));
-    } else if (isCitationStyle(exportFormat)) {
-      exportFormatVO =
-          new ExportFormatVO(FormatType.LAYOUT, exportFormat, outputFormat == null ? FileFormatVO.PDF_NAME : outputFormat, cslConeId);
+    if (isStructured(exportFormatName)) {
+      exportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.STRUCTURED, exportFormatName,
+          TransformerFactory.getFormat(exportFormatName).getFileFormat().getName());
+    } else if (isCitationStyle(exportFormatName)) {
+      exportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, exportFormatName,
+          outputFormatName == null ? FileFormatVO.PDF_NAME : outputFormatName, cslConeId);
     } else {
-      throw new IngeTechnicalException("Undefined export format: " + exportFormat);
+      throw new IngeTechnicalException("Undefined export format: " + exportFormatName);
     }
 
     return exportFormatVO;

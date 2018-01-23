@@ -35,6 +35,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
@@ -81,8 +82,16 @@ public class ExportItems extends FacesBean {
     final SelectItem EXPORTFORMAT_JUS = new SelectItem(XmlHelper.JUS, this.getLabel("Export_ExportFormat_JUS"));
     final SelectItem EXPORTFORMAT_CSL = new SelectItem(XmlHelper.CSL, XmlHelper.CSL); // nicht globalisiert
 
-    final SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX,
-        EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_APA, EXPORTFORMAT_APA_CJK, EXPORTFORMAT_AJP, EXPORTFORMAT_JUS, EXPORTFORMAT_CSL};
+    final SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] { //
+        EXPORTFORMAT_MARCXML, //
+        EXPORTFORMAT_ENDNOTE, // 
+        EXPORTFORMAT_BIBTEX, //
+        EXPORTFORMAT_ESCIDOC_XML, //
+        EXPORTFORMAT_APA, //
+        EXPORTFORMAT_APA_CJK, // 
+        EXPORTFORMAT_AJP, //
+        EXPORTFORMAT_JUS, //
+        EXPORTFORMAT_CSL};
 
     return EXPORTFORMAT_OPTIONS;
   }
@@ -102,8 +111,13 @@ public class ExportItems extends FacesBean {
     final SelectItem FILEFORMAT_HTML_LINKED = new SelectItem(FileFormatVO.HTML_LINKED_NAME, this.getLabel("Export_FileFormat_HTML_LINKED"));
     final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
         new SelectItem(FileFormatVO.ESCIDOC_SNIPPET_NAME, this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
-    final SelectItem[] FILEFORMAT_OPTIONS =
-        new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED, FILEFORMAT_ESCIDOC_SNIPPET};
+
+    final SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[] { //
+        FILEFORMAT_PDF, //
+        FILEFORMAT_DOCX, //
+        FILEFORMAT_HTML_PLAIN, // 
+        FILEFORMAT_HTML_LINKED, //
+        FILEFORMAT_ESCIDOC_SNIPPET};
 
     return FILEFORMAT_OPTIONS;
   }
@@ -117,35 +131,20 @@ public class ExportItems extends FacesBean {
    */
   public void updateExportFormats() {
     final ExportItemsSessionBean sb = this.getExportItemsSessionBean();
-    final String selExportFormat = sb.getExportFormatName();
-    sb.setExportFormatName(selExportFormat);
 
-    if (XmlHelper.APA.equalsIgnoreCase(selExportFormat) //
-        || XmlHelper.APA_CJK.equalsIgnoreCase(selExportFormat) //
-        || XmlHelper.AJP.equalsIgnoreCase(selExportFormat) //
-        || XmlHelper.JUS.equalsIgnoreCase(selExportFormat) //
-        || XmlHelper.CSL.equalsIgnoreCase(selExportFormat)) {
-      // set default fileFormat to pdf
-      final String fileFormat = sb.getFileFormat();
+    final ExportFormatVO exportFormat = sb.getCurExportFormatVO();
+    //    final String selExportFormat = sb.getExportFormatName();
+    sb.setExportFormatName(exportFormat.getName());
 
-      if (fileFormat != null || fileFormat != null && fileFormat.trim().equals("")
-          || fileFormat != null && fileFormat.trim().equals(FileFormatVO.TXT_NAME)) {
-        sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
-      }
-    } else {
-      String fileFormat = null;
-
-      if (TransformerFactory.ESCIDOC_ITEM_XML.equals(selExportFormat)) {
-        fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
-      } else if (TransformerFactory.MARC_XML.equals(selExportFormat)) {
-        fileFormat = FileFormatVO.ESCIDOC_XML_NAME;
-      } else {
-        // txt for all other
-        fileFormat = FileFormatVO.TXT_NAME;
-      }
-
-      sb.setFileFormat(fileFormat);
-    }
+    if (exportFormat.getFormatType().equals(ExportFormatVO.FormatType.LAYOUT))
+      //    if (XmlHelper.APA.equalsIgnoreCase(selExportFormat) //
+      //        || XmlHelper.APA_CJK.equalsIgnoreCase(selExportFormat) //
+      //        || XmlHelper.AJP.equalsIgnoreCase(selExportFormat) //
+      //        || XmlHelper.JUS.equalsIgnoreCase(selExportFormat) //
+      //        || XmlHelper.CSL.equalsIgnoreCase(selExportFormat)) {
+      // set default fileFormat
+      sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
+    //    }
   }
 
   // /////////////////////////////////////////////////////////////////////////////////////

@@ -57,71 +57,63 @@ public class TransformerFactory {
   public static final String ZFN_TEI_XML = "Zfn_Tei_Xml";
   public static final String ZIM_XML = "Zim_Xml";
 
-  private static final String UTF_8 = "UTF-8";
-
   public enum FORMAT
   {
-    ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    BIBTEX_STRING(TransformerFactory.BIBTEX, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    BMC_FULLTEXT_HTML(TransformerFactory.BMC_FULLTEXT_HTML, FileFormatVO.HTML_PLAIN_MIMETYPE, TransformerFactory.UTF_8), //
-    BMC_FULLTEXT_XML(TransformerFactory.BMC_FULLTEXT_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    BMC_OAIPMH_XML(TransformerFactory.BMC_OAIPMH_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    BMC_XML(TransformerFactory.BMC_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    COINS_STRING(TransformerFactory.COINS, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    DC_XML(TransformerFactory.DC_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    DOI_METADATA_XML(TransformerFactory.DOI_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    EDOC_XML(TransformerFactory.EDOC_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ENDNOTE_STRING(TransformerFactory.ENDNOTE, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    ENDNOTE_XML(TransformerFactory.ENDNOTE_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_COMPONENT_XML(TransformerFactory.ESCIDOC_COMPONENT_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEMLIST_V1_XML(TransformerFactory.ESCIDOC_ITEMLIST_V1_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEMLIST_V2_XML(TransformerFactory.ESCIDOC_ITEMLIST_V2_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEMLIST_V3_XML(TransformerFactory.ESCIDOC_ITEMLIST_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEM_V1_XML(TransformerFactory.ESCIDOC_ITEM_V1_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEM_V2_XML(TransformerFactory.ESCIDOC_ITEM_V2_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEM_V3_XML(TransformerFactory.ESCIDOC_ITEM_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ESCIDOC_ITEM_VO(TransformerFactory.ESCIDOC_ITEM_VO, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    HTML_METATAGS_DC_XML(TransformerFactory.HTML_METATAGS_DC_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML(TransformerFactory.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    JUS_HTML_XML(TransformerFactory.JUS_HTML_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    JUS_INDESIGN_XML(TransformerFactory.JUS_INDESIGN_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    JUS_SNIPPET_XML(TransformerFactory.JUS_SNIPPET_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    MAB_STRING(TransformerFactory.MAB, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    MAB_XML(TransformerFactory.MAB_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    MARC_21_STRING(TransformerFactory.MARC_21, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    MARC_XML(TransformerFactory.MARC_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    MODS_XML(TransformerFactory.MODS_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    PEER_TEI_XML(TransformerFactory.PEER_TEI_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    PMC_OAIPMH_XML(TransformerFactory.PMC_OAIPMH_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    RIS_STRING(TransformerFactory.RIS, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    RIS_XML(TransformerFactory.RIS_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    SPIRES_XML(TransformerFactory.SPIRES_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    WOS_STRING(TransformerFactory.WOS, FileFormatVO.TXT_MIMETYPE, TransformerFactory.UTF_8), //
-    WOS_XML(TransformerFactory.WOS_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ZFN_TEI_XML(TransformerFactory.ZFN_TEI_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8), //
-    ZIM_XML(TransformerFactory.ZIM_XML, FileFormatVO.XML_MIMETYPE, TransformerFactory.UTF_8);
+    ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.FILE_FORMAT.XML), //
+    BIBTEX_STRING(TransformerFactory.BIBTEX, FileFormatVO.FILE_FORMAT.TXT), //
+    BMC_FULLTEXT_HTML(TransformerFactory.BMC_FULLTEXT_HTML, FileFormatVO.FILE_FORMAT.HTML_PLAIN), //
+    BMC_FULLTEXT_XML(TransformerFactory.BMC_FULLTEXT_XML, FileFormatVO.FILE_FORMAT.XML), //
+    BMC_OAIPMH_XML(TransformerFactory.BMC_OAIPMH_XML, FileFormatVO.FILE_FORMAT.XML), //
+    BMC_XML(TransformerFactory.BMC_XML, FileFormatVO.FILE_FORMAT.XML), //
+    COINS_STRING(TransformerFactory.COINS, FileFormatVO.FILE_FORMAT.TXT), //
+    DC_XML(TransformerFactory.DC_XML, FileFormatVO.FILE_FORMAT.XML), //
+    DOI_METADATA_XML(TransformerFactory.DOI_XML, FileFormatVO.FILE_FORMAT.XML), //
+    EDOC_XML(TransformerFactory.EDOC_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ENDNOTE_STRING(TransformerFactory.ENDNOTE, FileFormatVO.FILE_FORMAT.TXT), //
+    ENDNOTE_XML(TransformerFactory.ENDNOTE_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_COMPONENT_XML(TransformerFactory.ESCIDOC_COMPONENT_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEMLIST_V1_XML(TransformerFactory.ESCIDOC_ITEMLIST_V1_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEMLIST_V2_XML(TransformerFactory.ESCIDOC_ITEMLIST_V2_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEMLIST_V3_XML(TransformerFactory.ESCIDOC_ITEMLIST_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEM_V1_XML(TransformerFactory.ESCIDOC_ITEM_V1_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEM_V2_XML(TransformerFactory.ESCIDOC_ITEM_V2_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEM_V3_XML(TransformerFactory.ESCIDOC_ITEM_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ESCIDOC_ITEM_VO(TransformerFactory.ESCIDOC_ITEM_VO, FileFormatVO.FILE_FORMAT.XML), //
+    HTML_METATAGS_DC_XML(TransformerFactory.HTML_METATAGS_DC_XML, FileFormatVO.FILE_FORMAT.XML), //
+    HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML(TransformerFactory.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FileFormatVO.FILE_FORMAT.XML), //
+    JUS_HTML_XML(TransformerFactory.JUS_HTML_XML, FileFormatVO.FILE_FORMAT.XML), //
+    JUS_INDESIGN_XML(TransformerFactory.JUS_INDESIGN_XML, FileFormatVO.FILE_FORMAT.XML), //
+    JUS_SNIPPET_XML(TransformerFactory.JUS_SNIPPET_XML, FileFormatVO.FILE_FORMAT.XML), //
+    MAB_STRING(TransformerFactory.MAB, FileFormatVO.FILE_FORMAT.TXT), //
+    MAB_XML(TransformerFactory.MAB_XML, FileFormatVO.FILE_FORMAT.XML), //
+    MARC_21_STRING(TransformerFactory.MARC_21, FileFormatVO.FILE_FORMAT.TXT), //
+    MARC_XML(TransformerFactory.MARC_XML, FileFormatVO.FILE_FORMAT.XML), //
+    MODS_XML(TransformerFactory.MODS_XML, FileFormatVO.FILE_FORMAT.XML), //
+    OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.FILE_FORMAT.XML), //
+    PEER_TEI_XML(TransformerFactory.PEER_TEI_XML, FileFormatVO.FILE_FORMAT.XML), //
+    PMC_OAIPMH_XML(TransformerFactory.PMC_OAIPMH_XML, FileFormatVO.FILE_FORMAT.XML), //
+    RIS_STRING(TransformerFactory.RIS, FileFormatVO.FILE_FORMAT.TXT), //
+    RIS_XML(TransformerFactory.RIS_XML, FileFormatVO.FILE_FORMAT.XML), //
+    SPIRES_XML(TransformerFactory.SPIRES_XML, FileFormatVO.FILE_FORMAT.XML), //
+    WOS_STRING(TransformerFactory.WOS, FileFormatVO.FILE_FORMAT.TXT), //
+    WOS_XML(TransformerFactory.WOS_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ZFN_TEI_XML(TransformerFactory.ZFN_TEI_XML, FileFormatVO.FILE_FORMAT.XML), //
+    ZIM_XML(TransformerFactory.ZIM_XML, FileFormatVO.FILE_FORMAT.XML);
 
   private final String name;
-  private final String mimeType;
-  private final String encoding;
+  private final FileFormatVO.FILE_FORMAT fileFormat;
 
-  FORMAT(String name, String mimeType, String encoding) {
+  FORMAT(String name, FileFormatVO.FILE_FORMAT fileFormat) {
       this.name = name;
-      this.mimeType = mimeType;
-      this.encoding = encoding;
+      this.fileFormat = fileFormat;
     }
 
   public String getName() {
     return this.name;
   }
 
-  public String getMimeType() {
-    return this.mimeType;
-  }
-
-  public String getEncoding() {
-    return this.encoding;
+  public FileFormatVO.FILE_FORMAT getFileFormat() {
+    return this.fileFormat;
   }
 
   }

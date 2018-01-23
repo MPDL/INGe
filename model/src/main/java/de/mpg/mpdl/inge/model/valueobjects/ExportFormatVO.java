@@ -26,63 +26,29 @@
 
 package de.mpg.mpdl.inge.model.valueobjects;
 
-import java.util.List;
-
-/**
- * Valueobject representing the export format data needed for the export.
- * 
- * @revised by MuJ: 28.08.2007
- * @version $Revision$ $LastChangedDate$ by $Author$
- * @updated 05-Sep-2007 10:42:30
- */
 @SuppressWarnings("serial")
 public class ExportFormatVO extends ValueObject {
-  /**
-   * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-   * 'de.mpg.mpdl.inge.model.valueobjects.ItemVO; local class incompatible: stream classdesc
-   * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286'
-   * that occur after JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to
-   * be compiled twice for testing (once for the Application Server, once for the local test).
-   * 
-   * @author Johannes Mueller
-   */
-
-  private List<FileFormatVO> fileFormats;
   private FormatType formatType;
   private String name;
-  private List<String> creators;
-  private String description;
   private String id;
-  private FileFormatVO outputFormat;
+  private FileFormatVO.FILE_FORMAT fileFormat;
 
-  /**
-   * The possible export format types.
-   * 
-   * @version $Revision$ $LastChangedDate$ by $Author$
-   * @updated 05-Sep-2007 10:42:30
-   */
   public enum FormatType
   {
     LAYOUT,
     STRUCTURED
   }
 
-  public ExportFormatVO() {}
-
-  public ExportFormatVO(FormatType formatType, String name, String outputFormat) {
+  public ExportFormatVO(FormatType formatType, String name, String fileFormatName) {
     this.formatType = formatType;
     this.name = name;
-    this.outputFormat = new FileFormatVO();
-    this.outputFormat.setName(outputFormat);
-    this.outputFormat.setMimeType(FileFormatVO.getMimeTypeByName(outputFormat));
+    this.fileFormat = FileFormatVO.getFileFormat(fileFormatName);
   }
 
-  public ExportFormatVO(FormatType formatType, String name, String outputFormat, String id) {
+  public ExportFormatVO(FormatType formatType, String name, String fileFormatName, String id) {
     this.formatType = formatType;
     this.name = name;
-    this.outputFormat = new FileFormatVO();
-    this.outputFormat.setName(outputFormat);
-    this.outputFormat.setMimeType(FileFormatVO.getMimeTypeByName(outputFormat));
+    this.fileFormat = FileFormatVO.getFileFormat(fileFormatName);
     this.id = id;
   }
 
@@ -90,28 +56,16 @@ public class ExportFormatVO extends ValueObject {
     return this.name;
   }
 
-  public void setName(String newVal) {
-    this.name = newVal;
-  }
-
-  public List<FileFormatVO> getFileFormats() {
-    return this.fileFormats;
-  }
-
   public FormatType getFormatType() {
     return this.formatType;
   }
 
-  public void setFormatType(FormatType newVal) {
-    this.formatType = newVal;
+  public FileFormatVO.FILE_FORMAT getFileFormat() {
+    return this.fileFormat;
   }
 
-  public void setOutputFormat(FileFormatVO newVal) {
-    this.outputFormat = newVal;
-  }
-
-  public FileFormatVO getOutputFormat() {
-    return this.outputFormat;
+  public void setFileFormat(String fileFormatName) {
+    this.fileFormat = FileFormatVO.getFileFormat(fileFormatName);
   }
 
   public String getId() {
@@ -122,26 +76,9 @@ public class ExportFormatVO extends ValueObject {
     this.id = id;
   }
 
-  public List<String> getCreators() {
-    return creators;
-  }
-
-  public void setCreators(List<String> creators) {
-    this.creators = creators;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
   @Override
   public String toString() {
-    return "ExportFormatVO [fileFormats=" + fileFormats + ", formatType=" + formatType + ", name=" + name + ", id=" + id
-        + ", selectedFileFormat=" + outputFormat + "]";
+    return "ExportFormatVO [formatType=" + formatType + ", name=" + name + ", id=" + id + ", fileFormat=" + fileFormat + "]";
   }
 
 }

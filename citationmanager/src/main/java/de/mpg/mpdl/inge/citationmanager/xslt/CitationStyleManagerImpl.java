@@ -44,7 +44,6 @@ import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
@@ -188,7 +187,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
       byte[] result =
           CitationStyleExecuterService.getOutput(ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader()),
-              new ExportFormatVO(FormatType.LAYOUT, cs, task));
+              new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, cs, task));
       FileOutputStream fos = new FileOutputStream(outFile);
       fos.write(result);
       fos.close();
