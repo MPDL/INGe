@@ -205,13 +205,11 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
           String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
           fileVO.setLocalFileIdentifier(relativePath);
         } else {
-          Response response =
-              Request
-                  .Put(
-                      PropertyReader.getProperty("inge.rest.development.file_url") + stagedFileVo.getFilename())
-                  .addHeader("Authorization", "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username")
-                      + ":" + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
-                  .bodyStream(stagedFileStream).execute();
+          Response response = Request.Put(PropertyReader.getProperty("inge.rest.development.file_url") + stagedFileVo.getFilename())
+              .addHeader("Authorization",
+                  "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username") + ":"
+                      + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
+              .bodyStream(stagedFileStream).execute();
           fileVO.setLocalFileIdentifier(response.returnContent().asString());
         }
 
