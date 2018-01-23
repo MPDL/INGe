@@ -12,10 +12,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +25,6 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -45,9 +39,8 @@ public class OaiRestController {
   @Autowired
   ElasticSearchClientProvider client;
 
-  @RequestMapping(value = "init", method = RequestMethod.POST)
-  public ResponseEntity<String> init(@RequestParam(value = "maxIntervals", required = false) Integer max)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  @RequestMapping(value = "init", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+  public String init(@RequestParam(value = "maxIntervals", required = false) Integer max) throws IngeTechnicalException {
 
     int count = 0;
     int countSuccess = 0;
@@ -104,11 +97,9 @@ public class OaiRestController {
           .actionGet();
     } while (scrollResp.getHits().getHits().length != 0 && countInterval < maxIntervals);
 
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.TEXT_PLAIN);
     String srResponse = "Done: " + count + " / " + countSuccess + "/" + countFailure + " (Summe / OK / ERROR)";
 
-    return new ResponseEntity<String>(srResponse, headers, HttpStatus.OK);
+    return srResponse;
   }
 
 }

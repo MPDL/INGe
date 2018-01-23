@@ -50,10 +50,10 @@ public class UnapiRestController {
       @RequestParam(value = "id", required = false) String identifier, //
       @RequestParam(value = "show", required = false) Boolean show, //
       @RequestParam(value = "format", required = false) String formatName, //
-      HttpServletResponse response) //
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    String srResponse = null;
+    String result = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     // public byte[] unapi()
@@ -62,12 +62,7 @@ public class UnapiRestController {
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
 
-      try {
-        OutputStream output = response.getOutputStream();
-        output.write(baos.toByteArray());
-      } catch (IOException e) {
-        throw new IngeTechnicalException(e);
-      }
+      writeOutput(response, baos);
 
       // public byte[] unapi(String identifier, boolean show)
     } else if (formatName == null) {
@@ -75,12 +70,7 @@ public class UnapiRestController {
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
 
-      try {
-        OutputStream output = response.getOutputStream();
-        output.write(baos.toByteArray());
-      } catch (IOException e) {
-        throw new IngeTechnicalException(e);
-      }
+      writeOutput(response, baos);
 
       // public byte[] unapi(String identifier, String format)
     } else {
@@ -89,19 +79,14 @@ public class UnapiRestController {
       TransformerFactory.FORMAT targetFormat = TransformerFactory.getFormat(formatName);
 
       try {
-        srResponse = this.its.transformPubItemTo(targetFormat, EntityTransformer.transformToOld(pubItemVO));
+        result = this.its.transformPubItemTo(targetFormat, EntityTransformer.transformToOld(pubItemVO));
       } catch (TransformationException e) {
         throw new IngeApplicationException(e);
       }
 
       response.setContentType(targetFormat.getFileFormat().getMimeType());
 
-      try {
-        OutputStream output = response.getOutputStream();
-        output.write(srResponse.getBytes(StandardCharsets.UTF_8));
-      } catch (IOException e) {
-        throw new IngeTechnicalException(e);
-      }
+      writeOutput(response, result);
     }
   }
 
@@ -111,10 +96,10 @@ public class UnapiRestController {
       @RequestParam(value = "id", required = false) String identifier, //
       @RequestParam(value = "show", required = false) Boolean show, //
       @RequestParam(value = "format", required = false) String formatName, //
-      HttpServletResponse response) //
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    String srResponse = null;
+    String result = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     // public byte[] unapi()
@@ -123,12 +108,7 @@ public class UnapiRestController {
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
 
-      try {
-        OutputStream output = response.getOutputStream();
-        output.write(baos.toByteArray());
-      } catch (IOException e) {
-        throw new IngeTechnicalException(e);
-      }
+      writeOutput(response, baos);
 
       // public byte[] unapi(String identifier, boolean show)
     } else if (formatName == null) {
@@ -136,12 +116,7 @@ public class UnapiRestController {
 
       response.setContentType(MediaType.APPLICATION_XML.getType());
 
-      try {
-        OutputStream output = response.getOutputStream();
-        output.write(baos.toByteArray());
-      } catch (IOException e) {
-        throw new IngeTechnicalException(e);
-      }
+      writeOutput(response, baos);
 
       // public byte[] unapi(String identifier, String format)
     } else {
@@ -150,7 +125,7 @@ public class UnapiRestController {
       TransformerFactory.FORMAT targetFormat = TransformerFactory.getFormat(formatName);
 
       try {
-        srResponse = this.its.transformPubItemTo(targetFormat, EntityTransformer.transformToOld(pubItemVO));
+        result = this.its.transformPubItemTo(targetFormat, EntityTransformer.transformToOld(pubItemVO));
       } catch (TransformationException e) {
         throw new IngeApplicationException(e);
       }
@@ -159,12 +134,7 @@ public class UnapiRestController {
       response.setHeader("Content-disposition",
           "attachment; filename=" + targetFormat.getName() + "." + targetFormat.getFileFormat().getExtension());
 
-      try {
-        OutputStream output = response.getOutputStream();
-        output.write(srResponse.getBytes(StandardCharsets.UTF_8));
-      } catch (IOException e) {
-        throw new IngeTechnicalException(e);
-      }
+      writeOutput(response, result);
     }
   }
 
@@ -206,6 +176,24 @@ public class UnapiRestController {
       xOpts.setSavePrettyPrint();
       xOpts.setSavePrettyPrintIndent(4);
       xmlFormatsDoc.save(baos, xOpts);
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+  private void writeOutput(HttpServletResponse response, ByteArrayOutputStream baos) throws IngeTechnicalException {
+    try {
+      OutputStream output = response.getOutputStream();
+      output.write(baos.toByteArray());
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
+    }
+  }
+
+  private void writeOutput(HttpServletResponse response, String result) throws IngeTechnicalException {
+    try {
+      OutputStream output = response.getOutputStream();
+      output.write(result.getBytes(StandardCharsets.UTF_8));
     } catch (IOException e) {
       throw new IngeTechnicalException(e);
     }
