@@ -3,9 +3,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Primary;
@@ -19,7 +17,6 @@ import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
@@ -34,16 +31,16 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   private static Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
 
-  // Mapping the format names of a ExportVO object to the enums used in transformationManager
-  private static Map<String, TransformerFactory.FORMAT> map;
-  static {
-    map = new HashMap<String, TransformerFactory.FORMAT>();
-    map.put(TransformerFactory.MARC_XML, TransformerFactory.FORMAT.MARC_XML);
-    map.put(TransformerFactory.ENDNOTE, TransformerFactory.FORMAT.ENDNOTE_STRING);
-    map.put(TransformerFactory.BIBTEX, TransformerFactory.FORMAT.BIBTEX_STRING);
-    map.put(TransformerFactory.ESCIDOC_ITEM_XML, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
-    map.put(TransformerFactory.EDOC_XML, TransformerFactory.FORMAT.EDOC_XML);
-  }
+  //  // Mapping the format names of a ExportVO object to the enums used in transformationManager
+  //  private static Map<String, TransformerFactory.FORMAT> map;
+  //  static {
+  //    map = new HashMap<String, TransformerFactory.FORMAT>();
+  //    map.put(TransformerFactory.MARC_XML, TransformerFactory.FORMAT.MARC_XML);
+  //    map.put(TransformerFactory.ENDNOTE, TransformerFactory.FORMAT.ENDNOTE_STRING);
+  //    map.put(TransformerFactory.BIBTEX, TransformerFactory.FORMAT.BIBTEX_STRING);
+  //    map.put(TransformerFactory.ESCIDOC_ITEM_XML, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML);
+  //    map.put(TransformerFactory.EDOC_XML, TransformerFactory.FORMAT.EDOC_XML);
+  //  }
 
   @Override
   public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList) throws IngeTechnicalException {
@@ -70,16 +67,18 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         Transformer trans = null;
         StringWriter wr = new StringWriter();
 
+        TransformerFactory.FORMAT format = TransformerFactory.getFormat(exportFormat.getName());
+
         try {
-          trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, map.get(exportFormat.getName()));
+          trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, format);
 
           trans.transform(new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
               new TransformerStreamResult(wr));
 
           exportData = wr.toString().getBytes("UTF-8");
         } catch (UnsupportedEncodingException | TransformationException e) {
-          logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
-              + map.get(exportFormat.getName()));
+          logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <" + format);
+          //              + map.get(exportFormat.getName()));
           throw new IngeTechnicalException(e);
         }
         break;
@@ -92,18 +91,15 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws TechnicalException {
-
-
-
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws IngeTechnicalException {
     List<PubItemVO> transformedList = EntityTransformer.transformToOld(pubItemVOList);
-    String itemList = XmlTransformingService.transformToItemList(transformedList);
 
     byte[] exportData = null;
     try {
+      String itemList = XmlTransformingService.transformToItemList(transformedList);
       exportData = getOutputForExport(exportFormat, itemList);
     } catch (Exception e) {
-      throw new TechnicalException(e);
+      throw new IngeTechnicalException(e);
     }
 
     return exportData;

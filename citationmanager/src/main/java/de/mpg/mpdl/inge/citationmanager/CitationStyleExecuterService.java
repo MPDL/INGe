@@ -110,7 +110,6 @@ public class CitationStyleExecuterService {
 
         // set parameters
         transformer.setParameter("pubman_instance", getPubManUrl());
-
         transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
 
         logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
@@ -121,23 +120,24 @@ public class CitationStyleExecuterService {
       // new edoc md set
       if (XmlHelper.ESCIDOC_SNIPPET.equals(outputFormat)) {
         result = snippet.getBytes(UTF_8);
-      } else if (XmlHelper.SNIPPET.equals(outputFormat)) { // old edoc md set: back transformation
 
+      } else if (XmlHelper.SNIPPET.equals(outputFormat)) { // old edoc md set: back transformation
         de.mpg.mpdl.inge.transformation.Transformer trans =
             TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
-        // TransformerFactory.newInstance(in.toFORMAT(), out.toFORMAT());
         StringWriter wr = new StringWriter();
-
         try {
           trans.transform(new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes(UTF_8))), new TransformerStreamResult(wr));
         } catch (Exception e) {
           throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
         }
         result = wr.toString().getBytes(UTF_8);
+
       } else if (XmlHelper.HTML_PLAIN.equals(outputFormat) || XmlHelper.HTML_LINKED.equals(outputFormat)) {
         result = generateHtmlOutput(snippet, outputFormat, HTML, true).getBytes(UTF_8);
+
       } else if (XmlHelper.TXT.equals(outputFormat)) {
         result = snippet.getBytes(UTF_8);
+
       } else if (XmlHelper.DOCX.equals(outputFormat) || XmlHelper.PDF.equals(outputFormat)) {
         String htmlResult = generateHtmlOutput(snippet, XmlHelper.HTML_PLAIN, XHTML, false);
         WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
@@ -163,7 +163,6 @@ public class CitationStyleExecuterService {
         spacing.setAfter(BigInteger.valueOf(400));
         ppr.setSpacing(spacing);
         mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);;
-
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
