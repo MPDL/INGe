@@ -59,7 +59,7 @@ public class ExportItemsSessionBean extends FacesBean {
   private ExportFormatVO curExportFormatVO = null;
 
 
-  private boolean enableFileFormats = true;
+  private boolean enableFileFormats = false;
   private boolean enableExport = true;
   private boolean enableCslAutosuggest = false;
 
