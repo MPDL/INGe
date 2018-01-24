@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
@@ -70,7 +71,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
@@ -1699,7 +1699,7 @@ public class ViewItemFull extends FacesBean {
 
     try {
       exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, pubItemList);
-    } catch (final TechnicalException e) {
+    } catch (final IngeTechnicalException e) {
       ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
       return ErrorPage.LOAD_ERRORPAGE;
     }

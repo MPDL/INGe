@@ -72,7 +72,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
@@ -548,14 +547,14 @@ public class ItemControllerSessionBean extends FacesBean {
    * @return the export data stream as array of bytes
    */
   public byte[] retrieveExportData(final ExportFormatVO exportFormatVO, final List<ItemVersionVO> itemsToExportList)
-      throws TechnicalException {
-    final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
+      throws IngeTechnicalException {
+    //    final List<ItemVersionVO> pubItemList = new ArrayList<ItemVersionVO>();
+    //
+    //    for (final ItemVersionVO pubItem : itemsToExportList) {
+    //      pubItemList.add(new ItemVersionVO(pubItem));
+    //    }
 
-    for (final ItemVersionVO pubItem : itemsToExportList) {
-      pubItemList.add(new ItemVersionVO(pubItem));
-    }
-
-    return this.itemTransformingService.getOutputForExport(exportFormatVO, pubItemList);
+    return this.itemTransformingService.getOutputForExport(exportFormatVO, itemsToExportList);
   }
 
   /**

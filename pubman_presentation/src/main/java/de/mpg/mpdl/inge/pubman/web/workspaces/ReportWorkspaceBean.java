@@ -59,8 +59,8 @@ public class ReportWorkspaceBean extends FacesBean {
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
 
-  private final String csExportFormat = XmlHelper.JUS_REPORT;
-  private final String csOutputFormat = "escidoc_snippet";
+  private final String csExportFormatName = XmlHelper.JUS_REPORT;
+  private final String csOutputFormatName = XmlHelper.ESCIDOC_SNIPPET;
 
   private Map<String, String> configuration = null;
   List<String> childAffilList;
@@ -253,7 +253,7 @@ public class ReportWorkspaceBean extends FacesBean {
     byte[] exportData = null;
     try {
       exportData = CitationStyleExecuterService.getOutput(itemListAsString,
-          new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, this.csExportFormat, this.csOutputFormat));
+          new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, this.csExportFormatName, this.csOutputFormatName));
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
       this.error("Did not find Citation service");

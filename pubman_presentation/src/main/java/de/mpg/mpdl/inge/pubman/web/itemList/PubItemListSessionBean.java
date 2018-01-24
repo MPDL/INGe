@@ -43,9 +43,9 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionBean;
@@ -903,7 +903,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       byte[] exportFileData;
       try {
         exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
-      } catch (final TechnicalException e) {
+      } catch (final IngeTechnicalException e) {
         ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
         return ErrorPage.LOAD_ERRORPAGE;
       }
@@ -966,7 +966,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     byte[] exportFileData = null;
     try {
       exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
-    } catch (final TechnicalException e) {
+    } catch (final IngeTechnicalException e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
     final String contentType = curExportFormat.getFileFormat().getMimeType();

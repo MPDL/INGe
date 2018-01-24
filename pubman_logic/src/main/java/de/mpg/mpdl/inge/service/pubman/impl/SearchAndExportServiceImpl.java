@@ -11,15 +11,12 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -55,9 +52,8 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
       targetMimeType = FileFormatVO.JSON_MIMETYPE;
     } else {
       List<ItemVersionVO> searchResult = getSearchResult(srrVO);
-      String itemList = getItemList(searchResult);
       ExportFormatVO exportFormatVO = getExportFormatVO(saerrVO.getExportFormatName(), saerrVO.getOutputFormat(), saerrVO.getCslConeId());
-      result = this.itemTransformingService.getOutputForExport(exportFormatVO, itemList);
+      result = this.itemTransformingService.getOutputForExport(exportFormatVO, searchResult);
       fileName = exportFormatVO.getName() + "." + exportFormatVO.getFileFormat().getExtension();
       targetMimeType = exportFormatVO.getFileFormat().getMimeType();
     }
@@ -72,17 +68,6 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     }
 
     return searchResult;
-  }
-
-  private String getItemList(List<ItemVersionVO> list) throws IngeTechnicalException {
-    String itemList;
-    try {
-      itemList = XmlTransformingService.transformToItemList(EntityTransformer.transformToOld(list));
-    } catch (TechnicalException e) {
-      throw new IngeTechnicalException(e);
-    }
-
-    return itemList;
   }
 
   private ExportFormatVO getExportFormatVO(String exportFormatName, String outputFormatName, String cslConeId)
