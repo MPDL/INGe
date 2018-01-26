@@ -58,6 +58,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.AdminHelper;
@@ -483,6 +484,7 @@ public class Migration {
       file.setChecksum(oldFile.getChecksum());
       file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
       file.setContent(oldFile.getContent());
+      
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
       file.setLastModificationDate(oldFile.getLastModificationDate());
@@ -499,6 +501,8 @@ public class Migration {
     }
 
     newPubItem.setMessage(itemVo.getVersion().getLastMessage());
+    MdsPublicationVO itemMetaData = itemVo.getMetadata();
+    itemMetaData = prepare4Ingest(itemMetaData);
     newPubItem.setMetadata(itemVo.getMetadata());
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifier(owner);
@@ -544,6 +548,19 @@ public class Migration {
     pubItemObject.setPublicState(ItemVersionVO.State.valueOf(itemVo.getPublicStatus().name()));
 
     return newPubItem;
+  }
+  
+  private static MdsPublicationVO prepare4Ingest(MdsPublicationVO old_metadata) {
+    // MdsPublicationVO changed_metadata = new MdsPublicationVO();
+    old_metadata.getCreators().forEach(creator -> {
+      if (creator.getOrganization() != null) {
+        String oldId = creator.getOrganization().getIdentifier();
+        if (!oldId.isEmpty()) {
+        creator.getOrganization().setIdentifier(oldId.replace("escidoc:", "ou_"));
+        }
+      }
+    });
+    return old_metadata ;
   }
 
   private AccountUserDbVO transformToNew(AccountUserVO oldAccountUserVO, List<GrantVO> grants, List<UserAttributeVO> attributes) {
