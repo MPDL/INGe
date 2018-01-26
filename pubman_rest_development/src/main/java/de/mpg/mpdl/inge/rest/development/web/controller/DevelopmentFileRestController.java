@@ -58,5 +58,7 @@ public class DevelopmentFileRestController {
     fileSystemService.readFile(componentPathYear + "/" + componentPathMonth + "/" + componentPathDay + "/" + componentName,
         response.getOutputStream());
   }
+  
+  //TODO deleteComponent
 
 }
