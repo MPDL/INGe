@@ -2,29 +2,59 @@ package de.mpg.mpdl.inge.service.listener;
 
 
 
+import java.io.ByteArrayOutputStream;
+
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+
+import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
+import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 
 @Component
 public class FulltextIndexer {
 
   private final static Logger logger = LogManager.getLogger(FulltextIndexer.class);
 
-  @JmsListener(containerFactory = "topicContainerFactory", destination = "items-topic")
+  @Autowired
+  PubItemDaoEs pubItemDao;
+
+  @Autowired
+  @Qualifier("fileSystemServiceBean")
+  private FileStorageInterface fsi;
+
+
+  @JmsListener(containerFactory = "topicContainerFactory", destination = "items-topic", selector = "method='create' or method='update'")
   public void receiveMessage(ObjectMessage msg) {
     try {
-      logger.info("JMS message received: ");
-      // PubItemVO item = (PubItemVO)msg.getObject();
-      // logger.info(item.getVersion().getObjectId());
-      logger.info(msg.getStringProperty("method"));
-    } catch (JMSException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      ItemVersionVO item = (ItemVersionVO) msg.getObject();
+      if (item.getFiles() != null) {
+        for (FileDbVO fileVO : item.getFiles()) {
+          if (Storage.INTERNAL_MANAGED.equals(fileVO.getStorage()) && Visibility.PUBLIC.equals(fileVO.getVisibility())) {
+            logger.info("Index fulltext for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId());
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            fsi.readFile(fileVO.getLocalFileIdentifier(), bos);
+            bos.flush();
+            bos.close();
+            pubItemDao.createFulltext(item.getObjectIdAndVersion(), fileVO.getObjectId(), bos.toByteArray());
+            logger.info("Finished fulltext indexing for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId());
+          }
+        }
+      }
+
+    } catch (Exception e) {
+      logger.error("Error while indexing fulltext", e);
     }
   }
 

@@ -153,11 +153,6 @@
 			<artifactId>inge_validation</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>fluent-hc</artifactId>
-			<version>4.5.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.json</artifactId>
 			<version>1.0.4</version>

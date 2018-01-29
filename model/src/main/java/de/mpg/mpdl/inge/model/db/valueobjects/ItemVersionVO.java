@@ -73,6 +73,8 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsPublicationVOJsonUserType", typeClass = MdsPublicationVOJsonUserType.class)
+//Ignore json joinType from elasticsearch
+@JsonIgnoreProperties({"joinType"})
 public class ItemVersionVO extends ItemVersionRO implements Serializable {
 
   /**

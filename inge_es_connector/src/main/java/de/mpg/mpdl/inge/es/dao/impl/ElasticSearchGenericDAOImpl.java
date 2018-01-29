@@ -26,7 +26,9 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
@@ -53,22 +55,27 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   private final static Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
-  ElasticSearchClientProvider client;
+  protected ElasticSearchClientProvider client;
 
-  ObjectMapper mapper = MapperFactory.getObjectMapper();
+  protected ObjectMapper mapper = MapperFactory.getObjectMapper();
 
+  protected String indexName;
 
-  private String indexName;
+  protected String indexType;
 
-  private String indexType;
-
-  private Class<E> typeParameterClass;
+  protected Class<E> typeParameterClass;
 
 
   public ElasticSearchGenericDAOImpl(String indexName, String indexType, Class<E> typeParameterClass) {
     this.indexName = indexName;
     this.indexType = indexType;
     this.typeParameterClass = typeParameterClass;
+  }
+
+
+  protected JsonNode applyCustomValues(E entity) {
+    JsonNode node = mapper.valueToTree(entity);
+    return node;
   }
 
 
@@ -83,7 +90,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public String create(String id, E entity) throws IngeTechnicalException {
     try {
       IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setSource(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
+          .setSource(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -104,8 +111,9 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
       logger.info(new String(mapper.writeValueAsBytes(entity)));
-      IndexResponse indexResponse = client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setSource(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
+      IndexResponse indexResponse =
+          client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id).setRefreshPolicy(RefreshPolicy.IMMEDIATE)
+              .setSource(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();
       return indexResponse.getId();
 
     } catch (JsonProcessingException e) {
@@ -145,7 +153,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
     try {
       UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(entity), XContentType.JSON).get();
+          .setRefreshPolicy(RefreshPolicy.IMMEDIATE).setDoc(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);
@@ -157,7 +165,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
     try {
       UpdateResponse updateResponse = client.getClient().prepareUpdate().setIndex(indexName).setType(indexType).setId(id)
-          .setDoc(mapper.writeValueAsBytes(entity)).get();
+          .setDoc(mapper.writeValueAsBytes(applyCustomValues(entity))).get();
       return Long.toString(updateResponse.getVersion());
     } catch (Exception e) {
       throw new IngeTechnicalException(e);

@@ -6,8 +6,12 @@ import java.io.OutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 import java.util.Calendar;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -101,19 +105,34 @@ public class FileSystemServiceBean implements FileStorageInterface {
    */
   @Override
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
-    Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
     try {
-      logger.debug("Trying to read file from " + path.toString());
-      if (Files.exists(path)) {
-        Files.copy(path, out);
-      } else {
-        logger.error("Path " + path.toString() + " does not exist");
+      if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
+        Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
+
+        logger.debug("Trying to read file from " + path.toString());
+        if (Files.exists(path)) {
+          Files.copy(path, out);
+        } else {
+          logger.error("Path " + path.toString() + " does not exist");
+        }
+      }
+
+      else {
+
+        Response response = Request.Get(PropertyReader.getProperty("inge.rest.development.file_url") + fileRelativePath)
+            .addHeader("Authorization",
+                "Basic " + Base64.getEncoder().encodeToString((PropertyReader.getProperty("inge.rest.development.admin.username") + ":"
+                    + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
+            .execute();
+        IOUtils.copy(response.returnContent().asStream(), out);
       }
     } catch (IOException e) {
-      logger.error("An error occoured, when trying to retrieve file [" + path.toString() + "]", e);
-      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + path.toString() + "]", e);
+      logger.error("An error occoured, when trying to retrieve file [" + fileRelativePath + "]", e);
+      throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileRelativePath + "]", e);
     }
   }
+
+
 
   /*
    * (non-Javadoc)

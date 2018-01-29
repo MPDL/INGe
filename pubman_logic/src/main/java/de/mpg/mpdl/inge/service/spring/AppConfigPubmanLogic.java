@@ -83,8 +83,7 @@ public class AppConfigPubmanLogic {
     ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
     connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);
     connectionFactory.setUseAsyncSend(true);
-    connectionFactory.setTrustedPackages(Arrays.asList("de.mpg.mpdl.inge.model.valueobjects", "de.mpg.mpdl.inge.model.db",
-        "de.mpg.mpdl.inge.model.referenceobjects", "java.util", "java.sql"));
+    connectionFactory.setTrustedPackages(Arrays.asList("de.mpg.mpdl.inge.model", "java.util", "java.sql", "org.hibernate.collection"));
     return connectionFactory;
   }
 
