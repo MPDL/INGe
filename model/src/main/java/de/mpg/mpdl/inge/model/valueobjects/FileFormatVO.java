@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 @SuppressWarnings("serial")
 public class FileFormatVO extends ValueObject {
-  public static final String DOCX_MIMETYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  public static final String DOCX_MIMETYPE = "application/vnd.ms-word";
   public static final String DOCX_NAME = "docx";
   public static final String DOCX_EXTENSION = "docx";
 
