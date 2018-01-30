@@ -66,7 +66,7 @@ public class FileBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(FileBean.class);
 
   private FileDbVO file;
-  private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
+  private List<String> searchHits = new ArrayList<String>();
   private final ItemVersionVO item;
   private boolean fileAccessGranted = false;
 
@@ -93,10 +93,11 @@ public class FileBean extends FacesBean {
    * @param itemState
    * @param resultitem
    */
-  public FileBean(FileDbVO file, ItemVersionVO item, List<SearchHitVO> searchHitList) {
+  public FileBean(FileDbVO file, ItemVersionVO item, List<String> searchHitList) {
     this.file = file;
     this.item = item;
-    this.initialize(file, item, searchHitList);
+    this.searchHits = searchHitList;
+    //this.initialize(file, item, searchHitList);
     if (this.getLoginHelper().getLoggedIn() == true) {
       this.initializeFileAccessGranted();
     }
@@ -110,7 +111,8 @@ public class FileBean extends FacesBean {
    * @param itemState
    * @param resultitem
    */
-  protected void initialize(FileDbVO file, ItemVersionVO item, List<SearchHitVO> searchHitList) {
+  /*
+  protected void initialize(FileDbVO file, ItemVersionVO item, List<String> searchHitList) {
     // set some html elements which cannot be completely constructed in the jsp
 
     String beforeSearchHitString;
@@ -145,6 +147,7 @@ public class FileBean extends FacesBean {
     }
 
   }
+  */
 
   private void initializeFileAccessGranted() {
     // examine weather the user holds an audience Grant for the current file or not
@@ -364,11 +367,11 @@ public class FileBean extends FacesBean {
     return "0";
   }
 
-  public List<SearchHitBean> getSearchHits() {
+  public List<String> getSearchHits() {
     return this.searchHits;
   }
 
-  public void setSearchHits(List<SearchHitBean> searchHits) {
+  public void setSearchHits(List<String> searchHits) {
     this.searchHits = searchHits;
   }
 
@@ -530,12 +533,12 @@ public class FileBean extends FacesBean {
     return FileBean.getOpenPDFSearchParameter(this.searchHits);
   }
 
-  public static String getOpenPDFSearchParameter(List<SearchHitBean> shbList) {
+  public static String getOpenPDFSearchParameter(List<String> shbList) {
     String param = "\"";
     final List<String> searchWords = new ArrayList<String>();
-    for (final SearchHitBean shb : shbList) {
-      if (!searchWords.contains(shb.getSearchHitString())) {
-        searchWords.add(shb.getSearchHitString());
+    for (final String shb : shbList) {
+      if (!searchWords.contains(shb)) {
+        searchWords.add(shb);
       }
     }
 

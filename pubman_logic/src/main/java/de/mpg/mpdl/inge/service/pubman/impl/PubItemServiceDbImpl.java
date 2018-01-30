@@ -202,6 +202,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_FILE_STORAGE = "files.storage";
 
+  public static String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
+
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
   public static final String REST_COMPONENT_PATH = PropertyReader.getProperty("inge.rest.file.path");
 
@@ -752,7 +754,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ItemVersionVO latestVersion = (ItemVersionVO) object.getLatestVersion();
     // First try to delete the old version from index
-    pubItemDao.delete(new VersionableId(latestVersion.getObjectId(), latestVersion.getVersionNumber() - 1).toString());
+    String oldVersion = new VersionableId(latestVersion.getObjectId(), latestVersion.getVersionNumber() - 1).toString();
+    pubItemDao.delete(oldVersion);
     logger.info("Reindexing item latest version " + latestVersion.getObjectIdAndVersion());
 
     if (immediate) {

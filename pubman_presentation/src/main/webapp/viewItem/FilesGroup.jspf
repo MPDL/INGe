@@ -217,10 +217,8 @@
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <ui:repeat
 								var="hit" value="#{file.searchHits}">
 								<h:panelGroup styleClass="xHuge_area0">
-									<h:outputText value="#{hit.beforeSearchHitString}" />
-									<em class="searchHit"><h:outputText
-											value="#{hit.searchHitString}" /></em>
-									<h:outputText value="#{hit.afterSearchHitString}" />
+									<p><h:outputText value="#{hit}" escape="false" /></p>
+
 								</h:panelGroup>
 							</ui:repeat>
 						</span>

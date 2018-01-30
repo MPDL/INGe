@@ -13,9 +13,14 @@ import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
+import com.coremedia.iso.boxes.CompositionTimeToSample.Entry;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
@@ -198,9 +203,13 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       }
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-      pubItemList = pubItemList = CommonUtils
-          .convertToPubItemVOPresentationList(SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class));
+      for (SearchHit hit : resp.getHits().getHits()) {
 
+        PubItemVOPresentation itemVO = new PubItemVOPresentation(MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), ItemVersionVO.class), hit);
+        pubItemList.add(itemVO);
+        
+      
+      }
     } catch (final Exception e) {
       this.error("Error in search!");
       SearchRetrieverRequestBean.logger.error("Error during search. ", e);

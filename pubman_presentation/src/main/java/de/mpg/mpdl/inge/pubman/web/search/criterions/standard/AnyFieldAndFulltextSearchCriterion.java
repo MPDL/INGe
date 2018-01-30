@@ -25,10 +25,36 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
+import org.apache.lucene.search.join.ScoreMode;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.InnerHitBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.join.query.HasChildQueryBuilder;
+import org.elasticsearch.join.query.JoinQueryBuilders;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+
 @SuppressWarnings("serial")
 public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion {
 
 
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+
+    BoolQueryBuilder qb = QueryBuilders.boolQuery();
+    qb.should(QueryBuilders.simpleQueryStringQuery(getSearchString()));
+    
+    HasChildQueryBuilder childQueryBuilder = JoinQueryBuilders.hasChildQuery("file",
+        QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString()), ScoreMode.Avg);
+
+    HighlightBuilder hb = new HighlightBuilder().field(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT).preTags("<span class=\"searchHit\">").postTags("</span>");
+    childQueryBuilder.innerHit(new InnerHitBuilder().setHighlightBuilder(hb));
+    qb.should(childQueryBuilder);
+    return qb;
+  }
 
   @Override
   public String[] getCqlIndexes(Index indexName) {
