@@ -34,6 +34,7 @@ import org.elasticsearch.join.query.HasChildQueryBuilder;
 import org.elasticsearch.join.query.JoinQueryBuilders;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
@@ -45,12 +46,14 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
   public QueryBuilder toElasticSearchQuery() {
 
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
+    //Use simple query for searching all fields
     qb.should(QueryBuilders.simpleQueryStringQuery(getSearchString()));
-    
-    HasChildQueryBuilder childQueryBuilder = JoinQueryBuilders.hasChildQuery("file",
-        QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString()), ScoreMode.Avg);
 
-    HighlightBuilder hb = new HighlightBuilder().field(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT).preTags("<span class=\"searchHit\">").postTags("</span>");
+    HasChildQueryBuilder childQueryBuilder = JoinQueryBuilders.hasChildQuery("file",
+        SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString()), ScoreMode.Avg);
+
+    HighlightBuilder hb =
+        new HighlightBuilder().field(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT).preTags("<span class=\"searchHit\">").postTags("</span>");
     childQueryBuilder.innerHit(new InnerHitBuilder().setHighlightBuilder(hb));
     qb.should(childQueryBuilder);
     return qb;
