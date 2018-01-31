@@ -7,6 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +20,7 @@ import java.util.stream.Stream;
 
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TikaInputStream;
@@ -205,11 +209,14 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
           String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
           fileVO.setLocalFileIdentifier(relativePath);
         } else {
-          Response response = Request.Put(PropertyReader.getProperty("inge.rest.development.file_url") + stagedFileVo.getFilename())
-              .addHeader("Authorization",
-                  "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username") + ":"
-                      + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
-              .bodyStream(stagedFileStream).execute();
+          Request request =
+              Request
+                  .Put(PropertyReader.getProperty("inge.rest.development.file_url")
+                      + URLEncoder.encode(stagedFileVo.getFilename(), StandardCharsets.UTF_8.name()))
+                  .addHeader("Authorization", "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username")
+                      + ":" + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
+                  .bodyStream(stagedFileStream);
+          Response response = request.execute();
           fileVO.setLocalFileIdentifier(response.returnContent().asString());
         }
 

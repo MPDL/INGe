@@ -3,6 +3,8 @@ package de.mpg.mpdl.inge.filestorage.filesystem;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +14,7 @@ import java.util.Calendar;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -115,15 +118,16 @@ public class FileSystemServiceBean implements FileStorageInterface {
         } else {
           logger.error("Path " + path.toString() + " does not exist");
         }
-      }
-
-      else {
-
-        Response response = Request.Get(PropertyReader.getProperty("inge.rest.development.file_url") + fileRelativePath)
+      } else {
+        // Doesn't work if the environment from the development REST service is development enabled (loop)
+        Request request = Request
+            .Get(PropertyReader.getProperty("inge.rest.development.file_url")
+                + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
+                + (URLEncoder.encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1), StandardCharsets.UTF_8.name())))
             .addHeader("Authorization",
                 "Basic " + Base64.getEncoder().encodeToString((PropertyReader.getProperty("inge.rest.development.admin.username") + ":"
-                    + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
-            .execute();
+                    + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()));
+        Response response = request.execute();
         IOUtils.copy(response.returnContent().asStream(), out);
       }
     } catch (IOException e) {

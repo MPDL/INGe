@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.development.web.controller;
 
-import java.io.OutputStream;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +25,9 @@ import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
 @RequestMapping("/development")
 public class DevelopmentFileRestController {
 
-  private static final String COMPONENT_NAME_PATH = "/component/{componentName:.*\\..*}";
+  private static final String COMPONENT_NAME_PATH = "/component/{componentName:[\\w\\-\\+. ]+}";
   private static final String COMPONENT_LOCAL_PATH =
-      "/component/{componentPathYear:.*}/{componentPathMonth:.*}/{componentPathDay:.*}/{componentName:.*\\..*}";
+      "/component/{componentPathYear:.*}/{componentPathMonth:.*}/{componentPathDay:.*}/{componentName:[\\w\\-\\+. ]+}";
 
   /**
    * generate a File via REST for development issues
@@ -40,7 +41,7 @@ public class DevelopmentFileRestController {
   public String createComponent(@PathVariable String componentName, HttpServletRequest request) throws Exception {
 
     FileSystemServiceBean fileSystemService = new FileSystemServiceBean();
-    return fileSystemService.createFile(request.getInputStream(), componentName);
+    return fileSystemService.createFile(request.getInputStream(), URLDecoder.decode(componentName, StandardCharsets.UTF_8.name()));
   }
 
   /**
@@ -52,13 +53,14 @@ public class DevelopmentFileRestController {
    */
   @RequestMapping(path = COMPONENT_LOCAL_PATH, method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.CREATED)
+  //Doesn't work if the environment from the development REST service is development enabled (loop)
   public void readComponent(@PathVariable String componentPathYear, @PathVariable String componentPathMonth,
       @PathVariable String componentPathDay, @PathVariable String componentName, HttpServletResponse response) throws Exception {
     FileSystemServiceBean fileSystemService = new FileSystemServiceBean();
-    fileSystemService.readFile(componentPathYear + "/" + componentPathMonth + "/" + componentPathDay + "/" + componentName,
-        response.getOutputStream());
+    fileSystemService.readFile(componentPathYear + "/" + componentPathMonth + "/" + componentPathDay + "/"
+        + URLDecoder.decode(componentName, StandardCharsets.UTF_8.name()), response.getOutputStream());
   }
-  
+
   //TODO deleteComponent
 
 }
