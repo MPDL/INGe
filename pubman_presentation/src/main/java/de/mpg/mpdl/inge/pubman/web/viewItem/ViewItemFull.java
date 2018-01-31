@@ -433,11 +433,8 @@ public class ViewItemFull extends FacesBean {
         for (int i = 0; i < currentPubItemList.size(); i++) {
           if (this.getPubItem().getObjectId().equals(currentPubItemList.get(i).getObjectId())
               && this.getPubItem().getVersionNumber() == currentPubItemList.get(i).getVersionNumber()
-              && currentPubItemList.get(i).getSearchHitList() != null && currentPubItemList.get(i).getSearchHitList().size() > 0) {
-            this.pubItem.setSearchResult(true);
-            this.pubItem.setSearchHitList(currentPubItemList.get(i).getSearchHitList());
-            this.pubItem.setScore(currentPubItemList.get(i).getScore());
-            this.pubItem.setSearchHitBeanList();
+              && currentPubItemList.get(i).getSearchHit() != null) {
+            this.pubItem.initSearchHits(currentPubItemList.get(i).getSearchHit());
           }
         }
       }

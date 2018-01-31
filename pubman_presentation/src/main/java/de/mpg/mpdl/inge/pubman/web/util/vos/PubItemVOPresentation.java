@@ -28,11 +28,18 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
+import org.elasticsearch.common.text.Text;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -119,18 +126,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
   private SourceVO firstSource;
   // = new SourceVO();
 
-  /**
-   * List of hits. Every hit in files contains the file reference and the text fragments of the
-   * search hit.
-   */
-  private java.util.List<SearchHitVO> searchHitList;
-  // = new java.util.ArrayList<SearchHitVO>();
-
-  /**
-   * List of search hits wrapped in a display optimized bean
-   */
-  private List<SearchHitBean> searchHits;
-  // = new ArrayList<SearchHitBean>();
 
   private boolean isSearchResult = false;
 
@@ -146,16 +141,17 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   private float score;
 
+  private SearchHit searchHit;
+
+  private Map<String, List<String>> highlightMap = new HashMap<>();
+
   public PubItemVOPresentation(ItemVersionVO item) {
+    this(item, null);
+  }
+
+
+  public PubItemVOPresentation(ItemVersionVO item, SearchHit searchHit) {
     super(item);
-
-    if (item instanceof PubItemResultVO) {
-      this.searchHitList = new java.util.ArrayList<SearchHitVO>();
-      this.searchHitList = ((PubItemResultVO) item).getSearchHitList();
-      this.isSearchResult = true;
-      this.score = ((PubItemResultVO) item).getScore();
-    }
-
     if (this != null && this.getVersionState() != null) {
       this.released = ItemVersionRO.State.RELEASED.equals(this.getVersionState());
     }
@@ -166,8 +162,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
       this.firstSource = item.getMetadata().getSources().get(0);
     }
 
-    // get the search result hits
-    this.setSearchHitBeanList();
 
     // Check the local tags
     if (this.getObject().getLocalTags().isEmpty()) {
@@ -183,16 +177,45 @@ public class PubItemVOPresentation extends ItemVersionVO {
         this.wrappedLocalTags.add(wrappedLocalTag);
       }
     }
-  }
-
-  public void setSearchHitBeanList() {
+    if (searchHit != null) {
+      this.initSearchHits(searchHit);
+    }
     this.initFileBeans();
 
+  }
+
+  public void initSearchHits(SearchHit hit) {
+    this.searchHit = hit;
+    this.isSearchResult = true;
+    this.score = searchHit.getScore();
+
+
+    if (searchHit != null && searchHit.getInnerHits() != null && searchHit.getInnerHits().get("file") != null) {
+      for (SearchHit innerhit : searchHit.getInnerHits().get("file")) {
+        List<String> highlights = new ArrayList<>();
+        for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
+          if (highlight.getValue() != null && highlight.getValue().getFragments() != null) {
+            for (Text t : highlight.getValue().getFragments()) {
+              highlights.add(t.toString());
+            }
+          }
+
+        }
+        String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
+        getHighlightMap().put(fileId, highlights);
+      }
+    }
+  }
+
+  /*
+  public void setSearchHitBeanList() {
+    this.initFileBeans();
+  
     if (this.searchHitList != null && this.searchHitList.size() > 0) {
       String beforeSearchHitString;
       String searchHitString;
       String afterSearchHitString;
-
+  
       // browse through the list of hits and set up the SearchHitBean list
       for (int i = 0; i < this.searchHitList.size(); i++) {
         if (this.searchHitList.get(i).getType() == SearchHitType.FULLTEXT) {
@@ -201,18 +224,18 @@ public class PubItemVOPresentation extends ItemVersionVO {
           if (this.searchHits == null) {
             this.searchHits = new ArrayList<SearchHitBean>();
           }
-
+  
           if (this.searchHitList.get(i).getHitReference() != null) {
             for (int j = 0; j < this.searchHitList.get(i).getTextFragmentList().size(); j++) {
               int startPosition = 0;
               int endPosition = 0;
-
+  
               startPosition = this.searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getStartIndex();
               endPosition = this.searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getEndIndex() + 1;
               beforeSearchHitString = "..." + this.searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
               searchHitString = this.searchHitList.get(i).getTextFragmentList().get(j).getData().substring(startPosition, endPosition);
               afterSearchHitString = this.searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition) + "...";
-
+  
               this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
             }
           }
@@ -220,6 +243,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       }
     }
   }
+  */
 
   public void initFileBeans() {
     if (this.getFiles().isEmpty()) {
@@ -236,9 +260,10 @@ public class PubItemVOPresentation extends ItemVersionVO {
       }
       // add files
       else {
-        if (this.searchHitList != null && this.searchHitList.size() > 0
-            && ItemVersionRO.State.WITHDRAWN.equals(this.getVersionState()) == false) {
-          this.fileBeanList.add(new FileBean(file, this, this.searchHitList));
+        if (this.getHighlightMap().containsKey(file.getObjectId())) {
+
+
+          this.fileBeanList.add(new FileBean(file, this, getHighlightMap().get(file.getObjectId())));
         } else {
           this.fileBeanList.add(new FileBean(file, this));
         }
@@ -1106,13 +1131,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
 
-  public java.util.List<SearchHitVO> getSearchHitList() {
-    return this.searchHitList;
-  }
-
-  public void setSearchHitList(java.util.List<SearchHitVO> searchHitList) {
-    this.searchHitList = searchHitList;
-  }
 
   public ArrayList<String> getOrganizationArray() {
     return this.organizationArray;
@@ -1162,17 +1180,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.firstSource = firstSource;
   }
 
-  public List<SearchHitBean> getSearchHits() {
-    return this.searchHits;
-  }
 
-  public boolean getHasSearchHits() {
-    return this.getSearchHits() != null && this.getSearchHits().size() > 0;
-  }
-
-  public void setSearchHits(List<SearchHitBean> searchHits) {
-    this.searchHits = searchHits;
-  }
 
   public ArrayList<String> getAllCreatorsList() {
     return this.allCreatorsList;
@@ -1267,9 +1275,11 @@ public class PubItemVOPresentation extends ItemVersionVO {
     return idSplit[idSplit.length - 1];
   }
 
+  /*
   public String getOpenPDFSearchParameter() {
     return FileBean.getOpenPDFSearchParameter(this.searchHits);
   }
+  */
 
   public void setScore(float score) {
     this.score = score;
@@ -1465,5 +1475,25 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   private String getLabel(String placeholder) {
     return this.i18nHelper.getLabel(placeholder);
+  }
+
+
+  public Map<String, List<String>> getHighlightMap() {
+    return highlightMap;
+  }
+
+
+  public void setHighlightMap(Map<String, List<String>> highlightMap) {
+    this.highlightMap = highlightMap;
+  }
+
+
+  public SearchHit getSearchHit() {
+    return searchHit;
+  }
+
+
+  public void setSearchHit(SearchHit searchHit) {
+    this.searchHit = searchHit;
   }
 }

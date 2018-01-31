@@ -102,7 +102,7 @@
 		</h:panelGroup>
 		<h:panelGroup layout="block"
 			styleClass="free_area0_p0 small_marginLIncl endline listItemLine"
-			rendered="#{item.hasSearchHits}">
+			rendered="#{not empty item.highlightMap}">
 			<span class="huge_area0_p8 endline labelLine"> <h:outputText
 					value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span
 				class="noDisplay">: </span>
@@ -113,23 +113,20 @@
 						rendered="#{fileBean.showSearchHits}">
 						<h:outputLink id="lnkSearchHitsURL" target="."
 							value="#{item.link}/component/#{fileBean.file.objectId}/#{fileBean.file.name}#search=#{fileBean.openPDFSearchParameter}"
-							title="#{fileBean.file.description}"
+							title="#{fileBean.file.metadata.description}"
 							rendered="#{fileBean.file.mimeType=='application/pdf'}">
 							<h:outputText value="#{fileBean.fileName}" />
 						</h:outputLink>
 						<h:outputLink id="lnkFileURL" target="."
 							value="#{item.link}/component/#{fileBean.file.objectId}/#{fileBean.file.name}"
-							title="#{fileBean.file.description}"
+							title="#{fileBean.file.metadata.description}"
 							rendered="#{fileBean.file.mimeType!='application/pdf'}">
 							<h:outputText value="#{fileBean.fileName}" />
 						</h:outputLink>
 						<br />
 						<ui:repeat id="fileSearchHitIterator" var="hit"
 							value="#{fileBean.searchHits}">
-							<h:outputText value="#{hit.beforeSearchHitString}" />
-							<h:outputText styleClass="searchHit"
-								value="#{hit.searchHitString}" />
-							<h:outputText value="#{hit.afterSearchHitString}" />
+							<p><h:outputText value="#{hit}" escape="false"/></p>
 						</ui:repeat>
 					</h:panelGroup>
 				</ui:repeat>
