@@ -205,10 +205,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
       for (SearchHit hit : resp.getHits().getHits()) {
 
-        PubItemVOPresentation itemVO = new PubItemVOPresentation(MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), ItemVersionVO.class), hit);
+        PubItemVOPresentation itemVO =
+            new PubItemVOPresentation(MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), ItemVersionVO.class), hit);
         pubItemList.add(itemVO);
-        
-      
+
+
       }
     } catch (final Exception e) {
       this.error("Error in search!");

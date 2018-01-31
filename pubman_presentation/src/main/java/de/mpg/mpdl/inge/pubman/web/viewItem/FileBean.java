@@ -114,11 +114,11 @@ public class FileBean extends FacesBean {
   /*
   protected void initialize(FileDbVO file, ItemVersionVO item, List<String> searchHitList) {
     // set some html elements which cannot be completely constructed in the jsp
-
+  
     String beforeSearchHitString;
     String searchHitString;
     String afterSearchHitString;
-
+  
     // browse through the list of files and examine which of the files is the one the search result
     // hits where found in
     for (int i = 0; i < searchHitList.size(); i++) {
@@ -128,24 +128,24 @@ public class FileBean extends FacesBean {
             for (int j = 0; j < searchHitList.get(i).getTextFragmentList().size(); j++) {
               int startPosition = 0;
               int endPosition = 0;
-
+  
               startPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getStartIndex();
               endPosition = searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getEndIndex() + 1;
-
+  
               beforeSearchHitString = "..." + searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
               searchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(startPosition, endPosition);
               afterSearchHitString = searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition) + "...";
-
+  
               this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
             }
           }
-
+  
         }
-
+  
       }
-
+  
     }
-
+  
   }
   */
 

@@ -200,7 +200,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     try {
       File stagedFile = new File(stagedFileVo.getPath());
       fileVO.setSize((int) stagedFile.length());
-      
+
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
         if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
           String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
@@ -216,7 +216,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
       }
 
-      
+
       fileVO.setName(stagedFileVo.getFilename());
       fileVO.setChecksumAlgorithm(ChecksumAlgorithm.MD5);
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));

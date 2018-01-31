@@ -43,7 +43,7 @@ public class AnyFieldSearchCriterion extends StandardSearchCriterion {
   public QueryBuilder toElasticSearchQuery() {
 
     return QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true);
-  
+
   }
 
   @Override

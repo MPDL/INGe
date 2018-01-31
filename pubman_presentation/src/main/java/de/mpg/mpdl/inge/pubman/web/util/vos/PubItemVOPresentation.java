@@ -140,14 +140,18 @@ public class PubItemVOPresentation extends ItemVersionVO {
   private ValidationReportVO validationReport;
 
   private float score;
-  
+
   private SearchHit searchHit;
-  
+
   private Map<String, List<String>> highlightMap = new HashMap<>();
 
   public PubItemVOPresentation(ItemVersionVO item) {
-    super(item);
+    this(item, null);
+  }
 
+
+  public PubItemVOPresentation(ItemVersionVO item, SearchHit searchHit) {
+    super(item);
     if (this != null && this.getVersionState() != null) {
       this.released = ItemVersionRO.State.RELEASED.equals(this.getVersionState());
     }
@@ -158,7 +162,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
       this.firstSource = item.getMetadata().getSources().get(0);
     }
 
-  
+
     // Check the local tags
     if (this.getObject().getLocalTags().isEmpty()) {
       this.getObject().getLocalTags().add("");
@@ -173,56 +177,45 @@ public class PubItemVOPresentation extends ItemVersionVO {
         this.wrappedLocalTags.add(wrappedLocalTag);
       }
     }
+    if (searchHit != null) {
+      this.initSearchHits(searchHit);
+    }
+    this.initFileBeans();
+
   }
-  
-  
-  public PubItemVOPresentation(ItemVersionVO item, SearchHit searchHit) {
-    this(item);
-    initSearchHits(searchHit);
-    
-  }
-  
-  public void initSearchHits(SearchHit hit)
-  {
-    this.searchHit=hit;
+
+  public void initSearchHits(SearchHit hit) {
+    this.searchHit = hit;
     this.isSearchResult = true;
     this.score = searchHit.getScore();
-    
-    
-    if(searchHit!=null && searchHit.getInnerHits()!=null && searchHit.getInnerHits().get("file")!=null)
-    {
-      for (SearchHit innerhit : searchHit.getInnerHits().get("file"))
-      {
+
+
+    if (searchHit != null && searchHit.getInnerHits() != null && searchHit.getInnerHits().get("file") != null) {
+      for (SearchHit innerhit : searchHit.getInnerHits().get("file")) {
         List<String> highlights = new ArrayList<>();
-        for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet())
-        {
-          if(highlight.getValue()!=null && highlight.getValue().getFragments()!=null)
-          {
-            for (Text t : highlight.getValue().getFragments())
-            {
+        for (Entry<String, HighlightField> highlight : innerhit.getHighlightFields().entrySet()) {
+          if (highlight.getValue() != null && highlight.getValue().getFragments() != null) {
+            for (Text t : highlight.getValue().getFragments()) {
               highlights.add(t.toString());
             }
           }
-          
+
         }
-        String fileId = ((Map<String,Object>)innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
+        String fileId = ((Map<String, Object>) innerhit.getSourceAsMap().get("fileData")).get("fileId").toString();
         getHighlightMap().put(fileId, highlights);
       }
     }
-    
-    
-    this.initFileBeans();
   }
 
   /*
   public void setSearchHitBeanList() {
     this.initFileBeans();
-
+  
     if (this.searchHitList != null && this.searchHitList.size() > 0) {
       String beforeSearchHitString;
       String searchHitString;
       String afterSearchHitString;
-
+  
       // browse through the list of hits and set up the SearchHitBean list
       for (int i = 0; i < this.searchHitList.size(); i++) {
         if (this.searchHitList.get(i).getType() == SearchHitType.FULLTEXT) {
@@ -231,18 +224,18 @@ public class PubItemVOPresentation extends ItemVersionVO {
           if (this.searchHits == null) {
             this.searchHits = new ArrayList<SearchHitBean>();
           }
-
+  
           if (this.searchHitList.get(i).getHitReference() != null) {
             for (int j = 0; j < this.searchHitList.get(i).getTextFragmentList().size(); j++) {
               int startPosition = 0;
               int endPosition = 0;
-
+  
               startPosition = this.searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getStartIndex();
               endPosition = this.searchHitList.get(i).getTextFragmentList().get(j).getHitwordList().get(0).getEndIndex() + 1;
               beforeSearchHitString = "..." + this.searchHitList.get(i).getTextFragmentList().get(j).getData().substring(0, startPosition);
               searchHitString = this.searchHitList.get(i).getTextFragmentList().get(j).getData().substring(startPosition, endPosition);
               afterSearchHitString = this.searchHitList.get(i).getTextFragmentList().get(j).getData().substring(endPosition) + "...";
-
+  
               this.searchHits.add(new SearchHitBean(beforeSearchHitString, searchHitString, afterSearchHitString));
             }
           }
@@ -268,8 +261,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
       // add files
       else {
         if (this.getHighlightMap().containsKey(file.getObjectId())) {
-          
-          
+
+
           this.fileBeanList.add(new FileBean(file, this, getHighlightMap().get(file.getObjectId())));
         } else {
           this.fileBeanList.add(new FileBean(file, this));
@@ -1138,7 +1131,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
 
-  
+
   public ArrayList<String> getOrganizationArray() {
     return this.organizationArray;
   }
@@ -1187,8 +1180,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     this.firstSource = firstSource;
   }
 
-  
- 
+
 
   public ArrayList<String> getAllCreatorsList() {
     return this.allCreatorsList;
