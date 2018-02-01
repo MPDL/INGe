@@ -39,4 +39,10 @@
 *.so            binary
 *.ttf           binary
 *.war           binary
+*.oft			binary
+*.eot			binary
+*.svg			binary
+*.ttf			binary
+*.woff2			binary
+
 
