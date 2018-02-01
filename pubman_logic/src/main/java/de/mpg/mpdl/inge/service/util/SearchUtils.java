@@ -53,7 +53,7 @@ public class SearchUtils {
       switch (field.getType()) {
         case TEXT: {
           if (value.length == 1) {
-            return QueryBuilders.matchQuery(index, value[0]);
+            return QueryBuilders.matchQuery(index, value[0]).operator(Operator.AND);
           } else {
             BoolQueryBuilder bq = QueryBuilders.boolQuery();
             for (String searchString : value) {
@@ -64,7 +64,15 @@ public class SearchUtils {
 
         }
         default: {
-          return QueryBuilders.termsQuery(index, value);
+          if(value.length==1)
+          {
+            return QueryBuilders.termQuery(index, value[0]);
+          }
+          else
+          {
+            return QueryBuilders.termsQuery(index, value);
+          }
+          
         }
       }
 
