@@ -26,6 +26,7 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.BaseImportLog;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.DbTools;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -139,7 +140,13 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
         List<String> idList = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getSelectedOrgUnit());
-        bq.must(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList));
+             
+        BoolQueryBuilder ouQuery = QueryBuilders.boolQuery();
+        ouQuery.should(QueryBuilders.termsQuery(
+            PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList));
+        ouQuery.should(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
+            idList));
+        bq.must(ouQuery);
 
       }
 
