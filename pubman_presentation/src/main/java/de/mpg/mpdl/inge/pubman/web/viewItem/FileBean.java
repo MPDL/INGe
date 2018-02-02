@@ -52,6 +52,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 
@@ -154,12 +155,11 @@ public class FileBean extends FacesBean {
     //TODO
     if (this.file.getObjectId() != null && this.file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
       try {
-        ApplicationBean.INSTANCE.getFileService().readFile(item.getObjectIdAndVersion(), file.getObjectId(),
-            getLoginHelper().getAuthenticationToken());
+        fileAccessGranted =
+            ApplicationBean.INSTANCE.getFileService().checkAccess(AccessType.READ_FILE, getLoginHelper().getAccountUser(), item, file);
       } catch (Exception e) {
         fileAccessGranted = false;
       }
-      fileAccessGranted = true;
 
 
     }
