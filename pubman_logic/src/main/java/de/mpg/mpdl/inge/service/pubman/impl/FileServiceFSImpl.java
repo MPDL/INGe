@@ -39,12 +39,14 @@ import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -347,6 +349,24 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     }
     objects = Stream.concat(Arrays.stream(new Object[] {userAccount}), Arrays.stream(objects)).toArray();
     aaService.checkAuthorization(this.getClass().getCanonicalName(), method, objects);
+  }
+
+
+  public boolean checkAccess(AccessType at, AccountUserDbVO userAccount, ItemVersionVO item, FileDbVO file)
+      throws IngeApplicationException, IngeTechnicalException {
+    if (pubItemService.checkAccess(AccessType.GET, userAccount, item)) {
+      try {
+        checkAa(at.getMethodName(), userAccount, file, item);
+      } catch (AuthenticationException | AuthorizationException e) {
+        return false;
+      } catch (IngeTechnicalException | IngeApplicationException e) {
+        throw e;
+      } catch (Exception e) {
+        throw new IngeTechnicalException("", e);
+      }
+      return true;
+    }
+    return false;
   }
 
   private static String getFileChecksum(MessageDigest digest, File file) throws IOException {

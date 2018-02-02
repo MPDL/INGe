@@ -131,8 +131,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       if (this.getSelectedContext().toLowerCase().equals("all")) {
         // add all contexts for which the user has moderator rights (except the "all" item of the
         // menu)
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
-            getContextSelectItems().stream().map(i -> i.getValue()).toArray(String[]::new)));
+        bq.must(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID,
+            getContextSelectItems().stream().filter(i -> !"all".equals(i.getValue())).map(i -> i.getValue()).toArray(String[]::new)));
       } else {
         bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, getSelectedContext()));
       }

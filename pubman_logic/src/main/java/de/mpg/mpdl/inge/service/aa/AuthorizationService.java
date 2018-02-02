@@ -43,6 +43,26 @@ public class AuthorizationService {
   @Autowired
   OrganizationService ouService;
 
+
+  public enum AccessType{
+    GET("get"), READ_FILE("readFile");
+
+  private String methodName;
+
+  private AccessType(String methodName) {
+      this.setMethodName(methodName);
+    }
+
+  public String getMethodName() {
+    return methodName;
+  }
+
+  public void setMethodName(String methodName) {
+    this.methodName = methodName;
+  }
+
+  }
+
   public AuthorizationService() {
 
     try {

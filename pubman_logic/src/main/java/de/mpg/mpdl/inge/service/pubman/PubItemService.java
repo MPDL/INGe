@@ -3,9 +3,11 @@ package de.mpg.mpdl.inge.service.pubman;
 import java.util.Date;
 import java.util.List;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -25,5 +27,8 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
 
   public List<AuditDbVO> getVersionHistory(String pubItemId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public boolean checkAccess(AccessType at, AccountUserDbVO userAccount, ItemVersionVO item)
+      throws IngeApplicationException, IngeTechnicalException;
 
 }

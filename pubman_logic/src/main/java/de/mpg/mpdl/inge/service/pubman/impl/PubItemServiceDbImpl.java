@@ -67,6 +67,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -834,6 +835,21 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         return message;
       }
     });
+  }
+
+
+  public boolean checkAccess(AccessType at, AccountUserDbVO userAccount, ItemVersionVO item)
+      throws IngeApplicationException, IngeTechnicalException {
+    try {
+      checkAa(at.getMethodName(), userAccount, item, ((ContextDbVO) item.getObject().getContext()));
+    } catch (AuthenticationException | AuthorizationException e) {
+      return false;
+    } catch (IngeTechnicalException | IngeApplicationException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new IngeTechnicalException("", e);
+    }
+    return true;
   }
 
 
