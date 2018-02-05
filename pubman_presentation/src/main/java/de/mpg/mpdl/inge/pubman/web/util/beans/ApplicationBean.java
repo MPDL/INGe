@@ -55,6 +55,7 @@ import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -134,6 +135,9 @@ public class ApplicationBean extends FacesBean {
 
   @ManagedProperty("#{pubItemServiceDbImpl}")
   private PubItemService pubItemService;
+
+  @ManagedProperty("#{searchAndExportServiceImpl}")
+  private SearchAndExportService searchAndExportService;
 
   @ManagedProperty("#{userAccountServiceImpl}")
   private UserAccountService userAccountService;
@@ -372,6 +376,10 @@ public class ApplicationBean extends FacesBean {
     return this.pubItemService;
   }
 
+  public SearchAndExportService getSearchAndExportService() {
+    return this.searchAndExportService;
+  }
+
   /**
    * Provides the url for the pubman blog feed.
    * 
@@ -555,6 +563,10 @@ public class ApplicationBean extends FacesBean {
 
   public void setPubItemService(PubItemService pubItemService) {
     this.pubItemService = pubItemService;
+  }
+
+  public void setSearchAndExportService(SearchAndExportService searchAndExportService) {
+    this.searchAndExportService = searchAndExportService;
   }
 
   public void setUserAccountService(UserAccountService userAccountService) {

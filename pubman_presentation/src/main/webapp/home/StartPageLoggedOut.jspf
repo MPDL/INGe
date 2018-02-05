@@ -41,8 +41,7 @@
 				<h4>Search and Export</h4> Do you want to integrate your PubMan Data
 				within an external system? <br /> Necessary queries can be carried
 				out via our <a
-				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
-				target="_blank">REST-Interface</a>!
+				href="/pubman/faces/SearchAndExportPage.jsp">REST-Interface</a>!
 				<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
 				href="/cone/" target="_blank">controlled vocabularies</a> for
 				persons, journals, classifications or languages.
@@ -93,8 +92,7 @@
 				<h4>Suchen und Exportieren</h4> Möchten Sie Ihre PubMan Daten in
 				einem externen System integrieren? <br /> Die notwendigen
 				Datenabfragen können Sie über unsere <a
-				href="/pubman/faces/../../search/SearchAndExport_info.jsp"
-				target="_blank">REST-Schnittstelle</a> vornehmen.
+				href="/pubman/faces/SearchAndExportPage.jsp">REST-Schnittstelle</a> vornehmen.
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
 				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
 				für Personen, Zeitschriften, Klassifikationen oder Sprachen.
@@ -146,10 +144,7 @@
 		<ul>
 			<li>検索エクスポートサービス:
 				利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。
-				<a href="/pubman/faces/../../search/SearchAndExport_info.jsp"
-				target="_blank">REST インタフェース</a>; <a
-				href="/pubman/faces/../../search/SearchAndExport_rest_sample.jsp"
-				target="_blank">検索実行例</a>
+				<a href="/pubman/faces/SearchAndExportPage.jsp">REST インタフェース</a>
 			</li>
 			<li><a href="/cone/" target="_blank">名称典拠サービス;
 					Control of Named Entities Service (CoNE)</a>:

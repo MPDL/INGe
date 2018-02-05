@@ -39,7 +39,7 @@
                                         <h:outputText value="#{lbl.Tools_lblCoNE}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />
-                                    <h:outputLink id="lnkMenuREST" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/search/SearchAndExport_info.jsp" target="_blank">
+                                    <h:outputLink id="lnkMenuREST" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/SearchAndExportPage.jsp">
                                         <h:outputText value="#{lbl.Tools_lblREST}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />

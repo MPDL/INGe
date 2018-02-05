@@ -34,8 +34,7 @@
 				class="seperator"></span> <span
 				class="free_area0_p8 endline itemHeadline"> <b> <h:outputLink
 						id="lnkRest"
-						value="#{ApplicationBean.pubmanInstanceUrl}/search/SearchAndExport_info.jsp"
-						target="_blank">
+						value="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/SearchAndExportPage.jsp">
 						<h:outputText value="#{lbl.Tools_lblRESTHead}" />
 					</h:outputLink>
 			</b>
