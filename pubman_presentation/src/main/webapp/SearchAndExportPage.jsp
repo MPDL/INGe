@@ -60,38 +60,96 @@
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
-                    <div class="full_area0">
-                        <div class="full_area0 fullItem">
-	                        <h:panelGroup layout="block" styleClass="xHuge_area0 sub action">
-	                            <h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
-	                                <h:panelGroup layout="block" styleClass="xLarge_area0">
-	                                    <h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
-	                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-	                                </h:panelGroup>
-	                                <h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-	                                    <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
-	                                </h:selectOneMenu>
-	                            </h:panelGroup>
-	                            <h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />
-	                            <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
-	                                <h:panelGroup layout="block" styleClass="medium_area0">
-	                                    <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
-	                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-	                                </h:panelGroup>
-	                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
-	                                    <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
-	                                </h:selectOneMenu>
-	                            </h:panelGroup>
-	                            <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0 xTiny_marginLExcl" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" />
-	                            <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
-	                                <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
-	                                <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-	                                <h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" />
-	                                <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}" />
-	                            </h:panelGroup>
-	                            <!-- content menu lower line ends here -->
-	                        </h:panelGroup>
+                    
+                    <div class="full_area0 fullItem">
+                       	<div class="full_area0 itemBlock">
+                       		<h3 class="xLarge_area0_p8 endline blockHeader">
+								Search Query Form
+							</h3>
+							<span class="seperator"></span>
+							<div class="free_area0 itemBlockContent endline">
+								<div class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										Elastic Search Query<span class="noDisplay"></span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<h:inputText styleClass="quad_txtInput" name="esQuery" value="#{SearchAndExportPage.esQuery}" />
+									</span>
+								</div>
+								<div class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										Sorting<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<span class="xHuge_area0 endline">
+											<a href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Material/SortingKeys.xlsx" target="_blank">List of allowed sorting keys</a>
+										</span>
+										<span class="double_area0 xTiny_marginRIncl">
+											<label class="double_label" for="sortKeys">Sorting Key</label>
+											<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{SearchAndExportPage.sortingKey}" />
+										</span>
+										<span class="double_area0 xTiny_marginRIncl">
+											<label class="double_label" for="sortOrder">Sorting Order</label>
+			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOption}" onchange="updateSelectionBox(this);">
+			                                    <f:selectItems value="#{SearchAndExportPage.sortOptions}" />
+			                                </h:selectOneMenu>
+										</span>
+									</span>
+								</div>
+								<div class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										Record Span<span class="noDisplay">: </span>
+									</b>
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<span class="double_area0 xTiny_marginRIncl">
+											<label class="double_label" for="startRecord">Start Record</label>
+											<h:inputText styleClass="double_txtInput" name="startRecord" value="#{SearchAndExportPage.offset}" />
+										</span>
+										<span class="double_area0 xTiny_marginRIncl">
+											<label class="double_label" for="maximumRecords">Maximum Records (max. 5000)</label>
+											<h:inputText styleClass="double_txtInput" name="maximumRecords" value="#{SearchAndExportPage.limit}" />
+										</span>
+									</span> 
+								</div>
+								<div class="free_area0 endline itemLine noTopBorder">
+									<b class="xLarge_area0_p8 endline labelLine clear">
+										Export Options<span class="noDisplay">: </span>
+									</b>								
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+				                        <h:panelGroup layout="block" styleClass="xHuge_area0 sub action">
+				                            <h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
+				                                <h:panelGroup layout="block" styleClass="xLarge_area0">
+				                                    <h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
+				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+				                                </h:panelGroup>
+			 	                                <h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+				                                    <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+				                                </h:selectOneMenu>
+				                            </h:panelGroup>
+				                            <h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />
+				                            <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
+				                                <h:panelGroup layout="block" styleClass="medium_area0">
+				                                    <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
+				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+				                                </h:panelGroup>
+				                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
+				                                    <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
+				                                </h:selectOneMenu>
+				                            </h:panelGroup>
+				                            <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
+				                                <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
+				                                <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
+				                                <h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" />
+				                                <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}" />
+				                            </h:panelGroup>
+				                        </h:panelGroup>
+									</span>
+								</div>
+							</div>
                         </div>
+                    </div>
+                    <div class="full_area0 formButtonArea">
+                           <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" />
                     </div>
                     <!-- end: content section -->
                 </div>

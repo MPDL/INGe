@@ -30,6 +30,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -47,7 +48,14 @@ import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 @ManagedBean(name = "SearchAndExportPage")
 @SuppressWarnings("serial")
 public class SearchAndExportPage extends BreadcrumbPage {
-  SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
+  private final SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
+
+  private String esQuery =
+      "{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}";
+  private String limit = "5";
+  private String offset = "1";
+  private String sortingKey = "metadata.title.keyword";
+  private SearchSortCriteria.SortOrder sortOption = SearchSortCriteria.SortOrder.ASC;
 
   public SearchAndExportPage() {}
 
@@ -67,13 +75,18 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
     SearchAndExportResultVO searchAndExportResultVO = null;
     SearchAndExportRetrieveRequestVO saerrVO = null;
-    QueryBuilder queryBuilder = (QueryBuilder) QueryBuilders.wrapperQuery(
-        "{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}");
-    ArrayList<SearchSortCriteria> sortCriterias = new ArrayList<>();
+    QueryBuilder queryBuilder = (QueryBuilder) QueryBuilders.wrapperQuery(this.esQuery);
+    ArrayList<SearchSortCriteria> _sortCriterias = new ArrayList<>();
+    if (this.sortingKey != null) {
+      SearchSortCriteria searchSortCriteria = new SearchSortCriteria(this.sortingKey, this.sortOption);
+      _sortCriterias.add(searchSortCriteria);
+    }
+    int _limit = Integer.parseInt(this.limit);
+    int _offset = Integer.parseInt(this.offset);
 
     try {
       saerrVO = new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
-          curExportFormat.getId(), queryBuilder, 10, 0, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+          curExportFormat.getId(), queryBuilder, _limit, _offset, _sortCriterias.toArray(new SearchSortCriteria[_sortCriterias.size()]));
       searchAndExportResultVO = saes.searchAndExportItems(saerrVO, this.getLoginHelper().getAuthenticationToken());
     } catch (final Exception e) {
       throw new RuntimeException("Cannot retrieve export data", e);
@@ -92,5 +105,57 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
     FacesTools.getCurrentInstance().responseComplete();
   }
+
+  public String getEsQuery() {
+    return this.esQuery;
+  }
+
+  public void setEsQuery(String esQuery) {
+    this.esQuery = esQuery;
+  }
+
+  public String getLimit() {
+    return this.limit;
+  }
+
+  public void setLimit(String limit) {
+    this.limit = limit;
+  }
+
+  public String getOffset() {
+    return this.offset;
+  }
+
+  public void setOffset(String offset) {
+    this.offset = offset;
+  }
+
+  public String getSortingKey() {
+    return this.sortingKey;
+  }
+
+  public void setSortingKey(String sortingKey) {
+    this.sortingKey = sortingKey;
+  }
+
+  public SelectItem[] getSortOptions() {
+    final SelectItem ascending = new SelectItem(SearchSortCriteria.SortOrder.ASC, "ascending");
+    final SelectItem descending = new SelectItem(SearchSortCriteria.SortOrder.DESC, "descending");
+
+    final SelectItem[] sortOptions = new SelectItem[] { //
+        ascending, //
+        descending};
+
+    return sortOptions;
+  }
+
+  public SearchSortCriteria.SortOrder getSortOption() {
+    return this.sortOption;
+  }
+
+  public void setSortOption(SearchSortCriteria.SortOrder sortOption) {
+    this.sortOption = sortOption;
+  }
+
 
 }
