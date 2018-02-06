@@ -90,7 +90,7 @@
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortOrder">Sorting Order</label>
-			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOption}" onchange="updateSelectionBox(this);">
+			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOrder}" onchange="updateSelectionBox(this);">
 			                                    <f:selectItems value="#{SearchAndExportPage.sortOptions}" />
 			                                </h:selectOneMenu>
 										</span>
@@ -106,7 +106,7 @@
 											<h:inputText styleClass="double_txtInput" name="startRecord" value="#{SearchAndExportPage.offset}" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="maximumRecords">Maximum Records (max. 5000)</label>
+											<h:outputLabel styleClass="double_label" for="maximumRecords" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
 											<h:inputText styleClass="double_txtInput" name="maximumRecords" value="#{SearchAndExportPage.limit}" />
 										</span>
 									</span> 
