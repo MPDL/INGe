@@ -155,7 +155,7 @@ public class CommonUtils {
   }
 
   public static SelectItem[] getLanguageOptions() {
-    final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
+    final ApplicationBean applicationBean = ApplicationBean.INSTANCE;
 
     String locale = Locale.getDefault().getLanguage();
 
