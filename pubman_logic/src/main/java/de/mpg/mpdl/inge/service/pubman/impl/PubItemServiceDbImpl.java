@@ -205,6 +205,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
 
+  public static String INDEX_FULLTEXT_ITEM_ID = "fileData.itemId";
+
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
   public static final String REST_COMPONENT_PATH = PropertyReader.getProperty("inge.rest.file.path");
 
@@ -450,6 +452,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     // TODO
     // Delete files which are left in currentFiles Map if they are not part of an released item
+    
     return updatedFileList;
   }
 
@@ -484,6 +487,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
       pubItemDao.delete(rec.getPersistenceId());
+      pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, rec.getPersistenceId()));
     }
     sendEventTopic(latestPubItemDbVersion, "delete");
 
@@ -757,6 +761,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     // First try to delete the old version from index
     String oldVersion = new VersionableId(latestVersion.getObjectId(), latestVersion.getVersionNumber() - 1).toString();
     pubItemDao.delete(oldVersion);
+
+    //Delete all fulltexts of old version from index
+    pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, oldVersion));
+
     logger.info("Reindexing item latest version " + latestVersion.getObjectIdAndVersion());
 
     if (immediate) {
@@ -764,6 +772,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     } else {
       pubItemDao.create(latestVersion.getObjectId() + "_" + latestVersion.getVersionNumber(), latestVersion);
     }
+
+    queueJmsTemplate.convertAndSend("reindex-fulltext", latestVersion);
 
     if (object.getLatestRelease() != null && object.getLatestRelease().getVersionNumber() != object.getLatestVersion().getVersionNumber()) {
       ItemVersionVO latestRelease = (ItemVersionVO) object.getLatestRelease();
@@ -773,8 +783,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       } else {
         pubItemDao.create(latestRelease.getObjectId() + "_" + latestRelease.getVersionNumber(), latestRelease);
       }
-
+      queueJmsTemplate.convertAndSend("reindex-fulltext", latestRelease);
     }
+
   }
 
   private void reindex(String objectId, boolean immediate) throws IngeTechnicalException {

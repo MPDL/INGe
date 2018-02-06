@@ -9,6 +9,7 @@ import javax.jms.ObjectMessage;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.annotation.JmsListener;
@@ -21,6 +22,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @Component
 public class FulltextIndexer {
@@ -35,10 +37,14 @@ public class FulltextIndexer {
   private FileStorageInterface fsi;
 
 
-  @JmsListener(containerFactory = "topicContainerFactory", destination = "items-topic", selector = "method='create' or method='update'")
+  @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-fulltext")
   public void receiveMessage(ObjectMessage msg) {
     try {
       ItemVersionVO item = (ItemVersionVO) msg.getObject();
+      
+      //Delete all fulltexts for this item
+      pubItemDao.deleteByQuery(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_FULLTEXT_ITEM_ID, item.getObjectIdAndVersion()));
+      
       if (item.getFiles() != null) {
         for (FileDbVO fileVO : item.getFiles()) {
           if (Storage.INTERNAL_MANAGED.equals(fileVO.getStorage()) && Visibility.PUBLIC.equals(fileVO.getVisibility())) {

@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.es.dao;
 import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
@@ -67,6 +68,8 @@ public interface GenericDaoEs<E> {
    * @return {@link String}
    */
   public String delete(String id);
+
+  public long deleteByQuery(QueryBuilder query) throws IngeTechnicalException;
 
 
   /**

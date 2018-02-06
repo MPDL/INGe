@@ -8,6 +8,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 
 import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.apache.log4j.LogManager;
@@ -87,12 +88,6 @@ public class AppConfigPubmanLogic {
     return connectionFactory;
   }
 
-  @Bean
-  public Destination defaultTopicDestination() {
-    return new ActiveMQTopic("items-topic");
-  }
-
-
 
   @Bean
   public DefaultJmsListenerContainerFactory topicContainerFactory(ConnectionFactory connectionFactory) {
@@ -107,17 +102,11 @@ public class AppConfigPubmanLogic {
   @Bean
   public JmsTemplate topicJmsTemplate(ConnectionFactory jmsConnectionFactory) throws JMSException {
     JmsTemplate jmsTemplate = new JmsTemplate(jmsConnectionFactory);
-    jmsTemplate.setDefaultDestination(defaultTopicDestination());
+    jmsTemplate.setDefaultDestination(new ActiveMQTopic("items-topic"));
     jmsTemplate.setPubSubDomain(true);
     return jmsTemplate;
   }
 
-
-  // Configuration for item queue (e.g. complete reindex)
-  @Bean
-  public Destination defaultQueueDestination() {
-    return new ActiveMQTopic("items-queue");
-  }
 
   @Bean
   public DefaultJmsListenerContainerFactory queueContainerFactory(ConnectionFactory connectionFactory) {
@@ -132,7 +121,7 @@ public class AppConfigPubmanLogic {
   @Bean
   public JmsTemplate queueJmsTemplate(ConnectionFactory connectionFactory) throws JMSException {
     JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory);
-    jmsTemplate.setDefaultDestination(defaultQueueDestination());
+    jmsTemplate.setDefaultDestination(new ActiveMQQueue("items-queue"));
     jmsTemplate.setPubSubDomain(false);
     return jmsTemplate;
   }

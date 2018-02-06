@@ -18,6 +18,10 @@ import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryAction;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -187,6 +191,19 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
     return deleteResponse.getId();
 
   }
+
+
+  public long deleteByQuery(QueryBuilder query) throws IngeTechnicalException {
+
+    try {
+      BulkByScrollResponse resp = DeleteByQueryAction.INSTANCE.newRequestBuilder(client.getClient()).filter(query).source(indexName).get();
+      return resp.getDeleted();
+    } catch (Exception e) {
+      throw new IngeTechnicalException(e);
+    }
+
+  }
+
 
   public SearchRetrieveResponseVO<E> search(SearchRetrieveRequestVO searchQuery) throws IngeTechnicalException {
 
