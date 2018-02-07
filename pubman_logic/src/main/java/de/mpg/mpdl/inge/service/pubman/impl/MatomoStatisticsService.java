@@ -15,23 +15,26 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+
 public class MatomoStatisticsService {
 
   private static final Logger logger = Logger.getLogger(MatomoStatisticsService.class);
-  private static final String ANALYTICS_BASE_URI = "https://analytics.mpdl.mpg.de/";
+  private static final String ANALYTICS_BASE_URI = PropertyReader.getProperty("inge.matomo.analytics.base.uri");
+  private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty("inge.matomo.analytics.site.id");
+  private static final String ANALYTICS_TOKEN = PropertyReader.getProperty("inge.matomo.analytics.auth.token");
+
   private static final String PURE_OVERVIEW = "http://pubman.mpdl.mpg.de/pubman/faces/viewItemOverviewPage.jsp";
   private static final String PURE_FULLPAGE = "http://pubman.mpdl.mpg.de/pubman/faces/viewItemFullPage.jsp";
   private static final String PURE_ITEM = "http://pubman.mpdl.mpg.de/pubman/item/";
   private static final String PURE_FILE = "/component/";
 
-  private static final String TOKEN = "38cc64c1f177e45ec36f2809a910e89a";
   static ObjectMapper om = new ObjectMapper();
 
 
   public static Map<String, Integer> get124item(String id) throws Exception {
     Map<String, Integer> pageStatistics = new TreeMap<>();
     HttpResponse fullpage_response = Request.Get(prepareItemURL(id, "full", "month", "last12")).execute().returnResponse();
-    logger.info("Requesting data from MATOMO: " + fullpage_response.getStatusLine().getStatusCode());
     JsonNode fullpage = om.readValue(fullpage_response.getEntity().getContent(), JsonNode.class);
     HttpResponse overview_response = Request.Get(prepareItemURL(id, "over", "month", "last12")).execute().returnResponse();
     JsonNode overview = om.readValue(overview_response.getEntity().getContent(), JsonNode.class);
@@ -71,7 +74,6 @@ public class MatomoStatisticsService {
 
   public static int getTotal4Item(String id) throws Exception {
     HttpResponse full_response = Request.Get(prepareItemURL(id, "full", "range", "2000-01-01,today")).execute().returnResponse();
-    logger.info("Requesting data from MATOMO: " + full_response.getStatusLine().getStatusCode());
     HttpResponse over_response = Request.Get(prepareItemURL(id, "over", "range", "2000-01-01,today")).execute().returnResponse();
     JsonNode fullpage = om.readValue(full_response.getEntity().getContent(), JsonNode.class);
     JsonNode overview = om.readValue(over_response.getEntity().getContent(), JsonNode.class);
@@ -102,9 +104,9 @@ public class MatomoStatisticsService {
     URIBuilder builder;
     try {
       builder = new URIBuilder(new URI(ANALYTICS_BASE_URI));
-      builder.addParameter("module", "API").addParameter("method", "Actions.getPageUrl").addParameter("idSite", "1")
-          .addParameter("period", period).addParameter("date", date).addParameter("token_auth", TOKEN).addParameter("format", "json")
-          .addParameter("showColumns", "nb_visits");
+      builder.addParameter("module", "API").addParameter("method", "Actions.getPageUrl").addParameter("idSite", ANALYTICS_SITE_ID)
+          .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
+          .addParameter("format", "json").addParameter("showColumns", "nb_visits");
       if (what.equalsIgnoreCase("full")) {
         builder.addParameter("pageUrl", PURE_FULLPAGE + "?itemId=" + id);
       } else {
@@ -125,9 +127,9 @@ public class MatomoStatisticsService {
     URIBuilder builder;
     try {
       builder = new URIBuilder(new URI(ANALYTICS_BASE_URI));
-      builder.addParameter("module", "API").addParameter("method", "Actions.getDownload").addParameter("idSite", "1")
-          .addParameter("period", period).addParameter("date", date).addParameter("token_auth", TOKEN).addParameter("format", "json")
-          .addParameter("showColumns", "nb_visits");
+      builder.addParameter("module", "API").addParameter("method", "Actions.getDownload").addParameter("idSite", ANALYTICS_SITE_ID)
+          .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
+          .addParameter("format", "json").addParameter("showColumns", "nb_visits");
       builder.addParameter("downloadUrl", PURE_ITEM + id + PURE_FILE + file_id + "/" + name);
       URI analytics_URI = builder.build();
       System.out.println(analytics_URI);
