@@ -160,12 +160,20 @@ public class SearchAndExportPage extends BreadcrumbPage {
         sortCriterias.add(searchSortCriteria);
       }
 
+      if (this.limit == null || this.limit.trim().length() == 0) {
+        this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
+      }
+
       int _limit = Integer.parseInt(this.limit);
       if (_limit > this.maxLimit) {
         _limit = this.maxLimit;
       }
 
-      int _offset = Integer.parseInt(this.offset);
+      if (this.offset == null || this.offset.trim().length() == 0) {
+        this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
+      }
+
+      int _offset = Integer.parseInt(this.offset) - 1;
 
       SearchAndExportRetrieveRequestVO saerrVO =
           new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),

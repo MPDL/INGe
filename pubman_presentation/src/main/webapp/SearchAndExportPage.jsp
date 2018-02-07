@@ -73,7 +73,8 @@
 										Elastic Search Query<span class="noDisplay"></span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText styleClass="quad_txtInput" name="esQuery" value="#{SearchAndExportPage.esQuery}" />
+										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required"/>
+								    	<h:message styleClass="quad_txtInput" for="esQuery" style="color:red"/>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -103,7 +104,7 @@
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="startRecord">Start Record</label>
-											<h:inputText styleClass="double_txtInput" name="startRecord" value="#{SearchAndExportPage.offset}" />
+											<h:inputText styleClass="double_txtInput" id="startRecord" value="#{SearchAndExportPage.offset}" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<h:outputLabel styleClass="double_label" for="limit" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
