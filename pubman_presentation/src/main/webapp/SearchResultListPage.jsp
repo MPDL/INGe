@@ -138,7 +138,7 @@
                                 <a class="free_area0 xTiny_marginRIncl" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();">
                                     <h:outputText value="#{lbl.ShowQuery}" />
                                 </a>
-                                <h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.pubmanInstanceUrl}/search/SearchAndExport_rest_sample.jsp?#{SearchRetrieverRequestBean.cqlQuery}" target="_blank">
+                                <h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="SearchAndExportPage.jsp?esq=#{SearchRetrieverRequestBean.elasticSearchQuery}">
                                     <h:outputText value="#{lbl.SearchResultList_lblRestServiceExamplePage}" />
                                 </h:outputLink>
                                 <!-- Subheadline ends here -->

@@ -106,8 +106,8 @@
 											<h:inputText styleClass="double_txtInput" name="startRecord" value="#{SearchAndExportPage.offset}" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
-											<h:outputLabel styleClass="double_label" for="maximumRecords" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
-											<h:inputText styleClass="double_txtInput" name="maximumRecords" value="#{SearchAndExportPage.limit}" />
+											<h:outputLabel styleClass="double_label" for="limit" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
+											<h:inputText styleClass="double_txtInput" id="limit" value="#{SearchAndExportPage.limit}" />
 										</span>
 									</span> 
 								</div>

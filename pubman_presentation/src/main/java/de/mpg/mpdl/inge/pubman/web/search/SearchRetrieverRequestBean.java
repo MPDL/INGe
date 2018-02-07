@@ -49,10 +49,10 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
 public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(SearchRetrieverRequestBean.class);
 
-  /**
-   * The HTTP-GET parameter name for the cql query
-   */
-  public static String parameterCqlQuery = "cql";
+  //  /**
+  //   * The HTTP-GET parameter name for the cql query
+  //   */
+  //  public static String parameterCqlQuery = "cql";
 
   /**
    * The HTTP-GET parameter name for the query
@@ -69,10 +69,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    */
   public static String parameterSearchType = "searchType";
 
-  /**
-   * The current cqlQuery
-   */
-  private String cqlQuery;
+  //  /**
+  //   * The current cqlQuery
+  //   */
+  //  private String cqlQuery;
 
   /**
    * The current internal pubman query;
@@ -145,7 +145,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       this.setQueryString(query);
     }
 
-    paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
+    //    paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
 
     final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
 
@@ -176,7 +176,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     // checkSortCriterias(sc);
     try {
-      final QueryBuilder qb = QueryBuilders.wrapperQuery(this.elasticSearchQuery);
+      final QueryBuilder qb = QueryBuilders.wrapperQuery(this.getElasticSearchQuery());
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
       SearchSourceBuilder ssb = new SearchSourceBuilder();
@@ -219,38 +219,38 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     return pubItemList;
   }
 
-  /**
-   * Sets the current cql query
-   * 
-   * @param cqlQuery
-   */
-  public void setCqlQuery(String cqlQuery) {
-    this.cqlQuery = cqlQuery;
-    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterCqlQuery, cqlQuery);
-  }
-
-  /**
-   * Returns the current cql query
-   * 
-   * @return
-   */
-  public String getCqlQuery() {
-    return this.cqlQuery;
-  }
-
-  /**
-   * Returns the current cql query without blanks
-   * 
-   * @return
-   */
-  public String getNormalizedCqlQuery() {
-    final String ret = this.cqlQuery;
-    if (ret != null) {
-      return URLEncoder.encode(ret);
-    }
-
-    return "";
-  }
+  //  /**
+  //   * Sets the current cql query
+  //   * 
+  //   * @param cqlQuery
+  //   */
+  //  public void setCqlQuery(String cqlQuery) {
+  //    this.cqlQuery = cqlQuery;
+  //    this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterCqlQuery, cqlQuery);
+  //  }
+  //
+  //  /**
+  //   * Returns the current cql query
+  //   * 
+  //   * @return
+  //   */
+  //  public String getCqlQuery() {
+  //    return this.cqlQuery;
+  //  }
+  //
+  //  /**
+  //   * Returns the current cql query without blanks
+  //   * 
+  //   * @return
+  //   */
+  //  public String getNormalizedCqlQuery() {
+  //    final String ret = this.cqlQuery;
+  //    if (ret != null) {
+  //      return URLEncoder.encode(ret);
+  //    }
+  //
+  //    return "";
+  //  }
 
 
 
@@ -260,16 +260,12 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @throws UnsupportedEncodingException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
-    if (this.elasticSearchQuery == null) {
-      this.elasticSearchQuery =
-          this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
-      if (this.elasticSearchQuery == null) {
-        return null;
-      }
+    if (this.getElasticSearchQuery() == null) {
+      return null;
     }
 
     return "<link href='" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
-        + URLEncoder.encode(this.elasticSearchQuery, "UTF-8")
+        + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
@@ -315,6 +311,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @return
    */
   public String getSearchType() {
+    if (this.searchType == null) {
+      this.searchType = this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterSearchType);
+    }
+
     return this.searchType;
   }
 
@@ -352,6 +352,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   }
 
   public String getElasticSearchQuery() {
+    if (this.elasticSearchQuery == null) {
+      this.elasticSearchQuery =
+          this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+    }
     return this.elasticSearchQuery;
   }
 
@@ -363,7 +367,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   public String getPrettyElasticSearchQuery() {
     try {
-      return JsonUtil.prettifyJsonString(this.elasticSearchQuery);
+      return JsonUtil.prettifyJsonString(this.getElasticSearchQuery());
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + getElasticSearchQuery());
       return "";
