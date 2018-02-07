@@ -177,24 +177,21 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
 
           switch (ItemVersionRO.State.valueOf(entry.getKey())) {
             case RELEASED: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
+              BoolQueryBuilder subBuilder = QueryBuilders.boolQuery();
+              subBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
+              subBuilder.mustNot(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.WITHDRAWN.name()));
+              bq.should(subBuilder);
               break;
             }
-            case SUBMITTED: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
-              bq.mustNot(filterOut(loginHelper.getAccountUser(), State.SUBMITTED));
-
-              break;
-            }
-            case PENDING: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
-              bq.mustNot(filterOut(loginHelper.getAccountUser(), State.PENDING));
-
-              break;
-            }
+            case SUBMITTED:
+            case PENDING:
             case IN_REVISION: {
-              bq.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
-              bq.mustNot(filterOut(loginHelper.getAccountUser(), State.IN_REVISION));
+              BoolQueryBuilder subBuilder = QueryBuilders.boolQuery();
+              subBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, entry.getKey()));
+              subBuilder.mustNot(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.WITHDRAWN.name()));
+              bq.should(subBuilder);
+              bq.mustNot(filterOut(loginHelper.getAccountUser(), State.valueOf(entry.getKey())));
+
               break;
             }
             case WITHDRAWN: {

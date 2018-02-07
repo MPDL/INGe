@@ -452,7 +452,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     // TODO
     // Delete files which are left in currentFiles Map if they are not part of an released item
-    
+
     return updatedFileList;
   }
 
