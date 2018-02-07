@@ -43,7 +43,7 @@ public class Reindexing {
   public void reindexItems() throws Exception {
     System.out.println("calling reindexAll in " + itemService.getClass().getName());
     itemService.reindexAll(null);
-    Thread.sleep(7200000);
+    Thread.sleep(14400000);
   }
 
 }

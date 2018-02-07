@@ -55,9 +55,11 @@ import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.mpdl.inge.pubman.web.statistic_charts.StatisticReportRecordVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
+import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 
 /**
  * 
@@ -74,10 +76,15 @@ public class StatisticChartServlet extends HttpServlet {
   private static final String CONTENT_TYPE = "image/png";
   private static final String numberOfMonthsParameterName = "months";
   private static final String idParameterName = "id";
+  private static final String fileIdParameterName = "fileId";
   private static final String typeParameterName = "type";
   private static final String languageParameterName = "lang";
+  private static final String fileNameParameterName = "name";
+
 
   private String id;
+  private String fileId;
+  private String fileName;
   private int numberOfMonths;
   private String type;
   private String language;
@@ -106,6 +113,8 @@ public class StatisticChartServlet extends HttpServlet {
 
     this.id = request.getParameter(StatisticChartServlet.idParameterName);
     this.type = request.getParameter(StatisticChartServlet.typeParameterName);
+    this.fileName = request.getParameter(StatisticChartServlet.fileNameParameterName);
+    this.fileId = request.getParameter(StatisticChartServlet.fileIdParameterName);
 
     try {
       final CategoryDataset dataset = this.createDataset();
@@ -129,83 +138,39 @@ public class StatisticChartServlet extends HttpServlet {
     }
   }
 
-  /**
-   * Retrieves statistic data from the framework and creates the dataset for the visualisation and
-   * the given months. If there was no request in a month, a dataset with value "0" is added.
-   * 
-   * @return The dataset.
-   */
   private CategoryDataset createDataset() throws Exception {
-    List<StatisticReportRecordVO> reportListAllUsers = new ArrayList<StatisticReportRecordVO>();
-    List<StatisticReportRecordVO> reportListAnonymousUsers = new ArrayList<StatisticReportRecordVO>();
 
-    if (this.type.equals("item")) {
-      reportListAllUsers = SimpleStatisticsService
-          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, this.id, null);
-      reportListAnonymousUsers = SimpleStatisticsService
-          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, this.id, null);
-    } else if (this.type.equals("file")) {
-      reportListAllUsers = SimpleStatisticsService
-          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, this.id, null);
-      reportListAnonymousUsers = SimpleStatisticsService
-          .getStatisticReportRecord(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, this.id, null);
-    }
-
-    // Organize report records in map with month/year as key
-    final Map<String, StatisticReportRecordVOPresentation> mapAllUserRequests = new HashMap<String, StatisticReportRecordVOPresentation>();
-
-    for (final StatisticReportRecordVO reportRec : reportListAllUsers) {
-      // sortingListAllUsers.add(new StatisticReportRecordVOPresentation(reportRec));
-      final StatisticReportRecordVOPresentation repRecPres = new StatisticReportRecordVOPresentation(reportRec);
-      mapAllUserRequests.put(repRecPres.getMonth() + "/" + repRecPres.getYear(), repRecPres);
-    }
-
-    final Map<String, StatisticReportRecordVOPresentation> mapAnonymousUserRequests =
-        new HashMap<String, StatisticReportRecordVOPresentation>();
-    for (final StatisticReportRecordVO reportRec : reportListAnonymousUsers) {
-
-      final StatisticReportRecordVOPresentation repRecPres = new StatisticReportRecordVOPresentation(reportRec);
-      mapAnonymousUserRequests.put(repRecPres.getMonth() + "/" + repRecPres.getYear(), repRecPres);
-
-    }
-
-    // Create the dataset with 2 series for anonmyous and logged-in users.
-    String loggedInUsersSeries = "Logged-in Users";
-    String anonymousUsersSeries = "Anonymous Users";
+    // Create the dataset with 1 series for all users.
+    String allUsersSeries;
 
     if (this.language.equals("de")) {
-      loggedInUsersSeries = "Eingeloggte Nutzer";
-      anonymousUsersSeries = "Anonyme Nutzer";
+      allUsersSeries = "Alle Nutzer";
+    } else {
+      allUsersSeries = "All Users";
     }
-
-    final Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.MONTH, -(this.numberOfMonths - 1));
-
     final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    for (int i = 0; i < this.numberOfMonths; i++) {
-      final String xLabel = cal.get(Calendar.MONTH) + 1 + "/" + cal.get(Calendar.YEAR);
-      int allUserRequests = 0;
-      int anonymousUserrequests = 0;
 
-      if (mapAllUserRequests.get(xLabel) != null) {
-        allUserRequests = mapAllUserRequests.get(xLabel).getRequests();
+    id = id.replaceAll("_", ":");
+    id = id.replace("item", "escidoc");
+    if (this.type.equals("item")) {
+      Map<String, Integer> statistics = MatomoStatisticsService.get124item(id);
+      statistics.forEach((k, v) -> {
+        dataset.addValue(v, allUsersSeries, k);
+      });
+    } else if (this.type.equals("file")) {
+      if (!fileId.isEmpty()) {
+        fileId = fileId.replaceAll("_", ":");
+        fileId = fileId.replace("file", "escidoc");
+        Map<String, Integer> statistics = MatomoStatisticsService.get124file(id, fileId, fileName);
+        statistics.forEach((k, v) -> {
+          dataset.addValue(v, allUsersSeries, k);
+        });
       }
-
-      if (mapAnonymousUserRequests.get(xLabel) != null) {
-        anonymousUserrequests = mapAnonymousUserRequests.get(xLabel).getRequests();
-      }
-
-      dataset.addValue(allUserRequests - anonymousUserrequests, loggedInUsersSeries, xLabel);
-      // logger.info("added value " + (allUserRequests-anonymousUserrequests) + " for " +
-      // loggedInUsersSeries);
-      dataset.addValue(anonymousUserrequests, anonymousUsersSeries, xLabel);
-      // logger.info("added value " + (anonymousUserrequests) + " for " + anonymousUsersSeries);
-
-      cal.add(Calendar.MONTH, +1);
     }
-
     return dataset;
+
   }
+
 
   /**
    * Creates the statistic chart.

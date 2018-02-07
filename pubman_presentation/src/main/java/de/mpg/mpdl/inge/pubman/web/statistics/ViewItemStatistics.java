@@ -42,7 +42,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
-import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
+import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -73,7 +73,7 @@ public class ViewItemStatistics extends FacesBean {
 
   public void init() {
     this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-    this.itemId = this.pubItem.getObjectId();
+    this.itemId = this.pubItem.getObjectIdAndVersion();
 
     // get all files, remove Locators, convert to presentation objects and add them to the list
     final List<FileDbVO> files = this.pubItem.getFiles();
@@ -89,23 +89,29 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
-    return this.getItemControllerSessionBean()
-        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS);
+    return MatomoStatisticsService.getNumberOfItemOrFileRequests(pubItem.getObjectId());
   }
 
   public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception {
-    return this.getItemControllerSessionBean()
-        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS);
+    return this.getItemControllerSessionBean().getStatisticValue();
   }
 
   public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception {
-    return this.getItemControllerSessionBean()
-        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS);
+    return this.getItemControllerSessionBean().getStatisticValue();
   }
 
   public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception {
-    return this.getItemControllerSessionBean()
-        .getStatisticValue(SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS);
+    return this.getItemControllerSessionBean().getStatisticValue();
+  }
+
+  public String getNumberOfFileDownloadsPerFileAllUsers(String fileId, String name) throws Exception {
+    final String result = MatomoStatisticsService.getNumberOfFileDownloads(itemId, fileId, name);
+    return result;
+  }
+
+  public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
+    final String result = MatomoStatisticsService.getNumberOfItemOrFileRequests(itemId);
+    return result;
   }
 
   public List<PubFileVOPresentation> getFileList() {

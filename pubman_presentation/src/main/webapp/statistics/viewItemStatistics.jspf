@@ -34,6 +34,7 @@
 						value="#{lbl.statistics_lblAllUsers}" />
 				</span>
 			</div>
+			<!-- 
 			<div class="free_area0 endline itemLine noTopBorder">
 				<span class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
 						value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" /><span
@@ -42,6 +43,7 @@
 						value="#{lbl.statistics_lblAnonymousUsers}" />
 				</span>
 			</div>
+			 -->
 			<div class="free_area0 endline itemLine noTopBorder">
 				<h:graphicImage
 					url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{ViewItemStatistics.pubItem.objectId}&amp;type=item&amp;lang=#{InternationalizationHelper.locale}" />
@@ -70,14 +72,6 @@
 						value="#{lbl.statistics_lblAllUsers}" />
 				</span>
 			</div>
-			<div class="free_area0 endline itemLine noTopBorder">
-				<span class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-						value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" /><span
-					class="noDisplay">: </span>
-				</span> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-						value="#{lbl.statistics_lblAnonymousUsers}" />
-				</span>
-			</div>
 			<ui:repeat value="#{ViewItemStatistics.fileList}" var="file">
 				<div class="free_area0_p8 endline itemLine">
 					<span class="xLarge_area0_p8 endline labelLine clear">
@@ -89,23 +83,15 @@
 				</div>
 				<div class="free_area0 endline itemLine noTopBorder">
 					<span class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-							value="#{file.numberOfFileDownloadsPerFileAllUsers}" /><span
+							value="#{ViewItemStatistics.getNumberOfFileDownloadsPerFileAllUsers(file.file.objectId,  file.file.name)}" /><span
 						class="noDisplay">: </span>
 					</span> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 							value="#{lbl.statistics_lblAllUsers}" />
 					</span>
 				</div>
 				<div class="free_area0 endline itemLine noTopBorder">
-					<span class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-							value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" /><span
-						class="noDisplay">: </span>
-					</span> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{lbl.statistics_lblAnonymousUsers}" />
-					</span>
-				</div>
-				<div class="free_area0 endline itemLine noTopBorder">
 					<h:graphicImage
-						url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{file.file.objectId}&amp;type=file&amp;lang=#{InternationalizationHelper.locale}" />
+						url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{ViewItemStatistics.pubItem.objectIdAndVersion}&amp;fileId=#{file.file.objectId}&amp;name=#{file.file.name}&amp;type=file&amp;lang=#{InternationalizationHelper.locale}" />
 				</div>
 				<br />
 			</ui:repeat>

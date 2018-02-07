@@ -19,6 +19,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.ingest.GetPipelineAction;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +58,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -152,8 +154,10 @@ public class Migration {
         break;
       case "items_reindex":
         System.out.println("calling reindexitems");
-
         reIndexing.reindexItems();
+        break;
+      case "single":
+        importSinglePubItem("escidoc:1000644");
         break;
       case "users":
         importUsers();
@@ -361,6 +365,22 @@ public class Migration {
     }
   }
 
+  private void importSinglePubItem(String id) throws Exception {
+    httpClientWithEscidocCookie = setup();
+
+    String contentModelId = "escidoc:persistent4";
+
+
+    URI uri = new URIBuilder(escidocUrl + itemPath + "/" + id).build();
+    final HttpGet request = new HttpGet(uri);
+    HttpResponse response = httpClientWithEscidocCookie.execute(request);
+    String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+
+    PubItemVO theItem = XmlTransformingService.transformToPubItem(xml);
+    saveAllVersionsOfPubItem(theItem);
+
+  }
+
   private void importPubItems() throws Exception {
     httpClientWithEscidocCookie = setup();
 
@@ -484,7 +504,7 @@ public class Migration {
       file.setChecksum(oldFile.getChecksum());
       file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
       file.setContent(oldFile.getContent());
-      
+
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
       file.setLastModificationDate(oldFile.getLastModificationDate());
@@ -502,8 +522,8 @@ public class Migration {
 
     newPubItem.setMessage(itemVo.getVersion().getLastMessage());
     MdsPublicationVO itemMetaData = itemVo.getMetadata();
-    itemMetaData = prepare4Ingest(itemMetaData);
-    newPubItem.setMetadata(itemVo.getMetadata());
+    itemMetaData = MetadataCleanup.purge(itemMetaData);
+    newPubItem.setMetadata(itemMetaData);
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
     newPubItem.setModifier(owner);
     newPubItem.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
@@ -549,18 +569,42 @@ public class Migration {
 
     return newPubItem;
   }
-  
+
   private static MdsPublicationVO prepare4Ingest(MdsPublicationVO old_metadata) {
     // MdsPublicationVO changed_metadata = new MdsPublicationVO();
+    if (!old_metadata.getIdentifiers().isEmpty()) {
+      old_metadata.getIdentifiers().forEach(id -> {
+        if (id.getType().name().equals(IdentifierVO.IdType.CONE.name())) {
+          String old = id.getId();
+          id.setId(old.substring(old.lastIndexOf("cone") + 4));
+        }
+      });
+    }
     old_metadata.getCreators().forEach(creator -> {
       if (creator.getOrganization() != null) {
         String oldId = creator.getOrganization().getIdentifier();
         if (!oldId.isEmpty()) {
-        creator.getOrganization().setIdentifier(oldId.replace("escidoc:", "ou_"));
+          creator.getOrganization().setIdentifier(oldId.replace("escidoc:", "ou_"));
+        }
+      }
+      if (creator.getPerson() != null) {
+        if (creator.getPerson().getIdentifier() != null) {
+          if (creator.getPerson().getIdentifier().getType().name().equals(IdentifierVO.IdType.CONE.name())) {
+            String cone_id = creator.getPerson().getIdentifier().getId();
+            creator.getPerson().getIdentifier().setId(cone_id.substring(cone_id.lastIndexOf("cone") + 4));
+          }
+        }
+        if (creator.getPerson().getOrganizationsSize() > 0) {
+          creator.getPerson().getOrganizations().forEach(org -> {
+            String oldId = org.getIdentifier();
+            if (!oldId.isEmpty()) {
+              org.setIdentifier(oldId.replace("escidoc:", "ou_"));
+            }
+          });
         }
       }
     });
-    return old_metadata ;
+    return old_metadata;
   }
 
   private AccountUserDbVO transformToNew(AccountUserVO oldAccountUserVO, List<GrantVO> grants, List<UserAttributeVO> attributes) {

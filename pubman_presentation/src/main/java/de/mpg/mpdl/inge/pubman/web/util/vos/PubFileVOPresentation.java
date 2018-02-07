@@ -47,7 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.service.pubman.impl.SimpleStatisticsService;
+import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 
 /**
  * Presentation wrapper for {@link FileDbVO}.
@@ -390,21 +390,6 @@ public class PubFileVOPresentation extends FacesBean {
     this.getEasySubmission().init();
 
     return "loadNewEasySubmission";
-  }
-
-  public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception {
-    final String fileID = this.file.getObjectId();
-
-    final String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
-        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, this.getLoginHelper().getAccountUser());
-    return result;
-  }
-
-  public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
-    final String fileID = this.file.getObjectId();
-    final String result = SimpleStatisticsService.getNumberOfItemOrFileRequests(
-        SimpleStatisticsService.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, this.getLoginHelper().getAccountUser());
-    return result;
   }
 
   /**
