@@ -134,9 +134,7 @@ public class OrganizationSuggest extends EditItemBean {
   }
 
   private AffiliationDbVO getAffiliation(AffiliationDbRO affiliationRO) throws Exception {
-    final ApplicationBean applicationBean = ((ApplicationBean) FacesTools.findBean("ApplicationBean"));
-
-    for (final AffiliationDbVO element : applicationBean.getOuList()) {
+    for (final AffiliationDbVO element : ApplicationBean.INSTANCE.getOuList()) {
       if (element.getObjectId().equals(affiliationRO.getObjectId())) {
         return element;
       }

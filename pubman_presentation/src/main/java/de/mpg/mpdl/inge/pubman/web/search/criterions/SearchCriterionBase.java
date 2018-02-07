@@ -593,6 +593,11 @@ public abstract class SearchCriterionBase implements Serializable {
       throws SearchParseException {
 
     SearchCriterionBase.logger.info("Call with list: " + scList);
+
+    if (scList.isEmpty()) {
+      return QueryBuilders.matchAllQuery();
+    }
+
     QueryBuilder resultedQueryBuilder = null;
 
     int parenthesisOpened = 0;

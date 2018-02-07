@@ -63,7 +63,7 @@ public abstract class BreadcrumbPage extends FacesBean {
   public void cancel() {
     final String result = this.previousItem.getPage();
     try {
-      FacesTools.getExternalContext().redirect(((ApplicationBean) FacesTools.findBean("ApplicationBean")).getAppContext() + result);
+      FacesTools.getExternalContext().redirect(ApplicationBean.INSTANCE.getAppContext() + result);
     } catch (final IOException e) {
       BreadcrumbPage.logger.error("Error redirecting to previous page", e);
     }

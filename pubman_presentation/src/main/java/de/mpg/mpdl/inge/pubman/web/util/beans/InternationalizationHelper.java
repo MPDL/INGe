@@ -286,7 +286,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for CreatorRole
    */
   public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry) {
-    final Map<String, String> negativeRoles = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getCreatorRoleMap();
+    final Map<String, String> negativeRoles = ApplicationBean.INSTANCE.getCreatorRoleMap();
 
     final List<CreatorVO.CreatorRole> values = new ArrayList<CreatorVO.CreatorRole>();
     for (final CreatorVO.CreatorRole role : CreatorVO.CreatorRole.values()) {
@@ -366,7 +366,7 @@ public class InternationalizationHelper implements Serializable {
    * @return array of SelectItems for ReviewMethod
    */
   public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry) {
-    final Map<String, String> values = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
+    final Map<String, String> values = ApplicationBean.INSTANCE.getContentCategoryMap();
     SelectItem[] selectItems = new SelectItem[values.size()];
     int i = 0;
 

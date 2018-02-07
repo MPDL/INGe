@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 
 @SuppressWarnings("serial")
@@ -39,7 +38,7 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
   }
 
   private static Map<String, String> getContentCategoryMap() {
-    final Map<String, String> ccMap = ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getContentCategoryMap();
+    final Map<String, String> ccMap = ApplicationBean.INSTANCE.getContentCategoryMap();
     final Map<String, String> newMap = new HashMap<String, String>();
 
     for (final Entry<String, String> entry : ccMap.entrySet()) {

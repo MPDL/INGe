@@ -44,24 +44,33 @@ import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "SearchAndExportPage")
 @SuppressWarnings("serial")
 public class SearchAndExportPage extends BreadcrumbPage {
   private final SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
 
-  private String esQuery =
-      "{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}";
-  private String limit = "5";
-  private String offset = "1";
-  private String sortingKey = "metadata.title.keyword";
-  private SearchSortCriteria.SortOrder sortOption = SearchSortCriteria.SortOrder.ASC;
+  private SearchSortCriteria.SortOrder sortOrder;
+  private String esQuery;
+  private String sortingKey;
+  private String limit;
+  private String offset;
+  private final int maxLimit = Integer.parseInt(PropertyReader.getProperty("inge.search.and.export.max.limit"));
 
   public SearchAndExportPage() {}
 
   @Override
   public void init() {
     super.init();
+
+    this.esQuery = PropertyReader.getProperty("inge.search.and.export.default.query");
+    this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
+    this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
+    this.sortOrder = PropertyReader.getProperty("inge.search.and.export.default.sort.order").equalsIgnoreCase("ascending")
+        ? SearchSortCriteria.SortOrder.ASC
+        : SearchSortCriteria.SortOrder.DESC;
+    this.sortingKey = PropertyReader.getProperty("inge.search.and.export.default.sort.key");
   }
 
   @Override
@@ -70,28 +79,13 @@ public class SearchAndExportPage extends BreadcrumbPage {
   }
 
   public void searchAndExport() {
-    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
-    final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+    final SearchAndExportRetrieveRequestVO saerrVO = parseInput();
+    final SearchAndExportResultVO searchAndExportResultVO = doSearch(saerrVO);
+    createResponse(searchAndExportResultVO);
+    FacesTools.getCurrentInstance().responseComplete();
+  }
 
-    SearchAndExportResultVO searchAndExportResultVO = null;
-    SearchAndExportRetrieveRequestVO saerrVO = null;
-    QueryBuilder queryBuilder = (QueryBuilder) QueryBuilders.wrapperQuery(this.esQuery);
-    ArrayList<SearchSortCriteria> _sortCriterias = new ArrayList<>();
-    if (this.sortingKey != null) {
-      SearchSortCriteria searchSortCriteria = new SearchSortCriteria(this.sortingKey, this.sortOption);
-      _sortCriterias.add(searchSortCriteria);
-    }
-    int _limit = Integer.parseInt(this.limit);
-    int _offset = Integer.parseInt(this.offset);
-
-    try {
-      saerrVO = new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
-          curExportFormat.getId(), queryBuilder, _limit, _offset, _sortCriterias.toArray(new SearchSortCriteria[_sortCriterias.size()]));
-      searchAndExportResultVO = saes.searchAndExportItems(saerrVO, this.getLoginHelper().getAuthenticationToken());
-    } catch (final Exception e) {
-      throw new RuntimeException("Cannot retrieve export data", e);
-    }
-
+  private void createResponse(SearchAndExportResultVO searchAndExportResultVO) {
     final String contentType = searchAndExportResultVO.getTargetMimetype();
     FacesTools.getResponse().setContentType(contentType);
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + searchAndExportResultVO.getFileName());
@@ -102,8 +96,49 @@ public class SearchAndExportPage extends BreadcrumbPage {
     } catch (final Exception e) {
       throw new RuntimeException("Cannot put export result in HttpResponse body:", e);
     }
+  }
 
-    FacesTools.getCurrentInstance().responseComplete();
+  private SearchAndExportResultVO doSearch(SearchAndExportRetrieveRequestVO saerrVO) {
+    SearchAndExportResultVO searchAndExportResultVO = null;
+
+    try {
+      searchAndExportResultVO = saes.searchAndExportItems(saerrVO, this.getLoginHelper().getAuthenticationToken());
+    } catch (final Exception e) {
+      throw new RuntimeException("Cannot retrieve export data", e);
+    }
+
+    return searchAndExportResultVO;
+  }
+
+  private SearchAndExportRetrieveRequestVO parseInput() {
+    try {
+      final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+      final ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
+
+      QueryBuilder queryBuilder = (QueryBuilder) QueryBuilders.wrapperQuery(this.esQuery);
+
+      ArrayList<SearchSortCriteria> sortCriterias = new ArrayList<>();
+      if (this.sortingKey != null && this.sortingKey.length() > 0) {
+        SearchSortCriteria searchSortCriteria = new SearchSortCriteria(this.sortingKey, this.sortOrder);
+        sortCriterias.add(searchSortCriteria);
+      }
+
+      int _limit = Integer.parseInt(this.limit);
+      if (_limit > this.maxLimit) {
+        _limit = this.maxLimit;
+      }
+
+      int _offset = Integer.parseInt(this.offset);
+
+      SearchAndExportRetrieveRequestVO saerrVO =
+          new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
+              curExportFormat.getId(), queryBuilder, _limit, _offset, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+
+      return saerrVO;
+
+    } catch (final Exception e) {
+      throw new RuntimeException("Cannot parse input", e);
+    }
   }
 
   public String getEsQuery() {
@@ -149,13 +184,16 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return sortOptions;
   }
 
-  public SearchSortCriteria.SortOrder getSortOption() {
-    return this.sortOption;
+  public SearchSortCriteria.SortOrder getSortOrder() {
+    return this.sortOrder;
   }
 
-  public void setSortOption(SearchSortCriteria.SortOrder sortOption) {
-    this.sortOption = sortOption;
+  public void setSortOrder(SearchSortCriteria.SortOrder sortOption) {
+    this.sortOrder = sortOption;
   }
 
+  public int getMaxLimit() {
+    return this.maxLimit;
+  }
 
 }

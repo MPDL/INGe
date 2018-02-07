@@ -1004,11 +1004,10 @@
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</inge.report.indesign.namespace>
 		<inge.rest.file.path>/component</inge.rest.file.path>
-		<inge.search.and.export.default.sort.keys>_relevance_</inge.search.and.export.default.sort.keys>
-		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
-		<inge.search.and.export.default.sql.query>escidoc.metadata=test and
-			escidoc.content-model.objid=escidoc:2001</inge.search.and.export.default.sql.query>
-		<inge.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</inge.search.and.export.indexes.explain.query>
+		<inge.search.and.export.default.sort.key>metadata.title.keyword</inge.search.and.export.default.sort.key>
+		<inge.search.and.export.default.sort.order>ascending</inge.search.and.export.default.sort.order>
+		<inge.search.and.export.default.query>{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}</inge.search.and.export.default.query>
+		<inge.search.and.export.max.limit>5000</inge.search.and.export.max.limit>
 		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
 		<inge.search.and.export.start.record>1</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>

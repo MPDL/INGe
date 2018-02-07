@@ -14,10 +14,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-
-import com.coremedia.iso.boxes.CompositionTimeToSample.Entry;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
@@ -260,7 +257,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @throws UnsupportedEncodingException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
-    return "<link href='" + ((ApplicationBean) FacesTools.findBean("ApplicationBean")).getPubmanInstanceUrl() + "/rest/feed/search?q="
+    return "<link href='" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
         + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
