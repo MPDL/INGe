@@ -955,6 +955,8 @@
 		<inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
 		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
+		<inge.matomo.analytics.base.uri>https://analytics.mpdl.mpg.de/</inge.matomo.analytics.base.uri>
+		<inge.matomo.analytics.site.id>1</inge.matomo.analytics.site.id>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pubman.blog.baseUrl />
