@@ -257,8 +257,16 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @throws UnsupportedEncodingException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
+    if (this.elasticSearchQuery == null) {
+      this.elasticSearchQuery =
+          this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+      if (this.elasticSearchQuery == null) {
+        return null;
+      }
+    }
+
     return "<link href='" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
-        + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
+        + URLEncoder.encode(this.elasticSearchQuery, "UTF-8")
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
@@ -352,7 +360,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
   public String getPrettyElasticSearchQuery() {
     try {
-      return JsonUtil.prettifyJsonString(getElasticSearchQuery());
+      return JsonUtil.prettifyJsonString(this.elasticSearchQuery);
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + getElasticSearchQuery());
       return "";
