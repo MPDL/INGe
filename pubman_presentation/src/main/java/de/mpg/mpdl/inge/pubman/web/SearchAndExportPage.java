@@ -27,11 +27,17 @@
 package de.mpg.mpdl.inge.pubman.web;
 
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -41,30 +47,61 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
+import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
+import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "SearchAndExportPage")
+@SessionScoped
 @SuppressWarnings("serial")
 public class SearchAndExportPage extends BreadcrumbPage {
+  private static final Logger logger = Logger.getLogger(SearchAndExportPage.class);
+
   private final SearchAndExportService saes = ApplicationBean.INSTANCE.getSearchAndExportService();
 
   private SearchSortCriteria.SortOrder sortOrder;
+
   private String esQuery;
   private String sortingKey;
   private String limit;
   private String offset;
+
   private final int maxLimit = Integer.parseInt(PropertyReader.getProperty("inge.search.and.export.max.limit"));
 
   public SearchAndExportPage() {}
 
+  // Wird bei jedem Aufruf des Beans ausgefuehrt -> SearchAndExportPage.jsp: <f:event type="preRenderView" listener="#{SearchAndExportPage.init}" />
   @Override
   public void init() {
     super.init();
 
-    this.esQuery = PropertyReader.getProperty("inge.search.and.export.default.query");
+    String oldQuery = this.esQuery;
+
+    if (FacesTools.getCurrentInstance().getRenderResponse()) {
+      final HttpServletRequest request = FacesTools.getRequest();
+      Map<String, String> paramMap = null;
+      try {
+        paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
+      } catch (final UnsupportedEncodingException e) {
+        SearchAndExportPage.logger.error("Error during reading GET parameters.", e);
+      }
+
+      this.esQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+    }
+
+    if (this.esQuery == null && oldQuery != null) {
+      this.esQuery = oldQuery;
+    } else if (this.esQuery == null) {
+      this.esQuery = PropertyReader.getProperty("inge.search.and.export.default.query");
+    }
+  }
+
+  // Wird nur 1x während der Lebenszeit des Beans aufgerufen
+  @PostConstruct
+  public void postConstruct() {
     this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
     this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
     this.sortOrder = PropertyReader.getProperty("inge.search.and.export.default.sort.order").equalsIgnoreCase("ascending")

@@ -477,14 +477,17 @@ public class CommonUtils {
 
   public static Map<String, String> getDecodedUrlParameterMap(String query) throws UnsupportedEncodingException {
     CommonUtils.logger.info("query: " + query);
-    final String[] parameters = query.split("&");
     final Map<String, String> parameterMap = new HashMap<String, String>();
-    for (final String param : parameters) {
-      String[] keyValueParts = param.split("=");
-      if (keyValueParts.length == 1) {
-        keyValueParts = new String[] {keyValueParts[0], ""};
+
+    if (query != null) {
+      final String[] parameters = query.split("&");
+      for (final String param : parameters) {
+        String[] keyValueParts = param.split("=");
+        if (keyValueParts.length == 1) {
+          keyValueParts = new String[] {keyValueParts[0], ""};
+        }
+        parameterMap.put(keyValueParts[0], URLDecoder.decode(keyValueParts[1], "UTF-8"));
       }
-      parameterMap.put(keyValueParts[0], URLDecoder.decode(keyValueParts[1], "UTF-8"));
     }
 
     return parameterMap;
