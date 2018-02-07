@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 
@@ -192,6 +193,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
       }
 
+
+      System.out.println(ssb.toString());
       SearchResponse resp;
       if ("admin".equals(getSearchType())) {
         resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());

@@ -32,6 +32,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.join.query.HasChildQueryBuilder;
 import org.elasticsearch.join.query.JoinQueryBuilders;
+import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -54,7 +55,8 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
 
     HighlightBuilder hb =
         new HighlightBuilder().field(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT).preTags("<span class=\"searchHit\">").postTags("</span>");
-    childQueryBuilder.innerHit(new InnerHitBuilder().setHighlightBuilder(hb));
+    FetchSourceContext fs = new FetchSourceContext(true, null, new String[] {PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT});
+    childQueryBuilder.innerHit(new InnerHitBuilder().setHighlightBuilder(hb).setFetchSourceContext(fs));
     qb.should(childQueryBuilder);
     return qb;
   }
