@@ -206,7 +206,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
 
   public static String INDEX_FULLTEXT_ITEM_ID = "fileData.itemId";
-  
+
   public static String INDEX_FULLTEXT_FILE_ID = "fileData.fileId";
 
   public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
