@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -46,6 +47,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -241,4 +243,30 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return this.maxLimit;
   }
 
+  /**
+   * @return link to the atom feed for the current search
+   * @throws PubManVersionNotAvailableException
+   * @throws UnsupportedEncodingException
+   */
+  public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
+    if (this.esQuery == null) {
+      return null;
+    }
+
+    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + URLEncoder.encode(this.esQuery, "UTF-8")
+        + " rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
+  }
+
+  public String getNormalizedAtomFeedLink() throws UnsupportedEncodingException, PubManVersionNotAvailableException {
+    if (this.esQuery == null) {
+      return null;
+    }
+
+    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + this.esQuery
+        + " rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
+  }
+
+  public void updatePage() {
+    // reloads page
+  }
 }

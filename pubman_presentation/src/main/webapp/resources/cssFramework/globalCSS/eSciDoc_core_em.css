@@ -1635,6 +1635,11 @@ option {	/* fix for FF2 and floating contents */
     width: 72.27272727em;
 }
 
+.threequarter_area0 {
+	float:left;
+    width: 60em;
+}
+
 .full_area0_p1 .half_area0_p0, .full_area0_p1 .half_area0, .full_area1 .half_area0_p0, .full_area1 .half_area0, .full_area1_p0 .half_area0_p0, .full_area1_p0 .half_area0_p0 {
     width: 40.5454em;
 }

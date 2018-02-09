@@ -73,9 +73,10 @@
 										Elastic Search Query<span class="noDisplay"></span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required"/>
+										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required" onchange="$(this).parents('.free_area0').find('.updateButton').click();" />
 								    	<h:message styleClass="quad_txtInput" for="esQuery" style="color:red"/>
 									</span>
+	                                <h:commandButton id="btnUpdatePage" styleClass="noDisplay updateButton" action="#{SearchAndExportPage.updatePage}" />
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -140,7 +141,7 @@
 				                            <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
 				                                <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
 				                                <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-				                                <h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" />
+				                                <h:outputLink styleClass="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" />
 				                                <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}" />
 				                            </h:panelGroup>
 				                        </h:panelGroup>
@@ -148,14 +149,50 @@
 								</div>
 							</div>
                         </div>
+                     
                     </div>
+                    
                     <div class="full_area0 formButtonArea">
-                           <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" />
+                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" />
                     </div>
+                  
+                <h:panelGroup layout="block" styleClass="full_area0 clear">
+                    <div class="full_area0 fullItem">
+                       	<div class="full_area0 itemBlock">
+                       		<h3 class="xLarge_area0_p8 endline blockHeader">
+								Complete Search URI
+							</h3>
+							<span class="seperator"></span>
+							<span class="third_area0 xTiny_marginLExcl endline">
+								<span class="threequarter_area0 endline">
+		                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.normalizedAtomFeedLink}" />
+								</span>
+							</span>
+	                    </div>
+	                    
+                       	<div class="full_area0 itemBlock">
+                       		<h3 class="xLarge_area0_p8 endline blockHeader">
+								Search Feeds
+							</h3>
+							<span class="seperator"></span>
+							<span class="xHuge_area0 xTiny_marginLExcl endline">
+								<span class="xHuge_area0 endline">
+		                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank">Atom, version 1.0</h:outputLink>
+								</span>
+							</span>
+	                    </div>
+
+	                    
+                    </div>
+                </h:panelGroup>
+                 
                     <!-- end: content section -->
                 </div>
+                
+                
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
         <script type="text/javascript">
             var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>citation-styles/query';
