@@ -27,17 +27,19 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import org.apache.lucene.search.join.ScoreMode;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.InnerHitBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.join.query.HasChildQueryBuilder;
+import org.elasticsearch.join.query.JoinQueryBuilders;
+import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
-public class IdentifierSearchCriterion extends StandardSearchCriterion {
-
-
-  private IdType selectedIdentifierType;
+public class FulltextSearchCriterion extends StandardSearchCriterion {
 
 
 
@@ -45,41 +47,34 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   public QueryBuilder toElasticSearchQuery() {
 
 
-    if (getSelectedIdentifierType() == null) {
-      return super.toElasticSearchQuery();
-    } else {
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
-      bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID, getSearchString()));
-      return QueryBuilders.nestedQuery("metadata.identifiers", bq, ScoreMode.Avg);
-    }
+    HasChildQueryBuilder childQueryBuilder = JoinQueryBuilders.hasChildQuery("file",
+        SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString()), ScoreMode.Avg);
 
+    HighlightBuilder hb =
+        new HighlightBuilder().field(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT).preTags("<span class=\"searchHit\">").postTags("</span>");
+    FetchSourceContext fs = new FetchSourceContext(true, null, new String[] {PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT});
+    childQueryBuilder.innerHit(new InnerHitBuilder().setHighlightBuilder(hb).setFetchSourceContext(fs));
 
-
+    return childQueryBuilder;
   }
-
 
   @Override
   public String[] getCqlIndexes(Index indexName) {
 
     switch (indexName) {
       case ESCIDOC_ALL:
-        return new String[] {"escidoc.any-identifier", "escidoc.property.latest-release.objid"};
+        return new String[] {"escidoc.fulltext"};
       case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/any-identifier\"", "\"/properties/latest-release/id\""};
+        return new String[] {"\"/fulltext\""};
     }
     return null;
 
-
   }
 
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.IDENTIFIER; }
-   */
+  // TODO: Add fulltext index
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_PID,
-        PubItemServiceDbImpl.INDEX_VERSION_PID, PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID};
+    return null;
 
   }
 
@@ -88,13 +83,10 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
     return null;
   }
 
-  public IdType getSelectedIdentifierType() {
-    return selectedIdentifierType;
-  }
 
-  public void setSelectedIdentifierType(IdType selectedIdentifierType) {
-    this.selectedIdentifierType = selectedIdentifierType;
-  }
+  /*
+   * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.ANYFULLTEXT; }
+   */
 
 
 }

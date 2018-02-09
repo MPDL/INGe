@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
-public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion {
+public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion {
 
 
 
@@ -49,15 +49,7 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     //Use simple query for searching all fields
     qb.should(QueryBuilders.simpleQueryStringQuery(getSearchString()));
-
-    HasChildQueryBuilder childQueryBuilder = JoinQueryBuilders.hasChildQuery("file",
-        SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT, getSearchString()), ScoreMode.Avg);
-
-    HighlightBuilder hb =
-        new HighlightBuilder().field(PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT).preTags("<span class=\"searchHit\">").postTags("</span>");
-    FetchSourceContext fs = new FetchSourceContext(true, null, new String[] {PubItemServiceDbImpl.INDEX_FULLTEXT_CONTENT});
-    childQueryBuilder.innerHit(new InnerHitBuilder().setHighlightBuilder(hb).setFetchSourceContext(fs));
-    qb.should(childQueryBuilder);
+    qb.should(super.toElasticSearchQuery());
     return qb;
   }
 
@@ -74,17 +66,6 @@ public class AnyFieldAndFulltextSearchCriterion extends StandardSearchCriterion 
 
   }
 
-  // TODO: Add fulltext index
-  @Override
-  public String[] getElasticIndexes() {
-    return new String[] {"_all"};
-
-  }
-
-  @Override
-  public String getElasticSearchNestedPath() {
-    return null;
-  }
 
 
   /*

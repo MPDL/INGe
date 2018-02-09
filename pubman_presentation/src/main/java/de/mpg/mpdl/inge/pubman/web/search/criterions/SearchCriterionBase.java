@@ -61,6 +61,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldAndFulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentContentCategory;
@@ -101,6 +102,7 @@ public abstract class SearchCriterionBase implements Serializable {
     CLASSIFICATION(ClassificationSearchCriterion.class, null),
     ANY(AnyFieldSearchCriterion.class, DisplayType.STANDARD),
     ANYFULLTEXT(AnyFieldAndFulltextSearchCriterion.class, DisplayType.STANDARD),
+    FULLTEXT(FulltextSearchCriterion.class, DisplayType.STANDARD),
     ANYPERSON(PersonSearchCriterion.class, DisplayType.PERSON),
 
     // Person enum names should be the sam as role names in CreatorVO.CreatorRole
@@ -122,7 +124,7 @@ public abstract class SearchCriterionBase implements Serializable {
     SOURCE(SourceSearchCriterion.class, DisplayType.STANDARD),
     JOURNAL(JournalSearchCriterion.class, null),
     LOCAL(LocalTagSearchCriterion.class, DisplayType.STANDARD),
-    IDENTIFIER(IdentifierSearchCriterion.class, DisplayType.STANDARD),
+    IDENTIFIER(IdentifierSearchCriterion.class, null),
     COLLECTION(CollectionSearchCriterion.class, null),
     PROJECT_INFO(ProjectInfoSearchCriterion.class, DisplayType.STANDARD),
 

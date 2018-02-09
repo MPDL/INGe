@@ -380,6 +380,26 @@
 									value="#{criterion.searchString}" />
 							</h:panelGroup>
 						</h:panelGroup>
+						<!-- input for Identifier -->
+						<h:panelGroup styleClass="free_area0 endline subjectArea"
+							rendered="#{criterion.searchCriterion == 'IDENTIFIER'}">
+							<h:panelGroup styleClass="free_area0 largeFormPush">
+								<h:outputLabel id="lblIdentifierType" styleClass="small_label label_keyword" value=" " />
+								<h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer">
+									<div class="medium_area0">
+										<span class="large_area0 selectionBox">&#160;</span>
+										<span class="tooltip">&#160;</span>
+										<div class="min_imgArea selectboxIcon">&#160;</div>
+									</div>
+									<h:selectOneMenu id="selIdentifierType" onfocus="updateSelectionBox(this);"
+										value="#{criterion.selectedIdentifierType}" styleClass="endline vocabulary" onchange="updateSelectionBox(this);">
+										<f:selectItems value="#{AdvancedSearchBean.identifierTypesListMenu}" />
+									</h:selectOneMenu>
+								</h:panelGroup>
+								<h:inputText id="inpIdentifierValue" styleClass="double_txtInput"
+									value="#{criterion.searchString}" />
+							</h:panelGroup>
+						</h:panelGroup>
 						<!-- input for genre-->
 						<h:outputLabel id="lblGenreSearchTerm" styleClass="small_label label_keyword" value=" "
 							rendered="#{criterion.searchCriterion == 'GENRE'}" />

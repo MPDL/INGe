@@ -53,11 +53,11 @@ public class SearchUtils {
       switch (field.getType()) {
         case TEXT: {
           if (value.length == 1) {
-            return QueryBuilders.matchQuery(index, value[0]).operator(Operator.AND);
+            return checkMatchOrPhraseMatch(index, value[0]);
           } else {
             BoolQueryBuilder bq = QueryBuilders.boolQuery();
             for (String searchString : value) {
-              bq.should(QueryBuilders.matchQuery(index, searchString).operator(Operator.AND));
+              bq.should(checkMatchOrPhraseMatch(index, searchString));
             }
             return bq;
           }
@@ -76,6 +76,16 @@ public class SearchUtils {
     } else {
       logger.warn("Index field " + index + " not found");
       return null;
+    }
+
+  }
+
+
+  private static QueryBuilder checkMatchOrPhraseMatch(String index, String searchString) {
+    if (searchString != null && searchString.trim().startsWith("\"") && searchString.trim().endsWith("\"")) {
+      return QueryBuilders.matchPhraseQuery(index, searchString.trim().substring(1, searchString.length() - 1));
+    } else {
+      return QueryBuilders.matchQuery(index, searchString).operator(Operator.AND);
     }
 
   }

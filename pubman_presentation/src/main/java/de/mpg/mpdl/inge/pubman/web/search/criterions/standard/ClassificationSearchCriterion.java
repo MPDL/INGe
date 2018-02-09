@@ -25,6 +25,11 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
+import org.apache.lucene.search.join.ScoreMode;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -35,6 +40,18 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
   private String classificationType;
 
   public ClassificationSearchCriterion() {
+
+  }
+
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+
+
+    BoolQueryBuilder bq = QueryBuilders.boolQuery();
+    bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS_TYPE, getClassificationType()));
+    bq.must(super.toElasticSearchQuery());
+    return QueryBuilders.nestedQuery("metadata.subjects", bq, ScoreMode.Avg);
 
   }
 
@@ -53,7 +70,7 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS};
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS_VALUE};
 
   }
 

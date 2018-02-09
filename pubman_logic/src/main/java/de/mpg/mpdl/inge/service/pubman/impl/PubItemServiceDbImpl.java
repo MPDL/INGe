@@ -170,10 +170,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_EVENT_INVITATION_STATUS = "metadata.event.invitationStatus";
   public static String INDEX_METADATA_GENRE = "metadata.genre";
   public static String INDEX_METADATA_REVIEW_METHOD = "metadata.reviewMethod";
-  public static String INDEX_METADATA_SUBJECTS = "metadata.subjects.value";
+  public static String INDEX_METADATA_SUBJECTS_VALUE = "metadata.subjects.value";
+  public static String INDEX_METADATA_SUBJECTS_TYPE = "metadata.subjects.type";
   public static String INDEX_METADATA_DEGREE = "metadata.degree";
   public static String INDEX_METADATA_LANGUAGES = "metadata.languages";
   public static String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";
+  public static String INDEX_METADATA_IDENTIFIERS_TYPE = "metadata.identifiers.type";
 
   public static String INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID = "metadata.publishingInfo.publisher";
 

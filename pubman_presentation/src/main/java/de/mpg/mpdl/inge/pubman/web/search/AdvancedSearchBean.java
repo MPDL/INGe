@@ -54,6 +54,8 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.DisplayType;
@@ -104,6 +106,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> operatorTypeListMenu = this.initOperatorListMenu();
   private List<SelectItem> reviewMethodListMenu = this.initReviewMethodListMenu();
   private List<SelectItem> subjectTypesListMenu = this.initSubjectTypesListMenu();
+  private List<SelectItem> identifierTypesListMenu = this.initIdentifierTypesListMenu();
   private List<SelectItem> personRoleMenu = this.initPersonRoleMenu();
 
   private Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap = new HashMap<SearchCriterionBase, Boolean>();
@@ -283,6 +286,19 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
 
+
+  private List<SelectItem> initIdentifierTypesListMenu() {
+
+    final List<SelectItem> identifierRoleMenu = new ArrayList<SelectItem>();
+
+    identifierRoleMenu.add(new SelectItem(null, "-"));
+    for (final IdType type : IdentifierVO.IdType.values()) {
+      identifierRoleMenu.add(new SelectItem(type.name(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.name())));
+    }
+    return identifierRoleMenu;
+
+  }
+
   private List<SelectItem> initPersonRoleMenu() {
 
     final List<SelectItem> personRoleMenu = new ArrayList<SelectItem>();
@@ -302,7 +318,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     criterionTypeList.add(new SelectItem(SearchCriterion.KEYWORD, this.getLabel("adv_search_lblRgbTopic")));
     criterionTypeList.add(new SelectItem(SearchCriterion.CLASSIFICATION, this.getLabel("adv_search_lblClassification")));
     criterionTypeList.add(new SelectItem(SearchCriterion.ANY, this.getLabel("adv_search_lblRgbAny")));
-    criterionTypeList.add(new SelectItem(SearchCriterion.ANYFULLTEXT, this.getLabel("adv_search_lblRgbAnyFulltext")));
+    criterionTypeList.add(new SelectItem(SearchCriterion.FULLTEXT, this.getLabel("adv_search_lblRgbFulltext")));
 
     // AdminStuff
     if (indexName == Index.ITEM_CONTAINER_ADMIN) {
@@ -1084,6 +1100,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public void setLocatorSectionSearchCriterion(SearchCriterionBase locatorSectionSearchCriterion) {
     this.locatorSectionSearchCriterion = locatorSectionSearchCriterion;
+  }
+
+  public List<SelectItem> getIdentifierTypesListMenu() {
+    return identifierTypesListMenu;
+  }
+
+  public void setIdentifierTypesListMenu(List<SelectItem> identifierTypesListMenu) {
+    this.identifierTypesListMenu = identifierTypesListMenu;
   }
 
 
