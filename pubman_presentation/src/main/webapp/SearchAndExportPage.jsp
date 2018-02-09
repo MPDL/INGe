@@ -9,16 +9,6 @@
     <h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
     <script src="/cone/js/jquery.suggest.js"></script>
 	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
-    <style>
-        .dialogNoTitleBar .ui-dialog-titlebar {
-            display: none;
-        }
-
-        .dialogNoTitleBar {
-            background: none;
-            border: none;
-        }
-    </style>
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
@@ -153,7 +143,8 @@
                     </div>
                     
                     <div class="full_area0 formButtonArea">
-                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" />
+                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" onmouseover="$(this).parents('.full_area0').find('.updateButton').click();"/>
+                        <h:commandButton id="btnUpdatePage2" styleClass="noDisplay updateButton" action="#{SearchAndExportPage.updatePage}" />
                     </div>
                   
                 <h:panelGroup layout="block" styleClass="full_area0 clear">
@@ -163,11 +154,13 @@
 								Complete Search URI
 							</h3>
 							<span class="seperator"></span>
-							<span class="third_area0 xTiny_marginLExcl endline">
-								<span class="threequarter_area0 endline">
-		                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.normalizedAtomFeedLink}" />
+							<div class="free_area0 itemBlockContent endline">
+								<span class="third_area0 xTiny_marginLExcl endline">
+									<span class="threequarter_area0 endline">
+			                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.normalizedAtomFeedLink}" />
+									</span>
 								</span>
-							</span>
+		                    </div>
 	                    </div>
 	                    
                        	<div class="full_area0 itemBlock">
@@ -175,11 +168,13 @@
 								Search Feeds
 							</h3>
 							<span class="seperator"></span>
-							<span class="xHuge_area0 xTiny_marginLExcl endline">
-								<span class="xHuge_area0 endline">
-		                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank">Atom, version 1.0</h:outputLink>
+							<div class="free_area0 itemBlockContent endline">
+								<span class="xHuge_area0 xTiny_marginLExcl endline">
+									<span class="xHuge_area0 endline">
+			                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank">Atom, version 1.0</h:outputLink>
+									</span>
 								</span>
-							</span>
+		                    </div>
 	                    </div>
 
 	                    
