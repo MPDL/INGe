@@ -35,15 +35,15 @@ body {
 }
 
 /*GENERAL DEFINITIONS*/
-button, input, selection {
+button, input, select {
     font-size: 0.5em;
     /*	height: 1.5em; */
     vertical-align: top;
 }
 
 body {
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
     /*margin-left: 17px;
      margin-right: 17px;*/
 }
@@ -57,17 +57,15 @@ html > body .wrapper {
     height: auto !important;
 }
 
-
 /* 
  * IE 7 HACK
  * wrapper - bug in IE7- 
  * 6px to much in width
  */
-*:first-child+html .full.wrapper {
-	width:83.5454em !important;
-	overflow:hidden;
+*:first-child + html .full.wrapper {
+    width: 83.5454em !important;
+    overflow: hidden;
 }
-
 
 body .wrapper, body .footer {
     margin: 0 auto 0 auto;
@@ -88,11 +86,11 @@ body .wrapper {
 }
 
 b {
-	font-weight:normal;
+    font-weight: normal;
 }
 
 textarea {
-	resize:vertical;
+    resize: vertical;
 }
 
 .noDisplay {
@@ -100,8 +98,8 @@ textarea {
 }
 
 .noPaddingTopBottom {
-    padding-top:0 !important;
-    padding-bottom:0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .pointer {
@@ -139,11 +137,11 @@ label {
 }
 
 select {
-    border-width: 0.0909em;;
+    border-width: 0.0909em;
+    
 }
 
-input[type =
-"file"] {
+input[type="file"] {
     border-width: 0.0909em;
 }
 
@@ -153,41 +151,47 @@ input[type =
 h1 {
     font-size: 38px;
     line-height: 1em;
-	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
+    font-weight: normal;
+    /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H2*/
 h2 {
     font-size: 20px !important;
     line-height: 1em;
-	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
+    font-weight: normal;
+    /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H3*/
 h3 {
     font-size: 11px !important;
-	font-weight:normal;
+    font-weight: normal;
 }
 
 /*H4*/
 h4 {
     font-size: 11px;
-	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
+    font-weight: normal;
+    /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H5*/
 h5 {
-	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
+    font-weight: normal;
+    /* fix for different browser, e.g. on Macintosh */
 }
 
 /*H6*/
 h6 {
     font-size: 11px;
-	font-weight:normal; /* fix for different browser, e.g. on Macintosh */
+    font-weight: normal;
+    /* fix for different browser, e.g. on Macintosh */
 }
 
-option {	/* fix for FF2 and floating contents */
-	float:none !important;
+option {
+    /* fix for FF2 and floating contents */
+    float: none !important;
 }
 
 /*LINEBREAK AND LAST IN LINE*/
@@ -205,13 +209,13 @@ option {	/* fix for FF2 and floating contents */
 
 .linebreak {
     width: 100%;
-    height:0;
+    height: 0;
     display: block;
     float: left;
 }
 
 .endline {
-    margin-right:0 !important;
+    margin-right: 0 !important;
 }
 
 /*STANDARD WIDTHS*/
@@ -279,10 +283,10 @@ option {	/* fix for FF2 and floating contents */
 
 /*IMAGE BUTTONS AND ICON AREAS*/
 .min_imgBtn, .min_imgArea, .std_imgBtn, .std_imgArea, .big_imgBtn, .big_imgArea {
-    border:0;
-    margin:0;
-    margin-right:0.0909em;
-    padding:0;
+    border: 0;
+    margin: 0;
+    margin-right: 0.0909em;
+    padding: 0;
     background-position: center center;
     background-color: inherit;
 }
@@ -307,20 +311,20 @@ option {	/* fix for FF2 and floating contents */
 }
 
 .large_imgBtn {
-	width: 4.272727em;
-	height: 4.272727em;
+    width: 4.272727em;
+    height: 4.272727em;
 }
 
 .large_imgImg {
-	max-width: 4.272727em;
-	max-height: 4.272727em;	
+    max-width: 4.272727em;
+    max-height: 4.272727em;
 }
 
 /*TEXT BUTTONS (base size)*/
 .free_txtBtn, .xTiny_txtBtn, .tiny_txtBtn, .xSmall_txtBtn, .small_txtBtn, .medium_txtBtn, .large_txtBtn, .xLarge_txtBtn, .double_txtBtn, .xDouble_txtBtn, .quad_txtBtn, .huge_txtBtn, .xHuge_txtBtn, .half_txtBtn, .full_txtBtn {
-    padding:0;
-    margin:0;
-    border:0;
+    padding: 0;
+    margin: 0;
+    border: 0;
     display: inline;
     margin-right: 0.0909em;
     float: left;
@@ -396,7 +400,7 @@ option {	/* fix for FF2 and floating contents */
     padding-left: 0.0909em;
     padding-right: 0.0909em;
     border-width: 0.0909em;
-    margin:0;
+    margin: 0;
     display: inline;
     margin-right: 0.0909em;
     float: left;
@@ -438,15 +442,16 @@ option {	/* fix for FF2 and floating contents */
     width: 24.8181em;
 }
 
-.third_txtInput, .third_txtInput input {	/* erweitert 2011-03-29 - Marco Schlender */
-	padding-left: 0.0909em;
+.third_txtInput, .third_txtInput input {
+    /* erweitert 2011-03-29 - Marco Schlender */
+    padding-left: 0.0909em;
     padding-right: 0.0909em;
     border-width: 0.0909em;
-    margin:0;
+    margin: 0;
     display: inline;
     margin-right: 0.0909em;
     float: left;
-	width:34.3636em;
+    width: 34.3636em;
 }
 
 .quad_txtInput, .quad_txtInput input {
@@ -480,7 +485,7 @@ option {	/* fix for FF2 and floating contents */
 /*TEXT AREAS (base size-5px)*/
 .free_txtArea, .xTiny_txtArea, .tiny_txtArea, .xSmall_txtArea, .small_txtArea, .medium_txtArea, .large_txtArea, .xLarge_txtArea, .double_txtArea, .xDouble_txtArea, .quad_txtArea, .huge_txtArea, .xHuge_txtArea, .half_txtArea, .full_txtArea {
     padding-left: 0.0909em;
-    margin:0;
+    margin: 0;
     display: inline;
     margin-right: 0.0909em;
     border-width: 0.0909em;
@@ -491,11 +496,13 @@ option {	/* fix for FF2 and floating contents */
     width: 1.0909em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .xTiny_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .xTiny_txtArea {
     width: 1.01em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .xTiny_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .xTiny_txtArea {
     width: 1.01em;
 }
 
@@ -503,11 +510,13 @@ option {	/* fix for FF2 and floating contents */
     width: 1.8181em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .tiny_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .tiny_txtArea {
     width: 1.7272em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .tiny_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .tiny_txtArea {
     width: 1.7272em;
 }
 
@@ -515,11 +524,13 @@ option {	/* fix for FF2 and floating contents */
     width: 2.5454em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .xSmall_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .xSmall_txtArea {
     width: 2.4545em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .xSmall_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .xSmall_txtArea {
     width: 2.4545em;
 }
 
@@ -527,11 +538,13 @@ option {	/* fix for FF2 and floating contents */
     width: 5.3636em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .small_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .small_txtArea {
     width: 5.3636em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .small_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .small_txtArea {
     width: 5.3636em;
 }
 
@@ -539,11 +552,13 @@ option {	/* fix for FF2 and floating contents */
     width: 8.3636em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .medium_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .medium_txtArea {
     width: 8.2727em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .medium_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .medium_txtArea {
     width: 8.2727em;
 }
 
@@ -551,11 +566,13 @@ option {	/* fix for FF2 and floating contents */
     width: 11.2727em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .large_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .large_txtArea {
     width: 11.1818em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .large_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .large_txtArea {
     width: 11.1818em;
 }
 
@@ -563,11 +580,13 @@ option {	/* fix for FF2 and floating contents */
     width: 14.1818em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .xLarge_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .xLarge_txtArea {
     width: 14.0909em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .xLarge_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .xLarge_txtArea {
     width: 14.0909em;
 }
 
@@ -575,11 +594,13 @@ option {	/* fix for FF2 and floating contents */
     width: 18.3636em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .double_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .double_txtArea {
     width: 18.2727em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .double_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .double_txtArea {
     width: 18.2727em;
 }
 
@@ -587,11 +608,13 @@ option {	/* fix for FF2 and floating contents */
     width: 24.9090em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .xDouble_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .xDouble_txtArea {
     width: 24.8181em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .xDouble_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .xDouble_txtArea {
     width: 24.8181em;
 }
 
@@ -599,11 +622,13 @@ option {	/* fix for FF2 and floating contents */
     width: 38.7272em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .quad_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .quad_txtArea {
     width: 38.6363em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .quad_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .quad_txtArea {
     width: 38.6363em;
 }
 
@@ -611,11 +636,13 @@ option {	/* fix for FF2 and floating contents */
     width: 22.9090em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .huge_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .huge_txtArea {
     width: 22.8181em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .huge_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .huge_txtArea {
     width: 22.8181em;
 }
 
@@ -623,11 +650,13 @@ option {	/* fix for FF2 and floating contents */
     width: 43.2727em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .xHuge_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .xHuge_txtArea {
     width: 43.1818em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .xHuge_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .xHuge_txtArea {
     width: 43.1818em;
 }
 
@@ -635,11 +664,13 @@ option {	/* fix for FF2 and floating contents */
     width: 40.3636em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .half_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .half_txtArea {
     width: 40.24em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .half_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .half_txtArea {
     width: 40.24em;
 }
 
@@ -647,11 +678,13 @@ option {	/* fix for FF2 and floating contents */
     width: 40.24em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .full_area0_p1 .half_txtArea, * html .full_area1 .half_txtArea, * html .full_area1_p0 .half_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .full_area0_p1 .half_txtArea, * html .full_area1 .half_txtArea, * html .full_area1_p0 .half_txtArea {
     width: 40.1818em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .full_area0_p1 .half_txtArea, *:first-child + html .full_area1 .half_txtArea, *:first-child + html .full_area1_p0 .half_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .full_area0_p1 .half_txtArea, *:first-child + html .full_area1 .half_txtArea, *:first-child + html .full_area1_p0 .half_txtArea {
     width: 40.1818em;
 }
 
@@ -659,11 +692,13 @@ option {	/* fix for FF2 and floating contents */
     width: 40.1818em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .full_area0_p2 .half_txtArea, * html .full_area1_p1 .half_txtArea, * html .full_area2 .half_txtArea, * html .full_area2_p0 .half_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .full_area0_p2 .half_txtArea, * html .full_area1_p1 .half_txtArea, * html .full_area2 .half_txtArea, * html .full_area2_p0 .half_txtArea {
     width: 40.0909em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .full_area0_p2 .half_txtArea, *:first-child + html .full_area1_p1 .half_txtArea, *:first-child + html .full_area2 .half_txtArea, *:first-child + html .full_area2_p0 .half_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .full_area0_p2 .half_txtArea, *:first-child + html .full_area1_p1 .half_txtArea, *:first-child + html .full_area2 .half_txtArea, *:first-child + html .full_area2_p0 .half_txtArea {
     width: 40.0909em;
 }
 
@@ -671,11 +706,13 @@ option {	/* fix for FF2 and floating contents */
     width: 81.0909em;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .full_txtArea {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .full_txtArea {
     width: 81.01em;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .full_txtArea {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .full_txtArea {
     width: 81.01em;
 }
 
@@ -683,7 +720,7 @@ option {	/* fix for FF2 and floating contents */
 .free_select, .xTiny_select, .tiny_select, .xSmall_select, .small_select, .medium_select, .large_select, .xLarge_select, .double_select, .xDouble_select, .quad_select, .huge_select, .xHuge_select, .half_select, .full_select {
     padding-left: 0.0909em;
     padding-right: 0.0909em;
-    margin:0;
+    margin: 0;
     display: inline;
     margin-right: 0.0909em;
     float: left;
@@ -758,7 +795,7 @@ option {	/* fix for FF2 and floating contents */
     padding-left: 0.0909em;
     display: inline;
     overflow: hidden;
-    margin:0;
+    margin: 0;
     margin-right: 0.0909em;
     white-space: nowrap;
     float: left;
@@ -831,7 +868,7 @@ option {	/* fix for FF2 and floating contents */
 /*RADIO BUTTONS WITH LABEL (base size (-21 for label))*/
 .xTiny_radioBtn, .tiny_radioBtn, .xSmall_radioBtn, .small_radioBtn, .medium_radioBtn, .large_radioBtn, .xLarge_radioBtn, .double_radioBtn, .xDouble_radioBtb, .quad_radioBtn, .huge_radioBtn, .xHuge_radioBtn, .half_radioBtn, .full_radioBtn {
     overflow: hidden;
-    margin:0;
+    margin: 0;
     display: inline;
     margin-right: 0.0909em;
     float: left;
@@ -845,13 +882,13 @@ option {	/* fix for FF2 and floating contents */
 
 .xTiny_radioBtn input, .xTiny_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
     /*too small to be displayed*/
     display: none;
 }
 
 .xTiny_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
@@ -872,17 +909,17 @@ option {	/* fix for FF2 and floating contents */
 
 .tiny_radioBtn input, .tiny_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .tiny_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .tiny_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -895,17 +932,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xSmall_radioBtn input, .xSmall_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xSmall_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xSmall_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -913,22 +950,23 @@ option {	/* fix for FF2 and floating contents */
 }
 
 .small_radioBtn {
-    width: 5.7272em;;
+    width: 5.7272em;
+    
 }
 
 .small_radioBtn input, .small_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .small_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .small_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -941,7 +979,7 @@ option {	/* fix for FF2 and floating contents */
 
 .medium_radioBtn input, .medium_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .medium_radioBtn input {
@@ -950,14 +988,14 @@ option {	/* fix for FF2 and floating contents */
 }
 
 .medium_radioBtn input {
-	margin-top:0;
-    margin-left:0;
+    margin-top: 0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .medium_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -970,17 +1008,17 @@ option {	/* fix for FF2 and floating contents */
 
 .large_radioBtn input, .large_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .large_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .large_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -993,17 +1031,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xLarge_radioBtn input, .xLarge_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xLarge_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xLarge_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1016,17 +1054,17 @@ option {	/* fix for FF2 and floating contents */
 
 .double_radioBtn input, .double_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .double_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .double_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1039,17 +1077,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xDouble_radioBtn input, .xDouble_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xDouble_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xDouble_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1062,17 +1100,17 @@ option {	/* fix for FF2 and floating contents */
 
 .quad_radioBtn input, .quad_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .quad_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .quad_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1085,18 +1123,18 @@ option {	/* fix for FF2 and floating contents */
 
 .huge_radioBtn input, .huge_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .huge_radioBtn input {
-	margin-top:0;
-    margin-left:0;
+    margin-top: 0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .huge_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1109,17 +1147,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xHuge_radioBtn input, .xHuge_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xHuge_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xHuge_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1132,17 +1170,17 @@ option {	/* fix for FF2 and floating contents */
 
 .half_radioBtn input, .half_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .half_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .half_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1171,17 +1209,17 @@ option {	/* fix for FF2 and floating contents */
 
 .full_radioBtn input, .full_radioBtn label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .full_radioBtn input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .full_radioBtn label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1191,24 +1229,27 @@ option {	/* fix for FF2 and floating contents */
 /*CHECKBOXES WITH LABEL (base size (-21 for label))*/
 .free_checkbox, .xTiny_checkbox, .tiny_checkbox, .xSmall_checkbox, .small_checkbox, .medium_checkbox, .large_checkbox, .xLarge_checkbox, .double_checkbox, .xDouble_checkbox, .quad_checkbox, .huge_checkbox, .xHuge_checkbox, .half_checkbox, .full_checkbox {
     overflow: hidden;
-    margin:0;
+    margin: 0;
     display: inline;
     margin-right: 0.0909em;
     float: left;
 }
 
 .free_checkbox input, .free_checkbox label {
-	float:left;
-	border:0;
-	margin-left:0;
+    float: left;
+    border: 0;
+    margin-left: 0;
 }
+
 .free_checkbox label {
-	float:left;
-	border:0;
+    float: left;
+    border: 0;
 }
-.free_checkbox input+label {
-	white-space:nowrap;
+
+.free_checkbox input + label {
+    white-space: nowrap;
 }
+
 .xTiny_checkbox {
     width: 1.3636em;
     /*too small to be displayed*/
@@ -1217,13 +1258,13 @@ option {	/* fix for FF2 and floating contents */
 
 .xTiny_checkbox input, .xTiny_checkbox label {
     float: left;
-    border:0;
+    border: 0;
     /*too small to be displayed*/
     display: none;
 }
 
 .xTiny_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
@@ -1245,17 +1286,17 @@ option {	/* fix for FF2 and floating contents */
 
 .tiny_checkbox input, .tiny_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .tiny_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .tiny_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1268,17 +1309,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xSmall_checkbox input, .xSmall_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xSmall_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xSmall_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1291,17 +1332,17 @@ option {	/* fix for FF2 and floating contents */
 
 .small_checkbox input, .small_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .small_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .small_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1314,17 +1355,17 @@ option {	/* fix for FF2 and floating contents */
 
 .medium_checkbox input, .medium_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .medium_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .medium_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1337,17 +1378,17 @@ option {	/* fix for FF2 and floating contents */
 
 .large_checkbox input, .large_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .large_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .large_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1360,17 +1401,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xLarge_checkbox input, .xLarge_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xLarge_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xLarge_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1383,17 +1424,17 @@ option {	/* fix for FF2 and floating contents */
 
 .double_checkbox input, .double_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .double_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .double_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1406,17 +1447,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xDouble_checkbox input, .xDouble_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xDouble_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xDouble_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1429,17 +1470,17 @@ option {	/* fix for FF2 and floating contents */
 
 .quad_checkbox input, .quad_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .quad_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .quad_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1452,17 +1493,17 @@ option {	/* fix for FF2 and floating contents */
 
 .huge_checkbox input, .huge_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .huge_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .huge_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1475,17 +1516,17 @@ option {	/* fix for FF2 and floating contents */
 
 .xHuge_checkbox input, .xHuge_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .xHuge_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .xHuge_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1498,17 +1539,17 @@ option {	/* fix for FF2 and floating contents */
 
 .half_checkbox input, .half_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .half_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .half_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1537,17 +1578,17 @@ option {	/* fix for FF2 and floating contents */
 
 .full_checkbox input, .full_checkbox label {
     float: left;
-    border:0;
+    border: 0;
 }
 
 .full_checkbox input {
-    margin-left:0;
+    margin-left: 0;
     height: 1.3em;
     width: 1.3em;
 }
 
 .full_checkbox label {
-    padding-top:0;
+    padding-top: 0;
     display: inline;
     white-space: nowrap;
     overflow: hidden;
@@ -1557,12 +1598,12 @@ option {	/* fix for FF2 and floating contents */
 /*AREAS with no border (base size-padding)*/
 /*AREAS with no padding*/
 .free_area0, .free_area0_p0, .xTiny_area0, .xTiny_area0_p0, .tiny_area0, .tiny_area0_p0, .xSmall_area0, .xSmall_area0_p0, .small_area0, .small_area0_p0, .medium_area0, .medium_area0_p0, .large_area0, .large_area0_p0, .xLarge_area0, .xLarge_area0_p0, .double_area0, .double_area0_p0, .xDouble_area0, .xDouble_area0_p0, .quad_area0, .quad_area0_p0, .huge_area0, .huge_area0_p0, .xHuge_area0, .xHuge_area0_p0, .half_area0, .half_area0_p0, .full_area0, .full_area0_p0 {
-    padding-left:0 !important;
-    padding-right:0 !important;
-    padding-top:0;
-    padding-bottom:0;
-    margin:0;
-    border-width:0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -1570,7 +1611,7 @@ option {	/* fix for FF2 and floating contents */
 }
 
 .full_area0 {
-	float:left !important;
+    float: left !important;
 }
 
 .xTiny_area0, .xTiny_area0_p0 {
@@ -1626,17 +1667,17 @@ option {	/* fix for FF2 and floating contents */
 }
 
 .third_area0, .third_area0_p0 {
-	float:left;
+    float: left;
     width: 47.7272727272em;
 }
 
 .filled_area0, .filled_area0_p0 {
-	float:left;
+    float: left;
     width: 72.27272727em;
 }
 
 .threequarter_area0 {
-	float:left;
+    float: left;
     width: 60em;
 }
 
@@ -1658,8 +1699,8 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.0909em !important;
     padding-top: 0.0909em;
     padding-bottom: 0.0909em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -1736,8 +1777,8 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.1818em !important;
     padding-top: 0.1818em;
     padding-bottom: 0.1818em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -1814,8 +1855,8 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.2727em !important;
     padding-top: 0.2727em;
     padding-bottom: 0.2727em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -1892,8 +1933,8 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.3636em !important;
     padding-top: 0.3636em;
     padding-bottom: 0.3636em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -1965,14 +2006,14 @@ option {	/* fix for FF2 and floating contents */
 }
 
 /*AREAS with 6px padding*/
-.free_area0_p6, /*.xTiny_area0_p6,*/
-.tiny_area0_p6, .xSmall_area0_p6, .small_area0_p6, .medium_area0_p6, .large_area0_p6, .xLarge_area0_p6, .double_area0_p6, .xDouble_area0_p6, .quad_area0_p6, .huge_area0_p6, .xHuge_area0_p6, .half_area0_p6, .full_area0_p6 {
+/*.xTiny_area0_p6,*/
+.free_area0_p6, .tiny_area0_p6, .xSmall_area0_p6, .small_area0_p6, .medium_area0_p6, .large_area0_p6, .xLarge_area0_p6, .double_area0_p6, .xDouble_area0_p6, .quad_area0_p6, .huge_area0_p6, .xHuge_area0_p6, .half_area0_p6, .full_area0_p6 {
     padding-left: 0.5454em !important;
     padding-right: 0.5454em !important;
     padding-top: 0.5454em;
     padding-bottom: 0.5454em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -2071,14 +2112,14 @@ option {	/* fix for FF2 and floating contents */
 }
 
 /*AREAS with 7px padding*/
-.free_area0_p7, /*.xTiny_area0_p7,*/
-.tiny_area0_p7, .xSmall_area0_p7, .small_area0_p7, .medium_area0_p7, .large_area0_p7, .xLarge_area0_p7, .double_area0_p7, .xDouble_area0_p7, .quad_area0_p7, .huge_area0_p7, .xHuge_area0_p7, .half_area0_p7, .full_area0_p7 {
+/*.xTiny_area0_p7,*/
+.free_area0_p7, .tiny_area0_p7, .xSmall_area0_p7, .small_area0_p7, .medium_area0_p7, .large_area0_p7, .xLarge_area0_p7, .double_area0_p7, .xDouble_area0_p7, .quad_area0_p7, .huge_area0_p7, .xHuge_area0_p7, .half_area0_p7, .full_area0_p7 {
     padding-left: 0.6363em !important;
     padding-right: 0.6363em !important;
     padding-top: 0.6363em;
     padding-bottom: 0.6363em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -2151,14 +2192,14 @@ option {	/* fix for FF2 and floating contents */
 }
 
 /*AREAS with 8px padding*/
-.free_area0_p8, /*.xTiny_area0_p8,*/
-.tiny_area0_p8, .xSmall_area0_p8, .small_area0_p8, .medium_area0_p8, .large_area0_p8, .xLarge_area0_p8, .double_area0_p8, .xDouble_area0_p8, .quad_area0_p8, .huge_area0_p8, .xHuge_area0_p8, .half_area0_p8, .full_area0_p8 {
+/*.xTiny_area0_p8,*/
+.free_area0_p8, .tiny_area0_p8, .xSmall_area0_p8, .small_area0_p8, .medium_area0_p8, .large_area0_p8, .xLarge_area0_p8, .double_area0_p8, .xDouble_area0_p8, .quad_area0_p8, .huge_area0_p8, .xHuge_area0_p8, .half_area0_p8, .full_area0_p8 {
     padding-left: 0.7272em !important;
     padding-right: 0.7272em !important;
     padding-top: 0.7272em;
     padding-bottom: 0.7272em;
-    margin:0;
-    border-width:0 !important;
+    margin: 0;
+    border-width: 0 !important;
     margin-right: 0.0909em;
     float: left;
     display: inline;
@@ -2167,7 +2208,7 @@ option {	/* fix for FF2 and floating contents */
 
 /* OverviewPage: if third_area0 contains two huge_areas */
 .huge_area0.xTiny_marginRExcl.small_marginLExcl + .third_area0 {
-	width: 47.909090em;
+    width: 47.909090em;
 }
 
 /*
@@ -2238,11 +2279,11 @@ option {	/* fix for FF2 and floating contents */
 /*AREAS with common 1 px border (base size-2px(+padding))*/
 /*AREAS with no padding*/
 .free_area1, .free_area1_p0, .xTiny_area1, .xTiny_area1_p0, .tiny_area1, .tiny_area1_p0, .xSmall_area1, .xSmall_area1_p0, .small_area1, .small_area1_p0, .medium_area1, .medium_area1_p0, .large_area1, .large_area1_p0, .xLarge_area1, .xLarge_area1_p0, .double_area1, .double_area1_p0, .xDouble_area1, .xDouble_area1_p0, .quad_area1, .quad_area1_p0, .huge_area1, .huge_area1_p0, .xHuge_area1, .xHuge_area1_p0, .half_area1, .half_area1_p0, .full_area1, .full_area1_p0 {
-    padding-left:0 !important;
-    padding-right:0 !important;
-    padding-top:0;
-    padding-bottom:0;
-    margin:0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2320,7 +2361,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.0909em !important;
     padding-top: 0.0909em;
     padding-bottom: 0.0909em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2398,7 +2439,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.1818em !important;
     padding-top: 0.1818em;
     padding-bottom: 0.1818em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2419,9 +2460,10 @@ option {	/* fix for FF2 and floating contents */
 }
 
 .selCriterionType label {
-	margin-right:3em;
-	width:auto !important;
+    margin-right: 3em;
+    width: auto !important;
 }
+
 .small_area1_p2 {
     width: 5.1818em;
 }
@@ -2480,7 +2522,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.2727em !important;
     padding-top: 0.2727em;
     padding-bottom: 0.2727em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2558,7 +2600,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.3636em !important;
     padding-top: 0.3636em;
     padding-bottom: 0.3636em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2636,7 +2678,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.5454em !important;
     padding-top: 0.5454em;
     padding-bottom: 0.5454em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2715,7 +2757,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.6363em !important;
     padding-top: 0.6363em;
     padding-bottom: 0.6363em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2794,7 +2836,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.7272em !important;
     padding-top: 0.7272em;
     padding-bottom: 0.7272em;
-    margin:0;
+    margin: 0;
     border-width: 0.0909em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2870,11 +2912,11 @@ option {	/* fix for FF2 and floating contents */
 /*AREAS with 2 px border (base size-2px(+padding))*/
 /*AREAS with no padding*/
 .free_area2, .free_area2_p0, .xTiny_area2, .xTiny_area2_p0, .tiny_area2, .tiny_area2_p0, .xSmall_area2, .xSmall_area2_p0, .small_area2, .small_area2_p0, .medium_area2, .medium_area2_p0, .large_area2, .large_area2_p0, .xLarge_area2, .xLarge_area2_p0, .double_area2, .double_area2_p0, .xDouble_area2, .xDouble_area2_p0, .quad_area2, .quad_area2_p0, .huge_area2, .huge_area2_p0, .xHuge_area2, .xHuge_area2_p0, .half_area2, .half_area2_p0, .full_area2, .full_area2_p0 {
-    padding-left:0 !important;
-    padding-right:0 !important;
-    padding-top:0;
-    padding-bottom:0;
-    margin:0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -2952,7 +2994,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.0909em !important;
     padding-top: 0.0909em;
     padding-bottom: 0.0909em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3030,7 +3072,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.1818em !important;
     padding-top: 0.1818em;
     padding-bottom: 0.1818em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3108,7 +3150,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.2727em !important;
     padding-top: 0.2727em;
     padding-bottom: 0.2727em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3186,7 +3228,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.3636em !important;
     padding-top: 0.3636em;
     padding-bottom: 0.3636em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3264,7 +3306,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.5454em !important;
     padding-top: 0.5454em;
     padding-bottom: 0.5454em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3343,7 +3385,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.6363em !important;
     padding-top: 0.6363em;
     padding-bottom: 0.6363em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3422,7 +3464,7 @@ option {	/* fix for FF2 and floating contents */
     padding-right: 0.7272em !important;
     padding-top: 0.7272em;
     padding-bottom: 0.7272em;
-    margin:0;
+    margin: 0;
     border-width: 0.1818em !important;
     margin-right: 0.0909em;
     float: left;
@@ -3499,7 +3541,7 @@ option {	/* fix for FF2 and floating contents */
 /*MARGINS*/
 /*RIGHT MARGINS WITHOUT WHITESPACE*/
 .xxTiny_marginRExcl {
-	margin-right: 0.9090909090909091em;
+    margin-right: 0.9090909090909091em;
 }
 
 .xTiny_marginRExcl {
@@ -3965,96 +4007,103 @@ option {	/* fix for FF2 and floating contents */
 /*MARGINS*/
 /*GENERAL DEFINITIONS*/
 /* distance for different input fields after top-border */
-.marginTExcl6p { margin-top:0.5454em; }
+.marginTExcl6p {
+    margin-top: 0.5454em;
+}
 
 .showAll {
-	overflow:visible !important;
+    overflow: visible !important;
 }
-
 
 /* Definition for the overlay on ajax requests */
-#overlayAjaxRequest.overlayAjaxRequestBackground, 
-#overlayAjaxRequest.overlayAjaxRequestBackground + .smallThrobber {
-	position: fixed; 
-	left: 0; 
-	top: 0;
-	width: 100%; 
-	height: 100%;
-	text-align: center;
+#overlayAjaxRequest.overlayAjaxRequestBackground, #overlayAjaxRequest.overlayAjaxRequestBackground + .smallThrobber {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
 }
+
 #overlayAjaxRequest.overlayAjaxRequestBackground {
-	background-color: #FFFFFF;
-	/* IE 8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-	/* IE 5-7 */
-	filter: alpha(opacity=40);
-	/* Netscape */
-	-moz-opacity: 0.4;
-	/* Safari 1.x */
-	-khtml-opacity: 0.4;
-	/* modern browsers */
-	opacity: 0.4;
-	
-	z-index: 2000;
+    background-color: #FFFFFF;
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    /* IE 5-7 */
+    filter: alpha(opacity=40);
+    /* Netscape */
+    -moz-opacity: 0.4;
+    /* Safari 1.x */
+    -khtml-opacity: 0.4;
+    /* modern browsers */
+    opacity: 0.4;
+    z-index: 2000;
 }
+
 #overlayAjaxRequest.overlayAjaxRequestBackground + .smallThrobber {
-	background-color: transparent;
-	background-position: center 35%;
-	z-index: 2001;
+    background-color: transparent;
+    background-position: center 35%;
+    z-index: 2001;
 }
-
-
-
-
 
 /**
  * HELPPAGE DEFINITION
  * see page eSciDoc_help_de.jsp, eSciDoc_help_en.jsp
  */
 body#helppage {
-	width: 96%;
-	margin: 0 auto 2em auto;
+    width: 96%;
+    margin: 0 auto 2em auto;
 }
+
 body#helppage h1 {
-	font-size: 142%;
+    font-size: 142%;
 }
+
 body#helppage h2 {
-	font-size: 135%;
+    font-size: 135%;
 }
+
 body#helppage h3 {
-	font-size: 129% !important;
+    font-size: 129% !important;
 }
+
 body#helppage h4 {
-	font-size: 123%;
+    font-size: 123%;
 }
+
 body#helppage h5 {
-	font-size: 115%;
+    font-size: 115%;
 }
+
 body#helppage h6 {
-	font-size: 107%;
+    font-size: 107%;
 }
 
 body#helppage b {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 body#helppage ul {
-	list-style: none;
-	max-width: 70em;
+    list-style: none;
+    max-width: 70em;
 }
 
 body#helppage ol ul {
-	padding-left: 1em;
+    padding-left: 1em;
 }
+
 body#helppage ol ul li {
-	font-style: italic;
+    font-style: italic;
 }
+
 body#helppage p {
-	max-width: 70em;
+    max-width: 70em;
 }
+
 body#helppage .titlemark {
-	margin-right: 0.272727em;
+    margin-right: 0.272727em;
 }
+
 body#helppage .nobreak {
-	white-space: nowrap;
+    white-space: nowrap;
 }
