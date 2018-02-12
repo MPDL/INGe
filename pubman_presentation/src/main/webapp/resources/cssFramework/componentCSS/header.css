@@ -22,125 +22,124 @@
 *
 * CDDL HEADER END
 */
-
 /*
 * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-
 @media print {
 	.header * {
 		display: none;
 	}
+	
 	.headerSection .headLine h1, .headerSection .headLine {
-			float: none;
+		float: none;
 	}
 }
 
 /*META MENU*/
+.metaMenu {
+	line-height: normal;
+}
 
-	.metaMenu {
-		line-height: normal;
-	}
-	
-	.metaMenu .logButton, .metaMenu button, .metaMenu select, .metaMenu label, .metaMenu div, .metaMenu span, .metaMenu a  {
-		float: right;
-		white-space: nowrap;
-		text-decoration: none;
-	}
-	
-	.metaMenu a {
-		text-align: left;
-		padding-top: 0.1818em;
-	}
+.metaMenu .logButton, .metaMenu button, .metaMenu select, .metaMenu label, .metaMenu div, .metaMenu span, .metaMenu a {
+	float: right;
+	white-space: nowrap;
+	text-decoration: none;
+}
 
-	.metaMenu .logButton, .metaMenu button, .metaMenu label {
-		text-align: left;
-		margin-top: 0.27em;
-		padding-top: 0px;
-		padding-left: 0.4545em;
-	}
+.metaMenu a {
+	text-align: left;
+	padding-top: 0.1818em;
+}
 
-	.metaMenu label {
-		white-space: nowrap;
-		margin-top: 0em;
-	}
+.metaMenu .logButton, .metaMenu button, .metaMenu label {
+	text-align: left;
+	margin-top: 0.27em;
+	padding-top: 0px;
+	padding-left: 0.4545em;
+}
 
-	.metaMenu .seperator {
-		display: block;
-		overflow: hidden;
-		width: 0.09em;
-		height: 1.6363em;
-		margin: 0px;
-		padding: 0px;
-		border-right-width: 0px;
-		border-left-width: 0px;
-		border-top-width: 0px;
-		border-top-style: solid;
-		border-bottom-width: 1.45em;
-		border-bottom-style: solid;
-	}
-	
-	.metaMenu input[type=text] {
-		height:1.2727em;
-		font-size:0.75em;
-		margin-right: 0.37em;
-		height: 1.5454em;
-		line-height: 1.5454em;
-	}
-	.metaMenu input[type=password] {
-		height:1.2727em;
-		font-size:0.75em;
-		margin-right: 0.37em;
-		height: 1.5454em;
-		line-height: 1.5454em;
-	}
-	
-	.metaMenu input[type=submit] {    	
-		float: right;
-	   	background-color: #006f7b;
-    	color: #ffffff;
-    	padding-top: 0 !important;
- 	}
-	
-	.metaMenu .selectContainer {
-		margin-right:0.2727em !important;
-	}
-	
-	.metaMenu .medium_area0_p8 {
-		height:1.6363em;
-		max-height:1.6363em;
-		padding-top:0.2727em;
-		padding-bottom:0;
-	}
-	
-	.metaMenu .large_area0_p8 {
-		height:1.6363em;
-		max-height:1.6363em;
-		padding-top:0.2727em !important;
-		padding-bottom:0 !important;
-	}
-	
-	.metaMenu .free_area0_p8 {
-		height:1.6363em;
-		max-height:1.6363em;
-		padding-top:0.2727em !important;
-		padding-bottom:0 !important;
-	}
-	
-	.logoAlternate, .logoAlternate * {
-		float: left !important;
-	}
+.metaMenu label {
+	white-space: nowrap;
+	margin-top: 0em;
+}
+
+.metaMenu .seperator {
+	display: block;
+	overflow: hidden;
+	width: 0.09em;
+	height: 1.6363em;
+	margin: 0px;
+	padding: 0px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0px;
+	border-top-style: solid;
+	border-bottom-width: 1.45em;
+	border-bottom-style: solid;
+}
+
+.metaMenu input[type=text] {
+	height: 1.2727em;
+	font-size: 0.75em;
+	margin-right: 0.37em;
+	height: 1.5454em;
+	line-height: 1.5454em;
+}
+
+.metaMenu input[type=password] {
+	height: 1.2727em;
+	font-size: 0.75em;
+	margin-right: 0.37em;
+	height: 1.5454em;
+	line-height: 1.5454em;
+}
+
+.metaMenu input[type=submit] {
+	float: right;
+	background-color: #006F7B;
+	color: #FFFFFF;
+	padding-top: 0 !important;
+}
+
+.metaMenu .selectContainer {
+	margin-right: 0.2727em !important;
+}
+
+.metaMenu .medium_area0_p8 {
+	height: 1.6363em;
+	max-height: 1.6363em;
+	padding-top: 0.2727em;
+	padding-bottom: 0;
+}
+
+.metaMenu .large_area0_p8 {
+	height: 1.6363em;
+	max-height: 1.6363em;
+	padding-top: 0.2727em !important;
+	padding-bottom: 0 !important;
+}
+
+.metaMenu .free_area0_p8 {
+	height: 1.6363em;
+	max-height: 1.6363em;
+	padding-top: 0.2727em !important;
+	padding-bottom: 0 !important;
+}
+
+.logoAlternate, .logoAlternate * {
+	float: left !important;
+}
 
 /*HEADER LOGO*/
 .headerLogo {
-	background-repeat:no-repeat;
+	background-repeat: no-repeat;
 }
 
 .headerLogo {
-	border:none;
+	border: none;
 	position: absolute;
 	top: 0;
 }
@@ -152,9 +151,9 @@
 }
 
 .LogoNSearch {
-	height:4.7272em;
+	height: 4.7272em;
 }
-	
+
 /*SEARCH MENU*/
 .searchMenu {
 	float: right;
@@ -168,14 +167,14 @@
 .searchMenu .quickSearchBtn {
 	float: left;
 	margin-left: 0.37em;
-	padding-top:0;
-	height:1.7272em;
+	padding-top: 0;
+	height: 1.7272em;
 }
 
 .searchMenu .quickSearchIcon {
 	float: left;
 	margin-right: 1em;
-	margin-top:-0.1818em;
+	margin-top: -0.1818em;
 }
 
 .quickSearchCheckBoxMenu > label {
@@ -194,15 +193,14 @@
 	margin-top: 0.1818em;
 }
 
-
 /*MAIN MENU*/
 .mainMenu {
 	padding-left: 5.74em !important;
-	height:2.4545em;
-	max-height:2.4545em;
-	padding-top:0.2727em;
-	display:inline;
-	text-transform:uppercase;
+	height: 2.4545em;
+	max-height: 2.4545em;
+	padding-top: 0.2727em;
+	display: inline;
+	text-transform: uppercase;
 }
 
 .mainMenu input, .mainMenu a, .mainMenu span {
@@ -212,14 +210,13 @@
 	margin-right: 0.8181em;
 }
 
-	
 /*SUB-HEADER SECTION*/
 .subHeaderSection {
 	margin-bottom: 0.4545em;
 }
 
 /*Force IE7 top-margin*/
-*+html .header {
+* + html .header {
 	margin-bottom: 1em;
 }
 
@@ -228,7 +225,7 @@
 	float: right;
 	white-space: nowrap;
 	overflow: hidden;
-	height:1.6363em;
+	height: 1.6363em;
 }
 
 .breadcrumb ol {
@@ -244,13 +241,12 @@
 .breadcrumb a {
 	text-decoration: none;
 }
-	
+
 @media print {
 	.breadcrumb {
 		display: none;
 	}
 }
-
 
 /*PAGE HEADER*/
 .headLine {
@@ -262,13 +258,12 @@
 	display: block;
 	margin: 0px;
 	margin-bottom: 0.28em;
-	margin-top:-0.11em;
-	height:0.9474em;
-	max-height:0.9474em;
+	margin-top: -0.11em;
+	height: 0.9474em;
+	max-height: 0.9474em;
 	line-height: normal;
-	
 }
-	
+
 @media screen, presentation {
 	.headLine {
 		float: right;
@@ -278,26 +273,24 @@
 }
 
 @media print {
-	
 	.headLine {
 		float: left;
 		text-align: left;
 	}
-		
+	
 	.subHeaderSection {
 		float: left;
 		margin-left: 0px;
 	}
-	
 }
 
 /*CONTENT MENU*/
 .contentHeader {
-	clear:left; 
-	padding-top:0.09em; 
-	padding-bottom:0.4545em;
-	overflow:hidden; 
-	line-height:2.18em;
+	clear: left;
+	padding-top: 0.09em;
+	padding-bottom: 0.4545em;
+	overflow: hidden;
+	line-height: 2.18em;
 }
 
 .contentMenu * {
@@ -316,8 +309,8 @@
 
 .contentMenu .sub {
 	overflow: hidden;
-	margin-top:0.0909em;
-	text-transform:uppercase;
+	margin-top: 0.0909em;
+	text-transform: uppercase;
 	clear: left;
 }
 
@@ -326,35 +319,38 @@
 	clear: left;
 	padding: 0px;
 	margin: 0px;
-	padding-top:0.1818em;
-	display:inline;
-	white-space:nowrap;
-	text-transform:none;
+	padding-top: 0.1818em;
+	display: inline;
+	white-space: nowrap;
+	text-transform: none;
 }
 
-	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
-	* html .contentMenu .action {
-		margin-top: -1.28em;
-		width: 100%;
-	}
-	* html .contentMenu .ieFilter {
-		width: 50em;
-	}
-	/*REPLACEMENT HACK FOR IE 7*/
-	*:first-child+html .contentMenu .action {
-		margin-top: -1.28em;
-	}
-	*:first-child+html .ieFilter {
-		width: 50em;
-	}
-	
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .contentMenu .action {
+	margin-top: -1.28em;
+	width: 100%;
+}
+
+* html .contentMenu .ieFilter {
+	width: 50em;
+}
+
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .contentMenu .action {
+	margin-top: -1.28em;
+}
+
+*:first-child + html .ieFilter {
+	width: 50em;
+}
+
 .contentMenu input, .contentMenu a {
 	float: left;
 	text-decoration: none;
 	white-space: nowrap;
 }
 
-.contentMenu .seperator  {
+.contentMenu .seperator {
 	float: left;
 	width: 0.10em;
 	height: 1.15em;
@@ -370,21 +366,21 @@
 	border-bottom-style: solid;
 }
 
-.bibList ,.gridList {
+.bibList, .gridList {
 	padding-left: 1.36em;
 }
 
 .ascSort, .desSort {
 	padding-right: 1.36em;
 }
-	
+
 .subHeaderSection .subHeader {
-	float:left;
-/*	margin-top:1.6363em; */
-	padding-top:0.3636em;
-	clear:all;
+	float: left;
+	/*	margin-top:1.6363em; */
+	padding-top: 0.3636em;
+	clear: both;
 }
-	
+
 .subHeader {
 	clear: both;
 	margin-top: 0.65em;
@@ -397,11 +393,11 @@
 	margin: 0px;
 }
 
-.singleMessage li{
+.singleMessage li {
 	padding: 0px;
 	margin: 0px;
 }
-	
+
 @media print {
 	.contentMenu .sub {
 		display: none;
@@ -420,5 +416,5 @@
 }
 
 .headerDistanceFix {
-	margin-top:-1.4545em;
+	margin-top: -1.4545em;
 }
