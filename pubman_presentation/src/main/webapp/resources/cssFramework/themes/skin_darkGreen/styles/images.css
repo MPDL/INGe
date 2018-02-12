@@ -52,9 +52,10 @@ body {
 }
 
 /*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
-@media print { .contentMenu {list-style-image:
-        url('../../../globalImages/logo.png');
-}
+@media print {
+    .contentMenu {
+        list-style-image: url('../../../globalImages/logo.png');
+    }
 }
 
 .themePark {
@@ -218,11 +219,13 @@ body .wrapper {
     padding-left: 20px;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .backward {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .pageBrowser .backward {
     padding-left: 0px;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .backward {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .pageBrowser .backward {
     padding-left: 0px;
 }
 
@@ -246,12 +249,14 @@ body .wrapper {
     padding-left: 0px;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .forward {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .pageBrowser .forward {
     /*		padding-right: 2px;
      */
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .forward {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .pageBrowser .forward {
     /*		padding-right: 2px;
      */
 }
@@ -458,7 +463,8 @@ body .wrapper {
 }
 
 /*MISC*/
-.collapse, .expand /*, .files, .locators*/ {
+/*, .files, .locators*/
+.collapse, .expand {
     cursor: pointer;
 }
 
@@ -503,9 +509,11 @@ body .wrapper {
     background-position: center left;
     padding-left: 2.10em !important;
 }
-@media print { .collapse, .expand {
+
+@media print {
+    .collapse, .expand {
         display: none !important;
-}
+    }
 }
 
 .left {
@@ -545,7 +553,7 @@ body .wrapper {
 }
 
 .add, .remove {
-    background-color: #ffffff;
+    background-color: #FFFFFF;
 }
 
 .add {
@@ -573,7 +581,7 @@ body .wrapper {
     background-position: center center;
 }
 
-.remove:hover, remove:focus {
+.remove:hover, .remove:focus {
     background-image: url('../images/All_Complete_MinusRemove_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
@@ -678,9 +686,11 @@ body .wrapper {
     background-position: bottom left;
     padding-left: 2.10em !important;
 }
-@media print { .files, .locators {
+
+@media print {
+    .files, .locators {
         padding-left: 0em !important;
-}
+    }
 }
 
 .authorCard {

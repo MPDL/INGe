@@ -53,9 +53,10 @@ body .footer {
 }
 
 /*PUT IN HEADER LOGO FOR PRINT DISPLAY HERE*/
-@media print { .contentMenu {list-style-image:
-        url('../images/mpg_logo_repos.gif');
-}
+@media print {
+    .contentMenu {
+        list-style-image: url('../images/mpg_logo_repos.gif');
+    }
 }
 
 /*.themePark {
@@ -63,8 +64,6 @@ body .footer {
  background-image: url('../images/logo_overlay_beta.gif');
  background-repeat: no-repeat;
  background-position: center center;*/
-}
-
 .overlayDev {
     background: inherit;
     background-image: url('../images/logo_pubman_overlay_dev.gif');
@@ -245,11 +244,13 @@ body .footer {
     padding-left: 20px;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .backward {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .pageBrowser .backward {
     padding-left: 0px;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .backward {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .pageBrowser .backward {
     padding-left: 0px;
 }
 
@@ -273,11 +274,13 @@ body .footer {
     padding-left: 0px;
 }
 
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/ * html .pageBrowser .forward {
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .pageBrowser .forward {
     padding-right: 2px;
 }
 
-/*REPLACEMENT HACK FOR IE 7*/ *:first-child + html .pageBrowser .forward {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .pageBrowser .forward {
     padding-right: 2px;
 }
 
@@ -502,7 +505,8 @@ body .footer {
 }
 
 /*GENERAL*/
-.collapse, .expand /*, .files, .locators*/ {
+/*, .files, .locators*/
+.collapse, .expand {
     cursor: pointer;
 }
 
@@ -547,13 +551,15 @@ body .footer {
     background-position: center left;
     padding-left: 2.10em !important;
 }
-@media print { .collapse, .expand {
+
+@media print {
+    .collapse, .expand {
         display: none !important;
-}
+    }
 }
 
 .add, .remove {
-    background-color: #ffffff;
+    background-color: #FFFFFF;
 }
 
 .add {
@@ -581,7 +587,7 @@ body .footer {
     background-position: center center;
 }
 
-.remove:hover, remove:focus {
+.remove:hover, .remove:focus {
     background-image: url('../images/All_Complete_MinusRemove_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
@@ -636,9 +642,11 @@ body .footer {
     background-position: bottom left;
     padding-left: 2.10em;
 }
-@media print { .files, .locators {
+
+@media print {
+    .files, .locators {
         padding-left: 0em;
-}
+    }
 }
 
 .authorCard {
@@ -689,22 +697,22 @@ body .footer {
 }
 
 .viewFileIcon {
-	background-image: url('../images/All_File_EyeTrue_15_Static.gif');
-	background-repeat: no-repeat;
-	background-position: bottom left;
-	padding-left: 2.10em !important;
+    background-image: url('../images/All_File_EyeTrue_15_Static.gif');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
 }
 
 .downloadFileIcon {
-	background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
-	background-repeat: no-repeat;
-	background-position: bottom left;
-	padding-left: 2.10em !important;
-}  	
+    background-image: url('../images/All_File_ArrowDownload_15_Static.gif');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    padding-left: 2.10em !important;
+}
 
 .featureIcon {
-	background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
-	background-repeat: no-repeat;
-	background-position: right;
-	height: 2.90em !important;
+    background-image: url('../images/All_Status_ItemSolo_31_Static.gif');
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 2.90em !important;
 }
