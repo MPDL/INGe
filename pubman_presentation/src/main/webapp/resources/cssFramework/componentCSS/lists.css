@@ -22,41 +22,43 @@
 *
 * CDDL HEADER END
 */
-
 /*
 * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-
 /*GENERAL*/
 /*fix for all IE*/
 input[type=checkbox] {
-/*	border-width:0; */
-	background-color:transparent; 
+	/*	border-width:0; */
+	background-color: transparent;
 }
+
 input[type=button] {
-/*	border-width:0; */
-	background-color:transparent; 
+	/*	border-width:0; */
+	background-color: transparent;
 }
+
 input[type=radio] {
-	border-width:0;
-	background-color:transparent;
-	margin-left:-0.1818em;
+	border-width: 0;
+	background-color: transparent;
+	margin-left: -0.1818em;
 }
+
 input[type=password]:focus, input[type=text]:focus {
-	background-color:#ffffff;
+	background-color: #FFFFFF;
 }
+
 textarea:focus {
-	background-color:#ffffff;
+	background-color: #FFFFFF;
 }
 
 .itemList, .tiledList {
 	border-top-width: 0.1818em !important;
 	border-bottom-width: 0.0909em !important;
 	border-top-style: solid;
-	border-bottom-style: solid; 
+	border-bottom-style: solid;
 }
 
 .tiledList {
@@ -79,7 +81,7 @@ textarea:focus {
 	display: block;
 }
 
-.itemList ol, .itemList ul, .tiledList ol, tiledList ul {
+.itemList ol, .itemList ul, .tiledList ol, .tiledList ul {
 	list-style: none;
 	padding: 0px;
 	margin: 0px;
@@ -102,13 +104,13 @@ textarea:focus {
 	border-width: 0;
 	background-color: transparent;
 }
+
 .itemList input[type="button"]:hover {
 	border-width: 0;
 	background-color: transparent;
 }
 
 /*PRE-HEADER*/
-
 .preListHeader {
 	border-top: 0.09em solid !important;
 	padding-top: 0.19em;
@@ -116,28 +118,28 @@ textarea:focus {
 }
 
 /*LIST HEADER*/
-
-	/*GENERAL*/
-
+/*GENERAL*/
 /* 
  * IE 7 HACK
  * table view - bug in IE7- 
  */
-*:first-child+html table input[type="checkbox"] {	
-	height:1.3636em;
-	width:1.3636em;
+*:first-child + html table input[type="checkbox"] {
+	height: 1.3636em;
+	width: 1.3636em;
 }
-table .listHeader a, table .listHeader span { /* IE HACK */
-	float:left;
-	text-align:left;
+
+table .listHeader a, table .listHeader span {
+	/* IE HACK */
+	float: left;
+	text-align: left;
 }
 
 /* 
  * IE 8+ hack 
  */
 .listHeader th:first-child {
-	 height:3em; 
-	 max-height:3em;
+	height: 3em;
+	max-height: 3em;
 }
 
 .listHeader {
@@ -153,52 +155,51 @@ table .listHeader a, table .listHeader span { /* IE HACK */
 }
 
 div.listHeader span.itemSelectArea {
-	padding-top:0;
-	padding-bottom:0;
-	margin:0;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin: 0;
 }
 
 .listHeader a, .listHeader span, .listHeader thead {
-	padding-top: 0.1818em; 
+	padding-top: 0.1818em;
 	padding-bottom: 0px;
 	margin: 0px;
 	margin-right: -0.0909em;
 	line-height: normal;
-    font-weight: normal;
+	font-weight: normal;
 }
 
 .listHeader .collapseTriangle, .listHeader .collapseTriangle:hover, .listHeader .collapseTriangle:focus, .listHeader .expandTriangle, .listHeader .expandTriangle:hover, .listHeader .expandTriangle:focus {
 	line-height: normal;
-/*	margin-left: 0.1818em; */
+	/*	margin-left: 0.1818em; */
 	background-position: left;
 }
 
 .listHeader .headerSwitchView {
-	margin-top:0;
+	margin-top: 0;
 	padding: 0;
 }
 
 .headerSwitchView .collapseTriangle {
-	display:block;
-	padding:0.1818em 0 0 0;
+	display: block;
+	padding: 0.1818em 0 0 0;
 }
 
 .headerSwitchView .expandTriangle {
-	display:block;
-	padding:0.1818em 0 0 0;
+	display: block;
+	padding: 0.1818em 0 0 0;
 }
 
 .headerSwitchView .collapseTriangle span, .headerSwitchView .expandTriangle span {
-	padding-top:0.0909em;
-	height:0.7272em;
+	padding-top: 0.0909em;
+	height: 0.7272em;
 }
 
 .shortView .collapseTriangle {
-	display:none;
+	display: none;
 }
 
-	/*SELECT MENU*/
-	
+/*SELECT MENU*/
 .itemList .checkboxSelectButton {
 	margin-top: 0.19em;
 	margin-right: 0.19em;
@@ -206,11 +207,11 @@ div.listHeader span.itemSelectArea {
 	background-color: transparent;
 }
 
-	/*REPLACEMENT HACK FOR IE 7*/
-	*:first-child+html .itemList th .checkboxSelectButton {
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child + html .itemList th .checkboxSelectButton {
 	margin-right: -1.19em;
-	}
-	
+}
+
 .itemSelectArea {
 	overflow: visible;
 	padding-top: 0;
@@ -222,12 +223,12 @@ div.listHeader span.itemSelectArea {
 	border-style: solid;
 	border-top-width: 0px !important;
 	position: absolute;
-	padding-bottom:0.4545em;
-	z-index:3;
+	padding-bottom: 0.4545em;
+	z-index: 3;
 }
 
 th .selectMenu {
-	margin-top:0;
+	margin-top: 0;
 }
 
 .selectMenu input {
@@ -246,34 +247,34 @@ th .selectMenu {
 }
 
 .selectMenu .selectAll {
-	cursor:pointer;
+	cursor: pointer;
 }
+
 .selectMenu .selectNone {
-	cursor:pointer;
+	cursor: pointer;
 }
+
 .selectMenu .toggleAll {
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .optionHeadlineSeparator {
-	margin:0; 
-	padding:0;
-	background-color:#999999; 
-	height:0.0909em; 
-	border:0 none;
+	margin: 0;
+	padding: 0;
+	background-color: #999999;
+	height: 0.0909em;
+	border: 0 none;
 }
 
 .optionSeparator {
-	margin:0; 
-	padding:0;
-	background-color:#acacac; 
-	height:0.0909em; 
-	border:0 none;
+	margin: 0;
+	padding: 0;
+	background-color: #ACACAC;
+	height: 0.0909em;
+	border: 0 none;
 }
 
-
-	/*STATUS RELATED HEADER ELEMENTS*/
-
+/*STATUS RELATED HEADER ELEMENTS*/
 .listHeader .statusArea {
 	width: 9.19em;
 }
@@ -291,17 +292,15 @@ th .selectMenu {
 }
 
 /*LIST ITEM*/
-
-	/*GENERAL*/
-	
+/*GENERAL*/
 .listItem, .mediaSideBar {
 	list-style: none;
 }
 
 .listItem td {
-	 vertical-align: top;
+	vertical-align: top;
 }
-	
+
 .listItem, .listItem td, .mediaSideBar {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
@@ -313,36 +312,33 @@ th .selectMenu {
 }
 
 .itemTile .tileIconArea {
-	border: 0.0909em !important; 
-/*	height: 11.56em;
+	border: 0.0909em !important;
+	/*	height: 11.56em;
 	line-height: 11.56em; */
-	height:10.2727em;
-	line-height:10.2727em;
-	text-align:center;
-	
+	height: 10.2727em;
+	line-height: 10.2727em;
+	text-align: center;
 	background: #282828;
-	
-/*	padding: 18px 11px 0px 0px; */
-	padding:1.1818em 0em 0.2727em 0.0em; 
+	/*	padding: 18px 11px 0px 0px; */
+	padding: 1.1818em 0em 0.2727em 0.0em;
 }
 
 .tileIconAreaSelected {
-	border: 0.0909em !important; 
-/*	height: 11.56em;
+	border: 0.0909em !important;
+	/*	height: 11.56em;
 	line-height: 11.56em; */
-	height:10.2727em;
-	line-height:10.2727em;
-	text-align:center;
-	
+	height: 10.2727em;
+	line-height: 10.2727em;
+	text-align: center;
 	background: #757575;
-	
-/*	padding: 18px 11px 0px 0px; */
-	padding:1em 0em 0.4545em 0.0em; 
+	/*	padding: 18px 11px 0px 0px; */
+	padding: 1em 0em 0.4545em 0.0em;
 }
 
-.tileControlIconArea {	/* new in content but predefined in Component Library - 2011-04-05 Marco */
-	height:3em;
-	max-height:3em;
+.tileControlIconArea {
+	/* new in content but predefined in Component Library - 2011-04-05 Marco */
+	height: 3em;
+	max-height: 3em;
 }
 
 .itemTile .tileIconArea img {
@@ -351,9 +347,9 @@ th .selectMenu {
 
 .itemTile .tileIconArea img.horizontal {
 	width: 100%;
-	vertical-align:middle;
+	vertical-align: middle;
 }
-		
+
 .itemTile .tileIconArea img.vertical {
 	height: 100%;
 	margin: 0 auto 0 auto !important;
@@ -377,7 +373,7 @@ th .selectMenu {
 }
 
 .listItem .shortView {
-	margin-top:0.3636em;
+	margin-top: 0.3636em;
 }
 
 .listItem .shortView, .listItem .mediumView {
@@ -388,11 +384,10 @@ th .selectMenu {
 	padding-bottom: 0.65em;
 }
 
-	/*ITEM HEADER*/
-
+/*ITEM HEADER*/
 .free_area0_p6.itemHeadline {
-	padding-top:0.1818em;
-	padding-bottom:0.1818em;
+	padding-top: 0.1818em;
+	padding-bottom: 0.1818em;
 }
 
 .listItem .itemHeadline {
@@ -434,8 +429,7 @@ th .selectMenu {
 	width: 18.65em;
 }
 
-	/*ITEM BODY*/
-
+/*ITEM BODY*/
 .listItem .collapseTriangle, .listItem .expandTriangle {
 	float: left;
 	line-height: normal;
@@ -453,9 +447,9 @@ th .selectMenu {
 }
 
 .listItem .statusIcon {
-/*	position: relative;
+	/*	position: relative;
 	float: left; */
-	margin:0 auto;
+	margin: 0 auto;
 }
 
 .listItem td .statusIcon {
@@ -464,7 +458,8 @@ th .selectMenu {
 }
 
 .listItem .listItemLine {
-	width: 75.92em; /*835px*/
+	width: 75.92em;
+	/*835px*/
 	margin-top: 0px;
 	margin-bottom: 0px;
 	padding-top: 0px;
@@ -514,20 +509,18 @@ th .selectMenu {
 
 .citeDate {
 }
-		
+
 .citeLink {
 }
-		
+
 .citeSource {
 	font-style: italic;
 }
-		
+
 .citeID {
 }
-		
 
-	/*STATUS RELATED ITEM ELEMENTS*/
-
+/*STATUS RELATED ITEM ELEMENTS*/
 .listHeader .status, .listItem .status {
 	display: none;
 }
@@ -539,21 +532,20 @@ th .selectMenu {
 .listItem .statusArea {
 	width: 9.1818em;
 	padding-top: 0.27em;
-	text-align:center;
+	text-align: center;
 }
 
 .listItem td .statusArea {
 	width: 9.1818em;
 	padding-top: 0em;
-	text-align:center;
+	text-align: center;
 }
 
 .multipleAjax {
-	margin-bottom:0.363636em;
+	margin-bottom: 0.363636em;
 }
 
 /*PRINT RELATED DEFINITIONS*/
-
 @media print {
 	.itemList input, .itemList select, .itemList .seperator, .listItem .collapseTriangle, .listItem .expandTriangle {
 		display: none !important;
