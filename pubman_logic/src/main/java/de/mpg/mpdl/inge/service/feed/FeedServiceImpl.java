@@ -236,10 +236,14 @@ public class FeedServiceImpl {
       se.setUri(se.getLink());
 
       // Entry UpdatedDate ???
-      se.setUpdatedDate(pi.getModificationDate());
+      if (pi.getModificationDate() != null) { // gibt sonst NullPointerException
+        se.setUpdatedDate(pi.getModificationDate());
+      }
 
       // Entry PublishedDate ???
-      se.setPublishedDate(pi.getLatestRelease().getModificationDate());
+      if (pi.getLatestRelease().getModificationDate() != null) { // gibt sonst NullPointerException
+        se.setPublishedDate(pi.getLatestRelease().getModificationDate());
+      }
 
 
       entries.add(se);
