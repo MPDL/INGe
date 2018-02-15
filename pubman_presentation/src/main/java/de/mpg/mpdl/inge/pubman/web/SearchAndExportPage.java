@@ -253,8 +253,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
       return null;
     }
 
-    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + URLEncoder.encode(this.esQuery, "UTF-8")
-        + " rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
+    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + URLEncoder.encode(this.esQuery, "UTF-8");
   }
 
   public String getNormalizedAtomFeedLink() throws UnsupportedEncodingException, PubManVersionNotAvailableException {
@@ -262,8 +261,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
       return null;
     }
 
-    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + this.esQuery
-        + " rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
+    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + this.esQuery;
   }
 
   public void updatePage() {
