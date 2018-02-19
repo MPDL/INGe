@@ -9,12 +9,17 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class PubItemUtil {
@@ -148,6 +153,50 @@ public class PubItemUtil {
     copiedPubItem.getRelations().add(relation);
      */
     return copiedPubItem;
+  }
+
+
+
+  public static void setOrganizationIdPathInItem(ItemVersionVO pubItem, OrganizationService ouService)
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
+    if (pubItem.getMetadata() != null) {
+      if (pubItem.getMetadata().getCreators() != null) {
+        setOrganizationIdPathsInCreators(pubItem.getMetadata().getCreators(), ouService);
+      }
+
+      if (pubItem.getMetadata().getSources() != null) {
+        for (SourceVO source : pubItem.getMetadata().getSources()) {
+          setOrganizationIdPathsInCreators(source.getCreators(), ouService);
+        }
+      }
+    }
+  }
+
+  private static void setOrganizationIdPathsInCreators(List<CreatorVO> creatorList, OrganizationService ouService)
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
+
+    for (CreatorVO creator : creatorList) {
+      if (creator.getPerson() != null) {
+        for (OrganizationVO ou : creator.getPerson().getOrganizations()) {
+          setOrganizationIdPathInOrganization(ou, ouService);
+        }
+
+      } else if (creator.getOrganization() != null) {
+        setOrganizationIdPathInOrganization(creator.getOrganization(), ouService);
+      }
+    }
+
+  }
+
+
+  private static void setOrganizationIdPathInOrganization(OrganizationVO ou, OrganizationService ouService)
+      throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
+    if (ou.getIdentifier() != null || !ou.getIdentifier().trim().isEmpty()) {
+      List<String> ouPath = ouService.getIdPath(ou.getIdentifier());
+      ou.setIdentifierPath(ouPath.toArray(new String[] {}));
+    } else {
+      ou.setIdentifierPath(null);
+    }
   }
 
 

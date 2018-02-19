@@ -73,13 +73,11 @@ public class YearbookUtils {
 
     // Organizations
     String orgId = yisb.getYearbook().getOrganization().getObjectId();
-    List<String> orgWithChildren = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(orgId);
     BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(ouBoolQuery);
-    for (String ouId : orgWithChildren) {
-      ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
-      ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
-    }
+    ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, orgId));
+    ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH, orgId));
+
 
 
     // Contexts

@@ -210,24 +210,15 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   @Override
   public QueryBuilder toElasticSearchQuery() {
     if (getHiddenId() != null && !getHiddenId().trim().isEmpty()) {
-      List<String> idList = new ArrayList<>();
-
-
-      try {
-        idList = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getHiddenId());
-
-      } catch (Exception e) {
-        logger.error("Error retrieving id path for organizational unit " + getHiddenId());
-      }
 
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
-          PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList.toArray(new String[] {})));
-      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER,
-          idList.toArray(new String[] {})));
+      bq.should(SearchCriterionBase
+          .baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getHiddenId()));
+      bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH,
+          getHiddenId()));
       if (includeSource) {
         bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
-            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList.toArray(new String[] {})));
+            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getHiddenId()));
       }
 
 

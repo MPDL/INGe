@@ -208,13 +208,12 @@ public class YearbookCandidatesRetrieverRequestBean
 
 
     if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-      List<String> orgWithChildren = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getSelectedOrgUnit());
       BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
       nonCandidateBoolQuery.must(ouBoolQuery);
-      for (String ouId : orgWithChildren) {
-        ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
-        ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
-      }
+      ouBoolQuery.should(
+          QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
+      ouBoolQuery
+          .should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
     }
 
     return nonCandidateBoolQuery;
@@ -263,13 +262,14 @@ public class YearbookCandidatesRetrieverRequestBean
         if (query != null) {
 
           if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-            List<String> orgWithChildren = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getSelectedOrgUnit());
+
             BoolQueryBuilder ouBoolQuery = QueryBuilders.boolQuery();
             query.must(ouBoolQuery);
-            for (String ouId : orgWithChildren) {
-              ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, ouId));
-              ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, ouId));
-            }
+            ouBoolQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH,
+                getSelectedOrgUnit()));
+            ouBoolQuery.should(
+                QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
+
           }
 
 

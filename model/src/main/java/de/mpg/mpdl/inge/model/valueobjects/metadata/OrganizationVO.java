@@ -51,6 +51,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
   private String address;
   private String identifier;
   private String name;
+  private String[] identifierPath;
 
   /**
    * Delivers the address of the organization as used in the item.
@@ -166,5 +167,13 @@ public class OrganizationVO extends ValueObject implements Cloneable {
    */
   public void setIdentifier(String newVal) {
     identifier = newVal;
+  }
+
+  public String[] getIdentifierPath() {
+    return identifierPath;
+  }
+
+  public void setIdentifierPath(String[] identifierPath) {
+    this.identifierPath = identifierPath;
   }
 }

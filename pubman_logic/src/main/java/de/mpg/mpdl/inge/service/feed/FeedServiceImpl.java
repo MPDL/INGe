@@ -65,11 +65,9 @@ public class FeedServiceImpl {
         PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
         State.RELEASED.name()));
-    List<String> ouIdsWithChild = organizationService.getChildIdPath(ouId);
-    String[] indexes = new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER,
-        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER};
-    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), indexes,
-        ouIdsWithChild.toArray(new String[] {})));
+    String[] indexes = new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH,
+        PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH};
+    qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), indexes, ouId));
 
     SyndFeed feed = getBasicSyndFeed("Recent releases for organization " + ouId, "Recent releases for organization " + ouId, qb);
     return feed;

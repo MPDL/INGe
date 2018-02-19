@@ -64,7 +64,11 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
@@ -72,6 +76,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PidService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.ReindexListener;
@@ -115,6 +120,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Autowired
   private ItemValidatingService itemValidatingService;
 
+  @Autowired
+  private OrganizationService organizationService;
+
   @PersistenceContext
   EntityManager entityManager;
 
@@ -150,7 +158,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_CREATOR_PERSON_GIVENNAME = "metadata.creators.person.givenName";
 
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER = "metadata.creators.person.organizations.identifier";
+  public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH = "metadata.creators.person.organizations.identifierPath";
   public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER = "metadata.creators.organization.identifier";
+  public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH = "metadata.creators.organization.identifierPath";
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME = "metadata.creators.person.organizations.name";
   public static String INDEX_METADATA_CREATOR_ORGANIZATION_NAME = "metadata.creators.organization.name";
   public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
@@ -196,6 +206,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
       "metadata.sources.creators.person.organization.identifier";
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH =
+      "metadata.sources.creators.person.organization.identifierPath";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
 
@@ -228,6 +240,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     PubItemUtil.cleanUpItem(pubItemVO);
 
+    PubItemUtil.setOrganizationIdPathInItem(pubItemVO, organizationService);
+
     ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
         pubItemVO.getObject().getLocalTags(), userAccount.getName(), userAccount.getObjectId());
 
@@ -257,6 +271,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     return pubItemToCreate;
   }
+
+
 
   private void createAuditEntry(ItemVersionVO pubItem, EventType event) throws IngeApplicationException, IngeTechnicalException {
     AuditDbVO audit = new AuditDbVO();
@@ -338,6 +354,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     checkAa("update", userAccount, latestVersion, context);
 
+
+
     if (ItemVersionRO.State.RELEASED.equals(latestVersion.getVersionState())) {
       entityManager.detach(latestVersion);
       // Reset latestRelase reference because it is the same object as latest version
@@ -361,6 +379,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
+
+    PubItemUtil.setOrganizationIdPathInItem(latestVersion, organizationService);
 
     List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, userAccount);
     latestVersion.setFiles(fileDbVOList);

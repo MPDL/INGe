@@ -139,11 +139,12 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       if (!this.getSelectedOrgUnit().toLowerCase().equals("all")) {
-        List<String> idList = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(getSelectedOrgUnit());
 
         BoolQueryBuilder ouQuery = QueryBuilders.boolQuery();
-        ouQuery.should(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER, idList));
-        ouQuery.should(QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER, idList));
+        ouQuery.should(
+            QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
+        ouQuery
+            .should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH, getSelectedOrgUnit()));
         bq.must(ouQuery);
 
       }
