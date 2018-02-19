@@ -70,7 +70,7 @@
 
 	
 	
-	<xsl:variable name="escidocId" select="if (/escidocItem:item/@xlink:href) then tokenize(/escidocItem:item/@xlink:href, '/')[last()] else /escidocItem:item/@objid" />
+	<xsl:variable name="escidocId" select="if (/escidocItem:item/@objid) then /escidocItem:item/@objid else tokenize(/escidocItem:item/@xlink:href, '/')[last()]" />
 	
 	<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
 	<xsl:variable name="genre" select="$genre-ves/enum[@uri=$gen]"/>
@@ -112,7 +112,7 @@
 						<!-- 
 						<xsl:otherwise>
 						-->
-							<xsl:variable name="componentId" select="if (@xlink:href) then tokenize(@xlink:href, '/')[last()] else @objid" />      
+							<xsl:variable name="componentId" select="if (@objid) then @objid else tokenize(@xlink:href, '/')[last()]" />      
 							<xsl:variable name="filename" select="escidocComponents:properties/prop:file-name" />
 							<xsl:variable name="path" select="replace(replace(replace($pubmanComponentPattern, '\$1', $escidocId), '\$2', $componentId), '\$3', $filename)" />
 							<xsl:call-template name="createMetatag">

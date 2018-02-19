@@ -37,6 +37,7 @@
 		<!-- Field: PubItemVO.version [PubItemRO] -->
 		<structure field="version" type="de.mpg.mpdl.inge.model.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
+			<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 		</structure>
 
 		<!-- Node: item.@last-modification-date -->
@@ -56,6 +57,7 @@
 			<structure name="created-by" ns="${xsd.soap.common.srel}" field="owner"
 				type="de.mpg.mpdl.inge.model.referenceobjects.AccountUserRO" usage="optional">
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" usage="optional" />
+				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 			</structure>
 
 			<!-- Node: item.properties.public-status -->
@@ -75,6 +77,7 @@
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 
 			</structure>
 
@@ -85,6 +88,7 @@
 				<!-- Node: item.properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="contentModel" usage="optional" />
+				<value style="attribute" name="objid" get-method="getContentModel" usage="optional" />
 
 			</structure>			
 
@@ -103,7 +107,7 @@
 			<structure field="version" ns="${xsd.soap.common.prop}" usage="optional" name="version">
 			
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectIdAndVersion" usage="optional" />
-
+				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
 				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
 
@@ -121,7 +125,7 @@
 	
 					<!-- Node: item.properties.version.modified-by.@objid -->
 					<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectId" set-method="setObjectId" usage="optional" />
-	
+					<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 				</structure>
 
 				<value style="element" name="comment" ns="${xsd.soap.common.version}" get-method="getLastMessageForXml" usage="optional" />
@@ -133,7 +137,7 @@
 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" usage="optional" name="latest-version">
 			
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectIdAndVersion" usage="optional" />
-
+				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
 				<value style="element" name="number" ns="${xsd.soap.common.version}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.version}" get-method="getModificationDateForXml" usage="optional" />
 			</structure>
@@ -143,7 +147,7 @@
 			<structure field="latestRelease" ns="${xsd.soap.common.prop}" usage="optional" name="latest-release">
 			
 				<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" get-method="getObjectIdAndVersion" usage="optional" />
-
+				<value style="attribute" name="objid" get-method="getObjectIdAndVersion" usage="optional" />
 				<value style="element" name="number" ns="${xsd.soap.common.release}" get-method="getVersionNumberForXml" usage="optional" />
 				<value style="element" name="date" ns="${xsd.soap.common.release}" get-method="getModificationDateForXml" usage="optional" />
 				<value style="element" name="pid" ns="${xsd.soap.common.release}" field="pid" usage="optional" />
