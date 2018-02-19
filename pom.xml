@@ -965,7 +965,7 @@
 		<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
 		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
 		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
-		<inge.pubman.external.organisation.id>escidoc:9019</inge.pubman.external.organisation.id>
+		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
 		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
 		<inge.pubman.footer.fileName />
