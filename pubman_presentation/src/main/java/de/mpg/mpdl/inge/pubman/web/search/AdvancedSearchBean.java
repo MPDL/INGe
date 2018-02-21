@@ -213,6 +213,13 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
     this.criterionList = scList;
 
+    //Remove opening and closing parenthesis
+    if (this.criterionList.size() > 1 && this.criterionList.get(0).getSearchCriterion().equals(SearchCriterion.OPENING_PARENTHESIS)
+        && this.criterionList.get(criterionList.size() - 1).getSearchCriterion().equals(SearchCriterion.CLOSING_PARENTHESIS)) {
+      criterionList.remove(criterionList.size() - 1);
+      criterionList.remove(0);
+    }
+
 
     if (this.criterionList.isEmpty()) {
       this.initCriterionListWithEmptyValues();
