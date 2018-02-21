@@ -136,8 +136,8 @@
 									action="#{fileVar.file.allowedAudienceIds.add(null)}">
 									<f:ajax render="form1:files" execute="@form" />
 									</h:commandButton>
-								<h:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btAdd}"
-									action="#{fileVar.file.allowedAudienceIds.remove(status.index)}">
+								<h:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btAdd}" rendered="#{fileVar.file.allowedAudienceIds.size() > 1 }"
+									action="#{UtilBean.removeFromList(fileVar.file.allowedAudienceIds, status.index)}">
 									<f:ajax render="form1:files" execute="@form" />
 									</h:commandButton>
 								</span>
