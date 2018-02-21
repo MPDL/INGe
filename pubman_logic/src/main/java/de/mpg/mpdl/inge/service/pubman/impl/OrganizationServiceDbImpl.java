@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -164,7 +165,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   private AffiliationDbVO changeState(String id, Date modificationDate, String authenticationToken, AffiliationDbVO.State state)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
     if (affDbToBeUpdated == null) {
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
@@ -181,10 +182,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
     }
 
-    checkAa((state == AffiliationDbVO.State.OPENED ? "open" : "close"), userAccount, affDbToBeUpdated);
+    checkAa((state == AffiliationDbVO.State.OPENED ? "open" : "close"), principal, affDbToBeUpdated);
 
     affDbToBeUpdated.setPublicStatus(state);
-    updateWithTechnicalMetadata(affDbToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(affDbToBeUpdated, principal.getUserAccount(), false);
     try {
       affDbToBeUpdated = organizationRepository.saveAndFlush(affDbToBeUpdated);
     } catch (DataAccessException e) {

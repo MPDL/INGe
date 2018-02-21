@@ -12,6 +12,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -52,7 +53,7 @@ public interface FileServiceExternal {
   public String getFileMetadata(String itemId, String fileId, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException;
 
-  public boolean checkAccess(AccessType at, AccountUserDbVO userAccount, ItemVersionVO item, FileDbVO file)
+  public boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item, FileDbVO file)
       throws IngeApplicationException, IngeTechnicalException;
 
 

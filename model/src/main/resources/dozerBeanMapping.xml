@@ -8,6 +8,13 @@
 		</class-a>
 		<class-b is-accessible="true">de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO
 		</class-b>
+		<field>
+			<a>object.context</a>
+			<b>object.context</b>
+			<a-hint>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO</a-hint>
+			<b-hint>de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO</b-hint>
+		
+		</field>
 	</mapping>
 
 	<mapping wildcard="true">

@@ -81,9 +81,8 @@ public class FileBean extends FacesBean {
   public FileBean(FileDbVO file, ItemVersionVO item) {
     this.file = file;
     this.item = item;
-    if (this.getLoginHelper().getLoggedIn() == true) {
-      this.initializeFileAccessGranted();
-    }
+    this.initializeFileAccessGranted();
+
   }
 
   /**
@@ -99,9 +98,8 @@ public class FileBean extends FacesBean {
     this.item = item;
     this.searchHits = searchHitList;
     //this.initialize(file, item, searchHitList);
-    if (this.getLoginHelper().getLoggedIn() == true) {
-      this.initializeFileAccessGranted();
-    }
+    this.initializeFileAccessGranted();
+
   }
 
   /**
@@ -156,7 +154,7 @@ public class FileBean extends FacesBean {
     if (this.file.getObjectId() != null && this.file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
       try {
         fileAccessGranted =
-            ApplicationBean.INSTANCE.getFileService().checkAccess(AccessType.READ_FILE, getLoginHelper().getAccountUser(), item, file);
+            ApplicationBean.INSTANCE.getFileService().checkAccess(AccessType.READ_FILE, getLoginHelper().getPrincipal(), item, file);
       } catch (Exception e) {
         fileAccessGranted = false;
       }

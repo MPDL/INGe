@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -131,7 +132,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     if (selectedFile == null || fileDbVO == null || fileDbVO.getLocalFileIdentifier() == null) {
       throw new IngeApplicationException("File with id [" + fileId + "] not found in item [ " + itemId + "].");
     }
-    AccountUserDbVO user = null;
+    Principal user = null;
     if (authenticationToken != null) {
       user = aaService.checkLoginRequired(authenticationToken);
     }
@@ -159,7 +160,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public StagedFileDbVO createStageFile(InputStream fileInputStream, String fileName, String authenticationToken)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
 
-    AccountUserDbVO user = aaService.checkLoginRequired(authenticationToken);
+    Principal user = aaService.checkLoginRequired(authenticationToken);
     if (fileName == null || fileName.trim().isEmpty()) {
       throw new IngeTechnicalException("No filename defined.");
     }
@@ -167,7 +168,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     StagedFileDbVO stagedFileVo = new StagedFileDbVO();
     stagedFileVo.setFilename(fileName);
     stagedFileVo = stagedFileRepository.save(stagedFileVo);
-    stagedFileVo.setCreatorId(user.getObjectId());
+    stagedFileVo.setCreatorId(user.getUserAccount().getObjectId());
 
     try {
 
@@ -342,7 +343,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
 
 
-  protected void checkAa(String method, AccountUserDbVO userAccount, Object... objects)
+  protected void checkAa(String method, Principal userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];
@@ -352,11 +353,11 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   }
 
 
-  public boolean checkAccess(AccessType at, AccountUserDbVO userAccount, ItemVersionVO item, FileDbVO file)
+  public boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item, FileDbVO file)
       throws IngeApplicationException, IngeTechnicalException {
-    if (pubItemService.checkAccess(AccessType.GET, userAccount, item)) {
+    if (pubItemService.checkAccess(AccessType.GET, principal, item)) {
       try {
-        checkAa(at.getMethodName(), userAccount, file, item);
+        checkAa(at.getMethodName(), principal, file, item);
       } catch (AuthenticationException | AuthorizationException e) {
         return false;
       } catch (IngeTechnicalException | IngeApplicationException e) {

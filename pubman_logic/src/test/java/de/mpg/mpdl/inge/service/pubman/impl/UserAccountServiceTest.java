@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -71,14 +72,14 @@ public class UserAccountServiceTest extends TestBase {
   public void login() {
     super.logMethodName();
 
-    String token = null;
+    Principal principal = null;
     try {
-      token = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
+      principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
-    assertTrue(token != null);
+    assertTrue(principal.getJwToken() != null);
   }
 
   @Test(expected = AuthenticationException.class)
@@ -106,11 +107,11 @@ public class UserAccountServiceTest extends TestBase {
   public void getDepositor() throws Exception {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
+    Principal principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
 
-    assertTrue(authenticationToken != null);
+    assertTrue(principal != null);
 
-    AccountUserDbVO accountUserVO = userAccountService.get(authenticationToken);
+    AccountUserDbVO accountUserVO = userAccountService.get(principal.getJwToken());
 
     assertTrue("Got no accountUserVO object", accountUserVO != null);
     assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliation() != null);
@@ -121,10 +122,10 @@ public class UserAccountServiceTest extends TestBase {
   public void getModerator() throws Exception {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
+    assertTrue(principal != null);
 
-    AccountUserDbVO accountUserVO = userAccountService.get(authenticationToken);
+    AccountUserDbVO accountUserVO = userAccountService.get(principal.getJwToken());
 
     assertTrue("Got no accountUserVO object", accountUserVO != null);
     assertTrue("Affiliation list size does not match.", accountUserVO.getAffiliation() != null);
@@ -135,22 +136,22 @@ public class UserAccountServiceTest extends TestBase {
   public void removeGrants() throws Exception {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
+    assertTrue(principal != null);
 
-    AccountUserDbVO accountUserGrantsToBeRemoved = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserGrantsToBeRemoved = userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken());
 
     List<GrantVO> grants = accountUserGrantsToBeRemoved.getGrantList();
     int sizeBeforeRemove = grants.size();
     assertTrue(sizeBeforeRemove > 0);
 
     userAccountService.removeGrants(DEPOSITOR_OBJECTID, accountUserGrantsToBeRemoved.getLastModificationDate(),
-        new GrantVO[] {grants.get(0)}, authenticationToken);
+        new GrantVO[] {grants.get(0)}, principal.getJwToken());
 
     assertTrue(
         "Expected <" + (sizeBeforeRemove - 1) + "> grants - found <"
-            + userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrantList().size() + ">",
-        userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken).getGrantList().size() + 1 == sizeBeforeRemove);
+            + userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken()).getGrantList().size() + ">",
+        userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken()).getGrantList().size() + 1 == sizeBeforeRemove);
   }
 
   @Test
@@ -180,13 +181,13 @@ public class UserAccountServiceTest extends TestBase {
   public void activateByAdmin() throws Exception {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
+    assertTrue(principal != null);
 
-    AccountUserDbVO accountUserToBeActivated = userAccountService.get(DEACTIVATED_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserToBeActivated = userAccountService.get(DEACTIVATED_OBJECTID, principal.getJwToken());
 
     accountUserToBeActivated =
-        userAccountService.activate(DEACTIVATED_OBJECTID, accountUserToBeActivated.getLastModificationDate(), authenticationToken);
+        userAccountService.activate(DEACTIVATED_OBJECTID, accountUserToBeActivated.getLastModificationDate(), principal.getJwToken());
 
     assertTrue(accountUserToBeActivated.isActive());
   }
@@ -213,27 +214,27 @@ public class UserAccountServiceTest extends TestBase {
     String username = DEPOSITOR_LOGIN_NAME;
     String password = DEPOSITOR_PASSWORD;
 
-    String authenticationToken = userAccountService.login(username, password);
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(username, password);
+    assertTrue(principal != null);
 
-    AccountUserDbVO accountUserToBeDeactivated = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserToBeDeactivated = userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken());
 
     accountUserToBeDeactivated =
-        userAccountService.deactivate(DEPOSITOR_OBJECTID, accountUserToBeDeactivated.getLastModificationDate(), authenticationToken);
+        userAccountService.deactivate(DEPOSITOR_OBJECTID, accountUserToBeDeactivated.getLastModificationDate(), principal.getJwToken());
   }
 
   @Test
   public void changePasswordByUser() throws Exception {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
+    assertTrue(principal != null);
     String newDepositorPassword = "myPassword";
 
-    AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken());
 
     userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), newDepositorPassword,
-        authenticationToken);
+        principal.getJwToken());
 
     assertTrue(userAccountService.login("test_depositor", newDepositorPassword) != null);
   }
@@ -242,18 +243,18 @@ public class UserAccountServiceTest extends TestBase {
   public void changePasswordByAdmin() throws Exception {
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
+    assertTrue(principal != null);
 
-    AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, authenticationToken);
+    AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken());
 
     String veryNewDepositorPassword = "veryNewDepositorPassword";
     userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), veryNewDepositorPassword,
-        authenticationToken);
+        principal.getJwToken());
 
-    String userAuthenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, veryNewDepositorPassword);
+    Principal principalNew = userAccountService.login(DEPOSITOR_LOGIN_NAME, veryNewDepositorPassword);
 
-    assertTrue(userAuthenticationToken != null);
+    assertTrue(principalNew != null);
   }
 
 }

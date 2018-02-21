@@ -5,9 +5,12 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -18,10 +21,13 @@ public interface UserAccountService extends GenericService<AccountUserDbVO, Stri
   public AccountUserDbVO get(String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public String login(String username, String password)
+  public Principal login(String username, String password)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public String login(String username, String password, HttpServletRequest request, HttpServletResponse response)
+  public Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public Principal login(HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
@@ -41,4 +47,6 @@ public interface UserAccountService extends GenericService<AccountUserDbVO, Stri
 
   public AccountUserDbVO deactivate(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public DecodedJWT verifyToken(String authenticationToken) throws AuthenticationException;
 }

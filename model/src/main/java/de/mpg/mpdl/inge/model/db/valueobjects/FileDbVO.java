@@ -27,6 +27,8 @@
 package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -45,6 +47,8 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.MdsOrganizationalUnitVOJsonUserType;
+import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 
@@ -61,6 +65,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
 @Access(AccessType.FIELD)
 @TypeDef(name = "MdsFileVOJsonUserType", typeClass = MdsFileVOJsonUserType.class)
+@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class FileDbVO extends FileDbRO implements Serializable {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -163,6 +168,10 @@ public class FileDbVO extends FileDbRO implements Serializable {
 
   @JsonIgnore
   private String localFileIdentifier;
+
+  @JsonIgnore
+  @Type(type= "StringListJsonUserType")
+  private List<String> allowedAudienceIds = new ArrayList<>();
 
   /**
    * Public contructor.
@@ -393,6 +402,18 @@ public class FileDbVO extends FileDbRO implements Serializable {
 
   public void setSize(long size) {
     this.size = size;
+  }
+
+
+
+  public List<String> getAllowedAudienceIds() {
+    return allowedAudienceIds;
+  }
+
+
+
+  public void setAllowedAudienceIds(List<String> allowedAudienceIds) {
+    this.allowedAudienceIds = allowedAudienceIds;
   }
 
 

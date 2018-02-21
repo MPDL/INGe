@@ -52,6 +52,7 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   @Transient
   private String password;
 
+
   public AccountUserDbVO() {}
 
   public AccountUserDbVO(AccountUserDbVO other) {
@@ -105,7 +106,6 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
-
 
 
 }

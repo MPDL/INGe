@@ -25,6 +25,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -73,7 +74,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   private ContextDbVO changeState(String id, Date modificationDate, String authenticationToken, ContextDbVO.State state)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     ContextDbVO contextDbToBeUpdated = contextRepository.findOne(id);
     if (contextDbToBeUpdated == null) {
       throw new IngeApplicationException("Context with given id " + id + " not found.");
@@ -82,10 +83,10 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
     checkEqualModificationDate(modificationDate, contextDbToBeUpdated.getLastModificationDate());
 
-    checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), userAccount, contextDbToBeUpdated);
+    checkAa((state == ContextDbVO.State.OPENED ? "open" : "close"), principal, contextDbToBeUpdated);
 
     contextDbToBeUpdated.setState(state);
-    updateWithTechnicalMetadata(contextDbToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(contextDbToBeUpdated, principal.getUserAccount(), false);
 
     try {
       contextDbToBeUpdated = contextRepository.saveAndFlush(contextDbToBeUpdated);

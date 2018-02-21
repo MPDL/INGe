@@ -31,6 +31,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
@@ -51,7 +53,11 @@ import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
+import de.mpg.mpdl.inge.service.aa.Principal;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 
 /**
@@ -79,8 +85,12 @@ public class LoginHelper extends FacesBean {
   private String password;
   private String username;
 
+  private Principal principal;
+
   private boolean detailedMode;
   private boolean loggedIn;
+
+  private IpRange currentIp;
 
   public LoginHelper() {
     this.init();
@@ -95,6 +105,21 @@ public class LoginHelper extends FacesBean {
 
     this.detailedMode = false;
     this.loggedIn = false;
+
+    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+    String ip = ec.getRequestHeaderMap().get("X-Forwarded-For");
+    logger.info("Init LoginHelper with IP " + ip);
+    if (ip != null) {
+      currentIp = ApplicationBean.INSTANCE.getIpListProvider().getMatch(ip);
+      try {
+        principal = ApplicationBean.INSTANCE.getUserAccountService().login((HttpServletRequest) ec.getRequest(),
+            (HttpServletResponse) ec.getResponse());
+
+      } catch (Exception e) {
+        logger.error("Error logging in anonymous user", e);
+      }
+    }
   }
 
   public String getESciDocUserHandle() {
@@ -118,11 +143,11 @@ public class LoginHelper extends FacesBean {
 
       HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
       HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-      final String token =
-          ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(), this.getPassword(), request, response);
-      this.accountUser = ApplicationBean.INSTANCE.getUserAccountService().get(token);
-      if (token != null) {
-        this.authenticationToken = token;
+      this.principal = ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(), this.getPassword(), request, response);
+
+      if (principal != null) {
+        this.accountUser = getPrincipal().getUserAccount();
+        this.authenticationToken = getPrincipal().getJwToken();
         this.loggedIn = true;
         this.detailedMode = true;
 
@@ -332,8 +357,16 @@ public class LoginHelper extends FacesBean {
     return this.detailedMode;
   }
 
-  public String getCurrentIp() {
-    return FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("X-Forwarded-For");
+  public IpRange getCurrentIp() {
+    return currentIp;
 
+  }
+
+  public Principal getPrincipal() {
+    return principal;
+  }
+
+  public void setPrincipal(Principal principal) {
+    this.principal = principal;
   }
 }

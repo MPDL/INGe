@@ -17,6 +17,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
@@ -99,14 +100,14 @@ public class ContextServiceTest extends TestBase {
 
     super.logMethodName();
 
-    String authenticationToken = userAccountService.login(DEPOSITOR_LOGIN_NAME, "XXXXXXXXXXXXXX");
-    assertTrue(authenticationToken != null);
+    Principal principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, "XXXXXXXXXXXXXX");
+    assertTrue(principal.getJwToken() != null);
 
-    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
+    ContextDbVO contextVO = contextService.get("ctx_persistent3", principal.getJwToken());
     assertTrue(contextVO != null);
     assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
 
-    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), principal.getJwToken());
   }
 
   @Test

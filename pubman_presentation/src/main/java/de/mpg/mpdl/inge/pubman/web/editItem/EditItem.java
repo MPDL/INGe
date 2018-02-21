@@ -95,6 +95,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTa
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -314,6 +315,7 @@ public class EditItem extends FacesBean {
 
   private void bindFiles() {
     // add files
+    System.out.println("BIND FILES");
     final List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     int fileCount = 0;
 
@@ -324,6 +326,9 @@ public class EditItem extends FacesBean {
             && (file.getMetadata().getIdentifiers() == null //
                 || file.getMetadata().getIdentifiers().isEmpty())) {
           file.getMetadata().getIdentifiers().add(new IdentifierVO());
+        }
+        if (file.getAllowedAudienceIds() == null || file.getAllowedAudienceIds().isEmpty()) {
+          file.getAllowedAudienceIds().add(null);
         }
 
         final PubFileVOPresentation pubFileVOPresentation = new PubFileVOPresentation(fileCount, file, false);
@@ -617,6 +622,7 @@ public class EditItem extends FacesBean {
       return "";
     }
 
+
     cleanUp(this.getPubItem());
 
     String retVal = checkItemChanged(navigateTo);
@@ -705,6 +711,7 @@ public class EditItem extends FacesBean {
         fileVO.setSize((int) file.getSize());
         fileVO.setName(file.getFileName());
         fileVO.getMetadata().setTitle(file.getFileName());
+        fileVO.getAllowedAudienceIds().add(null);
 
         final Tika tika = new Tika();
         try {
@@ -934,6 +941,16 @@ public class EditItem extends FacesBean {
 
   public SelectItem[] getInvitationStatuses() {
     return this.getI18nHelper().getSelectItemsInvitationStatus(true);
+  }
+
+  public List<SelectItem> getAudienceIpListSelectItems() {
+
+    List<SelectItem> ipRangeSelectItems = new ArrayList<>();
+    ipRangeSelectItems.add(new SelectItem(null, "-"));
+    for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
+      ipRangeSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
+    }
+    return ipRangeSelectItems;
   }
 
   /**

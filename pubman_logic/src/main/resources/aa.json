@@ -326,7 +326,7 @@
 				}
 			},
 			{
-				"givenUser.objectId": "user.objectId"
+				"givenUser.objectId": "user.userAccount.objectId"
 
 			}
 		],
@@ -352,7 +352,7 @@
                 }
             },
             {
-                "givenUser.objectId": "user.objectId"
+                "givenUser.objectId": "user.userAccount.objectId"
 
             }
         ],
@@ -493,6 +493,13 @@
 					"field_grant_id_match" : "item.object.context.objectId"
 				}
 				
+			},
+			{
+				"file.visibility" : "AUDIENCE",
+				"user" : {
+						
+						"ip_match" : "file.allowedAudienceIds"
+					}
 			}
 			
 		]

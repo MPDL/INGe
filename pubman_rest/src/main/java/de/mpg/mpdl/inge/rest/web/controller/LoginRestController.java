@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -42,10 +43,10 @@ public class LoginRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     String username = credendials.split(":")[0];
     String password = credendials.split(":")[1];
-    String token = userSvc.login(username, password, request, response);
-    if (token != null && !token.isEmpty()) {
+    Principal principal = userSvc.login(username, password, request, response);
+    if (principal != null && !principal.getJwToken().isEmpty()) {
       HttpHeaders headers = new HttpHeaders();
-      headers.add(TOKEN_HEADER, token);
+      headers.add(TOKEN_HEADER, principal.getJwToken());
       return new ResponseEntity<>(headers, HttpStatus.OK);
     }
     return null;

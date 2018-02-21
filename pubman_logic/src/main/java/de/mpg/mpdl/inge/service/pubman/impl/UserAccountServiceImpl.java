@@ -4,7 +4,9 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator.Builder;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -44,6 +47,7 @@ import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -55,6 +59,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, String> implements UserAccountService, ReindexListener {
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
+
+  private final static int TOKEN_MAX_AGE_HOURS = 2;
 
   @Autowired
   private AuthorizationService aaService;
@@ -79,6 +85,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   @Autowired
   private OrganizationRepository organizationRepository;
+
 
 
   private Algorithm jwtAlgorithmKey;
@@ -136,7 +143,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
     AccountUserDbVO userDbToUpdated = userAccountRepository.findOne(userId);
 
@@ -147,10 +154,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     checkEqualModificationDate(modificationDate, getModificationDate(userDbToUpdated));
 
-    checkAa("changePassword", userAccount, userDbToUpdated);
+    checkAa("changePassword", principal, userDbToUpdated);
     userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword));
 
-    updateWithTechnicalMetadata(userDbToUpdated, userAccount, false);
+    updateWithTechnicalMetadata(userDbToUpdated, principal.getUserAccount(), false);
 
     try {
       userDbToUpdated = getDbRepository().saveAndFlush(userDbToUpdated);
@@ -167,7 +174,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   @Transactional(rollbackFor = Throwable.class)
   public AccountUserDbVO addGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
@@ -213,12 +220,12 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
 
 
-      checkAa("addGrants", userAccount, objectToBeUpdated, grantToBeAdded, referencedObject);
+      checkAa("addGrants", principal, objectToBeUpdated, grantToBeAdded, referencedObject);
 
 
     }
     objectToBeUpdated.getGrantList().addAll(Arrays.asList(grants));
-    updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(objectToBeUpdated, principal.getUserAccount(), false);
 
 
     try {
@@ -235,7 +242,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   @Transactional(rollbackFor = Throwable.class)
   public AccountUserDbVO removeGrants(String userId, Date modificationDate, GrantVO[] grants, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO objectToBeUpdated = getDbRepository().findOne(userId);
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
@@ -259,10 +266,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       }
 
 
-      checkAa("removeGrants", userAccount, objectToBeUpdated, givenGrant);
+      checkAa("removeGrants", principal, objectToBeUpdated, givenGrant);
       objectToBeUpdated.getGrantList().remove(grantToBeRemoved);
     }
-    updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(objectToBeUpdated, principal.getUserAccount(), false);
 
     try {
       objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
@@ -275,17 +282,6 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   }
 
-
-
-  @Override
-  public String login(String username, String password, HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    String token = login(username, password);
-    Cookie cookie = new Cookie("inge_auth_token", token);
-    cookie.setPath("/");
-    response.addCookie(cookie);
-    return token;
-  }
 
 
   @Override
@@ -308,40 +304,81 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
 
   @Override
-  public String login(String username, String password) throws IngeTechnicalException, AuthenticationException {
-    if (username == null || username.trim().isEmpty()) {
+  public Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
       throw new AuthenticationException("Could not login, Please provide correct username and password!");
     }
+    return loginUserOrAnonymous(username, password, request, response);
+  }
 
-    // Helper to login as any user if you are sysadmin
-    if (username.contains("#")) {
-      String[] parts = username.split("#");
-      AccountUserDbVO userAccountSysadmin = userAccountRepository.findByLoginname(parts[0]);
-      String encodedPassword = userLoginRepository.findPassword(parts[0]);
 
-      if (userAccountSysadmin != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
-        for (GrantVO grant : userAccountSysadmin.getGrantList()) {
-          if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
-            AccountUserDbVO userAccountToLogin = userAccountRepository.findByLoginname(parts[1]);
-            return createToken(userAccountToLogin);
+  @Override
+  public Principal login(String username, String password) throws IngeTechnicalException, AuthenticationException {
+    if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+      throw new AuthenticationException("Could not login, Please provide correct username and password!");
+    }
+    return loginUserOrAnonymous(username, password, null, null);
+  }
+
+  public Principal login(HttpServletRequest request, HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    return loginUserOrAnonymous(null, null, request, response);
+  }
+
+
+
+  private Principal loginUserOrAnonymous(String username, String password, HttpServletRequest request, HttpServletResponse response)
+      throws IngeTechnicalException, AuthenticationException {
+
+    Principal principal = null;
+
+    if (username != null) {
+      // Helper to login as any user if you are sysadmin
+      if (username.contains("#")) {
+        String[] parts = username.split("#");
+        AccountUserDbVO userAccountSysadmin = userAccountRepository.findByLoginname(parts[0]);
+        String encodedPassword = userLoginRepository.findPassword(parts[0]);
+
+        if (userAccountSysadmin != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
+          for (GrantVO grant : userAccountSysadmin.getGrantList()) {
+            if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
+              AccountUserDbVO userAccountToLogin = userAccountRepository.findByLoginname(parts[1]);
+              String token = createToken(userAccountToLogin, request);
+              principal = new Principal(userAccountToLogin, token);
+            }
           }
         }
-      }
-      throw new AuthenticationException("Could not login, Please provide correct username and password!");
-    }
-
-    else {
-      AccountUserDbVO userAccount = userAccountRepository.findByLoginname(username);
-      String encodedPassword = userLoginRepository.findPassword(username);
-
-      if (userAccount != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
-
-        return createToken(userAccount);
-
-      } else {
         throw new AuthenticationException("Could not login, Please provide correct username and password!");
       }
+
+      else {
+        AccountUserDbVO userAccount = userAccountRepository.findByLoginname(username);
+        String encodedPassword = userLoginRepository.findPassword(username);
+
+        if (userAccount != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
+          String token = createToken(userAccount, request);
+          principal = new Principal(userAccount, token);
+
+        } else {
+          throw new AuthenticationException("Could not login, Please provide correct username and password!");
+        }
+      }
+    } else if (request != null && request.getHeader("X-Forwarded-For") != null) {
+      String token = createToken(null, request);
+      principal = new Principal(null, token);
     }
+
+
+    //Set Cookie
+    if (principal != null && response != null) {
+      Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
+      cookie.setPath("/");
+      cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
+      response.addCookie(cookie);
+    }
+    return principal;
 
 
 
@@ -383,15 +420,28 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   }
 
-  private String createToken(AccountUserDbVO user) throws IngeTechnicalException {
+  private String createToken(AccountUserDbVO user, HttpServletRequest request) throws IngeTechnicalException {
     try {
       Instant now = Instant.now();
       Date issueDate = Date.from(now);
-      Date expirationDate = Date.from(now.plus(2, ChronoUnit.HOURS));
+      Date expirationDate = Date.from(now.plus(TOKEN_MAX_AGE_HOURS, ChronoUnit.HOURS));
       logger.info("Creating token with issue date: " + issueDate + " and expiration date " + expirationDate);
 
-      return JWT.create().withClaim("id", user.getObjectId()).withSubject(user.getLoginname()).withIssuedAt(issueDate).withIssuer(jwtIssuer)
-          .withExpiresAt(expirationDate).sign(jwtAlgorithmKey);
+      Builder jwtBuilder = JWT.create().withIssuedAt(issueDate).withIssuer(jwtIssuer).withExpiresAt(expirationDate);
+
+      if (user != null) {
+        jwtBuilder.withClaim("id", user.getObjectId()).withSubject(user.getLoginname());
+      }
+
+      //Write ip adress as header in token
+      if (request != null && request.getHeader("X-Forwarded-For") != null) {
+        Map<String, Object> headerMap = new HashMap<>();
+        headerMap.put("ip", request.getHeader("X-Forwarded-For"));
+        jwtBuilder.withHeader(headerMap);
+      }
+
+
+      return jwtBuilder.sign(jwtAlgorithmKey);
     } catch (Exception e) {
       throw new IngeTechnicalException("Could not generate token " + e.getMessage(), e);
     }
@@ -502,7 +552,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private AccountUserDbVO changeState(String id, Date modificationDate, String authenticationToken, boolean active)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     AccountUserDbVO accountToBeUpdated = userAccountRepository.findOne(id);
     if (accountToBeUpdated == null) {
       throw new IngeTechnicalException("User account with given id " + id + " not found.");
@@ -512,10 +562,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     checkEqualModificationDate(modificationDate, getModificationDate(accountToBeUpdated));
 
-    checkAa((active ? "activate" : "deactivate"), userAccount, accountToBeUpdated);
+    checkAa((active ? "activate" : "deactivate"), principal, accountToBeUpdated);
 
     accountToBeUpdated.setActive(active);
-    updateWithTechnicalMetadata(accountToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(accountToBeUpdated, principal.getUserAccount(), false);
 
     try {
       accountToBeUpdated = userAccountRepository.saveAndFlush(accountToBeUpdated);

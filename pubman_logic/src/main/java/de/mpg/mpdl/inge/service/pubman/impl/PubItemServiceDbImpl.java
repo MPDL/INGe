@@ -71,6 +71,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -231,7 +232,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public ItemVersionVO create(ItemVersionVO pubItemVO, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     long start = System.currentTimeMillis();
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
 
     de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO contextNew =
         contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId());
@@ -243,11 +244,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     PubItemUtil.setOrganizationIdPathInItem(pubItemVO, organizationService);
 
     ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
-        pubItemVO.getObject().getLocalTags(), userAccount.getName(), userAccount.getObjectId());
+        pubItemVO.getObject().getLocalTags(), principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
 
-    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, userAccount));
+    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
 
-    checkAa("create", userAccount, pubItemToCreate, contextNew);
+    checkAa("create", principal, pubItemToCreate, contextNew);
 
     validate(pubItemToCreate, ValidationPoint.SAVE);
 
@@ -341,7 +342,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public ItemVersionVO update(ItemVersionVO pubItemVO, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     long start = System.currentTimeMillis();
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     PubItemUtil.cleanUpItem(pubItemVO);
     ItemVersionVO latestVersion = itemRepository.findLatestVersion(pubItemVO.getObjectId());
     if (latestVersion == null) {
@@ -352,7 +353,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ContextDbVO context = contextRepository.findOne(latestVersion.getObject().getContext().getObjectId());
 
-    checkAa("update", userAccount, latestVersion, context);
+    checkAa("update", principal, latestVersion, context);
 
 
 
@@ -367,7 +368,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       // if current user is owner, set to status pending. Else, set to status
       // submitted
 
-      if (GrantUtil.hasRole(userAccount, PredefinedRoles.MODERATOR, context.getObjectId())) {
+      if (GrantUtil.hasRole(principal.getUserAccount(), PredefinedRoles.MODERATOR, context.getObjectId())) {
         latestVersion.setVersionState(ItemVersionRO.State.SUBMITTED);
       } else {
         latestVersion.setVersionState(ItemVersionRO.State.PENDING);
@@ -377,12 +378,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestVersion.getObject().setLatestVersion(latestVersion);
     }
 
-    updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
 
     PubItemUtil.setOrganizationIdPathInItem(latestVersion, organizationService);
 
-    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, userAccount);
+    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, principal);
     latestVersion.setFiles(fileDbVOList);
 
     latestVersion.getObject().setLocalTags(pubItemVO.getObject().getLocalTags());
@@ -402,7 +403,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
-  private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, AccountUserDbVO userAccount)
+  private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal)
       throws IngeApplicationException, IngeTechnicalException {
 
     List<FileDbVO> updatedFileList = new ArrayList<>();
@@ -436,7 +437,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         // New file
         currentFileDbVO = new FileDbVO();
         if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
-          fileService.createFileFromStagedFile(fileVo, userAccount);
+          fileService.createFileFromStagedFile(fileVo, principal.getUserAccount());
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
           // TODO Set content to a REST path
           fileVo.setContent(null);
@@ -444,9 +445,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           currentFileDbVO.setChecksum(fileVo.getChecksum());
           currentFileDbVO.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(fileVo.getChecksumAlgorithm().name()));
 
+
+
         }
-
-
 
         currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
@@ -457,12 +458,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
-        creator.setObjectId(userAccount.getObjectId());
-        creator.setName(userAccount.getName());
+        creator.setObjectId(principal.getUserAccount().getObjectId());
+        creator.setName(principal.getUserAccount().getName());
         currentFileDbVO.setCreator(creator);
 
         // TODO Pid ?
         currentFileDbVO.setPid(fileVo.getPid());
+
 
       }
 
@@ -471,6 +473,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       currentFileDbVO.setName(fileVo.getMetadata().getTitle());
       currentFileDbVO.setMimeType(fileVo.getMimeType());
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
+      currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
       updatedFileList.add(currentFileDbVO);
     }
 
@@ -485,7 +488,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public void delete(String id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
 
     ItemVersionVO latestPubItemDbVersion = itemRepository.findLatestVersion(id);
     if (latestPubItemDbVersion == null) {
@@ -494,7 +497,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
 
     ContextDbVO context = contextRepository.findOne(latestPubItemDbVersion.getObject().getContext().getObjectId());
-    checkAa("delete", userAccount, latestPubItemDbVersion, context);
+    checkAa("delete", principal, latestPubItemDbVersion, context);
 
     // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
     // deleted by EntityManager.
@@ -534,10 +537,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ItemVersionVO requestedItem = null;
 
-    AccountUserDbVO userAccount = null;
+    Principal principal = null;
 
     if (authenticationToken != null) {
-      userAccount = aaService.checkLoginRequired(authenticationToken);
+      principal = aaService.checkLoginRequired(authenticationToken);
     }
 
 
@@ -552,7 +555,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
           ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
           try {
-            checkAa("get", userAccount, requestedItem, context);
+            checkAa("get", principal, requestedItem, context);
           } catch (AuthenticationException | AuthorizationException e) {
             requestedItem = itemRepository.findLatestRelease(objectId);
           }
@@ -563,7 +566,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       requestedItem = itemRepository.findOne(new VersionableId(objectId, Integer.parseInt(version)));
       if (requestedItem != null) {
         ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
-        checkAa("get", userAccount, requestedItem, context);
+        checkAa("get", principal, requestedItem, context);
       }
     }
 
@@ -615,7 +618,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   private ItemVersionVO changeState(String id, Date modificationDate, ItemVersionRO.State state, String message, String aaMethod,
       String authenticationToken, EventType auditEventType)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
 
     ItemVersionVO latestVersion = itemRepository.findLatestVersion(id);
 
@@ -628,7 +631,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ContextDbVO context = contextRepository.findOne(latestVersion.getObject().getContext().getObjectId());
 
-    checkAa(aaMethod, userAccount, latestVersion, context);
+    checkAa(aaMethod, principal, latestVersion, context);
 
     if (ItemVersionRO.State.SUBMITTED.equals(state) && !ItemVersionRO.State.RELEASED.equals(latestVersion.getObject().getPublicState())) {
       latestVersion.getObject().setPublicState(ItemVersionRO.State.SUBMITTED);
@@ -678,7 +681,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestVersion.setVersionState(state);
     }
 
-    updatePubItemWithTechnicalMd(latestVersion, userAccount.getName(), userAccount.getObjectId());
+    updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
 
     latestVersion.setMessage(message);
 
@@ -873,10 +876,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
 
-  public boolean checkAccess(AccessType at, AccountUserDbVO userAccount, ItemVersionVO item)
+  public boolean checkAccess(AccessType at, Principal principal, ItemVersionVO item)
       throws IngeApplicationException, IngeTechnicalException {
     try {
-      checkAa(at.getMethodName(), userAccount, item, ((ContextDbVO) item.getObject().getContext()));
+      checkAa(at.getMethodName(), principal, item, ((ContextDbVO) item.getObject().getContext()));
     } catch (AuthenticationException | AuthorizationException e) {
       return false;
     } catch (IngeTechnicalException | IngeApplicationException e) {

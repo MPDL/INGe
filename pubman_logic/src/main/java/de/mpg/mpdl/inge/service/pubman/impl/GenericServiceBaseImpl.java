@@ -27,6 +27,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -116,7 +117,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   }
 
 
-  protected void checkAa(String method, AccountUserDbVO userAccount, Object... objects)
+  protected void checkAa(String method, Principal userAccount, Object... objects)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     if (objects == null) {
       objects = new Object[0];

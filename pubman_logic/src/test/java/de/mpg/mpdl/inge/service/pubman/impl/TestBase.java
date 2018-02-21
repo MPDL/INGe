@@ -12,6 +12,7 @@ import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -86,37 +87,37 @@ public class TestBase {
 
   protected String loginDepositor() {
 
-    String token = null;
+    Principal principal = null;
     try {
-      token = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
+      principal = userAccountService.login(DEPOSITOR_LOGIN_NAME, DEPOSITOR_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
-    return token;
+    return principal.getJwToken();
   }
 
   protected String loginModerator() {
 
-    String token = null;
+    Principal principal = null;
     try {
-      token = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
+      principal = userAccountService.login(MODERATOR_LOGIN_NAME, MODERATOR_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
-    return token;
+    return principal.getJwToken();
   }
 
   protected String loginAdmin() {
 
-    String token = null;
+    Principal principal = null;
     try {
-      token = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
+      principal = userAccountService.login(ADMIN_LOGIN_NAME, ADMIN_PASSWORD);
     } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
       e.printStackTrace();
       fail("Caugh exception <" + e.getClass().getSimpleName() + ">");
     }
-    return token;
+    return principal.getJwToken();
   }
 }

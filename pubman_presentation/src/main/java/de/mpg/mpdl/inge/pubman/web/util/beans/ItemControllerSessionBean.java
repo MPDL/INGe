@@ -719,6 +719,7 @@ public class ItemControllerSessionBean extends FacesBean {
    */
   public String saveCurrentPubItem(String navigationRuleWhenSuccessfull) throws ValidationException {
     try {
+
       ItemVersionVO updatedPubItem = null;
 
       if (this.currentPubItem.getObjectId() == null) {

@@ -3,9 +3,11 @@ package de.mpg.mpdl.inge.service.aa;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
@@ -22,11 +25,14 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.util.CSVUtils;
+import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
@@ -43,9 +49,14 @@ public class AuthorizationService {
   @Autowired
   OrganizationService ouService;
 
+  @Autowired
+  private IpListProvider ipListProvider;
 
-  public enum AccessType{
-    GET("get"), READ_FILE("readFile");
+
+  public enum AccessType
+  {
+    GET("get"),
+    READ_FILE("readFile");
 
   private String methodName;
 
@@ -66,10 +77,13 @@ public class AuthorizationService {
   public AuthorizationService() {
 
     try {
+
       aaMap = modelMapper.readValue(ResourceUtil.getResourceAsStream("aa.json", AuthorizationService.class.getClassLoader()), Map.class);
+
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing aa.json file.", e);
     }
+
   }
 
   public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query, Object... objects)
@@ -101,7 +115,7 @@ public class AuthorizationService {
 
     AccountUserDbVO userAccount;
     try {
-      userAccount = (AccountUserDbVO) objects[order.indexOf("user")];
+      userAccount = ((Principal) objects[order.indexOf("user")]).getUserAccount();
     } catch (NullPointerException e) {
       userAccount = null;
 
@@ -191,7 +205,7 @@ public class AuthorizationService {
 
 
             } else {
-              String value = getFieldValueOrString(order, objects, (String) rule.getValue());
+              String value = getFieldValueOrString(order, objects, (String) rule.getValue()).toString();
               if (value != null) {
                 subQb.must(QueryBuilders.termQuery(index, value));
               }
@@ -223,9 +237,9 @@ public class AuthorizationService {
 
 
 
-  public AccountUserDbVO checkLoginRequired(String authenticationToken)
+  public Principal checkLoginRequired(String authenticationToken)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
-    return userAccountService.get(authenticationToken);
+    return new Principal(userAccountService.get(authenticationToken), authenticationToken);
   }
 
 
@@ -259,7 +273,7 @@ public class AuthorizationService {
               }
               default: {
                 String key = rule.getKey();
-                String keyValue = getFieldValueOrString(order, objects, key);
+                String keyValue = getFieldValueOrString(order, objects, key).toString();
                 boolean check = false;
                 if (rule.getValue() instanceof Collection<?>) {
                   List<String> valuesToCompare = (List<String>) rule.getValue();
@@ -268,7 +282,7 @@ public class AuthorizationService {
                     throw new AuthorizationException("Expected one of " + valuesToCompare + " for field " + key + " (" + keyValue + ")");
                   }
                 } else {
-                  String value = getFieldValueOrString(order, objects, (String) rule.getValue());
+                  String value = getFieldValueOrString(order, objects, (String) rule.getValue().toString()).toString();
                   check = (keyValue != null && keyValue.equalsIgnoreCase(value));
                   if (!check) {
                     throw new AuthorizationException("Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
@@ -311,17 +325,61 @@ public class AuthorizationService {
 
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
-
-    AccountUserDbVO userAccount = (AccountUserDbVO) objects[order.indexOf("user")];
-
-    if (userAccount == null) {
-      throw new AuthenticationException("You have to be logged in.");
+    Principal principal = (Principal) objects[order.indexOf("user")];
+    if (principal == null) {
+      throw new AuthenticationException("You have to be logged in with username/password or ip address.");
     }
+    AccountUserDbVO userAccount = principal.getUserAccount();
+
+    String ipMatch = (String) ruleMap.get("ip_match");
+
+    if (ipMatch != null) {
+      DecodedJWT decodedJwt = userAccountService.verifyToken(principal.getJwToken());
+
+      if (decodedJwt.getHeaderClaim("ip") != null) {
+        try {
+          Collection<String> ouIdsToBeMatched = new ArrayList<>();
+          Object ouIdToBeMatched = getFieldValueOrString(order, objects, ipMatch);
+          if (ouIdToBeMatched instanceof String) {
+            ouIdsToBeMatched.add(ouIdToBeMatched.toString());
+          } else if (ouIdToBeMatched instanceof Collection) {
+            ouIdsToBeMatched = (Collection<String>) ouIdToBeMatched;
+          }
+
+          String userIp = decodedJwt.getHeaderClaim("ip").asString();
+          boolean check = false;
+          for (String ouId : ouIdsToBeMatched) {
+            IpRange ouIpRange = ipListProvider.get(ouId);
+
+            if (ouIpRange.matches(userIp)) {
+              check = true;
+              break;
+            }
+          }
+
+
+          if (!check) {
+            throw new AuthenticationException(
+                "The current user's ip adress " + userIp + " does not match required ip range  of organization with id " + ouIdToBeMatched);
+          }
+        } catch (Exception e) {
+          throw new AuthenticationException("Error while matching IPs", e);
+        }
+
+      } else {
+        throw new AuthenticationException("Token contains no IP, but IP match is required");
+      }
+
+    } else if (userAccount == null) {
+      throw new AuthenticationException("You have to be logged in with username/password.");
+
+    }
+
 
     String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
 
     if (userIdFieldMatch != null) {
-      String expectedUserId = getFieldValueOrString(order, objects, userIdFieldMatch);
+      String expectedUserId = getFieldValueOrString(order, objects, userIdFieldMatch).toString();
 
       if (expectedUserId == null || !expectedUserId.equals(userAccount.getObjectId())) {
         throw new AuthorizationException("User is not owner of object.");
@@ -337,7 +395,7 @@ public class AuthorizationService {
 
       List<String> grantFieldMatchValues = new ArrayList<>();
       if (grantFieldMatch != null) {
-        grantFieldMatchValues.add(getFieldValueOrString(order, objects, grantFieldMatch));
+        grantFieldMatchValues.add(getFieldValueOrString(order, objects, grantFieldMatch).toString());
       }
 
 
@@ -386,7 +444,7 @@ public class AuthorizationService {
 
   }
 
-  private String getFieldValueOrString(List<String> order, Object[] objects, String field) throws AuthorizationException {
+  private Object getFieldValueOrString(List<String> order, Object[] objects, String field) throws AuthorizationException {
     if (field.contains(".")) {
       String[] fieldHierarchy = field.split("\\.");
       Object object;
@@ -408,7 +466,7 @@ public class AuthorizationService {
     }
   }
 
-  private String getFieldValueViaGetter(Object object, String field) throws AuthorizationException {
+  private Object getFieldValueViaGetter(Object object, String field) throws AuthorizationException {
     try {
       String[] fieldHierarchy = field.split("\\.");
 
@@ -421,7 +479,7 @@ public class AuthorizationService {
           }
 
           if (fieldHierarchy.length == 1) {
-            return value.toString();
+            return value;
 
           } else {
             return getFieldValueViaGetter(value, field.substring(field.indexOf(".") + 1, field.length()));

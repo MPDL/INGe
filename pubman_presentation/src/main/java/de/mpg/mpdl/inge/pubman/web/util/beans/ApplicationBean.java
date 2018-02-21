@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.SourceVOPresentation;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
@@ -144,6 +145,11 @@ public class ApplicationBean extends FacesBean {
 
   @ManagedProperty("#{yearbookServiceDbImpl}")
   private YearbookService yearbookService;
+
+  @ManagedProperty("#{mpgIpListProvider}")
+  private IpListProvider ipListProvider;
+
+
 
   public ApplicationBean() {
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
@@ -575,6 +581,14 @@ public class ApplicationBean extends FacesBean {
 
   public void setYearbookService(YearbookService yearbookService) {
     this.yearbookService = yearbookService;
+  }
+
+  public IpListProvider getIpListProvider() {
+    return ipListProvider;
+  }
+
+  public void setIpListProvider(IpListProvider ipListProvider) {
+    this.ipListProvider = ipListProvider;
   }
 
 }

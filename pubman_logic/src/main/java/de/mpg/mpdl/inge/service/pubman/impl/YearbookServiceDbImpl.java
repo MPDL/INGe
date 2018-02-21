@@ -20,6 +20,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO.State;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -89,7 +90,7 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Stri
 
   private YearbookDbVO changeState(String id, Date modificationDate, String authenticationToken, YearbookDbVO.State state,
       String methodName) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     YearbookDbVO yearbookDbToBeUpdated = yearbookRepository.findOne(id);
     if (yearbookDbToBeUpdated == null) {
       throw new IngeApplicationException("Yearbook with given id " + id + " not found.");
@@ -97,10 +98,10 @@ public class YearbookServiceDbImpl extends GenericServiceImpl<YearbookDbVO, Stri
 
     checkEqualModificationDate(modificationDate, yearbookDbToBeUpdated.getLastModificationDate());
 
-    checkAa(methodName, userAccount, yearbookDbToBeUpdated);
+    checkAa(methodName, principal, yearbookDbToBeUpdated);
 
     yearbookDbToBeUpdated.setState(state);
-    updateWithTechnicalMetadata(yearbookDbToBeUpdated, userAccount, false);
+    updateWithTechnicalMetadata(yearbookDbToBeUpdated, principal.getUserAccount(), false);
 
     try {
       yearbookDbToBeUpdated = yearbookRepository.saveAndFlush(yearbookDbToBeUpdated);

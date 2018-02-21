@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BasicDbRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -54,11 +55,11 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public ModelObject create(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToCreate = createEmptyDbObject();
-    List<Id> reindexList = updateObjectWithValues(object, objectToCreate, userAccount, true);
-    updateWithTechnicalMetadata(objectToCreate, userAccount, true);
-    checkAa("create", userAccount, objectToCreate);
+    List<Id> reindexList = updateObjectWithValues(object, objectToCreate, principal.getUserAccount(), true);
+    updateWithTechnicalMetadata(objectToCreate, principal.getUserAccount(), true);
+    checkAa("create", principal, objectToCreate);
     try {
       objectToCreate = getDbRepository().saveAndFlush(objectToCreate);
     } catch (DataAccessException e) {
@@ -79,16 +80,16 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public ModelObject update(ModelObject object, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToBeUpdated = getDbRepository().findOne(getObjectId(object));
     if (objectToBeUpdated == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
     checkEqualModificationDate(getModificationDate(object), getModificationDate(objectToBeUpdated));
-    List<Id> reindexList = updateObjectWithValues(object, objectToBeUpdated, userAccount, false);
-    updateWithTechnicalMetadata(objectToBeUpdated, userAccount, false);
+    List<Id> reindexList = updateObjectWithValues(object, objectToBeUpdated, principal.getUserAccount(), false);
+    updateWithTechnicalMetadata(objectToBeUpdated, principal.getUserAccount(), false);
 
-    checkAa("update", userAccount, objectToBeUpdated);
+    checkAa("update", principal, objectToBeUpdated);
     try {
       objectToBeUpdated = getDbRepository().saveAndFlush(objectToBeUpdated);
     } catch (DataAccessException e) {
@@ -110,12 +111,12 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public void delete(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = aaService.checkLoginRequired(authenticationToken);
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
     ModelObject objectToBeDeleted = getDbRepository().findOne(id);
     if (objectToBeDeleted == null) {
       throw new IngeApplicationException("Object with given id not found.");
     }
-    checkAa("delete", userAccount, objectToBeDeleted);
+    checkAa("delete", principal, objectToBeDeleted);
     getDbRepository().delete(id);
     if (getElasticDao() != null) {
       getElasticDao().delete(getIdForElasticSearch(id));
@@ -127,13 +128,13 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Override
   public ModelObject get(Id id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    AccountUserDbVO userAccount = null;
+    Principal principal = null;
     ModelObject object = getDbRepository().findOne(id);
     if (authenticationToken != null) {
-      userAccount = aaService.checkLoginRequired(authenticationToken);
+      principal = aaService.checkLoginRequired(authenticationToken);
     }
 
-    checkAa("get", userAccount, object);
+    checkAa("get", principal, object);
     return object;
   }
 

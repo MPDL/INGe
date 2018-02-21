@@ -4,7 +4,6 @@ package de.mpg.mpdl.inge.service.listener;
 
 import java.io.ByteArrayOutputStream;
 
-import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 
 import org.apache.log4j.LogManager;
@@ -21,7 +20,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @Component
