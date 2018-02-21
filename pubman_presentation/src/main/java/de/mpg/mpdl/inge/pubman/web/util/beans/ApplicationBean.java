@@ -265,7 +265,7 @@ public class ApplicationBean extends FacesBean {
    * @return the escidoc instance
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
-  private SystemType fetchSystemTypeFromProperty() throws PubManVersionNotAvailableException {
+  public SystemType getSystemTypeFromProperty() throws PubManVersionNotAvailableException {
     final String sysType = PropertyReader.getProperty("inge.systemtype");
 
     if (sysType.equals("workstation")) {
@@ -463,7 +463,7 @@ public class ApplicationBean extends FacesBean {
 
       this.appTitle = this.getLabel("Pubman_browserTitle");
       // hide the version information if system type is production
-      if (!this.fetchSystemTypeFromProperty().equals(SystemType.Production_Server) && this.version != null) {
+      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && this.version != null) {
         this.appTitle += " " + this.version;
       }
 
