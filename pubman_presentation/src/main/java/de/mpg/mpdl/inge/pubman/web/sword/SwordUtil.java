@@ -86,6 +86,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -282,8 +283,8 @@ public class SwordUtil extends FacesBean {
    */
   public AccountUserDbVO getAccountUser(String user, String pwd) {
     try {
-      final String token = ApplicationBean.INSTANCE.getUserAccountService().login(user, pwd);
-      return ApplicationBean.INSTANCE.getUserAccountService().get(token);
+      final Principal p = ApplicationBean.INSTANCE.getUserAccountService().login(user, pwd);
+      return p.getUserAccount();
     } catch (final Exception e) {
       e.printStackTrace();
       return null;
