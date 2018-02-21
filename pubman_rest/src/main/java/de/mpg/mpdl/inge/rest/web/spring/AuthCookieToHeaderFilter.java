@@ -16,9 +16,18 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.service.aa.Principal;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 /**
  * Reads cookie with authorization key and adds it as authorization header
@@ -34,9 +43,12 @@ public class AuthCookieToHeaderFilter implements Filter {
 
   private static final Logger logger = LogManager.getLogger(AuthCookieToHeaderFilter.class);
 
+  private UserAccountService userAccountService;
+
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
-    // TODO Auto-generated method stub
+    this.userAccountService =
+        WebApplicationContextUtils.getWebApplicationContext(filterConfig.getServletContext()).getBean(UserAccountService.class);
 
   }
 
@@ -48,16 +60,32 @@ public class AuthCookieToHeaderFilter implements Filter {
 
       Cookie[] cookies = httpServletRequest.getCookies();
 
-      logger.info("Cookies: " + cookies);
+      boolean cookieSet = false;
       if (cookies != null) {
         for (Cookie cookie : cookies) {
           if (COOKIE_NAME.equals(cookie.getName())) {
             HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
             requestWrapper.addHeader(AUTHZ_HEADER, cookie.getValue());
             request = requestWrapper;
-
+            cookieSet = true;
 
           }
+        }
+      }
+
+      //Try to login as anonymous user to enable ip-based authentication
+      if (!cookieSet) {
+        try {
+          Principal principal = userAccountService.login(httpServletRequest, (HttpServletResponse) response);
+          if(principal!=null)
+          {
+            HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
+            requestWrapper.addHeader(AUTHZ_HEADER, principal.getJwToken());
+            request = requestWrapper;
+          }
+          
+        } catch (Exception e) {
+          logger.error("Error logging in anonymous users during rest request", e);
         }
       }
 

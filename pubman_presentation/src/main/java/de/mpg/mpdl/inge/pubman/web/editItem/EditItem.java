@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -946,10 +947,13 @@ public class EditItem extends FacesBean {
   public List<SelectItem> getAudienceIpListSelectItems() {
 
     List<SelectItem> ipRangeSelectItems = new ArrayList<>();
-    ipRangeSelectItems.add(new SelectItem(null, "-"));
+    
     for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
       ipRangeSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
     }
+    
+    Collections.sort(ipRangeSelectItems, (a,b) -> a.getLabel().compareTo(b.getLabel()));
+    ipRangeSelectItems.add(0, new SelectItem(null, "-"));
     return ipRangeSelectItems;
   }
 

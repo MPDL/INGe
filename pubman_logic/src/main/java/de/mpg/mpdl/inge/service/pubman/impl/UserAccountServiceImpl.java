@@ -60,7 +60,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
-  private final static int TOKEN_MAX_AGE_HOURS = 2;
+  private final static int TOKEN_MAX_AGE_HOURS = 24;
 
   @Autowired
   private AuthorizationService aaService;

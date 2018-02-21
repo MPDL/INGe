@@ -116,8 +116,8 @@
 						</h:panelGroup>
 
 
-						<h:panelGroup styleClass="free_area0 tiny_marginRIncl endline">
-							<h:outputLabel id="txtFileAudienceIds" styleClass="xDouble_label" value="#{lbl.files_audience_ids}" />
+						<h:panelGroup styleClass="free_area0 tiny_marginRIncl endline" rendered="#{fileVar.file.visibility=='AUDIENCE' }">
+							<h:outputLabel id="txtFileAudienceIds" styleClass="xDouble_label" value="#{lbl.EditItem_lblFileAudienceIps}" />
 
 							<ui:repeat var="ip" value="#{fileVar.file.allowedAudienceIds}" varStatus="status">
 								<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer">
