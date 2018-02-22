@@ -30,6 +30,7 @@ import java.util.Calendar;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 
 import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -349,8 +350,16 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
   private static QueryBuilder buildDateRangeQuery(String index, String from, String to) {
 
-    return QueryBuilders.rangeQuery(index).gte(roundDateString(from)).lte(roundDateString(to));
+    RangeQueryBuilder qb = QueryBuilders.rangeQuery(index);
+    if (from != null && !from.trim().isEmpty()) {
+      qb.gte(roundDateString(from));
+    }
+    if (to != null && !to.trim().isEmpty()) {
+      qb.lte(roundDateString(to));
+    }
+    return qb;
   }
+
 
   @Override
   public String getElasticSearchNestedPath() {
