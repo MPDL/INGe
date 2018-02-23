@@ -53,13 +53,13 @@ public class RepositoryTest {
   @Test
   public void findAll() {
     List<AffiliationDbVO> ous = organizationRepository.findAll();
-    assertTrue(ous.size() == 2);
+    assertTrue(ous.size() == 3);
 
     List<ContextDbVO> contexts = contextRepository.findAll();
     assertTrue(contexts.size() == 2);
 
     List<AccountUserDbVO> userAccounts = userAccountRepository.findAll();
-    assertTrue(userAccounts.size() == 3);
+    assertTrue(userAccounts.size() == 5);
   }
 
   @Test

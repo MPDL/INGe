@@ -39,6 +39,8 @@ ALTER TABLE ONLY public.yearbook DROP CONSTRAINT ukfmcofdqp6ylrxi2ry431oq2ch;
 ALTER TABLE ONLY public.user_account DROP CONSTRAINT uk_pjo26o2ngxbi23s0sw7nrnrsf;
 ALTER TABLE ONLY public.user_account DROP CONSTRAINT uk_hl02wv5hym99ys465woijmfib;
 ALTER TABLE ONLY public.user_account DROP CONSTRAINT uk_cnacf4jcff11b69f19b4uvpiv;
+ALTER TABLE ONLY public.user_login DROP CONSTRAINT user_login_loginname_fkey2;
+ALTER TABLE ONLY public.user_login DROP CONSTRAINT user_login_pkey;
 ALTER TABLE ONLY public.staged_file DROP CONSTRAINT staged_file_pkey;
 ALTER TABLE ONLY public.organization DROP CONSTRAINT organization_pkey;
 ALTER TABLE ONLY public.item_version DROP CONSTRAINT item_version_pkey;
@@ -413,6 +415,7 @@ CREATE TABLE user_account (
 
 ALTER TABLE user_account OWNER TO postgres;
 
+
 --
 -- Name: user_login; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -424,6 +427,22 @@ CREATE TABLE user_login (
 
 
 ALTER TABLE user_login OWNER TO postgres;
+
+--
+-- Name: user_login_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_login
+    ADD CONSTRAINT user_login_pkey PRIMARY KEY (loginname);
+
+
+--
+-- Name: user_login_loginname_fkey2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_login
+    ADD CONSTRAINT user_login_loginname_fkey2 FOREIGN KEY (loginname) REFERENCES user_account(loginname) ON UPDATE CASCADE ON DELETE CASCADE;
+
 
 --
 -- Name: yearbook; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
