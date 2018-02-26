@@ -26,10 +26,8 @@
 
 package de.mpg.mpdl.inge.aa.web.client;
 
-import java.io.IOException;
+import java.net.URLEncoder;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,30 +41,16 @@ import de.mpg.mpdl.inge.aa.Config;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@SuppressWarnings("serial")
-public class FinalClientServlet extends HttpServlet {
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    doPost(request, response);
-  }
+public class IngeAaClientStart extends StartClient {
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println("Finish");
-    try {
-      String clientClassName = Config.getProperty("inge.aa.client.class");
-      if (clientClassName == null) {
-        clientClassName = Config.getProperty("inge.aa.client.finish.class");
-        Class<?> clientClass = Class.forName(clientClassName);
-        FinalClient client = (FinalClient) clientClass.newInstance();
-        client.process(request, response);
-      } else {
-        Class<?> clientClass = Class.forName(clientClassName);
-        FinalClient client = (FinalClient) clientClass.newInstance();
-        client.process(request, response);
-      }
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+  protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String tan = request.getParameter("tan");
+    String from = request.getParameter("target");
+    String aaInstanceUrl = Config.getProperty("inge.aa.instance.url");
+    return "/auth/login_inge.jsp" + "?target=" + aaInstanceUrl + "clientReturn" + URLEncoder
+        .encode(URLEncoder.encode("?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"), "ISO-8859-1");
+
   }
+
 }

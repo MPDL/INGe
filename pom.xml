@@ -602,6 +602,21 @@
 				<artifactId>axis</artifactId>
 				<version>1.4</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpmime</artifactId>
+				<version>4.5.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>fluent-hc</artifactId>
+				<version>4.5.2</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -906,9 +921,11 @@
 		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
 		<framework.scientist.id>escidoc:2078316</framework.scientist.id>
 		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
-		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</inge.aa.client.finish.class>
-		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</inge.aa.client.logout.class>
-		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</inge.aa.client.start.class>
+		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
+		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
+		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
+		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
+		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
 		<inge.aa.config.file>conf.xml</inge.aa.config.file>
 		<inge.aa.ip.table>ips.xml</inge.aa.ip.table>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
@@ -1141,8 +1158,8 @@
 			<properties>
 				<escidoc.framework_access.framework.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.framework.url>
 				<escidoc.framework_access.login.url>http://dev-pubman.mpdl.mpg.de</escidoc.framework_access.login.url>
-				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/cone/auth/clientLogin</inge.aa.default.target>
-				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/cone/auth/</inge.aa.instance.url>
+				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/auth/clientLogin</inge.aa.default.target>
+				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/auth/</inge.aa.instance.url>
 				<inge.cone.database.server.name>dev.inge.mpdl.mpg.de</inge.cone.database.server.name>
 				<inge.cone.service.url>https://dev.inge.mpdl.mpg.de/cone/</inge.cone.service.url>
 				<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge_new_model</inge.database.jdbc.url>
@@ -1457,8 +1474,8 @@
 										</pluginExecution>
 										<pluginExecution>
 											<pluginExecutionFilter>
-											<groupId>net.revelc.code.formatter</groupId>
-											<artifactId>formatter-maven-plugin</artifactId>
+												<groupId>net.revelc.code.formatter</groupId>
+												<artifactId>formatter-maven-plugin</artifactId>
 												<versionRange>[0.4,)</versionRange>
 												<goals>
 													<goal>format</goal>

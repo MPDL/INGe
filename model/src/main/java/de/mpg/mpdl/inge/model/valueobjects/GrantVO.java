@@ -100,6 +100,8 @@ public class GrantVO extends ValueObject {
     SYSADMIN("SYSADMIN"),
     YEARBOOK_EDITOR("YEARBOOK-EDITOR"),
     YEARBOOK_ADMIN("YEARBOOK-ADMIN"),
+    CONE_OPEN_VOCABULARY_EDITOR("CONE_OPEN_VOCABULARY_EDITOR"),
+    CONE_CLOSED_VOCABULARY_EDITOR("CONE_CLOSED_VOCABULARY_EDITOR"),
     PRIVILEGEDVIEWER("escidoc:role-privileged-viewer"),
     REPORTER("escidoc:role-reporter"),
     AUDIENCE("escidoc:role-audience");

@@ -77,13 +77,12 @@ public class AuthCookieToHeaderFilter implements Filter {
       if (!cookieSet) {
         try {
           Principal principal = userAccountService.login(httpServletRequest, (HttpServletResponse) response);
-          if(principal!=null)
-          {
+          if (principal != null) {
             HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
             requestWrapper.addHeader(AUTHZ_HEADER, principal.getJwToken());
             request = requestWrapper;
           }
-          
+
         } catch (Exception e) {
           logger.error("Error logging in anonymous users during rest request", e);
         }

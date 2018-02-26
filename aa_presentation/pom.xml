@@ -120,6 +120,14 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+		  <artifactId>fluent-hc</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

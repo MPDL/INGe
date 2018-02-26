@@ -35,11 +35,11 @@ public class Login {
     }
 
     boolean showWarning = true;
-    String roleConeOpenVocabularyId = Config.getProperty(PROPERTY_ROLE_CONE_OPEN_VOCABULARY);
-    String roleConeClosedVocabularyId = Config.getProperty(PROPERTY_ROLE_CONE_CLOSED_VOCABULARY);
+    String roleConeOpenVocabularyId = "CONE_OPEN_VOCABULARY_EDITOR";
+    String roleConeClosedVocabularyId = "CONE_CLOSED_VOCABULARY_EDITOR";
 
     for (Role role : aa.getAuthenticationVO().getRoles()) {
-      if ("escidoc:role-system-administrator".equals(role.getKey())) {
+      if ("SYSADMIN".equals(role.getKey())) {
         request.getSession().setAttribute("logged_in", Boolean.TRUE);
         request.getSession().setAttribute("user", aa.getAuthenticationVO());
         request.getSession().setAttribute("edit_open_vocabulary", Boolean.TRUE);

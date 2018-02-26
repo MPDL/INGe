@@ -6,7 +6,6 @@
 <html>
 	<%
 		AaServerConfiguration configuration = new AaServerConfiguration();
-	
 		if (configuration.getMap().size() == 1)
 		{
 			response.sendRedirect("login?" + request.getQueryString() + "&target=" + URLEncoder.encode(configuration.getMap().values().iterator().next(), "ISO-8859-1") + "clientLogin");
