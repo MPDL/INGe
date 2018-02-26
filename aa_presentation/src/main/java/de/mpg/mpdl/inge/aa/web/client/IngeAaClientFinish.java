@@ -79,6 +79,7 @@ public class IngeAaClientFinish extends FinalClient {
         authenticationVO.setUsername(user.getLoginname());
         authenticationVO.setUserId(user.getObjectId());
         authenticationVO.setFullName(user.getName());
+        authenticationVO.setToken(token);
 
         for (GrantVO grantVO : user.getGrantList()) {
           if (grantVO.getObjectRef() == null) {
@@ -86,13 +87,11 @@ public class IngeAaClientFinish extends FinalClient {
 
             role.setKey(grantVO.getRole());
             authenticationVO.getRoles().add(role);
-            System.out.println(authenticationVO.getRoles());
           } else {
             Grant grant = authenticationVO.new Grant();
             grant.setKey(grantVO.getRole());
             grant.setValue(grantVO.getObjectRef());
             authenticationVO.getGrants().add(grant);
-            System.out.println(authenticationVO.getGrants());
           }
         }
         return authenticationVO;
@@ -136,19 +135,15 @@ public class IngeAaClientFinish extends FinalClient {
 
   }
 
-  public static String logoutInInge(String username, String password) throws Exception {
-    String pw = username + ":" + password;
-    Response resp = Request.Post(PropertyReader.getProperty("inge.pubman.instance.url") + "/rest/login")
-        .bodyString(pw, ContentType.TEXT_PLAIN).execute();
+  public static void logoutInInge(String token) throws Exception {
+    Response resp =
+        Request.Get(PropertyReader.getProperty("inge.pubman.instance.url") + "/rest/logout").addHeader("Authorization", token).execute();
     HttpResponse httpResp = resp.returnResponse();
 
-    if (httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+    if (httpResp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+      throw new RuntimeException("Error while logging out");
 
-      String token = httpResp.getLastHeader("Token").getValue();
-      return token;
     }
-
-    return null;
 
 
   }

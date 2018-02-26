@@ -161,6 +161,7 @@ public class AuthenticationVO {
   private String fullName;
   private Set<Grant> grants = new HashSet<AuthenticationVO.Grant>();
   private Set<Role> roles = new HashSet<AuthenticationVO.Role>();
+  private String token;
 
   public AuthenticationVO() {}
 
@@ -278,6 +279,14 @@ public class AuthenticationVO {
 
   public void setFullName(String fullName) {
     this.fullName = fullName;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
 }

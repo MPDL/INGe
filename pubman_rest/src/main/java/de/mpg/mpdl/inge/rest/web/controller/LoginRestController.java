@@ -25,7 +25,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 @RestController
-@RequestMapping("login")
 public class LoginRestController {
 
   private final String TOKEN_HEADER = "Token";
@@ -38,7 +37,7 @@ public class LoginRestController {
     this.userSvc = userSvc;
   }
 
-  @RequestMapping(path = "", method = POST, produces = APPLICATION_JSON_VALUE)
+  @RequestMapping(path = "login", method = POST, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<?> login(@RequestBody String credendials, HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     String username = credendials.split(":")[0];
@@ -52,11 +51,19 @@ public class LoginRestController {
     return null;
   }
 
-  @RequestMapping(path = "/who", method = GET, produces = APPLICATION_JSON_VALUE)
+  @RequestMapping(path = "login/who", method = GET, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user = userSvc.get(token);
     return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
+  }
+
+  @RequestMapping(path = "logout", method = GET, produces = APPLICATION_JSON_VALUE)
+  public String logout(@RequestHeader(value = AUTHZ_HEADER) String token, HttpServletRequest request, HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    userSvc.logout(token, request, response);
+
+    return "Successfully logged out";
   }
 
 }

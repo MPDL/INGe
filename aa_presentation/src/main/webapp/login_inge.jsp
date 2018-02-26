@@ -96,7 +96,7 @@ if(request.getParameter("username")!=null) {
 							<!-- Citation title and icon -->
 							<div class="third_area0_p6">
 								<h5 class="tile_citation_title">
-									<img src="../resources/images/overviewPage/MPG_authors_64.png" class="big_imgBtn" align="right">Einloggen
+									<img src="/pubman/resources/images/overviewPage/MPG_authors_64.png" class="big_imgBtn" align="right">Einloggen
 								</h5>
 							</div>
 							<div class="third_area0_p6">
