@@ -28,6 +28,7 @@
 --%>
 
 
+<%@page import="de.mpg.mpdl.inge.cone.ConeException"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
@@ -75,7 +76,7 @@
 	String sessionAttributePrefix = "coneSubSession_";
 	
 
-	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn)
+	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn) throws ConeException
 	{
 		
     	StringWriter out = new StringWriter();
@@ -390,7 +391,7 @@
 	    return out.toString();
 	}
 	
-	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix)
+	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix) throws ConeException
 	{
 	    	    
         for (Predicate predicate : predicates)
