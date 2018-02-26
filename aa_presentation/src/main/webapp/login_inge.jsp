@@ -54,7 +54,7 @@ if(request.getParameter("username")!=null) {
 			<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu"> </span>
 			<div class="full_area0 LogoNSearch">
 				<a id="lnkStartPage" name="lnkStartPage" href="/cone"
-					title="Gehe zu CoNE"><img src="/pubman/resources/images/pure_logo_web.png"
+					title="Gehe zu CoNE"><img src="/cone/img/cone_logo_web.png"
 					style="border: none;" class="tiny_marginLExcl headerLogo">
 				<span class="tiny_marginLExcl xDouble_area0 themePark "></span></a>
 
