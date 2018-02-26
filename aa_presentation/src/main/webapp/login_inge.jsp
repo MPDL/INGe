@@ -53,8 +53,8 @@ if(request.getParameter("username")!=null) {
 			<!-- import meta menu here -->
 			<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu"> </span>
 			<div class="full_area0 LogoNSearch">
-				<a id="lnkStartPage" name="lnkStartPage" href="http://pubman.mpdl.mpg.de/pubman/faces/HomePage.jsp"
-					title="Zur PubMan Startseite wechseln."><img src="/pubman/resources/images/pure_logo_web.png"
+				<a id="lnkStartPage" name="lnkStartPage" href="/cone"
+					title="Gehe zu CoNE"><img src="/pubman/resources/images/pure_logo_web.png"
 					style="border: none;" class="tiny_marginLExcl headerLogo">
 				<span class="tiny_marginLExcl xDouble_area0 themePark "></span></a>
 
@@ -66,8 +66,8 @@ if(request.getParameter("username")!=null) {
 		</div>
 		<!-- import main menu here -->
 		<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
-			<a id="lnkHome" name="lnkHome" href="/pubman/faces/HomePage.jsp"
-				title="Gehe zur PubMan Startseite." class="free_area0">START</a>
+			<a id="lnkHome" name="lnkHome" href="/cone"
+				title="Gehe zu CoNE." class="free_area0">Back to CoNE</a>
 		</div>
 
 
@@ -78,7 +78,7 @@ if(request.getParameter("username")!=null) {
 
 						<div id="contentSkipLinkAnchor" class="clear headLine">
 							<!-- Headline starts here -->
-							<h1>Einloggen</h1>
+							<h1>Login</h1>
 							<!-- Headline ends here -->
 						</div>
 					</div>
@@ -96,24 +96,25 @@ if(request.getParameter("username")!=null) {
 							<!-- Citation title and icon -->
 							<div class="third_area0_p6">
 								<h5 class="tile_citation_title">
-									<img src="/pubman/resources/images/overviewPage/MPG_authors_64.png" class="big_imgBtn" align="right">Einloggen
+									<img src="/pubman/resources/images/overviewPage/MPG_authors_64.png" class="big_imgBtn" align="right">
+									Login
 								</h5>
 							</div>
 							<div class="third_area0_p6">
 							<p><% if(message!=null) out.println(message); %></p>
 							<form method="post">
 								<span class="quad_area0_p8 xTiny_marginLExcl endline">
-									<span class="double_label">Benutzername</span>
+									<span class="double_label">Username</span>
 									<input name="username" class="double_txtInput username" type="text">
 								</span>
 								<!-- Reenter password -->
 								<span class="quad_area0_p8 xTiny_marginLExcl endline">
-									<span class="double_label">Passwort</span>
+									<span class="double_label">Password</span>
 									<input name="password" value="" class="double_txtInput password" type="password">
 								</span>
 								<!-- Update password -->
 								<span class="quad_area0_p8 xTiny_marginLExcl endline">
-									<input name="submit" value="Einloggen" class="free_area1_p8 activeButton" type="submit">
+									<input name="submit" value="Login" class="free_area1_p8 activeButton" type="submit">
 								</span>
 								<span class="quad_area0_p8 xTiny_marginLExcl endline"></span>
 							</form>
