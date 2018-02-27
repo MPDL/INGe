@@ -434,8 +434,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       } else {
 
-        // New file
+        //New file or locator
         currentFileDbVO = new FileDbVO();
+
+        //New real file
         if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
           fileService.createFileFromStagedFile(fileVo, principal.getUserAccount());
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
@@ -444,12 +446,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
           currentFileDbVO.setChecksum(fileVo.getChecksum());
           currentFileDbVO.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(fileVo.getChecksumAlgorithm().name()));
-
-
+          currentFileDbVO.setSize(fileVo.getSize());
+          currentFileDbVO.setMimeType(fileVo.getMimeType());
+          currentFileDbVO.setName(fileVo.getName());
 
         }
 
-        currentFileDbVO.setContent(fileVo.getContent());
+
         currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
         currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
 
@@ -470,8 +473,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       currentFileDbVO.setLastModificationDate(currentDate);
       currentFileDbVO.setMetadata(fileVo.getMetadata());
-      currentFileDbVO.setName(fileVo.getMetadata().getTitle());
-      currentFileDbVO.setMimeType(fileVo.getMimeType());
+
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
       currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
       updatedFileList.add(currentFileDbVO);
