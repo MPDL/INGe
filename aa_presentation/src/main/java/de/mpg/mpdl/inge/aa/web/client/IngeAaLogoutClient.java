@@ -21,11 +21,10 @@ public class IngeAaLogoutClient extends LogoutClient {
     String originalTarget = request.getParameter("target");
 
     Aa aa = new Aa(request);
-    if(aa.getAuthenticationVO()!=null)
-    {
+    if (aa.getAuthenticationVO() != null) {
       IngeAaClientFinish.logoutInInge(aa.getAuthenticationVO().getToken());
     }
-    
+
     HttpSession session = request.getSession(false);
     if (session != null) {
       session.invalidate();

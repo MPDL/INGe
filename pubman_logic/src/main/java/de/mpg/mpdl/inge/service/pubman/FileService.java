@@ -43,4 +43,6 @@ public interface FileService extends FileServiceExternal {
 
   public void deleteFile(String reference) throws IngeTechnicalException;
 
+  public void deleteOldStagingFiles();
+
 }

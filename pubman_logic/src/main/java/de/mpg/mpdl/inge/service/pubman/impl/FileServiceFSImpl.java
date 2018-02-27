@@ -14,9 +14,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
@@ -31,6 +37,7 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.SAXException;
@@ -167,7 +174,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     StagedFileDbVO stagedFileVo = new StagedFileDbVO();
     stagedFileVo.setFilename(fileName);
-    stagedFileVo = stagedFileRepository.save(stagedFileVo);
+
     stagedFileVo.setCreatorId(user.getUserAccount().getObjectId());
 
     try {
@@ -186,6 +193,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       }
     }
 
+    stagedFileVo = stagedFileRepository.save(stagedFileVo);
     return stagedFileVo;
 
   }
@@ -275,14 +283,21 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   @Transactional(rollbackFor = Throwable.class)
   private void deleteStageFile(StagedFileDbVO stagedFileVO) throws IngeTechnicalException {
 
-    stagedFileRepository.delete(stagedFileVO);
+    logger.info("Trying to delete staged file " + stagedFileVO.getId() + " / Name: " + stagedFileVO.getFilename() + " / Path: "
+        + stagedFileVO.getPath());
     try {
-
-      Files.deleteIfExists(Paths.get(stagedFileVO.getPath()));
+      if (Files.exists(Paths.get(stagedFileVO.getPath()))) {
+        Files.deleteIfExists(Paths.get(stagedFileVO.getPath()));
+        stagedFileRepository.delete(stagedFileVO);
+      } else {
+        logger.warn("Staged File " + stagedFileVO.getId() + " / Name: " + stagedFileVO.getFilename() + " / Path: " + stagedFileVO.getPath()
+            + " does not exist");
+      }
     } catch (IOException e) {
       logger.error("Could not delete staged file [" + stagedFileVO.getPath() + "]", e);
       throw new IngeTechnicalException("Could not delete staged file", e);
     }
+
   }
 
 
@@ -400,6 +415,25 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     // return complete hash
     return sb.toString();
+  }
+
+  @Scheduled(cron = "${inge.cron.cleanup_staging_files}")
+  @PostConstruct
+  public void deleteOldStagingFiles() {
+
+    Date old = Date.from(ZonedDateTime.now().minusHours(6).toInstant());
+    logger.info("CRON: Deleting unused staging files since " + old);
+    List<StagedFileDbVO> fileList = stagedFileRepository.findByCreationDateBefore(old);
+    for (StagedFileDbVO stagedFile : fileList) {
+
+      try {
+        deleteStageFile(stagedFile);
+      } catch (IngeTechnicalException e) {
+        logger.error("Error deleting stage file" + e);
+      }
+    }
+
+
   }
 
 }

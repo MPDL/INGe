@@ -508,17 +508,17 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>5.2.12.Final</version>
+				<version>5.2.13.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>5.2.12.Final</version>
+				<version>5.2.13.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-ehcache</artifactId>
-				<version>5.2.12.Final</version>
+				<version>5.2.13.Final</version>
 			</dependency>
 			<dependency>
 				<groupId>org.postgresql</groupId>
@@ -946,6 +946,7 @@
 		<inge.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</inge.context.pattern>
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
+		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
