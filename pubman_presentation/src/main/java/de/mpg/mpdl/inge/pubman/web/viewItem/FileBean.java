@@ -317,12 +317,16 @@ public class FileBean extends FacesBean {
   }
 
   public String getFileName() {
+    return file.getName();
+    /*
     if (this.file.getMetadata() != null && this.file.getMetadata().getTitle() != null) {
       return this.file.getMetadata().getTitle();
     }
-
+    
     return "";
+    */
   }
+
 
   public String getFileDescription() {
     if (this.file.getMetadata() != null && this.file.getMetadata().getDescription() != null) {
@@ -358,11 +362,7 @@ public class FileBean extends FacesBean {
   }
 
   public String getFileSize() {
-    if (this.file.getMetadata() != null) {
-      return this.computeFileSize(this.file.getMetadata().getSize());
-    }
-
-    return "0";
+    return this.computeFileSize(file.getSize());
   }
 
   public List<String> getSearchHits() {

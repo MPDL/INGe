@@ -95,6 +95,20 @@
 								rendered="#{!ViewItemFull.isStateReleased or file.file.pid == null or !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}" />
 						</span>
 					</h:panelGroup>
+					<!-- File name -->
+					<h:panelGroup layout="block"
+						styleClass="free_area0 endline itemLine">
+						<b class="xLarge_area0_p8 endline labelLine"> <h:outputText
+								value="#{lbl.ViewItemMedium_lblFileName}" /><span
+							class="noDisplay">: <br /></span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
+								value="#{file.file.metadata.title}"
+								rendered="#{not ViewItemFull.isStateWithdrawn}" /> <h:outputText
+								value="#{lbl.lbl_noEntry}"
+								rendered="#{empty file.file.metadata.title}" />
+						</span>
+					</h:panelGroup>
 					<!-- File description -->
 					<h:panelGroup layout="block"
 						styleClass="free_area0 endline itemLine">
