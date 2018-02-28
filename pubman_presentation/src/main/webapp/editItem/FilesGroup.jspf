@@ -170,7 +170,7 @@
 						<span class="large_area0 xTiny_marginRIncl">
 							<h:outputLabel id="txtMimeType" styleClass="large_label labelToTextAreaBottom"
 								value="#{lbl.EditItem_lblMimeType}" />
-							<h:inputText id="inpMimeType" styleClass="large_txtInput" value="#{fileVar.mimeType}" />
+							<h:outputText id="inpMimeType" styleClass="large_label" value="#{fileVar.mimeType}" />
 						</span>
 					</span>
 				</h:panelGroup>
