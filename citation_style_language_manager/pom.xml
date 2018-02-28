@@ -80,11 +80,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		
-		<!-- This citeproc version is a snapshot version although the version number does not indicate it. It requires rhino library
-		The newer releases of citeproc (1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated in JDK8. However,
-		we got massive performance problems with the newer versions, so we use the old version until the performance problems are solved.
-		-->
+
+		<!-- This citeproc version is a snapshot version although the version number 
+			does not indicate it. It requires rhino library The newer releases of citeproc 
+			(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
+			in JDK8. However, we got massive performance problems with the newer versions, 
+			so we use the old version until the performance problems are solved. -->
 		<dependency>
 			<groupId>de.undercouch</groupId>
 			<artifactId>citeproc-java</artifactId>
@@ -93,11 +94,16 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.citationstyles</groupId>
+			<artifactId>locales</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.mozilla</groupId>
 			<artifactId>rhino</artifactId>
 			<version>1.7R4</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
