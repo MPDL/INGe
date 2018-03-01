@@ -41,6 +41,34 @@
 					<argLine>${jacoco.arguments.ut}</argLine>
 				</configuration>
 			</plugin>
+			<plugin>
+                <groupId>com.github.alexcojocaru</groupId>
+                <artifactId>elasticsearch-maven-plugin</artifactId>
+                <version>6.1</version>
+                <configuration>
+                    <clusterName>testCluster</clusterName>
+                    <transportPort>9500</transportPort>
+                    <httpPort>9400</httpPort>
+                    <version>6.1.1</version>
+                    <pathInitScript> src/test/resources/es_scripts/init.script</pathInitScript>               
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-elasticsearch</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>runforked</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-elasticsearch</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 
@@ -65,12 +93,14 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_es_connector</artifactId>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_es_connector</artifactId>
 			<classifier>tests</classifier>
 			<scope>test</scope>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_db_connector</artifactId>
@@ -151,6 +181,11 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish</groupId>

@@ -12,14 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
-import de.mpg.mpdl.inge.es.connector.spring.AppConfigIngeEsConnectorTest;
 import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
-@Import({AppConfigPidServiceTest.class, AppConfigIngeEsConnectorTest.class, JPAConfiguration.class, AppConfigFileStorage.class})
+@Import({AppConfigPidServiceTest.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
-@PropertySource("classpath:es_connector.properties")
 public class AppConfigPubmanLogicTest {
   private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogicTest.class);
 

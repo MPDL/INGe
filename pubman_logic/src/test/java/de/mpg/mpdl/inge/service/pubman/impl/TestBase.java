@@ -50,22 +50,6 @@ public class TestBase {
   @Autowired
   protected UserAccountService userAccountService;
 
-  static {
-    try {
-      FileUtils.deleteDirectory(new File("./target/es"));
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    try {
-      logger.info("Removed successfully previous Elasticsearch test index <" + (new File("./target/es")).getCanonicalPath() + ">");
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-  }
-
   protected static boolean havingSlept = false;
 
   protected void logMethodName() {
