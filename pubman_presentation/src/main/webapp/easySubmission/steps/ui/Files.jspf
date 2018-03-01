@@ -19,7 +19,7 @@
 				<!-- Real filename -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
-					rendered="#{fileComponent.index == 0 and fileComponent.size > 0}">
+					rendered="#{fileComponent.index == 0 and fileComponent.file.content != null}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<span
 						class="noDisplay"> </span>
 					</b>
@@ -29,7 +29,7 @@
 				</h:panelGroup>
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine"
-					rendered="#{fileComponent.index > 0 and fileComponent.size > 0}">
+					rendered="#{fileComponent.index > 0 and fileComponent.file.content != null}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<span
 						class="noDisplay"> </span>
 					</b>
@@ -42,7 +42,7 @@
 					rendered="#{!(genre.files_component_content_category_display == 'false' and genre.files_component_content_category_form_id == 'easy-submission' || genre.files_component_content_category_display == 'false' and genre.files_component_content_category_form_id == 'all')}">
 					<h:panelGroup layout="block"
 						styleClass="free_area0 endline itemLine noTopBorder"
-						rendered="#{fileComponent.size > 0}">
+						rendered="#{fileComponent.file.content != null}">
 						<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 								styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
 								rendered="#{genre.files_component_content_category_optional != 'true'}" />
@@ -73,7 +73,7 @@
 				<!-- Filename, File visibility -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
-					rendered="#{fileComponent.size > 0}">
+					rendered="#{fileComponent.file.content != null}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
 							rendered="#{genre.files_component_name_optional != 'true' || genre.files_component_visibility_optional != 'true'}" />
@@ -98,7 +98,7 @@
 				<!-- File visibility, Embargo Date -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
-					rendered="#{fileComponent.size > 0}">
+					rendered="#{fileComponent.file.content != null}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
 							rendered="false" /><span class="noDisplay">:</span>
@@ -145,7 +145,7 @@
 				<!-- File description, MIME type -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
-					rendered="#{fileComponent.size > 0}">
+					rendered="#{fileComponent.file.content != null}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
 							rendered="false" /><span class="noDisplay"> </span>
@@ -176,7 +176,7 @@
 				<!-- Copyright Statement, Copyright Date, File Licence -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder copyrightArea"
-					rendered="#{fileComponent.size > 0}">
+					rendered="#{fileComponent.file.content != null}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
 							rendered="false" /> <h:outputText

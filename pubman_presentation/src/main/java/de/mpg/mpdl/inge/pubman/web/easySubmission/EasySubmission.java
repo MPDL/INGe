@@ -511,6 +511,7 @@ public class EasySubmission extends FacesBean {
       final UploadedFile file = this.uploadedFile;
       final StringBuffer errorMessage = new StringBuffer();
       if (file != null) {
+        
         final String contentURL = this.uploadFile(file);
         final String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
         if (contentURL != null && !contentURL.trim().equals("")) {
@@ -523,17 +524,8 @@ public class EasySubmission extends FacesBean {
 
           newFile.getMetadata().setTitle(fixedFileName);
           newFile.setName(fixedFileName);
+          newFile.setMimeType(file.getContentType());
           newFile.setSize((int) file.getSize());
-
-          final Tika tika = new Tika();
-          try {
-            final InputStream fis = file.getInputstream();
-            newFile.setMimeType(tika.detect(fis, fixedFileName));
-            fis.close();
-          } catch (final IOException e) {
-            EasySubmission.logger.info("Error while trying to detect mimetype of file " + fixedFileName, e);
-          }
-
           final FormatVO formatVO = new FormatVO();
           formatVO.setType("dcterms:IMT");
           formatVO.setValue(newFile.getMimeType());
@@ -559,82 +551,19 @@ public class EasySubmission extends FacesBean {
    * @return
    */
   public String uploadFile(UploadedFile file) {
-    String contentURL = "";
-
-    if (file != null && file.getSize() > 0) {
-      try {
-        final URL url = this.uploadFile(file, file.getContentType(), this.getLoginHelper().getESciDocUserHandle());
-        if (url != null) {
-          contentURL = url.toString();
-        }
-      } catch (final Exception e) {
-        EasySubmission.logger.error("Could not upload file." + "\n" + e.toString());
-        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
-        try {
-          FacesTools.getExternalContext().redirect("ErrorPage.jsp");
-        } catch (final Exception ex) {
-          EasySubmission.logger.error(e.toString());
-        }
-        return ErrorPage.LOAD_ERRORPAGE;
-      }
+    
+    String path = null;
+    try {
+      StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
+          getLoginHelper().getAuthenticationToken());
+      path = String.valueOf(stagedFile.getId());
+    } catch (Exception e) {
+      logger.error("Could not upload staged file [" + path + "]", e);
+      error("Could not upload staged file [" + path + "]");
     }
-
-    return contentURL;
+    return path;
   }
 
-  /**
-   * Uploads a file to the staging servlet and returns the corresponding URL.
-   * 
-   * @param uploadedFile The file to upload
-   * @param mimetype The mimetype of the file
-   * @param userHandle The userhandle to use for upload
-   * @return The URL of the uploaded file.
-   * @throws Exception If anything goes wrong...
-   */
-  protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception {
-    final String fwUrl = PropertyReader.getFrameworkUrl();
-
-    final InputStream fis = uploadedFile.getInputstream();
-    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-    method.setRequestEntity(new InputStreamRequestEntity(fis));
-    method.setRequestHeader("Content-Type", mimetype);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
-    final HttpClient client = new HttpClient();
-    ProxyHelper.setProxy(client, fwUrl);
-    client.executeMethod(method);
-
-    final String response = method.getResponseBodyAsString();
-
-    fis.close();
-
-    return XmlTransformingService.transformUploadResponseToFileURL(response);
-  }
-
-  /**
-   * Uploads a file to the staging servlet and returns the corresponding URL.
-   * 
-   * @param InputStream to upload
-   * @param mimetype The mimetype of the file
-   * @param userHandle The userhandle to use for upload
-   * @return The URL of the uploaded file.
-   * @throws Exception If anything goes wrong...
-   */
-  protected URL uploadFile(InputStream in, String mimetype, String userHandle) throws Exception {
-    final String fwUrl = PropertyReader.getFrameworkUrl();
-
-    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-    method.setRequestEntity(new InputStreamRequestEntity(in));
-    method.setRequestHeader("Content-Type", mimetype);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
-    final HttpClient client = new HttpClient();
-    client.executeMethod(method);
-
-    final String response = method.getResponseBodyAsString();
-
-    return XmlTransformingService.transformUploadResponseToFileURL(response);
-  }
 
   /**
    * Handles the import from an external ingestion sources.
