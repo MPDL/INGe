@@ -50,7 +50,7 @@
                     <transportPort>9500</transportPort>
                     <httpPort>9400</httpPort>
                     <version>6.1.1</version>
-                    <pathInitScript> src/test/resources/es_scripts/init.script</pathInitScript>               
+                    <pathInitScript>target/test-classes/es_scripts/init.script</pathInitScript>               
                 </configuration>
                 <executions>
                     <execution>

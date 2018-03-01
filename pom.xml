@@ -1166,7 +1166,9 @@
 				<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge_new_model</inge.database.jdbc.url>
 				<inge.doi.service.url>https://test.doi.mpdl.mpg.de</inge.doi.service.url>
 				<inge.es.cluster.name>elastic_inge</inge.es.cluster.name>
+				<inge.es.cluster.name.test>testCluster</inge.es.cluster.name.test>
 				<inge.es.transport.ips>134.76.28.200:8080</inge.es.transport.ips>
+				<inge.es.transport.ips.test>127.0.0.1:9500</inge.es.transport.ips.test>
 				<inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
 				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
 				<inge.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
