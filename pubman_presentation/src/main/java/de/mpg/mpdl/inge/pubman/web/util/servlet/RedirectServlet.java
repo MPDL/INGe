@@ -27,6 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.util.servlet;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.piwik.java.tracking.PiwikRequest;
+import org.piwik.java.tracking.PiwikTracker;
 
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
@@ -100,8 +103,11 @@ public class RedirectServlet extends HttpServlet {
       // view technical metadata
       if (tme) {
         redirectUrl.append("/metadata");
-
       }
+      PiwikRequest request = new PiwikRequest(new Integer(52), new URL(redirectUrl.toString()));
+      PiwikTracker tracker = new PiwikTracker("https://analytics.mpdl.mpg.de");
+      tracker.sendRequest(request);
+
       resp.sendRedirect(redirectUrl.toString());
     }
 
