@@ -20,10 +20,8 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
   private final static Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
-    this.client = new PreBuiltTransportClient(Settings.builder()
-        .put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
-        .put("client.transport.sniff", true)
-        .build());
+    this.client = new PreBuiltTransportClient(Settings.builder().put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
+        .put("client.transport.sniff", true).build());
 
     logger.info("Building TransportClient for <" + PropertyReader.getProperty("inge.es.cluster.name") + ">" + " and <"
         + PropertyReader.getProperty("inge.es.transport.ips") + "> ");

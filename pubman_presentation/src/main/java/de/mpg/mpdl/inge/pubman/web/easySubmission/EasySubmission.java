@@ -511,7 +511,7 @@ public class EasySubmission extends FacesBean {
       final UploadedFile file = this.uploadedFile;
       final StringBuffer errorMessage = new StringBuffer();
       if (file != null) {
-        
+
         final String contentURL = this.uploadFile(file);
         final String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
         if (contentURL != null && !contentURL.trim().equals("")) {
@@ -551,7 +551,7 @@ public class EasySubmission extends FacesBean {
    * @return
    */
   public String uploadFile(UploadedFile file) {
-    
+
     String path = null;
     try {
       StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),

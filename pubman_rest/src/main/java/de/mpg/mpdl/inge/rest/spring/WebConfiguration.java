@@ -1,10 +1,13 @@
 package de.mpg.mpdl.inge.rest.spring;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -18,6 +21,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 
 @Configuration
 @EnableWebMvc
@@ -35,14 +40,22 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
 
   @Override
   public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+
+    /*
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     objectMapper.registerModule(new JavaTimeModule());
+    */
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-    converter.setObjectMapper(objectMapper);
+    converter.setObjectMapper(MapperFactory.getObjectMapper());
     converters.add(0, converter);
+
+    StringHttpMessageConverter smc = new StringHttpMessageConverter();
+    smc.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
+    converters.add(0, smc);
+    System.out.println("Converters" + converters);
     super.extendMessageConverters(converters);
   }
 
