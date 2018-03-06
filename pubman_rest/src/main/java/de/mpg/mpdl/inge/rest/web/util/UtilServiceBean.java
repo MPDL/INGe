@@ -91,7 +91,8 @@ public class UtilServiceBean {
   }
 
 
-  public static <T> ResponseEntity<String> scroll(GenericService<T, ?> service, JsonNode scrollJson, String token, HttpServletResponse httpResp)
+  public static <T> ResponseEntity<String> scroll(GenericService<T, ?> service, JsonNode scrollJson, String token,
+      HttpServletResponse httpResp)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     String scrollTimeValue = scrollJson.get("scroll").asText();
     String scrollId = scrollJson.get("scroll_id").asText();
@@ -102,7 +103,7 @@ public class UtilServiceBean {
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
     XContentBuilder builder = XContentFactory.jsonBuilder(httpResp.getOutputStream());
     resp.toXContent(builder, ToXContent.EMPTY_PARAMS);
-    
+
     return new ResponseEntity<String>(builder.string(), HttpStatus.OK);
   }
 
