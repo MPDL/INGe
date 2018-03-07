@@ -75,19 +75,19 @@ public class XmlHelper {
 
   private static final Logger logger = Logger.getLogger(XmlHelper.class);
 
-  public final static String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
-  public final static String SCHEMATRON_DIRECTORY = "Schematron/";
-  public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
-  public final static String FONT_STYLES_COLLECTION_FILE = "font-styles.xml";
+  public static final String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
+  public static final String SCHEMATRON_DIRECTORY = "Schematron/";
+  public static final String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
+  public static final String FONT_STYLES_COLLECTION_FILE = "font-styles.xml";
 
-  public final static String AJP = "AJP";
-  public final static String APA = "APA";
-  public final static String APA6 = "APA6";
-  public final static String APA_CJK = "APA(CJK)";
-  public final static String CSL = "CSL";
-  public final static String DEFAULT = "Default";
-  public final static String JUS = "JUS";
-  public final static String JUS_REPORT = "JUS_Report";
+  public static final String AJP = "AJP";
+  public static final String APA = "APA";
+  public static final String APA6 = "APA6";
+  public static final String APA_CJK = "APA(CJK)";
+  public static final String CSL = "CSL";
+  public static final String DEFAULT = "Default";
+  public static final String JUS = "JUS";
+  public static final String JUS_REPORT = "JUS_Report";
 
   public static final String DOCX = "docx";
   public static final String ESCIDOC_SNIPPET = "escidoc_snippet";
