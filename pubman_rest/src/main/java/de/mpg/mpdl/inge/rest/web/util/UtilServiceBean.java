@@ -1,7 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.util;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
