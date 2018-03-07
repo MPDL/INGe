@@ -15,6 +15,7 @@ public class Main {
   static Logger log = Logger.getLogger(Main.class.getName());
 
   public static void main(String[] args) {
+
     try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MigrationConfiguration.class)) {
       Migration bean = ctx.getBean(Migration.class);
       String furl = ctx.getEnvironment().getProperty("escidoc.url");
