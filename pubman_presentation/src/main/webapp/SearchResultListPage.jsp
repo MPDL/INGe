@@ -160,7 +160,7 @@
                                     <h2>
                                         <h:outputText value="#{msg.searchResultList_QueryString}" />
                                     </h2>
-                                    <h:outputText value="#{SearchRetrieverRequestBean.prettyElasticSearchQuery}" style="white-space:pre-wrap;" />
+                                    <h:outputText value="#{SearchRetrieverRequestBean.queryString}" style="white-space:pre-wrap;" />
                                 </h:panelGroup>
                                 <!-- Subheadline ends here -->
                             </h:panelGroup>

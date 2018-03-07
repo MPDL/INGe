@@ -41,17 +41,12 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
   @Override
   public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 
-    /*
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    objectMapper.registerModule(new JavaTimeModule());
-    */
+    //First place: A Json converter using our default Jackson object mapper
     MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
     converter.setObjectMapper(MapperFactory.getObjectMapper());
     converters.add(0, converter);
 
+    //Second place: A String converter which allows to return strings as json
     StringHttpMessageConverter smc = new StringHttpMessageConverter();
     smc.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
     converters.add(0, smc);
