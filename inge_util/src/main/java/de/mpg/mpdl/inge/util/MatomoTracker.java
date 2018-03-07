@@ -79,7 +79,6 @@ public class MatomoTracker {
       }
     }
 
-
     return sb.toString();
   }
 }
