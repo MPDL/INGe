@@ -12,6 +12,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 /**
+ * Tracking direct calls to REST services in Matomo
  * 
  * @author walter
  *
@@ -31,6 +32,13 @@ public class MatomoTracker {
 
   }
 
+  /**
+   * trackUrl tracks a call to a REST service in Matomo
+   * 
+   * @param parameterMap - you can add all parameters Matomo offers
+   *        (https://developer.matomo.org/api-reference/tracking-api) necessary parameters are:
+   *        token_auth, rec, idsite, url, cip
+   */
   public static void trackUrl(HashMap<String, String> parameterMap) {
     HttpClient client = new HttpClient();
     GetMethod getMethod = new GetMethod(HOST_URL);
@@ -47,6 +55,13 @@ public class MatomoTracker {
     }
   }
 
+
+  /**
+   * transforms a parameter HashMap into a URL encoded query String
+   * 
+   * @param parameterMap
+   * @return a query String which is URL encoded
+   */
   private static String getUrlEncodedQueryString(HashMap<String, String> parameterMap) {
     StringBuilder sb = new StringBuilder();
     for (Entry<String, String> parameter : parameterMap.entrySet()) {
