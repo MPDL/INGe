@@ -62,6 +62,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
   VndErrors ingeTech(IngeTechnicalException iingeTechnicalException) {
+    logger.error("Error in REST service", iingeTechnicalException);
     if (iingeTechnicalException.getMessage() != null) {
       VndErrors techErrors = new VndErrors("500", iingeTechnicalException.getMessage());
       techErrors = addTheCause(techErrors, iingeTechnicalException);
@@ -75,6 +76,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
   VndErrors ingeApp(IngeApplicationException iingeApplicationException) {
+    logger.error("Error in REST service", iingeApplicationException);
     if (iingeApplicationException.getMessage() != null) {
       VndErrors appErrors = new VndErrors("400", iingeApplicationException.getMessage());
       appErrors = addTheCause(appErrors, iingeApplicationException);
@@ -99,7 +101,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
   VndErrors genreic(Exception exception) {
-    logger.error("pech!", exception);
+    logger.error("Error in REST service", exception);
     if (exception.getMessage() != null) {
       VndErrors genericErrors = new VndErrors("500", exception.getClass().getCanonicalName() + ": " + exception.getMessage());
       genericErrors = addTheCause(genericErrors, exception);

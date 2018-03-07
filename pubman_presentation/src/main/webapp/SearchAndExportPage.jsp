@@ -143,8 +143,7 @@
                     </div>
                     
                     <div class="full_area0 formButtonArea">
-                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" onmouseover="$(this).parents('.full_area0').find('.updateButton').click();"/>
-                        <h:commandButton id="btnUpdatePage2" styleClass="noDisplay updateButton" action="#{SearchAndExportPage.updatePage}" />
+                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}"/>
                     </div>
                   
                 <h:panelGroup layout="block" styleClass="full_area0 clear">
