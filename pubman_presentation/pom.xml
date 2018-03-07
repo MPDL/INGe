@@ -96,15 +96,10 @@
 										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
-								<!-- 
-								<merge>
-									<targetFile>${project.build.outputDirectory}/Label_es.properties</targetFile>
-									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_es.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_es.properties</propertiesFile>
-									</propertiesFiles>
-								</merge>
-								 -->
+								<!-- <merge> <targetFile>${project.build.outputDirectory}/Label_es.properties</targetFile> 
+									<propertiesFiles> <propertiesFile>src/main/resources/opensource/Label_es.properties</propertiesFile> 
+									<propertiesFile>src/main/resources/mpg/Label_es.properties</propertiesFile> 
+									</propertiesFiles> </merge> -->
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
 									<propertiesFiles>
@@ -231,6 +226,10 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>inge_util</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>dataacquisition</artifactId>
 		</dependency>
 		<dependency>
@@ -251,13 +250,13 @@
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.12</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>sword</groupId>
 			<artifactId>swordcommon</artifactId>
@@ -267,6 +266,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
+
 	</dependencies>
 
 </project>

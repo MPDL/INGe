@@ -27,7 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.util.servlet;
 
 import java.io.IOException;
-import java.net.URL;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,11 +35,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.piwik.java.tracking.PiwikRequest;
-import org.piwik.java.tracking.PiwikTracker;
 
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
+import de.mpg.mpdl.inge.util.MatomoTracker;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * A servlet for retrieving and redirecting the content objects urls. /pubman/item/escidoc:12345 for
@@ -104,9 +104,13 @@ public class RedirectServlet extends HttpServlet {
       if (tme) {
         redirectUrl.append("/metadata");
       }
-      PiwikRequest request = new PiwikRequest(new Integer(52), new URL(redirectUrl.toString()));
-      PiwikTracker tracker = new PiwikTracker("https://analytics.mpdl.mpg.de");
-      tracker.sendRequest(request);
+      HashMap<String, String> matomoParameterMap = new HashMap<String, String>();
+      matomoParameterMap.put(MatomoTracker.SITE_ID, PropertyReader.getProperty("inge.matomo.analytics.site.id"));
+      matomoParameterMap.put(MatomoTracker.REC, Integer.toString(1)); // fixed value that needs to be sent as it is
+      matomoParameterMap.put(MatomoTracker.SITE_URL, PropertyReader.getProperty("inge.pubman.instance.url") + redirectUrl.toString());
+      matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty("inge.matomo.analytics.auth.token"));
+      matomoParameterMap.put(MatomoTracker.USER_IP, req.getRemoteAddr());
+      MatomoTracker.trackUrl(matomoParameterMap);
 
       resp.sendRedirect(redirectUrl.toString());
     }
