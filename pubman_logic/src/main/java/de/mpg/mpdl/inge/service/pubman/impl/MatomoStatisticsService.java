@@ -20,13 +20,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class MatomoStatisticsService {
 
   private static final Logger logger = Logger.getLogger(MatomoStatisticsService.class);
+  private static final String INSTANCE_URI = PropertyReader.getProperty("inge.pubman.instance.url");
   private static final String ANALYTICS_BASE_URI = PropertyReader.getProperty("inge.matomo.analytics.base.uri");
   private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty("inge.matomo.analytics.site.id");
   private static final String ANALYTICS_TOKEN = PropertyReader.getProperty("inge.matomo.analytics.auth.token");
 
-  private static final String PURE_OVERVIEW = "http://pubman.mpdl.mpg.de/pubman/faces/viewItemOverviewPage.jsp";
-  private static final String PURE_FULLPAGE = "http://pubman.mpdl.mpg.de/pubman/faces/viewItemFullPage.jsp";
-  private static final String PURE_ITEM = "http://pubman.mpdl.mpg.de/pubman/item/";
+  private static final String PURE_OVERVIEW = INSTANCE_URI + "/pubman/faces/viewItemOverviewPage.jsp";
+  private static final String PURE_FULLPAGE = INSTANCE_URI + "/pubman/faces/viewItemFullPage.jsp";
+  private static final String PURE_ITEM = INSTANCE_URI + "/pubman/item/";
   private static final String PURE_FILE = "/component/";
 
   static ObjectMapper om = new ObjectMapper();
@@ -147,8 +148,8 @@ public class MatomoStatisticsService {
    */
   public static String getNumberOfItemOrFileRequests(String objectId) throws Exception {
     int requests = 0;
-    objectId = objectId.replaceAll("_", ":");
-    objectId = objectId.replace("item", "escidoc");
+    // objectId = objectId.replaceAll("_", ":");
+    // objectId = objectId.replace("item", "escidoc");
     requests = getTotal4Item(objectId);
 
     return String.valueOf(requests);
@@ -159,10 +160,10 @@ public class MatomoStatisticsService {
    */
   public static String getNumberOfFileDownloads(String objectId, String file_id, String name) throws Exception {
     int requests = 0;
-    objectId = objectId.replaceAll("_", ":");
-    objectId = objectId.replace("item", "escidoc");
-    file_id = file_id.replaceAll("_", ":");
-    file_id = file_id.replace("file", "escidoc");
+    // objectId = objectId.replaceAll("_", ":");
+    // objectId = objectId.replace("item", "escidoc");
+    // file_id = file_id.replaceAll("_", ":");
+    // file_id = file_id.replace("file", "escidoc");
     requests = getTotal4File(objectId, file_id, name);
 
     return String.valueOf(requests);

@@ -150,8 +150,8 @@ public class StatisticChartServlet extends HttpServlet {
     }
     final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-    id = id.replaceAll("_", ":");
-    id = id.replace("item", "escidoc");
+    // id = id.replaceAll("_", ":");
+    // id = id.replace("item", "escidoc");
     if (this.type.equals("item")) {
       Map<String, Integer> statistics = MatomoStatisticsService.get124item(id);
       statistics.forEach((k, v) -> {
@@ -159,8 +159,8 @@ public class StatisticChartServlet extends HttpServlet {
       });
     } else if (this.type.equals("file")) {
       if (!fileId.isEmpty()) {
-        fileId = fileId.replaceAll("_", ":");
-        fileId = fileId.replace("file", "escidoc");
+        // fileId = fileId.replaceAll("_", ":");
+        // fileId = fileId.replace("file", "escidoc");
         Map<String, Integer> statistics = MatomoStatisticsService.get124file(id, fileId, fileName);
         statistics.forEach((k, v) -> {
           dataset.addValue(v, allUsersSeries, k);
