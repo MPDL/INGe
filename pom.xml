@@ -1030,7 +1030,7 @@
 		<inge.search.and.export.default.query>{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}</inge.search.and.export.default.query>
 		<inge.search.and.export.max.limit>5000</inge.search.and.export.max.limit>
 		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
-		<inge.search.and.export.start.record>1</inge.search.and.export.start.record>
+		<inge.search.and.export.start.record>0</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</inge.transformation.bibtex.configuration.filename>

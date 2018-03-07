@@ -53,6 +53,7 @@
                     
                     <div class="full_area0 fullItem">
                        	<div class="full_area0 itemBlock">
+                            <h:commandButton id="btnUpdatePage" styleClass="noDisplay updatePage" action="#{SearchAndExportPage.updatePage}" />
                        		<h3 class="xLarge_area0_p8 endline blockHeader">
 								Search Query Form
 							</h3>
@@ -63,10 +64,9 @@
 										Elastic Search Query<span class="noDisplay"></span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required" onchange="$(this).parents('.free_area0').find('.updateButton').click();" />
+										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
 								    	<h:message styleClass="quad_txtInput" for="esQuery" style="color:red"/>
 									</span>
-	                                <h:commandButton id="btnUpdatePage" styleClass="noDisplay updateButton" action="#{SearchAndExportPage.updatePage}" />
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
 									<b class="xLarge_area0_p8 endline labelLine clear">
@@ -78,11 +78,11 @@
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortKeys">Sorting Key</label>
-											<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{SearchAndExportPage.sortingKey}" />
+											<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{SearchAndExportPage.sortingKey}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortOrder">Sorting Order</label>
-			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOrder}" onchange="updateSelectionBox(this);">
+			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOrder}" onchange="updateSelectionBox(this);$(this).parents('.full_area0').find('.updatePage').click();" >
 			                                    <f:selectItems value="#{SearchAndExportPage.sortOptions}" />
 			                                </h:selectOneMenu>
 										</span>
@@ -95,11 +95,11 @@
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="startRecord">Start Record</label>
-											<h:inputText styleClass="double_txtInput" id="startRecord" value="#{SearchAndExportPage.offset}" />
+											<h:inputText styleClass="double_txtInput" id="startRecord" value="#{SearchAndExportPage.offset}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<h:outputLabel styleClass="double_label" for="limit" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
-											<h:inputText styleClass="double_txtInput" id="limit" value="#{SearchAndExportPage.limit}" />
+											<h:inputText styleClass="double_txtInput" id="limit" value="#{SearchAndExportPage.limit}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
 										</span>
 									</span> 
 								</div>
@@ -124,7 +124,7 @@
 				                                    <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
 				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 				                                </h:panelGroup>
-				                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
+				                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);$(this).parents('.full_area0').find('.updatePage').click();">
 				                                    <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 				                                </h:selectOneMenu>
 				                            </h:panelGroup>
@@ -150,13 +150,13 @@
                     <div class="full_area0 fullItem">
                        	<div class="full_area0 itemBlock">
                        		<h3 class="xLarge_area0_p8 endline blockHeader">
-								Complete Search URI
+								Complete Search
 							</h3>
 							<span class="seperator"></span>
 							<div class="free_area0 itemBlockContent endline">
 								<span class="third_area0 xTiny_marginLExcl endline">
 									<span class="threequarter_area0 endline">
-			                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.normalizedAtomFeedLink}" />
+			                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.searchString}" />
 									</span>
 								</span>
 		                    </div>

@@ -175,7 +175,10 @@ public class SearchAndExportPage extends BreadcrumbPage {
         this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
       }
 
-      int _offset = Integer.parseInt(this.offset) - 1;
+      int _offset = Integer.parseInt(this.offset);
+      if (_offset < 0) {
+        _offset = 0;
+      }
 
       SearchAndExportRetrieveRequestVO saerrVO =
           new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
@@ -256,12 +259,61 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + URLEncoder.encode(this.esQuery, "UTF-8");
   }
 
-  public String getNormalizedAtomFeedLink() throws UnsupportedEncodingException, PubManVersionNotAvailableException {
+  public String getSearchString() {
     if (this.esQuery == null) {
       return null;
     }
 
-    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + this.esQuery;
+    SearchAndExportRetrieveRequestVO searchAndExportRetrieveRequestVO = parseInput();
+
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("{");
+
+    sb.append("\"query\" : ");
+    sb.append(this.esQuery);
+
+    if (this.sortingKey != null) {
+      sb.append(",");
+      sb.append("\"sort\" : ");
+      sb.append("[{\"" + this.sortingKey + "\" : {\"order\" : \"" + this.sortOrder.name() + "\"}}]");
+    }
+
+    sb.append(",");
+    sb.append("\"size\" : ");
+    sb.append("\"");
+    sb.append(searchAndExportRetrieveRequestVO.getSearchRetrieveRequestVO().getLimit());
+    sb.append("\"");
+    sb.append(",");
+
+    sb.append("\"from\" : ");
+    sb.append("\"");
+    sb.append(searchAndExportRetrieveRequestVO.getSearchRetrieveRequestVO().getOffset());
+    sb.append("\"");
+
+    sb.append(",");
+    sb.append("\"exportFormat\" : ");
+    sb.append("\"");
+    sb.append(searchAndExportRetrieveRequestVO.getExportFormatName());
+    sb.append("\"");
+
+    sb.append(",");
+    sb.append("\"outputFormat\" : ");
+    sb.append("\"");
+    sb.append(searchAndExportRetrieveRequestVO.getOutputFormat());
+    sb.append("\"");
+
+    if (searchAndExportRetrieveRequestVO.getCslConeId() != null) {
+      sb.append(",");
+      sb.append("\"cslConeId\" : ");
+      sb.append("\"");
+      sb.append(searchAndExportRetrieveRequestVO.getCslConeId());
+      sb.append("\"");
+    }
+
+    sb.append("}");
+
+    return sb.toString();
   }
 
   public void updatePage() {
