@@ -25,8 +25,8 @@ public class MatomoStatisticsService {
   private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty("inge.matomo.analytics.site.id");
   private static final String ANALYTICS_TOKEN = PropertyReader.getProperty("inge.matomo.analytics.auth.token");
 
-  private static final String PURE_OVERVIEW = INSTANCE_URI + "/pubman/faces/viewItemOverviewPage.jsp";
-  private static final String PURE_FULLPAGE = INSTANCE_URI + "/pubman/faces/viewItemFullPage.jsp";
+  private static final String PURE_OVERVIEW = INSTANCE_URI + "/pubman/faces/ViewItemOverviewPage.jsp";
+  private static final String PURE_FULLPAGE = INSTANCE_URI + "/pubman/faces/ViewItemFullPage.jsp";
   private static final String PURE_ITEM = INSTANCE_URI + "/pubman/item/";
   private static final String PURE_FILE = "/component/";
 
