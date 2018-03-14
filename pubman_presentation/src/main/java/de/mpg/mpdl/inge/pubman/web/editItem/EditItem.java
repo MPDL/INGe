@@ -68,6 +68,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -1310,6 +1311,10 @@ public class EditItem extends FacesBean {
     }
 
     return list;
+  }
+
+  public void addProjectInfo() {
+    this.getPubItem().getMetadata().getProjectInfo().add(new ProjectInfoVO());
   }
 
   private ItemControllerSessionBean getItemControllerSessionBean() {

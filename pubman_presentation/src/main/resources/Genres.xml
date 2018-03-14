@@ -211,7 +211,7 @@
 					<field id="source_identifier_value" repeatable="false" display="true" optional="false" label="source_identifier_value" class-attribute="metadata.sources.identifiers.id"/>
 				</group>
 			</group>
-			<group id="project_info" repeatable="false" display="true" optional="true" form-id="all" label="g_project_info" class-attribute="metadata.projectInfo">
+			<group id="project_info" repeatable="true" display="true" optional="true" form-id="all" label="g_project_info" class-attribute="metadata.projectInfo">
 				
 				<field id="title" repeatable="false" display="true" optional="true" label="project_info_title"/>
 				<field id="grant_id" repeatable="false" display="true" optional="true" label="project_info_grant_id"/>

@@ -77,6 +77,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -332,6 +333,12 @@ public class JiBXHelper {
   public static List<?> adminDescriptorVOListFactory() {
     return new ArrayList<Object>();
   }
+
+
+  public static List<ProjectInfoVO> projectInfoVOListFactory() {
+    return new ArrayList<ProjectInfoVO>();
+  }
+
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code> as the

@@ -276,7 +276,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   /**
    * Information about project and funding
    */
-  private ProjectInfoVO projectInfo;
+  private List<ProjectInfoVO> projectInfo = new ArrayList<>();
 
   /**
    * Creates a new instance.
@@ -356,8 +356,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
 
     setTotalNumberOfPages(other.getTotalNumberOfPages());
+
     if (other.getProjectInfo() != null) {
-      setProjectInfo(other.getProjectInfo().clone());
+      for (ProjectInfoVO pi : other.getProjectInfo()) {
+        getProjectInfo().add((ProjectInfoVO) pi.clone());
+      }
     }
 
   }
@@ -926,11 +929,11 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     }
   }
 
-  public ProjectInfoVO getProjectInfo() {
+  public List<ProjectInfoVO> getProjectInfo() {
     return projectInfo;
   }
 
-  public void setProjectInfo(ProjectInfoVO projectInfo) {
+  public void setProjectInfo(List<ProjectInfoVO> projectInfo) {
     this.projectInfo = projectInfo;
   }
 }
