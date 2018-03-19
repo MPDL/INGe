@@ -997,6 +997,7 @@
 		<inge.pubman.logo.css />
 		<inge.pubman.logo.url>/resources/images/pubman_logo_web.png</inge.pubman.logo.url>
 		<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
+		<inge.pubman.privacy.policy.url>http://colab.mpdl.mpg.de/mediawiki/Datenschutzhinweis</inge.pubman.privacy.policy.url>
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
 		<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>

@@ -42,6 +42,13 @@
 				</h:outputLink>
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
 
+				<!-- Privacy Policy -->
+				<h:commandLink id="lnkPrivacyPolicy" styleClass="free_area0_p8 endline"
+					title="#{tip.mainMenu_lnkPrivacyPolicy}"
+					onclick="loadBlog('#{PubManRequestBean.privacyPolicyUrl}');return false"
+					value="#{lbl.mainMenu_lnkPrivacyPolicy}" />
+				<h:panelGroup styleClass="seperator"></h:panelGroup>
+
 				<!-- Policy -->
 				<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline"
 					title="#{tip.mainMenu_lnkPolicy}"
@@ -55,9 +62,11 @@
 					onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false"
 					value="#{lbl.contact}" />
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
-				
+
 				<!-- Contact -->
-				<h:outputText styleClass="free_area0_p8 endline" value="#{LoginHelper.currentIp.name}" rendered="#{LoginHelper.currentIp != null}"/>
+				<h:outputText styleClass="free_area0_p8 endline"
+					value="#{LoginHelper.currentIp.name}"
+					rendered="#{LoginHelper.currentIp != null}" />
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 				<!-- LogIn, LogOut -->
@@ -65,11 +74,11 @@
 					style="clear:right; margin-top:0.37em">
 					<h:panelGroup styleClass="seperator"></h:panelGroup>
 					<h:commandButton id="lnkLogin" styleClass="free_area0_p8"
-						action="#{LoginHelper.login}"
-						value="#{lbl.login_btLogin}" type="submit"  rendered="#{!LoginHelper.loggedIn}"/>
+						action="#{LoginHelper.login}" value="#{lbl.login_btLogin}"
+						type="submit" rendered="#{!LoginHelper.loggedIn}" />
 					<h:commandButton id="lnkLogout" styleClass="free_area0_p8"
-						action="#{LoginHelper.logout}"
-						value="#{lbl.login_btLogout}" type="submit"  rendered="#{LoginHelper.loggedIn}"/>
+						action="#{LoginHelper.logout}" value="#{lbl.login_btLogout}"
+						type="submit" rendered="#{LoginHelper.loggedIn}" />
 					<h:inputText id="inputUsername" styleClass="large_txtInput"
 						value="#{LoginHelper.username}"
 						rendered="#{!LoginHelper.loggedIn}" />
