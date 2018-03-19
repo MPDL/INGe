@@ -201,7 +201,7 @@
 				registered users, such as submitting content to PubMan.</p>
 			<p class="noindent">
 				If you do not have a PubMan account yet, please contact: <a
-					href="mailto:pubman-support@gwdg.de"
+					href="mailto::pure-support@listsrv.mpg.de"
 					title="contact PubMan support with email">PubMan Support.</a>
 			</p>
 			<h3>

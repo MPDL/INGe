@@ -211,7 +211,7 @@
 			<p class="noindent">
 				Wenn Sie noch &#252;ber kein Login f&#252;r PubMan verf&#252;gen,
 				dann wenden Sie sich bitte an: <a
-					href="mailto:pubman-support@gwdg.de">PubMan Support.</a>
+					href="mailto::pure-support@listsrv.mpg.de">PubMan Support.</a>
 			</p>
 			<h3 id="Nutzerrollen_und_Workflows">
 				<span class="titlemark">2.2.</span><a>Nutzerrollen und Workflows</a>
