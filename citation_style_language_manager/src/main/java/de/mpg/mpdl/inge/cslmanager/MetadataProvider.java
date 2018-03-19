@@ -173,9 +173,9 @@ public class MetadataProvider implements ItemDataProvider {
             if (dateFormats[0].equals(formatString)) {
               cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
             } else if (dateFormats[1].equals(formatString)) {
-              cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+              cslItem.submitted(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
             } else if (dateFormats[2].equals(formatString)) {
-              cslItem.submitted(calendar.get(Calendar.YEAR), 0, 0);
+              cslItem.submitted(calendar.get(Calendar.YEAR));
             }
             break;
           } catch (ParseException e) {
@@ -372,7 +372,6 @@ public class MetadataProvider implements ItemDataProvider {
 
           // Source creators
           List<CSLName> containerAuthorList = new ArrayList<CSLName>();
-          List<CSLName> sourceEditorList = new ArrayList<CSLName>();
           for (CreatorVO sourceCreator : source.getCreators()) {
             if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
@@ -382,20 +381,36 @@ public class MetadataProvider implements ItemDataProvider {
                 containerAuthorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
               }
             }
-            if (CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
-              if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
-                sourceEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
-                    .family(sourceCreator.getPerson().getFamilyName()).build());;
-              } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
-                sourceEditorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
-              }
-            }
           }
           if (containerAuthorList.size() > 0) {
             cslItem.containerAuthor(getCSLNameArrayFromList(containerAuthorList));
           }
-          if (sourceEditorList.size() > 0 && editorList.size() == 0) {
-            cslItem.editor(getCSLNameArrayFromList(sourceEditorList));
+        }
+
+        // Second Source
+        if (metadata.getSources().size() > 1 && metadata.getSources().get(1) != null) {
+          SourceVO secondSource = metadata.getSources().get(1);
+          // Genre dependent choice
+          if (SourceVO.Genre.SERIES.equals(secondSource.getGenre())) {
+            // Source title
+            cslItem.collectionTitle(secondSource.getTitle());
+            // Source creators
+            List<CSLName> collectionEditorList = new ArrayList<CSLName>();
+            for (CreatorVO sourceCreator : secondSource.getCreators()) {
+              if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
+                  || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
+                if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
+                  collectionEditorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
+                      .family(sourceCreator.getPerson().getFamilyName()).build());
+                } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
+                  collectionEditorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
+                }
+              }
+            }
+            if (collectionEditorList.size() > 0) {
+              cslItem.collectionEditor(getCSLNameArrayFromList(collectionEditorList));
+            }
+            cslItem.collectionNumber(secondSource.getVolume());
           }
         }
 
@@ -485,9 +500,9 @@ public class MetadataProvider implements ItemDataProvider {
               if (dateFormats[0].equals(formatString)) {
                 cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
               } else if (dateFormats[1].equals(formatString)) {
-                cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+                cslItem.eventDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
               } else if (dateFormats[2].equals(formatString)) {
-                cslItem.eventDate(calendar.get(Calendar.YEAR), 0, 0);
+                cslItem.eventDate(calendar.get(Calendar.YEAR));
               }
               break;
             } catch (ParseException e) {
@@ -498,7 +513,9 @@ public class MetadataProvider implements ItemDataProvider {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (
+
+    Exception e) {
       logger.error("Error creating cslItem metadata for id: " + id, e);
     }
 
@@ -512,15 +529,15 @@ public class MetadataProvider implements ItemDataProvider {
     if (dateFormats[0].equals(formatString)) {
       cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     } else if (dateFormats[1].equals(formatString)) {
-      cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
+      cslItem.issued(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
     } else if (dateFormats[2].equals(formatString)) {
-      cslItem.issued(calendar.get(Calendar.YEAR), 0, 0);
+      cslItem.issued(calendar.get(Calendar.YEAR));
     }
   }
 
   private CSLType getCslGenre(Genre genre) {
     CSLType cslGenre = null;
-    if (Genre.ARTICLE.equals(genre) || Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)) {
+    if (Genre.ARTICLE.equals(genre)) {
       cslGenre = CSLType.ARTICLE_JOURNAL;
     } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)) {
       cslGenre = CSLType.ARTICLE;
