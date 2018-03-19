@@ -268,7 +268,7 @@ public class TestBase {
     IdentifierVO grantIdentifier = new IdentifierVO(IdType.ARXIV, "testGrantIdentifier");
     projectInfo.setGrantIdentifier(grantIdentifier);
     projectInfo.setTitle("testTitle");
-    mdsPublication.setProjectInfo(projectInfo);
+    mdsPublication.getProjectInfo().add(projectInfo);
     PublishingInfoVO publishingInfo = new PublishingInfoVO();
     publishingInfo.setEdition("testEdition");
     publishingInfo.setPlace("testPlace");

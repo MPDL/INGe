@@ -113,6 +113,10 @@
 			</xsl:if>
 			<xsl:apply-templates select="source:source[local:source_source-is-series(.)]"/>
 			<xsl:apply-templates select="dcterms:tableOfContents[normalize-space(.)]"/>
+			
+			<!-- Degree type in field 502 -->
+			<xsl:apply-templates select="eterms:degree[normalize-space(.)]"/>
+			
 			<xsl:call-template name="local:make-506"/>
 			<xsl:apply-templates select="event:event[normalize-space(.)]"/>
 			<xsl:apply-templates select="dcterms:abstract[normalize-space(.)]"/>
@@ -453,6 +457,10 @@
 	</xsl:template>
 	<xsl:template match="publication:publication/dc:subject" as="element(marc:datafield)" xml:id="match-publication_publication-dc_subject">
 		<xsl:sequence select="local:datafield('082', local:subfield('a', .))"/>
+	</xsl:template>
+	<xsl:template match="eterms:degree" as="element(marc:datafield)" xml:id="match-eterms_degree">
+		<xsl:variable name="local:degree_type" select="."/>
+		<xsl:sequence select="    local:datafield('502', '',       local:subfield('b', $local:mapping_marc_degrees/misc:mapping[./misc:source=$local:degree_type]/misc:target/text()) )"/>
 	</xsl:template>
 	<xsl:template match="dcterms:tableOfContents" as="element(marc:datafield)" xml:id="match-dcterms_tableOfContents">
 		<xsl:sequence select="    local:datafield('505', '8',       local:subfield('a', string-join(for $i in tokenize(., '\n', 'm') return normalize-space($i), '; ') ) )"/>

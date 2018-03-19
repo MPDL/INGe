@@ -224,7 +224,7 @@ public class TestBase {
 
 
 
-    mds.setProjectInfo(projectInfo);
+    mds.getProjectInfo().add(projectInfo);
     item.setMetadata(mds);
 
     return item;

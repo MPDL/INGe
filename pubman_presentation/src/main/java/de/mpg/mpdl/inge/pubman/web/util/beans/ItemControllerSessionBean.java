@@ -461,35 +461,35 @@ public class ItemControllerSessionBean extends FacesBean {
       newPubItem.getMetadata().setTableOfContents("");
     }
 
-    if (newPubItem.getMetadata().getProjectInfo() == null) {
-      final ProjectInfoVO projectInfo = new ProjectInfoVO();
-      newPubItem.getMetadata().setProjectInfo(projectInfo);
+    if (newPubItem.getMetadata().getProjectInfo().isEmpty()) {
+      ProjectInfoVO projectInfo = new ProjectInfoVO();
+      newPubItem.getMetadata().getProjectInfo().add(projectInfo);
     }
 
-    if (newPubItem.getMetadata().getProjectInfo().getGrantIdentifier() == null) {
-      newPubItem.getMetadata().getProjectInfo().setGrantIdentifier(new IdentifierVO(IdType.GRANT_ID, null));
-    }
+    for (ProjectInfoVO projectInfo : newPubItem.getMetadata().getProjectInfo()) {
+      if (projectInfo.getGrantIdentifier() == null) {
+        projectInfo.setGrantIdentifier(new IdentifierVO(IdType.GRANT_ID, null));
+      }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo() == null) {
-      newPubItem.getMetadata().getProjectInfo().setFundingInfo(new FundingInfoVO());
-    }
+      if (projectInfo.getFundingInfo() == null) {
+        projectInfo.setFundingInfo(new FundingInfoVO());
+      }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization() == null) {
-      newPubItem.getMetadata().getProjectInfo().getFundingInfo().setFundingOrganization(new FundingOrganizationVO());
-    }
+      if (projectInfo.getFundingInfo().getFundingOrganization() == null) {
+        projectInfo.getFundingInfo().setFundingOrganization(new FundingOrganizationVO());
+      }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization().getIdentifiers().isEmpty()) {
-      newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingOrganization().getIdentifiers()
-          .add(new IdentifierVO(IdType.OPEN_AIRE, ""));
-    }
+      if (projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().size() == 0) {
+        projectInfo.getFundingInfo().getFundingOrganization().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+      }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram() == null) {
-      newPubItem.getMetadata().getProjectInfo().getFundingInfo().setFundingProgram(new FundingProgramVO());
-    }
+      if (projectInfo.getFundingInfo().getFundingProgram() == null) {
+        projectInfo.getFundingInfo().setFundingProgram(new FundingProgramVO());
+      }
 
-    if (newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram().getIdentifiers().isEmpty()) {
-      newPubItem.getMetadata().getProjectInfo().getFundingInfo().getFundingProgram().getIdentifiers()
-          .add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+      if (projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().size() == 0) {
+        projectInfo.getFundingInfo().getFundingProgram().getIdentifiers().add(new IdentifierVO(IdType.OPEN_AIRE, ""));
+      }
     }
 
     return newPubItem;

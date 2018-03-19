@@ -352,7 +352,11 @@
 			field="location" usage="optional" />
 			
 			
-		<structure name="project-info" ns="${xsd.metadata.project}" field="projectInfo" usage="optional"/>
+		<!-- Node: item.md-records.md-record.projectInfo -->
+		<!-- Field: PubItemVO.metadata.projectInfos -->
+		<collection field="projectInfo" factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.projectInfoVOListFactory" usage="optional">
+			<structure name="project-info" ns="${xsd.metadata.project}" map-as="de.mpg.mpdl.inge.model.valueobjects.metadata.ProjectInfoVO" usage="optional"/>
+		</collection>
 
 	</mapping>
 </binding>
