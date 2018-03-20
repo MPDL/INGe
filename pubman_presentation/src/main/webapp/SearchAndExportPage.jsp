@@ -94,12 +94,14 @@
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="startRecord">Start Record</label>
-											<h:inputText styleClass="double_txtInput" id="startRecord" value="#{SearchAndExportPage.offset}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+											<label class="double_label" for="offsetId">Start Record</label>
+											<h:inputText styleClass="double_txtInput" id="offsetId" value="#{SearchAndExportPage.offset}" required="true" requiredMessage="offset is required" validator="#{SearchAndExportPage.validateOffset}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+									    	<h:message styleClass="double_txtInput" for="offsetId" style="color:red"/>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
-											<h:outputLabel styleClass="double_label" for="limit" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
-											<h:inputText styleClass="double_txtInput" id="limit" value="#{SearchAndExportPage.limit}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+											<h:outputLabel styleClass="double_label" for="limitId" value="Maximum Records (max. #{SearchAndExportPage.maxLimit})" />
+											<h:inputText styleClass="double_txtInput" id="limitId" value="#{SearchAndExportPage.limit}" required="true" requiredMessage="limit is required" validator="#{SearchAndExportPage.validateLimit}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+									    	<h:message styleClass="double_txtInput" for="limitId" style="color:red"/>
 										</span>
 									</span> 
 								</div>
@@ -142,48 +144,51 @@
                      
                     </div>
                     
+					<ui:param name="errorMessages" value="#{facesContext.getMessageList()}" />
+					                  
                     <div class="full_area0 formButtonArea">
-                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}"/>
+                        <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.export_btDownload}" action="#{SearchAndExportPage.searchAndExport}" rendered="#{empty errorMessages}" />
+                    </div>
+                    
+                    <div class="full_area0 formButtonArea">
+                        <h:commandLink title="Check Input" id="btnCheckInput" styleClass="free_area1_p8 activeButton" value="Check Input" action="#{SearchAndExportPage.updatePage}" rendered="#{not empty errorMessages}" />
                     </div>
                   
-                <h:panelGroup layout="block" styleClass="full_area0 clear">
-                    <div class="full_area0 fullItem">
-                       	<div class="full_area0 itemBlock">
-                       		<h3 class="xLarge_area0_p8 endline blockHeader">
-								Complete Search
-							</h3>
-							<span class="seperator"></span>
-							<div class="free_area0 itemBlockContent endline">
-								<span class="third_area0 xTiny_marginLExcl endline">
-									<span class="threequarter_area0 endline">
-			                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.searchString}" />
+	                <h:panelGroup layout="block" styleClass="full_area0 clear" rendered="#{empty errorMessages}">
+	                    <div class="full_area0 fullItem">
+	                       	<div class="full_area0 itemBlock">
+	                       		<h3 class="xLarge_area0_p8 endline blockHeader">
+									Complete Search
+								</h3>
+								<span class="seperator"></span>
+								<div class="free_area0 itemBlockContent endline">
+									<span class="third_area0 xTiny_marginLExcl endline">
+										<span class="threequarter_area0 endline">
+				                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.searchString}" />
+										</span>
 									</span>
-								</span>
+			                    </div>
 		                    </div>
-	                    </div>
-	                    
-                       	<div class="full_area0 itemBlock">
-                       		<h3 class="xLarge_area0_p8 endline blockHeader">
-								Search Feeds
-							</h3>
-							<span class="seperator"></span>
-							<div class="free_area0 itemBlockContent endline">
-								<span class="xHuge_area0 xTiny_marginLExcl endline">
-									<span class="xHuge_area0 endline">
-			                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank">Atom, version 1.0</h:outputLink>
+		                    
+	                       	<div class="full_area0 itemBlock">
+	                       		<h3 class="xLarge_area0_p8 endline blockHeader">
+									Search Feeds
+								</h3>
+								<span class="seperator"></span>
+								<div class="free_area0 itemBlockContent endline">
+									<span class="xHuge_area0 xTiny_marginLExcl endline">
+										<span class="xHuge_area0 endline">
+				                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank">Atom, version 1.0</h:outputLink>
+										</span>
 									</span>
-								</span>
+			                    </div>
 		                    </div>
+		                    
 	                    </div>
-
-	                    
-                    </div>
-                </h:panelGroup>
+	                </h:panelGroup>
                  
                     <!-- end: content section -->
                 </div>
-                
-                
             </h:form>
         </div>
         
