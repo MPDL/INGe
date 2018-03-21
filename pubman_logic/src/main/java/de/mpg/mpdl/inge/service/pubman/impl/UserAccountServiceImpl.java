@@ -92,6 +92,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private String jwtIssuer;
 
+  private JWTVerifier jwtVerifier;
+
   // private final static String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
   private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
@@ -112,6 +114,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     jwtAlgorithmKey = Algorithm.HMAC512(key);
 
     jwtIssuer = PropertyReader.getProperty("pubman.instance.url");
+
+    jwtVerifier = JWT.require(jwtAlgorithmKey).withIssuer(jwtIssuer).build();
 
   }
 
@@ -365,22 +369,23 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
           throw new AuthenticationException("Could not login, Please provide correct username and password!");
         }
       }
-    } else if (request != null && request.getHeader("X-Forwarded-For") != null) {
+
+      //Set Cookie
+      if (principal != null && response != null) {
+        Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
+        cookie.setPath("/");
+        cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
+        response.addCookie(cookie);
+      }
+    }
+
+    //Login anonymous, ip-based user
+    else if (request != null && request.getHeader("X-Forwarded-For") != null) {
       String token = createToken(null, request);
       principal = new Principal(null, token);
     }
 
-
-    //Set Cookie
-    if (principal != null && response != null) {
-      Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
-      cookie.setPath("/");
-      cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
-      response.addCookie(cookie);
-    }
     return principal;
-
-
 
   }
 
@@ -411,8 +416,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   public DecodedJWT verifyToken(String authenticationToken) throws AuthenticationException {
     try {
-      JWTVerifier verifier = JWT.require(jwtAlgorithmKey).withIssuer(jwtIssuer).build();
-      DecodedJWT jwt = verifier.verify(authenticationToken);
+      DecodedJWT jwt = jwtVerifier.verify(authenticationToken);
       return jwt;
     } catch (JWTVerificationException e) {
       throw new AuthenticationException("Could not verify token: " + e.getMessage(), e);

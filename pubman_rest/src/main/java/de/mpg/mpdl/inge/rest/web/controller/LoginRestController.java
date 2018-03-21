@@ -7,6 +7,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ public class LoginRestController {
 
   private final String TOKEN_HEADER = "Token";
   private final String AUTHZ_HEADER = "Authorization";
+
+  private static final Logger logger = LogManager.getLogger(LoginRestController.class);
 
   private UserAccountService userSvc;
 

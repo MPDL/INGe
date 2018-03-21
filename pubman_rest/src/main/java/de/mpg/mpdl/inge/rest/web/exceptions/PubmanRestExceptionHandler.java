@@ -36,6 +36,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ResponseBody
   VndErrors authc(AuthenticationException authcException) {
+    logger.error("Error in REST service", authcException);
     if (authcException.getMessage() != null) {
       VndErrors authcErrors = new VndErrors("401", authcException.getMessage());
       authcErrors = addTheCause(authcErrors, authcException);

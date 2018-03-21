@@ -22,6 +22,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -56,26 +58,46 @@ public class AuthCookieToHeaderFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    HttpServletResponse httpServletResponse = (HttpServletResponse) response;
     if (httpServletRequest.getHeader(AUTHZ_HEADER) == null || httpServletRequest.getHeader(AUTHZ_HEADER).isEmpty()) {
 
       Cookie[] cookies = httpServletRequest.getCookies();
 
-      boolean cookieSet = false;
+      boolean userCookieSet = false;
       if (cookies != null) {
         for (Cookie cookie : cookies) {
           if (COOKIE_NAME.equals(cookie.getName())) {
-            HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
-            requestWrapper.addHeader(AUTHZ_HEADER, cookie.getValue());
-            request = requestWrapper;
-            cookieSet = true;
+
+            String token = cookie.getValue();
+
+            try {
+              //Add token from cookie as authorization header, only if it's valid and not an anonymous cookie (means claim 'id' is set)
+              DecodedJWT jwtToken = userAccountService.verifyToken(token);
+              if (!jwtToken.getClaim("id").isNull()) {
+                logger.debug("Found valid token in cookie \"" + COOKIE_NAME + "\", copying it to Authorization header");
+                HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
+                requestWrapper.addHeader(AUTHZ_HEADER, token);
+                request = requestWrapper;
+                userCookieSet = true;
+              }
+            } catch (AuthenticationException e) {
+              logger.debug("Found token in cookie \"" + COOKIE_NAME + "\", but it did not verify. Trying to cancel cookie", e);
+              cookie.setValue(null);
+              cookie.setMaxAge(0);
+              cookie.setPath("/");
+              httpServletResponse.addCookie(cookie);
+            }
+
+
 
           }
         }
       }
 
-      //Try to login as anonymous user to enable ip-based authentication
-      if (!cookieSet) {
+      //If no unanonymous cookie is found, add anonymous ip-based token as authorization header
+      if (!userCookieSet) {
         try {
+          logger.debug("Found no valid user cookie \"" + COOKIE_NAME + "\", trying to login as ip-based user");
           Principal principal = userAccountService.login(httpServletRequest, (HttpServletResponse) response);
           if (principal != null) {
             HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(httpServletRequest);
