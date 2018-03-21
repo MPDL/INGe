@@ -64,7 +64,7 @@
 										Elastic Search Query<span class="noDisplay"></span>
 									</b>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+										<h:inputText styleClass="quad_txtInput" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="query is required" validator="#{SearchAndExportPage.validateQuery}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
 								    	<h:message styleClass="quad_txtInput" for="esQuery" style="color:red"/>
 									</span>
 								</div>

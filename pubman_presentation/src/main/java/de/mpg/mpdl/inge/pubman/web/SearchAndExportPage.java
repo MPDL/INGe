@@ -37,11 +37,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.visit.VisitCallback;
-import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
@@ -50,6 +46,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
@@ -171,23 +169,23 @@ public class SearchAndExportPage extends BreadcrumbPage {
         sortCriterias.add(searchSortCriteria);
       }
 
-//      if (this.limit == null || this.limit.trim().length() == 0) {
-//        this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
-//      }
+      //      if (this.limit == null || this.limit.trim().length() == 0) {
+      //        this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
+      //      }
 
       int _limit = Integer.parseInt(this.limit);
-//      if (_limit > this.maxLimit) {
-//        _limit = this.maxLimit;
-//      }
+      //      if (_limit > this.maxLimit) {
+      //        _limit = this.maxLimit;
+      //      }
 
-//      if (this.offset == null || this.offset.trim().length() == 0) {
-//        this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
-//      }
+      //      if (this.offset == null || this.offset.trim().length() == 0) {
+      //        this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
+      //      }
 
       int _offset = Integer.parseInt(this.offset);
-//      if (_offset < 0) {
-//        _offset = 0;
-//      }
+      //      if (_offset < 0) {
+      //        _offset = 0;
+      //      }
 
       SearchAndExportRetrieveRequestVO saerrVO =
           new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
@@ -342,7 +340,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     // Test auf korrektes Intervall
-    UIComponent temp1 = findComponent("limitId");
+    UIComponent temp1 = FacesTools.findComponent("limitId");
     HtmlInputText temp2 = (HtmlInputText) temp1;
     int limit_;
     try {
@@ -374,7 +372,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     // Test auf korrektes Intervall
-    UIComponent temp1 = findComponent("offsetId");
+    UIComponent temp1 = FacesTools.findComponent("offsetId");
     HtmlInputText temp2 = (HtmlInputText) temp1;
     int offset_;
     try {
@@ -393,21 +391,15 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
   }
 
-  public UIComponent findComponent(final String id) {
-    FacesContext context = FacesContext.getCurrentInstance();
-    UIViewRoot root = context.getViewRoot();
-    final UIComponent[] found = new UIComponent[1];
-    root.visitTree(VisitContext.createVisitContext(context), new VisitCallback() {
-      @Override
-      public VisitResult visit(VisitContext context, UIComponent component) {
-        if (component.getId().equals(id)) {
-          found[0] = component;
-          return VisitResult.COMPLETE;
-        }
-        return VisitResult.ACCEPT;
-      }
-    });
+  public void validateQuery(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    String msg;
 
-    return found[0];
+    try {
+      JSONObject obj = new JSONObject((String) value);
+    } catch (JSONException e) {
+      msg = "please enter a valid expression";
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+    }
   }
+
 }
