@@ -125,12 +125,13 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "/searchAndExport", method = RequestMethod.POST)
-  public void searchAndExport(@RequestBody JsonNode searchAndExportQuery, //
+  public void searchAndExport(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
+      @RequestBody JsonNode searchAndExportQuery, //
       HttpServletResponse response) //)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     try {
       SearchAndExportRetrieveRequestVO saerrVO = this.utils.query2SaEVO(searchAndExportQuery);
-      SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, null);
+      SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
 
       response.setContentType(saerVO.getTargetMimetype());
       response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
