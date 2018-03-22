@@ -171,7 +171,7 @@ public class EditItem extends FacesBean {
             (this.getPubItem()).setValidationReport(invItem.getValidationReport());
           }
         } catch (final Exception e) {
-          EditItem.logger.error("Error in Yaerbook validation", e);
+          EditItem.logger.error("Error in yearbook validation", e);
         }
       }
     }

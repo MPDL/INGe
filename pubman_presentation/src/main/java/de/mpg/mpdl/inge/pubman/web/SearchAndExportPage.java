@@ -335,7 +335,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     try {
       offset_ = Integer.parseInt((String) value);
     } catch (NumberFormatException ex) {
-      msg = "please enter a valid number";
+      msg = getMessage("searchAndExport_error_number");
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
 
@@ -347,13 +347,14 @@ public class SearchAndExportPage extends BreadcrumbPage {
       limit_ = Integer.parseInt((String) temp2.getSubmittedValue());
       // obere Grenze eingegeben und gueltig
       if (offset_ < 0 || offset_ >= limit_) {
-        msg = "please enter a valid number >= 0 and < " + (limit_ > 0 && limit_ <= this.maxLimit ? limit_ : this.maxLimit);
+        msg = getMessage("searchAndExport_error_numberBetween_GE_LT").replace("$1", "0").replace("$2",
+            "" + (limit_ > 0 && limit_ <= this.maxLimit ? limit_ : this.maxLimit));
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
       }
     } catch (NumberFormatException ex) {
       // obere Grenze ungueltig 
       if (offset_ < 0 || offset_ >= this.maxLimit) {
-        msg = "please enter a valid number >= 0 and < " + this.maxLimit;
+        msg = getMessage("searchAndExport_error_numberBetween_GE_LT").replace("$1", "0").replace("$2", "" + this.maxLimit);
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
       }
     }
@@ -367,7 +368,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     try {
       limit_ = Integer.parseInt((String) value);
     } catch (NumberFormatException ex) {
-      msg = "please enter a valid number";
+      msg = getMessage("searchAndExport_error_number");
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
 
@@ -379,13 +380,14 @@ public class SearchAndExportPage extends BreadcrumbPage {
       offset_ = Integer.parseInt((String) temp2.getSubmittedValue());
       // untere Grenze eingegeben und gueltig
       if (limit_ <= 0 || limit_ <= offset_ || limit_ > this.maxLimit) {
-        msg = "please enter a valid number > " + (offset_ >= 0 ? offset_ : 0) + " and <= " + this.maxLimit;
+        msg = getMessage("searchAndExport_error_numberBetween_GT_LE").replace("$1", (offset_ >= 0 ? "" + offset_ : "0")).replace("$2",
+            "" + this.maxLimit);
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
       }
     } catch (NumberFormatException ex) {
       // untere Grenze ungueltig 
       if (limit_ <= 0 || limit_ > this.maxLimit) {
-        msg = "please enter a valid number > 0 and <= " + this.maxLimit;
+        msg = getMessage("searchAndExport_error_numberBetween_GT_LE").replace("$1", "0").replace("$2", "" + this.maxLimit);
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
       }
     }
@@ -395,9 +397,9 @@ public class SearchAndExportPage extends BreadcrumbPage {
     String msg;
 
     try {
-      JSONObject obj = new JSONObject((String) value);
+      new JSONObject((String) value);
     } catch (JSONException e) {
-      msg = "please enter a valid expression";
+      msg = getMessage("searchAndExport_error_validateQuery");
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
   }
