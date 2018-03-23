@@ -302,7 +302,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     sb.append("\"query\" : ");
     sb.append(this.esQuery);
 
-    if (this.sortingKey != null) {
+    if (this.sortingKey != null && !this.sortingKey.isEmpty()) {
       sb.append(",");
       sb.append("\"sort\" : ");
       sb.append("[{\"" + this.sortingKey + "\" : {\"order\" : \"" + this.sortOrder.name() + "\"}}]");
