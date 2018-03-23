@@ -34,7 +34,7 @@ public class CitationStyleLanguageManagerService {
   private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
-  private static String citationStyle = null;
+  //  private static String citationStyle = null;
 
   public static byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();
@@ -42,9 +42,9 @@ public class CitationStyleLanguageManagerService {
     byte[] result = null;
     try {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
-      if (citationStyle == null) {
-        citationStyle = CitationStyleLanguageUtils.loadStyleFromConeJsonUrl(exportFormat.getId());
-      }
+      //      if (citationStyle == null) {
+      String citationStyle = CitationStyleLanguageUtils.loadStyleFromConeJsonUrl(exportFormat.getId());
+      //      }
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
       CSL citeproc = null;
       if (defaultLocale != null) {
