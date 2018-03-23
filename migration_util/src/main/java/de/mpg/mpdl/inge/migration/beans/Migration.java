@@ -89,12 +89,12 @@ public class Migration {
   @Autowired
   private MigrationUtilBean util;
 
-  public void run(String what) throws Exception {
+  public void run(String what, String id) throws Exception {
     switch (what) {
-      case "ctx":
+      case "ctxs":
         ctxImport.importContexts();
         break;
-      case "ctx_reindex":
+      case "ctxs_reindex":
         reIndexing.reindexContexts();
         break;
       case "ous":
@@ -111,7 +111,10 @@ public class Migration {
         reIndexing.reindexItems();
         break;
       case "single":
-        itemImport.importSinglePubItem("escidoc:2385979");
+        if (id != null) {
+          itemImport.importSinglePubItem(id);
+        }
+
         // reIndexing.reindexItem("escidoc:1495724");
         // util.wfTesting();
         break;
@@ -132,7 +135,7 @@ public class Migration {
         itemImport.importPubItems();;
         break;
       default:
-        log.info("user doesn't really know, what exactly he wants to do!!!");
+        log.info("you don't really know, what exactly you want to do!!!");
     }
   }
 

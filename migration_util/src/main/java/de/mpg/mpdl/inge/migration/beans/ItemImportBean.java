@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
@@ -35,6 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 
 @Component
 public class ItemImportBean {
@@ -55,6 +57,8 @@ public class ItemImportBean {
   private ItemObjectRepository itemObjectRepository;
   @Autowired
   private FileSystemServiceBean fssb;
+  @Autowired
+  private FileService fs;
   @Autowired
   private MigrationUtilBean utils;
 
@@ -184,9 +188,7 @@ public class ItemImportBean {
           }
         }
       }
-
       newPubItem.getFiles().add(file);
-
     }
 
     newPubItem.setMessage(itemVo.getVersion().getLastMessage());

@@ -19,18 +19,34 @@ public class Main {
     try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MigrationConfiguration.class)) {
       Migration bean = ctx.getBean(Migration.class);
       String furl = ctx.getEnvironment().getProperty("escidoc.url");
-      String what = System.getProperty("what");
+      // String what = System.getProperty("what");
+      String what = null, id = null;
+
+      System.out.println("NUMBER OF ARGS " + args.length);
+      if (args.length < 1) {
+        System.out.println("You need to specify, what you're going to migrate.");
+        System.out.println("Valid args: ctxs, ous, users, logins, items");
+        System.out.println("In order to reindex, append _reindex, e.g. items_reindex");
+      }
+      if (args.length == 1) {
+        what = args[0];
+        System.out.println("WHATTAFUCKISGOINGON " + what);
+      }
+      if (args.length == 2) {
+        what = args[0];
+        id = args[1];
+        System.out.println("WHATTAFUCKISGOINGON " + id);
+      }
       if (what != null && !what.isEmpty()) {
         log.info("... migrating from " + furl);
         try {
-          bean.run(what);
+          bean.run(what, id);
 
         } catch (Exception e) {
           e.printStackTrace();
         }
       } else {
-        System.out.println("You need to specify, what you're going to migrate.");
-        System.out.println("-Dwhat=...");
+        System.out.println("Invalid attempt !!!");
       }
 
       // ((AnnotationConfigApplicationContext) (ctx)).close();
