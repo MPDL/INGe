@@ -78,11 +78,11 @@
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortKeys">#{lbl.searchAndExport_SortingKey}</label>
-											<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{SearchAndExportPage.sortingKey}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+											<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{SearchAndExportPage.sortingKey}" />
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortOrder">#{lbl.searchAndExport_SortingOrder}</label>
-			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOrder}" onchange="updateSelectionBox(this);$(this).parents('.full_area0').find('.updatePage').click();" >
+			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOrder}" >
 			                                    <f:selectItems value="#{SearchAndExportPage.sortOptions}" />
 			                                </h:selectOneMenu>
 										</span>
@@ -95,12 +95,12 @@
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="offsetId">#{lbl.searchAndExport_Offset}</label>
-											<h:inputText styleClass="double_txtInput" id="offsetId" value="#{SearchAndExportPage.offset}" required="true" requiredMessage="#{msg.error_required}" validator="#{SearchAndExportPage.validateOffset}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+											<h:inputText styleClass="double_txtInput" id="offsetId" value="#{SearchAndExportPage.offset}" required="true" requiredMessage="#{msg.error_required}" validator="#{SearchAndExportPage.validateOffset}" />
 									    	<h:message styleClass="double_txtInput" for="offsetId" style="color:red"/>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<h:outputLabel styleClass="double_label" for="limitId" value="#{lbl.searchAndExport_MaxLimit} #{SearchAndExportPage.maxLimit})" />
-											<h:inputText styleClass="double_txtInput" id="limitId" value="#{SearchAndExportPage.limit}" required="true" requiredMessage="#{msg.error_required}" validator="#{SearchAndExportPage.validateLimit}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" />
+											<h:inputText styleClass="double_txtInput" id="limitId" value="#{SearchAndExportPage.limit}" required="true" requiredMessage="#{msg.error_required}" validator="#{SearchAndExportPage.validateLimit}" />
 									    	<h:message styleClass="double_txtInput" for="limitId" style="color:red"/>
 										</span>
 									</span> 
@@ -126,7 +126,7 @@
 				                                    <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
 				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 				                                </h:panelGroup>
-				                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);$(this).parents('.full_area0').find('.updatePage').click();">
+				                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);" >
 				                                    <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
 				                                </h:selectOneMenu>
 				                            </h:panelGroup>
@@ -145,31 +145,21 @@
                     </div>
                     
 					<ui:param name="errorMessages" value="#{facesContext.getMessageList()}" />
-					                  
+					
+                    <div class="full_area0 formButtonArea">
+                        <h:commandLink title="#{tip.searchAndExport_btnCheck}" id="btnExportCheck" styleClass="free_area1_p8 activeButton" value="#{lbl.searchAndExport_btnCheck}" action="#{SearchAndExportPage.updatePage}" rendered="#{not empty errorMessages}" />
+                    </div>
+                    
                     <div class="full_area0 formButtonArea">
                         <h:commandLink title="#{tip.searchAndExport_btnDownload}" id="btnExportDownload" styleClass="free_area1_p8 activeButton" value="#{lbl.searchAndExport_btnDownload}" action="#{SearchAndExportPage.searchAndExport}" rendered="#{empty errorMessages}" />
                     </div>
                     
                     <div class="full_area0 formButtonArea">
-                        <h:commandLink title="#{tip.searchAndExport_btnCheck}" id="btnCheckInput" styleClass="free_area1_p8 activeButton" value="#{lbl.searchAndExport_btnCheck}" action="#{SearchAndExportPage.updatePage}" rendered="#{not empty errorMessages}" />
+                        <h:commandLink title="#{tip.searchAndExport_btnCurl}" id="btnCurl" styleClass="free_area1_p8 activeButton" value="#{lbl.searchAndExport_btnCurl}" action="#{SearchAndExportPage.curl}" rendered="#{empty errorMessages}" />
                     </div>
                   
 	                <h:panelGroup layout="block" styleClass="full_area0 clear" rendered="#{empty errorMessages}">
-	                    <div class="full_area0 fullItem">
-	                       	<div class="full_area0 itemBlock">
-	                       		<h3 class="xLarge_area0_p8 endline blockHeader">
-									#{lbl.searchAndExport_CompleteQuery}
-								</h3>
-								<span class="seperator"></span>
-								<div class="free_area0 itemBlockContent endline">
-									<span class="third_area0 xTiny_marginLExcl endline">
-										<span class="threequarter_area0 endline">
-				                             <h:outputText styleClass="threequarter_area0 endline" value="#{SearchAndExportPage.searchString}" />
-										</span>
-									</span>
-			                    </div>
-		                    </div>
-		                    
+						<div class="full_area0 fullItem">
 	                       	<div class="full_area0 itemBlock">
 	                       		<h3 class="xLarge_area0_p8 endline blockHeader">
 									#{lbl.searchAndExport_Feed}
@@ -183,7 +173,6 @@
 									</span>
 			                    </div>
 		                    </div>
-		                    
 	                    </div>
 	                </h:panelGroup>
                  

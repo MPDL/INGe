@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.pubman.web;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -50,6 +51,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -126,12 +128,12 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
   public void searchAndExport() {
     final SearchAndExportRetrieveRequestVO saerrVO = parseInput();
-    final SearchAndExportResultVO searchAndExportResultVO = doSearch(saerrVO);
-    createResponse(searchAndExportResultVO);
+    final SearchAndExportResultVO searchAndExportResultVO = search(saerrVO);
+    createExportResponse(searchAndExportResultVO);
     FacesTools.getCurrentInstance().responseComplete();
   }
 
-  private void createResponse(SearchAndExportResultVO searchAndExportResultVO) {
+  private void createExportResponse(SearchAndExportResultVO searchAndExportResultVO) {
     final String contentType = searchAndExportResultVO.getTargetMimetype();
     FacesTools.getResponse().setContentType(contentType);
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + searchAndExportResultVO.getFileName());
@@ -144,7 +146,25 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
   }
 
-  private SearchAndExportResultVO doSearch(SearchAndExportRetrieveRequestVO saerrVO) {
+  public void curl() {
+    String curl = getCurl();
+    createCurlResponse(curl);
+    FacesTools.getCurrentInstance().responseComplete();
+  }
+
+  private void createCurlResponse(String curl) {
+    FacesTools.getResponse().setContentType(FileFormatVO.TXT_MIMETYPE);
+    FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=curl.txt");
+    try {
+      final OutputStream out = FacesTools.getResponse().getOutputStream();
+      out.write(curl.getBytes(StandardCharsets.UTF_8));
+      out.close();
+    } catch (final Exception e) {
+      throw new RuntimeException("Cannot put curl in HttpResponse body:", e);
+    }
+  }
+
+  private SearchAndExportResultVO search(SearchAndExportRetrieveRequestVO saerrVO) {
     SearchAndExportResultVO searchAndExportResultVO = null;
 
     try {
@@ -169,23 +189,8 @@ public class SearchAndExportPage extends BreadcrumbPage {
         sortCriterias.add(searchSortCriteria);
       }
 
-      //      if (this.limit == null || this.limit.trim().length() == 0) {
-      //        this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
-      //      }
-
       int _limit = Integer.parseInt(this.limit);
-      //      if (_limit > this.maxLimit) {
-      //        _limit = this.maxLimit;
-      //      }
-
-      //      if (this.offset == null || this.offset.trim().length() == 0) {
-      //        this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
-      //      }
-
       int _offset = Integer.parseInt(this.offset);
-      //      if (_offset < 0) {
-      //        _offset = 0;
-      //      }
 
       SearchAndExportRetrieveRequestVO saerrVO =
           new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
@@ -253,17 +258,34 @@ public class SearchAndExportPage extends BreadcrumbPage {
     return this.maxLimit;
   }
 
-  /**
-   * @return link to the atom feed for the current search
-   * @throws PubManVersionNotAvailableException
-   * @throws UnsupportedEncodingException
-   */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
     if (this.esQuery == null) {
       return null;
     }
 
-    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q=" + URLEncoder.encode(this.esQuery, "UTF-8");
+    return ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
+        + URLEncoder.encode(this.esQuery, StandardCharsets.UTF_8.toString());
+  }
+
+  private String getCurl() {
+    if (this.esQuery == null) {
+      return null;
+    }
+
+    try {
+      StringBuilder sb = new StringBuilder();
+      sb.append("curl -X POST ");
+      sb.append(ApplicationBean.INSTANCE.getPubmanInstanceUrl());
+      sb.append("/rest/items/searchAndExport ");
+      sb.append("-H 'Cache-Control: no-cache' -H 'Content-Type: application/json' ");
+      sb.append("-d '");
+      sb.append(getSearchString());
+      sb.append("'");
+
+      return sb.toString();
+    } catch (PubManVersionNotAvailableException e) {
+      throw new RuntimeException("Cannot get curl", e);
+    }
   }
 
   public String getSearchString() {
