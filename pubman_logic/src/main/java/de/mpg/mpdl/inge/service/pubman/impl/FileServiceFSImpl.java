@@ -203,11 +203,14 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount)
       throws IngeTechnicalException, IngeApplicationException {
 
-
     StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
+    if (stagedFileVo == null) {
+      throw new IngeApplicationException("No staged file with the given id " + fileVO.getContent() + " was found");
+    }
+
     if (!stagedFileVo.getCreatorId().equals(userAccount.getObjectId())) {
-      throw new IngeTechnicalException("Staged file is read by another user than its creator");
+      throw new IngeApplicationException("Staged file is tried to be read by another user than its creator");
 
     }
 

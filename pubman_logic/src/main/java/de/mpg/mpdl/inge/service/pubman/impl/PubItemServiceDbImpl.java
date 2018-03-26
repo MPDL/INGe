@@ -437,6 +437,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         //New file or locator
         currentFileDbVO = new FileDbVO();
 
+        if (fileVo.getContent() == null || fileVo.getContent().trim().isEmpty()) {
+          throw new IngeApplicationException(
+              "A file content has to be provided containing the identifier of the staged file or the url to an external reference.");
+        }
+
+
         //New real file
         if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
           fileService.createFileFromStagedFile(fileVo, principal.getUserAccount());
