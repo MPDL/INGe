@@ -96,6 +96,14 @@ public class ExportItems extends FacesBean {
     return EXPORTFORMAT_OPTIONS;
   }
 
+  // SearchAndExport
+  public SelectItem[] getEXPORTFORMAT_OPTIONS_JSON() {
+    final SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
+    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] = new SelectItem(TransformerFactory.JSON, TransformerFactory.JSON); // nicht globalisiert
+
+    return EXPORTFORMAT_OPTIONS;
+  }
+
   // Yearbook
   public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED() {
     final SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);

@@ -130,6 +130,10 @@ public class ExportItemsSessionBean extends FacesBean {
       this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, exportFormatName, FileFormatVO.DEFAULT_NAME);
       this.setEnableFileFormats(true);
       this.setEnableCslAutosuggest(true);
+    } else if (TransformerFactory.JSON.equalsIgnoreCase(exportFormatName)) {
+      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.STRUCTURED, exportFormatName, FileFormatVO.JSON_NAME);
+      this.setEnableFileFormats(false);
+      this.setEnableCslAutosuggest(false);
     } else {
       TransformerFactory.FORMAT exportFormat = TransformerFactory.getFormat(exportFormatName);
       this.curExportFormatVO =

@@ -46,7 +46,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
     SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
 
-    if (saerrVO.getExportFormatName() == null) {
+    if (saerrVO.getExportFormatName() == null || saerrVO.getExportFormatName().equals(TransformerFactory.JSON)) {
       result = srrVO.getOriginalResponse().toString().getBytes();
       fileName = FileFormatVO.FILE_FORMAT.JSON.getName() + "." + FileFormatVO.FILE_FORMAT.JSON.getExtension();
       targetMimeType = FileFormatVO.JSON_MIMETYPE;

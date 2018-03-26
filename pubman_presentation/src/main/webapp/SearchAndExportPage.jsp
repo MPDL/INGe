@@ -107,7 +107,7 @@
 				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 				                                </h:panelGroup>
 			 	                                <h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-				                                    <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+				                                    <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS_JSON}" />
 				                                </h:selectOneMenu>
 				                            </h:panelGroup>
 				                            <h:commandButton id="btnUpdateExportFormats" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />

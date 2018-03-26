@@ -38,6 +38,7 @@ public class TransformerFactory {
   public static final String ESCIDOC_ITEM_XML = "eSciDoc_Item_Xml";
   public static final String HTML_METATAGS_DC_XML = "Html_Metatags_Dc_Xml";
   public static final String HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML = "Html_Metatags_Highwirepress_Cit_Xml";
+  public static final String JSON = "Json";
   public static final String JUS_HTML_XML = "Jus_Html_Xml";
   public static final String JUS_INDESIGN_XML = "Jus_Indesign_Xml";
   public static final String JUS_SNIPPET_XML = "Jus_Snippet_Xml";
