@@ -11,7 +11,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
 /*
  * <!-- Locator has to be a valid URI --> <iso:pattern name="uri_as_locator" id="uri_as_locator">
@@ -40,14 +39,14 @@ public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileD
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileDbVO fileVO : files) {
+      for (final FileDbVO fileDbVO : files) {
 
-        if (fileVO != null) {
-          if (ValidationTools.isNotEmpty(fileVO.getContent()) //
-              && fileVO.getStorage().equals(Storage.EXTERNAL_URL) //
-              && !Pattern.matches(ComponentsUriAsLocatorValidator.URL_PATTERN, fileVO.getContent())
-              && (fileVO.getContent().startsWith("http://") || fileVO.getContent().startsWith("https://")
-                  || fileVO.getContent().startsWith("ftp://"))) {
+        if (fileDbVO != null) {
+          if (ValidationTools.isNotEmpty(fileDbVO.getContent()) //
+              && fileDbVO.getStorage().equals(FileDbVO.Storage.EXTERNAL_URL) //
+              && !Pattern.matches(ComponentsUriAsLocatorValidator.URL_PATTERN, fileDbVO.getContent())
+              && (fileDbVO.getContent().startsWith("http://") || fileDbVO.getContent().startsWith("https://")
+                  || fileDbVO.getContent().startsWith("ftp://"))) {
             context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField("file[" + i + "]"));
             ok = false;
           }

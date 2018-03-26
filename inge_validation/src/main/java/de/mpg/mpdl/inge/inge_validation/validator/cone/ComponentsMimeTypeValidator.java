@@ -12,7 +12,6 @@ import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 
 /*
@@ -57,12 +56,12 @@ public class ComponentsMimeTypeValidator extends ValidatorHandler<List<FileDbVO>
       }
 
       int i = 1;
-      for (final FileDbVO fileVO : files) {
+      for (final FileDbVO fileDbVO : files) {
 
-        if (ValidationTools.isNotEmpty(fileVO.getContent()) && fileVO.getStorage().equals(Storage.INTERNAL_MANAGED)) {
+        if (ValidationTools.isNotEmpty(fileDbVO.getContent()) && fileDbVO.getStorage().equals(FileDbVO.Storage.INTERNAL_MANAGED)) {
 
           int j = 1;
-          for (final FormatVO formatVO : fileVO.getMetadata().getFormats()) {
+          for (final FormatVO formatVO : fileDbVO.getMetadata().getFormats()) {
 
             if (ComponentsMimeTypeValidator.IMT.equals(formatVO.getType()) //
                 && !mimeTypesTitleSet.contains(formatVO.getValue())) {

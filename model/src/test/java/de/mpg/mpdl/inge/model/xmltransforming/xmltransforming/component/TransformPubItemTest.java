@@ -40,8 +40,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
@@ -148,8 +146,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     fileVO.setName("Ein Kaufmannsund (&), ein GrÃ¶ÃŸer (>), ein Kleiner (<), AnfÃ¼hrungsstriche (\") und ein Apostroph (').");
     fileVO.setDescription(
         "This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
-    fileVO.setVisibility(Visibility.PUBLIC);
-    fileVO.setStorage(Storage.INTERNAL_MANAGED);
+    fileVO.setVisibility(FileVO.Visibility.PUBLIC);
+    fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     MdsFileVO md = new MdsFileVO();
     md.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/post-print");
     md.setDescription(

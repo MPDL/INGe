@@ -10,7 +10,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
 /*
  * <!-- The file name of a component must not contain slashes "/" --> <iso:pattern
@@ -41,13 +40,13 @@ public class ComponentsNoSlashesInNameValidator extends ValidatorHandler<List<Fi
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileDbVO fileVO : files) {
+      for (final FileDbVO fileDbVO : files) {
 
-        if (fileVO != null && fileVO.getStorage().equals(Storage.INTERNAL_MANAGED)) {
-          if (ValidationTools.isNotEmpty(fileVO.getName()) //
-              && fileVO.getName().contains("/") //
-              || fileVO.getMetadata() != null //
-                  && ValidationTools.isNotEmpty(fileVO.getMetadata().getTitle()) && fileVO.getMetadata().getTitle().contains("/")) {
+        if (fileDbVO != null && fileDbVO.getStorage().equals(FileDbVO.Storage.INTERNAL_MANAGED)) {
+          if (ValidationTools.isNotEmpty(fileDbVO.getName()) //
+              && fileDbVO.getName().contains("/") //
+              || fileDbVO.getMetadata() != null //
+                  && ValidationTools.isNotEmpty(fileDbVO.getMetadata().getTitle()) && fileDbVO.getMetadata().getTitle().contains("/")) {
             context.addError(ValidationError.create(ErrorMessages.SLASH_IN_FILENAME).setField("file[" + i + "]"));
             ok = false;
           }

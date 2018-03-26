@@ -23,8 +23,7 @@ import com.rometools.rome.feed.synd.SyndFeedImpl;
 import com.rometools.rome.feed.synd.SyndPerson;
 import com.rometools.rome.feed.synd.SyndPersonImpl;
 
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
@@ -92,9 +91,9 @@ public class FeedServiceImpl {
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_PUBLIC_STATE,
         State.RELEASED.name()));
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
-        PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, Visibility.PUBLIC.name()));
+        PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, FileVO.Visibility.PUBLIC.name()));
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_FILE_STORAGE,
-        Storage.INTERNAL_MANAGED.name()));
+        FileVO.Storage.INTERNAL_MANAGED.name()));
 
     SyndFeed feed = getBasicSyndFeed("Recent Open Access Publications", "Feed for the Open Access Homepage of the MPG", qb);
     return feed;

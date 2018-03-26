@@ -32,16 +32,16 @@ public class ComponentsDateFormatValidator extends ValidatorHandler<List<FileDbV
 
     if (ValidationTools.isNotEmpty(files)) {
 
-      for (final FileDbVO fileVO : files) {
+      for (final FileDbVO fileDbVO : files) {
 
-        if (fileVO != null && fileVO.getMetadata() != null) {
+        if (fileDbVO != null && fileDbVO.getMetadata() != null) {
 
-          if (!ValidationTools.checkDate(fileVO.getMetadata().getCopyrightDate())) {
+          if (!ValidationTools.checkDate(fileDbVO.getMetadata().getCopyrightDate())) {
             context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("copyrightDate"));
             ok = false;
           }
 
-          if (!ValidationTools.checkDate(fileVO.getMetadata().getEmbargoUntil())) {
+          if (!ValidationTools.checkDate(fileDbVO.getMetadata().getEmbargoUntil())) {
             context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("available"));
             ok = false;
           }

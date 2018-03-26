@@ -10,7 +10,6 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 
 /*
  * <iso:pattern name="component_data_required" id="component_data_required"> <iso:rule
@@ -53,28 +52,28 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileD
     if (ValidationTools.isNotEmpty(files)) {
 
       int i = 1;
-      for (final FileDbVO fileVO : files) {
+      for (final FileDbVO fileDbVO : files) {
 
-        if (fileVO != null //
-            && ValidationTools.isNotEmpty(fileVO.getContent())) {
+        if (fileDbVO != null //
+            && ValidationTools.isNotEmpty(fileDbVO.getContent())) {
 
-          if (fileVO.getMetadata() != null //
-              && ValidationTools.isEmpty(fileVO.getMetadata().getTitle())) {
+          if (fileDbVO.getMetadata() != null //
+              && ValidationTools.isEmpty(fileDbVO.getMetadata().getTitle())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_FILE_NAME_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (ValidationTools.isEmpty(fileVO.getMetadata().getContentCategory())) {
+          if (ValidationTools.isEmpty(fileDbVO.getMetadata().getContentCategory())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (!Storage.EXTERNAL_URL.equals(fileVO.getStorage()) && ValidationTools.isEmpty(fileVO.getMimeType())) {
+          if (!FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage()) && ValidationTools.isEmpty(fileDbVO.getMimeType())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
 
-          if (fileVO.getVisibility() == null) {
+          if (fileDbVO.getVisibility() == null) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_VISIBILITY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
           }
