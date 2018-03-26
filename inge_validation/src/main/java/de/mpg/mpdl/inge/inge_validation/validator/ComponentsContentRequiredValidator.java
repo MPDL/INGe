@@ -48,10 +48,10 @@ public class ComponentsContentRequiredValidator extends ValidatorHandler<List<Fi
       for (final FileDbVO fileDbVO : files) {
 
         if (fileDbVO != null //
-            && ValidationTools.isEmpty(fileDbVO.getContent())) {
+            && ValidationTools.isEmpty(fileDbVO.getContent()) && FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage())) {
 
           if (fileDbVO.getMetadata() != null && ValidationTools.isNotEmpty(fileDbVO.getMetadata().getTitle()) //
-              || ValidationTools.isNotEmpty(fileDbVO.getMimeType()) //
+//              || ValidationTools.isNotEmpty(fileDbVO.getMimeType()) //
               || ValidationTools.isNotEmpty(fileDbVO.getMetadata().getDescription()) //
               || ValidationTools.isNotEmpty(fileDbVO.getMetadata().getContentCategory())) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_CONTENT_NOT_PROVIDED).setField("file[" + i + "]"));
