@@ -317,7 +317,6 @@ public class EditItem extends FacesBean {
 
   private void bindFiles() {
     // add files
-    System.out.println("BIND FILES");
     final List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     int fileCount = 0;
 
