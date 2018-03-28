@@ -246,11 +246,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
         pubItemVO.getObject().getLocalTags(), principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
 
-    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
+
 
     checkAa("create", principal, pubItemToCreate, contextNew);
 
     validate(pubItemToCreate, ValidationPoint.SAVE);
+
+    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
@@ -383,12 +385,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     PubItemUtil.setOrganizationIdPathInItem(latestVersion, organizationService);
 
-    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, principal);
-    latestVersion.setFiles(fileDbVOList);
+
 
     latestVersion.getObject().setLocalTags(pubItemVO.getObject().getLocalTags());
 
     validate(latestVersion);
+
+    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, principal);
+    latestVersion.setFiles(fileDbVOList);
 
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);
