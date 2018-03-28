@@ -46,7 +46,7 @@
                 <artifactId>elasticsearch-maven-plugin</artifactId>
                 <version>6.1</version>
                 <configuration>
-                    <clusterName>${inge.es.cluster.name.test}</clusterName>
+                    <clusterName>testCluster</clusterName>
                     <transportPort>9500</transportPort>
                     <httpPort>9400</httpPort>
                     <version>6.1.1</version>

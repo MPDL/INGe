@@ -3,6 +3,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class OrganizationServiceTest extends TestBase {
   }
 
   @Test(expected = AuthorizationException.class)
-  public void deleteInStateClosed()
+  public void deleteInStateOpened()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     super.logMethodName();
 
@@ -47,11 +48,10 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
 
     organizationService.delete(ORG_OBJECTID_25, authenticationToken);
 
-    assertTrue(organizationService.get(ORG_OBJECTID_25, authenticationToken) == null);
   }
 
   @Test
@@ -64,7 +64,7 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals("CREATED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CREATED));
 
     organizationService.delete(affiliationVO.getObjectId(), authenticationToken);
 
@@ -136,17 +136,17 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals("OPENED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
 
     affiliationVO = organizationService.close(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
-    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
 
     try {
       affiliationVO = organizationService.open(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
     } catch (Exception e) {
       assertTrue(e instanceof AuthorizationException);
     }
-    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
   }
 
   @Test
@@ -159,6 +159,12 @@ public class OrganizationServiceTest extends TestBase {
 
     List<AffiliationDbVO> affiliationVOs = organizationService.searchTopLevelOrganizations();
     assertTrue(affiliationVOs != null);
+
+    Iterator it = affiliationVOs.iterator();
+    while (it.hasNext()) {
+      AffiliationDbVO affiliationDbVO = (AffiliationDbVO) it.next();
+      logger.info("Found <" + affiliationDbVO.getObjectId() + ">" + "<" + affiliationDbVO.getName() + ">");
+    }
     assertTrue("Expected <2> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 2);
 
     List<String> topLevelIds = new ArrayList<String>();
