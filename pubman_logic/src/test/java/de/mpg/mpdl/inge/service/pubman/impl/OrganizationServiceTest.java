@@ -208,10 +208,11 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    List<AffiliationDbVO> affiliationVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
-    assertTrue(affiliationVOs != null);
-    assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 1);
-    assertTrue(affiliationVOs.get(0).getObjectId().equals(ORG_OBJECTID_13));
+    List<AffiliationDbVO> affiliationDbVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
+    assertTrue(affiliationDbVOs != null);
+    assertTrue("Expected <1> affiliations - found <" + affiliationDbVOs.size() + ">", affiliationDbVOs.size() == 1);
+    assertTrue("Expected <" +  ORG_OBJECTID_13 + " found <" + affiliationDbVOs.get(0).getObjectId() + ">", 
+        affiliationDbVOs.get(0).getObjectId().equals(ORG_OBJECTID_13));
   }
 
   @Test

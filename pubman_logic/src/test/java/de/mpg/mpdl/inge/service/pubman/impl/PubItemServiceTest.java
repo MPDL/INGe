@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,7 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@Ignore
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class PubItemServiceTest extends TestBase {
 
   private static String CTX_SIMPLE = "ctx_2322554";
@@ -638,7 +636,7 @@ public class PubItemServiceTest extends TestBase {
 
 
   private ItemVersionVO getItemVersionVO(String contextId) {
-    ItemVersionVO pubItemVO = new ItemVersionVO();
+    ItemVersionVO itemVersionVO = new ItemVersionVO();
     CreatorVO creatorVO = new CreatorVO();
     PersonVO personVO = new PersonVO();
 
@@ -650,8 +648,10 @@ public class PubItemServiceTest extends TestBase {
 
     ContextDbRO context = new ContextDbRO();
     context.setObjectId(contextId);
-    pubItemVO.getObject().setLatestRelease(new ItemVersionRO());
-    pubItemVO.getObject().setLatestVersion(new ItemVersionRO());
+    
+    itemVersionVO.getObject().setContext(context);
+    itemVersionVO.getObject().setLatestRelease(new ItemVersionRO());
+    itemVersionVO.getObject().setLatestVersion(new ItemVersionRO());
 
     MdsPublicationVO mdsPublicationVO = new MdsPublicationVO();
     mdsPublicationVO.setGenre(MdsPublicationVO.Genre.BOOK);
@@ -659,9 +659,9 @@ public class PubItemServiceTest extends TestBase {
     mdsPublicationVO.setDateAccepted("2017");
     mdsPublicationVO.getCreators().add(creatorVO);
 
-    pubItemVO.setMetadata(mdsPublicationVO);
+    itemVersionVO.setMetadata(mdsPublicationVO);
 
-    return pubItemVO;
+    return itemVersionVO;
   }
 
   private ItemVersionVO createReleasedItemStandardWorkflow() throws Exception {
