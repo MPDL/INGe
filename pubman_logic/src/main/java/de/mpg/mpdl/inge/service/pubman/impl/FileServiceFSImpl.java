@@ -203,11 +203,10 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount)
       throws IngeTechnicalException, IngeApplicationException {
 
-    if(fileVO.getContent()==null || fileVO.getContent().trim().isEmpty())
-    {
+    if (fileVO.getContent() == null || fileVO.getContent().trim().isEmpty()) {
       throw new IngeApplicationException("A file content containing the id of the staged file has to be provided");
     }
-    
+
     StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
 
     if (stagedFileVo == null) {

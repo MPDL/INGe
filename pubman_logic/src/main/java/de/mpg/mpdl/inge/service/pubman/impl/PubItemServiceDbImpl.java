@@ -243,16 +243,16 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     PubItemUtil.setOrganizationIdPathInItem(pubItemVO, organizationService);
 
-    ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
-        pubItemVO.getObject().getLocalTags(), principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+    ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO, principal.getUserAccount());
 
-
+    pubItemToCreate.setFiles(pubItemVO.getFiles());
 
     checkAa("create", principal, pubItemToCreate, contextNew);
 
     validate(pubItemToCreate, ValidationPoint.SAVE);
 
     pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
+
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
@@ -292,17 +292,17 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private ItemVersionVO buildPubItemToCreate(String objectId, de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context,
-      MdsPublicationVO md, List<String> localTags, String modifierName, String modifierId) {
+      ItemVersionVO givenPubItemVO, AccountUserDbVO userAccount) {
     Date currentDate = new Date();
 
     ItemVersionVO pubItem = new ItemVersionVO();
 
-    pubItem.setMetadata(md);
+    pubItem.setMetadata(givenPubItemVO.getMetadata());
     pubItem.setMessage(null);
     pubItem.setModificationDate(currentDate);
     AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(modifierName);
-    mod.setObjectId(modifierId);
+    mod.setName(userAccount.getName());
+    mod.setObjectId(userAccount.getObjectId());
     pubItem.setModifier(mod);
     pubItem.setObjectId(objectId);
     pubItem.setVersionState(ItemVersionRO.State.PENDING);
@@ -314,7 +314,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItemObject.setCreationDate(currentDate);
     pubItemObject.setLastModificationDate(currentDate);
     pubItemObject.setLatestVersion(pubItem);
-    pubItemObject.setLocalTags(localTags);
+    pubItemObject.setLocalTags(givenPubItemVO.getObject().getLocalTags());
     pubItemObject.setObjectId(objectId);
     pubItemObject.setCreator(mod);
     pubItemObject.setObjectPid(null);// TODO
@@ -389,10 +389,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     latestVersion.getObject().setLocalTags(pubItemVO.getObject().getLocalTags());
 
+    //Set Files and keep old file list
+    List<FileDbVO> oldFiles = latestVersion.getFiles();
+    latestVersion.setFiles(pubItemVO.getFiles());
+
     validate(latestVersion);
 
-    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, principal);
-    latestVersion.setFiles(fileDbVOList);
+    //Reset files to old files and handle them
+    latestVersion.setFiles(oldFiles);
+    latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal));
 
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);
