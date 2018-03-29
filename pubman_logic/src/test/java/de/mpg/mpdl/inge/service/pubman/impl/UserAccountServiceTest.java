@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
@@ -23,8 +24,16 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserAccountServiceTest extends TestBase {
+
+  @Before
+  public void setUp() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String authenticationToken = loginAdmin();
+
+    userAccountService.reindexAll(authenticationToken);
+  }
 
   @Test
   public void objects() {

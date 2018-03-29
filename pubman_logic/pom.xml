@@ -50,7 +50,7 @@
                     <transportPort>9500</transportPort>
                     <httpPort>9400</httpPort>
                     <version>6.1.1</version>
-                    <pathInitScript>${project.build.testOutputDirectory}/es_scripts/init.script</pathInitScript>  
+                    <pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>  
 					<skip>${maven.test.skip}</skip>            
                 </configuration>
                 <executions>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,20 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class OrganizationServiceTest extends TestBase {
 
   @Autowired
   OrganizationService organizationService;
+
+  @Before
+  public void setUp() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String authenticationToken = loginAdmin();
+
+    userAccountService.reindexAll(authenticationToken);
+    organizationService.reindexAll(authenticationToken);
+  }
 
   @Test
   public void objects() {
@@ -211,7 +221,7 @@ public class OrganizationServiceTest extends TestBase {
     List<AffiliationDbVO> affiliationDbVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
     assertTrue(affiliationDbVOs != null);
     assertTrue("Expected <1> affiliations - found <" + affiliationDbVOs.size() + ">", affiliationDbVOs.size() == 1);
-    assertTrue("Expected <" +  ORG_OBJECTID_13 + " found <" + affiliationDbVOs.get(0).getObjectId() + ">", 
+    assertTrue("Expected <" + ORG_OBJECTID_13 + " found <" + affiliationDbVOs.get(0).getObjectId() + ">",
         affiliationDbVOs.get(0).getObjectId().equals(ORG_OBJECTID_13));
   }
 
