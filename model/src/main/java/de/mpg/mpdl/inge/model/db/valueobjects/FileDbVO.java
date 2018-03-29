@@ -47,7 +47,6 @@ import org.hibernate.annotations.TypeDef;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
-import de.mpg.mpdl.inge.model.db.hibernate.MdsOrganizationalUnitVOJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
@@ -59,6 +58,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 21-Nov-2007 12:05:47
  */
+@SuppressWarnings("serial")
 @Entity(name = "FileVO")
 @Table(name = "file")
 @Cacheable
@@ -95,16 +95,14 @@ public class FileDbVO extends FileDbRO implements Serializable {
   public enum Storage
   {
     INTERNAL_MANAGED,
-    EXTERNAL_URL,
-    EXTERNAL_MANAGED
+    EXTERNAL_URL
   }
   /**
    * The possible storage of a file.
    */
   public enum ChecksumAlgorithm
   {
-    MD5,
-    SHA1
+    MD5
   }
 
 
