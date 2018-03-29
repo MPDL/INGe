@@ -33,7 +33,7 @@
 								id="lnkLocatorLink" value="#{locator.locatorLink}"
 								rendered="#{locator.locatorIsLink}" target="_blank"
 								title="#{locator.file.metadata.description}">
-								<h:outputText value="#{locator.file.content}" />
+								<h:outputText value="#{locator.file.metadata.title}" />
 							</h:outputLink> <h:outputText value="#{locator.file.content}"
 								rendered="#{!locator.locatorIsLink}" /> <h:outputText
 								value=" (#{locator.contentCategory})" />
