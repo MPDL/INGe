@@ -42,10 +42,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.mpdl.inge.model.valueobjects.UserGroupVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.HomePage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -56,8 +54,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 
 /**
@@ -77,7 +73,7 @@ public class LoginHelper extends FacesBean {
   private AccountUserDbVO accountUser;
 
   private List<AffiliationVOPresentation> userAccountAffiliations;
-  private List<UserGroupVO> userAccountUserGroups;
+//  private List<UserGroupVO> userAccountUserGroups;
 
   private String authenticationToken;
   private String displayUserName;
@@ -279,7 +275,8 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsReporter() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.REPORTER);
+    //    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.REPORTER);
+    return true;
   }
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {

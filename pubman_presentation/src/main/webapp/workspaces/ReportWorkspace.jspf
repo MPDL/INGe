@@ -59,15 +59,11 @@
 							<h:selectOneMenu id="selFormat"
 								value="#{ReportWorkspaceBean.format}"
 								onfocus="updateSelectionBox(this);"
-								onchange="updateSelectionBox(this);"
-								converter="#{ReportWorkspaceBean.formatConverter}">
+								onchange="updateSelectionBox(this);">
 								<f:selectItems id="selFormats"
 									value="#{ReportWorkspaceBean.outputFormats}" />
 							</h:selectOneMenu>
 						</h:panelGroup>
-						<!--	<h:selectOneMenu id="selFormat" value="#{ReportWorkspaceBean.format}" converter="#{ReportWorkspaceBean.formatConverter}">
-							<f:selectItems id="selFormats" value="#{ReportWorkspaceBean.outputFormats}"/>
-						</h:selectOneMenu>	-->
 					</div>
 				</h:panelGroup>
 			</div>
