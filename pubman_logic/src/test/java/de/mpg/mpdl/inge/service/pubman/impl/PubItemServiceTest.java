@@ -23,6 +23,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
@@ -42,6 +43,9 @@ public class PubItemServiceTest extends TestBase {
   OrganizationService organizationService;
 
   @Autowired
+  ContextService contextService;
+
+  @Autowired
   EntityManager em;
 
   @Before
@@ -50,7 +54,7 @@ public class PubItemServiceTest extends TestBase {
 
     organizationService.reindexAll(authenticationToken);
     userAccountService.reindexAll(authenticationToken);
-    pubItemService.reindexAll(authenticationToken);
+    contextService.reindexAll(authenticationToken);
   }
 
   @Test

@@ -2,10 +2,6 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.rules.TestName;
