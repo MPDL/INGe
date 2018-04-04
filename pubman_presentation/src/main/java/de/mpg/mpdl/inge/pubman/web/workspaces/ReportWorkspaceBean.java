@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.mpg.mpdl.inge.pubman.web.workspaces;
 
 import java.io.BufferedInputStream;
@@ -46,7 +43,6 @@ import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
-
 /**
  * @author Gergana Stoyanova
  * 
@@ -79,8 +75,8 @@ public class ReportWorkspaceBean extends FacesBean {
 
     for (TransformerFactory.FORMAT f : targetFormats) {
       if (!TransformerFactory.FORMAT.JUS_SNIPPET_XML.equals(f)) {
-        String formatName = f.name() + "_" + (f.name().contains("HTML") ? "html" : "indesign");
-        outputFormats.add(new SelectItem(f, getLabel(formatName)));
+        //        String formatName = f.name() + "_" + (f.name().contains("HTML") ? "html" : "indesign");
+        outputFormats.add(new SelectItem(f, f.getName()));
       }
     }
   }
@@ -118,7 +114,7 @@ public class ReportWorkspaceBean extends FacesBean {
   }
 
   public void generateReport() {
-    String itemLsitSearchResult = null;
+    String itemListSearchResult = null;
     byte[] itemListCS = null;
     byte[] itemListReportTransformed = null;
 
@@ -135,9 +131,9 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.info("Start generation report for YEAR " + this.reportYear + ", ORG " + this.organization.getIdentifier() + ", FORMAT "
           + this.format + " " + this.format.name());
 
-      itemLsitSearchResult = this.doSearchItems();
-      if (itemLsitSearchResult != null) {
-        itemListCS = this.doCitationStyle(itemLsitSearchResult);
+      itemListSearchResult = this.doSearchItems();
+      if (itemListSearchResult != null) {
+        itemListCS = this.doCitationStyle(itemListSearchResult);
       }
       if (itemListCS != null) {
         itemListReportTransformed = this.doReportTransformation(itemListCS);
@@ -162,8 +158,8 @@ public class ReportWorkspaceBean extends FacesBean {
         FacesTools.getCurrentInstance().responseComplete();
       }
     } catch (final Exception e) {
-      logger.error("Error while generatiring report output file.", e);
-      this.error("Error while generatiring output file.");
+      logger.error("Error while generating report output file.", e);
+      this.error("Error while generating output file.");
     }
   }
 
