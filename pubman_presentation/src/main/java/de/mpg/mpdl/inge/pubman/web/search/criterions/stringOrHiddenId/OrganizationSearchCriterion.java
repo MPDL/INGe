@@ -218,7 +218,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
           getHiddenId()));
       if (includeSource) {
         bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(
-            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH, getHiddenId()));
+            PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH, getHiddenId()));
       }
 
 

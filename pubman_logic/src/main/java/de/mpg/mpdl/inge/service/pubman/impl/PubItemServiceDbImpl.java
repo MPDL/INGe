@@ -64,11 +64,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
@@ -205,10 +200,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME = "metadata.sources.creators.person.givenName";
 
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
-      "metadata.sources.creators.person.organization.identifier";
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH =
-      "metadata.sources.creators.person.organization.identifierPath";
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIER =
+      "metadata.sources.creators.person.organizations.identifier";
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
+      "metadata.sources.creators.person.organizations.identifierPath";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
 
