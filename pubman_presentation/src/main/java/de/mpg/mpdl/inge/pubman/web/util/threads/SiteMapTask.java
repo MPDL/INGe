@@ -46,6 +46,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -288,8 +289,8 @@ public class SiteMapTask {
             this.fileWriter.write(this.contextPath);
             this.fileWriter.write(this.itemPattern.replace("$1", result.field(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).getValue()));
             this.fileWriter.write("</loc>\n\t\t<lastmod>");
-            Long lmd = result.field(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).getValue();
-            this.fileWriter.write(dateFormat.format(new Date(lmd)));
+            DateTime lmd = result.field(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).getValue();
+            this.fileWriter.write(dateFormat.format(new Date(lmd.getMillis())));
             this.fileWriter.write("</lastmod>\n\t</url>\n");
             writtenInThisFile++;
 

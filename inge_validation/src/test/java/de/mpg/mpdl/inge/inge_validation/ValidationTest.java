@@ -15,7 +15,6 @@ import com.baidu.unbiz.fluentvalidator.ComplexResult;
 import com.baidu.unbiz.fluentvalidator.FluentValidator;
 
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
-import de.mpg.mpdl.inge.inge_validation.validator.ComponentsContentRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDataRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsNoSlashesInNameValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidator;
@@ -169,70 +168,6 @@ public class ValidationTest {
     logger.info("--------------------- FINISHED testClassifiedKeywords2 ---------------------");
   }
 
-  @Ignore
-  @Test
-  public void testComponentContentRequired1() throws Exception {
-    logger.info("--------------------- STARTING testComponentContentRequired1 ---------------------");
-
-    final FileDbVO f1 = new FileDbVO();
-    final MdsFileVO m1 = new MdsFileVO();
-    m1.setTitle("blubb");
-    f1.setMetadata(m1);
-    this.pubItemVO.getFiles().add(f1);
-
-    final FileDbVO f2 = new FileDbVO();
-    f2.setMimeType("blubb");
-    this.pubItemVO.getFiles().add(f2);
-
-    final FileDbVO f3 = new FileDbVO();
-    f3.getMetadata().setDescription("blubb");
-    this.pubItemVO.getFiles().add(f3);
-
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsContentRequiredValidator());
-
-    final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
-
-    logger.info(complexResult.toString());
-    // // LOG.info(this.validationService.convert(complexResult).toString());
-
-    Assert.assertFalse(complexResult.isSuccess());
-
-    logger.info("--------------------- FINISHED testComponentContentRequired1 ---------------------");
-  }
-
-  @Ignore
-  @Test
-  public void testComponentContentRequired2() throws Exception {
-    logger.info("--------------------- STARTING testComponentContentRequired2 ---------------------");
-
-    final FileDbVO f1 = new FileDbVO();
-    final MdsFileVO m1 = new MdsFileVO();
-    m1.setTitle("blubb");
-    f1.setMetadata(m1);
-    f1.setContent("blubb");
-    this.pubItemVO.getFiles().add(f1);
-
-    final FileDbVO f2 = new FileDbVO();
-    f2.setMimeType("blubb");
-    f2.setContent("blubb");
-    this.pubItemVO.getFiles().add(f2);
-
-    final FileDbVO f3 = new FileDbVO();
-    f3.getMetadata().setDescription("blubb");
-    f3.setContent("blubb");
-    this.pubItemVO.getFiles().add(f3);
-
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsContentRequiredValidator());
-
-    final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
-
-    logger.info(complexResult.toString());
-    // // LOG.info(this.validationService.convert(complexResult).toString());
-
-    Assert.assertTrue(complexResult.isSuccess());
-
-    logger.info("--------------------- FINISHED testComponentContentRequired2 ---------------------");
-  }
 
   @Ignore
   @Test

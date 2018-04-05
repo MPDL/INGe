@@ -130,7 +130,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Response response = request.execute();
         IOUtils.copy(response.returnContent().asStream(), out);
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       logger.error("An error occoured, when trying to retrieve file [" + fileRelativePath + "]", e);
       throw new IngeTechnicalException("An error occoured, when trying to retrieve file[" + fileRelativePath + "]", e);
     }

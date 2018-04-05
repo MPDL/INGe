@@ -48,18 +48,18 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
-    assertTrue(contextVO != null);
+    ContextDbVO contextDbVO = contextService.get("ctx_persistent3", authenticationToken);
+    assertTrue(contextDbVO != null);
 
-    switch (contextVO.getState()) {
+    switch (contextDbVO.getState()) {
       case OPENED:
-        contextVO = contextService.close("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
-        assertTrue(contextVO.getState().equals(ContextDbVO.State.CLOSED));
+        contextDbVO = contextService.close("ctx_persistent3", contextDbVO.getLastModificationDate(), authenticationToken);
+        assertTrue(contextDbVO.getState().equals(ContextDbVO.State.CLOSED));
         break;
       case CLOSED:
       case CREATED:
-        contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
-        assertTrue(contextVO.getState().equals(ContextDbVO.State.OPENED));
+        contextDbVO = contextService.open("ctx_persistent3", contextDbVO.getLastModificationDate(), authenticationToken);
+        assertTrue(contextDbVO.getState().equals(ContextDbVO.State.OPENED));
       default:
         break;
     }
@@ -73,11 +73,11 @@ public class ContextServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
-    assertTrue(contextVO != null);
-    assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
+    ContextDbVO contextDbVO = contextService.get("ctx_persistent3", authenticationToken);
+    assertTrue(contextDbVO != null);
+    assertTrue(contextDbVO.getState().equals(ContextVO.State.OPENED));
 
-    contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
+    contextDbVO = contextService.open("ctx_persistent3", contextDbVO.getLastModificationDate(), authenticationToken);
   }
 
   @Test(expected = AuthorizationException.class)
@@ -90,7 +90,7 @@ public class ContextServiceTest extends TestBase {
 
     ContextDbVO contextVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextVO != null);
-    assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
+    assertTrue(contextVO.getState().equals(ContextDbVO.State.OPENED));
 
     contextVO = contextService.close("ctx_persistent3", contextVO.getLastModificationDate(), authenticationToken);
   }
@@ -105,7 +105,7 @@ public class ContextServiceTest extends TestBase {
 
     ContextDbVO contextVO = contextService.get("ctx_persistent3", principal.getJwToken());
     assertTrue(contextVO != null);
-    assertTrue(contextVO.getState().equals(ContextVO.State.OPENED));
+    assertTrue(contextVO.getState().equals(ContextDbVO.State.OPENED));
 
     contextVO = contextService.open("ctx_persistent3", contextVO.getLastModificationDate(), principal.getJwToken());
   }
@@ -123,7 +123,7 @@ public class ContextServiceTest extends TestBase {
     String contextId = contextVO.getObjectId();
     assertTrue(contextVO != null);
     assertTrue(contextId != null);
-    assertTrue(contextVO.getState().equals(ContextVO.State.CREATED));
+    assertTrue(contextVO.getState().equals(ContextDbVO.State.CREATED));
 
     contextService.delete(contextVO.getObjectId(), authenticationToken);
 

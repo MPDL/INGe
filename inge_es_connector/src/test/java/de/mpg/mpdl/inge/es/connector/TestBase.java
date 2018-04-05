@@ -485,7 +485,7 @@ public class TestBase {
     file.setObjectId("testReference");
 
 
-    file.setStorage(FileDbVO.Storage.EXTERNAL_MANAGED);
+    file.setStorage(FileDbVO.Storage.EXTERNAL_URL);
     file.setVisibility(FileDbVO.Visibility.PRIVATE);
     vo.getFiles().add(file);
 

@@ -64,11 +64,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
@@ -205,10 +200,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME = "metadata.sources.creators.person.givenName";
 
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIER =
-      "metadata.sources.creators.person.organization.identifier";
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH =
-      "metadata.sources.creators.person.organization.identifierPath";
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIER =
+      "metadata.sources.creators.person.organizations.identifier";
+  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
+      "metadata.sources.creators.person.organizations.identifierPath";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
 
@@ -243,14 +238,16 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     PubItemUtil.setOrganizationIdPathInItem(pubItemVO, organizationService);
 
-    ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO.getMetadata(),
-        pubItemVO.getObject().getLocalTags(), principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
+    ItemVersionVO pubItemToCreate = buildPubItemToCreate("dummyId", contextNew, pubItemVO, principal.getUserAccount());
 
-    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
+    pubItemToCreate.setFiles(pubItemVO.getFiles());
 
     checkAa("create", principal, pubItemToCreate, contextNew);
 
     validate(pubItemToCreate, ValidationPoint.SAVE);
+
+    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
+
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
@@ -290,17 +287,17 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   }
 
   private ItemVersionVO buildPubItemToCreate(String objectId, de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO context,
-      MdsPublicationVO md, List<String> localTags, String modifierName, String modifierId) {
+      ItemVersionVO givenPubItemVO, AccountUserDbVO userAccount) {
     Date currentDate = new Date();
 
     ItemVersionVO pubItem = new ItemVersionVO();
 
-    pubItem.setMetadata(md);
+    pubItem.setMetadata(givenPubItemVO.getMetadata());
     pubItem.setMessage(null);
     pubItem.setModificationDate(currentDate);
     AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(modifierName);
-    mod.setObjectId(modifierId);
+    mod.setName(userAccount.getName());
+    mod.setObjectId(userAccount.getObjectId());
     pubItem.setModifier(mod);
     pubItem.setObjectId(objectId);
     pubItem.setVersionState(ItemVersionRO.State.PENDING);
@@ -312,7 +309,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItemObject.setCreationDate(currentDate);
     pubItemObject.setLastModificationDate(currentDate);
     pubItemObject.setLatestVersion(pubItem);
-    pubItemObject.setLocalTags(localTags);
+    pubItemObject.setLocalTags(givenPubItemVO.getObject().getLocalTags());
     pubItemObject.setObjectId(objectId);
     pubItemObject.setCreator(mod);
     pubItemObject.setObjectPid(null);// TODO
@@ -383,12 +380,19 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     PubItemUtil.setOrganizationIdPathInItem(latestVersion, organizationService);
 
-    List<FileDbVO> fileDbVOList = handleFiles(pubItemVO, latestVersion, principal);
-    latestVersion.setFiles(fileDbVOList);
+
 
     latestVersion.getObject().setLocalTags(pubItemVO.getObject().getLocalTags());
 
+    //Set Files and keep old file list
+    List<FileDbVO> oldFiles = latestVersion.getFiles();
+    latestVersion.setFiles(pubItemVO.getFiles());
+
     validate(latestVersion);
+
+    //Reset files to old files and handle them
+    latestVersion.setFiles(oldFiles);
+    latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal));
 
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);

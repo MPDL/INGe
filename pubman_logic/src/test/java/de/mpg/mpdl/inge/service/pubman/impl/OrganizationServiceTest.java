@@ -3,8 +3,10 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,20 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfigPubmanLogicTest.class})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class OrganizationServiceTest extends TestBase {
 
   @Autowired
   OrganizationService organizationService;
+
+  @Before
+  public void setUp() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String authenticationToken = loginAdmin();
+
+    userAccountService.reindexAll(authenticationToken);
+    organizationService.reindexAll(authenticationToken);
+  }
 
   @Test
   public void objects() {
@@ -38,7 +49,7 @@ public class OrganizationServiceTest extends TestBase {
   }
 
   @Test(expected = AuthorizationException.class)
-  public void deleteInStateClosed()
+  public void deleteInStateOpened()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     super.logMethodName();
 
@@ -47,11 +58,10 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
 
     organizationService.delete(ORG_OBJECTID_25, authenticationToken);
 
-    assertTrue(organizationService.get(ORG_OBJECTID_25, authenticationToken) == null);
   }
 
   @Test
@@ -64,7 +74,7 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals("CREATED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CREATED));
 
     organizationService.delete(affiliationVO.getObjectId(), authenticationToken);
 
@@ -136,17 +146,17 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_13, authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals("OPENED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
 
     affiliationVO = organizationService.close(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
-    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
 
     try {
       affiliationVO = organizationService.open(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
     } catch (Exception e) {
       assertTrue(e instanceof AuthorizationException);
     }
-    assertTrue(affiliationVO.getPublicStatus().equals("CLOSED"));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
   }
 
   @Test
@@ -159,6 +169,12 @@ public class OrganizationServiceTest extends TestBase {
 
     List<AffiliationDbVO> affiliationVOs = organizationService.searchTopLevelOrganizations();
     assertTrue(affiliationVOs != null);
+
+    Iterator it = affiliationVOs.iterator();
+    while (it.hasNext()) {
+      AffiliationDbVO affiliationDbVO = (AffiliationDbVO) it.next();
+      logger.info("Found <" + affiliationDbVO.getObjectId() + ">" + "<" + affiliationDbVO.getName() + ">");
+    }
     assertTrue("Expected <2> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 2);
 
     List<String> topLevelIds = new ArrayList<String>();
@@ -202,10 +218,11 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    List<AffiliationDbVO> affiliationVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
-    assertTrue(affiliationVOs != null);
-    assertTrue("Expected <1> affiliations - found <" + affiliationVOs.size() + ">", affiliationVOs.size() == 1);
-    assertTrue(affiliationVOs.get(0).getObjectId().equals(ORG_OBJECTID_13));
+    List<AffiliationDbVO> affiliationDbVOs = organizationService.searchSuccessors(ORG_OBJECTID_40048);
+    assertTrue(affiliationDbVOs != null);
+    assertTrue("Expected <1> affiliations - found <" + affiliationDbVOs.size() + ">", affiliationDbVOs.size() == 1);
+    assertTrue("Expected <" + ORG_OBJECTID_13 + " found <" + affiliationDbVOs.get(0).getObjectId() + ">",
+        affiliationDbVOs.get(0).getObjectId().equals(ORG_OBJECTID_13));
   }
 
   @Test
