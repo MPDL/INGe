@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +37,7 @@ public class DevelopmentFileRestController {
    * @param request
    * @return stagedFileId
    */
-  @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.PUT)
+  @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.POST, produces = MediaType.ALL_VALUE)
   @ResponseStatus(HttpStatus.CREATED)
   public String createComponent(@PathVariable String componentName, HttpServletRequest request) throws Exception {
 

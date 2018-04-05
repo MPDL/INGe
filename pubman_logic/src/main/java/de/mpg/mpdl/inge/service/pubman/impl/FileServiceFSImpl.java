@@ -230,7 +230,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
         } else {
           Request request =
               Request
-                  .Put(PropertyReader.getProperty("inge.rest.development.file_url")
+                  .Post(PropertyReader.getProperty("inge.rest.development.file_url")
                       + URLEncoder.encode(stagedFileVo.getFilename(), StandardCharsets.UTF_8.name()))
                   .addHeader("Authorization", "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username")
                       + ":" + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
