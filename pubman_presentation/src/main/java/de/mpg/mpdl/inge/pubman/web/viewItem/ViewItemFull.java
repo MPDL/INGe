@@ -133,7 +133,7 @@ public class ViewItemFull extends FacesBean {
 
   private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
   private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
-  private static final String ALTERNATIVE_MODERATOR_EMAIL = "pubman-support@gwdg.de";
+  private static final String ALTERNATIVE_MODERATOR_EMAIL = "pure-support@listsrv.mpg.de";
   private static final String ISI_KNOWLEDGE_BASE_LINK =
       "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
   private static final String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";

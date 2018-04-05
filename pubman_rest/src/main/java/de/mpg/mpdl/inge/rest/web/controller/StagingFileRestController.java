@@ -46,7 +46,7 @@ public class StagingFileRestController {
    * @param request
    * @return stagedFileId
    */
-  @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.PUT)
+  @RequestMapping(path = COMPONENT_NAME_PATH, method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
   public String createStageComponent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER) String token,
       @PathVariable String componentName, HttpServletRequest request)

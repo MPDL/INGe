@@ -43,8 +43,8 @@
 							but the identifier has not yet been registered in the worldwide
 							Handle system. This may take some time. If you think the
 							registration is overdue, please refer to the
-							<h:outputLink value="mailto:pubman-support@gwdg.de"
-								title="pubman-support@gwdg.de">PubMan support team</h:outputLink>
+							<h:outputLink value="mailto:pure-support@listsrv.mpg.de"
+								title="pure-support@listsrv.mpg.de">PubMan support team</h:outputLink>
 							.
 						</p>
 						<p
@@ -54,8 +54,8 @@
 							Handle-System registriert. Dies kann einige Zeit dauern. Falls
 							Sie der Meinung sind, die Registrierung sei überfällig, wenden
 							Sie sich bitte an das
-							<h:outputLink value="mailto:pubman-support@gwdg.de"
-								title="pubman-support@gwdg.de">PubMan-Support-Team</h:outputLink>
+							<h:outputLink value="mailto:pure-support@listsrv.mpg.de"
+								title="pure-support@listsrv.mpg.de">PubMan-Support-Team</h:outputLink>
 							.
 						</p>
 					</span>
