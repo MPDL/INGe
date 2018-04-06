@@ -73,7 +73,7 @@ public class LoginHelper extends FacesBean {
   private AccountUserDbVO accountUser;
 
   private List<AffiliationVOPresentation> userAccountAffiliations;
-//  private List<UserGroupVO> userAccountUserGroups;
+  //  private List<UserGroupVO> userAccountUserGroups;
 
   private String authenticationToken;
   private String displayUserName;

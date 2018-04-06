@@ -404,7 +404,7 @@ public class ImportProcess extends Thread {
     String escidocXml = null;
 
     try {
-      escidocXml = this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem);
+      escidocXml = this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem, null);
 
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);

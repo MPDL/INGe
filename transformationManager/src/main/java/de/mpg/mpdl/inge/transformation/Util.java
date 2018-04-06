@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.transformation;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +42,8 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -526,11 +529,18 @@ public class Util {
           executeGetMethod(client, queryUrl, documentBuilder, document, element);
         }
       } else {
-        // there are no child ous, methid is called once
+        // there are no child ous, method is called once
         queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
             + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
         executeGetMethod(client, queryUrl, documentBuilder, document, element);
       }
+
+      // LOGGING
+      javax.xml.transform.TransformerFactory tf = javax.xml.transform.TransformerFactory.newInstance();
+      javax.xml.transform.Transformer t = tf.newTransformer();
+      StringWriter sw = new StringWriter();
+      t.transform(new DOMSource(document), new StreamResult(sw));
+      logger.info(sw.toString());
 
       return document;
     } catch (Exception e) {

@@ -129,7 +129,6 @@
 		<inge.pubman.yearbook.context.id>escidoc:287053</inge.pubman.yearbook.context.id>
 		<inge.pubman_presentation.overview_page.authors_ou />
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
-		<inge.report.indesign.namespace>http://ns.adobe.com/AdobeInDesign/4.0/</inge.report.indesign.namespace>
 		<inge.rest.file.path>/component</inge.rest.file.path>
 		<inge.search.and.export.default.sort.keys>_relevance_</inge.search.and.export.default.sort.keys>
 		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
@@ -160,7 +159,6 @@
 		<inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl</inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl</inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>transformations/thirdParty/xslt/pmc_fulltext_xml2pmc_fulltext_xslfo.xsl</inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
-		<inge.transformation.report.sortorder.filename>transformations/reports/conf/reportSortOrder.xml</inge.transformation.report.sortorder.filename>
 		<inge.transformation.ris.configuration.filename>transformations/otherFormats/conf/ris.properties</inge.transformation.ris.configuration.filename>
 		<inge.transformation.ris.stylesheet.filename>transformations/otherFormats/xslt/risxml2escidoc.xsl</inge.transformation.ris.stylesheet.filename>
 		<inge.transformation.wos.configuration.filename>transformations/otherFormats/conf/wos.properties</inge.transformation.wos.configuration.filename>

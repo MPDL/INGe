@@ -2099,10 +2099,10 @@ public class ViewItemFull extends FacesBean {
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
       final String resHighwire = itemTransformingService.transformFromTo(TransformerFactory.getInternalFormat(),
-          TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml);
+          TransformerFactory.FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, itemXml, null);
 
       final String resDC = itemTransformingService.transformFromTo(TransformerFactory.getInternalFormat(),
-          TransformerFactory.FORMAT.HTML_METATAGS_DC_XML, itemXml);
+          TransformerFactory.FORMAT.HTML_METATAGS_DC_XML, itemXml, null);
 
       final String result = resHighwire + resDC;
 

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Primary;
@@ -116,11 +117,21 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   }
 
   @Override
-  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String itemXml)
-      throws TransformationException {
+  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String itemXml,
+      Map<String, String> configuration) throws TransformationException {
     StringWriter wr = new StringWriter();
 
     final Transformer t = TransformerCache.getTransformer(source, target);
+
+    if (configuration != null && !configuration.isEmpty()) {
+      if (t.getConfiguration() == null || t.getConfiguration().isEmpty()) {
+        t.setConfiguration(configuration);
+      } else {
+        Map<String, String> map = t.getConfiguration();
+        map.putAll(configuration);
+        t.setConfiguration(map);
+      }
+    }
 
     try {
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
