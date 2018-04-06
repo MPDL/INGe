@@ -260,7 +260,7 @@ public class ReportWorkspaceBean extends FacesBean {
     String childConfig = "";
     String result = null;
 
-    // set the config for the transformation, the institut's name is used for CoNE
+    // set the config for the transformation, the institut's id is used for CoNE
     if (this.childAffilList.size() > 0) {
       for (final String childId : this.childAffilList) {
         childConfig += childId + " ";
