@@ -15,7 +15,7 @@ public class ConeCacheRestController {
 
   private static Logger logger = Logger.getLogger(ConeCacheRestController.class);
 
-  @RequestMapping(value = "refresh", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+  @RequestMapping(value = "refresh", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
   public String refresh() {
 
     logger.info("REST: CONE-Cache refresh task starts...");
