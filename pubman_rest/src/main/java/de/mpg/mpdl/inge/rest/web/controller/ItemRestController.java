@@ -44,6 +44,7 @@ import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @RestController
@@ -94,12 +95,32 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> query(
-      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> query( //
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
+      @RequestParam(value = "exportFormat", required = false) String exportFormat, //
+      @RequestParam(value = "outputFormat", required = false) String outputFormat, //
+      @RequestParam(value = "cslConeId", required = false) String cslConeId, //
+      @RequestParam(value = "scroll", required = false) Boolean scroll, //
+      @RequestBody JsonNode query, //
+      HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
-    SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
-    return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
+
+    if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
+      SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
+      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
+    }
+
+    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat, outputFormat, cslConeId);
+    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+
+    response.setContentType(saerVO.getTargetMimetype());
+    response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+
+    OutputStream output = response.getOutputStream();
+    output.write(saerVO.getResult());
+
+    return null;
   }
 
   @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -110,7 +131,6 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
     return UtilServiceBean.searchDetailed(pis, searchSource, scrollTimeValue, token, httpResponse);
-
   }
 
   @RequestMapping(value = "/elasticsearch/scroll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -119,40 +139,40 @@ public class ItemRestController {
       @RequestBody JsonNode scrollJson, HttpServletResponse httpResponse)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
-
     return UtilServiceBean.scroll(pis, scrollJson, token, httpResponse);
-
   }
 
-  @RequestMapping(value = "/searchAndExport", method = RequestMethod.POST)
-  public void searchAndExport(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
-      @RequestBody JsonNode searchAndExportQuery, //
-      HttpServletResponse response) //)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    try {
-      SearchAndExportRetrieveRequestVO saerrVO = this.utils.query2SaEVO(searchAndExportQuery);
-      SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
-
-      response.setContentType(saerVO.getTargetMimetype());
-      response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
-
-      OutputStream output = response.getOutputStream();
-      output.write(saerVO.getResult());
-    } catch (IOException e) {
-      throw new IngeTechnicalException(e);
-    }
-  }
+  //  @RequestMapping(value = "/searchAndExport", method = RequestMethod.POST)
+  //  public void searchAndExport(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
+  //      @RequestBody JsonNode searchAndExportQuery, //
+  //      HttpServletResponse response) //)
+  //      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+  //    try {
+  //      SearchAndExportRetrieveRequestVO saerrVO = this.utils.query2SaEVO(searchAndExportQuery);
+  //      SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+  //
+  //      response.setContentType(saerVO.getTargetMimetype());
+  //      response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+  //
+  //      OutputStream output = response.getOutputStream();
+  //      output.write(saerVO.getResult());
+  //    } catch (IOException e) {
+  //      throw new IngeTechnicalException(e);
+  //    }
+  //  }
 
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<ItemVersionVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     ItemVersionVO item = null;
+
     if (token != null && !token.isEmpty()) {
       item = pis.get(itemId, token);
     } else {
       item = pis.get(itemId, null);
     }
+
     return new ResponseEntity<ItemVersionVO>(item, HttpStatus.OK);
   }
 
@@ -168,8 +188,6 @@ public class ItemRestController {
       @PathVariable String itemId, @PathVariable String componentId, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     try {
-
-
       FileVOWrapper fileVOWrapper = fileService.readFile(itemId, componentId, token);
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
       response.setHeader("Content-disposition", "attachment; filename=" + fileVOWrapper.getFileVO().getName());

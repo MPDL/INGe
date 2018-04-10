@@ -6,6 +6,7 @@ import java.util.List;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 
+@SuppressWarnings("serial")
 public class SearchRetrieveRequestVO extends ValueObject {
 
   private QueryBuilder queryBuilder;

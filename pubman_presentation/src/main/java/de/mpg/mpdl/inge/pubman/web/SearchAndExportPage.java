@@ -54,6 +54,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
@@ -192,12 +193,16 @@ public class SearchAndExportPage extends BreadcrumbPage {
       int _limit = Integer.parseInt(this.limit);
       int _offset = Integer.parseInt(this.offset);
 
-      SearchAndExportRetrieveRequestVO saerrVO =
-          new SearchAndExportRetrieveRequestVO(curExportFormat.getName(), curExportFormat.getFileFormat().getName(),
-              curExportFormat.getId(), queryBuilder, _limit, _offset, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+      SearchRetrieveRequestVO srrVO = new SearchRetrieveRequestVO();
+      srrVO.setQueryBuilder(queryBuilder);
+      srrVO.setSortKeys(sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+      srrVO.setLimit(_limit);
+      srrVO.setOffset(_offset);
+
+      SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srrVO, curExportFormat.getName(),
+          curExportFormat.getFileFormat().getName(), curExportFormat.getId());
 
       return saerrVO;
-
     } catch (final Exception e) {
       throw new RuntimeException("Cannot parse input", e);
     }
@@ -272,14 +277,19 @@ public class SearchAndExportPage extends BreadcrumbPage {
       return null;
     }
 
+    SearchAndExportRetrieveRequestVO saerrVO = parseInput();
+
     try {
       StringBuilder sb = new StringBuilder();
       sb.append("curl -X POST ");
+      sb.append("\"");
       sb.append(ApplicationBean.INSTANCE.getPubmanInstanceUrl());
-      sb.append("/rest/items/searchAndExport ");
+      sb.append("/rest/items/search");
+      sb.append(getParameterString(saerrVO));
+      sb.append("\" ");
       sb.append("-H 'Cache-Control: no-cache' -H 'Content-Type: application/json' ");
       sb.append("-d '");
-      sb.append(getSearchString());
+      sb.append(getSearchString(saerrVO));
       sb.append("'");
 
       return sb.toString();
@@ -288,13 +298,25 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
   }
 
-  public String getSearchString() {
-    if (this.esQuery == null) {
-      return null;
+  private String getParameterString(SearchAndExportRetrieveRequestVO saerrVO) {
+    StringBuilder sb = new StringBuilder();
+
+    sb.append("?exportFormat=");
+    sb.append(saerrVO.getExportFormatName());
+
+    sb.append("&outputFormat=");
+    sb.append(saerrVO.getOutputFormat());
+
+    if (saerrVO.getCslConeId() != null) {
+      sb.append(",");
+      sb.append("&cslConeId=");
+      sb.append(saerrVO.getCslConeId());
     }
 
-    SearchAndExportRetrieveRequestVO searchAndExportRetrieveRequestVO = parseInput();
+    return sb.toString();
+  }
 
+  private String getSearchString(SearchAndExportRetrieveRequestVO saerrVO) {
     StringBuilder sb = new StringBuilder();
 
     sb.append("{");
@@ -311,34 +333,14 @@ public class SearchAndExportPage extends BreadcrumbPage {
     sb.append(",");
     sb.append("\"size\" : ");
     sb.append("\"");
-    sb.append(searchAndExportRetrieveRequestVO.getSearchRetrieveRequestVO().getLimit());
+    sb.append(saerrVO.getSearchRetrieveRequestVO().getLimit());
     sb.append("\"");
     sb.append(",");
 
     sb.append("\"from\" : ");
     sb.append("\"");
-    sb.append(searchAndExportRetrieveRequestVO.getSearchRetrieveRequestVO().getOffset());
+    sb.append(saerrVO.getSearchRetrieveRequestVO().getOffset());
     sb.append("\"");
-
-    sb.append(",");
-    sb.append("\"exportFormat\" : ");
-    sb.append("\"");
-    sb.append(searchAndExportRetrieveRequestVO.getExportFormatName());
-    sb.append("\"");
-
-    sb.append(",");
-    sb.append("\"outputFormat\" : ");
-    sb.append("\"");
-    sb.append(searchAndExportRetrieveRequestVO.getOutputFormat());
-    sb.append("\"");
-
-    if (searchAndExportRetrieveRequestVO.getCslConeId() != null) {
-      sb.append(",");
-      sb.append("\"cslConeId\" : ");
-      sb.append("\"");
-      sb.append(searchAndExportRetrieveRequestVO.getCslConeId());
-      sb.append("\"");
-    }
 
     sb.append("}");
 
