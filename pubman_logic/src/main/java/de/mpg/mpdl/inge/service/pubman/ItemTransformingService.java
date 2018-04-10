@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman;
 
 import java.util.List;
+import java.util.Map;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -19,8 +20,8 @@ public interface ItemTransformingService {
 
   public TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT source);
 
-  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String xml)
-      throws TransformationException;
+  public String transformFromTo(TransformerFactory.FORMAT source, TransformerFactory.FORMAT target, String xml,
+      Map<String, String> configuration) throws TransformationException;
 
   public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat);
 

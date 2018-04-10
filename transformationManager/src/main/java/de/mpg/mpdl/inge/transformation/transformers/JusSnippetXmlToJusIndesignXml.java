@@ -1,31 +1,20 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
-
-import org.w3c.dom.Document;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
-import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 @TransformerModule(sourceFormat = FORMAT.JUS_SNIPPET_XML, targetFormat = FORMAT.JUS_INDESIGN_XML)
 @TransformerModule(sourceFormat = FORMAT.JUS_SNIPPET_XML, targetFormat = FORMAT.JUS_HTML_XML)
 public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-
-
     if (FORMAT.JUS_INDESIGN_XML.equals(getTargetFormat())) {
       return getXmlSourceFromProperty("inge.transformation.jus_indesign.stylesheet.filename",
           "transformations/reports/xslt/jus_report_snippet2jus_out_indesign.xsl");
@@ -35,33 +24,29 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
     } else {
       return null;
     }
-
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
-    Map<String, Object> map = new HashMap<String, Object>();
-
-    map.put("indesign-namespace", getConfiguration().get(PropertyReader.getProperty("inge.report.indesign.namespace")));
-
-    try {
-
-      DocumentBuilderFactory fac = new DocumentBuilderFactoryImpl();
-      fac.setNamespaceAware(true);
-      DocumentBuilder docBuilder = fac.newDocumentBuilder();
-      Document sortDoc =
-          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
-              JusSnippetXmlToJusIndesignXml.class.getClassLoader()));
-
-      map.put("sortOrderXml", sortDoc.getDocumentElement());
-    } catch (Exception e) {
-      throw new TransformationException("Error while parsing sort order xml for JUS snippet transformation processing", e);
-    }
-
-
-
-    return map;
-
+    return null;
+    //    Map<String, Object> map = new HashMap<String, Object>();
+    //
+    //    map.put("indesign-namespace", PropertyReader.getProperty("inge.report.indesign.namespace"));
+    //
+    //    try {
+    //      DocumentBuilderFactory fac = new DocumentBuilderFactoryImpl();
+    //      fac.setNamespaceAware(true);
+    //      DocumentBuilder docBuilder = fac.newDocumentBuilder();
+    //      Document sortDoc =
+    //          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
+    //              JusSnippetXmlToJusIndesignXml.class.getClassLoader()));
+    //
+    //      map.put("sortOrderXml", sortDoc.getDocumentElement());
+    //    } catch (Exception e) {
+    //      throw new TransformationException("Error while parsing sort order xml for JUS snippet transformation processing", e);
+    //    }
+    //
+    //    return map;
   }
 
 

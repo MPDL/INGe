@@ -381,7 +381,7 @@ public class SwordUtil extends FacesBean {
         final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
         final String fileXml = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML,
-            TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml);
+            TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML, this.depositXml, null);
 
 
         try {
@@ -452,7 +452,7 @@ public class SwordUtil extends FacesBean {
 
       if (transform) {
         final ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
-        transformedItem = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML, trgFormat, item);
+        transformedItem = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.PEER_TEI_XML, trgFormat, item, null);
       }
 
       // Create item

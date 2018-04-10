@@ -1,82 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
-	xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dcterms="http://purl.org/dc/terms/" 
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:ei="${xsd.soap.item.item}" 
-	xmlns:mdr="${xsd.soap.common.mdrecords}"
-	xmlns:mdp="${xsd.metadata.escidocprofile}" 
 	xmlns:ec="${xsd.soap.item.components}"
-	xmlns:srel="${xsd.soap.common.srel}" 
-	xmlns:version="${xsd.soap.common.version}"
-	xmlns:release="${xsd.soap.common.release}" 
-	xmlns:file="${xsd.metadata.file}"
-	xmlns:pub="${xsd.metadata.publication}" 
-	xmlns:person="${xsd.metadata.person}"
-	xmlns:prop="${xsd.core.properties}" 
+	xmlns:ei="${xsd.soap.item.item}" 
+	xmlns:eprints="http://purl.org/eprint/terms/" 
+	xmlns:escidoc="${xsd.metadata.terms}"
+	xmlns:escidocFunctions="urn:escidoc:functions" 
 	xmlns:escidocItem="${xsd.soap.item.item}"
-	xmlns:publication="${xsd.metadata.publication}" 
 	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
 	xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}"
-	xmlns:source="${xsd.metadata.source}" 
 	xmlns:eterms="${xsd.metadata.terms}"
 	xmlns:event="${xsd.metadata.event}" 
-	xmlns:organization="${xsd.metadata.organization}"
-	xmlns:escidocFunctions="urn:escidoc:functions" 
-	xmlns:escidoc="${xsd.metadata.terms}"
-	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
-	xmlns:reportFunctions="urn:escidoc:functions" 
-	xmlns:itemlist="${xsd.soap.item.itemlist}"
-	xmlns:eprints="http://purl.org/eprint/terms/" 
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions" 
 	xmlns:foaf="http://xmlns.com/foaf/0.1/"
-	xmlns:s="http://sorting">
-
-	<xsl:output method="xml" indent="yes" 
-		encoding="UTF-8" />
-
-	<xsl:variable name="authorRole"
-		select="'http://www.loc.gov/loc.terms/relators/AUT'" />
-	<xsl:variable name="editorRole"
-		select="'http://www.loc.gov/loc.terms/relators/EDT'" />
+	xmlns:itemlist="${xsd.soap.item.itemlist}"
+	xmlns:mdp="${xsd.metadata.escidocprofile}" 
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:prop="${xsd.core.properties}" 
+	xmlns:pub="${xsd.metadata.publication}" 
+	xmlns:publication="${xsd.metadata.publication}" 
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:release="${xsd.soap.common.release}" 
+	xmlns:reportFunctions="urn:escidoc:functions" 
+	xmlns:s="http://sorting"
+	xmlns:source="${xsd.metadata.source}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
+	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	
-	<xsl:variable name="genreArticle"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/article'" />
-	<xsl:variable name="genreMonograph"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/monograph'" />
-	<xsl:variable name="genreCollectedEdition"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/collected-edition'" />
-	<xsl:variable name="genreCommentary"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/commentary'" />
-	<xsl:variable name="genreHandbook"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/handbook'" />
-	<xsl:variable name="genreProceedings"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'" />
+	<xsl:output method="xml" indent="yes" encoding="UTF-8" />
 
-	<xsl:variable name="genreJournal"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/journal'" />
-	<xsl:variable name="genreSeries"
-		select="'http://purl.org/escidoc/metadata/ves/publication-types/series'" />
+	<xsl:variable name="authorRole"	select="'http://www.loc.gov/loc.terms/relators/AUT'" />
+	<xsl:variable name="editorRole"	select="'http://www.loc.gov/loc.terms/relators/EDT'" />
+	
+	<xsl:variable name="genreArticle" select="'http://purl.org/escidoc/metadata/ves/publication-types/article'" />
+	<xsl:variable name="genreMonograph"	select="'http://purl.org/escidoc/metadata/ves/publication-types/monograph'" />
+	<xsl:variable name="genreCollectedEdition" select="'http://purl.org/escidoc/metadata/ves/publication-types/collected-edition'" />
+	<xsl:variable name="genreCommentary" select="'http://purl.org/escidoc/metadata/ves/publication-types/commentary'" />
+	<xsl:variable name="genreHandbook" select="'http://purl.org/escidoc/metadata/ves/publication-types/handbook'" />
+	<xsl:variable name="genreProceedings" select="'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'" />
+	<xsl:variable name="genreJournal" select="'http://purl.org/escidoc/metadata/ves/publication-types/journal'" />
+	<xsl:variable name="genreSeries" select="'http://purl.org/escidoc/metadata/ves/publication-types/series'" />
 
 	<xsl:param name="institutsId"/>
+
+	<xsl:key name="authorshipGenreOrder" match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:authorship/s:genre/@priority" use="../s:name" />
+	<xsl:key name="firstListEditorshipGenreOrder" match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:first_editorship/s:genre/@priority" use="../s:name" />
+	<xsl:key name="secondListEditorshipGenreOrder" match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:second_editorship/s:genre/@priority" use="../s:name" />
 	
-	<xsl:param name="sortOrderXml"/>
-	
-	<xsl:key name="authorshipGenreOrder" match="$sortOrderXml/s:sortorder/s:authorship/s:genre/@priority"
-		use="../s:name" />
-	<xsl:key name="firstListEditorshipGenreOrder" match="$sortOrderXmlr/s:sortorder/s:first_editorship/s:genre/@priority"
-		use="../s:name" />
-	<xsl:key name="secondListEditorshipGenreOrder" match="$sortOrderXml/s:sortorder/s:second_editorship/s:genre/@priority"
-		use="../s:name" />
-		
 	<xsl:template match="escidocItemList:item-list">
 		
-		<xsl:variable name="coneResult"
-			select="Util:queryReportPersonCone('persons',$institutsId)/cone" />
+		<xsl:variable name="coneResult"	select="Util:queryReportPersonCone('persons',$institutsId)/cone" />
 
 		<xsl:variable name="item-list">
 			<xsl:apply-templates mode="sort-creators" />
@@ -96,7 +78,7 @@
 					<xsl:attribute name="class" select="'Authorship'"/>
 					<xsl:text>BERICHT InstitutsId: </xsl:text> <xsl:value-of select="$institutsId"></xsl:value-of> <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text><xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
 					<xsl:text>AUTORENSCHAFTEN </xsl:text><xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
-					<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
+					<xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
 							<xsl:sort select="foaf:family_name" />
 							<xsl:sort select="foaf:givenname" />
 							<xsl:variable name="currentAuthorId" select="@rdf:about" />
@@ -159,7 +141,7 @@
 										<xsl:text>SAMMEL- UND TAGUNGSBÄNDE/HERAUSGEBER- UND VERFASSUNGSWERKE</xsl:text><xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
 									</xsl:when>
 								</xsl:choose>		
-								<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
+								<xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
 									<xsl:sort select="foaf:family_name" />
 									<xsl:sort select="foaf:givenname" />
 									<xsl:variable name="currentFirstEditorId" select="@rdf:about" />
@@ -208,7 +190,7 @@
 									<xsl:text>ZEITSCHRIFTEN, SCHRIFTENREIHEN, MATERIAL- UND GESETZESSAMMLUNGEN</xsl:text><xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
 								</xsl:when>
 							</xsl:choose>			
-							<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
+							<xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
 								<xsl:sort select="foaf:family_name" />
 								<xsl:sort select="foaf:givenname" />
 								<xsl:variable name="currentSecondEditorId" select="@rdf:about" />

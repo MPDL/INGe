@@ -69,14 +69,13 @@ public class ReportWorkspaceBean extends FacesBean {
   public ReportWorkspaceBean() {
     this.configuration = new HashMap<String, String>();
     this.childAffilList = new ArrayList<String>();
+
     final TransformerFactory.FORMAT[] targetFormats =
         itemTransformingService.getAllTargetFormatsFor(TransformerFactory.FORMAT.JUS_SNIPPET_XML);
 
-
     for (TransformerFactory.FORMAT f : targetFormats) {
       if (!TransformerFactory.FORMAT.JUS_SNIPPET_XML.equals(f)) {
-        //        String formatName = f.name() + "_" + (f.name().contains("HTML") ? "html" : "indesign");
-        outputFormats.add(new SelectItem(f, f.getName()));
+        this.outputFormats.add(new SelectItem(f, getLabel(f.getName())));
       }
     }
   }
@@ -132,13 +131,16 @@ public class ReportWorkspaceBean extends FacesBean {
           + this.format + " " + this.format.name());
 
       itemListSearchResult = this.doSearchItems();
+
       if (itemListSearchResult != null) {
         itemListCS = this.doCitationStyle(itemListSearchResult);
       }
+
       if (itemListCS != null) {
         itemListReportTransformed = this.doReportTransformation(itemListCS);
         logger.info("Transformed result: \n" + new String(itemListReportTransformed));
       }
+
       if (itemListReportTransformed != null) {
         FacesTools.getResponse().setContentType("text/html; charset=UTF-8");
 
@@ -183,8 +185,6 @@ public class ReportWorkspaceBean extends FacesBean {
     gsc2.setSelectedEnum(Genre.SERIES);
     scList.add(gsc2);
     scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-
-
     scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     OrganizationSearchCriterion osc = new OrganizationSearchCriterion();
@@ -193,8 +193,6 @@ public class ReportWorkspaceBean extends FacesBean {
     osc.setIncludeSource(true);
     scList.add(osc);
     scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-
-
 
     /*
      * 
@@ -227,10 +225,9 @@ public class ReportWorkspaceBean extends FacesBean {
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
       SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
-
-
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
       logger.info("Search result total nr: " + resp.getNumberOfRecords());
+
       if (totalNrOfSerchResultItems > 0) {
         itemListAsString = XmlTransformingService.transformToItemList(
             EntityTransformer.transformToOld(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())));
@@ -247,6 +244,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
   private byte[] doCitationStyle(String itemListAsString) {
     byte[] exportData = null;
+
     try {
       exportData = CitationStyleExecuterService.getOutput(itemListAsString,
           new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, this.csExportFormatName, this.csOutputFormatName));
@@ -262,8 +260,7 @@ public class ReportWorkspaceBean extends FacesBean {
     String childConfig = "";
     String result = null;
 
-    // set the config for the transformation, the institut's name is used
-    // for CoNE
+    // set the config for the transformation, the institut's id is used for CoNE
     if (this.childAffilList.size() > 0) {
       for (final String childId : this.childAffilList) {
         childConfig += childId + " ";
@@ -275,11 +272,10 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     try {
-      result = itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format, new String(src, "UTF-8"));
-
+      result = this.itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format,
+          new String(src, "UTF-8"), this.configuration);
     } catch (final TransformationException | UnsupportedEncodingException e) {
       throw new RuntimeException(e);
-
     }
 
     return result.getBytes();
@@ -291,7 +287,6 @@ public class ReportWorkspaceBean extends FacesBean {
     final AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
     final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
 
-    // if (aff.getChildren()!= null && aff.getChildren().size() > 0){
     if (aff.getHasChildren()) {
       affList.addAll(aff.getChildren());
       for (final AffiliationVOPresentation a : affList) {

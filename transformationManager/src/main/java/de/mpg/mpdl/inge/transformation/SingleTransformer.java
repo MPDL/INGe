@@ -34,7 +34,7 @@ public abstract class SingleTransformer implements Transformer {
 
 
   public Map<String, String> getConfiguration() {
-    return configuration;
+    return this.configuration;
   }
 
   public void setConfiguration(Map<String, String> configuration) {
@@ -42,7 +42,7 @@ public abstract class SingleTransformer implements Transformer {
   }
 
   public FORMAT getTargetFormat() {
-    return targetFormat;
+    return this.targetFormat;
   }
 
   public void setTargetFormat(FORMAT targetFormat) {
@@ -50,7 +50,7 @@ public abstract class SingleTransformer implements Transformer {
   }
 
   public FORMAT getSourceFormat() {
-    return sourceFormat;
+    return this.sourceFormat;
   }
 
   public void setSourceFormat(FORMAT sourceFormat) {
