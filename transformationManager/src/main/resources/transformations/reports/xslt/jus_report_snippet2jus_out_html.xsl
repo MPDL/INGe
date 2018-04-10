@@ -99,8 +99,7 @@
                                         </xsl:variable>
                                         <xsl:apply-templates mode="sortedAuthorList" select="$currentAuthorList">
                                             <xsl:with-param name="authorName" select="$currentAuthorName"></xsl:with-param>
-                                            <xsl:with-param name="authorCitationName" select="$currentAuthorCitationStyleName"
-                                            ></xsl:with-param>
+                                            <xsl:with-param name="authorCitationName" select="$currentAuthorCitationStyleName"></xsl:with-param>
                                         </xsl:apply-templates>
                                     </xsl:element>
                                 </xsl:when>
