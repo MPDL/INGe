@@ -31,7 +31,7 @@
 					class="noDisplay">: </span>
 				</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 						styleClass="messageWarn"
-						value="#{ViewItemFull.pubItem.withdrawalComment}" />
+						value="#{ViewItemFull.pubItem.message}" />
 				</span>
 			</div>
 			<!-- Creators -->
