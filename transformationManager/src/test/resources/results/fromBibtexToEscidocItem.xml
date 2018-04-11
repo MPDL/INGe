@@ -24,7 +24,7 @@
                   xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face"
                   xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
   <escidocItem:properties>
-      <srel:content-model xlink:href=""/>
+      <srel:content-model xlink:href="" objid=""/>
       <prop:version>
          <version:number>1</version:number>
          <version:date>2017-01-26T13:15:24.696Z</version:date>
@@ -62,7 +62,7 @@
                   <eterms:given-name>M.</eterms:given-name>
                   <organization:organization>
                      <dc:title>External Organizations</dc:title>
-                     <dc:identifier>escidoc:9019</dc:identifier>
+                     <dc:identifier>ou_persistent22</dc:identifier>
                   </organization:organization>
                </person:person>
             </eterms:creator>

@@ -60,7 +60,7 @@
                   <eterms:given-name>Christian</eterms:given-name>
                   <organization:organization>
                      <dc:title>External Organizations</dc:title>
-                     <dc:identifier>escidoc:9019</dc:identifier>
+                     <dc:identifier>ou_persistent22</dc:identifier>
                   </organization:organization>
                </person:person>
             </eterms:creator>
