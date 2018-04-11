@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
@@ -30,6 +33,15 @@ public class ContextServiceTest extends TestBase {
 
   @Autowired
   ContextService contextService;
+
+  @Before
+  public void setUp() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    String authenticationToken = loginAdmin();
+
+    userAccountService.reindexAll(authenticationToken);
+    contextService.reindexAll(authenticationToken);
+  }
 
   @Test
   public void objects() {
@@ -75,7 +87,7 @@ public class ContextServiceTest extends TestBase {
 
     ContextDbVO contextDbVO = contextService.get("ctx_persistent3", authenticationToken);
     assertTrue(contextDbVO != null);
-    assertTrue(contextDbVO.getState().equals(ContextVO.State.OPENED));
+    assertTrue(contextDbVO.getState().equals(ContextDbVO.State.OPENED));
 
     contextDbVO = contextService.open("ctx_persistent3", contextDbVO.getLastModificationDate(), authenticationToken);
   }
