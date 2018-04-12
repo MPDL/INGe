@@ -199,7 +199,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if ("admin".equals(getSearchType())) {
         resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
       } else {
-        resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+        resp = pis.searchDetailed(ssb, null);
       }
       this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
