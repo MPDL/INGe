@@ -57,9 +57,8 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
 
   @Override
   public boolean isEmpty(QueryType queryType) {
-    // return (searchString==null || searchString.trim().isEmpty()) && (hiddenId==null ||
-    // hiddenId.trim().isEmpty());
-    return (this.searchString == null || this.searchString.trim().isEmpty());
+    return (searchString == null || searchString.trim().isEmpty()) && (hiddenId == null || hiddenId.trim().isEmpty());
+    //    return (this.searchString == null || this.searchString.trim().isEmpty());
   }
 
   @Override
