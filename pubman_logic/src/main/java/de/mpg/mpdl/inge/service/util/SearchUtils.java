@@ -16,8 +16,11 @@ import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 
+import de.mpg.mpdl.inge.es.dao.impl.ElasticSearchGenericDAOImpl;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 
 public class SearchUtils {
 
@@ -112,7 +115,7 @@ public class SearchUtils {
     return SortBuilders.fieldSort(indexField).order(order);
   }
 
-  public static <E> List<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr, Class<E> clazz) throws IOException {
+  public static <E> List<E> getRecordListFromElasticSearchResponse(SearchResponse sr, Class<E> clazz) throws IOException {
     List<E> hitList = new ArrayList<>();
     for (SearchHit hit : sr.getHits().getHits()) {
 
@@ -124,5 +127,9 @@ public class SearchUtils {
   }
 
 
+  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr, Class<E> clazz)
+      throws IOException {
+    return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse(sr, clazz);
+  }
 
 }

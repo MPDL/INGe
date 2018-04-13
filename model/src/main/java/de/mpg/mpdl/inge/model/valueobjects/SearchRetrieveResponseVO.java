@@ -13,6 +13,7 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
 
   private String version;
   private int numberOfRecords;
+  private String scrollId;
   private List<SearchRetrieveRecordVO<T>> records;
 
   @JsonIgnore
@@ -50,6 +51,14 @@ public class SearchRetrieveResponseVO<T> extends ValueObject {
 
   public void setOriginalResponse(SearchResponse originalResponse) {
     this.originalResponse = originalResponse;
+  }
+
+  public String getScrollId() {
+    return scrollId;
+  }
+
+  public void setScrollId(String scrollId) {
+    this.scrollId = scrollId;
   }
 
 

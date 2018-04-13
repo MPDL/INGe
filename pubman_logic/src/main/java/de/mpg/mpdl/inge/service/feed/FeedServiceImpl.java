@@ -107,7 +107,7 @@ public class FeedServiceImpl {
 
     SearchResponse resp = pubItemService.searchDetailed(ssb, null);
 
-    List<PubItemVO> itemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, PubItemVO.class);
+    List<PubItemVO> itemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, PubItemVO.class);
 
     return itemList;
   }
