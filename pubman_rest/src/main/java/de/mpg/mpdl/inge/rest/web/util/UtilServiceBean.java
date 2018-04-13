@@ -71,13 +71,15 @@ public class UtilServiceBean {
       String token, HttpServletResponse httpResp)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     String searchSourceText = MapperFactory.getObjectMapper().writeValueAsString(searchSource);
-    Scroll scroll = null;
+    long scrollTime = -1;
+
     if (scrollTimeValue != null) {
-      System.out.println(scrollTimeValue);
-      scroll = new Scroll(TimeValue.parseTimeValue(scrollTimeValue, "test"));
+
+      scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").millis();
     }
+
     SearchSourceBuilder ssb = UtilServiceBean.parseJsonToSearchSourceBuilder(searchSourceText);
-    SearchResponse resp = service.searchDetailed(ssb, scroll, token);
+    SearchResponse resp = service.searchDetailed(ssb, scrollTime, token);
 
 
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -94,9 +96,10 @@ public class UtilServiceBean {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     String scrollTimeValue = scrollJson.get("scroll").asText();
     String scrollId = scrollJson.get("scroll_id").asText();
-    Scroll scroll = new Scroll(TimeValue.parseTimeValue(scrollTimeValue, "test"));
+    long scrollTime = TimeValue.parseTimeValue(scrollTimeValue, "test").getMillis();
 
-    SearchResponse resp = service.scrollOn(scrollId, scroll);
+
+    SearchResponse resp = service.scrollOn(scrollId, scrollTime);
 
     httpResp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
     XContentBuilder builder = XContentFactory.jsonBuilder(httpResp.getOutputStream());

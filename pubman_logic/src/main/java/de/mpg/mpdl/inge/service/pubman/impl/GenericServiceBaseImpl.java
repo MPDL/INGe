@@ -87,7 +87,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
 
   @Override
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll, String authenticationToken)
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     if (getElasticDao() != null) {
@@ -98,14 +98,14 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
       ssb.query(qb);
-      return getElasticDao().searchDetailed(ssb, scroll);
+      return getElasticDao().searchDetailed(ssb, scrollTime);
     }
     return null;
   }
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll)
+  public SearchResponse scrollOn(String scrollId, long scrollTime)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return getElasticDao().scrollOn(scrollId, scroll);
+    return getElasticDao().scrollOn(scrollId, scrollTime);
   }
 
 
@@ -113,7 +113,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   public SearchResponse searchDetailed(SearchSourceBuilder ssb, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    return searchDetailed(ssb, null, authenticationToken);
+    return searchDetailed(ssb, -1, authenticationToken);
   }
 
 

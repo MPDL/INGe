@@ -20,6 +20,11 @@ public class SearchRetrieveRequestVO extends ValueObject {
 
   private SearchSortCriteria[] sortKeys;
 
+  //The scrolltime in ms. -1 for no scrolling
+  private long scrollTime = -1;
+
+
+
   public SearchRetrieveRequestVO() {
 
   }
@@ -80,6 +85,14 @@ public class SearchRetrieveRequestVO extends ValueObject {
 
   public void setAggregationBuilders(List<AggregationBuilder> aggregationBuilders) {
     this.aggregationBuilders = aggregationBuilders;
+  }
+
+  public long getScrollTime() {
+    return scrollTime;
+  }
+
+  public void setScrollTime(long scrollTime) {
+    this.scrollTime = scrollTime;
   }
 
 

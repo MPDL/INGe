@@ -163,6 +163,7 @@ public class HtmlFormatter extends AbstractFormatter {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
       }
 
+      // TODO: an neue SearchAndExport Schnittstelle anpassen
       transformer.setParameter("citation-link",
           PropertyReader.getProperty("inge.pubman.instance.url")
               + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""

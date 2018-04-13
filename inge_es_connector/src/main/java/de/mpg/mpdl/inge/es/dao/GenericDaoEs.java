@@ -84,9 +84,9 @@ public interface GenericDaoEs<E> {
 
   public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException;
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll) throws IngeTechnicalException;
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime) throws IngeTechnicalException;
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException;
+  public SearchResponse scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException;
 
 
   /**

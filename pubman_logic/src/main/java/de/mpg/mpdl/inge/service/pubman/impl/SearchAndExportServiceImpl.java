@@ -37,21 +37,20 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
 
   public SearchAndExportServiceImpl() {}
 
+
   @Override
-  public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
+  public SearchAndExportResultVO exportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     byte[] result;
     String fileName;
     String targetMimeType;
 
-    SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
-
     if (saerrVO.getExportFormatName() == null || saerrVO.getExportFormatName().equals(TransformerFactory.JSON)) {
-      result = srrVO.getOriginalResponse().toString().getBytes();
+      result = saerrVO.getSearchRetrieveReponseVO().getOriginalResponse().toString().getBytes();
       fileName = FileFormatVO.FILE_FORMAT.JSON.getName() + "." + FileFormatVO.FILE_FORMAT.JSON.getExtension();
       targetMimeType = FileFormatVO.JSON_MIMETYPE;
     } else {
-      List<ItemVersionVO> searchResult = getSearchResult(srrVO);
+      List<ItemVersionVO> searchResult = getSearchResult(saerrVO.getSearchRetrieveReponseVO());
       ExportFormatVO exportFormatVO = getExportFormatVO(saerrVO.getExportFormatName(), saerrVO.getOutputFormat(), saerrVO.getCslConeId());
       result = this.itemTransformingService.getOutputForExport(exportFormatVO, searchResult);
       fileName = exportFormatVO.getName() + "." + exportFormatVO.getFileFormat().getExtension();
@@ -61,7 +60,18 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     return new SearchAndExportResultVO(result, fileName, targetMimeType);
   }
 
+  @Override
+  public SearchAndExportResultVO searchAndExportItems(SearchAndExportRetrieveRequestVO saerrVO, String token)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
+    saerrVO.setSearchRetrieveReponseVO(srrVO);
+    return exportItems(saerrVO, token);
+
+  }
+
   private List<ItemVersionVO> getSearchResult(SearchRetrieveResponseVO<ItemVersionVO> srrVO) {
+    
     List<ItemVersionVO> searchResult = new ArrayList<ItemVersionVO>();
     for (SearchRetrieveRecordVO<ItemVersionVO> record : srrVO.getRecords()) {
       searchResult.add(record.getData());

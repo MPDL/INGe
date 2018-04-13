@@ -175,7 +175,7 @@ public class HomePage extends BreadcrumbPage {
 
     SearchResponse resp = pi.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
 
-    List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
+    List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 
     return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
   }

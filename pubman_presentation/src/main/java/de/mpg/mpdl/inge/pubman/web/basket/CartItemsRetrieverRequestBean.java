@@ -113,7 +113,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
         this.numberOfRecords = (int) resp.getHits().getTotalHits();
 
-        List<ItemVersionVO> pubItemList = SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(resp, ItemVersionVO.class);
+        List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 
         returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
 
