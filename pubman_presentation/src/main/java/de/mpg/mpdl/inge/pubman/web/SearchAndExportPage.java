@@ -38,7 +38,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
@@ -363,24 +362,10 @@ public class SearchAndExportPage extends BreadcrumbPage {
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
 
-    // Test auf korrektes Intervall
-    UIComponent temp1 = FacesTools.findComponent("limitId");
-    HtmlInputText temp2 = (HtmlInputText) temp1;
-    int limit_;
-    try {
-      limit_ = Integer.parseInt((String) temp2.getSubmittedValue());
-      // obere Grenze eingegeben und gueltig
-      if (offset_ < 0 || offset_ >= limit_) {
-        msg = getMessage("searchAndExport_error_numberBetween_GE_LT").replace("$1", "0").replace("$2",
-            "" + (limit_ > 0 && limit_ <= this.maxLimit ? limit_ : this.maxLimit));
-        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-      }
-    } catch (NumberFormatException ex) {
-      // obere Grenze ungueltig 
-      if (offset_ < 0 || offset_ >= this.maxLimit) {
-        msg = getMessage("searchAndExport_error_numberBetween_GE_LT").replace("$1", "0").replace("$2", "" + this.maxLimit);
-        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-      }
+    // Test auf positive Zahl
+    if (offset_ < 0) {
+      msg = getMessage("searchAndExport_error_number_GE_0");
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
   }
 
@@ -397,23 +382,9 @@ public class SearchAndExportPage extends BreadcrumbPage {
     }
 
     // Test auf korrektes Intervall
-    UIComponent temp1 = FacesTools.findComponent("offsetId");
-    HtmlInputText temp2 = (HtmlInputText) temp1;
-    int offset_;
-    try {
-      offset_ = Integer.parseInt((String) temp2.getSubmittedValue());
-      // untere Grenze eingegeben und gueltig
-      if (limit_ <= 0 || limit_ <= offset_ || limit_ > this.maxLimit) {
-        msg = getMessage("searchAndExport_error_numberBetween_GT_LE").replace("$1", (offset_ >= 0 ? "" + offset_ : "0")).replace("$2",
-            "" + this.maxLimit);
-        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-      }
-    } catch (NumberFormatException ex) {
-      // untere Grenze ungueltig 
-      if (limit_ <= 0 || limit_ > this.maxLimit) {
-        msg = getMessage("searchAndExport_error_numberBetween_GT_LE").replace("$1", "0").replace("$2", "" + this.maxLimit);
-        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-      }
+    if (limit_ <= 0 || limit_ > this.maxLimit) {
+      msg = getMessage("searchAndExport_error_numberBetween_GT_LE").replace("$1", ("0")).replace("$2", "" + this.maxLimit);
+      throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
     }
   }
 
