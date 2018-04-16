@@ -22,6 +22,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -73,7 +74,7 @@ public class ContextRestController {
   @RequestMapping(value = CTX_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<?> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = CTX_ID_VAR) String ctxId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     ContextDbVO ctx = null;
     if (token != null && !token.isEmpty()) {
       ctx = ctxSvc.get(ctxId, token);
@@ -83,8 +84,7 @@ public class ContextRestController {
     if (ctx != null) {
       return new ResponseEntity<ContextDbVO>(ctx, HttpStatus.OK);
     } else {
-      VndError error = new VndError("404 - NOT FOUND", "could not get context with id: " + ctxId);
-      return new ResponseEntity<VndError>(error, HttpStatus.NOT_FOUND);
+      throw new NotFoundException();
     }
   }
 

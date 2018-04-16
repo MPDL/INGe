@@ -1,7 +1,10 @@
 package de.mpg.mpdl.inge.rest.web.exceptions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -32,6 +35,73 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
   private final static Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
 
+
+  private static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {
+    logger.error("Error in REST", e);
+    if (status != null) {
+      messageMap.put("timestamp", LocalDateTime.now());
+      messageMap.put("status", status.value());
+      messageMap.put("error", status.getReasonPhrase());
+    }
+
+    messageMap.put("exception", e.getClass().getCanonicalName());
+    if (e.getMessage() != null) {
+      messageMap.put("message", e.getMessage());
+    }
+
+
+    if (e.getCause() != null) {
+      Map<String, Object> subMap = new LinkedHashMap<>();
+      messageMap.put("cause", subMap);
+      buildExceptionMessage(e.getCause(), subMap, null);
+    }
+
+  }
+
+  private static ResponseEntity<Object> buildExceptionResponseEntity(Throwable e, HttpHeaders headers, HttpStatus status) {
+    Map<String, Object> jsonException = new LinkedHashMap<>();
+    buildExceptionMessage(e, jsonException, status);
+    return new ResponseEntity<Object>(jsonException, headers, status);
+  }
+
+  @ExceptionHandler(value = NotFoundException.class)
+  protected ResponseEntity<Object> handleNotFoundException(Exception e, WebRequest req) {
+    return buildExceptionResponseEntity(e, null, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(value = AuthenticationException.class)
+  protected ResponseEntity<Object> handleAuthenticationException(Exception e, WebRequest req) {
+    return buildExceptionResponseEntity(e, null, HttpStatus.UNAUTHORIZED);
+  }
+
+  @ExceptionHandler(value = AuthorizationException.class)
+  protected ResponseEntity<Object> handleAuthorizationException(Exception e, WebRequest req) {
+    return buildExceptionResponseEntity(e, null,  HttpStatus.FORBIDDEN);
+  }
+
+  @ExceptionHandler(value = IngeTechnicalException.class)
+  protected ResponseEntity<Object> handleTechnicalxception(Exception e, WebRequest req) {
+    return buildExceptionResponseEntity(e, null, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(value = IngeApplicationException.class)
+  protected ResponseEntity<Object> handleApplicationException(Exception e, WebRequest req) {
+    return buildExceptionResponseEntity(e, null, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(value = Exception.class)
+  protected ResponseEntity<Object> handleAnyException(Exception e, WebRequest req) {
+    return buildExceptionResponseEntity(e, null, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+
+  @Override
+  protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
+      HttpHeaders headers, HttpStatus status, WebRequest request) {
+    return buildExceptionResponseEntity(ex, headers, status);
+  }
+
+  /*
   @ExceptionHandler(value = AuthenticationException.class)
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ResponseBody
@@ -45,7 +115,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new VndErrors("401", authcException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
-
+  
   @ExceptionHandler(value = AuthorizationException.class)
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ResponseBody
@@ -58,7 +128,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new VndErrors("403", authzException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
-
+  
   @ExceptionHandler(value = IngeTechnicalException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
@@ -72,7 +142,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new VndErrors("500", iingeTechnicalException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
-
+  
   @ExceptionHandler(value = IngeApplicationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
@@ -86,7 +156,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new VndErrors("400", iingeApplicationException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
-
+  
   @ExceptionHandler(value = ValidationException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
@@ -97,7 +167,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new VndErrors("400", validationException.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
-
+  
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ResponseBody
@@ -111,7 +181,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
       return new VndErrors("500", exception.getClass().getCanonicalName() + ": " + "no message available!");
     }
   }
-
+  
   private VndErrors addTheCause(VndErrors errors, Throwable throwable) {
     Throwable cause = throwable;
     while (cause.getCause() != null) {
@@ -124,7 +194,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
     return errors;
   }
-
+  
   @Override
   protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status,
       WebRequest request) {
@@ -139,7 +209,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     }
     return new ResponseEntity<Object>(errorMessage, headers, status);
   }
-
+  
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
       WebRequest request) {
@@ -158,5 +228,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
     VndErrors errorMessage = new VndErrors(errors);
     return new ResponseEntity<Object>(errorMessage, headers, status);
   }
+  
+  */
 
 }

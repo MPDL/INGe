@@ -37,6 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
+import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -151,11 +152,8 @@ public class ItemRestController {
 
 
     SearchResponse searchResp = pis.scrollOn(scrollId, DEFAULT_SCROLL_TIME);
-    System.out.println(searchResp.toString());
     SearchRetrieveResponseVO<ItemVersionVO> srResponse =
         SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(searchResp, ItemVersionVO.class);
-
-    System.out.println(srResponse.getRecords().size());
 
     if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
       HttpHeaders headers = new HttpHeaders();
@@ -217,13 +215,17 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<ItemVersionVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     ItemVersionVO item = null;
 
     if (token != null && !token.isEmpty()) {
       item = pis.get(itemId, token);
     } else {
       item = pis.get(itemId, null);
+    }
+
+    if (item == null) {
+      throw new NotFoundException();
     }
 
     return new ResponseEntity<ItemVersionVO>(item, HttpStatus.OK);
@@ -239,9 +241,13 @@ public class ItemRestController {
   @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/content", method = RequestMethod.GET)
   public void getComponentContent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable String itemId, @PathVariable String componentId, HttpServletResponse response)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     try {
       FileVOWrapper fileVOWrapper = fileService.readFile(itemId, componentId, token);
+      if(fileVOWrapper==null)
+      {
+        throw new NotFoundException();
+      }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
       response.setHeader("Content-disposition", "attachment; filename=" + fileVOWrapper.getFileVO().getName());
       OutputStream output = response.getOutputStream();

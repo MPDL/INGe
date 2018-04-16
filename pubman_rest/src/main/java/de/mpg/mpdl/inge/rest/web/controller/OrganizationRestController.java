@@ -25,6 +25,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -101,12 +102,15 @@ public class OrganizationRestController {
   @RequestMapping(value = OU_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<AffiliationDbVO> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = OU_ID_VAR) String ouId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     AffiliationDbVO ou = null;
     if (token != null && !token.isEmpty()) {
       ou = organizationSvc.get(ouId, token);
     } else {
       ou = organizationSvc.get(ouId, null);
+    }
+    if (ou == null) {
+      throw new NotFoundException();
     }
     return new ResponseEntity<AffiliationDbVO>(ou, HttpStatus.OK);
   }
