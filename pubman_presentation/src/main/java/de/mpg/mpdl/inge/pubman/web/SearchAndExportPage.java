@@ -137,6 +137,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     final String contentType = searchAndExportResultVO.getTargetMimetype();
     FacesTools.getResponse().setContentType(contentType);
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + searchAndExportResultVO.getFileName());
+    FacesTools.getResponse().setIntHeader("x-total-number-of-results", searchAndExportResultVO.getTotalNumberOfRecords());
     try {
       final OutputStream out = FacesTools.getResponse().getOutputStream();
       out.write(searchAndExportResultVO.getResult());

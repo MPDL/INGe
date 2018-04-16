@@ -6,11 +6,13 @@ public class SearchAndExportResultVO extends ValueObject {
   private byte[] result;
   private String fileName;
   private String targetMimeType;
+  private int totalNumberOfRecords;
 
-  public SearchAndExportResultVO(byte[] result, String fileName, String targetMimeType) {
+  public SearchAndExportResultVO(byte[] result, String fileName, String targetMimeType, int totalNumberOfRecords) {
     this.result = result;
     this.fileName = fileName;
     this.targetMimeType = targetMimeType;
+    this.totalNumberOfRecords = totalNumberOfRecords;
   }
 
   public byte[] getResult() {
@@ -23,5 +25,9 @@ public class SearchAndExportResultVO extends ValueObject {
 
   public String getTargetMimetype() {
     return this.targetMimeType;
+  }
+
+  public int getTotalNumberOfRecords() {
+    return this.totalNumberOfRecords;
   }
 }
