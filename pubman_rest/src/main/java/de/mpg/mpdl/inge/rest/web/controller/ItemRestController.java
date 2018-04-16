@@ -129,10 +129,10 @@ public class ItemRestController {
 
     response.setContentType(saerVO.getTargetMimetype());
     response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
     if (scroll) {
       response.setHeader("scrollId", saerrVO.getSearchRetrieveReponseVO().getScrollId());
     }
-
 
     OutputStream output = response.getOutputStream();
     output.write(saerVO.getResult());
@@ -150,7 +150,6 @@ public class ItemRestController {
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
 
-
     SearchResponse searchResp = pis.scrollOn(scrollId, DEFAULT_SCROLL_TIME);
     SearchRetrieveResponseVO<ItemVersionVO> srResponse =
         SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(searchResp, ItemVersionVO.class);
@@ -166,6 +165,7 @@ public class ItemRestController {
 
     response.setContentType(saerVO.getTargetMimetype());
     response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
     response.setHeader("scrollId", srResponse.getScrollId());
 
     OutputStream output = response.getOutputStream();

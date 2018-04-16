@@ -45,7 +45,7 @@ public class SearchAndExportRetrieveRequestVO extends ValueObject {
   }
 
   public SearchRetrieveResponseVO<ItemVersionVO> getSearchRetrieveReponseVO() {
-    return searchRetrieveReponseVO;
+    return this.searchRetrieveReponseVO;
   }
 
   public void setSearchRetrieveReponseVO(SearchRetrieveResponseVO<ItemVersionVO> searchRetrieveReponseVO) {
