@@ -71,7 +71,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
   }
 
   private List<ItemVersionVO> getSearchResult(SearchRetrieveResponseVO<ItemVersionVO> srrVO) {
-    
+
     List<ItemVersionVO> searchResult = new ArrayList<ItemVersionVO>();
     for (SearchRetrieveRecordVO<ItemVersionVO> record : srrVO.getRecords()) {
       searchResult.add(record.getData());
