@@ -23,17 +23,11 @@ public class SearchRetrieveRequestVO extends ValueObject {
   //The scrolltime in ms. -1 for no scrolling
   private long scrollTime = -1;
 
-
-
-  public SearchRetrieveRequestVO() {
-
-  }
+  public SearchRetrieveRequestVO() {}
 
   public SearchRetrieveRequestVO(AggregationBuilder aggBuilder) {
     this.aggregationBuilders.add(aggBuilder);
   }
-
-
 
   public SearchRetrieveRequestVO(QueryBuilder queryBuilder, int limit, int offset, SearchSortCriteria... sortKeys) {
     this.setQueryBuilder(queryBuilder);
@@ -42,13 +36,12 @@ public class SearchRetrieveRequestVO extends ValueObject {
     this.sortKeys = sortKeys;
   }
 
-
   public SearchRetrieveRequestVO(QueryBuilder queryBuilder, SearchSortCriteria... sortKeys) {
     this(queryBuilder, -1, 0, sortKeys);
   }
 
   public int getLimit() {
-    return limit;
+    return this.limit;
   }
 
   public void setLimit(int limit) {
@@ -56,7 +49,7 @@ public class SearchRetrieveRequestVO extends ValueObject {
   }
 
   public int getOffset() {
-    return offset;
+    return this.offset;
   }
 
   public void setOffset(int offset) {
@@ -64,7 +57,7 @@ public class SearchRetrieveRequestVO extends ValueObject {
   }
 
   public SearchSortCriteria[] getSortKeys() {
-    return sortKeys;
+    return this.sortKeys;
   }
 
   public void setSortKeys(SearchSortCriteria[] sortKeys) {
@@ -72,7 +65,7 @@ public class SearchRetrieveRequestVO extends ValueObject {
   }
 
   public QueryBuilder getQueryBuilder() {
-    return queryBuilder;
+    return this.queryBuilder;
   }
 
   public void setQueryBuilder(QueryBuilder queryBuilder) {
@@ -80,7 +73,7 @@ public class SearchRetrieveRequestVO extends ValueObject {
   }
 
   public List<AggregationBuilder> getAggregationBuilders() {
-    return aggregationBuilders;
+    return this.aggregationBuilders;
   }
 
   public void setAggregationBuilders(List<AggregationBuilder> aggregationBuilders) {
@@ -88,13 +81,11 @@ public class SearchRetrieveRequestVO extends ValueObject {
   }
 
   public long getScrollTime() {
-    return scrollTime;
+    return this.scrollTime;
   }
 
   public void setScrollTime(long scrollTime) {
     this.scrollTime = scrollTime;
   }
-
-
 
 }
