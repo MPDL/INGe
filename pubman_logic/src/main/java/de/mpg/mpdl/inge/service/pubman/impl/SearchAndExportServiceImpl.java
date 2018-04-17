@@ -66,7 +66,7 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     SearchRetrieveResponseVO<ItemVersionVO> srrVO = this.pubItemService.search(saerrVO.getSearchRetrieveRequestVO(), token);
     saerrVO.setSearchRetrieveReponseVO(srrVO);
-    
+
     return exportItems(saerrVO, token);
   }
 

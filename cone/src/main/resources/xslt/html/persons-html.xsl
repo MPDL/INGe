@@ -32,6 +32,7 @@
 	<xsl:output method="xml" encoding="UTF-8" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" media-type="text/html"/>
 
 	<xsl:param name="citation-link"/>
+	<xsl:param name="postData"/>
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
 	<xsl:param name="inge.pubman.presentation.url"/>
@@ -186,7 +187,6 @@
 					var ampEsc = '&amp;';
 					var amp = ampEsc.substring(0,1);
 				
-				
 					var recordsPerPage = 25;
 					var totalNumberOfRecords = 0;
 				
@@ -194,22 +194,33 @@
 					{
 						var requestString = '<xsl:value-of select="$citation-link"/>';
 						requestString = requestString.replace(/&amp;/g, amp);
-						
-						requestString = requestString + amp + "startRecord=" + offset + amp + "maximumRecords=" + limit;
+						var postData = '<xsl:value-of select="$postData"/>';
+
+						/* old */						
+						/* requestString = requestString + amp + "startRecord=" + offset + amp + "maximumRecords=" + limit; */
+
+						/* append ,"size" : "limit","from" : "offset"} */
+						data = data + ",\"size\":\"" + limit + ",\"from\":\"" + offset + ""\"}"
 						
 						$('#publicationsArea').empty();
 						$('#publicationsArea').append('<div class="big_imgArea huge_marginLExcl smallThrobber"></div>');
 						
-						$.ajax({url: requestString, async:false, success: function(itemList, textStatus, jqXHR){
-							
-							
-							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList);
+						/* old $.ajax({url: requestString, async:false, success: function(itemList, textStatus, jqXHR){ */
+						$.ajax({method:"POST",
+						        url:requestString,
+						        data:postData,
+						        processData:false,
+						        contentType:"application/json; charset=UTF-8",
+						        async:false,
+						        success:function(itemList, textStatus, jqXHR){
+						        
+							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.10','escidocItem', itemList);
 							totalNumberOfRecords = jqXHR.getResponseHeader('x-total-number-of-results');
 							var element = '';
 							var itemURL = '';
 							var publicationTitle = '';
 							
-							for(var i=0; getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.7','escidocItem', itemList).length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
+							for(var i=0; getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.10','escidocItem', itemList).length <xsl:text disable-output-escaping="yes"> > </xsl:text>i; i++){
 							
 								var citation = getElementsByTagName('bibliographicCitation', 'http://purl.org/dc/terms/', 'dcterms', allItems[i])[0];
 								
@@ -240,7 +251,7 @@
 					
 					function changePaginatorVal(pageNumber)
 					{
-						var offset = ((pageNumber - 1) * recordsPerPage) + 1;
+						var offset = ((pageNumber - 1) * recordsPerPage);
 						var limit = recordsPerPage;
 						retrievePublications(offset, limit);
 					}

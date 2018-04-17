@@ -118,6 +118,7 @@ public class ItemRestController {
     if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
       SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
       HttpHeaders headers = new HttpHeaders();
+      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
       if (scroll) {
         headers.add("scrollId", srResponse.getScrollId());
       }
@@ -156,6 +157,7 @@ public class ItemRestController {
 
     if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
       HttpHeaders headers = new HttpHeaders();
+      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
       headers.add("scrollId", srResponse.getScrollId());
       return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
     }
