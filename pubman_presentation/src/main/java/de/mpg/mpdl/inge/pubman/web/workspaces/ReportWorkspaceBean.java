@@ -18,7 +18,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -36,7 +35,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.Organizati
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
@@ -58,8 +56,8 @@ public class ReportWorkspaceBean extends FacesBean {
   private final String csExportFormatName = XmlHelper.JUS_REPORT;
   private final String csOutputFormatName = XmlHelper.ESCIDOC_SNIPPET;
 
-  private Map<String, String> configuration = null;
-  List<String> childAffilList;
+  private Map<String, String> configuration = new HashMap<String, String>();
+  private List<String> allOUs = new ArrayList<String>();
 
   private List<SelectItem> outputFormats = new ArrayList<SelectItem>();
   private TransformerFactory.FORMAT format;
@@ -67,9 +65,6 @@ public class ReportWorkspaceBean extends FacesBean {
   private ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
 
   public ReportWorkspaceBean() {
-    this.configuration = new HashMap<String, String>();
-    this.childAffilList = new ArrayList<String>();
-
     final TransformerFactory.FORMAT[] targetFormats =
         itemTransformingService.getAllTargetFormatsFor(TransformerFactory.FORMAT.JUS_SNIPPET_XML);
 
@@ -168,31 +163,6 @@ public class ReportWorkspaceBean extends FacesBean {
   private String doSearchItems() {
     String itemListAsString = null;
     int totalNrOfSerchResultItems = 0;
-    // create an initial query with the given reportYear and the org id
-
-    List<SearchCriterionBase> scList = new ArrayList<>();
-    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
-    dsc1.setFrom(this.reportYear);
-    dsc1.setTo(this.reportYear);
-    scList.add(dsc1);
-    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-    GenreSearchCriterion gsc = new GenreSearchCriterion();
-    gsc.setSelectedEnum(Genre.JOURNAL);
-    scList.add(gsc);
-    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-    GenreSearchCriterion gsc2 = new GenreSearchCriterion();
-    gsc2.setSelectedEnum(Genre.SERIES);
-    scList.add(gsc2);
-    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-    scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-    OrganizationSearchCriterion osc = new OrganizationSearchCriterion();
-    osc.setSearchString(this.organization.getName());
-    osc.setHiddenId(this.organization.getIdentifier());
-    osc.setIncludeSource(true);
-    scList.add(osc);
-    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
     /*
      * 
@@ -220,6 +190,42 @@ public class ReportWorkspaceBean extends FacesBean {
      * 
      * // close the brackets of the query query = query + ")";
      */
+
+    List<SearchCriterionBase> scList = new ArrayList<>();
+    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+    DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
+    dsc1.setFrom(this.reportYear);
+    dsc1.setTo(this.reportYear);
+    scList.add(dsc1);
+    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    GenreSearchCriterion gsc = new GenreSearchCriterion();
+    gsc.setSelectedEnum(Genre.JOURNAL);
+    scList.add(gsc);
+    scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+    GenreSearchCriterion gsc2 = new GenreSearchCriterion();
+    gsc2.setSelectedEnum(Genre.SERIES);
+    scList.add(gsc2);
+    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+    scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+    scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+
+    // when there are children, concat the org ids to the query (inclusive parent)
+    try {
+      this.allOUs = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(this.organization.getIdentifier());
+      for (String childOU : this.allOUs) {
+        scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+        OrganizationSearchCriterion csc = new OrganizationSearchCriterion();
+        csc.setHiddenId(childOU);
+        csc.setIncludeSource(true);
+        scList.add(csc);
+      }
+    } catch (Exception e) {
+      logger.error("Error while getting childOUs.", e);
+      this.error("Error while getting childOUs.");
+    }
+
+    scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+
     try {
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
@@ -260,18 +266,15 @@ public class ReportWorkspaceBean extends FacesBean {
     String childConfig = "";
     String result = null;
 
-    // set the config for the transformation, the institut's id is used for CoNE
-    if (this.childAffilList.size() > 0) {
-      for (final String childId : this.childAffilList) {
-        childConfig += childId + " ";
-      }
-      logger.info("CHILD Config " + childConfig);
-      this.configuration.put("institutsId", childConfig);
-    } else {
-      this.configuration.put("institutsId", this.organization.getIdentifier());
+    // set the config for the transformation
+    for (final String childId : this.allOUs) {
+      childConfig += childId + " ";
     }
+    logger.info("CHILD Config " + childConfig);
+    this.configuration.put("institutsId", childConfig);
 
     try {
+      logger.info(new String(src, "UTF-8"));
       result = this.itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format,
           new String(src, "UTF-8"), this.configuration);
     } catch (final TransformationException | UnsupportedEncodingException e) {
@@ -279,23 +282,5 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     return result.getBytes();
-  }
-
-  public List<String> getChildOUs(String orgId) throws Exception {
-    final List<String> affListAsString = new ArrayList<String>();
-    final AffiliationDbVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null);
-    final AffiliationVOPresentation aff = new AffiliationVOPresentation(affVO);
-    final List<AffiliationVOPresentation> affList = new ArrayList<AffiliationVOPresentation>();
-
-    if (aff.getHasChildren()) {
-      affList.addAll(aff.getChildren());
-      for (final AffiliationVOPresentation a : affList) {
-        String childId = a.getIdPath();
-        childId = childId.substring(0, childId.indexOf(" "));
-        affListAsString.add(childId);
-      }
-    }
-
-    return affListAsString;
   }
 }

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
@@ -84,9 +83,9 @@ public interface GenericDaoEs<E> {
 
   public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException;
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll) throws IngeTechnicalException;
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime) throws IngeTechnicalException;
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException;
+  public SearchResponse scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException;
 
 
   /**

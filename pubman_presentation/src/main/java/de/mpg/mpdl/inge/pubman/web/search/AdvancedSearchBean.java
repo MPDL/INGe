@@ -785,6 +785,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         BoolQueryBuilder bqb = QueryBuilders.boolQuery();
         bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
             PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+        bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+            PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
         bqb.must(SearchCriterionBase.scListToElasticSearchQuery(allCriterions));
         qb = bqb;
       } else {

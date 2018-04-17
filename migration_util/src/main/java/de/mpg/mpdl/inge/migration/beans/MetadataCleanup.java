@@ -36,7 +36,7 @@ public class MetadataCleanup {
       if (id.getType().name().equals(IdentifierVO.IdType.CONE.name())) {
         String cone_id = id.getId();
         if (!cone_id.isEmpty()) {
-          id.setId(cone_id.substring(cone_id.lastIndexOf("cone") + 4));
+          id.setId(cone_id.substring(cone_id.lastIndexOf("cone") - 1));
         }
       }
     });
@@ -56,7 +56,7 @@ public class MetadataCleanup {
             if (creator.getPerson().getIdentifier().getType().equals(IdentifierVO.IdType.CONE)) {
               String pers_id = creator.getPerson().getIdentifier().getId();
               if (!pers_id.isEmpty()) {
-                creator.getPerson().getIdentifier().setId(pers_id.substring(pers_id.lastIndexOf("cone") + 4));
+                creator.getPerson().getIdentifier().setId(pers_id.substring(pers_id.lastIndexOf("cone") - 1));
               } else {
                 creator.getPerson().setIdentifier(null);
               }

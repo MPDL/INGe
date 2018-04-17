@@ -28,6 +28,9 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * Parameters for task oriented framework methods.
  * 
@@ -37,6 +40,8 @@ import java.util.Date;
  * @revised by MuJ: 05.09.2007
  */
 @SuppressWarnings("serial")
+@JsonInclude(value = Include.NON_EMPTY)
+
 public class TaskParamVO extends ValueObject {
   /**
    * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -59,6 +64,8 @@ public class TaskParamVO extends ValueObject {
   public void setPassword(String password) {
     this.password = password;
   }
+
+  public TaskParamVO() {}
 
   /**
    * Creates a new instance with the given modification date.

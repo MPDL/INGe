@@ -7,10 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tika.exception.TikaException;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.TaskParamVO;
+import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -44,6 +47,7 @@ import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.annotations.ApiImplicitParam;
@@ -60,6 +64,8 @@ public class ItemRestController {
 
   private final String ITEM_ID_PATH = "/{itemId}";
   private final String ITEM_ID_VAR = "itemId";
+
+  public final static long DEFAULT_SCROLL_TIME = 90000;
 
   @Autowired
   private PubItemService pis;
@@ -100,20 +106,28 @@ public class ItemRestController {
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> query( //
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
       @RequestParam(value = "exportFormat", required = false) String exportFormat, //
       @RequestParam(value = "outputFormat", required = false) String outputFormat, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
-      @RequestParam(value = "scroll", required = false) Boolean scroll, //
+      @RequestParam(value = "scroll", required = false) boolean scroll, //
       @RequestBody JsonNode query, //
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
+    if (scroll) {
+      srRequest.setScrollTime(DEFAULT_SCROLL_TIME);
+    }
 
     if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
       SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
-      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
+      if (scroll) {
+        headers.add("scrollId", srResponse.getScrollId());
+      }
+      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
     }
 
     SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat, outputFormat, cslConeId);
@@ -121,6 +135,45 @@ public class ItemRestController {
 
     response.setContentType(saerVO.getTargetMimetype());
     response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
+    if (scroll) {
+      response.setHeader("scrollId", saerrVO.getSearchRetrieveReponseVO().getScrollId());
+    }
+
+    OutputStream output = response.getOutputStream();
+    output.write(saerVO.getResult());
+
+    return null;
+  }
+
+  @RequestMapping(value = "/search/scroll", method = RequestMethod.GET)
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchScroll( //
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
+      @RequestParam(value = "exportFormat", required = false) String exportFormat, //
+      @RequestParam(value = "outputFormat", required = false) String outputFormat, //
+      @RequestParam(value = "cslConeId", required = false) String cslConeId, //
+      @RequestParam(value = "scrollId", required = true) String scrollId, //
+      HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+
+    SearchResponse searchResp = pis.scrollOn(scrollId, DEFAULT_SCROLL_TIME);
+    SearchRetrieveResponseVO<ItemVersionVO> srResponse =
+        SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(searchResp, ItemVersionVO.class);
+
+    if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
+      headers.add("scrollId", srResponse.getScrollId());
+      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
+    }
+
+    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srResponse, exportFormat, outputFormat, cslConeId);
+    SearchAndExportResultVO saerVO = this.saes.exportItems(saerrVO, token);
+
+    response.setContentType(saerVO.getTargetMimetype());
+    response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
+    response.setHeader("scrollId", srResponse.getScrollId());
 
     OutputStream output = response.getOutputStream();
     output.write(saerVO.getResult());
@@ -171,13 +224,17 @@ public class ItemRestController {
   @RequestMapping(value = ITEM_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<ItemVersionVO> get(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = ITEM_ID_VAR) String itemId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     ItemVersionVO item = null;
 
     if (token != null && !token.isEmpty()) {
       item = pis.get(itemId, token);
     } else {
       item = pis.get(itemId, null);
+    }
+
+    if (item == null) {
+      throw new NotFoundException();
     }
 
     return new ResponseEntity<ItemVersionVO>(item, HttpStatus.OK);
@@ -193,9 +250,13 @@ public class ItemRestController {
   @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/content", method = RequestMethod.GET)
   public void getComponentContent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable String itemId, @PathVariable String componentId, HttpServletResponse response)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     try {
       FileVOWrapper fileVOWrapper = fileService.readFile(itemId, componentId, token);
+      if(fileVOWrapper==null)
+      {
+        throw new NotFoundException();
+      }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
       response.setHeader("Content-disposition", "attachment; filename=" + fileVOWrapper.getFileVO().getName());
       OutputStream output = response.getOutputStream();

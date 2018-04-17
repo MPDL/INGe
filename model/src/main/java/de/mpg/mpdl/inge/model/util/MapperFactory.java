@@ -6,6 +6,7 @@ import org.dozer.Mapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class MapperFactory {
 
@@ -15,6 +16,7 @@ public class MapperFactory {
 
   static {
 
+    jsonObjectMapper.registerModule(new JavaTimeModule());
     jsonObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     jsonObjectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     jsonObjectMapper.enable(SerializationFeature.INDENT_OUTPUT);

@@ -12,7 +12,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -22,7 +21,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -87,7 +85,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
 
   @Override
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll, String authenticationToken)
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     if (getElasticDao() != null) {
@@ -98,14 +96,14 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
         qb = aaService.modifyQueryForAa(this.getClass().getCanonicalName(), qb, null);
       }
       ssb.query(qb);
-      return getElasticDao().searchDetailed(ssb, scroll);
+      return getElasticDao().searchDetailed(ssb, scrollTime);
     }
     return null;
   }
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll)
+  public SearchResponse scrollOn(String scrollId, long scrollTime)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return getElasticDao().scrollOn(scrollId, scroll);
+    return getElasticDao().scrollOn(scrollId, scrollTime);
   }
 
 
@@ -113,7 +111,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
   public SearchResponse searchDetailed(SearchSourceBuilder ssb, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    return searchDetailed(ssb, null, authenticationToken);
+    return searchDetailed(ssb, -1, authenticationToken);
   }
 
 

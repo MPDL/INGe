@@ -22,10 +22,10 @@ public interface GenericServiceBase<E> {
   public SearchResponse searchDetailed(SearchSourceBuilder ssb, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll, String authenticationToken)
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll)
+  public SearchResponse scrollOn(String scrollId, long scrollTime)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public Map<String, ElasticSearchIndexField> getElasticSearchIndexFields();

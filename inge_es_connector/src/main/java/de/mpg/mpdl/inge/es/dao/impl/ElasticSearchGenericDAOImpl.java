@@ -17,6 +17,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
@@ -238,10 +239,13 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
         }
       }
 
+      if (searchQuery.getScrollTime() != -1) {
+        srb.setScroll(new Scroll(new TimeValue(searchQuery.getScrollTime())));
+      }
       logger.debug(srb.toString());
       SearchResponse response = srb.get();
 
-      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response);
+      srrVO = getSearchRetrieveResponseFromElasticSearchResponse(response, typeParameterClass);
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
     }
@@ -251,12 +255,12 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
   }
 
-  public SearchResponse searchDetailed(SearchSourceBuilder ssb, Scroll scroll) throws IngeTechnicalException {
+  public SearchResponse searchDetailed(SearchSourceBuilder ssb, long scrollTime) throws IngeTechnicalException {
 
     try {
       SearchRequestBuilder srb = client.getClient().prepareSearch(indexName).setTypes(indexType).setSource(ssb);
-      if (scroll != null) {
-        srb.setScroll(scroll);
+      if (scrollTime != -1) {
+        srb.setScroll(new Scroll(new TimeValue(scrollTime)));
       }
       logger.debug(srb.toString());
       return srb.get();
@@ -269,15 +273,15 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
   public SearchResponse searchDetailed(SearchSourceBuilder ssb) throws IngeTechnicalException {
 
-    return searchDetailed(ssb, null);
+    return searchDetailed(ssb, -1);
 
 
   }
 
-  public SearchResponse scrollOn(String scrollId, Scroll scroll) throws IngeTechnicalException {
+  public SearchResponse scrollOn(String scrollId, long scrollTime) throws IngeTechnicalException {
 
     try {
-      return client.getClient().prepareSearchScroll(scrollId).setScroll(scroll).get();
+      return client.getClient().prepareSearchScroll(scrollId).setScroll(new Scroll(new TimeValue(scrollTime))).get();
     } catch (Exception e) {
       throw new IngeTechnicalException(e.getMessage(), e);
     }
@@ -286,11 +290,12 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
   }
 
 
-
-  private SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr) throws IOException {
+  public static <E> SearchRetrieveResponseVO<E> getSearchRetrieveResponseFromElasticSearchResponse(SearchResponse sr, Class<E> clazz)
+      throws IOException {
     SearchRetrieveResponseVO<E> srrVO = new SearchRetrieveResponseVO<E>();
     srrVO.setOriginalResponse(sr);
     srrVO.setNumberOfRecords((int) sr.getHits().getTotalHits());
+    srrVO.setScrollId(sr.getScrollId());
 
     List<SearchRetrieveRecordVO<E>> hitList = new ArrayList<>();
     srrVO.setRecords(hitList);
@@ -298,7 +303,7 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
       SearchRetrieveRecordVO<E> srr = new SearchRetrieveRecordVO<E>();
       hitList.add(srr);
 
-      E itemVO = mapper.readValue(hit.getSourceAsString(), typeParameterClass);
+      E itemVO = MapperFactory.getObjectMapper().readValue(hit.getSourceAsString(), clazz);
 
       srr.setData(itemVO);
       srr.setPersistenceId(hit.getId());

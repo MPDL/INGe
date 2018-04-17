@@ -88,6 +88,7 @@ public class HtmlFormatter extends AbstractFormatter {
 
     InputStream source =
         ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), HtmlFormatter.class.getClassLoader());
+    
     InputStream template = ResourceUtil.getResourceAsStream("explain/html_explain.xsl", HtmlFormatter.class.getClassLoader());
 
     try {
@@ -108,11 +109,10 @@ public class HtmlFormatter extends AbstractFormatter {
    * @return A String formatted as HTML
    */
   public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
-
     String result = RdfHelper.formatList(pairs, model);
     StringWriter writer = new StringWriter();
+    
     try {
-
       TransformerFactory factory1 = new net.sf.saxon.TransformerFactoryImpl();
 
       Transformer transformer = factory1.newTransformer(
@@ -122,6 +122,7 @@ public class HtmlFormatter extends AbstractFormatter {
     } catch (TransformerException | FileNotFoundException e) {
       throw new ConeException(e);
     }
+    
     return writer.toString();
   }
 
@@ -154,22 +155,64 @@ public class HtmlFormatter extends AbstractFormatter {
 
       Transformer transformer = factory.newTransformer(new StreamSource(xsltFile.toExternalForm()));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
-      String exportFormat = "APA";
-      if ("ja".equals(lang)) {
-        exportFormat = "APA(CJK)";
-      }
+
+      //      transformer.setParameter("citation-link",
+      //          PropertyReader.getProperty("inge.pubman.instance.url")
+      //              + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
+      //              + PropertyReader.getProperty("inge.cone.service.url") + id + "\"&exportFormat=" + exportFormat
+      //              + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
 
       for (Object key : PropertyReader.getProperties().keySet()) {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
       }
+      
+      String exportFormat = "APA";
+      if ("ja".equals(lang)) {
+        exportFormat = "APA(CJK)";
+      }
+      
+      String outputFormat = "escidoc_snippet";
+      
+      String url = //
+          PropertyReader.getProperty("inge.pubman.instance.url") //
+              + "/rest/items/search?exportFormat=" + exportFormat //
+              + "&outputFormat=" + outputFormat;
 
-      transformer.setParameter("citation-link",
-          PropertyReader.getProperty("inge.pubman.instance.url")
-              + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
-              + PropertyReader.getProperty("inge.cone.service.url") + id + "\"&exportFormat=" + exportFormat
-              + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
-      transformer.setParameter("item-link", PropertyReader.getProperty("inge.pubman.instance.url")
-          + PropertyReader.getProperty("inge.pubman.instance.context.path") + PropertyReader.getProperty("inge.pubman.item.pattern"));
+      StringBuilder postData = new StringBuilder();
+      postData.append("{");
+      postData.append("    \"query\": {\"bool\": {");
+      postData.append("        \"must\": [");
+      postData.append("            {\"term\": {\"publicState\": {");
+      postData.append("                \"value\": \"RELEASED\",");
+      postData.append("                \"boost\": 1");
+      postData.append("            }}},");
+      postData.append("            {\"term\": {\"versionState\": {");
+      postData.append("                \"value\": \"RELEASED\",");
+      postData.append("                \"boost\": 1");
+      postData.append("            }}},");
+      postData.append("            {\"term\": {\"metadata.creators.person.identifier.id\": {");
+      postData.append("                \"value\": \"" + id + "\",");
+      postData.append("                \"boost\": 1");
+      postData.append("            }}}");
+      postData.append("        ],");
+      postData.append("        \"adjust_pure_negative\": true,");
+      postData.append("        \"boost\": 1");
+      postData.append("    }},");
+      postData.append("    \"sort\": [");
+      postData.append("        {\"metadata.title.keyword\": {\"order\": \"DESC\"}}");
+      postData.append("    ],");
+      postData.append("    \"size\": \"50\",");
+      postData.append("    \"from\": \"0\"");
+      postData.append("}");
+      
+      String itemLink = //
+          PropertyReader.getProperty("inge.pubman.instance.url") //
+              + PropertyReader.getProperty("inge.pubman.instance.context.path") //
+              + PropertyReader.getProperty("inge.pubman.item.pattern");
+
+      transformer.setParameter("citation-link", url);
+      transformer.setParameter("postData", postData.toString());
+      transformer.setParameter("item-link", itemLink);
       transformer.setParameter("lang", lang);
       transformer.setParameter("subjectTagNamespace", model.getRdfAboutTag().getNamespaceURI());
       transformer.setParameter("subjectTagLocalName", model.getRdfAboutTag().getLocalPart());
@@ -179,6 +222,7 @@ public class HtmlFormatter extends AbstractFormatter {
     } catch (Exception e) {
       throw new ConeException(e);
     }
+    
     return writer.toString();
   }
 

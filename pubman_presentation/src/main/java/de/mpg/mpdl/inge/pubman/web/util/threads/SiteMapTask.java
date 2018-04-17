@@ -272,9 +272,9 @@ public class SiteMapTask {
           SearchSourceBuilder ssb = new SearchSourceBuilder();
           ssb.docValueField(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).docValueField(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE)
               .query(qb).size(this.maxItemsPerRetrieve);
-          resp = pubItemService.searchDetailed(ssb, new Scroll(new TimeValue(120000)), null);
+          resp = pubItemService.searchDetailed(ssb, 120000, null);
         } else {
-          resp = pubItemService.scrollOn(resp.getScrollId(), new Scroll(new TimeValue(120000)));
+          resp = pubItemService.scrollOn(resp.getScrollId(), 120000);
         }
 
 
