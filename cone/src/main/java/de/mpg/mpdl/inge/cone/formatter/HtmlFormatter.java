@@ -88,7 +88,7 @@ public class HtmlFormatter extends AbstractFormatter {
 
     InputStream source =
         ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), HtmlFormatter.class.getClassLoader());
-    
+
     InputStream template = ResourceUtil.getResourceAsStream("explain/html_explain.xsl", HtmlFormatter.class.getClassLoader());
 
     try {
@@ -111,7 +111,7 @@ public class HtmlFormatter extends AbstractFormatter {
   public String formatQuery(List<? extends Describable> pairs, Model model) throws ConeException {
     String result = RdfHelper.formatList(pairs, model);
     StringWriter writer = new StringWriter();
-    
+
     try {
       TransformerFactory factory1 = new net.sf.saxon.TransformerFactoryImpl();
 
@@ -122,7 +122,7 @@ public class HtmlFormatter extends AbstractFormatter {
     } catch (TransformerException | FileNotFoundException e) {
       throw new ConeException(e);
     }
-    
+
     return writer.toString();
   }
 
@@ -146,10 +146,8 @@ public class HtmlFormatter extends AbstractFormatter {
 
       if (xsltFile == null) {
         logger.debug("No HTML template for '" + model.getName() + "' found, using generic template.");
-        // xsltFile = ResourceUtil.getResourceAsStream("xslt/html/generic-html.xsl");
         xsltFile = HtmlFormatter.class.getClassLoader().getResource("xslt/html/generic-html.xsl");
       }
-
 
       TransformerFactory factory = new net.sf.saxon.TransformerFactoryImpl();
 
@@ -165,46 +163,39 @@ public class HtmlFormatter extends AbstractFormatter {
       for (Object key : PropertyReader.getProperties().keySet()) {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
       }
-      
+
       String exportFormat = "APA";
       if ("ja".equals(lang)) {
         exportFormat = "APA(CJK)";
       }
-      
+
       String outputFormat = "escidoc_snippet";
-      
+
       String url = //
           PropertyReader.getProperty("inge.pubman.instance.url") //
               + "/rest/items/search?exportFormat=" + exportFormat //
               + "&outputFormat=" + outputFormat;
 
       StringBuilder postData = new StringBuilder();
+
+      // TODO: richtiges Prefix
+      String prefixForId = "http://localhost:8080/cone/";
+
       postData.append("{");
-      postData.append("    \"query\": {\"bool\": {");
-      postData.append("        \"must\": [");
-      postData.append("            {\"term\": {\"publicState\": {");
-      postData.append("                \"value\": \"RELEASED\",");
-      postData.append("                \"boost\": 1");
-      postData.append("            }}},");
-      postData.append("            {\"term\": {\"versionState\": {");
-      postData.append("                \"value\": \"RELEASED\",");
-      postData.append("                \"boost\": 1");
-      postData.append("            }}},");
-      postData.append("            {\"term\": {\"metadata.creators.person.identifier.id\": {");
-      postData.append("                \"value\": \"" + id + "\",");
-      postData.append("                \"boost\": 1");
-      postData.append("            }}}");
-      postData.append("        ],");
-      postData.append("        \"adjust_pure_negative\": true,");
-      postData.append("        \"boost\": 1");
-      postData.append("    }},");
-      postData.append("    \"sort\": [");
-      postData.append("        {\"metadata.title.keyword\": {\"order\": \"DESC\"}}");
-      postData.append("    ],");
-      postData.append("    \"size\": \"50\",");
-      postData.append("    \"from\": \"0\"");
-      postData.append("}");
-      
+      postData.append(" \"query\": {\"bool\": {\"must\": [");
+      postData.append("     {\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},");
+      postData.append("     {\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},");
+      postData.append("     {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + prefixForId + id + "\"}}}");
+      postData.append(" ]}},");
+      postData.append(" \"sort\": [");
+      postData.append("     {\"metadata.datePublishedInPrint\": {\"order\": \"desc\"}},");
+      postData.append("     {\"metadata.datePublishedOnline\": {\"order\": \"desc\"}},");
+      postData.append("     {\"metadata.dateAccepted\": {\"order\": \"desc\"}},");
+      postData.append("     {\"metadata.dateSubmitted\": {\"order\": \"desc\"}},");
+      postData.append("     {\"metadata.dateModified\": {\"order\": \"desc\"}},");
+      postData.append("     {\"metadata.dateCreated\": {\"order\": \"desc\"}}");
+      postData.append(" ]");
+
       String itemLink = //
           PropertyReader.getProperty("inge.pubman.instance.url") //
               + PropertyReader.getProperty("inge.pubman.instance.context.path") //
@@ -222,7 +213,7 @@ public class HtmlFormatter extends AbstractFormatter {
     } catch (Exception e) {
       throw new ConeException(e);
     }
-    
+
     return writer.toString();
   }
 

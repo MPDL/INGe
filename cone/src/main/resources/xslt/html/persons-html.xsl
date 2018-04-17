@@ -200,7 +200,7 @@
 						/* requestString = requestString + amp + "startRecord=" + offset + amp + "maximumRecords=" + limit; */
 
 						/* append ,"size" : "limit","from" : "offset"} */
-						data = data + ",\"size\":\"" + limit + ",\"from\":\"" + offset + ""\"}"
+						postData = postData + ",\"size\":\"" + limit + "\",\"from\":\"" + offset + "\"}";
 						
 						$('#publicationsArea').empty();
 						$('#publicationsArea').append('<div class="big_imgArea huge_marginLExcl smallThrobber"></div>');
@@ -211,7 +211,6 @@
 						        data:postData,
 						        processData:false,
 						        contentType:"application/json; charset=UTF-8",
-						        async:false,
 						        success:function(itemList, textStatus, jqXHR){
 						        
 							var allItems = getElementsByTagName('item', 'http://www.escidoc.de/schemas/item/0.10','escidocItem', itemList);
