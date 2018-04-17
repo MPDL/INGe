@@ -373,7 +373,8 @@ public class MetadataProvider implements ItemDataProvider {
           // Source creators
           List<CSLName> containerAuthorList = new ArrayList<CSLName>();
           for (CreatorVO sourceCreator : source.getCreators()) {
-            if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())) {
+            if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
+                || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
                 containerAuthorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
                     .family(sourceCreator.getPerson().getFamilyName()).build());
