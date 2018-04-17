@@ -46,6 +46,11 @@ import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
 
 @RestController
 @RequestMapping("/items")
@@ -123,6 +128,8 @@ public class ItemRestController {
     return null;
   }
 
+//  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
+//      value = @ExampleProperty(mediaType = "application/json", value = "{\n\t\"query\" : {\n\t\t\"match_all\": {}\n\t}\n}")))})
   @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<String> searchDetailed(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
