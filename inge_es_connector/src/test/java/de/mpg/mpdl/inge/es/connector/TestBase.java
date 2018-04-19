@@ -224,18 +224,18 @@ public class TestBase {
 
     // MetaData
     MdsPublicationVO mdsPublication = new MdsPublicationVO();
-    mdsPublication.setDateAccepted("testDateAccepted");
-    mdsPublication.setDateCreated("testDateCreated");
-    mdsPublication.setDateModified("testDateModified");
-    mdsPublication.setDatePublishedInPrint("testDatePublishedInPrint");
-    mdsPublication.setDatePublishedOnline("testDatePublishedOnline");
-    mdsPublication.setDateSubmitted("testDateSubmitted");
+    mdsPublication.setDateAccepted("2018-04");
+    mdsPublication.setDateCreated("2016");
+    mdsPublication.setDateModified("2017");
+    mdsPublication.setDatePublishedInPrint("2018-03-14");
+    mdsPublication.setDatePublishedOnline("2018-08-15");
+    mdsPublication.setDateSubmitted("2017-04");
     mdsPublication.setDegree(DegreeType.BACHELOR);
     EventVO event = new EventVO();
-    event.setEndDate("testEnddate");
+    event.setEndDate("2018-12-24");
     event.setInvitationStatus(InvitationStatus.INVITED);
     event.setPlace("testPlace");
-    event.setStartDate("testStatrtDate");
+    event.setStartDate("2018-12-23");
     event.setTitle("testTitle");
     AlternativeTitleVO alternativeTitle = new AlternativeTitleVO();
     alternativeTitle.setLanguage("testLanguage");

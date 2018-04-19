@@ -1,9 +1,10 @@
 package de.mpg.mpdl.inge.es.connector;
 
+import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -34,7 +35,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
   public void testCreate() {
     try {
       String ouId = this.organizationDao.createImmediately(test_ou_id, test_ou());
-      assert ouId.equals(test_ou_id);
+      assertTrue("Ou id differs: is <" + ouId + "> expected <" + test_ou_id + ">", ouId.equals(test_ou_id));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -45,6 +46,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
   public void testRead() {
     try {
       AffiliationDbVO affiliationVO = this.organizationDao.get(test_ou_id);
+      assertTrue("Difference in affiliationVO", affiliationVO.equals(test_ou()));
       assert affiliationVO.equals(test_ou());
     } catch (IngeTechnicalException e) {
       logger.error(e);
@@ -59,17 +61,16 @@ public class OrganizationServiceHandlerTest extends TestBase {
       affiliationVO.getMetadata().setCountryCode("DE");
       this.organizationDao.updateImmediately(test_ou_id, affiliationVO);
       AffiliationDbVO affiliationVO2 = this.organizationDao.get(test_ou_id);
-      assert affiliationVO2.getMetadata().getCountryCode().equals("DE");
+      assertTrue(affiliationVO2.getMetadata().getCountryCode().equals("DE"));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
     }
   }
 
-  @Ignore
   @Test
   public void testZDelete() {
     String ouId = this.organizationDao.delete(test_ou_id);
-    assert ouId.equals(test_ou_id);
+    assertTrue("Ou id differs: is <" + ouId + "> expected <" + test_ou_id + ">", ouId.equals(test_ou_id));
   }
 }

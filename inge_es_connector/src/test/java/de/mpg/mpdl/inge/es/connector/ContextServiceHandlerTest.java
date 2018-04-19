@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.es.connector;
 
+import static org.junit.Assert.*;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.FixMethodOrder;
@@ -34,7 +36,7 @@ public class ContextServiceHandlerTest extends TestBase {
   public void testCreate() {
     try {
       String contextId = this.contextDao.createImmediately(test_context_id, test_context());
-      assert contextId.equals(test_context_id);
+      assertTrue("Context id differs: is <" + contextId + "> expected <" + test_context_id + ">", contextId.equals(test_context_id));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -45,7 +47,7 @@ public class ContextServiceHandlerTest extends TestBase {
   public void testRead() {
     try {
       ContextDbVO contextVO = this.contextDao.get(test_context_id);
-      assert contextVO.equals(test_context());
+      assertTrue("Difference in contextVO", contextVO.equals(test_context()));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -59,7 +61,7 @@ public class ContextServiceHandlerTest extends TestBase {
       contextVO.setState(ContextDbVO.State.CREATED);
       this.contextDao.updateImmediately(test_context_id, contextVO);
       ContextDbVO contextVO2 = this.contextDao.get(test_context_id);
-      assert contextVO2.getState().equals(ContextDbVO.State.CREATED);
+      assertTrue(contextVO2.getState().equals(ContextDbVO.State.CREATED));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);
@@ -70,6 +72,6 @@ public class ContextServiceHandlerTest extends TestBase {
   @Test
   public void testZDelete() {
     String contextId = this.contextDao.delete(test_context_id);
-    assert contextId.equals(test_context_id);
+    assertTrue("Context id differs: is <" + contextId + "> expected <" + test_context_id + ">", contextId.equals(test_context_id));
   }
 }

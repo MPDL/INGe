@@ -181,8 +181,8 @@ public class ItemRestController {
     return null;
   }
 
-//  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
-//      value = @ExampleProperty(mediaType = "application/json", value = "{\n\t\"query\" : {\n\t\t\"match_all\": {}\n\t}\n}")))})
+  //  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
+  //      value = @ExampleProperty(mediaType = "application/json", value = "{\n\t\"query\" : {\n\t\t\"match_all\": {}\n\t}\n}")))})
   @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<String> searchDetailed(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
@@ -253,8 +253,7 @@ public class ItemRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     try {
       FileVOWrapper fileVOWrapper = fileService.readFile(itemId, componentId, token);
-      if(fileVOWrapper==null)
-      {
+      if (fileVOWrapper == null) {
         throw new NotFoundException();
       }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());

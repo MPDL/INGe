@@ -76,7 +76,7 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(value = AuthorizationException.class)
   protected ResponseEntity<Object> handleAuthorizationException(Exception e, WebRequest req) {
-    return buildExceptionResponseEntity(e, null,  HttpStatus.FORBIDDEN);
+    return buildExceptionResponseEntity(e, null, HttpStatus.FORBIDDEN);
   }
 
   @ExceptionHandler(value = IngeTechnicalException.class)
@@ -96,8 +96,8 @@ public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
   @Override
-  protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body,
-      HttpHeaders headers, HttpStatus status, WebRequest request) {
+  protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status,
+      WebRequest request) {
     return buildExceptionResponseEntity(ex, headers, status);
   }
 
