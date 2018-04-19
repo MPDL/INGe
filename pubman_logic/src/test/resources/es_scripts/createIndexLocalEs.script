@@ -1,4 +1,10 @@
 {"index": {"_index": "new_model_ous", "_type": "organization"}}
+
 {"index": {"_index": "new_model_users", "_type": "user"}}
+
 {"index": {"_index": "new_model_contexts", "_type": "context"}}
+
 {"index": {"_index": "new_model_items", "_type": "item"}}
+
+{"index": {"_index": "db_yearbooks", "_type": "yearbook"}}
+
