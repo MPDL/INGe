@@ -162,7 +162,7 @@
                                     </h:panelGroup>
                                     <!-- content menu lower line ends here -->
                                 </h:panelGroup>
-                                                                <h:panelGroup id="export" layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
+                                <h:panelGroup id="export" layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
                                     <h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
                                         <h:panelGroup layout="block" styleClass="xLarge_area0">
                                             <h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>

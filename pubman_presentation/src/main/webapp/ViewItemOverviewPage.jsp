@@ -179,6 +179,7 @@
                                     </h:panelGroup>
                                     <!-- content menu lower line ends here -->
                                 </h:panelGroup>
+                             </h:panelGroup>
                             <!-- content menu ends here -->
                             <!-- Subheadline starts here -->
                             <h:panelGroup layout="block" styleClass="subHeader" rendered="#{ViewItemFull.isLoggedIn }">
