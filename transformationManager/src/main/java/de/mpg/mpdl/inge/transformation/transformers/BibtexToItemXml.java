@@ -54,7 +54,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
   @Override
   public Map<String, String> getConfiguration() {
 
-    if (super.getConfiguration() == null) {
+    if (super.getConfiguration() == null || super.getConfiguration().isEmpty()) {
       Map<String, String> c = new HashMap<String, String>();
       try {
         c = getDefaultConfigurationFromProperty("inge.transformation.bibtex.configuration.filename",

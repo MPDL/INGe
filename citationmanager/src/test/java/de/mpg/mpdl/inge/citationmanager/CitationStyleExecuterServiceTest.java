@@ -68,13 +68,6 @@ public class CitationStyleExecuterServiceTest {
     }
   }
 
-  @Test
-  public final void testArxiv() throws Exception {
-
-    testOutput(XmlHelper.APA, XmlHelper.SNIPPET, "", ResourceUtil.getResourceAsString("src/test/resources/testFiles/arXiv0904-2.3933.xml",
-        CitationStyleManagerImpl.class.getClassLoader()));
-
-  }
 
   public final void testOutput(String cs, String ouf, String outPrefix) throws Exception {
     testOutput(cs, ouf, outPrefix, itemLists.get(cs));
@@ -111,8 +104,7 @@ public class CitationStyleExecuterServiceTest {
 
     start = System.currentTimeMillis();
     try {
-      String escidocXml = ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader());
-      List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(escidocXml);
+      List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(il);
       List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
       result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(ouf, cs));
     } catch (CitationStyleManagerException e) {

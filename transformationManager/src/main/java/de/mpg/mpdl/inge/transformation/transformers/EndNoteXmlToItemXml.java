@@ -22,7 +22,7 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    String flavor = (getConfiguration() == null ? null : getConfiguration().get("Flavor"));
+    String flavor = ((getConfiguration() == null || getConfiguration().isEmpty()) ? null : getConfiguration().get("Flavor"));
 
     if (flavor != null && ("ICE".equals(flavor) || "BGC".equals(flavor))) {
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<escidocItemList:item-list xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.9" xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.9">
+<escidocItemList:item-list xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:idtype="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication">
     <escidocItem:item objid="escidoc:64657" last-modification-date="2009-11-09T10:44:20.361Z">
         <escidocItem:properties>
             <prop:creation-date>2009-04-24T09:14:22.208Z</prop:creation-date>
@@ -785,8 +785,7 @@
                     <eterms:published-online xsi:type="dcterms:W3CDTF">2010
 					</eterms:published-online>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
-                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed
-					</eterms:review-method>
+                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
                     <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
                         <dc:title>Journal of Memory and Language</dc:title>
                         <eterms:volume>62</eterms:volume>
@@ -2765,8 +2764,7 @@
                     <dc:identifier xsi:type="eterms:DOI">10.1088/0004-637X/710/1/810
 					</dc:identifier>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2010-02-10</dcterms:issued>
-                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed
-					</eterms:review-method>
+                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
                     <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
                         <dc:title>The Astrophysical Journal</dc:title>
                         <dcterms:alternative>Astrophys. J.</dcterms:alternative>
@@ -2897,8 +2895,7 @@
                     <dc:identifier xsi:type="eterms:DOI">10.1037/a0017679
 					</dc:identifier>
                     <dcterms:issued xsi:type="dcterms:W3CDTF">2010</dcterms:issued>
-                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed
-					</eterms:review-method>
+                    <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
                     <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
                         <dc:title>Journal of Experimental Psychology: Learning, Memory,
 							and Cognition</dc:title>

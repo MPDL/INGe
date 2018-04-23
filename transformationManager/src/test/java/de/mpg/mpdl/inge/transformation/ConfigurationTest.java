@@ -191,7 +191,7 @@ public class ConfigurationTest {
   public void testEscidoc() throws TransformationException {
 
     Transformer t = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
-    assertTrue(t.getConfiguration() == null);
+    assertTrue(t.getConfiguration().isEmpty());
 
   }
 
