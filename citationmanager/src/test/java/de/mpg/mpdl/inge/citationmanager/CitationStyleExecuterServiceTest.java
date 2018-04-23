@@ -49,40 +49,26 @@ public class CitationStyleExecuterServiceTest {
     }
   }
 
+
+
   @Test
   public final void testOutputs() throws CitationStyleManagerException {
     for (String cs : CitationStyleExecuterService.getStyles()) {
-      for (String format : CitationStyleExecuterService.getOutputFormats(cs)) {
-        if (!XmlHelper.CSL.equals(cs)) {
-          logger.info("citationStyle <" + cs + "> format <" + format);
-          try {
-            testOutput(cs, format);
-          } catch (Exception e) {
-            e.printStackTrace();
-            logger.info("Error in citationStyle <" + cs + "> format <" + format + "\n", e);
-            Assert.fail(e.getMessage());
-            continue;
-          }
+      if (!XmlHelper.CSL.equals(cs)) {
+        logger.info("citationStyle <" + cs + ">");
+        try {
+          testOutput(cs, null, null, itemLists.get(cs));
+        } catch (Exception e) {
+          logger.info("Error in citationStyle <" + cs + ">", e);
+          Assert.fail(e.getMessage());
+          continue;
         }
       }
     }
-  }
-
-
-  public final void testOutput(String cs, String ouf, String outPrefix) throws Exception {
-    testOutput(cs, ouf, outPrefix, itemLists.get(cs));
-  }
-
-  public final void testOutput(String cs, String ouf) throws Exception {
-    testOutput(cs, ouf, null);
-  }
-
-  public final void testOutput(String cs) throws Exception {
-    for (String format : CitationStyleExecuterService.getOutputFormats(cs)) {
-      testOutput(cs, format);
-    }
 
   }
+
+
 
   /**
    * Test service for all citation styles and all output formats
@@ -96,23 +82,27 @@ public class CitationStyleExecuterServiceTest {
    * outPrefix == null: omit output file generation outPrefix == "": generate output file, file name
    * by default outPrefix.length>0 == "": generate output file, use outPrefix as file name prefix
    */
-  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws IOException, TechnicalException {
+  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws Exception {
 
     long start;
     List<String> result = null;
     logger.info("Test Citation Style: " + cs);
 
     start = System.currentTimeMillis();
-    try {
-      List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(il);
-      List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
-      result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(ouf, cs));
-    } catch (CitationStyleManagerException e) {
-      Assert.fail(e.getMessage());
-    }
+
+    List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(il);
+    List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
+    result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(ouf, cs));
+
+
 
     logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
     assertTrue(ouf + " output should not be empty", result.size() > 0);
+
+    for (String res : result) {
+      assertNotNull("One of the citations is null", res);
+      assertTrue("One of the citations has no content", !res.isEmpty());
+    }
 
     logger.info(ouf + " length: " + result.size());
     if (result != null) {
