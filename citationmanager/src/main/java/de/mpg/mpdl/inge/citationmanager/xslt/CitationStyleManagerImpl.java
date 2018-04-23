@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.citationmanager.xslt;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -43,7 +44,12 @@ import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerInterface;
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.saxon.event.SaxonOutputKeys;
@@ -142,7 +148,7 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     }
   }
 
-  public static void main(String args[]) throws IOException, CitationStyleManagerException, JRException {
+  public static void main(String args[]) throws IOException, CitationStyleManagerException, JRException, TechnicalException {
     CitationStyleManagerInterface csm = new CitationStyleManagerImpl();
 
     String il = null;
@@ -185,12 +191,23 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
     else if (TASKS.valueOf(task) != null) {
       String outFile = cs + "_output_" + task + "." + XmlHelper.getExtensionByName(task);
       System.out.println(cs + " Citation Style output in " + task + " format. File: " + outFile);
-      byte[] result =
-          CitationStyleExecuterService.getOutput(ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader()),
-              new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, cs, task));
+      String escidocXml = ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader());
+      List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(escidocXml);
+      List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
+      List<String> result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(task, cs));
+      /*
       FileOutputStream fos = new FileOutputStream(outFile);
-      fos.write(result);
+      
+      
+      
+      for(String cit : result)
+      {
+        fos.write(cit);
+      }
+      
       fos.close();
+      */
+      System.out.println(result);
       System.out.println("OK");
     }
   }

@@ -100,24 +100,26 @@
 								<div class="free_area0 endline itemLine noTopBorder">
 									<label class="xLarge_area0_p8 endline labelLine clear">#{lbl.searchAndExport_Options}</label>								
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-				                        <h:panelGroup layout="block" styleClass="xHuge_area0 sub action">
+				                        <h:panelGroup id="export" layout="block" styleClass="xHuge_area0 sub action">
 				                            <h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
 				                                <h:panelGroup layout="block" styleClass="xLarge_area0">
 				                                    <h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
 				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 				                                </h:panelGroup>
-			 	                                <h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-				                                    <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS_JSON}" />
+			 	                                <h:selectOneMenu id="selExportFormatName" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}">
+				                                    <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+				                                    <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
 				                                </h:selectOneMenu>
 				                            </h:panelGroup>
-				                            <h:commandButton id="btnUpdateExportFormats" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />
+				                            
 				                            <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 				                                <h:panelGroup layout="block" styleClass="medium_area0">
 				                                    <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
 				                                    <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 				                                </h:panelGroup>
 				                                <h:selectOneMenu id="selFileFormat" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);" >
-				                                    <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
+				                                    <f:selectItems value="#{ExportItems.CITATION_OPTIONS}" />
+				                                    <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
 				                                </h:selectOneMenu>
 				                            </h:panelGroup>
 				                            <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">

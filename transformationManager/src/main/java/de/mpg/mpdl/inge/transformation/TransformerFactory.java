@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 
@@ -24,6 +25,7 @@ public class TransformerFactory {
   public static final String BMC_XML = "Bmc_Xml";
   public static final String COINS = "Coins";
   public static final String DC_XML = "Dc_Xml";
+  public static final String DOCX = "docx";
   public static final String DOI_XML = "Doi_Xml";
   public static final String EDOC_XML = "Edoc_Xml";
   public static final String ENDNOTE = "Endnote";
@@ -36,9 +38,13 @@ public class TransformerFactory {
   public static final String ESCIDOC_ITEM_V2_XML = "eSciDoc_Item_V2_Xml";
   public static final String ESCIDOC_ITEM_VO = "eSciDoc_Item_Vo";
   public static final String ESCIDOC_ITEM_XML = "eSciDoc_Item_Xml";
+  public static final String ESCIDOC_SNIPPET = "escidoc_snippet";
   public static final String HTML_METATAGS_DC_XML = "Html_Metatags_Dc_Xml";
   public static final String HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML = "Html_Metatags_Highwirepress_Cit_Xml";
+  public static final String HTML_PLAIN = "html_plain";
+  public static final String HTML_LINKED = "html_linked";
   public static final String JSON = "Json";
+  public static final String JSON_CITATION = "json_citation";
   public static final String JUS_HTML_XML = "Jus_Html_Xml";
   public static final String JUS_INDESIGN_XML = "Jus_Indesign_Xml";
   public static final String JUS_SNIPPET_XML = "Jus_Snippet_Xml";
@@ -48,10 +54,12 @@ public class TransformerFactory {
   public static final String MARC_XML = "Marc_Xml";
   public static final String MODS_XML = "Mods_Xml";
   public static final String OAI_DC = "Oai_Dc";
+  public static final String PDF = "pdf";
   public static final String PEER_TEI_XML = "Peer_TeiI_Xml";
   public static final String PMC_OAIPMH_XML = "Pmc_Oaipmh_Xml";
   public static final String RIS = "Ris";
   public static final String RIS_XML = "Ris_Xml";
+  public static final String SEARCH_RESULT_VO = "search_result_vo";
   public static final String SPIRES_XML = "Spires_Xml";
   public static final String WOS = "Wos";
   public static final String WOS_XML = "Wos_Xml";
@@ -68,6 +76,8 @@ public class TransformerFactory {
     BMC_XML(TransformerFactory.BMC_XML, FileFormatVO.FILE_FORMAT.XML), //
     COINS_STRING(TransformerFactory.COINS, FileFormatVO.FILE_FORMAT.TXT), //
     DC_XML(TransformerFactory.DC_XML, FileFormatVO.FILE_FORMAT.XML), //
+    DOCX(TransformerFactory.DOCX, FileFormatVO.FILE_FORMAT.DOCX),
+    ESCIDOC_SNIPPET(TransformerFactory.ESCIDOC_SNIPPET, FileFormatVO.FILE_FORMAT.ESCIDOC_SNIPPET),
     DOI_METADATA_XML(TransformerFactory.DOI_XML, FileFormatVO.FILE_FORMAT.XML), //
     EDOC_XML(TransformerFactory.EDOC_XML, FileFormatVO.FILE_FORMAT.XML), //
     ENDNOTE_STRING(TransformerFactory.ENDNOTE, FileFormatVO.FILE_FORMAT.TXT), //
@@ -82,6 +92,10 @@ public class TransformerFactory {
     ESCIDOC_ITEM_VO(TransformerFactory.ESCIDOC_ITEM_VO, FileFormatVO.FILE_FORMAT.XML), //
     HTML_METATAGS_DC_XML(TransformerFactory.HTML_METATAGS_DC_XML, FileFormatVO.FILE_FORMAT.XML), //
     HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML(TransformerFactory.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FileFormatVO.FILE_FORMAT.XML), //
+    HTML_PLAIN(TransformerFactory.HTML_PLAIN, FileFormatVO.FILE_FORMAT.HTML_PLAIN), //
+    HTML_LINKED(TransformerFactory.HTML_LINKED, FileFormatVO.FILE_FORMAT.HTML_LINKED), //
+    JSON(TransformerFactory.JSON, FileFormatVO.FILE_FORMAT.JSON), //
+    JSON_CITATION(TransformerFactory.JSON_CITATION, FileFormatVO.FILE_FORMAT.JSON), //
     JUS_HTML_XML(TransformerFactory.JUS_HTML_XML, FileFormatVO.FILE_FORMAT.XML), //
     JUS_INDESIGN_XML(TransformerFactory.JUS_INDESIGN_XML, FileFormatVO.FILE_FORMAT.XML), //
     JUS_SNIPPET_XML(TransformerFactory.JUS_SNIPPET_XML, FileFormatVO.FILE_FORMAT.XML), //
@@ -92,9 +106,11 @@ public class TransformerFactory {
     MODS_XML(TransformerFactory.MODS_XML, FileFormatVO.FILE_FORMAT.XML), //
     OAI_DC(TransformerFactory.OAI_DC, FileFormatVO.FILE_FORMAT.XML), //
     PEER_TEI_XML(TransformerFactory.PEER_TEI_XML, FileFormatVO.FILE_FORMAT.XML), //
+    PDF(TransformerFactory.PDF, FileFormatVO.FILE_FORMAT.PDF), //
     PMC_OAIPMH_XML(TransformerFactory.PMC_OAIPMH_XML, FileFormatVO.FILE_FORMAT.XML), //
     RIS_STRING(TransformerFactory.RIS, FileFormatVO.FILE_FORMAT.TXT), //
     RIS_XML(TransformerFactory.RIS_XML, FileFormatVO.FILE_FORMAT.XML), //
+    SEARCH_RESULT_VO(TransformerFactory.SEARCH_RESULT_VO, FileFormatVO.FILE_FORMAT.XML), //
     SPIRES_XML(TransformerFactory.SPIRES_XML, FileFormatVO.FILE_FORMAT.XML), //
     WOS_STRING(TransformerFactory.WOS, FileFormatVO.FILE_FORMAT.TXT), //
     WOS_XML(TransformerFactory.WOS_XML, FileFormatVO.FILE_FORMAT.XML), //
@@ -115,6 +131,36 @@ public class TransformerFactory {
 
   public FileFormatVO.FILE_FORMAT getFileFormat() {
     return this.fileFormat;
+  }
+
+  }
+
+
+ public final static List<FORMAT> VALID_CITATION_OUTPUT = Arrays.asList(FORMAT.JSON_CITATION, FORMAT.ESCIDOC_SNIPPET,
+      FORMAT.HTML_PLAIN, FORMAT.HTML_LINKED, FORMAT.DOCX, FORMAT.PDF);
+
+  public enum CitationTypes{
+
+  APA("APA"),
+    CSL("CSL"),
+    APA_CJK("APA(CJK)"),
+    APA6("APA6"),
+    AJP("AJP"),
+    JUS("JUS"),
+    JUS_Report("JUS_Report");
+
+  private String citationName;
+
+  CitationTypes(String name) {
+      this.setCitationName(name);
+    }
+
+  public String getCitationName() {
+    return citationName;
+  }
+
+  public void setCitationName(String citationName) {
+    this.citationName = citationName;
   }
 
   }

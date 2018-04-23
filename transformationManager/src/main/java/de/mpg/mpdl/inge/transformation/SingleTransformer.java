@@ -30,7 +30,7 @@ public abstract class SingleTransformer implements Transformer {
 
   private FORMAT targetFormat;
 
-  private Map<String, String> configuration;
+  private Map<String, String> configuration = new HashMap<>();
 
 
   public Map<String, String> getConfiguration() {
@@ -161,6 +161,36 @@ public abstract class SingleTransformer implements Transformer {
     } else if (res.getWriter() != null) {
       try {
         res.getWriter().write(s);
+        res.getWriter().close();
+      } catch (IOException e) {
+        throw new TransformationException("Could not write to writer", e);
+      }
+    } else {
+      throw new TransformationException("The result does not contain an output stream or a writer");
+    }
+
+  }
+
+  public static void writeByteArrayToStreamResult(byte[] content, TransformerResult transformerRes) throws TransformationException {
+
+    TransformerStreamResult res;
+    try {
+      res = (TransformerStreamResult) transformerRes;
+    } catch (Exception e1) {
+      throw new TransformationException("Wrong result type, expected a TransformerStreamResult", e1);
+    }
+
+    if (res.getOutputStream() != null) {
+      try {
+        res.getOutputStream().write(content);
+        res.getOutputStream().close();
+      } catch (IOException e) {
+        throw new TransformationException("Could not write to output stream", e);
+      }
+
+    } else if (res.getWriter() != null) {
+      try {
+        res.getWriter().write(new String(content));
         res.getWriter().close();
       } catch (IOException e) {
         throw new TransformationException("Could not write to writer", e);

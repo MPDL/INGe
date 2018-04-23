@@ -25,38 +25,34 @@
 
 package de.mpg.mpdl.inge.citationmanager;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.OutputKeys;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.log4j.Logger;
-import org.docx4j.Docx4J;
-import org.docx4j.convert.in.xhtml.XHTMLImporter;
-import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
-import org.docx4j.convert.out.FOSettings;
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
-import org.docx4j.wml.P;
-import org.docx4j.wml.PPr;
-import org.docx4j.wml.PPrBase.Spacing;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
-import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
-import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.util.EscidocNamespaceContextImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -75,6 +71,7 @@ public class CitationStyleExecuterService {
   private static final String HTML = "html";
   private static final String XHTML = "xhtml";
 
+
   public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();
   }
@@ -83,44 +80,43 @@ public class CitationStyleExecuterService {
     return XmlHelper.getMimeType(cs, ouf);
   }
 
-  public static byte[] getOutput(String itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-    Utils.checkCondition(!Utils.checkVal(exportFormat.getFileFormat().getName()), "Output format is not defined");
-    Utils.checkCondition(!Utils.checkVal(itemList), "Empty item-list");
+  public static List<String> getOutput(List<ItemVersionVO> itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
+    Utils.checkCondition(itemList == null || itemList.isEmpty(), "Empty item-list");
 
-    String outputFormat = exportFormat.getFileFormat().getName();
-    byte[] result = null;
-    String snippet;
-
-    long start = System.currentTimeMillis();
     try {
-      if (!XmlHelper.citationStyleHasOutputFormat(exportFormat.getName(), outputFormat)) {
-        throw new CitationStyleManagerException(
-            "Output format: " + outputFormat + " is not supported for Citation Style: " + exportFormat.getName());
-      }
 
-      if (XmlHelper.CSL.equals(exportFormat.getName())) {
-        snippet = new String(CitationStyleLanguageManagerService.getOutput(exportFormat, itemList), UTF_8);
+      List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
+      String escidocXmlList = XmlTransformingService.transformToItemList(transformedList);
+
+      long start = System.currentTimeMillis();
+
+      if (XmlHelper.CSL.equals(exportFormat.getCitationName())) {
+        return CitationStyleLanguageManagerService.getOutput(exportFormat, escidocXmlList);
       } else {
 
         StringWriter sw = new StringWriter();
-        String csXslPath = CitationUtil.getPathToCitationStyleXSL(exportFormat.getName());
+        String csXslPath = CitationUtil.getPathToCitationStyleXSL(exportFormat.getCitationName());
 
         /* get xslt from the templCache */
         Transformer transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
 
         // set parameters
         transformer.setParameter("pubman_instance", getPubManUrl());
-        transformer.transform(new StreamSource(new StringReader(itemList)), new StreamResult(sw));
+        transformer.transform(new StreamSource(new StringReader(escidocXmlList)), new StreamResult(sw));
 
         logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
 
-        snippet = sw.toString();
+        String snippet = sw.toString();
+
+        return transformSnippetToCitationList(snippet);
       }
 
+      /*
+      
       // new edoc md set
       if (XmlHelper.ESCIDOC_SNIPPET.equals(outputFormat)) {
         result = snippet.getBytes(UTF_8);
-
+      
       } else if (XmlHelper.SNIPPET.equals(outputFormat)) { // old edoc md set: back transformation
         de.mpg.mpdl.inge.transformation.Transformer trans =
             TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
@@ -131,20 +127,20 @@ public class CitationStyleExecuterService {
           throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
         }
         result = wr.toString().getBytes(UTF_8);
-
+      
       } else if (XmlHelper.HTML_PLAIN.equals(outputFormat) || XmlHelper.HTML_LINKED.equals(outputFormat)) {
         result = generateHtmlOutput(snippet, outputFormat, HTML, true).getBytes(UTF_8);
-
+      
       } else if (XmlHelper.TXT.equals(outputFormat)) {
         result = snippet.getBytes(UTF_8);
-
+      
       } else if (XmlHelper.DOCX.equals(outputFormat) || XmlHelper.PDF.equals(outputFormat)) {
         String htmlResult = generateHtmlOutput(snippet, XmlHelper.HTML_PLAIN, XHTML, false);
         WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
         XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
         MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
         List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
-
+      
         // Remove line-height information for every paragraph
         for (Object xhtmlObject : xhtmlObjects) {
           try {
@@ -154,18 +150,18 @@ public class CitationStyleExecuterService {
             logger.error("Error while removing spacing information during docx export");
           }
         }
-
+      
         mdp.getContent().addAll(xhtmlObjects);
-
+      
         // Set global space after each paragrap
         PPr ppr = new PPr();
         Spacing spacing = new Spacing();
         spacing.setAfter(BigInteger.valueOf(400));
         ppr.setSpacing(spacing);
         mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);;
-
+      
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
+      
         if (XmlHelper.DOCX.equals(outputFormat)) {
           wordOutputDoc.save(bos);
         } else if (XmlHelper.PDF.equals(outputFormat)) {
@@ -173,40 +169,57 @@ public class CitationStyleExecuterService {
           foSettings.setWmlPackage(wordOutputDoc);
           Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
         }
-
+      
         bos.flush();
         result = bos.toByteArray();
       }
+      else if (XmlHelper.JSON.equals(outputFormat)) {
+        
+        
+      
+      }
+      
+      */
+
     } catch (Exception e) {
-      throw new RuntimeException("Error by transformation:", e);
+      throw new CitationStyleManagerException("Error by transformation:", e);
     }
 
-    return result;
+  }
+
+
+  public static List<String> transformSnippetToCitationList(String snippet) throws CitationStyleManagerException {
+    try {
+      List<String> citationList = new ArrayList<>();
+      XPathFactory xPathFactory = XPathFactory.newInstance();
+      NamespaceContext nsContext = new EscidocNamespaceContextImpl();
+      XPath xPath = xPathFactory.newXPath();
+      xPath.setNamespaceContext(nsContext);
+      XPathExpression exp = xPath.compile("//dcterms:bibliographicCitation");
+      NodeList nl = (NodeList) exp.evaluate(new InputSource(new StringReader(snippet)), XPathConstants.NODESET);
+      if (nl != null) {
+        for (int i = 0; i < nl.getLength(); i++) {
+          if (nl.item(i) != null) {
+            citationList.add(nl.item(i).getTextContent());
+          } else {
+            citationList.add("");
+          }
+
+        }
+      }
+      return citationList;
+    } catch (Exception e) {
+      throw new CitationStyleManagerException("Error while parsing bibliographic citaation from escidoc snippet", e);
+    }
+
+
   }
 
   public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
     return XmlHelper.isCitationStyle(cs);
   }
 
-  private static String generateHtmlOutput(String snippets, String html_format, String outputMethod, boolean indent) {
-    StringWriter result = new StringWriter();
-    try {
-      Transformer transformer =
-          XmlHelper.tryTemplCache(CitationUtil.getPathToTransformations() + "escidoc-publication-snippet2html.xsl").newTransformer();
-      transformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
-      transformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
 
-      transformer.setParameter("pubman_instance", getPubManUrl());
-      if (XmlHelper.HTML_LINKED.equals(html_format)) {
-        transformer.setParameter(XmlHelper.HTML_LINKED, Boolean.TRUE);
-      }
-      transformer.transform(new StreamSource(new StringReader(snippets)), new StreamResult(result));
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot transform to html:", e);
-    }
-
-    return result.toString();
-  }
 
   private static String getPubManUrl() {
     try {
@@ -229,4 +242,7 @@ public class CitationStyleExecuterService {
       throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
     }
   }
+
+
+
 }

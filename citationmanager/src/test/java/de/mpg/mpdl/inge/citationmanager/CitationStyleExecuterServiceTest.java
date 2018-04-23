@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.xml.transform.TransformerFactory;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -13,8 +16,12 @@ import org.junit.Test;
 
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 public class CitationStyleExecuterServiceTest {
@@ -64,8 +71,8 @@ public class CitationStyleExecuterServiceTest {
   @Test
   public final void testArxiv() throws Exception {
 
-    testOutput(XmlHelper.APA, XmlHelper.SNIPPET, TransformerFactory.ARXIV, ResourceUtil
-        .getResourceAsString("src/test/resources/testFiles/arXiv0904-2.3933.xml", CitationStyleManagerImpl.class.getClassLoader()));
+    testOutput(XmlHelper.APA, XmlHelper.SNIPPET, "", ResourceUtil.getResourceAsString("src/test/resources/testFiles/arXiv0904-2.3933.xml",
+        CitationStyleManagerImpl.class.getClassLoader()));
 
   }
 
@@ -96,29 +103,33 @@ public class CitationStyleExecuterServiceTest {
    * outPrefix == null: omit output file generation outPrefix == "": generate output file, file name
    * by default outPrefix.length>0 == "": generate output file, use outPrefix as file name prefix
    */
-  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws IOException {
+  public final void testOutput(String cs, String ouf, String outPrefix, String il) throws IOException, TechnicalException {
 
     long start;
-    byte[] result = null;
+    List<String> result = null;
     logger.info("Test Citation Style: " + cs);
 
     start = System.currentTimeMillis();
     try {
-      result = CitationStyleExecuterService.getOutput(il, new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, cs, ouf));
+      String escidocXml = ResourceUtil.getResourceAsString(il, CitationStyleManagerImpl.class.getClassLoader());
+      List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(escidocXml);
+      List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
+      result = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO(ouf, cs));
     } catch (CitationStyleManagerException e) {
       Assert.fail(e.getMessage());
     }
 
     logger.info("Output to " + ouf + ", time: " + (System.currentTimeMillis() - start));
-    assertTrue(ouf + " output should not be empty", result.length > 0);
+    assertTrue(ouf + " output should not be empty", result.size() > 0);
 
-    logger.info(ouf + " length: " + result.length);
+    logger.info(ouf + " length: " + result.size());
     if (result != null) {
       logger.info("***********************************************************************************************");
-      logger.info(new String(result));
+      logger.info(result);
       logger.info("***********************************************************************************************");
     }
 
+    /*
     if (outPrefix != null)
       try {
         TestHelper.writeToFile(
@@ -126,6 +137,7 @@ public class CitationStyleExecuterServiceTest {
       } catch (CitationStyleManagerException e) {
         Assert.fail(e.getMessage());
       }
+      */
 
   }
 

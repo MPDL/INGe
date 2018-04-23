@@ -31,6 +31,7 @@ import java.util.Arrays;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.apache.log4j.Logger;
 
@@ -71,38 +72,41 @@ public class ExportItems extends FacesBean {
 
   public SelectItem[] getEXPORTFORMAT_OPTIONS() {
     // constants for comboBoxes and HtmlSelectOneRadios
+
+    SelectItemGroup exportGroup = new SelectItemGroup(this.getLabel("Export_ExportFormat_BibFormatGroup"));
+
     final SelectItem EXPORTFORMAT_MARCXML = new SelectItem(TransformerFactory.MARC_XML, this.getLabel("Export_ExportFormat_MARCXML"));
     final SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem(TransformerFactory.ENDNOTE, this.getLabel("Export_ExportFormat_ENDNOTE"));
     final SelectItem EXPORTFORMAT_BIBTEX = new SelectItem(TransformerFactory.BIBTEX, this.getLabel("Export_ExportFormat_BIBTEX"));
     final SelectItem EXPORTFORMAT_ESCIDOC_XML =
         new SelectItem(TransformerFactory.ESCIDOC_ITEM_XML, this.getLabel("Export_ExportFormat_ESCIDOC_XML"));
-    final SelectItem EXPORTFORMAT_APA = new SelectItem(XmlHelper.APA, this.getLabel("Export_ExportFormat_APA"));
-    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(XmlHelper.APA_CJK, this.getLabel("Export_ExportFormat_APA_CJK"));
-    final SelectItem EXPORTFORMAT_AJP = new SelectItem(XmlHelper.AJP, this.getLabel("Export_ExportFormat_AJP"));
-    final SelectItem EXPORTFORMAT_JUS = new SelectItem(XmlHelper.JUS, this.getLabel("Export_ExportFormat_JUS"));
-    final SelectItem EXPORTFORMAT_CSL = new SelectItem(XmlHelper.CSL, XmlHelper.CSL); // nicht globalisiert
+    final SelectItem EXPORTFORMAT_JSON = new SelectItem(TransformerFactory.JSON, this.getLabel("Export_ExportFormat_JSON"));
+
+    exportGroup.setSelectItems(
+        new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_JSON, EXPORTFORMAT_ESCIDOC_XML});
+
+
+    SelectItemGroup citationGroup = new SelectItemGroup(this.getLabel("Export_ExportFormat_CitationGroup"));
+    final SelectItem FILEFORMAT_JSON_CITATION =
+        new SelectItem(TransformerFactory.JSON_CITATION, this.getLabel("Export_ExportFormat_JSON_CITATION"));
+    final SelectItem FILEFORMAT_PDF = new SelectItem(TransformerFactory.PDF, this.getLabel("Export_FileFormat_PDF"));
+    final SelectItem FILEFORMAT_DOCX = new SelectItem(TransformerFactory.DOCX, this.getLabel("Export_FileFormat_DOCX"));
+    final SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem(TransformerFactory.HTML_PLAIN, this.getLabel("Export_FileFormat_HTML_PLAIN"));
+    final SelectItem FILEFORMAT_HTML_LINKED =
+        new SelectItem(TransformerFactory.HTML_LINKED, this.getLabel("Export_FileFormat_HTML_LINKED"));
+    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
+        new SelectItem(TransformerFactory.ESCIDOC_SNIPPET, this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
+
+
+    citationGroup.setSelectItems(new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED,
+        FILEFORMAT_JSON_CITATION, FILEFORMAT_ESCIDOC_SNIPPET});
 
     final SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[] { //
-        EXPORTFORMAT_MARCXML, //
-        EXPORTFORMAT_ENDNOTE, // 
-        EXPORTFORMAT_BIBTEX, //
-        EXPORTFORMAT_ESCIDOC_XML, //
-        EXPORTFORMAT_APA, //
-        EXPORTFORMAT_APA_CJK, // 
-        EXPORTFORMAT_AJP, //
-        EXPORTFORMAT_JUS, //
-        EXPORTFORMAT_CSL};
+        exportGroup, citationGroup};
 
     return EXPORTFORMAT_OPTIONS;
   }
 
-  // SearchAndExport
-  public SelectItem[] getEXPORTFORMAT_OPTIONS_JSON() {
-    final SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
-    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] = new SelectItem(TransformerFactory.JSON, TransformerFactory.JSON); // nicht globalisiert
-
-    return EXPORTFORMAT_OPTIONS;
-  }
 
   // Yearbook
   public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED() {
@@ -112,20 +116,20 @@ public class ExportItems extends FacesBean {
     return EXPORTFORMAT_OPTIONS;
   }
 
-  public SelectItem[] getFILEFORMAT_OPTIONS() {
-    final SelectItem FILEFORMAT_PDF = new SelectItem(FileFormatVO.PDF_NAME, this.getLabel("Export_FileFormat_PDF"));
-    final SelectItem FILEFORMAT_DOCX = new SelectItem(FileFormatVO.DOCX_NAME, this.getLabel("Export_FileFormat_DOCX"));
-    final SelectItem FILEFORMAT_HTML_PLAIN = new SelectItem(FileFormatVO.HTML_PLAIN_NAME, this.getLabel("Export_FileFormat_HTML_PLAIN"));
-    final SelectItem FILEFORMAT_HTML_LINKED = new SelectItem(FileFormatVO.HTML_LINKED_NAME, this.getLabel("Export_FileFormat_HTML_LINKED"));
-    final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
-        new SelectItem(FileFormatVO.ESCIDOC_SNIPPET_NAME, this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
+  public SelectItem[] getCITATION_OPTIONS() {
+
+    final SelectItem EXPORTFORMAT_APA = new SelectItem(XmlHelper.APA, this.getLabel("Export_ExportFormat_APA"));
+    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(XmlHelper.APA_CJK, this.getLabel("Export_ExportFormat_APA_CJK"));
+    final SelectItem EXPORTFORMAT_AJP = new SelectItem(XmlHelper.AJP, this.getLabel("Export_ExportFormat_AJP"));
+    final SelectItem EXPORTFORMAT_JUS = new SelectItem(XmlHelper.JUS, this.getLabel("Export_ExportFormat_JUS"));
+    final SelectItem EXPORTFORMAT_CSL = new SelectItem(XmlHelper.CSL, XmlHelper.CSL); // nicht globalisiert
 
     final SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[] { //
-        FILEFORMAT_PDF, //
-        FILEFORMAT_DOCX, //
-        FILEFORMAT_HTML_PLAIN, // 
-        FILEFORMAT_HTML_LINKED, //
-        FILEFORMAT_ESCIDOC_SNIPPET};
+        EXPORTFORMAT_APA, //
+        EXPORTFORMAT_APA_CJK, // 
+        EXPORTFORMAT_AJP, //
+        EXPORTFORMAT_JUS, //
+        EXPORTFORMAT_CSL};
 
     return FILEFORMAT_OPTIONS;
   }
@@ -142,17 +146,9 @@ public class ExportItems extends FacesBean {
 
     final ExportFormatVO exportFormat = sb.getCurExportFormatVO();
     //    final String selExportFormat = sb.getExportFormatName();
-    sb.setExportFormatName(exportFormat.getName());
+    sb.setExportFormatName(exportFormat.getFormat());
 
-    if (exportFormat.getFormatType().equals(ExportFormatVO.FormatType.LAYOUT))
-      //    if (XmlHelper.APA.equalsIgnoreCase(selExportFormat) //
-      //        || XmlHelper.APA_CJK.equalsIgnoreCase(selExportFormat) //
-      //        || XmlHelper.AJP.equalsIgnoreCase(selExportFormat) //
-      //        || XmlHelper.JUS.equalsIgnoreCase(selExportFormat) //
-      //        || XmlHelper.CSL.equalsIgnoreCase(selExportFormat)) {
-      // set default fileFormat
-      sb.setFileFormat(FileFormatVO.DEFAULT_NAME);
-    //    }
+
   }
 
   // /////////////////////////////////////////////////////////////////////////////////////

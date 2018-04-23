@@ -53,6 +53,10 @@
 			<artifactId>model</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>citationmanager</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>

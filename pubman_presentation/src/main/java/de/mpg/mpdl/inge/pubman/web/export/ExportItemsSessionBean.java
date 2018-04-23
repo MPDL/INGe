@@ -37,6 +37,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -91,7 +93,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
   public void init() {
     try {
-      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, TransformerFactory.MARC_XML, FileFormatVO.XML_NAME);
+      this.curExportFormatVO = new ExportFormatVO(TransformerFactory.MARC_XML);
       this.emailSenderProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
       this.emailServernameProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
       this.emailWithAuthProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
@@ -115,36 +117,29 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public String getExportFormatName() {
-    return this.curExportFormatVO.getName();
+    return this.curExportFormatVO.getFormat();
   }
 
   public void setExportFormatName(String exportFormatName) {
-    if (XmlHelper.APA.equalsIgnoreCase(exportFormatName) //
-        || XmlHelper.APA_CJK.equalsIgnoreCase(exportFormatName) //
-        || XmlHelper.JUS.equalsIgnoreCase(exportFormatName) //
-        || XmlHelper.AJP.equalsIgnoreCase(exportFormatName)) {
-      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, exportFormatName, FileFormatVO.DEFAULT_NAME);
+    FORMAT format = TransformerFactory.getFormat(exportFormatName);
+    String citations = curExportFormatVO.getCitationName();
+
+    curExportFormatVO.setFormat(exportFormatName);
+    System.out.println(format);
+    if (TransformerFactory.VALID_CITATION_OUTPUT.contains(format)) {
       this.setEnableFileFormats(true);
-      this.setEnableCslAutosuggest(false);
-    } else if (XmlHelper.CSL.equalsIgnoreCase(exportFormatName)) {
-      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, exportFormatName, FileFormatVO.DEFAULT_NAME);
-      this.setEnableFileFormats(true);
-      this.setEnableCslAutosuggest(true);
-    } else if (TransformerFactory.JSON.equalsIgnoreCase(exportFormatName)) {
-      this.curExportFormatVO = new ExportFormatVO(ExportFormatVO.FormatType.STRUCTURED, exportFormatName, FileFormatVO.JSON_NAME);
-      this.setEnableFileFormats(false);
-      this.setEnableCslAutosuggest(false);
+
+      if (CitationTypes.CSL.getCitationName().equals(citations)) {
+        this.setEnableCslAutosuggest(true);
+      }
     } else {
-      TransformerFactory.FORMAT exportFormat = TransformerFactory.getFormat(exportFormatName);
-      this.curExportFormatVO =
-          new ExportFormatVO(ExportFormatVO.FormatType.STRUCTURED, exportFormatName, exportFormat.getFileFormat().getName());
       this.setEnableFileFormats(false);
       this.setEnableCslAutosuggest(false);
     }
   }
 
   public String getFileFormat() {
-    return this.curExportFormatVO.getFileFormat().getName();
+    return this.curExportFormatVO.getCitationName();
   }
 
   public void setFileFormat(String fileFormatName) {
@@ -152,9 +147,10 @@ public class ExportItemsSessionBean extends FacesBean {
     //        || XmlHelper.APA_CJK.equalsIgnoreCase(this.getExportFormatName()) //
     //        || XmlHelper.JUS.equalsIgnoreCase(this.getExportFormatName()) //
     //        || XmlHelper.AJP.equalsIgnoreCase(this.getExportFormatName())) {
-    this.curExportFormatVO.setFileFormat(fileFormatName);
+    this.curExportFormatVO.setCitationName(fileFormatName);
     //    }
   }
+
 
   // ////////////////////////////////////////////////////////////////////////////////////////7
   // next methods are used by EMAIL-ing

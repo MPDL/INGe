@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -108,8 +109,8 @@ public class ItemRestController {
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
-      @RequestParam(value = "exportFormat", required = false) String exportFormat, //
-      @RequestParam(value = "outputFormat", required = false) String outputFormat, //
+      @RequestParam(value = "format", required = false) String format, //
+      @RequestParam(value = "citation", required = false) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scroll", required = false) boolean scroll, //
       @RequestBody JsonNode query, //
@@ -120,7 +121,7 @@ public class ItemRestController {
       srRequest.setScrollTime(DEFAULT_SCROLL_TIME);
     }
 
-    if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
+    if (format == null || format.equals(TransformerFactory.JSON)) {
       SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
       HttpHeaders headers = new HttpHeaders();
       headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
@@ -130,7 +131,8 @@ public class ItemRestController {
       return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
     }
 
-    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat, outputFormat, cslConeId);
+    ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
+    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
     SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
 
     response.setContentType(saerVO.getTargetMimetype());
@@ -149,8 +151,8 @@ public class ItemRestController {
   @RequestMapping(value = "/search/scroll", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchScroll( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, //
-      @RequestParam(value = "exportFormat", required = false) String exportFormat, //
-      @RequestParam(value = "outputFormat", required = false) String outputFormat, //
+      @RequestParam(value = "format", required = false) String format, //
+      @RequestParam(value = "citation", required = false) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scrollId", required = true) String scrollId, //
       HttpServletResponse response)
@@ -160,14 +162,15 @@ public class ItemRestController {
     SearchRetrieveResponseVO<ItemVersionVO> srResponse =
         SearchUtils.getSearchRetrieveResponseFromElasticSearchResponse(searchResp, ItemVersionVO.class);
 
-    if (exportFormat == null || exportFormat.equals(TransformerFactory.JSON)) {
+    if (format == null || format.equals(TransformerFactory.JSON)) {
       HttpHeaders headers = new HttpHeaders();
       headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
       headers.add("scrollId", srResponse.getScrollId());
       return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
     }
 
-    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srResponse, exportFormat, outputFormat, cslConeId);
+    ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
+    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srResponse, exportFormat);
     SearchAndExportResultVO saerVO = this.saes.exportItems(saerrVO, token);
 
     response.setContentType(saerVO.getTargetMimetype());

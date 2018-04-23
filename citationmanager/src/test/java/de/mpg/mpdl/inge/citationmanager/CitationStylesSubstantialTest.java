@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -43,8 +44,14 @@ import org.w3c.dom.Node;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
+import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
+import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.util.DOMUtilities;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * Test class for citation manager processing component Can be started from eclipse. The system
@@ -155,14 +162,21 @@ public class CitationStylesSubstantialTest {
         // generate text citation form the current item
         // logger.info( "item:" + XmlHelper.outputString(doc));
 
-        String snippet = new String(CitationStyleExecuterService.getOutput(DOMUtilities.outputString(doc),
-            new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, cs, "escidoc_snippet")));
-        logger.info("snippet:" + snippet);
 
+        String escidocXml =
+            ResourceUtil.getResourceAsString(DOMUtilities.outputString(doc), CitationStyleManagerImpl.class.getClassLoader());
+        List<PubItemVO> oldItemList = XmlTransformingService.transformToPubItemList(escidocXml);
+        List<ItemVersionVO> newItemList = EntityTransformer.transformToNew(oldItemList);
+
+        List<String> citations = CitationStyleExecuterService.getOutput(newItemList, new ExportFormatVO("escidoc_snippet", cs));
+        logger.info("snippet:" + citations);
+
+        /*
         Node snippetNode = XmlHelper.xpathNode(SNIPPET_XPATH, snippet);
-
-        generatedCit = snippetNode.getTextContent();
+        */
+        generatedCit = citations.get(0);
         logger.info("generated citation:" + generatedCit);
+
 
         // get expected result from the abstract field
         Node checkNode = XmlHelper.xpathNode(EXPECTED_XPATH, doc);

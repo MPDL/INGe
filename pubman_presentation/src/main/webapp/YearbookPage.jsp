@@ -18,7 +18,7 @@
         <div class="full wrapper">
             <h:inputHidden id="offset"></h:inputHidden>
             <ui:include src="header/Header.jspf" />
-            <h:form>
+            <h:form id="form1">
                 <div id="content" class="full_area0 clear">
                     <!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
                     <div class="clear">
@@ -157,28 +157,38 @@
                                     <h:commandButton id="btnChangeSortBy" title="#{tip.list_btSortBy}" styleClass="noDisplay changeSortBy" value=" " action="#{PubItemListSessionBean.changeSortBy}" />
                                     <!-- content menu lower line ends here -->
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
-                                    <!-- content menu lower line starts here -->
+                                 <h:panelGroup id="export" layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
                                     <h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
                                         <h:panelGroup layout="block" styleClass="xLarge_area0">
                                             <h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
                                             <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
                                         </h:panelGroup>
-                                        <h:selectOneMenu id="selExportFormatName" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+                                        <h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}">
                                             <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+                                            <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
-                                    </h:panelGroup>
-                                    <h:commandButton id="btnUpdateExportFormats" title="#{tip.export_btFormat}" styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />
+                                    </h:panelGroup>                           
                                     <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
                                         <h:panelGroup layout="block" styleClass="medium_area0">
                                             <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
                                             <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
                                         </h:panelGroup>
-                                        <h:selectOneMenu id="selFileFormat" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
-                                            <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
+                                        <h:selectOneMenu id="selFILEFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
+                                            <f:selectItems value="#{ExportItems.CITATION_OPTIONS}" />
+                                            <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
-                                    <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.Yearbook_btnExport}" action="#{YearbookItemSessionBean.exportYearbook}" onclick="fullItemReloadAjax();" />
+                                    <h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{ViewItemFull.exportDownload}" />
+                                    <h:outputText styleClass="seperator" />
+                                    <h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{ViewItemFull.exportEmail}" />
+                                    <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
+                                        <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
+                                        <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
+                                        <h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" />
+                                        <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
+                                            <f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
+                                        </h:commandButton>
+                                    </h:panelGroup>
                                     <!-- content menu lower line ends here -->
                                 </h:panelGroup>
                                 <!-- content menu ends here -->

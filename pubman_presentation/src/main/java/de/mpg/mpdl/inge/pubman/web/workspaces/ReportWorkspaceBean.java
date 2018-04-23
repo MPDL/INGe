@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -16,15 +15,12 @@ import javax.servlet.ServletOutputStream;
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
-import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
@@ -39,6 +35,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 
 /**
@@ -53,8 +50,6 @@ public class ReportWorkspaceBean extends FacesBean {
   private OrganizationVOPresentation organization = new OrganizationVOPresentation();
   private String reportYear;
 
-  private final String csExportFormatName = XmlHelper.JUS_REPORT;
-  private final String csOutputFormatName = XmlHelper.ESCIDOC_SNIPPET;
 
   private Map<String, String> configuration = new HashMap<String, String>();
   private List<String> allOUs = new ArrayList<String>();
@@ -108,7 +103,7 @@ public class ReportWorkspaceBean extends FacesBean {
   }
 
   public void generateReport() {
-    String itemListSearchResult = null;
+
     byte[] itemListCS = null;
     byte[] itemListReportTransformed = null;
 
@@ -125,7 +120,7 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.info("Start generation report for YEAR " + this.reportYear + ", ORG " + this.organization.getIdentifier() + ", FORMAT "
           + this.format + " " + this.format.name());
 
-      itemListSearchResult = this.doSearchItems();
+      SearchRetrieveResponseVO<ItemVersionVO> itemListSearchResult = this.doSearchItems();
 
       if (itemListSearchResult != null) {
         itemListCS = this.doCitationStyle(itemListSearchResult);
@@ -160,8 +155,7 @@ public class ReportWorkspaceBean extends FacesBean {
     }
   }
 
-  private String doSearchItems() {
-    String itemListAsString = null;
+  private SearchRetrieveResponseVO<ItemVersionVO> doSearchItems() {
     int totalNrOfSerchResultItems = 0;
 
     /*
@@ -235,25 +229,27 @@ public class ReportWorkspaceBean extends FacesBean {
       logger.info("Search result total nr: " + resp.getNumberOfRecords());
 
       if (totalNrOfSerchResultItems > 0) {
-        itemListAsString = XmlTransformingService.transformToItemList(
-            EntityTransformer.transformToOld(resp.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList())));
+        return resp;
       } else {
+
         this.info(this.getMessage("ReportNoItemsFound"));
+        return null;
       }
     } catch (final Exception e) {
       logger.error("Error when trying to find search service.", e);
       this.error("Did not find Search service");
     }
 
-    return itemListAsString;
+
+    return null;
   }
 
-  private byte[] doCitationStyle(String itemListAsString) {
+  private byte[] doCitationStyle(SearchRetrieveResponseVO<ItemVersionVO> searchResult) {
     byte[] exportData = null;
 
     try {
-      exportData = CitationStyleExecuterService.getOutput(itemListAsString,
-          new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, this.csExportFormatName, this.csOutputFormatName));
+      exportData = ApplicationBean.INSTANCE.getItemTransformingService().getOutputForExport(
+          new ExportFormatVO(FILE_FORMAT.ESCIDOC_SNIPPET.getName(), CitationTypes.JUS_Report.getCitationName()), searchResult);
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
       this.error("Did not find Citation service");

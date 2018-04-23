@@ -1,36 +1,71 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.apache.log4j.Logger;
+import org.docx4j.Docx4J;
+import org.docx4j.convert.in.xhtml.XHTMLImporter;
+import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
+import org.docx4j.convert.out.FOSettings;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.P;
+import org.docx4j.wml.PPr;
+import org.docx4j.wml.PPrBase.Spacing;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleExecuterService;
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
+import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.transformation.Transformer;
 import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
+import de.mpg.mpdl.inge.transformation.transformers.CitationTransformer;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import net.sf.saxon.TransformerFactoryImpl;
+import net.sf.saxon.event.TransformerReceiver;
 
 @Service
 @Primary
 public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   private static Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
+
+  private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
 
   //  // Mapping the format names of a ExportVO object to the enums used in transformationManager
   //  private static Map<String, TransformerFactory.FORMAT> map;
@@ -43,68 +78,60 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
   //    map.put(TransformerFactory.EDOC_XML, TransformerFactory.FORMAT.EDOC_XML);
   //  }
 
-  @Override
-  public byte[] getOutputForExport(ExportFormatVO exportFormat, String itemList) throws IngeTechnicalException {
 
-    byte[] exportData = null;
 
-    switch (exportFormat.getFormatType()) {
+  private byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> itemList,
+      SearchRetrieveResponseVO<ItemVersionVO> searchResult) throws IngeTechnicalException {
+    try {
 
-      case LAYOUT:
 
-        try {
-          exportData = CitationStyleExecuterService.getOutput(itemList, exportFormat);
-        } catch (CitationStyleManagerException e) {
-          throw new IngeTechnicalException(e);
+      if (searchResult == null) {
+        searchResult = new SearchRetrieveResponseVO<>();
+        searchResult.setNumberOfRecords(itemList.size());
+        List<SearchRetrieveRecordVO<ItemVersionVO>> recordList = new ArrayList<>();
+        for (ItemVersionVO item : itemList) {
+          SearchRetrieveRecordVO<ItemVersionVO> srr = new SearchRetrieveRecordVO<>();
+          srr.setData(item);
+          srr.setPersistenceId(item.getObjectIdAndVersion());
+          recordList.add(srr);
         }
-        break;
+        searchResult.setRecords(recordList);
+      }
 
-      case STRUCTURED:
+      ByteArrayOutputStream bos = new ByteArrayOutputStream();
+      Transformer trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
+          TransformerFactory.getFormat(exportFormat.getFormat()));
+      trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, exportFormat.getCitationName());
+      trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CSL_ID, exportFormat.getId());
+      trans.transform(new TransformerVoSource(searchResult), new TransformerStreamResult(bos));
 
-        if (TransformerFactory.ESCIDOC_ITEM_XML.equalsIgnoreCase(exportFormat.getName())) {
-          return itemList.getBytes();
-        }
+      return bos.toByteArray();
 
-        Transformer trans = null;
-        StringWriter wr = new StringWriter();
 
-        TransformerFactory.FORMAT format = TransformerFactory.getFormat(exportFormat.getName());
 
-        try {
-          trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML, format);
-
-          trans.transform(new TransformerStreamSource(new ByteArrayInputStream(itemList.getBytes("UTF-8"))),
-              new TransformerStreamResult(wr));
-
-          exportData = wr.toString().getBytes("UTF-8");
-        } catch (UnsupportedEncodingException | TransformationException e) {
-          logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <" + format);
-          //              + map.get(exportFormat.getName()));
-          throw new IngeTechnicalException(e);
-        }
-        break;
-
-      default:
-        throw new IngeTechnicalException("format Type <" + exportFormat.getFormatType() + "> is not supported");
+    } catch (Exception e) {
+      logger.warn("Exception occured when transforming from <" + TransformerFactory.FORMAT.ESCIDOC_ITEMLIST_V3_XML + "> to <"
+          + exportFormat.getFormat());
+      //              + map.get(exportFormat.getName()));
+      throw new IngeTechnicalException(e);
     }
 
-    return exportData;
+  }
+
+
+
+  @Override
+  public byte[] getOutputForExport(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> srr) throws IngeTechnicalException {
+    return getOutputForExport(exportFormat, null, srr);
+
   }
 
   @Override
   public byte[] getOutputForExport(ExportFormatVO exportFormat, List<ItemVersionVO> pubItemVOList) throws IngeTechnicalException {
-    List<PubItemVO> transformedList = EntityTransformer.transformToOld(pubItemVOList);
-
-    byte[] exportData = null;
-    try {
-      String itemList = XmlTransformingService.transformToItemList(transformedList);
-      exportData = getOutputForExport(exportFormat, itemList);
-    } catch (Exception e) {
-      throw new IngeTechnicalException(e);
-    }
-
-    return exportData;
+    return getOutputForExport(exportFormat, pubItemVOList, null);
   }
+
+
 
   @Override
   public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target) {

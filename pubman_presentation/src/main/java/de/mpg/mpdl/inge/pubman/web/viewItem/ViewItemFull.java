@@ -41,7 +41,6 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
@@ -116,6 +115,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -1713,8 +1713,8 @@ public class ViewItemFull extends FacesBean {
     // create an attachment temp file from the byte[] stream
     File exportAttFile;
     try {
-      exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date,
-          "." + curExportFormat.getFileFormat().getExtension());
+      exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getFormat() + "_" + date,
+          "." + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension());
       final FileOutputStream fos = new FileOutputStream(exportAttFile);
       fos.write(exportFileData);
       fos.close();
@@ -1751,9 +1751,10 @@ public class ViewItemFull extends FacesBean {
       throw new RuntimeException("Cannot export item:", e);
     }
 
-    final String contentType = curExportFormat.getFileFormat().getMimeType();
+    final String contentType = TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
-    final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + curExportFormat.getFileFormat().getExtension();
+    final String fileName = "export_" + curExportFormat.getFormat().toLowerCase() + "."
+        + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension();
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
       final OutputStream out = FacesTools.getResponse().getOutputStream();
@@ -1892,9 +1893,9 @@ public class ViewItemFull extends FacesBean {
 
       final ExportFormatVO expFormat;
       if (isJapanese || "ja".equalsIgnoreCase(this.getI18nHelper().getLocale())) {
-        expFormat = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, XmlHelper.APA_CJK, FileFormatVO.HTML_PLAIN_NAME);
+        expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA_CJK.getCitationName());
       } else {
-        expFormat = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, XmlHelper.APA6, FileFormatVO.HTML_PLAIN_NAME);
+        expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA6.getCitationName());
       }
 
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();

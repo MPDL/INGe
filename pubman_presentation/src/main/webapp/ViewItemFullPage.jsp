@@ -38,7 +38,7 @@
         <div class="full wrapper">
             <h:inputHidden id="offset"></h:inputHidden>
             <ui:include src="header/Header.jspf" />
-            <h:form>
+            <h:form id="form1">
                 <div id="content" class="full_area0 clear">
                     <!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
                     <div class="clear">
@@ -162,28 +162,25 @@
                                     </h:panelGroup>
                                     <!-- content menu lower line ends here -->
                                 </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
+                                                                <h:panelGroup id="export" layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'EXPORT'}">
                                     <h:panelGroup layout="block" styleClass="xLarge_area1 endline selectContainer">
                                         <h:panelGroup layout="block" styleClass="xLarge_area0">
                                             <h:panelGroup styleClass="xLarge_area0 selectionBox">&#160;</h:panelGroup>
                                             <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
                                         </h:panelGroup>
-                                        <h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+                                        <h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}">
                                             <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
+                                            <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
-                                    </h:panelGroup>
-                                    <!-- 
-									<h:selectOneMenu id="selEXPORTFORMAT" value="#{ExportItemsSessionBean.exportFormatName}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
-											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
-									</h:selectOneMenu>	-->
-                                    <h:commandButton styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />
+                                    </h:panelGroup>                           
                                     <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
                                         <h:panelGroup layout="block" styleClass="medium_area0">
                                             <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
                                             <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
                                         </h:panelGroup>
                                         <h:selectOneMenu id="selFILEFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.fileFormat}" onchange="updateSelectionBox(this);">
-                                            <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}" />
+                                            <f:selectItems value="#{ExportItems.CITATION_OPTIONS}" />
+                                            <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
                                     <h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{ViewItemFull.exportDownload}" />

@@ -80,10 +80,6 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>transformationManager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>citation_style_language_manager</artifactId>
 		</dependency>
 		<dependency>

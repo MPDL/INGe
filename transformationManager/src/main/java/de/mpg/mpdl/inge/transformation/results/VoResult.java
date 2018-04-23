@@ -3,7 +3,7 @@ package de.mpg.mpdl.inge.transformation.results;
 import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
-import de.mpg.mpdl.inge.transformation.sources.VoSource;
+import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 
 public class VoResult extends TransformerResultAbstractImpl<ValueObject> implements TransformerResult {
 
@@ -19,7 +19,7 @@ public class VoResult extends TransformerResultAbstractImpl<ValueObject> impleme
 
   @Override
   public TransformerSource createSourceFromInBetweenResult() throws TransformationException {
-    return new VoSource(this.getResult());
+    return new TransformerVoSource(this.getResult());
   }
 
 }

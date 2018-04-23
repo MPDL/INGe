@@ -36,10 +36,10 @@ public class CitationStyleLanguageManagerService {
 
   //  private static String citationStyle = null;
 
-  public static byte[] getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
+  public static List<String> getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();
-    StringWriter snippet = new StringWriter();
-    byte[] result = null;
+    //StringWriter snippet = new StringWriter();
+    //byte[] result = null;
     try {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
       //      if (citationStyle == null) {
@@ -82,7 +82,9 @@ public class CitationStyleLanguageManagerService {
         }
         citationList.add(citation);
       }
+      return citationList;
       // create snippet format
+      /*
       TransformerFactory factory = new TransformerFactoryImpl();
       Transformer transformer = factory.newTransformer(new StreamSource(
           CitationStyleLanguageManagerService.class.getClassLoader().getResourceAsStream(TRANSFORMATION_ITEM_LIST_2_SNIPPET)));
@@ -92,6 +94,7 @@ public class CitationStyleLanguageManagerService {
         logger.debug("eSciDoc-Snippet including Ciation: " + snippet);
       }
       result = snippet.toString().getBytes("UTF-8");
+      */
     } catch (IOException e) {
       logger.error("Error creating CSL processor", e);
       throw new CitationStyleLanguageException("Error creating CSL processor", e);
@@ -106,6 +109,5 @@ public class CitationStyleLanguageManagerService {
       throw new CitationStyleLanguageException("Error getting output", e);
     }
 
-    return result;
   }
 }

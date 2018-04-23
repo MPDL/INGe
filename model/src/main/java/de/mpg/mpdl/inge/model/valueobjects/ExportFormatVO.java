@@ -28,45 +28,41 @@ package de.mpg.mpdl.inge.model.valueobjects;
 
 @SuppressWarnings("serial")
 public class ExportFormatVO extends ValueObject {
-  private FormatType formatType;
-  private String name;
+  private String format;
+  private String citationName;
+
+
   private String id;
-  private FileFormatVO.FILE_FORMAT fileFormat;
 
-  public enum FormatType
-  {
-    LAYOUT,
-    STRUCTURED
+
+  public ExportFormatVO(String format, String citationName) {
+    this.citationName = citationName;
+    this.setFormat(format);
   }
 
-  public ExportFormatVO(FormatType formatType, String name, String fileFormatName) {
-    this.formatType = formatType;
-    this.name = name;
-    this.fileFormat = FileFormatVO.getFileFormat(fileFormatName);
+  public ExportFormatVO(String format) {
+
+    this.setFormat(format);
   }
 
-  public ExportFormatVO(FormatType formatType, String name, String fileFormatName, String id) {
-    this.formatType = formatType;
-    this.name = name;
-    this.fileFormat = FileFormatVO.getFileFormat(fileFormatName);
+  public ExportFormatVO(String format, String citationName, String id) {
+    this.citationName = citationName;
+    this.setFormat(format);
     this.id = id;
   }
 
-  public String getName() {
-    return this.name;
+  public String getCitationName() {
+    return this.citationName;
   }
 
-  public FormatType getFormatType() {
-    return this.formatType;
+  public void setCitationName(String citationName) {
+    this.citationName = citationName;
   }
 
-  public FileFormatVO.FILE_FORMAT getFileFormat() {
-    return this.fileFormat;
+  public String getFormat() {
+    return this.format;
   }
 
-  public void setFileFormat(String fileFormatName) {
-    this.fileFormat = FileFormatVO.getFileFormat(fileFormatName);
-  }
 
   public String getId() {
     return this.id;
@@ -78,7 +74,11 @@ public class ExportFormatVO extends ValueObject {
 
   @Override
   public String toString() {
-    return "ExportFormatVO [formatType=" + formatType + ", name=" + name + ", id=" + id + ", fileFormat=" + fileFormat + "]";
+    return "ExportFormatVO [formatType=" + getFormat() + ", name=" + citationName + ", id=" + id + " ]";
+  }
+
+  public void setFormat(String format) {
+    this.format = format;
   }
 
 }

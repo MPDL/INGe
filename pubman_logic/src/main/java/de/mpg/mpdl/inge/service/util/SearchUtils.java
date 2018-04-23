@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
@@ -131,5 +132,11 @@ public class SearchUtils {
       throws IOException {
     return ElasticSearchGenericDAOImpl.getSearchRetrieveResponseFromElasticSearchResponse(sr, clazz);
   }
+
+  public static <E> List<E> getRecordListFromSearchRetrieveResponse(SearchRetrieveResponseVO<E> srr, Class<E> clazz) throws IOException {
+    return srr.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
+  }
+
+
 
 }

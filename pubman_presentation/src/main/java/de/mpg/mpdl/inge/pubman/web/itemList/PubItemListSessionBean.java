@@ -56,6 +56,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
@@ -918,8 +919,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       // create an attachment temp file from the byte[] stream
       File exportAttFile;
       try {
-        exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date,
-            "." + curExportFormat.getFileFormat().getExtension());
+        exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getFormat() + "_" + date,
+            "." + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension());
         final FileOutputStream fos = new FileOutputStream(exportAttFile);
         fos.write(exportFileData);
         fos.close();
@@ -969,9 +970,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     } catch (final IngeTechnicalException e) {
       throw new RuntimeException("Cannot retrieve export data", e);
     }
-    final String contentType = curExportFormat.getFileFormat().getMimeType();
+    final String contentType = TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getMimeType();
     FacesTools.getResponse().setContentType(contentType);
-    final String fileName = "export_" + curExportFormat.getName().toLowerCase() + "." + curExportFormat.getFileFormat().getExtension();
+    final String fileName = "export_" + curExportFormat.getFormat().toLowerCase() + "."
+        + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension();
     FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + fileName);
     try {
       final OutputStream out = FacesTools.getResponse().getOutputStream();

@@ -199,8 +199,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
       srrVO.setLimit(_limit);
       srrVO.setOffset(_offset);
 
-      SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srrVO, curExportFormat.getName(),
-          curExportFormat.getFileFormat().getName(), curExportFormat.getId());
+      SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srrVO, curExportFormat);
 
       return saerrVO;
     } catch (final Exception e) {
@@ -301,16 +300,16 @@ public class SearchAndExportPage extends BreadcrumbPage {
   private String getParameterString(SearchAndExportRetrieveRequestVO saerrVO) {
     StringBuilder sb = new StringBuilder();
 
-    sb.append("?exportFormat=");
-    sb.append(saerrVO.getExportFormatName());
+    sb.append("?format=");
+    sb.append(saerrVO.getExportFormat().getFormat());
 
-    sb.append("&outputFormat=");
-    sb.append(saerrVO.getOutputFormat());
+    if (saerrVO.getExportFormat().getCitationName() != null)
+      sb.append("&citation=");
+    sb.append(saerrVO.getExportFormat().getCitationName());
 
-    if (saerrVO.getCslConeId() != null) {
-      sb.append(",");
+    if (saerrVO.getExportFormat().getId() != null) {
       sb.append("&cslConeId=");
-      sb.append(saerrVO.getCslConeId());
+      sb.append(saerrVO.getExportFormat().getId());
     }
 
     return sb.toString();

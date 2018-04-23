@@ -54,6 +54,7 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.SourceVOPresentation;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
@@ -148,6 +149,9 @@ public class ApplicationBean extends FacesBean {
 
   @ManagedProperty("#{mpgIpListProvider}")
   private IpListProvider ipListProvider;
+
+  @ManagedProperty("#{itemTransformingServiceImpl}")
+  private ItemTransformingService itemTransformingService;
 
 
 
@@ -589,6 +593,14 @@ public class ApplicationBean extends FacesBean {
 
   public void setIpListProvider(IpListProvider ipListProvider) {
     this.ipListProvider = ipListProvider;
+  }
+
+  public ItemTransformingService getItemTransformingService() {
+    return itemTransformingService;
+  }
+
+  public void setItemTransformingService(ItemTransformingService itemTransformingService) {
+    this.itemTransformingService = itemTransformingService;
   }
 
 }

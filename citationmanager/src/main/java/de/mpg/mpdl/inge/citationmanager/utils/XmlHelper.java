@@ -99,6 +99,8 @@ public class XmlHelper {
   public static final String RTF = "rtf";
   public static final String SNIPPET = "snippet";
   public static final String TXT = "txt";
+  public static final String JSON = "json";
+
 
   private static TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();
 

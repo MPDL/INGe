@@ -173,8 +173,8 @@ public class HtmlFormatter extends AbstractFormatter {
 
       String url = //
           PropertyReader.getProperty("inge.pubman.instance.url") //
-              + "/rest/items/search?exportFormat=" + exportFormat //
-              + "&outputFormat=" + outputFormat;
+              + "/rest/items/search?format=" + exportFormat //
+              + "&citation=" + outputFormat;
 
       StringBuilder postData = new StringBuilder();
 

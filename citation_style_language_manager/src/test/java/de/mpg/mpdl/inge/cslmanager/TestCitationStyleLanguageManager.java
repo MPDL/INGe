@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.dom4j.util.XMLErrorHandler;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,7 +65,7 @@ public class TestCitationStyleLanguageManager {
     IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
-    this.exportFormat = new ExportFormatVO(ExportFormatVO.FormatType.LAYOUT, EXPORT_FORMAT_NAME, "html");
+    this.exportFormat = new ExportFormatVO("snippet", EXPORT_FORMAT_NAME);
   }
 
   /**
@@ -95,10 +96,9 @@ public class TestCitationStyleLanguageManager {
    */
   @Test
   public void testDefaultImplementation() throws Exception {
-    String citationSnippet =
-        IOUtils.toString(CitationStyleLanguageManagerService.getOutput(this.exportFormat, this.escidocItemXml), "UTF-8");
+    String citationSnippet = CitationStyleLanguageManagerService.getOutput(this.exportFormat, this.escidocItemXml).get(0);
     assertEquals(
         "Walter, Matthias, Markus Haarländer, Franky S., - Testmann, G. Hoyden-Siedersleben, and J. C. Alonso. 2015. “CSL Test - Vortrag - Do Not Change!” Edited by Frank Demmig, Hideki ABE, Udo Stenzel, Shan Lu, Daniela Alic, Jana Wäldchen, and Collections, Max Planck Digital Library, Max Planck Gesellschaft. Translated by Martin Boosen. Directed by Michael Franke. <i>International Zoo Yearbook</i>. Habilitation Thesis presented at the EventTitel, EventOrt.",
-        CitationStyleLanguageUtils.parseTagFromXml(citationSnippet, "bibliographicCitation", "http://purl.org/dc/terms/"));
+        citationSnippet);
   }
 }
