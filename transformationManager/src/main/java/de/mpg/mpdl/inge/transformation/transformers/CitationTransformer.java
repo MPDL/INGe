@@ -127,7 +127,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
             i++;
           }
         }
-        return node.toString().getBytes(StandardCharsets.UTF_8);
+        return MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node).getBytes(StandardCharsets.UTF_8);
       }
 
     }

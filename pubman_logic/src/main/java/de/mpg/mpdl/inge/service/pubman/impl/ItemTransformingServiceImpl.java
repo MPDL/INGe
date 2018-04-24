@@ -29,6 +29,7 @@ import org.docx4j.wml.PPrBase.Spacing;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -39,12 +40,14 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.transformation.Transformer;
@@ -91,22 +94,27 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
         List<SearchRetrieveRecordVO<ItemVersionVO>> recordList = new ArrayList<>();
         for (ItemVersionVO item : itemList) {
           SearchRetrieveRecordVO<ItemVersionVO> srr = new SearchRetrieveRecordVO<>();
-          srr.setData(item);
+          srr.setData(new ItemVersionVO(item));
           srr.setPersistenceId(item.getObjectIdAndVersion());
           recordList.add(srr);
         }
         searchResult.setRecords(recordList);
       }
 
-      ByteArrayOutputStream bos = new ByteArrayOutputStream();
-      Transformer trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
-          TransformerFactory.getFormat(exportFormat.getFormat()));
-      trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, exportFormat.getCitationName());
-      trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CSL_ID, exportFormat.getId());
-      trans.transform(new TransformerVoSource(searchResult), new TransformerStreamResult(bos));
 
-      return bos.toByteArray();
+      if (exportFormat.getFormat().equals(TransformerFactory.FORMAT.JSON.getName())) {
+        return MapperFactory.getObjectMapper().writeValueAsBytes(searchResult);
+      } else {
 
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Transformer trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
+            TransformerFactory.getFormat(exportFormat.getFormat()));
+        trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, exportFormat.getCitationName());
+        trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CSL_ID, exportFormat.getId());
+        trans.transform(new TransformerVoSource(searchResult), new TransformerStreamResult(bos));
+
+        return bos.toByteArray();
+      }
 
 
     } catch (Exception e) {

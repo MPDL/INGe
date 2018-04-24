@@ -50,25 +50,12 @@ public class SearchAndExportServiceImpl implements SearchAndExportService {
     String targetMimeType;
     int totalNumberOfRecords = saerrVO.getSearchRetrieveReponseVO().getNumberOfRecords();
 
-    if (saerrVO.getExportFormat().getFormat().equals(TransformerFactory.FORMAT.JSON.getName())) {
+    result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), saerrVO.getSearchRetrieveReponseVO());
+    FORMAT format = TransformerFactory.getFormat(saerrVO.getExportFormat().getFormat());
 
-      try {
-        result = MapperFactory.getObjectMapper().writeValueAsBytes(saerrVO.getSearchRetrieveReponseVO());
-      } catch (JsonProcessingException e) {
-        throw new IngeApplicationException("Error while parsing search response", e);
-      }
+    fileName = saerrVO.getExportFormat().getFormat() + "." + format.getFileFormat().getExtension();
+    targetMimeType = format.getFileFormat().getMimeType();
 
-      fileName = FileFormatVO.FILE_FORMAT.JSON.getName() + "." + FileFormatVO.FILE_FORMAT.JSON.getExtension();
-      targetMimeType = FileFormatVO.JSON_MIMETYPE;
-    } else {
-
-
-      result = this.itemTransformingService.getOutputForExport(saerrVO.getExportFormat(), saerrVO.getSearchRetrieveReponseVO());
-      FORMAT format = TransformerFactory.getFormat(saerrVO.getExportFormat().getFormat());
-
-      fileName = saerrVO.getExportFormat().getFormat() + "." + format.getFileFormat().getExtension();
-      targetMimeType = format.getFileFormat().getMimeType();
-    }
 
     return new SearchAndExportResultVO(result, fileName, targetMimeType, totalNumberOfRecords);
   }
