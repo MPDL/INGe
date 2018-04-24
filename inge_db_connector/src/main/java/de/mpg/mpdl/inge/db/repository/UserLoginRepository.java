@@ -27,6 +27,11 @@ public class UserLoginRepository {
   }
 
   @Transactional
+  public void removeLogin(String loginName) throws IngeTechnicalException {
+    entityManager.createNativeQuery("DELETE FROM user_login WHERE loginname=?1").setParameter(1, loginName).executeUpdate();
+  }
+
+  @Transactional
   public void updateLogin(String loginName, String encodedPassword) throws IngeTechnicalException {
     int rows = entityManager.createNativeQuery("UPDATE user_login SET password=?2 WHERE loginname=?1").setParameter(1, loginName)
         .setParameter(2, encodedPassword).executeUpdate();
@@ -47,10 +52,5 @@ public class UserLoginRepository {
     }
 
     return null;
-    /*
-     * return
-     * (String)entityManager.createNativeQuery("SELECT password FROM user_login WHERE loginname=?1")
-     * .setParameter(1, loginName).get
-     */
   }
 }
