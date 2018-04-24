@@ -140,7 +140,20 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     return accountUser;
   }
 
+  @Transactional(rollbackFor = Throwable.class)
+  @Override
+  public void delete(String userId, String authenticationToken)
+      throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException {
+    AccountUserDbVO accountUserDbVO = userAccountRepository.findOne(userId);
 
+    try {
+      userLoginRepository.removeLogin(accountUserDbVO.getLoginname());
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+
+    super.delete(userId, authenticationToken);
+  }
 
   @Transactional(rollbackFor = Throwable.class)
   @Override

@@ -17,6 +17,8 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface UserAccountService extends GenericService<AccountUserDbVO, String> {
 
+  public void delete(String userId, String authenticationToken)
+      throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 
   public AccountUserDbVO get(String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
@@ -49,4 +51,5 @@ public interface UserAccountService extends GenericService<AccountUserDbVO, Stri
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public DecodedJWT verifyToken(String authenticationToken) throws AuthenticationException;
+
 }
