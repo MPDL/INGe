@@ -9,10 +9,8 @@
 			<span class="seperator"></span>
 			<span class="free_area0_p8 endline itemHeadline">
 				<b> <h:outputLink id="lnkQAWorkspace" title="#{tip.chooseWorkspace_QAWorkspace}"
-						value="#{ApplicationBean.appContext}QAWSPage.jsp"
-						rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
-						<h:outputText value="#{lbl.chooseWorkspace_lnkQAWorkspace}"
-							rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
+						value="#{ApplicationBean.appContext}QAWSPage.jsp">
+						<h:outputText value="#{lbl.chooseWorkspace_lnkQAWorkspace}" />
 					</h:outputLink>
 				</b>
 			</span>
@@ -29,6 +27,7 @@
 			</div>
 		</div>
 	</h:panelGroup>
+	
 	<h:panelGroup
 		rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 		<div class="full_area0 itemHeader">
@@ -36,8 +35,7 @@
 			<span class="seperator"></span>
 			<span class="free_area0_p8 endline itemHeadline">
 				<b> <h:outputLink id="lnkImportWorkspace" title="#{tip.chooseWorkspace_ImportWorkspace}"
-						value="#{ApplicationBean.appContext}ImportWorkspace.jsp"
-						rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
+						value="#{ApplicationBean.appContext}ImportWorkspace.jsp">
 						<h:outputText value="#{lbl.submission_lnkImportWorkspace}" />
 					</h:outputLink>
 				</b>
@@ -55,6 +53,7 @@
 			</div>
 		</div>
 	</h:panelGroup>
+	
 	<h:panelGroup rendered="#{LoginHelper.isYearbookEditor}">
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span>
@@ -79,6 +78,7 @@
 			</div>
 		</div>
 	</h:panelGroup>
+	
 	<h:panelGroup rendered="#{LoginHelper.isYearbookAdmin}">
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span>
@@ -104,14 +104,14 @@
 			</div>
 		</div>
 	</h:panelGroup>
-	<h:panelGroup rendered="#{LoginHelper.isReporter}">
+	
+	<h:panelGroup rendered="#{LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span>
 			<span class="seperator"></span>
 			<span class="free_area0_p8 endline itemHeadline">
 				<b> <h:outputLink id="lnkReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}"
-						value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp"
-						rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
+						value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp">
 						<h:outputText value="#{lbl.chooseWorkspace_lnkReportWorkspace}" />
 					</h:outputLink>
 				</b>
@@ -123,7 +123,8 @@
 				<div class="free_area0 endline itemLine firstLine">
 					<span class="quad_area0_p8 noPaddingTopBottom endline">
 						<h:outputText value="#{lbl.chooseWorkspace_descReportWorkspace}" />
-						<br /> <br />
+						<br /> 
+						<br />
 					</span>
 				</div>
 			</div>
