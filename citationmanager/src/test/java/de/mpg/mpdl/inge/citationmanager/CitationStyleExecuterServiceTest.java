@@ -52,17 +52,12 @@ public class CitationStyleExecuterServiceTest {
 
 
   @Test
-  public final void testOutputs() throws CitationStyleManagerException {
+  public final void testOutputs() throws Exception {
     for (String cs : CitationStyleExecuterService.getStyles()) {
       if (!XmlHelper.CSL.equals(cs)) {
         logger.info("citationStyle <" + cs + ">");
-        try {
-          testOutput(cs, null, null, itemLists.get(cs));
-        } catch (Exception e) {
-          logger.info("Error in citationStyle <" + cs + ">", e);
-          Assert.fail(e.getMessage());
-          continue;
-        }
+
+        testOutput(cs, null, null, itemLists.get(cs));
       }
     }
 
