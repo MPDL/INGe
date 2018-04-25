@@ -81,7 +81,9 @@ public class CitationStyleExecuterService {
   }
 
   public static List<String> getOutput(List<ItemVersionVO> itemList, ExportFormatVO exportFormat) throws CitationStyleManagerException {
-    Utils.checkCondition(itemList == null || itemList.isEmpty(), "Empty item-list");
+
+    if (itemList == null || itemList.isEmpty())
+      return new ArrayList<>();
 
     try {
 
@@ -91,6 +93,9 @@ public class CitationStyleExecuterService {
       long start = System.currentTimeMillis();
 
       if (XmlHelper.CSL.equals(exportFormat.getCitationName())) {
+        if (exportFormat.getId() == null || exportFormat.getId().isEmpty()) {
+          throw new CitationStyleManagerException("CSL id is required!");
+        }
         return CitationStyleLanguageManagerService.getOutput(exportFormat, escidocXmlList);
       } else {
 
