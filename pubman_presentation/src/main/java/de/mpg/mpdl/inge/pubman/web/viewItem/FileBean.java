@@ -209,7 +209,6 @@ public class FileBean extends FacesBean {
                                              // by the http-response (filename will be cutted after
                                              // the first empty space)
       final String contentType = this.file.getMimeType(); // For dialog, try
-      System.out.println("MIME: " + contentType);
 
       // application/x-download
       FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
@@ -218,7 +217,6 @@ public class FileBean extends FacesBean {
       }
 
       FacesTools.getResponse().setContentType(contentType);
-      System.out.println("MIME: " + FacesTools.getResponse().getContentType());
 
       byte[] buffer = null;
       if (this.file.getMetadata() != null) {
@@ -259,7 +257,6 @@ public class FileBean extends FacesBean {
       }
     } catch (final Exception e) {
       FileBean.logger.debug("File Download Error: " + e.toString());
-      System.out.println(e.toString());
     }
   }
 

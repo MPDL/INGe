@@ -194,7 +194,6 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       }
 
 
-      System.out.println(ssb.toString());
       SearchResponse resp;
       if ("admin".equals(getSearchType())) {
         resp = pis.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());

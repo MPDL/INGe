@@ -110,8 +110,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
         return SearchCriterionBase.scListToCql(indexName, scList, false);
       } catch (final Exception e) {
-        System.out.println("Error while retrieving affiliation from id" + e + ": " + e.getMessage());
-        // logger.error("Error while retrieving affiliation from id", e);
+        logger.error("Error while retrieving affiliation from id", e);
         return super.toCqlString(indexName);
       }
     }

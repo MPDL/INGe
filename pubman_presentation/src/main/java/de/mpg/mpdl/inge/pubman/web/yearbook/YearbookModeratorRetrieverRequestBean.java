@@ -152,7 +152,6 @@ public class YearbookModeratorRetrieverRequestBean
 
   @Override
   public List<YearbookDbVO> retrieveList(int offset, int limit, YearbookModeratorListSessionBean.SORT_CRITERIA sc) {
-    System.out.println("Retrieve list!!!!!!!!!!!!!!!!!!");
     try {
 
       BoolQueryBuilder qb = null;

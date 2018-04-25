@@ -125,7 +125,6 @@ public class ExportItemsSessionBean extends FacesBean {
     String citations = curExportFormatVO.getCitationName();
 
     curExportFormatVO.setFormat(exportFormatName);
-    System.out.println(format);
     if (TransformerFactory.VALID_CITATION_OUTPUT.contains(format)) {
       this.setEnableFileFormats(true);
 

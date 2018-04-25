@@ -112,7 +112,6 @@ public class YearbookItemSessionBean extends FacesBean {
 
       if (id != null) {
         YearbookDbVO yb = ApplicationBean.INSTANCE.getYearbookService().get(id, getLoginHelper().getAuthenticationToken());
-        System.out.println("Yearbook: " + yb.getObjectId() + " - " + yb.getLastModificationDate());
         this.setYearbook(yb);
       }
 
@@ -314,7 +313,6 @@ public class YearbookItemSessionBean extends FacesBean {
     }
     if (storedItem == null || !pubItem.getModificationDate().equals(storedItem.getLastModificationDate())) {
       // revalidate
-      System.out.println("Yearbook Validating: " + pubItem.getObjectId());
       // TODO maybe a special validationpoint for the yearbook needs to be created
       ValidationReportVO rep = new ValidationReportVO();
 

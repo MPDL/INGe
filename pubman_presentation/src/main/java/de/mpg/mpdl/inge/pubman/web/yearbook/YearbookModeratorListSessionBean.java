@@ -518,7 +518,6 @@ public class YearbookModeratorListSessionBean
    */
   @Override
   protected void readOutParameters() {
-    System.out.println("Update!!!!!!!!!!!!");
     final String sortBy =
         FacesTools.getExternalContext().getRequestParameterMap().get(YearbookModeratorListSessionBean.parameterSelectedSortBy);
 
