@@ -1256,7 +1256,7 @@
 			<properties>
 				<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 				<!--jacoco.version>0.7.4.201502262128</jacoco.version -->
-				<jacoco.version>0.7.9</jacoco.version>
+				<jacoco.version>0.8.1</jacoco.version>
 				<jacoco.outputDir>${project.build.directory}</jacoco.outputDir>
 				<jacoco.out.ut.file>jacoco.exec</jacoco.out.ut.file>
 				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
