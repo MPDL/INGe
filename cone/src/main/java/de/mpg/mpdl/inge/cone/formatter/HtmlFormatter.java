@@ -164,22 +164,21 @@ public class HtmlFormatter extends AbstractFormatter {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
       }
 
-      String exportFormat = "APA";
-      if ("ja".equals(lang)) {
-        exportFormat = "APA(CJK)";
-      }
+      String format = "escidoc_snippet";
 
-      String outputFormat = "escidoc_snippet";
+      String citation = "APA";
+      if ("ja".equals(lang)) {
+        citation = "APA(CJK)";
+      }
 
       String url = //
           PropertyReader.getProperty("inge.pubman.instance.url") //
-              + "/rest/items/search?format=" + exportFormat //
-              + "&citation=" + outputFormat;
+              + "/rest/items/search?format=" + format //
+              + "&citation=" + citation;
 
       StringBuilder postData = new StringBuilder();
 
-      // TODO: richtiges Prefix
-      String prefixForId = "http://localhost:8080/cone/";
+      String prefixForId = "/cone/";
 
       postData.append("{");
       postData.append(" \"query\": {\"bool\": {\"must\": [");
