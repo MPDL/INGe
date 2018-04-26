@@ -44,7 +44,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
-import de.mpg.mpdl.inge.citationmanager.utils.Utils;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.cslmanager.CitationStyleLanguageManagerService;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -66,11 +65,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 public class CitationStyleExecuterService {
   private static final Logger logger = Logger.getLogger(CitationStyleExecuterService.class);
-
-  private static final String UTF_8 = "UTF-8";
-  private static final String HTML = "html";
-  private static final String XHTML = "xhtml";
-
 
   public static String explainStyles() throws CitationStyleManagerException {
     return CitationUtil.getExplainStyles();

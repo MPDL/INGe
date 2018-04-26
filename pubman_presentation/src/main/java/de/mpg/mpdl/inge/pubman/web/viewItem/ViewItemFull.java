@@ -1762,7 +1762,7 @@ public class ViewItemFull extends FacesBean {
     } catch (final Exception e) {
       error("Error while exporting " + e.getMessage());
     }
-    
+
 
     return "";
   }
