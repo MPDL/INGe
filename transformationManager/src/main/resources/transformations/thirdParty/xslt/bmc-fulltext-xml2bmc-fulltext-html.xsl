@@ -576,7 +576,7 @@
 			If it is, still go via dx.doi.org but use different text
 		-->
 			<xsl:when test="substring(.//bmc:pubid[@idtype='doi'],1,8)='10.1186/'">
-				[<a class="hiddenlink" target="_blank" href="http://dx.doi.org/{.//bmc:pubid[@idtype='doi']}">BioMed Central Full Text</a>]
+				[<a class="hiddenlink" target="_blank" href="https://doi.org/{.//bmc:pubid[@idtype='doi']}">BioMed Central Full Text</a>]
 			</xsl:when>
 			<xsl:otherwise>
 
@@ -585,7 +585,7 @@
 					and use the PubMed id which is output below.
 				-->
 				<xsl:if test="count(.//bmc:pubid[@link='fulltext'])=0">
-					[<a class="hiddenlink" target="_blank" href="http://dx.doi.org/{.//bmc:pubid[@idtype='doi']}">Publisher Full Text</a>]
+					[<a class="hiddenlink" target="_blank" href="https://doi.org/{.//bmc:pubid[@idtype='doi']}">Publisher Full Text</a>]
 				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>

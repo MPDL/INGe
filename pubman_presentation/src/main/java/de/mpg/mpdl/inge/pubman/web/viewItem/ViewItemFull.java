@@ -979,7 +979,7 @@ public class ViewItemFull extends FacesBean {
         if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
           identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.DOI) {
-          identifiers.append("<a target='_blank' href='http://dx.doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
+          identifiers.append("<a target='_blank' href='https://doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.EDOC) {
           identifiers
               .append("<a target='_blank' href='http://edoc.mpg.de/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");

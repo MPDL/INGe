@@ -5,7 +5,7 @@
 	<xsl:param name="misc:anonymous-organization-name" as="xs:string?">unknown organization</xsl:param>
 	<xsl:param name="misc:default-organization-name" as="xs:string?">External Affiliation</xsl:param>
 	<xsl:param name="inge.pubman.external.organisation.id" as="xs:string?">${inge.pubman.external.organisation.id}</xsl:param>
-	<xsl:param name="misc:doi-resolver-prefix" as="xs:anyURI">http://dx.doi.org/</xsl:param>
+	<xsl:param name="misc:doi-resolver-prefix" as="xs:anyURI">https://doi.org/</xsl:param>
 	<xsl:param name="Flavor" as="xs:string" select="'other'"/>
 	<xsl:param name="misc:run-in-testmode" as="xs:boolean" select="false()"/>
 	<xsl:param name="misc:logging-level" as="xs:string">INFO</xsl:param>

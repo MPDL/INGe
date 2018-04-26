@@ -71,7 +71,7 @@
 	<xsl:variable name="key-fulltext-html-url" select="'DC.identifier'" />
 	
 	<xsl:variable name="key-doi" select="'DC.identifier'" />
-	<xsl:variable name="prefix-doi" select="'http://dx.doi.org/'" />
+	<xsl:variable name="prefix-doi" select="'https://doi.org/'" />
 	
 	<xsl:variable name="key-arxiv-id" select="''" />
 	<xsl:variable name="prefix-arxiv-id" select="''" />
