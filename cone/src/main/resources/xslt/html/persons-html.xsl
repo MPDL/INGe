@@ -209,6 +209,7 @@
 						$.ajax({method:"POST",
 						        url:requestString,
 						        data:postData,
+						        async:false,
 						        processData:false,
 						        contentType:"application/json; charset=UTF-8",
 						        success:function(itemList, textStatus, jqXHR){
