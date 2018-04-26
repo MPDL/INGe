@@ -113,7 +113,6 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    */
   public String createImmediately(String id, E entity) throws IngeTechnicalException {
     try {
-      logger.info(new String(mapper.writeValueAsBytes(entity)));
       IndexResponse indexResponse =
           client.getClient().prepareIndex().setIndex(indexName).setType(indexType).setId(id).setRefreshPolicy(RefreshPolicy.IMMEDIATE)
               .setSource(mapper.writeValueAsBytes(applyCustomValues(entity)), XContentType.JSON).get();

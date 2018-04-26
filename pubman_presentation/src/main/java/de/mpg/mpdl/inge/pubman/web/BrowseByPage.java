@@ -73,7 +73,8 @@ public class BrowseByPage extends BreadcrumbPage {
 
   private String currentCharacter = "A";
 
-
+  private final String queryDdc = "dc:title";
+  private final String queryPerson = "foaf:family_name";
 
   public BrowseByPage() {}
 
@@ -197,6 +198,7 @@ public class BrowseByPage extends BreadcrumbPage {
     }
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
+    this.bbBean.setQuery(this.queryPerson);
 
     return "loadBrowseByPage";
   }
@@ -214,6 +216,7 @@ public class BrowseByPage extends BreadcrumbPage {
     }
     this.bbBean.setCurrentCharacter("");
     this.bbBean.setShowChars();
+    this.bbBean.setQuery(this.queryDdc);
 
     return "loadBrowseByPage";
   }
