@@ -158,9 +158,9 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
       }
 
     } else {
-      final String roleUri = selectedRole.getUri();
+      
       BoolQueryBuilder bq = QueryBuilders.boolQuery()
-          .must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, roleUri));
+          .must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, selectedRole.name()));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
         bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId()));

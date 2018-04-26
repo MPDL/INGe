@@ -142,7 +142,11 @@ function getPersonDetails(details) {
         }
     }
     
+    
     var personId = $input.resultID;
+    if (personId != null && personId != '') {
+    	personId = personId.substring(personId.indexOf('/cone/persons/'), personId.length);
+    }
 
     fillField('familyName', familyName, parent, true);
     fillField('givenName', givenName, parent, true);

@@ -12,6 +12,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
@@ -58,6 +59,17 @@ public class PubItemUtil {
     try {
       for (final CreatorVO creator : pubItem.getMetadata().getCreators()) {
         if (creator.getPerson() != null) {
+
+          //Make CoNE link relative
+          if (creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getId() != null
+              && creator.getPerson().getIdentifier().getType() == IdType.CONE) {
+            String coneIdentifier = creator.getPerson().getIdentifier().getId();
+            if (coneIdentifier.startsWith("http")) {
+              creator.getPerson().getIdentifier()
+                  .setId(coneIdentifier.substring(coneIdentifier.indexOf("/cone/persons/"), coneIdentifier.length()));
+            }
+          }
+
           for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
             if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
               organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
@@ -75,6 +87,18 @@ public class PubItemUtil {
         for (final SourceVO source : pubItem.getMetadata().getSources()) {
           for (final CreatorVO creator : source.getCreators()) {
             if (creator.getPerson() != null) {
+
+              //Make CoNE link relative
+              if (creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getId() != null
+                  && creator.getPerson().getIdentifier().getType() == IdType.CONE) {
+                String coneIdentifier = creator.getPerson().getIdentifier().getId();
+                if (coneIdentifier.startsWith("http")) {
+                  creator.getPerson().getIdentifier()
+                      .setId(coneIdentifier.substring(coneIdentifier.indexOf("/cone/persons/"), coneIdentifier.length()));
+                }
+              }
+
+
               for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
                 if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
                   organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
