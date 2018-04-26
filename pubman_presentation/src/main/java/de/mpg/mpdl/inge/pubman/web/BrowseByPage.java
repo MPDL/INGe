@@ -341,7 +341,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public void searchForPerson(LinkVO link) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
     PersonSearchCriterion ps = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
-    String coneId = getConeUrl() + "persons/resource/" + link.getValue();
+    String coneId = "/cone/persons/resource/" + link.getValue();
     ps.setHiddenId(coneId);
     ps.setSearchString(link.getLabel());
     scList.add(ps);
