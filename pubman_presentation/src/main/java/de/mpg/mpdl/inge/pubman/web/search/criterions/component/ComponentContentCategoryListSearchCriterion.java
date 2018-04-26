@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class ComponentContentCategoryListSearchCriterion extends MapListSearchCriterion<String> {
@@ -67,7 +68,7 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
 
   @Override
   public String[] getElasticIndexes(String value) {
-    return new String[] {"files.contentCategory"};
+    return new String[] {PubItemServiceDbImpl.INDEX_FILE_CONTENTCATEGORY};
 
   }
 
