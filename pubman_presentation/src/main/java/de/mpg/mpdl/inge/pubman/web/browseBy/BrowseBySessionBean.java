@@ -159,24 +159,22 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public void setShowChars() {
-    if (!this.selectedValue.equals("year")) {
-      final List<LinkVO> all = this.getConeAll();
-      if (all.size() > this.getMaxDisplay()) {
+    if (this.selectedValue.equals("year")) {
+      this.showChars = false;
+    } else {
+      this.showChars = this.selectedValue.equals("persons");
+
+      if (this.showChars == false) {
+        final List<LinkVO> all = this.getConeAll();
+        this.showChars = (all.size() > this.getMaxDisplay());
+      }
+
+      if (this.showChars) {
         final SortedSet<Character> characters = new TreeSet<Character>();
 
         for (int i = 0; i < BrowseBySessionBean.CHARACTERS.length; i++) {
           characters.add(BrowseBySessionBean.CHARACTERS[i]);
         }
-
-        // for (LinkVO linkVO : all)
-        // {
-        // Character chr = new Character(linkVO.getLabel().toUpperCase().charAt(0));
-        // if (!characters.contains(chr))
-        // {
-        // logger.debug("new character: " + linkVO.getLabel());
-        // characters.add(chr);
-        // }
-        // }
 
         this.characters = new String[characters.size()];
         int counter = 0;
@@ -186,10 +184,6 @@ public class BrowseBySessionBean extends FacesBean {
           this.characters[counter] = character.toString();
           counter++;
         }
-
-        this.showChars = true;
-      } else {
-        this.showChars = false;
       }
     }
   }
