@@ -13,9 +13,9 @@ public class NetworkUtils {
       if (mask[i].equals("*") || mask[i].equals(ip_address[i]))
         continue;
       else if (mask[i].contains("-")) {
-        byte min = Byte.parseByte(mask[i].split("-")[0]);
-        byte max = Byte.parseByte(mask[i].split("-")[1]);
-        byte ip = Byte.parseByte(ip_address[i]);
+        int min = Integer.parseInt(mask[i].split("-")[0]);
+        int max = Integer.parseInt(mask[i].split("-")[1]);
+        int ip = Integer.parseInt(ip_address[i]);
         if (ip < min || ip > max)
           return false;
       } else
@@ -23,6 +23,5 @@ public class NetworkUtils {
     }
     return true;
   }
-
-
+  
 }
