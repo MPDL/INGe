@@ -73,7 +73,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
@@ -822,6 +821,7 @@ public class EditItem extends FacesBean {
     boolean isStateSubmitted = false;
     boolean isStateReleased = false;
     boolean isStateInRevision = false;
+    boolean isStateWithdrawn = false;
     // boolean isPublicStateReleased = false;
 
     if (this.getPubItem() != null && this.getPubItem().getVersionState() != null) {
@@ -829,6 +829,7 @@ public class EditItem extends FacesBean {
       isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
       isStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getVersionState());
       isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(this.getPubItem().getVersionState());
+      isStateWithdrawn = ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getVersionState());
       // isPublicStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
     }
 
@@ -850,10 +851,8 @@ public class EditItem extends FacesBean {
 
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
-        isWorkflowStandard =
-            (PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
-        isWorkflowSimple =
-            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowStandard = (ContextDbVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowSimple = (ContextDbVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -870,7 +869,14 @@ public class EditItem extends FacesBean {
       this.lnkRelease.setRendered(isOwner && isWorkflowSimple && (isStatePending || isStateSubmitted || isStateReleased));
       this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
       this.lnkSave.setRendered(isOwner || isModerator);
-      this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && (isStatePending || isStateInRevision));
+      this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn));
+      logger.info("isOwner " + isOwner);
+      logger.info("isWorkflowStandard " + isWorkflowStandard);
+      logger.info("isStateSubmitted " + isStateSubmitted);
+      logger.info("isStateReleased " + isStateReleased);
+      logger.info("isStateWithdrawn " + isStateWithdrawn);
+      logger.info("isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn) "
+          + (isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn)));
     }
   }
 
@@ -881,8 +887,7 @@ public class EditItem extends FacesBean {
 
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
-        isWorkflowSimple =
-            (PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowSimple = (ContextDbVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
