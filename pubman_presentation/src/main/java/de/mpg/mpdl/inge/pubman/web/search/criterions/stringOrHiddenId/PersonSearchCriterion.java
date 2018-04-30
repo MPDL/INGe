@@ -158,7 +158,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
       }
 
     } else {
-      
+
       BoolQueryBuilder bq = QueryBuilders.boolQuery()
           .must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, selectedRole.name()));
 
