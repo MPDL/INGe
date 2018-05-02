@@ -49,7 +49,6 @@ import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
@@ -370,8 +369,8 @@ public class ViewItemFull extends FacesBean {
       // Prerequisites
       // Workflow
       try {
-        this.isWorkflowStandard = (this.getContext().getWorkflow() == Workflow.STANDARD);
-        this.isWorkflowSimple = (this.getContext().getWorkflow() == Workflow.SIMPLE);
+        this.isWorkflowStandard = (this.getContext().getWorkflow() == ContextDbVO.Workflow.STANDARD);
+        this.isWorkflowSimple = (this.getContext().getWorkflow() == ContextDbVO.Workflow.SIMPLE);
       } catch (Exception e) {
         this.isWorkflowSimple = true;
         this.isWorkflowStandard = false;

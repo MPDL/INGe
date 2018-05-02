@@ -62,6 +62,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 11:14:08
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 @Entity
 @Table(name = "context")

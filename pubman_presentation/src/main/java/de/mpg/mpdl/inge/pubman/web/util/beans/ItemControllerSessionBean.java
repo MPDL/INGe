@@ -41,7 +41,6 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -279,15 +278,15 @@ public class ItemControllerSessionBean extends FacesBean {
     return this.currentPubItem;
   }
 
-  public Workflow getCurrentWorkflow() {
-    final Workflow workflow = this.getCurrentContext().getWorkflow();
-    if (workflow == null || workflow == Workflow.SIMPLE) {
-      return Workflow.SIMPLE;
-    } else if (workflow == Workflow.STANDARD) {
-      return Workflow.STANDARD;
+  public ContextDbVO.Workflow getCurrentWorkflow() {
+    final ContextDbVO.Workflow workflow = this.getCurrentContext().getWorkflow();
+    if (workflow == null || workflow == ContextDbVO.Workflow.SIMPLE) {
+      return ContextDbVO.Workflow.SIMPLE;
+    } else if (workflow == ContextDbVO.Workflow.STANDARD) {
+      return ContextDbVO.Workflow.STANDARD;
     }
 
-    return Workflow.SIMPLE;
+    return ContextDbVO.Workflow.SIMPLE;
   }
 
   private EditItemSessionBean getEditItemSessionBean() {

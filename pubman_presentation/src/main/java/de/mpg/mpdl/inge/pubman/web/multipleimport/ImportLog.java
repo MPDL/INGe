@@ -41,7 +41,6 @@ import java.util.List;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -245,7 +244,7 @@ public class ImportLog extends BaseImportLog {
   private List<ImportLogItem> importLogItems = new ArrayList<ImportLogItem>();
   private int percentage;
   private String user;
-  private Workflow workflow;
+  private ContextDbVO.Workflow workflow;
 
   protected ImportLog() {}
 
@@ -469,14 +468,14 @@ public class ImportLog extends BaseImportLog {
   }
 
   public boolean getSimpleWorkflow() {
-    return (this.getWorkflow() == Workflow.SIMPLE);
+    return (this.getWorkflow() == ContextDbVO.Workflow.SIMPLE);
   }
 
   public String getUser() {
     return this.user;
   }
 
-  private Workflow getWorkflow() {
+  private ContextDbVO.Workflow getWorkflow() {
     if (this.workflow == null) {
       try {
         final ContextDbVO contextVO = ApplicationBean.INSTANCE.getContextService().get(this.context, null);
@@ -621,7 +620,7 @@ public class ImportLog extends BaseImportLog {
 
   private synchronized void saveImportLogItemDetail(ImportLogItemDetail importLogItemDetail, Connection connection) {
     PreparedStatement ps = null;
-    final ResultSet rs = null;
+//    final ResultSet rs = null;
 
     try {
       ps = connection.prepareStatement(

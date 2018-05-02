@@ -67,7 +67,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -76,7 +76,6 @@ import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -557,9 +556,9 @@ public class SwordUtil extends FacesBean {
     }
 
     isWorkflowStandard =
-        PublicationAdminDescriptorVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
+        ContextDbVO.Workflow.STANDARD == this.getItemControllerSessionBean().getCurrentContext().getWorkflow();
     isWorkflowSimple =
-        PublicationAdminDescriptorVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
+        ContextDbVO.Workflow.SIMPLE == this.getItemControllerSessionBean().getCurrentContext().getWorkflow();
 
     final boolean isModerator =
         GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, item.getObject().getContext().getObjectId());
@@ -592,8 +591,8 @@ public class SwordUtil extends FacesBean {
    * @return workflow type as string
    */
   public String getWorkflowAsString(PubContextVOPresentation pubContext) {
-    final boolean isWorkflowStandard = pubContext.getWorkflow() == Workflow.STANDARD;
-    final boolean isWorkflowSimple = pubContext.getWorkflow() == Workflow.SIMPLE;
+    final boolean isWorkflowStandard = pubContext.getWorkflow() == ContextDbVO.Workflow.STANDARD;
+    final boolean isWorkflowSimple = pubContext.getWorkflow() == ContextDbVO.Workflow.SIMPLE;
 
     if (isWorkflowStandard) {
       return "Standard Workflow";

@@ -820,7 +820,7 @@ public class EditItem extends FacesBean {
     boolean isStatePending = true;
     boolean isStateSubmitted = false;
     boolean isStateReleased = false;
-    boolean isStateInRevision = false;
+    //    boolean isStateInRevision = false;
     boolean isStateWithdrawn = false;
     // boolean isPublicStateReleased = false;
 
@@ -828,7 +828,7 @@ public class EditItem extends FacesBean {
       isStatePending = ItemVersionRO.State.PENDING.equals(this.getPubItem().getVersionState());
       isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
       isStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getVersionState());
-      isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(this.getPubItem().getVersionState());
+      //      isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(this.getPubItem().getVersionState());
       isStateWithdrawn = ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getVersionState());
       // isPublicStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
     }
@@ -851,8 +851,8 @@ public class EditItem extends FacesBean {
 
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
-        isWorkflowStandard = (ContextDbVO.Workflow.STANDARD.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
-        isWorkflowSimple = (ContextDbVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowStandard = (ContextDbVO.Workflow.STANDARD == this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
+        isWorkflowSimple = (ContextDbVO.Workflow.SIMPLE == this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
@@ -870,13 +870,6 @@ public class EditItem extends FacesBean {
       this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
       this.lnkSave.setRendered(isOwner || isModerator);
       this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn));
-      logger.info("isOwner " + isOwner);
-      logger.info("isWorkflowStandard " + isWorkflowStandard);
-      logger.info("isStateSubmitted " + isStateSubmitted);
-      logger.info("isStateReleased " + isStateReleased);
-      logger.info("isStateWithdrawn " + isStateWithdrawn);
-      logger.info("isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn) "
-          + (isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn)));
     }
   }
 
@@ -887,7 +880,7 @@ public class EditItem extends FacesBean {
 
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
-        isWorkflowSimple = (ContextDbVO.Workflow.SIMPLE.equals(this.getItemControllerSessionBean().getCurrentContext().getWorkflow()));
+        isWorkflowSimple = (ContextDbVO.Workflow.SIMPLE == this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
       }
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
