@@ -128,7 +128,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
       if (itemListCS != null) {
         itemListReportTransformed = this.doReportTransformation(itemListCS);
-        logger.info("Transformed result: \n" + new String(itemListReportTransformed));
+        // logger.info("Transformed result: \n" + new String(itemListReportTransformed));
       }
 
       if (itemListReportTransformed != null) {
@@ -206,12 +206,16 @@ public class ReportWorkspaceBean extends FacesBean {
     // when there are children, concat the org ids to the query (inclusive parent)
     try {
       this.allOUs = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(this.organization.getIdentifier());
+      int i = 0;
       for (String childOU : this.allOUs) {
-        scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+        if (i > 0 ) {
+          scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+        }
         OrganizationSearchCriterion csc = new OrganizationSearchCriterion();
         csc.setHiddenId(childOU);
         csc.setIncludeSource(true);
         scList.add(csc);
+        i++;
       }
     } catch (Exception e) {
       logger.error("Error while getting childOUs.", e);
@@ -226,7 +230,7 @@ public class ReportWorkspaceBean extends FacesBean {
       SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
-      logger.info("Search result total nr: " + resp.getNumberOfRecords());
+      logger.info("Anzahl gefundener Sätze: " + resp.getNumberOfRecords());
 
       if (totalNrOfSerchResultItems > 0) {
         return resp;
@@ -270,7 +274,7 @@ public class ReportWorkspaceBean extends FacesBean {
     this.configuration.put("institutsId", childConfig);
 
     try {
-      logger.info(new String(src, "UTF-8"));
+      // logger.info(new String(src, "UTF-8"));
       result = this.itemTransformingService.transformFromTo(TransformerFactory.FORMAT.JUS_SNIPPET_XML, this.format,
           new String(src, "UTF-8"), this.configuration);
     } catch (final TransformationException | UnsupportedEncodingException e) {

@@ -64,7 +64,7 @@
         <xsl:element name="html">
             <xsl:element name="head">
                 <xsl:element name="meta">
-                    <xsl:attribute name="http-equiv" select="'Co ntent-Type'"></xsl:attribute>
+                    <xsl:attribute name="http-equiv" select="'Content-Type'"></xsl:attribute>
                     <xsl:attribute name="content" select="'text/html; charset=utf-8'"></xsl:attribute>
                 </xsl:element>
             </xsl:element>
@@ -84,7 +84,7 @@
                         <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
                             <xsl:sort select="foaf:family_name"></xsl:sort>
                             <xsl:sort select="foaf:givenname"></xsl:sort>
-                            <xsl:variable name="currentAuthorId" select="@rdf:about"></xsl:variable>
+                            <xsl:variable name="currentAuthorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
                             <xsl:variable name="currentAuthorName" select="concat(foaf:givenname, ' ', foaf:family_name)"></xsl:variable>
                             <xsl:variable name="currentAuthorCitationStyleName" select="concat(foaf:family_name, ', ', foaf:givenname)"></xsl:variable>
                             <xsl:choose>
@@ -129,7 +129,7 @@
                             <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
                                 <xsl:sort select="foaf:family_name"></xsl:sort>
                                 <xsl:sort select="foaf:givenname"></xsl:sort>
-                                <xsl:variable name="currentFirstEditorId" select="@rdf:about"></xsl:variable>
+                                <xsl:variable name="currentFirstEditorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
                                 <xsl:variable name="currentFirstEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)"></xsl:variable>
                                 <xsl:variable name="currentFirstEditorCitationStyleName" select="concat(foaf:family_name, ', ', foaf:givenname)"></xsl:variable>
                                 <xsl:choose>
@@ -164,7 +164,7 @@
                             <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
                                 <xsl:sort select="foaf:family_name"></xsl:sort>
                                 <xsl:sort select="foaf:givenname"></xsl:sort>
-                                <xsl:variable name="currentSecondEditorId" select="@rdf:about"></xsl:variable>
+                                <xsl:variable name="currentSecondEditorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
                                 <xsl:variable name="currentSecondEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)"></xsl:variable>
                                 <xsl:variable name="currentSecondEditorCitationStyleName" select="concat(foaf:family_name, ', ', foaf:givenname)"></xsl:variable>
                                 <xsl:choose>
