@@ -555,10 +555,8 @@ public class SwordUtil extends FacesBean {
       isStateInRevision = ItemVersionRO.State.IN_REVISION.equals(item.getVersionState());
     }
 
-    isWorkflowStandard =
-        ContextDbVO.Workflow.STANDARD == this.getItemControllerSessionBean().getCurrentContext().getWorkflow();
-    isWorkflowSimple =
-        ContextDbVO.Workflow.SIMPLE == this.getItemControllerSessionBean().getCurrentContext().getWorkflow();
+    isWorkflowStandard = ContextDbVO.Workflow.STANDARD == this.getItemControllerSessionBean().getCurrentContext().getWorkflow();
+    isWorkflowSimple = ContextDbVO.Workflow.SIMPLE == this.getItemControllerSessionBean().getCurrentContext().getWorkflow();
 
     final boolean isModerator =
         GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR, item.getObject().getContext().getObjectId());

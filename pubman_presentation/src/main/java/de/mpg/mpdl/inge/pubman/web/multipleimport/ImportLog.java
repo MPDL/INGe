@@ -620,7 +620,7 @@ public class ImportLog extends BaseImportLog {
 
   private synchronized void saveImportLogItemDetail(ImportLogItemDetail importLogItemDetail, Connection connection) {
     PreparedStatement ps = null;
-//    final ResultSet rs = null;
+    //    final ResultSet rs = null;
 
     try {
       ps = connection.prepareStatement(

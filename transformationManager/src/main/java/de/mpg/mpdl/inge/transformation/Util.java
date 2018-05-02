@@ -29,6 +29,7 @@ package de.mpg.mpdl.inge.transformation;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +42,8 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -86,7 +89,9 @@ public class Util {
   // Jasper styles enum
   public static enum Styles
   {
-    APA, AJP, Default
+    APA,
+    AJP,
+    Default
   };
 
 
@@ -532,7 +537,7 @@ public class Util {
         executeGetMethod(client, queryUrl, documentBuilder, document, element);
       }
 
-      //      // LOGGING
+      // LOGGING
       //      javax.xml.transform.TransformerFactory tf = javax.xml.transform.TransformerFactory.newInstance();
       //      javax.xml.transform.Transformer t = tf.newTransformer();
       //      StringWriter sw = new StringWriter();
