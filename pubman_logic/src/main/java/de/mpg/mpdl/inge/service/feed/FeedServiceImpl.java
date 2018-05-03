@@ -80,7 +80,7 @@ public class FeedServiceImpl {
         State.RELEASED.name()));
     qb.must(givenQb);
 
-    SyndFeed feed = getBasicSyndFeed("Search result as feed", givenQb.toString(), qb);
+    SyndFeed feed = getBasicSyndFeed("Search result as feed", "", qb);
     return feed;
   }
 
