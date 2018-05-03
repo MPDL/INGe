@@ -208,7 +208,7 @@ public class ReportWorkspaceBean extends FacesBean {
       this.allOUs = ApplicationBean.INSTANCE.getOrganizationService().getChildIdPath(this.organization.getIdentifier());
       int i = 0;
       for (String childOU : this.allOUs) {
-        if (i > 0 ) {
+        if (i > 0) {
           scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
         }
         OrganizationSearchCriterion csc = new OrganizationSearchCriterion();
