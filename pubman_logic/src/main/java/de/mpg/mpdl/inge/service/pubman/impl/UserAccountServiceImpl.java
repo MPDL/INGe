@@ -575,7 +575,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       throw new IngeTechnicalException("User account with given id " + id + " not found.");
     }
 
-
+    if (accountToBeUpdated.isActive() == active) {
+      throw new IngeApplicationException("Account [" + accountToBeUpdated.getObjectId() + "] is already in state " + active);
+    }
 
     checkEqualModificationDate(modificationDate, getModificationDate(accountToBeUpdated));
 
