@@ -25,6 +25,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -84,17 +85,27 @@ public class UserAccountRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
   }
 
+  /**
+   * @param token
+   * @param userId (can either be userId or user login name)
+   * @return the user-account in json format
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeTechnicalException
+   * @throws IngeApplicationException
+   * @throws NotFoundException
+   */
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<AccountUserDbVO> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = USER_ID_VAR) String userId)
-      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     AccountUserDbVO user = null;
-    if (token != null && !token.isEmpty()) {
-      user = userSvc.get(userId, token);
+    user = userSvc.get(userId, token);
+    if (user != null) {
+      return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
     } else {
-      user = userSvc.get(userId, null);
+      throw new NotFoundException();
     }
-    return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
   }
 
   @RequestMapping(method = RequestMethod.POST)

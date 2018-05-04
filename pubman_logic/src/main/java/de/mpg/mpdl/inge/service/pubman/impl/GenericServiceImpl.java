@@ -130,6 +130,9 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     Principal principal = null;
     ModelObject object = getDbRepository().findOne(id);
+    if (object == null) {
+      return null;
+    }
     if (authenticationToken != null) {
       principal = aaService.checkLoginRequired(authenticationToken);
     }
