@@ -43,7 +43,7 @@ public class TransformerFactory {
   public static final String HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML = "Html_Metatags_Highwirepress_Cit_Xml";
   public static final String HTML_PLAIN = "html_plain";
   public static final String HTML_LINKED = "html_linked";
-  public static final String JSON = "Json";
+  public static final String JSON = "json";
   public static final String JSON_CITATION = "json_citation";
   public static final String JUS_HTML_XML = "Jus_Html_Xml";
   public static final String JUS_INDESIGN_XML = "Jus_Indesign_Xml";
