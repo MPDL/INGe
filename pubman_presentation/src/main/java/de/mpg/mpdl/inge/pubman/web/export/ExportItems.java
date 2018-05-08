@@ -35,9 +35,7 @@ import javax.faces.model.SelectItemGroup;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
@@ -118,11 +116,11 @@ public class ExportItems extends FacesBean {
 
   public SelectItem[] getCITATION_OPTIONS() {
 
-    final SelectItem EXPORTFORMAT_APA = new SelectItem(XmlHelper.APA, this.getLabel("Export_ExportFormat_APA"));
-    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(XmlHelper.APA_CJK, this.getLabel("Export_ExportFormat_APA_CJK"));
-    final SelectItem EXPORTFORMAT_AJP = new SelectItem(XmlHelper.AJP, this.getLabel("Export_ExportFormat_AJP"));
-    final SelectItem EXPORTFORMAT_JUS = new SelectItem(XmlHelper.JUS, this.getLabel("Export_ExportFormat_JUS"));
-    final SelectItem EXPORTFORMAT_CSL = new SelectItem(XmlHelper.CSL, XmlHelper.CSL); // nicht globalisiert
+    final SelectItem EXPORTFORMAT_APA = new SelectItem(TransformerFactory.CitationTypes.APA.getCitationName(), this.getLabel("Export_ExportFormat_APA"));
+    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(TransformerFactory.CitationTypes.APA_CJK.getCitationName(), this.getLabel("Export_ExportFormat_APA_CJK"));
+    final SelectItem EXPORTFORMAT_AJP = new SelectItem(TransformerFactory.CitationTypes.AJP.getCitationName(), this.getLabel("Export_ExportFormat_AJP"));
+    final SelectItem EXPORTFORMAT_JUS = new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
+    final SelectItem EXPORTFORMAT_CSL = new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
 
     final SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[] { //
         EXPORTFORMAT_APA, //

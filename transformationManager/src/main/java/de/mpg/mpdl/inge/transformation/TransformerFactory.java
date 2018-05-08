@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 
@@ -66,8 +65,7 @@ public class TransformerFactory {
   public static final String ZFN_TEI_XML = "Zfn_Tei_Xml";
   public static final String ZIM_XML = "Zim_Xml";
 
-  public enum FORMAT
-  {
+  public enum FORMAT {
     ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.FILE_FORMAT.XML), //
     BIBTEX_STRING(TransformerFactory.BIBTEX, FileFormatVO.FILE_FORMAT.TXT), //
     BMC_FULLTEXT_HTML(TransformerFactory.BMC_FULLTEXT_HTML, FileFormatVO.FILE_FORMAT.HTML_PLAIN), //
@@ -117,31 +115,29 @@ public class TransformerFactory {
     ZFN_TEI_XML(TransformerFactory.ZFN_TEI_XML, FileFormatVO.FILE_FORMAT.XML), //
     ZIM_XML(TransformerFactory.ZIM_XML, FileFormatVO.FILE_FORMAT.XML);
 
-  private final String name;
-  private final FileFormatVO.FILE_FORMAT fileFormat;
+    private final String name;
+    private final FileFormatVO.FILE_FORMAT fileFormat;
 
-  FORMAT(String name, FileFormatVO.FILE_FORMAT fileFormat) {
+    FORMAT(String name, FileFormatVO.FILE_FORMAT fileFormat) {
       this.name = name;
       this.fileFormat = fileFormat;
     }
 
-  public String getName() {
-    return this.name;
+    public String getName() {
+      return this.name;
+    }
+
+    public FileFormatVO.FILE_FORMAT getFileFormat() {
+      return this.fileFormat;
+    }
+
   }
 
-  public FileFormatVO.FILE_FORMAT getFileFormat() {
-    return this.fileFormat;
-  }
+  public final static List<FORMAT> VALID_CITATION_OUTPUT =
+      Arrays.asList(FORMAT.JSON_CITATION, FORMAT.ESCIDOC_SNIPPET, FORMAT.HTML_PLAIN, FORMAT.HTML_LINKED, FORMAT.DOCX, FORMAT.PDF);
 
-  }
-
-
- public final static List<FORMAT> VALID_CITATION_OUTPUT = Arrays.asList(FORMAT.JSON_CITATION, FORMAT.ESCIDOC_SNIPPET,
-      FORMAT.HTML_PLAIN, FORMAT.HTML_LINKED, FORMAT.DOCX, FORMAT.PDF);
-
-  public enum CitationTypes{
-
-  APA("APA"),
+  public enum CitationTypes {
+    APA("APA"),
     CSL("CSL"),
     APA_CJK("APA(CJK)"),
     APA6("APA6"),
@@ -149,19 +145,19 @@ public class TransformerFactory {
     JUS("JUS"),
     JUS_Report("JUS_Report");
 
-  private String citationName;
+    private String citationName;
 
-  CitationTypes(String name) {
+    CitationTypes(String name) {
       this.setCitationName(name);
     }
 
-  public String getCitationName() {
-    return citationName;
-  }
+    public String getCitationName() {
+      return citationName;
+    }
 
-  public void setCitationName(String citationName) {
-    this.citationName = citationName;
-  }
+    public void setCitationName(String citationName) {
+      this.citationName = citationName;
+    }
 
   }
 

@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
@@ -26,9 +26,9 @@ public abstract class SingleTransformer implements Transformer {
 
   private static Logger logger = Logger.getLogger(SingleTransformer.class);
 
-  private FORMAT sourceFormat;
+  private TransformerFactory.FORMAT sourceFormat;
 
-  private FORMAT targetFormat;
+  private TransformerFactory.FORMAT targetFormat;
 
   private Map<String, String> configuration = new HashMap<>();
 
@@ -41,19 +41,19 @@ public abstract class SingleTransformer implements Transformer {
     this.configuration = configuration;
   }
 
-  public FORMAT getTargetFormat() {
+  public TransformerFactory.FORMAT getTargetFormat() {
     return this.targetFormat;
   }
 
-  public void setTargetFormat(FORMAT targetFormat) {
+  public void setTargetFormat(TransformerFactory.FORMAT targetFormat) {
     this.targetFormat = targetFormat;
   }
 
-  public FORMAT getSourceFormat() {
+  public TransformerFactory.FORMAT getSourceFormat() {
     return this.sourceFormat;
   }
 
-  public void setSourceFormat(FORMAT sourceFormat) {
+  public void setSourceFormat(TransformerFactory.FORMAT sourceFormat) {
     this.sourceFormat = sourceFormat;
   }
 

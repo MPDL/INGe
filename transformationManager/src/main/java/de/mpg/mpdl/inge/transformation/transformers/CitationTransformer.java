@@ -37,7 +37,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.SingleTransformer;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
@@ -47,12 +47,12 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerVoSource;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.sf.saxon.TransformerFactoryImpl;
 
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.DOCX)
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.PDF)
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.JSON_CITATION)
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.HTML_LINKED)
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.HTML_PLAIN)
-@TransformerModule(sourceFormat = FORMAT.SEARCH_RESULT_VO, targetFormat = FORMAT.ESCIDOC_SNIPPET)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.DOCX)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.PDF)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.JSON_CITATION)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.HTML_LINKED)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.HTML_PLAIN)
+@TransformerModule(sourceFormat = TransformerFactory.FORMAT.SEARCH_RESULT_VO, targetFormat = TransformerFactory.FORMAT.ESCIDOC_SNIPPET)
 public class CitationTransformer extends SingleTransformer implements ChainableTransformer {
 
   public static final String CONFIGURATION_CITATION = "citation";
@@ -116,7 +116,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     String escidocSnippet = escidocSnippetWriter.toString();
 
 
-    if (FORMAT.JSON_CITATION.equals(getTargetFormat())) {
+    if (TransformerFactory.FORMAT.JSON_CITATION.equals(getTargetFormat())) {
 
       if (searchResult != null) {
         JsonNode node = MapperFactory.getObjectMapper().valueToTree(searchResult);
@@ -132,18 +132,18 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
     }
 
-    else if (FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
+    else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
       return escidocSnippet.getBytes(StandardCharsets.UTF_8);
 
-    } else if (FORMAT.HTML_PLAIN.equals(getTargetFormat()) || FORMAT.HTML_LINKED.equals(getTargetFormat())) {
+    } else if (TransformerFactory.FORMAT.HTML_PLAIN.equals(getTargetFormat()) || TransformerFactory.FORMAT.HTML_LINKED.equals(getTargetFormat())) {
 
 
       return generateHtmlOutput(escidocSnippet, getTargetFormat(), "html", true).getBytes(StandardCharsets.UTF_8);
 
 
 
-    } else if (FORMAT.DOCX.equals(getTargetFormat()) || FORMAT.PDF.equals(getTargetFormat())) {
-      String htmlResult = generateHtmlOutput(escidocSnippet, FORMAT.HTML_PLAIN, "xhtml", false);
+    } else if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat()) || TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
+      String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
       XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
       MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
@@ -166,9 +166,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
       ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-      if (FORMAT.DOCX.equals(getTargetFormat())) {
+      if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat())) {
         wordOutputDoc.save(bos);
-      } else if (FORMAT.PDF.equals(getTargetFormat())) {
+      } else if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
         FOSettings foSettings = Docx4J.createFOSettings();
         foSettings.setWmlPackage(wordOutputDoc);
         Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
@@ -179,8 +179,8 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     } else {
       throw new IngeTechnicalException(
           "Format " + getTargetFormat() + " is not supported for citations. Please use one of the following formats: "
-              + FORMAT.JSON_CITATION.getName() + ", " + FORMAT.ESCIDOC_SNIPPET.getName() + ", " + FORMAT.HTML_PLAIN.getName() + ", "
-              + FORMAT.HTML_LINKED.getName() + ", " + FORMAT.PDF.getName() + ", " + FORMAT.DOCX.getName() + ", ");
+              + TransformerFactory.FORMAT.JSON_CITATION.getName() + ", " + TransformerFactory.FORMAT.ESCIDOC_SNIPPET.getName() + ", " + TransformerFactory.FORMAT.HTML_PLAIN.getName() + ", "
+              + TransformerFactory.FORMAT.HTML_LINKED.getName() + ", " + TransformerFactory.FORMAT.PDF.getName() + ", " + TransformerFactory.FORMAT.DOCX.getName() + ", ");
 
     }
 
@@ -190,7 +190,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   }
 
 
-  private static String generateHtmlOutput(String escidocSnippet, FORMAT fileFormat, String outputMethod, boolean indent) throws Exception {
+  private static String generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent) throws Exception {
     StringWriter sw = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
     javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(
@@ -203,7 +203,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     String pubmanUrl = PropertyReader.getProperty("inge.pubman.instance.url") + (contextPath == null ? "" : contextPath);
     htmlTransformer.setParameter("pubman_instance", pubmanUrl);
 
-    if (FORMAT.HTML_LINKED.equals(fileFormat)) {
+    if (TransformerFactory.FORMAT.HTML_LINKED.equals(fileFormat)) {
       htmlTransformer.setParameter("html_linked", Boolean.TRUE);
     }
     htmlTransformer.transform(new StreamSource(new StringReader(escidocSnippet)), new StreamResult(sw));
