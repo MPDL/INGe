@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/items")
@@ -181,6 +182,7 @@ public class ItemRestController {
 
   //  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
   //      value = @ExampleProperty(mediaType = "application/json", value = "{\n\t\"query\" : {\n\t\t\"match_all\": {}\n\t}\n}")))})
+  @ApiIgnore
   @RequestMapping(value = "/elasticsearch", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<String> searchDetailed(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
@@ -193,6 +195,7 @@ public class ItemRestController {
 
   @RequestMapping(value = "/elasticsearch/scroll", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
       produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @ApiIgnore
   public ResponseEntity<String> scroll(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @RequestBody JsonNode scrollJson, HttpServletResponse httpResponse)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
