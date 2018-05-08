@@ -150,102 +150,103 @@ public class ImportWorkspace extends BreadcrumbPage {
   public String getFormatLabel(ImportLog currentImport) {
     String label = "n/a";
 
-    if (currentImport != null) {
-      switch (currentImport.getFormat()) {
-        case ARXIV_OAIPMH_XML:
-          break;
-        case BIBTEX_STRING:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
-          break;
-        case BMC_FULLTEXT_HTML:
-          break;
-        case BMC_FULLTEXT_XML:
-          break;
-        case BMC_OAIPMH_XML:
-          break;
-        case BMC_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_BMC");
-          break;
-        case COINS_STRING:
-          break;
-        case DC_XML:
-          break;
-        case DOI_METADATA_XML:
-          break;
-        case EDOC_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_EDOC");
-          break;
-        case ENDNOTE_STRING:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
-          break;
-        case ENDNOTE_XML:
-          break;
-        case ESCIDOC_COMPONENT_XML:
-          break;
-        case ESCIDOC_ITEMLIST_V1_XML:
-          break;
-        case ESCIDOC_ITEMLIST_V2_XML:
-          break;
-        case ESCIDOC_ITEMLIST_V3_XML:
-          break;
-        case ESCIDOC_ITEM_V1_XML:
-          break;
-        case ESCIDOC_ITEM_V2_XML:
-          break;
-        case ESCIDOC_ITEM_V3_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
-          break;
-        case ESCIDOC_ITEM_VO:
-          break;
-        case HTML_METATAGS_DC_XML:
-          break;
-        case HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML:
-          break;
-        case JUS_HTML_XML:
-          break;
-        case JUS_INDESIGN_XML:
-          break;
-        case JUS_SNIPPET_XML:
-          break;
-        case MAB_STRING:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
-          break;
-        case MAB_XML:
-          break;
-        case MARC_21_STRING:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
-          break;
-        case MARC_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_MARCXML");
-          break;
-        case MODS_XML:
-          break;
-        case OAI_DC:
-          break;
-        case PEER_TEI_XML:
-          break;
-        case PMC_OAIPMH_XML:
-          break;
-        case RIS_STRING:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
-          break;
-        case RIS_XML:
-          break;
-        case SPIRES_XML:
-          break;
-        case WOS_STRING:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
-          break;
-        case WOS_XML:
-          break;
-        case ZFN_TEI_XML:
-          label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");
-          break;
-        case ZIM_XML:
-          break;
-        default:
-          break;
-      }
+    if (currentImport != null && currentImport.getFormat() != null) {
+      label = currentImport.getFormat().getName();
+      //      switch (currentImport.getFormat()) {
+      //        case ARXIV_OAIPMH_XML:
+      //          break;
+      //        case BIBTEX_STRING:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX");
+      //          break;
+      //        case BMC_FULLTEXT_HTML:
+      //          break;
+      //        case BMC_FULLTEXT_XML:
+      //          break;
+      //        case BMC_OAIPMH_XML:
+      //          break;
+      //        case BMC_XML:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_BMC");
+      //          break;
+      //        case COINS_STRING:
+      //          break;
+      //        case DC_XML:
+      //          break;
+      //        case DOI_METADATA_XML:
+      //          break;
+      //        case EDOC_XML:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_EDOC");
+      //          break;
+      //        case ENDNOTE_STRING:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE");
+      //          break;
+      //        case ENDNOTE_XML:
+      //          break;
+      //        case ESCIDOC_COMPONENT_XML:
+      //          break;
+      //        case ESCIDOC_ITEMLIST_V1_XML:
+      //          break;
+      //        case ESCIDOC_ITEMLIST_V2_XML:
+      //          break;
+      //        case ESCIDOC_ITEMLIST_V3_XML:
+      //          break;
+      //        case ESCIDOC_ITEM_V1_XML:
+      //          break;
+      //        case ESCIDOC_ITEM_V2_XML:
+      //          break;
+      //        case ESCIDOC_ITEM_V3_XML:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC");
+      //          break;
+      //        case ESCIDOC_ITEM_VO:
+      //          break;
+      //        case HTML_METATAGS_DC_XML:
+      //          break;
+      //        case HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML:
+      //          break;
+      //        case JUS_HTML_XML:
+      //          break;
+      //        case JUS_INDESIGN_XML:
+      //          break;
+      //        case JUS_SNIPPET_XML:
+      //          break;
+      //        case MAB_STRING:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_MAB");
+      //          break;
+      //        case MAB_XML:
+      //          break;
+      //        case MARC_21_STRING:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_MARC21");
+      //          break;
+      //        case MARC_XML:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_MARCXML");
+      //          break;
+      //        case MODS_XML:
+      //          break;
+      //        case OAI_DC:
+      //          break;
+      //        case PEER_TEI_XML:
+      //          break;
+      //        case PMC_OAIPMH_XML:
+      //          break;
+      //        case RIS_STRING:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_RIS");
+      //          break;
+      //        case RIS_XML:
+      //          break;
+      //        case SPIRES_XML:
+      //          break;
+      //        case WOS_STRING:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_WOS");
+      //          break;
+      //        case WOS_XML:
+      //          break;
+      //        case ZFN_TEI_XML:
+      //          label = this.getLabel("ENUM_IMPORT_FORMAT_ZFN");
+      //          break;
+      //        case ZIM_XML:
+      //          break;
+      //        default:
+      //          break;
+      //      }
     }
 
     return label;

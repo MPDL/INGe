@@ -17,18 +17,18 @@ public class TransformerFactory {
   private static Logger logger = Logger.getLogger(TransformerFactory.class);
 
   public static final String ARXIV = "arXiv";
-  public static final String BIBTEX = "BibTex";
-  public static final String BMC_FULLTEXT_HTML = "Bmc_Fulltext_Html";
-  public static final String BMC_FULLTEXT_XML = "Bmc_Fulltext_Xml";
-  public static final String BMC_OAIPMH_XML = "Bmc_Oaipmh_Xml";
-  public static final String BMC_XML = "Bmc_Xml";
+  public static final String BIBTEX = "BibTeX";
+  public static final String BMC_FULLTEXT_HTML = "BMC_Fulltext_Html";
+  public static final String BMC_FULLTEXT_XML = "BMC_Fulltext_Xml";
+  public static final String BMC_OAIPMH_XML = "BMC_Oaipmh_Xml";
+  public static final String BMC_XML = "BMC_Xml";
   public static final String COINS = "Coins";
   public static final String DC_XML = "Dc_Xml";
   public static final String DOCX = "docx";
   public static final String DOI_XML = "Doi_Xml";
-  public static final String EDOC_XML = "Edoc_Xml";
-  public static final String ENDNOTE = "Endnote";
-  public static final String ENDNOTE_XML = "Endnote_Xml";
+  public static final String EDOC_XML = "eDoc_Xml";
+  public static final String ENDNOTE = "EndNote";
+  public static final String ENDNOTE_XML = "EndNote_Xml";
   public static final String ESCIDOC_COMPONENT_XML = "eSciDoc_Component_Xml";
   public static final String ESCIDOC_ITEMLIST_V1_XML = "eSciDoc_Itemlist_V1_Xml";
   public static final String ESCIDOC_ITEMLIST_V2_XML = "eSciDoc_Itemlist_V2_Xml";
@@ -47,8 +47,8 @@ public class TransformerFactory {
   public static final String JUS_HTML_XML = "Jus_Html_Xml";
   public static final String JUS_INDESIGN_XML = "Jus_Indesign_Xml";
   public static final String JUS_SNIPPET_XML = "Jus_Snippet_Xml";
-  public static final String MAB = "Mab";
-  public static final String MAB_XML = "Mab_Xml";
+  public static final String MAB = "MAB";
+  public static final String MAB_XML = "MAB_Xml";
   public static final String MARC_21 = "Marc21";
   public static final String MARC_XML = "Marc_Xml";
   public static final String MODS_XML = "Mods_Xml";
@@ -56,13 +56,13 @@ public class TransformerFactory {
   public static final String PDF = "pdf";
   public static final String PEER_TEI_XML = "Peer_TeiI_Xml";
   public static final String PMC_OAIPMH_XML = "Pmc_Oaipmh_Xml";
-  public static final String RIS = "Ris";
-  public static final String RIS_XML = "Ris_Xml";
+  public static final String RIS = "RIS";
+  public static final String RIS_XML = "RIS_Xml";
   public static final String SEARCH_RESULT_VO = "search_result_vo";
   public static final String SPIRES_XML = "Spires_Xml";
-  public static final String WOS = "Wos";
-  public static final String WOS_XML = "Wos_Xml";
-  public static final String ZFN_TEI_XML = "Zfn_Tei_Xml";
+  public static final String WOS = "WOS";
+  public static final String WOS_XML = "WOS_Xml";
+  public static final String ZFN_TEI_XML = "ZfN_Tei_Xml";
   public static final String ZIM_XML = "Zim_Xml";
 
   public enum FORMAT
@@ -165,7 +165,7 @@ public class TransformerFactory {
 
   public static FORMAT getFormat(String formatName) {
     for (FORMAT format : FORMAT.values()) {
-      if (format.getName().equals(formatName)) {
+      if (format.getName().equalsIgnoreCase(formatName)) {
         return format;
       }
     }

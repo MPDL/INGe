@@ -72,9 +72,9 @@ public class FileFormatVO extends ValueObject {
   public static final String PDF_NAME = "pdf";
   public static final String PDF_EXTENSION = "pdf";
 
-  //  public static final String PS_MIMETYPE = "application/gzip";
-  //  public static final String PS_NAME = "ps";
-  //  public static final String PS_EXTENSION = "ps";
+  public static final String PS_MIMETYPE = "application/gzip";
+  public static final String PS_NAME = "ps";
+  public static final String PS_EXTENSION = "ps";
 
   public static final String RTF_MIMETYPE = "application/rtf";
   public static final String RTF_NAME = "rtf";
@@ -108,7 +108,7 @@ public class FileFormatVO extends ValueObject {
     JSON(JSON_NAME, JSON_MIMETYPE, JSON_EXTENSION, DEFAULT_CHARSET),
     //    ODT(ODT_NAME, ODT_MIMETYPE, ODT_EXTENSION, DEFAULT_CHARSET),
     PDF(PDF_NAME, PDF_MIMETYPE, PDF_EXTENSION, DEFAULT_CHARSET),
-    //    PS(PS_NAME, PS_MIMETYPE, PS_EXTENSION, DEFAULT_CHARSET),
+    PS(PS_NAME, PS_MIMETYPE, PS_EXTENSION, DEFAULT_CHARSET),
     RTF(RTF_NAME, RTF_MIMETYPE, RTF_EXTENSION, DEFAULT_CHARSET),
     //    SNIPPET(SNIPPET_NAME, SNIPPET_MIMETYPE, SNIPPET_EXTENSION, DEFAULT_CHARSET),
     TXT(TXT_NAME, TXT_MIMETYPE, TXT_EXTENSION, DEFAULT_CHARSET),

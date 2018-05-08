@@ -86,28 +86,18 @@ public class MultipleImport extends FacesBean {
   private int duplicateStrategy = 3;
 
   public MultipleImport() {
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ENDNOTE_STRING, //
-        this.getLabel("ENUM_IMPORT_FORMAT_ENDNOTE")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BIBTEX_STRING, //
-        this.getLabel("ENUM_IMPORT_FORMAT_BIBTEX")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.RIS_STRING, //
-        this.getLabel("ENUM_IMPORT_FORMAT_RIS")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.WOS_STRING, //
-        this.getLabel("ENUM_IMPORT_FORMAT_WOS")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MAB_STRING, //
-        this.getLabel("ENUM_IMPORT_FORMAT_MAB")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.EDOC_XML, //
-        this.getLabel("ENUM_IMPORT_FORMAT_EDOC")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, //
-        this.getLabel("ENUM_IMPORT_FORMAT_ESCIDOC")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ZFN_TEI_XML, //
-        this.getLabel("ENUM_IMPORT_FORMAT_ZFN")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MARC_21_STRING, //
-        this.getLabel("ENUM_IMPORT_FORMAT_MARC21")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MARC_XML, //
-        this.getLabel("ENUM_IMPORT_FORMAT_MARCXML")));
-    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BMC_XML, //
-        this.getLabel("ENUM_IMPORT_FORMAT_BMC")));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ENDNOTE_STRING, TransformerFactory.FORMAT.ENDNOTE_STRING.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BIBTEX_STRING, TransformerFactory.FORMAT.BIBTEX_STRING.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.RIS_STRING, TransformerFactory.FORMAT.RIS_STRING.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.WOS_STRING, TransformerFactory.FORMAT.WOS_STRING.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MAB_STRING, TransformerFactory.FORMAT.MAB_STRING.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.EDOC_XML, TransformerFactory.FORMAT.EDOC_XML.getName()));
+    this.importFormats
+        .add(new SelectItem(TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML, TransformerFactory.FORMAT.ESCIDOC_ITEM_V3_XML.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ZFN_TEI_XML, TransformerFactory.FORMAT.ZFN_TEI_XML.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MARC_21_STRING, TransformerFactory.FORMAT.MARC_21_STRING.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.MARC_XML, TransformerFactory.FORMAT.MARC_XML.getName()));
+    this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BMC_XML, TransformerFactory.FORMAT.BMC_XML.getName()));
   }
 
   public String uploadFile() {
