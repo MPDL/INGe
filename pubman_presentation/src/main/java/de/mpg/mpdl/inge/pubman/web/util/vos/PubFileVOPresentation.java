@@ -47,7 +47,6 @@ import de.mpg.mpdl.inge.pubman.web.easySubmission.EasySubmissionSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
-import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 
 /**
  * Presentation wrapper for {@link FileDbVO}.

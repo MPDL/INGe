@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Arrays;
 
 import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 
 import org.apache.activemq.broker.BrokerService;

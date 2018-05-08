@@ -1,14 +1,10 @@
 package de.mpg.mpdl.inge.aa.web.client;
 
-import java.net.URLEncoder;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import de.mpg.mpdl.inge.aa.Aa;
-import de.mpg.mpdl.inge.aa.AuthenticationVO;
-import de.mpg.mpdl.inge.aa.Config;
 
 /**
  * 

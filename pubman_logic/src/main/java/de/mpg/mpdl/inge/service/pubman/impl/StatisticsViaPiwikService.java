@@ -1,14 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.util.EntityUtils;
-
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class StatisticsViaPiwikService {

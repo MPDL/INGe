@@ -29,7 +29,6 @@ import static org.junit.Assert.assertEquals;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.dom4j.util.XMLErrorHandler;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

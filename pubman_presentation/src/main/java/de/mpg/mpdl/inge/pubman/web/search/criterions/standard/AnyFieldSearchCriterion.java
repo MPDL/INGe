@@ -25,15 +25,8 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
-import org.apache.lucene.search.join.ScoreMode;
-import org.elasticsearch.index.query.InnerHitBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.join.query.HasChildQueryBuilder;
-import org.elasticsearch.join.query.JoinQueryBuilders;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class AnyFieldSearchCriterion extends StandardSearchCriterion {

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import de.mpg.mpdl.inge.aa.Aa;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
-import de.mpg.mpdl.inge.aa.Config;
 
 public class Login {
 

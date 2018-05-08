@@ -61,7 +61,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldAndFulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.AnyFieldSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.CollectionSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentContentCategory;
@@ -69,6 +68,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ComponentVisibilit
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.DegreeSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.EventTitleSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FulltextSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.JournalSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.KeywordSearchCriterion;

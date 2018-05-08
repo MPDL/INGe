@@ -29,10 +29,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletConfig;
@@ -55,10 +51,6 @@ import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
-import de.mpg.mpdl.inge.pubman.web.statistic_charts.StatisticReportRecordVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 
 /**

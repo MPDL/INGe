@@ -1,18 +1,12 @@
 package de.mpg.mpdl.inge.cslmanager;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
@@ -20,7 +14,6 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.undercouch.citeproc.CSL;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
-import net.sf.saxon.TransformerFactoryImpl;
 
 /**
  * CitationStyleLanguageManagerDefaultImpl is used to generate a citation for an escidoc item or a

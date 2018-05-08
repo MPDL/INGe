@@ -1,6 +1,6 @@
 package de.mpg.mpdl.inge.es.connector;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.log4j.Logger;
 import org.junit.After;

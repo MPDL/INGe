@@ -6,7 +6,6 @@ package de.mpg.mpdl.inge.service.pubman;
 import java.io.IOException;
 import java.io.InputStream;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;

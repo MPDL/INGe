@@ -3,11 +3,9 @@ package de.mpg.mpdl.inge.service.aa;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -31,8 +29,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.util.CSVUtils;
-import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
