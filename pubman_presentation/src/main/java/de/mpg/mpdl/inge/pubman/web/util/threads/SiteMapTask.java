@@ -86,7 +86,7 @@ public class SiteMapTask {
   private String instanceUrl;
   private String itemPattern;
 
-  private boolean signal = false;
+  //  private boolean signal = false;
 
   private int maxItemsPerFile;
   private int maxItemsPerRetrieve;
@@ -326,32 +326,32 @@ public class SiteMapTask {
     return totalRecords;
   }
 
-  private void addOUSearchResultPages(int alreadyWritten) {
-    this.changeFile();
-
-    int firstRecord = 0;
-    int totalRecords = 0;
-
-    // fileWriter.write("<ul>");
-    do {
-      try {
-        final SearchRetrieveResponseVO<AffiliationDbVO> ouSearchResult = this.getOUs(firstRecord);
-        totalRecords = ouSearchResult.getNumberOfRecords();
-        this.addOUsToSitemap(ouSearchResult);
-
-        firstRecord += this.maxItemsPerRetrieve;
-
-        if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
-          this.changeFile();
-        }
-      } catch (final Exception e) {
-        SiteMapTask.logger.error(
-            "Error while creating sitemap part for ous from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
-      }
-
-
-    } while (firstRecord <= totalRecords);
-  }
+  //  private void addOUSearchResultPages(int alreadyWritten) {
+  //    this.changeFile();
+  //
+  //    int firstRecord = 0;
+  //    int totalRecords = 0;
+  //
+  //    // fileWriter.write("<ul>");
+  //    do {
+  //      try {
+  //        final SearchRetrieveResponseVO<AffiliationDbVO> ouSearchResult = this.getOUs(firstRecord);
+  //        totalRecords = ouSearchResult.getNumberOfRecords();
+  //        this.addOUsToSitemap(ouSearchResult);
+  //
+  //        firstRecord += this.maxItemsPerRetrieve;
+  //
+  //        if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
+  //          this.changeFile();
+  //        }
+  //      } catch (final Exception e) {
+  //        SiteMapTask.logger.error(
+  //            "Error while creating sitemap part for ous from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
+  //      }
+  //
+  //
+  //    } while (firstRecord <= totalRecords);
+  //  }
 
   private void changeFile() {
     try {

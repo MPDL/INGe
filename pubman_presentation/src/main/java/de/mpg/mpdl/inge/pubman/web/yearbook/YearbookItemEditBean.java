@@ -39,7 +39,7 @@ import de.mpg.mpdl.inge.util.ModelHelper;
 public class YearbookItemEditBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemEditBean.class);
 
-  private static final String MAXIMUM_RECORDS = "5000";
+  //  private static final String MAXIMUM_RECORDS = "5000";
 
   private final YearbookItemSessionBean yearbookItemSessionBean;
   private YearbookDbVO yearbook;

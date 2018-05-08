@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 public class YearbookItemCreateBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(YearbookItemCreateBean.class);
 
-  private static final String MAXIMUM_RECORDS = "5000";
+  //  private static final String MAXIMUM_RECORDS = "5000";
 
   private AffiliationVOPresentation affiliation;
   private List<AccountUserRO> collaborators;

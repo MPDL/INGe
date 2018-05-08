@@ -27,9 +27,7 @@
 package de.mpg.mpdl.inge.pubman.web.yearbook;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -185,13 +183,13 @@ public class YearbookModeratorListSessionBean
   /**
    * A string indicating the currently selected list type of a Pub Item list.
    */
-  private String listType = "BIB";
+  //  private String listType = "BIB";
 
   /**
    * A map containing the references of the currently selected pub items of one page. Used to reset
    * selections after a redirect.
    */
-  private final Map<String, String> selectedItemRefs = new HashMap<String, String>();
+//  private final Map<String, String> selectedItemRefs = new HashMap<String, String>();
 
 
   public YearbookModeratorListSessionBean() {}

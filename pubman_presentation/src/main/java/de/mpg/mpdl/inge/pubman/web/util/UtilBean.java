@@ -7,11 +7,7 @@ import javax.faces.bean.RequestScoped;
 
 @ManagedBean(name = "UtilBean")
 @RequestScoped
-@SuppressWarnings("serial")
 public class UtilBean {
-
-
-
   public void removeFromList(List<?> list, int index) {
     list.remove(index);
   }

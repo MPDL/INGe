@@ -27,7 +27,7 @@ public class PubItemUtil {
 
   private final static Logger logger = Logger.getLogger(PubItemUtil.class);
 
-  private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
+  //  private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.

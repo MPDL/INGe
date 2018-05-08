@@ -240,7 +240,7 @@ public class YearbookModeratorRetrieverRequestBean
 
       List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      //      BoolQueryBuilder bq = QueryBuilders.boolQuery();
       for (YearbookDbVO yb : selectedYearbooks) {
 
         pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper().getAuthenticationToken()));

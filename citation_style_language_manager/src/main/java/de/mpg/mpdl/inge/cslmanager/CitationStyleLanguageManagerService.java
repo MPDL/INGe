@@ -24,7 +24,7 @@ import de.undercouch.citeproc.output.Bibliography;
 public class CitationStyleLanguageManagerService {
   private static final Logger logger = Logger.getLogger(CitationStyleLanguageManagerService.class);
 
-  private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
+  //  private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
   //  private static String citationStyle = null;

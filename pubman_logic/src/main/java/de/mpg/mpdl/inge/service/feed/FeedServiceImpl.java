@@ -31,7 +31,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.util.HtmlUtils;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
@@ -45,8 +44,8 @@ public class FeedServiceImpl {
   @Autowired
   private PubItemService pubItemService;
 
-  @Autowired
-  private OrganizationService organizationService;
+  //  @Autowired
+  //  private OrganizationService organizationService;
 
   public SyndFeed recentReleases() throws Exception {
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
