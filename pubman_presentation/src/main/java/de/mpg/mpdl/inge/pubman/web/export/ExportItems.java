@@ -116,11 +116,16 @@ public class ExportItems extends FacesBean {
 
   public SelectItem[] getCITATION_OPTIONS() {
 
-    final SelectItem EXPORTFORMAT_APA = new SelectItem(TransformerFactory.CitationTypes.APA.getCitationName(), this.getLabel("Export_ExportFormat_APA"));
-    final SelectItem EXPORTFORMAT_APA_CJK = new SelectItem(TransformerFactory.CitationTypes.APA_CJK.getCitationName(), this.getLabel("Export_ExportFormat_APA_CJK"));
-    final SelectItem EXPORTFORMAT_AJP = new SelectItem(TransformerFactory.CitationTypes.AJP.getCitationName(), this.getLabel("Export_ExportFormat_AJP"));
-    final SelectItem EXPORTFORMAT_JUS = new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
-    final SelectItem EXPORTFORMAT_CSL = new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
+    final SelectItem EXPORTFORMAT_APA =
+        new SelectItem(TransformerFactory.CitationTypes.APA.getCitationName(), this.getLabel("Export_ExportFormat_APA"));
+    final SelectItem EXPORTFORMAT_APA_CJK =
+        new SelectItem(TransformerFactory.CitationTypes.APA_CJK.getCitationName(), this.getLabel("Export_ExportFormat_APA_CJK"));
+    final SelectItem EXPORTFORMAT_AJP =
+        new SelectItem(TransformerFactory.CitationTypes.AJP.getCitationName(), this.getLabel("Export_ExportFormat_AJP"));
+    final SelectItem EXPORTFORMAT_JUS =
+        new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
+    final SelectItem EXPORTFORMAT_CSL =
+        new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
 
     final SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[] { //
         EXPORTFORMAT_APA, //

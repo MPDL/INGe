@@ -36,7 +36,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   private static Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
 
-//  private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
+  //  private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
 
   //  // Mapping the format names of a ExportVO object to the enums used in transformationManager
   //  private static Map<String, TransformerFactory.FORMAT> map;

@@ -80,26 +80,26 @@ public class XmlHelper {
   public static final String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
   public static final String FONT_STYLES_COLLECTION_FILE = "font-styles.xml";
 
-//  public static final String AJP = "AJP";
-//  public static final String APA = "APA";
-//  public static final String APA6 = "APA6";
-//  public static final String APA_CJK = "APA(CJK)";
-//  public static final String CSL = "CSL";
-//  public static final String DEFAULT = "Default";
-//  public static final String JUS = "JUS";
-//  public static final String JUS_REPORT = "JUS_Report";
+  //  public static final String AJP = "AJP";
+  //  public static final String APA = "APA";
+  //  public static final String APA6 = "APA6";
+  //  public static final String APA_CJK = "APA(CJK)";
+  public static final String CSL = "CSL";
+  //  public static final String DEFAULT = "Default";
+  //  public static final String JUS = "JUS";
+  //  public static final String JUS_REPORT = "JUS_Report";
 
-//  public static final String DOCX = "docx";
-//  public static final String ESCIDOC_SNIPPET = "escidoc_snippet";
-//  public static final String HTML_LINKED = "html_linked";
-//  public static final String HTML_PLAIN = "html_plain";
-//  public static final String HTML_STYLED = "html_styled";
-//  public static final String ODT = "odt";
+  //  public static final String DOCX = "docx";
+  //  public static final String ESCIDOC_SNIPPET = "escidoc_snippet";
+  //  public static final String HTML_LINKED = "html_linked";
+  //  public static final String HTML_PLAIN = "html_plain";
+  //  public static final String HTML_STYLED = "html_styled";
+  //  public static final String ODT = "odt";
   public static final String PDF = "pdf";
-//  public static final String RTF = "rtf";
-//  public static final String SNIPPET = "snippet";
-//  public static final String TXT = "txt";
-//  public static final String JSON = "json";
+  //  public static final String RTF = "rtf";
+  //  public static final String SNIPPET = "snippet";
+  //  public static final String TXT = "txt";
+  //  public static final String JSON = "json";
 
 
   private static TransformerFactory TF = new net.sf.saxon.TransformerFactoryImpl();

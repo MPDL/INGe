@@ -121,10 +121,10 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       if (searchResult != null) {
         JsonNode node = MapperFactory.getObjectMapper().valueToTree(searchResult);
         if (searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
-//          int i = 0;
+          //          int i = 0;
           for (JsonNode itemNode : node.get("records").findValues("data")) {
             ((ObjectNode) itemNode).put("bibliographicCitation", citationList.get(0));
-//            i++;
+            //            i++;
           }
         }
         return MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node).getBytes(StandardCharsets.UTF_8);
@@ -135,7 +135,8 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
       return escidocSnippet.getBytes(StandardCharsets.UTF_8);
 
-    } else if (TransformerFactory.FORMAT.HTML_PLAIN.equals(getTargetFormat()) || TransformerFactory.FORMAT.HTML_LINKED.equals(getTargetFormat())) {
+    } else if (TransformerFactory.FORMAT.HTML_PLAIN.equals(getTargetFormat())
+        || TransformerFactory.FORMAT.HTML_LINKED.equals(getTargetFormat())) {
 
 
       return generateHtmlOutput(escidocSnippet, getTargetFormat(), "html", true).getBytes(StandardCharsets.UTF_8);
@@ -179,8 +180,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     } else {
       throw new IngeTechnicalException(
           "Format " + getTargetFormat() + " is not supported for citations. Please use one of the following formats: "
-              + TransformerFactory.FORMAT.JSON_CITATION.getName() + ", " + TransformerFactory.FORMAT.ESCIDOC_SNIPPET.getName() + ", " + TransformerFactory.FORMAT.HTML_PLAIN.getName() + ", "
-              + TransformerFactory.FORMAT.HTML_LINKED.getName() + ", " + TransformerFactory.FORMAT.PDF.getName() + ", " + TransformerFactory.FORMAT.DOCX.getName() + ", ");
+              + TransformerFactory.FORMAT.JSON_CITATION.getName() + ", " + TransformerFactory.FORMAT.ESCIDOC_SNIPPET.getName() + ", "
+              + TransformerFactory.FORMAT.HTML_PLAIN.getName() + ", " + TransformerFactory.FORMAT.HTML_LINKED.getName() + ", "
+              + TransformerFactory.FORMAT.PDF.getName() + ", " + TransformerFactory.FORMAT.DOCX.getName() + ", ");
 
     }
 
@@ -190,7 +192,8 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   }
 
 
-  private static String generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent) throws Exception {
+  private static String generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent)
+      throws Exception {
     StringWriter sw = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
     javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(
