@@ -113,10 +113,17 @@ public class Migration {
       case "single":
         if (id != null) {
           itemImport.importSinglePubItem(id);
+          // reIndexing.reindexItem(id);
         }
-
-        // reIndexing.reindexItem("escidoc:1495724");
         // util.wfTesting();
+        break;
+      case "single_reindex":
+        if (id != null) {
+          reIndexing.reindexItem(id);
+        }
+        break;
+      case "continue":
+        Thread.sleep(1800000);
         break;
       case "users":
         userImport.importUsers();
