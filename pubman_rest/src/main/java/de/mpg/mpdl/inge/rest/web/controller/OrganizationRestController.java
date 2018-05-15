@@ -32,9 +32,11 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/ous")
+@Api(tags="Organizations")
 public class OrganizationRestController {
 
   private final String AUTHZ_HEADER = "Authorization";

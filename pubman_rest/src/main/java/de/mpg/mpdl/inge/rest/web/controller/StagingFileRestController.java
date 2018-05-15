@@ -20,6 +20,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
+import io.swagger.annotations.Api;
 
 /**
  * Rest controller for components
@@ -29,6 +30,7 @@ import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
  */
 @RestController
 @RequestMapping("/staging")
+@Api(tags="Upload Files / Staging")
 public class StagingFileRestController {
 
   private static final Logger logger = Logger.getLogger(StagingFileRestController.class);

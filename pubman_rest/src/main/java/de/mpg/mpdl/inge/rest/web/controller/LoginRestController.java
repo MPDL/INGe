@@ -25,8 +25,10 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import io.swagger.annotations.Api;
 
 @RestController
+@Api(tags="Login / Logout")
 public class LoginRestController {
 
   private final String TOKEN_HEADER = "Token";
@@ -42,10 +44,10 @@ public class LoginRestController {
   }
 
   @RequestMapping(path = "login", method = POST, produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> login(@RequestBody String credendials, HttpServletRequest request, HttpServletResponse response)
+  public ResponseEntity<?> login(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    String username = credendials.split(":")[0];
-    String password = credendials.split(":")[1];
+    String username = credentials.split(":")[0];
+    String password = credentials.split(":")[1];
     Principal principal = userSvc.login(username, password, request, response);
     if (principal != null && !principal.getJwToken().isEmpty()) {
       HttpHeaders headers = new HttpHeaders();
