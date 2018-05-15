@@ -76,6 +76,7 @@ public class ItemRestController {
   @Autowired
   private SearchAndExportService saes;
 
+  @ApiIgnore
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getAll(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
@@ -89,6 +90,7 @@ public class ItemRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
   }
 
+  @ApiIgnore
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> filter(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
