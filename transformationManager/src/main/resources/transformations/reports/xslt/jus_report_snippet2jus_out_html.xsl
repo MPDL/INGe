@@ -81,7 +81,7 @@
                         <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
                         <xsl:text>AUTORENSCHAFTEN </xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
-                        <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+                        <xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
                             <xsl:sort select="foaf:family_name"></xsl:sort>
                             <xsl:sort select="foaf:givenname"></xsl:sort>
                             <xsl:variable name="currentAuthorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
@@ -126,7 +126,7 @@
                                     <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
                                 </xsl:when>
                             </xsl:choose>
-                            <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+                            <xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
                                 <xsl:sort select="foaf:family_name"></xsl:sort>
                                 <xsl:sort select="foaf:givenname"></xsl:sort>
                                 <xsl:variable name="currentFirstEditorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
@@ -161,7 +161,7 @@
                                     <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
                                 </xsl:when>
                             </xsl:choose>
-                            <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+                            <xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
                                 <xsl:sort select="foaf:family_name"></xsl:sort>
                                 <xsl:sort select="foaf:givenname"></xsl:sort>
                                 <xsl:variable name="currentSecondEditorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>

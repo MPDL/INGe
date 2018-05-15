@@ -67,7 +67,7 @@
 					<xsl:attribute name="aid:cstyle" select="'h1'"/>Autorenschaften
 				</xsl:element>
 				<xsl:text>&#x0D;</xsl:text>
-				<xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
 					<xsl:variable name="currentAuthorId" select="replace(@rdf:about,'http://localhost:8080','')" />
@@ -118,7 +118,7 @@
 					<xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke
 				</xsl:element>
 				<xsl:text>&#x0D;</xsl:text>
-				<xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
 					<xsl:variable name="currentFirstEditorId" select="replace(@rdf:about,'http://localhost:8080','')" />
@@ -164,7 +164,7 @@
 					<xsl:attribute name="aid:cstyle" select="'h2'"/>Zeitschriften, Schriftenreihen, Material- und Gesetzessammlungen
 				</xsl:element>
 				<xsl:text>&#x0D;</xsl:text>
-				<xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
 					<xsl:variable name="currentSecondEditorId" select="replace(@rdf:about,'http://localhost:8080','')" />

@@ -128,7 +128,6 @@ public class ReportWorkspaceBean extends FacesBean {
 
       if (itemListCS != null) {
         itemListReportTransformed = this.doReportTransformation(itemListCS);
-        // logger.info("Transformed result: \n" + new String(itemListReportTransformed));
       }
 
       if (itemListReportTransformed != null) {
