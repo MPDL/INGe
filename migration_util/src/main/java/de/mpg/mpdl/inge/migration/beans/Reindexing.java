@@ -43,12 +43,12 @@ public class Reindexing {
   public void reindexItems() throws Exception {
     System.out.println("calling reindexAll in " + itemService.getClass().getName());
     itemService.reindexAll(null);
-    Thread.sleep(14400000);
+    Thread.sleep(28800000);
   }
 
   public void reindexItem(String id) throws Exception {
+    System.out.println("SERVICE? " + itemService);
     itemService.reindex(id, null);
-    Thread.sleep(10000);
   }
 
 }

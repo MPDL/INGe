@@ -30,12 +30,10 @@ public class Main {
       }
       if (args.length == 1) {
         what = args[0];
-        System.out.println("WHATTAFUCKISGOINGON " + what);
       }
       if (args.length == 2) {
         what = args[0];
         id = args[1];
-        System.out.println("WHATTAFUCKISGOINGON " + id);
       }
       if (what != null && !what.isEmpty()) {
         log.info("... migrating from " + furl);

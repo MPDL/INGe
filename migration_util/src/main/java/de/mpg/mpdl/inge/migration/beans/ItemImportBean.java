@@ -27,6 +27,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -36,7 +37,12 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.util.PubItemUtil;
 
 @Component
 public class ItemImportBean {
@@ -61,6 +67,8 @@ public class ItemImportBean {
   private FileService fs;
   @Autowired
   private MigrationUtilBean utils;
+  @Autowired
+  private OrganizationService organizationService;
 
 
   public void importPubItems() throws Exception {
@@ -130,7 +138,8 @@ public class ItemImportBean {
     }
   }
 
-  private ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo, Map<String, String> fileMap) {
+  private ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo, Map<String, String> fileMap)
+      throws Exception {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
 
@@ -159,7 +168,6 @@ public class ItemImportBean {
       FileDbVO file = new FileDbVO();
       file.setChecksum(oldFile.getChecksum());
       file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
-      file.setContent(oldFile.getContent());
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
       file.setLastModificationDate(oldFile.getLastModificationDate());
@@ -171,6 +179,16 @@ public class ItemImportBean {
       file.setPid(oldFile.getPid());
       file.setStorage(Storage.valueOf(oldFile.getStorage().name()));
       file.setVisibility(Visibility.valueOf(oldFile.getVisibility().name()));
+
+      if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
+        String old_content = oldFile.getContent();
+        String[] pieces = old_content.split("/");
+        String new_content = "/rest/items/" + pieces[3].replaceAll("escidoc:", "item_") + "/component/"
+            + pieces[6].replaceAll("escidoc:", "file_") + "/content";
+        file.setContent(new_content);
+      } else {
+        file.setContent(oldFile.getContent());
+      }
 
       if (fileMap.containsKey(currentFileId)) {
         log.info("no need for upload, using existing localId " + fileMap.get(currentFileId));
@@ -215,12 +233,12 @@ public class ItemImportBean {
     if (itemVo.getLatestRelease() != null) {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
-      } /*else if (itemVo.getLatestRelease().getVersionNumber() > itemVo.getVersion().getVersionNumber()) {
+      } else if (itemVo.getLatestRelease().getVersionNumber() < itemVo.getVersion().getVersionNumber()) {
         ItemVersionRO latestRelease = new ItemVersionRO();
         latestRelease.setObjectId(utils.changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestRelease().getObjectId()));
         latestRelease.setVersionNumber(itemVo.getLatestRelease().getVersionNumber());
         pubItemObject.setLatestRelease(latestRelease);
-        }*/
+      }
     }
 
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
@@ -237,6 +255,11 @@ public class ItemImportBean {
     pubItemObject.setCreator(owner);
     pubItemObject.setObjectPid(itemVo.getPid());
     pubItemObject.setPublicState(ItemVersionVO.State.valueOf(itemVo.getPublicStatus().name()));
+    try {
+      PubItemUtil.setOrganizationIdPathInItem(newPubItem, organizationService);
+    } catch (Exception e) {
+      log.error("ERROR creating OU path");
+    }
 
     return newPubItem;
   }

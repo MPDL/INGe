@@ -129,6 +129,7 @@ public class FileDbVO extends FileDbRO implements Serializable {
   /**
    * A reference to the content of the file.
    */
+  @Column(columnDefinition = "TEXT")
   private String content;
 
   /**
