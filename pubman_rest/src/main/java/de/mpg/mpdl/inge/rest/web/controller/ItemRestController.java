@@ -51,10 +51,13 @@ import de.mpg.mpdl.inge.service.pubman.impl.FileVOWrapper;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/items")
+@Api(tags="Items / Publications")
 public class ItemRestController {
 
   private static final Logger logger = Logger.getLogger(ItemRestController.class);
@@ -76,6 +79,7 @@ public class ItemRestController {
   @Autowired
   private SearchAndExportService saes;
 
+  @ApiIgnore
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getAll(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
@@ -89,6 +93,7 @@ public class ItemRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, HttpStatus.OK);
   }
 
+  @ApiIgnore
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> filter(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
@@ -105,8 +110,8 @@ public class ItemRestController {
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
-      @RequestParam(value = "format", required = false) String format, //
-      @RequestParam(value = "citation", required = false) String citation, //
+      @RequestParam(value = "format", required = false, defaultValue="json") @ApiParam(allowableValues=TransformerFactory.JSON + "," + TransformerFactory.ESCIDOC_ITEMLIST_XML + "," + TransformerFactory.BIBTEX + "," + TransformerFactory.ENDNOTE + "," + TransformerFactory.MARC_XML + "," + TransformerFactory.PDF + "," + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + "," + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET) String format, //
+      @RequestParam(value = "citation", required = false, defaultValue="APA")@ApiParam(allowableValues="APA, APA(CJK), AJP, JUS, CSL") String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scroll", required = false) boolean scroll, //
       @RequestBody JsonNode query, //

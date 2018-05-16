@@ -575,7 +575,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>18.0</version>
+				<version>20.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.saxon</groupId>
@@ -1034,6 +1034,7 @@
 		<inge.pubman_presentation.overview_page.authors_ou />
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.rest.file.path>/component</inge.rest.file.path>
+		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br/>Please be aware that example values in particular might not be fully correct.<br/>Valid examples can be found in <a href="http://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank">MPDL CoLab</a>.]]></inge.rest.api.description>
 		<inge.search.and.export.default.sort.key>metadata.title.keyword</inge.search.and.export.default.sort.key>
 		<inge.search.and.export.default.sort.order>ascending</inge.search.and.export.default.sort.order>
 		<inge.search.and.export.default.query>{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}</inge.search.and.export.default.query>

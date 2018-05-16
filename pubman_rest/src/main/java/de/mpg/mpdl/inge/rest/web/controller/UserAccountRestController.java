@@ -32,10 +32,12 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import io.swagger.annotations.Api;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/users")
+@Api(tags="User Accounts")
 public class UserAccountRestController {
 
   private final String AUTHZ_HEADER = "Authorization";
