@@ -30,7 +30,7 @@ import io.swagger.annotations.Api;
  */
 @RestController
 @RequestMapping("/staging")
-@Api(tags="Upload Files / Staging")
+@Api(tags = "Upload Files / Staging")
 public class StagingFileRestController {
 
   private static final Logger logger = Logger.getLogger(StagingFileRestController.class);

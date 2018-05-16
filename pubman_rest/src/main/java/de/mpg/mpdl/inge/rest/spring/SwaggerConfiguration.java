@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 
 
-  @Value("${inge.rest.api.description}") 
+  @Value("${inge.rest.api.description}")
   private String apiDescription;
 
   @Bean

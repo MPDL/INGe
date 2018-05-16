@@ -37,7 +37,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/users")
-@Api(tags="User Accounts")
+@Api(tags = "User Accounts")
 public class UserAccountRestController {
 
   private final String AUTHZ_HEADER = "Authorization";

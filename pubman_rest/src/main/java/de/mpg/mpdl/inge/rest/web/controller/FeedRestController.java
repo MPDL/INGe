@@ -19,7 +19,7 @@ import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/feed")
-@Api(tags="Atom Feeds")
+@Api(tags = "Atom Feeds")
 public class FeedRestController {
 
   private final static String DEFAULT_FEEDTYPE = "atom_1.0";

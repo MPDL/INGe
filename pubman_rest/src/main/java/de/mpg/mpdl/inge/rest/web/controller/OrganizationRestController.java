@@ -36,7 +36,7 @@ import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/ous")
-@Api(tags="Organizations")
+@Api(tags = "Organizations")
 public class OrganizationRestController {
 
   private final String AUTHZ_HEADER = "Authorization";

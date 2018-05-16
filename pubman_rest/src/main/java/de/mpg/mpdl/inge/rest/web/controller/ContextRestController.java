@@ -32,7 +32,7 @@ import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/contexts")
-@Api(tags="Contexts")
+@Api(tags = "Contexts")
 public class ContextRestController {
 
   private final String AUTHZ_HEADER = "Authorization";

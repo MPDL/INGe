@@ -28,7 +28,7 @@ import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 import io.swagger.annotations.Api;
 
 @RestController
-@Api(tags="Login / Logout")
+@Api(tags = "Login / Logout")
 public class LoginRestController {
 
   private final String TOKEN_HEADER = "Token";
