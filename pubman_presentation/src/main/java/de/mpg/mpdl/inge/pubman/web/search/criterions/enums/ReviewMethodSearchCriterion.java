@@ -55,7 +55,7 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
 
   @Override
   public String getSearchString(ReviewMethod selectedEnum) {
-    return selectedEnum.getUri();
+    return selectedEnum.name();
   }
 
   @Override

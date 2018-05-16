@@ -59,7 +59,7 @@ public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {
 
   @Override
   public String getSearchString(Genre selectedEnum) {
-    return selectedEnum.getUri();
+    return selectedEnum.name();
   }
 
   @Override

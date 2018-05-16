@@ -3,7 +3,10 @@ package de.mpg.mpdl.inge.rest.spring;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -22,6 +25,17 @@ import de.mpg.mpdl.inge.model.util.MapperFactory;
 @Configuration
 @EnableWebMvc
 public class WebConfiguration extends RepositoryRestMvcConfiguration {
+
+
+  @Bean
+  @Override
+  public RepositoryRestConfiguration config() {
+    RepositoryRestConfiguration rrc = super.config();
+    rrc.setRepositoryDetectionStrategy(RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED);
+    return rrc;
+
+
+  }
 
   @Override
   public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
