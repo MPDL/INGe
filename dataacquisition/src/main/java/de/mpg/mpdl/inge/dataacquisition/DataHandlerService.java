@@ -164,7 +164,7 @@ public class DataHandlerService {
 
       if (!targetFormat.equals(metaDataFormat)) {
         String fetchedItem = item;
-        Transformer transformer = TransformerCache.getTransformer(metaDataFormat, targetFormat);
+        Transformer transformer = TransformerFactory.newTransformer(metaDataFormat, targetFormat);
         StringWriter wr = new StringWriter();
 
         transformer.transform(
@@ -179,7 +179,7 @@ public class DataHandlerService {
 
         try {
           Transformer componentTransformer =
-              TransformerCache.getTransformer(metaDataFormat, TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML);
+              TransformerFactory.newTransformer(metaDataFormat, TransformerFactory.FORMAT.ESCIDOC_COMPONENT_XML);
 
           if (componentTransformer != null) {
             wr = new StringWriter();

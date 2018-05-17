@@ -18,7 +18,7 @@ public class ConfigurationTest {
     Set<String> expectedCurlyBracketsForCoNEAuthors = new HashSet<String>(
         Arrays.asList(new String[] {"no", "empty brackets", "identifier and affiliation in brackets", "affiliation id in brackets"}));
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
 
@@ -39,7 +39,7 @@ public class ConfigurationTest {
         "MPIKG", "MPIKOFO", "MPIKYB", "MPIMET", "MPIMF", "MPIMM", "MPIMMG", "MPINEURO", "MPIP", "MPIPF", "MPISS", "MPIPKS", "MPIPL",
         "MPIPsykl", "MPIS", "MPISF", "MPISOC", "MPIeR", "MPL", "MPQ", "MolePhys", "OTHER"}));
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
 
@@ -56,7 +56,7 @@ public class ConfigurationTest {
   public void testEndnoteXml() throws TransformationException {
     Set<String> expectedFlavour =
         new HashSet<String>(Arrays.asList(new String[] {"CAESAR", "ICE", "BGC", "MPFI", "MPIMP", "MPIMPExt", "MPIO", "OTHER"}));
-    Transformer t = TransformerCache.getTransformer(FORMAT.ENDNOTE_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
@@ -72,7 +72,7 @@ public class ConfigurationTest {
   public void testEndnoteString() throws TransformationException {
     Set<String> expectedFlavour =
         new HashSet<String>(Arrays.asList(new String[] {"CAESAR", "ICE", "BGC", "MPFI", "MPIMP", "MPIMPExt", "MPIO", "OTHER"}));
-    Transformer t = TransformerCache.getTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
@@ -87,7 +87,7 @@ public class ConfigurationTest {
   @Test
   public void testRisString() throws TransformationException {
     Set<String> expectedImportNames = new HashSet<String>(Arrays.asList(new String[] {"MPDL", "OTHER"}));
-    Transformer t = TransformerCache.getTransformer(FORMAT.RIS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.RIS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
@@ -102,7 +102,7 @@ public class ConfigurationTest {
   @Test
   public void testRisXml() throws TransformationException {
     Set<String> expectedImportNames = new HashSet<String>(Arrays.asList(new String[] {"MPDL", "OTHER"}));
-    Transformer t = TransformerCache.getTransformer(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
@@ -117,7 +117,7 @@ public class ConfigurationTest {
   @Test
   public void testWosString() throws TransformationException {
     Set<String> expectedImportNames = new HashSet<String>(Arrays.asList(new String[] {"MPDL", "OTHER"}));
-    Transformer t = TransformerCache.getTransformer(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
@@ -132,7 +132,7 @@ public class ConfigurationTest {
   @Test
   public void testWosXml() throws TransformationException {
     Set<String> expectedImportNames = new HashSet<String>(Arrays.asList(new String[] {"MPDL", "MPL", "OTHER"}));
-    Transformer t = TransformerCache.getTransformer(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
@@ -147,7 +147,7 @@ public class ConfigurationTest {
   @Test
   public void testMabString() throws TransformationException {
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().size() == 0);
   }
@@ -155,7 +155,7 @@ public class ConfigurationTest {
   @Test
   public void testMarc21String() throws TransformationException {
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
 
@@ -167,7 +167,7 @@ public class ConfigurationTest {
   @Test
   public void testMarcXml() throws TransformationException {
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("CoNE").equals("true"));
 
@@ -179,7 +179,7 @@ public class ConfigurationTest {
   @Test
   public void testZfnTei() throws TransformationException {
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.ZFN_TEI_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ZFN_TEI_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
     assertTrue(t.getConfiguration() != null);
     assertTrue(t.getConfiguration().get("ftpDirectory").equals("folder"));
     assertTrue(t.getConfiguration().get("License").equals("http://creativecommons.org/licenses/by-nd/3.0/de/"));
@@ -190,7 +190,7 @@ public class ConfigurationTest {
   @Test
   public void testEscidoc() throws TransformationException {
 
-    Transformer t = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
     assertTrue(t.getConfiguration().isEmpty());
 
   }

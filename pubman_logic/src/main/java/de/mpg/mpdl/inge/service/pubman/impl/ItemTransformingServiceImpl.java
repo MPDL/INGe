@@ -75,7 +75,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
       } else {
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Transformer trans = TransformerCache.getTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
+        Transformer trans = TransformerFactory.newTransformer(TransformerFactory.FORMAT.SEARCH_RESULT_VO,
             TransformerFactory.getFormat(exportFormat.getFormat()));
         trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CITATION, exportFormat.getCitationName());
         trans.getConfiguration().put(CitationTransformer.CONFIGURATION_CSL_ID, exportFormat.getId());
@@ -111,12 +111,12 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   @Override
   public TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT target) {
-    return TransformerCache.getAllSourceFormatsFor(target);
+    return TransformerFactory.getAllSourceFormatsFor(target);
   }
 
   @Override
   public TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT source) {
-    return TransformerCache.getAllTargetFormatsFor(source);
+    return TransformerFactory.getAllTargetFormatsFor(source);
   }
 
   @Override
@@ -124,7 +124,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
       Map<String, String> configuration) throws TransformationException {
     StringWriter wr = new StringWriter();
 
-    final Transformer t = TransformerCache.getTransformer(source, target);
+    final Transformer t = TransformerFactory.newTransformer(source, target);
 
     if (configuration != null && !configuration.isEmpty()) {
       if (t.getConfiguration() == null || t.getConfiguration().isEmpty()) {
@@ -150,7 +150,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
     try {
       String itemXml = XmlTransformingService.transformToItem(item);
 
-      final Transformer t = TransformerCache.getTransformer(TransformerFactory.getInternalFormat(), target);
+      final Transformer t = TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), target);
 
 
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
@@ -163,6 +163,6 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
   @Override
   public boolean isTransformationExisting(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat) {
-    return TransformerCache.isTransformationExisting(sourceFormat, targetFormat);
+    return TransformerFactory.isTransformationExisting(sourceFormat, targetFormat);
   }
 }

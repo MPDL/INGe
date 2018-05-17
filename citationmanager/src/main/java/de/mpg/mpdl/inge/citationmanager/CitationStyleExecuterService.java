@@ -118,7 +118,7 @@ public class CitationStyleExecuterService {
       
       } else if (XmlHelper.SNIPPET.equals(outputFormat)) { // old edoc md set: back transformation
         de.mpg.mpdl.inge.transformation.Transformer trans =
-            TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+            TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
         StringWriter wr = new StringWriter();
         try {
           trans.transform(new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes(UTF_8))), new TransformerStreamResult(wr));

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -92,6 +93,14 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
         v.addAll(t.getAllConfigurationValuesFor(key));
     }
     return v;
+  }
+
+  public String toString() {
+    String chain = "";
+    if (transformerChain != null) {
+      chain = transformerChain.stream().map(i -> i.toString()).collect(Collectors.joining(" -- "));
+    }
+    return super.toString() + " via " + chain;
   }
 
 }
