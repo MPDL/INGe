@@ -23,8 +23,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
 
-    logger.debug("Found " + getTransformerChain().size() + " transformations in transformation chain: "
-        + Arrays.toString(getTransformerChain().toArray(new ChainableTransformer[getTransformerChain().size()])) + ">");
+    logger.debug("Found " + getTransformerChain().size() + " transformations in transformation chain: " + this.toString());
 
 
     TransformerSource currentSource = null;
@@ -52,8 +51,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
       }
 
 
-      logger.debug("Delegating to transformer " + transformer.getSourceFormat() + " --> " + transformer.getTargetFormat() + " ("
-          + transformer.toString() + ")");
+      logger.debug("Delegating to transformer " + transformer);
       transformer.transform(currentSource, currentResult);
 
     }
