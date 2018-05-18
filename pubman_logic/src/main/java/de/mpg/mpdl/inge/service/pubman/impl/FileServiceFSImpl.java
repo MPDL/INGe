@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -19,19 +18,17 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
-import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
@@ -49,7 +46,6 @@ import org.xml.sax.SAXException;
 import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -267,6 +263,16 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       File stagedFile = new File(stagedFileVo.getPath());
       fileVO.setSize((int) stagedFile.length());
 
+      //Detecting MimeType
+      try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)){
+        final Tika tika = new Tika();
+        fileVO.setMimeType(tika.detect(stagedFileStream, stagedFileVo.getFilename()));
+        stagedFileStream.close();
+      } catch (final Exception e) {
+        logger.info("Error while trying to detect mimetype of staged file " + stagedFileVo.getId(), e);
+      }
+
+      //Uploading file
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
         if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
           String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
