@@ -225,14 +225,19 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
             Header header = resp.getFirstHeader("Content-Disposition");
             if(header!=null)
             {
-              for(HeaderElement e : header.getElements())
-              filename = e.getParameterByName("filename").getValue();
+              for(HeaderElement e : header.getElements()) {
+                if(e.getParameterByName("filename")!=null)
+                {
+                  filename = e.getParameterByName("filename").getValue();
+                }
+              }
+              
             }
           } catch (Exception e) {
           }
           
           //If no header was found, use last part of url as filename
-          if(filename == null) {
+          if(filename == null || filename.trim().isEmpty()) {
            String[] parts =fileVO.getContent().split("/");
            filename = parts[parts.length-1];
         }
