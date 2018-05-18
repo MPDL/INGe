@@ -828,6 +828,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   public void exportAllDownload() {
+
     this.downloadExportFile(this.retrieveAll());
   }
 
@@ -837,7 +838,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   private List<PubItemVOPresentation> retrieveAll() {
-    final List<PubItemVOPresentation> itemList = this.getPaginatorListRetriever().retrieveList(0, 0, this.getSortCriteria());
+    if (this.getTotalNumberOfElements() > 10000) {
+      this.warn("Cannot export more than 10000 items, only the first 10000 items are exported");
+    }
+    final List<PubItemVOPresentation> itemList = this.getPaginatorListRetriever().retrieveList(0, 10000, this.getSortCriteria());
     return itemList;
   }
 

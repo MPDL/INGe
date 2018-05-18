@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -22,8 +23,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
 
-    logger.debug("Found " + getTransformerChain().size() + " transformations in transformation chain: "
-        + Arrays.toString(getTransformerChain().toArray(new ChainableTransformer[getTransformerChain().size()])) + ">");
+    logger.debug("Found " + getTransformerChain().size() + " transformations in transformation chain: " + this.toString());
 
 
     TransformerSource currentSource = null;
@@ -51,8 +51,7 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
       }
 
 
-      logger.debug("Delegating to transformer " + transformer.getSourceFormat() + " --> " + transformer.getTargetFormat() + " ("
-          + transformer.toString() + ")");
+      logger.debug("Delegating to transformer " + transformer);
       transformer.transform(currentSource, currentResult);
 
     }
@@ -92,6 +91,14 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
         v.addAll(t.getAllConfigurationValuesFor(key));
     }
     return v;
+  }
+
+  public String toString() {
+    String chain = "";
+    if (transformerChain != null) {
+      chain = transformerChain.stream().map(i -> i.toString()).collect(Collectors.joining(" -- "));
+    }
+    return super.toString() + " via " + chain;
   }
 
 }

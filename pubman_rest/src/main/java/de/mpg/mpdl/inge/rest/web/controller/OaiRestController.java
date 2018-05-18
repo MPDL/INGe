@@ -28,10 +28,12 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.OaiFileTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import springfox.documentation.annotations.ApiIgnore;
 
 // TODO: Authorization
 @RestController
 @RequestMapping("/oai")
+@ApiIgnore
 public class OaiRestController {
 
   private static Logger logger = Logger.getLogger(OaiRestController.class);

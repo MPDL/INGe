@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.transformation;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
@@ -10,7 +11,7 @@ import de.mpg.mpdl.inge.transformation.util.SourceTargetPair;
 public class TransformerCache {
   // Map holding the transformers
   // key: Pair source format - target format, value: Transformer object
-  private static Map<SourceTargetPair, Transformer> transformerMap = new HashMap<SourceTargetPair, Transformer>();
+  private static Map<SourceTargetPair, List<TransformerEdge>> transformerMap = new HashMap<SourceTargetPair, List<TransformerEdge>>();
 
   // Map holding a List of target FORMATS
   // key: source format, value: Array of FORMAT objects containing all reachable target formats
@@ -28,14 +29,14 @@ public class TransformerCache {
     return TransformerCacheHolder.instance;
   }
 
-  public static Transformer getTransformer(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat)
+  protected static List<TransformerEdge> getTransformerEdges(TransformerFactory.FORMAT sourceFormat, TransformerFactory.FORMAT targetFormat)
       throws TransformationException {
 
     synchronized (transformerMap) {
-      Transformer t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat));
+      List<TransformerEdge> t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat));
 
       if (t == null) {
-        t = TransformerFactory.newInstance(sourceFormat, targetFormat);
+        t = TransformerFactory.getShortestPath(sourceFormat, targetFormat);
 
         if (t != null) {
           transformerMap.put(new SourceTargetPair(sourceFormat, targetFormat), t);
@@ -45,17 +46,17 @@ public class TransformerCache {
     }
   }
 
-  public static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+  protected static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
 
     synchronized (transformerMap) {
 
-      Transformer t = null;
+      List<TransformerEdge> t = null;
       if ((t = transformerMap.get(new SourceTargetPair(sourceFormat, targetFormat))) != null)
         return true;
 
       if (t == null) {
         try {
-          t = TransformerFactory.newInstance(sourceFormat, targetFormat);
+          t = TransformerFactory.getShortestPath(sourceFormat, targetFormat);
         } catch (TransformationException e) {
           return false;
         }
@@ -70,13 +71,13 @@ public class TransformerCache {
   }
 
 
-  public static TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT sourceFormat) {
+  protected static TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT sourceFormat) {
 
     synchronized (targetFormatsMap) {
       TransformerFactory.FORMAT[] targetFormats = targetFormatsMap.get(sourceFormat);
 
       if (targetFormats == null) {
-        targetFormats = TransformerFactory.getAllTargetFormatsFor(sourceFormat);
+        targetFormats = TransformerFactory.findAllTargetFormats(sourceFormat);
 
         if (targetFormats == null)
           return null;
@@ -88,13 +89,13 @@ public class TransformerCache {
     }
   }
 
-  public static TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT targetFormat) {
+  protected static TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT targetFormat) {
 
     synchronized (sourceFormatsMap) {
       TransformerFactory.FORMAT[] sourceFormats = sourceFormatsMap.get(targetFormat);
 
       if (sourceFormats == null) {
-        sourceFormats = TransformerFactory.getAllSourceFormatsFor(targetFormat);
+        sourceFormats = TransformerFactory.findAllSourceFormats(targetFormat);
 
         if (sourceFormats == null)
           return null;

@@ -61,8 +61,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
-// Only for DOM Debugging
-
 /**
  * Helper methods for the transformation service.
  * 
@@ -507,9 +505,6 @@ public class Util {
       }
     }
 
-    logger.info("queryReportPersonCone: " + model + " query: " + query);
-    logger.info("childIds " + Arrays.toString(childIds.toArray()));
-
     try {
 
       documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
@@ -535,11 +530,11 @@ public class Util {
       }
 
       // LOGGING
-      //      javax.xml.transform.TransformerFactory tf = javax.xml.transform.TransformerFactory.newInstance();
-      //      javax.xml.transform.Transformer t = tf.newTransformer();
-      //      StringWriter sw = new StringWriter();
-      //      t.transform(new DOMSource(document), new StreamResult(sw));
-      //      logger.info(sw.toString());
+      // javax.xml.transform.TransformerFactory tf = javax.xml.transform.TransformerFactory.newInstance();
+      // javax.xml.transform.Transformer t = tf.newTransformer();
+      // StringWriter sw = new StringWriter();
+      // t.transform(new DOMSource(document), new StreamResult(sw));
+      // logger.info(sw.toString());
 
       return document;
     } catch (Exception e) {
@@ -578,12 +573,6 @@ public class Util {
             if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
               GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
               previousUrl = detailsUrl;
-
-              if (logger.isDebugEnabled()) {
-                logger.info(detailMethod.getPath());
-                logger.info(detailMethod.getQueryString());
-              }
-
               ProxyHelper.setProxy(client, detailsUrl);
               client.executeMethod(detailMethod);
 

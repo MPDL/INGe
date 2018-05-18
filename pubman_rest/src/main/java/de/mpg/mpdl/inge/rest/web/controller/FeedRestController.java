@@ -15,9 +15,11 @@ import com.rometools.rome.io.SyndFeedOutput;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.feed.FeedServiceImpl;
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/feed")
+@Api(tags = "Atom Feeds")
 public class FeedRestController {
 
   private final static String DEFAULT_FEEDTYPE = "atom_1.0";

@@ -108,7 +108,7 @@
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
 		<h2>
 			PubMan
-			<h:outputText value="#{ApplicationBean.shortVersion}" />
+			<h:outputText value="#{ApplicationBean.version}" />
 			- eSciDoc文献管理ソリューション
 		</h2>
 		<p>

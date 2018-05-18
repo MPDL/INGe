@@ -51,7 +51,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V2_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V2_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -67,7 +67,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.BIBTEX_STRING);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.BIBTEX_STRING);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -84,7 +84,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.DOI_METADATA_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.DOI_METADATA_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_doi_v13.xml")),
         new TransformerStreamResult(wr));
@@ -99,7 +99,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.EDOC_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.EDOC_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -114,7 +114,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ENDNOTE_STRING);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ENDNOTE_STRING);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -129,7 +129,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ENDNOTE_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ENDNOTE_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -144,7 +144,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -159,7 +159,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -174,7 +174,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.MARC_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.MARC_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -189,7 +189,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.OAI_DC);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.OAI_DC);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -204,7 +204,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.ZIM_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.ZIM_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -221,7 +221,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ARXIV_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ARXIV_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/arXiv.xml")),
         new TransformerStreamResult(wr));
@@ -236,7 +236,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/bibtex.txt")),
         new TransformerStreamResult(wr));
@@ -253,7 +253,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.BMC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.BMC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/bmc.xml")),
         new TransformerStreamResult(wr));
@@ -270,7 +270,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     TransformerStreamSource streamSource =
         new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/edoc_item1.xml"));
@@ -290,7 +290,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ENDNOTE_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.xml")),
         new TransformerStreamResult(wr));
@@ -309,7 +309,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MAB_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MAB_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mabXml_item.xml")),
         new TransformerStreamResult(wr));
@@ -324,7 +324,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MAB_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MAB_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mabXml_item_wronglink.xml")),
         new TransformerStreamResult(wr));
@@ -336,7 +336,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc_item.xml")),
         new TransformerStreamResult(wr));
@@ -351,7 +351,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.PMC_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.PMC_OAIPMH_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/pmcOai.xml")),
         new TransformerStreamResult(wr));
@@ -367,7 +367,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.SPIRES_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.SPIRES_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/spires.html")),
         new TransformerStreamResult(wr));
@@ -382,7 +382,7 @@ public class TransformerFactoryTest {
    * 
    * StringWriter wr = new StringWriter();
    * 
-   * Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+   * Transformer t = TransformerFactory.newTransformer(FORMAT.MODS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
    * 
    * t.transform( new
    * TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("mods2.xml")), new
@@ -402,7 +402,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ENDNOTE_STRING, FORMAT.ENDNOTE_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ENDNOTE_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
         new TransformerStreamResult(wr));
@@ -417,7 +417,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MAB_STRING, FORMAT.MAB_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MAB_STRING, FORMAT.MAB_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mab_item_list.txt")),
         new TransformerStreamResult(wr));
@@ -432,7 +432,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MARC_21_STRING, FORMAT.MARC_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.MARC_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc_record.mrc")),
         new TransformerStreamResult(wr));
@@ -448,7 +448,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.MARC_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MODS_XML, FORMAT.MARC_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mods_item.xml")),
         new TransformerStreamResult(wr));
@@ -463,7 +463,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MODS_XML, FORMAT.OAI_DC);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MODS_XML, FORMAT.OAI_DC);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mods_item.xml")),
         new TransformerStreamResult(wr));
@@ -478,7 +478,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.RIS_STRING, FORMAT.RIS_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.RIS_STRING, FORMAT.RIS_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/ris.txt")),
         new TransformerStreamResult(wr));
@@ -494,7 +494,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/ris_item.xml")),
         new TransformerStreamResult(wr));
@@ -510,7 +510,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.WOS_STRING, FORMAT.WOS_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_STRING, FORMAT.WOS_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.txt")),
         new TransformerStreamResult(wr));
@@ -526,7 +526,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.xml")),
         new TransformerStreamResult(wr));
@@ -542,7 +542,7 @@ public class TransformerFactoryTest {
    * 
    * StringWriter wr = new StringWriter();
    * 
-   * Transformer t = TransformerFactory.newInstance(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+   * Transformer t = TransformerFactory.newTransformer(FORMAT.RIS_XML, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
    * 
    * t.transform( new
    * TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("ris.txt")), new
@@ -563,7 +563,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
         new TransformerStreamResult(wr));
@@ -580,7 +580,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
         new TransformerStreamResult(wr));
@@ -595,7 +595,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MAB_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mab_item.txt")),
         new TransformerStreamResult(wr));
@@ -611,7 +611,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc21.txt")),
         new TransformerStreamResult(wr));
@@ -626,7 +626,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.WOS_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/wos_item.txt")),
         new TransformerStreamResult(wr));
@@ -638,7 +638,7 @@ public class TransformerFactoryTest {
 
   @Test
   public void testIdentity() throws TransformationException, IOException {
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
     assertTrue(t.getClass().getName().equals("de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer"));
 
@@ -666,7 +666,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v2.xml")),
         new TransformerStreamResult(wr));
@@ -682,7 +682,7 @@ public class TransformerFactoryTest {
 
     StringWriter wr = new StringWriter();
 
-    Transformer t = TransformerFactory.newInstance(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
+    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
         new TransformerStreamResult(wr));
@@ -699,7 +699,7 @@ public class TransformerFactoryTest {
     thrown.expect(TransformationException.class);
     thrown.expectMessage("No transformation chain found for");
 
-    TransformerFactory.newInstance(FORMAT.BMC_XML, FORMAT.BMC_OAIPMH_XML);
+    TransformerFactory.newTransformer(FORMAT.BMC_XML, FORMAT.BMC_OAIPMH_XML);
   }
 
   // Helper method to compare expected result with real result

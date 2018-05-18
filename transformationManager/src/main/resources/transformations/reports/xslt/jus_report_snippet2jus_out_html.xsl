@@ -81,10 +81,10 @@
                         <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
                         <xsl:text>AUTORENSCHAFTEN </xsl:text>
                         <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
-                        <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+                        <xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
                             <xsl:sort select="foaf:family_name"></xsl:sort>
                             <xsl:sort select="foaf:givenname"></xsl:sort>
-                            <xsl:variable name="currentAuthorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
+							<xsl:variable name="currentAuthorId" select="concat('/cone/persons/', substring-after(@rdf:about, '/cone/persons/'))" />
                             <xsl:variable name="currentAuthorName" select="concat(foaf:givenname, ' ', foaf:family_name)"></xsl:variable>
                             <xsl:variable name="currentAuthorCitationStyleName" select="concat(foaf:family_name, ', ', foaf:givenname)"></xsl:variable>
                             <xsl:choose>
@@ -126,10 +126,10 @@
                                     <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
                                 </xsl:when>
                             </xsl:choose>
-                            <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+                            <xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
                                 <xsl:sort select="foaf:family_name"></xsl:sort>
                                 <xsl:sort select="foaf:givenname"></xsl:sort>
-                                <xsl:variable name="currentFirstEditorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
+                                <xsl:variable name="currentFirstEditorId" select="concat('/cone/persons/', substring-after(@rdf:about, '/cone/persons/'))"></xsl:variable>
                                 <xsl:variable name="currentFirstEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)"></xsl:variable>
                                 <xsl:variable name="currentFirstEditorCitationStyleName" select="concat(foaf:family_name, ', ', foaf:givenname)"></xsl:variable>
                                 <xsl:choose>
@@ -161,10 +161,10 @@
                                     <xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
                                 </xsl:when>
                             </xsl:choose>
-                            <xsl:for-each select="$coneResult/cone/rdf:RDF/rdf:Description">
+                            <xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
                                 <xsl:sort select="foaf:family_name"></xsl:sort>
                                 <xsl:sort select="foaf:givenname"></xsl:sort>
-                                <xsl:variable name="currentSecondEditorId" select="replace(@rdf:about,'http://localhost:8080','')"></xsl:variable>
+                                <xsl:variable name="currentSecondEditorId" select="concat('/cone/persons/', substring-after(@rdf:about, '/cone/persons/'))"></xsl:variable>
                                 <xsl:variable name="currentSecondEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)"></xsl:variable>
                                 <xsl:variable name="currentSecondEditorCitationStyleName" select="concat(foaf:family_name, ', ', foaf:givenname)"></xsl:variable>
                                 <xsl:choose>

@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
+import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 
@@ -177,10 +178,9 @@ public class TransformerFactory {
     return FORMAT.ESCIDOC_ITEM_V3_XML;
   }
 
-  public static Transformer newInstance(FORMAT sourceFormat, FORMAT targetFormat) throws TransformationException {
-    if (sourceFormat.equals(targetFormat)) {
-      return new IdentityTransformer();
-    }
+
+
+  protected static List<TransformerEdge> getShortestPath(FORMAT sourceFormat, FORMAT targetFormat) throws TransformationException {
 
     List<TransformerEdge> transformerEdges = new ArrayList<TransformerEdge>();
 
@@ -209,7 +209,23 @@ public class TransformerFactory {
 
     List<TransformerEdge> edges = da.getPath(targetFormat);
 
+    return edges;
+  }
+
+  public static Transformer newTransformer(FORMAT sourceFormat, FORMAT targetFormat) throws TransformationException {
+
+    logger.info("Trying to find a transformer from " + sourceFormat + " to " + targetFormat);
+
+    if (sourceFormat.equals(targetFormat)) {
+      Transformer t = new IdentityTransformer();
+      logger.info("Found suitable transformer: " + t);
+      return t;
+    }
+
+    List<TransformerEdge> edges = TransformerCache.getTransformerEdges(sourceFormat, targetFormat);
+
     if (edges == null || edges.size() == 0) {
+      logger.info("No suitable transformer found");
       throw new TransformationException("No transformation chain found for " + sourceFormat + " --> " + targetFormat);
     }
 
@@ -219,6 +235,7 @@ public class TransformerFactory {
         Transformer t = edge.getTransformerClass().newInstance();
         t.setSourceFormat(edge.getSourceFormat());
         t.setTargetFormat(edge.getTargetFormat());
+        logger.info("Found suitable transformer: " + t);
 
         return t;
       } catch (Exception e) {
@@ -230,6 +247,8 @@ public class TransformerFactory {
       ChainTransformer chainTransformer = new ChainTransformer();
       List<ChainableTransformer> tList = new ArrayList<ChainableTransformer>();
       chainTransformer.setTransformerChain(tList);
+      chainTransformer.setSourceFormat(sourceFormat);
+      chainTransformer.setTargetFormat(targetFormat);
 
       for (TransformerEdge edge : edges) {
         Transformer ct = edge.getTransformerClass().newInstance();
@@ -237,14 +256,20 @@ public class TransformerFactory {
         ct.setTargetFormat(edge.getTargetFormat());
         tList.add((ChainableTransformer) ct);
       }
-
+      logger.info("Found suitable transformer: " + chainTransformer);
       return chainTransformer;
     } catch (Exception e) {
       throw new TransformationException("Could not initialize transformer.", e);
     }
   }
 
-  public static FORMAT[] getAllTargetFormatsFor(FORMAT sourceFormat) {
+
+
+  public static TransformerFactory.FORMAT[] getAllTargetFormatsFor(TransformerFactory.FORMAT sourceFormat) {
+    return TransformerCache.getAllTargetFormatsFor(sourceFormat);
+  }
+
+  protected static FORMAT[] findAllTargetFormats(FORMAT sourceFormat) {
     Set<FORMAT> targetFormats = new HashSet<FORMAT>();
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
 
@@ -278,7 +303,13 @@ public class TransformerFactory {
     return (FORMAT[]) targetFormats.toArray(new FORMAT[targetFormats.size()]);
   }
 
-  public static FORMAT[] getAllSourceFormatsFor(FORMAT targetFormat) {
+
+  public static TransformerFactory.FORMAT[] getAllSourceFormatsFor(TransformerFactory.FORMAT targetFormat) {
+    return TransformerCache.getAllSourceFormatsFor(targetFormat);
+
+  }
+
+  protected static FORMAT[] findAllSourceFormats(FORMAT targetFormat) {
     Set<FORMAT> sourceFormats = new HashSet<FORMAT>();
     Reflections refl = new Reflections("de.mpg.mpdl.inge.transformation.transformers");
 
@@ -310,5 +341,10 @@ public class TransformerFactory {
     }
 
     return (FORMAT[]) sourceFormats.toArray(new FORMAT[sourceFormats.size()]);
+  }
+
+  public static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
+    return TransformerCache.isTransformationExisting(sourceFormat, targetFormat);
+
   }
 }

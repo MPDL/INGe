@@ -104,8 +104,8 @@ public class Util {
 
     // Second: check which format can be transformed into the given format
     //    TransformerFactory.FORMAT oldFormat = format;
-    //    TransformerFactory.FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(oldFormat);
-    TransformerFactory.FORMAT[] possibleFormats = TransformerCache.getAllSourceFormatsFor(format);
+    //    TransformerFactory.FORMAT[] possibleFormats = TransformerFactory.getAllSourceFormatsFor(oldFormat);
+    TransformerFactory.FORMAT[] possibleFormats = TransformerFactory.getAllSourceFormatsFor(format);
 
     for (int i = 0; i < dataSourceVO.getMdFormats().size(); i++) {
       sourceMd = dataSourceVO.getMdFormats().get(i);

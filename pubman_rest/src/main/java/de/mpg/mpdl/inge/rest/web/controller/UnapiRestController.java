@@ -30,9 +30,11 @@ import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/unapi")
+@ApiIgnore
 public class UnapiRestController {
 
   private PubItemService pis;

@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
+import springfox.documentation.annotations.ApiIgnore;
 
 // TODO: Authorization
 @RestController
 @RequestMapping("/coneCache")
+@ApiIgnore
 public class ConeCacheRestController {
 
   private static Logger logger = Logger.getLogger(ConeCacheRestController.class);

@@ -319,7 +319,7 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
             if (degreeEntry.getValue()) {
               degreeSelected = true;
               final DegreeSearchCriterion dsc = new DegreeSearchCriterion();
-              dsc.setSearchString(degreeEntry.getKey().getUri());
+              dsc.setSearchString(degreeEntry.getKey().name());
               degreeCriterionsList.add(dsc);
               j++;
             } else {

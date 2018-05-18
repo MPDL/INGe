@@ -22,25 +22,25 @@ public class TransformerCacheTest {
   public void testTransformerCache() {
     Transformer t1 = null, t2 = null, t3 = null, t4 = null;
     try {
-      t1 = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+      t1 = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
 
       assertTrue(TransformerCache.getTransformerCacheSize() == 1);
       assertTrue(t1 != null);
 
-      t2 = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+      t2 = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V3_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
       assertTrue(TransformerCache.getTransformerCacheSize() == 2);
       assertTrue(t2 != null);
 
-      t3 = TransformerCache.getTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
+      t3 = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
       assertTrue(TransformerCache.getTransformerCacheSize() == 2);
-      assertTrue(t3 != null && t1 == t3);
+      assertTrue(t3 != null && t1.getClass() == t3.getClass());
 
     } catch (TransformationException e) {
       Assert.fail();
     }
 
     try {
-      t4 = TransformerCache.getTransformer(FORMAT.BIBTEX_STRING, FORMAT.BMC_XML);
+      t4 = TransformerFactory.newTransformer(FORMAT.BIBTEX_STRING, FORMAT.BMC_XML);
     } catch (Exception e) {
       Assert.assertTrue(e instanceof TransformationException);;
     }

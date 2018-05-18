@@ -204,4 +204,9 @@ public abstract class SingleTransformer implements Transformer {
     return new ArrayList<String>();
   }
 
+
+  public String toString() {
+    return super.toString() + " (<" + getSourceFormat() + "> to <" + getTargetFormat() + ">)";
+  }
+
 }

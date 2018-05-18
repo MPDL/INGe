@@ -44,7 +44,6 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.citationmanager.utils.XsltHelper;
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManStylesheetNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -115,8 +114,8 @@ public class ApplicationBean extends FacesBean {
   private String pubmanBlogFeedUrl;
   private String pubmanInstanceUrl;
   private String pubmanStyleTags;
-  private String shortVersion;
   private String version = null;
+  private String buildDate = null;
 
   private boolean handlesActivated;
 
@@ -427,16 +426,6 @@ public class ApplicationBean extends FacesBean {
     return "... Resource bundles and properties reloaded, language selection menu reset, Journal citation styles from CoNE reloaded.";
   }
 
-  /**
-   * Provides the escidoc version string without build date.
-   * 
-   * @return the escidoc version without build date
-   * @throws PubManVersionNotAvailableException if escidoc version can not be retrieved.
-   */
-  public String getShortVersion() {
-
-    return this.shortVersion;
-  }
 
   public UserAccountService getUserAccountService() {
     return this.userAccountService;
@@ -452,23 +441,16 @@ public class ApplicationBean extends FacesBean {
 
   private void loadProperties() {
     try {
-      final Properties solProperties = CommonUtils.getProperties(ApplicationBean.PROPERTY_FILENAME);
-      this.version = solProperties.getProperty("inge.pubman.version");
-      this.shortVersion = "";
-      int whereToCut;
-      try {
-        this.shortVersion = solProperties.getProperty("inge.pubman.version");
-        // get the position of the first blank before the word 'build'
-        whereToCut = this.shortVersion.indexOf(" ");
-        this.shortVersion = this.shortVersion.substring(0, whereToCut + 1);
-      } catch (final Exception e) {
-        ApplicationBean.logger.warn("The version of the application cannot be retrieved.");
-      }
+      Properties versionProperties = new Properties();
+      versionProperties.load(ResourceUtil.getResourceAsStream("/pubman-version.txt", ApplicationBean.class.getClassLoader()));
+      //final Properties solProperties = CommonUtils.getProperties(ApplicationBean.PROPERTY_FILENAME);
+      this.version = versionProperties.getProperty("version");
+      this.buildDate = versionProperties.getProperty("build.date");
 
       this.appTitle = this.getLabel("Pubman_browserTitle");
       // hide the version information if system type is production
-      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && this.version != null) {
-        this.appTitle += " " + this.version;
+      if (!this.getSystemTypeFromProperty().equals(SystemType.Production_Server) && this.getVersion() != null) {
+        this.appTitle += " " + this.getVersion() + " " + buildDate;
       }
 
       this.pubmanInstanceUrl = PropertyReader.getProperty("inge.pubman.instance.url");
@@ -601,6 +583,14 @@ public class ApplicationBean extends FacesBean {
 
   public void setItemTransformingService(ItemTransformingService itemTransformingService) {
     this.itemTransformingService = itemTransformingService;
+  }
+
+  public String getVersion() {
+    return version;
+  }
+
+  public void setVersion(String version) {
+    this.version = version;
   }
 
 }
