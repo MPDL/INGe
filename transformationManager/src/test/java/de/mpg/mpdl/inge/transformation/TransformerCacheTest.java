@@ -33,7 +33,7 @@ public class TransformerCacheTest {
 
       t3 = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
       assertTrue(TransformerCache.getTransformerCacheSize() == 2);
-      assertTrue(t3 != null && t1 == t3);
+      assertTrue(t3 != null && t1.getClass() == t3.getClass());
 
     } catch (TransformationException e) {
       Assert.fail();
