@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -18,12 +19,18 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.http.Header;
+import org.apache.http.HeaderElement;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TikaInputStream;
@@ -57,6 +64,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.arnx.wmf2svg.util.Base64;
 
@@ -196,26 +204,61 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount)
-      throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException {
 
     if (fileVO.getContent() == null || fileVO.getContent().trim().isEmpty()) {
       throw new IngeApplicationException("A file content containing the id of the staged file has to be provided");
     }
 
-    StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
-
-    if (stagedFileVo == null) {
-      throw new IngeApplicationException("No staged file with the given id " + fileVO.getContent() + " was found in the database");
-    }
-
-    if (!stagedFileVo.getCreatorId().equals(userAccount.getObjectId())) {
-      throw new IngeApplicationException("Staged file is tried to be read by another user than its creator");
-
-    }
-
+    StagedFileDbVO stagedFileVo;
 
     try {
+
+      //if content is an url, download content and create staged file  
+      if (NetworkUtils.getUrlMatchPattern().matcher(fileVO.getContent()).matches()) {
+        HttpResponse resp = Request.Get(fileVO.getContent()).execute().returnResponse();
+        try (InputStream is = resp.getEntity().getContent()) {
+          
+          String filename = null;
+          //First try to get filename as Content-Disposition header
+          try {
+            Header header = resp.getFirstHeader("Content-Disposition");
+            if(header!=null)
+            {
+              for(HeaderElement e : header.getElements())
+              filename = e.getParameterByName("filename").getValue();
+            }
+          } catch (Exception e) {
+          }
+          
+          //If no header was found, use last part of url as filename
+          if(filename == null) {
+           String[] parts =fileVO.getContent().split("/");
+           filename = parts[parts.length-1];
+        }
+          
+          
+          stagedFileVo = createStageFile(is, filename, user.getJwToken());
+        }
+      }
+      //else get staged file from database
+      else {
+        stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
+      }
+
+
+
+      if (stagedFileVo == null) {
+        throw new IngeApplicationException("No staged file with the given id " + fileVO.getContent() + " was found in the database");
+      }
+
+      if (!stagedFileVo.getCreatorId().equals(user.getUserAccount().getObjectId())) {
+        throw new IngeApplicationException("Staged file is tried to be read by another user than its creator");
+
+      }
+
+
+
       File stagedFile = new File(stagedFileVo.getPath());
       fileVO.setSize((int) stagedFile.length());
 
@@ -243,7 +286,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
 
     } catch (FileNotFoundException e) {
-      String msg = "Staged file with path [" + stagedFileVo.getPath() + "] and name [" + stagedFileVo.getFilename() + "] does not exist.";
+      String msg = "Staged file does not exist.";
       logger.error(msg);
       throw new IngeTechnicalException(msg, e);
     } catch (Exception e) {

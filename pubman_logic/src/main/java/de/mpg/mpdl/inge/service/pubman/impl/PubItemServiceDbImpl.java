@@ -246,13 +246,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     validate(pubItemToCreate, ValidationPoint.SAVE);
 
-    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal));
-
-
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
     String fullId = id + "_1";
     pubItemToCreate.setObjectId(id);
     pubItemToCreate.getObject().setObjectId(id);
+    
+    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal, pubItemToCreate.getObjectId()));
 
     try {
       pubItemToCreate = itemRepository.saveAndFlush(pubItemToCreate);
@@ -392,7 +391,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     //Reset files to old files and handle them
     latestVersion.setFiles(oldFiles);
-    latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal));
+    latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal, latestVersion.getObjectId()));
 
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);
@@ -407,7 +406,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
-  private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal)
+  private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal, String itemId)
       throws IngeApplicationException, IngeTechnicalException {
 
     List<FileDbVO> updatedFileList = new ArrayList<>();
@@ -445,14 +444,23 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           throw new IngeApplicationException(
               "A file content has to be provided containing the identifier of the staged file or the url to an external reference.");
         }
+        
+        if (fileVo.getStorage() == null) {
+          throw new IngeApplicationException(
+              "A file storage type has to be provided. Use 'INTERNAL_MANAGED' for uploading from staging area or an URL, use 'EXTERNAL_URL' for an external reference without uploading");
+        }
 
-
+        currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
+        
         //New real file
-        if ((Storage.INTERNAL_MANAGED).equals(fileVo.getStorage())) {
-          fileService.createFileFromStagedFile(fileVo, principal.getUserAccount());
+        if (Storage.INTERNAL_MANAGED.equals(fileVo.getStorage())) {
+
+
+
+          fileService.createFileFromStagedFile(fileVo, principal);
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
           // TODO Set content to a REST path
-          fileVo.setContent(null);
+          fileVo.setContent("/rest/items/" + itemId + "/component/" + currentFileDbVO.getObjectId() + "/content");
 
           currentFileDbVO.setChecksum(fileVo.getChecksum());
           currentFileDbVO.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(fileVo.getChecksumAlgorithm().name()));
@@ -463,7 +471,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
 
 
-        currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
+        
         currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
 
         // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
