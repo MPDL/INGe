@@ -250,7 +250,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     String fullId = id + "_1";
     pubItemToCreate.setObjectId(id);
     pubItemToCreate.getObject().setObjectId(id);
-    
+
     pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal, pubItemToCreate.getObjectId()));
 
     try {
@@ -444,14 +444,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           throw new IngeApplicationException(
               "A file content has to be provided containing the identifier of the staged file or the url to an external reference.");
         }
-        
+
         if (fileVo.getStorage() == null) {
           throw new IngeApplicationException(
               "A file storage type has to be provided. Use 'INTERNAL_MANAGED' for uploading from staging area or an URL, use 'EXTERNAL_URL' for an external reference without uploading");
         }
 
         currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
-        
+
         //New real file
         if (Storage.INTERNAL_MANAGED.equals(fileVo.getStorage())) {
 
@@ -471,7 +471,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
 
 
-        
+
         currentFileDbVO.setStorage(FileDbVO.Storage.valueOf(fileVo.getStorage().name()));
 
         // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
