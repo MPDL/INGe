@@ -55,13 +55,13 @@ public class KeywordSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_SUBJECTS_VALUE};
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_FREEKEYWORDS};
 
   }
 
   @Override
   public String getElasticSearchNestedPath() {
-    return "metadata.subjects";
+    return null;
   }
 
 

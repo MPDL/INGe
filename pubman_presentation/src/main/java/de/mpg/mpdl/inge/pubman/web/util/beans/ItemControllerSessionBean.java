@@ -738,7 +738,7 @@ public class ItemControllerSessionBean extends FacesBean {
       this.error("Authentication error while saving current PubItem: " + e.getMessage());
     } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while saving current PubItem", e);
-      this.error("Technical error while saving current PubItem");
+      this.error("Technical error while saving current PubItem" + e.getMessage());
     } catch (final IngeApplicationException e) {
       if (e.getCause() instanceof ValidationException) {
         throw (ValidationException) e.getCause();

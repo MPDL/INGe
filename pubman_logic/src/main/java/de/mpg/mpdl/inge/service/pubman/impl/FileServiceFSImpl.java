@@ -22,9 +22,13 @@ import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.http.Header;
+import org.apache.http.HeaderElement;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
@@ -42,7 +46,6 @@ import org.xml.sax.SAXException;
 import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.StagedFileRepository;
 import de.mpg.mpdl.inge.filestorage.FileStorageInterface;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -57,6 +60,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.arnx.wmf2svg.util.Base64;
 
@@ -196,29 +200,77 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void createFileFromStagedFile(FileDbVO fileVO, AccountUserDbVO userAccount)
-      throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException {
 
     if (fileVO.getContent() == null || fileVO.getContent().trim().isEmpty()) {
       throw new IngeApplicationException("A file content containing the id of the staged file has to be provided");
     }
 
-    StagedFileDbVO stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
-
-    if (stagedFileVo == null) {
-      throw new IngeApplicationException("No staged file with the given id " + fileVO.getContent() + " was found in the database");
-    }
-
-    if (!stagedFileVo.getCreatorId().equals(userAccount.getObjectId())) {
-      throw new IngeApplicationException("Staged file is tried to be read by another user than its creator");
-
-    }
-
+    StagedFileDbVO stagedFileVo;
 
     try {
+
+      //if content is an url, download content and create staged file  
+      if (NetworkUtils.getUrlMatchPattern().matcher(fileVO.getContent()).matches()) {
+        HttpResponse resp = Request.Get(fileVO.getContent()).execute().returnResponse();
+        try (InputStream is = resp.getEntity().getContent()) {
+
+          String filename = null;
+          //First try to get filename as Content-Disposition header
+          try {
+            Header header = resp.getFirstHeader("Content-Disposition");
+            if (header != null) {
+              for (HeaderElement e : header.getElements()) {
+                if (e.getParameterByName("filename") != null) {
+                  filename = e.getParameterByName("filename").getValue();
+                }
+              }
+
+            }
+          } catch (Exception e) {
+          }
+
+          //If no header was found, use last part of url as filename
+          if (filename == null || filename.trim().isEmpty()) {
+            String[] parts = fileVO.getContent().split("/");
+            filename = parts[parts.length - 1];
+          }
+
+
+          stagedFileVo = createStageFile(is, filename, user.getJwToken());
+        }
+      }
+      //else get staged file from database
+      else {
+        stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
+      }
+
+
+
+      if (stagedFileVo == null) {
+        throw new IngeApplicationException("No staged file with the given id " + fileVO.getContent() + " was found in the database");
+      }
+
+      if (!stagedFileVo.getCreatorId().equals(user.getUserAccount().getObjectId())) {
+        throw new IngeApplicationException("Staged file is tried to be read by another user than its creator");
+
+      }
+
+
+
       File stagedFile = new File(stagedFileVo.getPath());
       fileVO.setSize((int) stagedFile.length());
 
+      //Detecting MimeType
+      try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
+        final Tika tika = new Tika();
+        fileVO.setMimeType(tika.detect(stagedFileStream, stagedFileVo.getFilename()));
+        stagedFileStream.close();
+      } catch (final Exception e) {
+        logger.info("Error while trying to detect mimetype of staged file " + stagedFileVo.getId(), e);
+      }
+
+      //Uploading file
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
         if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
           String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
@@ -243,7 +295,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       fileVO.setChecksum(getFileChecksum(MessageDigest.getInstance("MD5"), stagedFile));
 
     } catch (FileNotFoundException e) {
-      String msg = "Staged file with path [" + stagedFileVo.getPath() + "] and name [" + stagedFileVo.getFilename() + "] does not exist.";
+      String msg = "Staged file does not exist.";
       logger.error(msg);
       throw new IngeTechnicalException(msg, e);
     } catch (Exception e) {

@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.migration.beans;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -37,6 +39,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -118,22 +121,23 @@ public class ItemImportBean {
         final HttpGet requestItem = new HttpGet(itemUri);
         HttpResponse itemResponse = client.execute(requestItem);
         String itemXml = EntityUtils.toString(itemResponse.getEntity(), StandardCharsets.UTF_8);
-
         PubItemVO item = XmlTransformingService.transformToPubItem(itemXml);
         savePubItem(item, fileMap);
 
       } catch (Exception e) {
-        log.error("ERROR " + pubItemVo.getVersion().getObjectIdAndVersion(), e);
+        log.error("FAILED Getting " + pubItemVo.getVersion().getObjectIdAndVersion(), e);
       }
     }
   }
 
-  private void savePubItem(PubItemVO pubItem, Map<String, String> fileMap) throws Exception {
+  private void savePubItem(PubItemVO pubItem, Map<String, String> fileMap) {
+    ItemVersionVO newVo = null;
     try {
-      ItemVersionVO newVo = transformToNew(pubItem, fileMap);
+      newVo = transformToNew(pubItem, fileMap);
       log.info("Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       itemRepository.save(newVo);
     } catch (Exception e) {
+      log.info("FAILED Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       e.printStackTrace();
     }
   }
@@ -144,7 +148,11 @@ public class ItemImportBean {
     AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(utils.changeId("user", itemVo.getOwner().getObjectId()));
-    owner.setName(itemVo.getOwner().getTitle());
+    if (itemVo.getOwner().getTitle().length() > 255) {
+      owner.setName(itemVo.getOwner().getTitle().substring(0, 254));
+    } else {
+      owner.setName(itemVo.getOwner().getTitle());
+    }
 
     modifier.setObjectId(utils.changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
     modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
@@ -230,7 +238,7 @@ public class ItemImportBean {
     pubItemObject.setCreationDate(itemVo.getCreationDate());
     pubItemObject.setLastModificationDate(itemVo.getLatestVersion().getModificationDate());
 
-    if (itemVo.getLatestRelease() != null) {
+    if (itemVo.getLatestRelease() != null && itemVo.getLatestRelease().getVersionNumber() != 0) {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
       } else if (itemVo.getLatestRelease().getVersionNumber() < itemVo.getVersion().getVersionNumber()) {
@@ -276,17 +284,25 @@ public class ItemImportBean {
     return fileId;
   }
 
-  public void importSinglePubItem(String id) throws Exception {
+  public void importSinglePubItem(String id) {
 
-    HttpClient client = utils.setup();
+    PubItemVO theItem = null;
 
-    URI uri = new URIBuilder(escidocUrl + itemPath + "/" + id).build();
-    final HttpGet request = new HttpGet(uri);
-    HttpResponse response = client.execute(request);
-    String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
 
-    PubItemVO theItem = XmlTransformingService.transformToPubItem(xml);
-    saveAllVersionsOfPubItem(theItem);
+    try {
+      HttpClient client = utils.setup();
+
+      URI uri = new URIBuilder(escidocUrl + itemPath + "/" + id).build();
+      final HttpGet request = new HttpGet(uri);
+      HttpResponse response = client.execute(request);
+      String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+      log.info("Getting " + id);
+
+      theItem = XmlTransformingService.transformToPubItem(xml);
+      saveAllVersionsOfPubItem(theItem);
+    } catch (Exception e) {
+      log.error("FAILED Getting " + id, e);
+    }
 
   }
 

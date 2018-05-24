@@ -367,7 +367,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
             }
           }
         }
-        throw new AuthenticationException("Could not login, Please provide correct username and password!");
+        if (principal == null) {
+          throw new AuthenticationException("Could not login, Please provide correct username and password!");
+        }
+
       }
 
       else {
