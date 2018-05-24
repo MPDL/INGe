@@ -178,6 +178,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_REVIEW_METHOD = "metadata.reviewMethod";
   public static String INDEX_METADATA_SUBJECTS_VALUE = "metadata.subjects.value";
   public static String INDEX_METADATA_SUBJECTS_TYPE = "metadata.subjects.type";
+  public static String INDEX_METADATA_FREEKEYWORDS = "metadata.freeKeywords";
   public static String INDEX_METADATA_DEGREE = "metadata.degree";
   public static String INDEX_METADATA_LANGUAGES = "metadata.languages";
   public static String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";

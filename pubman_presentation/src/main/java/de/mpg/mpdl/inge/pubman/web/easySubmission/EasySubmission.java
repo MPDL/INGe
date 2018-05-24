@@ -1185,10 +1185,7 @@ public class EasySubmission extends FacesBean {
   }
 
   public void setFreeKeywords(String publicationSubject) {
-    if (this.getItem().getMetadata().getFreeKeywords() == null) {
-      this.getItem().getMetadata().setFreeKeywords("");
-    }
-    this.getItem().getMetadata().getFreeKeywords();
+    this.getItem().getMetadata().setFreeKeywords(publicationSubject);
   }
 
   /**
