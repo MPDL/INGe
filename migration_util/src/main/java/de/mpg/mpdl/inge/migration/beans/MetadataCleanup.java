@@ -36,7 +36,7 @@ public class MetadataCleanup {
       if (id.getType().name().equals(IdentifierVO.IdType.CONE.name())) {
         String cone_id = id.getId();
         if (!cone_id.isEmpty()) {
-          id.setId(cone_id.substring(cone_id.lastIndexOf("cone") - 1));
+          id.setId(cone_id.substring(cone_id.lastIndexOf("cone") + 4));
         }
       }
     });
