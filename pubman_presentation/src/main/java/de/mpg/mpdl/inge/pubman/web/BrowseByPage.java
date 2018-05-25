@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSear
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -284,36 +285,15 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public String getPortfolioLink() {
-    try {
-      final String link = PropertyReader.getProperty("inge.cone.service.url") + "persons/resource/";
-      return link;
-    } catch (final Exception e) {
-      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
-    }
-
-    return "";
+    return ConeUtils.getFullConePersonsLink();
   }
-
-  public String getConeUrl() {
-    try {
-      final String link = PropertyReader.getProperty("inge.cone.service.url");
-      return link;
-    } catch (final Exception e) {
-      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
-    }
-
-    return "";
-  }
-
 
   public void searchForAnyYear(String year) throws Exception {
-
     List<SearchCriterionBase> scList = new ArrayList<>();
     DateSearchCriterion dsc1 = new DateSearchCriterion(SearchCriterion.ANYDATE);
     dsc1.setFrom(year);
     dsc1.setTo(year);
     scList.add(dsc1);
-
 
     QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
     search(qb);
@@ -331,23 +311,19 @@ public class BrowseByPage extends BreadcrumbPage {
     dsc2.setTo(year);
     scList.add(dsc2);
 
-
     QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
-
     search(qb);
   }
-
 
   public void searchForPerson(LinkVO link) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
     PersonSearchCriterion ps = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
-    String coneId = "/cone/persons/resource/" + link.getValue();
-    ps.setHiddenId(coneId);
+    String personsId = ConeUtils.getConePersonsIdIdentifier() + link.getValue();
+    ps.setHiddenId(personsId);
     ps.setSearchString(link.getLabel());
     scList.add(ps);
 
     QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
-
     search(qb);
   }
 
@@ -358,16 +334,13 @@ public class BrowseByPage extends BreadcrumbPage {
     scList.add(sc);
 
     QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
-
     search(qb);
   }
-
 
   private void search(QueryBuilder qb) throws Exception {
     FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
         + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
   }
-
 
   @Override
   public boolean isItemSpecific() {

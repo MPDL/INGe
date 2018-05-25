@@ -96,10 +96,10 @@ public class UserImportBean {
     AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(utils.changeId("user", oldAccountUserVO.getCreator().getObjectId()));
-    owner.setName(oldAccountUserVO.getCreator().getTitle());
+    // owner.setName(oldAccountUserVO.getCreator().getTitle());
 
     modifier.setObjectId(utils.changeId("user", oldAccountUserVO.getModifiedBy().getObjectId()));
-    modifier.setName(oldAccountUserVO.getModifiedBy().getTitle());
+    // modifier.setName(oldAccountUserVO.getModifiedBy().getTitle());
 
     AccountUserDbVO newAccountUser = new AccountUserDbVO();
 

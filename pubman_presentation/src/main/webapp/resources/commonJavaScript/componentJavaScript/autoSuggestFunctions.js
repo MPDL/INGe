@@ -145,7 +145,7 @@ function getPersonDetails(details) {
     
     var personId = $input.resultID;
     if (personId != null && personId != '') {
-    	personId = personId.substring(personId.indexOf('/cone/persons/'), personId.length);
+    	personId = personId.substring(personId.indexOf('/persons/resource/'), personId.length);
     }
 
     fillField('familyName', familyName, parent, true);

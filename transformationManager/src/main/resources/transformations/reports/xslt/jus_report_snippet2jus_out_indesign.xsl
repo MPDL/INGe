@@ -51,6 +51,7 @@
 	<xsl:variable name="genreSeries" select="'http://purl.org/escidoc/metadata/ves/publication-types/series'" />
 	
 	<xsl:param name="institutsId"/>
+    <xsl:param name="conePersonsIdIdentifier"></xsl:param>
 	
 	<xsl:key name="authorshipGenreOrder" match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:authorship/s:genre/@priority" use="../s:name" />
 	<xsl:key name="firstListEditorshipGenreOrder" match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:first_editorship/s:genre/@priority" use="../s:name" />
@@ -70,7 +71,7 @@
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
-					<xsl:variable name="currentAuthorId" select="concat('/cone/persons/', substring-after(@rdf:about, '/cone/persons/'))" />
+					<xsl:variable name="currentAuthorId" select="concat(conePersonsIdIdentifier, substring-after(@rdf:about, conePersonsIdIdentifier))" />
 					<xsl:variable name="currentAuthorName" select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentAuthorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
@@ -121,7 +122,7 @@
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
-					<xsl:variable name="currentFirstEditorId" select="concat('/cone/persons/', substring-after(@rdf:about, '/cone/persons/'))" />
+					<xsl:variable name="currentFirstEditorId" select="concat(conePersonsIdIdentifier, substring-after(@rdf:about, conePersonsIdIdentifier))" />
 					<xsl:variable name="currentFirstEditorName"	select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentFirstEditorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
@@ -167,7 +168,7 @@
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
-					<xsl:variable name="currentSecondEditorId" select="concat('/cone/persons/', substring-after(@rdf:about, '/cone/persons/'))" />
+					<xsl:variable name="currentSecondEditorId" select="concat(conePersonsIdIdentifier, substring-after(@rdf:about, conePersonsIdIdentifier))" />
 					<xsl:variable name="currentSecondEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentSecondEditorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
