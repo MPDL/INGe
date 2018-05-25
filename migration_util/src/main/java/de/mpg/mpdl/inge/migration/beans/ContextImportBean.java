@@ -68,10 +68,10 @@ public class ContextImportBean {
     AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(utils.changeId("user", contextVo.getCreator().getObjectId()));
-    owner.setName(contextVo.getCreator().getTitle());
+    // owner.setName(contextVo.getCreator().getTitle());
 
     modifier.setObjectId(utils.changeId("user", contextVo.getModifiedBy().getObjectId()));
-    modifier.setName(contextVo.getModifiedBy().getTitle());
+    // modifier.setName(contextVo.getModifiedBy().getTitle());
 
     ContextDbVO newContext = new ContextDbVO();
     newContext.setCreator(owner);
