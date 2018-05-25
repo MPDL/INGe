@@ -222,7 +222,7 @@
 												<h:panelGroup layout="block"
 													styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 											</h:panelGroup>
-											<h:selectOneMenu id="selCreatorRoleString"
+											<h:selectOneMenu id="selSourceCreatorRoleString"
 												styleClass="replace" value="#{creator.roleString}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
