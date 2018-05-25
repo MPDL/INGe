@@ -47,7 +47,7 @@ public class YearbookUtils {
     // Exclude items which are already members
 
     if (yisb.getNumberOfMembers() > 0) {
-      
+
       candidateBoolQuery.mustNot(getMemberQuery(yisb.getYearbook()));
     }
 
@@ -92,10 +92,10 @@ public class YearbookUtils {
 
   public static QueryBuilder getMemberQuery(YearbookDbVO yearbookItem) throws Exception {
     if (yearbookItem.getItemIds().size() > 0) {
-    return QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, yearbookItem.getItemIds());
+      return QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, yearbookItem.getItemIds());
     }
     return null;
-    
+
     /*
     BoolQueryBuilder bq = QueryBuilders.boolQuery();
     if (yearbookItem.getItemIds().size() > 0) {

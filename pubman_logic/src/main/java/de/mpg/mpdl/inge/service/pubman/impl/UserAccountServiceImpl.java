@@ -62,6 +62,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private final static int TOKEN_MAX_AGE_HOURS = 24;
 
+  public static String INDEX_MODIFICATION_DATE = "lastModificationDate";
+  public static String INDEX_NAME = "name";
+  public static String INDEX_LOGINNAME = "loginname";
+  public static String INDEX_OBJECTID = "objectId";
+
   @Autowired
   private AuthorizationService aaService;
 

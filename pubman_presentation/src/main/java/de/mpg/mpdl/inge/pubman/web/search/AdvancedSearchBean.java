@@ -334,8 +334,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL, this.getLabel("adv_search_lblItemCreationDate")));
       adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL, this.getLabel("adv_search_lblItemLastModificationDate")));
 
+      /*
       adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY, this.getLabel("adv_search_lblItemCreatedBy")));
       adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY, this.getLabel("adv_search_lblItemModifiedBy")));
+       */
 
       adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
       criterionTypeList.add(adminGroup);

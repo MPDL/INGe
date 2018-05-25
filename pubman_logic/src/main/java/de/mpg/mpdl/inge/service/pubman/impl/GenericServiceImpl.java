@@ -146,7 +146,8 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   protected static void updateWithTechnicalMetadata(BasicDbRO object, AccountUserDbVO userAccount, boolean create) {
     Date currentDate = new Date();
     AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(userAccount.getName());
+    //Moved out DSGVO
+    //mod.setName(userAccount.getName());
     mod.setObjectId(userAccount.getObjectId());
 
     if (create) {
