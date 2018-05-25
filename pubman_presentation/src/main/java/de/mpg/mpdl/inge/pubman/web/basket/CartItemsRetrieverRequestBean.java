@@ -2,12 +2,14 @@ package de.mpg.mpdl.inge.pubman.web.basket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
@@ -85,18 +87,15 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
       if (pssb.getStoredPubItems().size() > 0) {
 
-        BoolQueryBuilder bq = QueryBuilders.boolQuery();
-
-        for (final ItemVersionRO id : pssb.getStoredPubItems().values()) {
-          BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
-          subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
-          subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
-          bq.should(subQuery);
-        }
+        List<String> ids = pssb.getStoredPubItems().values().stream().map(i -> i.getObjectIdAndVersion()).collect(Collectors.toList());
+        
+        QueryBuilder idQuery = QueryBuilders.termsQuery("_id", ids);
+        
+        
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
         SearchSourceBuilder ssb = new SearchSourceBuilder();
-        ssb.query(bq);
+        ssb.query(idQuery);
         ssb.from(offset);
         ssb.size(limit);
 

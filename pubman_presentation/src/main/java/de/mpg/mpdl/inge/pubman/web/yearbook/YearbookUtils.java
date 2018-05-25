@@ -47,11 +47,8 @@ public class YearbookUtils {
     // Exclude items which are already members
 
     if (yisb.getNumberOfMembers() > 0) {
-      BoolQueryBuilder memberQuery = QueryBuilders.boolQuery();
-      candidateBoolQuery.must(memberQuery);
-      for (final String member : yisb.getYearbook().getItemIds()) {
-        memberQuery.mustNot(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, member));
-      }
+      
+      candidateBoolQuery.mustNot(getMemberQuery(yisb.getYearbook()));
     }
 
     // Dates
@@ -93,8 +90,13 @@ public class YearbookUtils {
 
   }
 
-  public static BoolQueryBuilder getMemberQuery(YearbookDbVO yearbookItem) throws Exception {
-
+  public static QueryBuilder getMemberQuery(YearbookDbVO yearbookItem) throws Exception {
+    if (yearbookItem.getItemIds().size() > 0) {
+    return QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, yearbookItem.getItemIds());
+    }
+    return null;
+    
+    /*
     BoolQueryBuilder bq = QueryBuilders.boolQuery();
     if (yearbookItem.getItemIds().size() > 0) {
       for (final String rel : yearbookItem.getItemIds()) {
@@ -103,6 +105,7 @@ public class YearbookUtils {
       return bq;
     }
     return null;
+    */
   }
 
   public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken) throws Exception {

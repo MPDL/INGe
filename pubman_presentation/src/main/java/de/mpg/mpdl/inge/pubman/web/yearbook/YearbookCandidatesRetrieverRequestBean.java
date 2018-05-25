@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
@@ -9,6 +10,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
@@ -220,20 +222,14 @@ public class YearbookCandidatesRetrieverRequestBean
 
   }
 
-  private BoolQueryBuilder getInvalidMembersQuery() throws Exception {
+  private QueryBuilder getInvalidMembersQuery() throws Exception {
 
     final YearbookItemSessionBean yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    BoolQueryBuilder bq = QueryBuilders.boolQuery();
+    
+   
     if (yisb.getInvalidItemMap().size() > 0) {
 
-
-
-      for (final YearbookInvalidItemRO item : yisb.getInvalidItemMap().values()) {
-        bq.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, item.getObjectId()));
-      }
-
-
-      return bq;
+      return QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, yisb.getInvalidItemMap().values().stream().map(i -> i.getObjectId()).collect(Collectors.toList()));
     }
     return null;
 
@@ -252,9 +248,11 @@ public class YearbookCandidatesRetrieverRequestBean
         if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.CANDIDATES)) {
           query = YearbookUtils.getCandidateQuery();
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.MEMBERS)) {
-          query = YearbookUtils.getMemberQuery(yisb.getYearbook());
+          query = QueryBuilders.boolQuery();
+          query.must(YearbookUtils.getMemberQuery(yisb.getYearbook()));
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.INVALID)) {
-          query = this.getInvalidMembersQuery();
+          query = QueryBuilders.boolQuery();
+          query.must(this.getInvalidMembersQuery());
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.NON_CANDIDATES)) {
           query = this.getNonCandidatesQuery();
         }
