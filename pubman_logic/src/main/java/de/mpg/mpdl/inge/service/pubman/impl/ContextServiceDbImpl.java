@@ -114,7 +114,8 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
     toBeUpdatedContext.setAllowedGenres(givenContext.getAllowedGenres());
     toBeUpdatedContext.setAllowedSubjectClassifications(givenContext.getAllowedSubjectClassifications());
     toBeUpdatedContext.setContactEmail(givenContext.getContactEmail());
-
+    toBeUpdatedContext.setWorkflow(givenContext.getWorkflow());
+    
     toBeUpdatedContext.setDescription(givenContext.getDescription());
     toBeUpdatedContext.setName(givenContext.getName());
 
