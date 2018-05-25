@@ -148,11 +148,13 @@ public class ItemImportBean {
     AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(utils.changeId("user", itemVo.getOwner().getObjectId()));
+    /*
     if (itemVo.getOwner().getTitle().length() > 255) {
       owner.setName(itemVo.getOwner().getTitle().substring(0, 254));
     } else {
       owner.setName(itemVo.getOwner().getTitle());
     }
+    */
 
     modifier.setObjectId(utils.changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
     modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());

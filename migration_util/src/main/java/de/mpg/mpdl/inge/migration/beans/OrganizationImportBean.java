@@ -112,9 +112,9 @@ public class OrganizationImportBean {
     AccountUserDbRO modifier = new AccountUserDbRO();
 
     owner.setObjectId(utils.changeId("user", affVo.getCreator().getObjectId()));
-    owner.setName(affVo.getCreator().getTitle());
+    // owner.setName(affVo.getCreator().getTitle());
     modifier.setObjectId(utils.changeId("user", affVo.getModifiedBy().getObjectId()));
-    modifier.setName(affVo.getModifiedBy().getTitle());
+    // modifier.setName(affVo.getModifiedBy().getTitle());
 
     AffiliationDbVO newAff = new AffiliationDbVO();
     newAff.setCreationDate(affVo.getCreationDate());
