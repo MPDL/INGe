@@ -37,6 +37,8 @@ import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.ConeUtils;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author Gergana Stoyanova
@@ -271,6 +273,7 @@ public class ReportWorkspaceBean extends FacesBean {
     }
     logger.info("CHILD Config " + childConfig);
     this.configuration.put("institutsId", childConfig);
+    this.configuration.put("conePersonsIdIdentifier", ConeUtils.getConePersonsIdIdentifier());
 
     try {
       // logger.info(new String(src, "UTF-8"));

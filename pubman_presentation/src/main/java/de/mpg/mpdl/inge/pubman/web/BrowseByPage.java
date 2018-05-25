@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSear
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -284,26 +285,19 @@ public class BrowseByPage extends BreadcrumbPage {
   }
 
   public String getPortfolioLink() {
-    try {
-      final String link = PropertyReader.getProperty("inge.cone.service.url") + "persons/resource/";
-      return link;
-    } catch (final Exception e) {
-      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
-    }
-
-    return "";
+    return ConeUtils.getFullConePersonsLink();
   }
 
-  public String getConeUrl() {
-    try {
-      final String link = PropertyReader.getProperty("inge.cone.service.url");
-      return link;
-    } catch (final Exception e) {
-      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
-    }
-
-    return "";
-  }
+  //  public String getConeUrl() {
+  //    try {
+  //      final String link = PropertyReader.getProperty("inge.cone.service.url");
+  //      return link;
+  //    } catch (final Exception e) {
+  //      BrowseByPage.logger.error("Could not read Property: 'inge.cone.service.url'", e);
+  //    }
+  //
+  //    return "";
+  //  }
 
 
   public void searchForAnyYear(String year) throws Exception {
@@ -341,8 +335,8 @@ public class BrowseByPage extends BreadcrumbPage {
   public void searchForPerson(LinkVO link) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
     PersonSearchCriterion ps = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
-    String coneId = "/cone/persons/resource/" + link.getValue();
-    ps.setHiddenId(coneId);
+    String personsId = "/" + PropertyReader.getProperty("inge.cone.person.id.identifier") + link.getValue();
+    ps.setHiddenId(personsId);
     ps.setSearchString(link.getLabel());
     scList.add(ps);
 

@@ -21,13 +21,12 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class PubItemUtil {
 
   private final static Logger logger = Logger.getLogger(PubItemUtil.class);
-
-  //  private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
@@ -58,58 +57,13 @@ public class PubItemUtil {
     // assign the external org id to default organisation
     try {
       for (final CreatorVO creator : pubItem.getMetadata().getCreators()) {
-        if (creator.getPerson() != null) {
-
-          //Make CoNE link relative
-          if (creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getId() != null
-              && creator.getPerson().getIdentifier().getType() == IdType.CONE) {
-            String coneIdentifier = creator.getPerson().getIdentifier().getId();
-            if (coneIdentifier.startsWith("http")) {
-              creator.getPerson().getIdentifier()
-                  .setId(coneIdentifier.substring(coneIdentifier.indexOf("/cone/persons/"), coneIdentifier.length()));
-            }
-          }
-
-          for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
-            if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-              organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-            }
-          }
-        } else {
-          if (creator.getOrganization() != null
-              && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
-            creator.getOrganization().setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-          }
-        }
+        adaptConeLinks(creator);
       }
 
       if (pubItem.getMetadata().getSources() != null) {
         for (final SourceVO source : pubItem.getMetadata().getSources()) {
           for (final CreatorVO creator : source.getCreators()) {
-            if (creator.getPerson() != null) {
-
-              //Make CoNE link relative
-              if (creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getId() != null
-                  && creator.getPerson().getIdentifier().getType() == IdType.CONE) {
-                String coneIdentifier = creator.getPerson().getIdentifier().getId();
-                if (coneIdentifier.startsWith("http")) {
-                  creator.getPerson().getIdentifier()
-                      .setId(coneIdentifier.substring(coneIdentifier.indexOf("/cone/persons/"), coneIdentifier.length()));
-                }
-              }
-
-
-              for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
-                if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-                  organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-                }
-              }
-            } else {
-              if (creator.getOrganization() != null
-                  && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
-                creator.getOrganization().setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-              }
-            }
+            adaptConeLinks(creator);
           }
         }
       }
@@ -129,6 +83,30 @@ public class PubItemUtil {
 
     } catch (final Exception e) {
       logger.error("Error getting external org id", e);
+    }
+  }
+
+  private static void adaptConeLinks(final CreatorVO creator) {
+    if (creator.getPerson() != null) {
+      //Make CoNE link relative
+      if (creator.getPerson().getIdentifier() != null && creator.getPerson().getIdentifier().getId() != null
+          && creator.getPerson().getIdentifier().getType() == IdType.CONE) {
+        String personsIdentifier = creator.getPerson().getIdentifier().getId();
+        if (personsIdentifier.startsWith("http")) {
+          creator.getPerson().getIdentifier().setId(ConeUtils.makeConePersonsLinkRelative(personsIdentifier));
+        }
+      }
+
+      for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
+        if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
+          organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+        }
+      }
+    } else {
+      if (creator.getOrganization() != null
+          && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
+        creator.getOrganization().setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+      }
     }
   }
 
