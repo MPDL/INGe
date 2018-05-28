@@ -483,7 +483,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
         creator.setObjectId(principal.getUserAccount().getObjectId());
-        creator.setName(principal.getUserAccount().getName());
+        //Remove name due to DSGVO
+        //creator.setName(principal.getUserAccount().getName());
         currentFileDbVO.setCreator(creator);
 
         // TODO Pid ?
