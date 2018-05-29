@@ -186,6 +186,15 @@ public class LoginHelper extends FacesBean {
   }
 
   public void logoutCallBySessionListener() {
+    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+    try {
+      ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request, response);
+    } catch (Exception e) {
+      logger.error("Error while logging out", e);
+    }
+    
     this.init();
   }
 

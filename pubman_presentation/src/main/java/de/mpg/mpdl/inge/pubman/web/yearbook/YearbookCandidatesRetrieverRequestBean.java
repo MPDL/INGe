@@ -225,11 +225,12 @@ public class YearbookCandidatesRetrieverRequestBean
   private QueryBuilder getInvalidMembersQuery() throws Exception {
 
     final YearbookItemSessionBean yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    
-   
+
+
     if (yisb.getInvalidItemMap().size() > 0) {
 
-      return QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, yisb.getInvalidItemMap().values().stream().map(i -> i.getObjectId()).collect(Collectors.toList()));
+      return QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,
+          yisb.getInvalidItemMap().values().stream().map(i -> i.getObjectId()).collect(Collectors.toList()));
     }
     return null;
 

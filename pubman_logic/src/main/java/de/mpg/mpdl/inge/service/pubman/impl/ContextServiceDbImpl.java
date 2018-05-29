@@ -115,7 +115,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
     toBeUpdatedContext.setAllowedSubjectClassifications(givenContext.getAllowedSubjectClassifications());
     toBeUpdatedContext.setContactEmail(givenContext.getContactEmail());
     toBeUpdatedContext.setWorkflow(givenContext.getWorkflow());
-    
+
     toBeUpdatedContext.setDescription(givenContext.getDescription());
     toBeUpdatedContext.setName(givenContext.getName());
 
@@ -124,13 +124,11 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
     if (givenContext.getName() == null || givenContext.getName().trim().isEmpty()) {
       throw new IngeApplicationException("A name is required");
     }
-    if(givenContext.getWorkflow() == null)
-    {
+    if (givenContext.getWorkflow() == null) {
       throw new IngeApplicationException("A workflow is required");
     }
-    
-    if(givenContext.getResponsibleAffiliations() == null || givenContext.getResponsibleAffiliations().isEmpty())
-    {
+
+    if (givenContext.getResponsibleAffiliations() == null || givenContext.getResponsibleAffiliations().isEmpty()) {
       throw new IngeApplicationException("A responsible affiliation is required");
     }
 

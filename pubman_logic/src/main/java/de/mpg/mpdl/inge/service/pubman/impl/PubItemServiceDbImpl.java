@@ -296,7 +296,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItem.setMessage(null);
     pubItem.setModificationDate(currentDate);
     AccountUserDbRO mod = new AccountUserDbRO();
-    mod.setName(userAccount.getName());
+    //Moved out due to DSGVO
+    //mod.setName(userAccount.getName());
     mod.setObjectId(userAccount.getObjectId());
     pubItem.setModifier(mod);
     pubItem.setObjectId(objectId);
@@ -326,7 +327,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     latestVersion.setModificationDate(currentDate);
     de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
-    mod.setName(modifierName);
+    //Moved out due do DSGVO
+    //mod.setName(modifierName);
     mod.setObjectId(modifierId);
     latestVersion.setModifier(mod);
     latestVersion.getObject().setLastModificationDate(currentDate);
@@ -481,7 +483,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
         creator.setObjectId(principal.getUserAccount().getObjectId());
-        creator.setName(principal.getUserAccount().getName());
+        //Remove name due to DSGVO
+        //creator.setName(principal.getUserAccount().getName());
         currentFileDbVO.setCreator(creator);
 
         // TODO Pid ?
