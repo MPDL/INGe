@@ -88,10 +88,10 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
       if (pssb.getStoredPubItems().size() > 0) {
 
         List<String> ids = pssb.getStoredPubItems().values().stream().map(i -> i.getObjectIdAndVersion()).collect(Collectors.toList());
-        
+
         QueryBuilder idQuery = QueryBuilders.termsQuery("_id", ids);
-        
-        
+
+
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
         SearchSourceBuilder ssb = new SearchSourceBuilder();
