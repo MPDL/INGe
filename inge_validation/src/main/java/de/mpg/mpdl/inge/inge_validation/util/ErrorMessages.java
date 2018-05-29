@@ -4,12 +4,10 @@ public class ErrorMessages {
   public static final String COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED = "ComponentContentCategoryNotProvided";
   public static final String COMPONENT_CONTENT_NOT_PROVIDED = "ComponentContentNotProvided";
   public static final String COMPONENT_FILE_NAME_NOT_PROVIDED = "ComponentFileNameNotProvided";
-  public static final String COMPONENT_MIME_TYPE_NOT_PROVIDED = "ComponentMimeTypeNotProvided";
   public static final String COMPONENT_VISIBILITY_NOT_PROVIDED = "ComponentVisibilityNotProvided";
   public static final String CONE_EMPTY_DDC_TITLE = "ConeEmptyDdcTitle";
   public static final String CONE_EMPTY_ISO639_3_TITLE = "ConeEmptyIso639_3_Title";
   public static final String CONE_EMPTY_LANGUAGE_CODE = "ConeEmptyLanguageCode";
-  public static final String CONE_EMPTY_MIME_TYPE = "ConeEmptyMimeType";
   public static final String CONE_EMPTY_MPIPKS_TITLE = "ConeEmptyMpipksTitle";
   public static final String CONE_EMPTY_MPIRG_TITLE = "ConeEmptyMpirgTitle";
   public static final String CONE_EMPTY_MPIS_GROUPS_TITLE = "ConeEmptyMpisGroupsTitle";
@@ -34,7 +32,6 @@ public class ErrorMessages {
   public static final String INCORRECT_MPIS_GROUPS_CLASSIFICATION = "IncorrectMPISGroupsClassification";
   public static final String INCORRECT_MPIS_PROJECTS_CLASSIFICATION = "IncorrectMPISProjectsClassification";
   public static final String LOCATOR_IS_NO_URI = "LocatorIsNoUri";
-  public static final String MIME_TYPE_NOT_VALID = "MimeTypeNotValid";
   public static final String NO_MAX_PLANCK_AFFILIATION = "NoMaxPlanckAffiliation";
   public static final String NO_SEQUENCE_INFORMATION_GIVEN = "NoSequenceInformationGiven";
   public static final String NO_YEARBOOK_GENRE = "NoYearbookGenre";

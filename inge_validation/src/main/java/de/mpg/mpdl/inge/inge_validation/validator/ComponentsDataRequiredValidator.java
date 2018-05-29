@@ -80,11 +80,6 @@ public class ComponentsDataRequiredValidator extends ValidatorHandler<List<FileD
             ok = false;
           }
 
-          if (!FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage()) && ValidationTools.isEmpty(fileDbVO.getMimeType())) {
-            context.addError(ValidationError.create(ErrorMessages.COMPONENT_MIME_TYPE_NOT_PROVIDED).setField("file[" + i + "]"));
-            ok = false;
-          }
-
           if (!FileDbVO.Storage.EXTERNAL_URL.equals(fileDbVO.getStorage()) && fileDbVO.getVisibility() == null) {
             context.addError(ValidationError.create(ErrorMessages.COMPONENT_VISIBILITY_NOT_PROVIDED).setField("file[" + i + "]"));
             ok = false;
