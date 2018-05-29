@@ -16,7 +16,6 @@ import com.sun.faces.config.ConfigureListener;
 
 import de.mpg.mpdl.inge.pubman.web.sword.PubManDepositServlet;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManServiceDocumentServlet;
-import de.mpg.mpdl.inge.pubman.web.util.filter.SessionTimeoutFilter;
 import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
 import de.mpg.mpdl.inge.pubman.web.util.listener.PubManSessionListener;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
@@ -55,15 +54,12 @@ public class WebAppInitializer implements WebApplicationInitializer {
     facesServlet.addMapping("/faces/*");
     facesServlet.setLoadOnStartup(2);
 
-    FilterRegistration.Dynamic sessionTimeoutFilter = servletContext.addFilter("Session Timeout Filter", SessionTimeoutFilter.class);
-    sessionTimeoutFilter.addMappingForServletNames(null, false, "Faces Servlet");
-
 
     // TODO ???? Was ist mit dem früheren InitializerServlet?
 
     // Sitemap
     FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
-    sitemapFilter.addMappingForServletNames(null, false, "Faces Servlet");
+    sitemapFilter.addMappingForUrlPatterns(null, false, "/*");
 
     // Statistic Servlet
     ServletRegistration statisticChartServlet = servletContext.addServlet("Statistic Chart Servlet", StatisticChartServlet.class);
