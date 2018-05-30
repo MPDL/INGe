@@ -32,7 +32,6 @@ import de.mpg.mpdl.inge.inge_validation.validator.SourcesGenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourcesTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.cone.ComponentsMimeTypeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -241,104 +240,6 @@ public class ValidationTest {
     Assert.assertTrue(complexResult.isSuccess());
 
     logger.info("--------------------- FINISHED testComponentDataRequired2 ---------------------");
-  }
-
-  @Ignore
-  @Test
-  public void testComponentMimeTypes1() throws Exception {
-    logger.info("--------------------- STARTING testComponentMimeTypes1 ---------------------");
-
-    final FileDbVO f1 = new FileDbVO();
-    final MdsFileVO m1 = new MdsFileVO();
-    m1.setTitle("blubb");
-    final FormatVO fo1 = new FormatVO();
-    fo1.setType(ComponentsMimeTypeValidator.IMT);
-    fo1.setValue("blubb");
-    m1.getFormats().add(0, fo1);
-    final FormatVO fo2 = new FormatVO();
-    fo2.setType("blubb");
-    fo2.setValue("blubb");
-    m1.getFormats().add(0, fo2);
-    f1.setMetadata(m1);
-    f1.setContent("blubb");
-    f1.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-    this.pubItemVO.getFiles().add(f1);
-
-    final FileDbVO f2 = new FileDbVO();
-    final MdsFileVO m2 = new MdsFileVO();
-    m2.setTitle("blubb");
-    final FormatVO fo3 = new FormatVO();
-    fo3.setType(ComponentsMimeTypeValidator.IMT);
-    fo3.setValue("blubb");
-    m2.getFormats().add(0, fo3);
-    final FormatVO fo4 = new FormatVO();
-    fo4.setType("blubb");
-    fo4.setValue("blubb");
-    m2.getFormats().add(0, fo4);
-    f2.setMetadata(m2);
-    f2.setContent("blubb");
-    f2.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-    this.pubItemVO.getFiles().add(f2);
-
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsMimeTypeValidator());
-
-    final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
-
-    logger.info(complexResult.toString());
-    // // LOG.info(this.validationService.convert(complexResult).toString());
-
-    Assert.assertFalse(complexResult.isSuccess());
-
-    logger.info("--------------------- FINISHED testComponentMimeTypes1 ---------------------");
-  }
-
-  @Ignore
-  @Test
-  public void testComponentMimeTypes2() throws Exception {
-    logger.info("--------------------- STARTING testComponentMimeTypes2 ---------------------");
-
-    final FileDbVO f1 = new FileDbVO();
-    final MdsFileVO m1 = new MdsFileVO();
-    m1.setTitle("blubb");
-    final FormatVO fo1 = new FormatVO();
-    fo1.setType(ComponentsMimeTypeValidator.IMT);
-    fo1.setValue("application/andrew-inset");
-    m1.getFormats().add(0, fo1);
-    final FormatVO fo2 = new FormatVO();
-    fo2.setType("blubb");
-    fo2.setValue("application/andrew-inset");
-    m1.getFormats().add(0, fo2);
-    f1.setMetadata(m1);
-    f1.setContent("blubb");
-    f1.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-    this.pubItemVO.getFiles().add(f1);
-
-    final FileDbVO f2 = new FileDbVO();
-    final MdsFileVO m2 = new MdsFileVO();
-    m2.setTitle("blubb");
-    final FormatVO fo3 = new FormatVO();
-    fo3.setType(ComponentsMimeTypeValidator.IMT);
-    fo3.setValue("application/andrew-inset");
-    m2.getFormats().add(0, fo3);
-    final FormatVO fo4 = new FormatVO();
-    fo4.setType("blubb");
-    fo4.setValue("application/andrew-inset");
-    m2.getFormats().add(0, fo4);
-    f2.setMetadata(m2);
-    f2.setContent("blubb");
-    f2.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-    this.pubItemVO.getFiles().add(f2);
-
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getFiles(), new ComponentsMimeTypeValidator());
-
-    final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
-
-    logger.info(complexResult.toString());
-    // // LOG.info(this.validationService.convert(complexResult).toString());
-
-    Assert.assertTrue(complexResult.isSuccess());
-
-    logger.info("--------------------- FINISHED testComponentMimeTypes2 ---------------------");
   }
 
   @Ignore
