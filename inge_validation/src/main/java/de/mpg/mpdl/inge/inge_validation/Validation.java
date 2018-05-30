@@ -148,8 +148,8 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_3:
-        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()).on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
+        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver().on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator())
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator())
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
@@ -164,8 +164,8 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_4:
-        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()).on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
+        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver().on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator())
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator())
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator())
