@@ -71,7 +71,7 @@
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
-					<xsl:variable name="currentAuthorId" select="concat(conePersonsIdIdentifier, substring-after(@rdf:about, conePersonsIdIdentifier))" />
+					<xsl:variable name="currentAuthorId" select="concat($conePersonsIdIdentifier, substring-after(@rdf:about, $conePersonsIdIdentifier))" />
 					<xsl:variable name="currentAuthorName" select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentAuthorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
@@ -122,7 +122,7 @@
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
-					<xsl:variable name="currentFirstEditorId" select="concat(conePersonsIdIdentifier, substring-after(@rdf:about, conePersonsIdIdentifier))" />
+					<xsl:variable name="currentFirstEditorId" select="concat($conePersonsIdIdentifier, substring-after(@rdf:about, $conePersonsIdIdentifier))" />
 					<xsl:variable name="currentFirstEditorName"	select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentFirstEditorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
@@ -168,7 +168,7 @@
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
 					<xsl:sort select="foaf:family_name" />
 					<xsl:sort select="foaf:givenname" />
-					<xsl:variable name="currentSecondEditorId" select="concat(conePersonsIdIdentifier, substring-after(@rdf:about, conePersonsIdIdentifier))" />
+					<xsl:variable name="currentSecondEditorId" select="concat($conePersonsIdIdentifier, substring-after(@rdf:about, $conePersonsIdIdentifier))" />
 					<xsl:variable name="currentSecondEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentSecondEditorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
