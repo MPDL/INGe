@@ -272,7 +272,25 @@ public class FileBean extends FacesBean {
     method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
   }
 
+  /**
+   * Returns the content category.
+   * 
+   * @return The internationalized content-category.
+   */
   public String getContentCategory() {
+    if (this.file.getMetadata().getContentCategory() != null) {
+      return file.getMetadata().getContentCategory();
+    }
+
+    return "";
+  }
+
+  /**
+   * Returns an internationalized String for the file's content category.
+   * 
+   * @return The internationalized content-category.
+   */
+  public String getContentCategoryLabel() {
     if (this.file.getMetadata().getContentCategory() != null) {
       return this.getLabel("ENUM_CONTENTCATEGORY_" + file.getMetadata().getContentCategory().toLowerCase().replace("_", "-"));
       /*

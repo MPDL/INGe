@@ -50,7 +50,7 @@
 								rendered="#{ViewItemFull.isStateWithdrawn}" />
 							<br />
 							<!-- Content category -->
-							<h:outputText value=" (#{locator.contentCategory})"
+							<h:outputText value=" (#{locator.contentCategoryLabel})"
 								rendered="#{!ViewItemFull.isStateWithdrawn}" />
 						</p>
 					</div>
