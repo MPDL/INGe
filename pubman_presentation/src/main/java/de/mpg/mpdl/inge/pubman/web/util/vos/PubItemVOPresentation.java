@@ -1303,7 +1303,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     final List<FileBean> fulltexts = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file.getContentCategory())) {
+        if ("any-fulltext".equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
       }
@@ -1324,10 +1324,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && (PubFileVOPresentation.getContentCategoryUri("ANY_FULLTEXT").equals(file.getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PRE_PRINT").equals(file.getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("POST_PRINT").equals(file.getContentCategory())
-                || PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION").equals(file.getContentCategory()))) {
+            && ("any-fulltext".equals(file.getContentCategory()) || "pre-print".equals(file.getContentCategory())
+                || "post-print".equals(file.getContentCategory()) || "publisher-version".equals(file.getContentCategory()))) {
           fulltexts.add(file);
         }
       }
@@ -1345,7 +1343,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     final List<FileBean> supplementaryMaterial = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getContentCategory())) {
+        if ("supplementary-material".equals(file.getContentCategory())) {
           supplementaryMaterial.add(file);
         }
       }
@@ -1366,7 +1364,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
         if (FileDbVO.Visibility.PUBLIC.equals(file.getFile().getVisibility())
-            && PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL").equals(file.getContentCategory())) {
+            && "supplementary-material".equals(file.getContentCategory())) {
           fulltexts.add(file);
         }
       }

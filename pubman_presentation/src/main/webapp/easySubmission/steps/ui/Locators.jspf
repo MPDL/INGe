@@ -103,7 +103,7 @@
 								</h:panelGroup>
 								<h:selectOneMenu id="selContentCategoryLoc" styleClass="replace"
 									onfocus="updateSelectionBox(this);"
-									value="#{locator.file.metadata.contentCategory}"
+									value="#{locator.file.metadata.contentCategoryLabel}"
 									onchange="updateSelectionBox(this);">
 									<f:selectItems id="selContentCategorysLoc"
 										value="#{EasySubmission.contentCategories}" />

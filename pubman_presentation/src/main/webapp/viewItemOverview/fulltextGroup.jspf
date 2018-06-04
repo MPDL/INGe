@@ -68,7 +68,7 @@
 								rendered="#{ViewItemFull.isStateWithdrawn}" />
 							<br />
 							<!-- Content category and file size -->
-							<h:outputText value=" (#{file.contentCategory})"
+							<h:outputText value=" (#{file.contentCategoryLabel})"
 								rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							<h:outputText value=", #{file.fileSize}"
 								rendered="#{!ViewItemFull.isStateWithdrawn}" />

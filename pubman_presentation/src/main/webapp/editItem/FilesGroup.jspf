@@ -48,7 +48,7 @@
 								<h:panelGroup styleClass="double_area0 selectionBox">&#160;</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 							</h:panelGroup>
-							<h:selectOneMenu id="selFileContentCategory" styleClass="replace" value="#{fileVar.contentCategoryAsXmlString}"
+							<h:selectOneMenu id="selFileContentCategory" styleClass="replace" value="#{fileVar.contentCategory}"
 								onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
 								<f:selectItems value="#{EditItem.contentCategories}" />
 							</h:selectOneMenu>

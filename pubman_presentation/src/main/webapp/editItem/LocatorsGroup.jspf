@@ -99,7 +99,7 @@
 										styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selLocatorContentCategory"
-									styleClass="replace" value="#{locator.contentCategoryAsXmlString}"
+									styleClass="replace" value="#{locator.contentCategory}"
 									onfocus="updateSelectionBox(this);"
 									onchange="updateSelectionBox(this);">
 									<f:selectItems value="#{EditItem.contentCategories}" />

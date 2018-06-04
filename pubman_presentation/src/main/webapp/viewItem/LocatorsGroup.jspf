@@ -36,7 +36,7 @@
 								<h:outputText value="#{locator.file.metadata.title}" />
 							</h:outputLink> <h:outputText value="#{locator.file.content}"
 								rendered="#{!locator.locatorIsLink}" /> <h:outputText
-								value=" (#{locator.contentCategory})" />
+								value=" (#{locator.contentCategoryLabel})" />
 						</span>
 					</h:panelGroup>
 					<!-- Locator description -->

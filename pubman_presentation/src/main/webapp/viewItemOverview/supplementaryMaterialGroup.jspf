@@ -62,7 +62,7 @@
 							<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}"
 								rendered="#{ViewItemFull.isStateWithdrawn}" />
 							<br />
-							<h:outputText value=" (#{file.contentCategory})"
+							<h:outputText value=" (#{file.contentCategoryLabel})"
 								rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							<h:outputText value=", #{file.fileSize}"
 								rendered="#{!ViewItemFull.isStateWithdrawn}" />
