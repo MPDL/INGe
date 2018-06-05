@@ -205,6 +205,8 @@ public class ViewItemFull extends FacesBean {
   private boolean isStateSubmitted = false;
   private boolean isStateWithdrawn = false;
   private boolean isWorkflowSimple = false;
+
+
   private boolean isWorkflowStandard = false;
 
   public ViewItemFull() {
@@ -1475,6 +1477,14 @@ public class ViewItemFull extends FacesBean {
 
   public void setStateWithdrawn(boolean isStateWithdrawn) {
     this.isStateWithdrawn = isStateWithdrawn;
+  }
+
+  public boolean getIsWorkflowSimple() {
+    return isWorkflowSimple;
+  }
+
+  public void setWorkflowSimple(boolean isWorkflowSimple) {
+    this.isWorkflowSimple = isWorkflowSimple;
   }
 
   public boolean getIsDepositor() {
