@@ -32,18 +32,17 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
  * @author franke
@@ -51,25 +50,33 @@ import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
  */
 @ManagedBean(name = "OrganizationSuggest")
 @SuppressWarnings("serial")
-public class OrganizationSuggest extends EditItemBean {
+public class OrganizationSuggest {
 
+  private List<OrganizationVOPresentation> results = new ArrayList<>();
 
   public OrganizationSuggest() throws Exception {
     // Get query from URL parameters
     final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
     final String query = parameters.get("q");
 
+
+
     // Perform search request
     if (query != null) {
-      QueryBuilder qb = QueryBuilders.boolQuery().should(QueryBuilders.multiMatchQuery(query,
-          OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES));
 
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 50, 0);
+      SearchSourceBuilder ssb = new SearchSourceBuilder();
 
-      SearchRetrieveResponseVO<AffiliationDbVO> response = ApplicationBean.INSTANCE.getOrganizationService().search(srr, null);
+      QueryBuilder qb =
+          QueryBuilders.boolQuery().should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_TITLE, query))
+              .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES, query));
 
-      for (final SearchRetrieveRecordVO<AffiliationDbVO> rec : response.getRecords()) {
-        final AffiliationDbVO affiliationVO = rec.getData();
+      //String[] returnFields = new String[] {OrganizationServiceDbImpl.INDEX_OBJECT_ID, OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_CITY};
+      ssb.query(qb).size(50);
+
+      SearchResponse resp = ApplicationBean.INSTANCE.getOrganizationService().searchDetailed(ssb, null);
+      List<AffiliationDbVO> resultList = SearchUtils.getRecordListFromElasticSearchResponse(resp, AffiliationDbVO.class);
+
+      for (final AffiliationDbVO affiliationVO : resultList) {
         final List<AffiliationDbVO> initList = new ArrayList<AffiliationDbVO>();
         initList.add(affiliationVO);
         final List<List<AffiliationDbVO>> pathList = this.getPaths(initList);
@@ -104,9 +111,9 @@ public class OrganizationSuggest extends EditItemBean {
             name = name + affVO.getMetadata().getName();
           }
           organizationVOPresentation.setName(name);
-          organizationVOPresentation.setBean(this);
 
-          this.getCreatorOrganizations().add(organizationVOPresentation);
+          this.results.add(organizationVOPresentation);
+
         }
       }
     }
@@ -142,4 +149,14 @@ public class OrganizationSuggest extends EditItemBean {
 
     return ApplicationBean.INSTANCE.getOrganizationService().get(affiliationRO.getObjectId(), null);
   }
+
+  public List<OrganizationVOPresentation> getResults() {
+    return results;
+  }
+
+  public void setResults(List<OrganizationVOPresentation> results) {
+    this.results = results;
+  }
+
+
 }

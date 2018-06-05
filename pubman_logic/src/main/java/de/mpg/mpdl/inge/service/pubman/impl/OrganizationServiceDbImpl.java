@@ -49,8 +49,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbVO, String> implements OrganizationService, ReindexListener {
 
   public final static String INDEX_OBJECT_ID = "objectId";
-  public final static String INDEX_METADATA_TITLE = "metadata.title";
+  public final static String INDEX_METADATA_TITLE = "metadata.name";
   public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "metadata.alternativeNames";
+  public final static String INDEX_METADATA_CITY = "metadata.city";
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliation.objectId";
   public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
 
