@@ -4,14 +4,14 @@
 		<f:loadBundle var="tip" basename="Tooltip"/>
 		
 		[
-			<ui:repeat var="ou" value="#{OrganizationSuggest.creatorOrganizations}">
+			<ui:repeat var="ou" value="#{OrganizationSuggest.results}" varStatus="index">
 				<h:panelGroup>
 					{
 						"id" : "<h:outputText value="#{ou.identifier}" escape="false"/>",
 						"value" : "<h:outputText value="#{ou.name}" escape="false"/>",
 						"address" : "<h:outputText value="#{ou.address}" escape="false"/>"
 					}
-					<h:panelGroup rendered="#{!ou.last}">,</h:panelGroup>
+					<h:panelGroup rendered="#{index.index lt OrganizationSuggest.results.size()-1}">,</h:panelGroup>
 				</h:panelGroup>
 			</ui:repeat>
 		]

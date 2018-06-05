@@ -157,7 +157,7 @@ public class ItemImportBean {
     */
 
     modifier.setObjectId(utils.changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
-    modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
+    // modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
 
     ItemVersionVO newPubItem = new ItemVersionVO();
     String currentFileId = "none";
@@ -173,11 +173,13 @@ public class ItemImportBean {
       metadata.setContentCategory(contentCategory);
 
       fileOwner.setObjectId(utils.changeId("user", oldFile.getCreatedByRO().getObjectId()));
-      fileOwner.setName(oldFile.getCreatedByRO().getTitle());
+      // fileOwner.setName(oldFile.getCreatedByRO().getTitle());
 
       FileDbVO file = new FileDbVO();
       file.setChecksum(oldFile.getChecksum());
-      file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
+      if (oldFile.getChecksumAlgorithm() != null) {
+        file.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(oldFile.getChecksumAlgorithm().name()));
+      }
       file.setCreationDate(oldFile.getCreationDate());
       file.setCreator(fileOwner);
       file.setLastModificationDate(oldFile.getLastModificationDate());
