@@ -70,7 +70,7 @@ public class OrganizationServiceHandlerTest extends TestBase {
 
   @Test
   public void testZDelete() {
-    String ouId = this.organizationDao.delete(test_ou_id);
+    String ouId = this.organizationDao.deleteImmediatly(test_ou_id);
     assertTrue("Ou id differs: is <" + ouId + "> expected <" + test_ou_id + ">", ouId.equals(test_ou_id));
   }
 }

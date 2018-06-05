@@ -88,7 +88,7 @@ public class ItemServiceHandlerTest extends TestBase {
   @Ignore
   @Test
   public void testZDelete() {
-    String itemId = this.itemDao.delete(test_item_id);
+    String itemId = this.itemDao.deleteImmediatly(test_item_id);
     assert itemId.equals(test_item_id);
   }
 }

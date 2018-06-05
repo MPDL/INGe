@@ -537,7 +537,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
     for (SearchRetrieveRecordVO<ItemVersionVO> rec : resp.getRecords()) {
-      pubItemDao.delete(rec.getPersistenceId());
+      pubItemDao.deleteImmediatly(rec.getPersistenceId());
       pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, rec.getPersistenceId()));
     }
     sendEventTopic(latestPubItemDbVersion, "delete");

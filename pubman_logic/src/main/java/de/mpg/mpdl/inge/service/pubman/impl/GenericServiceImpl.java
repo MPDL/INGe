@@ -119,7 +119,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     checkAa("delete", principal, objectToBeDeleted);
     getDbRepository().delete(id);
     if (getElasticDao() != null) {
-      getElasticDao().delete(getIdForElasticSearch(id));
+      getElasticDao().deleteImmediatly(getIdForElasticSearch(id));
     }
 
   }
