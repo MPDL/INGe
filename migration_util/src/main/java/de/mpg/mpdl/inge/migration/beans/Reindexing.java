@@ -49,6 +49,7 @@ public class Reindexing {
   public void reindexItem(String id) throws Exception {
     System.out.println("SERVICE? " + itemService);
     itemService.reindex(id, null);
+    Thread.sleep(100000);
   }
 
 }

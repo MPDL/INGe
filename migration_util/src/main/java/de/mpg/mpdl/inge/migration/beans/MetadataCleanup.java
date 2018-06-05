@@ -33,7 +33,7 @@ public class MetadataCleanup {
   private static List<IdentifierVO> pimpIds(List<IdentifierVO> ids2pimp) {
 
     ids2pimp.stream().forEach(id -> {
-      if (id.getType().name().equals(IdentifierVO.IdType.CONE.name())) {
+      if (id.getType() != null && id.getType().name().equals(IdentifierVO.IdType.CONE.name())) {
         String cone_id = id.getId();
         if (!cone_id.isEmpty()) {
           id.setId(cone_id.substring(cone_id.lastIndexOf("cone") + 4));
@@ -48,8 +48,12 @@ public class MetadataCleanup {
 
     list2pimp.stream().forEach(creator -> {
       if (creator.getType().name().equals(CreatorVO.CreatorType.ORGANIZATION.name())) {
-        String ou_id = creator.getOrganization().getIdentifier();
-        creator.getOrganization().setIdentifier(ou_id.replaceAll("escidoc:", "ou_"));
+        if (creator.getOrganization().getIdentifier() != null) {
+          String ou_id = creator.getOrganization().getIdentifier();
+          creator.getOrganization().setIdentifier(ou_id.replaceAll("escidoc:", "ou_"));
+        } else {
+          // creator.getOrganization().setIdentifier("ou_persistent22");
+        }
       } else {
         try {
           if (creator.getPerson().getIdentifier() != null) {

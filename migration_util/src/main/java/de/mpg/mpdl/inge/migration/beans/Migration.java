@@ -1,72 +1,13 @@
 package de.mpg.mpdl.inge.migration.beans;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.util.EntityUtils;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.ingest.GetPipelineAction;
-import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import de.mpg.mpdl.inge.db.repository.ContextRepository;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
-import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
-import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
-import de.mpg.mpdl.inge.db.repository.ItemRepository;
-import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
-import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
-import de.mpg.mpdl.inge.db.repository.UserLoginRepository;
-import de.mpg.mpdl.inge.db.repository.YearbookRepository;
-import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO.Workflow;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.referenceobjects.AffiliationRO;
-import de.mpg.mpdl.inge.model.valueobjects.AccountUserVO;
-import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.UserAttributeVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
-import de.mpg.mpdl.inge.util.AdminHelper;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Component
 public class Migration {
@@ -122,8 +63,16 @@ public class Migration {
           reIndexing.reindexItem(id);
         }
         break;
-      case "continue":
-        Thread.sleep(1800000);
+      case "list":
+        if (id != null) {
+          Path list = Paths.get(id);
+          try {
+            Files.lines(list).parallel().forEach(line -> itemImport.importSinglePubItem(line));
+          } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        }
         break;
       case "users":
         userImport.importUsers();
