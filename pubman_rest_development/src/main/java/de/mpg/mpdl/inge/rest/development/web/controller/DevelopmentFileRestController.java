@@ -26,9 +26,9 @@ import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
 @RequestMapping("/development")
 public class DevelopmentFileRestController {
 
-  private static final String COMPONENT_NAME_PATH = "/component/{componentName:[\\w\\-\\+. ]+}";
+  private static final String COMPONENT_NAME_PATH = "/component/{componentName:.*}";
   private static final String COMPONENT_LOCAL_PATH =
-      "/component/{componentPathYear:.*}/{componentPathMonth:.*}/{componentPathDay:.*}/{componentName:[\\w\\-\\+. ]+}";
+      "/component/{componentPathYear:.*}/{componentPathMonth:.*}/{componentPathDay:.*}/{componentName:.*}";
 
   /**
    * generate a File via REST for development issues

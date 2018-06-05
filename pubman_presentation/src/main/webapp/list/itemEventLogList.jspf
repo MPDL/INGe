@@ -13,7 +13,7 @@
 				    id="lnkRollback"
 				    action="#{versionEntry.rollback}"
 					value="#{lbl.ViewItemFull_lblRollback}"
-					rendered="#{index.index > 0 and ViewItemFull.isModerator and (ViewItemFull.canEdit or ViewItemFull.canModify)}"
+					rendered="#{index.index > 0 and (ViewItemFull.isModerator or (ViewItemFull.isOwner and ViewItemFull.isWorkflowSimple))}"
 					onclick="if(!confirm('#{msg.ConfirmRollbackItemVersion}')){return false;}" />
 			</h3>
 			<h:panelGroup styleClass="seperator" />
