@@ -183,6 +183,21 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
    * @param id
    * @return {@link String}
    */
+  public String deleteImmediatly(String id) {
+
+    DeleteResponse deleteResponse =
+        client.getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).setRefreshPolicy(RefreshPolicy.IMMEDIATE).get();
+    return deleteResponse.getId();
+
+  }
+
+  /**
+   * 
+   * @param indexName
+   * @param indexType
+   * @param id
+   * @return {@link String}
+   */
   public String delete(String id) {
 
     DeleteResponse deleteResponse = client.getClient().prepareDelete().setIndex(indexName).setType(indexType).setId(id).get();

@@ -66,6 +66,8 @@ public interface GenericDaoEs<E> {
    * @param id
    * @return {@link String}
    */
+  public String deleteImmediatly(String id);
+
   public String delete(String id);
 
   public long deleteByQuery(QueryBuilder query) throws IngeTechnicalException;
