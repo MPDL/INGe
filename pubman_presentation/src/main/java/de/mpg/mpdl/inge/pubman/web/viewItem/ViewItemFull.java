@@ -115,6 +115,7 @@ import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -814,7 +815,7 @@ public class ViewItemFull extends FacesBean {
 
         if (creator1.getPerson().getIdentifier() != null && (creator1.getPerson().getIdentifier().getType() == IdType.CONE)) {
           try {
-            creatorDisplay.setPortfolioLink(creator1.getPerson().getIdentifier().getId());
+            creatorDisplay.setPortfolioLink(ConeUtils.makeConePersonsLinkFull(creator1.getPerson().getIdentifier().getId()));
           } catch (final Exception e) {
             throw new RuntimeException(e);
           }
@@ -1212,6 +1213,10 @@ public class ViewItemFull extends FacesBean {
     }
 
     return contextName;
+  }
+
+  public String getConeServiceUrl() {
+    return ConeUtils.getConeServiceUrl();
   }
 
   public AccountUserDbRO getOwner() {

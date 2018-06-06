@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.ObjectFormatter;
 import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
+import de.mpg.mpdl.inge.util.ConeUtils;
 
 /**
  * Bean for creating the source section of a pubitem to be used in the ViewItemFullUI.
@@ -162,7 +163,7 @@ public class SourceBean extends FacesBean {
 
         if (creator1.getPerson().getIdentifier() != null && (creator1.getPerson().getIdentifier().getType() == IdType.CONE)) {
           try {
-            creatorDisplay.setPortfolioLink(creator1.getPerson().getIdentifier().getId());
+            creatorDisplay.setPortfolioLink(ConeUtils.makeConePersonsLinkFull(creator1.getPerson().getIdentifier().getId()));
           } catch (final Exception e) {
             throw new RuntimeException(e);
           }

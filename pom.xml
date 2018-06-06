@@ -945,7 +945,7 @@
 		<inge.cone.modelsxml.path>models.xml</inge.cone.modelsxml.path>
 		<inge.cone.mulgara.server.name />
 		<inge.cone.mulgara.server.port />
-		<inge.cone.person.id.identifier>persons/resource/</inge.cone.person.id.identifier>
+		<inge.cone.person.id.identifier>/persons/resource/</inge.cone.person.id.identifier>
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
 		<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects</inge.cone.subjectVocab>

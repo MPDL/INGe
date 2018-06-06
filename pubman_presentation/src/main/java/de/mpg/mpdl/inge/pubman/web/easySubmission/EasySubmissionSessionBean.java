@@ -38,6 +38,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
+import de.mpg.mpdl.inge.util.ConeUtils;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving
@@ -295,4 +296,9 @@ public class EasySubmissionSessionBean extends EditItemBean {
   public void initAuthorCopyPasteCreatorBean() {
     this.setShowAuthorCopyPaste("");
   }
+
+  public String getConeServiceUrl() {
+    return ConeUtils.getConeServiceUrl();
+  }
+
 }

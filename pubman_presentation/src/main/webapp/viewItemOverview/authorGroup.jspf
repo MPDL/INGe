@@ -98,7 +98,7 @@
 							<!-- Author name with CoNE link -->
 							<h:panelGroup styleClass="author_name"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
-								<h:outputLink value="#{creator.person.identifier.id}">
+								<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}">
 									<h:outputText value="#{creator.person.familyName}"
 										rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;
 								<h:outputText value="#{creator.person.givenName}"
