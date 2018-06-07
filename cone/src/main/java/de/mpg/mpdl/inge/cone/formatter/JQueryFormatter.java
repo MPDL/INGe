@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.Pair;
 import de.mpg.mpdl.inge.cone.TreeFragment;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -142,7 +143,7 @@ public class JQueryFormatter extends AbstractFormatter {
           result.append(value.toString());
           result.append("|");
           try {
-            result.append(PropertyReader.getProperty("inge.cone.service.url") + key);
+            result.append(ConeUtils.makeConePersonsLinkFull(ConeUtils.convertConeId2EsId(key)));
           } catch (Exception e) {
             throw new ConeException(e);
           }

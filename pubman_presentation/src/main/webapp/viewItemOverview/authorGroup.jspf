@@ -63,34 +63,34 @@
 						<h:panelGroup styleClass="image"
 							rendered="#{ViewItemFull.specificOrganization == 'Max Planck Society'}">
 							<!-- Standard image for MPG-Authors with CoNE link -->
-							<h:outputLink value="#{creator.person.identifier.id}"
-								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
+							<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
+								target="_blank">
 								<img src="../resources/images/overviewPage/MPG_authors_64.png"
-									class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+									 class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
 							</h:outputLink>
 							<!-- Standard image for MPG-Authors without CoNE link -->
 							<h:panelGroup
 								rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
 								<img src="../resources/images/overviewPage/MPG_authors_64.png"
-									class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+									 class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<!-- Opensource specific -->
 						<h:panelGroup styleClass="image"
 							rendered="#{ViewItemFull.specificOrganization != 'Max Planck Society'}">
 							<!-- Standard image for MPG-Authors with CoNE link -->
-							<h:outputLink value="#{creator.person.identifier.id}"
-								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
-								<img
-									src="../resources/images/overviewPage/opensource_authors_64.png"
+							<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
+								target="_blank">
+								<img src="../resources/images/overviewPage/opensource_authors_64.png"
 									class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
 							</h:outputLink>
 							<!-- Standard image for MPG-Authors without CoNE link -->
 							<h:panelGroup
 								rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
-								<img
-									src="../resources/images/overviewPage/opensource_authors_64.png"
-									class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+								<img src="../resources/images/overviewPage/opensource_authors_64.png"
+									 class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<!-- Author textual information -->
@@ -98,7 +98,8 @@
 							<!-- Author name with CoNE link -->
 							<h:panelGroup styleClass="author_name"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
-								<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}">
+								<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}" 
+								    target="_blank">
 									<h:outputText value="#{creator.person.familyName}"
 										rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;
 								<h:outputText value="#{creator.person.givenName}"

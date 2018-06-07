@@ -312,7 +312,7 @@
 								action="#{AdvancedSearchBean.removeAutoSuggestValues(indexVar)}">
 								<f:ajax render="form1:editSearch" execute="@form" />
 							</h:commandButton>
-							<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{criterion.hiddenId}"
+							<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{AdvancedSearchBean.coneServiceUrl}#{criterion.hiddenId}"
 								rendered="#{criterion.hiddenId != null and criterion.hiddenId != ''}" target="_blank">&#160;</h:outputLink>
 							<h:panelGroup rendered="#{criterion.hiddenId == null || criterion.hiddenId == ''}"
 								styleClass="xSmall_area0 authorLink">&#160;</h:panelGroup>

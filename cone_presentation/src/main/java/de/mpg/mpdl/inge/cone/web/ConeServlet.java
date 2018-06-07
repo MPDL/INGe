@@ -77,6 +77,7 @@ import de.mpg.mpdl.inge.cone.QuerierFactory;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.formatter.AbstractFormatter;
 import de.mpg.mpdl.inge.cone.util.Rdfs;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -260,7 +261,7 @@ public class ConeServlet extends HttpServlet {
       String id = null;
 
       if (path.length >= 4) {
-        id = path[1] + "/" + path[2] + "/" + path[3];
+        id = ConeUtils.makeConePersonsLinkRelative(path);
       }
 
       try {

@@ -87,6 +87,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "AdvancedSearchBean")
@@ -1121,5 +1122,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.identifierTypesListMenu = identifierTypesListMenu;
   }
 
+  public String getConeServiceUrl() {
+    return ConeUtils.getConeServiceUrl();
+  }
 
 }
