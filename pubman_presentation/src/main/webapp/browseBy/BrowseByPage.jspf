@@ -133,7 +133,7 @@
 			</span>
 			<div class="free_area0 itemBlockContent endline">
 				<ui:repeat var="year" id="yearIter"
-					value="#{BrowseBySessionBean.yearMap.keySet().toArray()}">
+					value="#{BrowseBySessionBean.yearMapSortedKeyArray}">
 					<div class="large_area0 noTopBorder"
 						style="padding-left: 8px !important;">
 						<span class="seperator"></span>
