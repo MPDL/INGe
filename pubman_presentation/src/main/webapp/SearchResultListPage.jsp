@@ -165,13 +165,13 @@
                                 </h:panelGroup>
                                 <!-- Subheadline ends here -->
                             </h:panelGroup>
+                            <!-- 
                             <h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}">
-                                <!-- Subheadline starts here -->
                                 <h:outputLink id="lnkAffiliationTreePage" styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp">
                                     <h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}" />
                                 </h:outputLink>
-                                <!-- Subheadline ends here -->
                             </h:panelGroup>
+                             -->
                             <div style="clear: both; margin-top: 0.6363em;">
                                 <!-- Subheadline starts here -->
                                 <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.numberOfMessages == 1}" />
