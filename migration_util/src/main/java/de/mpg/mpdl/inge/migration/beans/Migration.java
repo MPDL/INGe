@@ -28,6 +28,8 @@ public class Migration {
   @Autowired
   private ItemImportBean itemImport;
   @Autowired
+  private YearBookImportBean ybImport;
+  @Autowired
   private MigrationUtilBean util;
 
   public void run(String what, String id) throws Exception {
@@ -77,6 +79,12 @@ public class Migration {
       case "users":
         userImport.importUsers();
         break;
+      case "single_user":
+    	  if (id !=null) {
+    		  userImport.importSingleUser(id);
+    		  reIndexing.reindexUser(id.replace("escidoc:", "user_"));
+    	  }
+    	  break;
       case "users_reindex":
         reIndexing.reindexUsers();
         break;
@@ -89,6 +97,16 @@ public class Migration {
         userImport.importUsers();
         userImport.importLogins();
         itemImport.importPubItems();;
+        break;
+      case "yb":
+        ybImport.importYearBooks();
+        reIndexing.reindexYBs();
+        break;
+      case "single_yb":
+        if (id != null) {
+          ybImport.importSingleYearbook(id);
+          reIndexing.reindexYB(id.replace("escidoc:", "yb_"));
+        }
         break;
       default:
         log.info("you don't really know, what exactly you want to do!!!");
