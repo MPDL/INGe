@@ -71,14 +71,11 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.ViewItemRevisionsPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
-import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
-import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
@@ -90,7 +87,6 @@ import de.mpg.mpdl.inge.pubman.web.releaseItem.ReleaseItem;
 import de.mpg.mpdl.inge.pubman.web.releases.ItemVersionListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.releases.ReleaseHistory;
 import de.mpg.mpdl.inge.pubman.web.reviseItem.ReviseItem;
-import de.mpg.mpdl.inge.pubman.web.revisions.RelationListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.submitItem.SubmitItem;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -177,7 +173,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canDelete = false;
   private boolean canWithdraw = false;
   private boolean canModify = false;
-  private boolean canCreateNewRevision = false;
   private boolean canCreateFromTemplate = false;
   private boolean canAddToBasket = false;
   private boolean canDeleteFromBasket = false;
@@ -185,7 +180,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canManageAudience = false;
   private boolean canShowItemLog = false;
   private boolean canShowStatistics = false;
-  private boolean canShowRevisions = false;
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
 
@@ -575,54 +569,9 @@ public class ViewItemFull extends FacesBean {
   }
 
   /**
-   * Redirects the user to the create new revision page Changed by DiT, 29.11.2007: only show
-   * contexts when user has privileges for more than one context
-   * 
-   * @return Sring nav rule to load the create new revision page
-   */
-  public String createNewRevision() {
-    // clear the list of locators and files when start creating a new revision
-    this.getEditItemSessionBean().clean();
-
-    // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one
-    // context
-    // if there is only one context for this user we can skip the CreateItem-Dialog and create the
-    // new item directly
-    if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0) {
-      ViewItemFull.logger.warn("The user does not have privileges for any context.");
-      this.error(this.getMessage("ViewItemFull_user_has_no_context"));
-      return null;
-    }
-
-    if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1) {
-      final ContextDbVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
-      return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, context, this.getPubItem(), null);
-    }
-
-    final ContextDbVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
-    // more than one context exists for this user; let him choose the right one
-    this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
-    // Set submission method for correct redirect
-    ((CreateItem) FacesTools.findBean("CreateItem")).setMethod(SubmissionMethod.FULL_SUBMISSION);
-
-    return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context, this.getPubItem(), null);
-  }
-
-  /**
-   * Redirects the user to the View revisions page.
-   * 
-   * @return Sring nav rule to load the create new revision page.
-   */
-  public String showRevisions() {
-    this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
-
-    return ViewItemRevisionsPage.LOAD_VIEWREVISIONS;
-  }
-
-  /**
    * Redirects the user to the statistics page.
    * 
-   * @return String nav rule to load the create new revision page.
+   * @return String navigation rule to load statistics page
    */
   public String showStatistics() {
     return ViewItemStatisticsPage.LOAD_VIEWSTATISTICS;
@@ -631,7 +580,7 @@ public class ViewItemFull extends FacesBean {
   /**
    * Redirects the user to the Item Log page.
    * 
-   * @return String nav rule to load the create new revision page.
+   * @return String nav rule to load item log page
    */
   public String showItemLog() {
     this.getItemVersionListSessionBean().resetVersionLists();
@@ -1982,10 +1931,6 @@ public class ViewItemFull extends FacesBean {
       this.canModify = true;
     }
 
-    if (this.isStateReleased && this.isLatestRelease && this.isDepositor) {
-      this.canCreateNewRevision = true;
-    }
-
     if (!this.isStateWithdrawn && this.isLatestVersion && this.isDepositor) {
       this.canCreateFromTemplate = true;
     }
@@ -2012,7 +1957,6 @@ public class ViewItemFull extends FacesBean {
 
     if (this.isLatestRelease && !this.isStateWithdrawn) {
       this.canShowStatistics = true;
-      this.canShowRevisions = true;
     }
 
     if (this.pubItem != null && (!this.isStateWithdrawn && this.isLatestRelease)
@@ -2057,10 +2001,6 @@ public class ViewItemFull extends FacesBean {
     return this.canModify;
   }
 
-  public boolean isCanCreateNewRevision() {
-    return this.canCreateNewRevision;
-  }
-
   public boolean isCanCreateFromTemplate() {
     return this.canCreateFromTemplate;
   }
@@ -2087,10 +2027,6 @@ public class ViewItemFull extends FacesBean {
 
   public boolean isCanShowStatistics() {
     return this.canShowStatistics;
-  }
-
-  public boolean isCanShowRevisions() {
-    return this.canShowRevisions;
   }
 
   public boolean isCanShowReleaseHistory() {
@@ -2220,10 +2156,6 @@ public class ViewItemFull extends FacesBean {
 
   private ItemVersionListSessionBean getItemVersionListSessionBean() {
     return (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
-  }
-
-  private RelationListSessionBean getRelationListSessionBean() {
-    return (RelationListSessionBean) FacesTools.findBean("RelationListSessionBean");
   }
 
   private ContextListSessionBean getCollectionListSessionBean() {
