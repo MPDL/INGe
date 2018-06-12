@@ -80,8 +80,6 @@
 								<li><span class="titlemark">3.4.1.</span><a
 									href="#Freigabegeschichte_einsehen">Freigabegeschichte
 										einsehen</a></li>
-								<li><span class="titlemark">3.4.2.</span><a
-									href="#Revisionen_einsehen">Revisionen einsehen</a></li>
 								<li><span class="titlemark">3.4.3.</span><a
 									href="#Statistik_zum_Datensatz_einsehen">Statistik zum
 										Datensatz einsehen</a></li>
@@ -438,14 +436,6 @@
 			<p class="noindent">Hier werden alle freigegebenen Versionen
 				eines Datensatzes angezeigt, und Sie k&#246;nnen Ver&#228;nderungen
 				am Metadatensatz nachvollziehen</p>
-			<h4 id="Revisionen_einsehen">
-				<span class="titlemark">3.4.2.</span><a>Revisionen einsehen</a>
-			</h4>
-			<p class="noindent">Eine Revision ist eine inhaltlich
-				ver&#228;nderte oder neu bearbeitete Version, die mit dem
-				urspr&#252;nglichen Datensatz verlinkt ist. Unter "Revisionen
-				einsehen" werden Ihnen alle Revisionen eines Datensatzes angezeigt.
-			</p>
 			<h4 id="Statistik_zum_Datensatz_einsehen">
 				<span class="titlemark">3.4.3.</span><a>Statistik zum Datensatz
 					einsehen</a>
@@ -600,17 +590,6 @@
 				die Richtigkeit dieser Rechte-Angaben im Vorfeld zu
 				&#252;berpr&#252;fen!
 			</p>
-			<h3 id="Revision_anlegen">
-				<span class="titlemark">4.3.</span><a>Eine neue Revision anlegen</a>
-			</h3>
-			<p class="noindent">Eine neue Revision ist eine intellektuell
-				&#252;berarbeitete Version eines Werkes (z.B. erst Pre Print, dann
-				Post Print). Bitte beachten Sie, dass jede neue Revision ein neuer,
-				separater Datensatz ist, der mit dem urspr&#252;nglichen Datensatz
-				verkn&#252;pft ist ("ist Revision von").</p>
-			<p class="noindent">Bevor Sie die Revision (den neuen Datensatz)
-				freigeben, haben Sie die M&#246;glichkeit, einen Kommentar hierzu
-				abzugeben.</p>
 			<h3 id="Validierung">
 				<span class="titlemark">4.4.</span><a>Validierung</a>
 			</h3>

@@ -161,15 +161,6 @@
 		<from-view-id>
 			*</from-view-id>
 		<navigation-case>
-			<from-outcome>loadViewRevisions</from-outcome>
-			<to-view-id>
-				/ViewItemRevisionsPage.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>
-			*</from-view-id>
-		<navigation-case>
 			<from-outcome>loadNewEasySubmission</from-outcome>
 			<to-view-id>
 				/EasySubmissionPage.jsp</to-view-id>

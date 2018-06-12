@@ -81,12 +81,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
   private String descriptionMetaTag;
 
   /**
-   * True if the item is shown in the revisions list, additional information is displayed then
-   * (release date, description)
-   */
-  private boolean isRevisionView = false;
-
-  /**
    * The list of formatted organzations in an ArrayList.
    */
   private ArrayList<String> organizationArray;
@@ -1185,14 +1179,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
 
   public void setAllCreatorsList(ArrayList<String> allCreatorsList) {
     this.allCreatorsList = allCreatorsList;
-  }
-
-  public boolean getIsRevisionView() {
-    return this.isRevisionView;
-  }
-
-  public void setIsRevisionView(boolean isRevisionView) {
-    this.isRevisionView = isRevisionView;
   }
 
   public boolean isSearchResult() {

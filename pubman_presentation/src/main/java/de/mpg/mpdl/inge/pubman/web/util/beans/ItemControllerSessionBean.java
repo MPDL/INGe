@@ -128,10 +128,9 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   /**
-   * Redirects the user to the create new revision page Changed by DiT, 29.11.2007: only show
-   * contexts when user has privileges for more than one context
+   * use an old item as template to creat a new one
    * 
-   * @return Sring nav rule to load the create new revision page
+   * @return String navigation to edit Item
    */
   public String createItemFromTemplate() {
     // clear the list of locators and files when start creating a new revision
@@ -206,27 +205,6 @@ public class ItemControllerSessionBean extends FacesBean {
     this.setCurrentPubItem(new PubItemVOPresentation(newPubItem));
 
     return navigationRuleWhenSuccessful;
-  }
-
-  /**
-   * Creates a new Revision of a PubItem and handles navigation afterwards.
-   * 
-   * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the
-   *        operation is successfull
-   * @param pubContextRO the context for the new revision
-   * @param pubItem the base item for the new revision
-   * @param comment the description for the new revision
-   * @return string, identifying the page that should be navigated to after this methodcall
-   */
-  public String createNewRevision(String navigationRuleWhenSuccessfull, final ContextDbRO pubContextRO, final ItemVersionVO pubItem,
-      String comment) {
-    final ItemVersionVO newRevision =
-        PubItemUtil.createRevisionOfPubItem(pubItem, comment, pubContextRO, this.getLoginHelper().getAccountUser());
-
-    // setting the returned item as new currentItem
-    this.setCurrentPubItem(new PubItemVOPresentation(this.initializeItem(newRevision)));
-
-    return navigationRuleWhenSuccessfull;
   }
 
   /**
@@ -322,8 +300,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   /**
-   * Initializes a new item with ValueObjects. FrM: Changes to be able to initialize an item created
-   * as a new revision of an existing item.
+   * Initializes a new item with ValueObjects.
    * 
    * @return the initialized item.
    */
@@ -600,83 +577,6 @@ public class ItemControllerSessionBean extends FacesBean {
     return resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
   }
 
-  /**
-   * @author Markus Haarlaender
-   * @param pubItemVO the pubitem (a revision) for which the parent items should be fetched
-   * @return a list of wrapped ReleationVOs that contain information about the items from which this
-   *         revision was created
-   */
-
-  public List<RelationVOPresentation> retrieveParentsForRevision(ItemVersionVO pubItemVO) throws Exception {
-    List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
-
-    if (this.getLoginHelper().getESciDocUserHandle() != null) {
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findParentItemsOfRevision(this.getLoginHelper().getESciDocUserHandle(), pubItemVO));
-    } else {
-      final String adminHandle = AdminHelper.getAdminUserHandle();
-      // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
-      // changes this retrieve method for unauthorized users)
-      revisionVOList =
-          CommonUtils.convertToRelationVOPresentationList(DataGatheringService.findParentItemsOfRevision(adminHandle, pubItemVO));
-    }
-
-    final List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
-    for (final RelationVOPresentation relationVOPresentation : revisionVOList) {
-      targetItemRefs.add(relationVOPresentation.getTargetItemRef());
-    }
-
-    final List<ItemVersionVO> targetItemList = this.retrieveItems(targetItemRefs);
-    for (final RelationVOPresentation revision : revisionVOList) {
-      for (final ItemVersionVO pubItem : targetItemList) {
-        if (revision.getTargetItemRef().getObjectId().equals(pubItem.getObjectId())) {
-          revision.setTargetItem(pubItem);
-          break;
-        }
-      }
-    }
-
-    return revisionVOList;
-  }
-
-
-  /**
-   * @author Tobias Schraut
-   * @param pubItemVO the pubitem for which the revisions should be fetched
-   * @return a list of wrapped released ReleationVOs
-   */
-
-  public List<RelationVOPresentation> retrieveRevisions(ItemVersionVO pubItemVO) throws Exception {
-    List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
-
-    if (this.getLoginHelper().getESciDocUserHandle() != null) {
-      revisionVOList = CommonUtils.convertToRelationVOPresentationList(
-          DataGatheringService.findRevisionsOfItem(this.getLoginHelper().getESciDocUserHandle(), pubItemVO));
-    } else {
-      // TODO ScT: retrieve as super user (workaround for not logged in users until the framework
-      // changes this retrieve method for unauthorized users)
-      revisionVOList = CommonUtils
-          .convertToRelationVOPresentationList(DataGatheringService.findRevisionsOfItem(AdminHelper.getAdminUserHandle(), pubItemVO));
-    }
-
-    final List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
-    for (final RelationVOPresentation relationVOPresentation : revisionVOList) {
-
-      sourceItemRefs.add(relationVOPresentation.getSourceItemRef());
-    }
-
-    final List<ItemVersionVO> sourceItemList = this.retrieveItems(sourceItemRefs);
-    for (final RelationVOPresentation revision : revisionVOList) {
-      for (final ItemVersionVO pubItem : sourceItemList) {
-        if (revision.getSourceItemRef().getObjectId().equals(pubItem.getObjectId())) {
-          revision.setSourceItem(pubItem);
-          break;
-        }
-      }
-    }
-
-    return revisionVOList;
-  }
 
 
   /**

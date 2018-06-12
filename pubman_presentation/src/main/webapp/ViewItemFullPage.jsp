@@ -86,8 +86,6 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canWithdraw}" />
                                     <h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.canModify}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canModify}" />
-                                    <h:commandLink id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}" value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{ViewItemFull.canCreateNewRevision}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canCreateNewRevision}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" rendered="#{ViewItemFull.canCreateFromTemplate}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canCreateFromTemplate}" />
                                     <h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{ViewItemFull.canAddToBasket}" onclick="fullItemReloadAjax();" />
@@ -315,12 +313,6 @@
 										action="#{ViewItemFull.showStatistics}"
 										rendered="#{ViewItemFull.canShowStatistics}">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.canShowRevisions}" /> <h:commandLink
-										id="lnkViewItemFull_btnItemRevisions" styleClass="free_area0"
-										action="#{ViewItemFull.showRevisions}"
-										rendered="#{ViewItemFull.canShowRevisions}">
-										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowReleaseHistory}" /> <h:commandLink
 										id="lnkViewItemFull_btnItemVersions" styleClass="free_area0"

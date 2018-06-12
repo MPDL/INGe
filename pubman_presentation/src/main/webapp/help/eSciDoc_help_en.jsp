@@ -76,8 +76,6 @@
 							<ul>
 								<li><span class="titlemark">3.4.1.</span><a
 									href="#View_Release_History">View release History</a></li>
-								<li><span class="titlemark">3.4.2.</span><a
-									href="#View%20Item_Revisions">View Revisions</a></li>
 								<li><span class="titlemark">3.4.3.</span><a rel="tag"
 									href="#View_Item_Statistics">View Item Statistics</a></li>
 								<li><span class="titlemark">3.4.4.</span><a
@@ -405,13 +403,6 @@
 			<p class="noindent">All released versions of an item are
 				displayed here, so that you can track all changes on an item.</p>
 			<h4>
-				<span class="titlemark">3.4.2.</span><a>View Item Revisions</a>
-			</h4>
-			<p class="noindent">A revision is an intellectually modified or
-				re-processed version, which is linked to the original item. If you
-				click on "View Item Revisions", all revisions of the item are
-				displayed.</p>
-			<h4>
 				<span class="titlemark">3.4.3.</span><a>View item Statistics</a>
 			</h4>
 			<p class="noindent">Here you can see how often the item was
@@ -533,15 +524,6 @@
 				for the file. All these data are optional. Please be aware that you
 				have checked these rights information before!
 			</p>
-			<h3>
-				<span class="titlemark">4.3.</span><a>Create New Revision</a>
-			</h3>
-			<p class="noindent">A new revision is an intellectually revised
-				version of a publication (eg. first pre print, then post print).
-				Please note that each revision is a new, separate item, which is
-				linked to the original item ("is revision of"). Before releasing the
-				new revision, you can give a comment on creating a new revision of
-				the item.</p>
 			<h3>
 				<span class="titlemark">4.4.</span><a>Validate Item</a>
 			</h3>

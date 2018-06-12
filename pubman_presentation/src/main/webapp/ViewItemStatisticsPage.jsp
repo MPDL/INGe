@@ -101,12 +101,6 @@
 										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									<h:commandLink id="lnkViewItemStatisticsPageRevisions"
-										styleClass="free_area0" action="#{ViewItemFull.showRevisions}"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.versionNumber > 1) }" />
 									<h:commandLink id="lnkViewItemStatisticsPageVersions"
 										styleClass="free_area0"
 										action="#{ViewItemFull.showReleaseHistory}"
