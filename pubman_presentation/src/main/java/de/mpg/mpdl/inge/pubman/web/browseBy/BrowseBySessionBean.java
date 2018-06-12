@@ -42,6 +42,7 @@ import java.util.TreeSet;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -333,7 +334,14 @@ public class BrowseBySessionBean extends FacesBean {
   }
 
   public Map<String, Long> getYearMap() {
-    return yearMap;
+    return this.yearMap;
+  }
+
+  public String[] getYearMapSortedKeyArray() {
+    String[] keys = this.yearMap.keySet().toArray(new String[this.yearMap.keySet().size()]);
+    ArrayUtils.reverse(keys);
+
+    return keys;
   }
 
   public void setYearMap(Map<String, Long> yearMap) {

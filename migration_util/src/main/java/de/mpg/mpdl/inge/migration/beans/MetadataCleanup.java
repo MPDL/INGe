@@ -60,7 +60,7 @@ public class MetadataCleanup {
             if (creator.getPerson().getIdentifier().getType().equals(IdentifierVO.IdType.CONE)) {
               String pers_id = creator.getPerson().getIdentifier().getId();
               if (!pers_id.isEmpty()) {
-                creator.getPerson().getIdentifier().setId(pers_id.substring(pers_id.lastIndexOf("cone") - 1));
+                creator.getPerson().getIdentifier().setId(pers_id.substring(pers_id.lastIndexOf("cone") + 4));
               } else {
                 creator.getPerson().setIdentifier(null);
               }

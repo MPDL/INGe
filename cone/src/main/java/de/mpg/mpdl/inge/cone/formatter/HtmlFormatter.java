@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList.Model;
 import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.cone.util.RdfHelper;
+import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -178,13 +179,13 @@ public class HtmlFormatter extends AbstractFormatter {
 
       StringBuilder postData = new StringBuilder();
 
-      String prefixForId = "/cone/";
+      String searchId = ConeUtils.convertConeId2EsId(id);
 
       postData.append("{");
       postData.append(" \"query\": {\"bool\": {\"must\": [");
       postData.append("     {\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},");
       postData.append("     {\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},");
-      postData.append("     {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + prefixForId + id + "\"}}}");
+      postData.append("     {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}}");
       postData.append(" ]}},");
       postData.append(" \"sort\": [");
       postData.append("     {\"metadata.datePublishedInPrint\": {\"order\": \"desc\"}},");

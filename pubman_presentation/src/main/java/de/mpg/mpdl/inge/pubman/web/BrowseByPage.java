@@ -84,9 +84,10 @@ public class BrowseByPage extends BreadcrumbPage {
     super.init();
     this.creators = new ArrayList<String>();
     this.subjects = new ArrayList<String>();
-    /*
-     * if ("year".equals(this.getSelectedValue())) { this.loadBrowseByYear(); }
-     */
+
+    if ("year".equals(this.getSelectedValue())) {
+      this.loadBrowseByYear();
+    }
   }
 
   /**
@@ -330,6 +331,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public void searchForSubject(String id) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
     ClassificationSearchCriterion sc = new ClassificationSearchCriterion();
+    sc.setClassificationType(this.getSelectedValue());
     sc.setSearchString(id);
     scList.add(sc);
 
@@ -337,9 +339,13 @@ public class BrowseByPage extends BreadcrumbPage {
     search(qb);
   }
 
+  //  private void search(QueryBuilder qb) throws Exception {
+  //    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
+  //        + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
+  //  }
+
   private void search(QueryBuilder qb) throws Exception {
-    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
-        + SearchRetrieverRequestBean.parameterSearchType + "=advanced");
+    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8"));
   }
 
   @Override

@@ -156,8 +156,8 @@ function getPersonDetails(details) {
     $(parent).find('.removeAutoSuggestPerson').css('display', 'inline');
     $(parent).find('.givenName').attr('class', 'medium_txtInput givenName');
 
-    if (personId != null && personId != '') {
-        $(parent).find('.authorLink').replaceWith('<a href="' + personId + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+    if ($input.resultID != null && $input.resultID != '') {
+        $(parent).find('.authorLink').replaceWith('<a href="' + $input.resultID + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
     }
 
     // Try to disable input field

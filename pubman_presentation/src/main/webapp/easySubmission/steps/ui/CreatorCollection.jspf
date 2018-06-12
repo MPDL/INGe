@@ -162,7 +162,7 @@
 									styleClass="noDisplay personIdentifier"
 									value="#{creator.person.identifier.id}" />
 								<h:outputLink styleClass="small_area0 authorCard authorLink"
-									value="#{creator.person.identifier.id}"
+									value="#{EasySubmissionSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
 									rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}"
 									target="_blank">&#160;</h:outputLink>
 								<h:panelGroup
