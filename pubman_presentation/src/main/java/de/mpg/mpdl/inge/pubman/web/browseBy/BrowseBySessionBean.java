@@ -219,7 +219,7 @@ public class BrowseBySessionBean extends FacesBean {
       while ((line = bReader.readLine()) != null) {
         final String[] parts = line.split("\\|");
         if (parts.length == 2) {
-          final LinkVO link = new LinkVO(parts[1], parts[0]);
+          final LinkVO link = new LinkVO(parts[1], parts[1]);
           links.add(link);
         }
       }

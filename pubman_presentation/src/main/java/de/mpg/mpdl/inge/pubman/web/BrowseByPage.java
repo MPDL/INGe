@@ -137,10 +137,13 @@ public class BrowseByPage extends BreadcrumbPage {
       while ((line = bReader.readLine()) != null) {
         final String[] parts = line.split("\\|");
         if (parts.length == 2) {
-          final LinkVO link = new LinkVO(parts[1], parts[0]);
-          if ((links.isEmpty() || !link.equals(links.get(links.size() - 1)))) {
-            links.add(link);
+          final LinkVO link;
+          if (type.equals("persons")) {
+            link = new LinkVO(parts[1], parts[0]);
+          } else {
+            link = new LinkVO(parts[1], parts[1]);
           }
+          links.add(link);
         }
       }
       isReader.close();
@@ -331,7 +334,7 @@ public class BrowseByPage extends BreadcrumbPage {
   public void searchForSubject(String id) throws Exception {
     List<SearchCriterionBase> scList = new ArrayList<>();
     ClassificationSearchCriterion sc = new ClassificationSearchCriterion();
-    sc.setClassificationType(this.getSelectedValue());
+    sc.setClassificationType(this.getSelectedValue().trim().toUpperCase().replace("-", "_"));
     sc.setSearchString(id);
     scList.add(sc);
 

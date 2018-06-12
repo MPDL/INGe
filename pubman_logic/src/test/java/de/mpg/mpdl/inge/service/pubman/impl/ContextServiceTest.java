@@ -161,8 +161,8 @@ public class ContextServiceTest extends TestBase {
     contextVO.getAllowedGenres().add(Genre.BOOK);
 
     List<SubjectClassification> subjectClassification = new ArrayList<SubjectClassification>();
-    contextVO.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
-    contextVO.getAllowedSubjectClassifications().add(SubjectClassification.ISO639_3);
+    contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_GROUPS);
+    contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_PROJECTS);
 
 
     contextVO.setCreator(new AccountUserDbRO());

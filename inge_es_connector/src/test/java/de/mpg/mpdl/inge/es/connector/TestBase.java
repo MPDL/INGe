@@ -125,7 +125,7 @@ public class TestBase {
 
 
     vo.getAllowedGenres().add(Genre.ARTICLE);
-    vo.getAllowedSubjectClassifications().add(SubjectClassification.DDC);
+    vo.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_GROUPS);
     vo.setContactEmail("testContactEmail");
     vo.setWorkflow(ContextDbVO.Workflow.STANDARD);
 
