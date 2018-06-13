@@ -49,17 +49,17 @@ public class ComponentContentCategoryListSearchCriterion extends MapListSearchCr
     return newMap;
   }
 
-  @Override
-  public String[] getCqlIndexes(Index indexName, String value) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.component.content-category"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/components/component/properties/content-category\""};
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName, String value) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.component.content-category"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/components/component/properties/content-category\""};
+  //    }
+  //
+  //    return null;
+  //  }
 
   @Override
   public String getCqlValue(Index indexName, String value) {

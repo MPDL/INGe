@@ -37,19 +37,19 @@ public class PublicationStatusListSearchCriterion extends MapListSearchCriterion
 
 
 
-  @Override
-  public String[] getCqlIndexes(Index indexName, String value) {
-    switch (indexName) {
-      case ESCIDOC_ALL: {
-        return new String[] {"escidoc.publication-status"};
-      }
-      case ITEM_CONTAINER_ADMIN: {
-        return new String[] {"\"/publication-status\""};
-      }
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName, String value) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL: {
+  //        return new String[] {"escidoc.publication-status"};
+  //      }
+  //      case ITEM_CONTAINER_ADMIN: {
+  //        return new String[] {"\"/publication-status\""};
+  //      }
+  //    }
+  //
+  //    return null;
+  //  }
 
   @Override
   public String getCqlValue(Index indexName, String value) {

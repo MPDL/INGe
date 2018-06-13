@@ -1,8 +1,6 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,11 +13,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.MapListSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
@@ -56,48 +50,48 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     return itemStateMap;
   }
 
-  @Override
-  public String[] getCqlIndexes(Index indexName, String value) {
-    switch (indexName) {
-      case ITEM_CONTAINER_ADMIN: {
-        if ("withdrawn".equals(value)) {
-          return new String[] {"\"/properties/public-status\""};
-        } else {
-          return new String[] {"\"/properties/version/status\""};
-        }
-      }
-
-      default:
-        return null;
-    }
-  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName, String value) {
+  //    switch (indexName) {
+  //      case ITEM_CONTAINER_ADMIN: {
+  //        if ("withdrawn".equals(value)) {
+  //          return new String[] {"\"/properties/public-status\""};
+  //        } else {
+  //          return new String[] {"\"/properties/version/status\""};
+  //        }
+  //      }
+  //
+  //      default:
+  //        return null;
+  //    }
+  //  }
 
   @Override
   public String getCqlValue(Index indexName, String value) {
     return value;
   }
 
-  @Override
-  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
-    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
-
-    if (!"withdrawn".equals(searchValue)) {
-      scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-    }
-
-    final SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
-    scList.add(flexSc);
-
-
-    // exclude public status withdrawn
-    if (!"withdrawn".equals(searchValue)) {
-      scList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
-      scList.add(new FlexibleStandardSearchCriterion(new String[] {"\"/properties/public-status\""}, "withdrawn"));
-      scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-    }
-
-    return scList;
-  }
+  //  @Override
+  //  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
+  //    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+  //
+  //    if (!"withdrawn".equals(searchValue)) {
+  //      scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+  //    }
+  //
+  //    final SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
+  //    scList.add(flexSc);
+  //
+  //
+  //    // exclude public status withdrawn
+  //    if (!"withdrawn".equals(searchValue)) {
+  //      scList.add(new LogicalOperator(SearchCriterion.NOT_OPERATOR));
+  //      scList.add(new FlexibleStandardSearchCriterion(new String[] {"\"/properties/public-status\""}, "withdrawn"));
+  //      scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+  //    }
+  //
+  //    return scList;
+  //  }
 
   @Override
   public boolean isEmpty(QueryType queryType) {

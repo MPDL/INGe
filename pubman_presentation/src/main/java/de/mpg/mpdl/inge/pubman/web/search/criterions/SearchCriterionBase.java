@@ -33,8 +33,6 @@ import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -179,12 +177,9 @@ public abstract class SearchCriterionBase implements Serializable {
       return this.displayType;
     }
 
-
   public void setDisplayType(DisplayType displayType) {
     this.displayType = displayType;
-  }
-
-  }
+  }}
 
   public enum DisplayType{STANDARD,DATE,PERSON,OPERATOR,PARENTHESIS;}
 
@@ -289,26 +284,26 @@ public abstract class SearchCriterionBase implements Serializable {
     return null;
   }
 
-  protected static String escapeForCql(String escapeMe) {
-    String result = escapeMe.replace("<", "\\<");
-    result = result.replace(">", "\\>");
-    result = result.replace("+", "\\+");
-    result = result.replace("-", "\\-");
-    result = result.replace("&", "\\&");
-    result = result.replace("%", "\\%");
-    result = result.replace("|", "\\|");
-    result = result.replace("(", "\\(");
-    result = result.replace(")", "\\)");
-    result = result.replace("[", "\\[");
-    result = result.replace("]", "\\]");
-    result = result.replace("^", "\\^");
-    result = result.replace("~", "\\~");
-    result = result.replace("!", "\\!");
-    result = result.replace("{", "\\{");
-    result = result.replace("}", "\\}");
-    result = result.replace("\"", "\\\"");
-    return result;
-  }
+  //  protected static String escapeForCql(String escapeMe) {
+  //    String result = escapeMe.replace("<", "\\<");
+  //    result = result.replace(">", "\\>");
+  //    result = result.replace("+", "\\+");
+  //    result = result.replace("-", "\\-");
+  //    result = result.replace("&", "\\&");
+  //    result = result.replace("%", "\\%");
+  //    result = result.replace("|", "\\|");
+  //    result = result.replace("(", "\\(");
+  //    result = result.replace(")", "\\)");
+  //    result = result.replace("[", "\\[");
+  //    result = result.replace("]", "\\]");
+  //    result = result.replace("^", "\\^");
+  //    result = result.replace("~", "\\~");
+  //    result = result.replace("!", "\\!");
+  //    result = result.replace("{", "\\{");
+  //    result = result.replace("}", "\\}");
+  //    result = result.replace("\"", "\\\"");
+  //    return result;
+  //  }
 
 
 
@@ -333,134 +328,134 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-  /**
-   * Creates a cql string out of one or several search indexes and an search string. The search
-   * string is splitted into single words, except they are in quotes. The special characters of the
-   * search string parts are escaped.
-   * 
-   * Example: cqlIndexes={escidoc.title, escidoc.fulltext} searchString = book "john grisham"
-   * 
-   * Resulting cql string: escidoc.title=("book" and "john grisham") or escioc.fulltext=("book" and
-   * "john grisham")
-   * 
-   * @param cqlIndexes
-   * @param searchString
-   * @return the cql string or null, if no search string or indexes are given
-   */
-  protected String baseCqlBuilder(String[] cqlIndexes, String searchString) throws SearchParseException {
-
-    if (searchString != null) {
-      // Bugfix for PUBMAN-2221: Remove Questionmark at the end
-      if (searchString.trim().endsWith("?")) {
-        searchString = searchString.trim().substring(0, searchString.length() - 1);
-
-      }
-
-      // Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search
-      if (searchString.contains("%")) {
-        throw new SearchParseException("search string contains %");
-      }
-      if (searchString.trim().startsWith("*")) {
-        throw new SearchParseException("search string starts with *");
-      }
-      if (searchString.trim().startsWith("?")) {
-        throw new SearchParseException("search string starts with ?");
-      }
-
-
-    }
-
-
-
-    if (searchString != null && !searchString.trim().isEmpty()) {
-
-
-      // split the search string into single words, except if they are in quotes
-      final List<String> splittedSearchStrings = new ArrayList<String>();
-      // List<String> splittedOperators = new ArrayList<String>();
-
-      // Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
-
-      // /u3000 is the Unicode for Japanese full-width-space
-      final Pattern pattern = Pattern.compile("(?<=[\\s\\u3000]|^)\"(.*?)\"(?=[\\s\\u3000]|$)|([^\\s\\u3000]+)");
-      final Matcher m = pattern.matcher(searchString);
-
-      while (m.find()) {
-        String subSearchString = m.group();
-
-        if (subSearchString != null && !subSearchString.trim().isEmpty()) {
-          subSearchString = subSearchString.trim();
-
-          // Remove quotes at beginning and end
-          if (subSearchString.startsWith("\"")) {
-            subSearchString = subSearchString.substring(1, subSearchString.length());
-          }
-
-          if (subSearchString.endsWith("\"")) {
-            subSearchString = subSearchString.substring(0, subSearchString.length() - 1);
-          }
-        }
-        if (!subSearchString.trim().isEmpty()) {
-          splittedSearchStrings.add(subSearchString.trim());
-        }
-
-
-      }
-
-
-      final StringBuilder cqlStringBuilder = new StringBuilder();
-
-      if (cqlIndexes.length > 1) {
-        cqlStringBuilder.append("(");
-      }
-
-      for (int j = 0; j < cqlIndexes.length; j++) {
-        cqlStringBuilder.append(cqlIndexes[j]);
-        cqlStringBuilder.append("=");
-
-        if (splittedSearchStrings.size() > 1) {
-          cqlStringBuilder.append("(");
-        }
-
-        for (int i = 0; i < splittedSearchStrings.size(); i++) {
-          final String subSearchString = splittedSearchStrings.get(i);
-          cqlStringBuilder.append("\"");
-          cqlStringBuilder.append(SearchCriterionBase.escapeForCql(subSearchString));
-          cqlStringBuilder.append("\"");
-
-          if (splittedSearchStrings.size() > i + 1) {
-            if (splittedSearchStrings.get(i + 1).matches("AND|OR|NOT")) {
-              cqlStringBuilder.append(" " + splittedSearchStrings.get(i + 1) + " ");
-              i++;
-            } else {
-              cqlStringBuilder.append(" AND ");
-            }
-
-          }
-
-        }
-        if (splittedSearchStrings.size() > 1) {
-          cqlStringBuilder.append(")");
-        }
-
-
-
-        if (cqlIndexes.length > j + 1) {
-          cqlStringBuilder.append(" OR ");
-        }
-      }
-
-      if (cqlIndexes.length > 1) {
-        cqlStringBuilder.append(")");
-      }
-
-      return cqlStringBuilder.toString();
-    }
-
-    return null;
-
-
-  }
+  //  /**
+  //   * Creates a cql string out of one or several search indexes and an search string. The search
+  //   * string is splitted into single words, except they are in quotes. The special characters of the
+  //   * search string parts are escaped.
+  //   * 
+  //   * Example: cqlIndexes={escidoc.title, escidoc.fulltext} searchString = book "john grisham"
+  //   * 
+  //   * Resulting cql string: escidoc.title=("book" and "john grisham") or escioc.fulltext=("book" and
+  //   * "john grisham")
+  //   * 
+  //   * @param cqlIndexes
+  //   * @param searchString
+  //   * @return the cql string or null, if no search string or indexes are given
+  //   */
+  //  protected String baseCqlBuilder(String[] cqlIndexes, String searchString) throws SearchParseException {
+  //
+  //    if (searchString != null) {
+  //      // Bugfix for PUBMAN-2221: Remove Questionmark at the end
+  //      if (searchString.trim().endsWith("?")) {
+  //        searchString = searchString.trim().substring(0, searchString.length() - 1);
+  //
+  //      }
+  //
+  //      // Bugfix for pubman PUBMAN-248: Search: error using percent symbol in search
+  //      if (searchString.contains("%")) {
+  //        throw new SearchParseException("search string contains %");
+  //      }
+  //      if (searchString.trim().startsWith("*")) {
+  //        throw new SearchParseException("search string starts with *");
+  //      }
+  //      if (searchString.trim().startsWith("?")) {
+  //        throw new SearchParseException("search string starts with ?");
+  //      }
+  //
+  //
+  //    }
+  //
+  //
+  //
+  //    if (searchString != null && !searchString.trim().isEmpty()) {
+  //
+  //
+  //      // split the search string into single words, except if they are in quotes
+  //      final List<String> splittedSearchStrings = new ArrayList<String>();
+  //      // List<String> splittedOperators = new ArrayList<String>();
+  //
+  //      // Pattern pattern = Pattern.compile("(?<=\\s|^)\"(.*?)\"(?=\\s|$)|(\\S+)");
+  //
+  //      // /u3000 is the Unicode for Japanese full-width-space
+  //      final Pattern pattern = Pattern.compile("(?<=[\\s\\u3000]|^)\"(.*?)\"(?=[\\s\\u3000]|$)|([^\\s\\u3000]+)");
+  //      final Matcher m = pattern.matcher(searchString);
+  //
+  //      while (m.find()) {
+  //        String subSearchString = m.group();
+  //
+  //        if (subSearchString != null && !subSearchString.trim().isEmpty()) {
+  //          subSearchString = subSearchString.trim();
+  //
+  //          // Remove quotes at beginning and end
+  //          if (subSearchString.startsWith("\"")) {
+  //            subSearchString = subSearchString.substring(1, subSearchString.length());
+  //          }
+  //
+  //          if (subSearchString.endsWith("\"")) {
+  //            subSearchString = subSearchString.substring(0, subSearchString.length() - 1);
+  //          }
+  //        }
+  //        if (!subSearchString.trim().isEmpty()) {
+  //          splittedSearchStrings.add(subSearchString.trim());
+  //        }
+  //
+  //
+  //      }
+  //
+  //
+  //      final StringBuilder cqlStringBuilder = new StringBuilder();
+  //
+  //      if (cqlIndexes.length > 1) {
+  //        cqlStringBuilder.append("(");
+  //      }
+  //
+  //      for (int j = 0; j < cqlIndexes.length; j++) {
+  //        cqlStringBuilder.append(cqlIndexes[j]);
+  //        cqlStringBuilder.append("=");
+  //
+  //        if (splittedSearchStrings.size() > 1) {
+  //          cqlStringBuilder.append("(");
+  //        }
+  //
+  //        for (int i = 0; i < splittedSearchStrings.size(); i++) {
+  //          final String subSearchString = splittedSearchStrings.get(i);
+  //          cqlStringBuilder.append("\"");
+  //          cqlStringBuilder.append(SearchCriterionBase.escapeForCql(subSearchString));
+  //          cqlStringBuilder.append("\"");
+  //
+  //          if (splittedSearchStrings.size() > i + 1) {
+  //            if (splittedSearchStrings.get(i + 1).matches("AND|OR|NOT")) {
+  //              cqlStringBuilder.append(" " + splittedSearchStrings.get(i + 1) + " ");
+  //              i++;
+  //            } else {
+  //              cqlStringBuilder.append(" AND ");
+  //            }
+  //
+  //          }
+  //
+  //        }
+  //        if (splittedSearchStrings.size() > 1) {
+  //          cqlStringBuilder.append(")");
+  //        }
+  //
+  //
+  //
+  //        if (cqlIndexes.length > j + 1) {
+  //          cqlStringBuilder.append(" OR ");
+  //        }
+  //      }
+  //
+  //      if (cqlIndexes.length > 1) {
+  //        cqlStringBuilder.append(")");
+  //      }
+  //
+  //      return cqlStringBuilder.toString();
+  //    }
+  //
+  //    return null;
+  //
+  //
+  //  }
 
 
 

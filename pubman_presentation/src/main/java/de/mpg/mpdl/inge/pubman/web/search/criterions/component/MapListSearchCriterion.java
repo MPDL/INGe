@@ -36,7 +36,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
 
 @SuppressWarnings("serial")
 public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
@@ -135,12 +134,12 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
   //  }
 
 
-  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
-    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
-    final SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
-    scList.add(flexSc);
-    return scList;
-  }
+  //  public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {
+  //    final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+  //    final SearchCriterionBase flexSc = new FlexibleStandardSearchCriterion(this.getCqlIndexes(indexName, searchValue), searchValue);
+  //    scList.add(flexSc);
+  //    return scList;
+  //  }
 
   @Override
   public String getQueryStringContent() {
@@ -220,7 +219,7 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
 
-  public abstract String[] getCqlIndexes(Index indexName, String value);
+  //  public abstract String[] getCqlIndexes(Index indexName, String value);
 
   public abstract String getCqlValue(Index indexName, T value);
 

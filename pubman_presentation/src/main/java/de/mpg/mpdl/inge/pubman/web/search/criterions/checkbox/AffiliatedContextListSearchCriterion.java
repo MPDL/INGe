@@ -54,20 +54,20 @@ public class AffiliatedContextListSearchCriterion extends MapListSearchCriterion
 
 
 
-  @Override
-  public String[] getCqlIndexes(Index indexName, String value) {
-    switch (indexName) {
-
-      case ESCIDOC_ALL: {
-        return new String[] {"escidoc.context.objid"};
-      }
-      case ITEM_CONTAINER_ADMIN: {
-        return new String[] {"\"/properties/context/id\""};
-      }
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName, String value) {
+  //    switch (indexName) {
+  //
+  //      case ESCIDOC_ALL: {
+  //        return new String[] {"escidoc.context.objid"};
+  //      }
+  //      case ITEM_CONTAINER_ADMIN: {
+  //        return new String[] {"\"/properties/context/id\""};
+  //      }
+  //    }
+  //
+  //    return null;
+  //  }
 
   @Override
   public String getCqlValue(Index indexName, PubContextVOPresentation value) {

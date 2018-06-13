@@ -55,17 +55,17 @@ public class ComponentVisibilityListSearchCriterion extends MapListSearchCriteri
    * @Override public SearchCriterion getSearchCriterion() { return
    * SearchCriterion.COMPONENT_VISIBILITY_LIST; }
    */
-  @Override
-  public String[] getCqlIndexes(Index indexName, String value) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.component.internal-managed.visibility"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/components/component/internal-managed/visibility\""};
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName, String value) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.component.internal-managed.visibility"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/components/component/internal-managed/visibility\""};
+  //    }
+  //
+  //    return null;
+  //  }
 
 
   @Override
