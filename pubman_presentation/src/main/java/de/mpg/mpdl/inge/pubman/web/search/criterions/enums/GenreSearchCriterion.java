@@ -39,19 +39,19 @@ public class GenreSearchCriterion extends EnumSearchCriterion<Genre> {
     // TODO Auto-generated constructor stub
   }
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.publication.type"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/md-records/md-record/publication/type\""};
-//    }
-//    return null;
-//
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.publication.type"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/md-records/md-record/publication/type\""};
+  //    }
+  //    return null;
+  //
+  //
+  //  }
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.GENRE; }

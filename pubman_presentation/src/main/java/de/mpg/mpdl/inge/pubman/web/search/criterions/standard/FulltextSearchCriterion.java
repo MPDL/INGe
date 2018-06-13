@@ -56,18 +56,18 @@ public class FulltextSearchCriterion extends StandardSearchCriterion {
     return childQueryBuilder;
   }
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.fulltext"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/fulltext\""};
-//    }
-//    return null;
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.fulltext"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/fulltext\""};
+  //    }
+  //    return null;
+  //
+  //  }
 
   // TODO: Add fulltext index
   @Override

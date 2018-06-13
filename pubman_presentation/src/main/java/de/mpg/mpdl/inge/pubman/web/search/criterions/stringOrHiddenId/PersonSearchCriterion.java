@@ -42,11 +42,11 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   // private static String PERSON_ROLE_INDEX = "escidoc.publication.creator.role";
 
-  private String[] cqlIndexForHiddenId;
-  private String[] cqlIndexForSearchString;
-
-  private String[] cqlIndexForHiddenIdAdmin;
-  private String[] cqlIndexForSearchStringAdmin;
+  //  private String[] cqlIndexForHiddenId;
+  //  private String[] cqlIndexForSearchString;
+  //
+  //  private String[] cqlIndexForHiddenIdAdmin;
+  //  private String[] cqlIndexForSearchStringAdmin;
 
 
   private CreatorRole selectedRole;
@@ -55,30 +55,30 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
     this.searchCriterion = role;
   }
 
-  @Override
-  public String[] getCqlIndexForHiddenId(Index indexName) {
-
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return this.cqlIndexForHiddenId;
-      case ITEM_CONTAINER_ADMIN:
-        return this.cqlIndexForHiddenIdAdmin;
-    }
-
-    return null;
-  }
-
-  @Override
-  public String[] getCqlIndexForSearchString(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return this.cqlIndexForSearchString;
-      case ITEM_CONTAINER_ADMIN:
-        return this.cqlIndexForSearchStringAdmin;
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexForHiddenId(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return this.cqlIndexForHiddenId;
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return this.cqlIndexForHiddenIdAdmin;
+  //    }
+  //
+  //    return null;
+  //  }
+  //
+  //  @Override
+  //  public String[] getCqlIndexForSearchString(Index indexName) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return this.cqlIndexForSearchString;
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return this.cqlIndexForSearchStringAdmin;
+  //    }
+  //
+  //    return null;
+  //  }
 
 
 

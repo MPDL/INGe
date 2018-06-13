@@ -31,19 +31,19 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 public class TitleSearchCriterion extends StandardSearchCriterion {
 
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.publication.title"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/md-records/md-record/publication/title\""};
-//    }
-//
-//    return null;
-//
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.publication.title"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/md-records/md-record/publication/title\""};
+  //    }
+  //
+  //    return null;
+  //
+  //
+  //  }
 
   @Override
   public String[] getElasticIndexes() {

@@ -55,18 +55,18 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
 
   }
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.publication.subject"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/md-records/md-record/publication/subject\""};
-//    }
-//    return null;
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.publication.subject"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/md-records/md-record/publication/subject\""};
+  //    }
+  //    return null;
+  //
+  //  }
 
   @Override
   public String[] getElasticIndexes() {

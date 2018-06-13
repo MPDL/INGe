@@ -111,9 +111,9 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   }
 
 
-  public abstract String[] getCqlIndexForHiddenId(Index indexName);
-
-  public abstract String[] getCqlIndexForSearchString(Index indexName);
+  //  public abstract String[] getCqlIndexForHiddenId(Index indexName);
+  //
+  //  public abstract String[] getCqlIndexForSearchString(Index indexName);
 
 
 

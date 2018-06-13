@@ -30,20 +30,20 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @SuppressWarnings("serial")
 public class CollectionSearchCriterion extends StandardSearchCriterion {
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.context.objid"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/properties/context/id\""};
-//    }
-//    return null;
-//
-//
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.context.objid"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/properties/context/id\""};
+  //    }
+  //    return null;
+  //
+  //
+  //
+  //  }
 
 
   /*

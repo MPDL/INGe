@@ -32,28 +32,28 @@ public class ModifiedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
 
   }
 
-  @Override
-  public String[] getCqlIndexForHiddenId(Index indexName) {
-
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.property.version.modified-by.href"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/properties/version/modified-by/id\""};
-    }
-    return null;
-  }
-
-  @Override
-  public String[] getCqlIndexForSearchString(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.property.version.modified-by.title"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/properties/version/modified-by/xLinkTitle\""};
-    }
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexForHiddenId(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.property.version.modified-by.href"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/properties/version/modified-by/id\""};
+  //    }
+  //    return null;
+  //  }
+  //
+  //  @Override
+  //  public String[] getCqlIndexForSearchString(Index indexName) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.property.version.modified-by.title"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/properties/version/modified-by/xLinkTitle\""};
+  //    }
+  //    return null;
+  //  }
 
 
   @Override

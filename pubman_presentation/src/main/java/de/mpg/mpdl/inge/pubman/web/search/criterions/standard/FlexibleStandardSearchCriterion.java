@@ -28,12 +28,12 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 @SuppressWarnings("serial")
 public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
 
-//  private final String[] cqlIndexes;
+  //  private final String[] cqlIndexes;
   private String[] elIndexes;
 
 
   public FlexibleStandardSearchCriterion(String[] cqlIndexes, String searchString) {
-//    this.cqlIndexes = cqlIndexes;
+    //    this.cqlIndexes = cqlIndexes;
     this.setSearchString(searchString);
 
   }
@@ -41,14 +41,14 @@ public class FlexibleStandardSearchCriterion extends StandardSearchCriterion {
   public FlexibleStandardSearchCriterion(String[] cqlIndexes, String[] elIndexes, String searchString) {
     this.setSearchString(searchString);
     this.elIndexes = elIndexes;
-//    this.cqlIndexes = cqlIndexes;
+    //    this.cqlIndexes = cqlIndexes;
 
   }
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//    return this.cqlIndexes;
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //    return this.cqlIndexes;
+  //  }
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.FLEXIBLE; }

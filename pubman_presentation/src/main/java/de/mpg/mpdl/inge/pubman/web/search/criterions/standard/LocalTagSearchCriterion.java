@@ -30,19 +30,19 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @SuppressWarnings("serial")
 public class LocalTagSearchCriterion extends StandardSearchCriterion {
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.property.content-model-specific.local-tags.local-tag"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/properties/content-model-specific/local-tags/local-tag\""};
-//    }
-//    return null;
-//
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.property.content-model-specific.local-tags.local-tag"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/properties/content-model-specific/local-tags/local-tag\""};
+  //    }
+  //    return null;
+  //
+  //
+  //  }
 
   @Override
   public String[] getElasticIndexes() {

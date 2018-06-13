@@ -39,19 +39,19 @@ public class AnyFieldSearchCriterion extends StandardSearchCriterion {
 
   }
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.metadata"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/metadata\""};
-//    }
-//    return null;
-//
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.metadata"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/metadata\""};
+  //    }
+  //    return null;
+  //
+  //
+  //  }
 
   @Override
   public String[] getElasticIndexes() {

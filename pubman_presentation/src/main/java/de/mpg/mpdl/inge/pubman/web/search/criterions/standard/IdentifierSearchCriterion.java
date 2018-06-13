@@ -59,19 +59,19 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   }
 
 
-//  @Override
-//  public String[] getCqlIndexes(Index indexName) {
-//
-//    switch (indexName) {
-//      case ESCIDOC_ALL:
-//        return new String[] {"escidoc.any-identifier", "escidoc.property.latest-release.objid"};
-//      case ITEM_CONTAINER_ADMIN:
-//        return new String[] {"\"/any-identifier\"", "\"/properties/latest-release/id\""};
-//    }
-//    return null;
-//
-//
-//  }
+  //  @Override
+  //  public String[] getCqlIndexes(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.any-identifier", "escidoc.property.latest-release.objid"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/any-identifier\"", "\"/properties/latest-release/id\""};
+  //    }
+  //    return null;
+  //
+  //
+  //  }
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.IDENTIFIER; }

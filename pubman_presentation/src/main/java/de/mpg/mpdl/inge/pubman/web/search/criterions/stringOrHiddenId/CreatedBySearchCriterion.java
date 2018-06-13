@@ -33,27 +33,27 @@ public class CreatedBySearchCriterion extends StringOrHiddenIdSearchCriterion {
   }
 
 
-  @Override
-  public String[] getCqlIndexForHiddenId(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.property.created-by.href"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/properties/created-by/id\""};
-    }
-    return null;
-  }
-
-  @Override
-  public String[] getCqlIndexForSearchString(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.property.created-by.title"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/properties/created-by/xLinkTitle\""};
-    }
-    return null;
-  }
+  //  @Override
+  //  public String[] getCqlIndexForHiddenId(Index indexName) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.property.created-by.href"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/properties/created-by/id\""};
+  //    }
+  //    return null;
+  //  }
+  //
+  //  @Override
+  //  public String[] getCqlIndexForSearchString(Index indexName) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.property.created-by.title"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/properties/created-by/xLinkTitle\""};
+  //    }
+  //    return null;
+  //  }
 
   @Override
   public String[] getElasticSearchFieldForHiddenId() {

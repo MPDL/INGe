@@ -37,32 +37,32 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   private boolean includePredecessorsAndSuccessors;
   private boolean includeSource;
 
-  @Override
-  public String[] getCqlIndexForHiddenId(Index indexName) {
-
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
-    }
-    return null;
-  }
-
-  @Override
-  public String[] getCqlIndexForSearchString(Index indexName) {
-
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/creator/person/organization/title\"",
-            "\"/md-records/md-record/publication/creator/organization/title\""};
-    }
-    return null;
-
-
-  }
+  //  @Override
+  //  public String[] getCqlIndexForHiddenId(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.publication.creator.compound.organization-path-identifiers"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/md-records/md-record/publication/creator/compound/organization-path-identifiers\""};
+  //    }
+  //    return null;
+  //  }
+  //
+  //  @Override
+  //  public String[] getCqlIndexForSearchString(Index indexName) {
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL:
+  //        return new String[] {"escidoc.publication.creator.person.organization.title", "escidoc.publication.creator.organization.title"};
+  //      case ITEM_CONTAINER_ADMIN:
+  //        return new String[] {"\"/md-records/md-record/publication/creator/person/organization/title\"",
+  //            "\"/md-records/md-record/publication/creator/organization/title\""};
+  //    }
+  //    return null;
+  //
+  //
+  //  }
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.ORGUNIT; }

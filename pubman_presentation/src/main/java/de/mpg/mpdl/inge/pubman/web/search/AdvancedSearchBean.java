@@ -737,7 +737,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.operatorTypeListMenu = operatorTypeListMenu;
   }
 
-  public void startSearch(Index indexName) {
+  private void startSearch(Index indexName) {
     if (this.currentlyOpenedParenthesis != null) {
       this.error(this.getMessage("search_ParenthesisNotClosed"));
       return;
