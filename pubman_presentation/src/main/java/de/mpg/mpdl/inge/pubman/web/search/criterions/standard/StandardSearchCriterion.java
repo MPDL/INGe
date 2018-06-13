@@ -49,7 +49,7 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
     this.searchString = SearchCriterionBase.unescapeForQueryString(content);
   }
 
-  public abstract String[] getCqlIndexes(Index indexName);
+//  public abstract String[] getCqlIndexes(Index indexName);
 
   public abstract String[] getElasticIndexes();
 

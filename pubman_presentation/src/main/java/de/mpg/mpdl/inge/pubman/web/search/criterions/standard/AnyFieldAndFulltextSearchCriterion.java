@@ -44,18 +44,18 @@ public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion 
     return qb;
   }
 
-  @Override
-  public String[] getCqlIndexes(Index indexName) {
-
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.metadata", "escidoc.fulltext"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/metadata\"", "\"/fulltext\""};
-    }
-    return null;
-
-  }
+//  @Override
+//  public String[] getCqlIndexes(Index indexName) {
+//
+//    switch (indexName) {
+//      case ESCIDOC_ALL:
+//        return new String[] {"escidoc.metadata", "escidoc.fulltext"};
+//      case ITEM_CONTAINER_ADMIN:
+//        return new String[] {"\"/metadata\"", "\"/fulltext\""};
+//    }
+//    return null;
+//
+//  }
 
 
 

@@ -32,18 +32,18 @@ public class DegreeSearchCriterion extends StandardSearchCriterion {
 
 
 
-  @Override
-  public String[] getCqlIndexes(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.publication.degree"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/degree\""};
-    }
-    return null;
-
-
-  }
+//  @Override
+//  public String[] getCqlIndexes(Index indexName) {
+//    switch (indexName) {
+//      case ESCIDOC_ALL:
+//        return new String[] {"escidoc.publication.degree"};
+//      case ITEM_CONTAINER_ADMIN:
+//        return new String[] {"\"/md-records/md-record/publication/degree\""};
+//    }
+//    return null;
+//
+//
+//  }
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.DEGREE; }

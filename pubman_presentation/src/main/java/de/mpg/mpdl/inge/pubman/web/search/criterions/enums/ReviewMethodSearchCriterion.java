@@ -37,17 +37,17 @@ public class ReviewMethodSearchCriterion extends EnumSearchCriterion<ReviewMetho
     super(ReviewMethod.class);
   }
 
-  @Override
-  public String[] getCqlIndexes(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.publication.review-method"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/review-method\""};
-    }
-    return null;
-
-  }
+//  @Override
+//  public String[] getCqlIndexes(Index indexName) {
+//    switch (indexName) {
+//      case ESCIDOC_ALL:
+//        return new String[] {"escidoc.publication.review-method"};
+//      case ITEM_CONTAINER_ADMIN:
+//        return new String[] {"\"/md-records/md-record/publication/review-method\""};
+//    }
+//    return null;
+//
+//  }
 
   /*
    * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.REVIEW_METHOD; }

@@ -30,19 +30,19 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @SuppressWarnings("serial")
 public class SourceSearchCriterion extends StandardSearchCriterion {
 
-  @Override
-  public String[] getCqlIndexes(Index indexName) {
-
-    switch (indexName) {
-      case ESCIDOC_ALL:
-        return new String[] {"escidoc.publication.source.any.title"};
-      case ITEM_CONTAINER_ADMIN:
-        return new String[] {"\"/md-records/md-record/publication/source/compound/any-title\""};
-    }
-    return null;
-
-
-  }
+//  @Override
+//  public String[] getCqlIndexes(Index indexName) {
+//
+//    switch (indexName) {
+//      case ESCIDOC_ALL:
+//        return new String[] {"escidoc.publication.source.any.title"};
+//      case ITEM_CONTAINER_ADMIN:
+//        return new String[] {"\"/md-records/md-record/publication/source/compound/any-title\""};
+//    }
+//    return null;
+//
+//
+//  }
 
   @Override
   public String[] getElasticIndexes() {
