@@ -32,9 +32,7 @@ import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
@@ -84,41 +82,41 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
 
 
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-
-    if (selectedRole == null) {
-      this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
-      this.cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
-
-      this.cqlIndexForHiddenIdAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
-      this.cqlIndexForSearchStringAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
-
-      return super.toCqlString(indexName);
-    } else {
-      final String roleUri = CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
-      final String roleAbbr = roleUri.substring(roleUri.lastIndexOf('/') + 1, roleUri.length());
-
-      this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
-      this.cqlIndexForSearchString = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
-
-      this.cqlIndexForHiddenIdAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/" + roleAbbr + "\""};
-      this.cqlIndexForSearchStringAdmin =
-          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/" + roleAbbr + "\""};
-
-      /*
-       * StringBuilder sb = new StringBuilder(); sb.append("("); sb.append(superQuery);
-       * sb.append(" and "); sb.append(PERSON_ROLE_INDEX); sb.append("=\"");
-       * sb.append(escapeForCql(roleUri) + "\")");
-       */
-      return super.toCqlString(indexName);
-    }
-
-
-
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //
+  //    if (selectedRole == null) {
+  //      this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.person.identifier"};
+  //      this.cqlIndexForSearchString = new String[] {"escidoc.publication.creator.person.compound.person-complete-name"};
+  //
+  //      this.cqlIndexForHiddenIdAdmin = new String[] {"\"/md-records/md-record/publication/creator/person/identifier\""};
+  //      this.cqlIndexForSearchStringAdmin =
+  //          new String[] {"\"/md-records/md-record/publication/creator/person/compound/person-complete-name\""};
+  //
+  //      return super.toCqlString(indexName);
+  //    } else {
+  //      final String roleUri = CreatorVO.CreatorRole.valueOf(this.getSearchCriterion().name()).getUri();
+  //      final String roleAbbr = roleUri.substring(roleUri.lastIndexOf('/') + 1, roleUri.length());
+  //
+  //      this.cqlIndexForHiddenId = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+  //      this.cqlIndexForSearchString = new String[] {"escidoc.publication.creator.compound.role-person." + roleAbbr};
+  //
+  //      this.cqlIndexForHiddenIdAdmin =
+  //          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/" + roleAbbr + "\""};
+  //      this.cqlIndexForSearchStringAdmin =
+  //          new String[] {"\"/md-records/md-record/publication/creator/person/compound/role-person/" + roleAbbr + "\""};
+  //
+  //      /*
+  //       * StringBuilder sb = new StringBuilder(); sb.append("("); sb.append(superQuery);
+  //       * sb.append(" and "); sb.append(PERSON_ROLE_INDEX); sb.append("=\"");
+  //       * sb.append(escapeForCql(roleUri) + "\")");
+  //       */
+  //      return super.toCqlString(indexName);
+  //    }
+  //
+  //
+  //
+  //  }
 
   @Override
   public String toQueryString() {

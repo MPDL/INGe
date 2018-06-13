@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
@@ -61,14 +60,14 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
     //    return (this.searchString == null || this.searchString.trim().isEmpty());
   }
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-    if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
-      return this.baseCqlBuilder(this.getCqlIndexForHiddenId(indexName), this.hiddenId);
-    } else {
-      return this.baseCqlBuilder(this.getCqlIndexForSearchString(indexName), this.searchString);
-    }
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //    if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
+  //      return this.baseCqlBuilder(this.getCqlIndexForHiddenId(indexName), this.hiddenId);
+  //    } else {
+  //      return this.baseCqlBuilder(this.getCqlIndexForSearchString(indexName), this.searchString);
+  //    }
+  //  }
 
 
 

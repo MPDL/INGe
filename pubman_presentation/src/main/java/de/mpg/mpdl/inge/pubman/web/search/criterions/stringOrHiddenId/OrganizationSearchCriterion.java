@@ -25,30 +25,15 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
-import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
-import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion {
-
-  // private Logger logger = Logger.getLogger(OrganizationSearchCriterion.class);
-
-  private final static Logger logger = LogManager.getLogger(OrganizationSearchCriterion.class);
   private boolean includePredecessorsAndSuccessors;
   private boolean includeSource;
 
@@ -85,36 +70,36 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
 
 
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-    if (!this.includePredecessorsAndSuccessors) {
-      return super.toCqlString(indexName);
-    } else {
-
-      try {
-        final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
-        int i = 0;
-        scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-        for (final AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
-          if (i > 0) {
-            scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-          }
-
-          final OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
-          ous.setSearchString(aff.getMetadata().getName());
-          ous.setHiddenId(aff.getObjectId());
-          scList.add(ous);
-          i++;
-        }
-        scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-
-        return SearchCriterionBase.scListToCql(indexName, scList, false);
-      } catch (final Exception e) {
-        logger.error("Error while retrieving affiliation from id", e);
-        return super.toCqlString(indexName);
-      }
-    }
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //    if (!this.includePredecessorsAndSuccessors) {
+  //      return super.toCqlString(indexName);
+  //    } else {
+  //
+  //      try {
+  //        final List<SearchCriterionBase> scList = new ArrayList<SearchCriterionBase>();
+  //        int i = 0;
+  //        scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+  //        for (final AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
+  //          if (i > 0) {
+  //            scList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+  //          }
+  //
+  //          final OrganizationSearchCriterion ous = new OrganizationSearchCriterion();
+  //          ous.setSearchString(aff.getMetadata().getName());
+  //          ous.setHiddenId(aff.getObjectId());
+  //          scList.add(ous);
+  //          i++;
+  //        }
+  //        scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+  //
+  //        return SearchCriterionBase.scListToCql(indexName, scList, false);
+  //      } catch (final Exception e) {
+  //        logger.error("Error while retrieving affiliation from id", e);
+  //        return super.toCqlString(indexName);
+  //      }
+  //    }
+  //  }
 
 
 
@@ -161,31 +146,31 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
   }
 
 
-  private List<AffiliationDbVO> retrievePredecessorsAndSuccessors(String id) throws Exception {
-
-    final List<AffiliationDbVO> allAffs = new ArrayList<AffiliationDbVO>();
-
-    final AffiliationDbVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
-
-    allAffs.add(affiliation);
-
-    final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
-
-    final List<AffiliationDbVO> sucessorsVO = affiliationPres.getSuccessors();
-
-    for (final AffiliationDbVO affiliationVO : sucessorsVO) {
-      allAffs.add(affiliationVO);
-    }
-
-    final List<AffiliationDbVO> predecessorsVO = affiliationPres.getPredecessors();
-
-    for (final AffiliationDbVO affiliationVO : predecessorsVO) {
-      allAffs.add(affiliationVO);
-    }
-    return allAffs;
-
-
-  }
+  //  private List<AffiliationDbVO> retrievePredecessorsAndSuccessors(String id) throws Exception {
+  //
+  //    final List<AffiliationDbVO> allAffs = new ArrayList<AffiliationDbVO>();
+  //
+  //    final AffiliationDbVO affiliation = ApplicationBean.INSTANCE.getOrganizationService().get(this.getHiddenId(), null);
+  //
+  //    allAffs.add(affiliation);
+  //
+  //    final AffiliationVOPresentation affiliationPres = new AffiliationVOPresentation(affiliation);
+  //
+  //    final List<AffiliationDbVO> sucessorsVO = affiliationPres.getSuccessors();
+  //
+  //    for (final AffiliationDbVO affiliationVO : sucessorsVO) {
+  //      allAffs.add(affiliationVO);
+  //    }
+  //
+  //    final List<AffiliationDbVO> predecessorsVO = affiliationPres.getPredecessors();
+  //
+  //    for (final AffiliationDbVO affiliationVO : predecessorsVO) {
+  //      allAffs.add(affiliationVO);
+  //    }
+  //    return allAffs;
+  //
+  //
+  //  }
 
   // TODO: Organization path and predecessor/successor
   @Override

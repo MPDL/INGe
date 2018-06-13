@@ -35,19 +35,19 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
 
   private boolean invited = false;
 
-  @Override
-  public String toCqlString(Index indexName) {
-    if (this.isInvited()) {
-      switch (indexName) {
-        case ESCIDOC_ALL:
-          return "escidoc.publication.event.invitation-status=\"invited\"";
-        case ITEM_CONTAINER_ADMIN:
-          return "\"/md-records/md-record/publication/event/invitation-status\">\"''\"";
-      }
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) {
+  //    if (this.isInvited()) {
+  //      switch (indexName) {
+  //        case ESCIDOC_ALL:
+  //          return "escidoc.publication.event.invitation-status=\"invited\"";
+  //        case ITEM_CONTAINER_ADMIN:
+  //          return "\"/md-records/md-record/publication/event/invitation-status\">\"''\"";
+  //      }
+  //    }
+  //
+  //    return null;
+  //  }
 
   @Override
   public String getQueryStringContent() {
@@ -75,7 +75,8 @@ public class EventInvitationSearchCriterion extends SearchCriterionBase {
   @Override
   public QueryBuilder toElasticSearchQuery() {
     if (this.isInvited()) {
-      return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS}, "invited");
+      return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_METADATA_EVENT_INVITATION_STATUS},
+          "invited");
     }
 
     return null;

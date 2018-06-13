@@ -134,10 +134,10 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
   }
 
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-    return SearchCriterionBase.scListToCql(indexName, this.getGenreSearchCriterions(), false);
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //    return SearchCriterionBase.scListToCql(indexName, this.getGenreSearchCriterions(), false);
+  //  }
 
   @Override
   public String getQueryStringContent() {

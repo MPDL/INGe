@@ -35,10 +35,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.FlexibleStandardSearchCriterion;
 
 @SuppressWarnings("serial")
@@ -88,54 +85,54 @@ public abstract class MapListSearchCriterion<T> extends SearchCriterionBase {
 
 
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-
-    // StringBuffer sb = new StringBuffer();
-    // boolean enumSelected = false;
-    // boolean enumDeselected = false;
-
-    if (!this.isEmpty(QueryType.CQL)) {
-      final List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
-
-      returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-      // sb.append("(");
-
-      int i = 0;
-      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
-        if (entry.getValue() && i > 0) {
-          // sb.append(" OR ");
-          returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-        }
-
-        if (entry.getValue()) {
-
-
-          // enumSelected = true;
-          final String value = this.getCqlValue(indexName, this.getValueMap().get(entry.getKey()));
-
-
-
-          // gc.setSearchString(entry.getKey().name().toLowerCase());
-          returnList.addAll(this.getSearchCriterionsForValue(indexName, value));
-          // sb.append(valueMap.get(entry.getKey()));
-          i++;
-
-
-        } else {
-          // enumDeselected = true;
-          // allGenres = false;
-        }
-
-      }
-
-      returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-      return SearchCriterionBase.scListToCql(indexName, returnList, false);
-
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //
+  //    // StringBuffer sb = new StringBuffer();
+  //    // boolean enumSelected = false;
+  //    // boolean enumDeselected = false;
+  //
+  //    if (!this.isEmpty(QueryType.CQL)) {
+  //      final List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
+  //
+  //      returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+  //      // sb.append("(");
+  //
+  //      int i = 0;
+  //      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+  //        if (entry.getValue() && i > 0) {
+  //          // sb.append(" OR ");
+  //          returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+  //        }
+  //
+  //        if (entry.getValue()) {
+  //
+  //
+  //          // enumSelected = true;
+  //          final String value = this.getCqlValue(indexName, this.getValueMap().get(entry.getKey()));
+  //
+  //
+  //
+  //          // gc.setSearchString(entry.getKey().name().toLowerCase());
+  //          returnList.addAll(this.getSearchCriterionsForValue(indexName, value));
+  //          // sb.append(valueMap.get(entry.getKey()));
+  //          i++;
+  //
+  //
+  //        } else {
+  //          // enumDeselected = true;
+  //          // allGenres = false;
+  //        }
+  //
+  //      }
+  //
+  //      returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+  //      return SearchCriterionBase.scListToCql(indexName, returnList, false);
+  //
+  //    }
+  //
+  //    return null;
+  //  }
 
 
   public List<SearchCriterionBase> getSearchCriterionsForValue(Index indexName, String searchValue) {

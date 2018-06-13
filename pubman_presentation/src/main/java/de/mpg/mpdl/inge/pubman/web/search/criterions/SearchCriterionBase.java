@@ -83,7 +83,6 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.Organizati
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
 public abstract class SearchCriterionBase implements Serializable {
@@ -195,10 +194,10 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
 
-  private static final String INDEX_CONTENT_MODEL = "escidoc.content-model.objid";
-  private static final String INDEX_OBJECTTYPE = "escidoc.objecttype";
-
-  private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
+  //  private static final String INDEX_CONTENT_MODEL = "escidoc.content-model.objid";
+  //  private static final String INDEX_OBJECTTYPE = "escidoc.objecttype";
+  //
+  //  private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
 
 
   private String queryValue;
@@ -206,7 +205,7 @@ public abstract class SearchCriterionBase implements Serializable {
   protected SearchCriterion searchCriterion;
 
 
-  public abstract String toCqlString(Index indexName) throws SearchParseException;
+  //  public abstract String toCqlString(Index indexName) throws SearchParseException;
 
   public abstract QueryBuilder toElasticSearchQuery() throws SearchParseException;
 
@@ -478,94 +477,94 @@ public abstract class SearchCriterionBase implements Serializable {
 
   }
 
-  /**
-   * Creates a CQL query string out of a list of search criteria. Before, it removes empty search
-   * criterions. Adds parenthesis around every single search criterion object.
-   * 
-   * @param criterionList
-   * @return
-   */
-  public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)
-      throws SearchParseException {
-
-    final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.CQL);
-
-
-    String appendOperator = "AND";
-
-    final StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < removedList.size(); i++) {
-
-      final SearchCriterionBase criterion = removedList.get(i);
-
-      // if first in list is an operator, use it as concatenator to append standard criteria below,
-      // else use default "AND"
-      if (i == 0 && DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType())) {
-        appendOperator = criterion.toCqlString(indexName);
-      } else {
-        final String cql = criterion.toCqlString(indexName);
-        if (cql != null && !cql.trim().isEmpty()) {
-
-
-
-          if (!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType())
-              && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType())) {
-            sb.append("(");
-          }
-
-          sb.append(cql);
-
-          if (!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType())
-              && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType())) {
-            sb.append(")");
-          }
-
-          sb.append(" ");
-        }
-      }
-
-
-
-    }
-
-
-
-    if (appendStandardCriterions) {
-      try {
-
-
-
-        final String contentModelId = PropertyReader.getProperty(SearchCriterionBase.PROPERTY_CONTENT_MODEL);
-
-        String standardCriterions = null;
-        switch (indexName) {
-          case ESCIDOC_ALL: {
-            standardCriterions = SearchCriterionBase.INDEX_OBJECTTYPE + "=\"item\" AND " + SearchCriterionBase.INDEX_CONTENT_MODEL + "=\""
-                + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
-            break;
-          }
-          case ITEM_CONTAINER_ADMIN: {
-            standardCriterions = "\"/properties/content-model/id\"=\"" + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
-            break;
-          }
-
-        }
-
-
-
-        if (!sb.toString().isEmpty()) {
-
-          standardCriterions = standardCriterions + " " + appendOperator + " (" + sb.toString() + ")";
-        }
-        return standardCriterions;
-      } catch (final Exception e) {
-        SearchCriterionBase.logger.error("Could not read property " + SearchCriterionBase.PROPERTY_CONTENT_MODEL, e);
-      }
-    }
-
-    return sb.toString();
-
-  }
+  //  /**
+  //   * Creates a CQL query string out of a list of search criteria. Before, it removes empty search
+  //   * criterions. Adds parenthesis around every single search criterion object.
+  //   * 
+  //   * @param criterionList
+  //   * @return
+  //   */
+  //  public static String scListToCql(Index indexName, List<SearchCriterionBase> criterionList, boolean appendStandardCriterions)
+  //      throws SearchParseException {
+  //
+  //    final List<SearchCriterionBase> removedList = SearchCriterionBase.removeEmptyFields(criterionList, QueryType.CQL);
+  //
+  //
+  //    String appendOperator = "AND";
+  //
+  //    final StringBuilder sb = new StringBuilder();
+  //    for (int i = 0; i < removedList.size(); i++) {
+  //
+  //      final SearchCriterionBase criterion = removedList.get(i);
+  //
+  //      // if first in list is an operator, use it as concatenator to append standard criteria below,
+  //      // else use default "AND"
+  //      if (i == 0 && DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType())) {
+  //        appendOperator = criterion.toCqlString(indexName);
+  //      } else {
+  //        final String cql = criterion.toCqlString(indexName);
+  //        if (cql != null && !cql.trim().isEmpty()) {
+  //
+  //
+  //
+  //          if (!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType())
+  //              && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType())) {
+  //            sb.append("(");
+  //          }
+  //
+  //          sb.append(cql);
+  //
+  //          if (!DisplayType.OPERATOR.equals(criterion.getSearchCriterion().getDisplayType())
+  //              && !DisplayType.PARENTHESIS.equals(criterion.getSearchCriterion().getDisplayType())) {
+  //            sb.append(")");
+  //          }
+  //
+  //          sb.append(" ");
+  //        }
+  //      }
+  //
+  //
+  //
+  //    }
+  //
+  //
+  //
+  //    if (appendStandardCriterions) {
+  //      try {
+  //
+  //
+  //
+  //        final String contentModelId = PropertyReader.getProperty(SearchCriterionBase.PROPERTY_CONTENT_MODEL);
+  //
+  //        String standardCriterions = null;
+  //        switch (indexName) {
+  //          case ESCIDOC_ALL: {
+  //            standardCriterions = SearchCriterionBase.INDEX_OBJECTTYPE + "=\"item\" AND " + SearchCriterionBase.INDEX_CONTENT_MODEL + "=\""
+  //                + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
+  //            break;
+  //          }
+  //          case ITEM_CONTAINER_ADMIN: {
+  //            standardCriterions = "\"/properties/content-model/id\"=\"" + SearchCriterionBase.escapeForCql(contentModelId) + "\"";
+  //            break;
+  //          }
+  //
+  //        }
+  //
+  //
+  //
+  //        if (!sb.toString().isEmpty()) {
+  //
+  //          standardCriterions = standardCriterions + " " + appendOperator + " (" + sb.toString() + ")";
+  //        }
+  //        return standardCriterions;
+  //      } catch (final Exception e) {
+  //        SearchCriterionBase.logger.error("Could not read property " + SearchCriterionBase.PROPERTY_CONTENT_MODEL, e);
+  //      }
+  //    }
+  //
+  //    return sb.toString();
+  //
+  //  }
 
 
 
@@ -875,11 +874,11 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-//  public static String queryStringToCqlString(Index indexName, String query, boolean appendStandardCqlCriteria)
-//      throws SearchParseException {
-//    final List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
-//    return SearchCriterionBase.scListToCql(indexName, scList, appendStandardCqlCriteria);
-//  }
+  //  public static String queryStringToCqlString(Index indexName, String query, boolean appendStandardCqlCriteria)
+  //      throws SearchParseException {
+  //    final List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
+  //    return SearchCriterionBase.scListToCql(indexName, scList, appendStandardCqlCriteria);
+  //  }
 
 
 

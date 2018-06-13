@@ -28,17 +28,16 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import org.elasticsearch.index.query.QueryBuilder;
 
-import de.mpg.mpdl.inge.pubman.web.search.SearchParseException;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 
 @SuppressWarnings("serial")
 public abstract class StandardSearchCriterion extends SearchCriterionBase {
   private String searchString;
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-    return this.baseCqlBuilder(this.getCqlIndexes(indexName), this.searchString);
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //    return this.baseCqlBuilder(this.getCqlIndexes(indexName), this.searchString);
+  //  }
 
   @Override
   public String getQueryStringContent() {

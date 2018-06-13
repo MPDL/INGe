@@ -41,18 +41,18 @@ public class Parenthesis extends SearchCriterionBase {
 
   }
 
-  @Override
-  public String toCqlString(Index indexName) {
-    switch (this.getSearchCriterion()) {
-      case OPENING_PARENTHESIS:
-        return "(";
-      case CLOSING_PARENTHESIS:
-        return ")";
-
-      default:
-        return "";
-    }
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) {
+  //    switch (this.getSearchCriterion()) {
+  //      case OPENING_PARENTHESIS:
+  //        return "(";
+  //      case CLOSING_PARENTHESIS:
+  //        return ")";
+  //
+  //      default:
+  //        return "";
+  //    }
+  //  }
 
   @Override
   public String toQueryString() {

@@ -44,42 +44,42 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
 
 
 
-  @Override
-  public String toCqlString(Index indexName) {
-
-    String indexField = null;
-
-
-    switch (indexName) {
-      case ESCIDOC_ALL: {
-        indexField = "escidoc.component.content.storage";
-        break;
-      }
-      case ITEM_CONTAINER_ADMIN: {
-        indexField = "\"/components/component/content/storage\"";
-        break;
-      }
-
-
-    }
-
-
-    switch (this.selectedAvailability) {
-      case YES: {
-        return indexField + "=\"" + SearchCriterionBase.escapeForCql(this.getStorageType()) + "\"";
-      }
-
-      case NO: {
-        return indexField + "<>\"" + SearchCriterionBase.escapeForCql(this.getStorageType()) + "\"";
-      }
-
-      case WHATEVER:
-        return null;
-    }
-
-    return null;
-
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) {
+  //
+  //    String indexField = null;
+  //
+  //
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL: {
+  //        indexField = "escidoc.component.content.storage";
+  //        break;
+  //      }
+  //      case ITEM_CONTAINER_ADMIN: {
+  //        indexField = "\"/components/component/content/storage\"";
+  //        break;
+  //      }
+  //
+  //
+  //    }
+  //
+  //
+  //    switch (this.selectedAvailability) {
+  //      case YES: {
+  //        return indexField + "=\"" + SearchCriterionBase.escapeForCql(this.getStorageType()) + "\"";
+  //      }
+  //
+  //      case NO: {
+  //        return indexField + "<>\"" + SearchCriterionBase.escapeForCql(this.getStorageType()) + "\"";
+  //      }
+  //
+  //      case WHATEVER:
+  //        return null;
+  //    }
+  //
+  //    return null;
+  //
+  //  }
 
   @Override
   public QueryBuilder toElasticSearchQuery() {

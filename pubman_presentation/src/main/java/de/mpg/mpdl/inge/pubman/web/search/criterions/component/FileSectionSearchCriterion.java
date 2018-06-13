@@ -37,11 +37,11 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   }
 
 
-  @Override
-  public String toCqlString(Index indexName) throws SearchParseException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) throws SearchParseException {
+  //    // TODO Auto-generated method stub
+  //    return null;
+  //  }
 
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {

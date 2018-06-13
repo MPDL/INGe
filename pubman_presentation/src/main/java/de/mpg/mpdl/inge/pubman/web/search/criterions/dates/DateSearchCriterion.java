@@ -25,8 +25,6 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.dates;
 
-import java.util.Calendar;
-
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -47,11 +45,11 @@ public class DateSearchCriterion extends SearchCriterionBase {
     super(type);
   }
 
-  @Override
-  public String toCqlString(Index indexName) {
-
-    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(), this.getTo());
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) {
+  //
+  //    return this.composeCqlFragments(this.getCQLSearchIndexes(indexName), this.getFrom(), this.getTo());
+  //  }
 
   @Override
   public String getQueryStringContent() {
@@ -95,217 +93,214 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
 
 
-  private String[] getCQLSearchIndexes(Index indexName) {
-    switch (indexName) {
-      case ESCIDOC_ALL: {
-        switch (this.getSearchCriterion()) {
-          case ANYDATE:
-            return new String[] {"escidoc.publication.published-online", "escidoc.publication.issued", "escidoc.publication.dateAccepted",
-                "escidoc.publication.dateSubmitted", "escidoc.publication.modified", "escidoc.publication.created"};
-          case PUBLISHED:
-            return new String[] {"escidoc.publication.published-online"};
-          case PUBLISHEDPRINT:
-            return new String[] {"escidoc.publication.issued"};
-          case ACCEPTED:
-            return new String[] {"escidoc.publication.dateAccepted"};
-          case SUBMITTED:
-            return new String[] {"escidoc.publication.dateSubmitted"};
-          case MODIFIED:
-            return new String[] {"escidoc.publication.modified"};
-          case CREATED:
-            return new String[] {"escidoc.publication.created"};
-          case EVENT_STARTDATE:
-            return new String[] {"escidoc.publication.event.start-date"};
-          case EVENT_ENDDATE:
-            return new String[] {"escidoc.publication.event.end-date"};
-          case MODIFIED_INTERNAL:
-            return new String[] {"escidoc.last-modification-date"};
-          case CREATED_INTERNAL:
-            return new String[] {"escidoc.property.creation-date"};
-          case COMPONENT_EMBARGO_DATE:
-            return new String[] {"escidoc.component.file.available"};
-            
-          default:
-            break;
-        }
-      }
+  //  private String[] getCQLSearchIndexes(Index indexName) {
+  //    switch (indexName) {
+  //      case ESCIDOC_ALL: {
+  //        switch (this.getSearchCriterion()) {
+  //          case ANYDATE:
+  //            return new String[] {"escidoc.publication.published-online", "escidoc.publication.issued", "escidoc.publication.dateAccepted",
+  //                "escidoc.publication.dateSubmitted", "escidoc.publication.modified", "escidoc.publication.created"};
+  //          case PUBLISHED:
+  //            return new String[] {"escidoc.publication.published-online"};
+  //          case PUBLISHEDPRINT:
+  //            return new String[] {"escidoc.publication.issued"};
+  //          case ACCEPTED:
+  //            return new String[] {"escidoc.publication.dateAccepted"};
+  //          case SUBMITTED:
+  //            return new String[] {"escidoc.publication.dateSubmitted"};
+  //          case MODIFIED:
+  //            return new String[] {"escidoc.publication.modified"};
+  //          case CREATED:
+  //            return new String[] {"escidoc.publication.created"};
+  //          case EVENT_STARTDATE:
+  //            return new String[] {"escidoc.publication.event.start-date"};
+  //          case EVENT_ENDDATE:
+  //            return new String[] {"escidoc.publication.event.end-date"};
+  //          case MODIFIED_INTERNAL:
+  //            return new String[] {"escidoc.last-modification-date"};
+  //          case CREATED_INTERNAL:
+  //            return new String[] {"escidoc.property.creation-date"};
+  //          case COMPONENT_EMBARGO_DATE:
+  //            return new String[] {"escidoc.component.file.available"};
+  //            
+  //          default:
+  //            break;
+  //        }
+  //      }
+  //
+  //      case ITEM_CONTAINER_ADMIN: {
+  //        switch (this.getSearchCriterion()) {
+  //          case ANYDATE:
+  //            return new String[] {"\"/md-records/md-record/publication/published-online\"", "\"/md-records/md-record/publication/issued\"",
+  //                "\"/md-records/md-record/publication/dateAccepted\"", "\"/md-records/md-record/publication/dateSubmitted\"",
+  //                "\"/md-records/md-record/publication/modified\"", "\"/md-records/md-record/publication/created\""};
+  //          case PUBLISHED:
+  //            return new String[] {"\"/md-records/md-record/publication/published-online\""};
+  //          case PUBLISHEDPRINT:
+  //            return new String[] {"\"/md-records/md-record/publication/issued\""};
+  //          case ACCEPTED:
+  //            return new String[] {"\"/md-records/md-record/publication/dateAccepted\""};
+  //          case SUBMITTED:
+  //            return new String[] {"\"/md-records/md-record/publication/dateSubmitted\""};
+  //          case MODIFIED:
+  //            return new String[] {"\"/md-records/md-record/publication/modified\""};
+  //          case CREATED:
+  //            return new String[] {"\"/md-records/md-record/publication/created\""};
+  //          case EVENT_STARTDATE:
+  //            return new String[] {"\"/md-records/md-record/publication/event/start-date\""};
+  //          case EVENT_ENDDATE:
+  //            return new String[] {"\"/md-records/md-record/publication/event/end-date\""};
+  //
+  //          case MODIFIED_INTERNAL:
+  //            return new String[] {"\"/last-modification-date/date\""};
+  //          case CREATED_INTERNAL:
+  //            return new String[] {"\"/properties/creation-date/date\""};
+  //
+  //          case COMPONENT_EMBARGO_DATE:
+  //            return new String[] {"\"/components/component/md-records/md-record/file/available\""};
+  //
+  //          default:
+  //            break;
+  //        }
+  //      }
+  //    }
+  //
+  //    return null;
+  //  }
+  //
+  //  private String composeCqlFragments(String[] searchIndexes, String minor, String major) {
+  //    final StringBuffer buffer = new StringBuffer();
+  //    buffer.append(" ( ");
+  //    try {
+  //      for (int i = 0; i < searchIndexes.length; i++) {
+  //        if (i == (searchIndexes.length - 1)) {
+  //
+  //          buffer.append(this.createCqlFragment(searchIndexes[i], minor, major));
+  //        } else {
+  //          buffer.append(this.createCqlFragment(searchIndexes[i], minor, major));
+  //          buffer.append(" or ");
+  //        }
+  //      }
+  //    } catch (final Exception e) {
+  //      e.printStackTrace();
+  //    }
+  //    buffer.append(" ) ");
+  //    return buffer.toString();
+  //  }
 
-      case ITEM_CONTAINER_ADMIN: {
-        switch (this.getSearchCriterion()) {
-          case ANYDATE:
-            return new String[] {"\"/md-records/md-record/publication/published-online\"", "\"/md-records/md-record/publication/issued\"",
-                "\"/md-records/md-record/publication/dateAccepted\"", "\"/md-records/md-record/publication/dateSubmitted\"",
-                "\"/md-records/md-record/publication/modified\"", "\"/md-records/md-record/publication/created\""};
-          case PUBLISHED:
-            return new String[] {"\"/md-records/md-record/publication/published-online\""};
-          case PUBLISHEDPRINT:
-            return new String[] {"\"/md-records/md-record/publication/issued\""};
-          case ACCEPTED:
-            return new String[] {"\"/md-records/md-record/publication/dateAccepted\""};
-          case SUBMITTED:
-            return new String[] {"\"/md-records/md-record/publication/dateSubmitted\""};
-          case MODIFIED:
-            return new String[] {"\"/md-records/md-record/publication/modified\""};
-          case CREATED:
-            return new String[] {"\"/md-records/md-record/publication/created\""};
-          case EVENT_STARTDATE:
-            return new String[] {"\"/md-records/md-record/publication/event/start-date\""};
-          case EVENT_ENDDATE:
-            return new String[] {"\"/md-records/md-record/publication/event/end-date\""};
+  //  private String createCqlFragment(String index, String minor, String major) throws Exception {
+  //    String fromQuery = null;
+  //    String toQuery = null;
+  //    if (minor != null && !minor.trim().isEmpty()) {
+  //      minor = this.normalizeFromQuery(minor);
+  //
+  //      fromQuery = index + ">=\"" + SearchCriterionBase.escapeForCql(minor) + "\"";
+  //
+  //      /*
+  //       * QueryParser parserFrom = new QueryParser(minor, ">="); parserFrom.addCQLIndex(index);
+  //       * fromQuery = parserFrom.parse();
+  //       */
+  //    }
+  //    if (major != null && !major.trim().isEmpty()) {
+  //      final String[] majorParts = this.normalizeToQuery(major);
+  //      toQuery = index + "<=\"" + SearchCriterionBase.escapeForCql(majorParts[0]) + "\"";
+  //      /*
+  //       * QueryParser parserTo = new QueryParser(majorParts[0], "<="); parserTo.addCQLIndex(index);
+  //       * toQuery = parserTo.parse();
+  //       */
+  //
+  //      for (int i = 1; i < majorParts.length; i++) {
+  //        final String toSubQuery = index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
+  //        toQuery += " not ( " + toSubQuery + " ) ";
+  //
+  //        /*
+  //         * QueryParser parserNotTo = new QueryParser(majorParts[i], "=");
+  //         * parserNotTo.addCQLIndex(index); toQuery += " " + "not" + " ( " + parserNotTo.parse() +
+  //         * " ) ";
+  //         */
+  //      }
+  //    }
+  //
+  //    final StringBuffer buffer = new StringBuffer();
+  //
+  //    if (fromQuery == null) {
+  //      buffer.append(" ( " + toQuery + " ) ");
+  //    } else if (toQuery == null)
+  //
+  //    {
+  //      buffer.append(" ( " + fromQuery + " ) ");
+  //    } else {
+  //      buffer.append(" ( " + fromQuery + " and ( " + toQuery + " ) ) ");
+  //    }
+  //    return buffer.toString();
+  //  }
 
-          case MODIFIED_INTERNAL:
-            return new String[] {"\"/last-modification-date/date\""};
-          case CREATED_INTERNAL:
-            return new String[] {"\"/properties/creation-date/date\""};
-
-          case COMPONENT_EMBARGO_DATE:
-            return new String[] {"\"/components/component/md-records/md-record/file/available\""};
-
-          default:
-            break;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  private String composeCqlFragments(String[] searchIndexes, String minor, String major) {
-    final StringBuffer buffer = new StringBuffer();
-    buffer.append(" ( ");
-    try {
-      for (int i = 0; i < searchIndexes.length; i++) {
-        if (i == (searchIndexes.length - 1)) {
-
-          buffer.append(this.createCqlFragment(searchIndexes[i], minor, major));
-        } else {
-          buffer.append(this.createCqlFragment(searchIndexes[i], minor, major));
-          buffer.append(" or ");
-        }
-      }
-    } catch (final Exception e) {
-      e.printStackTrace();
-    }
-    buffer.append(" ) ");
-    return buffer.toString();
-  }
-
-  private String createCqlFragment(String index, String minor, String major) throws Exception {
-    String fromQuery = null;
-    String toQuery = null;
-    if (minor != null && !minor.trim().isEmpty()) {
-      minor = this.normalizeFromQuery(minor);
-
-      fromQuery = index + ">=\"" + SearchCriterionBase.escapeForCql(minor) + "\"";
-
-      /*
-       * QueryParser parserFrom = new QueryParser(minor, ">="); parserFrom.addCQLIndex(index);
-       * fromQuery = parserFrom.parse();
-       */
-    }
-    if (major != null && !major.trim().isEmpty()) {
-      final String[] majorParts = this.normalizeToQuery(major);
-      toQuery = index + "<=\"" + SearchCriterionBase.escapeForCql(majorParts[0]) + "\"";
-      /*
-       * QueryParser parserTo = new QueryParser(majorParts[0], "<="); parserTo.addCQLIndex(index);
-       * toQuery = parserTo.parse();
-       */
-
-      for (int i = 1; i < majorParts.length; i++) {
-        final String toSubQuery = index + "=\"" + SearchCriterionBase.escapeForCql(majorParts[i]) + "\"";
-        toQuery += " not ( " + toSubQuery + " ) ";
-
-        /*
-         * QueryParser parserNotTo = new QueryParser(majorParts[i], "=");
-         * parserNotTo.addCQLIndex(index); toQuery += " " + "not" + " ( " + parserNotTo.parse() +
-         * " ) ";
-         */
-      }
-    }
-
-    final StringBuffer buffer = new StringBuffer();
-
-    if (fromQuery == null) {
-      buffer.append(" ( " + toQuery + " ) ");
-    } else if (toQuery == null)
-
-    {
-      buffer.append(" ( " + fromQuery + " ) ");
-    } else {
-      buffer.append(" ( " + fromQuery + " and ( " + toQuery + " ) ) ");
-    }
-    return buffer.toString();
-  }
-
-  public String normalizeFromQuery(String fromQuery) {
-    if (fromQuery == null) {
-      return null;
-    } else if (fromQuery.matches("\\d\\d\\d\\d")) {
-      return fromQuery;
-    } else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
-      final String[] parts = fromQuery.split("-");
-      if ("01".equals(parts[1])) {
-        return parts[0];
-      } else {
-        return fromQuery;
-      }
-    } else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
-      final String[] parts = fromQuery.split("-");
-      if ("01".equals(parts[2])) {
-        if ("01".equals(parts[1])) {
-          return parts[0];
-        } else {
-          return parts[0] + "-" + parts[1];
-        }
-      } else {
-        return fromQuery;
-      }
-    } else {
-      return fromQuery;
-    }
-  }
-
-  public String[] normalizeToQuery(String toQuery) {
-    if (toQuery == null) {
-      return null;
-    } else if (toQuery.matches("\\d\\d\\d\\d")) {
-      return new String[] {toQuery + "-12-31"};
-    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
-      final String[] parts = toQuery.split("-");
-      if ("12".equals(parts[1])) {
-        return new String[] {toQuery + "-31"};
-      } else {
-        return new String[] {toQuery + "-31", parts[0]};
-      }
-    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
-      final String[] parts = toQuery.split("-");
-      // Get last day of month
-      if ("31".equals(parts[2]) && "12".equals(parts[1])) {
-        return new String[] {toQuery};
-      } else {
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1, Integer.parseInt(parts[2]));
-        final int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        if (Integer.parseInt(parts[2]) == maximumDay) {
-          return new String[] {toQuery, parts[0]};
-        } else {
-          return new String[] {toQuery, parts[0], parts[0] + "-" + parts[1]};
-        }
-      }
-    } else {
-      return new String[] {toQuery};
-    }
-  }
+  //  public String normalizeFromQuery(String fromQuery) {
+  //    if (fromQuery == null) {
+  //      return null;
+  //    } else if (fromQuery.matches("\\d\\d\\d\\d")) {
+  //      return fromQuery;
+  //    } else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
+  //      final String[] parts = fromQuery.split("-");
+  //      if ("01".equals(parts[1])) {
+  //        return parts[0];
+  //      } else {
+  //        return fromQuery;
+  //      }
+  //    } else if (fromQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+  //      final String[] parts = fromQuery.split("-");
+  //      if ("01".equals(parts[2])) {
+  //        if ("01".equals(parts[1])) {
+  //          return parts[0];
+  //        } else {
+  //          return parts[0] + "-" + parts[1];
+  //        }
+  //      } else {
+  //        return fromQuery;
+  //      }
+  //    } else {
+  //      return fromQuery;
+  //    }
+  //  }
+  //
+  //  public String[] normalizeToQuery(String toQuery) {
+  //    if (toQuery == null) {
+  //      return null;
+  //    } else if (toQuery.matches("\\d\\d\\d\\d")) {
+  //      return new String[] {toQuery + "-12-31"};
+  //    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d")) {
+  //      final String[] parts = toQuery.split("-");
+  //      if ("12".equals(parts[1])) {
+  //        return new String[] {toQuery + "-31"};
+  //      } else {
+  //        return new String[] {toQuery + "-31", parts[0]};
+  //      }
+  //    } else if (toQuery.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+  //      final String[] parts = toQuery.split("-");
+  //      // Get last day of month
+  //      if ("31".equals(parts[2]) && "12".equals(parts[1])) {
+  //        return new String[] {toQuery};
+  //      } else {
+  //        final Calendar calendar = Calendar.getInstance();
+  //        calendar.set(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]) - 1, Integer.parseInt(parts[2]));
+  //        final int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+  //        if (Integer.parseInt(parts[2]) == maximumDay) {
+  //          return new String[] {toQuery, parts[0]};
+  //        } else {
+  //          return new String[] {toQuery, parts[0], parts[0] + "-" + parts[1]};
+  //        }
+  //      }
+  //    } else {
+  //      return new String[] {toQuery};
+  //    }
+  //  }
 
   @Override
   public QueryBuilder toElasticSearchQuery() throws SearchParseException {
-
     return toElasticSearchQuery(this.getSearchCriterion(), this.getFrom(), this.getTo());
-
   }
 
   public static QueryBuilder toElasticSearchQuery(SearchCriterion sc, String from, String to) throws SearchParseException {
-
     switch (sc) {
       case ANYDATE: {
         BoolQueryBuilder bq = QueryBuilders.boolQuery();
@@ -339,7 +334,7 @@ public class DateSearchCriterion extends SearchCriterionBase {
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_CREATION_DATE, from, to);
       case COMPONENT_EMBARGO_DATE:
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL, from, to);
-        
+
       default:
         return null;
     }

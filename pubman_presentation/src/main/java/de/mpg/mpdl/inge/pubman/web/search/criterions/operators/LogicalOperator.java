@@ -36,20 +36,20 @@ public class LogicalOperator extends SearchCriterionBase {
     super(type);
   }
 
-  @Override
-  public String toCqlString(Index indexName) {
-    switch (this.getSearchCriterion()) {
-      case NOT_OPERATOR:
-        return "NOT";
-      case AND_OPERATOR:
-        return "AND";
-      case OR_OPERATOR:
-        return "OR";
-      
-      default:
-        return "";
-    }
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) {
+  //    switch (this.getSearchCriterion()) {
+  //      case NOT_OPERATOR:
+  //        return "NOT";
+  //      case AND_OPERATOR:
+  //        return "AND";
+  //      case OR_OPERATOR:
+  //        return "OR";
+  //      
+  //      default:
+  //        return "";
+  //    }
+  //  }
 
   @Override
   public String toQueryString() {

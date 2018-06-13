@@ -68,53 +68,53 @@ public abstract class EnumListSearchCriterion<T extends Enum<T>> extends SearchC
 
 
 
-  @Override
-  public String toCqlString(Index indexName) {
-
-    final StringBuffer sb = new StringBuffer();
-    boolean enumSelected = false;
-    boolean enumDeselected = false;
-
-
-
-    // List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
-
-    // returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
-    sb.append("(");
-
-    int i = 0;
-    for (final Entry<T, Boolean> entry : this.enumMap.entrySet()) {
-      if (entry.getValue() && i > 0) {
-        sb.append(" OR ");
-        // /returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
-      }
-
-      if (entry.getValue()) {
-
-
-        enumSelected = true;
-        // ComponentVisibilitySearchCriterion gc = new ComponentVisibilitySearchCriterion();
-        // gc.setSearchString(entry.getKey().name().toLowerCase());
-        sb.append(this.getSearchValue(entry.getKey()));
-        i++;
-
-
-      } else {
-        enumDeselected = true;
-        // allGenres = false;
-      }
-
-    }
-
-    // returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
-    sb.append(")");
-
-    if ((enumSelected && enumDeselected)) {
-      return sb.toString();
-    }
-
-    return null;
-  }
+  //  @Override
+  //  public String toCqlString(Index indexName) {
+  //
+  //    final StringBuffer sb = new StringBuffer();
+  //    boolean enumSelected = false;
+  //    boolean enumDeselected = false;
+  //
+  //
+  //
+  //    // List<SearchCriterionBase> returnList = new ArrayList<SearchCriterionBase>();
+  //
+  //    // returnList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
+  //    sb.append("(");
+  //
+  //    int i = 0;
+  //    for (final Entry<T, Boolean> entry : this.enumMap.entrySet()) {
+  //      if (entry.getValue() && i > 0) {
+  //        sb.append(" OR ");
+  //        // /returnList.add(new LogicalOperator(SearchCriterion.OR_OPERATOR));
+  //      }
+  //
+  //      if (entry.getValue()) {
+  //
+  //
+  //        enumSelected = true;
+  //        // ComponentVisibilitySearchCriterion gc = new ComponentVisibilitySearchCriterion();
+  //        // gc.setSearchString(entry.getKey().name().toLowerCase());
+  //        sb.append(this.getSearchValue(entry.getKey()));
+  //        i++;
+  //
+  //
+  //      } else {
+  //        enumDeselected = true;
+  //        // allGenres = false;
+  //      }
+  //
+  //    }
+  //
+  //    // returnList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+  //    sb.append(")");
+  //
+  //    if ((enumSelected && enumDeselected)) {
+  //      return sb.toString();
+  //    }
+  //
+  //    return null;
+  //  }
 
   @Override
   public String toQueryString() {
