@@ -45,9 +45,10 @@ public class LogicalOperator extends SearchCriterionBase {
         return "AND";
       case OR_OPERATOR:
         return "OR";
+      
+      default:
+        return "";
     }
-
-    return "";
   }
 
   @Override
@@ -59,9 +60,10 @@ public class LogicalOperator extends SearchCriterionBase {
         return "AND";
       case OR_OPERATOR:
         return "OR";
-    }
 
-    return "";
+      default:
+        return "";
+    }
   }
 
   public String getQueryStringContent() {

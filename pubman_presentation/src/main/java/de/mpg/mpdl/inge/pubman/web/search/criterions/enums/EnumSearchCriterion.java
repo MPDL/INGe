@@ -49,7 +49,7 @@ public abstract class EnumSearchCriterion<T extends Enum<T>> extends SearchCrite
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
-    return this.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.getSearchString(this.getSelectedEnum()));
+    return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.getSearchString(this.getSelectedEnum()));
   }
 
 

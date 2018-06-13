@@ -69,6 +69,6 @@ public abstract class StandardSearchCriterion extends SearchCriterionBase {
 
   @Override
   public QueryBuilder toElasticSearchQuery() {
-    return this.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.searchString);
+    return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(), this.searchString);
   }
 }

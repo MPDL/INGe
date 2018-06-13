@@ -48,9 +48,10 @@ public class Parenthesis extends SearchCriterionBase {
         return "(";
       case CLOSING_PARENTHESIS:
         return ")";
-    }
 
-    return "";
+      default:
+        return "";
+    }
   }
 
   @Override
@@ -60,9 +61,10 @@ public class Parenthesis extends SearchCriterionBase {
         return "(";
       case CLOSING_PARENTHESIS:
         return ")";
-    }
 
-    return "";
+      default:
+        return "";
+    }
   }
 
   public String getQueryStringContent() {

@@ -118,21 +118,17 @@ public class DateSearchCriterion extends SearchCriterionBase {
             return new String[] {"escidoc.publication.event.start-date"};
           case EVENT_ENDDATE:
             return new String[] {"escidoc.publication.event.end-date"};
-
           case MODIFIED_INTERNAL:
             return new String[] {"escidoc.last-modification-date"};
           case CREATED_INTERNAL:
             return new String[] {"escidoc.property.creation-date"};
-
           case COMPONENT_EMBARGO_DATE:
             return new String[] {"escidoc.component.file.available"};
+            
+          default:
+            break;
         }
-
-        break;
-
       }
-
-
 
       case ITEM_CONTAINER_ADMIN: {
         switch (this.getSearchCriterion()) {
@@ -164,8 +160,10 @@ public class DateSearchCriterion extends SearchCriterionBase {
 
           case COMPONENT_EMBARGO_DATE:
             return new String[] {"\"/components/component/md-records/md-record/file/available\""};
+
+          default:
+            break;
         }
-        break;
       }
     }
 
@@ -319,7 +317,6 @@ public class DateSearchCriterion extends SearchCriterionBase {
         bq.should(buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED, from, to));
         return bq;
       }
-
       case PUBLISHED:
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, from, to);
       case PUBLISHEDPRINT:
@@ -342,9 +339,10 @@ public class DateSearchCriterion extends SearchCriterionBase {
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_CREATION_DATE, from, to);
       case COMPONENT_EMBARGO_DATE:
         return buildDateRangeQuery(PubItemServiceDbImpl.INDEX_FILE_METADATA_EMBARGO_UNTIL, from, to);
+        
+      default:
+        return null;
     }
-    return null;
-
   }
 
 

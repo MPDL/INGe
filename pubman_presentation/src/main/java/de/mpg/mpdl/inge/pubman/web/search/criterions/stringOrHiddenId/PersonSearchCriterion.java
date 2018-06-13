@@ -150,7 +150,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
   public QueryBuilder toElasticSearchQuery() {
     if (selectedRole == null) {
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId());
+        return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId());
       } else {
         return QueryBuilders.multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
             .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND);
@@ -163,7 +163,7 @@ public class PersonSearchCriterion extends StringOrHiddenIdSearchCriterion {
           .must(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_CREATOR_ROLE, selectedRole.name()));
 
       if (this.getHiddenId() != null && !this.getHiddenId().trim().isEmpty()) {
-        bq = bq.must(this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId()));
+        bq = bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.getHiddenId()));
       } else {
         bq = bq.must(QueryBuilders.multiMatchQuery(this.getSearchString(), this.getElasticSearchFieldForSearchString())
             .type(MultiMatchQueryBuilder.Type.CROSS_FIELDS).operator(Operator.AND));

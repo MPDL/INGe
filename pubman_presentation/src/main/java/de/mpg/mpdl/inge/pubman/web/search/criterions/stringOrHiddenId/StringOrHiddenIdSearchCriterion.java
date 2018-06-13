@@ -85,9 +85,9 @@ public abstract class StringOrHiddenIdSearchCriterion extends SearchCriterionBas
   @Override
   public QueryBuilder toElasticSearchQuery() {
     if (this.hiddenId != null && !this.hiddenId.trim().isEmpty()) {
-      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
+      return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForHiddenId(), this.hiddenId);
     } else {
-      return this.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(), this.searchString);
+      return SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticSearchFieldForSearchString(), this.searchString);
     }
   }
 

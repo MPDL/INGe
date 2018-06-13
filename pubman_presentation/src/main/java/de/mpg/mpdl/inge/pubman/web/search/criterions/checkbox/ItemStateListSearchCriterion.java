@@ -68,9 +68,10 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
           return new String[] {"\"/properties/version/status\""};
         }
       }
+      
+      default:
+        return null;
     }
-
-    return null;
   }
 
   @Override

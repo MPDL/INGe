@@ -11,6 +11,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentAvailableSearchCriterion.ComponentAvailability;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 
+@SuppressWarnings("serial")
 public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
@@ -50,7 +51,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
       case YES: {
-        bq.must(this.baseElasticSearchQueryBuilder(new String[] {"files.storage"}, storageType.name()));
+        bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {"files.storage"}, storageType.name()));
 
         if (!visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(visibilityListSearchCriterion.toElasticSearchQuery());
