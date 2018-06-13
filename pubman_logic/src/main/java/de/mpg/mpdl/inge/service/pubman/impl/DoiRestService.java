@@ -23,7 +23,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;

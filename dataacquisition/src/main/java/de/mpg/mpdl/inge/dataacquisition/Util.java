@@ -41,7 +41,6 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.FullTextVO;
 import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;

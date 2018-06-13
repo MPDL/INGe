@@ -55,7 +55,6 @@ import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;

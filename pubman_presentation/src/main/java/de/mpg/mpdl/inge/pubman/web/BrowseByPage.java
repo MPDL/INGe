@@ -42,7 +42,6 @@ import org.elasticsearch.index.query.QueryBuilder;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;

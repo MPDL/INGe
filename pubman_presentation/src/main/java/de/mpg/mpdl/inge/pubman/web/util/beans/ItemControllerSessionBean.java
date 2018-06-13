@@ -70,18 +70,15 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.mpdl.inge.model.xmltransforming.DataGatheringService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem;
 import de.mpg.mpdl.inge.pubman.web.createItem.CreateItem.SubmissionMethod;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
-import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.vos.RelationVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -90,7 +87,6 @@ import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "ItemControllerSessionBean")

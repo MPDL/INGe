@@ -22,7 +22,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.transformation.Transformer;
-import de.mpg.mpdl.inge.transformation.TransformerCache;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;

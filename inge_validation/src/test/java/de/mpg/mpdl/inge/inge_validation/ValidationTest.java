@@ -42,7 +42,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO.InvitationStatus;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;

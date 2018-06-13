@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.reflections.Reflections;
 
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.transformers.IdentityTransformer;
 

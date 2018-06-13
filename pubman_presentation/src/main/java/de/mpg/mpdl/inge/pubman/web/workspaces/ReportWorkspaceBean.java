@@ -38,7 +38,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.CitationTypes;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.ConeUtils;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author Gergana Stoyanova
