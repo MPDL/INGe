@@ -875,11 +875,11 @@ public abstract class SearchCriterionBase implements Serializable {
   }
 
 
-  public static String queryStringToCqlString(Index indexName, String query, boolean appendStandardCqlCriteria)
-      throws SearchParseException {
-    final List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
-    return SearchCriterionBase.scListToCql(indexName, scList, appendStandardCqlCriteria);
-  }
+//  public static String queryStringToCqlString(Index indexName, String query, boolean appendStandardCqlCriteria)
+//      throws SearchParseException {
+//    final List<SearchCriterionBase> scList = SearchCriterionBase.queryStringToScList(query);
+//    return SearchCriterionBase.scListToCql(indexName, scList, appendStandardCqlCriteria);
+//  }
 
 
 

@@ -29,7 +29,6 @@ import de.mpg.mpdl.inge.service.util.GrantUtil;
 public class ItemStateListSearchCriterion extends MapListSearchCriterion<String> {
 
   public ItemStateListSearchCriterion() {
-
     super(ItemStateListSearchCriterion.getItemStateMap(), ItemStateListSearchCriterion.getItemStatePreSelectionMap());
   }
 
@@ -41,7 +40,6 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
     itemStateMap.put("IN_REVISION", "IN_REVISION");
     itemStateMap.put("RELEASED", "RELEASED");
     itemStateMap.put("WITHDRAWN", "WITHDRAWN");
-
 
     return itemStateMap;
   }
@@ -68,7 +66,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
           return new String[] {"\"/properties/version/status\""};
         }
       }
-      
+
       default:
         return null;
     }
@@ -116,10 +114,9 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   public String[] getElasticIndexes(String value) {
     if ("WITHDRAWN".equals(value)) {
       return new String[] {PubItemServiceDbImpl.INDEX_PUBLIC_STATE};
-    } else {
-      return new String[] {PubItemServiceDbImpl.INDEX_VERSION_STATE};
     }
 
+    return new String[] {PubItemServiceDbImpl.INDEX_VERSION_STATE};
   }
 
 
@@ -133,13 +130,11 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
   public static QueryBuilder filterOut(AccountUserDbVO user, State s) {
     BoolQueryBuilder filterOutQuery = QueryBuilders.boolQuery();
 
-
     filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
 
     // filterOutQuery.must(QueryBuilders.scriptQuery(new Script("doc['" +
     // PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']!=doc['" +
     // PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
-
 
     filterOutQuery.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_LATESTVERSION_STATE, s.name()));
 
@@ -157,25 +152,17 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
           contextModeratorQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, grant.getObjectRef()));
         }
       }
-
     }
+
     return filterOutQuery;
   }
 
-
   public QueryBuilder toElasticSearchQuery() {
-
-
     if (!this.isEmpty(QueryType.CQL)) {
-
       LoginHelper loginHelper = FacesTools.findBean("LoginHelper");
-
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
       for (final Entry<String, Boolean> entry : this.getEnumMap().entrySet()) {
-
-
         if (entry.getValue()) {
-
           switch (ItemVersionRO.State.valueOf(entry.getKey())) {
             case RELEASED: {
               BoolQueryBuilder subBuilder = QueryBuilders.boolQuery();
@@ -200,16 +187,11 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
               break;
             }
           }
-
         }
-
       }
 
-
       return bq;
-
     }
-
 
     return null;
   }
