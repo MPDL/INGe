@@ -11,9 +11,7 @@
 	<properties>
 		<project.finalName>migration.jar</project.finalName>
 		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
-		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
 		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
-		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
 		<framework.admin.password></framework.admin.password>
 		<framework.admin.username>roland</framework.admin.username>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
