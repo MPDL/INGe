@@ -84,7 +84,7 @@
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
 		<inge.pubman.instance.seal_number />
-		<inge.pubman.instance.ssrn_contexts>escidoc:167026,escidoc:1002</inge.pubman.instance.ssrn_contexts>
+		<inge.pubman.instance.ssrn_contexts>ctx_167026,ctx_1002</inge.pubman.instance.ssrn_contexts>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.logo.css />
 		<inge.pubman.logo.url>/resources/images/pubman_logo_web.png</inge.pubman.logo.url>
@@ -111,8 +111,6 @@
 		<inge.pubman.survey.text />
 		<inge.pubman.survey.title />
 		<inge.pubman.survey.url />
-		<inge.pubman.yearbook.content-model.id>escidoc:119021</inge.pubman.yearbook.content-model.id>
-		<inge.pubman.yearbook.context.id>escidoc:287053</inge.pubman.yearbook.context.id>
 		<inge.pubman_presentation.overview_page.authors_ou />
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.rest.file.path>/component</inge.rest.file.path>
