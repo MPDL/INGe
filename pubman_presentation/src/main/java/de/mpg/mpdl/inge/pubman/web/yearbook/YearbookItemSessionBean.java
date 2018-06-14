@@ -120,36 +120,6 @@ public class YearbookItemSessionBean extends FacesBean {
       this.error("Error initializing yearbook item!");
       YearbookItemSessionBean.logger.error("Error initializing yearbook item!", e);
     }
-
-    /*
-     * 
-     * final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-     * filterParams.put("operation", new String[] {"searchRetrieve"}); filterParams.put("version",
-     * new String[] {"1.1"}); final String orgId =
-     * this.getLoginHelper().getAccountUsersAffiliations().get(0).getReference().getObjectId(); //
-     * String orgId = "escidoc:persistent25"; filterParams.put( "query", new String[]
-     * {"\"/properties/context/id\"=" +
-     * PropertyReader.getProperty("inge.pubman.yearbook.context.id") +
-     * " and \"/md-records/md-record/yearbook/creator/organization/identifier\"=" + orgId});
-     * filterParams.put("maximumRecords", new String[] {this.MAXIMUM_RECORDS}); final String
-     * xmlItemList = this.itemHandler.retrieveItems(filterParams); final
-     * SearchRetrieveResponseVO<ItemVersionVO> result =
-     * XmlTransformingService.transformToSearchRetrieveResponse(xmlItemList); set current yearbook
-     * if already existent if (result.getNumberOfRecords() > 0) { ItemVersionVO yearbookPubItem = null;
-     * final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy"); final Calendar calendar
-     * = Calendar.getInstance(); final String year = calendarFormat.format(calendar.getTime()); for
-     * (final SearchRetrieveRecordVO<ItemVersionVO> yearbookRecord : result.getRecords()) {
-     * yearbookPubItem = (ItemVersionVO) yearbookRecord.getData(); if (yearbookPubItem != null &&
-     * yearbookPubItem.getYearbookMetadata() != null) { if
-     * (yearbookPubItem.getYearbookMetadata().getYear() != null &&
-     * (yearbookPubItem.getYearbookMetadata().getYear().equals(year) || yearbookPubItem
-     * .getYearbookMetadata().getYear() .equals(Integer.toString((Integer.valueOf(year) - 1)))) &&
-     * !yearbookPubItem.getObject().getPublicState().equals(State.RELEASED)) {
-     * this.setYearbookItem(yearbookPubItem); final ContextHandler contextHandler =
-     * ServiceLocator.getContextHandler(this.getLoginHelper().getESciDocUserHandle()); final String
-     * contextXml = contextHandler.retrieve(this.getYearbookItem().getObject().getContext().getObjectId());
-     * this.yearbookContext = XmlTransformingService.transformToContext(contextXml); } } } }
-     */
   }
 
   public void setYearbook(YearbookDbVO yearbookItem) {
