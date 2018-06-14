@@ -14,25 +14,8 @@
 		<escidoc.framework_access.content-model.id.test>escidoc:2002</escidoc.framework_access.content-model.id.test>
 		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
 		<escidoc.framework_access.context.name.test>Test Context</escidoc.framework_access.context.name.test>
-		<escidoc.framework_access.role.closed.vocabulary.id>escidoc:role-cone-closed-vocabulary-editor</escidoc.framework_access.role.closed.vocabulary.id>
-		<escidoc.framework_access.role.open.vocabulary.id>escidoc:role-cone-open-vocabulary-editor</escidoc.framework_access.role.open.vocabulary.id>
-		<framework.admin.displayname>System Administrator User</framework.admin.displayname>
-		<framework.admin.id>escidoc:exuser1</framework.admin.id>
 		<framework.admin.password></framework.admin.password>
 		<framework.admin.username>roland</framework.admin.username>
-		<framework.author.displayname>Author User for Tests</framework.author.displayname>
-		<framework.author.id>escidoc:2078317</framework.author.id>
-		<framework.author.username>test_author</framework.author.username>
-		<framework.editor.displayname>Editor User for Tests</framework.editor.displayname>
-		<framework.editor.id>escidoc:2078318</framework.editor.id>
-		<framework.editor.username>test_editor</framework.editor.username>
-		<framework.librarian.displayname>Librarian User for Tests</framework.librarian.displayname>
-		<framework.librarian.id>escidoc:2078315</framework.librarian.id>
-		<framework.librarian.username>test_dep_lib</framework.librarian.username>
-		<framework.organizational_unit.id>escidoc:persistent25</framework.organizational_unit.id>
-		<framework.scientist.displayname>Scientist User for Tests</framework.scientist.displayname>
-		<framework.scientist.id>escidoc:2078316</framework.scientist.id>
-		<framework.scientist.username>test_dep_scientist</framework.scientist.username>
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientStart</inge.aa.client.start.class>
