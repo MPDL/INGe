@@ -68,7 +68,7 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
     if (m.getLegalCase() != null) {
 
       if (!ValidationTools.checkDate(m.getLegalCase().getDatePublished())) {
-        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("dateSubmitted"));
+        context.addError(ValidationError.create(ErrorMessages.DATE_FORMAT_INCORRECT).setField("datePublished"));
         ok = false;
       }
 
