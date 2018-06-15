@@ -10,8 +10,6 @@
 	
 	<properties>
 		<project.finalName>migration.jar</project.finalName>
-		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
-		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
 		<framework.admin.password></framework.admin.password>
 		<framework.admin.username>roland</framework.admin.username>
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.EscidocAaClientFinish</inge.aa.client.finish.class>
