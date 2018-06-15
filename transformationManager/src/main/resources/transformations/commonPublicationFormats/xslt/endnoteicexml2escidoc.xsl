@@ -37,7 +37,7 @@
 	<xsl:param name="external-ou"/>
 	<xsl:param name="is-item-list" select="true()"/>
 	<xsl:param name="source-name" select="''"/>
-	<xsl:param name="frameworkUrl" select="'http://coreservice.mpdl.mpg.de/'"/>
+	<xsl:param name="frameworkUrl"/>
 	<!-- Configuration parameters -->
 	<xsl:param name="Flavor" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'false'"/>

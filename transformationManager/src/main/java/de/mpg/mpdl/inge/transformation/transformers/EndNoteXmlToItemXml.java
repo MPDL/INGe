@@ -52,7 +52,7 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
     map.put("source-name", "endnote");
     map.put("root-ou", PropertyReader.getProperty("inge.pubman.root.organisation.id"));
     map.put("external-ou", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-    map.put("frameworkUrl", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
+    map.put("frameworkUrl", PropertyReader.getFrameworkUrl());
 
     return map;
 

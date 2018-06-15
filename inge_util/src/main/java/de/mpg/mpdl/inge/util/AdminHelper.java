@@ -140,8 +140,7 @@ public class AdminHelper {
     if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000) {
       try {
         loginTime = new Date();
-        adminUserHandle =
-            loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
+        adminUserHandle = loginUser(PropertyReader.getFrameworkAdminUsername(), PropertyReader.getFrameworkAdminPassword());
       } catch (Exception e) {
         logger.error("Exception logging on admin user.", e);
       }

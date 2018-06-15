@@ -237,7 +237,6 @@ public class Util {
    * @throws Exception
    */
   public static Document queryFramework(String request) throws Exception {
-    final String FRAMEWORK_PROPERTY = "escidoc.framework_access.framework.url";
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactoryImpl.newInstance();
 
     DocumentBuilder documentBuilder;
@@ -246,7 +245,7 @@ public class Util {
     String frameworkUrl = null;
     Document document = null;
     try {
-      frameworkUrl = PropertyReader.getProperty(FRAMEWORK_PROPERTY);
+      frameworkUrl = PropertyReader.getFrameworkUrl();
       url = frameworkUrl + request;
 
       if (logger.isDebugEnabled())
@@ -266,7 +265,7 @@ public class Util {
         throw new RuntimeException("Error requesting <" + url + ">");
       }
     } catch (IOException e) {
-      logger.error("IOException when getting Property <" + FRAMEWORK_PROPERTY + ">\n" + "Or reading document from URL <" + url, e);
+      logger.error("IOException when reading document from URL <" + url, e);
       throw e;
     } catch (ParserConfigurationException e) {
       logger.error("Parser configuration error", e);

@@ -26,13 +26,11 @@
 
 package de.mpg.mpdl.inge.model.xmltransforming;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -42,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -51,9 +48,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -94,8 +88,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMe
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.DOMUtilities;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -1060,32 +1052,32 @@ public class TestBase {
     return result;
   }
 
-  /**
-   * Uploads a file to the staging servlet and returns the corresponding URL.
-   * 
-   * @param filename The file to upload
-   * @param mimetype The mimetype of the file
-   * @param userHandle The userHandle to use for upload
-   * @return The URL of the uploaded file.
-   * @throws Exception If anything goes wrong...
-   */
-  protected URL uploadFile(String filename, String mimetype, final String userHandle) throws Exception {
-    // Prepare the HttpMethod.
-    String fwUrl = PropertyReader.getFrameworkUrl();
-    PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-
-    method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));
-    method.setRequestHeader("Content-Type", mimetype);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
-    // Execute the method with HttpClient.
-    HttpClient client = new HttpClient();
-    ProxyHelper.executeMethod(client, method);
-    String response = method.getResponseBodyAsString();
-    assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-
-    return XmlTransformingService.transformUploadResponseToFileURL(response);
-  }
+  //  /**
+  //   * Uploads a file to the staging servlet and returns the corresponding URL.
+  //   * 
+  //   * @param filename The file to upload
+  //   * @param mimetype The mimetype of the file
+  //   * @param userHandle The userHandle to use for upload
+  //   * @return The URL of the uploaded file.
+  //   * @throws Exception If anything goes wrong...
+  //   */
+  //  protected URL uploadFile(String filename, String mimetype, final String userHandle) throws Exception {
+  //    // Prepare the HttpMethod.
+  //    String fwUrl = PropertyReader.getFrameworkUrl();
+  //    PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+  //
+  //    method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));
+  //    method.setRequestHeader("Content-Type", mimetype);
+  //    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+  //
+  //    // Execute the method with HttpClient.
+  //    HttpClient client = new HttpClient();
+  //    ProxyHelper.executeMethod(client, method);
+  //    String response = method.getResponseBodyAsString();
+  //    assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
+  //
+  //    return XmlTransformingService.transformUploadResponseToFileURL(response);
+  //  }
 
 
 

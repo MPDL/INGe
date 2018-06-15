@@ -94,6 +94,15 @@ public class PropertyReader {
     return getProperty("escidoc.framework_access.framework.url");
   }
 
+  public static String getFrameworkAdminUsername() {
+    return getProperty("framework.admin.username");
+  }
+
+  public static String getFrameworkAdminPassword() {
+    return getProperty("framework.admin.password");
+  }
+
+
   //  public static String getLoginUrl() {
   //    return getProperty("escidoc.framework_access.login.url");
   //  }
