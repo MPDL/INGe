@@ -28,7 +28,6 @@ public class ItemXmlToEdocXml extends XslTransformer implements ChainableTransfo
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("pubman_instance", PropertyReader.getProperty("inge.pubman.instance.url"));
-    map.put("coreservice_instance", "http://coreservice.mpdl.mpg.de:8080"); // TODO: anpassen
     return map;
   }
 

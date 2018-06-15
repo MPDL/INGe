@@ -52,7 +52,6 @@
     >
 	
 	<xsl:param name="pubman_instance"/>
-	<xsl:param name="coreservice_instance"></xsl:param>
 	
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 	
@@ -181,7 +180,7 @@
 				</xsl:if>
 				
 				<xsl:value-of select="concat(
-					$coreservice_instance,
+					$pubman_instance,
 					@xlink:href	
 				)"/>
 				
@@ -262,9 +261,10 @@
 	</xsl:template>
 
 	
-	<!-- Organizational Units, flat structure -->
+	<!-- Organizational Units, flat structure 
+	     TODO: ersetze coreservice_instance durch entsprechende URL-->
 	<xsl:variable name="OUs" select="
-		document(concat ($coreservice_instance, '/oum/organizational-units' ) )
+		document(concat ('coreservice_instance', '/oum/organizational-units' ) )
 		//organizational-unit:organizational-unit
 	"/>
 

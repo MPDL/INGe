@@ -739,7 +739,7 @@ public class SwordUtil extends FacesBean {
 
     // // Only set content if item was deposited
     if (!deposit.isNoOp() && item != null) {
-      content.setSource("TODO" + "/ir/item/" + item.getObjectId()); // coreservice_instance
+      content.setSource(PropertyReader.getFrameworkUrl() + "/ir/item/" + item.getObjectId());
       se.setId(server.getBaseURL() + SwordUtil.itemPath + item.getObjectId());
     }
     se.setContent(content);
