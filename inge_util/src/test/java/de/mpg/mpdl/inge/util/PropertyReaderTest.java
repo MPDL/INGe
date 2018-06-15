@@ -23,8 +23,8 @@ public class PropertyReaderTest {
 
     FileUtils.writeStringToFile(propertiesFile, "escidoc.framework_access.framework.url = http://dev-pubman.mpdl.mpg.de", true);
     FileUtils.writeStringToFile(propertiesFile, System.getProperty("line.separator"), true);
-    FileUtils.writeStringToFile(propertiesFile, "escidoc.framework_access.login.url = http://localhost:8080", true);
-    FileUtils.writeStringToFile(propertiesFile, System.getProperty("line.separator"), true);
+    //    FileUtils.writeStringToFile(propertiesFile, "escidoc.framework_access.login.url = http://localhost:8080", true);
+    //    FileUtils.writeStringToFile(propertiesFile, System.getProperty("line.separator"), true);
 
     Logger.getLogger(PropertyReaderTest.class).info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
   }
@@ -36,7 +36,8 @@ public class PropertyReaderTest {
     assertTrue(frameworkUrl != null);
     assertTrue(frameworkUrl.equals("http://dev-pubman.mpdl.mpg.de"));
 
-    String loginUrl = PropertyReader.getLoginUrl();
+    //    String loginUrl = PropertyReader.getLoginUrl();
+    String loginUrl = PropertyReader.getFrameworkUrl();
     assertTrue(loginUrl != null);
     assertTrue(loginUrl.equals("http://localhost:8080"));
 
@@ -65,11 +66,11 @@ public class PropertyReaderTest {
     assertTrue(frameworkUrl != null);
     assertTrue(frameworkUrl.equals("http://dev-pubman.mpdl.mpg.de"));
 
-    String loginUrl = PropertyReader.getLoginUrl();
-    assertTrue(loginUrl != null);
-    assertTrue(loginUrl.equals("http://localhost:8080"));
+    //    String loginUrl = PropertyReader.getLoginUrl();
+    //    assertTrue(loginUrl != null);
+    //    assertTrue(loginUrl.equals("http://localhost:8080"));
 
-    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 2", PropertyReader.getCounter() == 2);
+    assertTrue("Is <" + PropertyReader.getCounter() + "> expected 1", PropertyReader.getCounter() == 1);
 
   }
 

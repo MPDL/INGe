@@ -70,7 +70,8 @@ public class AdminHelper {
    * @throws URISyntaxException
    */
   public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException {
-    String frameworkUrl = PropertyReader.getLoginUrl();
+    //    String frameworkUrl = PropertyReader.getLoginUrl();
+    String frameworkUrl = PropertyReader.getFrameworkUrl();
 
     int delim1 = frameworkUrl.indexOf("//");
     int delim2 = frameworkUrl.indexOf(":", delim1);
