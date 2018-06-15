@@ -49,12 +49,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -73,7 +67,7 @@ public class SiteMapTask {
 
   public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir") + "/standalone/data/sitemap/";
 
-  private ArrayList<String> contentModels;
+  //  private ArrayList<String> contentModels;
 
   private FileWriter fileWriter = null;
 
@@ -81,7 +75,7 @@ public class SiteMapTask {
 
   private SimpleDateFormat dateFormat;
 
-  private String contentModel;
+  //  private String contentModel;
   private String contextPath;
   private String instanceUrl;
   private String itemPattern;
@@ -97,8 +91,8 @@ public class SiteMapTask {
   private PubItemService pubItemService;
 
 
-  @Autowired
-  private OrganizationService ouService;
+  //  @Autowired
+  //  private OrganizationService ouService;
 
 
   /**
@@ -121,16 +115,17 @@ public class SiteMapTask {
 
 
 
-      this.contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      //      this.contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
 
-      this.contentModels = new ArrayList<String>();
-      this.contentModels.add(this.contentModel);
+      //      this.contentModels = new ArrayList<String>();
+      //      this.contentModels.add(this.contentModel);
 
       this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
       this.changeFile();
 
-      final long alreadyWritten = this.addViewItemPages();
+      //      final long alreadyWritten = this.addViewItemPages();
+      this.addViewItemPages();
 
       // this.addOUSearchResultPages(alreadyWritten);
 
@@ -371,32 +366,32 @@ public class SiteMapTask {
 
 
 
-  /**
-   * @param contentModels
-   * @param orgUnit
-   * @return
-   * @throws TechnicalException
-   * @throws Exception
-   */
-  private SearchRetrieveResponseVO<AffiliationDbVO> getOUs(int firstRecord) throws Exception {
-    // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
-
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
-    SearchRetrieveResponseVO<AffiliationDbVO> resp = ouService.search(srr, null);
-
-
-    return resp;
-    /*
-     * final SearchQuery ouQuery = new
-     * PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
-     * ouQuery.setStartRecord(firstRecord + ""); ouQuery.setMaximumRecords(this.maxItemsPerRetrieve
-     * + ""); try { final OrgUnitsSearchResult ouSearchResult =
-     * SearchService.searchForOrganizationalUnits(ouQuery); return ouSearchResult; } catch (final
-     * Exception e) { SiteMapTask.logger.error("Error getting ous", e); }
-     * 
-     * return null;
-     */
-  }
+  //  /**
+  //   * @param contentModels
+  //   * @param orgUnit
+  //   * @return
+  //   * @throws TechnicalException
+  //   * @throws Exception
+  //   */
+  //  private SearchRetrieveResponseVO<AffiliationDbVO> getOUs(int firstRecord) throws Exception {
+  //    // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
+  //
+  //    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
+  //    SearchRetrieveResponseVO<AffiliationDbVO> resp = ouService.search(srr, null);
+  //
+  //
+  //    return resp;
+  //    /*
+  //     * final SearchQuery ouQuery = new
+  //     * PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
+  //     * ouQuery.setStartRecord(firstRecord + ""); ouQuery.setMaximumRecords(this.maxItemsPerRetrieve
+  //     * + ""); try { final OrgUnitsSearchResult ouSearchResult =
+  //     * SearchService.searchForOrganizationalUnits(ouQuery); return ouSearchResult; } catch (final
+  //     * Exception e) { SiteMapTask.logger.error("Error getting ous", e); }
+  //     * 
+  //     * return null;
+  //     */
+  //  }
 
   private void startSitemap() {
     try {
@@ -411,25 +406,25 @@ public class SiteMapTask {
 
 
 
-  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationDbVO> searchResult) {
-
-    for (final SearchRetrieveRecordVO<AffiliationDbVO> result : searchResult.getRecords()) {
-
-      try {
-        this.fileWriter.write("\t<url>\n\t\t<loc>");
-        this.fileWriter.write(this.instanceUrl);
-        this.fileWriter.write(this.contextPath);
-        this.fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
-        this.fileWriter.write(result.getData().getObjectId());
-        this.fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
-        this.fileWriter.write(this.contentModel);
-        this.fileWriter.write("%22)&amp;searchType=org");
-        this.fileWriter.write("</loc>\n\t</url>\n");
-      } catch (final Exception e) {
-        SiteMapTask.logger.error("Error", e);
-      }
-    }
-  }
+  //  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationDbVO> searchResult) {
+  //
+  //    for (final SearchRetrieveRecordVO<AffiliationDbVO> result : searchResult.getRecords()) {
+  //
+  //      try {
+  //        this.fileWriter.write("\t<url>\n\t\t<loc>");
+  //        this.fileWriter.write(this.instanceUrl);
+  //        this.fileWriter.write(this.contextPath);
+  //        this.fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
+  //        this.fileWriter.write(result.getData().getObjectId());
+  //        this.fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
+  //        this.fileWriter.write("'dummy-content-model'");
+  //        this.fileWriter.write("%22)&amp;searchType=org");
+  //        this.fileWriter.write("</loc>\n\t</url>\n");
+  //      } catch (final Exception e) {
+  //        SiteMapTask.logger.error("Error", e);
+  //      }
+  //    }
+  //  }
 
   private void finishSitemap() {
     try {

@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.citationmanager;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -42,7 +41,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import de.mpg.mpdl.inge.citationmanager.utils.CitationUtil;
 import de.mpg.mpdl.inge.citationmanager.utils.XmlHelper;
 import de.mpg.mpdl.inge.citationmanager.xslt.CitationStyleManagerImpl;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -68,9 +66,9 @@ public class CitationStylesSubstantialTest {
 
   private Logger logger = Logger.getLogger(getClass());
 
-  private static final String USER_NAME = "citman_user";
-  private static final String USER_PASSWD = "citman_user";
-  private static final String CONTEXT = "Citation Style Testing Context";
+  //  private static final String USER_NAME = "citman_user";
+  //  private static final String USER_PASSWD = "citman_user";
+  //  private static final String CONTEXT = "Citation Style Testing Context";
 
 
   //
@@ -83,10 +81,10 @@ public class CitationStylesSubstantialTest {
    * "<filter name=\"/properties/name\">" + CONTEXT +"</filter>" + "</param>";
    */
 
-  private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "backup/CitationStyleTestUserAccount.xml";
-  private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "backup/CitationStyleTestUserGrants.xml";
-  private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "backup/CitationStyleTestContexts.xml";
-  private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "backup/CitationStyleTestCollection.xml";
+  //  private static final String CITATION_STYLE_TEST_USER_ACCOUNT_FILE_NAME = "backup/CitationStyleTestUserAccount.xml";
+  //  private static final String CITATION_STYLE_TEST_USER_GRANTS_FILE_NAME = "backup/CitationStyleTestUserGrants.xml";
+  //  private static final String CITATION_STYLE_TEST_CONTEXTS_FILE_NAME = "backup/CitationStyleTestContexts.xml";
+  //  private static final String CITATION_STYLE_TEST_COLLECTION_FILE_NAME = "backup/CitationStyleTestCollection.xml";
 
 
   //  private static String userHandle, adminHandle;
@@ -106,12 +104,10 @@ public class CitationStylesSubstantialTest {
   @Test
   @Ignore
   public final void testCitationStylesSnippetGeneration() throws Exception {
-
     for (String cs : CitationStyleExecuterService.getStyles()) {
       if (!XmlHelper.CSL.equals(cs)) {
         testCitationStyleSnippetGeneration(cs);
       }
-
     }
   }
 
@@ -119,9 +115,7 @@ public class CitationStylesSubstantialTest {
   @Test
   @Ignore
   public final void testCitationStyleTestSnippetGeneration() throws Exception {
-
     testCitationStyleSnippetGeneration("Test");
-
   }
 
 
@@ -141,7 +135,7 @@ public class CitationStylesSubstantialTest {
       String FILE_NAME = tp.getProperty("substantial.test.xml");
       String EXPECTED_KEY = tp.getProperty("substantial.expected.key");
       String EXPECTED_XPATH = tp.getProperty("substantial.expected.xpath");
-      String SNIPPET_XPATH = tp.getProperty("substantial.snippet.placeholder.xpath");
+      //      String SNIPPET_XPATH = tp.getProperty("substantial.snippet.placeholder.xpath");
 
       // get items from file
       itemList = TestHelper.getCitationStyleTestXmlAsString(FILE_NAME);
@@ -233,20 +227,20 @@ public class CitationStylesSubstantialTest {
 
 
 
-  /**
-   * Get <code>objid</code> of the User
-   * 
-   * @param userXml is User Account Xml
-   * @return objid of the User
-   * @throws Exception
-   */
-  private String getUserId(String userXml) throws Exception {
-    return XmlHelper.xpathString("//user-account[1]/@objid", userXml);
-  }
+  //  /**
+  //   * Get <code>objid</code> of the User
+  //   * 
+  //   * @param userXml is User Account Xml
+  //   * @return objid of the User
+  //   * @throws Exception
+  //   */
+  //  private String getUserId(String userXml) throws Exception {
+  //    return XmlHelper.xpathString("//user-account[1]/@objid", userXml);
+  //  }
 
-  private void writeToFile(String fileName, String content) throws IOException {
-    TestHelper.writeToFile(CitationUtil.getPathToTestResources() + fileName, content.getBytes());
-  }
+  //  private void writeToFile(String fileName, String content) throws IOException {
+  //    TestHelper.writeToFile(CitationUtil.getPathToTestResources() + fileName, content.getBytes());
+  //  }
 
 
   /**

@@ -38,8 +38,6 @@ public class AffiliationBean extends FacesBean {
 
   public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
 
-  //  private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
-
   private AffiliationVOPresentation selectedAffiliation = null;
 
   private List<AffiliationVOPresentation> selected = null;
