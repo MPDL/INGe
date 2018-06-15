@@ -147,8 +147,8 @@ public class TestBase {
     contextRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     item.setContext(contextRef);
     try {
-      String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-      item.setContentModel(contentModel);
+      //      String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      item.setContentModel("'dummy-content-model'");
     } catch (Exception e) {
       throw new RuntimeException("Error getting content-model", e);
     }

@@ -61,7 +61,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
-import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.util.XmlUtilities;
 
@@ -76,17 +75,17 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
 public class TestBase {
   private static final Logger logger = Logger.getLogger(TestBase.class);
 
-  protected static final String TEST_FILE_ROOT = "target/test-classes/";
-  protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";
-  protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr-springer.pdf";
-  protected static final String MIME_TYPE = "application/pdf";
+  //  protected static final String TEST_FILE_ROOT = "target/test-classes/";
+  //  protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";
+  //  protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr-springer.pdf";
+  //  protected static final String MIME_TYPE = "application/pdf";
   protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
-  protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
-  protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection " + "description of the PubMan Test\n"
-      + "collection. Any content can be stored in this collection, which is of relevance\n"
-      + "for the users of the system. You can submit relevant bibliographic information\n"
-      + "for your publication (metadata) and all relevant files. The MPS is the\n"
-      + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
+  //  protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
+  //  protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection " + "description of the PubMan Test\n"
+  //      + "collection. Any content can be stored in this collection, which is of relevance\n"
+  //      + "for the users of the system. You can submit relevant bibliographic information\n"
+  //      + "for your publication (metadata) and all relevant files. The MPS is the\n"
+  //      + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
 
   /**
    * Creates a well-defined PubItemVO without any files attached.
@@ -107,8 +106,8 @@ public class TestBase {
     contextRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
     item.setContext(contextRef);
     try {
-      String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-      item.setContentModel(contentModel);
+      //      String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      item.setContentModel("'dummy-content-model'");
     } catch (Exception e) {
       throw new RuntimeException("Error getting content-model", e);
     }
