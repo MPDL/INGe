@@ -143,10 +143,10 @@
 								an den Depositor zur&#252;cksenden</a></li>
 						<li><span class="titlemark">5.2.</span><a
 							href="#Datensatz_modifizieren">Einen Datensatz modifizieren</a></li>
-						<li><span class="titlemark">5.3.</span><a href="#Akzeptieren">Akzeptieren</a>
+						<li><span class="titlemark">5.3.</span><a href="Freigeben">Freigeben</a>
 							<ul>
 								<li><span class="titlemark">5.3.1.</span><a
-									href="#Kommentar_Akzeptieren">Kommentar zum Akzeptieren</a></li>
+									href="#Kommentar_Freigeben">Kommentar zum Freigeben</a></li>
 							</ul></li>
 						<li><span class="titlemark">5.4.</span><a
 							href="#Datensatz_zurueckziehen">Einen Datensatz
@@ -696,15 +696,15 @@
 				Bereits "eingestellte" bzw. "freigegebene" (je nach Workflow-Typ)
 				Datens&#228;tze k&#246;nnen vom Moderator ver&#228;ndert werden,
 				"freigegebene" Datens&#228;tze auch vom Ersteller.</p>
-			<h3 id="Akzeptieren">
-				<span class="titlemark">5.3.</span><a>Akzeptieren</a>
+			<h3 id="Freigeben">
+				<span class="titlemark">5.3.</span><a>Freigeben</a>
 			</h3>
 			<p class="noindent">Wenn Sie den Datensatz, den Sie
 				ver&#228;ndert haben, f&#252;r die &#246;ffentliche Sicht wieder
-				freischalten m&#246;chten, dann m&#252;ssen Sie ihn akzeptieren.</p>
-			<h4 id="Kommentar_Akzeptieren">
+				freischalten m&#246;chten, dann m&#252;ssen Sie ihn freigeben.</p>
+			<h4 id="Kommentar_Freigeben">
 				<span class="titlemark">5.3.1.</span><a>Kommentar zum
-					Akzeptieren</a>
+					Freigeben</a>
 			</h4>
 			<p class="noindent">Sie haben hier die M&#246;glichkeit einen
 				Kommentar zu Ihrer &#220;berarbeitung abzugeben, der dann
@@ -792,7 +792,7 @@
 				alle Daten angezeigt, die f&#252;r den Moderator relevant sind.
 				Datens&#228;tze in Status &#34;eingestellt&#34; m&#252;ssen noch
 				&#252;berpr&#252;ft werden. Der Moderator kann die Datens&#228;tze
-				dann entweder akzeptieren (f&#252;r die &#246;ffentliche Sicht
+				dann entweder freigeben (f&#252;r die &#246;ffentliche Sicht
 				freischalten) oder an den Depositor zur &#220;berarbeitung
 				zur&#252;ckschicken ("zum Bearbeiten schicken").</p>
 			<p class="noindent">Bitte beachten Sie, dass das oben Genannte

@@ -133,11 +133,11 @@
 							href="#Send_Back_for_Re-Work">Send Back for Re-work</a></li>
 						<li><span class="titlemark">5.2.</span><a href="#Modify_Item">Modify
 								Item</a></li>
-						<li><span class="titlemark">5.3.</span><a href="#Accept_Item">Accept
+						<li><span class="titlemark">5.3.</span><a href="#Release_Item">Release
 								Item</a>
 							<ul>
 								<li><span class="titlemark">5.3.1.</span><a
-									href="#Acceptance_Comment">Acceptance Comment</a></li>
+									href="#Release_Comment">Release Comment</a></li>
 							</ul></li>
 						<li><span class="titlemark">5.4.</span><a
 							href="#Withdraw%20Item">Withdraw Item</a></li>
@@ -232,7 +232,7 @@
 			<p class="noindent">In the standard workflow, the depositor
 				creates items (item state: "pending") and submits them to the
 				moderator for quality check (item state: "submitted"). After
-				evaluating the item, the moderator can either accept the item
+				evaluating the item, the moderator can either release the item
 				&#8211; making it publicly available (item state: "released")
 				&#8211; or send it back to the depositor for rework, in case the
 				item does not conform to the quality standards (item state: "in
@@ -246,7 +246,7 @@
 				items (item state: "pending") and then release them for public view
 				(item state: "released"). After an item has been released by the
 				depositor, it can be modified by the depositor and the moderator.
-				After modifying an item, the moderator accepts it (item state:
+				After modifying an item, the moderator releases it (item state:
 				"released"). The option "send back for rework" is not available in
 				the simple workflow.</p>
 			<h4>
@@ -584,7 +584,7 @@
 				quality assurance is the moderator, who has a wide spectrum of means
 				at her/his disposal. S/he can modify the items or send them back to
 				the depositor for re-work; if s/he is content with the quality, s/he
-				can accept and release the items. A further quality assurance
+				can release and release the items. A further quality assurance
 				option, which is only available to the depositor, is the withdrawal
 				of an item: an alternative to deleting the item that serves the
 				purposes of long-term storage and guarantees further citability of
@@ -607,16 +607,16 @@
 				moderator, "releasesd" items can also be modified by the depositor.
 			</p>
 			<h3>
-				<span class="titlemark">5.3.</span><a>Accept Item</a>
+				<span class="titlemark">5.3.</span><a>Realease Item</a>
 			</h3>
 			<p class="noindent">If you want to release the item you have
 				modified and make it publicly available again, please click on
-				"accept".</p>
+				"release".</p>
 			<h4>
-				<span class="titlemark">5.3.1.</span><a>Acceptance Comment</a>
+				<span class="titlemark">5.3.1.</span><a>Release Comment</a>
 			</h4>
 			<p class="noindent">In the comment field you can give a comment
-				on accepting the item, which is then visible in the item's release
+				on releasing the item, which is then visible in the item's release
 				history.</p>
 			<h3>
 				<span class="titlemark">5.4.</span><a>Withdraw</a>
@@ -685,7 +685,7 @@
 			<p class="noindent">In the Quality Assurance Workspace all items
 				relevant for the moderator are listed. Items in state "submitted"
 				are items that need to be quality checked. The moderator will judge
-				their quality and then either accept them or send them back for
+				their quality and then either release them or send them back for
 				rework to the depositor.</p>
 			<p class="noindent">Please note that this only applies to the
 				Standard Workflow. In the Simple Workflow there are no "submitted"
