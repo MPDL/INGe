@@ -75,7 +75,6 @@ import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
-import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItem;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemSessionBean;
@@ -150,7 +149,7 @@ public class ViewItemFull extends FacesBean {
   private PubItemVOPresentation pubItem = null;
 
   private String citationURL;
-  private String fwUrl;
+  //  private String fwUrl;
   private String itemPattern;
   private String languages;
   private String latestVersionURL;
@@ -373,7 +372,7 @@ public class ViewItemFull extends FacesBean {
         this.isWorkflowStandard = false;
       }
 
-      this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+      //      this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
       this.defaultSize = Integer.parseInt(PropertyReader.getProperty("inge.pubman_presentation.viewFullItem.defaultSize", "20"));
 
       // Submenu
@@ -1754,13 +1753,13 @@ public class ViewItemFull extends FacesBean {
     return this.isPublicStateReleased;
   }
 
-  public String getFwUrl() {
-    return this.fwUrl;
-  }
-
-  public void setFwUrl(String fwUrl) {
-    this.fwUrl = fwUrl;
-  }
+  //  public String getFwUrl() {
+  //    return this.fwUrl;
+  //  }
+  //
+  //  public void setFwUrl(String fwUrl) {
+  //    this.fwUrl = fwUrl;
+  //  }
 
   public String getItemPattern() {
     return this.itemPattern;
@@ -2161,10 +2160,6 @@ public class ViewItemFull extends FacesBean {
 
   private ItemVersionListSessionBean getItemVersionListSessionBean() {
     return (ItemVersionListSessionBean) FacesTools.findBean("ItemVersionListSessionBean");
-  }
-
-  private ContextListSessionBean getCollectionListSessionBean() {
-    return (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
   }
 
   private ExportItemsSessionBean getExportItemsSessionBean() {

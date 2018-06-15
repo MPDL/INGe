@@ -187,14 +187,6 @@ public abstract class SearchCriterionBase implements Serializable {
 
   public enum QueryType{CQL,INTERNAL}
 
-
-
-  //  private static final String INDEX_CONTENT_MODEL = "escidoc.content-model.objid";
-  //  private static final String INDEX_OBJECTTYPE = "escidoc.objecttype";
-  //
-  //  private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
-
-
   private String queryValue;
 
   protected SearchCriterion searchCriterion;

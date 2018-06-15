@@ -846,7 +846,7 @@ public class XmlTransformingService {
       urlWrapper = (URLWrapper) uctx.unmarshalDocument(sr, null);
       // extract the string from the wrapper and transform it to a URL
 
-      logger.debug("URL: " + PropertyReader.getFrameworkUrl() + ":" + urlWrapper.getUrlString());
+      // logger.debug("URL: " + PropertyReader.getFrameworkUrl() + ":" + urlWrapper.getUrlString());
 
       url = new URL(PropertyReader.getFrameworkUrl() + urlWrapper.getUrlString());
     } catch (JiBXException e) {

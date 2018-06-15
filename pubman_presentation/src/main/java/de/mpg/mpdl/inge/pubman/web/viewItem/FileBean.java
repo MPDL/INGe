@@ -26,9 +26,6 @@
 
 package de.mpg.mpdl.inge.pubman.web.viewItem;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -37,9 +34,6 @@ import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -51,8 +45,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Bean for storing the information of files attached to items.
@@ -199,78 +191,78 @@ public class FileBean extends FacesBean {
     */
   }
 
-  public void downloadFile() {
-    try {
-      final String fileLocation = PropertyReader.getFrameworkUrl() + this.file.getContent();
-      String filename = this.file.getName(); // Filename suggested in browser Save As dialog
-      filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed
-                                             // by the http-response (filename will be cutted after
-                                             // the first empty space)
-      final String contentType = this.file.getMimeType(); // For dialog, try
+  //  public void downloadFile() {
+  //    try {
+  //      final String fileLocation = PropertyReader.getFrameworkUrl() + this.file.getContent();
+  //      String filename = this.file.getName(); // Filename suggested in browser Save As dialog
+  //      filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed
+  //                                             // by the http-response (filename will be cutted after
+  //                                             // the first empty space)
+  //      final String contentType = this.file.getMimeType(); // For dialog, try
+  //
+  //      // application/x-download
+  //      FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
+  //      if (this.file.getMetadata() != null) {
+  //        FacesTools.getResponse().setContentLength(this.file.getMetadata().getSize());
+  //      }
+  //
+  //      FacesTools.getResponse().setContentType(contentType);
+  //
+  //      byte[] buffer = null;
+  //      if (this.file.getMetadata() != null) {
+  //        try {
+  //          final GetMethod method = new GetMethod(fileLocation);
+  //          method.setFollowRedirects(false);
+  //          if (this.getLoginHelper().getESciDocUserHandle() != null) {
+  //            // downloading by account user
+  //            this.addHandleToMethod(method, this.getLoginHelper().getESciDocUserHandle());
+  //          }
+  //
+  //          // Execute the method with HttpClient.
+  //          final HttpClient client = new HttpClient();
+  //          ProxyHelper.setProxy(client, fileLocation); // ????
+  //          client.executeMethod(method);
+  //          final OutputStream out = FacesTools.getResponse().getOutputStream();
+  //          final InputStream input = method.getResponseBodyAsStream();
+  //          try {
+  //            if (this.file.getMetadata() != null) {
+  //              buffer = new byte[this.file.getMetadata().getSize()];
+  //              int numRead;
+  //              // long numWritten = 0;
+  //              while ((numRead = input.read(buffer)) != -1) {
+  //                out.write(buffer, 0, numRead);
+  //                out.flush();
+  //                // numWritten += numRead;
+  //              }
+  //              FacesTools.getCurrentInstance().responseComplete();
+  //            }
+  //          } catch (final IOException e1) {
+  //            FileBean.logger.debug("Download IO Error: " + e1.toString());
+  //          }
+  //          input.close();
+  //          out.close();
+  //        } catch (final FileNotFoundException e) {
+  //          FileBean.logger.debug("File not found: " + e.toString());
+  //        }
+  //      }
+  //    } catch (final Exception e) {
+  //      FileBean.logger.debug("File Download Error: " + e.toString());
+  //    }
+  //  }
 
-      // application/x-download
-      FacesTools.getResponse().setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-      if (this.file.getMetadata() != null) {
-        FacesTools.getResponse().setContentLength(this.file.getMetadata().getSize());
-      }
-
-      FacesTools.getResponse().setContentType(contentType);
-
-      byte[] buffer = null;
-      if (this.file.getMetadata() != null) {
-        try {
-          final GetMethod method = new GetMethod(fileLocation);
-          method.setFollowRedirects(false);
-          if (this.getLoginHelper().getESciDocUserHandle() != null) {
-            // downloading by account user
-            this.addHandleToMethod(method, this.getLoginHelper().getESciDocUserHandle());
-          }
-
-          // Execute the method with HttpClient.
-          final HttpClient client = new HttpClient();
-          ProxyHelper.setProxy(client, fileLocation); // ????
-          client.executeMethod(method);
-          final OutputStream out = FacesTools.getResponse().getOutputStream();
-          final InputStream input = method.getResponseBodyAsStream();
-          try {
-            if (this.file.getMetadata() != null) {
-              buffer = new byte[this.file.getMetadata().getSize()];
-              int numRead;
-              // long numWritten = 0;
-              while ((numRead = input.read(buffer)) != -1) {
-                out.write(buffer, 0, numRead);
-                out.flush();
-                // numWritten += numRead;
-              }
-              FacesTools.getCurrentInstance().responseComplete();
-            }
-          } catch (final IOException e1) {
-            FileBean.logger.debug("Download IO Error: " + e1.toString());
-          }
-          input.close();
-          out.close();
-        } catch (final FileNotFoundException e) {
-          FileBean.logger.debug("File not found: " + e.toString());
-        }
-      }
-    } catch (final Exception e) {
-      FileBean.logger.debug("File Download Error: " + e.toString());
-    }
-  }
-
-  /**
-   * Adds a cookie named "escidocCookie" that holds the eScidoc user handle to the provided http
-   * method object.
-   * 
-   * @author Tobias Schraut
-   * @param method The http method to add the cookie to.
-   */
-  private void addHandleToMethod(final HttpMethod method, String eSciDocUserHandle) {
-    // Staging file resource is protected, access needs authentication and
-    // authorization. Therefore, the eSciDoc user handle must be provided.
-    // Put the handle in the cookie "escidocCookie"
-    method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
-  }
+  //  /**
+  //   * Adds a cookie named "escidocCookie" that holds the eScidoc user handle to the provided http
+  //   * method object.
+  //   * 
+  //   * @author Tobias Schraut
+  //   * @param method The http method to add the cookie to.
+  //   */
+  //  private void addHandleToMethod(final HttpMethod method, String eSciDocUserHandle) {
+  //    // Staging file resource is protected, access needs authentication and
+  //    // authorization. Therefore, the eSciDoc user handle must be provided.
+  //    // Put the handle in the cookie "escidocCookie"
+  //    method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
+  //  }
 
   /**
    * Returns the content category.

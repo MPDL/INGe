@@ -23,7 +23,6 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.BMC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.BMC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
@@ -33,8 +32,7 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
 
 
-    // For the source, a sax source is required which resolves the doctype system id's in the source
-    // xml.
+    // For the source, a sax source is required which resolves the doctype system id's in the source xml.
     SAXSource saxSource = null;
     try {
       SAXParserFactory saxparserfactory = SAXParserFactory.newInstance();
@@ -68,14 +66,14 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
 
-    String ns_prefix_xsd_soap_common_srel =
-        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
-            : "{http://escidoc.de/core/01/structural-relations/}";
-
-
-    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
-    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    //    String ns_prefix_xsd_soap_common_srel =
+    //        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+    //            : "{http://escidoc.de/core/01/structural-relations/}";
+    //
+    //
+    //    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    //    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
+    //        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");

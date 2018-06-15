@@ -94,9 +94,18 @@ public class PropertyReader {
     return getProperty("escidoc.framework_access.framework.url");
   }
 
-  public static String getLoginUrl() {
-    return getProperty("escidoc.framework_access.login.url");
+  public static String getFrameworkAdminUsername() {
+    return getProperty("framework.admin.username");
   }
+
+  public static String getFrameworkAdminPassword() {
+    return getProperty("framework.admin.password");
+  }
+
+
+  //  public static String getLoginUrl() {
+  //    return getProperty("escidoc.framework_access.login.url");
+  //  }
 
   /**
    * Force the property file to be reloaded into the Properties object

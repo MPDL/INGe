@@ -76,7 +76,7 @@
 	<xsl:param name="locator-filename-substitute" select="'external resource'"/>
 	<xsl:param name="external-organization" select="'dummy-external-ou'"/>
 	
-	<xsl:param name="content-model"/>
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 	<!--
 		DC XML  Header
 	-->

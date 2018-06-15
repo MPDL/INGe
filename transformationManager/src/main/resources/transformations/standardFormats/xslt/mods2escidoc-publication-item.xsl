@@ -69,7 +69,7 @@
 	<!-- Kristina has to create a corresponding context 
 	<xsl:param name="context" select="'escidoc:XXXXXX'"/>-->
 	<xsl:param name="is-item-list" select="true()"/>
-	<xsl:param name="content-model"/>
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 	
 	<xsl:param name="filename" select="tokenize(document-uri(/),'/')[last()]"/>
 	<xsl:param name="anchorfilename" select="concat(substring-before($filename, '.xml'), '_anchor.xml')"/>

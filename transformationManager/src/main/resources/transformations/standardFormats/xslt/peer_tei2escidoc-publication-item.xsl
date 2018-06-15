@@ -69,7 +69,7 @@
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
-	<xsl:param name="content-model"/>
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 	<xsl:param name="external_organization_id"/>
 
 	<xsl:param name="is-item-list" select="true()"/>

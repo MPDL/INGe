@@ -79,7 +79,7 @@ public class BrowseBySessionBean extends FacesBean {
   private String currentCharacter = "A";
   private String dateMode = "published";
   private String dateType = "published";
-  private String pubContentModel = "";
+  //  private String pubContentModel = "";
   private String query = "q";
   private String selectedValue = "persons";
   private String[] characters = null;
@@ -90,11 +90,11 @@ public class BrowseBySessionBean extends FacesBean {
   private Map<String, Long> yearMap = new TreeMap<>();
 
   public BrowseBySessionBean() {
-    try {
-      this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
-    } catch (final Exception e) {
-      BrowseBySessionBean.logger.warn("Could not read property content model.", e);
-    }
+    //    try {
+    //      this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+    //    } catch (final Exception e) {
+    //      BrowseBySessionBean.logger.warn("Could not read property content model.", e);
+    //    }
   }
 
   public void clear() {
@@ -313,9 +313,9 @@ public class BrowseBySessionBean extends FacesBean {
     this.dateType = dateType;
   }
 
-  public String getPubContentModel() {
-    return this.pubContentModel;
-  }
+  //  public String getPubContentModel() {
+  //    return this.pubContentModel;
+  //  }
 
   public String[] getCharacters() {
     return this.characters;

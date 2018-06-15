@@ -54,7 +54,7 @@
 	<xsl:param name="external-ou" />
 	<xsl:param name="root-ou" select="'dummy-root-ou'" />
 	<xsl:param name="source-name" select="'eDoc'" />
-	<xsl:param name="framework-url" select="'http://migration-coreservice.mpdl.mpg.de'" />
+	<xsl:param name="framework-url" />
 
 	<!-- Configuration parameters -->
 	<xsl:param name="import-name" select="'OTHER'" />

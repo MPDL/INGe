@@ -58,7 +58,7 @@
 	<xsl:include href="arxiv_subjects.xsl" />
 
 	<xsl:param name="external_organization_id" />
-	<xsl:param name="content-model" />
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 
 	<xsl:template match="/">
 

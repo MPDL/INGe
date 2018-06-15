@@ -288,13 +288,13 @@ public class PubManSwordServer {
     return "";
   }
 
-  public String getCoreserviceURL() {
-    try {
-      return PropertyReader.getProperty("escidoc.framework_access.framework.url");
-    } catch (final Exception e) {
-      PubManSwordServer.logger.warn("Coreservice URL could not be read from property file.", e);
-    }
-
-    return "";
-  }
+  //  public String getCoreserviceURL() {
+  //    try {
+  //      return PropertyReader.getProperty("escidoc.framework_access.framework.url");
+  //    } catch (final Exception e) {
+  //      PubManSwordServer.logger.warn("Coreservice URL could not be read from property file.", e);
+  //    }
+  //
+  //    return "";
+  //  }
 }

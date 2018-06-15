@@ -70,7 +70,8 @@ public class AdminHelper {
    * @throws URISyntaxException
    */
   public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException {
-    String frameworkUrl = PropertyReader.getLoginUrl();
+    //    String frameworkUrl = PropertyReader.getLoginUrl();
+    String frameworkUrl = PropertyReader.getFrameworkUrl();
 
     int delim1 = frameworkUrl.indexOf("//");
     int delim2 = frameworkUrl.indexOf(":", delim1);
@@ -139,8 +140,7 @@ public class AdminHelper {
     if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000) {
       try {
         loginTime = new Date();
-        adminUserHandle =
-            loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
+        adminUserHandle = loginUser(PropertyReader.getFrameworkAdminUsername(), PropertyReader.getFrameworkAdminPassword());
       } catch (Exception e) {
         logger.error("Exception logging on admin user.", e);
       }

@@ -41,7 +41,7 @@ public class EscidocAaClientFinish extends FinalClient {
 
   @Override
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String escidocUserHandle = request.getParameter("eSciDocUserHandle");
+    //    String escidocUserHandle = request.getParameter("eSciDocUserHandle");
 
     /*
     if (escidocUserHandle != null) {

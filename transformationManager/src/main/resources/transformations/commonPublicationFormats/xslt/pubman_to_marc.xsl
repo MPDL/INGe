@@ -8,8 +8,8 @@
 	<xsl:variable name="local:addition-for-pseudonym" as="xs:string?" select="' (pseudonym)'"/>
 	<xsl:variable name="local:form-description-for-online-resources" as="xs:string?" select="'[Online]'"/>
 	<xsl:variable name="local:pages-marker" as="xs:string">p.</xsl:variable>
-	<xsl:param name="pubman_instance" as="xs:string" select=" 'http://pure.mpg.de' " />
-	<xsl:param name="pubman_instance_context_path" as="xs:string" select=" '' " />
+	<xsl:param name="pubman_instance" />
+	<xsl:param name="pubman_instance_context_path" />
 	<xsl:template match="/|escidocItem:item|escidocMetadataRecords:md-records|escidocMetadataRecords:md-record|    eterms:creator" xml:id="match-and-apply-templates">
 		<xsl:apply-templates/>
 	</xsl:template>

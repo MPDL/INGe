@@ -28,7 +28,6 @@ public class ModsXmlToItemXml extends XslTransformer implements ChainableTransfo
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     return map;
   }
 

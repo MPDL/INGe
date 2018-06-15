@@ -904,8 +904,6 @@
 	</reporting>
 
 	<properties>
-		<escidoc.framework_access.content-model.id.publication>escidoc:2001</escidoc.framework_access.content-model.id.publication>
-		<escidoc.framework_access.context.id.test>escidoc:2079350</escidoc.framework_access.context.id.test>
 		<framework.admin.password></framework.admin.password>
 		<framework.admin.username>roland</framework.admin.username>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
@@ -1149,7 +1147,6 @@
 			</activation>
 			<properties>
 				<escidoc.framework_access.framework.url>http://dev.inge.mpdl.mpg.de</escidoc.framework_access.framework.url>
-				<escidoc.framework_access.login.url>http://dev.inge.mpdl.mpg.de</escidoc.framework_access.login.url>
 				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/auth/clientLogin</inge.aa.default.target>
 				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/auth/</inge.aa.instance.url>
 				<inge.cone.database.server.name>dev.inge.mpdl.mpg.de</inge.cone.database.server.name>

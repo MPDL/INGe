@@ -103,8 +103,8 @@ public class ReportFHI {
   public static String emailAuthPwdProp;
 
   public ReportFHI() throws IOException, URISyntaxException, ServiceException {
-    USER_NAME = PropertyReader.getProperty("framework.admin.username");
-    USER_PASSWD = PropertyReader.getProperty("framework.admin.password");
+    USER_NAME = PropertyReader.getFrameworkAdminUsername();
+    USER_PASSWD = PropertyReader.getFrameworkAdminPassword();
     emailSenderProp = PropertyReader.getProperty("inge.email.sender");
     emailServernameProp = PropertyReader.getProperty("inge.email.mailservername");
     emailWithAuthProp = PropertyReader.getProperty("inge.email.withauthentication");

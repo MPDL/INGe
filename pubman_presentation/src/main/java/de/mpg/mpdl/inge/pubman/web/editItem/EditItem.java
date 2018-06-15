@@ -26,7 +26,6 @@ package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -37,9 +36,6 @@ import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.model.SelectItem;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
@@ -73,7 +69,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
-import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
@@ -100,7 +95,6 @@ import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving
@@ -417,32 +411,32 @@ public class EditItem extends FacesBean {
     }
   }
 
-  /**
-   * Uploads a file to the staging servlet and returns the corresponding URL.
-   * 
-   * @param uploadedFile The file to upload
-   * @param mimetype The mimetype of the file
-   * @param userHandle The userhandle to use for upload
-   * @return The URL of the uploaded file.
-   * @throws Exception If anything goes wrong...
-   */
-  protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception {
-    // Prepare the HttpMethod.
-    final String fwUrl = PropertyReader.getFrameworkUrl();
-    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-    final InputStream fis = uploadedFile.getInputstream();
-    method.setRequestEntity(new InputStreamRequestEntity(fis));
-    method.setRequestHeader("Content-Type", mimetype);
-    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-    // Execute the method with HttpClient.
-    final HttpClient client = new HttpClient();
-    ProxyHelper.setProxy(client, fwUrl);
-    client.executeMethod(method);
-    final String response = method.getResponseBodyAsString();
-    fis.close();
-
-    return XmlTransformingService.transformUploadResponseToFileURL(response);
-  }
+  //  /**
+  //   * Uploads a file to the staging servlet and returns the corresponding URL.
+  //   * 
+  //   * @param uploadedFile The file to upload
+  //   * @param mimetype The mimetype of the file
+  //   * @param userHandle The userhandle to use for upload
+  //   * @return The URL of the uploaded file.
+  //   * @throws Exception If anything goes wrong...
+  //   */
+  //  protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception {
+  //    // Prepare the HttpMethod.
+  //    final String fwUrl = PropertyReader.getFrameworkUrl();
+  //    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+  //    final InputStream fis = uploadedFile.getInputstream();
+  //    method.setRequestEntity(new InputStreamRequestEntity(fis));
+  //    method.setRequestHeader("Content-Type", mimetype);
+  //    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+  //    // Execute the method with HttpClient.
+  //    final HttpClient client = new HttpClient();
+  //    ProxyHelper.setProxy(client, fwUrl);
+  //    client.executeMethod(method);
+  //    final String response = method.getResponseBodyAsString();
+  //    fis.close();
+  //
+  //    return XmlTransformingService.transformUploadResponseToFileURL(response);
+  //  }
 
   public List<ListItem> getLanguages() throws Exception {
     if (this.languages == null) {

@@ -374,14 +374,14 @@ public class AudienceBean extends FacesBean {
     return ViewItemFull.LOAD_VIEWITEM;
   }
 
-  /**
-   * Returns the URL of the coreservice this PubMan instance is currently working with
-   * 
-   * @return String URL of the coreservice
-   */
-  public String getFwUrl() {
-    return PropertyReader.getProperty("escidoc.framework_access.login.url");
-  }
+  //  /**
+  //   * Returns the URL of the coreservice this PubMan instance is currently working with
+  //   * 
+  //   * @return String URL of the coreservice
+  //   */
+  //  public String getFwUrl() {
+  //    return PropertyReader.getProperty("escidoc.framework_access.login.url");
+  //  }
 
   public String getItemPattern() {
     String itemPattern = "";

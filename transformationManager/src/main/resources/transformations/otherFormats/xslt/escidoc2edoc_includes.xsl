@@ -52,7 +52,7 @@
     >
 	
 	<xsl:param name="pubman_instance"/>
-	<xsl:param name="coreservice_instance"/>
+	<xsl:param name="coreservice_instance"></xsl:param>
 	
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 	

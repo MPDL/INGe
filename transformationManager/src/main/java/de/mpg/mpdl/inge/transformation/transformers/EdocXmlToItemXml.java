@@ -35,11 +35,10 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("source-name", "edoc");
     map.put("root-ou", PropertyReader.getProperty("inge.pubman.root.organisation.id"));
     map.put("external-ou", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-    map.put("frameworkUrl", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
+    map.put("frameworkUrl", PropertyReader.getFrameworkUrl());
 
     return map;
 
