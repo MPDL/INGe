@@ -32,7 +32,7 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'dummy:context'"/>
-	<xsl:param name="content-model" select="'dummy:content-model'"/>
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 	<xsl:param name="root-ou"/>
 	<xsl:param name="external-ou"/>
 	<xsl:param name="is-item-list" select="true()"/>

@@ -13,7 +13,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.MARC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.MARC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
@@ -30,13 +29,13 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
 
-    String ns_prefix_xsd_soap_common_srel =
-        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
-            : "{http://escidoc.de/core/01/structural-relations/}";
-
-    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
-    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
-        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    //    String ns_prefix_xsd_soap_common_srel =
+    //        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+    //            : "{http://escidoc.de/core/01/structural-relations/}";
+    //
+    //    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    //    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
+    //        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");

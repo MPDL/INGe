@@ -69,7 +69,7 @@
 	
 	<xsl:param name="user" select="'dummy:user'"/>
 	<xsl:param name="context" select="'escidoc:420911'"/>
-	<xsl:param name="content-model" select="'dummy:content-model'"/>
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 	<xsl:param name="root-ou"/>
 	<xsl:param name="external-ou"/>
 

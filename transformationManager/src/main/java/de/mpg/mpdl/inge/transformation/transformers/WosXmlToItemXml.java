@@ -31,7 +31,6 @@ public class WosXmlToItemXml extends XslTransformer implements ChainableTransfor
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("content-model", PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
     map.put("external-organization", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
 
 

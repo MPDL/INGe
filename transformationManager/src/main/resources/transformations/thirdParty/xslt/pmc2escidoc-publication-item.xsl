@@ -62,7 +62,7 @@
 
 	<xsl:param name="user" select="'dummy-user'"/>
 	<xsl:param name="context" select="'dummy-context'"/>	
-	<xsl:param name="content-model"/>
+	<xsl:param name="content-model" select="'dummy-content-model'" />
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>	
 	
