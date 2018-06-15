@@ -28,9 +28,7 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("pubman_instance", PropertyReader.getProperty("inge.pubman.instance.url"));
     map.put("pubman_instance_context_path", PropertyReader.getProperty("inge.pubman.instance.context.path"));
-    map.put("coreservice_instance", PropertyReader.getProperty("escidoc.framework_access.framework.url"));
     return map;
-
   }
 
 
