@@ -33,8 +33,6 @@
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
 		<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects</inge.cone.subjectVocab>
-		<inge.context.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</inge.context.model.pattern>
-		<inge.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</inge.context.pattern>
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
 		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
