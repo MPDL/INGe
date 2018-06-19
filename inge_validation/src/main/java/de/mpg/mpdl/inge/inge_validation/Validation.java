@@ -72,8 +72,10 @@ public class Validation {
     switch (validationPoint) {
 
       case SAVE:
-        final FluentValidator vSave =
-            FluentValidator.checkAll().failOver().on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator());
+        final FluentValidator vSave = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator());
 
         final ComplexResult resultSave = vSave.doValidate().result(ResultCollectors.toComplex());
 
@@ -84,22 +86,23 @@ public class Validation {
         break;
 
       case SIMPLE:
-        final FluentValidator vSimple = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
-            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
-            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()).on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator())
-            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
-            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
-            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+        final FluentValidator vSimple = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
+            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator()) //
+            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
         final ComplexResult resultSimple = vSimple.doValidate().result(ResultCollectors.toComplex());
@@ -111,32 +114,33 @@ public class Validation {
         break;
 
       case STANDARD:
-        final FluentValidator vStandard = FluentValidator.checkAll().failOver()
-            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator())
-            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator())
-            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()).on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator())
-            .on(pubItemVO.getMetadata(), new DateRequiredValidator())
-            .when(!MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre())
-                && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre())
-                && !MdsPublicationVO.Genre.MANUSCRIPT.equals(pubItemVO.getMetadata().getGenre())
-                && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre()))
-            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator())
-            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator())
-            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator())
-            .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre())
-                || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre())
-                || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre())
-                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre()))
-            .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+        final FluentValidator vStandard = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
+            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
+            .on(pubItemVO.getMetadata(), new DateRequiredValidator()) //
+            .when(!MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre()) //
+                && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre()) //
+                && !MdsPublicationVO.Genre.MANUSCRIPT.equals(pubItemVO.getMetadata().getGenre()) //
+                && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre())) //
+            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator()) //
+            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator()) //
+            .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre())) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
         final ComplexResult resultStandard = vStandard.doValidate().result(ResultCollectors.toComplex());
@@ -148,11 +152,12 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_3:
-        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver().on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
         final ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
@@ -164,14 +169,15 @@ public class Validation {
         break;
 
       case EASY_SUBMISSION_STEP_4:
-        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver().on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator())
-            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator())
-            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator())
-            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator())
-            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
         final ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
