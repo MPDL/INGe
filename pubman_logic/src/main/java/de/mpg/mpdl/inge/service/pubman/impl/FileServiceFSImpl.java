@@ -73,9 +73,9 @@ import net.arnx.wmf2svg.util.Base64;
 @Service
 @Primary
 public class FileServiceFSImpl implements FileService, FileServiceExternal {
-  private final static Logger logger = Logger.getLogger(FileServiceFSImpl.class);
+  private static final Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
-  private final static String TMP_FILE_ROOT_PATH =
+  private static final String TMP_FILE_ROOT_PATH =
       System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.logic.temporary_filesystem_root_path");
 
 

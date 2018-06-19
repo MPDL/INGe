@@ -22,7 +22,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 @ControllerAdvice
 public class PubmanRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private final static Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
+  private static final Logger logger = LogManager.getLogger(PubmanRestExceptionHandler.class);
 
 
   private static void buildExceptionMessage(Throwable e, Map<String, Object> messageMap, HttpStatus status) {

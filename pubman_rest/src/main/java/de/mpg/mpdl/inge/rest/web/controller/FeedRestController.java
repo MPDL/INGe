@@ -22,8 +22,8 @@ import io.swagger.annotations.Api;
 @Api(tags = "Atom Feeds")
 public class FeedRestController {
 
-  private final static String DEFAULT_FEEDTYPE = "atom_1.0";
-  private final static String DEFAULT_PRODUCE_MIMETYPE = MediaType.APPLICATION_ATOM_XML_VALUE;
+  private static final String DEFAULT_FEEDTYPE = "atom_1.0";
+  private static final String DEFAULT_PRODUCE_MIMETYPE = MediaType.APPLICATION_ATOM_XML_VALUE;
 
   @Autowired
   private UtilServiceBean utils;

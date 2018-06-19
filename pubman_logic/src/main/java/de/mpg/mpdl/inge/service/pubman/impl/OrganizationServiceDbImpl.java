@@ -55,7 +55,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliation.objectId";
   public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
 
-  private final static Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
   private final String mpgId = PropertyReader.getProperty("inge.pubman.root.organisation.id");
 

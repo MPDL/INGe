@@ -18,7 +18,7 @@ import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 @Import({AppConfigPidServiceTest.class, JPAConfiguration.class, AppConfigFileStorage.class})
 @EnableTransactionManagement
 public class AppConfigPubmanLogicTest {
-  private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogicTest.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigPubmanLogicTest.class);
 
   @Bean
   public PasswordEncoder passwordEncoder() {

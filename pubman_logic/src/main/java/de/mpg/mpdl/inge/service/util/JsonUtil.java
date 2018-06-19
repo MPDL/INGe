@@ -10,8 +10,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class JsonUtil {
 
-  private final static ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper();
-  private final static ObjectMapper PRETTY_OBJECT_MAPPER = new ObjectMapper();
+  private static final ObjectMapper DEFAULT_OBJECT_MAPPER = new ObjectMapper();
+  private static final ObjectMapper PRETTY_OBJECT_MAPPER = new ObjectMapper();
 
   static {
     PRETTY_OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);

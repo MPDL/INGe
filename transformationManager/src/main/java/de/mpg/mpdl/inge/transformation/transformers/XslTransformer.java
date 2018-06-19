@@ -27,15 +27,8 @@ import de.mpg.mpdl.inge.util.LocalUriResolver;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
-
-
 public abstract class XslTransformer extends SingleTransformer implements ChainableTransformer {
-
-
-
-  public static Logger logger = Logger.getLogger(XslTransformer.class);
-
-
+  private static final Logger logger = Logger.getLogger(XslTransformer.class);
 
   public XslTransformer() {
     try {
@@ -43,7 +36,6 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     } catch (TransformationException e) {
       throw new RuntimeException("Could not initialize transformer", e);
     }
-
   }
 
   public void transform(Source source, Result result) throws TransformationException {
@@ -58,8 +50,6 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
         xslTransformerFactory.setURIResolver(uriRes);
       }
 
-
-
       javax.xml.transform.Transformer xslTransformer = xslTransformerFactory.newTransformer(getXsltSource());
 
       Map<String, String> outputKeys = getOutputKeys();
@@ -71,7 +61,6 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
         }
       }
 
-
       Map<String, Object> parameters = getParameters();
       if (parameters != null) {
         for (Entry<String, Object> entry : parameters.entrySet()) {
@@ -81,10 +70,8 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
           } else {
             logger.warn("Ignoring XSL Parameter " + entry.getKey() + " because it is " + entry.getValue());
           }
-
         }
       }
-
 
       Map<String, String> config = getConfiguration();
       if (config != null) {
@@ -99,21 +86,15 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       xslTransformer.transform(source, result);
 
       logger.info("XSL transformation successful");
-
     } catch (Exception e) {
       throw new TransformationException("Error during XSL Transformation", e);
     }
-
   }
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-
     this.transform((Source) source, (Result) result);
-
   }
-
-
 
   public abstract Source getXsltSource() throws TransformationException;
 
@@ -121,13 +102,10 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
   public abstract Map<String, String> getDefaultConfiguration() throws TransformationException;
 
-
   public TransformerResult createNewInBetweenResult() {
     TransformerStreamResult tr = new TransformerStreamResult(new ByteArrayOutputStream());
     return tr;
   }
-
-
 
   public Map<String, String> getOutputKeys() {
     return null;
@@ -137,20 +115,18 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     return new LocalUriResolver("transformations/thirdParty/xslt");
   }
 
-
-
   public static Source getXmlSourceFromProperty(String property, String defaultFile) throws TransformationException {
     String stylesheetFileName = PropertyReader.getProperty(property);
     if (stylesheetFileName == null || "".equals(stylesheetFileName)) {
       stylesheetFileName = defaultFile;
     }
+    
     try {
       InputStream stylesheetInputStram = ResourceUtil.getResourceAsStream(stylesheetFileName, XslTransformer.class.getClassLoader());
       return new StreamSource(stylesheetInputStram);
     } catch (FileNotFoundException e) {
       throw new TransformationException("Stylesheet file " + stylesheetFileName + " not found", e);
     }
-
   }
 
   public static void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {

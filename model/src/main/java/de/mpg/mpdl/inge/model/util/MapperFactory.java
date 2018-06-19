@@ -10,9 +10,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class MapperFactory {
 
-  private final static ObjectMapper jsonObjectMapper = new ObjectMapper();
+  private static final ObjectMapper jsonObjectMapper = new ObjectMapper();
 
-  private final static Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
+  private static final Mapper dozerMapper = DozerBeanMapperBuilder.buildDefault();
 
   static {
 

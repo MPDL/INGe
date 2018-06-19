@@ -33,7 +33,7 @@ import de.mpg.mpdl.inge.transformation.transformers.CitationTransformer;
 @Primary
 public class ItemTransformingServiceImpl implements ItemTransformingService {
 
-  private static Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(ItemTransformingServiceImpl.class);
 
   //  private static final String TRANSFORMATION_ITEM_LIST_2_SNIPPET = "itemList2snippet.xsl";
 
@@ -152,6 +152,7 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
       final Transformer t = TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), target);
 
 
+      logger.info(itemXml);
       t.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes("UTF-8"))), new TransformerStreamResult(wr));
     } catch (Exception e) {
       throw new TransformationException(e);

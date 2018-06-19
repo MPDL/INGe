@@ -55,7 +55,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class IngeAaClientFinish extends FinalClient {
 
-  private final static Logger logger = LogManager.getLogger(IngeAaClientFinish.class);
+  private static final Logger logger = LogManager.getLogger(IngeAaClientFinish.class);
 
   @Override
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
