@@ -29,6 +29,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
     try {
 
       Bibtex bib = new Bibtex();
+      bib.setConfiguration(getConfiguration());
 
       String res = bib.getBibtex(getStringFromSource(source));
 
