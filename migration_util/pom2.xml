@@ -109,7 +109,6 @@
 		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
 		<inge.search.and.export.default.sql.query>escidoc.metadata=test and
 			escidoc.content-model.objid=escidoc:2001</inge.search.and.export.default.sql.query>
-		<inge.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</inge.search.and.export.indexes.explain.query>
 		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
 		<inge.search.and.export.start.record>0</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
