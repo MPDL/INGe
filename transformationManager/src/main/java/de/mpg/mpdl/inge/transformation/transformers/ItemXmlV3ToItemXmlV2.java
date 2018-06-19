@@ -25,9 +25,9 @@ public class ItemXmlV3ToItemXmlV2 extends XslTransformer implements ChainableTra
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
 
-    if (FORMAT.ESCIDOC_ITEM_V1_XML.equals(getTargetFormat())) {
+    if (FORMAT.ESCIDOC_ITEM_V2_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.FALSE);
-    } else if (FORMAT.ESCIDOC_ITEMLIST_V1_XML.equals(getTargetFormat())) {
+    } else if (FORMAT.ESCIDOC_ITEMLIST_V2_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
 
