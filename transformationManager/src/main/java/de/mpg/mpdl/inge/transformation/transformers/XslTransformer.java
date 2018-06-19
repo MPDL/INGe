@@ -120,7 +120,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     if (stylesheetFileName == null || "".equals(stylesheetFileName)) {
       stylesheetFileName = defaultFile;
     }
-    
+
     try {
       InputStream stylesheetInputStram = ResourceUtil.getResourceAsStream(stylesheetFileName, XslTransformer.class.getClassLoader());
       return new StreamSource(stylesheetInputStram);
