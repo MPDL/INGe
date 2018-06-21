@@ -43,7 +43,7 @@ public class DataAcquisitionUnitTest {
   private DataHandlerService datahandler = new DataHandlerService();
   private final DataSourceHandlerService dataSourceHandler = new DataSourceHandlerService();
 
-  private final static String arxivId = "arXiv:0904.3933";
+  private static final String arxivId = "arXiv:0904.3933";
 
   @Before
   public void setup() throws Exception {}

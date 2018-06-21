@@ -63,7 +63,7 @@ public class RDFHandler extends DefaultHandler {
 
   private static final Logger logger = Logger.getLogger(RDFHandler.class);
 
-  private final static QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF", "rdf");
+  private static final QName rdfRootTag = new QName("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "RDF", "rdf");
 
   public RDFHandler(boolean loggedIn, Model model) throws ConeException {
     this.model = model;

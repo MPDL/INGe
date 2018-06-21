@@ -24,7 +24,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 
 public class SearchUtils {
 
-  private final static Logger logger = Logger.getLogger(SearchUtils.class);
+  private static final Logger logger = Logger.getLogger(SearchUtils.class);
 
   public static QueryBuilder baseElasticSearchQueryBuilder(Map<String, ElasticSearchIndexField> indexMap, String[] indexFields,
       String... searchString) {

@@ -84,7 +84,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
 
-  private final static Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
   @Autowired
   private AuthorizationService aaService;

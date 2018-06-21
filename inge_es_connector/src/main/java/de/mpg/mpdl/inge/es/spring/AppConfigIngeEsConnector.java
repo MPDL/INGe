@@ -12,7 +12,7 @@ import de.mpg.mpdl.inge.es.connector.ElasticSearchTransportClientProvider;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.es")
 public class AppConfigIngeEsConnector {
-  private final static Logger logger = LogManager.getLogger(AppConfigIngeEsConnector.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigIngeEsConnector.class);
 
   @Bean
   public ElasticSearchClientProvider elasticSearchClientProvider() {

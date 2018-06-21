@@ -31,8 +31,6 @@
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
 		<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects</inge.cone.subjectVocab>
-		<inge.context.model.pattern>:content-model+(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</inge.context.model.pattern>
-		<inge.context.pattern>:context+(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</inge.context.pattern>
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
@@ -111,7 +109,6 @@
 		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
 		<inge.search.and.export.default.sql.query>escidoc.metadata=test and
 			escidoc.content-model.objid=escidoc:2001</inge.search.and.export.default.sql.query>
-		<inge.search.and.export.indexes.explain.query>/srw/search/escidoc_all?operation=explain</inge.search.and.export.indexes.explain.query>
 		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
 		<inge.search.and.export.start.record>0</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>

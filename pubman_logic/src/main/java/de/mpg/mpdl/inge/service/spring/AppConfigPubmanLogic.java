@@ -39,9 +39,9 @@ import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
 @EnableJms
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
-  private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
 
-  private final static String DEFAULT_BROKER_URL = "vm://localhost:0";
+  private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 
   @Bean
   public PasswordEncoder passwordEncoder() {

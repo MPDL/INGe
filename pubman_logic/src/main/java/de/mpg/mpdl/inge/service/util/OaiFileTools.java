@@ -18,7 +18,7 @@ public class OaiFileTools {
 
   private static Logger logger = Logger.getLogger(OaiFileTools.class);
 
-  private final static String OAI_FILESYSTEM_ROOT_PATH =
+  private static final String OAI_FILESYSTEM_ROOT_PATH =
       System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.filestorage.oai.filesystem_path");
 
   public static String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {

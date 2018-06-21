@@ -26,7 +26,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class PubItemUtil {
 
-  private final static Logger logger = Logger.getLogger(PubItemUtil.class);
+  private static final Logger logger = Logger.getLogger(PubItemUtil.class);
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.

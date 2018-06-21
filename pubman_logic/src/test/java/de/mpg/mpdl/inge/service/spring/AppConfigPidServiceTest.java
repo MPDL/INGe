@@ -13,7 +13,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PidServiceMock;
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
 public class AppConfigPidServiceTest {
-  private final static Logger logger = LogManager.getLogger(AppConfigPidServiceTest.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigPidServiceTest.class);
 
   @Bean(name = "pidServiceMock")
   @Primary

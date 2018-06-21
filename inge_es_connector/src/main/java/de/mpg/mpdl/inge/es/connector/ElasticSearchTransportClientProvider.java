@@ -17,7 +17,7 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   private TransportClient client;
 
-  private final static Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
+  private static final Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
     this.client = new PreBuiltTransportClient(Settings.builder().put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))

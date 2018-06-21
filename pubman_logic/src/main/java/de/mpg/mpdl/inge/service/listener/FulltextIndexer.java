@@ -25,7 +25,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 @Component
 public class FulltextIndexer {
 
-  private final static Logger logger = LogManager.getLogger(FulltextIndexer.class);
+  private static final Logger logger = LogManager.getLogger(FulltextIndexer.class);
 
   @Autowired
   PubItemDaoEs pubItemDao;
