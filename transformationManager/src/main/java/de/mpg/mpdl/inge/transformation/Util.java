@@ -30,6 +30,7 @@ package de.mpg.mpdl.inge.transformation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -151,8 +152,11 @@ public class Util {
           if (!"".equals(result.trim())) {
             String id = result.split("\\|")[1];
             // TODO "&redirect=true" must be reinserted again
-            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+            GetMethod detailMethod = new GetMethod(PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
+                + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password")
+                + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+            //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+            //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
             detailMethod.setFollowRedirects(true);
 
 
@@ -160,9 +164,7 @@ public class Util {
               detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             }
             ProxyHelper.executeMethod(client, detailMethod);
-            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                + detailMethod.getResponseBodyAsString());
+            logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
 
             if (detailMethod.getStatusCode() == 200) {
               Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -369,16 +371,17 @@ public class Util {
               String id = result.split("\\|")[1];
               if (!oldIds.contains(id)) {
                 // TODO "&redirect=true" must be reinserted again
-                GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                    + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                GetMethod detailMethod = new GetMethod(PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
+                    + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password")
+                    + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+                //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+                //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 detailMethod.setFollowRedirects(true);
 
                 ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                 client.executeMethod(detailMethod);
                 // TODO "&redirect=true" must be reinserted again
-                logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                    + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                    + detailMethod.getResponseBodyAsString());
+                logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
                 if (detailMethod.getStatusCode() == 200) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                   element.appendChild(document.importNode(details.getFirstChild(), true));
@@ -450,16 +453,17 @@ public class Util {
             String id = result.split("\\|")[1];
             if (!oldIds.contains(id)) {
               // TODO "&redirect=true" must be reinserted again
-              GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                  + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+              GetMethod detailMethod = new GetMethod(PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
+                  + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password")
+                  + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+              //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+              //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               detailMethod.setFollowRedirects(true);
 
               ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
               client.executeMethod(detailMethod);
               // TODO "&redirect=true" must be reinserted again
-              logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                  + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                  + detailMethod.getResponseBodyAsString());
+              logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
               if (detailMethod.getStatusCode() == 200) {
                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                 element.appendChild(document.importNode(details.getFirstChild(), true));

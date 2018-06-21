@@ -47,8 +47,8 @@ public class IngeAaClientStart extends StartClient {
   protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String from = request.getParameter("target");
-    String aaInstanceUrl = Config.getProperty("inge.aa.instance.url");
-    return "/auth/login_inge.jsp" + "?target=" + aaInstanceUrl + "clientReturn" + URLEncoder
+    String aaDefaultUrl = Config.getProperty("inge.aa.default.target");
+    return "/auth/login_inge.jsp" + "?target=" + aaDefaultUrl + URLEncoder
         .encode(URLEncoder.encode("?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"), "ISO-8859-1");
 
   }

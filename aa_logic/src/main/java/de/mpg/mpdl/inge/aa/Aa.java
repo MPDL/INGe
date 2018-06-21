@@ -50,7 +50,9 @@ public class Aa {
   private AuthenticationVO authenticationVO = null;
 
   public Aa(HttpServletRequest request) throws Exception {
-
+    if (!Config.isLoaded()) {
+      initConfig(request);
+    }
     String[] encodedXml = request.getParameterValues("auth");
     if (encodedXml != null) {
       String xml = de.mpg.mpdl.inge.aa.crypto.RSAEncoder.rsaDecrypt(encodedXml);
