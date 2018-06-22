@@ -691,7 +691,7 @@ public class SwordUtil extends FacesBean {
    * @throws Exception If anything goes wrong...
    */
   protected URL uploadFile(InputStream in, String mimetype, AccountUserDbVO user, ZipEntry zipEntry) throws Exception {
-    final String fwUrl = PropertyReader.getFrameworkUrl();
+    final String fwUrl = PropertyReader.getProperty("inge.pubman.instance.url");
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);
@@ -739,7 +739,7 @@ public class SwordUtil extends FacesBean {
 
     // // Only set content if item was deposited
     if (!deposit.isNoOp() && item != null) {
-      content.setSource(PropertyReader.getFrameworkUrl() + "/ir/item/" + item.getObjectId());
+      content.setSource(server.getBaseURL() + "/ir/item/" + item.getObjectId());
       se.setId(server.getBaseURL() + SwordUtil.itemPath + item.getObjectId());
     }
     se.setContent(content);

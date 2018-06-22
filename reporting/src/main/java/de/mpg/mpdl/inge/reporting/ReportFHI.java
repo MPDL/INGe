@@ -103,8 +103,8 @@ public class ReportFHI {
   public static String emailAuthPwdProp;
 
   public ReportFHI() throws IOException, URISyntaxException, ServiceException {
-    USER_NAME = PropertyReader.getFrameworkAdminUsername();
-    USER_PASSWD = PropertyReader.getFrameworkAdminPassword();
+    USER_NAME = PropertyReader.getProperty("inge.aa.admin.username");
+    USER_PASSWD = PropertyReader.getProperty("inge.aa.admin.password");
     emailSenderProp = PropertyReader.getProperty("inge.email.sender");
     emailServernameProp = PropertyReader.getProperty("inge.email.mailservername");
     emailWithAuthProp = PropertyReader.getProperty("inge.email.withauthentication");
@@ -155,7 +155,7 @@ public class ReportFHI {
     String itemList = null;
     GetMethod method;
     try {
-      method = new GetMethod(PropertyReader.getFrameworkUrl() + "/ir/items");
+      method = new GetMethod(PropertyReader.getProperty("inge.pubman.instance.url") + "/ir/items");
       method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
       String query = "operation=searchRetrieve&maximumRecords=1000&query=" + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8")
           + "%20and%20" + URLEncoder.encode(getTimeRangeQuery(), "UTF-8") + URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");
