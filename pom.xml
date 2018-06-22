@@ -905,7 +905,7 @@
 
 	<properties>
 		<framework.admin.password></framework.admin.password>
-		<framework.admin.username>roland</framework.admin.username>
+		<framework.admin.username></framework.admin.username>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
@@ -975,7 +975,6 @@
 		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
 		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
-		<inge.pubman.footer.fileName />
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
