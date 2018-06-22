@@ -69,7 +69,7 @@ public class RDFHandler extends DefaultHandler {
     this.model = model;
     querier = QuerierFactory.newQuerier(loggedIn);
     try {
-      PropertyReader.getProperty("inge.cone.service.url");
+      PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     } catch (Exception e) {
       throw new ConeException(e);
     }

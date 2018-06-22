@@ -88,8 +88,8 @@ public class JQueryFormatter extends AbstractFormatter {
       throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
-    InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), JQueryFormatter.class.getClassLoader());
+    InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
+        JQueryFormatter.class.getClassLoader());
     InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl", JQueryFormatter.class.getClassLoader());
 
     try {

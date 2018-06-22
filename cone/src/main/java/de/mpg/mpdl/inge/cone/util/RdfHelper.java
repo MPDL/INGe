@@ -82,7 +82,7 @@ public class RdfHelper {
         if (pair instanceof Pair) {
           String key = ((Pair) pair).getKey();
           try {
-            result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty("inge.cone.service.url")
+            result.append("\t<rdf:Description rdf:about=\"" + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)
                 + key.replace("\"", "\\\"") + "\">\n");
             if (((Pair) pair).getValue() instanceof LocalizedString) {
               if (((LocalizedString) ((Pair) pair).getValue()).getLanguage() != null) {

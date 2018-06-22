@@ -117,8 +117,8 @@ public class BrowseByPage extends BreadcrumbPage {
       if (!(localLang.equals("en") || localLang.equals("de") || localLang.equals("ja"))) {
         localLang = "en";
       }
-      final URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + type + "/query?f=options&" + this.bbBean.getQuery()
-          + "=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
+      final URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + type + "/query?f=options&"
+          + this.bbBean.getQuery() + "=\"" + URLEncoder.encode(startChar, "UTF-8") + "*\"&n=0&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();
@@ -157,7 +157,7 @@ public class BrowseByPage extends BreadcrumbPage {
 
   public String getSearchUrl() {
     try {
-      final String instanceUrl = PropertyReader.getProperty("inge.pubman.instance.url");
+      final String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
       final String searchPath = "/pubman/faces/SearchResultListPage.jsp?";
       return instanceUrl + searchPath;
     } catch (final Exception e) {

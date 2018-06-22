@@ -667,14 +667,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       ItemRootVO pubItemObject = latestVersion.getObject();
       try {
         if (pubItemObject.getObjectPid() == null) {
-          URI url = new URI(
-              PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-                  + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectId()));
+          URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+              + PropertyReader.getProperty("inge.pubman.instance.context.path")
+              + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectId()));
           pubItemObject.setObjectPid(pidService.createPid(url).getIdentifier());
         }
-        URI url =
-            new URI(PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
+        URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+            + PropertyReader.getProperty("inge.pubman.instance.context.path")
+            + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
         latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);

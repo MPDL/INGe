@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class MatomoStatisticsService {
 
   private static final Logger logger = Logger.getLogger(MatomoStatisticsService.class);
-  private static final String INSTANCE_URI = PropertyReader.getProperty("inge.pubman.instance.url");
+  private static final String INSTANCE_URI = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
   private static final String ANALYTICS_BASE_URI = PropertyReader.getProperty("inge.matomo.analytics.base.uri");
   private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty("inge.matomo.analytics.site.id");
   private static final String ANALYTICS_TOKEN = PropertyReader.getProperty("inge.matomo.analytics.auth.token");

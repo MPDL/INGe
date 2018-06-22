@@ -453,7 +453,7 @@ public class ApplicationBean extends FacesBean {
         this.appTitle += " " + this.getVersion() + " " + buildDate;
       }
 
-      this.pubmanInstanceUrl = PropertyReader.getProperty("inge.pubman.instance.url");
+      this.pubmanInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
       this.commonPresentationUrl = PropertyReader.getProperty("inge.pubman.common.presentation.url");
       if (this.commonPresentationUrl == null) {

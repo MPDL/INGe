@@ -89,8 +89,8 @@ public class JsonFormatter extends AbstractFormatter {
       throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
-    InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), JsonFormatter.class.getClassLoader());
+    InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
+        JsonFormatter.class.getClassLoader());
     InputStream template = ResourceUtil.getResourceAsStream("explain/json_explain.xsl", JsonFormatter.class.getClassLoader());
 
     try {
@@ -147,7 +147,7 @@ public class JsonFormatter extends AbstractFormatter {
 
           result.append("\t\t\"id\" : \"");
           try {
-            result.append(PropertyReader.getProperty("inge.cone.service.url") + key.replace("\"", "\\\""));
+            result.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + key.replace("\"", "\\\""));
           } catch (Exception e) {
             throw new ConeException(e);
           }
@@ -183,7 +183,7 @@ public class JsonFormatter extends AbstractFormatter {
 
           result.append("\t\t\"id\" : \"");
           try {
-            result.append(PropertyReader.getProperty("inge.cone.service.url") + key.replace("\"", "\\\""));
+            result.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + key.replace("\"", "\\\""));
           } catch (Exception e) {
             throw new ConeException(e);
           }

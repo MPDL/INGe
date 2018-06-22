@@ -222,8 +222,8 @@ public class CitationStyleExecuterService {
 
   private static String getPubManUrl() {
     try {
-      String contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
-      return PropertyReader.getProperty("inge.pubman.instance.url") + (contextPath == null ? "" : contextPath);
+      String contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + (contextPath == null ? "" : contextPath);
     } catch (Exception e) {
       throw new RuntimeException("Cannot get property:", e);
     }

@@ -268,7 +268,7 @@ public class SwordUtil extends FacesBean {
   // PropertyReader.getFrameworkUrl()
   // + SwordUtil.LOGOUT_URL
   // + "?target="
-  // + URLEncoder.encode(PropertyReader.getProperty("inge.pubman.instance.url")
+  // + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
   // + PropertyReader.getProperty("inge.pubman.instance.context.path")
   // + "?logout=true", "UTF-8"));
   // }
@@ -691,7 +691,7 @@ public class SwordUtil extends FacesBean {
    * @throws Exception If anything goes wrong...
    */
   protected URL uploadFile(InputStream in, String mimetype, AccountUserDbVO user, ZipEntry zipEntry) throws Exception {
-    final String fwUrl = PropertyReader.getProperty("inge.pubman.instance.url");
+    final String fwUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);

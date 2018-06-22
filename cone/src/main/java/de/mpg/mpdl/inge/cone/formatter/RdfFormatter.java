@@ -83,8 +83,8 @@ public class RdfFormatter extends AbstractFormatter {
       throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
-    InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), RdfFormatter.class.getClassLoader());
+    InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
+        RdfFormatter.class.getClassLoader());
     InputStream template = ResourceUtil.getResourceAsStream("explain/rdf_explain.xsl", RdfFormatter.class.getClassLoader());
 
     try {

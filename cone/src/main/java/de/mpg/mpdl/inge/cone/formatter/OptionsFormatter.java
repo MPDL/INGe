@@ -84,8 +84,8 @@ public class OptionsFormatter extends AbstractFormatter {
       throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
-    InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), OptionsFormatter.class.getClassLoader());
+    InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
+        OptionsFormatter.class.getClassLoader());
     InputStream template = ResourceUtil.getResourceAsStream("explain/options_explain.xsl", OptionsFormatter.class.getClassLoader());
 
     try {

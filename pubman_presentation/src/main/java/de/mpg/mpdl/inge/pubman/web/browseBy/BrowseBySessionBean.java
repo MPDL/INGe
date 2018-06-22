@@ -199,7 +199,8 @@ public class BrowseBySessionBean extends FacesBean {
     final List<LinkVO> links = new ArrayList<LinkVO>();
 
     try {
-      final URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + this.selectedValue + "/all?format=options&lang=en");
+      final URL coneUrl =
+          new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.selectedValue + "/all?format=options&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();

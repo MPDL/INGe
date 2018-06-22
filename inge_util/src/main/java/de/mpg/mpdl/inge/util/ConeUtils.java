@@ -34,7 +34,7 @@ public class ConeUtils {
 
   // CONE service url (.../)
   public static String getConeServiceUrl() {
-    String coneServiceUrl = PropertyReader.getProperty("inge.cone.service.url");
+    String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     return coneServiceUrl.substring(0, coneServiceUrl.length() - 1);
   }
 }

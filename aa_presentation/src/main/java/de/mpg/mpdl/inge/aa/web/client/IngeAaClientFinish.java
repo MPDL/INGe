@@ -98,7 +98,7 @@ public class IngeAaClientFinish extends FinalClient {
   public static AccountUserDbVO getUser(String token) {
 
     try {
-      Response resp = Request.Get(PropertyReader.getProperty("inge.pubman.instance.url") + "/rest/login/who")
+      Response resp = Request.Get(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/login/who")
           .addHeader("Authorization", token).execute();
       return MapperFactory.getObjectMapper().readValue(resp.returnContent().asStream(), AccountUserDbVO.class);
     } catch (Exception e) {
@@ -112,7 +112,7 @@ public class IngeAaClientFinish extends FinalClient {
 
   public static String loginInInge(String username, String password) throws Exception {
     String pw = username + ":" + password;
-    Response resp = Request.Post(PropertyReader.getProperty("inge.pubman.instance.url") + "/rest/login")
+    Response resp = Request.Post(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/login")
         .bodyString(pw, ContentType.TEXT_PLAIN).execute();
     HttpResponse httpResp = resp.returnResponse();
 
@@ -128,8 +128,8 @@ public class IngeAaClientFinish extends FinalClient {
   }
 
   public static void logoutInInge(String token) throws Exception {
-    Response resp =
-        Request.Get(PropertyReader.getProperty("inge.pubman.instance.url") + "/rest/logout").addHeader("Authorization", token).execute();
+    Response resp = Request.Get(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/logout")
+        .addHeader("Authorization", token).execute();
     HttpResponse httpResp = resp.returnResponse();
 
     if (httpResp.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {

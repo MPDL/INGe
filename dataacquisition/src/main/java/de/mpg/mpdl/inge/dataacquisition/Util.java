@@ -192,7 +192,7 @@ public class Util {
     String suffix = null;
 
     try {
-      URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + coneMethod + coneRel1 + mimeType + coneRel2);
+      URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + coneMethod + coneRel1 + mimeType + coneRel2);
       URLConnection con = ProxyHelper.openConnection(coneUrl);
       HttpURLConnection httpCon = (HttpURLConnection) con;
 

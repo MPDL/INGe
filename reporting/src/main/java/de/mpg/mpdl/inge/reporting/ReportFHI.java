@@ -155,7 +155,7 @@ public class ReportFHI {
     String itemList = null;
     GetMethod method;
     try {
-      method = new GetMethod(PropertyReader.getProperty("inge.pubman.instance.url") + "/ir/items");
+      method = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/ir/items");
       method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
       String query = "operation=searchRetrieve&maximumRecords=1000&query=" + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8")
           + "%20and%20" + URLEncoder.encode(getTimeRangeQuery(), "UTF-8") + URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");

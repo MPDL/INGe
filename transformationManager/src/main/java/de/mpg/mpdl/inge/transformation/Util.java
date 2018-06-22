@@ -134,8 +134,8 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      queryUrl =
-          PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
+      queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
+          + URLEncoder.encode(query, "UTF-8");
 
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
@@ -196,8 +196,8 @@ public class Util {
     try {
       logger.info("queryCone: " + model + " query: " + query);
 
-      queryUrl =
-          PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
+      queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
+          + URLEncoder.encode(query, "UTF-8");
       HttpClient client = new HttpClient();
       GetMethod method = new GetMethod(queryUrl);
 
@@ -248,7 +248,7 @@ public class Util {
     String frameworkUrl = null;
     Document document = null;
     try {
-      frameworkUrl = PropertyReader.getProperty("inge.pubman.instance.url");
+      frameworkUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
       url = frameworkUrl + request;
 
       if (logger.isDebugEnabled())
@@ -284,7 +284,7 @@ public class Util {
   public static String getConeSession() throws Exception {
     long now = new Date().getTime();
     if (coneSession == null || (now - coneSessionTimestamp) > 1000 * 60 * 30) {
-      String queryUrl = PropertyReader.getProperty("inge.cone.service.url");
+      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
       HttpClient client = new HttpClient();
       GetMethod method = new GetMethod(queryUrl);
       try {
@@ -334,11 +334,11 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      String queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
           + URLEncoder.encode("dc:title", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
           + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-      String detailsUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/resource/$1?format=rdf";
+      String detailsUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
@@ -353,7 +353,7 @@ public class Util {
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
         results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
-        queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+        queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("dcterms:alternative", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
             + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
             + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
@@ -428,11 +428,11 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      String queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&dc:identifier/"
+      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&dc:identifier/"
           + URLEncoder.encode("rdf:value", "UTF-8") + "=" + URLEncoder.encode("\"" + identifier + "\"", "UTF-8") + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
           + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-      String detailsUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/resource/$1?format=rdf";
+      String detailsUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
@@ -519,14 +519,14 @@ public class Util {
       if (childIds.size() > 0) {
         // execute a method for every child ou
         for (String childId : childIds) {
-          queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+          queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
               + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + childId + "\"", "UTF-8")
               + "&n=0";
           executeGetMethod(client, queryUrl, documentBuilder, document, element);
         }
       } else {
         // there are no child ous, method is called once
-        queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+        queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
         executeGetMethod(client, queryUrl, documentBuilder, document, element);
       }

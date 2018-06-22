@@ -102,7 +102,7 @@ public class SiteMapTask {
   public void run() {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
-      this.instanceUrl = PropertyReader.getProperty("inge.pubman.instance.url");
+      this.instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
       this.contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
       this.itemPattern = PropertyReader.getProperty("inge.pubman.item.pattern");
 

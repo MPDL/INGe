@@ -65,7 +65,8 @@ public class Rdfs {
     Writer writer = new StringWriter();
     Result result = new StreamResult(writer);
     transformer.transform(new StreamSource(
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), Rdfs.class.getClassLoader())), result);
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH), Rdfs.class.getClassLoader())),
+        result);
     return writer;
   }
 

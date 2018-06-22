@@ -226,7 +226,8 @@ public class FeedServiceImpl {
       // Contents ???
       // se.setContents(contents)
 
-      se.setLink(PropertyReader.getProperty("inge.pubman.instance.url") + "/pubman/item/" + pi.getLatestRelease().getObjectIdAndVersion());
+      se.setLink(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/pubman/item/"
+          + pi.getLatestRelease().getObjectIdAndVersion());
 
       // Uri ????
       se.setUri(se.getLink());

@@ -1406,7 +1406,7 @@ public class EasySubmission extends FacesBean {
    */
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     }
 
     return this.suggestConeUrl;
