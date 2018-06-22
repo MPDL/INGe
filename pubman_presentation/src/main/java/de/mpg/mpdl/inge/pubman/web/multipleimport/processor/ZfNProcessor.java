@@ -215,7 +215,7 @@ public class ZfNProcessor extends FormatProcessor {
    */
   private URL uploadFile(InputStream in, String mimetype) throws Exception {
     // Prepare the HttpMethod.
-    final String fwUrl = PropertyReader.getFrameworkUrl();
+    final String fwUrl = PropertyReader.getProperty("inge.pubman.instance.url");
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);

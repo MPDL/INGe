@@ -26,14 +26,12 @@
 
 package de.mpg.mpdl.inge.transformation;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -57,7 +55,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ProxyHelper;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
@@ -111,6 +108,11 @@ public class Util {
     return thisMimetype;
   }
 
+  private static String getAdminUrl() {
+    return PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
+        + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password");
+  }
+
   /**
    * Queries CoNE service and returns the result as DOM node. The returned XML has the following
    * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
@@ -152,9 +154,8 @@ public class Util {
           if (!"".equals(result.trim())) {
             String id = result.split("\\|")[1];
             // TODO "&redirect=true" must be reinserted again
-            GetMethod detailMethod = new GetMethod(PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
-                + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password")
-                + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+            GetMethod detailMethod =
+                new GetMethod(Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
             //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
             //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
             detailMethod.setFollowRedirects(true);
@@ -247,7 +248,7 @@ public class Util {
     String frameworkUrl = null;
     Document document = null;
     try {
-      frameworkUrl = PropertyReader.getFrameworkUrl();
+      frameworkUrl = PropertyReader.getProperty("inge.pubman.instance.url");
       url = frameworkUrl + request;
 
       if (logger.isDebugEnabled())
@@ -371,9 +372,8 @@ public class Util {
               String id = result.split("\\|")[1];
               if (!oldIds.contains(id)) {
                 // TODO "&redirect=true" must be reinserted again
-                GetMethod detailMethod = new GetMethod(PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
-                    + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password")
-                    + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+                GetMethod detailMethod = new GetMethod(
+                    Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 detailMethod.setFollowRedirects(true);
@@ -453,9 +453,8 @@ public class Util {
             String id = result.split("\\|")[1];
             if (!oldIds.contains(id)) {
               // TODO "&redirect=true" must be reinserted again
-              GetMethod detailMethod = new GetMethod(PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
-                  + PropertyReader.getProperty("inge.aa.admin.username") + "&password=" + PropertyReader.getProperty("inge.aa.admin.password")
-                  + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+              GetMethod detailMethod =
+                  new GetMethod(Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               detailMethod.setFollowRedirects(true);
