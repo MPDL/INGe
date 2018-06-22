@@ -1155,6 +1155,7 @@
 				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
 				<inge.pubman.csl_editor.instance>http://pubman.mpdl.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
+				<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
 				<inge.syndication.service.url>https://dev.inge.mpdl.mpg.de/syndication</inge.syndication.service.url>
 				<inge.systemtype>dev</inge.systemtype>
