@@ -586,7 +586,7 @@ public class EditItem extends FacesBean {
     try {
       if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage())) {
         final String viewItemPage = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-            + PropertyReader.getProperty("inge.pubman.instance.context.path")
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
             + PropertyReader.getProperty("inge.pubman.item.pattern").replaceFirst("\\$1", this.getPubItem().getObjectId());
         FacesTools.getExternalContext().redirect(viewItemPage);
       } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {

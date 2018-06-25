@@ -115,7 +115,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
   public void postConstruct() {
     this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
     this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
-    this.sortOrder = PropertyReader.getProperty("inge.search.and.export.default.sort.order").equalsIgnoreCase("ascending")
+    this.sortOrder = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER).equalsIgnoreCase("ascending")
         ? SearchSortCriteria.SortOrder.ASC
         : SearchSortCriteria.SortOrder.DESC;
     this.sortingKey = PropertyReader.getProperty("inge.search.and.export.default.sort.key");

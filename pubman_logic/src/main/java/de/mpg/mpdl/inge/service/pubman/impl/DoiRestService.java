@@ -70,7 +70,7 @@ public class DoiRestService {
       // REST request to the DOI service for creating a new DOI
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       String queryParams = "?url=" + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-          + PropertyReader.getProperty("inge.pubman.instance.context.path")
+          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
           + (PropertyReader.getProperty("inge.pubman.item.pattern")).replace("$1", pubItem.getObjectId()) + "&suffix="
           + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf(":") + 1);
       HttpClient client = new HttpClient();

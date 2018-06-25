@@ -341,8 +341,9 @@ public class ViewItemFull extends FacesBean {
         String link = null;
         try {
           link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-              + PropertyReader.getProperty("inge.pubman.instance.context.path") + PropertyReader.getProperty("inge.pubman.item.pattern")
-                  .replaceAll("\\$1", this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion());
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
+                  this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion());
         } catch (Exception e) {
           ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
         }
@@ -353,8 +354,9 @@ public class ViewItemFull extends FacesBean {
         String link = null;
         try {
           link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-              + PropertyReader.getProperty("inge.pubman.instance.context.path") + PropertyReader.getProperty("inge.pubman.item.pattern")
-                  .replaceAll("\\$1", this.getPubItem().getObject().getLatestRelease().getObjectIdAndVersion());
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
+                  this.getPubItem().getObject().getLatestRelease().getObjectIdAndVersion());
         } catch (Exception e) {
           ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
         }
