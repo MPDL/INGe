@@ -33,7 +33,7 @@ public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTran
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("external_organisation_id", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("external_organisation_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
     return map;
   }
 

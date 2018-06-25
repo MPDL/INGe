@@ -38,7 +38,7 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
     //      fac.setNamespaceAware(true);
     //      DocumentBuilder docBuilder = fac.newDocumentBuilder();
     //      Document sortDoc =
-    //          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
+    //          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_REPORT_SORTORDER_FILENAME),
     //              JusSnippetXmlToJusIndesignXml.class.getClassLoader()));
     //
     //      map.put("sortOrderXml", sortDoc.getDocumentElement());

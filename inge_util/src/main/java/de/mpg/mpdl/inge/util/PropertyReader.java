@@ -237,6 +237,10 @@ public class PropertyReader {
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres ";
 
+  // nur noch für Migration
+  public static final String FRAMEWORK_ADMIN_USERNAME = "frameweork.admin.username";
+  public static final String FRAMEWORK_ADMIN_PASSWORD = "frameweork.admin.password";
+
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
   private static Properties properties;

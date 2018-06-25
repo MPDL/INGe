@@ -148,7 +148,7 @@ public class ViewItemStatistics extends FacesBean {
 
   public String getNimsLink() {
     try {
-      return PropertyReader.getProperty("inge.pubman.statistics.nims.link") + this.getItemID();
+      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STATISTICS_NIMS_LINK) + this.getItemID();
     } catch (final Exception e) {
       ViewItemStatistics.logger.error("Could not read inge.pubman.statistics.nims.link from properties");
       return null;
@@ -162,7 +162,7 @@ public class ViewItemStatistics extends FacesBean {
    */
   public boolean getShowNIMSLink() {
     try {
-      final String contexts = PropertyReader.getProperty("inge.pubman.statistics.nims.context.ids");
+      final String contexts = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STATISTICS_NIMS_CONTEXT_IDS);
       final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
       final ContextDbVO currentContext = icsb.getCurrentContext();
       // logger.info(currentContext.getReference().getObjectId());

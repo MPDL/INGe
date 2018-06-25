@@ -259,7 +259,7 @@ public class ViewItemFull extends FacesBean {
       // Citation url
       try {
         String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-            + PropertyReader.getProperty("inge.pubman.instance.context.path");
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
 
         this.itemPattern =
             PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", this.getPubItem().getObjectIdAndVersion());

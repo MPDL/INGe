@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 public class MatomoTracker {
 
   private static final Logger logger = Logger.getLogger(MatomoTracker.class);
-  private static final String HOST_URL = PropertyReader.getProperty("inge.matomo.analytics.base.uri") + "/piwik.php";
+  private static final String HOST_URL = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_BASE_URI) + "/piwik.php";
 
   public final static String AUTH_TOKEN = "token_auth";
   public final static String REC = "rec";

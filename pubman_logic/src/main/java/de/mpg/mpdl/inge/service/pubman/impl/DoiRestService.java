@@ -79,8 +79,8 @@ public class DoiRestService {
           PropertyReader.getProperty("inge.doi.service.password"));
       client.getState().setCredentials(AuthScope.ANY, defaultcreds);
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      PutMethod putMethod = new PutMethod(
-          PropertyReader.getProperty("inge.doi.service.url") + PropertyReader.getProperty("inge.doi.service.create.url") + queryParams);
+      PutMethod putMethod = new PutMethod(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_URL)
+          + PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_CREATE_URL) + queryParams);
       putMethod.setRequestEntity(xmlEntity);
       int statusCode = client.executeMethod(putMethod);
 

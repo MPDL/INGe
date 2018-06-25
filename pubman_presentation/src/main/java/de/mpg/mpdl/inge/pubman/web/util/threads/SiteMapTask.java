@@ -103,19 +103,19 @@ public class SiteMapTask {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
       this.instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-      this.contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
+      this.contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
       this.itemPattern = PropertyReader.getProperty("inge.pubman.item.pattern");
 
       /*
        * this.interval =
-       * Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.task.interval"));
+       * Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_TASK_INTERVAL));
        */
-      this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.max.items"));
-      this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.retrieve.items"));
+      this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
+      this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
 
 
 
-      //      this.contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      //      this.contentModel = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION);
 
       //      this.contentModels = new ArrayList<String>();
       //      this.contentModels.add(this.contentModel);

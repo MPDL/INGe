@@ -37,7 +37,7 @@ public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTrans
 
 
     map.put("zfnId", getConfiguration().get("id"));
-    map.put("external_organisation_id", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+    map.put("external_organisation_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
     return map;
   }
 

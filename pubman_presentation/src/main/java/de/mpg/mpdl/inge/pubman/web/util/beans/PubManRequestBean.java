@@ -92,7 +92,7 @@ public class PubManRequestBean extends FacesBean {
   public String getPrivacyPolicyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.privacy.policy.url");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRIVACY_POLICY_URL);
     } catch (Exception e) {
       logger.error("Could not read property: 'escidoc.pubman.privacy.policy.url' from properties file.", e);
     }

@@ -48,7 +48,7 @@ public class PidServiceImpl implements PidService {
   }
 
   private void init() {
-    this.createPath = PropertyReader.getProperty("inge.pid.service.create.path");
+    this.createPath = PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_CREATE_PATH);
     String user = PropertyReader.getProperty("inge.pid.service.user");
     String passwd = PropertyReader.getProperty("inge.pid.service.password");
     int timeout = Integer.parseInt(PropertyReader.getProperty("inge.pid.service.timeout"));

@@ -49,8 +49,8 @@ public class MulgaraQuerier implements Querier {
    * @throws Exception Any exception.
    */
   public MulgaraQuerier() throws Exception {
-    mulgaraServer = PropertyReader.getProperty("inge.cone.mulgara.server.name");
-    mulgaraPort = PropertyReader.getProperty("inge.cone.mulgara.server.port");
+    mulgaraServer = PropertyReader.getProperty(PropertyReader.INGE_CONE_MULGARA_SERVER_NAME);
+    mulgaraPort = PropertyReader.getProperty(PropertyReader.INGE_CONE_MULGARA_SERVER_PORT);
   }
 
   /**

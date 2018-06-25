@@ -91,7 +91,7 @@ public class BrowseBySessionBean extends FacesBean {
 
   public BrowseBySessionBean() {
     //    try {
-    //      this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+    //      this.pubContentModel = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION);
     //    } catch (final Exception e) {
     //      BrowseBySessionBean.logger.warn("Could not read property content model.", e);
     //    }

@@ -63,11 +63,13 @@ public class OracleQuerier implements Querier {
 
     // jdbc:oracle:thin:@myhost:1521:orcl
 
-    Class.forName(PropertyReader.getProperty("inge.cone.database.driver.class"));
+    Class.forName(PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_DRIVER_CLASS));
     connection = DriverManager.getConnection(
-        "jdbc:oracle:thin:" + PropertyReader.getProperty("inge.cone.database.server.name") + ":"
-            + PropertyReader.getProperty("inge.cone.database.server.port") + ":" + PropertyReader.getProperty("inge.cone.database.name"),
-        PropertyReader.getProperty("inge.cone.database.user.name"), PropertyReader.getProperty("inge.cone.database.user.password"));
+        "jdbc:oracle:thin:" + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_NAME) + ":"
+            + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_PORT) + ":"
+            + PropertyReader.getProperty("inge.cone.database.name"),
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_NAME),
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_PASSWORD));
 
     // connection = dataSource.getConnection();
   }
