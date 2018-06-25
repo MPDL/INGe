@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
 import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
@@ -65,11 +66,11 @@ public class AppConfigPubmanLogic {
   public BrokerService brokerService() throws Exception {
     BrokerService brokerService = new BrokerService();
     brokerService.setPersistent(true);
-    String jbossHomeDir = System.getProperty("jboss.home.dir");
+    String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
     if (jbossHomeDir != null) {
       brokerService.setDataDirectoryFile(new File(jbossHomeDir + "/standalone/data/activemq"));
     } else {
-      brokerService.setDataDirectory(System.getProperty("java.io.tmpdir"));
+      brokerService.setDataDirectory(System.getProperty(PropertyReader.JAVA_IO_TMPDIR));
     }
     brokerService.setUseJmx(false);
     brokerService.addConnector(DEFAULT_BROKER_URL);

@@ -238,6 +238,13 @@ public class PropertyReader {
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres ";
 
+  // system properties
+  public static final String FILE_ENCODING = "file.encoding";
+  public static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
+  public static final String JBOSS_HOME_DIR = "jboss.home.dir";
+  public static final String LINE_SEPARATOR = "line.separator";
+  public static final String POM = "pom";
+
   // nur noch für Migration
   public static final String ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL = "escidoc.framework.access.login.url";
   public static final String ESCIDOC_FRAMEWORK_ADMIN_USERNAME = "frameweork.admin.username";

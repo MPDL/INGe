@@ -75,9 +75,8 @@ import net.arnx.wmf2svg.util.Base64;
 public class FileServiceFSImpl implements FileService, FileServiceExternal {
   private static final Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
-  private static final String TMP_FILE_ROOT_PATH =
-      System.getProperty("jboss.home.dir") + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
-
+  private static final String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
+      + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
 
   @Autowired
   //  @Qualifier("postgresDbFileServiceBean")
@@ -406,7 +405,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     final StringBuffer b = new StringBuffer(2048);
     for (final String name : metadata.names()) {
-      b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty("line.separator"));
+      b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty(PropertyReader.LINE_SEPARATOR));
     }
     return b.toString();
   }

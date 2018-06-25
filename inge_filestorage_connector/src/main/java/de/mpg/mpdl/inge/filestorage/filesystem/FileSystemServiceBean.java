@@ -37,7 +37,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
   private static final String FILESYSTEM_ROOT_PATH =
-      System.getProperty("jboss.home.dir") + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);
+      System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);
 
   /*
    * 

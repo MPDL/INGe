@@ -35,6 +35,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+
 /**
  * TODO Description
  * 
@@ -57,8 +59,8 @@ public class ReplaceNamespacesWithMavenTokens {
       System.out
           .println("This will replace all namespaces that can be found in the input xml file with available tokens from the pom.xml.");
     } else {
-      if (System.getProperty("pom") != null) {
-        POM_PATH = System.getProperty("pom");
+      if (System.getProperty(PropertyReader.POM) != null) {
+        POM_PATH = System.getProperty(PropertyReader.POM);
       }
 
       File pom = new File(POM_PATH);

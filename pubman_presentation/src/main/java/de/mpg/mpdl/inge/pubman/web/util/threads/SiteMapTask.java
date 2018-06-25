@@ -65,7 +65,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
-  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir") + "/standalone/data/sitemap/";
+  public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
 
   //  private ArrayList<String> contentModels;
 
@@ -131,14 +131,14 @@ public class SiteMapTask {
 
       this.finishSitemap();
 
-      // String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+      // String appPath = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/modules/pubman/main/sitemap/";
       new File(SiteMapTask.SITEMAP_PATH).mkdir();
       /*
        * try { appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp",
        * SiteMapTask.class.getClassLoader()).getAbsolutePath(); } catch (Exception e) {
        * logger.error("EditItemPage.jsp was not found in web root, terminating sitemap task", e);
        * return; } appPath = appPath.substring(0,
-       * appPath.lastIndexOf(System.getProperty("file.separator")) + 1);
+       * appPath.lastIndexOf(System.getProperty(PropertyReader.FILE_SEPARATOR)) + 1);
        */
       if (this.files.size() == 1) {
         final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
