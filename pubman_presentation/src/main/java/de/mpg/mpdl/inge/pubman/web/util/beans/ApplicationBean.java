@@ -481,7 +481,7 @@ public class ApplicationBean extends FacesBean {
       }
 
       try {
-        this.handlesActivated = Boolean.parseBoolean(PropertyReader.getProperty("inge.handles.activated"));
+        this.handlesActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_HANDLES_ACTIVATED));
       } catch (final Exception e) {
         ApplicationBean.logger.error("Error reading property 'inge.handles.activated'", e);
         this.handlesActivated = false;

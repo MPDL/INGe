@@ -279,7 +279,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> initSubjectTypesListMenu() {
     final List<SelectItem> vocabs = new ArrayList<SelectItem>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
       final String[] vocabsArr = vocabsStr.split(";");
       for (int i = 0; i < vocabsArr.length; i++) {
         final String type = vocabsArr[i].trim().toUpperCase().replace("-", "_");

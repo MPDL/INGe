@@ -105,11 +105,11 @@ public class ReportFHI {
   public ReportFHI() throws IOException, URISyntaxException, ServiceException {
     USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME);
     USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
-    emailSenderProp = PropertyReader.getProperty("inge.email.sender");
-    emailServernameProp = PropertyReader.getProperty("inge.email.mailservername");
-    emailWithAuthProp = PropertyReader.getProperty("inge.email.withauthentication");
-    emailAuthUserProp = PropertyReader.getProperty("inge.email.authenticationuser");
-    emailAuthPwdProp = PropertyReader.getProperty("inge.email.authenticationpwd");
+    emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
+    emailServernameProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_MAILSERVERNAME);
+    emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
+    emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
+    emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
 
     adminHandler = AdminHelper.loginUser(USER_NAME, USER_PASSWD);
 

@@ -108,7 +108,7 @@ public class BrowseBySessionBean extends FacesBean {
   public List<String> getControlledVocabs() {
     final List<String> vocabs = new ArrayList<String>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
       if (vocabsStr != null && vocabsStr.trim().length() > 0) {
         final String[] vocabsArr = vocabsStr.split(";");
         for (int i = 0; i < vocabsArr.length; i++) {

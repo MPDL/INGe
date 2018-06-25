@@ -76,7 +76,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   private static final Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
   private static final String TMP_FILE_ROOT_PATH =
-      System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.logic.temporary_filesystem_root_path");
+      System.getProperty("jboss.home.dir") + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
 
 
   @Autowired

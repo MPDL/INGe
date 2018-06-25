@@ -110,7 +110,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
 
   public UserAccountServiceImpl() throws Exception {
-    String key = PropertyReader.getProperty("inge.jwt.shared-secret");
+    String key = PropertyReader.getProperty(PropertyReader.INGE_JWT_SHARED_SECRET);
     if (key == null || key.trim().isEmpty()) {
       logger.warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
       key = UUID.randomUUID().toString();
@@ -118,7 +118,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     jwtAlgorithmKey = Algorithm.HMAC512(key);
 
-    jwtIssuer = PropertyReader.getProperty("pubman.instance.url");
+    jwtIssuer = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
     jwtVerifier = JWT.require(jwtAlgorithmKey).withIssuer(jwtIssuer).build();
 

@@ -192,7 +192,6 @@ public class PropertyReader {
   public static final String INGE_SEARCH_AND_EXPORT_MAXIMUM_RECORDS = "inge.search.and.export.maximum.records";
   public static final String INGE_SEARCH_AND_EXPORT_MAX_LIMIT = "inge.search.and.export.max.limit";
   public static final String INGE_SEARCH_AND_EXPORT_START_RECORD = "inge.search.and.export.start.record";
-  public static final String INGE_SYNDICATION_SERVICE_URL = "inge.syndication.service.url";
   public static final String INGE_SYSTEMTYPE = "inge.systemtype";
   public static final String INGE_TRANSFORMATION_ARXIV2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME =
       "inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename";
