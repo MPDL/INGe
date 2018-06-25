@@ -125,6 +125,7 @@
 		<inge.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</inge.transformation.endnote.configuration.filename>
 		<inge.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</inge.transformation.endnote.ice.stylesheet.filename>
 		<inge.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</inge.transformation.endnote.stylesheet.filename>
+		<inge.transformation.escidoc2bibtex.stylesheet.filename>transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl</inge.transformation.escidoc2bibtex.stylesheet.filename>
 		<inge.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</inge.transformation.escidoc2marcxml.stylesheet.filename>
 		<inge.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</inge.transformation.mab.content.url.prefix>
 		<inge.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</inge.transformation.mab.stylesheet.filename>

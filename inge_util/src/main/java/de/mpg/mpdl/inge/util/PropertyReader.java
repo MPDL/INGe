@@ -213,6 +213,8 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME = "inge.transformation.endnote.configuration.filename";
   public static final String INGE_TRANSFORMATION_ENDNOTE_ICE_STYLESHEET_FILENAME = "inge.transformation.endnote.ice.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ENDNOTE_STYLESHEET_FILENAME = "inge.transformation.endnote.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC2BIBTEX_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc2bibtex.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC2MARCXML_STYLESHEET_FILENAME =
       "inge.transformation.escidoc2marcxml.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_MAB_CONTENT_URL_PREFIX = "inge.transformation.mab.content.url.prefix";

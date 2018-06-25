@@ -55,7 +55,7 @@ public class ConeCache {
   public static void refreshCache() throws ConeCacheConfigException {
     logger.info("*** Start CONE-Cache Refresh-Cycle ***");
 
-    String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
+    String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
 
     ConeCache.refresh(iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
     ConeCache.refresh(iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.ISO639_3_TITLE_QUERY);

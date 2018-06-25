@@ -19,29 +19,22 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ENDNOTE_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
     String flavor = ((getConfiguration() == null || getConfiguration().isEmpty()) ? null : getConfiguration().get("Flavor"));
 
     if (flavor != null && ("ICE".equals(flavor) || "BGC".equals(flavor))) {
-
-      return getXmlSourceFromProperty("inge.transformation.endnote.ice.stylesheet.filename",
+      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_ICE_STYLESHEET_FILENAME,
           "transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl");
-
     } else {
-
-      return getXmlSourceFromProperty("inge.transformation.endnote.stylesheet.filename",
+      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_STYLESHEET_FILENAME,
           "transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl");
     }
-
-
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.FALSE);
@@ -55,9 +48,7 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
     map.put("frameworkUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
 
     return map;
-
   }
-
 
   @Override
   public URIResolver getURIResolver() {
@@ -66,15 +57,14 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.endnote.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME,
         "transformations/commonPublicationFormats/conf/endnote.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return SingleTransformer.getAllConfigurationValuesFromProperty("inge.transformation.endnote.configuration.filename",
+    return SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME,
         "transformations/commonPublicationFormats/conf/endnote.properties").get(key);
   }
-
 
 }

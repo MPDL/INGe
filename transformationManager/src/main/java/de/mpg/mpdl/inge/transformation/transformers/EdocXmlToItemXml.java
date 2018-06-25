@@ -19,10 +19,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.EDOC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class EdocXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.edoc.stylesheet.filename",
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_STYLESHEET_FILENAME,
         "transformations/otherFormats/xslt/edoc-to-escidoc.xslt");
   }
 
@@ -41,12 +40,11 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
     map.put("frameworkUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
 
     return map;
-
   }
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.edoc.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME,
         "transformations/otherFormats/conf/edoc.properties");
   }
 
@@ -57,7 +55,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty("inge.transformation.edoc.configuration.filename",
+    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME,
         "transformations/otherFormats/conf/edoc.properties").get(key);
   }
 

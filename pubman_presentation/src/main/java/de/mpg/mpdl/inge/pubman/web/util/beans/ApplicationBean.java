@@ -267,7 +267,7 @@ public class ApplicationBean extends FacesBean {
    * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
    */
   public SystemType getSystemTypeFromProperty() throws PubManVersionNotAvailableException {
-    final String sysType = PropertyReader.getProperty("inge.systemtype");
+    final String sysType = PropertyReader.getProperty(PropertyReader.INGE_SYSTEMTYPE);
 
     if (sysType.equals("workstation")) {
       return SystemType.Workstation;

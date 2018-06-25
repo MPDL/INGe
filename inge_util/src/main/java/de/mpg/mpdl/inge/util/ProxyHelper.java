@@ -145,7 +145,6 @@ public class ProxyHelper {
         String nph = nonProxyHosts;
         nph = nph.replaceAll("\\.", "\\\\.").replaceAll("\\*", "").replaceAll("\\?", "\\\\?");
         nonProxyPattern = Pattern.compile(nph);
-
       }
       flag = true;
     } catch (Exception e) {
