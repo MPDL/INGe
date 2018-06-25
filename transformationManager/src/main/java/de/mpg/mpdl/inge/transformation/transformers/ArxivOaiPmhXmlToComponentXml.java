@@ -31,5 +31,5 @@ public class ArxivOaiPmhXmlToComponentXml extends XslTransformer implements Chai
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-  
+
 }

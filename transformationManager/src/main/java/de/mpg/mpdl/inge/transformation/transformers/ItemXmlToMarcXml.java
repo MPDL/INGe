@@ -16,10 +16,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.MARC_XML)
 public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.escidoc2marcxml.stylesheet.filename",
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2MARCXML_STYLESHEET_FILENAME,
         "transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl");
   }
 
@@ -31,7 +30,6 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
     return map;
   }
 
-
   @Override
   public URIResolver getURIResolver() {
     return new LocalUriResolver("transformations/commonPublicationFormats/xslt");
@@ -41,6 +39,5 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }

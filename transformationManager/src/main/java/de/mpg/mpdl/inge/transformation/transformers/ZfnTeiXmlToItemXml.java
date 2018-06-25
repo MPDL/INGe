@@ -16,36 +16,31 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ZFN_TEI_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class ZfnTeiXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-
-    return getXmlSourceFromProperty("inge.transformation.zfn.stylesheet.filename",
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME,
         "transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl");
-
-
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
+
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.FALSE);
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-
-
     map.put("zfnId", getConfiguration().get("id"));
     map.put("external_organisation_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+
     return map;
   }
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.zfn.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME,
         "transformations/standardFormats/conf/zfn.properties");
   }
-
 
 }

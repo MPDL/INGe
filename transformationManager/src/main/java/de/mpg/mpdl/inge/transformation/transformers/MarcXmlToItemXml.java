@@ -13,15 +13,15 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.MARC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.MARC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class MarcXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.marcxml2escidoc.stylesheet.filename",
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_STYLESHEET_FILENAME,
         "transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl");
   }
 
@@ -44,9 +44,7 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
     }
 
     return map;
-
   }
-
 
   @Override
   public URIResolver getURIResolver() {
@@ -55,15 +53,14 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.marcxml2escidoc.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME,
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty("inge.transformation.marcxml2escidoc.configuration.filename",
+    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME,
         "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties").get(key);
   }
-
 
 }

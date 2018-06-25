@@ -31,5 +31,5 @@ public class ArxivOaiPmhXmlToItemXml extends XslTransformer implements Chainable
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-  
+
 }

@@ -17,7 +17,8 @@ public class MabXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.mab.stylesheet.filename", "transformations/otherFormats/xslt/mabxml2escidoc.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MAB_STYLESHEET_FILENAME,
+        "transformations/otherFormats/xslt/mabxml2escidoc.xsl");
   }
 
   @Override

@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.JUS_SNIPPET_XML, targetFormat = FORMAT.JUS_INDESIGN_XML)
 @TransformerModule(sourceFormat = FORMAT.JUS_SNIPPET_XML, targetFormat = FORMAT.JUS_HTML_XML)

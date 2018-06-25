@@ -14,14 +14,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.PMC_OAIPMH_XML, targetFormat = FORMAT.ESCIDOC_COMPONENT_XML)
 public class PmcOaiPmhXmlToComponentXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-
-    return getXmlSourceFromProperty("inge.transformation.pmc2escidoc_publication_component.stylesheet.filename",
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME,
         "transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl");
-
-
   }
 
   @Override
@@ -35,6 +31,5 @@ public class PmcOaiPmhXmlToComponentXml extends XslTransformer implements Chaina
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }

@@ -15,14 +15,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.PEER_TEI_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-
     return getXmlSourceFromProperty("inge.transformation.peer.stylesheet.filename",
         "transformations/standardFormats/xslt/peer_tei2escidoc-publication-item.xsl");
-
-
   }
 
   @Override
@@ -41,6 +37,5 @@ public class PeerTeiXmlToItemXml extends XslTransformer implements ChainableTran
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }
