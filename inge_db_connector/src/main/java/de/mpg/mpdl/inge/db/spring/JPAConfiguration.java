@@ -50,15 +50,15 @@ public class JPAConfiguration {
   public DataSource restDataSource() throws Exception {
     ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
-    dataSource.setDriverClass(PropertyReader.getProperty("inge.database.driver.class"));
+    dataSource.setDriverClass(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_DRIVER_CLASS));
 
 
-    dataSource.setJdbcUrl(PropertyReader.getProperty("inge.database.jdbc.url"));
-    dataSource.setUser(PropertyReader.getProperty("inge.database.user.name"));
-    dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
+    dataSource.setJdbcUrl(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_JDBC_URL));
+    dataSource.setUser(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME));
+    dataSource.setPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
 
-    logger.info("Using database <" + PropertyReader.getProperty("inge.database.jdbc.url") + ">");
-    logger.info("Using database user <" + PropertyReader.getProperty("inge.database.user.name") + ">");
+    logger.info("Using database <" + PropertyReader.getProperty(PropertyReader.INGE_DATABASE_JDBC_URL) + ">");
+    logger.info("Using database user <" + PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_NAME) + ">");
 
 
     return dataSource;

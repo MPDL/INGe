@@ -65,7 +65,7 @@ public class SQLQuerier implements Querier {
     connection = DriverManager.getConnection(
         "jdbc:postgresql://" + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_NAME) + ":"
             + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_PORT) + "/"
-            + PropertyReader.getProperty("inge.cone.database.name"),
+            + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_NAME),
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_NAME),
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_PASSWORD));
 
@@ -83,8 +83,7 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public List<? extends Describable> query(String model, String query, String language, ModeType modeType) throws ConeException {
-
-    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
     return query(model, query, language, modeType, Integer.parseInt(limitString));
   }
 
@@ -94,7 +93,7 @@ public class SQLQuerier implements Querier {
   public List<? extends Describable> query(String model, Pair<String>[] searchFields, String language, ModeType modeType)
       throws ConeException {
 
-    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }
 

@@ -65,7 +65,7 @@ public class MulgaraQuerier implements Querier {
    */
   public List<Pair> query(String model, String searchString, String language, ModeType modeType, int limit) throws ConeException {
     if (language == null) {
-      language = PropertyReader.getProperty("inge.cone.language.default", "en");
+      language = PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT, "en");
     }
     String[] searchStringsWithWildcards = formatSearchString(searchString);
     String query = "select $s $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + DATABASE_NAME + model + "_result> where " + "$s $p $o";
@@ -113,7 +113,7 @@ public class MulgaraQuerier implements Querier {
   public List<Pair> query(String model, Pair[] searchFields, String language, ModeType modeType) throws ConeException {
     String limitString;
 
-    limitString = PropertyReader.getProperty("inge.cone.maximum.results");
+    limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS);
     if (limitString == null) {
       limitString = "50";
     }
@@ -198,7 +198,7 @@ public class MulgaraQuerier implements Querier {
    */
   public List<Pair> query(String model, String query, String language, ModeType modeType) throws ConeException {
 
-    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
     return query(model, query, null, modeType, Integer.parseInt(limitString));
 
   }

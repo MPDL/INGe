@@ -109,7 +109,7 @@ public class Util {
   }
 
   private static String getAdminUrl() {
-    return PropertyReader.getProperty("inge.aa.instance.url") + "adminLogin" + "?username="
+    return PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "adminLogin" + "?username="
         + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME) + "&password="
         + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
   }

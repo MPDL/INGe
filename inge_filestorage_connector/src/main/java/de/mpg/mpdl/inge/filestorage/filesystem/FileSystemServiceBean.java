@@ -108,7 +108,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   @Override
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
     try {
-      if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
+      if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
         Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
 
         logger.debug("Trying to read file from " + path.toString());
@@ -122,7 +122,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
         Request request =
             Request
                 .Get(
-                    PropertyReader.getProperty("inge.rest.development.file_url")
+                    PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
                         + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
                         + (URLEncoder.encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1),
                             StandardCharsets.UTF_8.name())))

@@ -45,7 +45,7 @@ public class QuerierFactory {
   public static Querier newQuerier(boolean loggedIn) {
     String querier;
     try {
-      querier = PropertyReader.getProperty("inge.cone.querier.class");
+      querier = PropertyReader.getProperty(PropertyReader.INGE_CONE_QUERIER_CLASS);
     } catch (Exception e) {
       logger.warn("Property \"inge.cone.querier.class\" not found, taking default querier class: " + DEFAULT_QUERIER);
       querier = DEFAULT_QUERIER;

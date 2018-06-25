@@ -70,7 +70,7 @@ public class AdminHelper {
    * @throws URISyntaxException
    */
   public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException {
-    String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url"); // nur noch fuer Migration
+    String frameworkUrl = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL); // nur noch fuer Migration
 
     int delim1 = frameworkUrl.indexOf("//");
     int delim2 = frameworkUrl.indexOf(":", delim1);
@@ -139,8 +139,8 @@ public class AdminHelper {
     if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000) {
       try {
         loginTime = new Date();
-        adminUserHandle = loginUser(PropertyReader.getProperty(PropertyReader.FRAMEWORK_ADMIN_USERNAME),
-            PropertyReader.getProperty(PropertyReader.FRAMEWORK_ADMIN_PASSWORD));
+        adminUserHandle = loginUser(PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_USERNAME),
+            PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_PASSWORD));
       } catch (Exception e) {
         logger.error("Exception logging on admin user.", e);
       }

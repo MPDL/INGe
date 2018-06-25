@@ -252,9 +252,9 @@ public class ApplicationBean extends FacesBean {
 
     // Last Step: add Favicon information if it should be applied
 
-    if ("true".equals(PropertyReader.getProperty("inge.pubman.favicon.apply"))) {
-      styleTags.append(
-          "<link rel=\"shortcut icon\" type=\"image/png\" href=\"" + PropertyReader.getProperty("inge.pubman.favicon.url") + "\"/>");
+    if ("true".equals(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FAVICON_APPLY))) {
+      styleTags.append("<link rel=\"shortcut icon\" type=\"image/png\" href=\""
+          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FAVICON_URL) + "\"/>");
     }
 
     return styleTags.toString();
@@ -453,7 +453,7 @@ public class ApplicationBean extends FacesBean {
 
       this.pubmanInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
-      this.pubmanBlogFeedUrl = PropertyReader.getProperty("inge.pubman.blog.news");
+      this.pubmanBlogFeedUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_NEWS);
       if (this.pubmanBlogFeedUrl == null) {
         this.pubmanBlogFeedUrl = "";
       }
@@ -464,7 +464,7 @@ public class ApplicationBean extends FacesBean {
         ApplicationBean.logger.error("Error while building style tags", e);
       }
 
-      this.cookieVersion = PropertyReader.getProperty("inge.pubman.cookie.version");
+      this.cookieVersion = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COOKIE_VERSION);
       if (this.cookieVersion == null) {
         this.cookieVersion = "";
       }
@@ -473,9 +473,9 @@ public class ApplicationBean extends FacesBean {
 
       this.appContext = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + "/faces/";
 
-      this.logoUrl = PropertyReader.getProperty("inge.pubman.logo.url");
+      this.logoUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_LOGO_URL);
 
-      this.additionalLogoCss = PropertyReader.getProperty("inge.pubman.logo.css");
+      this.additionalLogoCss = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_LOGO_CSS);
       if (this.additionalLogoCss == null) {
         this.additionalLogoCss = "";
       }
@@ -487,7 +487,7 @@ public class ApplicationBean extends FacesBean {
         this.handlesActivated = false;
       }
 
-      final String footerFileName = PropertyReader.getProperty("inge.pubman.footer.fileName");
+      final String footerFileName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FOOTER_FILENAME);
       try {
         if (footerFileName != null && !footerFileName.isEmpty()) {
           this.footerSnippet = ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
@@ -496,7 +496,7 @@ public class ApplicationBean extends FacesBean {
         ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
       }
 
-      this.cslEditorInstanceUrl = PropertyReader.getProperty("inge.pubman.csl_editor.instance");
+      this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);
     } catch (final Exception e) {
       ApplicationBean.logger.error("Error while reading properties", e);
     }

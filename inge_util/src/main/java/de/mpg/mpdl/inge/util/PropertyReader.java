@@ -238,8 +238,9 @@ public class PropertyReader {
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres ";
 
   // nur noch für Migration
-  public static final String FRAMEWORK_ADMIN_USERNAME = "frameweork.admin.username";
-  public static final String FRAMEWORK_ADMIN_PASSWORD = "frameweork.admin.password";
+  public static final String ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL = "escidoc.framework.access.login.url";
+  public static final String ESCIDOC_FRAMEWORK_ADMIN_USERNAME = "frameweork.admin.username";
+  public static final String ESCIDOC_FRAMEWORK_ADMIN_PASSWORD = "frameweork.admin.password";
 
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 

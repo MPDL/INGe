@@ -71,12 +71,12 @@ public class DoiRestService {
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       String queryParams = "?url=" + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
           + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
-          + (PropertyReader.getProperty("inge.pubman.item.pattern")).replace("$1", pubItem.getObjectId()) + "&suffix="
+          + (PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN)).replace("$1", pubItem.getObjectId()) + "&suffix="
           + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf(":") + 1);
       HttpClient client = new HttpClient();
       client.getParams().setAuthenticationPreemptive(true);
-      Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty("inge.doi.service.user"),
-          PropertyReader.getProperty("inge.doi.service.password"));
+      Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USER),
+          PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_PASSWORD));
       client.getState().setCredentials(AuthScope.ANY, defaultcreds);
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       PutMethod putMethod = new PutMethod(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_URL)

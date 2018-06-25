@@ -354,7 +354,7 @@ public class ReindexTests {
 
     QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
 
-    SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty("inge.index.item.name"))
+    SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME))
         .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
         .setScroll(new TimeValue(60000)) // 1 Minute for keeping search context alive
         .setQuery(qb) //

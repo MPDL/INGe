@@ -380,7 +380,7 @@ public class AudienceBean extends FacesBean {
   //   * @return String URL of the coreservice
   //   */
   //  public String getFwUrl() {
-  //    return PropertyReader.getProperty("escidoc.framework_access.login.url");
+  //    return PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL);
   //  }
 
   public String getItemPattern() {
@@ -389,7 +389,7 @@ public class AudienceBean extends FacesBean {
     String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
 
-    itemPattern = PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
+    itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
         this.getItemControllerSessionBean().getCurrentPubItem().getObjectIdAndVersion());
 
     if (!pubmanUrl.endsWith("/")) {

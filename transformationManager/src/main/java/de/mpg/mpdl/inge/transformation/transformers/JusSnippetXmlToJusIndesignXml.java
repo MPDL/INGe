@@ -31,7 +31,7 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
     return null;
     //    Map<String, Object> map = new HashMap<String, Object>();
     //
-    //    map.put("indesign-namespace", PropertyReader.getProperty("inge.report.indesign.namespace"));
+    //    map.put("indesign-namespace", PropertyReader.getProperty(PropertyReader.INGE_REPORT_INDESIGN_NAMESPACE));
     //
     //    try {
     //      DocumentBuilderFactory fac = new DocumentBuilderFactoryImpl();
