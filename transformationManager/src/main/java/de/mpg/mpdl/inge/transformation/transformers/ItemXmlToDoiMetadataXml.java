@@ -15,8 +15,7 @@ public class ItemXmlToDoiMetadataXml extends XslTransformer implements Chainable
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_DOI_STYLESHEET_FILENAME,
-        "transformations/otherFormats/xslt/escidoc2doi.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_DOI_STYLESHEET_FILENAME);
   }
 
   @Override

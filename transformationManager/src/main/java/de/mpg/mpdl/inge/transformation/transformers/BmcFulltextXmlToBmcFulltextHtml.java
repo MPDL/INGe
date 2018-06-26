@@ -15,23 +15,16 @@ public class BmcFulltextXmlToBmcFulltextHtml extends XslTransformer implements C
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC_FULLTEXT_XML2BMC_FULLTEXT_HTML_STYLESHEET_FILENAME,
-        "transformations/thirdParty/xslt/bmc-fulltext-xml2bmc-fulltext-html.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC_FULLTEXT_XML2BMC_FULLTEXT_HTML_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
-    // TODO Auto-generated method stub
     return null;
   }
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    /**
-     * return SingleTransformer.getDefaultConfigurationFromProperty(
-     * "inge.transformation.bmcfulltext2bmcfulltexthtml.configuration.filename",
-     * "transformations/commonPublicationFormats/conf/bmcfulltext2bmcfulltexthtml.properties");
-     */
     return null;
   }
 

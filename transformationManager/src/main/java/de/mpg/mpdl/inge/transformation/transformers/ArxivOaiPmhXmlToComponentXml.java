@@ -16,14 +16,14 @@ public class ArxivOaiPmhXmlToComponentXml extends XslTransformer implements Chai
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ARXIV2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME,
-        "transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ARXIV2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("external_organization_id", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
+
     return map;
   }
 

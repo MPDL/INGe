@@ -16,8 +16,7 @@ public class PmcOaiPmhXmlToItemXml extends XslTransformer implements ChainableTr
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME,
-        "transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME);
   }
 
   @Override

@@ -21,8 +21,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_STYLESHEET_FILENAME,
-        "transformations/otherFormats/xslt/edoc-to-escidoc.xslt");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -34,6 +33,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
+
     map.put("source-name", "edoc");
     map.put("root-ou", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID));
     map.put("external-ou", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
@@ -44,8 +44,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME,
-        "transformations/otherFormats/conf/edoc.properties");
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME);
   }
 
   @Override
@@ -55,8 +54,7 @@ public class EdocXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME,
-        "transformations/otherFormats/conf/edoc.properties").get(key);
+    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME).get(key);
   }
 
 }

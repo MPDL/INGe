@@ -908,7 +908,6 @@
 		<framework.admin.username></framework.admin.username>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
-		<inge.aa.client.class />
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
@@ -976,6 +975,7 @@
 		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
 		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
+		<inge.pubman.footer.fileName />
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
@@ -1025,29 +1025,45 @@
 		<inge.transformation.bmc2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl</inge.transformation.bmc2escidoc.stylesheet.filename>
 		<inge.transformation.bmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-component.xsl</inge.transformation.bmc2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.bmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-item.xsl</inge.transformation.bmc2escidoc_publication_item.stylesheet.filename>
-		<inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>transformations/thirdParty/xslt/bmc-fulltext-xml2bms-fulltext-html.xsl</inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
+		<inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>transformations/thirdParty/xslt/bmc-fulltext-xml2bmc-fulltext-html.xsl</inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
 		<inge.transformation.doi.stylesheet.filename>transformations/otherFormats/xslt/escidoc2doi.xsl</inge.transformation.doi.stylesheet.filename>
 		<inge.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</inge.transformation.edoc.configuration.filename>
 		<inge.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</inge.transformation.edoc.stylesheet.filename>
 		<inge.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</inge.transformation.endnote.configuration.filename>
 		<inge.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</inge.transformation.endnote.ice.stylesheet.filename>
 		<inge.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</inge.transformation.endnote.stylesheet.filename>
+		<inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename >transformations/itemList2snippet.xsl</inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename >
+		<inge.transformation.escidoc.snippet.to.html.stylesheet.filename >transformations/escidoc-publication-snippet2html.xsl</inge.transformation.escidoc.snippet.to.html.stylesheet.filename >
 		<inge.transformation.escidoc2bibtex.stylesheet.filename>transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl</inge.transformation.escidoc2bibtex.stylesheet.filename>
+		<inge.transformation.escidoc2edoc_export.stylesheet.filename>transformations/otherFormats/xslt/escidoc2edoc_export.xsl</inge.transformation.escidoc2edoc_export.stylesheet.filename>
+		<inge.transformation.escidoc2edoc_import.stylesheet.filename>transformations/otherFormats/xslt/escidoc2edoc_import.xsl</inge.transformation.escidoc2edoc_import.stylesheet.filename>
+		<inge.transformation.escidoc2endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/eSciDoc_to_EndNote.xsl</inge.transformation.escidoc2endnote.stylesheet.filename>
 		<inge.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</inge.transformation.escidoc2marcxml.stylesheet.filename>
+		<inge.transformation.escidoc_v1_to_escidoc_v2.stylesheet.filename>transformations/otherFormats/xslt/escidoc-publication-v1_2_escidoc-publication-v2.xsl</inge.transformation.escidoc_v1_to_escidoc_v2.stylesheet.filename>
+		<inge.transformation.escidoc_v2_to_escidoc_v1.stylesheet.filename>transformations/otherFormats/xslt/escidoc-publication-v2_2_escidoc-publication-v1.xsl</inge.transformation.escidoc_v2_to_escidoc_v1.stylesheet.filename>
+		<inge.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename>transformations/otherFormats/xslt/escidoc-xml-v13-to-v12.xsl</inge.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename>
+		<inge.transformation.html_metatags_dc.stylesheet.filename>transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-dc.xsl</inge.transformation.html_metatags_dc.stylesheet.filename>
+		<inge.transformation.html_metatags_highwire.stylesheet.filename>transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-highwire-press-citation.xsl</inge.transformation.html_metatags_highwire.stylesheet.filename>
+		<inge.transformation.jus_indesign.stylesheet.filename>transformations/reports/xslt/jus_report_snippet2jus_out_indesign.xsl</inge.transformation.jus_indesign.stylesheet.filename>
+		<inge.transformation.jus_snippet2jus.stylesheet.filename>transformations/reports/xslt/jus_report_snippet2jus_out_html.xsl</inge.transformation.jus_snippet2jus.stylesheet.filename>
 		<inge.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</inge.transformation.mab.content.url.prefix>
 		<inge.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</inge.transformation.mab.stylesheet.filename>
 		<inge.transformation.marcxml2escidoc.configuration.filename>transformations/commonPublicationFormats/conf/marcxml2escidoc.properties</inge.transformation.marcxml2escidoc.configuration.filename>
 		<inge.transformation.marcxml2escidoc.stylesheet.filename>transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl</inge.transformation.marcxml2escidoc.stylesheet.filename>
+		<inge.transformation.mods2marc.stylesheet.filename>transformations/standardFormats/xslt/mods2marc21.xsl</inge.transformation.mods2marc.stylesheet.filename>
+		<inge.transformation.mods2oaidc.stylesheet.filename>transformations/standardFormats/xslt/mods2oai_dc.xsl</inge.transformation.mods2oaidc.stylesheet.filename>
+		<inge.transformation.mods_item.stylesheet.filename>transformations/standardFormats/xslt/mods2escidoc-publication-item.xsl</inge.transformation.mods_item.stylesheet.filename>
+		<inge.transformation.oai_dc.stylesheet.filename>transformations/standardFormats/xslt/escidoc-publication-item2oai_dc.xsl</inge.transformation.oai_dc.stylesheet.filename>
+		<inge.transformation.peer.stylesheet.filename>transformations/standardFormats/xslt/peer_tei2escidoc-publication-item.xsl</inge.transformation.peer.stylesheet.filename>
 		<inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl</inge.transformation.pmc2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/pmc2escidoc-publication-item.xsl</inge.transformation.pmc2escidoc_publication_item.stylesheet.filename>
-		<inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>transformations/thirdParty/xslt/pmc_fulltext_xml2pmc_fulltext_xslfo.xsl</inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename>
 		<inge.transformation.ris.configuration.filename>transformations/otherFormats/conf/ris.properties</inge.transformation.ris.configuration.filename>
 		<inge.transformation.ris.stylesheet.filename>transformations/otherFormats/xslt/risxml2escidoc.xsl</inge.transformation.ris.stylesheet.filename>
+		<inge.transformation.spires2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/spires2escidoc-publication-item.xsl</inge.transformation.spires2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.wos.configuration.filename>transformations/otherFormats/conf/wos.properties</inge.transformation.wos.configuration.filename>
 		<inge.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</inge.transformation.wos.stylesheet.filename>
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
-		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
-		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
+		<inge.transformation.zfn.stylesheet.filename >transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename >		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>

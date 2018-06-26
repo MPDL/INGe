@@ -16,8 +16,7 @@ public class PmcOaiPmhXmlToComponentXml extends XslTransformer implements Chaina
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME,
-        "transformations/thirdParty/xslt/pmc2escidoc-publication-component.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME);
   }
 
   @Override

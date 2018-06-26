@@ -201,11 +201,11 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME = "inge.transformation.bibtex.configuration.filename";
   public static final String INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME =
       "inge.transformation.bmc2escidoc.configuration.filename";
-  public static final String INGE_TRANSFORMATION_BMC2ESCIDOC_STYLESHEET_FILENAME = "inge.transformation.bmc2escidoc.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_BMC2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME =
       "inge.transformation.bmc2escidoc_publication_component.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_BMC2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME =
       "inge.transformation.bmc2escidoc_publication_item.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_BMC2ESCIDOC_STYLESHEET_FILENAME = "inge.transformation.bmc2escidoc.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_BMC_FULLTEXT_XML2BMC_FULLTEXT_HTML_STYLESHEET_FILENAME =
       "inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_DOI_STYLESHEET_FILENAME = "inge.transformation.doi.stylesheet.filename";
@@ -216,26 +216,54 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ENDNOTE_STYLESHEET_FILENAME = "inge.transformation.endnote.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC2BIBTEX_STYLESHEET_FILENAME =
       "inge.transformation.escidoc2bibtex.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC2EDOC_EXPORT_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc2edoc_export.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC2EDOC_IMPORT_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc2edoc_import.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC2ENDNOTE_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc2endnote.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC2MARCXML_STYLESHEET_FILENAME =
       "inge.transformation.escidoc2marcxml.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename ";
+  public static final String INGE_TRANSFORMATION_ESCIDOC_SNIPPET_TO_HTML_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc.snippet.to.html.stylesheet.filename ";
+  public static final String INGE_TRANSFORMATION_ESCIDOC_V1_TO_ESCIDOC_V2_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc_v1_to_escidoc_v2.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC_V2_TO_ESCIDOC_V1_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc_v2_to_escidoc_v1.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ESCIDOC_V3_TO_ESCIDOC_V2_STYLESHEET_FILENAME =
+      "inge.transformation.escidoc_v3_to_escidoc_v2.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_HTML_METATAGS_DC_STYLESHEET_FILENAME =
+      "inge.transformation.html_metatags_dc.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_HTML_METATAGS_HIGHWIRE_STYLESHEET_FILENAME =
+      "inge.transformation.html_metatags_highwire.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_JUS_INDESIGN_STYLESHEET_FILENAME = "inge.transformation.jus_indesign.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_JUS_SNIPPET2JUS_STYLESHEET_FILENAME =
+      "inge.transformation.jus_snippet2jus.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_MAB_CONTENT_URL_PREFIX = "inge.transformation.mab.content.url.prefix";
   public static final String INGE_TRANSFORMATION_MAB_STYLESHEET_FILENAME = "inge.transformation.mab.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME =
       "inge.transformation.marcxml2escidoc.configuration.filename";
   public static final String INGE_TRANSFORMATION_MARCXML2ESCIDOC_STYLESHEET_FILENAME =
       "inge.transformation.marcxml2escidoc.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_MODS2MARC_STYLESHEET_FILENAME = "inge.transformation.mods2marc.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_MODS2OAIDC_STYLESHEET_FILENAME = "inge.transformation.mods2oaidc.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_MODS_ITEM_STYLESHEET_FILENAME = "inge.transformation.mods_item.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_OAI_DC_STYLESHEET_FILENAME = "inge.transformation.oai_dc.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_PEER_STYLESHEET_FILENAME = "inge.transformation.peer.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_COMPONENT_STYLESHEET_FILENAME =
       "inge.transformation.pmc2escidoc_publication_component.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_PMC2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME =
       "inge.transformation.pmc2escidoc_publication_item.stylesheet.filename";
-  public static final String INGE_TRANSFORMATION_PMC_FULLTEXT_XML2PMC_FULLTEXT_XSLFO_STYLESHEET_FILENAME =
-      "inge.transformation.pmc_fulltext_xml2pmc_fulltext_xslfo.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME = "inge.transformation.ris.configuration.filename";
   public static final String INGE_TRANSFORMATION_RIS_STYLESHEET_FILENAME = "inge.transformation.ris.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_SPIRES2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME =
+      "inge.transformation.spires2escidoc_publication_item.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME = "inge.transformation.wos.configuration.filename";
   public static final String INGE_TRANSFORMATION_WOS_STYLESHEET_FILENAME = "inge.transformation.wos.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
-  public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename ";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
 

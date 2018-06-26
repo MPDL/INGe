@@ -24,11 +24,9 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
     String flavor = ((getConfiguration() == null || getConfiguration().isEmpty()) ? null : getConfiguration().get("Flavor"));
 
     if (flavor != null && ("ICE".equals(flavor) || "BGC".equals(flavor))) {
-      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_ICE_STYLESHEET_FILENAME,
-          "transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl");
+      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_ICE_STYLESHEET_FILENAME);
     } else {
-      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_STYLESHEET_FILENAME,
-          "transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl");
+      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_STYLESHEET_FILENAME);
     }
   }
 
@@ -57,14 +55,13 @@ public class EndNoteXmlToItemXml extends XslTransformer implements ChainableTran
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME,
-        "transformations/commonPublicationFormats/conf/endnote.properties");
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME);
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME,
-        "transformations/commonPublicationFormats/conf/endnote.properties").get(key);
+    return SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_ENDNOTE_CONFIGURATION_FILENAME)
+        .get(key);
   }
 
 }

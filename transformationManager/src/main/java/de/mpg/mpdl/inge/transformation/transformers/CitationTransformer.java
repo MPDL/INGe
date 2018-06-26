@@ -60,7 +60,6 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-
     try {
       SearchRetrieveResponseVO<ItemVersionVO> s = (SearchRetrieveResponseVO<ItemVersionVO>) ((TransformerVoSource) source).getSource();
 
@@ -83,7 +82,6 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
   @Override
   public TransformerResult createNewInBetweenResult() {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -91,20 +89,20 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   private byte[] integrateCitationIntoOutput(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> searchResult,
       List<ItemVersionVO> itemList, List<String> citationList) throws Exception {
 
-    //build escidoc snippet format
-
     if (itemList.size() != citationList.size()) {
       throw new IngeTechnicalException(
           "Error: Citationmanager returned " + citationList.size() + "citations for " + itemList.size() + " items");
     }
+
     List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
     ItemVOListWrapper listWrapper = new ItemVOListWrapper();
     listWrapper.setItemVOList(transformedList);
+
     if (searchResult != null) {
       listWrapper.setNumberOfRecords(String.valueOf(searchResult.getNumberOfRecords()));
     }
-    String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
 
+    String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
 
     StringWriter escidocSnippetWriter = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
@@ -115,9 +113,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
     String escidocSnippet = escidocSnippetWriter.toString();
 
-
     if (TransformerFactory.FORMAT.JSON_CITATION.equals(getTargetFormat())) {
-
       if (searchResult != null) {
         JsonNode node = MapperFactory.getObjectMapper().valueToTree(searchResult);
         if (searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
@@ -127,22 +123,14 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
             //            i++;
           }
         }
+
         return MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node).getBytes(StandardCharsets.UTF_8);
       }
-
-    }
-
-    else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
+    } else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
       return escidocSnippet.getBytes(StandardCharsets.UTF_8);
-
     } else if (TransformerFactory.FORMAT.HTML_PLAIN.equals(getTargetFormat())
         || TransformerFactory.FORMAT.HTML_LINKED.equals(getTargetFormat())) {
-
-
       return generateHtmlOutput(escidocSnippet, getTargetFormat(), "html", true).getBytes(StandardCharsets.UTF_8);
-
-
-
     } else if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat()) || TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
@@ -183,14 +171,10 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
               + TransformerFactory.FORMAT.JSON_CITATION.getName() + ", " + TransformerFactory.FORMAT.ESCIDOC_SNIPPET.getName() + ", "
               + TransformerFactory.FORMAT.HTML_PLAIN.getName() + ", " + TransformerFactory.FORMAT.HTML_LINKED.getName() + ", "
               + TransformerFactory.FORMAT.PDF.getName() + ", " + TransformerFactory.FORMAT.DOCX.getName() + ", ");
-
     }
 
     return null;
-
-
   }
-
 
   private static String generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent)
       throws Exception {
@@ -209,10 +193,10 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     if (TransformerFactory.FORMAT.HTML_LINKED.equals(fileFormat)) {
       htmlTransformer.setParameter("html_linked", Boolean.TRUE);
     }
+
     htmlTransformer.transform(new StreamSource(new StringReader(escidocSnippet)), new StreamResult(sw));
+
     return sw.toString();
   }
-
-
 
 }

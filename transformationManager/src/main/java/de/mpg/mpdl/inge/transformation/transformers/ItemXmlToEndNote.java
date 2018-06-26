@@ -15,17 +15,16 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.ENDNOTE_STRING)
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.ENDNOTE_STRING)
 public class ItemXmlToEndNote extends XslTransformer implements ChainableTransformer {
+
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.escidoc2endnote.stylesheet.filename",
-        "transformations/commonPublicationFormats/xslt/eSciDoc_to_EndNote.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2ENDNOTE_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     return null;
   }
-
 
   @Override
   public URIResolver getURIResolver() {
@@ -36,4 +35,5 @@ public class ItemXmlToEndNote extends XslTransformer implements ChainableTransfo
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
+
 }

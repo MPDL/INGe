@@ -53,7 +53,8 @@ public class IpAaClient extends FinalClient {
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Properties ips = new Properties();
-    InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
+    InputStream ipStream =
+        ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
     ips.loadFromXML(ipStream);
     ipStream.close();
 
