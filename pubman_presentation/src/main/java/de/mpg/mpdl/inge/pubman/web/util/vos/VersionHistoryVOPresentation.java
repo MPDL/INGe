@@ -62,8 +62,6 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
 
     // Now copy the old stuff into the current item
     pubItemVOLatestVersion.setMetadata(pubItemVOThisVersion.getMetadata());
-    pubItemVOLatestVersion.getObject().getLocalTags().clear();
-    pubItemVOLatestVersion.getObject().getLocalTags().addAll(pubItemVOThisVersion.getObject().getLocalTags());
 
     // Do not forget the files and locators
     pubItemVOLatestVersion.getFiles().clear();
@@ -75,14 +73,22 @@ public class VersionHistoryVOPresentation extends VersionHistoryEntryVO {
     // Then process it into the framework ...
     // TODO: An neuen Workflow anpassen (z.B. hat Owner im Standard-Workflow keine Berechtigung von
     // PENDING nach RELEASED)
-    ItemVersionVO pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
+    ItemVersionVO pubItemVONewVersion;
+    try {
+      pubItemVONewVersion = pubItemService.update(pubItemVOLatestVersion, loginHelper.getAuthenticationToken());
+    } catch (Exception e) {
+      logger.error("Error while updating", e);
+      throw e;
+    }
 
+    /*
     if (ItemVersionRO.State.RELEASED.equals(pubItemVOLatestVersion.getVersionState())
         && !ItemVersionRO.State.RELEASED.equals(pubItemVONewVersion.getVersionState())) {
       pubItemVONewVersion = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(pubItemVONewVersion.getObjectId(),
           pubItemVONewVersion.getModificationDate(), "Release after rollback to version " + this.getReference().getVersionNumber(),
           loginHelper.getAuthenticationToken());
     }
+    */
 
     // ... and set the new version as current item in PubMan
     ((ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean"))

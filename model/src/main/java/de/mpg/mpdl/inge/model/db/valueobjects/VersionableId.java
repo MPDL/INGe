@@ -19,6 +19,18 @@ public class VersionableId implements Serializable {
     this.versionNumber = versionNumber;
   }
 
+
+  public VersionableId(String objectIdWithVersion) {
+    String[] parts = objectIdWithVersion.split("_");
+    if (parts.length != 3)
+      throw new IllegalArgumentException("Illegal Object id with version, must be in format item_123456_1");
+
+    this.objectId = parts[0] + "_" + parts[1];
+    this.versionNumber = Integer.parseInt(parts[2]);
+
+
+  }
+
   public String getObjectId() {
     return objectId;
   }
