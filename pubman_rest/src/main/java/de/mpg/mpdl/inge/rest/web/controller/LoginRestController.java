@@ -43,7 +43,7 @@ public class LoginRestController {
   public ResponseEntity<?> login(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     String[] splittedCredentials = credentials.split(":");
-    
+
     if (splittedCredentials.length != 2) {
       return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
