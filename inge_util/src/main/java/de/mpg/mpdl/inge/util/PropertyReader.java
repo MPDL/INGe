@@ -83,7 +83,7 @@ public class PropertyReader {
   public static final String INGE_CONE_RDFS_TEMPLATE = "inge.cone.rdfs.template";
   public static final String INGE_CONE_PERSON_ID_IDENTIFIER = "inge.cone.person.id.identifier";
   public static final String INGE_CONE_SERVICE_URL = "inge.cone.service.url";
-  public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab ";
+  public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";
   public static final String INGE_CRON_IMPORT_SURVEYOR = "inge.cron.import.surveyor";
   public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
@@ -160,7 +160,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_ROOT_ORGANISATION_ID = "inge.pubman.root.organisation.id";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
-  public static final String INGE_PUBMAN_STATISTICS_NIMS_CONTEXT_IDS = "inge.pubman.statistics.nims.context.ids ";
+  public static final String INGE_PUBMAN_STATISTICS_NIMS_CONTEXT_IDS = "inge.pubman.statistics.nims.context.ids";
   public static final String INGE_PUBMAN_STATISTICS_NIMS_LINK = "inge.pubman.statistics.nims.link";
   public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_APPLY = "inge.pubman.stylesheet.classic.apply";
   public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_TYPE = "inge.pubman.stylesheet.classic.type";
@@ -236,7 +236,7 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
-  public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres ";
+  public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";

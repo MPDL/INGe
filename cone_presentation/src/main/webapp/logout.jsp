@@ -10,5 +10,5 @@
 	request.getSession().removeAttribute("edit_closed_vocabulary");
 	request.getSession().removeAttribute("user_handle_exist");
 
-	response.sendRedirect(PropertyReader.getProperty("inge.aa.instance.url") + "logout?target=" + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)));
+	response.sendRedirect(PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "logout?target=" + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)));
 %>
