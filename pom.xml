@@ -908,6 +908,7 @@
 		<framework.admin.username></framework.admin.username>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
+		<inge.aa.client.class />
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>

@@ -58,6 +58,7 @@ public class PropertyReader {
 
   public static final String INGE_AA_ADMIN_PASSWORD = "inge.aa.admin.password";
   public static final String INGE_AA_ADMIN_USERNAME = "inge.aa.admin.username";
+  public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
   public static final String INGE_AA_CLIENT_FINISH_CLASS = "inge.aa.client.finish.class";
   public static final String INGE_AA_CLIENT_LOGOUT_CLASS = "inge.aa.client.logout.class";
   public static final String INGE_AA_CLIENT_START_CLASS = "inge.aa.client.start.class";

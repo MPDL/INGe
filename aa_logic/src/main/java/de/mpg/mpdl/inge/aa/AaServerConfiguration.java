@@ -38,6 +38,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
@@ -59,7 +60,7 @@ public class AaServerConfiguration extends DefaultHandler {
   StringWriter currentValue = null;
 
   public AaServerConfiguration() throws Exception {
-    String file = Config.getProperty("inge.aa.config.file");
+    String file = Config.getProperty(PropertyReader.INGE_AA_CONFIG_FILE);
 
     InputStream inputStream = ResourceUtil.getResourceAsStream(file, AaServerConfiguration.class.getClassLoader());
     SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
