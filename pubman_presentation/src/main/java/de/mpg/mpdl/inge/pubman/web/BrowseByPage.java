@@ -37,8 +37,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
@@ -49,7 +52,10 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.ClassificationSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.ConeUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -347,7 +353,13 @@ public class BrowseByPage extends BreadcrumbPage {
   //  }
 
   private void search(QueryBuilder qb) throws Exception {
-    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8"));
+    BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+    bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+        PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+    bqb.must(qb);
+    FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(bqb.toString(), "UTF-8"));
   }
 
   @Override
