@@ -7,8 +7,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,8 +32,6 @@ public class LoginRestController {
   private final String TOKEN_HEADER = "Token";
   private final String AUTHZ_HEADER = "Authorization";
 
-  private static final Logger logger = LogManager.getLogger(LoginRestController.class);
-
   private UserAccountService userSvc;
 
   @Autowired
@@ -46,28 +42,35 @@ public class LoginRestController {
   @RequestMapping(path = "login", method = POST, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<?> login(@RequestBody String credentials, HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    String username = credentials.split(":")[0];
-    String password = credentials.split(":")[1];
-    Principal principal = userSvc.login(username, password, request, response);
+    String[] splittedCredentials = credentials.split(":");
+    
+    if (splittedCredentials.length != 2) {
+      return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    String username = splittedCredentials[0];
+    String password = splittedCredentials[1];
+    Principal principal = this.userSvc.login(username, password, request, response);
     if (principal != null && !principal.getJwToken().isEmpty()) {
       HttpHeaders headers = new HttpHeaders();
       headers.add(TOKEN_HEADER, principal.getJwToken());
       return new ResponseEntity<>(headers, HttpStatus.OK);
     }
+
     return null;
   }
 
   @RequestMapping(path = "login/who", method = GET, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<AccountUserDbVO> getUser(@RequestHeader(value = AUTHZ_HEADER) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    AccountUserDbVO user = userSvc.get(token);
+    AccountUserDbVO user = this.userSvc.get(token);
     return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
   }
 
   @RequestMapping(path = "logout", method = GET, produces = APPLICATION_JSON_VALUE)
   public String logout(@RequestHeader(value = AUTHZ_HEADER) String token, HttpServletRequest request, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    userSvc.logout(token, request, response);
+    this.userSvc.logout(token, request, response);
 
     return "Successfully logged out";
   }
