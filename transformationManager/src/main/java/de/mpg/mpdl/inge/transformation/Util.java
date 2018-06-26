@@ -56,7 +56,6 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
@@ -147,7 +146,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -165,7 +165,8 @@ public class Util {
             if (coneSession != null) {
               detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             }
-            ProxyHelper.executeMethod(client, detailMethod);
+            //            ProxyHelper.executeMethod(client, detailMethod);
+            client.executeMethod(method);
             logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
 
             if (detailMethod.getStatusCode() == 200) {
@@ -207,7 +208,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -349,7 +351,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
@@ -363,7 +366,8 @@ public class Util {
         if (coneSession != null) {
           method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
         }
-        ProxyHelper.executeMethod(client, method);
+        //        ProxyHelper.executeMethod(client, method);
+        client.executeMethod(method);
         logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
         if (method.getStatusCode() == 200) {
           results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
@@ -378,8 +382,7 @@ public class Util {
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 detailMethod.setFollowRedirects(true);
-
-                ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                //                ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                 client.executeMethod(detailMethod);
                 // TODO "&redirect=true" must be reinserted again
                 logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
@@ -443,7 +446,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
@@ -459,8 +463,7 @@ public class Util {
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               detailMethod.setFollowRedirects(true);
-
-              ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+              //              ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
               client.executeMethod(detailMethod);
               // TODO "&redirect=true" must be reinserted again
               logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
@@ -565,7 +568,8 @@ public class Util {
     try {
       logger.info("queryURL from executeGetMethod  " + queryUrl);
       GetMethod method = new GetMethod(queryUrl);
-      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
+      //      ProxyHelper.executeMethod(client, method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -576,7 +580,7 @@ public class Util {
             if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
               GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
               previousUrl = detailsUrl;
-              ProxyHelper.setProxy(client, detailsUrl);
+              //              ProxyHelper.setProxy(client, detailsUrl);
               client.executeMethod(detailMethod);
 
               if (detailMethod.getStatusCode() == 200) {
@@ -613,7 +617,7 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
       GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
-      ProxyHelper.setProxy(client, conePersonUrl);
+      //      ProxyHelper.setProxy(client, conePersonUrl);
       client.executeMethod(detailMethod);
       if (detailMethod.getStatusCode() == 200) {
         Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -640,7 +644,8 @@ public class Util {
 
     try {
       logger.info("Getting size of " + url);
-      ProxyHelper.executeMethod(httpClient, headMethod);
+      //      ProxyHelper.executeMethod(httpClient, headMethod);
+      httpClient.executeMethod(headMethod);
 
       if (headMethod.getStatusCode() != 200) {
         logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
@@ -663,7 +668,8 @@ public class Util {
         logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
         httpClient = new HttpClient();
         GetMethod getMethod = new GetMethod(url);
-        ProxyHelper.executeMethod(httpClient, getMethod);
+        //        ProxyHelper.executeMethod(httpClient, getMethod);
+        httpClient.executeMethod(getMethod);
 
         if (getMethod.getStatusCode() != 200) {
           logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);

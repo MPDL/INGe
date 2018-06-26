@@ -93,7 +93,8 @@ public class AdminHelper {
     login.addParameter("j_username", userid);
     login.addParameter("j_password", password);
 
-    ProxyHelper.executeMethod(client, login);
+    //    ProxyHelper.executeMethod(client, login);
+    client.executeMethod(login);
 
     login.releaseConnection();
     CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
@@ -104,7 +105,8 @@ public class AdminHelper {
     PostMethod postMethod = new PostMethod(frameworkUrl + "/aa/login");
     postMethod.addParameter("target", frameworkUrl);
     client.getState().addCookie(sessionCookie);
-    ProxyHelper.executeMethod(client, postMethod);
+    //    ProxyHelper.executeMethod(client, postMethod);
+    client.executeMethod(postMethod);
 
     if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode()) {
       throw new HttpException("Wrong status code: " + login.getStatusCode());

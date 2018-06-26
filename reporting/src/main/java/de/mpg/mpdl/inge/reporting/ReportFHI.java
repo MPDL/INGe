@@ -60,7 +60,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -164,7 +163,8 @@ public class ReportFHI {
       method.setQueryString(query);
       logger.info("URI:" + method.getURI());
       HttpClient client = new HttpClient();
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
       logger.info("URI:" + method.getURI() + "\nStatus code:" + method.getStatusCode());
       if (method.getStatusCode() == HttpServletResponse.SC_OK) {
         itemList = method.getResponseBodyAsString();
