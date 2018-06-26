@@ -122,10 +122,10 @@ public enum ElasticSearchIndexAdminClient {
     try {
       Settings settings =
           Settings.builder()
-              .put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
+              .put("cluster.name", PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME))
               .put("client.transport.sniff", true).build();
       client = new PreBuiltTransportClient(settings);
-      for (String ip : PropertyReader.getProperty("inge.es.transport.ips").split(" ")) {
+      for (String ip : PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS).split(" ")) {
         client.addTransportAddress(new TransportAddress(InetAddress.getByName(ip), 9300));
       }
     } catch (IOException e) {

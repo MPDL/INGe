@@ -519,8 +519,8 @@ public class CommonUtils {
   public static String getGenericItemLink(String objectId, int version) throws Exception {
     if (objectId != null) {
       return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-          + PropertyReader.getProperty("inge.pubman.instance.context.path")
-          + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", objectId + (version != 0 ? "_" + version : ""));
+          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
+              .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", objectId + (version != 0 ? "_" + version : ""));
     }
 
     return null;

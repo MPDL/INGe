@@ -75,9 +75,8 @@ import net.arnx.wmf2svg.util.Base64;
 public class FileServiceFSImpl implements FileService, FileServiceExternal {
   private static final Logger logger = Logger.getLogger(FileServiceFSImpl.class);
 
-  private static final String TMP_FILE_ROOT_PATH =
-      System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.logic.temporary_filesystem_root_path");
-
+  private static final String TMP_FILE_ROOT_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR)
+      + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
 
   @Autowired
   //  @Qualifier("postgresDbFileServiceBean")
@@ -272,17 +271,17 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
       //Uploading file
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
-        if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
+        if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
           String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
           fileVO.setLocalFileIdentifier(relativePath);
         } else {
-          Request request =
-              Request
-                  .Post(PropertyReader.getProperty("inge.rest.development.file_url")
-                      + URLEncoder.encode(stagedFileVo.getFilename(), StandardCharsets.UTF_8.name()))
-                  .addHeader("Authorization", "Basic " + Base64.encode((PropertyReader.getProperty("inge.rest.development.admin.username")
-                      + ":" + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()))
-                  .bodyStream(stagedFileStream);
+          Request request = Request
+              .Post(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
+                  + URLEncoder.encode(stagedFileVo.getFilename(), StandardCharsets.UTF_8.name()))
+              .addHeader("Authorization",
+                  "Basic " + Base64.encode((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME) + ":"
+                      + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).getBytes()))
+              .bodyStream(stagedFileStream);
           Response response = request.execute();
           fileVO.setLocalFileIdentifier(response.returnContent().asString());
         }
@@ -406,7 +405,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     final StringBuffer b = new StringBuffer(2048);
     for (final String name : metadata.names()) {
-      b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty("line.separator"));
+      b.append(name).append(": ").append(metadata.get(name)).append(System.getProperty(PropertyReader.LINE_SEPARATOR));
     }
     return b.toString();
   }

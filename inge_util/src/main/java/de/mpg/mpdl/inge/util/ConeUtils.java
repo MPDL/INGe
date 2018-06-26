@@ -29,7 +29,7 @@ public class ConeUtils {
 
   // identifier used in elastic search index (/persons/resources/...)
   public static String getConePersonsIdIdentifier() {
-    return PropertyReader.getProperty("inge.cone.person.id.identifier");
+    return PropertyReader.getProperty(PropertyReader.INGE_CONE_PERSON_ID_IDENTIFIER);
   }
 
   // CONE service url (.../)

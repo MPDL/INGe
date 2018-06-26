@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.mpdl.inge.aa.Config;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * 
@@ -24,7 +25,7 @@ public class LogoutClientServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
-      String clientClassName = Config.getProperty("inge.aa.client.logout.class");
+      String clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_LOGOUT_CLASS);
       if (clientClassName != null) {
 
         Class<?> clientClass = Class.forName(clientClassName);

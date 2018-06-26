@@ -51,6 +51,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.ObjectComparator;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.XmlTransformingTestBase;
 import de.mpg.mpdl.inge.util.DOMUtilities;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.util.XmlComparator;
 
@@ -435,7 +436,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     assertNotNull(savedItem);
     PubItemVO expectedPubItem = getPubItemNamedTheFirstOfAll();
 
-    logger.debug("file.encoding=" + System.getProperty("file.encoding"));
+    logger.debug("file.encoding=" + System.getProperty(PropertyReader.FILE_ENCODING));
 
     // compare first creator in metadata
     ObjectComparator oc = null;

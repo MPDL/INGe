@@ -10,7 +10,7 @@ public class IngeSpringAuthenticationProvider implements AuthenticationProvider 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     /*
-     * try { final URI url = new URL(PropertyReader.getProperty("auth.token.url")).toURI(); final
+     * try { final URI url = new URL(PropertyReader.getProperty(PropertyReader.AUTH_TOKEN_URL)).toURI(); final
      * String input = "{\"userid\":\"" + authentication.getPrincipal() + "\",\"password\":\"" +
      * authentication.getCredentials() + "\"}";
      * 

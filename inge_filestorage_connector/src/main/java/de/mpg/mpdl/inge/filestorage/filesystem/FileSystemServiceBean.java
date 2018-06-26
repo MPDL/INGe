@@ -37,7 +37,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   private static Logger logger = Logger.getLogger(FileSystemServiceBean.class);
 
   private static final String FILESYSTEM_ROOT_PATH =
-      System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.filestorage.filesystem_path");
+      System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_FILESYSTEM_PATH);
 
   /*
    * 
@@ -108,7 +108,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
   @Override
   public void readFile(String fileRelativePath, OutputStream out) throws IngeTechnicalException {
     try {
-      if (!"true".equals(PropertyReader.getProperty("inge.rest.development.enabled"))) {
+      if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
         Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
 
         logger.debug("Trying to read file from " + path.toString());
@@ -119,13 +119,17 @@ public class FileSystemServiceBean implements FileStorageInterface {
         }
       } else {
         // Doesn't work if the environment from the development REST service is development enabled (loop)
-        Request request = Request
-            .Get(PropertyReader.getProperty("inge.rest.development.file_url")
-                + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
-                + (URLEncoder.encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1), StandardCharsets.UTF_8.name())))
-            .addHeader("Authorization",
-                "Basic " + Base64.getEncoder().encodeToString((PropertyReader.getProperty("inge.rest.development.admin.username") + ":"
-                    + PropertyReader.getProperty("inge.rest.development.admin.password")).getBytes()));
+        Request request =
+            Request
+                .Get(
+                    PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
+                        + fileRelativePath.substring(0, fileRelativePath.lastIndexOf("/") + 1)
+                        + (URLEncoder.encode(fileRelativePath.substring(fileRelativePath.lastIndexOf("/") + 1),
+                            StandardCharsets.UTF_8.name())))
+                .addHeader("Authorization",
+                    "Basic " + Base64.getEncoder()
+                        .encodeToString((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME) + ":"
+                            + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).getBytes()));
         Response response = request.execute();
         IOUtils.copy(response.returnContent().asStream(), out);
       }

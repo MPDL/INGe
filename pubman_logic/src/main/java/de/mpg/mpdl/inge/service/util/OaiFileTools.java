@@ -19,7 +19,7 @@ public class OaiFileTools {
   private static Logger logger = Logger.getLogger(OaiFileTools.class);
 
   private static final String OAI_FILESYSTEM_ROOT_PATH =
-      System.getProperty("jboss.home.dir") + PropertyReader.getProperty("inge.filestorage.oai.filesystem_path");
+      System.getProperty(PropertyReader.JBOSS_HOME_DIR) + PropertyReader.getProperty(PropertyReader.INGE_FILESTORAGE_OAI_FILESYSTEM_PATH);
 
   public static String createFile(InputStream fileInputStream, String fileName) throws IngeTechnicalException {
     logger.info("Trying to create File [" + fileName + "]");

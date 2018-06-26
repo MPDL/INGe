@@ -23,6 +23,7 @@ import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.BMC_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.BMC_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
@@ -58,7 +59,7 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.bmc2escidoc.stylesheet.filename",
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_STYLESHEET_FILENAME,
         "transformations/commonPublicationFormats/xslt/bmc_to_pubman.xsl");
   }
 
@@ -67,13 +68,13 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
     Map<String, Object> map = new HashMap<String, Object>();
 
     //    String ns_prefix_xsd_soap_common_srel =
-    //        (PropertyReader.getProperty("xsd.soap.common.srel") != null) ? "{" + PropertyReader.getProperty("xsd.soap.common.srel") + "}"
+    //        (PropertyReader.getProperty(PropertyReader.XSD_SOAP_COMMON_SREL") != NULL) ? "{" + PropertyReader.getProperty(PropertyReader.XSD.SOAP.COMMON.SREL) + "}"
     //            : "{http://escidoc.de/core/01/structural-relations/}";
     //
     //
-    //    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty("escidoc.framework_access.context.id.test"));
+    //    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTEXT_ID_TEST));
     //    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
-    //        PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+    //        PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION));
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");
@@ -88,13 +89,13 @@ public class BmcXmlToItemXml extends XslTransformer implements ChainableTransfor
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty("inge.transformation.bmc2escidoc.configuration.filename",
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME,
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties");
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return SingleTransformer.getAllConfigurationValuesFromProperty("inge.transformation.bmc2escidoc.configuration.filename",
+    return SingleTransformer.getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_BMC2ESCIDOC_CONFIGURATION_FILENAME,
         "transformations/commonPublicationFormats/conf/bmc2escidoc.properties").get(key);
   }
 

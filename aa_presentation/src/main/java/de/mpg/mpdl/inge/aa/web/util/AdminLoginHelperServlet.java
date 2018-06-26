@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.aa.Config;
 import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @SuppressWarnings("serial")
 public class AdminLoginHelperServlet extends HttpServlet {
@@ -38,7 +39,7 @@ public class AdminLoginHelperServlet extends HttpServlet {
     try {
       token = IngeAaClientFinish.loginInInge(username, password);
       if (token != null) {
-        String aaInstanceUrl = Config.getProperty("inge.aa.instance.url");
+        String aaInstanceUrl = Config.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
         response.sendRedirect(aaInstanceUrl + "clientReturn?target="
             + URLDecoder.decode(request.getParameter("target"), StandardCharsets.UTF_8.toString()) + "&token=" + token + "&tan=" + tan);
       } else {

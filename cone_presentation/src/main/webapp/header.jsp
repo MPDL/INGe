@@ -33,11 +33,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
-	<link href="<%= PropertyReader.getProperty("inge.pubman.presentation.url") %>" type="text/css" rel="stylesheet"/>
-	<link href="<%= PropertyReader.getProperty("inge.pubman.stylesheet.contrast.url") %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
-	<link href="<%= PropertyReader.getProperty("inge.pubman.stylesheet.classic.url") %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
-	<% if ("true".equals(PropertyReader.getProperty("inge.pubman.stylesheet.special.apply"))) { %><link href="<%= PropertyReader.getProperty("inge.pubman.stylesheet.special.url") %>" id="Special" type="text/css" title="special" rel="alternate stylesheet"/><% } %>
-	<link href="<%= PropertyReader.getProperty("inge.pubman.stylesheet.standard.url") %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
+	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_URL) %>" type="text/css" rel="stylesheet"/>
+	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_CONTRAST_URL) %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
+	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_CLASSIC_URL) %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
+	<% if ("true".equals(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_APPLY))) { %><link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_URL) %>" id="Special" type="text/css" title="special" rel="alternate stylesheet"/><% } %>
+	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_STANDARD_URL) %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
 
 	
 	<script language="JavaScript" type="text/javascript">
@@ -120,7 +120,7 @@
 
 	<script type="text/javascript">
 
-		var instanceUrl = '<%= PropertyReader.getProperty("inge.cone.service.url") %>';
+		var instanceUrl = '<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>';
 
 		function removeLine(element, hasPredicates)
 		{
@@ -237,12 +237,12 @@
 				if (typeof cutId != 'undefined' && cutId)
 				{
 					//console.log("Bind suggest true: " + element + " cutId: " + cutId);
-					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("inge.cone.service.url") %>" + model + "/query?lang=*&format=json", {onSelect: fillSmallId});
+					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>" + model + "/query?lang=*&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
 					//console.log("Bind suggest false: " + element + " cutId: " + cutId);
-					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty("inge.cone.service.url") %>" + model + "/query?lang=*&format=json", {onSelect: fillId});
+					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>" + model + "/query?lang=*&format=json", {onSelect: fillId});
 				}
 			}
 			else

@@ -20,8 +20,8 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
   @Override
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication().withUser(PropertyReader.getProperty("inge.rest.development.admin.username"))
-        .password(PropertyReader.getProperty("inge.rest.development.admin.password")).roles("ADMIN");
+    auth.inMemoryAuthentication().withUser(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME))
+        .password(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).roles("ADMIN");
   }
 
   @Override

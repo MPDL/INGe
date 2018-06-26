@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 public class ConeCache {
   // Innere private Klasse, die erst beim Zugriff durch die umgebende Klasse initialisiert wird
@@ -55,7 +54,7 @@ public class ConeCache {
   public static void refreshCache() throws ConeCacheConfigException {
     logger.info("*** Start CONE-Cache Refresh-Cycle ***");
 
-    String coneServiceUrl = PropertyReader.getProperty(Properties.ESCIDOC_CONE_SERVICE_URL);
+    String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
 
     ConeCache.refresh(iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
     ConeCache.refresh(iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.ISO639_3_TITLE_QUERY);
@@ -99,7 +98,8 @@ public class ConeCache {
     final HttpClient client = new HttpClient();
     final GetMethod method = new GetMethod(queryUrl);
 
-    ProxyHelper.executeMethod(client, method);
+    //    ProxyHelper.executeMethod(client, method);
+    client.executeMethod(method);
 
     if (method.getStatusCode() == 200) {
       final SAXParserFactory factory = SAXParserFactory.newInstance();

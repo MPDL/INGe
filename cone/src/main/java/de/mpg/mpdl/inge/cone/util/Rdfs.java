@@ -57,7 +57,7 @@ public class Rdfs {
    */
   public static Writer getModelAsRdfs(String modelname) throws Exception {
     Source source = new StreamSource(
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.rdfs.template"), Rdfs.class.getClassLoader()));
+        ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_RDFS_TEMPLATE), Rdfs.class.getClassLoader()));
     Transformer transformer = new TransformerFactoryImpl().newTransformer(source);
     if (modelname != null) {
       transformer.setParameter("model", modelname);

@@ -8,6 +8,7 @@ import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.JUS_SNIPPET_XML, targetFormat = FORMAT.JUS_INDESIGN_XML)
 @TransformerModule(sourceFormat = FORMAT.JUS_SNIPPET_XML, targetFormat = FORMAT.JUS_HTML_XML)
@@ -31,14 +32,14 @@ public class JusSnippetXmlToJusIndesignXml extends XslTransformer implements Cha
     return null;
     //    Map<String, Object> map = new HashMap<String, Object>();
     //
-    //    map.put("indesign-namespace", PropertyReader.getProperty("inge.report.indesign.namespace"));
+    //    map.put("indesign-namespace", PropertyReader.getProperty(PropertyReader.INGE_REPORT_INDESIGN_NAMESPACE));
     //
     //    try {
     //      DocumentBuilderFactory fac = new DocumentBuilderFactoryImpl();
     //      fac.setNamespaceAware(true);
     //      DocumentBuilder docBuilder = fac.newDocumentBuilder();
     //      Document sortDoc =
-    //          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.transformation.report.sortorder.filename"),
+    //          docBuilder.parse(ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_REPORT_SORTORDER_FILENAME),
     //              JusSnippetXmlToJusIndesignXml.class.getClassLoader()));
     //
     //      map.put("sortOrderXml", sortDoc.getDocumentElement());

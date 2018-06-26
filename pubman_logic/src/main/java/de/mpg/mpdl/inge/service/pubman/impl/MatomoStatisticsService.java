@@ -20,9 +20,9 @@ public class MatomoStatisticsService {
 
   private static final Logger logger = Logger.getLogger(MatomoStatisticsService.class);
   private static final String INSTANCE_URI = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-  private static final String ANALYTICS_BASE_URI = PropertyReader.getProperty("inge.matomo.analytics.base.uri");
-  private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty("inge.matomo.analytics.site.id");
-  private static final String ANALYTICS_TOKEN = PropertyReader.getProperty("inge.matomo.analytics.auth.token");
+  private static final String ANALYTICS_BASE_URI = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_BASE_URI);
+  private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID);
+  private static final String ANALYTICS_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN);
 
   private static final String PURE_OVERVIEW = INSTANCE_URI + "/pubman/faces/ViewItemOverviewPage.jsp";
   private static final String PURE_FULLPAGE = INSTANCE_URI + "/pubman/faces/ViewItemFullPage.jsp";

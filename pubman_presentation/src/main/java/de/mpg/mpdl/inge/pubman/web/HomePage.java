@@ -85,7 +85,7 @@ public class HomePage extends BreadcrumbPage {
   public String getBlogBaseUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.blog.baseUrl");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_BLOG_BASEURL);
     } catch (final Exception e) {
       HomePage.logger.error("Could not read property: 'inge.pubman.blog.baseUrl' from properties file.", e);
     }
@@ -101,7 +101,7 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.survey.url");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_URL);
     } catch (final Exception e) {
       HomePage.logger.error("Could not read property: 'inge.pubman.survey.url' from properties file.", e);
     }
@@ -115,7 +115,7 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyTitle() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.survey.title");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_TITLE);
     } catch (final Exception e) {
       HomePage.logger.error("Could not read property: 'inge.pubman.survey.title' from properties file.", e);
     }
@@ -129,7 +129,7 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyText() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.survey.text");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_TEXT);
     } catch (final Exception e) {
       HomePage.logger.error("Could not read property: 'inge.pubman.survey.text' from properties file.", e);
     }
@@ -143,7 +143,7 @@ public class HomePage extends BreadcrumbPage {
   public String getSurveyStyles() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.survey.styles");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_STYLES);
     } catch (final Exception e) {
       HomePage.logger.error("Could not read property: 'inge.pubman.survey.styles' from properties file.", e);
     }

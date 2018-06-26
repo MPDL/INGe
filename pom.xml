@@ -908,6 +908,7 @@
 		<framework.admin.username></framework.admin.username>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
+		<inge.aa.client.class />
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
@@ -1031,6 +1032,7 @@
 		<inge.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</inge.transformation.endnote.configuration.filename>
 		<inge.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</inge.transformation.endnote.ice.stylesheet.filename>
 		<inge.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</inge.transformation.endnote.stylesheet.filename>
+		<inge.transformation.escidoc2bibtex.stylesheet.filename>transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl</inge.transformation.escidoc2bibtex.stylesheet.filename>
 		<inge.transformation.escidoc2marcxml.stylesheet.filename>transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl</inge.transformation.escidoc2marcxml.stylesheet.filename>
 		<inge.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</inge.transformation.mab.content.url.prefix>
 		<inge.transformation.mab.stylesheet.filename>transformations/otherFormats/xslt/mabxml2escidoc.xsl</inge.transformation.mab.stylesheet.filename>
@@ -1155,7 +1157,6 @@
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
-				<inge.syndication.service.url>https://dev.inge.mpdl.mpg.de/syndication</inge.syndication.service.url>
 				<inge.systemtype>dev</inge.systemtype>
 				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>

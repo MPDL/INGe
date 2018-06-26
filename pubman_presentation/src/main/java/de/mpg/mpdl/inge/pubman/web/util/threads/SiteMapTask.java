@@ -65,7 +65,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
-  public static final String SITEMAP_PATH = System.getProperty("jboss.home.dir") + "/standalone/data/sitemap/";
+  public static final String SITEMAP_PATH = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/standalone/data/sitemap/";
 
   //  private ArrayList<String> contentModels;
 
@@ -103,19 +103,19 @@ public class SiteMapTask {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
       this.instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-      this.contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
-      this.itemPattern = PropertyReader.getProperty("inge.pubman.item.pattern");
+      this.contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+      this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
 
       /*
        * this.interval =
-       * Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.task.interval"));
+       * Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_TASK_INTERVAL));
        */
-      this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.max.items"));
-      this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty("inge.pubman.sitemap.retrieve.items"));
+      this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
+      this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
 
 
 
-      //      this.contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+      //      this.contentModel = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION);
 
       //      this.contentModels = new ArrayList<String>();
       //      this.contentModels.add(this.contentModel);
@@ -131,14 +131,14 @@ public class SiteMapTask {
 
       this.finishSitemap();
 
-      // String appPath = System.getProperty("jboss.home.dir") + "/modules/pubman/main/sitemap/";
+      // String appPath = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/modules/pubman/main/sitemap/";
       new File(SiteMapTask.SITEMAP_PATH).mkdir();
       /*
        * try { appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp",
        * SiteMapTask.class.getClassLoader()).getAbsolutePath(); } catch (Exception e) {
        * logger.error("EditItemPage.jsp was not found in web root, terminating sitemap task", e);
        * return; } appPath = appPath.substring(0,
-       * appPath.lastIndexOf(System.getProperty("file.separator")) + 1);
+       * appPath.lastIndexOf(System.getProperty(PropertyReader.FILE_SEPARATOR)) + 1);
        */
       if (this.files.size() == 1) {
         final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");

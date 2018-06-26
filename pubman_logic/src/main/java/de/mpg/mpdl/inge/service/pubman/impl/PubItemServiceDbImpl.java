@@ -220,8 +220,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_FULLTEXT_FILE_ID = "fileData.fileId";
 
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty("inge.rest.file.path");
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
+  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -668,13 +668,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       try {
         if (pubItemObject.getObjectPid() == null) {
           URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-              + PropertyReader.getProperty("inge.pubman.instance.context.path")
-              + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectId()));
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectId()));
           pubItemObject.setObjectPid(pidService.createPid(url).getIdentifier());
         }
         URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-            + PropertyReader.getProperty("inge.pubman.instance.context.path")
-            + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
+                .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
         latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);

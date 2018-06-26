@@ -80,7 +80,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
   private String limit;
   private String offset;
 
-  private final int maxLimit = Integer.parseInt(PropertyReader.getProperty("inge.search.and.export.max.limit"));
+  private final int maxLimit = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_MAX_LIMIT));
 
   public SearchAndExportPage() {}
 
@@ -106,19 +106,19 @@ public class SearchAndExportPage extends BreadcrumbPage {
     if (this.esQuery == null && oldQuery != null) {
       this.esQuery = oldQuery;
     } else if (this.esQuery == null) {
-      this.esQuery = PropertyReader.getProperty("inge.search.and.export.default.query");
+      this.esQuery = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SQL_QUERY);
     }
   }
 
   // Wird nur 1x während der Lebenszeit des Beans aufgerufen
   @PostConstruct
   public void postConstruct() {
-    this.limit = PropertyReader.getProperty("inge.search.and.export.maximum.records");
-    this.offset = PropertyReader.getProperty("inge.search.and.export.start.record");
-    this.sortOrder = PropertyReader.getProperty("inge.search.and.export.default.sort.order").equalsIgnoreCase("ascending")
+    this.limit = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_MAXIMUM_RECORDS);
+    this.offset = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_START_RECORD);
+    this.sortOrder = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER).equalsIgnoreCase("ascending")
         ? SearchSortCriteria.SortOrder.ASC
         : SearchSortCriteria.SortOrder.DESC;
-    this.sortingKey = PropertyReader.getProperty("inge.search.and.export.default.sort.key");
+    this.sortingKey = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY);
   }
 
   @Override

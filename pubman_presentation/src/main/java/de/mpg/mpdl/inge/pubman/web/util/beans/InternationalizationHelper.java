@@ -438,7 +438,7 @@ public class InternationalizationHelper implements Serializable {
   public String getHomeContent() {
     if ("n/a".equals(this.homeContent)) {
       try {
-        final String contentUrl = PropertyReader.getProperty("inge.pubman.home.content.url");
+        final String contentUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HOME_CONTENT_URL);
 
         if (contentUrl != null && !contentUrl.equals("")) {
           // Try if there's a specific local version

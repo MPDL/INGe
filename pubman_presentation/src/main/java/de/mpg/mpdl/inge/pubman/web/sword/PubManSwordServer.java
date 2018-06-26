@@ -290,7 +290,7 @@ public class PubManSwordServer {
 
   //  public String getCoreserviceURL() {
   //    try {
-  //      return PropertyReader.getProperty("escidoc.framework_access.framework.url");
+  //      return PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_FRAMEWORK_URL);
   //    } catch (final Exception e) {
   //      PubManSwordServer.logger.warn("Coreservice URL could not be read from property file.", e);
   //    }

@@ -70,7 +70,7 @@ public class AdminHelper {
    * @throws URISyntaxException
    */
   public static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException {
-    String frameworkUrl = PropertyReader.getProperty("escidoc.framework_access.login.url"); // nur noch fuer Migration
+    String frameworkUrl = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL); // nur noch fuer Migration
 
     int delim1 = frameworkUrl.indexOf("//");
     int delim2 = frameworkUrl.indexOf(":", delim1);
@@ -93,7 +93,8 @@ public class AdminHelper {
     login.addParameter("j_username", userid);
     login.addParameter("j_password", password);
 
-    ProxyHelper.executeMethod(client, login);
+    //    ProxyHelper.executeMethod(client, login);
+    client.executeMethod(login);
 
     login.releaseConnection();
     CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
@@ -104,7 +105,8 @@ public class AdminHelper {
     PostMethod postMethod = new PostMethod(frameworkUrl + "/aa/login");
     postMethod.addParameter("target", frameworkUrl);
     client.getState().addCookie(sessionCookie);
-    ProxyHelper.executeMethod(client, postMethod);
+    //    ProxyHelper.executeMethod(client, postMethod);
+    client.executeMethod(postMethod);
 
     if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode()) {
       throw new HttpException("Wrong status code: " + login.getStatusCode());
@@ -139,8 +141,8 @@ public class AdminHelper {
     if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 1 * 60 * 60 * 1000) {
       try {
         loginTime = new Date();
-        adminUserHandle =
-            loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
+        adminUserHandle = loginUser(PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_USERNAME),
+            PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_PASSWORD));
       } catch (Exception e) {
         logger.error("Exception logging on admin user.", e);
       }

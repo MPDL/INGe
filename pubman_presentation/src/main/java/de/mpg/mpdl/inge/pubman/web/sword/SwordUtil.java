@@ -269,7 +269,7 @@ public class SwordUtil extends FacesBean {
   // + SwordUtil.LOGOUT_URL
   // + "?target="
   // + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-  // + PropertyReader.getProperty("inge.pubman.instance.context.path")
+  // + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
   // + "?logout=true", "UTF-8"));
   // }
 
