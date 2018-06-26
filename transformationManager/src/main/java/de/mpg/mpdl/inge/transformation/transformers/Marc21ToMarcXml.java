@@ -25,12 +25,7 @@ public class Marc21ToMarcXml extends SingleTransformer implements ChainableTrans
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
     try {
-
-
-
       MarcReader reader = new MarcStreamReader(((TransformerStreamSource) source).getInputStream(), "UTF-8");
-      // OutputStream resultOs = new ByteArrayOutputStream();
-
       MarcXmlWriterNSFix writer = new MarcXmlWriterNSFix((Result) result);
 
       while (reader.hasNext()) {
@@ -39,20 +34,14 @@ public class Marc21ToMarcXml extends SingleTransformer implements ChainableTrans
       }
 
       writer.close();
-
-
     } catch (Exception e) {
       throw new TransformationException("Error while transforming Marc21 to Marc XML", e);
     }
-
-
   }
 
   @Override
   public TransformerResult createNewInBetweenResult() {
     return new TransformerStreamResult(new ByteArrayOutputStream());
   }
-
-
 
 }

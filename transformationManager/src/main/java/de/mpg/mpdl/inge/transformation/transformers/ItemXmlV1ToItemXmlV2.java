@@ -9,16 +9,15 @@ import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V1_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V2_XML)
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V1_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V2_XML)
 public class ItemXmlV1ToItemXmlV2 extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.escidoc_v1_to_escidoc_v2.stylesheet.filename",
-        "transformations/otherFormats/xslt/escidoc-publication-v1_2_escidoc-publication-v2.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_V1_TO_ESCIDOC_V2_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -32,9 +31,7 @@ public class ItemXmlV1ToItemXmlV2 extends XslTransformer implements ChainableTra
     }
 
     return map;
-
   }
-
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {

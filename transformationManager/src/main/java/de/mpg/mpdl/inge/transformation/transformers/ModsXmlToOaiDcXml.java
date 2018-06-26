@@ -8,15 +8,14 @@ import de.mpg.mpdl.inge.transformation.ChainableTransformer;
 import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.OAI_DC)
 public class ModsXmlToOaiDcXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.mods2oaidc.stylesheet.filename",
-        "transformations/standardFormats/xslt/mods2oai_dc.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MODS2OAIDC_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -28,6 +27,5 @@ public class ModsXmlToOaiDcXml extends XslTransformer implements ChainableTransf
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }

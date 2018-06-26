@@ -46,6 +46,7 @@ import javax.crypto.Cipher;
 import org.apache.commons.codec.binary.Base64;
 
 import de.mpg.mpdl.inge.aa.Config;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
@@ -64,7 +65,7 @@ public class RSAEncoder {
   public static String rsaEncrypt(String string) throws Exception {
     StringWriter resultWriter = new StringWriter();
     byte[] bytes = string.getBytes("UTF-8");
-    PublicKey pubKey = (PublicKey) readKeyFromFile(Config.getProperty("inge.aa.public.key.file"), true);
+    PublicKey pubKey = (PublicKey) readKeyFromFile(Config.getProperty(PropertyReader.INGE_AA_PUBLIC_KEY_FILE), true);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.ENCRYPT_MODE, pubKey);
     int blockSize = 245;
@@ -83,7 +84,7 @@ public class RSAEncoder {
   public static String rsaDecrypt(String[] string) throws Exception {
 
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    PrivateKey privateKey = (PrivateKey) readKeyFromFile(Config.getProperty("inge.aa.private.key.file"), false);
+    PrivateKey privateKey = (PrivateKey) readKeyFromFile(Config.getProperty(PropertyReader.INGE_AA_PRIVATE_KEY_FILE), false);
     Cipher cipher = Cipher.getInstance("RSA");
     cipher.init(Cipher.DECRYPT_MODE, privateKey);
     for (String part : string) {

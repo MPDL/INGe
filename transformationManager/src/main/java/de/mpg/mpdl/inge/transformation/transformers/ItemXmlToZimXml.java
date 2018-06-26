@@ -17,20 +17,18 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.ZIM_XML)
 public class ItemXmlToZimXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.escidoc2edoc_import.stylesheet.filename",
-        "transformations/otherFormats/xslt/escidoc2edoc_import.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2EDOC_IMPORT_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("pubman_instance", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
+
     return map;
   }
-
 
   @Override
   public URIResolver getURIResolver() {
@@ -41,6 +39,5 @@ public class ItemXmlToZimXml extends XslTransformer implements ChainableTransfor
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }

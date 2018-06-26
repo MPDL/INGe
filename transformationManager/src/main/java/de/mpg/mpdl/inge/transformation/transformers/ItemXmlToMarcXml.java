@@ -18,8 +18,7 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2MARCXML_STYLESHEET_FILENAME,
-        "transformations/commonPublicationFormats/xslt/pubman_to_marc.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2MARCXML_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -27,6 +26,7 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("pubman_instance", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
     map.put("pubman_instance_context_path", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
+
     return map;
   }
 

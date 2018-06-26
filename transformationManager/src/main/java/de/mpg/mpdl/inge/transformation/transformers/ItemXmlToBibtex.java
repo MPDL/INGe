@@ -19,8 +19,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ItemXmlToBibtex extends XslTransformer implements ChainableTransformer {
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2BIBTEX_STYLESHEET_FILENAME,
-        "transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2BIBTEX_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -33,6 +32,7 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
     map.put(OutputKeys.INDENT, "yes");
     map.put(OutputKeys.METHOD, "text");
     map.put(OutputKeys.ENCODING, "UTF-8");
+
     return map;
   }
 

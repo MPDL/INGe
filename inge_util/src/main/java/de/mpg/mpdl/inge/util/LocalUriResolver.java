@@ -83,7 +83,8 @@ public class LocalUriResolver implements URIResolver {
       } else if (href != null && href.matches("^https?://.*")) {
         HttpClient client = new HttpClient();
         GetMethod getMethod = new GetMethod(href);
-        ProxyHelper.executeMethod(client, getMethod);
+        //        ProxyHelper.executeMethod(client, getMethod);
+        client.executeMethod(getMethod);
         return new StreamSource(getMethod.getResponseBodyAsStream());
       } else {
         path = this.base + altBase + "/" + href;

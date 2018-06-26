@@ -48,7 +48,6 @@ import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
 import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
 import de.mpg.mpdl.inge.citationmanager.data.Pair;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Function extensions for the citationmanager XSLTs
@@ -308,7 +307,8 @@ public class XsltHelper {
     logger.info("cone query:" + coneQuery);
     GetMethod getMethod = new GetMethod(coneQuery);
 
-    ProxyHelper.executeMethod(client, getMethod);
+    //    ProxyHelper.executeMethod(client, getMethod);
+    client.executeMethod(getMethod);
 
     XMLReader xr;
 

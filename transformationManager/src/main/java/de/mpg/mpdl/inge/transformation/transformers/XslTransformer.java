@@ -115,12 +115,8 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     return new LocalUriResolver("transformations/thirdParty/xslt");
   }
 
-  public static Source getXmlSourceFromProperty(String property, String defaultFile) throws TransformationException {
+  public static Source getXmlSourceFromProperty(String property) throws TransformationException {
     String stylesheetFileName = PropertyReader.getProperty(property);
-    if (stylesheetFileName == null || "".equals(stylesheetFileName)) {
-      stylesheetFileName = defaultFile;
-    }
-
     try {
       InputStream stylesheetInputStram = ResourceUtil.getResourceAsStream(stylesheetFileName, XslTransformer.class.getClassLoader());
       return new StreamSource(stylesheetInputStram);

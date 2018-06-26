@@ -21,21 +21,12 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_STYLESHEET_FILENAME,
-        "transformations/commonPublicationFormats/xslt/marc_to_pubman.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-
-    //    String ns_prefix_xsd_soap_common_srel =
-    //        (PropertyReader.getProperty(PropertyReader.XSD_SOAP_COMMON_SREL") != NULL) ? "{" + PropertyReader.getProperty(PropertyReader.XSD.SOAP.COMMON.SREL) + "}"
-    //            : "{http://escidoc.de/core/01/structural-relations/}";
-    //
-    //    map.put(ns_prefix_xsd_soap_common_srel + "context-URI", PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTEXT_ID_TEST));
-    //    map.put(ns_prefix_xsd_soap_common_srel + "content-model-URI",
-    //        PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION));
 
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("{http://www.editura.de/ns/2012/misc}target-format", "eSciDoc-publication-item");
@@ -53,14 +44,12 @@ public class MarcXmlToItemXml extends XslTransformer implements ChainableTransfo
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME,
-        "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties");
+    return SingleTransformer.getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME);
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME,
-        "transformations/commonPublicationFormats/conf/marcxml2escidoc.properties").get(key);
+    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_MARCXML2ESCIDOC_CONFIGURATION_FILENAME).get(key);
   }
 
 }

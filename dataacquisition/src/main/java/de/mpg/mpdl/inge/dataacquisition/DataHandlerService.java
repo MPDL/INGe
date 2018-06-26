@@ -59,7 +59,6 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * @author Friederike Kleinfercher (initial creation)
@@ -270,7 +269,8 @@ public class DataHandlerService {
     byte[] input = null;
 
     try {
-      URLConnection con = ProxyHelper.openConnection(fulltext.getFtUrl());
+      //      URLConnection con = ProxyHelper.openConnection(fulltext.getFtUrl());
+      URLConnection con = fulltext.getFtUrl().openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
       int responseCode = httpCon.getResponseCode();
@@ -280,7 +280,8 @@ public class DataHandlerService {
           logger.info("Source responded with 200.");
           GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
           HttpClient client = new HttpClient();
-          ProxyHelper.executeMethod(client, method);
+          //          ProxyHelper.executeMethod(client, method);
+          client.executeMethod(method);
           input = method.getResponseBody();
           httpCon.disconnect();
           break;
@@ -326,7 +327,8 @@ public class DataHandlerService {
     StringBuffer itemXML = new StringBuffer();
 
     try {
-      URLConnection con = ProxyHelper.openConnection(metaDataVO.getMdUrl());
+      //      URLConnection con = ProxyHelper.openConnection(metaDataVO.getMdUrl());
+      URLConnection con = metaDataVO.getMdUrl().openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
       int responseCode = httpCon.getResponseCode();
