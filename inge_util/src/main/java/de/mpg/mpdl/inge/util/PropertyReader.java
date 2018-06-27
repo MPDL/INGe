@@ -187,7 +187,7 @@ public class PropertyReader {
   public static final String INGE_REST_DEVELOPMENT_FILE_URL = "inge.rest.development.file_url";
   public static final String INGE_REST_FILE_PATH = "inge.rest.file.path";
   public static final String INGE_REST_SERVICE_URL = "inge.rest.service.url";
-  public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SQL_QUERY = "inge.search.and.export.default.sql.query";
+  public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY = "inge.search.and.export.default.query";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY = "inge.search.and.export.default.sort.key";
   public static final String INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_ORDER = "inge.search.and.export.default.sort.order";
   public static final String INGE_SEARCH_AND_EXPORT_MAXIMUM_RECORDS = "inge.search.and.export.maximum.records";

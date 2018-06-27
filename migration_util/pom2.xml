@@ -107,8 +107,7 @@
 		<inge.rest.file.path>/component</inge.rest.file.path>
 		<inge.search.and.export.default.sort.keys>_relevance_</inge.search.and.export.default.sort.keys>
 		<inge.search.and.export.default.sort.order>descending</inge.search.and.export.default.sort.order>
-		<inge.search.and.export.default.sql.query>escidoc.metadata=test and
-			escidoc.content-model.objid=escidoc:2001</inge.search.and.export.default.sql.query>
+		<inge.search.and.export.default.query>{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}</inge.search.and.export.default.query>
 		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
 		<inge.search.and.export.start.record>0</inge.search.and.export.start.record>
 		<inge.transformation.bibtex.configuration.filename>transformations/commonPublicationFormats/conf/bibtex.properties</inge.transformation.bibtex.configuration.filename>

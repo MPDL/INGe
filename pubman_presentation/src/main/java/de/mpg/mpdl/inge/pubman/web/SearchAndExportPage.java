@@ -106,7 +106,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
     if (this.esQuery == null && oldQuery != null) {
       this.esQuery = oldQuery;
     } else if (this.esQuery == null) {
-      this.esQuery = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SQL_QUERY);
+      this.esQuery = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY);
     }
   }
 
