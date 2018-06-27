@@ -106,8 +106,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
     StringWriter escidocSnippetWriter = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
-    javax.xml.transform.Transformer transformer = factory.newTransformer(
-        new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream("transformations/itemList2snippet.xsl")));
+    javax.xml.transform.Transformer transformer =
+        factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream(
+            PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME))));
     transformer.setParameter("citations", citationList);
     transformer.transform(new StreamSource(new StringReader(escidocItemList)), new StreamResult(escidocSnippetWriter));
 
@@ -180,8 +181,8 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       throws Exception {
     StringWriter sw = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
-    javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(
-        CitationTransformer.class.getClassLoader().getResourceAsStream("transformations/escidoc-publication-snippet2html.xsl")));
+    javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader()
+        .getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_SNIPPET_TO_HTML_STYLESHEET_FILENAME))));
 
     htmlTransformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
     htmlTransformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
