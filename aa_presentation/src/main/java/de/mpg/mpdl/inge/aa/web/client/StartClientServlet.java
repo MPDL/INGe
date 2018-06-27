@@ -56,7 +56,7 @@ public class StartClientServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
       String clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
-      if (clientClassName == null) {
+      if (clientClassName == null || clientClassName.isEmpty()) {
         clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_START_CLASS);
         Class<?> clientClass = Class.forName(clientClassName);
         StartClient client = (StartClient) clientClass.newInstance();

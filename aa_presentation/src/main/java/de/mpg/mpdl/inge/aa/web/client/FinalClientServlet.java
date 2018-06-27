@@ -56,7 +56,7 @@ public class FinalClientServlet extends HttpServlet {
     System.out.println("Finish");
     try {
       String clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
-      if (clientClassName == null) {
+      if (clientClassName == null || clientClassName.isEmpty()) {
         clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_FINISH_CLASS);
         Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();
