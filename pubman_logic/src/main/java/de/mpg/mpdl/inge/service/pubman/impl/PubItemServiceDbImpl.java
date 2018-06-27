@@ -534,6 +534,22 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     ContextDbVO context = contextRepository.findOne(latestPubItemDbVersion.getObject().getContext().getObjectId());
     checkAa("delete", principal, latestPubItemDbVersion, context);
 
+    List<FileDbVO> files = new ArrayList<>();
+    
+    //Delete all files
+    for (int i=1; i<=latestPubItemDbVersion.getVersionNumber(); i++)
+    {
+      ItemVersionVO item = itemRepository.findOne(new VersionableId(latestPubItemDbVersion.getObjectId(), i));
+      for(FileDbVO file : item.getFiles())
+      {
+        fileRepository.delete(file);
+      }
+      item.setFiles(null);
+    }
+    
+
+
+
     // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
     // deleted by EntityManager.
     // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
