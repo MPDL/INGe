@@ -1,11 +1,6 @@
 package de.mpg.mpdl.inge.migration.beans;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
-import com.rometools.rome.feed.rss.Source;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;

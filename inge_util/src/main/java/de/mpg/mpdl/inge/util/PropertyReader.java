@@ -225,9 +225,9 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ESCIDOC2MARCXML_STYLESHEET_FILENAME =
       "inge.transformation.escidoc2marcxml.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME =
-      "inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename ";
+      "inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC_SNIPPET_TO_HTML_STYLESHEET_FILENAME =
-      "inge.transformation.escidoc.snippet.to.html.stylesheet.filename ";
+      "inge.transformation.escidoc.snippet.to.html.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC_V1_TO_ESCIDOC_V2_STYLESHEET_FILENAME =
       "inge.transformation.escidoc_v1_to_escidoc_v2.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ESCIDOC_V2_TO_ESCIDOC_V1_STYLESHEET_FILENAME =
@@ -263,7 +263,7 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_WOS_CONFIGURATION_FILENAME = "inge.transformation.wos.configuration.filename";
   public static final String INGE_TRANSFORMATION_WOS_STYLESHEET_FILENAME = "inge.transformation.wos.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
-  public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename ";
+  public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
 

@@ -49,7 +49,6 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  * 
  */
 @ManagedBean(name = "OrganizationSuggest")
-@SuppressWarnings("serial")
 public class OrganizationSuggest {
 
   private List<OrganizationVOPresentation> results = new ArrayList<>();
