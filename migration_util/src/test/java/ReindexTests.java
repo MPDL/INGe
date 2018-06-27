@@ -279,8 +279,8 @@ public class ReindexTests {
 
 
 
-    String adminUsername = PropertyReader.getProperty(PropertyReader.FRAMEWORK_ADMIN_USERNAME);
-    String adminPass = PropertyReader.getProperty(PropertyReader.FRAMEWORK_ADMIN_PASSWORD);
+    String adminUsername = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_USERNAME);
+    String adminPass = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_PASSWORD);
     String token = userAccountService.login(adminUsername, adminPass);
 
 
