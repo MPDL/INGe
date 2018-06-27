@@ -108,7 +108,7 @@ function checkLocationString(loc, format) {
 
 function loadHelp(url, anchor) {
     //if the link is non external link it will be validate on completeness
-    if (!url.match("http:")) {
+    if (!url.match("http:") && !url.match("https:")) {
         url = checkLocationString(location.href, 'help') + url;
     }
     url = url + anchor;
