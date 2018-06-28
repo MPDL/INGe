@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 import de.mpg.mpdl.inge.aa.Config;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -52,7 +53,8 @@ public class IpAaClient extends FinalClient {
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Properties ips = new Properties();
-    InputStream ipStream = ResourceUtil.getResourceAsStream(Config.getProperty("inge.aa.ip.table"), IpAaClient.class.getClassLoader());
+    InputStream ipStream =
+        ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
     ips.loadFromXML(ipStream);
     ipStream.close();
 

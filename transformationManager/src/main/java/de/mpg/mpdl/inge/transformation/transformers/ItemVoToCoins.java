@@ -23,15 +23,11 @@ public class ItemVoToCoins extends SingleTransformer implements ChainableTransfo
     String stringResult = coinsTransformation.getCOinS((PubItemVO) s.getSource());
 
     writeStringToStreamResult(stringResult, (TransformerStreamResult) result);
-
   }
 
   @Override
   public TransformerResult createNewInBetweenResult() {
-    // TODO Auto-generated method stub
     return null;
   }
-
-
 
 }

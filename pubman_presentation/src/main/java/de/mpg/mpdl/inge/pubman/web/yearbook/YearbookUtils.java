@@ -37,7 +37,7 @@ public class YearbookUtils {
     BoolQueryBuilder genreQuery = QueryBuilders.boolQuery();
     candidateBoolQuery.must(genreQuery);
 
-    String genreProperties = PropertyReader.getProperty("inge.yearbook.allowed_genres");
+    String genreProperties = PropertyReader.getProperty(PropertyReader.INGE_YEARBOOK_ALLOWED_GENRES);
 
     for (String genre : genreProperties.split(",")) {
       genreQuery.should(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_METADATA_GENRE, genre.trim()));

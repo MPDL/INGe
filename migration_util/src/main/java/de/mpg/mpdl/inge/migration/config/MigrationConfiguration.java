@@ -1,25 +1,18 @@
 package de.mpg.mpdl.inge.migration.config;
 
 import java.lang.reflect.Method;
-import java.net.URISyntaxException;
 import java.util.concurrent.Executor;
 
-import org.apache.http.client.HttpClient;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
-import de.mpg.mpdl.inge.migration.beans.Migration;
-import de.mpg.mpdl.inge.migration.beans.MigrationUtilBean;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 
 @Configuration

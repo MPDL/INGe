@@ -43,7 +43,6 @@ import de.mpg.mpdl.inge.dataacquisition.valueobjects.MetadataVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -192,8 +191,9 @@ public class Util {
     String suffix = null;
 
     try {
-      URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + coneMethod + coneRel1 + mimeType + coneRel2);
-      URLConnection con = ProxyHelper.openConnection(coneUrl);
+      URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + coneMethod + coneRel1 + mimeType + coneRel2);
+      //      URLConnection con = ProxyHelper.openConnection(coneUrl);
+      URLConnection con = coneUrl.openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
       int responseCode = httpCon.getResponseCode();

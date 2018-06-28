@@ -861,7 +861,7 @@ public class MigrationTests {
 
     PGSimpleDataSource dataSource = new PGSimpleDataSource();
     dataSource.setUser("postgres");
-    dataSource.setPassword(PropertyReader.getProperty("inge.database.user.password"));
+    dataSource.setPassword(PropertyReader.getProperty(PropertyReader.INGE_DATABASE_USER_PASSWORD));
     dataSource.setDatabaseName("escidoc-core");
     dataSource.setServerName("srv02.mpdl.mpg.de");
     dataSource.setPortNumber(5432);

@@ -180,8 +180,8 @@ public class ModelHelper {
         for (LocalizedTripleObject value : poMap.get(predicate.getId())) {
 
           if (!predicate.isResource() && (value instanceof TreeFragment
-              && (lang.equals(value.getLanguage()) || value.getLanguage() == null || "".equals(value.getLanguage())
-                  || ("".equals(lang) && value.getLanguage().equals(PropertyReader.getProperty("inge.cone.language.default", "en")))))) {
+              && (lang.equals(value.getLanguage()) || value.getLanguage() == null || "".equals(value.getLanguage()) || ("".equals(lang)
+                  && value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT, "en")))))) {
             TreeFragment treeValue = (TreeFragment) value;
 
             newPermutationList.addAll(getPermutations(model, predicate, treeValue, modelResult, loggedIn, lang, permutationList,
@@ -209,7 +209,7 @@ public class ModelHelper {
 
             if (lang.equals(value.getLanguage()) || "".equals(value.getLanguage())
                 || (!predicate.isLocalized() && value.getLanguage() == null) || ("".equals(lang) && (value.getLanguage() == null
-                    || value.getLanguage().equals(PropertyReader.getProperty("inge.cone.language.default", "en"))))) {
+                    || value.getLanguage().equals(PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT, "en"))))) {
 
               for (Map<String, List<LocalizedTripleObject>> currentMap : permutationList) {
                 Map<String, List<LocalizedTripleObject>> newMap = new HashMap<String, List<LocalizedTripleObject>>();

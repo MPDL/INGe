@@ -17,8 +17,8 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Repository
 public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> implements PubItemDaoEs {
 
-  private static final String indexName = PropertyReader.getProperty("inge.index.item.name");
-  private static final String indexType = PropertyReader.getProperty("inge.index.item.type");
+  private static final String indexName = PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME);
+  private static final String indexType = PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_TYPE);
   private static final Class<ItemVersionVO> typeParameterClass = ItemVersionVO.class;
 
   private static final String JOIN_FIELD_NAME = "joinField";

@@ -87,8 +87,8 @@ public class HtmlFormatter extends AbstractFormatter {
       throws FileNotFoundException, TransformerFactoryConfigurationError, IOException, URISyntaxException {
     response.setContentType("text/xml");
 
-    InputStream source =
-        ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.cone.modelsxml.path"), HtmlFormatter.class.getClassLoader());
+    InputStream source = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
+        HtmlFormatter.class.getClassLoader());
 
     InputStream template = ResourceUtil.getResourceAsStream("explain/html_explain.xsl", HtmlFormatter.class.getClassLoader());
 
@@ -156,9 +156,9 @@ public class HtmlFormatter extends AbstractFormatter {
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
 
       //      transformer.setParameter("citation-link",
-      //          PropertyReader.getProperty("inge.pubman.instance.url")
+      //          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
       //              + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
-      //              + PropertyReader.getProperty("inge.cone.service.url") + id + "\"&exportFormat=" + exportFormat
+      //              + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id + "\"&exportFormat=" + exportFormat
       //              + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
 
       for (Object key : PropertyReader.getProperties().keySet()) {
@@ -173,7 +173,7 @@ public class HtmlFormatter extends AbstractFormatter {
       }
 
       String url = //
-          PropertyReader.getProperty("inge.pubman.instance.url") //
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
               + "/rest/items/search?format=" + format //
               + "&citation=" + citation;
 
@@ -197,9 +197,9 @@ public class HtmlFormatter extends AbstractFormatter {
       postData.append(" ]");
 
       String itemLink = //
-          PropertyReader.getProperty("inge.pubman.instance.url") //
-              + PropertyReader.getProperty("inge.pubman.instance.context.path") //
-              + PropertyReader.getProperty("inge.pubman.item.pattern");
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) //
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
 
       transformer.setParameter("citation-link", url);
       transformer.setParameter("postData", postData.toString());

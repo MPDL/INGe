@@ -49,7 +49,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   @Qualifier("queueJmsTemplate")
   private JmsTemplate queueJmsTemplate;
 
-  private final static Logger logger = LogManager.getLogger(GenericServiceImpl.class);
+  private static final Logger logger = LogManager.getLogger(GenericServiceImpl.class);
 
   @Transactional(rollbackFor = Throwable.class)
   @Override

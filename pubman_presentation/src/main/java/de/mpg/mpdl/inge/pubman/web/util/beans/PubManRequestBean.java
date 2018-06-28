@@ -76,7 +76,7 @@ public class PubManRequestBean extends FacesBean {
   public String getPolicyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.policy.url");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_POLICY_URL);
     } catch (final Exception e) {
       PubManRequestBean.logger.error("Could not read property: 'inge.pubman.policy.url' from properties file.", e);
     }
@@ -92,7 +92,7 @@ public class PubManRequestBean extends FacesBean {
   public String getPrivacyPolicyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.privacy.policy.url");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRIVACY_POLICY_URL);
     } catch (Exception e) {
       logger.error("Could not read property: 'escidoc.pubman.privacy.policy.url' from properties file.", e);
     }
@@ -108,7 +108,7 @@ public class PubManRequestBean extends FacesBean {
   public String getContactUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty("inge.pubman.contact.url");
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CONTACT_URL);
     } catch (final Exception e) {
       PubManRequestBean.logger.error("Could not read property: 'inge.pubman.contact.url' from properties file.", e);
     }

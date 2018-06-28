@@ -105,10 +105,11 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("/metadata");
       }
       HashMap<String, String> matomoParameterMap = new HashMap<String, String>();
-      matomoParameterMap.put(MatomoTracker.SITE_ID, PropertyReader.getProperty("inge.matomo.analytics.site.id"));
+      matomoParameterMap.put(MatomoTracker.SITE_ID, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID));
       matomoParameterMap.put(MatomoTracker.REC, Integer.toString(1)); // fixed value that needs to be sent as it is
-      matomoParameterMap.put(MatomoTracker.SITE_URL, PropertyReader.getProperty("inge.pubman.instance.url") + req.getRequestURI());
-      matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty("inge.matomo.analytics.auth.token"));
+      matomoParameterMap.put(MatomoTracker.SITE_URL,
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
+      matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN));
       matomoParameterMap.put(MatomoTracker.USER_IP, req.getRemoteAddr());
       MatomoTracker.trackUrl(matomoParameterMap);
 

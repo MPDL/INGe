@@ -10,15 +10,14 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.MARC_XML)
 public class ModsXmlToMarcXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.mods2marc.stylesheet.filename",
-        "transformations/standardFormats/xslt/mods2marc21.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MODS2MARC_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -35,6 +34,5 @@ public class ModsXmlToMarcXml extends XslTransformer implements ChainableTransfo
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }

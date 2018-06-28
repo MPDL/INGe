@@ -59,7 +59,7 @@ public class UserAccountRestController {
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
+    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_USER_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
@@ -72,7 +72,7 @@ public class UserAccountRestController {
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.user.sort"), SortOrder.ASC);
+    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_USER_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);

@@ -48,7 +48,6 @@ import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
 import de.mpg.mpdl.inge.citationmanager.data.FontStylesCollection;
 import de.mpg.mpdl.inge.citationmanager.data.Pair;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * Function extensions for the citationmanager XSLTs
@@ -304,11 +303,12 @@ public class XsltHelper {
     String coneQuery =
         // JUS-Testserver CoNE
         // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
-        PropertyReader.getProperty("inge.cone.service.url") + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
     logger.info("cone query:" + coneQuery);
     GetMethod getMethod = new GetMethod(coneQuery);
 
-    ProxyHelper.executeMethod(client, getMethod);
+    //    ProxyHelper.executeMethod(client, getMethod);
+    client.executeMethod(getMethod);
 
     XMLReader xr;
 

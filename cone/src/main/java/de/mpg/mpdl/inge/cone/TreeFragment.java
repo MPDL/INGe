@@ -118,7 +118,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toRdf(Model model) throws ConeException {
     if (size() == 0) {
 
-      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty("inge.cone.service.url") + subject);
+      return StringEscapeUtils.escapeXml10(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject);
 
     } else {
       StringWriter result = new StringWriter();
@@ -133,7 +133,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       if (!subject.startsWith("genid:")) {
         try {
           result.append(" rdf:about=\"");
-          result.append(PropertyReader.getProperty("inge.cone.service.url") + subject);
+          result.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject);
           result.append("\"");
         } catch (Exception e) {
           throw new RuntimeException(e);
@@ -199,9 +199,9 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
             if (!(url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp:"))) {
               try {
                 if (value.toString().startsWith("/")) {
-                  url = PropertyReader.getProperty("inge.cone.service.url") + url.substring(0, url.length() - 1);
+                  url = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + url.substring(0, url.length() - 1);
                 } else {
-                  url = PropertyReader.getProperty("inge.cone.service.url") + url;
+                  url = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + url;
                 }
               } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -241,7 +241,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
   public String toJson() {
     if (size() == 0) {
       try {
-        return "\"" + PropertyReader.getProperty("inge.cone.service.url") + subject.replace("\"", "\\\"") + "\"";
+        return "\"" + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject.replace("\"", "\\\"") + "\"";
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
@@ -251,7 +251,7 @@ public class TreeFragment extends LinkedHashMap<String, List<LocalizedTripleObje
       if (!subject.startsWith("genid:")) {
         writer.append("\"id\" : \"");
         try {
-          writer.append(PropertyReader.getProperty("inge.cone.service.url") + subject.replace("\"", "\\\""));
+          writer.append(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + subject.replace("\"", "\\\""));
         } catch (Exception e) {
           throw new RuntimeException(e);
         }

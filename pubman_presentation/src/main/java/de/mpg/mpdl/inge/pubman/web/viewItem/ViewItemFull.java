@@ -258,11 +258,11 @@ public class ViewItemFull extends FacesBean {
 
       // Citation url
       try {
-        String pubmanUrl =
-            PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path");
+        String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
 
-        this.itemPattern =
-            PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", this.getPubItem().getObjectIdAndVersion());
+        this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
+            this.getPubItem().getObjectIdAndVersion());
         if (!pubmanUrl.endsWith("/")) {
           pubmanUrl = pubmanUrl + "/";
         }
@@ -274,7 +274,7 @@ public class ViewItemFull extends FacesBean {
 
         if (this.getPubItem().getObject().getLatestVersion() != null
             && this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion() != null) {
-          String latestVersionItemPattern = PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
+          String latestVersionItemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
               this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion());
           if (latestVersionItemPattern.startsWith("/")) {
             latestVersionItemPattern = latestVersionItemPattern.substring(1, latestVersionItemPattern.length());
@@ -340,8 +340,9 @@ public class ViewItemFull extends FacesBean {
           .getObject().getLatestRelease().getVersionNumber() && this.isLoggedIn) {
         String link = null;
         try {
-          link = PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-              + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
+          link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
                   this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion());
         } catch (Exception e) {
           ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
@@ -352,8 +353,9 @@ public class ViewItemFull extends FacesBean {
           && this.getPubItem().getObject().getLatestRelease().getVersionNumber() > this.getPubItem().getVersionNumber()) {
         String link = null;
         try {
-          link = PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-              + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1",
+          link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
                   this.getPubItem().getObject().getLatestRelease().getObjectIdAndVersion());
         } catch (Exception e) {
           ViewItemFull.logger.error("Error when trying to access a property via PropertyReader", e);
@@ -372,8 +374,9 @@ public class ViewItemFull extends FacesBean {
         this.isWorkflowStandard = false;
       }
 
-      //      this.fwUrl = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-      this.defaultSize = Integer.parseInt(PropertyReader.getProperty("inge.pubman_presentation.viewFullItem.defaultSize", "20"));
+      //      this.fwUrl = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_FRAMEWORK_URL);
+      this.defaultSize =
+          Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_VIEWFULLITEM_DEFAULTSIZE, "20"));
 
       // Submenu
       final String subMenu = FacesTools.getRequest().getParameter(ViewItemFull.PARAMETERNAME_MENU_VIEW);
@@ -468,8 +471,8 @@ public class ViewItemFull extends FacesBean {
 
       // Unapi Export
       try {
-        // this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
-        this.unapiURLview = PropertyReader.getProperty("inge.unapi.service.url");
+        // this.unapiURLdownload = PropertyReader.getProperty(PropertyReader.ESCIDOC_UNAPI_DOWNLOAD_SERVER);
+        this.unapiURLview = PropertyReader.getProperty(PropertyReader.INGE_UNAPI_SERVICE_URL);
         // this.unapiEscidoc = this.unapiURLdownload + "?id=" + itemID + "&format=escidoc";
         // this.unapiEndnote = this.unapiURLdownload + "?id=" + itemID + "&format=endnote";
         // this.unapiBibtex = this.unapiURLdownload + "?id=" + itemID + "&format=bibtex";
@@ -481,7 +484,7 @@ public class ViewItemFull extends FacesBean {
 
       // SSRN
       try {
-        String contexts = PropertyReader.getProperty("inge.pubman.instance.ssrn_contexts");
+        String contexts = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_SSRN_CONTEXTS);
         if (contexts != null && !"".equals(contexts)) {
           this.ssrnContexts = new ArrayList<String>();
           while (contexts.contains(",")) {
@@ -1229,7 +1232,7 @@ public class ViewItemFull extends FacesBean {
    * @return String name of the specified OU (inge.pubman_presentation.overview_page.authors_ou)
    */
   public String getSpecificOrganization() {
-    final String rootOrganization = PropertyReader.getProperty("inge.pubman_presentation.overview_page.authors_ou").trim();
+    final String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_OVERVIEW_PAGE_AUTHORS_OU).trim();
 
     if (rootOrganization != null) {
       return rootOrganization;

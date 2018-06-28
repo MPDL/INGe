@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.db.spring.JPAConfiguration;
 import de.mpg.mpdl.inge.es.spring.AppConfigIngeEsConnector;
 import de.mpg.mpdl.inge.filestorage.spring.AppConfigFileStorage;
 import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Configuration
 @ComponentScan("de.mpg.mpdl.inge.service")
@@ -39,9 +40,9 @@ import de.mpg.mpdl.inge.inge_validation.spring.AppConfigIngeValidation;
 @EnableJms
 @PropertySource("classpath:pubman.properties")
 public class AppConfigPubmanLogic {
-  private final static Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
+  private static final Logger logger = LogManager.getLogger(AppConfigPubmanLogic.class);
 
-  private final static String DEFAULT_BROKER_URL = "vm://localhost:0";
+  private static final String DEFAULT_BROKER_URL = "vm://localhost:0";
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -65,11 +66,11 @@ public class AppConfigPubmanLogic {
   public BrokerService brokerService() throws Exception {
     BrokerService brokerService = new BrokerService();
     brokerService.setPersistent(true);
-    String jbossHomeDir = System.getProperty("jboss.home.dir");
+    String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
     if (jbossHomeDir != null) {
       brokerService.setDataDirectoryFile(new File(jbossHomeDir + "/standalone/data/activemq"));
     } else {
-      brokerService.setDataDirectory(System.getProperty("java.io.tmpdir"));
+      brokerService.setDataDirectory(System.getProperty(PropertyReader.JAVA_IO_TMPDIR));
     }
     brokerService.setUseJmx(false);
     brokerService.addConnector(DEFAULT_BROKER_URL);

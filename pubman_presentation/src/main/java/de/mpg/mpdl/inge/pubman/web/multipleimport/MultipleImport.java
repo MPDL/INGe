@@ -195,6 +195,10 @@ public class MultipleImport extends FacesBean {
     Transformer transformer = null;
     Map<String, String> config = null;
 
+    if (this.configParameters != null) {
+      return this.configParameters;
+    }
+
     if (this.format != null) {
       transformer = TransformerFactory.newTransformer(this.format, TransformerFactory.getInternalFormat());
       config = transformer.getConfiguration();

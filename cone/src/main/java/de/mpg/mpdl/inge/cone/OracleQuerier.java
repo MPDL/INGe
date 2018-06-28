@@ -63,11 +63,13 @@ public class OracleQuerier implements Querier {
 
     // jdbc:oracle:thin:@myhost:1521:orcl
 
-    Class.forName(PropertyReader.getProperty("inge.cone.database.driver.class"));
+    Class.forName(PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_DRIVER_CLASS));
     connection = DriverManager.getConnection(
-        "jdbc:oracle:thin:" + PropertyReader.getProperty("inge.cone.database.server.name") + ":"
-            + PropertyReader.getProperty("inge.cone.database.server.port") + ":" + PropertyReader.getProperty("inge.cone.database.name"),
-        PropertyReader.getProperty("inge.cone.database.user.name"), PropertyReader.getProperty("inge.cone.database.user.password"));
+        "jdbc:oracle:thin:" + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_NAME) + ":"
+            + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_PORT) + ":"
+            + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_NAME),
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_NAME),
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_PASSWORD));
 
     // connection = dataSource.getConnection();
   }
@@ -84,7 +86,7 @@ public class OracleQuerier implements Querier {
    */
   public List<? extends Describable> query(String model, String query, String language, ModeType modeType) throws ConeException {
 
-    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
 
     return query(model, query, language, modeType, Integer.parseInt(limitString));
   }
@@ -95,7 +97,7 @@ public class OracleQuerier implements Querier {
   public List<? extends Describable> query(String model, Pair<String>[] searchFields, String language, ModeType modeType)
       throws ConeException {
 
-    String limitString = PropertyReader.getProperty("inge.cone.maximum.results", "50");
+    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
 
     return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
   }

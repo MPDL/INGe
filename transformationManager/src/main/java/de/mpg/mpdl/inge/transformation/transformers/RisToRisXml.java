@@ -27,19 +27,14 @@ public class RisToRisXml extends SingleTransformer implements ChainableTransform
       String resultXmlString = risImport.transformRIS2XML(getStringFromSource(source));
 
       XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)), (Result) result);
-
     } catch (Exception e) {
       throw new TransformationException("Error while transforming RIS to RIS XML", e);
     }
-
-
   }
 
   @Override
   public TransformerResult createNewInBetweenResult() {
     return new TransformerStreamResult(new ByteArrayOutputStream());
   }
-
-
 
 }

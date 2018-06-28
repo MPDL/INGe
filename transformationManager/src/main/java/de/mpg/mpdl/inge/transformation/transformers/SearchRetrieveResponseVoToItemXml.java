@@ -28,33 +28,31 @@ public class SearchRetrieveResponseVoToItemXml extends SingleTransformer impleme
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-
     try {
       SearchRetrieveResponseVO<ItemVersionVO> searchResult =
           (SearchRetrieveResponseVO<ItemVersionVO>) ((TransformerVoSource) source).getSource();
       List<ItemVersionVO> itemList = searchResult.getRecords().stream().map(i -> i.getData()).collect(Collectors.toList());
-
       List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
+
       ItemVOListWrapper listWrapper = new ItemVOListWrapper();
       listWrapper.setItemVOList(transformedList);
+
       if (searchResult != null) {
         listWrapper.setNumberOfRecords(String.valueOf(searchResult.getNumberOfRecords()));
       }
-      String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
 
+      String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
       writeStringToStreamResult(escidocItemList, (TransformerStreamResult) result);
     } catch (Exception e) {
       throw new TransformationException("Error while citation transformation", e);
     }
-
   }
 
   @Override
   public TransformerResult createNewInBetweenResult() {
     TransformerStreamResult tr = new TransformerStreamResult(new ByteArrayOutputStream());
+
     return tr;
   }
-
-
 
 }

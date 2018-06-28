@@ -848,7 +848,7 @@ public class XmlTransformingService {
 
       // logger.debug("URL: " + PropertyReader.getFrameworkUrl() + ":" + urlWrapper.getUrlString());
 
-      url = new URL(PropertyReader.getFrameworkUrl() + urlWrapper.getUrlString());
+      url = new URL(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + urlWrapper.getUrlString());
     } catch (JiBXException e) {
       // throw a new UnmarshallingException, log the root cause of the JiBXException first
       logger.error(e, e.getRootCause());

@@ -1,14 +1,10 @@
 package de.mpg.mpdl.inge.migration;
 
-import org.apache.commons.httpclient.URI;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import de.mpg.mpdl.inge.migration.beans.Migration;
 import de.mpg.mpdl.inge.migration.config.MigrationConfiguration;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class Main {
 

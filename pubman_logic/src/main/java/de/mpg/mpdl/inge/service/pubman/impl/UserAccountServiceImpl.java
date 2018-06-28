@@ -60,7 +60,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private static Logger logger = LogManager.getLogger(UserAccountServiceImpl.class);
 
-  private final static int TOKEN_MAX_AGE_HOURS = 24;
+  private static final int TOKEN_MAX_AGE_HOURS = 24;
 
   public static String INDEX_MODIFICATION_DATE = "lastModificationDate";
   public static String INDEX_NAME = "name";
@@ -99,18 +99,18 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private JWTVerifier jwtVerifier;
 
-  // private final static String PASSWORD_REGEX =
+  // private static final String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-  private final static String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
+  private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
 
   /**
    * Loginname must consist of at least 4 characters of a-z, A-Z, 0-9, @, _, -, .
    */
-  private final static String LOGINNAME_REGEX = "^[A-Za-z0-9@_\\-\\.]{4,}$";
+  private static final String LOGINNAME_REGEX = "^[A-Za-z0-9@_\\-\\.]{4,}$";
 
 
   public UserAccountServiceImpl() throws Exception {
-    String key = PropertyReader.getProperty("inge.jwt.shared-secret");
+    String key = PropertyReader.getProperty(PropertyReader.INGE_JWT_SHARED_SECRET);
     if (key == null || key.trim().isEmpty()) {
       logger.warn("No 'inge.jwt.shared-secret' is set. Generating a random secret, which might not be secure.");
       key = UUID.randomUUID().toString();
@@ -118,7 +118,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     jwtAlgorithmKey = Algorithm.HMAC512(key);
 
-    jwtIssuer = PropertyReader.getProperty("pubman.instance.url");
+    jwtIssuer = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
     jwtVerifier = JWT.require(jwtAlgorithmKey).withIssuer(jwtIssuer).build();
 

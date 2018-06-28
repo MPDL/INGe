@@ -60,7 +60,6 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-
     try {
       SearchRetrieveResponseVO<ItemVersionVO> s = (SearchRetrieveResponseVO<ItemVersionVO>) ((TransformerVoSource) source).getSource();
 
@@ -83,7 +82,6 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
   @Override
   public TransformerResult createNewInBetweenResult() {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -91,33 +89,32 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
   private byte[] integrateCitationIntoOutput(ExportFormatVO exportFormat, SearchRetrieveResponseVO<ItemVersionVO> searchResult,
       List<ItemVersionVO> itemList, List<String> citationList) throws Exception {
 
-    //build escidoc snippet format
-
     if (itemList.size() != citationList.size()) {
       throw new IngeTechnicalException(
           "Error: Citationmanager returned " + citationList.size() + "citations for " + itemList.size() + " items");
     }
+
     List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
     ItemVOListWrapper listWrapper = new ItemVOListWrapper();
     listWrapper.setItemVOList(transformedList);
+
     if (searchResult != null) {
       listWrapper.setNumberOfRecords(String.valueOf(searchResult.getNumberOfRecords()));
     }
-    String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
 
+    String escidocItemList = XmlTransformingService.transformToItemList(listWrapper);
 
     StringWriter escidocSnippetWriter = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
-    javax.xml.transform.Transformer transformer = factory.newTransformer(
-        new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream("transformations/itemList2snippet.xsl")));
+    javax.xml.transform.Transformer transformer =
+        factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader().getResourceAsStream(
+            PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_ITEMLIST_TO_SNIPPET_STYLESHEET_FILENAME))));
     transformer.setParameter("citations", citationList);
     transformer.transform(new StreamSource(new StringReader(escidocItemList)), new StreamResult(escidocSnippetWriter));
 
     String escidocSnippet = escidocSnippetWriter.toString();
 
-
     if (TransformerFactory.FORMAT.JSON_CITATION.equals(getTargetFormat())) {
-
       if (searchResult != null) {
         JsonNode node = MapperFactory.getObjectMapper().valueToTree(searchResult);
         if (searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
@@ -127,22 +124,14 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
             //            i++;
           }
         }
+
         return MapperFactory.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(node).getBytes(StandardCharsets.UTF_8);
       }
-
-    }
-
-    else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
+    } else if (TransformerFactory.FORMAT.ESCIDOC_SNIPPET.equals(getTargetFormat())) {
       return escidocSnippet.getBytes(StandardCharsets.UTF_8);
-
     } else if (TransformerFactory.FORMAT.HTML_PLAIN.equals(getTargetFormat())
         || TransformerFactory.FORMAT.HTML_LINKED.equals(getTargetFormat())) {
-
-
       return generateHtmlOutput(escidocSnippet, getTargetFormat(), "html", true).getBytes(StandardCharsets.UTF_8);
-
-
-
     } else if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat()) || TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
@@ -183,36 +172,32 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
               + TransformerFactory.FORMAT.JSON_CITATION.getName() + ", " + TransformerFactory.FORMAT.ESCIDOC_SNIPPET.getName() + ", "
               + TransformerFactory.FORMAT.HTML_PLAIN.getName() + ", " + TransformerFactory.FORMAT.HTML_LINKED.getName() + ", "
               + TransformerFactory.FORMAT.PDF.getName() + ", " + TransformerFactory.FORMAT.DOCX.getName() + ", ");
-
     }
 
     return null;
-
-
   }
-
 
   private static String generateHtmlOutput(String escidocSnippet, TransformerFactory.FORMAT fileFormat, String outputMethod, boolean indent)
       throws Exception {
     StringWriter sw = new StringWriter();
     javax.xml.transform.TransformerFactory factory = new TransformerFactoryImpl();
-    javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(
-        CitationTransformer.class.getClassLoader().getResourceAsStream("transformations/escidoc-publication-snippet2html.xsl")));
+    javax.xml.transform.Transformer htmlTransformer = factory.newTransformer(new StreamSource(CitationTransformer.class.getClassLoader()
+        .getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC_SNIPPET_TO_HTML_STYLESHEET_FILENAME))));
 
     htmlTransformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
     htmlTransformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
 
-    String contextPath = PropertyReader.getProperty("inge.pubman.instance.context.path");
-    String pubmanUrl = PropertyReader.getProperty("inge.pubman.instance.url") + (contextPath == null ? "" : contextPath);
+    String contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+    String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + (contextPath == null ? "" : contextPath);
     htmlTransformer.setParameter("pubman_instance", pubmanUrl);
 
     if (TransformerFactory.FORMAT.HTML_LINKED.equals(fileFormat)) {
       htmlTransformer.setParameter("html_linked", Boolean.TRUE);
     }
+
     htmlTransformer.transform(new StreamSource(new StringReader(escidocSnippet)), new StreamResult(sw));
+
     return sw.toString();
   }
-
-
 
 }

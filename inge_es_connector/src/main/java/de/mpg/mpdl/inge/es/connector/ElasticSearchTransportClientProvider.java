@@ -17,15 +17,15 @@ public class ElasticSearchTransportClientProvider implements ElasticSearchClient
 
   private TransportClient client;
 
-  private final static Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
+  private static final Logger logger = LogManager.getLogger(ElasticSearchTransportClientProvider.class);
 
   public ElasticSearchTransportClientProvider() {
-    this.client = new PreBuiltTransportClient(Settings.builder().put("cluster.name", PropertyReader.getProperty("inge.es.cluster.name"))
-        .put("client.transport.sniff", true).build());
+    this.client = new PreBuiltTransportClient(Settings.builder()
+        .put("cluster.name", PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME)).put("client.transport.sniff", true).build());
 
-    logger.info("Building TransportClient for <" + PropertyReader.getProperty("inge.es.cluster.name") + ">" + " and <"
-        + PropertyReader.getProperty("inge.es.transport.ips") + "> ");
-    String transportIps = PropertyReader.getProperty("inge.es.transport.ips");
+    logger.info("Building TransportClient for <" + PropertyReader.getProperty(PropertyReader.INGE_ES_CLUSTER_NAME) + ">" + " and <"
+        + PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS) + "> ");
+    String transportIps = PropertyReader.getProperty(PropertyReader.INGE_ES_TRANSPORT_IPS);
 
     for (String ip : transportIps.split(" ")) {
       String addr = ip.split(":")[0];

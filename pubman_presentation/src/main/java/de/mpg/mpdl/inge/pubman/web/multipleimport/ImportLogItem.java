@@ -69,8 +69,9 @@ public class ImportLogItem extends BaseImportLog {
   public String getLink() {
     if (ImportLogItem.link == null) {
       try {
-        ImportLogItem.link = PropertyReader.getProperty("inge.pubman.instance.url")
-            + PropertyReader.getProperty("inge.pubman.instance.context.path") + PropertyReader.getProperty("inge.pubman.item.pattern");
+        ImportLogItem.link = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
       } catch (final Exception e) {
         throw new RuntimeException(e);
       }

@@ -58,7 +58,8 @@ public class OrganizationRestController {
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"), SortOrder.ASC);
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ORGANIZATION_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);
@@ -71,7 +72,8 @@ public class OrganizationRestController {
       @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
-    SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty("inge.index.organization.sort"), SortOrder.ASC);
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ORGANIZATION_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);

@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.db.repository;
 
+import java.util.List;
+
 import javax.persistence.QueryHint;
 
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +21,10 @@ public interface ItemRepository extends GenericRepository<ItemVersionVO, Version
   @Query("SELECT item FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionNumber=(SELECT MAX(item.versionNumber) FROM ItemVersionVO item WHERE item.objectId=:objectId AND item.versionState='RELEASED')")
   @QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
   public ItemVersionVO findLatestRelease(@Param("objectId") String objectId);
+
+
+  @Query(value = "SELECT itemVersionVO_objectId FROM item_version_file WHERE files_objectId = :fileObjectId", nativeQuery = true)
+  public List<String> findItemsForFile(@Param("fileObjectId") String fileObjectId);
 
 
 

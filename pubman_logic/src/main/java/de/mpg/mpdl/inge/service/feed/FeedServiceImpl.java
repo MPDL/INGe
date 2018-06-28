@@ -44,9 +44,6 @@ public class FeedServiceImpl {
   @Autowired
   private PubItemService pubItemService;
 
-  //  @Autowired
-  //  private OrganizationService organizationService;
-
   public SyndFeed recentReleases() throws Exception {
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     qb.must(SearchUtils.baseElasticSearchQueryBuilder(pubItemService.getElasticSearchIndexFields(),
@@ -115,7 +112,7 @@ public class FeedServiceImpl {
     SyndFeed feed = new SyndFeedImpl();
     feed.setTitle(title);
     feed.setDescription(description);
-    feed.setCategories(getGeneralCategories());
+    //    feed.setCategories(getGeneralCategories());
     feed.setLanguage("en-US");
 
     feed.setEntries(transformToEntryList(search(qb)));
@@ -123,20 +120,18 @@ public class FeedServiceImpl {
   }
 
 
-  private List<SyndCategory> getGeneralCategories() {
-    String categories = PropertyReader.getProperty("inge.feed.categories");
-    List<SyndCategory> catList = new ArrayList<>();
-    if (categories != null) {
-      for (String cat : categories.split(",")) {
-        SyndCategory syndCat = new SyndCategoryImpl();
-        syndCat.setName(cat.trim());
-      }
-    }
-
-    return catList;
-
-
-  }
+  //  private List<SyndCategory> getGeneralCategories() {
+  //    String categories = PropertyReader.getProperty(PropertyReader.INGE_FEED_CATEGORIES);
+  //    List<SyndCategory> catList = new ArrayList<>();
+  //    if (categories != null) {
+  //      for (String cat : categories.split(",")) {
+  //        SyndCategory syndCat = new SyndCategoryImpl();
+  //        syndCat.setName(cat.trim());
+  //      }
+  //    }
+  //
+  //    return catList;
+  //  }
 
   /**
    * Transformation method takes ItemList XML and transforms it to the list of syndication entries (
@@ -226,7 +221,8 @@ public class FeedServiceImpl {
       // Contents ???
       // se.setContents(contents)
 
-      se.setLink(PropertyReader.getProperty("inge.pubman.instance.url") + "/pubman/item/" + pi.getLatestRelease().getObjectIdAndVersion());
+      se.setLink(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/pubman/item/"
+          + pi.getLatestRelease().getObjectIdAndVersion());
 
       // Uri ????
       se.setUri(se.getLink());

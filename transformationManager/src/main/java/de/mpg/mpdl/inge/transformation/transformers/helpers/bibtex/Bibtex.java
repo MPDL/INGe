@@ -671,7 +671,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
-                    organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -982,7 +982,7 @@ public class Bibtex implements BibtexInterface {
                   }
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
-                    organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+                    organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
                     organization.setName(affiliation);
                     organization.setAddress(affiliationAddress);
                     personVO.getOrganizations().add(organization);
@@ -1026,7 +1026,7 @@ public class Bibtex implements BibtexInterface {
           OrganizationVO externalOrganization = new OrganizationVO();
           externalOrganization.setName("External Organizations");
           try {
-            externalOrganization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+            externalOrganization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
           } catch (Exception e) {
             throw new RuntimeException("Property inge.pubman.external.organisation.id not found", e);
           }
@@ -1239,7 +1239,7 @@ public class Bibtex implements BibtexInterface {
       organization.setName(affiliation);
       organization.setAddress(affiliationAddress);
       try {
-        organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+        organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
       } catch (Exception e) {
         throw new RuntimeException(e);
       }
@@ -1273,7 +1273,7 @@ public class Bibtex implements BibtexInterface {
    */
   public static Set<String> loadGroupSet() throws Exception {
     HttpClient httpClient = new HttpClient();
-    GetMethod getMethod = new GetMethod(PropertyReader.getProperty("inge.cone.service.url") + "mpis-groups/all?f=options");
+    GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "mpis-groups/all?f=options");
     httpClient.executeMethod(getMethod);
     InputStream inputStream = getMethod.getResponseBodyAsStream();
     String line;
@@ -1298,7 +1298,7 @@ public class Bibtex implements BibtexInterface {
    */
   public static Set<String> loadProjectSet() throws Exception {
     HttpClient httpClient = new HttpClient();
-    GetMethod getMethod = new GetMethod(PropertyReader.getProperty("inge.cone.service.url") + "mpis-projects/all?f=options");
+    GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "mpis-projects/all?f=options");
     httpClient.executeMethod(getMethod);
     InputStream inputStream = getMethod.getResponseBodyAsStream();
     String line;

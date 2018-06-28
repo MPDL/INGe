@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
@@ -50,7 +51,9 @@ public class Aa {
   private AuthenticationVO authenticationVO = null;
 
   public Aa(HttpServletRequest request) throws Exception {
-
+    if (!Config.isLoaded()) {
+      initConfig(request);
+    }
     String[] encodedXml = request.getParameterValues("auth");
     if (encodedXml != null) {
       String xml = de.mpg.mpdl.inge.aa.crypto.RSAEncoder.rsaDecrypt(encodedXml);
@@ -107,7 +110,7 @@ public class Aa {
 
     String from = request.getRequestURI().toString();
 
-    String page = Config.getProperty("inge.aa.instance.url");
+    String page = Config.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
 
     String query = request.getQueryString();
     if (query != null && !"".equals(query)) {

@@ -91,7 +91,7 @@ public class BrowseBySessionBean extends FacesBean {
 
   public BrowseBySessionBean() {
     //    try {
-    //      this.pubContentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+    //      this.pubContentModel = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION);
     //    } catch (final Exception e) {
     //      BrowseBySessionBean.logger.warn("Could not read property content model.", e);
     //    }
@@ -108,7 +108,7 @@ public class BrowseBySessionBean extends FacesBean {
   public List<String> getControlledVocabs() {
     final List<String> vocabs = new ArrayList<String>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
       if (vocabsStr != null && vocabsStr.trim().length() > 0) {
         final String[] vocabsArr = vocabsStr.split(";");
         for (int i = 0; i < vocabsArr.length; i++) {
@@ -199,7 +199,8 @@ public class BrowseBySessionBean extends FacesBean {
     final List<LinkVO> links = new ArrayList<LinkVO>();
 
     try {
-      final URL coneUrl = new URL(PropertyReader.getProperty("inge.cone.service.url") + this.selectedValue + "/all?format=options&lang=en");
+      final URL coneUrl =
+          new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + this.selectedValue + "/all?format=options&lang=en");
       final URLConnection conn = coneUrl.openConnection();
       final HttpURLConnection httpConn = (HttpURLConnection) conn;
       final int responseCode = httpConn.getResponseCode();

@@ -42,7 +42,7 @@ public abstract class GenericServiceBaseImpl<ModelObject> implements GenericServ
 
   private Map<String, ElasticSearchIndexField> indexFields;
 
-  private final static Logger logger = LogManager.getLogger(GenericServiceBaseImpl.class);
+  private static final Logger logger = LogManager.getLogger(GenericServiceBaseImpl.class);
 
   protected String beanName;
 

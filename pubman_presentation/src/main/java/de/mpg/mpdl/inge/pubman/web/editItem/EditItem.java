@@ -132,8 +132,8 @@ public class EditItem extends FacesBean {
   private boolean bindFilesAndLocators = true;
   private UIRepeat fileIterator;
 
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty("inge.rest.file.path");
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
+  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
 
   public EditItem() {
     this.init();
@@ -585,9 +585,9 @@ public class EditItem extends FacesBean {
 
     try {
       if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage())) {
-        final String viewItemPage =
-            PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceFirst("\\$1", this.getPubItem().getObjectId());
+        final String viewItemPage = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceFirst("\\$1", this.getPubItem().getObjectId());
         FacesTools.getExternalContext().redirect(viewItemPage);
       } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {
         FacesTools.getExternalContext().redirect(
@@ -1219,7 +1219,7 @@ public class EditItem extends FacesBean {
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     }
 
     return this.suggestConeUrl;

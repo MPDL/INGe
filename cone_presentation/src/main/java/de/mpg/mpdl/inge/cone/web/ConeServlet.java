@@ -272,8 +272,8 @@ public class ConeServlet extends HttpServlet {
     } else if ("explain".equals(action)) {
       response.setContentType("text/xml");
       try {
-        out.print(
-            ResourceUtil.getResourceAsString(PropertyReader.getProperty("inge.cone.modelsxml.path"), ConeServlet.class.getClassLoader()));
+        out.print(ResourceUtil.getResourceAsString(PropertyReader.getProperty(PropertyReader.INGE_CONE_MODELSXML_PATH),
+            ConeServlet.class.getClassLoader()));
       } catch (Exception e) {
         throw new ServletException(e);
       }

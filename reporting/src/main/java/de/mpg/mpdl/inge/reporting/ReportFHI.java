@@ -60,7 +60,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -103,13 +102,13 @@ public class ReportFHI {
   public static String emailAuthPwdProp;
 
   public ReportFHI() throws IOException, URISyntaxException, ServiceException {
-    USER_NAME = PropertyReader.getFrameworkAdminUsername();
-    USER_PASSWD = PropertyReader.getFrameworkAdminPassword();
-    emailSenderProp = PropertyReader.getProperty("inge.email.sender");
-    emailServernameProp = PropertyReader.getProperty("inge.email.mailservername");
-    emailWithAuthProp = PropertyReader.getProperty("inge.email.withauthentication");
-    emailAuthUserProp = PropertyReader.getProperty("inge.email.authenticationuser");
-    emailAuthPwdProp = PropertyReader.getProperty("inge.email.authenticationpwd");
+    USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME);
+    USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
+    emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
+    emailServernameProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_MAILSERVERNAME);
+    emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
+    emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
+    emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
 
     adminHandler = AdminHelper.loginUser(USER_NAME, USER_PASSWD);
 
@@ -155,7 +154,7 @@ public class ReportFHI {
     String itemList = null;
     GetMethod method;
     try {
-      method = new GetMethod(PropertyReader.getFrameworkUrl() + "/ir/items");
+      method = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/ir/items");
       method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
       String query = "operation=searchRetrieve&maximumRecords=1000&query=" + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8")
           + "%20and%20" + URLEncoder.encode(getTimeRangeQuery(), "UTF-8") + URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");
@@ -164,7 +163,8 @@ public class ReportFHI {
       method.setQueryString(query);
       logger.info("URI:" + method.getURI());
       HttpClient client = new HttpClient();
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
       logger.info("URI:" + method.getURI() + "\nStatus code:" + method.getStatusCode());
       if (method.getStatusCode() == HttpServletResponse.SC_OK) {
         itemList = method.getResponseBodyAsString();

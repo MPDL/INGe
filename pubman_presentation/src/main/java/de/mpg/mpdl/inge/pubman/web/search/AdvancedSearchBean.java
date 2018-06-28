@@ -279,7 +279,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   private List<SelectItem> initSubjectTypesListMenu() {
     final List<SelectItem> vocabs = new ArrayList<SelectItem>();
     try {
-      final String vocabsStr = PropertyReader.getProperty("inge.cone.subjectVocab");
+      final String vocabsStr = PropertyReader.getProperty(PropertyReader.INGE_CONE_SUBJECTVOCAB);
       final String[] vocabsArr = vocabsStr.split(";");
       for (int i = 0; i < vocabsArr.length; i++) {
         final String type = vocabsArr[i].trim().toUpperCase().replace("-", "_");
@@ -1092,7 +1092,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public String getSuggestConeUrl() throws Exception {
     if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty("inge.cone.service.url");
+      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     }
 
     return this.suggestConeUrl;

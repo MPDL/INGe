@@ -29,7 +29,7 @@ import de.mpg.mpdl.inge.util.DOMUtilities;
  * @author walter
  */
 public class CitationStyleLanguageUtils {
-  private final static Logger logger = Logger.getLogger(CitationStyleLanguageUtils.class);
+  private static final Logger logger = Logger.getLogger(CitationStyleLanguageUtils.class);
 
   //  /**
   //   * gets a csl style from a url

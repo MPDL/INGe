@@ -182,8 +182,8 @@ public class CommonUtils {
 
     try {
       final HttpClient httpClient = new HttpClient();
-      final GetMethod getMethod = new GetMethod(
-          PropertyReader.getProperty("inge.cone.service.url") + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
+      final GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)
+          + "iso639-2/query?format=options&n=0&dc:relation=*&lang=" + locale);
       httpClient.executeMethod(getMethod);
 
       if (getMethod.getStatusCode() == 200) {
@@ -256,7 +256,7 @@ public class CommonUtils {
       }
 
       final HttpClient client = new HttpClient();
-      final GetMethod getMethod = new GetMethod(PropertyReader.getProperty("inge.cone.service.url") + "iso639-3/resource/"
+      final GetMethod getMethod = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "iso639-3/resource/"
           + URLEncoder.encode(code, "UTF-8") + "?format=json&lang=" + locale);
       client.executeMethod(getMethod);
       final String response = getMethod.getResponseBodyAsString();
@@ -518,8 +518,9 @@ public class CommonUtils {
 
   public static String getGenericItemLink(String objectId, int version) throws Exception {
     if (objectId != null) {
-      return PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-          + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", objectId + (version != 0 ? "_" + version : ""));
+      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
+              .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", objectId + (version != 0 ? "_" + version : ""));
     }
 
     return null;

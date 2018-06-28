@@ -103,7 +103,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongEn
 public class JiBXHelper {
   private JiBXHelper() {}
 
-  public static final String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
+  //  public static final String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
   public static final String IDTYPES_NAMESPACE_PREFIX = "eterms:";
   public static final String TYPES_NAMESPACE_PREFIX = "eterms:";
 
@@ -502,22 +502,22 @@ public class JiBXHelper {
   }
 
 
-  /**
-   * Factory method to create a <code>java.net.URL</code>
-   * 
-   * @return A new <code>java.net.URL</code>
-   */
-  public static URL urlFactory() {
-    URL url = null;
-    try {
-      // create a dummy URL
-      url = new URL("http://www.escidoc.de");
-    } catch (MalformedURLException e) {
-      // Should not be reached.
-      e.printStackTrace();
-    }
-    return url;
-  }
+  //  /**
+  //   * Factory method to create a <code>java.net.URL</code>
+  //   * 
+  //   * @return A new <code>java.net.URL</code>
+  //   */
+  //  public static URL urlFactory() {
+  //    URL url = null;
+  //    try {
+  //      // create a dummy URL
+  //      url = new URL("http://www.escidoc.de");
+  //    } catch (MalformedURLException e) {
+  //      // Should not be reached.
+  //      e.printStackTrace();
+  //    }
+  //    return url;
+  //  }
 
   public static List<SearchRetrieveRecordVO> searchRetrieveRecordVOListFactory() {
     return new ArrayList<SearchRetrieveRecordVO>();
@@ -1346,48 +1346,48 @@ public class JiBXHelper {
     return storage;
   }
 
-  /**
-   * Removes from a String everything before the last slash and the slash itself.
-   * 
-   * @param prefixedString The String to be freed from everyting before the last slash and the slash
-   *        itself
-   * @return The String without the prefix (everything before the last slash and the slash itself)
-   */
-  public static String removeLinkPrefix(String prefixedString) {
-    return new String(prefixedString.substring(prefixedString.lastIndexOf('/') + 1));
-  }
+  //  /**
+  //   * Removes from a String everything before the last slash and the slash itself.
+  //   * 
+  //   * @param prefixedString The String to be freed from everyting before the last slash and the slash
+  //   *        itself
+  //   * @return The String without the prefix (everything before the last slash and the slash itself)
+  //   */
+  //  public static String removeLinkPrefix(String prefixedString) {
+  //    return new String(prefixedString.substring(prefixedString.lastIndexOf('/') + 1));
+  //  }
 
-  /**
-   * Adds the prefix '/ir/context/' to the given String and gives back the result.
-   * 
-   * @param unprefixedString A context String without the link prefix (&quot;/ir/context/&quot;)
-   * @return The String with added prefix (&quot;/ir/context/&quot;)
-   */
-  public static String addContextLinkPrefix(String unprefixedString) {
-    return new String("/ir/context/" + removeLinkPrefix(unprefixedString));
-  }
+  //  /**
+  //   * Adds the prefix '/ir/context/' to the given String and gives back the result.
+  //   * 
+  //   * @param unprefixedString A context String without the link prefix (&quot;/ir/context/&quot;)
+  //   * @return The String with added prefix (&quot;/ir/context/&quot;)
+  //   */
+  //  public static String addContextLinkPrefix(String unprefixedString) {
+  //    return new String("/ir/context/" + removeLinkPrefix(unprefixedString));
+  //  }
 
-  /**
-   * Adds the prefix '/um/user-account/' to the given String and gives back the result.
-   * 
-   * @param unprefixedString A context String without the creator prefix
-   *        (&quot;/um/user-account/&quot;)
-   * @return The String with added prefix (&quot;/um/user-account/&quot;)
-   */
-  public static String addCreatorLinkPrefix(String unprefixedString) {
-    return new String("/um/user-account/" + removeLinkPrefix(unprefixedString));
-  }
+  //  /**
+  //   * Adds the prefix '/um/user-account/' to the given String and gives back the result.
+  //   * 
+  //   * @param unprefixedString A context String without the creator prefix
+  //   *        (&quot;/um/user-account/&quot;)
+  //   * @return The String with added prefix (&quot;/um/user-account/&quot;)
+  //   */
+  //  public static String addCreatorLinkPrefix(String unprefixedString) {
+  //    return new String("/um/user-account/" + removeLinkPrefix(unprefixedString));
+  //  }
 
-  /**
-   * Adds the prefix '/oum/organizational-unit/' to the given String and gives back the result.
-   * 
-   * @param unprefixedString A context String without the organizational unit prefix
-   *        (&quot;/oum/organizational-unit/&quot;)
-   * @return The String with added prefix (&quot;/oum/organizational-unit/&quot;)
-   */
-  public static String addOrganizationalUnitLinkPrefix(String unprefixedString) {
-    return new String("/oum/organizational-unit/" + removeLinkPrefix(unprefixedString));
-  }
+  //  /**
+  //   * Adds the prefix '/oum/organizational-unit/' to the given String and gives back the result.
+  //   * 
+  //   * @param unprefixedString A context String without the organizational unit prefix
+  //   *        (&quot;/oum/organizational-unit/&quot;)
+  //   * @return The String with added prefix (&quot;/oum/organizational-unit/&quot;)
+  //   */
+  //  public static String addOrganizationalUnitLinkPrefix(String unprefixedString) {
+  //    return new String("/oum/organizational-unit/" + removeLinkPrefix(unprefixedString));
+  //  }
 
   /**
    * Removes characters from a string that are illegal according to W3C spec

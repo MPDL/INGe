@@ -35,7 +35,7 @@ import de.mpg.mpdl.inge.service.pubman.ReindexListener;
 @Service
 @Primary
 public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String> implements ContextService, ReindexListener {
-  private final static Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(ContextServiceDbImpl.class);
 
   public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_STATE = "state";

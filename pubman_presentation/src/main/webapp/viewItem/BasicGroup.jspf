@@ -54,7 +54,7 @@
 						styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
 						<h:graphicImage id="imgSocialBookmarkingMendeley"
 							title="#{lbl.ViewItemFull_lblSocialBookmarking_Mendeley}"
-							url="http://www.mendeley.com/graphics/mendeley.png" width="16"
+							url="https://www.mendeley.com/graphics/mendeley.png" width="16"
 							onclick="mendeleyLink();" />
 					</h:panelGroup>
 					<script type="text/javascript">
@@ -77,7 +77,7 @@
 						styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
 						<h:graphicImage id="imgSocialBookmarkingBibsonomy"
 							title="#{lbl.ViewItemFull_lblSocialBookmarking_BibSonomy}"
-							url="http://www.bibsonomy.org/favicon.ico" width="16"
+							url="https://www.bibsonomy.org/favicon.ico" width="16"
 							onclick="bibsonomyLink();" />
 					</h:panelGroup>
 					<script type="text/javascript">
@@ -100,7 +100,7 @@
 						styleClass="min_imgBtn sectionTool pointer" style="width:20px;">
 						<h:graphicImage id="imgSocialBookmarkingCiteULike"
 							title="#{lbl.ViewItemFull_lblSocialBookmarking_CiteULike}"
-							url="http://www.citeulike.org/favicon.ico" height="16" width="16"
+							url="../resources/images/citeulike.ico" height="16" width="16"
 							onclick="citeULikeLink();" />
 					</h:panelGroup>
 					<script type="text/javascript">

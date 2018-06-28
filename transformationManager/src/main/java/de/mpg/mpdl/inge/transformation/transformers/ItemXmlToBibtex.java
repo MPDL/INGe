@@ -12,20 +12,19 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.transformation.TransformerModule;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.util.LocalUriResolver;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML, targetFormat = FORMAT.BIBTEX_STRING)
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.BIBTEX_STRING)
 public class ItemXmlToBibtex extends XslTransformer implements ChainableTransformer {
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.escidoc2bibtex.stylesheet.filename",
-        "transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2BIBTEX_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     return null;
-
   }
 
   public Map<String, String> getOutputKeys() {
@@ -33,6 +32,7 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
     map.put(OutputKeys.INDENT, "yes");
     map.put(OutputKeys.METHOD, "text");
     map.put(OutputKeys.ENCODING, "UTF-8");
+
     return map;
   }
 
@@ -45,4 +45,5 @@ public class ItemXmlToBibtex extends XslTransformer implements ChainableTransfor
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
+
 }

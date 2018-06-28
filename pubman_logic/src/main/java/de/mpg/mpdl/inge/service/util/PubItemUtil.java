@@ -26,7 +26,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 
 public class PubItemUtil {
 
-  private final static Logger logger = Logger.getLogger(PubItemUtil.class);
+  private static final Logger logger = Logger.getLogger(PubItemUtil.class);
 
   /**
    * Cleans up the ValueObject for saving/submitting from unused sub-VOs.
@@ -99,13 +99,13 @@ public class PubItemUtil {
 
       for (final OrganizationVO organization : creator.getPerson().getOrganizations()) {
         if (organization.getIdentifier() == null || organization.getIdentifier().equals("")) {
-          organization.setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+          organization.setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
         }
       }
     } else {
       if (creator.getOrganization() != null
           && (creator.getOrganization().getIdentifier() == null || creator.getOrganization().getIdentifier().equals(""))) {
-        creator.getOrganization().setIdentifier(PropertyReader.getProperty("inge.pubman.external.organisation.id"));
+        creator.getOrganization().setIdentifier(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
       }
     }
   }

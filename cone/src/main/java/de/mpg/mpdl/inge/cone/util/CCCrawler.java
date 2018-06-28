@@ -40,7 +40,6 @@ import de.mpg.mpdl.inge.cone.LocalizedTripleObject;
 import de.mpg.mpdl.inge.cone.Querier;
 import de.mpg.mpdl.inge.cone.QuerierFactory;
 import de.mpg.mpdl.inge.cone.TreeFragment;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 
 /**
  * TODO Description
@@ -95,7 +94,8 @@ public class CCCrawler {
                   + fieldJurisdiction.toString() + "&lang=de_DE";
           System.out.println(licenceUrl);
           GetMethod method = new GetMethod(licenceUrl);
-          ProxyHelper.executeMethod(httpClient, method);
+//          ProxyHelper.executeMethod(httpClient, method);
+          httpClient.executeMethod(method);
 
           if (method.getStatusCode() == 200) {
             TreeFragment fragment = new TreeFragment();
@@ -140,7 +140,8 @@ public class CCCrawler {
               }
 
               GetMethod method2 = new GetMethod(url);
-              ProxyHelper.executeMethod(httpClient, method2);
+//              ProxyHelper.executeMethod(httpClient, method2);
+              httpClient.executeMethod(method2);
               String page = method2.getResponseBodyAsString();
 
               Pattern namePattern = Pattern.compile("<h2 property=\"dc:title\">([^<]+)</h2>");
@@ -200,7 +201,8 @@ public class CCCrawler {
       treeFragment.put("urn:cone:locale", list);
 
       GetMethod method = new GetMethod(url);
-      ProxyHelper.executeMethod(httpClient, method);
+//      ProxyHelper.executeMethod(httpClient, method);
+      httpClient.executeMethod(method);
       String translation = method.getResponseBodyAsString();
 
       Pattern namePattern = Pattern.compile("<h2 property=\"dc:title\">([^<]+)</h2>");

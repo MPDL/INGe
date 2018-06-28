@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.mpdl.inge.aa.Config;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * TODO Description
@@ -47,7 +48,7 @@ public class IngeAaClientStart extends StartClient {
   protected String startAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String from = request.getParameter("target");
-    String aaInstanceUrl = Config.getProperty("inge.aa.instance.url");
+    String aaInstanceUrl = Config.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
     return "/auth/login_inge.jsp" + "?target=" + aaInstanceUrl + "clientReturn" + URLEncoder
         .encode(URLEncoder.encode("?target=" + from + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1"), "ISO-8859-1"), "ISO-8859-1");
 

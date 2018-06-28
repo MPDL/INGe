@@ -17,21 +17,18 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.EDOC_XML)
 public class ItemXmlToEdocXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.escidoc2edoc_export.stylesheet.filename",
-        "transformations/otherFormats/xslt/escidoc2edoc_export.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_ESCIDOC2EDOC_EXPORT_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("pubman_instance", PropertyReader.getProperty("inge.pubman.instance.url"));
-    map.put("coreservice_instance", "http://coreservice.mpdl.mpg.de:8080"); // TODO: anpassen
+    map.put("pubman_instance", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
+
     return map;
   }
-
 
   @Override
   public URIResolver getURIResolver() {
@@ -42,6 +39,5 @@ public class ItemXmlToEdocXml extends XslTransformer implements ChainableTransfo
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
-
 
 }

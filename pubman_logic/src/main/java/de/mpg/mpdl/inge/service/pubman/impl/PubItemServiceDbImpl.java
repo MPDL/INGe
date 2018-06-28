@@ -34,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.ContextRepository;
+import de.mpg.mpdl.inge.db.repository.FileRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
@@ -84,7 +85,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @Primary
 public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> implements PubItemService, ReindexListener {
 
-  private final static Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
+  private static final Logger logger = LogManager.getLogger(PubItemServiceDbImpl.class);
 
   @Autowired
   private AuthorizationService aaService;
@@ -129,6 +130,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Autowired
   @Qualifier("topicJmsTemplate")
   private JmsTemplate topicJmsTemplate;
+
+  @Autowired
+  private FileRepository fileRepository;
 
 
   public static String INDEX_MODIFICATION_DATE = "modificationDate";
@@ -220,8 +224,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_FULLTEXT_FILE_ID = "fileData.fileId";
 
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty("inge.rest.service.url");
-  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty("inge.rest.file.path");
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
+  public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
@@ -248,11 +252,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     validate(pubItemToCreate, ValidationPoint.SAVE);
 
     String id = idProviderService.getNewId(ID_PREFIX.ITEM);
-    String fullId = id + "_1";
+    VersionableId newId = new VersionableId(id, 1);
     pubItemToCreate.setObjectId(id);
     pubItemToCreate.getObject().setObjectId(id);
 
-    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal, pubItemToCreate.getObjectId()));
+    pubItemToCreate.setFiles(handleFiles(pubItemVO, null, principal, newId));
 
     try {
       pubItemToCreate = itemRepository.saveAndFlush(pubItemToCreate);
@@ -261,11 +265,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       GenericServiceImpl.handleDBException(e);
     }
 
+
     createAuditEntry(pubItemToCreate, EventType.CREATE);
     reindex(pubItemToCreate);
     sendEventTopic(pubItemToCreate, "create");
     long time = System.currentTimeMillis() - start;
-    logger.info("PubItem " + fullId + " successfully created in " + time + " ms");
+    logger.info("PubItem " + newId + " successfully created in " + time + " ms");
 
     return pubItemToCreate;
   }
@@ -394,7 +399,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     //Reset files to old files and handle them
     latestVersion.setFiles(oldFiles);
-    latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal, latestVersion.getObjectId()));
+    latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal, new VersionableId(latestVersion.getObjectIdAndVersion())));
 
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);
@@ -409,7 +414,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return latestVersion;
   }
 
-  private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal, String itemId)
+  private List<FileDbVO> handleFiles(ItemVersionVO newPubItemVO, ItemVersionVO currentPubItemVO, Principal principal, VersionableId itemId)
       throws IngeApplicationException, IngeTechnicalException {
 
     List<FileDbVO> updatedFileList = new ArrayList<>();
@@ -428,15 +433,17 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       if (fileVo.getObjectId() != null) {
 
+        //Check if this file exists for the given item id
+        String errorMessage =
+            "File with id [" + fileVo.getObjectId() + "] does not exist for this item. Please remove identifier to create as new file";
 
-        if (!currentFiles.containsKey(fileVo.getObjectId())) {
-          throw new IngeApplicationException(
-              "File with id [" + fileVo.getObjectId() + "] does not exist for this item. Please remove identifier to create as new file");
+        List<String> items = itemRepository.findItemsForFile(fileVo.getObjectId());
+        if (items == null || items.isEmpty() || !items.contains(itemId.getObjectId())) {
+          throw new IngeApplicationException(errorMessage);
         }
-
         // Already existing file, just update some fields
-        currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
-
+        //currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
+        currentFileDbVO = fileRepository.findOne(fileVo.getObjectId());
 
       } else {
 
@@ -463,7 +470,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           fileService.createFileFromStagedFile(fileVo, principal);
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
           // TODO Set content to a REST path
-          fileVo.setContent("/rest/items/" + itemId + "/component/" + currentFileDbVO.getObjectId() + "/content");
+
+          fileVo.setContent("/rest/items/" + itemId.toString() + "/component/" + currentFileDbVO.getObjectId() + "/content");
 
           currentFileDbVO.setChecksum(fileVo.getChecksum());
           currentFileDbVO.setChecksumAlgorithm(ChecksumAlgorithm.valueOf(fileVo.getChecksumAlgorithm().name()));
@@ -479,6 +487,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
         // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
         // .getChecksumAlgorithm().name()));
+
+        //Content still links to older version which is ok, because the old version might already been
         currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
@@ -522,6 +532,19 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ContextDbVO context = contextRepository.findOne(latestPubItemDbVersion.getObject().getContext().getObjectId());
     checkAa("delete", principal, latestPubItemDbVersion, context);
+
+    List<FileDbVO> files = new ArrayList<>();
+
+    //Delete all files
+    for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
+      ItemVersionVO item = itemRepository.findOne(new VersionableId(latestPubItemDbVersion.getObjectId(), i));
+      for (FileDbVO file : item.getFiles()) {
+        fileRepository.delete(file);
+      }
+      item.setFiles(null);
+    }
+
+
 
     // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
     // deleted by EntityManager.
@@ -667,14 +690,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       ItemRootVO pubItemObject = latestVersion.getObject();
       try {
         if (pubItemObject.getObjectPid() == null) {
-          URI url = new URI(
-              PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-                  + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectId()));
+          URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectId()));
           pubItemObject.setObjectPid(pidService.createPid(url).getIdentifier());
         }
-        URI url =
-            new URI(PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-                + PropertyReader.getProperty("inge.pubman.item.pattern").replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
+        URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
+                .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
         latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
@@ -809,6 +832,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   private void reindex(ItemRootVO object, boolean immediate) throws IngeTechnicalException {
 
     ItemVersionVO latestVersion = (ItemVersionVO) object.getLatestVersion();
+    latestVersion = latestVersion;
     // First try to delete the old version from index
     String oldVersion = new VersionableId(latestVersion.getObjectId(), latestVersion.getVersionNumber() - 1).toString();
     pubItemDao.delete(oldVersion);
@@ -828,6 +852,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     if (object.getLatestRelease() != null && object.getLatestRelease().getVersionNumber() != object.getLatestVersion().getVersionNumber()) {
       ItemVersionVO latestRelease = (ItemVersionVO) object.getLatestRelease();
+      latestRelease = latestRelease;
       logger.info("Reindexing item latest release " + latestRelease.getObjectIdAndVersion());
       if (immediate) {
         pubItemDao.createImmediately(latestRelease.getObjectId() + "_" + latestRelease.getVersionNumber(), latestRelease);
@@ -914,6 +939,27 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     return true;
   }
 
+
+  /*
+  public ItemVersionVO enrichItem(ItemVersionVO item) {
+  
+    if (item != null) {
+      try {
+        entityManager.detach(item);
+      } catch (Exception e) {
+  
+      }
+      if (item.getFiles() != null) {
+        for (FileDbVO file : item.getFiles()) {
+          if (Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+            file.setContent("/rest/items/" + item.getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content");
+          }
+        }
+      }
+    }
+    return item;
+  }
+  */
 
 
 }

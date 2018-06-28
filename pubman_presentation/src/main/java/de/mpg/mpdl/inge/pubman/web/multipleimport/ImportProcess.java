@@ -404,7 +404,8 @@ public class ImportProcess extends Thread {
     String escidocXml = null;
 
     try {
-      escidocXml = this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem, null);
+      escidocXml =
+          this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem, this.configuration);
 
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
@@ -477,7 +478,7 @@ public class ImportProcess extends Thread {
         List<SearchCriterionBase> scList = new ArrayList<>();
 
         for (final IdentifierVO identifierVO : itemVO.getMetadata().getIdentifiers()) {
-          if (scList.size() > 1) {
+          if (scList.size() >= 1) {
             scList.add(new de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator(SearchCriterion.OR_OPERATOR));
           }
           IdentifierSearchCriterion sc = new IdentifierSearchCriterion();

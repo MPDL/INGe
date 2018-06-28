@@ -14,20 +14,22 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.MODS_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class ModsXmlToItemXml extends XslTransformer implements ChainableTransformer {
+
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.mods_item.stylesheet.filename",
-        "transformations/standardFormats/xslt/mods2escidoc-publication-item.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_MODS_ITEM_STYLESHEET_FILENAME);
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
+
     if (FORMAT.ESCIDOC_ITEM_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.FALSE);
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
+
     return map;
   }
 
@@ -35,4 +37,5 @@ public class ModsXmlToItemXml extends XslTransformer implements ChainableTransfo
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
     return null;
   }
+
 }

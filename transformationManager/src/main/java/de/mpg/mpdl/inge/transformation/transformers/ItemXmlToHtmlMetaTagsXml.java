@@ -17,28 +17,24 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.ESCIDOC_ITEM_V3_XML, targetFormat = FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML)
 public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-
     if (FORMAT.HTML_METATAGS_DC_XML.equals(getTargetFormat())) {
-      return getXmlSourceFromProperty("inge.transformation.html_metatags_dc.stylesheet.filename",
-          "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-dc.xsl");
+      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_HTML_METATAGS_DC_STYLESHEET_FILENAME);
     } else if (FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML.equals(getTargetFormat())) {
-      return getXmlSourceFromProperty("inge.transformation.html_metatags_highwire.stylesheet.filename",
-          "transformations/standardFormats/xslt/escidoc-publication-item2html-meta-tags-highwire-press-citation.xsl");
+      return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_HTML_METATAGS_HIGHWIRE_STYLESHEET_FILENAME);
     } else {
       return null;
     }
-
   }
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-    map.put("pubmanInstanceUrl", PropertyReader.getProperty("inge.pubman.instance.url"));
-    map.put("pubmanComponentPattern", PropertyReader.getProperty("inge.pubman.component.pattern"));
-    map.put("pubmanContextPath", PropertyReader.getProperty("inge.pubman.instance.context.path"));
+    map.put("pubmanInstanceUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
+    map.put("pubmanComponentPattern", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN));
+    map.put("pubmanContextPath", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
+
     return map;
   }
 
@@ -51,6 +47,5 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   public URIResolver getURIResolver() {
     return new LocalUriResolver("transformations/standardFormats/xslt");
   }
-
 
 }

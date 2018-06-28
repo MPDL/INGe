@@ -268,8 +268,8 @@ public class SwordUtil extends FacesBean {
   // PropertyReader.getFrameworkUrl()
   // + SwordUtil.LOGOUT_URL
   // + "?target="
-  // + URLEncoder.encode(PropertyReader.getProperty("inge.pubman.instance.url")
-  // + PropertyReader.getProperty("inge.pubman.instance.context.path")
+  // + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+  // + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
   // + "?logout=true", "UTF-8"));
   // }
 
@@ -691,7 +691,7 @@ public class SwordUtil extends FacesBean {
    * @throws Exception If anything goes wrong...
    */
   protected URL uploadFile(InputStream in, String mimetype, AccountUserDbVO user, ZipEntry zipEntry) throws Exception {
-    final String fwUrl = PropertyReader.getFrameworkUrl();
+    final String fwUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
     final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
     method.setRequestEntity(new InputStreamRequestEntity(in, -1));
     method.setRequestHeader("Content-Type", mimetype);
@@ -739,7 +739,7 @@ public class SwordUtil extends FacesBean {
 
     // // Only set content if item was deposited
     if (!deposit.isNoOp() && item != null) {
-      content.setSource("TODO" + "/ir/item/" + item.getObjectId()); // coreservice_instance
+      content.setSource(server.getBaseURL() + "/ir/item/" + item.getObjectId());
       se.setId(server.getBaseURL() + SwordUtil.itemPath + item.getObjectId());
     }
     se.setContent(content);

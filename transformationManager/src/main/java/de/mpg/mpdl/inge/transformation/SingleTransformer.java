@@ -56,8 +56,7 @@ public abstract class SingleTransformer implements Transformer {
     this.sourceFormat = sourceFormat;
   }
 
-  protected static Map<String, String> getDefaultConfigurationFromProperty(String property, String defaultFile)
-      throws TransformationException {
+  protected static Map<String, String> getDefaultConfigurationFromProperty(String property) throws TransformationException {
     String propertyFileName = PropertyReader.getProperty(property);
 
     if (propertyFileName == null) {
@@ -83,8 +82,7 @@ public abstract class SingleTransformer implements Transformer {
     }
   }
 
-  protected static Map<String, List<String>> getAllConfigurationValuesFromProperty(String property, String defaultFile)
-      throws TransformationException {
+  protected static Map<String, List<String>> getAllConfigurationValuesFromProperty(String property) throws TransformationException {
     String propertyFileName = PropertyReader.getProperty(property);
 
     if (propertyFileName == null) {

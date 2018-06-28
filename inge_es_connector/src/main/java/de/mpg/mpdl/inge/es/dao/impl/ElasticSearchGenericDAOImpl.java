@@ -55,7 +55,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  */
 public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
-  private final static Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
+  private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
 
   @Autowired
   protected ElasticSearchClientProvider client;

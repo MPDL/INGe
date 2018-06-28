@@ -18,6 +18,7 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.bibtex.Bibtex;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 @TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 @TransformerModule(sourceFormat = FORMAT.BIBTEX_STRING, targetFormat = FORMAT.ESCIDOC_ITEM_V3_XML)
@@ -25,19 +26,16 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-
     try {
-
       Bibtex bib = new Bibtex();
+      bib.setConfiguration(getConfiguration());
 
       String res = bib.getBibtex(getStringFromSource(source));
 
       XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(res)), (Result) result);
-
     } catch (Exception e) {
       throw new TransformationException("Error while transforming Bibtex to item XML", e);
     }
-
   }
 
   @Override
@@ -47,18 +45,15 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty("inge.transformation.bibtex.configuration.filename",
-        "transformations/commonPublicationFormats/conf/bibtex.properties").get(key);
+    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME).get(key);
   }
 
   @Override
   public Map<String, String> getConfiguration() {
-
     if (super.getConfiguration() == null || super.getConfiguration().isEmpty()) {
       Map<String, String> c = new HashMap<String, String>();
       try {
-        c = getDefaultConfigurationFromProperty("inge.transformation.bibtex.configuration.filename",
-            "transformations/commonPublicationFormats/conf/bibtex.properties");
+        c = getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME);
 
         setConfiguration(c);
         return c;
@@ -67,6 +62,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
         e.printStackTrace();
       }
     }
+
     return super.getConfiguration();
   }
 

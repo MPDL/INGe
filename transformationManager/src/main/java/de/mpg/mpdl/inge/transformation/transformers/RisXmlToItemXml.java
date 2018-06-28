@@ -16,10 +16,9 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @TransformerModule(sourceFormat = FORMAT.RIS_XML, targetFormat = FORMAT.ESCIDOC_ITEMLIST_V3_XML)
 public class RisXmlToItemXml extends XslTransformer implements ChainableTransformer {
 
-
   @Override
   public Source getXsltSource() throws TransformationException {
-    return getXmlSourceFromProperty("inge.transformation.ris.stylesheet.filename", "transformations/otherFormats/xslt/risxml2escidoc.xsl");
+    return getXmlSourceFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_STYLESHEET_FILENAME);
   }
 
   @Override
@@ -31,24 +30,19 @@ public class RisXmlToItemXml extends XslTransformer implements ChainableTransfor
     } else if (FORMAT.ESCIDOC_ITEMLIST_V3_XML.equals(getTargetFormat())) {
       map.put("is-item-list", Boolean.TRUE);
     }
-    map.put("external-organization", PropertyReader.getProperty("inge.pubman.external.organisation.id"));
-
+    map.put("external-organization", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_EXTERNAL_ORGANISATION_ID));
 
     return map;
-
   }
-
 
   @Override
   public Map<String, String> getDefaultConfiguration() throws TransformationException {
-    return getDefaultConfigurationFromProperty("inge.transformation.ris.configuration.filename",
-        "transformations/otherFormats/conf/ris.properties");
+    return getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME);
   }
 
   @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
-    return getAllConfigurationValuesFromProperty("inge.transformation.ris.configuration.filename",
-        "transformations/otherFormats/conf/ris.properties").get(key);
+    return getAllConfigurationValuesFromProperty(PropertyReader.INGE_TRANSFORMATION_RIS_CONFIGURATION_FILENAME).get(key);
   }
 
 }

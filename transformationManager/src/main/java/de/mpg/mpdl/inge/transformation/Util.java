@@ -26,13 +26,12 @@
 
 package de.mpg.mpdl.inge.transformation;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -56,9 +55,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ProxyHelper;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
 /**
@@ -110,6 +107,12 @@ public class Util {
     return thisMimetype;
   }
 
+  private static String getAdminUrl() {
+    return PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "adminLogin" + "?username="
+        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME) + "&password="
+        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
+  }
+
   /**
    * Queries CoNE service and returns the result as DOM node. The returned XML has the following
    * structure: <cone> <author> <familyname>Buxtehude-Mölln</familyname>
@@ -131,8 +134,8 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      queryUrl =
-          PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
+      queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
+          + URLEncoder.encode(query, "UTF-8");
 
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
@@ -143,7 +146,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -151,18 +155,19 @@ public class Util {
           if (!"".equals(result.trim())) {
             String id = result.split("\\|")[1];
             // TODO "&redirect=true" must be reinserted again
-            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+            GetMethod detailMethod =
+                new GetMethod(Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+            //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+            //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
             detailMethod.setFollowRedirects(true);
 
 
             if (coneSession != null) {
               detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             }
-            ProxyHelper.executeMethod(client, detailMethod);
-            logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                + detailMethod.getResponseBodyAsString());
+            //            ProxyHelper.executeMethod(client, detailMethod);
+            client.executeMethod(method);
+            logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
 
             if (detailMethod.getStatusCode() == 200) {
               Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -193,8 +198,8 @@ public class Util {
     try {
       logger.info("queryCone: " + model + " query: " + query);
 
-      queryUrl =
-          PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&q=" + URLEncoder.encode(query, "UTF-8");
+      queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&q="
+          + URLEncoder.encode(query, "UTF-8");
       HttpClient client = new HttpClient();
       GetMethod method = new GetMethod(queryUrl);
 
@@ -203,7 +208,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -245,7 +251,7 @@ public class Util {
     String frameworkUrl = null;
     Document document = null;
     try {
-      frameworkUrl = PropertyReader.getFrameworkUrl();
+      frameworkUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
       url = frameworkUrl + request;
 
       if (logger.isDebugEnabled())
@@ -281,7 +287,7 @@ public class Util {
   public static String getConeSession() throws Exception {
     long now = new Date().getTime();
     if (coneSession == null || (now - coneSessionTimestamp) > 1000 * 60 * 30) {
-      String queryUrl = PropertyReader.getProperty("inge.cone.service.url");
+      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
       HttpClient client = new HttpClient();
       GetMethod method = new GetMethod(queryUrl);
       try {
@@ -331,11 +337,11 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      String queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
           + URLEncoder.encode("dc:title", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
           + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-      String detailsUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/resource/$1?format=rdf";
+      String detailsUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
@@ -345,12 +351,13 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
         results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
-        queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+        queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("dcterms:alternative", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
             + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
             + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
@@ -359,7 +366,8 @@ public class Util {
         if (coneSession != null) {
           method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
         }
-        ProxyHelper.executeMethod(client, method);
+        //        ProxyHelper.executeMethod(client, method);
+        client.executeMethod(method);
         logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
         if (method.getStatusCode() == 200) {
           results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
@@ -369,16 +377,15 @@ public class Util {
               String id = result.split("\\|")[1];
               if (!oldIds.contains(id)) {
                 // TODO "&redirect=true" must be reinserted again
-                GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                    + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+                GetMethod detailMethod = new GetMethod(
+                    Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+                //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+                //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 detailMethod.setFollowRedirects(true);
-
-                ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                //                ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
                 client.executeMethod(detailMethod);
                 // TODO "&redirect=true" must be reinserted again
-                logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                    + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                    + detailMethod.getResponseBodyAsString());
+                logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
                 if (detailMethod.getStatusCode() == 200) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                   element.appendChild(document.importNode(details.getFirstChild(), true));
@@ -425,11 +432,11 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
 
-      String queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&dc:identifier/"
+      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&dc:identifier/"
           + URLEncoder.encode("rdf:value", "UTF-8") + "=" + URLEncoder.encode("\"" + identifier + "\"", "UTF-8") + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
           + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-      String detailsUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/resource/$1?format=rdf";
+      String detailsUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
@@ -439,7 +446,8 @@ public class Util {
       if (coneSession != null) {
         method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       }
-      ProxyHelper.executeMethod(client, method);
+      //      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
@@ -450,16 +458,15 @@ public class Util {
             String id = result.split("\\|")[1];
             if (!oldIds.contains(id)) {
               // TODO "&redirect=true" must be reinserted again
-              GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
-                  + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
+              GetMethod detailMethod =
+                  new GetMethod(Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+              //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
+              //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
               detailMethod.setFollowRedirects(true);
-
-              ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+              //              ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
               client.executeMethod(detailMethod);
               // TODO "&redirect=true" must be reinserted again
-              logger.info("CoNE query: " + id + "?format=rdf&eSciDocUserHandle="
-                  + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")) + " returned "
-                  + detailMethod.getResponseBodyAsString());
+              logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
               if (detailMethod.getStatusCode() == 200) {
                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                 element.appendChild(document.importNode(details.getFirstChild(), true));
@@ -516,14 +523,14 @@ public class Util {
       if (childIds.size() > 0) {
         // execute a method for every child ou
         for (String childId : childIds) {
-          queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+          queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
               + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + childId + "\"", "UTF-8")
               + "&n=0";
           executeGetMethod(client, queryUrl, documentBuilder, document, element);
         }
       } else {
         // there are no child ous, method is called once
-        queryUrl = PropertyReader.getProperty("inge.cone.service.url") + model + "/query?format=jquery&"
+        queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/query?format=jquery&"
             + URLEncoder.encode("escidoc:position/dc:identifier", "UTF-8") + "=" + URLEncoder.encode("\"" + query + "\"", "UTF-8") + "&n=0";
         executeGetMethod(client, queryUrl, documentBuilder, document, element);
       }
@@ -561,7 +568,8 @@ public class Util {
     try {
       logger.info("queryURL from executeGetMethod  " + queryUrl);
       GetMethod method = new GetMethod(queryUrl);
-      ProxyHelper.executeMethod(client, method);
+      client.executeMethod(method);
+      //      ProxyHelper.executeMethod(client, method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -572,7 +580,7 @@ public class Util {
             if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
               GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
               previousUrl = detailsUrl;
-              ProxyHelper.setProxy(client, detailsUrl);
+              //              ProxyHelper.setProxy(client, detailsUrl);
               client.executeMethod(detailMethod);
 
               if (detailMethod.getStatusCode() == 200) {
@@ -609,7 +617,7 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
       GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
-      ProxyHelper.setProxy(client, conePersonUrl);
+      //      ProxyHelper.setProxy(client, conePersonUrl);
       client.executeMethod(detailMethod);
       if (detailMethod.getStatusCode() == 200) {
         Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -636,7 +644,8 @@ public class Util {
 
     try {
       logger.info("Getting size of " + url);
-      ProxyHelper.executeMethod(httpClient, headMethod);
+      //      ProxyHelper.executeMethod(httpClient, headMethod);
+      httpClient.executeMethod(headMethod);
 
       if (headMethod.getStatusCode() != 200) {
         logger.warn("Wrong status code " + headMethod.getStatusCode() + " at " + url);
@@ -659,7 +668,8 @@ public class Util {
         logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
         httpClient = new HttpClient();
         GetMethod getMethod = new GetMethod(url);
-        ProxyHelper.executeMethod(httpClient, getMethod);
+        //        ProxyHelper.executeMethod(httpClient, getMethod);
+        httpClient.executeMethod(getMethod);
 
         if (getMethod.getStatusCode() != 200) {
           logger.warn("Wrong status code " + getMethod.getStatusCode() + " at " + url);

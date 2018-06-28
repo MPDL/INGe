@@ -61,7 +61,7 @@
 								</h:panelGroup>
 								<h:selectOneMenu id="selContentCategory" styleClass="replace"
 									onfocus="updateSelectionBox(this);"
-									value="#{fileComponent.file.metadata.contentCategoryLabel}"
+									value="#{fileComponent.contentCategoryAsXmlString}"
 									onchange="updateSelectionBox(this);">
 									<f:selectItems id="selContentCategorys"
 										value="#{EasySubmission.contentCategories}" />

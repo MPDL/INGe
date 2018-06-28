@@ -46,13 +46,13 @@ public class GenreServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     try {
-      final InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty("inge.pubman.genres.configuration"),
+      final InputStream file = ResourceUtil.getResourceAsStream(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_GENRES_CONFIGURATION),
           GenreServlet.class.getClassLoader());
 
       final SAXParserFactory factory = SAXParserFactory.newInstance();
       final SAXParser parser = factory.newSAXParser();
 
-      final String jbossHomeDir = System.getProperty("jboss.home.dir");
+      final String jbossHomeDir = System.getProperty(PropertyReader.JBOSS_HOME_DIR);
       final DefaultHandler handler = new GenreHandler(jbossHomeDir + "/modules/pubman/main");
 
       parser.parse(file, handler);
