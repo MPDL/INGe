@@ -95,7 +95,7 @@ public class IngeAaClientFinish extends FinalClient {
     return null;
   }
 
-  public static AccountUserDbVO getUser(String token) {
+  private static AccountUserDbVO getUser(String token) {
 
     try {
       Response resp = Request.Get(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/rest/login/who")
