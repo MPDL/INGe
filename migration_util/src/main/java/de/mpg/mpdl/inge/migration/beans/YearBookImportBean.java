@@ -20,6 +20,7 @@ import de.mpg.mpdl.inge.db.repository.YearbookRepository;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
@@ -46,7 +47,6 @@ public class YearBookImportBean {
   private MigrationUtilBean utils;
   @Autowired
   private OrganizationService organizationService;
-
 
   public void importYearBooks() throws Exception {
 
@@ -122,7 +122,11 @@ public class YearBookImportBean {
     newYearbook.setCreator(owner);
     newYearbook.setModifier(modifier);
     newYearbook.setObjectId(utils.changeId("yb", itemVo.getVersion().getObjectId()));
-    newYearbook.setState(newYearbook.getState().valueOf(itemVo.getVersion().getState().name()));
+    if (itemVo.getVersion().getState().equals(ItemVO.State.PENDING)) {
+      newYearbook.setState(YearbookDbVO.State.CREATED);
+    } else {
+      newYearbook.setState(newYearbook.getState().valueOf(itemVo.getVersion().getState().name()));
+    }
 
     newYearbook.setCreationDate(itemVo.getCreationDate());
     newYearbook.setLastModificationDate(itemVo.getLatestVersion().getModificationDate());

@@ -80,11 +80,11 @@ public class Migration {
         userImport.importUsers();
         break;
       case "single_user":
-    	  if (id !=null) {
-    		  userImport.importSingleUser(id);
-    		  reIndexing.reindexUser(id.replace("escidoc:", "user_"));
-    	  }
-    	  break;
+        if (id != null) {
+          userImport.importSingleUser(id);
+          reIndexing.reindexUser(id.replace("escidoc:", "user_"));
+        }
+        break;
       case "users_reindex":
         reIndexing.reindexUsers();
         break;

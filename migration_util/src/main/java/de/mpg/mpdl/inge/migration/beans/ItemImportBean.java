@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
@@ -17,24 +18,32 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import de.mpg.mpdl.inge.db.repository.ItemObjectRepository;
 import de.mpg.mpdl.inge.db.repository.ItemRepository;
+import de.mpg.mpdl.inge.db.repository.UserAccountRepository;
+import de.mpg.mpdl.inge.db.repository.AuditRepository;
 import de.mpg.mpdl.inge.db.repository.IdentifierProviderServiceImpl.ID_PREFIX;
 import de.mpg.mpdl.inge.filestorage.filesystem.FileSystemServiceBean;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.EventLogEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
@@ -45,6 +54,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.impl.GenericServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 
 @Component
@@ -63,7 +73,11 @@ public class ItemImportBean {
   @Autowired
   private ItemRepository itemRepository;
   @Autowired
+  private AuditRepository auditRepository;
+  @Autowired
   private ItemObjectRepository itemObjectRepository;
+  @Autowired
+  private UserAccountRepository userRepository;
   @Autowired
   private FileSystemServiceBean fssb;
   @Autowired
@@ -72,7 +86,6 @@ public class ItemImportBean {
   private MigrationUtilBean utils;
   @Autowired
   private OrganizationService organizationService;
-
 
   public void importPubItems() throws Exception {
 
@@ -123,10 +136,21 @@ public class ItemImportBean {
         String itemXml = EntityUtils.toString(itemResponse.getEntity(), StandardCharsets.UTF_8);
         PubItemVO item = XmlTransformingService.transformToPubItem(itemXml);
         savePubItem(item, fileMap);
-
       } catch (Exception e) {
         log.error("FAILED Getting " + pubItemVo.getVersion().getObjectIdAndVersion(), e);
       }
+    }
+    try {
+      URI versionHistoryUri =
+          new URIBuilder(escidocUrl + itemPath + "/" + pubItemVo.getVersion().getObjectId() + "/resources/version-history").build();
+      final HttpGet versionHistoryRequest = new HttpGet(versionHistoryUri);
+      HttpResponse versionHistoryResponse = client.execute(versionHistoryRequest);
+      String versionHostoryXml = EntityUtils.toString(versionHistoryResponse.getEntity(), StandardCharsets.UTF_8);
+      List<VersionHistoryEntryVO> versionHistory = XmlTransformingService.transformToEventVOList(versionHostoryXml);
+      log.info("Starting to generate audit log 4 " + pubItemVo.getVersion().getObjectId());
+      saveAuditLog(versionHistory, pubItemVo.getVersion().getObjectId());
+    } catch (Exception e) {
+      log.error("FAILED logging audit records 4 " + pubItemVo.getVersion().getObjectId(), e);
     }
   }
 
@@ -149,12 +173,10 @@ public class ItemImportBean {
 
     owner.setObjectId(utils.changeId("user", itemVo.getOwner().getObjectId()));
     /*
-    if (itemVo.getOwner().getTitle().length() > 255) {
-      owner.setName(itemVo.getOwner().getTitle().substring(0, 254));
-    } else {
-      owner.setName(itemVo.getOwner().getTitle());
-    }
-    */
+     * if (itemVo.getOwner().getTitle().length() > 255) {
+     * owner.setName(itemVo.getOwner().getTitle().substring(0, 254)); } else {
+     * owner.setName(itemVo.getOwner().getTitle()); }
+     */
 
     modifier.setObjectId(utils.changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
     // modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
@@ -226,7 +248,7 @@ public class ItemImportBean {
     itemMetaData = MetadataCleanup.purge(itemMetaData);
     newPubItem.setMetadata(itemMetaData);
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
-    newPubItem.setModifier(owner);
+    newPubItem.setModifier(modifier);
     newPubItem.setObjectId(utils.changeId("item", itemVo.getVersion().getObjectId()));
     newPubItem.setVersionState(ItemVersionVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
@@ -255,12 +277,13 @@ public class ItemImportBean {
 
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
       pubItemObject.setLatestVersion(newPubItem);
-    } /*else {
-      ItemVersionRO latestVersion = new ItemVersionRO();
-      latestVersion.setObjectId(utils.changeId(ID_PREFIX.ITEM.getPrefix(), itemVo.getLatestVersion().getObjectId()));
-      latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());
-      pubItemObject.setLatestVersion(latestVersion);
-      }*/
+    } /*
+       * else { ItemVersionRO latestVersion = new ItemVersionRO();
+       * latestVersion.setObjectId(utils.changeId(ID_PREFIX.ITEM.getPrefix(),
+       * itemVo.getLatestVersion().getObjectId()));
+       * latestVersion.setVersionNumber(itemVo.getLatestVersion().getVersionNumber());
+       * pubItemObject.setLatestVersion(latestVersion); }
+       */
 
     pubItemObject.setLocalTags(itemVo.getLocalTags());
     pubItemObject.setObjectId(utils.changeId("item", itemVo.getVersion().getObjectId()));
@@ -292,7 +315,6 @@ public class ItemImportBean {
 
     PubItemVO theItem = null;
 
-
     try {
       HttpClient client = utils.setup();
 
@@ -310,5 +332,52 @@ public class ItemImportBean {
 
   }
 
+  private void saveAuditLog(List<VersionHistoryEntryVO> versionHistory, String objectId) {
 
+    versionHistory.forEach(eventList -> {
+
+      ItemVersionVO item =
+          itemRepository.findOne(new VersionableId(objectId.replace("escidoc:", "item_"), eventList.getReference().getVersionNumber()));
+      eventList.getEvents().forEach(event -> {
+
+        if (event.getType() != null && !event.getType().equals(EventLogEntryVO.EventType.ASSIGN_VERSION_PID)) {
+          AuditDbVO audit = new AuditDbVO();
+          audit.setComment(event.getComment());
+          audit.setModificationDate(event.getDate());
+          audit.setModifier(item.getModifier());
+          audit.setPubItem(item);
+
+          switch (event.getType()) {
+            case CREATE: {
+              audit.setEvent(AuditDbVO.EventType.CREATE);
+              break;
+            }
+            case RELEASE: {
+              audit.setEvent(AuditDbVO.EventType.RELEASE);
+              break;
+            }
+            case SUBMIT: {
+              audit.setEvent(AuditDbVO.EventType.SUBMIT);
+              break;
+            }
+            case IN_REVISION: {
+              audit.setEvent(AuditDbVO.EventType.REVISE);
+              break;
+            }
+            case UPDATE: {
+              audit.setEvent(AuditDbVO.EventType.UPDATE);
+              break;
+            }
+            case WITHDRAW: {
+              audit.setEvent(AuditDbVO.EventType.WITHDRAW);
+              break;
+            }
+            default:
+              break;
+          }
+          auditRepository.saveAndFlush(audit);
+        }
+      });
+    });
+  }
 }
