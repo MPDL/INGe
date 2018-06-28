@@ -63,14 +63,14 @@ public class Login {
 
   }
 
-//  public static boolean getLoggedIn(HttpServletRequest request) {
-//    if (request.getSession().getAttribute("logged_in") != null
-//        && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue()) {
-//      return true;
-//    } else {
-//      checkLogin(request, true);
-//      return (request.getSession().getAttribute("logged_in") != null
-//          && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
-//    }
-//  }
+  //  public static boolean getLoggedIn(HttpServletRequest request) {
+  //    if (request.getSession().getAttribute("logged_in") != null
+  //        && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue()) {
+  //      return true;
+  //    } else {
+  //      checkLogin(request, true);
+  //      return (request.getSession().getAttribute("logged_in") != null
+  //          && ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue());
+  //    }
+  //  }
 }
