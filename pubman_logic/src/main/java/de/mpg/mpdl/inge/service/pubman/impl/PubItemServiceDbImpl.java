@@ -534,18 +534,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     checkAa("delete", principal, latestPubItemDbVersion, context);
 
     List<FileDbVO> files = new ArrayList<>();
-    
+
     //Delete all files
-    for (int i=1; i<=latestPubItemDbVersion.getVersionNumber(); i++)
-    {
+    for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
       ItemVersionVO item = itemRepository.findOne(new VersionableId(latestPubItemDbVersion.getObjectId(), i));
-      for(FileDbVO file : item.getFiles())
-      {
+      for (FileDbVO file : item.getFiles()) {
         fileRepository.delete(file);
       }
       item.setFiles(null);
     }
-    
 
 
 
