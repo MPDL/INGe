@@ -165,13 +165,6 @@
                                 </h:panelGroup>
                                 <!-- Subheadline ends here -->
                             </h:panelGroup>
-                            <h:panelGroup layout="block" styleClass="subHeader">
-                                <!-- Subheadline starts here -->
-                                
-                                    <h:outputText value="#{SearchRetrieverRequestBean.prettyElasticSearchQuery}" style="white-space:pre-wrap;" />
-                                    
-                                <!-- Subheadline ends here -->
-                            </h:panelGroup>
                             <!-- 
                             <h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'org'}">
                                 <h:outputLink id="lnkAffiliationTreePage" styleClass="free_area0 xTiny_marginRIncl" value="AffiliationTreePage.jsp">

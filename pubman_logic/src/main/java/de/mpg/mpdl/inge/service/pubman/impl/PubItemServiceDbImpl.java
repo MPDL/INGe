@@ -191,11 +191,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID = "metadata.publishingInfo.publisher";
 
   public static String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE = "metadata.projectInfo.fundingOrganization.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE = "metadata.projectInfo.fundingInfo.fundingOrganization.title";
   public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID =
-      "metadata.projectInfo.fundingOrganization.identifiers.id";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingProgram.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID = "metadata.projectInfo.fundingProgram.identifiers.id";
+      "metadata.projectInfo.fundingInfo.fundingOrganization.identifiers.id";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingInfo.fundingProgram.title";
+  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID =
+      "metadata.projectInfo.fundingInfo.fundingProgram.identifiers.id";
   public static String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID = "metadata.projectInfo.grantIdentifier.id";
 
   public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
