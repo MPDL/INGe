@@ -38,6 +38,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -150,7 +151,9 @@ public class ItemControllerSessionBean extends FacesBean {
     newItem.setVersionState(State.PENDING);
     newItem.setVersionPid(null);
     newItem.getObject().setPublicState(State.PENDING);
-    newItem.getObject().setCreator(null);
+    AccountUserDbRO creator = new AccountUserDbRO();
+    creator.setObjectId(getLoginHelper().getAccountUser().getObjectId());
+    newItem.getObject().setCreator(creator);
     newItem.getFiles().clear();
     // clear local tags [PUBMAN-2478]
     newItem.getObject().getLocalTags().clear();
@@ -196,6 +199,9 @@ public class ItemControllerSessionBean extends FacesBean {
   public String createNewPubItem(final String navigationRuleWhenSuccessful, final ContextDbRO pubContextRO) {
     ItemVersionVO newPubItem = new ItemVersionVO();
     newPubItem.getObject().setContext(pubContextRO);
+    AccountUserDbRO creator = new AccountUserDbRO();
+    creator.setObjectId(getLoginHelper().getAccountUser().getObjectId());
+    newPubItem.getObject().setCreator(creator);
     newPubItem.setMetadata(new MdsPublicationVO());
     newPubItem = this.initializeItem(newPubItem);
     this.setCurrentPubItem(new PubItemVOPresentation(newPubItem));
@@ -308,6 +314,7 @@ public class ItemControllerSessionBean extends FacesBean {
       newPubItem.setVersion(version);
     }
     */
+
 
     // Status
     if (newPubItem.getVersionState() == null) {

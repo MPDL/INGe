@@ -27,7 +27,9 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"item.versionState" : ["PENDING", "SUBMITTED", "RELEASED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},			{
 				"user" : {
 					"field_user_id_match" : "item.object.creator.objectId"
@@ -67,7 +69,9 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"item.versionState" : ["PENDING", "IN_REVISION"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED"]
 			},			{
 				"user" : {
 					"field_user_id_match" : "item.object.creator.objectId"
@@ -108,7 +112,9 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"item.versionState" : ["PENDING", "IN_REVISION"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},			{
 				"context.workflow" : "STANDARD",
 				"user" : {
@@ -123,7 +129,9 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"item.versionState" : ["PENDING", "SUBMITTED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},			{
 				"context.workflow" : "SIMPLE",
 				"user" : {
@@ -146,7 +154,9 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"item.versionState" : ["SUBMITTED"],
+				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			},			{
 				"context.workflow" : "STANDARD",
 				"user" : {
@@ -162,7 +172,9 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				}
+				},
+				"item.versionState" : ["RELEASED"],
+				"item.object.publicState" : ["RELEASED"]
 			},			{
 				"context.workflow" : "SIMPLE",
 				"user" : {

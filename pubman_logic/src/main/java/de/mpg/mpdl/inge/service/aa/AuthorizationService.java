@@ -52,7 +52,14 @@ public class AuthorizationService {
   public enum AccessType
   {
     GET("get"),
-    READ_FILE("readFile");
+    READ_FILE("readFile"),
+    SUBMIT("submit"),
+    RELEASE("release"),
+    DELETE("delete"),
+    WITHDRAW("withdraw"),
+    EDIT("update"),
+    REVISE("revise");
+
 
   private String methodName;
 
@@ -269,7 +276,8 @@ public class AuthorizationService {
               }
               default: {
                 String key = rule.getKey();
-                String keyValue = getFieldValueOrString(order, objects, key).toString();
+                Object keyValueObject = getFieldValueOrString(order, objects, key);
+                String keyValue = keyValueObject != null ? keyValueObject.toString() : null;
                 boolean check = false;
                 if (rule.getValue() instanceof Collection<?>) {
                   List<String> valuesToCompare = (List<String>) rule.getValue();
@@ -375,7 +383,8 @@ public class AuthorizationService {
     String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
 
     if (userIdFieldMatch != null) {
-      String expectedUserId = getFieldValueOrString(order, objects, userIdFieldMatch).toString();
+      Object userId = getFieldValueOrString(order, objects, userIdFieldMatch);
+      String expectedUserId = (userId != null ? userId.toString() : null);
 
       if (expectedUserId == null || !expectedUserId.equals(userAccount.getObjectId())) {
         throw new AuthorizationException("User is not owner of object.");

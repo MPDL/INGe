@@ -106,8 +106,6 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canSubmit}" />
                                     <h:commandLink id="lnkRelease" action="#{ViewItemFull.releaseItem}" value="#{lbl.actionMenu_lnkRelease}" rendered="#{ViewItemFull.canRelease}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRelease}" />
-                                    <h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" value="#{lbl.accept}" rendered="#{ViewItemFull.canAccept}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canAccept}" />
                                     <h:commandLink id="lnkRevise" action="#{ViewItemFull.reviseItem}" value="#{lbl.actionMenu_lnkRevise}" rendered="#{ViewItemFull.canRevise}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRevise}" />
                                     <h:commandLink id="lnkDelete" onclick="if(!confirm('#{msg.deleteMessage}'))return false;" value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{ViewItemFull.canDelete}" />

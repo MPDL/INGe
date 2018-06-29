@@ -52,6 +52,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
@@ -70,7 +71,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.SubjectClassification;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.IdentifierCollection.IdentifierManager;
@@ -91,7 +91,9 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTa
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -140,7 +142,7 @@ public class EditItem extends FacesBean {
   }
 
   public void init() {
-    this.enableLinks();
+
 
     try {
       this.initializeItem();
@@ -152,6 +154,8 @@ public class EditItem extends FacesBean {
     if (this.getPubItem() == null) {
       return;
     }
+
+    this.enableLinks();
 
     if (this.getPubItem().getObjectId() != null && this.getLoginHelper().getIsYearbookEditor()) {
       if (this.getYearbookItemSessionBean().getYearbook() != null
@@ -180,7 +184,7 @@ public class EditItem extends FacesBean {
     this.bindFilesAndLocators = false;
 
     if (this.getPubItem().getVersionState().equals(ItemVersionRO.State.RELEASED)) {
-      return this.saveAndAccept();
+      return this.saveAndRelease();
     }
 
     this.save();
@@ -678,9 +682,7 @@ public class EditItem extends FacesBean {
     return saveAndGoto(ReleaseItem.LOAD_RELEASEITEM);
   }
 
-  public String saveAndAccept() {
-    return saveAndGoto(AcceptItem.LOAD_ACCEPTITEM);
-  }
+
 
   public String stageFile(UploadedFile file) {
     if (file != null && file.getSize() > 0) {
@@ -811,13 +813,14 @@ public class EditItem extends FacesBean {
   }
 
   private void enableLinks() {
+    /*
     boolean isStatePending = true;
     boolean isStateSubmitted = false;
     boolean isStateReleased = false;
     //    boolean isStateInRevision = false;
     boolean isStateWithdrawn = false;
     // boolean isPublicStateReleased = false;
-
+    
     if (this.getPubItem() != null && this.getPubItem().getVersionState() != null) {
       isStatePending = ItemVersionRO.State.PENDING.equals(this.getPubItem().getVersionState());
       isStateSubmitted = ItemVersionRO.State.SUBMITTED.equals(this.getPubItem().getVersionState());
@@ -826,23 +829,24 @@ public class EditItem extends FacesBean {
       isStateWithdrawn = ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getVersionState());
       // isPublicStateReleased = ItemVersionRO.State.RELEASED.equals(this.getPubItem().getObject().getPublicState());
     }
-
+    
     boolean isOwner = true;
     if (this.getPubItem() != null && this.getPubItem().getObject().getCreator() != null) {
       isOwner = (this.getLoginHelper().getAccountUser() != null
           ? this.getLoginHelper().getAccountUser().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
           : false);
     }
-
+    */
     boolean isModerator = false;
     if (this.getLoginHelper().getAccountUser() != null && this.getPubItem() != null) {
       isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR,
           this.getPubItem().getObject().getContext().getObjectId());
     }
 
+    /*
     boolean isWorkflowStandard = false;
     boolean isWorkflowSimple = true;
-
+    
     try {
       if (this.getItemControllerSessionBean().getCurrentContext() != null) {
         isWorkflowStandard = (ContextDbVO.Workflow.STANDARD == this.getItemControllerSessionBean().getCurrentContext().getWorkflow());
@@ -851,20 +855,44 @@ public class EditItem extends FacesBean {
     } catch (final Exception e) {
       throw new RuntimeException("Previously uncaught exception", e);
     }
+    */
 
-    final boolean isItem = this.getPubItem() != null;
+    this.lnkAccept.setRendered(false);
+    this.lnkRelease.setRendered(false);
+    this.lnkSaveAndSubmit.setRendered(false);
+    this.lnkSave.setRendered(false);
 
-    if (!isItem) {
+
+    try {
+      PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+
+      boolean canEdit = pis.checkAccess(AccessType.EDIT, getLoginHelper().getPrincipal(), this.getPubItem());
+      this.lnkSave.setRendered(canEdit);
+
+      ItemVersionVO itemAfterSave = this.getPubItem();
+      if (ItemVersionRO.State.RELEASED.equals(this.getPubItem().getVersionState())) {
+        itemAfterSave = new ItemVersionVO(this.getPubItem());
+        itemAfterSave.setVersionState(isModerator ? State.SUBMITTED : State.PENDING);
+      }
+
+      this.lnkRelease.setRendered(canEdit && pis.checkAccess(AccessType.RELEASE, getLoginHelper().getPrincipal(), itemAfterSave));
+      this.lnkSaveAndSubmit.setRendered(canEdit && pis.checkAccess(AccessType.SUBMIT, getLoginHelper().getPrincipal(), itemAfterSave));
+
       this.lnkAccept.setRendered(false);
-      this.lnkRelease.setRendered(false);
-      this.lnkSaveAndSubmit.setRendered(false);
-      this.lnkSave.setRendered(false);
-    } else {
-      this.lnkRelease.setRendered(isOwner && isWorkflowSimple && (isStatePending || isStateSubmitted || isStateReleased));
-      this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
-      this.lnkSave.setRendered(isOwner || isModerator);
-      this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn));
+
+
+    } catch (Exception e) {
+      info("Error while retrieving access information.");
+      logger.error("Error while getting access information", e);
     }
+
+    /*
+    this.lnkRelease.setRendered(isOwner && isWorkflowSimple && (isStatePending || isStateSubmitted || isStateReleased));
+    this.lnkAccept.setRendered(isModerator && !isOwner && (isStateSubmitted || isStateReleased));
+    this.lnkSave.setRendered(isOwner || isModerator);
+    this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && !(isStateSubmitted || isStateReleased || isStateWithdrawn));
+    */
+
   }
 
   public boolean getLocalTagEditingAllowed() {

@@ -72,7 +72,6 @@ import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
-import de.mpg.mpdl.inge.pubman.web.acceptItem.AcceptItem;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.MyItemsRetrieverRequestBean;
@@ -101,9 +100,11 @@ import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
 import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
@@ -606,13 +607,7 @@ public class ViewItemFull extends FacesBean {
     return SubmitItem.LOAD_SUBMITITEM;
   }
 
-  public String acceptItem() {
-    if (!validate()) {
-      return null;
-    } ;
 
-    return AcceptItem.LOAD_ACCEPTITEM;
-  }
 
   public String releaseItem() {
     if (!validate()) {
@@ -1904,39 +1899,63 @@ public class ViewItemFull extends FacesBean {
   }
 
   private void setLinks() {
+
+    try {
+      PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+      this.canEdit = pis.checkAccess(AccessType.EDIT, getLoginHelper().getPrincipal(), this.getPubItem());
+      this.canModify = false;
+
+      this.canSubmit = pis.checkAccess(AccessType.SUBMIT, getLoginHelper().getPrincipal(), this.getPubItem());
+
+      this.canRelease = pis.checkAccess(AccessType.RELEASE, getLoginHelper().getPrincipal(), this.getPubItem());
+      this.canAccept = false;
+
+      this.canRevise = pis.checkAccess(AccessType.REVISE, getLoginHelper().getPrincipal(), this.getPubItem());
+
+      this.canWithdraw = pis.checkAccess(AccessType.WITHDRAW, getLoginHelper().getPrincipal(), this.getPubItem());
+
+      this.canDelete = pis.checkAccess(AccessType.DELETE, getLoginHelper().getPrincipal(), this.getPubItem());
+    } catch (Exception e) {
+      info("Error while retrieving access information.");
+      logger.error("Error while getting access information", e);
+    }
+
+    /*
     if (((this.isStatePending || this.isStateSubmitted && this.isWorkflowSimple || this.isStateInRevision) && this.isLatestVersion
         && this.isOwner) || (this.isStateSubmitted && this.isLatestVersion && this.isModerator)) {
       this.canEdit = true;
     }
-
+    
     if ((this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner && this.isWorkflowStandard) {
       this.canSubmit = true;
     }
-
+    
     if (this.isOwner && this.isLatestVersion && (((this.isStatePending || this.isStateSubmitted) && this.isWorkflowSimple)
         || (this.isWorkflowStandard && this.isModerator && this.isStateSubmitted))) {
       this.canRelease = true;
     }
-
+    
     if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && !this.isOwner) {
       this.canAccept = true;
     }
-
+    
     if (this.isStateSubmitted && this.isLatestVersion && this.isModerator && this.isWorkflowStandard && !this.isPublicStateReleased) {
       this.canRevise = true;
     }
-
+    
     if (!this.isPublicStateReleased && (this.isStatePending || this.isStateInRevision) && this.isLatestVersion && this.isOwner) {
       this.canDelete = true;
     }
-
+    
     if (this.isStateReleased && this.isLatestVersion && (this.isOwner || this.isModerator)) {
       this.canWithdraw = true;
     }
-
+    
     if (this.isStateReleased && this.isLatestVersion && (this.isModerator || this.isOwner)) {
       this.canModify = true;
     }
+    
+    */
 
     if (!this.isStateWithdrawn && this.isLatestVersion && this.isDepositor) {
       this.canCreateFromTemplate = true;
@@ -2118,7 +2137,7 @@ public class ViewItemFull extends FacesBean {
       retVal = icsb.saveCurrentPubItem(navigateTo);
       if (ItemVersionRO.State.RELEASED.equals(state)) {
         if (this.isModerator) {
-          navigateTo = AcceptItem.LOAD_ACCEPTITEM;
+          navigateTo = ReleaseItem.LOAD_RELEASEITEM;
           if (navigateTo.equals(retVal)) {
             retVal = icsb.submitCurrentPubItem(navigateTo, messageSubmit);
           }

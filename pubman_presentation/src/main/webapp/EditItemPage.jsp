@@ -205,7 +205,6 @@
                         <div class="full_area0 formButtonArea">
                             <h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.cancel}" action="#{EditItem.cancel}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" binding="#{EditItem.lnkRelease}" value="#{lbl.actionMenu_lnkRelease}" action="#{EditItem.saveAndRelease}" onclick="fullItemReloadAjax();" />
-                            <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkAccept" binding="#{EditItem.lnkAccept}" value="#{lbl.accept}" action="#{EditItem.saveAndAccept}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSaveAndSubmit" binding="#{EditItem.lnkSaveAndSubmit}" value="#{lbl.EditItem_lnkSaveAndSubmit}" action="#{EditItem.saveAndSubmit}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" binding="#{EditItem.lnkSave}" value="#{lbl.save}" action="#{EditItem.save}" onclick="fullItemReloadAjax();" />
                             <h:commandLink styleClass="free_area1_p8 activeButton" id="lnkValidate" value="#{lbl.EditItem_lnkValidate}" action="#{EditItem.validate}" onclick="fullItemReloadAjax();" />
