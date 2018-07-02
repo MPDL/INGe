@@ -320,8 +320,8 @@ public class ItemControllerSessionBean extends FacesBean {
     if (newPubItem.getVersionState() == null) {
       newPubItem.setVersionState(State.PENDING);
     }
-    
- // Status
+
+    // Status
     if (newPubItem.getObject().getPublicState() == null) {
       newPubItem.getObject().setPublicState(State.PENDING);
     }

@@ -865,7 +865,7 @@ public class EditItem extends FacesBean {
 
     try {
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
-      
+
       boolean canEdit = pis.checkAccess(AccessType.EDIT, getLoginHelper().getPrincipal(), this.getPubItem());
       this.lnkSave.setRendered(canEdit);
 
