@@ -123,15 +123,15 @@ public class ExportItemsSessionBean extends FacesBean {
     String citations = curExportFormatVO.getCitationName();
 
     curExportFormatVO.setFormat(exportFormatName);
+
+    this.setEnableFileFormats(false);
+    this.setEnableCslAutosuggest(false);
+
     if (TransformerFactory.VALID_CITATION_OUTPUT.contains(format)) {
       this.setEnableFileFormats(true);
-
       if (CitationTypes.CSL.getCitationName().equals(citations)) {
         this.setEnableCslAutosuggest(true);
       }
-    } else {
-      this.setEnableFileFormats(false);
-      this.setEnableCslAutosuggest(false);
     }
   }
 
