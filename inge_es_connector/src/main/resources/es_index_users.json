@@ -1,0 +1,180 @@
+{
+        "mappings": {
+            "user": {
+                "properties": {
+                    "active": {
+                        "type": "boolean"
+                    },
+                    "affiliation": {
+                        "properties": {
+                            "creationDate": {
+                                "type": "date"
+                            },
+                            "creator": {
+                                "properties": {
+                                    "name": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "ignore_above": 256
+                                            }
+                                        }
+                                    },
+                                    "objectId": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "lastModificationDate": {
+                                "type": "date"
+                            },
+                            "modifier": {
+                                "properties": {
+                                    "name": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "ignore_above": 256
+                                            }
+                                        }
+                                    },
+                                    "objectId": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "creationDate": {
+                        "type": "date"
+                    },
+                    "creator": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "email": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "grantList": {
+                        "properties": {
+                            "grantType": {
+                                "type": "keyword"
+                            },
+                            "objectRef": {
+                                "type": "keyword"
+                            },
+                            "role": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "lastModificationDate": {
+                        "type": "date"
+                    },
+                    "loginname": {
+                        "type": "text",
+                        "fields": {
+                            "auto": {
+                                "type": "text",
+                                "analyzer": "autocomplete",
+                                "search_analyzer": "standard"
+                            },
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "modifier": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "auto": {
+                                "type": "text",
+                                "analyzer": "autocomplete",
+                                "search_analyzer": "standard"
+                            },
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    }
+                }
+            }
+        },
+        "settings": {
+            "index": {
+                "number_of_shards": "5",
+                "analysis": {
+                    "filter": {
+                        "autocomplete_filter": {
+                            "type": "edge_ngram",
+                            "min_gram": "1",
+                            "max_gram": "20"
+                        }
+                    },
+                    "analyzer": {
+                        "autocomplete": {
+                            "filter": [
+                                "lowercase",
+                                "autocomplete_filter"
+                            ],
+                            "type": "custom",
+                            "tokenizer": "standard"
+                        }
+                    }
+                }
+            }
+        }
+    }

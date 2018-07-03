@@ -1,0 +1,12 @@
+{
+	"description": "Extract attachment information", 
+	"processors": [
+		{
+			"attachment": {
+				"target_field": "files.attachment",        
+				"field": "files.data",        
+				"indexed_chars": -1      
+			}
+		}
+	]
+}

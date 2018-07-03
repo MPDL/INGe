@@ -1,0 +1,171 @@
+{
+        "mappings": {
+            "context": {
+                "properties": {
+                    "allowedGenres": {
+                        "type": "keyword"
+                    },
+                    "allowedSubjectClassifications": {
+                        "type": "keyword"
+                    },
+                    "contactEmail": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "creationDate": {
+                        "type": "date"
+                    },
+                    "creator": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "description": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "lastModificationDate": {
+                        "type": "date"
+                    },
+                    "modifier": {
+                        "properties": {
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "name": {
+                        "type": "text",
+                        "fields": {
+                            "auto": {
+                                "type": "text",
+                                "analyzer": "autocomplete",
+                                "search_analyzer": "standard"
+                            },
+                            "keyword": {
+                                "type": "keyword",
+                                "ignore_above": 256
+                            }
+                        }
+                    },
+                    "objectId": {
+                        "type": "keyword"
+                    },
+                    "responsibleAffiliations": {
+                        "properties": {
+                            "creationDate": {
+                                "type": "date"
+                            },
+                            "creator": {
+                                "properties": {
+                                    "name": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "ignore_above": 256
+                                            }
+                                        }
+                                    },
+                                    "objectId": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "lastModificationDate": {
+                                "type": "date"
+                            },
+                            "modifier": {
+                                "properties": {
+                                    "name": {
+                                        "type": "text",
+                                        "fields": {
+                                            "keyword": {
+                                                "type": "keyword",
+                                                "ignore_above": 256
+                                            }
+                                        }
+                                    },
+                                    "objectId": {
+                                        "type": "keyword"
+                                    }
+                                }
+                            },
+                            "name": {
+                                "type": "text",
+                                "fields": {
+                                    "keyword": {
+                                        "type": "keyword",
+                                        "ignore_above": 256
+                                    }
+                                }
+                            },
+                            "objectId": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    "state": {
+                        "type": "keyword"
+                    },
+                    "workflow": {
+                        "type": "keyword"
+                    }
+                }
+            }
+        },
+        "settings": {
+            "index": {
+                "number_of_shards": "5",
+                "analysis": {
+                    "filter": {
+                        "autocomplete_filter": {
+                            "type": "edge_ngram",
+                            "min_gram": "1",
+                            "max_gram": "20"
+                        }
+                    },
+                    "analyzer": {
+                        "autocomplete": {
+                            "filter": [
+                                "lowercase",
+                                "autocomplete_filter"
+                            ],
+                            "type": "custom",
+                            "tokenizer": "standard"
+                        }
+                    }
+                }
+            }
+        }
+    }
