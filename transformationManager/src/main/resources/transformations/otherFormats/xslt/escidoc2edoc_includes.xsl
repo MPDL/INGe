@@ -51,6 +51,7 @@
 	xmlns:person="${xsd.metadata.person}"
     >
 	
+	<xsl:param name="pubman_instance"/>
 	<xsl:param name="pubmanUrl"/>
 	
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
@@ -180,7 +181,7 @@
 				</xsl:if>
 				
 				<xsl:value-of select="concat(
-					$pubmanUrl,
+					$pubman_instance,
 					@xlink:href	
 				)"/>
 				

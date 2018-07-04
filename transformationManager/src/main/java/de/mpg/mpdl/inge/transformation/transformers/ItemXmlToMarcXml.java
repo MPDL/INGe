@@ -24,7 +24,7 @@ public class ItemXmlToMarcXml extends XslTransformer implements ChainableTransfo
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
-    
+
     map.put("pubmanUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
         + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
 
