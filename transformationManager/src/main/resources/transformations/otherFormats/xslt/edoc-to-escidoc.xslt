@@ -4270,7 +4270,7 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPISOC'">
 							<xsl:copy-of
-								select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' escidoc:persistent22'))" />
+								select="Util:queryCone('persons', concat($creatornfamily, ', ', $creatorngiven, ' ou_persistent22'))" />
 							<xsl:copy-of
 								select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Social Law and Social Policy')" />
 						</xsl:when>

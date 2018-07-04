@@ -59,7 +59,7 @@
 	<xsl:param name="JournalConeID" select="'954927655916'"/>
 	<xsl:param name="License" select="'http://creativecommons.org/licenses/by/3.0/'"/>
 	<xsl:param name="content-model" select="'dummy-content-model'" />
-	<xsl:param name="external_organization_id" select="'escidoc:persistent22'"/>
+	<xsl:param name="external_organization_id" select="'ou_persistent22'"/>
 	<xsl:param name="zfnId" select="''"/>
 	
 	<xsl:param name="refType" />

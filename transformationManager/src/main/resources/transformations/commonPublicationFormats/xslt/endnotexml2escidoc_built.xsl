@@ -1169,7 +1169,7 @@
 	<xsl:template name="createOrganization">
 		<xsl:param name="role"/>
 		<xsl:variable name="orga-name" select="fn:normalize-space(.)"/>
-		<xsl:variable name="external-organization"><xsl:text>escidoc:persistent22</xsl:text></xsl:variable>
+		<xsl:variable name="external-organization"><xsl:text>ou_persistent22</xsl:text></xsl:variable>
 		<xsl:element name="eterms:creator">
 			<xsl:attribute name="role"><xsl:value-of select="$role"/></xsl:attribute>
 			<xsl:element name="organization:organization">
