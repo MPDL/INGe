@@ -733,7 +733,7 @@
 		<xsl:param name="objid" as="xs:string?"/>
 		<xsl:variable name="id" as="xs:string">
 			<xsl:choose>
-				<xsl:when test="matches($objid, '^escidoc:[0-9]+$')">
+				<xsl:when test="matches($objid, '^item_[0-9]+$')">
 					<xsl:sequence select="translate($objid, ':', '')"/>
 				</xsl:when>
 				<xsl:when test="normalize-space($objid)">

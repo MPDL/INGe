@@ -76,84 +76,84 @@
 		<unit>
 			<code>BIBO</code>
 			<name_en>Service Group Library</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>BOL</code>
 			<name_en>Department of Bioorganic Chemistry</name_en>
 			<edoc_id>13503</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>EDV</code>
 			<name_en>Service Group IT</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>GER</code>
 			<name_en>Department of Biochemistry</name_en>
 			<edoc_id>13504</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>GH</code>
 			<name_en>Service Group Greenhouse</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>HAN</code>
 			<name_en>Department of Neuroethology</name_en>
 			<edoc_id>18762</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>HEC</code>
 			<name_en>Department of Entomology</name_en>
 			<edoc_id>18310</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>ICEDIV</code>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>IMPRS</code>
 			<name_en>International Max Planck Research School</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>ITB</code>
 			<name_en>Department of Molecular Ecology</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 			<edoc_id>13502</edoc_id>
 		</unit>
 		<unit>
 			<code>MS</code>
 			<name_en>Research Group Mass Spectrometry</name_en>
 			<edoc_id>13507</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>NMR</code>
 			<name_en>Research Group Biosynthesis / NMR</name_en>
 			<edoc_id>13506</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>TECH</code>
 			<name_en>Technical Service</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>TMO</code>
 			<name_en>Group of Genetics and Evolution</name_en>
 			<edoc_id>13505</edoc_id>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 		<unit>
 			<code>VAD</code>
 			<name_en>Administration</name_en>
-			<escidoc_id>escidoc:19040</escidoc_id>
+			<escidoc_id>ou_19040</escidoc_id>
 		</unit>
 	</xsl:variable>
 	<xsl:function name="escidoc:get-part">
