@@ -169,7 +169,7 @@ public class ViewItemFull extends FacesBean {
   private boolean canEdit = false;
   private boolean canSubmit = false;
   private boolean canRelease = false;
-  private boolean canAccept = false;
+  //  private boolean canAccept = false;
   private boolean canRevise = false;
   private boolean canDelete = false;
   private boolean canWithdraw = false;
@@ -1899,21 +1899,16 @@ public class ViewItemFull extends FacesBean {
   }
 
   private void setLinks() {
-
     try {
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
+
       this.canEdit = pis.checkAccess(AccessType.EDIT, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canModify = false;
-
       this.canSubmit = pis.checkAccess(AccessType.SUBMIT, getLoginHelper().getPrincipal(), this.getPubItem());
-
       this.canRelease = pis.checkAccess(AccessType.RELEASE, getLoginHelper().getPrincipal(), this.getPubItem());
-      this.canAccept = false;
-
+      //      this.canAccept = false;
       this.canRevise = pis.checkAccess(AccessType.REVISE, getLoginHelper().getPrincipal(), this.getPubItem());
-
       this.canWithdraw = pis.checkAccess(AccessType.WITHDRAW, getLoginHelper().getPrincipal(), this.getPubItem());
-
       this.canDelete = pis.checkAccess(AccessType.DELETE, getLoginHelper().getPrincipal(), this.getPubItem());
     } catch (Exception e) {
       info("Error while retrieving access information.");
@@ -2007,9 +2002,9 @@ public class ViewItemFull extends FacesBean {
     return this.canRelease;
   }
 
-  public boolean isCanAccept() {
-    return this.canAccept;
-  }
+  //  public boolean isCanAccept() {
+  //    return this.canAccept;
+  //  }
 
   public boolean isCanRevise() {
     return this.canRevise;

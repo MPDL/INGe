@@ -117,7 +117,7 @@ public class EditItem extends FacesBean {
   // für Binding in jsp Seite
   private HtmlCommandLink lnkSave = new HtmlCommandLink();
   private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
-  private HtmlCommandLink lnkAccept = new HtmlCommandLink();
+  //  private HtmlCommandLink lnkAccept = new HtmlCommandLink();
   private HtmlCommandLink lnkRelease = new HtmlCommandLink();
 
   private String contextName = null;
@@ -857,7 +857,7 @@ public class EditItem extends FacesBean {
     }
     */
 
-    this.lnkAccept.setRendered(false);
+    //    this.lnkAccept.setRendered(false);
     this.lnkRelease.setRendered(false);
     this.lnkSaveAndSubmit.setRendered(false);
     this.lnkSave.setRendered(false);
@@ -878,7 +878,7 @@ public class EditItem extends FacesBean {
       this.lnkRelease.setRendered(canEdit && pis.checkAccess(AccessType.RELEASE, getLoginHelper().getPrincipal(), itemAfterSave));
       this.lnkSaveAndSubmit.setRendered(canEdit && pis.checkAccess(AccessType.SUBMIT, getLoginHelper().getPrincipal(), itemAfterSave));
 
-      this.lnkAccept.setRendered(false);
+      //      this.lnkAccept.setRendered(false);
 
 
     } catch (Exception e) {
@@ -1007,13 +1007,13 @@ public class EditItem extends FacesBean {
     }
   }
 
-  public HtmlCommandLink getLnkAccept() {
-    return this.lnkAccept;
-  }
-
-  public void setLnkAccept(HtmlCommandLink lnkAccept) {
-    this.lnkAccept = lnkAccept;
-  }
+  //  public HtmlCommandLink getLnkAccept() {
+  //    return this.lnkAccept;
+  //  }
+  //
+  //  public void setLnkAccept(HtmlCommandLink lnkAccept) {
+  //    this.lnkAccept = lnkAccept;
+  //  }
 
   public HtmlCommandLink getLnkSave() {
     return this.lnkSave;
