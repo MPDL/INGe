@@ -1259,7 +1259,7 @@
 						<xsl:when test="not($isSource) and $Flavor = 'MPFI'">
 							<organization:organization>
 								<dc:title>Max Planck Florida Institute for Neuroscience</dc:title>
-								<dc:identifier>escidoc:1950288</dc:identifier>
+								<dc:identifier>ou_1950288</dc:identifier>
 							</organization:organization>
 						</xsl:when>
 					</xsl:choose>
@@ -1313,7 +1313,7 @@
 								<xsl:text>External Organizations</xsl:text>
 							</dc:title>
 							<dc:identifier>
-								<xsl:text>escidoc:persistent22</xsl:text>
+								<xsl:text>ou_persistent22</xsl:text>
 							</dc:identifier>
 						</organization:organization>
 					</xsl:if> -->
@@ -1387,7 +1387,7 @@
 									<xsl:text>Max Planck Institute for Plasma Physics</xsl:text>
 								</dc:title>
 								<dc:identifier>
-									<xsl:text>escidoc:persistent27</xsl:text>
+									<xsl:text>ou_persistent27</xsl:text>
 								</dc:identifier>
 							</organization:organization>
 							<!--  Übernahme der CoNE-ID nachträglich ergänzt (Erndt, 21.04.15) -->

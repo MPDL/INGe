@@ -88,56 +88,56 @@
 		<mapping ou="AEI">
 			<edoc-collection>MPI für Gravitationsphysik</edoc-collection>
 			<escidoc-ou>MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24007</escidoc-id>
+			<escidoc-id>ou_24007</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Geometric Analysis and Gravitation</edoc-collection>
 			<escidoc-ou>Geometric Analysis and Gravitation, AEI-Golm, MPI for
 				Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24012</escidoc-id>
+			<escidoc-id>ou_24012</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>GEO 600</edoc-collection>
 			<escidoc-ou>AEI-Hannover, MPI for Gravitational Physics, Max Planck
 				Society</escidoc-ou>
-			<escidoc-id>escidoc:24009</escidoc-id>
+			<escidoc-id>ou_24009</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Astrophysical Relativity</edoc-collection>
 			<escidoc-ou>Astrophysical Relativity, AEI-Golm, MPI for Gravitational
 				Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24013</escidoc-id>
+			<escidoc-id>ou_24013</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Quantum Gravity and Unified Theories</edoc-collection>
 			<escidoc-ou>Quantum Gravity &amp; Unified Theories, AEI-Golm, MPI for
 				Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24014</escidoc-id>
+			<escidoc-id>ou_24014</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Teilinstitut Hannover</edoc-collection>
 			<escidoc-ou>AEI-Hannover, MPI for Gravitational Physics, Max Planck
 				Society</escidoc-ou>
-			<escidoc-id>escidoc:24009</escidoc-id>
+			<escidoc-id>ou_24009</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Cactus group</edoc-collection>
 			<escidoc-ou>Cactus Group, AEI-Golm, MPI for Gravitational Physics,
 				Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:67202</escidoc-id>
+			<escidoc-id>ou_67202</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Laser Interferometry &amp; Gravitational Wave
 				Astronomy</edoc-collection>
 			<escidoc-ou>Laser Interferometry &amp; Gravitational Wave Astronomy,
 				AEI-Hannover, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24010</escidoc-id>
+			<escidoc-id>ou_24010</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Observational Relativity and Cosmology</edoc-collection>
 			<escidoc-ou>Observational Relativity and Cosmology, AEI-Hannover, MPI
 				for Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24011</escidoc-id>
+			<escidoc-id>ou_24011</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Microscopic Quantum Structure &amp; Dynamics of
@@ -145,31 +145,31 @@
 			<escidoc-ou>Microscopic Quantum Structure &amp; Dynamics of
 				Spacetime, AEI-Golm, MPI for Gravitational Physics, Max Planck
 				Society</escidoc-ou>
-			<escidoc-id>escidoc:67201</escidoc-id>
+			<escidoc-id>ou_67201</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Duality &amp; Integrable Structures</edoc-collection>
 			<escidoc-ou>Duality &amp; Integrable Structures, AEI-Golm, MPI for
 				Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24016</escidoc-id>
+			<escidoc-id>ou_24016</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Theoretical Gravitational Wave Physics</edoc-collection>
 			<escidoc-ou>Theoretical Gravitational Wave Physics, AEI-Golm, MPI for
 				Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:24015</escidoc-id>
+			<escidoc-id>ou_24015</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>IT Department</edoc-collection>
 			<escidoc-ou>IT Department, AEI-Golm, MPI for Gravitational Physics,
 				Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:67203</escidoc-id>
+			<escidoc-id>ou_67203</escidoc-id>
 		</mapping>
 		<mapping ou="AEI-Golm">
 			<edoc-collection>Canonical and Covariant Dynamics of Quantum Gravity</edoc-collection>
 			<escidoc-ou>Canonical and Covariant Dynamics of Quantum Gravity,
 				AEI-Golm, MPI for Gravitational Physics, Max Planck Society</escidoc-ou>
-			<escidoc-id>escidoc:102878</escidoc-id>
+			<escidoc-id>ou_102878</escidoc-id>
 		</mapping>
 		<mapping ou="MPIPL">
 			<edoc-collection>Language Acquisition</edoc-collection>
@@ -2626,7 +2626,7 @@
 									<dc:identifier>
 										<!-- Hardcoded due to high effort for just one Institute -->
 										<!-- LIVE -->
-										<xsl:value-of select="'escidoc:1607137'" />
+										<xsl:value-of select="'ou_1607137'" />
 									</dc:identifier>
 								</organization:organization>
 							</person:person>
@@ -4911,7 +4911,7 @@
 											<xsl:text>Max Planck Institute of Experimental Medicine</xsl:text>
 										</dc:title>
 										<dc:identifier>
-											<xsl:text>escidoc:586201</xsl:text>
+											<xsl:text>ou_586201</xsl:text>
 										</dc:identifier>
 									</organization:organization>
 								</xsl:when>

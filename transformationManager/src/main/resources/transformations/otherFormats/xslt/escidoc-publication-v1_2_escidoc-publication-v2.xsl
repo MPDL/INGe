@@ -65,11 +65,11 @@
 	
 	<!-- Temporarily OUs mapping -->
 	<!-- xsl:variable name="ous">
-		<map v1="escidoc:4001">escidoc:274892</map>
-		<map v1="escidoc:4002">escidoc:274893</map>
-		<map v1="escidoc:4005">escidoc:274894</map>
-		<map v1="escidoc:4003">escidoc:274895</map>
-		<map v1="escidoc:4007">escidoc:274896</map>
+		<map v1="ou_4001">ou_274892</map>
+		<map v1="ou_4002">ou_274893</map>
+		<map v1="ou_4005">ou_274894</map>
+		<map v1="ou_4003">ou_274895</map>
+		<map v1="ou_4007">ou_274896</map>
 	</xsl:variable -->
 
 	<xsl:template match="/">
