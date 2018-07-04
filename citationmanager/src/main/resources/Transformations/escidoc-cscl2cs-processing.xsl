@@ -95,7 +95,7 @@
 			</xsl:element> 
 			
 			<xsl:element name="xsl:param" >
-				<xsl:attribute name="name" select="'pubman_instance'"/>
+				<xsl:attribute name="name" select="'pubmanUrl'"/>
 			</xsl:element>
 			
 			<xsl:variable name="variables" >

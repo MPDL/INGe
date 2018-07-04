@@ -8,8 +8,7 @@
 	<xsl:variable name="local:addition-for-pseudonym" as="xs:string?" select="' (pseudonym)'"/>
 	<xsl:variable name="local:form-description-for-online-resources" as="xs:string?" select="'[Online]'"/>
 	<xsl:variable name="local:pages-marker" as="xs:string">p.</xsl:variable>
-	<xsl:param name="pubman_instance" />
-	<xsl:param name="pubman_instance_context_path" />
+	<xsl:param name="pubmanUrl" />
 	<xsl:template match="/|escidocItem:item|escidocMetadataRecords:md-records|escidocMetadataRecords:md-record|    eterms:creator" xml:id="match-and-apply-templates">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -977,7 +976,7 @@
 		<xsl:variable name="file-name" as="xs:string?" select="normalize-space($escidocComponents:component[1]/escidocMetadataRecords:md-records[1]/escidocMetadataRecords:md-record[1]/file:file[1]/dc:title[1])"/>
 		<xsl:choose>
 			<xsl:when test="$version-objid and $component-objid and $file-name">
-				<xsl:sequence select="concat($pubman_instance, $pubman_instance_context_path, '/item/', $version-objid, '/component/', $component-objid, '/', $file-name)"/>
+				<xsl:sequence select="concat($pubmanUrl, '/item/', $version-objid, '/component/', $component-objid, '/', $file-name)"/>
 			</xsl:when>
 			<xsl:when test="not(normalize-space($component-objid))">
 				<xsl:call-template name="misc:message">

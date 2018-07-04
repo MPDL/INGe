@@ -20,13 +20,14 @@ public class MatomoStatisticsService {
 
   private static final Logger logger = Logger.getLogger(MatomoStatisticsService.class);
   private static final String INSTANCE_URI = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
+  private static final String INSTANCE_CONTEXT_PATH = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
   private static final String ANALYTICS_BASE_URI = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_BASE_URI);
   private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID);
   private static final String ANALYTICS_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN);
 
-  private static final String PURE_OVERVIEW = INSTANCE_URI + "/pubman/faces/ViewItemOverviewPage.jsp";
-  private static final String PURE_FULLPAGE = INSTANCE_URI + "/pubman/faces/ViewItemFullPage.jsp";
-  private static final String PURE_ITEM = INSTANCE_URI + "/pubman/item/";
+  private static final String PURE_OVERVIEW = INSTANCE_URI + INSTANCE_CONTEXT_PATH + "/faces/ViewItemOverviewPage.jsp";
+  private static final String PURE_FULLPAGE = INSTANCE_URI + INSTANCE_CONTEXT_PATH + "/faces/ViewItemFullPage.jsp";
+  private static final String PURE_ITEM = INSTANCE_URI + INSTANCE_CONTEXT_PATH + "/item/";
   private static final String PURE_FILE = "/component/";
 
   static ObjectMapper om = new ObjectMapper();

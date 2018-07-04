@@ -26,7 +26,7 @@
                 version="2.0">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
                 cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
-    <xsl:param name="pubman_instance"/>
+    <xsl:param name="pubmanUrl"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@* | node ()"/>
@@ -3211,7 +3211,7 @@
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		      <xsl:attribute name="xlink:href"
-                           select="concat(         $pubman_instance,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                           select="concat(         $pubmanUrl,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
