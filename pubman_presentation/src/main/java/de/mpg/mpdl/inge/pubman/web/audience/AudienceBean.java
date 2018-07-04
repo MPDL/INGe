@@ -383,23 +383,17 @@ public class AudienceBean extends FacesBean {
   //    return PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL);
   //  }
 
-  public String getItemPattern() {
-    String itemPattern = "";
+  public String getRestItemPath() {
+    String path = "";
 
-    String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-
-    itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
-        this.getItemControllerSessionBean().getCurrentPubItem().getObjectIdAndVersion());
+    String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
 
     if (!pubmanUrl.endsWith("/")) {
       pubmanUrl = pubmanUrl + "/";
     }
-    if (itemPattern.startsWith("/")) {
-      itemPattern = itemPattern.substring(1, itemPattern.length());
-    }
+    path = pubmanUrl + "items/" + this.getItemControllerSessionBean().getCurrentPubItem().getObjectIdAndVersion();
 
-    return itemPattern;
+    return path;
   }
 
 

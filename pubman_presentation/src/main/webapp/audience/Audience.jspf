@@ -60,8 +60,8 @@
 						</b>
 						<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline">
 							<h:outputLink id="lnkFile" target="."
-								value="TODO/ir/#{AudienceBean.itemPattern}/components/component/#{file.file.objectId}/content"
-								title="#{file.file.description}">
+								value="#{AudienceBean.restItemPath}/component/#{file.file.objectId}/content"
+								title="#{file.description}">
 								<h:outputText value="#{file.file.name}" />
 							</h:outputLink>
 						</h:panelGroup>
