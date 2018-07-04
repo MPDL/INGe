@@ -165,7 +165,7 @@ public class LoginHelper extends FacesBean {
       this.error("Technical error while logging in.");
     }
 
-    return HomePage.LOAD_HOMEPAGE;
+    return "";
   }
 
   public String logout() {
