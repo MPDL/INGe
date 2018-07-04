@@ -26,16 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.beans;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
@@ -45,12 +41,8 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.referenceobjects.ItemRO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AbstractVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -86,7 +78,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -102,27 +93,27 @@ public class ItemControllerSessionBean extends FacesBean {
 
   public ItemControllerSessionBean() {}
 
-  /**
-   * Accepts an item.
-   * 
-   * @param pubItem the item that should be accepted
-   * @return string, identifying the page that should be navigated to after this method call
-   * @throws Exception if framework access fails
-   */
-  public String acceptCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
-    try {
-      final ItemVersionVO updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getObjectId(),
-          this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
-
-      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
-      return navigationRuleWhenSuccessfull;
-    } catch (final Exception e) {
-      ItemControllerSessionBean.logger.error("Error while accepting current PubItem", e);
-      this.error("Error while accepting current PubItem" + e.getMessage());
-    }
-
-    return "";
-  }
+  //  /**
+  //   * Accepts an item.
+  //   * 
+  //   * @param pubItem the item that should be accepted
+  //   * @return string, identifying the page that should be navigated to after this method call
+  //   * @throws Exception if framework access fails
+  //   */
+  //  public String acceptCurrentPubItem(String navigationRuleWhenSuccessfull, String comment) {
+  //    try {
+  //      final ItemVersionVO updatedPubItem = ApplicationBean.INSTANCE.getPubItemService().releasePubItem(this.currentPubItem.getObjectId(),
+  //          this.currentPubItem.getModificationDate(), comment, this.getLoginHelper().getAuthenticationToken());
+  //
+  //      this.setCurrentPubItem(new PubItemVOPresentation(updatedPubItem));
+  //      return navigationRuleWhenSuccessfull;
+  //    } catch (final Exception e) {
+  //      ItemControllerSessionBean.logger.error("Error while accepting current PubItem", e);
+  //      this.error("Error while accepting current PubItem" + e.getMessage());
+  //    }
+  //
+  //    return "";
+  //  }
 
   /**
    * use an old item as template to creat a new one
@@ -553,37 +544,37 @@ public class ItemControllerSessionBean extends FacesBean {
         ApplicationBean.INSTANCE.getPubItemService().get(itemID, this.getLoginHelper().getAuthenticationToken()));
   }
 
-  /**
-   * Returns all items in a list of item ids.
-   * 
-   * @param itemRefs a list of item ids of items that should be retrieved.
-   * @return all items for a user with the given ids
-   * @throws Exception if framework access fails
-   */
-  private List<ItemVersionVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
-    if (itemRefs == null || itemRefs.isEmpty()) {
-      return new ArrayList<ItemVersionVO>();
-    }
-
-
-    final BoolQueryBuilder bq = QueryBuilders.boolQuery();
-
-    for (final ItemRO id : itemRefs) {
-      final BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
-      subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
-      subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
-      bq.should(subQuery);
-    }
-
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
-
-
-    final SearchRetrieveResponseVO<ItemVersionVO> resp =
-        ApplicationBean.INSTANCE.getPubItemService().search(srr, this.getLoginHelper().getAuthenticationToken());
-
-
-    return resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
-  }
+  //  /**
+  //   * Returns all items in a list of item ids.
+  //   * 
+  //   * @param itemRefs a list of item ids of items that should be retrieved.
+  //   * @return all items for a user with the given ids
+  //   * @throws Exception if framework access fails
+  //   */
+  //  private List<ItemVersionVO> retrieveItems(final List<ItemRO> itemRefs) throws Exception {
+  //    if (itemRefs == null || itemRefs.isEmpty()) {
+  //      return new ArrayList<ItemVersionVO>();
+  //    }
+  //
+  //
+  //    final BoolQueryBuilder bq = QueryBuilders.boolQuery();
+  //
+  //    for (final ItemRO id : itemRefs) {
+  //      final BoolQueryBuilder subQuery = QueryBuilders.boolQuery();
+  //      subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id.getObjectId()));
+  //      subQuery.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, id.getVersionNumber()));
+  //      bq.should(subQuery);
+  //    }
+  //
+  //    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(bq);
+  //
+  //
+  //    final SearchRetrieveResponseVO<ItemVersionVO> resp =
+  //        ApplicationBean.INSTANCE.getPubItemService().search(srr, this.getLoginHelper().getAuthenticationToken());
+  //
+  //
+  //    return resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
+  //  }
 
 
 

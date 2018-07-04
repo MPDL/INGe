@@ -202,7 +202,7 @@ public class ViewItemFull extends FacesBean {
   private boolean isWorkflowSimple = false;
 
 
-  private boolean isWorkflowStandard = false;
+  //  private boolean isWorkflowStandard = false;
 
   public ViewItemFull() {
     this.init();
@@ -368,11 +368,11 @@ public class ViewItemFull extends FacesBean {
       // Prerequisites
       // Workflow
       try {
-        this.isWorkflowStandard = (this.getContext().getWorkflow() == ContextDbVO.Workflow.STANDARD);
+        //        this.isWorkflowStandard = (this.getContext().getWorkflow() == ContextDbVO.Workflow.STANDARD);
         this.isWorkflowSimple = (this.getContext().getWorkflow() == ContextDbVO.Workflow.SIMPLE);
       } catch (Exception e) {
         this.isWorkflowSimple = true;
-        this.isWorkflowStandard = false;
+        //        this.isWorkflowStandard = false;
       }
 
       //      this.fwUrl = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_FRAMEWORK_URL);
@@ -2097,7 +2097,7 @@ public class ViewItemFull extends FacesBean {
       retVal = icsb.saveCurrentPubItem(navigateTo);
 
       if (navigateTo.equals(retVal)) {
-        retVal = icsb.acceptCurrentPubItem(navigateTo, "Release during adding DOI");
+        retVal = icsb.releaseCurrentPubItem(navigateTo, "Release during adding DOI");
       }
 
       if (navigateTo.equals(retVal)) {
