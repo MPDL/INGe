@@ -34,8 +34,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.pubman.web.util.ServletTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.util.MatomoTracker;
@@ -53,7 +51,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  */
 @SuppressWarnings("serial")
 public class RedirectServlet extends HttpServlet {
-  private static final Logger logger = Logger.getLogger(RedirectServlet.class);
+  private static final String INSTANCE_CONTEXT_PATH = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
 
   /**
    * {@inheritDoc}
@@ -71,10 +69,11 @@ public class RedirectServlet extends HttpServlet {
     if (!id.contains("/component/")) {
       final StringBuffer redirectUrl = new StringBuffer();
       final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
+
       if (loginHelper != null && loginHelper.isDetailedMode()) {
-        redirectUrl.append("/pubman/faces/ViewItemFullPage.jsp?itemId=" + id);
+        redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemFullPage.jsp?itemId=" + id);
       } else {
-        redirectUrl.append("/pubman/faces/ViewItemOverviewPage.jsp?itemId=" + id);
+        redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemOverviewPage.jsp?itemId=" + id);
       }
       if (userHandle != null) {
         redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle);

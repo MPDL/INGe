@@ -52,6 +52,7 @@
     >
 	
 	<xsl:param name="pubman_instance"/>
+	<xsl:param name="pubmanUrl"/>
 	
 	<xsl:variable name="vm" select="document('ves-mapping.xml')/mappings"/>
 	
@@ -197,7 +198,7 @@
 		<!-- ESCIDOC direct link as identifier -->
 		<xsl:element name="identifier">
 			<xsl:attribute name="type">url</xsl:attribute>
-			<xsl:value-of select="concat($pubman_instance, '/item/', ../../../@objid)"/>
+			<xsl:value-of select="concat($pubmanUrl, '/item/', ../../../@objid)"/>
 		</xsl:element>
 	
 		<!-- IDENTIFIERS from dc:identifier elements -->
@@ -261,10 +262,9 @@
 	</xsl:template>
 
 	
-	<!-- Organizational Units, flat structure 
-	     TODO: ersetze coreservice_instance durch entsprechende URL-->
+	<!-- Organizational Units, flat structure  -->
 	<xsl:variable name="OUs" select="
-		document(concat ('coreservice_instance', '/oum/organizational-units' ) )
+		document(concat ($pubmanUrl, '/oum/organizational-units' ) )
 		//organizational-unit:organizational-unit
 	"/>
 

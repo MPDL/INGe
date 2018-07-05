@@ -48,6 +48,10 @@ public class TransformerCache {
 
   protected static boolean isTransformationExisting(FORMAT sourceFormat, FORMAT targetFormat) {
 
+    if (sourceFormat.equals(targetFormat)) {
+      return true;
+    }
+
     synchronized (transformerMap) {
 
       List<TransformerEdge> t = null;
@@ -67,6 +71,7 @@ public class TransformerCache {
         }
       }
     }
+
     return false;
   }
 

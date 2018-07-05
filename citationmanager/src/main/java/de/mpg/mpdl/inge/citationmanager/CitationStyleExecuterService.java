@@ -100,7 +100,7 @@ public class CitationStyleExecuterService {
         Transformer transformer = XmlHelper.tryTemplCache(csXslPath).newTransformer();
 
         // set parameters
-        transformer.setParameter("pubman_instance", getPubManUrl());
+        transformer.setParameter("pubmanUrl", getPubManUrl());
         transformer.transform(new StreamSource(new StringReader(escidocXmlList)), new StreamResult(sw));
 
         logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
@@ -208,7 +208,7 @@ public class CitationStyleExecuterService {
       }
       return citationList;
     } catch (Exception e) {
-      throw new CitationStyleManagerException("Error while parsing bibliographic citaation from escidoc snippet", e);
+      throw new CitationStyleManagerException("Error while parsing bibliographic citation from escidoc snippet", e);
     }
 
 
@@ -222,8 +222,8 @@ public class CitationStyleExecuterService {
 
   private static String getPubManUrl() {
     try {
-      String contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + (contextPath == null ? "" : contextPath);
+      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
     } catch (Exception e) {
       throw new RuntimeException("Cannot get property:", e);
     }

@@ -41,7 +41,7 @@
 	>
 	<xsl:output method="html" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:param name="pubman_instance"/>
+	<xsl:param name="pubmanUrl"/>
 	
 	<xsl:param name="html_linked" select="false()"/>
 
@@ -73,7 +73,7 @@
 					 <xsl:element name="a">
 						<xsl:attribute name="href" select="
 							concat(
-								$pubman_instance,
+								$pubmanUrl,
 			    				'/item/', 
 			    				$item/escidocItem:properties/prop:version/@objid
 				    			)"
