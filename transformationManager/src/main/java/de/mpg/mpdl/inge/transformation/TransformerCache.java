@@ -51,7 +51,7 @@ public class TransformerCache {
     if (sourceFormat.equals(targetFormat)) {
       return true;
     }
-    
+
     synchronized (transformerMap) {
 
       List<TransformerEdge> t = null;
@@ -71,7 +71,7 @@ public class TransformerCache {
         }
       }
     }
-    
+
     return false;
   }
 
