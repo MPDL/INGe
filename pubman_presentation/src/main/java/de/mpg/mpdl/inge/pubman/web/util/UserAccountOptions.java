@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
 
 
@@ -86,8 +87,9 @@ public class UserAccountOptions extends FacesBean {
         error(getMessage("userAccountOptions_emptyPassword"));
       }
     } catch (Exception e) {
+      error(e.getMessage());
       logger.error("Problem updating Password", e);
-    }
+    } 
 
     return "";
   }
