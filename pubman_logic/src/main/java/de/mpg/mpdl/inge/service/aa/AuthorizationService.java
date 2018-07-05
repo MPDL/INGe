@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -34,6 +36,8 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @Service
 public class AuthorizationService {
+
+  private final static Logger logger = LogManager.getLogger(AuthorizationService.class);
 
   private Map<String, Object> aaMap;
 
@@ -400,12 +404,20 @@ public class AuthorizationService {
 
       List<String> grantFieldMatchValues = new ArrayList<>();
       if (grantFieldMatch != null) {
-        grantFieldMatchValues.add(getFieldValueOrString(order, objects, grantFieldMatch).toString());
+        Object val = getFieldValueOrString(order, objects, grantFieldMatch);
+        if (val != null) {
+          grantFieldMatchValues.add(val.toString());
+        } else {
+          logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
+        }
+
+
+
       }
 
 
       // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-      if (grantFieldMatch != null && grantFieldMatchValues.get(0).startsWith("ou")) {
+      if (grantFieldMatch != null && (!grantFieldMatchValues.isEmpty()) && grantFieldMatchValues.get(0).startsWith("ou")) {
         List<AffiliationDbVO> childList = new ArrayList<>();
         searchAllChildOrganizations(grantFieldMatchValues.get(0), childList);
         grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
@@ -424,7 +436,7 @@ public class AuthorizationService {
 
       if (!check) {
         throw new AuthorizationException(
-            "Expected user with role [" + role + "], on object [" + (grantFieldMatch != null ? grantFieldMatchValues.get(0) : null) + "]");
+            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
       }
 
     }
