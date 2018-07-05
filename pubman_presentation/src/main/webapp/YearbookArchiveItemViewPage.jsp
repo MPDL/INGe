@@ -8,7 +8,9 @@
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
+	<f:event type="preRenderView" listener="#{YearbookArchiveRetrieverRequestBean.init}" />
     <f:view locale="#{InternationalizationHelper.userLocale}">
+    
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />
         <f:loadBundle var="tip" basename="Tooltip" />
