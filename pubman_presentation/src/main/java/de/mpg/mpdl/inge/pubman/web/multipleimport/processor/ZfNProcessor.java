@@ -217,11 +217,10 @@ public class ZfNProcessor extends FormatProcessor {
    * @throws Exception If anything goes wrong...
    */
   private String uploadFile(InputStream in, String mimetype, String name, Principal principal) throws Exception {
-    
-    
-      StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(in, name,
-          principal.getJwToken());
-      return String.valueOf(stagedFile.getId());
+
+
+    StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(in, name, principal.getJwToken());
+    return String.valueOf(stagedFile.getId());
   }
 
   private void openFtpServer() throws Exception {
