@@ -692,11 +692,10 @@ public class SwordUtil extends FacesBean {
    * @throws Exception If anything goes wrong...
    */
   protected String uploadFile(InputStream in, String mimetype, Principal principal, ZipEntry zipEntry, String name) throws Exception {
-    
-    StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(in, name,
-        principal.getJwToken());
+
+    StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(in, name, principal.getJwToken());
     return String.valueOf(stagedFile.getId());
-    
+
   }
 
   public SWORDEntry createResponseAtom(ItemVersionVO item, Deposit deposit) {
