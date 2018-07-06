@@ -53,10 +53,13 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -138,7 +141,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @return
    * @throws Exception
    */
-  public FileDbVO getFileforImport(Map<String, String> config, AccountUserDbVO user) throws Exception {
+  public FileDbVO getFileforImport(Map<String, String> config, Principal user) throws Exception {
     this.setConfig(config);
     this.setCurrentFile(this.processZfnFileName(this.fileNames.get(0)));
 
@@ -159,7 +162,7 @@ public class ZfNProcessor extends FormatProcessor {
    * @return FileDbVO
    * @throws Exception
    */
-  private FileDbVO createPubFile(InputStream in, AccountUserDbVO user) throws Exception {
+  private FileDbVO createPubFile(InputStream in, Principal user) throws Exception {
     ZfNProcessor.logger.debug("Creating PubFile: " + this.getCurrentFile());
 
     final MdsFileVO mdSet = new MdsFileVO();
@@ -168,7 +171,7 @@ public class ZfNProcessor extends FormatProcessor {
     final FileNameMap fileNameMap = URLConnection.getFileNameMap();
     final String mimeType = fileNameMap.getContentTypeFor(this.getCurrentFile());
 
-    final URL fileURL = this.uploadFile(in, mimeType);
+    final String fileURL = this.uploadFile(in, mimeType, this.getCurrentFile(), user);
 
     if (fileURL != null && !fileURL.toString().trim().equals("")) {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
@@ -213,18 +216,11 @@ public class ZfNProcessor extends FormatProcessor {
    * @return The URL of the uploaded file.
    * @throws Exception If anything goes wrong...
    */
-  private URL uploadFile(InputStream in, String mimetype) throws Exception {
-    // Prepare the HttpMethod.
-    final String fwUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-    method.setRequestEntity(new InputStreamRequestEntity(in, -1));
-    method.setRequestHeader("Content-Type", mimetype);
-    //    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-    // Execute the method with HttpClient.
-    final HttpClient client = new HttpClient();
-    client.executeMethod(method);
-    final String response = method.getResponseBodyAsString();
-    return XmlTransformingService.transformUploadResponseToFileURL(response);
+  private String uploadFile(InputStream in, String mimetype, String name, Principal principal) throws Exception {
+
+
+    StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(in, name, principal.getJwToken());
+    return String.valueOf(stagedFile.getId());
   }
 
   private void openFtpServer() throws Exception {

@@ -67,6 +67,7 @@ import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -84,7 +85,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubManSwordServer {
   private static final Logger logger = Logger.getLogger(PubManSwordServer.class);
 
-  private AccountUserDbVO currentUser;
+  private Principal currentUser;
   private String verbose = "";
 
   @Autowired
@@ -262,11 +263,11 @@ public class PubManSwordServer {
     return xmlString;
   }
 
-  public AccountUserDbVO getCurrentUser() {
+  public Principal getCurrentUser() {
     return this.currentUser;
   }
 
-  public void setCurrentUser(AccountUserDbVO currentUser) {
+  public void setCurrentUser(Principal currentUser) {
     this.currentUser = currentUser;
   }
 

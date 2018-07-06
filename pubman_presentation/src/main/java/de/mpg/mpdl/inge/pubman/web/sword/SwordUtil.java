@@ -71,6 +71,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
@@ -170,7 +171,7 @@ public class SwordUtil extends FacesBean {
    * @param user
    * @return true if the user has depositing rights, else false
    */
-  public boolean checkCollection(String collection, AccountUserDbVO user) {
+  public boolean checkCollection(String collection, Principal user) {
     List<PubContextVOPresentation> contextList = null;
     final ContextListSessionBean contextListBean = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     contextListBean.init();
@@ -280,10 +281,10 @@ public class SwordUtil extends FacesBean {
    * @param pwd
    * @return AccountUserVO
    */
-  public AccountUserDbVO getAccountUser(String user, String pwd) {
+  public Principal getAccountUser(String user, String pwd) {
     try {
       final Principal p = ApplicationBean.INSTANCE.getUserAccountService().login(user, pwd);
-      return p.getUserAccount();
+      return p;
     } catch (final Exception e) {
       e.printStackTrace();
       return null;
@@ -298,7 +299,7 @@ public class SwordUtil extends FacesBean {
    * @throws NamingException
    * @throws SWORDContentTypeException
    */
-  public ItemVersionVO readZipFile(InputStream in, AccountUserDbVO user) throws SWORDContentTypeException {
+  public ItemVersionVO readZipFile(InputStream in, Principal user) throws SWORDContentTypeException {
     String item = null;
     final List<FileDbVO> attachements = new ArrayList<FileDbVO>();
     ItemVersionVO pubItem = null;
@@ -416,7 +417,7 @@ public class SwordUtil extends FacesBean {
    * @throws TechnicalException
    * @throws SWORDContentTypeException
    */
-  private ItemVersionVO createItem(String item, AccountUserDbVO user) throws ValidationException, Exception {
+  private ItemVersionVO createItem(String item, Principal user) throws ValidationException, Exception {
     ItemVersionVO itemVO = null;
 
     if (item == null) {
@@ -612,7 +613,7 @@ public class SwordUtil extends FacesBean {
    * @return FileDbVO
    * @throws Exception
    */
-  private FileDbVO convertToFileAndAdd(InputStream zipinputstream, String name, AccountUserDbVO user, ZipEntry zipEntry) throws Exception {
+  private FileDbVO convertToFileAndAdd(InputStream zipinputstream, String name, Principal user, ZipEntry zipEntry) throws Exception {
     final MdsFileVO mdSet = new MdsFileVO();
     final FileDbVO fileVO = new FileDbVO();
     final FileNameMap fileNameMap = URLConnection.getFileNameMap();
@@ -626,7 +627,7 @@ public class SwordUtil extends FacesBean {
       mimeType = "text/plain";
     }
 
-    final URL fileURL = this.uploadFile(zipinputstream, mimeType, user, zipEntry);
+    final String fileURL = this.uploadFile(zipinputstream, mimeType, user, zipEntry, name);
 
     if (fileURL != null && !fileURL.toString().trim().equals("")) {
       if (this.currentDeposit.getContentDisposition() != null && !this.currentDeposit.getContentDisposition().equals("")) {
@@ -690,19 +691,11 @@ public class SwordUtil extends FacesBean {
    * @return The URL of the uploaded file.
    * @throws Exception If anything goes wrong...
    */
-  protected URL uploadFile(InputStream in, String mimetype, AccountUserDbVO user, ZipEntry zipEntry) throws Exception {
-    final String fwUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-    method.setRequestEntity(new InputStreamRequestEntity(in, -1));
-    method.setRequestHeader("Content-Type", mimetype);
-    //TODO
-    //method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+  protected String uploadFile(InputStream in, String mimetype, Principal principal, ZipEntry zipEntry, String name) throws Exception {
 
-    final HttpClient client = new HttpClient();
-    client.executeMethod(method);
-    final String response = method.getResponseBodyAsString();
+    StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(in, name, principal.getJwToken());
+    return String.valueOf(stagedFile.getId());
 
-    return XmlTransformingService.transformUploadResponseToFileURL(response);
   }
 
   public SWORDEntry createResponseAtom(ItemVersionVO item, Deposit deposit) {

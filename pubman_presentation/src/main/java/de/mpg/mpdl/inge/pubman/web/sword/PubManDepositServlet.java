@@ -48,6 +48,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManSwordErrorDocument.swordError;
+import de.mpg.mpdl.inge.service.aa.Principal;
 
 /**
  * DepositServlet for the PubMan SWORD interface.
@@ -95,7 +96,7 @@ public class PubManDepositServlet extends HttpServlet {
     final PubManSwordServer pubManSwordServer = new PubManSwordServer();
     final SwordUtil util = new SwordUtil();
     Deposit deposit = new Deposit();
-    AccountUserDbVO user = null;
+    Principal user = null;
     this.errorDoc = new PubManSwordErrorDocument();
     DepositResponse dr = null;
 

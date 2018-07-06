@@ -239,6 +239,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId());
 
 
+    if (contextNew == null) {
+      throw new IngeApplicationException("Context with id " + pubItemVO.getObject().getContext().getObjectId() + "not found");
+    }
 
     PubItemUtil.cleanUpItem(pubItemVO);
 

@@ -1052,33 +1052,6 @@ public class TestBase {
     return result;
   }
 
-  //  /**
-  //   * Uploads a file to the staging servlet and returns the corresponding URL.
-  //   * 
-  //   * @param filename The file to upload
-  //   * @param mimetype The mimetype of the file
-  //   * @param userHandle The userHandle to use for upload
-  //   * @return The URL of the uploaded file.
-  //   * @throws Exception If anything goes wrong...
-  //   */
-  //  protected URL uploadFile(String filename, String mimetype, final String userHandle) throws Exception {
-  //    // Prepare the HttpMethod.
-  //    String fwUrl = PropertyReader.getFrameworkUrl();
-  //    PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-  //
-  //    method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));
-  //    method.setRequestHeader("Content-Type", mimetype);
-  //    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-  //
-  //    // Execute the method with HttpClient.
-  //    HttpClient client = new HttpClient();
-  //    ProxyHelper.executeMethod(client, method);
-  //    String response = method.getResponseBodyAsString();
-  //    assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-  //
-  //    return XmlTransformingService.transformUploadResponseToFileURL(response);
-  //  }
-
 
 
 }
