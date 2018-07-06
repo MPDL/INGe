@@ -415,32 +415,6 @@ public class EditItem extends FacesBean {
     }
   }
 
-  //  /**
-  //   * Uploads a file to the staging servlet and returns the corresponding URL.
-  //   * 
-  //   * @param uploadedFile The file to upload
-  //   * @param mimetype The mimetype of the file
-  //   * @param userHandle The userhandle to use for upload
-  //   * @return The URL of the uploaded file.
-  //   * @throws Exception If anything goes wrong...
-  //   */
-  //  protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception {
-  //    // Prepare the HttpMethod.
-  //    final String fwUrl = PropertyReader.getFrameworkUrl();
-  //    final PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-  //    final InputStream fis = uploadedFile.getInputstream();
-  //    method.setRequestEntity(new InputStreamRequestEntity(fis));
-  //    method.setRequestHeader("Content-Type", mimetype);
-  //    method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-  //    // Execute the method with HttpClient.
-  //    final HttpClient client = new HttpClient();
-  //    ProxyHelper.setProxy(client, fwUrl);
-  //    client.executeMethod(method);
-  //    final String response = method.getResponseBodyAsString();
-  //    fis.close();
-  //
-  //    return XmlTransformingService.transformUploadResponseToFileURL(response);
-  //  }
 
   public List<ListItem> getLanguages() throws Exception {
     if (this.languages == null) {

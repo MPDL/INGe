@@ -63,6 +63,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.standard.IdentifierSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
@@ -78,7 +79,7 @@ public class ImportProcess extends Thread {
     ROLLBACK
   }
 
-  private AccountUserDbVO user;
+  private Principal user;
   private ContextDbRO escidocContext;
   private DuplicateStrategy duplicateStrategy;
   private TransformerFactory.FORMAT format;
@@ -98,13 +99,13 @@ public class ImportProcess extends Thread {
   private final ItemValidatingService itemValidatingService = new ItemValidatingService();
 
   public ImportProcess(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextDbRO escidocContext,
-      AccountUserDbVO user, boolean rollback, int duplicateStrategy, Map<String, String> configuration, String authenticationToken,
+      Principal user, boolean rollback, int duplicateStrategy, Map<String, String> configuration, String authenticationToken,
       Connection connection) {
 
     this.authenticationToken = authenticationToken;
     this.connection = connection;
 
-    this.importLog = new ImportLog(user.getObjectId(), format, connection);
+    this.importLog = new ImportLog(user.getUserAccount().getObjectId(), format, connection);
     this.importLog.startItem("import_process_started", connection);
     this.importLog.finishItem(connection);
 
@@ -135,7 +136,7 @@ public class ImportProcess extends Thread {
   }
 
   private void initialize(String name, String fileName, File file, TransformerFactory.FORMAT format, ContextDbRO escidocContext,
-      AccountUserDbVO user, boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
+      Principal user, boolean rollback, DuplicateStrategy duplicateStrategy, Map<String, String> configuration) {
     this.importLog.startItem("import_process_initialize", this.connection);
 
     try {
