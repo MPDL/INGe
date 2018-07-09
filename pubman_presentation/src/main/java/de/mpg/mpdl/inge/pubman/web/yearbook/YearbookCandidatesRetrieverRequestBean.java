@@ -249,11 +249,21 @@ public class YearbookCandidatesRetrieverRequestBean
         if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.CANDIDATES)) {
           query = YearbookUtils.getCandidateQuery();
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.MEMBERS)) {
-          query = QueryBuilders.boolQuery();
-          query.must(YearbookUtils.getMemberQuery(yisb.getYearbook()));
+          QueryBuilder memberQuery = YearbookUtils.getMemberQuery(yisb.getYearbook());
+          if(memberQuery!=null)
+          {
+            query = QueryBuilders.boolQuery();       
+            query.must(memberQuery);
+          }
+
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.INVALID)) {
-          query = QueryBuilders.boolQuery();
-          query.must(this.getInvalidMembersQuery());
+          QueryBuilder invalidQuery  = this.getInvalidMembersQuery();
+          if(invalidQuery!=null)
+          {
+            query = QueryBuilders.boolQuery();
+            query.must(invalidQuery);
+          }
+
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.NON_CANDIDATES)) {
           query = this.getNonCandidatesQuery();
         }
@@ -288,6 +298,7 @@ public class YearbookCandidatesRetrieverRequestBean
             }
           }
 
+          System.out.println(ssb.toString());
           SearchResponse resp = pis.searchDetailed(ssb, null);
 
           this.numberOfRecords = (int) resp.getHits().getTotalHits();
