@@ -66,7 +66,10 @@ public class YearbookItemCreateBean extends FacesBean {
     // this.initUserAccountMenu();
     this.initMetadata();
     this.contextIds = new ArrayList<ContextRO>();
-    this.contextIds.add(new ContextRO((String) this.contextSelectItems.get(0).getValue()));
+    if (contextSelectItems.size() > 0) {
+      this.contextIds.add(new ContextRO((String) this.contextSelectItems.get(0).getValue()));
+    }
+
     this.collaborators = new ArrayList<AccountUserRO>();
   }
 
