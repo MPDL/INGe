@@ -250,16 +250,14 @@ public class YearbookCandidatesRetrieverRequestBean
           query = YearbookUtils.getCandidateQuery();
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.MEMBERS)) {
           QueryBuilder memberQuery = YearbookUtils.getMemberQuery(yisb.getYearbook());
-          if(memberQuery!=null)
-          {
-            query = QueryBuilders.boolQuery();       
+          if (memberQuery != null) {
+            query = QueryBuilders.boolQuery();
             query.must(memberQuery);
           }
 
         } else if (yisb.getSelectedWorkspace().equals(YBWORKSPACE.INVALID)) {
-          QueryBuilder invalidQuery  = this.getInvalidMembersQuery();
-          if(invalidQuery!=null)
-          {
+          QueryBuilder invalidQuery = this.getInvalidMembersQuery();
+          if (invalidQuery != null) {
             query = QueryBuilders.boolQuery();
             query.must(invalidQuery);
           }
