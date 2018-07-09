@@ -28,6 +28,7 @@ package de.mpg.mpdl.inge.pubman.web;
 
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -93,14 +94,17 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
     if (FacesTools.getCurrentInstance().getRenderResponse()) {
       final HttpServletRequest request = FacesTools.getRequest();
-      Map<String, String> paramMap = null;
+
       try {
-        paramMap = CommonUtils.getDecodedUrlParameterMap(request.getQueryString());
+        if (request.getQueryString() != null) {
+          final String decodedQuery = URLDecoder.decode(request.getQueryString(), "UTF-8");
+          this.esQuery = decodedQuery.substring(decodedQuery.indexOf(SearchRetrieverRequestBean.parameterElasticSearchQuery)
+              + SearchRetrieverRequestBean.parameterElasticSearchQuery.length() + 1);
+        }
       } catch (final UnsupportedEncodingException e) {
         SearchAndExportPage.logger.error("Error during reading GET parameters.", e);
       }
 
-      this.esQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
     }
 
     if (this.esQuery == null && oldQuery != null) {
