@@ -292,10 +292,9 @@ public class AuthorizationService {
                 } else {
                   Object val = getFieldValueOrString(order, objects, (String) rule.getValue().toString());
                   String value = null;
-                  if(val!=null)
-                  {
+                  if (val != null) {
                     value = val.toString();
-                  }                
+                  }
                   check = (keyValue != null && keyValue.equalsIgnoreCase(value));
                   if (!check) {
                     throw new AuthorizationException("Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
