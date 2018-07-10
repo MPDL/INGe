@@ -29,6 +29,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
 public abstract class ComponentAvailableSearchCriterion extends SearchCriterionBase {
@@ -85,11 +86,13 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
   public QueryBuilder toElasticSearchQuery() {
     switch (this.selectedAvailability) {
       case YES: {
-        return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {"files.storage"}, this.getStorageType());
+        return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE_KEYWORD},
+            this.getStorageType());
       }
 
       case NO: {
-        return QueryBuilders.boolQuery().mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder("files.storage", this.getStorageType()));
+        return QueryBuilders.boolQuery().mustNot(
+            SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE_KEYWORD, this.getStorageType()));
       }
 
       case WHATEVER:
