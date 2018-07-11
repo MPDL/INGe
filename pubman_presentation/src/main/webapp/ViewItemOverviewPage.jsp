@@ -272,13 +272,7 @@
 										rendered="#{ViewItemFull.canViewLocalTags}">
 										<h:outputText
 											value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
-									</h:outputLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.canManageAudience}" /> <h:commandLink
-										id="lnkManageAudience" styleClass="free_area0"
-										action="#{AudienceBean.manageAudience}"
-										rendered="#{ViewItemFull.canManageAudience}">
-										<h:outputText value="#{lbl.AudiencePage}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator" rendered="false" /> <h:outputLink
+									</h:outputLink> <h:panelGroup styleClass="seperator" rendered="false" /> <h:outputLink
 										id="lnkCollaboratorPage" styleClass="free_area0"
 										value="#{ApplicationBean.appContext}CollaboratorPage.jsp"
 										rendered="false">
