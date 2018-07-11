@@ -64,7 +64,7 @@
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 				<!-- Contact -->
-				<h:outputText styleClass="free_area0_p8 endline"
+				<h:outputText styleClass="xDouble_area0_p3 endline"
 					value="#{LoginHelper.currentIp.name}"
 					rendered="#{LoginHelper.currentIp != null}" />
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
