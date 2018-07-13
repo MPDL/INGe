@@ -261,11 +261,9 @@ public class MetadataProvider implements ItemDataProvider {
         Collections.sort(fileList, new FileUrlPriorityComparator());
         if (fileList.get(0) != null) {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
-              && ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(fileList.get(0).getContentCategory())
-                  || "http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(fileList.get(0).getContentCategory())
-                  || "http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(fileList.get(0).getContentCategory())
-                  || "http://purl.org/escidoc/metadata/ves/content-categories/publisher-version"
-                      .equals(fileList.get(0).getContentCategory()))) {
+              && ("ny-fulltext".equals(fileList.get(0).getContentCategory()) || "post-print".equals(fileList.get(0).getContentCategory())
+                  || "pre-print".equals(fileList.get(0).getContentCategory())
+                  || "publisher-version".equals(fileList.get(0).getContentCategory()))) {
             if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage())) {
               cslItem.URL(fileList.get(0).getContent());
             } else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage())) {
@@ -603,7 +601,7 @@ public class MetadataProvider implements ItemDataProvider {
             if (file1.getContentCategory().equals(file2.getContentCategory())) {
               return 0;
             } else {
-              if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file1.getContentCategoryString())) {
+              if ("any-fulltext".equals(file1.getContentCategoryString())) {
                 return -1;
               } else
                 return checkContentcategory(file1, file2);
@@ -612,7 +610,7 @@ public class MetadataProvider implements ItemDataProvider {
             if (file1.getContentCategory().equals(file2.getContentCategory())) {
               return 0;
             } else {
-              if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file1.getContentCategoryString())) {
+              if ("any-fulltext".equals(file1.getContentCategoryString())) {
                 return -1;
               } else
                 return checkContentcategory(file1, file2);
@@ -633,19 +631,19 @@ public class MetadataProvider implements ItemDataProvider {
     }
 
     private int checkContentcategory(FileVO file1, FileVO file2) {
-      if ("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext".equals(file2.getContentCategory())) {
+      if ("any-fulltext".equals(file2.getContentCategory())) {
         return 1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file1.getContentCategory())) {
+      } else if ("post-print".equals(file1.getContentCategory())) {
         return -1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/post-print".equals(file2.getContentCategory())) {
+      } else if ("post-print".equals(file2.getContentCategory())) {
         return 1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file1.getContentCategory())) {
+      } else if ("pre-print".equals(file1.getContentCategory())) {
         return -1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/pre-print".equals(file2.getContentCategory())) {
+      } else if ("pre-print".equals(file2.getContentCategory())) {
         return 1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file1.getContentCategory())) {
+      } else if ("publisher-version".equals(file1.getContentCategory())) {
         return -1;
-      } else if ("http://purl.org/escidoc/metadata/ves/content-categories/publisher-version".equals(file2.getContentCategory())) {
+      } else if ("publisher-version".equals(file2.getContentCategory())) {
         return 1;
       } else {
         return 1;
