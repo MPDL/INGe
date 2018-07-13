@@ -33,6 +33,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,6 +52,13 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.fluent.Response;
+import org.apache.http.entity.ContentType;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -60,13 +68,16 @@ import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.util.AdminHelper;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
+import net.sf.jasperreports.engine.design.JRJdtCompiler;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
@@ -90,7 +101,6 @@ public class ReportFHI {
   private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
   private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
 
-  private static String adminHandler;
   private static Properties rprops;
 
   public static String USER_NAME;
@@ -101,7 +111,7 @@ public class ReportFHI {
   public static String emailAuthUserProp;
   public static String emailAuthPwdProp;
 
-  public ReportFHI() throws IOException, URISyntaxException, ServiceException {
+  public ReportFHI() throws IOException, URISyntaxException {
     USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME);
     USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
     emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
@@ -110,7 +120,6 @@ public class ReportFHI {
     emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
     emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
 
-    adminHandler = AdminHelper.loginUser(USER_NAME, USER_PASSWD);
 
     rprops = loadReportProperties();
   }
@@ -152,15 +161,17 @@ public class ReportFHI {
     // Time range: previous month
 
     String itemList = null;
-    GetMethod method;
-    try {
-      method = new GetMethod(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + "/ir/items");
-      method.setRequestHeader("Cookie", "escidocCookie=" + adminHandler);
-      String query = "operation=searchRetrieve&maximumRecords=1000&query=" + URLEncoder.encode(rprops.getProperty("FHI.query"), "UTF-8")
-          + "%20and%20" + URLEncoder.encode(getTimeRangeQuery(), "UTF-8") + URLEncoder.encode(rprops.getProperty("FHI.sort.by"), "UTF-8");
-      logger.info("query <" + query + ">");
 
-      method.setQueryString(query);
+    PostMethod method;
+    try {
+      String token = loginInInge(PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME),
+          PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD));
+      method =
+          new PostMethod(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/items/search?format=eSciDoc_Itemlist_Xml");
+      method.setRequestEntity(
+          new StringRequestEntity(rprops.getProperty("FHI.query"), "application/json", StandardCharsets.UTF_8.displayName()));
+      method.setRequestHeader("Authorization", token);
+
       logger.info("URI:" + method.getURI());
       HttpClient client = new HttpClient();
       //      ProxyHelper.executeMethod(client, method);
@@ -225,6 +236,7 @@ public class ReportFHI {
    * @return list of paths to the generated reports
    */
   public static String[] generateReport() throws JRException {
+    rprops = loadReportProperties();
     String[] formats = rprops.getProperty("FHI.report.formats").split(",");
 
     // GET REPORT FROM JRXMLs
@@ -235,7 +247,9 @@ public class ReportFHI {
     JasperReport jr = null;
     JasperDesign jd;
     jd = JRXmlLoader.load(JRLoader.getLocationInputStream("FHI_Bibilothek_report.jrxml"));
-    jr = JasperCompileManager.compileReport(jd);
+    JRJdtCompiler compiler = new JRJdtCompiler(DefaultJasperReportsContext.getInstance());
+    //    jr = JasperCompileManager.compileReport(jd);
+    jr = compiler.compileReport(jd);
     if (jr == null) {
       throw new RuntimeException("Compiled report is null: " + "FHI_Bibilothek_report.jrxml");
     }
@@ -256,7 +270,7 @@ public class ReportFHI {
       if (FileFormatVO.PDF_NAME.equalsIgnoreCase(f)) {
         JRPdfExporter pdfExp = new JRPdfExporter();
         pdfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        fn = "FHI_Bibilothek_report.pdf";
+        fn = "E:\\tmp\\FHI_Bibilothek_report.pdf";
         pdfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
         pdfExp.exportReport();
         atts.add(fn);
@@ -324,6 +338,29 @@ public class ReportFHI {
     }
 
     return props;
+  }
+
+
+  /**
+   * @param username
+   * @param password
+   * @return INGe token or null if login failed
+   * @throws Exception
+   */
+  public static String loginInInge(String username, String password) throws Exception {
+    String credentials = username + ":" + password;
+    Response resp = Request.Post(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/login")
+        .bodyString(credentials, ContentType.TEXT_PLAIN).execute();
+    HttpResponse httpResp = resp.returnResponse();
+
+    if (httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+
+      String token = httpResp.getLastHeader("Token").getValue();
+      return token;
+    }
+    return null;
+
+
   }
 
   /**

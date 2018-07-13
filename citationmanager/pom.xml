@@ -83,7 +83,7 @@
 			<artifactId>citation_style_language_manager</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jasperreports</groupId>
+			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 		</dependency>
 		<dependency>

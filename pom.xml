@@ -589,9 +589,9 @@
 				<version>8.7</version>
 			</dependency>
 			<dependency>
-				<groupId>jasperreports</groupId>
+				<groupId>net.sf.jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
-				<version>3.7.6</version>
+				<version>6.6.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jsoup</groupId>
@@ -627,6 +627,26 @@
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>fluent-hc</artifactId>
 				<version>4.5.2</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>com.itextpdf</groupId>
+				<artifactId>itextpdf</artifactId>
+				<version>5.5.13</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-collections4</artifactId>
+				<version>4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>2.7.2</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -1038,8 +1058,8 @@
 		<inge.transformation.endnote.configuration.filename>transformations/commonPublicationFormats/conf/endnote.properties</inge.transformation.endnote.configuration.filename>
 		<inge.transformation.endnote.ice.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnoteicexml2escidoc.xsl</inge.transformation.endnote.ice.stylesheet.filename>
 		<inge.transformation.endnote.stylesheet.filename>transformations/commonPublicationFormats/xslt/endnotexml2escidoc.xsl</inge.transformation.endnote.stylesheet.filename>
-		<inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename >transformations/itemList2snippet.xsl</inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename >
-		<inge.transformation.escidoc.snippet.to.html.stylesheet.filename >transformations/escidoc-publication-snippet2html.xsl</inge.transformation.escidoc.snippet.to.html.stylesheet.filename >
+		<inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename>transformations/itemList2snippet.xsl</inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename>
+		<inge.transformation.escidoc.snippet.to.html.stylesheet.filename>transformations/escidoc-publication-snippet2html.xsl</inge.transformation.escidoc.snippet.to.html.stylesheet.filename>
 		<inge.transformation.escidoc2bibtex.stylesheet.filename>transformations/commonPublicationFormats/xslt/eSciDoc_to_BibTeX.xsl</inge.transformation.escidoc2bibtex.stylesheet.filename>
 		<inge.transformation.escidoc2edoc_export.stylesheet.filename>transformations/otherFormats/xslt/escidoc2edoc_export.xsl</inge.transformation.escidoc2edoc_export.stylesheet.filename>
 		<inge.transformation.escidoc2edoc_import.stylesheet.filename>transformations/otherFormats/xslt/escidoc2edoc_import.xsl</inge.transformation.escidoc2edoc_import.stylesheet.filename>
@@ -1069,7 +1089,7 @@
 		<inge.transformation.wos.configuration.filename>transformations/otherFormats/conf/wos.properties</inge.transformation.wos.configuration.filename>
 		<inge.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</inge.transformation.wos.stylesheet.filename>
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
-		<inge.transformation.zfn.stylesheet.filename >transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename >
+		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
 		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -1150,7 +1170,8 @@
 				<inge.pubman.build.mode>pure</inge.pubman.build.mode>
 				<inge.pubman.instance.seal_number>ZDB-97-MPR </inge.pubman.instance.seal_number>
 				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>
-				<inge.pubman_presentation.overview_page.authors_ou>Max Planck Society</inge.pubman_presentation.overview_page.authors_ou>
+				<inge.pubman_presentation.overview_page.authors_ou>Max Planck
+					Society</inge.pubman_presentation.overview_page.authors_ou>
 			</properties>
 			<distributionManagement>
 				<site>
