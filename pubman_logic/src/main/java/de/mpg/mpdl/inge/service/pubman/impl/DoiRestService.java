@@ -61,36 +61,28 @@ public class DoiRestService {
 
     try {
       // Generate metadata xml for the DOI service
-      String itemXml =
-          XmlTransformingService.transformToItem(EntityTransformer.transformToOld(pubItem));
-      Transformer transformer = TransformerFactory.newTransformer(
-          TransformerFactory.getInternalFormat(), TransformerFactory.FORMAT.DOI_METADATA_XML);
+      String itemXml = XmlTransformingService.transformToItem(EntityTransformer.transformToOld(pubItem));
+      Transformer transformer =
+          TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();
 
-      transformer.transform(
-          new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes())),
-          new TransformerStreamResult(wr));
+      transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes())), new TransformerStreamResult(wr));
 
       // REST request to the DOI service for creating a new DOI
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
       String queryParams = "?url="
           + URLEncoder.encode(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
               + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
-              + (PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN)).replace("$1",
-                  pubItem.getObjectId()),
-              "UTF-8")
+              + (PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN)).replace("$1", pubItem.getObjectId()), "UTF-8")
           + "&suffix=" + pubItem.getObjectId().substring(pubItem.getObjectId().indexOf("_") + 1);
       HttpClient client = new HttpClient();
       client.getParams().setAuthenticationPreemptive(true);
-      Credentials defaultcreds = new UsernamePasswordCredentials(
-          PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USER),
+      Credentials defaultcreds = new UsernamePasswordCredentials(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USER),
           PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_PASSWORD));
       client.getState().setCredentials(AuthScope.ANY, defaultcreds);
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
-      PutMethod putMethod =
-          new PutMethod(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_URL)
-              + PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_CREATE_URL)
-              + queryParams);
+      PutMethod putMethod = new PutMethod(PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_URL)
+          + PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_CREATE_URL) + queryParams);
       putMethod.setRequestEntity(xmlEntity);
       int statusCode = client.executeMethod(putMethod);
 
@@ -99,8 +91,7 @@ public class DoiRestService {
         String responseBody = putMethod.getResponseBodyAsString();
         logger.error("Error occured, when contacting DOxI. StatusCode=" + statusCode);
         logger.error(putMethod.getResponseBodyAsString());
-        throw new Exception("Error occured, when contacting DOxI. StatusCode=" + statusCode
-            + "\nServer responded with: " + responseBody);
+        throw new Exception("Error occured, when contacting DOxI. StatusCode=" + statusCode + "\nServer responded with: " + responseBody);
       }
 
       doi = putMethod.getResponseBodyAsString();
