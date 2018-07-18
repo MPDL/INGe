@@ -1100,9 +1100,9 @@ public class Bibtex implements BibtexInterface {
           locator.setName("Link");
           locator.setStorage(FileVO.Storage.EXTERNAL_URL);
           locator.setVisibility(FileVO.Visibility.PUBLIC);
-          locator.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
+          locator.setContentCategory("any-fulltext");
           MdsFileVO metadata = new MdsFileVO();
-          metadata.setContentCategory("http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext");
+          metadata.setContentCategory("any-fulltext");
           metadata.setTitle("Link");
           locator.getMetadataSets().add(metadata);
           itemVO.getFiles().add(locator);
