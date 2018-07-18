@@ -132,7 +132,7 @@
                                         <h:panelGroup styleClass="min_imgBtn remove" />
                                         <h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
                                     </h:commandLink>
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.doiCappable and ViewItemFull.canEdit}" />
                                     <h:outputLink id="lnkAddDoi" styleClass="free_area0" value="#" title="#{tip.ViewItemFull_lblAddDoi}" rendered="#{ViewItemFull.doiCappable and (ViewItemFull.canEdit or ViewItemFull.canModify)}" onclick="showDialog();">
                                         <h:outputText value="#{lbl.ViewItemFull_lblDoi}" />
                                     </h:outputLink>
