@@ -2,9 +2,11 @@ package de.mpg.mpdl.inge.es.dao.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -53,7 +55,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ValueObject;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
+public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
 
   private static final Logger logger = LogManager.getLogger(ElasticSearchGenericDAOImpl.class);
 
@@ -80,6 +82,8 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
     JsonNode node = mapper.valueToTree(entity);
     return node;
   }
+
+  protected abstract String[] getSourceExclusions();
 
 
   /**
@@ -253,6 +257,11 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
         }
       }
 
+      if (getSourceExclusions() != null) {
+        srb.setFetchSource(null, getSourceExclusions());
+      }
+
+
       if (searchQuery.getScrollTime() != -1) {
         srb.setScroll(new Scroll(new TimeValue(searchQuery.getScrollTime())));
       }
@@ -276,6 +285,20 @@ public class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> {
       if (scrollTime != -1) {
         srb.setScroll(new Scroll(new TimeValue(scrollTime)));
       }
+
+      if (getSourceExclusions() != null && getSourceExclusions().length > 0) {
+        if (ssb.fetchSource() == null) {
+          srb.setFetchSource(null, getSourceExclusions());
+        } else if (ssb.fetchSource().fetchSource()) {
+          String[] excludes = ssb.fetchSource().excludes();
+          String[] both = Stream
+              .concat(Arrays.stream(getSourceExclusions()), (excludes != null ? Arrays.stream(excludes) : Arrays.stream(new String[0])))
+              .toArray(String[]::new);
+          ssb.fetchSource(ssb.fetchSource().includes(), both);
+        }
+      }
+
+
       logger.debug(srb.toString());
       return srb.get();
     } catch (Exception e) {

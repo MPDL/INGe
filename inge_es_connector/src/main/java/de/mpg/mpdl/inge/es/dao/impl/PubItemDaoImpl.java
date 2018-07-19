@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.mpg.mpdl.inge.es.dao.PubItemDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Repository
@@ -23,6 +24,8 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   private static final String JOIN_FIELD_NAME = "joinField";
 
+  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort.metadata.creators"};
+
   public PubItemDaoImpl() {
     super(indexName, indexType, typeParameterClass);
   }
@@ -30,11 +33,45 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   @Override
   protected JsonNode applyCustomValues(ItemVersionVO item) {
-    JsonNode node = super.applyCustomValues(item);
-    ((ObjectNode) node).putObject(JOIN_FIELD_NAME).put("name", "item");
+    ObjectNode node = (ObjectNode) super.applyCustomValues(item);
+    node.putObject(JOIN_FIELD_NAME).put("name", "item");
+    node.put("sort.metadata.creators", createSortCreatorsString(item));
+
     return node;
   }
 
+
+  private String createSortCreatorsString(ItemVersionVO item) {
+    StringBuilder sb = new StringBuilder();
+    if (item != null && item.getMetadata() != null && item.getMetadata().getCreators() != null) {
+      for (CreatorVO creator : item.getMetadata().getCreators()) {
+        if (creator.getPerson() != null) {
+          if (creator.getPerson().getFamilyName() != null) {
+            sb.append(creator.getPerson().getFamilyName());
+          }
+          if (creator.getPerson().getGivenName() != null) {
+            sb.append(" ");
+            sb.append(creator.getPerson().getGivenName());
+          }
+
+        } else if (creator.getOrganization() != null) {
+          if (creator.getOrganization().getName() != null) {
+            sb.append(creator.getOrganization().getName());
+          }
+        }
+
+        sb.append(", ");
+      }
+    }
+
+    return sb.toString();
+  }
+
+
+  @Override
+  protected String[] getSourceExclusions() {
+    return SOURCE_EXCLUSIONS;
+  }
 
   /**
    * 
@@ -61,5 +98,7 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
 
   }
+
+
 
 }

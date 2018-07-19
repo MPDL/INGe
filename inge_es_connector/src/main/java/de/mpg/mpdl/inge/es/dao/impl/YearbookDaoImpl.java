@@ -18,4 +18,9 @@ public class YearbookDaoImpl extends ElasticSearchGenericDAOImpl<YearbookDbVO> i
     super(indexName, indexType, typeParameterClass);
   }
 
+  @Override
+  protected String[] getSourceExclusions() {
+    return null;
+  }
+
 }

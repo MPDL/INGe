@@ -18,4 +18,9 @@ public class OrganizationDaoImpl extends ElasticSearchGenericDAOImpl<Affiliation
     super(indexName, indexType, typeParameterClass);
   }
 
+  @Override
+  protected String[] getSourceExclusions() {
+    return null;
+  }
+
 }

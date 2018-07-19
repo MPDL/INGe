@@ -18,4 +18,9 @@ public class UserAccountDaoImpl extends ElasticSearchGenericDAOImpl<AccountUserD
     super(indexName, indexType, typeParameterClass);
   }
 
+  @Override
+  protected String[] getSourceExclusions() {
+    return null;
+  }
+
 }

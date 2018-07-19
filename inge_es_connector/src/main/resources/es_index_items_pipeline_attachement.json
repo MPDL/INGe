@@ -1,12 +1,17 @@
 {
-	"description": "Extract attachment information", 
-	"processors": [
-		{
-			"attachment": {
-				"target_field": "files.attachment",        
-				"field": "files.data",        
-				"indexed_chars": -1      
-			}
-		}
-	]
+    "attachment": {
+        "description": "Extract attachment information",
+        "processors": [
+            {
+                "attachment": {
+                    "target_field": "fileData.attachment",
+                    "field": "fileData.data",
+                    "indexed_chars": -1
+                },
+                "remove": {
+                    "field": "fileData.data"
+                }
+            }
+        ]
+    }
 }

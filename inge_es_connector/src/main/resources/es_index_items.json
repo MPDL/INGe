@@ -1278,6 +1278,10 @@
 				},
 				"versionState": {
 					"type": "keyword"
+				},
+				"metadata.creators.compound": {			
+					"type": "keyword",
+					"ignore_above": 256
 				}
 			}
 		}
