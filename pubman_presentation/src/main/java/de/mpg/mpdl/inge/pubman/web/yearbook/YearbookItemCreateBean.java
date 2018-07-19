@@ -3,7 +3,9 @@ package de.mpg.mpdl.inge.pubman.web.yearbook;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.faces.bean.ManagedBean;
@@ -37,15 +39,17 @@ public class YearbookItemCreateBean extends FacesBean {
 
   //  private static final String MAXIMUM_RECORDS = "5000";
 
-  private AffiliationVOPresentation affiliation;
+  private Map<String, AffiliationVOPresentation> affiliations;
   private List<AccountUserRO> collaborators;
   // private List<AccountUserVO> possibleCollaboratorsList;
   private List<ContextRO> contextIds;
   private List<SelectItem> contextSelectItems;
-  private final List<SelectItem> selectableYears;
+  private List<SelectItem> organizationSelectItems;
+  private List<SelectItem> selectableYears;
   // private List<SelectItem> userAccountSelectItems;
   // private List<String> collaboratorUserIds;
   private String context;
+  private String selectedOrgId;
   private String endDate;
   private String startDate;
   private String title;
@@ -55,31 +59,40 @@ public class YearbookItemCreateBean extends FacesBean {
   private int userPosition;
 
   public YearbookItemCreateBean() throws Exception {
-    this.selectableYears = new ArrayList<SelectItem>();
 
+
+    this.affiliations = new HashMap<>();
     List<String> orgIds = YearbookUtils.getYearbookOrganizationIds(this.getLoginHelper().getAccountUser());
-    this.setAffiliation(new AffiliationVOPresentation(ApplicationBean.INSTANCE.getOrganizationService().get(orgIds.get(0), null)));
+    for (String orgId : orgIds) {
+      this.affiliations.put(orgId, new AffiliationVOPresentation(ApplicationBean.INSTANCE.getOrganizationService().get(orgId, null)));
+    }
 
+    this.selectedOrgId = orgIds.get(0);
 
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    this.initContextMenu();
+    
     // this.initUserAccountMenu();
     this.initMetadata();
+    
+  }
+
+  private void initMetadata() {
+    this.initOrganizationMenu();
+    this.initContextMenu();
     this.contextIds = new ArrayList<ContextRO>();
     if (contextSelectItems.size() > 0) {
       this.contextIds.add(new ContextRO((String) this.contextSelectItems.get(0).getValue()));
     }
 
     this.collaborators = new ArrayList<AccountUserRO>();
-  }
-
-  private void initMetadata() {
+    this.selectableYears = new ArrayList<SelectItem>();
+    
     final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
     final Calendar calendar = Calendar.getInstance();
     final String currentYear = calendarFormat.format(calendar.getTime());
     try {
 
-      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, getAffiliation().getObjectId());
+      QueryBuilder qb = QueryBuilders.termQuery(YearbookServiceDbImpl.INDEX_ORGANIZATION_ID, this.selectedOrgId);
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
       SearchRetrieveResponseVO<YearbookDbVO> resp =
           ApplicationBean.INSTANCE.getYearbookService().search(srr, getLoginHelper().getAuthenticationToken());
@@ -110,7 +123,7 @@ public class YearbookItemCreateBean extends FacesBean {
       this.setEndDate(currentYear + "-12-31");
     }
     if (this.getTitle() == null) {
-      this.setTitle(currentYear + " - Yearbook of " + this.getAffiliation().getName());
+      this.setTitle(currentYear + " - Yearbook of " + this.affiliations.get(this.selectedOrgId).getName());
     }
   }
 
@@ -142,7 +155,7 @@ public class YearbookItemCreateBean extends FacesBean {
    */
   public void setYear(String newYear) {
     this.year = newYear;
-    this.setTitle(this.getYear() + " - Yearbook of " + this.getAffiliation().getName());
+    this.setTitle(this.getYear() + " - Yearbook of " + this.affiliations.get(this.selectedOrgId).getName());
     this.setStartDate(this.year + "-01-01");
     this.setEndDate(this.year + "-12-31");
   }
@@ -184,7 +197,7 @@ public class YearbookItemCreateBean extends FacesBean {
 
       YearbookDbVO yearbook = new YearbookDbVO();
       AffiliationDbVO ou = new AffiliationDbVO();
-      ou.setObjectId(getAffiliation().getObjectId());
+      ou.setObjectId(this.selectedOrgId);
       yearbook.setOrganization(ou);
       yearbook.setYear(Integer.parseInt(getYear()));
 
@@ -211,12 +224,12 @@ public class YearbookItemCreateBean extends FacesBean {
   /**
    * @param affiliation
    */
-  public void setAffiliation(AffiliationVOPresentation affiliation) {
-    this.affiliation = affiliation;
+  public void setAffiliations(Map<String, AffiliationVOPresentation> affiliations) {
+    this.affiliations = affiliations;
   }
 
-  public AffiliationVOPresentation getAffiliation() {
-    return this.affiliation;
+  public Map<String, AffiliationVOPresentation> getAffiliations() {
+    return this.affiliations;
   }
 
   public void setContextSelectItems(List<SelectItem> contextSelectItems) {
@@ -269,8 +282,20 @@ public class YearbookItemCreateBean extends FacesBean {
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
     final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      this.contextSelectItems.add(new SelectItem(context.getObjectId(), context.getName() + " (" + context.getObjectId() + ")"));
+    for (final PubContextVOPresentation context : clsb.getYearbookContextList()) {
+      if (context.getResponsibleAffiliations().stream().anyMatch(i -> i.getObjectId().equals(this.selectedOrgId))) {
+        this.contextSelectItems.add(new SelectItem(context.getObjectId(), context.getName() + " (" + context.getObjectId() + ")"));
+      }
+
+    }
+  }
+
+  public void initOrganizationMenu() {
+
+
+    this.organizationSelectItems = new ArrayList<SelectItem>();
+    for (AffiliationDbVO aff : this.affiliations.values()) {
+      this.organizationSelectItems.add(new SelectItem(aff.getObjectId(), aff.getName()));
     }
   }
 
@@ -322,5 +347,26 @@ public class YearbookItemCreateBean extends FacesBean {
 
   public List<SelectItem> getSelectYear() {
     return this.selectableYears;
+  }
+
+  public List<SelectItem> getOrganizationSelectItems() {
+    return organizationSelectItems;
+  }
+
+  public void setOrganizationSelectItems(List<SelectItem> organizationSelectItems) {
+    this.organizationSelectItems = organizationSelectItems;
+  }
+
+  public void changeOrganization() {
+    this.initMetadata();
+
+  }
+
+  public String getSelectedOrgId() {
+    return selectedOrgId;
+  }
+
+  public void setSelectedOrgId(String selectedOrgId) {
+    this.selectedOrgId = selectedOrgId;
   }
 }

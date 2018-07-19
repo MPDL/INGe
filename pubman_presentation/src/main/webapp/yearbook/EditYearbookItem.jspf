@@ -117,7 +117,7 @@
 			</h:panelGroup>
 			<div class="half_area0 formButtonArea">
 				<h:commandLink styleClass="free_area1_p8 activeButton"
-					id="lnkDelete" value="Delete"
+					id="lnkDelete" value="Delete Yearbook"
 					action="#{YearbookItemEditBean.delete}"
 					onclick="fullItemReloadAjax();" />
 			</div>

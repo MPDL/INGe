@@ -112,10 +112,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SortOrder.ASC),
 
+    /*
     SOURCE_CREATOR(new String[] {
         PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME,
         PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME}, SortOrder.ASC), //
-
+*/
     REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SortOrder.ASC), // ,
 
     CREATION_DATE(PubItemServiceDbImpl.INDEX_CREATION_DATE, SortOrder.ASC),

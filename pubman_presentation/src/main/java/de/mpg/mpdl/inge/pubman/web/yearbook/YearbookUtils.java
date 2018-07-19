@@ -136,8 +136,6 @@ public class YearbookUtils {
     for (GrantVO grant : user.getGrantList()) {
       if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
         orgIds.add(grant.getObjectRef());
-
-        break;
       }
     }
     return orgIds;

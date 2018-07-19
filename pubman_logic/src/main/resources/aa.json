@@ -417,6 +417,12 @@
 					"role" : "SYSADMIN"
 				}
 				
+			},
+			{
+				"user" : {
+					"role" : "YEARBOOK-EDITOR",
+					"field_grant_id_match" : "yearbook.organization.objectId"
+				}
 			}
 		],
 		

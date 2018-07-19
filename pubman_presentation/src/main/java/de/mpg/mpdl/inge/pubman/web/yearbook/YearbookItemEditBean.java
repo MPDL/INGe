@@ -90,8 +90,12 @@ public class YearbookItemEditBean extends FacesBean {
   public void initContextMenu() {
     this.contextSelectItems = new ArrayList<SelectItem>();
     final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
-    for (final PubContextVOPresentation context : clsb.getModeratorContextList()) {
-      this.contextSelectItems.add(new SelectItem(context.getObjectId(), context.getName() + " (" + context.getObjectId() + ")"));
+    for (final PubContextVOPresentation context : clsb.getYearbookContextList()) {
+      if (context.getResponsibleAffiliations().stream()
+          .anyMatch(i -> i.getObjectId().equals(this.yearbookItemSessionBean.getYearbook().getOrganization().getObjectId()))) {
+        this.contextSelectItems.add(new SelectItem(context.getObjectId(), context.getName() + " (" + context.getObjectId() + ")"));
+      }
+
     }
   }
 
@@ -269,6 +273,7 @@ public class YearbookItemEditBean extends FacesBean {
 
   public String delete() {
     try {
+      ApplicationBean.INSTANCE.getYearbookService().delete(this.yearbookItemSessionBean.getYearbook().getObjectId(), this.getLoginHelper().getAuthenticationToken());
       /*
        * final ItemHandler itemHandler =
        * ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());
@@ -283,8 +288,8 @@ public class YearbookItemEditBean extends FacesBean {
       this.error(this.getMessage("Yearbook_deleteError"));
       YearbookItemEditBean.logger.error("Problem deleting yearbook", e);
     }
-
-    return "";
+    this.info(this.getMessage("Yearbook_deleteSuccessful"));
+    return "loadYearbookModeratorPage";
   }
 
   /**

@@ -39,6 +39,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
   public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_STATE = "state";
+  public final static String INDEX_AFILLIATIONS_OBJECT_ID = "responsibleAffiliations.objectId";
 
   @Autowired
   private AuthorizationService aaService;

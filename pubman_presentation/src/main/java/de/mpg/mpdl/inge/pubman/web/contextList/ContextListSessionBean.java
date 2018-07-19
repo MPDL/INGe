@@ -35,6 +35,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -159,10 +160,14 @@ public class ContextListSessionBean extends FacesBean {
       try {
         boolean hasGrants = false;
         final ArrayList<String> ctxIdList = new ArrayList<>();
+        final ArrayList<String> yearbookOuIdList = new ArrayList<>();
         for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
           if (grant.getObjectRef() != null) {
             ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
+            if (PredefinedRoles.YEARBOOK_EDITOR.frameworkValue().equals(grant.getRole())) {
+              yearbookOuIdList.add(grant.getObjectRef());
+            }
           }
         }
 
@@ -207,6 +212,16 @@ public class ContextListSessionBean extends FacesBean {
               }
             }
           }
+
+
+
+          QueryBuilder yearbookContextsQueryBuilder =
+              QueryBuilders.termsQuery(ContextServiceDbImpl.INDEX_AFILLIATIONS_OBJECT_ID, yearbookOuIdList.toArray(new String[] {}));
+
+          SearchRetrieveResponseVO<ContextDbVO> ybResponse =
+              ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO(yearbookContextsQueryBuilder), null);
+          this.yearbookContextList = CommonUtils.convertToPubCollectionVOPresentationList(
+              ybResponse.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList()));
         }
       } catch (final Exception e) {
         // No business exceptions expected.
