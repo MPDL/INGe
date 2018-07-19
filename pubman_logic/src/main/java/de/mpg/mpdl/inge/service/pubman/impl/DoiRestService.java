@@ -128,10 +128,8 @@ public class DoiRestService {
     }
     // Item must include at least one fulltext to create a DOI
     for (FileDbVO file : pubItem.getFiles()) {
-      if (file.getVisibility() == Visibility.PUBLIC && ("any-fulltext"
-          .equals(file.getMetadata().getContentCategory())
-          || "pre-print".equals(file.getMetadata().getContentCategory())
-          || "post-print".equals(file.getMetadata().getContentCategory())
+      if (file.getVisibility() == Visibility.PUBLIC && ("any-fulltext".equals(file.getMetadata().getContentCategory())
+          || "pre-print".equals(file.getMetadata().getContentCategory()) || "post-print".equals(file.getMetadata().getContentCategory())
           || "publisher-version".equals(file.getMetadata().getContentCategory()))) {
         doiReady = true;
       }
