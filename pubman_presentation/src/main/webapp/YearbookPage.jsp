@@ -81,7 +81,7 @@
                                     </h:commandLink>
                                     <h:outputText id="txtChangeToInvalidItems" styleClass="free_area0" value="#{lbl.YearbookInvalidItemsPage}" rendered="#{YearbookItemSessionBean.selectedWorkspace=='INVALID'}" />
                                     <h:outputText styleClass="seperator void" />
-                                    <h:outputLink id="lnkChangeToYearbookEditPage" styleClass="free_area0" value="YearbookItemEditPage.jsp" rendered="#{YearbookItemSessionBean.yearbook!=null and YearbookItemSessionBean.yearbook.creator.objectId==LoginHelper.accountUser.objectId and (YearbookItemSessionBean.yearbook.state=='CREATED')}">
+                                    <h:outputLink id="lnkChangeToYearbookEditPage" styleClass="free_area0" value="YearbookItemEditPage.jsp" rendered="#{YearbookItemSessionBean.yearbook!=null and LoginHelper.isYearbookEditor and (YearbookItemSessionBean.yearbook.state=='CREATED')}">
                                         <h:outputText value="#{lbl.Yearbook_editYearbook}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />
