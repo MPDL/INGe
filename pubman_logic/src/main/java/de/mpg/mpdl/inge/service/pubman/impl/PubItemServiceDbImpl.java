@@ -191,6 +191,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_IDENTIFIERS_TYPE = "metadata.identifiers.type";
 
   public static String INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID = "metadata.publishingInfo.publisher";
+  public static String INDEX_METADATA_PUBLISHINGINFO_PLACE = "metadata.publishingInfo.place";
+  public static String INDEX_METADATA_PUBLISHINGINFO_EDITION = "metadata.publishingInfo.edition";
 
   public static String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
   public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE = "metadata.projectInfo.fundingInfo.fundingOrganization.title";

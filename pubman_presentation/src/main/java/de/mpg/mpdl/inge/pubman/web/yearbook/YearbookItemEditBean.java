@@ -273,7 +273,8 @@ public class YearbookItemEditBean extends FacesBean {
 
   public String delete() {
     try {
-      ApplicationBean.INSTANCE.getYearbookService().delete(this.yearbookItemSessionBean.getYearbook().getObjectId(), this.getLoginHelper().getAuthenticationToken());
+      ApplicationBean.INSTANCE.getYearbookService().delete(this.yearbookItemSessionBean.getYearbook().getObjectId(),
+          this.getLoginHelper().getAuthenticationToken());
       /*
        * final ItemHandler itemHandler =
        * ServiceLocator.getItemHandler(this.getLoginHelper().getESciDocUserHandle());

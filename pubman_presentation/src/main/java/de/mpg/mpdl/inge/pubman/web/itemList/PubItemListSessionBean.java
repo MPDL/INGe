@@ -102,9 +102,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
         PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED}, SortOrder.DESC), //
 
-    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC),
+    //CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC),
 
-    PUBLISHING_INFO(PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID, SortOrder.ASC), //
+    PUBLISHING_INFO(new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION} , SortOrder.ASC), //
 
     MODIFICATION_DATE(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC),
 
@@ -123,7 +123,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SortOrder.ASC),
 
-    OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
+    //OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
 
     COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SortOrder.ASC);
 

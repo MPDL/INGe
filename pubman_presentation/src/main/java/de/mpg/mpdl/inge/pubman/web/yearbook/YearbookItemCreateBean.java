@@ -70,10 +70,10 @@ public class YearbookItemCreateBean extends FacesBean {
     this.selectedOrgId = orgIds.get(0);
 
     this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-    
+
     // this.initUserAccountMenu();
     this.initMetadata();
-    
+
   }
 
   private void initMetadata() {
@@ -86,7 +86,7 @@ public class YearbookItemCreateBean extends FacesBean {
 
     this.collaborators = new ArrayList<AccountUserRO>();
     this.selectableYears = new ArrayList<SelectItem>();
-    
+
     final SimpleDateFormat calendarFormat = new SimpleDateFormat("yyyy");
     final Calendar calendar = Calendar.getInstance();
     final String currentYear = calendarFormat.format(calendar.getTime());
