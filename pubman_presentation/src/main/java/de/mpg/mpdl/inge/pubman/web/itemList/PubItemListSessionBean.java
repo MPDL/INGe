@@ -102,7 +102,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
         PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED}, SortOrder.DESC), //
 
-    //CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC),
+    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC),
 
     PUBLISHING_INFO(new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION} , SortOrder.ASC), //
 
