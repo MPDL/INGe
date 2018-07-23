@@ -15,8 +15,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -35,8 +34,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -50,8 +48,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -70,8 +67,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -89,8 +85,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -112,8 +107,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -122,8 +116,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -132,8 +125,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -142,8 +134,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -175,8 +166,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -190,8 +180,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -210,8 +199,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -220,8 +208,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -230,8 +217,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -247,8 +233,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -257,8 +242,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										}
@@ -271,8 +255,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -281,8 +264,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										}
@@ -293,8 +275,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -303,8 +284,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -316,8 +296,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -328,8 +307,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -338,8 +316,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -351,8 +328,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -361,11 +337,9 @@
 						},
 						"storage": {
 							"type": "keyword"
-							
 						},
 						"visibility": {
 							"type": "keyword"
-							
 						}
 					}
 				},
@@ -391,8 +365,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -408,8 +381,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -429,8 +401,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -451,8 +422,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -468,8 +438,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -489,8 +458,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -504,8 +472,7 @@
 					"fields": {
 						"keyword": {
 							"type": "keyword",
-							"ignore_above": 256,
-							"normalizer" : "sort"
+							"normalizer": "sort"
 						}
 					}
 				},
@@ -514,8 +481,7 @@
 					"fields": {
 						"keyword": {
 							"type": "keyword",
-							"ignore_above": 256,
-							"normalizer" : "sort"
+							"normalizer": "sort"
 						}
 					}
 				},
@@ -547,12 +513,11 @@
 								"value": {
 									"type": "text",
 									"analyzer": "html_standard_analyzer",
-									"boost" : 1.5,
+									"boost": 1.5,
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -579,12 +544,11 @@
 										},
 										"name": {
 											"type": "text",
-											"boost" : 2,
+											"boost": 2,
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										}
@@ -597,8 +561,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -607,30 +570,27 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
 										"familyName": {
 											"type": "text",
-											"boost" : 2,
+											"boost": 2,
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
 										"givenName": {
 											"type": "text",
-											"boost" : 1.5,
+											"boost": 1.5,
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -662,8 +622,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												}
@@ -745,8 +704,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										}
@@ -765,8 +723,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -780,8 +737,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -792,8 +748,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -809,10 +764,9 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
-							}
+									}
 								},
 								"type": {
 									"type": "keyword"
@@ -829,8 +783,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -845,8 +798,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -857,8 +809,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -883,8 +834,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												}
@@ -907,8 +857,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												}
@@ -931,8 +880,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -945,8 +893,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -955,19 +902,17 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
 								"publisher": {
 									"type": "text",
-									"boost" : 1.5,
+									"boost": 1.5,
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -995,8 +940,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										}
@@ -1013,8 +957,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												},
@@ -1029,8 +972,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												}
@@ -1043,8 +985,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												},
@@ -1053,8 +994,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												},
@@ -1063,8 +1003,7 @@
 													"fields": {
 														"keyword": {
 															"type": "keyword",
-															"ignore_above": 256,
-															"normalizer" : "sort"
+															"normalizer": "sort"
 														}
 													}
 												},
@@ -1087,8 +1026,7 @@
 															"fields": {
 																"keyword": {
 																	"type": "keyword",
-																	"ignore_above": 256,
-																	"normalizer" : "sort"
+																	"normalizer": "sort"
 																}
 															}
 														},
@@ -1103,8 +1041,7 @@
 															"fields": {
 																"keyword": {
 																	"type": "keyword",
-																	"ignore_above": 256,
-																	"normalizer" : "sort"
+																	"normalizer": "sort"
 																}
 															}
 														}
@@ -1138,8 +1075,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -1158,8 +1094,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -1168,8 +1103,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										},
@@ -1178,8 +1112,7 @@
 											"fields": {
 												"keyword": {
 													"type": "keyword",
-													"ignore_above": 256,
-													"normalizer" : "sort"
+													"normalizer": "sort"
 												}
 											}
 										}
@@ -1188,7 +1121,6 @@
 								"sequenceNumber": {
 									"type": "text"
 								},
-								
 								"startPage": {
 									"type": "text"
 								},
@@ -1197,8 +1129,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								},
@@ -1210,8 +1141,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -1229,8 +1159,7 @@
 									"fields": {
 										"keyword": {
 											"type": "keyword",
-											"ignore_above": 256,
-											"normalizer" : "sort"
+											"normalizer": "sort"
 										}
 									}
 								}
@@ -1242,12 +1171,11 @@
 						"title": {
 							"type": "text",
 							"analyzer": "html_standard_analyzer",
-							"boost" : 3,
+							"boost": 3,
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -1266,8 +1194,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -1283,8 +1210,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						},
@@ -1293,8 +1219,7 @@
 							"fields": {
 								"keyword": {
 									"type": "keyword",
-									"ignore_above": 256,
-									"normalizer" : "sort"
+									"normalizer": "sort"
 								}
 							}
 						}
@@ -1308,8 +1233,7 @@
 					"fields": {
 						"keyword": {
 							"type": "keyword",
-							"ignore_above": 256,
-							"normalizer" : "sort"
+							"normalizer": "sort"
 						}
 					}
 				},
@@ -1324,18 +1248,16 @@
 					"fields": {
 						"keyword": {
 							"type": "keyword",
-							"ignore_above": 256,
-							"normalizer" : "sort"
+							"normalizer": "sort"
 						}
 					}
 				},
 				"versionState": {
 					"type": "keyword"
 				},
-				"sort-metadata-creators-compound": {			
+				"sort-metadata-creators-compound": {
 					"type": "keyword",
-					"ignore_above": 256,
-					"normalizer" : "sort"
+					"normalizer": "sort"
 				}
 			}
 		}
@@ -1349,19 +1271,23 @@
 			"analyzer": {
 				"html_standard_analyzer": {
 					"tokenizer": "standard",
-					"filter" : ["standard", "lowercase"],
+					"filter": [
+						"standard",
+						"lowercase"
+					],
 					"char_filter": [
 						"html_char_filter"
 					]
 				}
-				
 			},
-			"normalizer" : {
+			"normalizer": {
 				"sort": {
-						"filter" : ["lowercase", "trim", "asciifolding"]
-						
+					"filter": [
+						"lowercase",
+						"trim",
+						"asciifolding"
+					]
 				}
-				
 			},
 			"char_filter": {
 				"html_char_filter": {
