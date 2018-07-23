@@ -1332,7 +1332,7 @@
 				"versionState": {
 					"type": "keyword"
 				},
-				"sort.metadata.creators.compound": {			
+				"sort-metadata-creators-compound": {			
 					"type": "keyword",
 					"ignore_above": 256,
 					"normalizer" : "sort"

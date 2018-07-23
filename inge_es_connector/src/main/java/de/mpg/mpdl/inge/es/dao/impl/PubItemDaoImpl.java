@@ -24,7 +24,7 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   private static final String JOIN_FIELD_NAME = "joinField";
 
-  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort.metadata.creators"};
+  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort-metadata-creators-compound"};
 
   public PubItemDaoImpl() {
     super(indexName, indexType, typeParameterClass);
@@ -35,7 +35,7 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
   protected JsonNode applyCustomValues(ItemVersionVO item) {
     ObjectNode node = (ObjectNode) super.applyCustomValues(item);
     node.putObject(JOIN_FIELD_NAME).put("name", "item");
-    node.put("sort.metadata.creators", createSortCreatorsString(item));
+    node.put("sort-metadata-creators-compound", createSortCreatorsString(item));
 
     return node;
   }
