@@ -60,6 +60,8 @@ public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileD
     return ok;
   }
 
+  // (?x:\b((?:ftp|https?)://[-\w]+(\.\w[-\w]*)+|(?:(?i:[a-z0-9]|[a-z0-9][-a-z0-9]*[a-z0-9])\.)+(?x-i:com\b|edu\b|biz\b|in(?:t|fo)\b|mil\b|net\b|org\b|[a-z][a-z]\b))(?::\d+)?(?:/[^;\"'<>()\[\]{}\s\x7F-\xFF!.,?]*([!.,?]+[^;\"'<>()\[\]{}\s\x7F-\xFF!.,?]+)*
+  // )?)
   private static String getUrlPattern() {
     final String SubDomain = "(?i:[a-z0-9]|[a-z0-9][-a-z0-9]*[a-z0-9])";
     final String TopDomains = //
