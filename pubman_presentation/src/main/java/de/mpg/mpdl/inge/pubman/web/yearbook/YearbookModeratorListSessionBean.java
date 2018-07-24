@@ -69,9 +69,11 @@ public class YearbookModeratorListSessionBean
   {
     // Use dummy value "score" for default sorting
 
-    YEAR(YearbookServiceDbImpl.INDEX_YEAR, YearbookServiceDbImpl.INDEX_YEAR, SortOrder.DESC.name()), ORGANIZATION_NAME(
+    YEAR(YearbookServiceDbImpl.INDEX_YEAR, YearbookServiceDbImpl.INDEX_YEAR, SortOrder.DESC.name()),
+    ORGANIZATION_NAME(
         YearbookServiceDbImpl.INDEX_ORGANIZATION_NAME_KEYWORD,
-        YearbookServiceDbImpl.INDEX_ORGANIZATION_NAME_KEYWORD, SortOrder.ASC.name()), MODIFICATION_DATE(
+        YearbookServiceDbImpl.INDEX_ORGANIZATION_NAME_KEYWORD, SortOrder.ASC.name()),
+    MODIFICATION_DATE(
         YearbookServiceDbImpl.INDEX_MODIFICATION_DATE,
         YearbookServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC.name()), ;
 

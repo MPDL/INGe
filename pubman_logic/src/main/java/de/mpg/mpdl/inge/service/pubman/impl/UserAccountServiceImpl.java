@@ -363,7 +363,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         AccountUserDbVO userAccountSysadmin = userAccountRepository.findByLoginname(parts[0]);
         String encodedPassword = userLoginRepository.findPassword(parts[0]);
 
-        if (userAccountSysadmin != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
+        if (userAccountSysadmin != null && userAccountSysadmin.isActive() && encodedPassword != null
+            && passwordEncoder.matches(password, encodedPassword)) {
           for (GrantVO grant : userAccountSysadmin.getGrantList()) {
             if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
               AccountUserDbVO userAccountToLogin = userAccountRepository.findByLoginname(parts[1]);
@@ -372,8 +373,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
             }
           }
         }
-        if (principal == null) {
-          throw new AuthenticationException("Could not login, Please provide correct username and password!");
+        if (principal == null || !principal.getUserAccount().isActive()) {
+          throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
         }
 
       }
@@ -382,17 +383,21 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         AccountUserDbVO userAccount = userAccountRepository.findByLoginname(username);
         String encodedPassword = userLoginRepository.findPassword(username);
 
-        if (userAccount != null && encodedPassword != null && passwordEncoder.matches(password, encodedPassword)) {
+        if (userAccount != null && userAccount.isActive() && encodedPassword != null
+            && passwordEncoder.matches(password, encodedPassword)) {
           String token = createToken(userAccount, request);
           principal = new Principal(userAccount, token);
 
         } else {
-          throw new AuthenticationException("Could not login, Please provide correct username and password!");
+          throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
         }
       }
 
       //Set Cookie
       if (principal != null && response != null) {
+
+
+
         Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
         cookie.setPath("/");
         cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
