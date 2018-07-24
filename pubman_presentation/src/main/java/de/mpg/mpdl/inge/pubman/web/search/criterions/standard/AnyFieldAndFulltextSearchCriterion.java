@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -39,7 +40,7 @@ public class AnyFieldAndFulltextSearchCriterion extends FulltextSearchCriterion 
 
     BoolQueryBuilder qb = QueryBuilders.boolQuery();
     //Use simple query for searching all fields
-    qb.should(QueryBuilders.simpleQueryStringQuery(getSearchString()));
+    qb.should(QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.AND));
     qb.should(super.toElasticSearchQuery());
     return qb;
   }
