@@ -86,13 +86,13 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
   public QueryBuilder toElasticSearchQuery() {
     switch (this.selectedAvailability) {
       case YES: {
-        return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE_KEYWORD},
+        return SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE},
             this.getStorageType());
       }
 
       case NO: {
         return QueryBuilders.boolQuery().mustNot(
-            SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE_KEYWORD, this.getStorageType()));
+            SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, this.getStorageType()));
       }
 
       case WHATEVER:

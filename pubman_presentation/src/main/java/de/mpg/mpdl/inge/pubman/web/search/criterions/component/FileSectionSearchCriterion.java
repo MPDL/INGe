@@ -52,7 +52,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
       case YES: {
-        bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE_KEYWORD},
+        bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE},
             storageType.name()));
 
         if (!visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
@@ -68,7 +68,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
       }
 
       case NO: {
-        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE_KEYWORD, storageType.name()));
+        bq.mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, storageType.name()));
         return bq;
         //break;
       }
