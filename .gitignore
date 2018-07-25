@@ -13,7 +13,3 @@ target/
 .idea/
 *.iws
 
-# Node Js
-dist/
-node/
-node_modules/
