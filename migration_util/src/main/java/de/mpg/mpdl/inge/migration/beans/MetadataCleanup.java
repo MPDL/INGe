@@ -17,6 +17,9 @@ public class MetadataCleanup {
     pimpCreators(creators);
     List<SourceVO> sources = item_metadata.getSources();
     sources.forEach(source -> {
+      if (!source.getSources().isEmpty()) {
+        source.getSources().clear();
+      }
       List<IdentifierVO> ids = source.getIdentifiers();
       pimpIds(ids);
       List<CreatorVO> src_creators = source.getCreators();
