@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-warning': message.type === 'warning', 'alert-danger': message.type === 'error' }">
+        <div class="col-sm-11">
+        <span><small>{{message.text}}</small></span>
+        </div>
+        <div class="col-sm-1">
+        <input type="submit" class="btn btn-sm float-right" [ngClass]="{ 'btn-outline-primary': message, 'btn-outline-success': message.type === 'success', 'btn-outline-warning': message.type === 'warning', 'btn-outline-danger': message.type === 'error' }" (click)="delete(message); $event.stopPropagation()"
+            name="delete" value="x" />
+        </div>
+    </div>
+</div>

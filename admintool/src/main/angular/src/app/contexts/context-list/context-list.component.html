@@ -1,0 +1,55 @@
+<div class="container">
+    <h3 class="text-success">Context Administration</h3>
+
+    <div class="card text-white bg-success text-right">
+        <div class="card-body">
+            <h4 class="card-title">{{title}}</h4>
+            <input type="submit" class="btn btn-success btn-sm" name="add" value="+" (click)="addNewContext()" />
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <input class="form-control form-control-sm" type="text" name="ouSearchTerm" [(ngModel)]="ouSearchTerm" (keyup)="getOUNames(ouSearchTerm)"
+                    placeholder="filter by organization" id="ouSearchTerm" autocomplete="off">
+                <div *ngIf="ounames.length > 0">
+                    <ul id="ou_suggestions" class="list-group" (clickOutside)="closeOUNames()">
+                        <li *ngFor="let ouname of ounames" class="list-group-item-success list-group-item-action py-0 text-left" (class.selected)="isSelectedName(ouname)"
+                            (click)="filter(ouname)">
+                            <small>{{ouname.name}}</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <input class="form-control form-control-sm" type="text" name="searchTerm" [(ngModel)]="contextSearchTerm" (keyup)="getContextNames(contextSearchTerm)"
+                    placeholder="search by name" id="contextSearchTerm" autocomplete="off">
+                <div *ngIf="contextnames.length > 0">
+                    <ul class="list-group" (clickOutside)="close()">
+                        <li *ngFor="let contextname of contextnames" class="list-group-item-success list-group-item-action py-0 text-left" (click)="select(contextname)">
+                            <small>{{contextname.name}}</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+                <pagination-controls class="admin-pagination" previousLabel="prev" nextLabel="next" maxSize=11 (pageChange)="getPage($event)"
+                    id="paginator"></pagination-controls>
+            </div>
+        </div>
+        <ul class="list-group">
+            <div class="list-group-item list-group-item-action list-group-item-success py-0" *ngFor="let ctx of ctxs | paginate: { id: 'paginator', itemsPerPage: pageSize, currentPage: currentPage, totalItems: total }"
+                [class.selected]="isSelected(ctx)" (click)="goTo(ctx)">
+                <!--<span class="col-sm-1">{{ctx.objectId}}</span>-->
+                <span class="col-sm-11">{{ctx.name}}</span>
+                <span class="col-sm-1">
+                    <!--
+                    <input type="submit" class="btn btn-outline-success btn-sm float-right" (click)="delete(ctx); $event.stopPropagation()"
+                        name="delete" value="x" />
+                    -->    
+                </span>
+            </div>
+        </ul>
+    </div>
+</div>

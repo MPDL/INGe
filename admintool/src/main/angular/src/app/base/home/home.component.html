@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="card-columns">
+    <div class="card text-right">
+      <img class="card-img-top" src="./assets/pure.png" alt="Card image cap">
+      <div class="card-body">
+        <h3 class="card-title">Administration</h3>
+        <p class="card-text">you\’re connected to
+          <strong>{{host}}</strong>
+        </p>
+        <p class="card-text">most actions require you to login with administrative privileges</p>
+      </div>
+      <div class="card-footer py-1">
+        <a (click)="info()" class="card-link" data-toggle="tooltip" data-placement="right" title="switch server"><img src="./assets/mpdl.png" width="30%" height="auto"/></a>
+      </div>
+    </div>
+    <div class="card border-primary text-right">
+      <div class="card-body text-primary">
+        <h4 class="card-title">Users</h4>
+        <p class="card-text">Create new users, assign privileges, update or delete ...</p>
+      </div>
+      <div class="card-footer bg-primary py-1">
+        <a [routerLink]="['/users']" class="card-link text-light">User Administration</a>
+      </div>
+    </div>
+    <div class="card border-success text-right">
+      <div class="card-body text-success">
+        <h4 class="card-title">Contexts</h4>
+        <p class="card-text">Update or delete allowed genres ...</p>
+      </div>
+      <div class="card-footer bg-success py-1">
+        <a [routerLink]="['/contexts']" class="card-link text-light">Context Administration</a>
+      </div>
+    </div>
+    <div class="card border-info text-right">
+      <div class="card-body text-info">
+        <h4 class="card-title">Organizations</h4>
+        <p class="card-text">Create children, update or delete descriptions ...</p>
+      </div>
+      <div class="card-footer bg-info py-1">
+        <a [routerLink]="['/organizations']" class="card-link text-light">OU Administration</a>
+      </div>
+    </div>
+    <!--
+    <div class="card border-secondary text-right">
+      <div class="card-body text-secondary">
+        <h4 class="card-title">ES Admin</h4>
+        <p class="card-text">Reindexing, aliasing, mappings ...</p>
+      </div>
+      <div class="card-footer bg-secondary">
+        <a [routerLink]="['/elastic']" class="card-link text-light">Elastcsearch Administration</a>
+      </div>
+    </div>
+  -->
+    <div class="card border-dark text-right">
+      <div class="card-body">
+        <h4 class="card-title">Search</h4>
+        <p class="card-text">and irrevocably purge ...</p>
+      </div>
+      <div class="card-footer bg-dark py-1">
+        <a [routerLink]="['/search']" class="card-link text-light">Have fun with resource deletion ...</a>
+      </div>
+    </div>
+    
+  </div>
+</div>

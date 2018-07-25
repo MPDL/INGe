@@ -1,0 +1,35 @@
+<div class="container">
+  <h3 class="text-info">Organizational Units Administration</h3>
+  <div class="card text-white bg-info text-right">
+    <div class="card-body">
+      <h4 class="card-title">Organizations</h4>
+      <input type="submit" class="btn btn-info btn-sm" name="add" value="+" (click)="addNewOrganization()" />
+    </div>
+    <div class="row">
+      <div class="col-4 p-3">
+        <input class="form-control form-control-sm" type="text" name="searchTerm" [(ngModel)]="searchTerm" (keyup)="getNames(searchTerm)"
+          placeholder="search by name" id="searchTerm" autocomplete="off">
+        <div *ngIf="ounames.length > 0">
+          <ul class="list-group" *ngFor="let name of ounames" (clickOutside)="close()">
+            <li class="list-group-item-info list-group-item-action py-0 d-flex no-gutters text-left" (click)="select(name)">
+              <small>{{name.metadata.name}}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding (click)="gotoDetails(node)" class="list-group-item list-group-item-info list-group-item-action py-0 d-flex flex-sm-row no-gutters align-items-center">
+        <!-- &#8288; is &NoBreak; it is invisible, but required for padding-->
+        <span class="mr-3 boldandlarger">&#8288;</span>
+        {{node.ouName}}
+      </cdk-tree-node>
+      <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding (click)="gotoDetails(node)" class="list-group-item list-group-item-info list-group-item-action py-0 d-flex flex-sm-row no-gutters align-items-center">
+        <span class="mr-2 boldandlarger" cdkTreeNodeToggle (click)="loadChildren(node)">
+          {{treeControl.isExpanded(node) ? '&#8213;' : '>'}}
+        </span>
+        {{node.ouName}}
+      </cdk-tree-node>
+    </cdk-tree>
+  </div>
+</div>
