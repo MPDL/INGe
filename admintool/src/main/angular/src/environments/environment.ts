@@ -1,26 +1,26 @@
 export const environment = {
   production: false,
   base_url: 'https://dev.inge.mpdl.mpg.de',
-  elastic_url: 'https://dev.inge.mpdl.mpg.de/inge',
+  elastic_url: 'https://dev.inge.mpdl.mpg.de/es',
   rest_url: 'https://dev.inge.mpdl.mpg.de/rest',
   rest_users: '/users',
   rest_ous: '/ous',
   rest_contexts: '/contexts',
   rest_items: '/items',
   item_index: {
-    name: 'new_model_items',
+    name: 'items',
     type: 'item'
   },
   user_index: {
-    name: 'new_model_users',
+    name: 'users',
     type: 'user'
   },
   ou_index: {
-    name: 'new_model_ous',
+    name: 'ous',
     type: 'organization'
   },
   ctx_index: {
-    name: 'new_model_contexts',
+    name: 'contexts',
     type: 'context'
   },
   elastic_admin: 'devil',
