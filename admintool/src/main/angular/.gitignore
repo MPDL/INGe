@@ -8,6 +8,7 @@
 # dependencies
 /node_modules
 /node
+package-lock.json
 
 # IDEs and editors
 /.idea
