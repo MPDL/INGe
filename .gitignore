@@ -12,3 +12,8 @@ target/
 *.iml
 .idea/
 *.iws
+
+# Node Js
+dist/
+node/
+node_modules/
