@@ -972,19 +972,19 @@
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
 		<inge.handles.activated>true</inge.handles.activated>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
-		<inge.index.context.name>new_model_contexts</inge.index.context.name>
+		<inge.index.context.name>contexts</inge.index.context.name>
 		<inge.index.context.sort>name.keyword</inge.index.context.sort>
 		<inge.index.context.type>context</inge.index.context.type>
-		<inge.index.item.name>new_model_items</inge.index.item.name>
+		<inge.index.item.name>items</inge.index.item.name>
 		<inge.index.item.sort>metadata.title.keyword</inge.index.item.sort>
 		<inge.index.item.type>item</inge.index.item.type>
-		<inge.index.organization.name>new_model_ous</inge.index.organization.name>
+		<inge.index.organization.name>ous</inge.index.organization.name>
 		<inge.index.organization.sort>metadata.name.keyword</inge.index.organization.sort>
 		<inge.index.organization.type>organization</inge.index.organization.type>
-		<inge.index.user.name>new_model_users</inge.index.user.name>
+		<inge.index.user.name>users</inge.index.user.name>
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
-		<inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
+		<inge.index.yearbook.name>yearbooks</inge.index.yearbook.name>
 		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.matomo.analytics.auth.token></inge.matomo.analytics.auth.token>
@@ -1192,7 +1192,7 @@
 				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/auth/</inge.aa.instance.url>
 				<inge.cone.database.server.name>dev.inge.mpdl.mpg.de</inge.cone.database.server.name>
 				<inge.cone.service.url>https://dev.inge.mpdl.mpg.de/cone/</inge.cone.service.url>
-				<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge_new_model</inge.database.jdbc.url>
+				<inge.database.jdbc.url>jdbc:postgresql://dev.inge.mpdl.mpg.de:5432/inge</inge.database.jdbc.url>
 				<inge.doi.service.url>https://test.doi.mpdl.mpg.de</inge.doi.service.url>
 				<inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
 				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
