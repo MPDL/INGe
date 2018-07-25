@@ -25,9 +25,13 @@
 
 package de.mpg.mpdl.inge.citationmanager.utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -42,6 +46,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.citationmanager.CitationStyleManagerException;
 import de.mpg.mpdl.inge.citationmanager.data.FontStyle;
@@ -303,25 +311,63 @@ public class XsltHelper {
     String coneQuery =
         // JUS-Testserver CoNE
         // "http://193.174.132.114/cone/journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
-        PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "journals/query?format=rdf&escidoc:citation-style=*&m=full&n=0";
-    logger.info("cone query:" + coneQuery);
+        PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "journals/query?format=json&escidoc:citation-style=*&m=full&n=0";
     GetMethod getMethod = new GetMethod(coneQuery);
-
-    //    ProxyHelper.executeMethod(client, getMethod);
     client.executeMethod(getMethod);
 
-    XMLReader xr;
+    BufferedReader buffer = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+    StringBuffer content = new StringBuffer();
+    String line;
+    while ((line = buffer.readLine()) != null) {
+      content.append(line);
+    }
 
-    xr = XMLReaderFactory.createXMLReader();
-    JusXmlHandler handler = new JusXmlHandler();
-    xr.setContentHandler(handler);
-    xr.setErrorHandler(handler);
+    citationMap = getCitationStyleMap(content.toString());
+  }
 
-    Reader r = new InputStreamReader(getMethod.getResponseBodyAsStream());
-    xr.parse(new InputSource(r));
+  /**
+   * Parses a JSON and returns a citationStyleMap for JUS citations
+   * 
+   * @return a Map<Pair, String> with citations; null if an error occurred
+   */
+  private static Map<Pair, String> getCitationStyleMap(String json) {
+    Map<Pair, String> citationStyleMap = new HashMap<>();
+    try {
+      JsonNode node = new ObjectMapper().readTree(json);
+      if (node.isArray()) {
+        for (JsonNode journalObject : node) {
+          String id = journalObject.get("id").asText();
 
-    citationMap = handler.getCitationStyleMap();
 
+          String citation = journalObject.get("http_purl_org_escidoc_metadata_terms_0_1_citation_style").asText();
+          citationStyleMap.put(new Pair("CONE", id.substring(id.lastIndexOf("/") + 1)), citation);
+
+          JsonNode identifiers = journalObject.get("http_purl_org_dc_elements_1_1_identifier");
+          if (identifiers != null) {
+            if (identifiers.isArray()) {
+              for (JsonNode identifier : identifiers) {
+                String value = identifier.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
+                String type = identifier.get("http_www_w3_org_2001_XMLSchema_instance_type").asText();
+                type = type.substring(type.lastIndexOf("/") + 1);
+                citationStyleMap.put(new Pair(type, value), citation);
+              }
+            } else {
+              String value = identifiers.get("http_www_w3_org_1999_02_22_rdf_syntax_ns_value").asText();
+              String type = identifiers.get("http_www_w3_org_2001_XMLSchema_instance_type").asText();
+              type = type.substring(type.lastIndexOf("/") + 1);
+              citationStyleMap.put(new Pair(type, value), citation);
+            }
+          }
+        }
+      }
+    } catch (JsonProcessingException e) {
+      logger.error("Error converting journal JSON", e);
+      return null;
+    } catch (IOException e) {
+      logger.error("Error converting journal JSON", e);
+      return null;
+    }
+    return citationStyleMap;
   }
 
 
@@ -343,100 +389,5 @@ public class XsltHelper {
     return false;
   }
 
-
-}
-
-
-class JusXmlHandler extends DefaultHandler {
-  String currentElement = null;
-  String citationStyle = null;
-  String coneValue = null;
-  String idType = null;
-  private Map<Pair, String> citationStyleMap;
-  int counter = 0;
-  Pair journalIdTypeValue;
-
-  /**
-   * Start reading an XML-File. Creates a Map to hold the JournalId-Value-Pair and the corresponding
-   * citation style.
-   */
-  @Override
-  public void startDocument() throws SAXException {
-    citationStyleMap = new HashMap<Pair, String>();
-    super.startDocument();
-  }
-
-  /**
-   * Gets every element and set it to currentElement.
-   */
-  @Override
-  public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
-
-    if ("".equals(uri)) {
-      currentElement = name;
-    } else {
-      currentElement = localName;
-    }
-    // gets the attribute with the URL of the item and cuts the coneValue
-    if (currentElement.equals("Description") && attributes.getLength() != 0) {
-      coneValue = attributes.getValue("rdf:about");
-      coneValue = coneValue.substring(coneValue.lastIndexOf("/") + 1);
-    }
-  }
-
-  @Override
-  public void endDocument() throws SAXException {
-    // TODO Auto-generated method stub
-    super.endDocument();
-  }
-
-  @Override
-  public void endElement(String arg0, String arg1, String arg2) throws SAXException {
-    // TODO Auto-generated method stub
-    super.endElement(arg0, arg1, arg2);
-
-  }
-
-  /**
-   * Gets the values of the elements. For every id-type of journal a new Pair is created. The key is
-   * set to the idType. The value is set to the value of the id. The journalIdTypeValue and the
-   * citationStyle are putted in a HashMap.
-   */
-  public void characters(char ch[], int start, int length) {
-    String tempString = new String(ch, start, length);
-    if (currentElement.equals("citation-style") & !tempString.trim().equals("")) {
-      // sets the SFX-Id and type
-      citationStyle = tempString;
-
-      journalIdTypeValue = new Pair();
-      journalIdTypeValue.setKey("CONE");
-      // logger.info("cone value " + coneValue + "; CS: " +citationStyle);
-      journalIdTypeValue.setValue(coneValue);
-      citationStyleMap.put(journalIdTypeValue, citationStyle);
-      // logger.info("READ citation style " + coneValue + ", Zitierstil: " + citationStyle);
-    } else if (currentElement.equals("type") & !tempString.trim().equals("")) {
-      idType = tempString.substring(tempString.lastIndexOf("/") + 1);
-
-    } else if (currentElement.equals("value") & !tempString.trim().equals("")) {
-      if (tempString.equals(coneValue)) {
-      } else {
-        journalIdTypeValue = new Pair();
-        journalIdTypeValue.setKey(idType);
-        journalIdTypeValue.setValue(tempString);
-        citationStyleMap.put(journalIdTypeValue, citationStyle);
-        // logger.info("READ citation style 2 " + tempString + ", Zitierstil: " + citationStyle);
-      }
-
-    }
-  }
-
-  /**
-   * Returns a HashMap with JournalId-Value-Pair and the corresponding citation style.
-   * 
-   * @return
-   */
-  public Map<Pair, String> getCitationStyleMap() {
-    return this.citationStyleMap;
-  }
 
 }
