@@ -223,8 +223,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_FILE_STORAGE = "files.storage";
 
-  public static String INDEX_FILE_STORAGE_KEYWORD = "files.storage.keyword";
-
   public static String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
 
   public static String INDEX_FULLTEXT_ITEM_ID = "fileData.itemId";

@@ -54,7 +54,7 @@
 		</div>
 	</h:panelGroup>
 	
-	<h:panelGroup rendered="#{LoginHelper.isYearbookEditor}">
+	<h:panelGroup rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}">
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span>
 			<span class="seperator"></span>
@@ -79,31 +79,6 @@
 		</div>
 	</h:panelGroup>
 	
-	<h:panelGroup rendered="#{LoginHelper.isYearbookAdmin}">
-		<div class="full_area0 itemHeader">
-			<span class="xLarge_area0 endline"> &#160; </span>
-			<span class="seperator"></span>
-			<span class="free_area0_p8 endline itemHeadline">
-				<b> <h:outputLink id="lnkYearbookModeratorWorkspace"
-						title="#{tip.chooseWorkspace_YearbookWorkspace}"
-						value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp">
-						<h:outputText value="#{lbl.YearbookModeratorPage}" />
-					</h:outputLink>
-				</b>
-			</span>
-		</div>
-		<div class="full_area0 itemBlock noTopBorder">
-			<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
-			<div class="free_area0 itemBlockContent endline">
-				<div class="free_area0 endline itemLine firstLine">
-					<span class="quad_area0_p8 noPaddingTopBottom endline">
-						<h:outputText value="#{lbl.chooseWorkspace_descYearbookModeratorWorkspace}" />
-						<br /> <br />
-					</span>
-				</div>
-			</div>
-		</div>
-	</h:panelGroup>
 	
 	<h:panelGroup rendered="#{LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
 		<div class="full_area0 itemHeader">

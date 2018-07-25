@@ -25,6 +25,7 @@
  */
 package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 
+import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
@@ -35,7 +36,7 @@ public class AnyFieldSearchCriterion extends StandardSearchCriterion {
   @Override
   public QueryBuilder toElasticSearchQuery() {
 
-    return QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true);
+    return QueryBuilders.simpleQueryStringQuery(getSearchString()).analyzeWildcard(true).defaultOperator(Operator.AND);
 
   }
 
