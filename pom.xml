@@ -378,6 +378,12 @@
 				<type>war</type>
 			</dependency>
 			<dependency>
+				<groupId>de.mpg.mpdl.inge</groupId>
+				<artifactId>admintool</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+				<type>war</type>
+			</dependency>
+			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
 				<version>2.8.10</version>
@@ -1187,6 +1193,9 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
+			<modules>
+				<module>admintool</module>
+			</modules>
 			<properties>
 				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/auth/clientLogin</inge.aa.default.target>
 				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/auth/</inge.aa.instance.url>

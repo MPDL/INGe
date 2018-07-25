@@ -60,6 +60,11 @@
 							<artifactId>pubman_rest</artifactId>
 							<contextRoot>/rest</contextRoot>
 						</webModule>
+						<webModule>
+							<groupId>de.mpg.mpdl.inge</groupId>
+							<artifactId>admintool</artifactId>
+							<contextRoot>/admintool</contextRoot>
+						</webModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -280,6 +285,11 @@
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_rest</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>admintool</artifactId>
 			<type>war</type>
 		</dependency>
 		
