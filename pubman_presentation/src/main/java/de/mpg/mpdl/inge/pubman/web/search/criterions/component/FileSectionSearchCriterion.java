@@ -52,8 +52,8 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
       case YES: {
-        bq.must(SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE},
-            storageType.name()));
+        bq.must(
+            SearchCriterionBase.baseElasticSearchQueryBuilder(new String[] {PubItemServiceDbImpl.INDEX_FILE_STORAGE}, storageType.name()));
 
         if (!visibilityListSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(visibilityListSearchCriterion.toElasticSearchQuery());

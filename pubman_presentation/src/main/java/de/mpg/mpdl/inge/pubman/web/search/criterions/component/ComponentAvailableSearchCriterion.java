@@ -91,8 +91,8 @@ public abstract class ComponentAvailableSearchCriterion extends SearchCriterionB
       }
 
       case NO: {
-        return QueryBuilders.boolQuery().mustNot(
-            SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, this.getStorageType()));
+        return QueryBuilders.boolQuery()
+            .mustNot(SearchCriterionBase.baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_FILE_STORAGE, this.getStorageType()));
       }
 
       case WHATEVER:
