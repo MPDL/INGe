@@ -315,7 +315,7 @@ function appendLicenseBox(divToAppend, currentLicenseUrl) {
         locale = 'en_US';
     }
 
-    var url = "http://api.creativecommons.org/jswidget/tags/0.96/complete.js?want_a_license=definitely&locale=" + locale;
+    var url = "https://api.creativecommons.org/jswidget/tags/0.96/complete.js?want_a_license=definitely&locale=" + locale;
     var id = $(divToAppend).attr('id');
 
     var ccScript = document.createElement('script');
