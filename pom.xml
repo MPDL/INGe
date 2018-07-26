@@ -1193,9 +1193,6 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<modules>
-				<module>admintool</module>
-			</modules>
 			<properties>
 				<inge.aa.default.target>https://dev.inge.mpdl.mpg.de/auth/clientLogin</inge.aa.default.target>
 				<inge.aa.instance.url>https://dev.inge.mpdl.mpg.de/auth/</inge.aa.instance.url>
