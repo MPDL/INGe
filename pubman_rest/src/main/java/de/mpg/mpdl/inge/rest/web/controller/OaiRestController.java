@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.es.connector.ElasticSearchClientProvider;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
@@ -69,13 +71,15 @@ public class OaiRestController {
     do {
       for (SearchHit hit : scrollResp.getHits().getHits()) {
         count++;
+        ItemVersionVO itemVersionVO = null;
         PubItemVO pubItemVO = null;
         try {
-          pubItemVO = mapper.readValue(hit.getSourceAsString(), PubItemVO.class);
+          itemVersionVO = mapper.readValue(hit.getSourceAsString(), ItemVersionVO.class);
+          pubItemVO = EntityTransformer.transformToOld(itemVersionVO);
           logger.info(count + ":" + pubItemVO.getVersion().getObjectIdAndVersion());
         } catch (IOException e) {
           logger.error(e);
-          logger.error(pubItemVO);
+          logger.error(itemVersionVO);
           throw new IngeTechnicalException(e); // Abbruch. Hier stimmt was grundsätzliches nicht...
         }
         String s;
