@@ -33,7 +33,7 @@ public class AccountUserDbVO extends BasicDbRO implements Serializable {
 
   private boolean active;
 
-  @Column(unique = true)
+  @Column
   private String email;
 
   @NaturalId
