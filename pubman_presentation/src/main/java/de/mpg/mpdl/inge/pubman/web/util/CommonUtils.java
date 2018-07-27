@@ -227,9 +227,7 @@ public class CommonUtils {
       options[3] = new SelectItem("jpn", "jpn - Japanese");
     }
 
-    if (result.size() > 0) {
-      options[4] = new SelectItem("", CommonUtils.NO_ITEM_SET);
-    }
+    options[4] = new SelectItem("", CommonUtils.NO_ITEM_SET);
 
     int i = 0;
     for (String key : result.keySet()) {
