@@ -135,9 +135,9 @@ public class UserImportBean {
     // modifier.setName(oldAccountUserVO.getModifiedBy().getTitle());
 
     AccountUserDbVO newAccountUser = new AccountUserDbVO();
+    newAccountUser.setActive(oldAccountUserVO.isActive());
 
     /*
-    newAccountUser.setActive(oldAccountUserVO.isActive());
     if (oldAccountUserVO.getAffiliations() != null && oldAccountUserVO.getAffiliations().size() > 0) {
     	usr_affRO.setObjectId(utils.changeId("ou", oldAccountUserVO.getAffiliations().get(0).getObjectId()));
     	newAccountUser.setAffiliation(usr_affRO);
