@@ -223,7 +223,7 @@
 
 			<!-- Field: PubItemVO.metadata.event.title -->
 			<!-- Node: item.md-records.md-record.publication.event.title -->
-			<value name="title" ns="${xsd.metadata.dc}" field="title"  usage="optional" />
+			<value name="title" ns="${xsd.metadata.dc}" field="title"  usage="optional" style="element" />
 
 			<!-- Node: item.md-records.md-record.publication.event.alternative(*) -->
 			<!-- Field: PubItemVO.metadata.event.alternativeTitles -->
