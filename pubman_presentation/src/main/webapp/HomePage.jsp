@@ -4,7 +4,9 @@
     <title>
         <h:outputText value="#{ApplicationBean.appTitle}" />
     </title>
+    <!-- 
     <link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="${ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument" />
+     -->
     <meta name="description" content="${lbl.Pubman_descriptionMetaTag}"></meta>
     <ui:include src="header/ui/StandardImports.jspf" />
     <ui:include src="home/HomePageFeedLinks.jspf" />
@@ -22,7 +24,7 @@
             <ui:include src="header/Header.jspf" />
             <h:form id="form1">
                 <div id="content" class="full_area0 clear">
-                    <!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+                    <!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
                     <div class="clear">
                         <div class="headerSection">
                             <ui:include src="header/Breadcrumb.jspf" />
