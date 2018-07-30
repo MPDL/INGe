@@ -95,12 +95,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE,
         PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC),
 
-    DATE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED}, SortOrder.DESC), //
+    DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_CATEGORY_SORT, SortOrder.DESC), //
 
     CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC),
 

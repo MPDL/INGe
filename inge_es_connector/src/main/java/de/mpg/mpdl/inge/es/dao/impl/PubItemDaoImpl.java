@@ -24,7 +24,8 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   private static final String JOIN_FIELD_NAME = "joinField";
 
-  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort-metadata-creators-compound"};
+  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort-metadata-creators-compound",
+      "sort-metadata-dates-by-category", "sort-metadata-dates-by-category-year"};
 
   public PubItemDaoImpl() {
     super(indexName, indexType, typeParameterClass);
@@ -36,10 +37,44 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
     ObjectNode node = (ObjectNode) super.applyCustomValues(item);
     node.putObject(JOIN_FIELD_NAME).put("name", "item");
     node.put("sort-metadata-creators-compound", createSortCreatorsString(item));
+    String firstDate = createSortMetadataDates(item);
+    if (firstDate != null) {
+      node.put("sort-metadata-dates-by-category", firstDate);
+      node.put("sort-metadata-dates-by-category-year", firstDate.substring(0, 4));
+    }
 
     return node;
   }
 
+
+
+  private String createSortMetadataDates(ItemVersionVO item) {
+    if (item != null && item.getMetadata() != null) {
+      if (item.getMetadata().getDatePublishedInPrint() != null) {
+        return item.getMetadata().getDatePublishedInPrint();
+      }
+      if (item.getMetadata().getDatePublishedOnline() != null) {
+        return item.getMetadata().getDatePublishedOnline();
+      }
+      if (item.getMetadata().getDateAccepted() != null) {
+        return item.getMetadata().getDateAccepted();
+      }
+      if (item.getMetadata().getDateSubmitted() != null) {
+        return item.getMetadata().getDateSubmitted();
+      }
+      if (item.getMetadata().getDateModified() != null) {
+        return item.getMetadata().getDateModified();
+      }
+      if (item.getMetadata().getDateCreated() != null) {
+        return item.getMetadata().getDateCreated();
+      }
+
+    }
+
+    return null;
+
+
+  }
 
   private String createSortCreatorsString(ItemVersionVO item) {
     StringBuilder sb = new StringBuilder();

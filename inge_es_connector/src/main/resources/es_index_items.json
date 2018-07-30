@@ -1258,6 +1258,14 @@
 				"sort-metadata-creators-compound": {
 					"type": "keyword",
 					"normalizer": "sort"
+				},
+				"sort-metadata-dates-by-category": {
+					"type": "date",
+					"format": "yyyy-MM-dd||yyyy-MM||yyyy"
+				},
+				"sort-metadata-dates-by-category-year": {
+					"type": "date",
+					"format": "yyyy"
 				}
 			}
 		}
