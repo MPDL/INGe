@@ -42,11 +42,13 @@
                                     <h:outputLink id="lnkMenuREST" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/SearchAndExportPage.jsp">
                                         <h:outputText value="#{lbl.Tools_lblREST}" />
                                     </h:outputLink>
+                                    <!-- 
                                     <h:outputText styleClass="seperator void" />
                                     <h:outputText styleClass="seperator void" />
                                     <h:outputLink id="lnkMenuSWORD" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/pubman/faces/SwordStartPage.jsp" target="_blank">
                                         <h:outputText value="#{lbl.Tools_lblSWORD}" />
                                     </h:outputLink>
+                                     -->
                                     <h:outputText styleClass="seperator void" />
                                     <h:outputLink id="lnkMenuCslEditor" styleClass="free_area0" value="#{ApplicationBean.cslEditorInstanceUrl}" target="_blank">
                                         <h:outputText value="#{lbl.Tools_lblCslEditorInstance}" />
