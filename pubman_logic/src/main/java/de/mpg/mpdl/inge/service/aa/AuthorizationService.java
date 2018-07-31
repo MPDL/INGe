@@ -31,6 +31,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
+import de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
 
@@ -94,7 +95,7 @@ public class AuthorizationService {
   }
 
   public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query, Object... objects)
-      throws AuthenticationException, AuthorizationException {
+      throws AuthenticationException, AuthorizationException, IngeApplicationException, IngeTechnicalException {
 
     QueryBuilder filterQuery = getAaFilterQuery(serviceName, objects);
 
@@ -112,7 +113,8 @@ public class AuthorizationService {
   }
 
 
-  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects) throws AuthorizationException {
+  private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
+      throws AuthorizationException, IngeApplicationException, IngeTechnicalException, AuthenticationException {
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
 
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
@@ -168,8 +170,17 @@ public class AuthorizationService {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
-                      grantQueryBuilder
-                          .should(QueryBuilders.termQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
+                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou_")) {
+                        List<String> ouIds = new ArrayList<>();
+                        ouIds.add(grant.getObjectRef());
+                        List<AffiliationDbVO> childList = new ArrayList<>();
+                        searchAllChildOrganizations(ouIds.get(0), childList);
+                        grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
+                      } else {
+                        grantQueryBuilder
+                            .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
+                      }
+
                     }
 
                   }
@@ -179,6 +190,16 @@ public class AuthorizationService {
                   subQb.must(grantQueryBuilder);
                 }
 
+              }
+
+
+              if (userMap.containsKey("field_ou_id_match")) {
+                String userOuId = userAccount.getAffiliation().getObjectId();
+                List<String> ouIds = new ArrayList<>();
+                ouIds.add(userOuId);
+                List<AffiliationDbVO> childList = new ArrayList<>();
+                searchAllChildOrganizations(ouIds.get(0), childList);
+                subQb.must(QueryBuilders.termsQuery(UserAccountServiceImpl.INDEX_AFFIlIATION_OBJECTID, ouIds));
               }
 
             }
@@ -212,9 +233,9 @@ public class AuthorizationService {
 
 
             } else {
-              String value = getFieldValueOrString(order, objects, (String) rule.getValue()).toString();
+              Object value = getFieldValueOrString(order, objects, (String) rule.getValue());
               if (value != null) {
-                subQb.must(QueryBuilders.termQuery(index, value));
+                subQb.must(QueryBuilders.termQuery(index, value.toString()));
               }
             }
 
@@ -434,13 +455,38 @@ public class AuthorizationService {
             || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
 
         if (check) {
-          return;
+          break;
         }
       }
 
       if (!check) {
         throw new AuthorizationException(
             "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
+      }
+
+    }
+
+
+    if (ruleMap.containsKey("field_ou_id_match")) {
+      String userOuId = principal.getUserAccount().getAffiliation().getObjectId();
+      String ouFieldMatch = (String) ruleMap.get("field_ou_id_match");
+
+      if (ouFieldMatch != null) {
+        Object val = getFieldValueOrString(order, objects, ouFieldMatch);
+
+        if (val == null) {
+          throw new AuthorizationException("Expected user from organization [" + val.toString() + "]");
+        } else {
+          List<String> ouIds = new ArrayList<>();
+          ouIds.add(userOuId);
+          List<AffiliationDbVO> childList = new ArrayList<>();
+          searchAllChildOrganizations(ouIds.get(0), childList);
+
+          if (!ouIds.contains(val.toString())) {
+            throw new AuthorizationException("Expected user from organization [" + val.toString() + "]");
+          }
+        }
+
       }
 
     }

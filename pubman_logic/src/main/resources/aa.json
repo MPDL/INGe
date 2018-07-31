@@ -340,7 +340,14 @@
 			{
 				"givenUser.objectId": "user.userAccount.objectId"
 
+			},
+			{
+				"user" : {
+					"role" : "MODERATOR",
+					"field_ou_id_match" : "givenUser.affiliation.objectId"
+				}
 			}
+			
 		],
 		
 		"addGrants" : [
