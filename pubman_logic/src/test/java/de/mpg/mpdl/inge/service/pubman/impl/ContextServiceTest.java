@@ -163,6 +163,8 @@ public class ContextServiceTest extends TestBase {
     List<SubjectClassification> subjectClassification = new ArrayList<SubjectClassification>();
     contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_GROUPS);
     contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_PROJECTS);
+    
+    contextVO.setWorkflow(ContextDbVO.Workflow.SIMPLE);
 
 
     contextVO.setCreator(new AccountUserDbRO());

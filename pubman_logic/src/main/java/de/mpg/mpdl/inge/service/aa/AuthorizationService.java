@@ -475,7 +475,8 @@ public class AuthorizationService {
         Object val = getFieldValueOrString(order, objects, ouFieldMatch);
 
         if (val == null) {
-          throw new AuthorizationException("Expected user from organization [" + val.toString() + "]");
+          throw new AuthorizationException(
+              "User with ou [" + userOuId + "] is not allowed to access object with field " + ouFieldMatch + "[" + val + "]");
         } else {
           List<String> ouIds = new ArrayList<>();
           ouIds.add(userOuId);
@@ -483,7 +484,8 @@ public class AuthorizationService {
           searchAllChildOrganizations(ouIds.get(0), childList);
 
           if (!ouIds.contains(val.toString())) {
-            throw new AuthorizationException("Expected user from organization [" + val.toString() + "]");
+            throw new AuthorizationException(
+                "User with ou [" + userOuId + "] is not allowed to access object with field " + ouFieldMatch + "[" + val + "]");
           }
         }
 
