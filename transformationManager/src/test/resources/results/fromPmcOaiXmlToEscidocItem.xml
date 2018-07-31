@@ -42,7 +42,7 @@
                           xmlns:person="${xsd.metadata.person}"
                           xmlns:dc="${xsd.metadata.dc}"
                           xmlns:source="${xsd.metadata.source}"
-                          objid="escidoc:2001"/>
+                          objid="dummy-content-model"/>
       <prop:content-model-specific xmlns:prop="${xsd.soap.common.prop}"/>
    </ei:properties>
    <mdr:md-records xmlns:mdr="${xsd.soap.common.mdrecords}">

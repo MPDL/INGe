@@ -22,7 +22,7 @@
                   xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10"
                   xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
    <escidocItem:properties>
-      <srel:content-model objid="escidoc:2001"/>
+      <srel:content-model objid="dummy-content-model"/>
       <prop:content-model-specific/>
    </escidocItem:properties>
    <escidocMetadataRecords:md-records>

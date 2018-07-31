@@ -28,7 +28,7 @@
          xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event">
    <ei:properties>
       <srel:context objid="dummy:context"/>
-      <srel:content-model objid="escidoc:2001"/>
+      <srel:content-model objid="dummy-content-model"/>
       <prop:content-model-specific>
          <local-tags/>
       </prop:content-model-specific>

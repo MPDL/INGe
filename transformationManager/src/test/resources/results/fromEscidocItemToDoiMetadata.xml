@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doi:resource xmlns:doi="http://datacite.org/schema/kernel-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
-	<doi:identifier identifierType="DOI"></doi:identifier>
-	<doi:version>3</doi:version>
-	<doi:creators>
-		<doi:creator>
-			<doi:creatorName>Dick, B.</doi:creatorName>
-			<doi:affiliation>Abteilung Laserphysik, MPI for biophysical chemistry, Max Planck Society</doi:affiliation>
-		</doi:creator>
-	</doi:creators>
-	<doi:titles>
-		<doi:title>Line-narrowing spectroscopy in amorphous solids through polarization detection of spectral holes. I. Principles.</doi:title>
-	</doi:titles>
-	<doi:language>eng</doi:language>
-	<doi:subjects>
-		<doi:subject subjectScheme="eterms:DDC"/>
-	</doi:subjects>
-	<doi:publicationYear>1989</doi:publicationYear>
-	<doi:publisher>(:unas)</doi:publisher>
-	<doi:dates>
-		<doi:date dateType="Issued">1989-10-01</doi:date>
-	</doi:dates>
-	<doi:resourceType resourceTypeGeneral="Text">article</doi:resourceType>
-	<doi:alternateIdentifiers>
-		<doi:alternateIdentifier alternateIdentifierType="eterms:DOI">10.1016/0301-0104(89)80064-3</doi:alternateIdentifier>
-	</doi:alternateIdentifiers>
-	<doi:formats>
-		<doi:format>application/pdf</doi:format>
-	</doi:formats>
-	<doi:sizes>
-		<doi:size>1543038</doi:size>
-	</doi:sizes>
-</doi:resource>
+<resource xmlns="http://datacite.org/schema/kernel-3"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://datacite.org/schema/kernel-3 http://schema.datacite.org/meta/kernel-3/metadata.xsd">
+   <identifier identifierType="DOI"/>
+   <version>3</version>
+   <creators>
+      <creator>
+         <creatorName>Dick, B.</creatorName>
+         <affiliation>Abteilung Laserphysik, MPI for biophysical chemistry, Max Planck Society</affiliation>
+      </creator>
+   </creators>
+   <titles>
+      <title>Line-narrowing spectroscopy in amorphous solids through polarization detection of spectral holes. I. Principles.</title>
+   </titles>
+   <language>eng</language>
+   <subjects>
+      <subject subjectScheme="eterms:DDC"/>
+   </subjects>
+   <publicationYear>1989</publicationYear>
+   <publisher>(:unas)</publisher>
+   <dates>
+      <date dateType="Issued">1989-10-01</date>
+   </dates>
+   <resourceType resourceTypeGeneral="Text">article</resourceType>
+   <alternateIdentifiers>
+      <alternateIdentifier alternateIdentifierType="eterms:DOI">10.1016/0301-0104(89)80064-3</alternateIdentifier>
+   </alternateIdentifiers>
+   <formats>
+      <format>application/pdf</format>
+   </formats>
+   <sizes>
+      <size>1543038</size>
+   </sizes>
+</resource>

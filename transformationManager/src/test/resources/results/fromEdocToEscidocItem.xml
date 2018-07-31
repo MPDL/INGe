@@ -33,7 +33,7 @@
                           xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
                           xmlns:dcterms="http://purl.org/dc/terms/"
                           xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-                          objid="escidoc:2001"/>
+                          objid="dummy-content-model"/>
       <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
    </ei:properties>
    <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5">

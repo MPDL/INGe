@@ -25,7 +25,7 @@
                           xmlns:eprints="http://purl.org/eprint/terms/"
                           xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
                           xmlns:dcterms="http://purl.org/dc/terms/"
-                          objid="escidoc:2001"/>
+                          objid="dummy-content-model"/>
       <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
    </ei:properties>
    <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5">
