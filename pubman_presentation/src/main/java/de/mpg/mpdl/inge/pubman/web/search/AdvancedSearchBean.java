@@ -288,7 +288,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         vocabs.add(si);
       }
     } catch (final Exception e) {
-      AdvancedSearchBean.logger.error("Could not read Property: 'inge.cone.subjectVocab'", e);
+      AdvancedSearchBean.logger.error("Could not read Property: '" + PropertyReader.INGE_CONE_SUBJECTVOCAB + "'", e);
     }
     return vocabs;
   }

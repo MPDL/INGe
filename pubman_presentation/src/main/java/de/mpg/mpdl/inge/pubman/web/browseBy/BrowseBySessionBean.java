@@ -116,7 +116,7 @@ public class BrowseBySessionBean extends FacesBean {
         }
       }
     } catch (final Exception e) {
-      BrowseBySessionBean.logger.error("Could not read Property: 'inge.cone.subjectVocab'", e);
+      BrowseBySessionBean.logger.error("Could not read Property: '" + PropertyReader.INGE_CONE_SUBJECTVOCAB + "'", e);
     }
     return vocabs;
   }
