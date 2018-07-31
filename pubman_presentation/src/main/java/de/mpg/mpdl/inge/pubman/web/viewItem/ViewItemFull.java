@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -103,6 +104,7 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
@@ -201,6 +203,8 @@ public class ViewItemFull extends FacesBean {
   private boolean isStateWithdrawn = false;
   private boolean isWorkflowSimple = false;
 
+  private AccountUserDbVO owner;
+  private AccountUserDbVO modifier;
 
   //  private boolean isWorkflowStandard = false;
 
@@ -291,6 +295,15 @@ public class ViewItemFull extends FacesBean {
       this.isOwner = true;
 
       if (this.pubItem.getObject().getCreator() != null) {
+
+        try {
+          this.owner = ApplicationBean.INSTANCE.getUserAccountService().get(this.pubItem.getObject().getCreator().getObjectId(),
+              this.getLoginHelper().getAuthenticationToken());
+        } catch (Exception e) {
+
+        }
+
+
         this.isOwner = (this.getLoginHelper().getAccountUser() != null
             ? this.getLoginHelper().getAccountUser().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
             : false);
@@ -310,6 +323,15 @@ public class ViewItemFull extends FacesBean {
               }
             }
           }
+        }
+      }
+
+      if (this.getPubItem().getModifier() != null) {
+        try {
+          this.modifier = ApplicationBean.INSTANCE.getUserAccountService().get(this.pubItem.getModifier().getObjectId(),
+              this.getLoginHelper().getAuthenticationToken());
+        } catch (Exception e) {
+
         }
       }
 
@@ -1165,9 +1187,7 @@ public class ViewItemFull extends FacesBean {
     return ConeUtils.getConeServiceUrl();
   }
 
-  public AccountUserDbRO getOwner() {
-    return this.pubItem.getObject().getCreator();
-  }
+
 
   /**
    * Returns the Context the item belongs to
@@ -2181,5 +2201,21 @@ public class ViewItemFull extends FacesBean {
 
   private ExportItemsSessionBean getExportItemsSessionBean() {
     return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+  }
+
+  public AccountUserDbVO getModifier() {
+    return modifier;
+  }
+
+  public void setModifier(AccountUserDbVO modifier) {
+    this.modifier = modifier;
+  }
+
+  public void setOwner(AccountUserDbVO owner) {
+    this.owner = owner;
+  }
+
+  public AccountUserDbVO getOwner() {
+    return this.owner;
   }
 }

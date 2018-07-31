@@ -205,10 +205,10 @@
                                 <h:outputText value=" --- #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner != null }" />
                                 <h:outputText value="#{lbl.EditItem_lblItemlatestChange } #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner == null }" />
                                 <br />
-                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.name}'" rendered="#{ViewItemFull.latestModifier != null}" />
-                                <h:outputText value="." rendered="#{ViewItemFull.latestModifier != null and ViewItemFull.modificationDate == null}" />
-                                <h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier != null }" />
-                                <h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier == null }" />
+                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.modifier.name}'" rendered="#{ViewItemFull.modifier != null}" />
+                                <h:outputText value="." rendered="#{ViewItemFull.modifier != null and ViewItemFull.modificationDate == null}" />
+                                <h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.modifier != null }" />
+                                <h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.modifier == null }" />
                                 <br />
                                 <h:outputText value="#{msg.ViewItemFull_latestMessage} #{ViewItemFull.pubItem.message}" rendered="#{ViewItemFull.canShowLastMessage}" />
                                 <h:outputText value="#{msg.ViewItemFull_latestMessage} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />

@@ -66,6 +66,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public static String INDEX_NAME = "name";
   public static String INDEX_LOGINNAME = "loginname";
   public static String INDEX_OBJECTID = "objectId";
+  public static String INDEX_AFFIlIATION_OBJECTID = "affiliation.objectId";
 
   @Autowired
   private AuthorizationService aaService;
