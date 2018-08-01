@@ -104,7 +104,6 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
@@ -180,7 +179,7 @@ public class ViewItemFull extends FacesBean {
   private boolean canAddToBasket = false;
   private boolean canDeleteFromBasket = false;
   private boolean canViewLocalTags = false;
-  private boolean canManageAudience = false;
+  //  private boolean canManageAudience = false;
   private boolean canShowItemLog = false;
   private boolean canShowStatistics = false;
   private boolean canShowReleaseHistory = false;
@@ -1988,9 +1987,9 @@ public class ViewItemFull extends FacesBean {
       this.canViewLocalTags = true;
     }
 
-    if (this.getHasAudience() && !this.isStateWithdrawn) {
-      this.canManageAudience = true;
-    }
+    //    if (this.getHasAudience() && !this.isStateWithdrawn) {
+    //      this.canManageAudience = true;
+    //    }
 
     if (this.isLatestVersion && !this.isStateWithdrawn && this.isLoggedIn && (this.isOwner || this.isModerator)) {
       this.canShowItemLog = true;
@@ -2058,9 +2057,9 @@ public class ViewItemFull extends FacesBean {
     return this.canViewLocalTags;
   }
 
-  public boolean isCanManageAudience() {
-    return this.canManageAudience;
-  }
+  //  public boolean isCanManageAudience() {
+  //    return this.canManageAudience;
+  //  }
 
   public boolean isCanShowItemLog() {
     return this.canShowItemLog;
