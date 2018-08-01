@@ -38,7 +38,7 @@ public class ContextServiceTest extends TestBase {
 
   @Autowired
   OrganizationService organizationService;
-  
+
   @Before
   public void setUp() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
@@ -169,7 +169,7 @@ public class ContextServiceTest extends TestBase {
     List<SubjectClassification> subjectClassification = new ArrayList<SubjectClassification>();
     contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_GROUPS);
     contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_PROJECTS);
-    
+
     contextVO.setWorkflow(ContextDbVO.Workflow.SIMPLE);
 
     List<AffiliationDbRO> affList = new ArrayList<>();

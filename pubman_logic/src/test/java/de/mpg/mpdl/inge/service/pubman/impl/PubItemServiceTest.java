@@ -160,10 +160,8 @@ public class PubItemServiceTest extends TestBase {
     assertTrue(itemVersionVO == null);
   }
 
-  
-  
-  
-  
+
+
   @Test
   public void getInvalidIdWithoutAuthentication() throws Exception {
 
