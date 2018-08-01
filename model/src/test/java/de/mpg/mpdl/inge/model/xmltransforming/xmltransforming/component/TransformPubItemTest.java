@@ -260,7 +260,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
 
     assertEquals(1, pubItemVO.getFiles().get(0).getMetadataSets().size());
 
-    assertEquals("hdl:someHandle/test/escidoc:4747", pubItemVO.getVersion().getPid());
+    assertEquals("hdl:someHandle/test/escidoc_4747", pubItemVO.getVersion().getPid());
   }
 
   /**
@@ -309,14 +309,13 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     // transform the item directly into a PubItemVO
     ItemVO pubItemVO = XmlTransformingService.transformToItem(restPubItemXML);
 
-    assertEquals("ObjectId not transformed correctly", "/ir/item/escidoc:149937", pubItemVO.getVersion().getObjectId());
-    assertEquals("ObjectId and Version not transformed correctly", "/ir/item/escidoc:149937_3",
-        pubItemVO.getVersion().getObjectIdAndVersion());
+    assertEquals("ObjectId not transformed correctly", "escidoc:149937", pubItemVO.getVersion().getObjectId());
+    assertEquals("ObjectId and Version not transformed correctly", "escidoc:149937_3", pubItemVO.getVersion().getObjectIdAndVersion());
     assertEquals("Content Model not transformed correctly", "escidoc:persistent4", pubItemVO.getContentModel());
     assertEquals("Context not transformed correctly", "/ir/context/escidoc:147965", pubItemVO.getContext().getObjectId());
     assertEquals("Version number not transformed correctly", 3, pubItemVO.getLatestVersion().getVersionNumber());
     assertEquals("Owner not transformed correctly", "/aa/user-account/escidoc:146934", pubItemVO.getOwner().getObjectId());
-    assertEquals("Latest release not transformed correctly", "/ir/item/escidoc:149937", pubItemVO.getLatestRelease().getObjectId());
+    assertEquals("Latest release not transformed correctly", "escidoc:149937", pubItemVO.getLatestRelease().getObjectId());
   }
 
   /**

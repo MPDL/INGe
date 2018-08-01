@@ -124,8 +124,8 @@ public class TransformContextTest extends TestBase {
 
     List<MdsPublicationVO.SubjectClassification> allowedSubjectClassifications =
         expectedContext.getAdminDescriptor().getAllowedSubjectClassifications();
-    allowedSubjectClassifications.add(MdsPublicationVO.SubjectClassification.MPIS_GROUPS);
-    allowedSubjectClassifications.add(MdsPublicationVO.SubjectClassification.MPIS_PROJECTS);
+    allowedSubjectClassifications.add(MdsPublicationVO.SubjectClassification.DDC);
+    allowedSubjectClassifications.add(MdsPublicationVO.SubjectClassification.MPIPKS);
 
 
     // add all additional expected values from full sample

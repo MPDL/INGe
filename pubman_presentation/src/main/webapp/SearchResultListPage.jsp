@@ -172,6 +172,8 @@
                                 </h:outputLink>
                             </h:panelGroup>
                              -->
+                             <h:outputText value="#{SearchRetrieverRequestBean.prettyElasticSearchQuery}" style="white-space:pre-wrap;" />
+                             
                             <div style="clear: both; margin-top: 0.6363em;">
                                 <!-- Subheadline starts here -->
                                 <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.numberOfMessages == 1}" />
