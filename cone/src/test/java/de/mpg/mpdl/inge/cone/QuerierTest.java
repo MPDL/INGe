@@ -77,9 +77,9 @@ public class QuerierTest {
 
   @Test
   public void testQueryMethod1() throws Exception {
-    List<? extends Describable> results = querier.query("journals", "of", ModeType.FAST);
-    assertNotNull("No results for query 'of'", results);
-    assertTrue("No results for query 'of'", results.size() > 0);
+    List<? extends Describable> results = querier.query("ddc", "topics", ModeType.FAST);
+    assertNotNull("No results for query 'topics'", results);
+    assertTrue("No results for query 'topics'", results.size() > 0);
     assertTrue(
         "Retrieved more results than allowed (" + results.size() + " > "
             + Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS)) + ")",
@@ -89,35 +89,23 @@ public class QuerierTest {
 
     for (Describable pair : results) {
 
-      assertTrue("Result does not contain query string 'of': " + ((Pair<?>) pair).getValue(),
-          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("abstr")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("journal")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("j.")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("adv")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("society")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("acta"));
+      assertTrue("Result does not contain query string 'topics': " + ((Pair<?>) pair).getValue(),
+          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("topics"));
     }
   }
 
   @Test
   public void testQueryMethod2() throws Exception {
-    List<? extends Describable> results = querier.query("journals", "of", null, ModeType.FAST, 10);
-    assertNotNull("No results for query 'of'", results);
-    assertTrue("No results for query 'of'", results.size() > 0);
+    List<? extends Describable> results = querier.query("ddc", "topics", null, ModeType.FAST, 10);
+    assertNotNull("No results for query 'topics'", results);
+    assertTrue("No results for query 'topics'", results.size() > 0);
     assertTrue("Retrieved more results than allowed (" + results.size() + " > 10)", results.size() <= 10);
 
     logger.info("Query returned " + results.size() + " hits");
 
     for (Describable pair : results) {
-      assertTrue("Result does not contain query string 'of': " + ((Pair<?>) pair).getValue(),
-          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("of")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("abstr")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("journal")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("j.")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("adv")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("society")
-              || ((Pair<?>) pair).getValue().toString().toLowerCase().contains("acta"));
+      assertTrue("Result does not contain query string 'topics': " + ((Pair<?>) pair).getValue(),
+          ((Pair<?>) pair).getValue().toString().toLowerCase().contains("topics"));
     }
   }
 
