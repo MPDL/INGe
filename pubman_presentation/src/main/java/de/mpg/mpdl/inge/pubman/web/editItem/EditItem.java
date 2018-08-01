@@ -562,16 +562,18 @@ public class EditItem extends FacesBean {
     this.getEditItemSessionBean().setCurrentSubmission("");
 
     try {
-      if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage())) {
-        final String viewItemPage = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
-            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceFirst("\\$1", this.getPubItem().getObjectId());
-        FacesTools.getExternalContext().redirect(viewItemPage);
-      } else if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {
+      //      if ("ViewLocalTagsPage.jsp".equals(this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage())) {
+      //        final String viewItemPage = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+      //            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+      //            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceFirst("\\$1", this.getPubItem().getObjectId());
+      //        FacesTools.getExternalContext().redirect(viewItemPage);
+      //      } else 
+      if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath() + "/faces/" + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
       } else {
-        FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
+        FacesTools.getExternalContext()
+            .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
       }
     } catch (final Exception e) {
       EditItem.logger.error("Could not redirect to the previous page", e);
