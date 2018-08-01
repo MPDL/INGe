@@ -7,7 +7,6 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
@@ -64,15 +63,15 @@ public class SubmitItem extends FacesBean {
     return MyItemsRetrieverRequestBean.LOAD_DEPOSITORWS;
   }
 
-  public boolean getHasAudienceFiles() {
-    for (final FileDbVO file : this.getPubItem().getFiles()) {
-      if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
-        return true;
-      }
-    }
-
-    return false;
-  }
+  //  public boolean getHasAudienceFiles() {
+  //    for (final FileDbVO file : this.getPubItem().getFiles()) {
+  //      if (file.getVisibility() != null && file.getVisibility().equals(Visibility.AUDIENCE)) {
+  //        return true;
+  //      }
+  //    }
+  //
+  //    return false;
+  //  }
 
   /**
    * Checks is the current item has at least one rights information field filled.
