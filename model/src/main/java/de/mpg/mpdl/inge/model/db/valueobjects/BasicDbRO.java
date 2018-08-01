@@ -161,4 +161,63 @@ public class BasicDbRO implements Cloneable, Serializable {
 
 
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((modifier == null) ? 0 : modifier.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
+    return result;
+  }
+
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    BasicDbRO other = (BasicDbRO) obj;
+    if (creationDate == null) {
+      if (other.creationDate != null)
+        return false;
+    } else if (!creationDate.equals(other.creationDate))
+      return false;
+    if (creator == null) {
+      if (other.creator != null)
+        return false;
+    } else if (!creator.equals(other.creator))
+      return false;
+    if (lastModificationDate == null) {
+      if (other.lastModificationDate != null)
+        return false;
+    } else if (!lastModificationDate.equals(other.lastModificationDate))
+      return false;
+    if (modifier == null) {
+      if (other.modifier != null)
+        return false;
+    } else if (!modifier.equals(other.modifier))
+      return false;
+    if (name == null) {
+      if (other.name != null)
+        return false;
+    } else if (!name.equals(other.name))
+      return false;
+    if (objectId == null) {
+      if (other.objectId != null)
+        return false;
+    } else if (!objectId.equals(other.objectId))
+      return false;
+    return true;
+  }
+
+
+
 }
