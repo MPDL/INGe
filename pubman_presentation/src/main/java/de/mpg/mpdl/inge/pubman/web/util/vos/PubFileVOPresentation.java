@@ -28,7 +28,6 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +60,7 @@ public class PubFileVOPresentation extends FacesBean {
   private static Properties properties;
 
   private FileDbVO file;
-  private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
+  //  private List<GrantVOPresentation> grantList = new ArrayList<GrantVOPresentation>();
   private String fileType;
   private boolean isLocator = false;
   private int index;
@@ -440,18 +439,18 @@ public class PubFileVOPresentation extends FacesBean {
     this.file.setVisibility(newVisibility);
   }
 
-  public List<GrantVOPresentation> getGrantList() {
-    // ensure that at least one grant is in the list (for presentation)
-    /*
-     * if(this.grantList.size() == 0) { this.grantList.add(new GrantVOPresentation(new Grant(),
-     * this.grantList.size(), this.index)); }
-     */
-    return this.grantList;
-  }
-
-  public void setGrantList(List<GrantVOPresentation> grantList) {
-    this.grantList = grantList;
-  }
+  //  public List<GrantVOPresentation> getGrantList() {
+  //    // ensure that at least one grant is in the list (for presentation)
+  //    /*
+  //     * if(this.grantList.size() == 0) { this.grantList.add(new GrantVOPresentation(new Grant(),
+  //     * this.grantList.size(), this.index)); }
+  //     */
+  //    return this.grantList;
+  //  }
+  //
+  //  public void setGrantList(List<GrantVOPresentation> grantList) {
+  //    this.grantList = grantList;
+  //  }
 
   protected EasySubmission getEasySubmission() {
     return (EasySubmission) FacesTools.findBean("EasySubmission");

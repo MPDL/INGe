@@ -61,12 +61,6 @@
 										rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 										<h:outputText
 											value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
-									</h:outputLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.hasAudience}" /> <h:outputLink
-										id="lnkViewAudiencePage" styleClass="free_area0"
-										value="#{ApplicationBean.appContext}AudiencePage.jsp"
-										rendered="#{ViewItemFull.hasAudience}">
-										<h:outputText value="#{lbl.AudiencePage}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator" /> <h:outputLink
 										id="lnkCollaboratorPage" styleClass="free_area0 actual"
 										value="#contentSkipLinkAnchor">
