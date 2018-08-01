@@ -272,11 +272,6 @@
 										rendered="#{ViewItemFull.canViewLocalTags}">
 										<h:outputText
 											value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
-									</h:outputLink> <h:panelGroup styleClass="seperator" rendered="false" /> <h:outputLink
-										id="lnkCollaboratorPage" styleClass="free_area0"
-										value="#{ApplicationBean.appContext}CollaboratorPage.jsp"
-										rendered="false">
-										<h:outputText value="#{lbl.CollaboratorPage}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowItemLog}" /> <h:commandLink
 										id="lnkViewItemLogPage" styleClass="free_area0"
