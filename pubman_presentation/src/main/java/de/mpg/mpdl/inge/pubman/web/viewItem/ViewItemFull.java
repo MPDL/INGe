@@ -50,8 +50,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -1537,19 +1535,19 @@ public class ViewItemFull extends FacesBean {
     this.isOwner = isOwner;
   }
 
-  public boolean getHasAudience() {
-    if (this.pubItem != null && (ItemVersionRO.State.RELEASED.equals(this.pubItem.getVersionState())
-        || ItemVersionRO.State.SUBMITTED.equals(this.pubItem.getVersionState())) && (this.getIsModerator() || this.getIsDepositor())) {
-
-      for (final FileDbVO file : this.pubItem.getFiles()) {
-        if (Visibility.AUDIENCE.equals(file.getVisibility())) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
+//  public boolean getHasAudience() {
+//    if (this.pubItem != null && (ItemVersionRO.State.RELEASED.equals(this.pubItem.getVersionState())
+//        || ItemVersionRO.State.SUBMITTED.equals(this.pubItem.getVersionState())) && (this.getIsModerator() || this.getIsDepositor())) {
+//
+//      for (final FileDbVO file : this.pubItem.getFiles()) {
+//        if (Visibility.AUDIENCE.equals(file.getVisibility())) {
+//          return true;
+//        }
+//      }
+//    }
+//
+//    return false;
+//  }
 
   public String reviseItem() {
     return ReviseItem.LOAD_REVISEITEM;
