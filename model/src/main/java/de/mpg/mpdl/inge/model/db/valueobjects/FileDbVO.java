@@ -417,4 +417,81 @@ public class FileDbVO extends FileDbRO implements Serializable {
 
 
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((allowedAudienceIds == null) ? 0 : allowedAudienceIds.hashCode());
+    result = prime * result + ((checksum == null) ? 0 : checksum.hashCode());
+    result = prime * result + ((checksumAlgorithm == null) ? 0 : checksumAlgorithm.hashCode());
+    result = prime * result + ((content == null) ? 0 : content.hashCode());
+    result = prime * result + ((localFileIdentifier == null) ? 0 : localFileIdentifier.hashCode());
+    result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
+    result = prime * result + ((mimeType == null) ? 0 : mimeType.hashCode());
+    result = prime * result + ((pid == null) ? 0 : pid.hashCode());
+    result = prime * result + (int) (size ^ (size >>> 32));
+    result = prime * result + ((storage == null) ? 0 : storage.hashCode());
+    result = prime * result + ((visibility == null) ? 0 : visibility.hashCode());
+    return result;
+  }
+
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    FileDbVO other = (FileDbVO) obj;
+    if (allowedAudienceIds == null) {
+      if (other.allowedAudienceIds != null)
+        return false;
+    } else if (!allowedAudienceIds.equals(other.allowedAudienceIds))
+      return false;
+    if (checksum == null) {
+      if (other.checksum != null)
+        return false;
+    } else if (!checksum.equals(other.checksum))
+      return false;
+    if (checksumAlgorithm != other.checksumAlgorithm)
+      return false;
+    if (content == null) {
+      if (other.content != null)
+        return false;
+    } else if (!content.equals(other.content))
+      return false;
+    if (localFileIdentifier == null) {
+      if (other.localFileIdentifier != null)
+        return false;
+    } else if (!localFileIdentifier.equals(other.localFileIdentifier))
+      return false;
+    if (metadata == null) {
+      if (other.metadata != null)
+        return false;
+    } else if (!metadata.equals(other.metadata))
+      return false;
+    if (mimeType == null) {
+      if (other.mimeType != null)
+        return false;
+    } else if (!mimeType.equals(other.mimeType))
+      return false;
+    if (pid == null) {
+      if (other.pid != null)
+        return false;
+    } else if (!pid.equals(other.pid))
+      return false;
+    if (size != other.size)
+      return false;
+    if (storage != other.storage)
+      return false;
+    if (visibility != other.visibility)
+      return false;
+    return true;
+  }
+
+
+
 }

@@ -319,6 +319,7 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMabXmlToEscidocItem.xml");
   }
 
+  @Ignore
   @Test(expected = TransformationException.class)
   public void testMabXmlWrongLinkToItemXmlV3() throws TransformationException {
 

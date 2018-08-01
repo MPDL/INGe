@@ -108,5 +108,54 @@ public class AuditDbVO implements Serializable {
     this.pubItem = pubItem;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((comment == null) ? 0 : comment.hashCode());
+    result = prime * result + ((event == null) ? 0 : event.hashCode());
+    result = prime * result + id;
+    result = prime * result + ((modificationDate == null) ? 0 : modificationDate.hashCode());
+    result = prime * result + ((modifier == null) ? 0 : modifier.hashCode());
+    result = prime * result + ((pubItem == null) ? 0 : pubItem.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    AuditDbVO other = (AuditDbVO) obj;
+    if (comment == null) {
+      if (other.comment != null)
+        return false;
+    } else if (!comment.equals(other.comment))
+      return false;
+    if (event != other.event)
+      return false;
+    if (id != other.id)
+      return false;
+    if (modificationDate == null) {
+      if (other.modificationDate != null)
+        return false;
+    } else if (!modificationDate.equals(other.modificationDate))
+      return false;
+    if (modifier == null) {
+      if (other.modifier != null)
+        return false;
+    } else if (!modifier.equals(other.modifier))
+      return false;
+    if (pubItem == null) {
+      if (other.pubItem != null)
+        return false;
+    } else if (!pubItem.equals(other.pubItem))
+      return false;
+    return true;
+  }
+
 
 }

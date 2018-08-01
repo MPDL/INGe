@@ -207,4 +207,59 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
   public void setContactEmail(String contactEmail) {
     this.contactEmail = contactEmail;
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((allowedGenres == null) ? 0 : allowedGenres.hashCode());
+    result = prime * result + ((allowedSubjectClassifications == null) ? 0 : allowedSubjectClassifications.hashCode());
+    result = prime * result + ((contactEmail == null) ? 0 : contactEmail.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((responsibleAffiliations == null) ? 0 : responsibleAffiliations.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
+    result = prime * result + ((workflow == null) ? 0 : workflow.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ContextDbVO other = (ContextDbVO) obj;
+    if (allowedGenres == null) {
+      if (other.allowedGenres != null)
+        return false;
+    } else if (!allowedGenres.equals(other.allowedGenres))
+      return false;
+    if (allowedSubjectClassifications == null) {
+      if (other.allowedSubjectClassifications != null)
+        return false;
+    } else if (!allowedSubjectClassifications.equals(other.allowedSubjectClassifications))
+      return false;
+    if (contactEmail == null) {
+      if (other.contactEmail != null)
+        return false;
+    } else if (!contactEmail.equals(other.contactEmail))
+      return false;
+    if (description == null) {
+      if (other.description != null)
+        return false;
+    } else if (!description.equals(other.description))
+      return false;
+    if (responsibleAffiliations == null) {
+      if (other.responsibleAffiliations != null)
+        return false;
+    } else if (!responsibleAffiliations.equals(other.responsibleAffiliations))
+      return false;
+    if (state != other.state)
+      return false;
+    if (workflow != other.workflow)
+      return false;
+    return true;
+  }
 }

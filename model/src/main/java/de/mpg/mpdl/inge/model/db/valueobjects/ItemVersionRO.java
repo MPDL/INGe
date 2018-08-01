@@ -177,5 +177,54 @@ public class ItemVersionRO implements Serializable {
     }
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((modificationDate == null) ? 0 : modificationDate.hashCode());
+    result = prime * result + ((modifier == null) ? 0 : modifier.hashCode());
+    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
+    result = prime * result + versionNumber;
+    result = prime * result + ((versionPid == null) ? 0 : versionPid.hashCode());
+    result = prime * result + ((versionState == null) ? 0 : versionState.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ItemVersionRO other = (ItemVersionRO) obj;
+    if (modificationDate == null) {
+      if (other.modificationDate != null)
+        return false;
+    } else if (!modificationDate.equals(other.modificationDate))
+      return false;
+    if (modifier == null) {
+      if (other.modifier != null)
+        return false;
+    } else if (!modifier.equals(other.modifier))
+      return false;
+    if (objectId == null) {
+      if (other.objectId != null)
+        return false;
+    } else if (!objectId.equals(other.objectId))
+      return false;
+    if (versionNumber != other.versionNumber)
+      return false;
+    if (versionPid == null) {
+      if (other.versionPid != null)
+        return false;
+    } else if (!versionPid.equals(other.versionPid))
+      return false;
+    if (versionState != other.versionState)
+      return false;
+    return true;
+  }
+
 
 }

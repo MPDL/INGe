@@ -101,4 +101,47 @@ public class YearbookDbVO extends BasicDbRO implements Serializable {
     return getYear() + " - " + getOrganization().getName();
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((contextIds == null) ? 0 : contextIds.hashCode());
+    result = prime * result + ((itemIds == null) ? 0 : itemIds.hashCode());
+    result = prime * result + ((organization == null) ? 0 : organization.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
+    result = prime * result + year;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    YearbookDbVO other = (YearbookDbVO) obj;
+    if (contextIds == null) {
+      if (other.contextIds != null)
+        return false;
+    } else if (!contextIds.equals(other.contextIds))
+      return false;
+    if (itemIds == null) {
+      if (other.itemIds != null)
+        return false;
+    } else if (!itemIds.equals(other.itemIds))
+      return false;
+    if (organization == null) {
+      if (other.organization != null)
+        return false;
+    } else if (!organization.equals(other.organization))
+      return false;
+    if (state != other.state)
+      return false;
+    if (year != other.year)
+      return false;
+    return true;
+  }
+
 }

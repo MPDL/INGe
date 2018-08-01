@@ -223,4 +223,80 @@ public class ItemRootVO implements Serializable {
     this.creator = creator;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((context == null) ? 0 : context.hashCode());
+    result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+    result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+    result = prime * result + ((lastModificationDate == null) ? 0 : lastModificationDate.hashCode());
+    result = prime * result + ((latestRelease == null) ? 0 : latestRelease.hashCode());
+    result = prime * result + ((latestVersion == null) ? 0 : latestVersion.hashCode());
+    result = prime * result + ((localTags == null) ? 0 : localTags.hashCode());
+    result = prime * result + ((objectId == null) ? 0 : objectId.hashCode());
+    result = prime * result + ((objectPid == null) ? 0 : objectPid.hashCode());
+    result = prime * result + ((publicState == null) ? 0 : publicState.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ItemRootVO other = (ItemRootVO) obj;
+    if (context == null) {
+      if (other.context != null)
+        return false;
+    } else if (!context.equals(other.context))
+      return false;
+    if (creationDate == null) {
+      if (other.creationDate != null)
+        return false;
+    } else if (!creationDate.equals(other.creationDate))
+      return false;
+    if (creator == null) {
+      if (other.creator != null)
+        return false;
+    } else if (!creator.equals(other.creator))
+      return false;
+    if (lastModificationDate == null) {
+      if (other.lastModificationDate != null)
+        return false;
+    } else if (!lastModificationDate.equals(other.lastModificationDate))
+      return false;
+    if (latestRelease == null) {
+      if (other.latestRelease != null)
+        return false;
+    } else if (!latestRelease.equals(other.latestRelease))
+      return false;
+    if (latestVersion == null) {
+      if (other.latestVersion != null)
+        return false;
+    } else if (!latestVersion.equals(other.latestVersion))
+      return false;
+    if (localTags == null) {
+      if (other.localTags != null)
+        return false;
+    } else if (!localTags.equals(other.localTags))
+      return false;
+    if (objectId == null) {
+      if (other.objectId != null)
+        return false;
+    } else if (!objectId.equals(other.objectId))
+      return false;
+    if (objectPid == null) {
+      if (other.objectPid != null)
+        return false;
+    } else if (!objectPid.equals(other.objectPid))
+      return false;
+    if (publicState != other.publicState)
+      return false;
+    return true;
+  }
+
 }

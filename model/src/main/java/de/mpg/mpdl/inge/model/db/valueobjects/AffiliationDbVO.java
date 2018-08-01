@@ -183,4 +183,47 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   public void setHasChildren(boolean hasChildren) {
     this.hasChildren = hasChildren;
   }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + (hasChildren ? 1231 : 1237);
+    result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
+    result = prime * result + ((parentAffiliation == null) ? 0 : parentAffiliation.hashCode());
+    result = prime * result + ((predecessorAffiliations == null) ? 0 : predecessorAffiliations.hashCode());
+    result = prime * result + ((publicStatus == null) ? 0 : publicStatus.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    AffiliationDbVO other = (AffiliationDbVO) obj;
+    if (hasChildren != other.hasChildren)
+      return false;
+    if (metadata == null) {
+      if (other.metadata != null)
+        return false;
+    } else if (!metadata.equals(other.metadata))
+      return false;
+    if (parentAffiliation == null) {
+      if (other.parentAffiliation != null)
+        return false;
+    } else if (!parentAffiliation.equals(other.parentAffiliation))
+      return false;
+    if (predecessorAffiliations == null) {
+      if (other.predecessorAffiliations != null)
+        return false;
+    } else if (!predecessorAffiliations.equals(other.predecessorAffiliations))
+      return false;
+    if (publicStatus != other.publicStatus)
+      return false;
+    return true;
+  }
 }
