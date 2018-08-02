@@ -33,6 +33,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -309,7 +311,7 @@ public class SiteMapTask {
                     String fileId = fileMap.get("objectId").toString();
                     String fileName = fileMap.get("name").toString();
                     String fileLoc = this.instanceUrl + this.contextPath
-                        + this.componentPattern.replace("$1", itemId + "_" + version).replace("$2", fileId).replace("$3", fileName);
+                        + this.componentPattern.replace("$1", itemId + "_" + version).replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()));
                     fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
                     writtenInThisFile++;
