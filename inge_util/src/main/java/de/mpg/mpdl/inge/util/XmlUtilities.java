@@ -145,7 +145,7 @@ public class XmlUtilities {
     String nameSpace = handler.toString();
     return nameSpace;
   }
-  
+
   /**
    * Returns an XML-escaped String that can be used for writing an XML.
    * 
