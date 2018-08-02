@@ -310,8 +310,8 @@ public class SiteMapTask {
                   if (Visibility.PUBLIC.name().equals(visibility)) {
                     String fileId = fileMap.get("objectId").toString();
                     String fileName = fileMap.get("name").toString();
-                    String fileLoc = this.instanceUrl + this.contextPath
-                        + this.componentPattern.replace("$1", itemId + "_" + version).replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()));
+                    String fileLoc = this.instanceUrl + this.contextPath + this.componentPattern.replace("$1", itemId + "_" + version)
+                        .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()));
                     fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
                     writtenInThisFile++;
