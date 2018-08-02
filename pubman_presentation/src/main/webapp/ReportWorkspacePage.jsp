@@ -17,20 +17,6 @@
         <f:loadBundle var="tip" basename="Tooltip" />
         <div class="full wrapper">
             <h:inputHidden id="offset"></h:inputHidden>
-            <!-- start: skip link navigation -->
-            <h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
-                <h:outputText value="Skip to the main menu" />
-            </h:outputLink>
-            <h:outputLink styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
-                <h:outputText value="Skip to the page content" />
-            </h:outputLink>
-            <h:outputLink styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
-                <h:outputText value="Skip to the search menu" />
-            </h:outputLink>
-            <h:outputLink styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
-                <h:outputText value="Skip to the meta menu" />
-            </h:outputLink>
-            <!-- end: skip link navigation -->
             <ui:include src="header/Header.jspf" />
             <h:form id="formTest">
                 <div id="content" class="full_area0 clear">
