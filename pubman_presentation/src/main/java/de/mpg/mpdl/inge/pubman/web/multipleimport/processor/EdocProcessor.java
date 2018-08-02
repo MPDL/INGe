@@ -202,7 +202,7 @@ public class EdocProcessor extends FormatProcessor {
         this.builder.append(this.escape(content));
       }
     }
-    
+
     /**
      * Returns an XML-escaped String that can be used for writing an XML.
      * 
@@ -218,6 +218,6 @@ public class EdocProcessor extends FormatProcessor {
 
       return input;
     }
-    
+
   }
 }
