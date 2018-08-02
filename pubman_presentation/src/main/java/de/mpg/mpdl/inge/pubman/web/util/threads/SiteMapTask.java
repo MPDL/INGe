@@ -271,8 +271,10 @@ public class SiteMapTask {
 
         if (resp == null) {
           SearchSourceBuilder ssb = new SearchSourceBuilder();
-          ssb.fetchSource(new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID,PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER, PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, PubItemServiceDbImpl.INDEX_FILE_OBJECT_ID,PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME},null).query(qb)
-          .size(this.maxItemsPerRetrieve);
+          ssb.fetchSource(new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER,
+              PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, PubItemServiceDbImpl.INDEX_FILE_OBJECT_ID,
+              PubItemServiceDbImpl.INDEX_FILE_VISIBILITY, PubItemServiceDbImpl.INDEX_FILE_STORAGE, PubItemServiceDbImpl.INDEX_FILE_NAME},
+              null).query(qb).size(this.maxItemsPerRetrieve);
           resp = pubItemService.searchDetailed(ssb, 120000, null);
         } else {
           resp = pubItemService.scrollOn(resp.getScrollId(), 120000);
@@ -283,41 +285,38 @@ public class SiteMapTask {
 
         for (final SearchHit result : resp.getHits().getHits()) {
 
-          Map<String,Object> sourceMap = result.getSourceAsMap();
+          Map<String, Object> sourceMap = result.getSourceAsMap();
           // final ItemVersionVO pubItemVO = new ItemVersionVO(result.getData());
           try {
-            
+
             String itemId = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).toString();
             String lmd = sourceMap.get(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).toString().substring(0, 10);
             String loc = this.instanceUrl + this.contextPath + this.itemPattern.replace("$1", itemId);
             String version = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER).toString();
-            
+
             writeEntry(this.fileWriter, loc, lmd);
             writtenInThisFile++;
 
-            if(sourceMap.containsKey("files"))
-            {
-              List<Map<String,Object>> fileList = (List<Map<String,Object>>)sourceMap.get("files");
-              
-              for(Map<String, Object> fileMap : fileList)
-              {
+            if (sourceMap.containsKey("files")) {
+              List<Map<String, Object>> fileList = (List<Map<String, Object>>) sourceMap.get("files");
+
+              for (Map<String, Object> fileMap : fileList) {
                 String storage = fileMap.get("storage").toString();
-                if(Storage.INTERNAL_MANAGED.name().equals(storage))
-                {
+                if (Storage.INTERNAL_MANAGED.name().equals(storage)) {
                   String visibility = fileMap.get("visibility").toString();
-                  if(Visibility.PUBLIC.name().equals(visibility))
-                  {
+                  if (Visibility.PUBLIC.name().equals(visibility)) {
                     String fileId = fileMap.get("objectId").toString();
                     String fileName = fileMap.get("name").toString();
-                    String fileLoc = this.instanceUrl + this.contextPath + this.componentPattern.replace("$1", itemId + "_" + version).replace("$2", fileId).replace("$3", fileName);
+                    String fileLoc = this.instanceUrl + this.contextPath
+                        + this.componentPattern.replace("$1", itemId + "_" + version).replace("$2", fileId).replace("$3", fileName);
                     writeEntry(this.fileWriter, fileLoc, lmd);
                     writtenInThisFile++;
                   }
                 }
               }
             }
-            
-            
+
+
             if (writtenInThisFile == maxItemsPerFile) {
               changeFile();
               writtenInThisFile = 0;
