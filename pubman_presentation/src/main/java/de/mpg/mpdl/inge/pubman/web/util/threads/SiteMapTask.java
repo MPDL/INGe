@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.XmlUtilities;
 
 /**
  * Thread that creates Sitemap files.
@@ -309,6 +310,7 @@ public class SiteMapTask {
                     String fileName = fileMap.get("name").toString();
                     String fileLoc = this.instanceUrl + this.contextPath
                         + this.componentPattern.replace("$1", itemId + "_" + version).replace("$2", fileId).replace("$3", fileName);
+                    fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
                     writtenInThisFile++;
                   }
