@@ -271,8 +271,10 @@ public class ItemRestController {
         throw new NotFoundException();
       }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
-      response.setHeader("Content-disposition",
-          "attachment; filename=" + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()));
+      
+      //Add filename and RFC 5987 encoded filename as content disposition headers
+      response.setHeader("Content-disposition", "attachment; filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; filename*=utf-8''"
+          + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
       OutputStream output = response.getOutputStream();
       fileVOWrapper.readFile(output);
       output.flush();
