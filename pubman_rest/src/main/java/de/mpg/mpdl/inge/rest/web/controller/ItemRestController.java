@@ -271,7 +271,8 @@ public class ItemRestController {
         throw new NotFoundException();
       }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
-      response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()));
+      response.setHeader("Content-disposition",
+          "attachment; filename=" + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()));
       OutputStream output = response.getOutputStream();
       fileVOWrapper.readFile(output);
       output.flush();
