@@ -91,12 +91,12 @@
                                     </h2>
                                     <ul>
                                         <ui:repeat var="valitem" value="#{EditItem.pubItem.validationReport.items}">
-                                            <h:panelGroup rendered="#{valitem.restrictive}">
+                                            <h:panelGroup rendered="#{valitem.severity == 'ERROR'}">
                                                 <li class="messageWarn">
                                                     <h:outputText value="#{msg[valitem.content]}" />
                                                 </li>
                                             </h:panelGroup>
-                                            <h:panelGroup rendered="#{!valitem.restrictive}">
+                                            <h:panelGroup rendered="#{valitem.severity != 'ERROR'}">
                                                 <li class="messageStatus">
                                                     <h:outputText value="#{msg[valitem.content]}" />
                                                 </li>
