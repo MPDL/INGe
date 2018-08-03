@@ -877,7 +877,7 @@
 		<xsl:param name="year" as="xs:string"/>
 		<xsl:param name="month" as="xs:string"/>
 		<xsl:param name="day" as="xs:string"/>
-		<xsl:sequence select="concat(    format-number(xs:integer($year), '0000'), '-',    format-number(xs:integer($month), '00'), '-',    format-number(xs:integer($day), '00') )"/>
+		<xsl:sequence select="concat( format-number(xs:integer($year), '0000'), '-', format-number(xs:integer($month), '00'), '-', format-number(xs:integer($day), '00') )"/>
 	</xsl:function>
 	<xsl:function name="intern:month-to-integer-string" as="xs:string">
 		<xsl:param name="month-string" as="xs:string"/>
@@ -1004,7 +1004,7 @@
 				<r>;</r>
 			</p>
 		</xsl:variable>
-		<xsl:sequence select="tools:replace($prepared,    $replace-list/s/string(),    $replace-list/r/string()    )"/>
+		<xsl:sequence select="tools:replace($prepared, $replace-list/s/string(), $replace-list/r/string() )"/>
 	</xsl:function>
 	<xsl:function name="tools:replace" as="xs:string">
 		<xsl:param name="input" as="xs:string?"/>
@@ -1021,7 +1021,7 @@
 		<xsl:param name="recurse" as="xs:boolean"/>
 		<xsl:choose>
 			<xsl:when test="exists($pattern[1])">
-				<xsl:sequence select="      intern:replace(      if (boolean($pattern[1]) )      then      if ($recurse)      then intern:recursive-replace($input, $pattern[1], string($replacement[1]), $flags)      else replace($input, $pattern[1], string($replacement[1]), $flags)      else $input,      $pattern[position() gt 1],      $replacement[position() gt 1],      $flags,      $recurse      )"/>
+				<xsl:sequence select=" intern:replace( if (boolean($pattern[1]) ) then if ($recurse) then intern:recursive-replace($input, $pattern[1], string($replacement[1]), $flags) else replace($input, $pattern[1], string($replacement[1]), $flags) else $input, $pattern[position() gt 1], $replacement[position() gt 1], $flags, $recurse )"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:sequence select="string($input)"/>
@@ -1086,7 +1086,7 @@
 	</xsl:function>
 	<xsl:function name="tools:is-W3CDTF" as="xs:boolean">
 		<xsl:param name="input" as="xs:string?"/>
-		<xsl:sequence select=" ($input castable as xs:gYear)   or         ($input castable as xs:gYearMonth)  or         ($input castable as xs:date)        "/>
+		<xsl:sequence select=" ($input castable as xs:gYear) or ($input castable as xs:gYearMonth) or ($input castable as xs:date) "/>
 	</xsl:function>
 	<xsl:function name="tools:earliest-day" as="xs:string">
 		<xsl:param name="sequence-of-W3CDTF-dates" as="xs:string*"/>
@@ -1249,7 +1249,7 @@
 					<xsl:variable name="year" as="xs:string" select="replace($prepared, '^([0-9]{1,2})(\.)?(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)', '')"/>
 					<xsl:variable name="month" as="xs:string" select="replace(replace($prepared, '^([0-9]{1,2})(\.)?|([0-9]{4})$', ''), '(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)', '$1')"/>
 					<xsl:variable name="day" as="xs:string" select="replace($prepared, '(\.)?(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)([0-9]{4})$', '')"/>
-					<xsl:sequence select="concat(       intern:date-string($year, intern:month-to-integer-string($month), $day),       '/',       intern:date-string($year, intern:month-to-integer-string($month), $day)       )"/>
+					<xsl:sequence select="concat( intern:date-string($year, intern:month-to-integer-string($month), $day), '/', intern:date-string($year, intern:month-to-integer-string($month), $day) )"/>
 				</xsl:when>
 				<xsl:when test="string(intern:parse-date($prepared) )">
 					<xsl:variable name="temp" as="xs:string" select="string(intern:parse-date($prepared) )"/>
@@ -1276,7 +1276,7 @@
 					<xsl:sequence select="concat($year1, '-', $month1, '-', $days1, '/', $year2, '-', $month2, '-', $days2)"/>
 				</xsl:when>
 				<xsl:when test="matches($prepared, '^(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)([0-9]{4})-(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)([0-9]{4})$')">
-					<xsl:sequence select="concat(       substring($prepared, 4,4), '-', intern:month-to-integer-string(substring($prepared, 1, 3) ),       '/',       substring($prepared, 12,4), '-', intern:month-to-integer-string(substring($prepared, 9, 3) )       )"/>
+					<xsl:sequence select="concat( substring($prepared, 4,4), '-', intern:month-to-integer-string(substring($prepared, 1, 3) ), '/', substring($prepared, 12,4), '-', intern:month-to-integer-string(substring($prepared, 9, 3) ) )"/>
 				</xsl:when>
 				<xsl:when test="matches($prepared, '^([0-9]{1,2})(\.)?(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)([0-9]{4})-([0-9]{1,2})(\.)?(JAN|FEB|MRZ|APR|MAI|JUN|JUL|AUG|SEP|OKT|NOV|DEZ)([0-9]{4})$')">
 					<xsl:variable name="temp" as="xs:string+" select="tokenize($prepared, '-')"/>
@@ -1286,7 +1286,7 @@
 					<xsl:sequence select="intern:century-to-normalized-date($prepared)"/>
 				</xsl:when>
 				<xsl:when test="matches($prepared, '^[1-9][0-9]?\.JHD\.-[1-9][0-9]?\.JHD\.$')">
-					<xsl:sequence select="concat(       substring-before(intern:century-to-normalized-date(substring-before($prepared, '-') ), '/'),       '/',       substring-after(intern:century-to-normalized-date(substring-after($prepared, '-') ), '/')       )"/>
+					<xsl:sequence select="concat( substring-before(intern:century-to-normalized-date(substring-before($prepared, '-') ), '/'), '/', substring-after(intern:century-to-normalized-date(substring-after($prepared, '-') ), '/') )"/>
 				</xsl:when>
 				<xsl:when test="intern:parse-dates-as-W3CDTF(substring-before($prepared, '#') ) and intern:parse-dates-as-W3CDTF(substring-after($prepared, '#') )">
 					<xsl:variable name="start" as="xs:string" select="substring-before(tokenize(intern:parse-dates-as-W3CDTF(substring-before($prepared, '#') ), ',')[1], '/')"/>
@@ -1363,7 +1363,7 @@
 		<xsl:variable name="prepared" as="xs:string?" select="replace($input, '\.?JHD.?', '')"/>
 		<xsl:choose>
 			<xsl:when test="$prepared castable as xs:integer">
-				<xsl:sequence select="concat(      intern:date-string(xs:string((xs:integer($prepared) - 1) * 100 + 1 ), '1', '1'),      '/',      intern:date-string(xs:string(xs:integer($prepared)*100 ), '12', '31')      )"/>
+				<xsl:sequence select="concat( intern:date-string(xs:string((xs:integer($prepared) - 1) * 100 + 1 ), '1', '1'), '/', intern:date-string(xs:string(xs:integer($prepared)*100 ), '12', '31') )"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:sequence select="''"/>

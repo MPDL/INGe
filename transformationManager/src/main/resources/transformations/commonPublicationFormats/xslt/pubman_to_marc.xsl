@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:saxon="http://saxon.sf.net/" xmlns:misc="http://www.editura.de/ns/2012/misc" xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc" xmlns:local="http://www.editura.de/ns/2012/local" xmlns:tools="http://www.editura.de/ns/2012/tools" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:file="${xsd.metadata.file}" xmlns:item-list="${xsd.soap.item.itemlist}" xmlns:organization="${xsd.metadata.organization}" xmlns:person="${xsd.metadata.person}" xmlns:prop="${xsd.soap.common.prop}" xmlns:publication="${xsd.metadata.publication}" xmlns:source="${xsd.metadata.source}" xmlns:srel="${xsd.soap.common.srel}" xmlns:event="${xsd.metadata.event}" xmlns:marc="http://www.loc.gov/MARC21/slim" exclude-result-prefixes="xs xd misc local tools" version="2.0">
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:saxon="http://saxon.sf.net/"
+	xmlns:misc="http://www.editura.de/ns/2012/misc"
+	xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc"
+	xmlns:local="http://www.editura.de/ns/2012/local"
+	xmlns:tools="http://www.editura.de/ns/2012/tools"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:escidocComponents="${xsd.soap.item.components}"
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
+	xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}"
+	xmlns:eterms="${xsd.metadata.escidocprofile.types}"
+	xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:item-list="${xsd.soap.item.itemlist}"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:publication="${xsd.metadata.publication}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:marc="http://www.loc.gov/MARC21/slim" exclude-result-prefixes="xs xd misc local tools" version="2.0">
 	<xsl:import href="mapping_commons.xsl"/>
 	<xsl:import href="mapping_commons_marc.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -9,7 +38,7 @@
 	<xsl:variable name="local:form-description-for-online-resources" as="xs:string?" select="'[Online]'"/>
 	<xsl:variable name="local:pages-marker" as="xs:string">p.</xsl:variable>
 	<xsl:param name="pubmanUrl" />
-	<xsl:template match="/|escidocItem:item|escidocMetadataRecords:md-records|escidocMetadataRecords:md-record|    eterms:creator" xml:id="match-and-apply-templates">
+	<xsl:template match="/|escidocItem:item|escidocMetadataRecords:md-records|escidocMetadataRecords:md-record| eterms:creator" xml:id="match-and-apply-templates">
 		<xsl:apply-templates/>
 	</xsl:template>
 	<xsl:template match="escidocItem:properties|escidocComponents:components" xml:id="match-discard"/>
@@ -35,7 +64,7 @@
 			<xsl:sequence select="local:controlfield('001', local:controlfield-001(ancestor::escidocItem:item/@objid) )"/>
 			<xsl:sequence select="local:controlfield('003', $local:librarys-identifying-code)"/>
 			<xsl:sequence select="local:controlfield-005()"/>
-			<xsl:sequence select="local:controlfield-008-wrapper(          $date-entered-on-file,          if ($bibliographic-level eq 's')      then 'c'      else if ($year-of-publication ne 'uuuu') then 's' else 'n',          if (($year-of-publication eq 'uuuu') and ($bibliographic-level eq 's')) then '    ' else $year-of-publication,          if ($bibliographic-level = ('s'))       then local:cf008-type-specific-continuing-resources(        local:type-of-continuing-resource(@type),        $form-of-item,        local:nature-of-contents(@type, 3),        misc-marc:pubman_publication-type-to-marc_conference(@type)       )            else local:cf008-type-specific-books(        $form-of-item,        local:nature-of-contents(@type, 4),        misc-marc:pubman_publication-type-to-marc_conference(@type),        misc-marc:pubman_publication-type-to-marc_festschrift(@type)       ),         if ($lang) then $lang else '|||'     )"/>
+			<xsl:sequence select="local:controlfield-008-wrapper( $date-entered-on-file, if ($bibliographic-level eq 's') then 'c' else if ($year-of-publication ne 'uuuu') then 's' else 'n', if (($year-of-publication eq 'uuuu') and ($bibliographic-level eq 's')) then ' ' else $year-of-publication, if ($bibliographic-level = ('s')) then local:cf008-type-specific-continuing-resources( local:type-of-continuing-resource(@type), $form-of-item, local:nature-of-contents(@type, 3), misc-marc:pubman_publication-type-to-marc_conference(@type) ) else local:cf008-type-specific-books( $form-of-item, local:nature-of-contents(@type, 4), misc-marc:pubman_publication-type-to-marc_conference(@type), misc-marc:pubman_publication-type-to-marc_festschrift(@type) ), if ($lang) then $lang else '|||' )"/>
 			<xsl:apply-templates select="dc:identifier[@xsi:type eq 'eterms:ISBN'][normalize-space(.)]"/>
 			<xsl:apply-templates select="dc:identifier[@xsi:type eq 'eterms:ISSN'][normalize-space(.)]"/>
 			<xsl:apply-templates select="dc:identifier[not(@xsi:type = ('eterms:ISBN', 'eterms:ISSN'))]" mode="local:helper-phase"/>
@@ -46,7 +75,7 @@
 					<xsl:variable name="every-lang-code" as="xs:string*">
 						<xsl:for-each select="dcterms:abstract">
 							<xsl:variable name="current-lang" as="xs:string?">
-								<xsl:variable name="lang-code" as="xs:string?" select="normalize-space(                           if (contains(@xml:lang, '-'))                             then substring-before(@xml:lang, '-')                            else @xml:lang                          )"/>
+								<xsl:variable name="lang-code" as="xs:string?" select="normalize-space( if (contains(@xml:lang, '-')) then substring-before(@xml:lang, '-') else @xml:lang )"/>
 								<xsl:choose>
 									<xsl:when test="not($lang-code)"/>
 									<xsl:when test="misc:is-iso-639-2-b($lang-code)">
@@ -69,7 +98,7 @@
 					</xsl:variable>
 					<xsl:sequence select="distinct-values($every-lang-code)"/>
 				</xsl:variable>
-				<xsl:if test="$subfield-a-languages[2] or           $subfield-b-languages[2] or           ($subfield-a-languages[1] ne $subfield-b-languages[1])">
+				<xsl:if test="$subfield-a-languages[2] or $subfield-b-languages[2] or ($subfield-a-languages[1] ne $subfield-b-languages[1])">
 					<xsl:for-each select="$subfield-a-languages">
 						<xsl:sequence select="local:subfield('a', .)"/>
 					</xsl:for-each>
@@ -79,7 +108,7 @@
 				</xsl:if>
 			</xsl:variable>
 			<xsl:if test="$subfields-041">
-				<xsl:sequence select="local:datafield('041', ' ', '7',                  (                   $subfields-041,                   local:subfield('2', 'iso639-2b')                  )              )"/>
+				<xsl:sequence select="local:datafield('041', ' ', '7', ( $subfields-041, local:subfield('2', 'iso639-2b') ) )"/>
 			</xsl:if>
 			<xsl:apply-templates select="dc:subject[normalize-space(.)]"/>
 			<xsl:apply-templates select="eterms:creator[local:eterms_creator-is-1xx(.)]"/>
@@ -108,14 +137,12 @@
 			</xsl:choose>
 			<xsl:variable name="total-number-of-pages" as="xs:string?" select="(misc:total-number-of-pages(.), (source:source/misc:total-number-of-pages(.))[1] )[1]"/>
 			<xsl:if test="$total-number-of-pages">
-				<xsl:sequence select="local:datafield(            '300',            local:subfield(             'a',             concat(              $total-number-of-pages,              if (matches($total-number-of-pages, 'S\.|Seiten|p\.|pages')) then () else concat(' ', $local:pages-marker)             )            )           )"/>
+				<xsl:sequence select="local:datafield( '300', local:subfield( 'a', concat( $total-number-of-pages, if (matches($total-number-of-pages, 'S\.|Seiten|p\.|pages')) then () else concat(' ', $local:pages-marker) ) ) )"/>
 			</xsl:if>
 			<xsl:apply-templates select="source:source[local:source_source-is-series(.)]"/>
 			<xsl:apply-templates select="dcterms:tableOfContents[normalize-space(.)]"/>
-			
 			<!-- Degree type in field 502 -->
 			<xsl:apply-templates select="eterms:degree[normalize-space(.)]"/>
-			
 			<xsl:call-template name="local:make-506"/>
 			<xsl:apply-templates select="event:event[normalize-space(.)]"/>
 			<xsl:apply-templates select="dcterms:abstract[normalize-space(.)]"/>
@@ -127,7 +154,7 @@
 			<xsl:apply-templates select="dcterms:subject[normalize-space(.)]"/>
 			<xsl:apply-templates select="eterms:creator[local:eterms_creator-is-7xx(.)]"/>
 			<xsl:apply-templates select="eterms:creator[local:eterms_creator-is-7xx-other(.)]"/>
-			<xsl:if test="@type = (          'http://purl.org/eprint/type/ConferencePaper',          'http://purl.org/eprint/type/ConferencePoster',          'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'         )">
+			<xsl:if test="@type = ( 'http://purl.org/eprint/type/ConferencePaper', 'http://purl.org/eprint/type/ConferencePoster', 'http://purl.org/escidoc/metadata/ves/publication-types/proceedings' )">
 				<xsl:for-each select="event:event">
 					<xsl:call-template name="local:event_event-to-711"/>
 				</xsl:for-each>
@@ -142,10 +169,8 @@
 			<xsl:for-each select="distinct-values($collected-856/marc:subfield[@code eq 'u']/text())">
 				<xsl:copy-of select="$collected-856[marc:subfield[@code eq 'u']/text() eq current()][1]"/>
 			</xsl:for-each>
-
 			<!-- Context Id in field 887 -->
 			<xsl:sequence select="local:datafield('887', (local:subfield('a', ../../../escidocItem:properties/srel:context/@objid), local:subfield('2', 'mpg.pure.context.id')))"/>
-
 			<xsl:apply-templates select="source:source" mode="local:make-952"/>
 			<xsl:variable name="local-tags" as="xs:string*" select="../../../escidocItem:properties/prop:content-model-specific/local-tags/local-tag[normalize-space(.)]/string()"/>
 			<xsl:if test="$local-tags[1]">
@@ -160,7 +185,7 @@
 				<xsl:sequence select="local:datafield('997', local:subfield('a', $f997a))"/>
 			</xsl:if>
 			<xsl:if test="$misc:run-in-testmode">
-				<xsl:apply-templates select="*[normalize-space(.)] except (      dc:identifier|      dc:language|      dc:subject|      dc:title|      dcterms:abstract|      dcterms:alternative|      dcterms:created|      dcterms:dateAccepted|      dcterms:dateSubmitted|      dcterms:issued|      dcterms:modified|      dcterms:subject|      dcterms:tableOfContents|      eterms:creator|      eterms:degree|      eterms:location|      eterms:published-online|      eterms:publishing-info|      eterms:total-number-of-pages|      event:event|      source:source      )"/>
+				<xsl:apply-templates select="*[normalize-space(.)] except ( dc:identifier| dc:language| dc:subject| dc:title| dcterms:abstract| dcterms:alternative| dcterms:created| dcterms:dateAccepted| dcterms:dateSubmitted| dcterms:issued| dcterms:modified| dcterms:subject| dcterms:tableOfContents| eterms:creator| eterms:degree| eterms:location| eterms:published-online| eterms:publishing-info| eterms:total-number-of-pages| event:event| source:source )"/>
 			</xsl:if>
 		</marc:record>
 	</xsl:template>
@@ -168,7 +193,9 @@
 		<xsl:variable name="currentID" as="xs:string?" select="dc:identifier[normalize-space(.)][1]"/>
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">WARN</xsl:with-param>
-			<xsl:with-param name="message">[pubman_to__marc.xsl#match-publication_publication_empty-title]Publication without dc:title <xsl:value-of select="if ($currentID) then concat('with ID ', $currentID, ' ') else ()"/>not converted.</xsl:with-param>
+			<xsl:with-param name="message">[pubman_to__marc.xsl#match-publication_publication_empty-title]Publication without dc:title 
+				<xsl:value-of select="if ($currentID) then concat('with ID ', $currentID, ' ') else ()"/>not converted.
+			</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 	<xsl:template match="eterms:creator[local:eterms_creator-is-1xx(.)]/person:person" as="element(marc:datafield)" xml:id="eterms_creator-is-1xx-person_person">
@@ -211,8 +238,8 @@
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:variable name="subfields" as="element(marc:subfield)+">
-			<xsl:variable name="main_entry_heading" as="xs:string?" select="      (       eterms:creator[local:eterms_creator-is-1xx(.)]/person:person/misc:person_person-to-name(., false())[normalize-space(.)],       eterms:creator[local:eterms_creator-is-1xx(.)]/organization:organization/dc:title[normalize-space(.)]/normalize-space(.)      )[normalize-space(.)][1]     "/>
-			<xsl:sequence select="local:subfield('a',             concat(              normalize-space(dc:title),              if($main_entry_heading) then (' / ') else (),              $main_entry_heading             )          )"/>
+			<xsl:variable name="main_entry_heading" as="xs:string?" select=" ( eterms:creator[local:eterms_creator-is-1xx(.)]/person:person/misc:person_person-to-name(., false())[normalize-space(.)], eterms:creator[local:eterms_creator-is-1xx(.)]/organization:organization/dc:title[normalize-space(.)]/normalize-space(.) )[normalize-space(.)][1] "/>
+			<xsl:sequence select="local:subfield('a', concat( normalize-space(dc:title), if($main_entry_heading) then (' / ') else (), $main_entry_heading ) )"/>
 			<xsl:variable name="formatted-volume-issue" as="xs:string?" select="misc:format-volume-issue(eterms:volume, eterms:issue)"/>
 			<xsl:if test="$formatted-volume-issue">
 				<xsl:sequence select="local:subfield('v', $formatted-volume-issue)"/>
@@ -259,8 +286,8 @@
 	</xsl:template>
 	<xsl:template match="event:event" xml:id="match-event_event" as="element(marc:datafield)">
 		<xsl:variable name="subfields" as="element(marc:subfield)+">
-			<xsl:sequence select="     local:subfield(      'a',      concat(       normalize-space(dc:title),       if (normalize-space(dc:title) and eterms:place[normalize-space(.)]) then (', ') else (),       normalize-space(eterms:place)      )     )"/>
-			<xsl:variable name="date" as="xs:string" select="     normalize-space(concat(      normalize-space(eterms:start-date),      if (normalize-space(eterms:start-date) and normalize-space(eterms:end-date)) then ('/') else (),      normalize-space(eterms:end-date)      ) )"/>
+			<xsl:sequence select=" local:subfield( 'a', concat( normalize-space(dc:title), if (normalize-space(dc:title) and eterms:place[normalize-space(.)]) then (', ') else (), normalize-space(eterms:place) ) )"/>
+			<xsl:variable name="date" as="xs:string" select=" normalize-space(concat( normalize-space(eterms:start-date), if (normalize-space(eterms:start-date) and normalize-space(eterms:end-date)) then ('/') else (), normalize-space(eterms:end-date) ) )"/>
 			<xsl:if test="$date">
 				<xsl:sequence select="local:subfield('d', $date)"/>
 			</xsl:if>
@@ -321,7 +348,7 @@
 			</xsl:if>
 			<xsl:variable name="ISSN" as="xs:string?" select="(dc:identifier[@xsi:type eq 'eterms:ISSN'][normalize-space(.)]/normalize-space(.))[1]"/>
 			<xsl:if test="($target-data-field eq '773') and misc:publication-publication-is-journal-article(..)">
-				<xsl:variable name="SICI" as="xs:string" select="misc:SICI-for-773-q(             misc:clean-volume-issue(eterms:volume),             misc:clean-volume-issue(eterms:issue),             '',             misc:clean-pages(eterms:start-page),             misc:clean-pages(eterms:end-page) )"/>
+				<xsl:variable name="SICI" as="xs:string" select="misc:SICI-for-773-q( misc:clean-volume-issue(eterms:volume), misc:clean-volume-issue(eterms:issue), '', misc:clean-pages(eterms:start-page), misc:clean-pages(eterms:end-page) )"/>
 				<xsl:if test="$SICI">
 					<xsl:sequence select="local:subfield('q', $SICI)"/>
 				</xsl:if>
@@ -333,11 +360,10 @@
 				<xsl:sequence select="local:subfield('z', normalize-space(.))"/>
 			</xsl:for-each>
 			<xsl:sequence select="local:subfield('7', concat('nn', misc-marc:pubman_publication-type-to-marc_type-of-record(@type), local:bibliographic-level(.) ) )"/>
-			
 		</xsl:variable>
 		<xsl:sequence select="local:datafield($target-data-field, '0', '8', $subfields)"/>
 		<xsl:if test="$misc:run-in-testmode">
-			<xsl:apply-templates select="*[normalize-space(.)] except (     dc:title|     eterms:creator|     dcterms:issued|     eterms:publishing-info|     eterms:start-page|     eterms:end-page|     eterms:volume|     eterms:issue|     dc:identifier|     dcterms:alternative[@xsi:type eq 'eterms:ABBREVIATION']     )"/>
+			<xsl:apply-templates select="*[normalize-space(.)] except ( dc:title| eterms:creator| dcterms:issued| eterms:publishing-info| eterms:start-page| eterms:end-page| eterms:volume| eterms:issue| dc:identifier| dcterms:alternative[@xsi:type eq 'eterms:ABBREVIATION'] )"/>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="escidocComponents:component[normalize-space(escidocComponents:content/@xlink:href)]" as="element(marc:datafield)?" xml:id="match_escidocComponents_component">
@@ -404,7 +430,7 @@
 	<xsl:template match="publication:publication/eterms:publishing-info/eterms:edition" as="element(marc:datafield)" xml:id="match-publication-publishing_info-edition">
 		<xsl:sequence select="local:datafield('250', local:subfield('a', normalize-space(.) ) )"/>
 	</xsl:template>
-	<xsl:template match="publication:publication/dc:identifier[misc:dc_identifier-is-online-resource(.)]|        source:source/dc:identifier[misc:dc_identifier-is-online-resource(.)]" as="element(marc:datafield)" xml:id="match-dc_identifier-is-online-resource">
+	<xsl:template match="publication:publication/dc:identifier[misc:dc_identifier-is-online-resource(.)]| source:source/dc:identifier[misc:dc_identifier-is-online-resource(.)]" as="element(marc:datafield)" xml:id="match-dc_identifier-is-online-resource">
 		<xsl:variable name="url" as="xs:string" select="misc:dc_identifier-to-url(.)"/>
 		<xsl:variable name="ind1" as="xs:string">
 			<xsl:choose>
@@ -422,10 +448,10 @@
 		</xsl:variable>
 		<xsl:sequence select="local:datafield('856', $ind1, (local:subfield('u', $url), $subfield-q) )"/>
 	</xsl:template>
-	<xsl:template match="publication:publication/dc:identifier[not(@xsi:type = ('eterms:ISBN', 'eterms:ISSN'))]|        source:source/dc:identifier[not(@xsi:type = ('eterms:ISBN', 'eterms:ISSN'))]" mode="local:helper-phase" as="element(marc:datafield)?" xml:id="match-all-dc_identifier-but-isbn-issn-helper-phase">
+	<xsl:template match="publication:publication/dc:identifier[not(@xsi:type = ('eterms:ISBN', 'eterms:ISSN'))]| source:source/dc:identifier[not(@xsi:type = ('eterms:ISBN', 'eterms:ISSN'))]" mode="local:helper-phase" as="element(marc:datafield)?" xml:id="match-all-dc_identifier-but-isbn-issn-helper-phase">
 		<xsl:variable name="source" as="xs:string?" select="lower-case(normalize-space(substring-after(@xsi:type, ':') ) )"/>
 		<xsl:if test="normalize-space(.)">
-			<xsl:sequence select="local:datafield(           '024',           '7',           (            local:subfield('a', normalize-space(.) ),            if (normalize-space($source) ) then local:subfield('2', $source) else ()           )          )"/>
+			<xsl:sequence select="local:datafield( '024', '7', ( local:subfield('a', normalize-space(.) ), if (normalize-space($source) ) then local:subfield('2', $source) else () ) )"/>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="file:file/dc:format[@xsi:type eq 'dcterms:IMT']" as="element(marc:subfield)" xml:id="match-file_file-dc_format">
@@ -459,10 +485,10 @@
 	</xsl:template>
 	<xsl:template match="eterms:degree" as="element(marc:datafield)" xml:id="match-eterms_degree">
 		<xsl:variable name="local:degree_type" select="."/>
-		<xsl:sequence select="    local:datafield('502', '',       local:subfield('b', $local:mapping_marc_degrees/misc:mapping[./misc:source=$local:degree_type]/misc:target/text()) )"/>
+		<xsl:sequence select=" local:datafield('502', '', local:subfield('b', $local:mapping_marc_degrees/misc:mapping[./misc:source=$local:degree_type]/misc:target/text()) )"/>
 	</xsl:template>
 	<xsl:template match="dcterms:tableOfContents" as="element(marc:datafield)" xml:id="match-dcterms_tableOfContents">
-		<xsl:sequence select="    local:datafield('505', '8',       local:subfield('a', string-join(for $i in tokenize(., '\n', 'm') return normalize-space($i), '; ') ) )"/>
+		<xsl:sequence select=" local:datafield('505', '8', local:subfield('a', string-join(for $i in tokenize(., '\n', 'm') return normalize-space($i), '; ') ) )"/>
 	</xsl:template>
 	<xsl:template match="publication:publication/dcterms:alternative" as="element(marc:datafield)" xml:id="match-dcterms_alternative">
 		<xsl:variable name="ind2" as="xs:string">
@@ -487,7 +513,11 @@
 	<xsl:template match="*" mode="#all" as="node()?" xml:id="match-all">
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">INFO</xsl:with-param>
-			<xsl:with-param name="message">[pubman_to_marc.xsl#match-all]<xsl:if test="function-available('saxon:current-mode-name')">[Mode: <xsl:sequence select="saxon:current-mode-name()" use-when="function-available('saxon:current-mode-name')"/>]</xsl:if> no matching template found</xsl:with-param>
+			<xsl:with-param name="message">[pubman_to_marc.xsl#match-all]
+				<xsl:if test="function-available('saxon:current-mode-name')">[Mode: 
+					<xsl:sequence select="saxon:current-mode-name()" use-when="function-available('saxon:current-mode-name')"/>]
+				</xsl:if> no matching template found
+			</xsl:with-param>
 			<xsl:with-param name="show-context" select="true()"/>
 		</xsl:call-template>
 	</xsl:template>
@@ -651,18 +681,20 @@
 		<xsl:choose>
 			<xsl:when test="count($visibility) ne 1"/>
 			<xsl:when test="$visibility eq 'public'">
-				<xsl:sequence select="local:datafield('506', '0', (                  local:subfield('f', 'Unrestricted online access'),                  local:subfield('2', 'star')                  )      )"/>
+				<xsl:sequence select="local:datafield('506', '0', ( local:subfield('f', 'Unrestricted online access'), local:subfield('2', 'star') ) )"/>
 			</xsl:when>
 			<xsl:when test="$visibility eq 'private'">
-				<xsl:sequence select="local:datafield('506', '1', (                  local:subfield('a', 'No public access'),                  local:subfield('f', 'No online access'),                  local:subfield('2', 'star')                  )      )"/>
+				<xsl:sequence select="local:datafield('506', '1', ( local:subfield('a', 'No public access'), local:subfield('f', 'No online access'), local:subfield('2', 'star') ) )"/>
 			</xsl:when>
 			<xsl:when test="$visibility eq 'audience'">
-				<xsl:sequence select="local:datafield('506', '1', (                  local:subfield('a', 'Access only to restricted audience'),                  local:subfield('f', 'Online access with authorization'),                  local:subfield('2', 'star')                  )      )"/>
+				<xsl:sequence select="local:datafield('506', '1', ( local:subfield('a', 'Access only to restricted audience'), local:subfield('f', 'Online access with authorization'), local:subfield('2', 'star') ) )"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[pubman_to__marc.xsl#named-local_make-506] no rule for converting prop:visibility="<xsl:value-of select="$visibility"/>" to MARC field 506</xsl:with-param>
+					<xsl:with-param name="message">[pubman_to__marc.xsl#named-local_make-506] no rule for converting prop:visibility="
+						<xsl:value-of select="$visibility"/>" to MARC field 506
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -685,14 +717,14 @@
 		<xsl:param name="length-of-the-implementation-defined-portion" as="xs:string"/>
 		<xsl:param name="undefined" as="xs:string"/>
 		<marc:leader>
-			<xsl:value-of select="concat(      $record-length,      $record-status,      $type-of-record,      $bibliographic-level,      $type-of-control,      $character-coding-scheme,      $indicator-count,      $subfield-code-count,      $base-address-of-data,      $encoding-level,      $descriptive-cataloging-form,      $multipart-resource-record-level,      $length-of-the-length-of-field-portion,      $length-of-the-starting-character-position-portion,      $length-of-the-implementation-defined-portion,      $undefined     )"/>
+			<xsl:value-of select="concat( $record-length, $record-status, $type-of-record, $bibliographic-level, $type-of-control, $character-coding-scheme, $indicator-count, $subfield-code-count, $base-address-of-data, $encoding-level, $descriptive-cataloging-form, $multipart-resource-record-level, $length-of-the-length-of-field-portion, $length-of-the-starting-character-position-portion, $length-of-the-implementation-defined-portion, $undefined )"/>
 		</marc:leader>
 	</xsl:function>
 	<xsl:function name="local:leader" as="element(marc:leader)">
 		<xsl:param name="type-of-record" as="xs:string"/>
 		<xsl:param name="bibliographic-level" as="xs:string"/>
 		<xsl:param name="multipart-resource-record-level" as="xs:string"/>
-		<xsl:sequence select="local:leader-template(    '     ',    'n',    $type-of-record,    $bibliographic-level,    ' ',    'a',    '2',    '2',    '     ',    'u',    'u',    $multipart-resource-record-level,    '4',    '5',    '0',    '0'    )"/>
+		<xsl:sequence select="local:leader-template( ' ', 'n', $type-of-record, $bibliographic-level, ' ', 'a', '2', '2', ' ', 'u', 'u', $multipart-resource-record-level, '4', '5', '0', '0' )"/>
 	</xsl:function>
 	<xsl:function name="local:controlfield" as="element(marc:controlfield)">
 		<xsl:param name="tag" as="xs:string"/>
@@ -754,7 +786,7 @@
 				<xsl:sequence select="local:controlfield('005', '20120907201307.78')"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:sequence select="local:controlfield('005', format-dateTime(current-dateTime(), '[Y0004][M02][D02][H02][m02][s02].[f02]')  )"/>
+				<xsl:sequence select="local:controlfield('005', format-dateTime(current-dateTime(), '[Y0004][M02][D02][H02][m02][s02].[f02]') )"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
@@ -768,7 +800,7 @@
 		<xsl:param name="language" as="xs:string"/>
 		<xsl:param name="modified-record" as="xs:string"/>
 		<xsl:param name="cataloging-source" as="xs:string"/>
-		<xsl:sequence select="local:controlfield('008', concat(    $date-entered-on-file,     $type-of-date_publication-status,    $date-1,    $date-2,    $place-of-publication_production_execution,    $type-dependent,    $language,    $modified-record,    $cataloging-source    ))"/>
+		<xsl:sequence select="local:controlfield('008', concat( $date-entered-on-file, $type-of-date_publication-status, $date-1, $date-2, $place-of-publication_production_execution, $type-dependent, $language, $modified-record, $cataloging-source ))"/>
 	</xsl:function>
 	<xsl:function name="local:controlfield-008-wrapper" as="element(marc:controlfield)">
 		<xsl:param name="date-entered-on-file" as="xs:string"/>
@@ -776,7 +808,7 @@
 		<xsl:param name="date-1" as="xs:string"/>
 		<xsl:param name="type-specific" as="xs:string"/>
 		<xsl:param name="language" as="xs:string"/>
-		<xsl:sequence select="local:controlfield-008-template(     $date-entered-on-file,     $type-of-date_publication-status,     $date-1,     '    ',     'xx ',     $type-specific,     $language,     ' ',     '|'    )"/>
+		<xsl:sequence select="local:controlfield-008-template( $date-entered-on-file, $type-of-date_publication-status, $date-1, ' ', 'xx ', $type-specific, $language, ' ', '|' )"/>
 	</xsl:function>
 	<xsl:function name="local:cf008-type-specific-books" as="xs:string">
 		<xsl:param name="form-of-item" as="xs:string"/>
@@ -790,7 +822,7 @@
 		<xsl:param name="form-of-item" as="xs:string"/>
 		<xsl:param name="nature-of-contents" as="xs:string"/>
 		<xsl:param name="conference-publication" as="xs:string"/>
-		<xsl:sequence select="concat('|| ', $type-of-continuing-resource, '|', $form-of-item, '|', $nature-of-contents, '|', $conference-publication, '   ||')"/>
+		<xsl:sequence select="concat('|| ', $type-of-continuing-resource, '|', $form-of-item, '|', $nature-of-contents, '|', $conference-publication, ' ||')"/>
 	</xsl:function>
 	<xsl:function name="local:type-of-continuing-resource" as="xs:string">
 		<xsl:param name="pubman_publication_type" as="xs:string?"/>
@@ -807,7 +839,7 @@
 			<xsl:when test="some $i in $publication:publication/dc:identifier[misc:dc_identifier-is-online-resource(.)] satisfies normalize-space($i)">
 				<xsl:sequence select="'o'"/>
 			</xsl:when>
-			<xsl:when test="some $i in $publication:publication/../../../escidocComponents:components/escidocComponents:component           satisfies normalize-space(local:href($i) )">
+			<xsl:when test="some $i in $publication:publication/../../../escidocComponents:components/escidocComponents:component satisfies normalize-space(local:href($i) )">
 				<xsl:sequence select="'o'"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -852,7 +884,7 @@
 	<xsl:function name="local:eterms_creator-is-7xx" as="xs:boolean">
 		<xsl:param name="eterms_creator" as="element(eterms:creator)"/>
 		<xsl:choose>
-			<xsl:when test="$eterms_creator/self::eterms:creator[misc:eterms_creator-is-author(.)][preceding-sibling::eterms:creator[misc:eterms_creator-is-author(.)]]|     $eterms_creator/self::eterms:creator[misc:eterms_creator-is-editor(.)]">
+			<xsl:when test="$eterms_creator/self::eterms:creator[misc:eterms_creator-is-author(.)][preceding-sibling::eterms:creator[misc:eterms_creator-is-author(.)]]| $eterms_creator/self::eterms:creator[misc:eterms_creator-is-editor(.)]">
 				<xsl:sequence select="true()"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -955,7 +987,7 @@
 			<xsl:when test="string-length($level-temp) eq 1">
 				<xsl:sequence select="$level-temp"/>
 			</xsl:when>
-			<xsl:when test="normalize-space(     string-join(      (       $publication_publication-or-source_source/source:source/eterms:start-page|       $publication_publication-or-source_source/source:source/eterms:end-page      )      , ''     ) )">
+			<xsl:when test="normalize-space( string-join( ( $publication_publication-or-source_source/source:source/eterms:start-page| $publication_publication-or-source_source/source:source/eterms:end-page ) , '' ) )">
 				<xsl:sequence select=" 'a' "/>
 			</xsl:when>
 			<xsl:when test="$level-source = ('a', 'b', 'm', 's')">
@@ -981,14 +1013,18 @@
 			<xsl:when test="not(normalize-space($component-objid))">
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[pubman_to__marc.xsl#fn-local-href] escidocComponents:component without objid at escidocItem:item with objid»<xsl:value-of select="$escidocComponents:component/ancestor::escidocItem:item/@objid"/>«</xsl:with-param>
+					<xsl:with-param name="message">[pubman_to__marc.xsl#fn-local-href] escidocComponents:component without objid at escidocItem:item with objid»
+						<xsl:value-of select="$escidocComponents:component/ancestor::escidocItem:item/@objid"/>«
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[pubman_to__marc.xsl#fn-local-href] could not retrieve the PubMan-URI of component with objid »<xsl:value-of select="$component-objid"/>«</xsl:with-param>
+					<xsl:with-param name="message">[pubman_to__marc.xsl#fn-local-href] could not retrieve the PubMan-URI of component with objid »
+						<xsl:value-of select="$component-objid"/>«
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -1042,7 +1078,7 @@
 	<xsl:function name="local:write-8XX" as="xs:boolean">
 		<xsl:param name="source:source" as="element(source:source)"/>
 		<xsl:choose>
-			<xsl:when test="$source:source/@type = (      ('http://purl.org/escidoc/metadata/ves/publication-types/series'),      ('http://purl.org/escidoc/metadata/ves/publication-types/journal'),      ('http://purl.org/escidoc/metadata/ves/publication-types/newspaper')     )">
+			<xsl:when test="$source:source/@type = ( ('http://purl.org/escidoc/metadata/ves/publication-types/series'), ('http://purl.org/escidoc/metadata/ves/publication-types/journal'), ('http://purl.org/escidoc/metadata/ves/publication-types/newspaper') )">
 				<xsl:sequence select="false()"/>
 			</xsl:when>
 			<xsl:otherwise>

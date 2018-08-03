@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:misc="http://www.editura.de/ns/2012/misc" xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc" xmlns:local="http://www.editura.de/ns/2012/local" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:event="${xsd.metadata.event}" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:organization="${xsd.metadata.organization}" xmlns:person="${xsd.metadata.person}" xmlns:publication="${xsd.metadata.publication}" xmlns:source="${xsd.metadata.source}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:marc="http://www.loc.gov/MARC21/slim" exclude-result-prefixes="xs xd misc misc-marc local" version="2.0">
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:misc="http://www.editura.de/ns/2012/misc"
+	xmlns:misc-marc="http://www.editura.de/ns/2012/misc-marc"
+	xmlns:local="http://www.editura.de/ns/2012/local"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
+	xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}"
+	xmlns:eterms="${xsd.metadata.escidocprofile.types}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:publication="${xsd.metadata.publication}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:marc="http://www.loc.gov/MARC21/slim" exclude-result-prefixes="xs xd misc misc-marc local" version="2.0">
 	<xsl:key name="pubman-to-marc" match="misc:mapping" use="misc:source"/>
 	<xsl:key name="marc-e-to-pubman" match="misc:mapping" use="misc:target[@misc:use eq 'code-e']"/>
 	<xsl:key name="marc-4-to-pubman" match="misc:mapping" use="misc:target[@misc:use eq 'code-4']"/>
-	
 	<xsl:variable name="local:mapping_marc_degrees">
 		<misc:mapping>
 			<misc:source>http://purl.org/escidoc/metadata/ves/academic-degrees/master</misc:source>
@@ -34,7 +56,6 @@
 			<misc:target>Staatsexamen</misc:target>
 		</misc:mapping>
 	</xsl:variable>
-	
 	<xsl:variable name="local:mapping_marc_relators">
 		<misc:mapping-table xml:id="mapping_marc_relators" group="relator terms and codes">
 			<misc:mapping>
@@ -140,17 +161,7 @@
 	<xsl:key name="marc-festschrift-to-pubman" match="misc:mapping" use="misc:target[@misc:use eq 'festschrift']"/>
 	<xsl:variable name="local:mapping_pubman_genres">
 		<misc:mapping-table xml:id="mapping_pubman_genres" group="Genre">
-			<misc:remark group="Genre">The following table yields the mapping between PubMan genres and some MARC related subfields and codes. The lines in the MARC column have the following meaning:
-# german name for the genre (used in 996 $a)
-# englisch name of the genre (used in 997 $a)
-# type of record (used in leader and controlfield 008)
-# bibliographic level (used in leader and controlfield 008)
-# multipart resource (used in leader)
-# natur of contents (used in controlfield 008)
-# conference (used in controlfield 008)
-# festschrift (used in controlfield 008)
-
-The #-symbol stands for one single space.</misc:remark>
+			<misc:remark group="Genre">The following table yields the mapping between PubMan genres and some MARC related subfields and codes. The lines in the MARC column have the following meaning: # german name for the genre (used in 996 $a) # englisch name of the genre (used in 997 $a) # type of record (used in leader and controlfield 008) # bibliographic level (used in leader and controlfield 008) # multipart resource (used in leader) # natur of contents (used in controlfield 008) # conference (used in controlfield 008) # festschrift (used in controlfield 008) The #-symbol stands for one single space.</misc:remark>
 			<misc:mapping>
 				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/article</misc:source>
 				<misc:target misc:use="996a">Zeitschriftenartikel</misc:target>
@@ -599,8 +610,8 @@ The #-symbol stands for one single space.</misc:remark>
 		<xsl:variable name="host-item-has-issn" as="xs:boolean" select="boolean($marc:record/marc:datafield[@tag eq '773']/marc:subfield[@code eq 'x'][normalize-space(.)])"/>
 		<xsl:variable name="host-item-has-isbn" as="xs:boolean" select="boolean($marc:record/marc:datafield[@tag eq '773']/marc:subfield[@code eq 'z'][normalize-space(.)])"/>
 		<xsl:variable name="host-item-7-3" as="xs:string?" select="$marc:record/marc:datafield[@tag eq '773']/marc:subfield[@code eq '7'][string-length(normalize-space(.) ) eq 4]/substring(normalize-space(.), 4, 1)"/>
-		<xsl:variable name="leader-matches" as="element(misc:mapping)*" select="$local:mapping_pubman_genres//misc:mapping                     [if ($type-of-record = ('', '#') ) then true() else misc:target[@misc:use eq 'type-of-record'] eq $type-of-record]                     [if ($bibliographic-level = ('', '#') ) then true() else misc:target[@misc:use eq 'bibliographic-level'] eq $bibliographic-level]                     [if ($multipart-resource = ('', '#') ) then true() else misc:target[@misc:use eq 'multipart-resource'] eq $multipart-resource]                   "/>
-		<xsl:variable name="cf008-matches" as="element(misc:mapping)*" select="$local:mapping_pubman_genres//misc:mapping                     [if ($nature-of-contents = ('', '#') ) then true() else misc:target[@misc:use eq 'nature-of-contents'] eq $nature-of-contents]                     [if ($conference = ('', '#') ) then true() else misc:target[@misc:use eq 'conference'] eq $conference]                     [if ($festschrift = ('', '#') ) then true() else misc:target[@misc:use eq 'festschrift'] eq $festschrift]                   "/>
+		<xsl:variable name="leader-matches" as="element(misc:mapping)*" select="$local:mapping_pubman_genres//misc:mapping [if ($type-of-record = ('', '#') ) then true() else misc:target[@misc:use eq 'type-of-record'] eq $type-of-record] [if ($bibliographic-level = ('', '#') ) then true() else misc:target[@misc:use eq 'bibliographic-level'] eq $bibliographic-level] [if ($multipart-resource = ('', '#') ) then true() else misc:target[@misc:use eq 'multipart-resource'] eq $multipart-resource] "/>
+		<xsl:variable name="cf008-matches" as="element(misc:mapping)*" select="$local:mapping_pubman_genres//misc:mapping [if ($nature-of-contents = ('', '#') ) then true() else misc:target[@misc:use eq 'nature-of-contents'] eq $nature-of-contents] [if ($conference = ('', '#') ) then true() else misc:target[@misc:use eq 'conference'] eq $conference] [if ($festschrift = ('', '#') ) then true() else misc:target[@misc:use eq 'festschrift'] eq $festschrift] "/>
 		<xsl:choose>
 			<xsl:when test="normalize-space($df996a) and count(key('marc-996a-to-pubman', normalize-space($df996a), $local:mapping_pubman_genres ) ) eq 1">
 				<xsl:sequence select="key('marc-996a-to-pubman', normalize-space($df996a), $local:mapping_pubman_genres)/misc:source"/>
@@ -643,7 +654,10 @@ The #-symbol stands for one single space.</misc:remark>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
-					<xsl:with-param name="message">[mapping_commons_marc.xsl#misc-marc:pubman-genre] could not retrieve escidoc:genre from marc record <xsl:value-of select="if (normalize-space($df997a) ) then concat(' (', $df997a, ')') else () "/> (Leader: »<xsl:value-of select="$leader"/>«)</xsl:with-param>
+					<xsl:with-param name="message">[mapping_commons_marc.xsl#misc-marc:pubman-genre] could not retrieve escidoc:genre from marc record 
+						<xsl:value-of select="if (normalize-space($df997a) ) then concat(' (', $df997a, ')') else () "/> (Leader: »
+						<xsl:value-of select="$leader"/>«)
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -772,7 +786,7 @@ The #-symbol stands for one single space.</misc:remark>
 		<xsl:variable name="type-of-record" as="xs:string" select="misc-marc:type-of-record($leader)"/>
 		<xsl:variable name="bibliografic-level" as="xs:string" select="misc-marc:bibliographic-level($leader)"/>
 		<xsl:choose>
-			<xsl:when test="(($type-of-record = ('a')) and ($bibliografic-level = ('a', 'c', 'd', 'm') ) )        or ($type-of-record = ('t'))">
+			<xsl:when test="(($type-of-record = ('a')) and ($bibliografic-level = ('a', 'c', 'd', 'm') ) ) or ($type-of-record = ('t'))">
 				<xsl:sequence select="'Books'"/>
 			</xsl:when>
 			<xsl:when test="($type-of-record = ('a')) and ($bibliografic-level = ('b', 'i', 's'))">
@@ -798,7 +812,9 @@ The #-symbol stands for one single space.</misc:remark>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
-					<xsl:with-param name="message">[mapping_commons_marc.xsl#misc-marc:type-of-cf008] could not retrieve type of marc record (Leader: »<xsl:value-of select="$leader"/>«)</xsl:with-param>
+					<xsl:with-param name="message">[mapping_commons_marc.xsl#misc-marc:type-of-cf008] could not retrieve type of marc record (Leader: »
+						<xsl:value-of select="$leader"/>«)
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
