@@ -303,7 +303,20 @@ public class YearbookCandidatesRetrieverRequestBean
 
           List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 
-          return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+
+          List<PubItemVOPresentation> resultList = new ArrayList<>();
+
+          for (ItemVersionVO pubItem : pubItemList) {
+
+            PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItem);
+            resultList.add(pubItemPres);
+            if (yisb.getInvalidItemMap().containsKey(pubItem.getObjectId())) {
+              YearbookInvalidItemRO itemRO = yisb.getInvalidItemMap().get(pubItem.getObjectId());
+              pubItemPres.setValidationReport(itemRO.getValidationReport());
+            }
+          }
+
+          return resultList;
         } else {
           this.numberOfRecords = 0;
           return new ArrayList<>();

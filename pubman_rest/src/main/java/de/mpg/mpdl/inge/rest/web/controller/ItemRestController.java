@@ -2,6 +2,8 @@ package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -269,7 +271,8 @@ public class ItemRestController {
         throw new NotFoundException();
       }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
-      response.setHeader("Content-disposition", "attachment; filename=" + fileVOWrapper.getFileVO().getName());
+      response.setHeader("Content-disposition",
+          "attachment; filename=" + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()));
       OutputStream output = response.getOutputStream();
       fileVOWrapper.readFile(output);
       output.flush();
