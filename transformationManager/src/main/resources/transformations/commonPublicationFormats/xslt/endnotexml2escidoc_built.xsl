@@ -101,13 +101,13 @@
 									<local-tag>kooperative Publikationen</local-tag>
 								</xsl:if>
 								<xsl:if test="NUM_4 = '1'">
-									<local-tag>   MPIMP</local-tag>
+									<local-tag>MPIMP</local-tag>
 								</xsl:if>
 								<xsl:if test="NUM_4 = '2'">
-									<local-tag>   Problemfälle</local-tag>
+									<local-tag>Problemfälle</local-tag>
 								</xsl:if>
 								<xsl:if test="NUM_4 = '3'">
-									<local-tag>   Externe Publikationen</local-tag>
+									<local-tag>Externe Publikationen</local-tag>
 								</xsl:if>
 								<xsl:if test="NUM_9 = 'Review'">
 									<local-tag>Review</local-tag>
@@ -990,27 +990,15 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:variable>
-					<xsl:comment>Publication-Date: 
-						<xsl:value-of select="$publication-date"/>
-					</xsl:comment>
+					<xsl:comment>Publication-Date: <xsl:value-of select="$publication-date"/></xsl:comment>
 					<xsl:choose>
 						<xsl:when test="($cone-creator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)   and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)])   and ($Flavor != 'MPIMPExt')">
 							<xsl:for-each select="$cone-creator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position">
-								<xsl:comment>pubdate: 
-									<xsl:value-of select="$publication-date"/>
-								</xsl:comment>
-								<xsl:comment>start: 
-									<xsl:value-of select="rdf:Description/escidoc:start-date"/>
-								</xsl:comment>
-								<xsl:comment>start &lt; pubdate 
-									<xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/>
-								</xsl:comment>
-								<xsl:comment>end: 
-									<xsl:value-of select="rdf:Description/escidoc:end-date"/>
-								</xsl:comment>
-								<xsl:comment>pubdate &lt; end 
-									<xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
-								</xsl:comment>
+								<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/></xsl:comment>
+								<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/></xsl:comment>
+								<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/></xsl:comment>
+								<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/></xsl:comment>
+								<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/></xsl:comment>
 								<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
 									<xsl:comment> Case: affiliated institute found for publishing date </xsl:comment>
 									<organization:organization>

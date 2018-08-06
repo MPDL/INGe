@@ -84,7 +84,7 @@
 		<xsl:apply-templates select="bmc:pubdate" mode="tig"/>
 		<xsl:apply-templates select="bmc:inpress" mode="tig"/>
 		<xsl:if test="bmc:volume[1]">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 			<b>
 				<xsl:value-of select="bmc:volume"/>
 			</b>
@@ -148,12 +148,12 @@
 		</h4>
 	</xsl:template>
 	<xsl:template match="bmc:mi|bmc:mnm|bmc:snm|bmc:suf" mode="tig">
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="bmc:inpress" mode="tig">, 
 		<i>in press</i>
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 	</xsl:template>
 	<xsl:template match="bmc:pubdate" mode="tig">
 		<xsl:value-of select="."/>, 
@@ -162,7 +162,7 @@
 		<i>
 			<xsl:value-of select="."/>
 		</i>
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 	</xsl:template>
 	<xsl:template match="bmc:title" mode="tig">
 		<h1>
@@ -280,13 +280,13 @@
 	<xsl:template match="bmc:cpyrt" mode="tig">
 		<br/>
 		<xsl:if test="bmc:year">&#169;
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 			<xsl:value-of select="bmc:year"/>
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:if>
 		<xsl:if test="bmc:collab">
 			<xsl:apply-templates select="bmc:collab"/>
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:if>
 		<xsl:apply-templates select="bmc:note"/>
 	</xsl:template>
@@ -549,10 +549,10 @@
 					<xsl:apply-templates select="bmc:publisher" mode="ref"/>
 					<xsl:apply-templates select="bmc:pubdate" mode="ref"/>
 					<xsl:if test="(bmc:volume[1] | bmc:issue[1] | bmc:fpage[1] | bmc:lpage[1]) and bmc:pubdate[1]">,
-						<xsl:text></xsl:text>
+						<xsl:text> </xsl:text>
 					</xsl:if>
 					<xsl:if test="bmc:volume[1] | bmc:issue[1]">
-						<xsl:text></xsl:text>
+						<xsl:text> </xsl:text>
 						<b>
 							<xsl:value-of select="bmc:volume"/>
 						</b>
@@ -574,7 +574,7 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="bmc:mi|bmc:snm|bmc:suf" mode="ref">
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="."/>
 	</xsl:template>
 	<xsl:template match="bmc:source" mode="ref">
@@ -583,7 +583,7 @@
 		</i>
 		<xsl:if test="not(../bmc:title) or (.='PhD thesis')">.</xsl:if>
 		<xsl:if test="local-name(following-sibling::node())='publisher'">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="bmc:source" mode="book">In 
@@ -598,7 +598,7 @@
 			</xsl:choose>
 		</i>.
 		<xsl:if test="local-name(following-sibling::node())='publisher'">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="bmc:volume" mode="book">
@@ -608,7 +608,7 @@
 		</i>.
 	</xsl:template>
 	<xsl:template match="bmc:edition" mode="ref">
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="."/>
 		<xsl:call-template name="render-number-suffix"/> edition
 		<xsl:text>. </xsl:text>
@@ -632,12 +632,12 @@
 		<xsl:text>. </xsl:text>
 	</xsl:template>
 	<xsl:template match="bmc:pubdate" mode="ref">
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="."/>
 		<xsl:if test="not(../bmc:fpage or ../bmc:lpage or ../bmc:inpress)">.</xsl:if>
 	</xsl:template>
 	<xsl:template match="bmc:pubdate" mode="book">
-		<xsl:text></xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="."/>
 		<xsl:choose>
 			<xsl:when test="(../bmc:fpage or ../bmc:lpage or ../bmc:inpress)">:</xsl:when>
@@ -691,7 +691,7 @@
 				<xsl:when test="count(bmc:fnm)>0">
 					<xsl:apply-templates select="bmc:snm" mode="ref"/>
 					<xsl:apply-templates select="bmc:suf" mode="ref"/>
-					<xsl:text></xsl:text>
+					<xsl:text> </xsl:text>
 					<xsl:value-of select="translate(bmc:fnm,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','ABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
 					<xsl:value-of select="bmc:mi" />
 					<xsl:for-each select="bmc:insr">

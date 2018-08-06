@@ -161,7 +161,7 @@
 		<marc:record>
 			<marc:leader>
 				<!-- 00-04 -->
-				<xsl:text></xsl:text>
+				<xsl:text>     </xsl:text>
 				<!-- 05 -->
 				<xsl:text>n</xsl:text>
 				<!-- 06 -->
@@ -174,21 +174,21 @@
 					<xsl:otherwise>m</xsl:otherwise>
 				</xsl:choose>
 				<!-- 08 -->
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 				<!-- 09 -->
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 				<!-- 10 -->
 				<xsl:text>2</xsl:text>
 				<!-- 11 -->
 				<xsl:text>2</xsl:text>
 				<!-- 12-16 -->
-				<xsl:text></xsl:text>
+				<xsl:text>     </xsl:text>
 				<!-- 17 -->
 				<xsl:text>u</xsl:text>
 				<!-- 18 -->
 				<xsl:text>u</xsl:text>
 				<!-- 19 -->
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 				<!-- 20-23 -->
 				<xsl:text>4500</xsl:text>
 			</marc:leader>
@@ -219,7 +219,7 @@
 						<xsl:value-of select="mods:recordInfo/mods:recordCreationDate[@encoding='marc']"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text></xsl:text>
+						<xsl:text>      </xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 				<!-- 06 -->
@@ -246,7 +246,7 @@
 						<xsl:value-of select="mods:originInfo/mods:dateIssued[@encoding='marc']"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text></xsl:text>
+						<xsl:text>    </xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 				<!-- 11-14 -->
@@ -255,7 +255,7 @@
 						<xsl:value-of select="mods:originInfo/mods:dateIssued[@point='end' and @encoding='marc']"/>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text></xsl:text>
+						<xsl:text>    </xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 				<!-- 15-17 -->
@@ -266,11 +266,11 @@
 						<xsl:value-of select="mods:originInfo/mods:place/mods:placeTerm[@type='code'][@authority='marccountry']"/>
 						<!-- 1/04 fix -->
 						<xsl:if test="string-length(mods:originInfo/mods:place/mods:placeTerm[@type='code'][@authority='marccountry'])=2">
-							<xsl:text></xsl:text>
+							<xsl:text> </xsl:text>
 						</xsl:if>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:text></xsl:text>
+						<xsl:text>   </xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 				<!-- 18-20 -->
@@ -307,7 +307,7 @@
 							<xsl:when test="mods:physicalDescription/mods:form[@authority='marcform']='microfiche'">b</xsl:when>
 							<xsl:when test="mods:physicalDescription/mods:form[@authority='marcform']='microfilm'">a</xsl:when>
 							<xsl:when test="mods:physicalDescription/mods:form[@authority='marcform']='print'">
-								<xsl:text></xsl:text>
+								<xsl:text> </xsl:text>
 							</xsl:when>
 							<xsl:otherwise>|</xsl:otherwise>
 						</xsl:choose>
@@ -361,7 +361,7 @@
 							<xsl:when test="mods:physicalDescription/mods:form='microfiche'">b</xsl:when>
 							<xsl:when test="mods:physicalDescription/mods:form='microfilm'">a</xsl:when>
 							<xsl:when test="mods:physicalDescription/mods:form='print'">
-								<xsl:text></xsl:text>
+								<xsl:text> </xsl:text>
 							</xsl:when>
 							<xsl:otherwise>|</xsl:otherwise>
 						</xsl:choose>
@@ -1144,7 +1144,7 @@
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">856</xsl:with-param>
 			<xsl:with-param name="ind2">
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 			</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<marc:subfield code="u">
@@ -1387,7 +1387,7 @@
 			<xsl:when test="@authority='rvm'">6</xsl:when>
 			<xsl:when test="@authority">7</xsl:when>
 			<xsl:otherwise>
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 			</xsl:otherwise>
 			<!-- v3 blank ind2 fix-->
 		</xsl:choose>

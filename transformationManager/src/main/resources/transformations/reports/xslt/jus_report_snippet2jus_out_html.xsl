@@ -260,7 +260,7 @@
 			</eterms:sort-name>
 			<eterms:concat-complete-name>
 				<xsl:value-of select="eterms:given-name"></xsl:value-of>
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 				<xsl:value-of select="eterms:family-name"></xsl:value-of>
 			</eterms:concat-complete-name>
 			<xsl:apply-templates mode="sort-creators"></xsl:apply-templates>

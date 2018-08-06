@@ -20,10 +20,10 @@
 	<xsl:template name="datafield">
 		<xsl:param name="tag"/>
 		<xsl:param name="ind1">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:param>
 		<xsl:param name="ind2">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:param>
 		<xsl:param name="subfields"/>
 		<xsl:element name="marc:datafield">
@@ -42,7 +42,7 @@
 	<xsl:template name="subfieldSelect">
 		<xsl:param name="codes">abcdefghijklmnopqrstuvwxyz</xsl:param>
 		<xsl:param name="delimeter">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:param>
 		<xsl:variable name="str">
 			<xsl:for-each select="marc:subfield">
@@ -57,7 +57,7 @@
 	<xsl:template name="buildSpaces">
 		<xsl:param name="spaces"/>
 		<xsl:param name="char">
-			<xsl:text></xsl:text>
+			<xsl:text> </xsl:text>
 		</xsl:param>
 		<xsl:if test="$spaces>0">
 			<xsl:value-of select="$char"/>

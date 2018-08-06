@@ -63,8 +63,7 @@
 						<xsl:for-each select="eterms:creator[@role = 'http://www.loc.gov/loc.terms/relators/AUT']/person:person">
 							<creator>
 								<creatorName>
-									<xsl:value-of select="./eterms:family-name"/>, 
-									<xsl:value-of select="./eterms:given-name"/>
+									<xsl:value-of select="./eterms:family-name"/>, <xsl:value-of select="./eterms:given-name"/>
 								</creatorName>
 								<xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
 									<affiliation>
@@ -85,8 +84,7 @@
 						<xsl:for-each select="eterms:creator/person:person">
 							<creator>
 								<creatorName>
-									<xsl:value-of select="./eterms:family-name"/>, 
-									<xsl:value-of select="./eterms:given-name"/>
+									<xsl:value-of select="./eterms:family-name"/>, <xsl:value-of select="./eterms:given-name"/>
 								</creatorName>
 								<xsl:for-each select="./organization:organization[dc:title != 'External Organisation']">
 									<affiliation>

@@ -92,9 +92,7 @@ chimpanzees (advance online) : </dc:title>
       <escidocComponents:components>
          <escidocComponents:component>
             <escidocComponents:properties>
-               <prop:visibility>
-							public
-						</prop:visibility>
+               <prop:visibility>public</prop:visibility>
                <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
                <prop:file-name>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</prop:file-name>
             </escidocComponents:properties>

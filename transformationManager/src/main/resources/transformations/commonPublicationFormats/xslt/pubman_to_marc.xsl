@@ -724,7 +724,7 @@
 		<xsl:param name="type-of-record" as="xs:string"/>
 		<xsl:param name="bibliographic-level" as="xs:string"/>
 		<xsl:param name="multipart-resource-record-level" as="xs:string"/>
-		<xsl:sequence select="local:leader-template( ' ', 'n', $type-of-record, $bibliographic-level, ' ', 'a', '2', '2', ' ', 'u', 'u', $multipart-resource-record-level, '4', '5', '0', '0' )"/>
+		<xsl:sequence select="local:leader-template( '     ', 'n', $type-of-record, $bibliographic-level, ' ', 'a', '2', '2', '     ', 'u', 'u', $multipart-resource-record-level, '4', '5', '0', '0' )"/>
 	</xsl:function>
 	<xsl:function name="local:controlfield" as="element(marc:controlfield)">
 		<xsl:param name="tag" as="xs:string"/>

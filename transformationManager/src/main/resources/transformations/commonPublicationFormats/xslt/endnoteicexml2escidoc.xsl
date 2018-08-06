@@ -607,17 +607,11 @@
 				</xsl:element>
 			</xsl:if>
 			<!-- SOURCE PAGES -->
-			<xsl:comment>REFTYPE = 
-				<xsl:value-of select="$refType"/>
-			</xsl:comment>
+			<xsl:comment>REFTYPE = <xsl:value-of select="$refType"/></xsl:comment>
 			<xsl:if test="P and $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Book Section', 'Conference Paper' )">
 				<xsl:comment>IN SOURCE PAGES</xsl:comment>
 				<xsl:variable name="pages" select="tokenize(normalize-space(P), '[-–]+')"/>
-				<xsl:comment>Pages = 
-					<xsl:value-of select="$pages" />Number of Pages: 
-					<xsl:value-of select="count($pages)"/>pages[1] = 
-					<xsl:value-of select="$pages[1]" />
-				</xsl:comment>
+				<xsl:comment>Pages = <xsl:value-of select="$pages" />Number of Pages: <xsl:value-of select="count($pages)"/>pages[1] = <xsl:value-of select="$pages[1]" /></xsl:comment>
 				<xsl:if test="count($pages)>=1 and $pages[1]!=''">
 					<xsl:element name="eterms:start-page">
 						<xsl:value-of select="$pages[1]"/>
@@ -915,17 +909,13 @@
 				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
 				<xsl:variable name="iris-id" select="substring-before(substring-after($additionalAuthorInformation, '-'), '-')"/>
 				<xsl:variable name="ou-id" select="substring-after(substring-after($additionalAuthorInformation, '-'), '-')"/>
-				<xsl:comment>
-					<xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/>
-				</xsl:comment>
+				<xsl:comment><xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/></xsl:comment>
 				<xsl:variable name="cone-creator">
 					<xsl:if test="$pos != 0 and not(substring-after($additionalAuthorInformation, '-') = '-')">
 						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CustomizedFieldError' ), concat('The customized field %3 has a wrong format: ´', $additionalAuthorInformation, '´. Should start with ´', $pos, '-´'))"/>
 						</xsl:if>
-						<xsl:comment>Querying CoNE for 
-							<xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´
-						</xsl:comment>
+						<xsl:comment>Querying CoNE for <xsl:value-of select="concat('Chemical Ecology ', $iris-id)"/>´</xsl:comment>
 						<xsl:copy-of select="Util:queryCone('persons', concat('Chemical Ecology ', $iris-id))"/>
 					</xsl:if>
 				</xsl:variable>
@@ -934,9 +924,7 @@
 					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
 				</xsl:if>
 				<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))">
-					<xsl:comment>Iris-ID 
-						<xsl:value-of select="$iris-id"/> not found in CoNE service!
-					</xsl:comment>
+					<xsl:comment>Iris-ID <xsl:value-of select="$iris-id"/> not found in CoNE service!</xsl:comment>
 				</xsl:if>
 				<xsl:choose>
 					<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
@@ -987,9 +975,7 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$Flavor = 'BGC'">
-				<xsl:comment>URL: 
-					<xsl:value-of select="concat($frameworkUrl, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000')"/>
-				</xsl:comment>
+				<xsl:comment>URL: <xsl:value-of select="concat($frameworkUrl, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000')"/></xsl:comment>
 				<xsl:variable name="ou-list" select="document(concat($frameworkUrl, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 				<xsl:variable name="additionalAuthorInformation" select="tokenize(../NUM_1, '\n')"/>
 				<xsl:variable name="institute-authors-positions">
@@ -1025,16 +1011,9 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
-				<xsl:comment>SEARCHING FOR OU-ID'
-					<xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/id"/>'
-				</xsl:comment>
-				<xsl:comment>GOT OU WITH TITLE: '
-					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/>'
-				</xsl:comment>
-				<xsl:comment>
-					<xsl:value-of select="$pos"/> = 
-					<xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/pos"/>
-				</xsl:comment>
+				<xsl:comment>SEARCHING FOR OU-ID' <xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/id"/>'</xsl:comment>
+				<xsl:comment>GOT OU WITH TITLE: '<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/>'</xsl:comment>
+				<xsl:comment><xsl:value-of select="$pos"/> = <xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/pos"/></xsl:comment>
 				<xsl:choose>
 					<xsl:when test="exists($institute-authors-positions/entry/pos) and $institute-authors-positions/entry/pos != '' and $institute-authors-positions/entry[pos = $pos]">
 						<xsl:variable name="ouExactName">
@@ -1043,9 +1022,7 @@
 						<xsl:variable name="ouId">
 							<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 						</xsl:variable>
-						<xsl:comment>OUID
-							<xsl:value-of select="$ouId"/>
-						</xsl:comment>
+						<xsl:comment>OUID <xsl:value-of select="$ouId"/></xsl:comment>
 						<xsl:variable name="cone-creator">
 							<xsl:choose>
 								<xsl:when test="exists($ouExactName) and $ouExactName != ''">
@@ -1061,9 +1038,7 @@
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
 						</xsl:if>
 						<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))">
-							<xsl:comment>
-								<xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/> not found in CoNE service!
-							</xsl:comment>
+							<xsl:comment><xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/> not found in CoNE service!</xsl:comment>
 						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">

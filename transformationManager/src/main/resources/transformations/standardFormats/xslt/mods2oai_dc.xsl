@@ -33,7 +33,7 @@
 		<dc:title>
 			<xsl:value-of select="mods:nonSort"/>
 			<xsl:if test="mods:nonSort">
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 			</xsl:if>
 			<xsl:value-of select="mods:title"/>
 			<xsl:if test="mods:subTitle">
@@ -298,7 +298,7 @@
 		<xsl:variable name="name">
 			<xsl:for-each select="mods:namePart[not(@type)]">
 				<xsl:value-of select="."/>
-				<xsl:text></xsl:text>
+				<xsl:text> </xsl:text>
 			</xsl:for-each>
 			<xsl:value-of select="mods:namePart[@type='family']"/>
 			<xsl:if test="mods:namePart[@type='given']">

@@ -1364,7 +1364,7 @@
 		<xsl:variable name="temp" as="xs:string*">
 			<xsl:for-each select="/*:art/*:bdy//*:sec/*:st">
 				<xsl:variable name="temp2" as="xs:string*" select="local:string(., false())"/>
-				<xsl:sequence select="concat( string-join(for $i in 2 to count(ancestor::*:sec) return ' ', ''), normalize-space(string-join($temp2, '') ), '&#xA;' )"/>
+				<xsl:sequence select="concat( string-join(for $i in 2 to count(ancestor::*:sec) return '  ', ''), normalize-space(string-join($temp2, '') ), '&#xA;' )"/>
 			</xsl:for-each>
 		</xsl:variable>
 		<xsl:sequence select="misc:create_dcterms-tableOfContents(string-join($temp, '') )"/>
