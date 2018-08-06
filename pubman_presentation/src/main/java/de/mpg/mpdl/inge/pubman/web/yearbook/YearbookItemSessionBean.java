@@ -54,7 +54,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
-  private final Map<String, YearbookInvalidItemRO> validItemMap = new HashMap<String, YearbookInvalidItemRO>();
+  private Map<String, YearbookInvalidItemRO> validItemMap = new HashMap<String, YearbookInvalidItemRO>();
 
   private final YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
   private final OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
@@ -310,6 +310,9 @@ public class YearbookItemSessionBean extends FacesBean {
   }
 
   public String validateYearbook() throws Exception {
+    this.validItemMap = new HashMap<String, YearbookInvalidItemRO>();
+    this.invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
+
     final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
     for (final PubItemVOPresentation pubItem : pubItemList) {
       this.validateItem(pubItem);

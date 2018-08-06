@@ -25,11 +25,13 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
   @Override
   public boolean validate(ValidatorContext context, List<CreatorVO> creators) {
 
-    boolean ok = true;
-
     if (ValidationTools.isNotEmpty(creators)) {
 
-      int i = 1;
+      if (this.childsOfMPG.size() == 0) {
+        context.addError(ValidationError.create(ErrorMessages.EMPTY_CHILDS_OF_MPG));
+        return false;
+      }
+
       for (final CreatorVO creatorVO : creators) {
 
         if (creatorVO != null) {
@@ -44,11 +46,8 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
               if (o != null //
                   && ValidationTools.isNotEmpty(o.getIdentifier()) //
                   && !this.childsOfMPG.contains(o.getIdentifier())) {
-
-                context.addError(ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setField("creator[" + i + "]"));
-
-                ok = false;
-
+              } else {
+                return true;
               } // if
 
               break;
@@ -59,21 +58,15 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
               if (p != null) {
 
-                int j = 1;
                 for (final OrganizationVO op : p.getOrganizations()) {
 
                   if (op != null //
                       && ValidationTools.isNotEmpty(op.getIdentifier()) //
                       && !this.childsOfMPG.contains(op.getIdentifier())) {
-
-                    context.addError(
-                        ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setField("creator[" + i + "].person[" + j + "]"));
-
-                    ok = false;
-
+                  } else {
+                    return true;
                   } // if
 
-                  j++;
                 } // for
 
               } // if
@@ -84,11 +77,14 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
         } // if
 
-        i++;
       } // for
+
+      context.addError(ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION));
+      return false;
 
     } // if
 
-    return ok;
+    return true;
   }
+
 }
