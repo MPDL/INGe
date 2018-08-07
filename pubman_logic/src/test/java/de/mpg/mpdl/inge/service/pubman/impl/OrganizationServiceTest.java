@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -259,6 +260,7 @@ public class OrganizationServiceTest extends TestBase {
   }
 
   @Test(expected = AuthorizationException.class)
+  @Ignore
   public void reindexListenerInvalidToken()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 

@@ -118,18 +118,50 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   private void fillWithChildOus(List<String> idList, String ouId) throws IngeApplicationException, IngeTechnicalException {
-    idList.add(ouId);
     SearchSourceBuilder ssb = new SearchSourceBuilder();
     ssb.docValueField(INDEX_OBJECT_ID);
     ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
-    SearchResponse resp = organizationDao.searchDetailed(ssb);
+    ssb.size(100);
 
-    if (resp.getHits().getTotalHits() > 0) {
-      for (SearchHit hit : resp.getHits().getHits()) {
+    SearchResponse resp = null;
+    List<SearchHit> listHits = new ArrayList<SearchHit>();
+    do {
+      if (resp == null) {
+        resp = organizationDao.searchDetailed(ssb, 120000);
+        for (SearchHit searchHit : resp.getHits().getHits()) {
+          listHits.add(searchHit);
+        }
+      } else {
+        resp = organizationDao.scrollOn(resp.getScrollId(), 120000);
+        for (SearchHit searchHit : resp.getHits().getHits()) {
+          listHits.add(searchHit);
+        }
+      }
+    } while (resp.getHits().getHits().length != 0);
+
+    //    StringBuilder sb = new StringBuilder();
+    //    sb.append(ouId + " size children: " + listHits.size() + " -> ");
+    //    for (SearchHit hit : listHits) {
+    //      sb.append((String) hit.field(INDEX_OBJECT_ID).getValue());
+    //      sb.append(" ");
+    //    }
+    //    logger.info(sb.toString());
+
+    if (listHits.size() > 0) {
+      for (SearchHit hit : listHits) {
         fillWithChildOus(idList, hit.field(INDEX_OBJECT_ID).getValue());
       }
     }
 
+    idList.add(ouId);
+
+    //    sb = new StringBuilder();
+    //    sb.append(ouId + ": ");
+    //    for (String id : idList) {
+    //      sb.append(id);
+    //      sb.append(" ");
+    //    }
+    //    logger.info(sb.toString());
   }
 
   @Override

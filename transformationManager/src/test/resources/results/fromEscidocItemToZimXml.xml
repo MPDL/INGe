@@ -47,7 +47,7 @@
       <content>
          <educationalpurpose>no</educationalpurpose>
          <enduser>notspecified</enduser>
-         <identifier type="url">/item/escidoc:2368787</identifier>
+         <identifier type="url">${inge.pubman.instance.url}${inge.pubman.instance.context.path}/item/escidoc:2368787</identifier>
          <language>English</language>
          <pubstatus>published</pubstatus>
          <refereed>joureview</refereed>

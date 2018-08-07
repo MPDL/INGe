@@ -1255,6 +1255,10 @@
 				"versionState": {
 					"type": "keyword"
 				},
+				"sort-metadata-creators-first": {
+					"type": "keyword",
+					"normalizer": "sort"
+				},
 				"sort-metadata-creators-compound": {
 					"type": "keyword",
 					"normalizer": "sort"

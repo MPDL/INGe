@@ -205,10 +205,10 @@
                                 <h:outputText value=" --- #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner != null }" />
                                 <h:outputText value="#{lbl.EditItem_lblItemlatestChange } #{ViewItemFull.creationDate}" rendered="#{ViewItemFull.creationDate != null and ViewItemFull.owner == null }" />
                                 <br />
-                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.latestModifier.name}'" rendered="#{ViewItemFull.latestModifier != null}" />
-                                <h:outputText value="." rendered="#{ViewItemFull.latestModifier != null and ViewItemFull.modificationDate == null}" />
-                                <h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier != null }" />
-                                <h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.latestModifier == null }" />
+                                <h:outputText value="#{lbl.EditItem_lblItemLatestModifier} '#{ViewItemFull.modifier.name}'" rendered="#{ViewItemFull.modifier != null}" />
+                                <h:outputText value="." rendered="#{ViewItemFull.modifier != null and ViewItemFull.modificationDate == null}" />
+                                <h:outputText value=" --- #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.modifier != null }" />
+                                <h:outputText value="#{lbl.EditItem_lblItemLatestModification} #{ViewItemFull.modificationDate}" rendered="#{ViewItemFull.modificationDate != null and ViewItemFull.modifier == null }" />
                                 <br />
                                 <h:outputText value="#{msg.ViewItemFull_latestMessage} #{ViewItemFull.pubItem.message}" rendered="#{ViewItemFull.canShowLastMessage}" />
                                 <h:outputText value="#{msg.ViewItemFull_latestMessage} #{lbl.lbl_noEntry}" rendered="#{!ViewItemFull.canShowLastMessage}" />
@@ -235,12 +235,12 @@
                                     </h2>
                                     <ul>
                                         <ui:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
-                                            <h:panelGroup rendered="#{valitem.restrictive}">
+                                            <h:panelGroup rendered="#{valitem.severity == 'ERROR'}">
                                                 <li class="messageWarn">
                                                     <h:outputText value="#{msg[valitem.content]}" />
                                                 </li>
                                             </h:panelGroup>
-                                            <h:panelGroup rendered="#{!valitem.restrictive}">
+                                            <h:panelGroup rendered="#{valitem.severity != 'ERROR'}">
                                                 <li class="messageStatus">
                                                     <h:outputText value="#{msg[valitem.content]}" />
                                                 </li>
@@ -288,12 +288,7 @@
 										rendered="#{ViewItemFull.canViewLocalTags}">
 										<h:outputText
 											value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
-									</h:outputLink>  <h:panelGroup styleClass="seperator" rendered="false" /> <h:outputLink
-										id="lnkCollaboratorPage" styleClass="free_area0"
-										value="#{ApplicationBean.appContext}CollaboratorPage.jsp"
-										rendered="false">
-										<h:outputText value="#{lbl.CollaboratorPage}" />
-									</h:outputLink> <h:panelGroup styleClass="seperator"
+									</h:outputLink>  <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowItemLog}" /> <h:commandLink
 										id="lnkViewItemLogPage" styleClass="free_area0"
 										action="#{ViewItemFull.showItemLog}"

@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:misc="http://www.editura.de/ns/2012/misc" xmlns:tools="http://www.editura.de/ns/2012/tools" xmlns:hidden="http://www.editura.de/ns/2012/misc-hide" xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder" xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:event="${xsd.metadata.event}" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:file="${xsd.metadata.file}" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:organization="${xsd.metadata.organization}" xmlns:person="${xsd.metadata.person}" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:prop="${xsd.soap.common.prop}" xmlns:publication="${xsd.metadata.publication}" xmlns:source="${xsd.metadata.source}" xmlns:srel="${xsd.soap.common.srel}" xmlns:xlink="http://www.w3.org/1999/xlink" exclude-result-prefixes="xsl xs xd misc tools hidden AuthorDecoder Util" version="2.0">
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:misc="http://www.editura.de/ns/2012/misc"
+	xmlns:tools="http://www.editura.de/ns/2012/tools"
+	xmlns:hidden="http://www.editura.de/ns/2012/misc-hide"
+	xmlns:AuthorDecoder="java:de.mpg.escidoc.services.common.util.creators.AuthorDecoder"
+	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:eprints="http://purl.org/eprint/terms/"
+	xmlns:escidocComponents="${xsd.soap.item.components}"
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
+	xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}"
+	xmlns:eterms="${xsd.metadata.escidocprofile.types}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:publication="${xsd.metadata.publication}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:xlink="http://www.w3.org/1999/xlink" exclude-result-prefixes="xsl xs xd misc tools hidden AuthorDecoder Util" version="2.0">
 	<xsl:import href="mapping_common-tools.xsl"/>
 	<xsl:param name="misc:anonymous-name" as="xs:string?">Anonymous</xsl:param>
 	<xsl:param name="misc:anonymous-organization-name" as="xs:string?">unknown organization</xsl:param>
@@ -348,7 +378,9 @@
 						<xsl:call-template name="misc:message">
 							<xsl:with-param name="level">ERROR</xsl:with-param>
 							<xsl:with-param name="show-context" select="false()"/>
-							<xsl:with-param name="message">[mapping-commons.xsl#misc:make_escidocComponents-content] "<xsl:sequence select="$att_storage"/>" is not a valid input for parameter $att_storage</xsl:with-param>
+							<xsl:with-param name="message">[mapping-commons.xsl#misc:make_escidocComponents-content] "
+								<xsl:sequence select="$att_storage"/>" is not a valid input for parameter $att_storage
+							</xsl:with-param>
 						</xsl:call-template>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -471,7 +503,7 @@
 		<xsl:param name="middle-name" as="xs:string?"/>
 		<xsl:param name="family-name" as="xs:string?"/>
 		<xsl:param name="name-suffix" as="xs:string?"/>
-		<xsl:sequence select="misc:create_eterms-complete-name(           normalize-space(string-join(            ($given-name,            if (normalize-space($middle-name)) then $middle-name else $middle-initial,            if (normalize-space($family-name)) then $family-name else $misc:anonymous-name,            $name-suffix), ' ')           ) )"/>
+		<xsl:sequence select="misc:create_eterms-complete-name( normalize-space(string-join( ($given-name, if (normalize-space($middle-name)) then $middle-name else $middle-initial, if (normalize-space($family-name)) then $family-name else $misc:anonymous-name, $name-suffix), ' ') ) )"/>
 	</xsl:function>
 	<xsl:function name="misc:create_eterms-family-name" as="element(eterms:family-name)">
 		<xsl:param name="family-name" as="xs:string?"/>
@@ -826,7 +858,7 @@
 	</xsl:function>
 	<xsl:function name="misc:organization_organization-to-string" as="xs:string">
 		<xsl:param name="organization:organization" as="element(organization:organization)"/>
-		<xsl:sequence select="normalize-space(concat(    normalize-space($organization:organization/dc:title),    if (normalize-space($organization:organization/eterms:address)) then ', ' else (),    $organization:organization/eterms:address    ) )"/>
+		<xsl:sequence select="normalize-space(concat( normalize-space($organization:organization/dc:title), if (normalize-space($organization:organization/eterms:address)) then ', ' else (), $organization:organization/eterms:address ) )"/>
 	</xsl:function>
 	<xsl:function name="misc:total-number-of-pages" as="xs:string?">
 		<xsl:param name="publication_publication-or-source_source" as="element()"/>
@@ -976,7 +1008,9 @@
 			<xsl:otherwise>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">DEBUG</xsl:with-param>
-					<xsl:with-param name="message">[mapping_commons.xsl#misc:parse-pages] can't parse input "<xsl:value-of select="$input"/>"</xsl:with-param>
+					<xsl:with-param name="message">[mapping_commons.xsl#misc:parse-pages] can't parse input "
+						<xsl:value-of select="$input"/>"
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -985,7 +1019,7 @@
 	<xsl:function name="misc:clean-pages" as="xs:string">
 		<xsl:param name="input" as="xs:string?"/>
 		<xsl:variable name="prepared" as="xs:string" select="translate(normalize-space($input), ' ', '')"/>
-		<xsl:variable name="cleaned" as="xs:string" select="       replace(          lower-case($prepared),          'p(\.|(age)(s)?)|s(\.|(eite)(n)?)|f+\.?',          ''       )"/>
+		<xsl:variable name="cleaned" as="xs:string" select=" replace( lower-case($prepared), 'p(\.|(age)(s)?)|s(\.|(eite)(n)?)|f+\.?', '' )"/>
 		<xsl:choose>
 			<xsl:when test="matches($cleaned, '^[0-9]+(-[0-9]+)?$')">
 				<xsl:sequence select="$cleaned"/>
@@ -998,7 +1032,7 @@
 	<xsl:function name="misc:clean-volume-issue" as="xs:string">
 		<xsl:param name="volume-or-issue" as="xs:string?"/>
 		<xsl:variable name="prepared" as="xs:string" select="normalize-space($volume-or-issue)"/>
-		<xsl:variable name="cleaned" as="xs:string" select="       normalize-space(        replace(          lower-case($prepared),          'v(ol(ume)?)?\.?|i(ss(ue)?)?\.?|f+\.?|[().]',          ''        )       )"/>
+		<xsl:variable name="cleaned" as="xs:string" select=" normalize-space( replace( lower-case($prepared), 'v(ol(ume)?)?\.?|i(ss(ue)?)?\.?|f+\.?|[().]', '' ) )"/>
 		<xsl:choose>
 			<xsl:when test="matches($cleaned, '^[0-9]+((-|/)[0-9]+)?$')">
 				<xsl:sequence select="$cleaned"/>
@@ -1028,7 +1062,7 @@
 		<xsl:variable name="parsed-type" as="xs:string" select="misc:parse-identifier-types($found-type)"/>
 		<xsl:variable name="identifier" as="xs:string" select="$splitted-identifier-string[2]"/>
 		<xsl:if test="$identifier">
-			<xsl:sequence select="misc:create_dc-identifier($parsed-type,           concat (             if ($parsed-type ne 'eterms:OTHER')              then ()              else if ($found-type = ('', 'eterms:OTHER'))                then ()                else concat('(', $found-type, ')'),             $identifier            )          )"/>
+			<xsl:sequence select="misc:create_dc-identifier($parsed-type, concat ( if ($parsed-type ne 'eterms:OTHER') then () else if ($found-type = ('', 'eterms:OTHER')) then () else concat('(', $found-type, ')'), $identifier ) )"/>
 		</xsl:if>
 	</xsl:function>
 	<xsl:function name="misc:parse-identifier-types" as="xs:string">
@@ -1203,9 +1237,9 @@
 			<misc:target>slk</misc:target>
 		</misc:mapping>
 	</misc:mapping-table>
-	<xsl:variable name="hidden:iso-639-2_diff" as="xs:string+" select="    ('alb', 'arm', 'baq', 'tib', 'bur', 'cze', 'chi', 'wel', 'ger', 'dut', 'gre', 'per', 'fre', 'geo', 'ice', 'mac', 'mao', 'may', 'rum', 'slo')"/>
-	<xsl:variable name="hidden:iso-639-3_diff" as="xs:string+" select="    ('sqi', 'hye', 'eus', 'bod', 'mya', 'ces', 'zho', 'cym', 'deu', 'nld', 'ell', 'fas', 'fra', 'kat', 'isl', 'mkd', 'mri', 'msa', 'ron', 'slk')"/>
-	<xsl:variable name="hidden:valid_iso-639-1_values" as="xs:string+" select="  ('ab',  'aa',  'af',  'ak',  'sq',  'am',  'ar',  'an',  'hy',  'as',  'av',  'ae',  'ay',  'az',  'bm',  'ba',  'eu',  'be',  'bn',  'bh',  'bi',  'bs',  'br',  'bg',  'my',  'ca',  'ch',  'ce',  'ny',  'zh',  'cv',  'kw',  'co',  'cr',  'hr',  'cs',  'da',  'dv',  'nl',  'dz',  'en',  'eo',  'et',  'ee',  'fo',  'fj',  'fi',  'fr',  'ff',  'gl',  'ka',  'de',  'el',  'gn',  'gu',  'ht',  'ha',  'he',  'hz',  'hi',  'ho',  'hu',  'ia',  'id',  'ie',  'ga',  'ig',  'ik',  'io',  'is',  'it',  'iu',  'ja',  'jv',  'kl',  'kn',  'kr',  'ks',  'kk',  'km',  'ki',  'rw',  'ky',  'kv',  'kg',  'ko',  'ku',  'kj',  'la',  'lb',  'lg',  'li',  'ln',  'lo',  'lt',  'lu',  'lv',  'gv',  'mk',  'mg',  'ms',  'ml',  'mt',  'mi',  'mr',  'mh',  'mn',  'na',  'nv',  'nb',  'nd',  'ne',  'ng',  'nn',  'no',  'ii',  'nr',  'oc',  'oj',  'cu',  'om',  'or',  'os',  'pa',  'pi',  'fa',  'pl',  'ps',  'pt',  'qu',  'rm',  'rn',  'ro',  'ru',  'sa',  'sc',  'sd',  'se',  'sm',  'sg',  'sr',  'gd',  'sn',  'si',  'sk',  'sl',  'so',  'st',  'es',  'su',  'sw',  'ss',  'sv',  'ta',  'te',  'tg',  'th',  'ti',  'bo',  'tk',  'tl',  'tn',  'to',  'tr',  'ts',  'tt',  'tw',  'ty',  'ug',  'uk',  'ur',  'uz',  've',  'vi',  'vo',  'wa',  'cy',  'wo',  'fy',  'xh',  'yi',  'yo',  'za',  'zu')"/>
+	<xsl:variable name="hidden:iso-639-2_diff" as="xs:string+" select=" ('alb', 'arm', 'baq', 'tib', 'bur', 'cze', 'chi', 'wel', 'ger', 'dut', 'gre', 'per', 'fre', 'geo', 'ice', 'mac', 'mao', 'may', 'rum', 'slo')"/>
+	<xsl:variable name="hidden:iso-639-3_diff" as="xs:string+" select=" ('sqi', 'hye', 'eus', 'bod', 'mya', 'ces', 'zho', 'cym', 'deu', 'nld', 'ell', 'fas', 'fra', 'kat', 'isl', 'mkd', 'mri', 'msa', 'ron', 'slk')"/>
+	<xsl:variable name="hidden:valid_iso-639-1_values" as="xs:string+" select=" ('ab', 'aa', 'af', 'ak', 'sq', 'am', 'ar', 'an', 'hy', 'as', 'av', 'ae', 'ay', 'az', 'bm', 'ba', 'eu', 'be', 'bn', 'bh', 'bi', 'bs', 'br', 'bg', 'my', 'ca', 'ch', 'ce', 'ny', 'zh', 'cv', 'kw', 'co', 'cr', 'hr', 'cs', 'da', 'dv', 'nl', 'dz', 'en', 'eo', 'et', 'ee', 'fo', 'fj', 'fi', 'fr', 'ff', 'gl', 'ka', 'de', 'el', 'gn', 'gu', 'ht', 'ha', 'he', 'hz', 'hi', 'ho', 'hu', 'ia', 'id', 'ie', 'ga', 'ig', 'ik', 'io', 'is', 'it', 'iu', 'ja', 'jv', 'kl', 'kn', 'kr', 'ks', 'kk', 'km', 'ki', 'rw', 'ky', 'kv', 'kg', 'ko', 'ku', 'kj', 'la', 'lb', 'lg', 'li', 'ln', 'lo', 'lt', 'lu', 'lv', 'gv', 'mk', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mh', 'mn', 'na', 'nv', 'nb', 'nd', 'ne', 'ng', 'nn', 'no', 'ii', 'nr', 'oc', 'oj', 'cu', 'om', 'or', 'os', 'pa', 'pi', 'fa', 'pl', 'ps', 'pt', 'qu', 'rm', 'rn', 'ro', 'ru', 'sa', 'sc', 'sd', 'se', 'sm', 'sg', 'sr', 'gd', 'sn', 'si', 'sk', 'sl', 'so', 'st', 'es', 'su', 'sw', 'ss', 'sv', 'ta', 'te', 'tg', 'th', 'ti', 'bo', 'tk', 'tl', 'tn', 'to', 'tr', 'ts', 'tt', 'tw', 'ty', 'ug', 'uk', 'ur', 'uz', 've', 'vi', 'vo', 'wa', 'cy', 'wo', 'fy', 'xh', 'yi', 'yo', 'za', 'zu')"/>
 	<xsl:variable name="hidden:valid_iso-639-2-B_values" as="xs:string+" select="('abk', 'aar', 'afr', 'aka', 'alb', 'amh', 'ara', 'arg', 'arm', 'asm', 'ava', 'ave', 'aym', 'aze', 'bam', 'bak', 'baq', 'bel', 'ben', 'bih', 'bis', 'bos', 'bre', 'bul', 'bur', 'cat', 'cha', 'che', 'nya', 'chi', 'chv', 'cor', 'cos', 'cre', 'hrv', 'cze', 'dan', 'div', 'dut', 'dzo', 'eng', 'epo', 'est', 'ewe', 'fao', 'fij', 'fin', 'fre', 'ful', 'glg', 'geo', 'ger', 'gre', 'grn', 'guj', 'hat', 'hau', 'heb', 'her', 'hin', 'hmo', 'hun', 'ina', 'ind', 'ile', 'gle', 'ibo', 'ipk', 'ido', 'ice', 'ita', 'iku', 'jpn', 'jav', 'kal', 'kan', 'kau', 'kas', 'kaz', 'khm', 'kik', 'kin', 'kir', 'kom', 'kon', 'kor', 'kur', 'kua', 'lat', 'ltz', 'lug', 'lim', 'lin', 'lao', 'lit', 'lub', 'lav', 'glv', 'mac', 'mlg', 'may', 'mal', 'mlt', 'mao', 'mar', 'mah', 'mon', 'nau', 'nav', 'nob', 'nde', 'nep', 'ndo', 'nno', 'nor', 'iii', 'nbl', 'oci', 'oji', 'chu', 'orm', 'ori', 'oss', 'pan', 'pli', 'per', 'pol', 'pus', 'por', 'que', 'roh', 'run', 'rum', 'rus', 'san', 'srd', 'snd', 'sme', 'smo', 'sag', 'srp', 'gla', 'sna', 'sin', 'slo', 'slv', 'som', 'sot', 'spa', 'sun', 'swa', 'ssw', 'swe', 'tam', 'tel', 'tgk', 'tha', 'tir', 'tib', 'tuk', 'tgl', 'tsn', 'ton', 'tur', 'tso', 'tat', 'twi', 'tah', 'uig', 'ukr', 'urd', 'uzb', 'ven', 'vie', 'vol', 'wln', 'wel', 'wol', 'fry', 'xho', 'yid', 'yor', 'zha', 'zul')"/>
 	<xsl:function name="misc:is-iso-639-2-b" as="xs:boolean">
 		<xsl:param name="language-code" as="xs:string?"/>
@@ -1253,7 +1287,9 @@
 				<xsl:sequence select="''"/>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-2_to_iso-639-3] can't convert »<xsl:value-of select="$iso-639-2"/>« to ISO-639-3</xsl:with-param>
+					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-2_to_iso-639-3] can't convert »
+						<xsl:value-of select="$iso-639-2"/>« to ISO-639-3
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -1273,7 +1309,9 @@
 				<xsl:sequence select="''"/>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-3_to_iso-639-2] can't convert »<xsl:value-of select="$iso-639-3"/>« to ISO-639-2</xsl:with-param>
+					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-3_to_iso-639-2] can't convert »
+						<xsl:value-of select="$iso-639-3"/>« to ISO-639-2
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -1290,7 +1328,9 @@
 				<xsl:sequence select="''"/>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-1_to_iso-639-2] can't convert »<xsl:value-of select="$iso-639-1"/>« to ISO-639-2</xsl:with-param>
+					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-1_to_iso-639-2] can't convert »
+						<xsl:value-of select="$iso-639-1"/>« to ISO-639-2
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -1308,7 +1348,9 @@
 				<xsl:sequence select="''"/>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
-					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-1_to_iso-639-3] can't convert »<xsl:value-of select="$iso-639-1"/>« to ISO-639-3</xsl:with-param>
+					<xsl:with-param name="message">[mapping-commons.xsl#misc:iso-639-1_to_iso-639-3] can't convert »
+						<xsl:value-of select="$iso-639-1"/>« to ISO-639-3
+					</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -1338,14 +1380,16 @@
 		<xsl:param name="start-page" as="xs:string?"/>
 		<xsl:param name="write-supplement" as="xs:boolean"/>
 		<xsl:if test="$volume and $start-page">
-			<xsl:sequence select="misc:create_eterms-sequence-number(           concat(             $volume,              if ($write-supplement and normalize-space($issue))              then concat('(', $issue, ')')              else (),             ':',             $start-page)            )"/>
+			<xsl:sequence select="misc:create_eterms-sequence-number( concat( $volume, if ($write-supplement and normalize-space($issue)) then concat('(', $issue, ')') else (), ':', $start-page) )"/>
 		</xsl:if>
 	</xsl:function>
 	<xsl:function name="misc:author-decoder" as="element()" use-when="function-available('AuthorDecoder:parseAsNode')">
 		<xsl:param name="input" as="xs:string?"/>
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">DEBUG</xsl:with-param>
-			<xsl:with-param name="message">[mapping-commomns.xsl#misc:author-decoder] executing AuthorDecoder:parseAsNode("<xsl:value-of select="$input"/>")</xsl:with-param>
+			<xsl:with-param name="message">[mapping-commomns.xsl#misc:author-decoder] executing AuthorDecoder:parseAsNode("
+				<xsl:value-of select="$input"/>")
+			</xsl:with-param>
 			<xsl:with-param name="show-context" select="false()"/>
 		</xsl:call-template>
 		<xsl:variable name="result" as="element()" select="AuthorDecoder:parseAsNode($input)/*"/>
@@ -1366,7 +1410,9 @@
 		<xsl:variable name="prepared_input" as="xs:string" select="normalize-space(replace($input, '[\[\(][^\[\(]*[\]\)]', ''))"/>
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">DEBUG</xsl:with-param>
-			<xsl:with-param name="message">[mapping-commomns.xsl#misc:author-decoder] executing misc:author-decoder("<xsl:value-of select="$input"/>")</xsl:with-param>
+			<xsl:with-param name="message">[mapping-commomns.xsl#misc:author-decoder] executing misc:author-decoder("
+				<xsl:value-of select="$input"/>")
+			</xsl:with-param>
 			<xsl:with-param name="show-context" select="false()"/>
 		</xsl:call-template>
 		<xsl:variable name="candidates" as="xs:string+">
@@ -1387,21 +1433,23 @@
 				<xsl:for-each select="$candidates[normalize-space(.)]">
 					<xsl:choose>
 						<xsl:when test="matches(., '^(\S+ )*\S+,.+$')">
-							<xsl:sequence select="hidden:create-author(               normalize-space(substring-before(., ',')),               normalize-space(substring-after(., ','))              )"/>
+							<xsl:sequence select="hidden:create-author( normalize-space(substring-before(., ',')), normalize-space(substring-after(., ',')) )"/>
 						</xsl:when>
 						<xsl:when test="matches(., '^(\S+ )+\p{Lu}$')">
 							<xsl:variable name="name-parts" as="xs:string+" select="tokenize(., ' ')"/>
-							<xsl:sequence select="hidden:create-author(               string-join($name-parts[position() lt last()], ' '),               $name-parts[last()]              )"/>
+							<xsl:sequence select="hidden:create-author( string-join($name-parts[position() lt last()], ' '), $name-parts[last()] )"/>
 						</xsl:when>
 						<xsl:when test="matches(., '^(\S+ )+(\S)+$')">
 							<xsl:variable name="name-parts" as="xs:string+" select="tokenize(., ' ')"/>
-							<xsl:sequence select="hidden:create-author(               $name-parts[last()],               string-join($name-parts[position() lt last()], ' ')              )"/>
+							<xsl:sequence select="hidden:create-author( $name-parts[last()], string-join($name-parts[position() lt last()], ' ') )"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:sequence select="hidden:create-author(., ())"/>
 							<xsl:call-template name="misc:message">
 								<xsl:with-param name="level">DEBUG</xsl:with-param>
-								<xsl:with-param name="message">[mapping-commomns.xsl#misc:author-decoder] can't parse "<xsl:value-of select="."/>"</xsl:with-param>
+								<xsl:with-param name="message">[mapping-commomns.xsl#misc:author-decoder] can't parse "
+									<xsl:value-of select="."/>"
+								</xsl:with-param>
 								<xsl:with-param name="show-context" select="false()"/>
 							</xsl:call-template>
 						</xsl:otherwise>
@@ -1529,11 +1577,11 @@
 	</xsl:function>
 	<xsl:function name="hidden:matching-cone-records" as="element(cone)?">
 		<xsl:param name="person:person" as="element(person:person)"/>
-		<xsl:variable name="CoNE-ID" as="xs:string?" select="replace(             $person:person/dc:identifier[misc:parse-identifier-types(@xsi:type) eq 'eterms:CONE']/normalize-space(.)[.][1],             (: der Path-Teil der URI verhindert das Finden :)             '^http://.*persons/resource/',             ''            )"/>
+		<xsl:variable name="CoNE-ID" as="xs:string?" select="replace( $person:person/dc:identifier[misc:parse-identifier-types(@xsi:type) eq 'eterms:CONE']/normalize-space(.)[.][1], (: der Path-Teil der URI verhindert das Finden :) '^http://.*persons/resource/', '' )"/>
 		<xsl:variable name="result-from-CoNE-ID" as="element()" select="hidden:query-cone($CoNE-ID)"/>
 		<xsl:variable name="result-from-ID" as="element()" select="hidden:query-cone(string-join($person:person/dc:identifier, ' '))"/>
-		<xsl:variable name="result-from-familyname-givenname-organization" as="element()" select="hidden:query-cone(            string-join(               (                $person:person/eterms:given-name,                $person:person/eterms:family-name,                for $i in $person:person/organization:organization return misc:organization_organization-to-string($i)               ),               ' '              )            )"/>
-		<xsl:variable name="result-from-givenname-familyname" as="element()" select="hidden:query-cone(            string-join(             (              $person:person/eterms:family-name,              $person:person/eterms:given-name             ),             ', '             )            )"/>
+		<xsl:variable name="result-from-familyname-givenname-organization" as="element()" select="hidden:query-cone( string-join( ( $person:person/eterms:given-name, $person:person/eterms:family-name, for $i in $person:person/organization:organization return misc:organization_organization-to-string($i) ), ' ' ) )"/>
+		<xsl:variable name="result-from-givenname-familyname" as="element()" select="hidden:query-cone( string-join( ( $person:person/eterms:family-name, $person:person/eterms:given-name ), ', ' ) )"/>
 		<xsl:choose>
 			<xsl:when test="hidden:all-cone-datasets-refer-to-same-person($result-from-CoNE-ID)">
 				<xsl:sequence select="$result-from-CoNE-ID"/>
@@ -1642,7 +1690,7 @@
 						<xsl:sequence select="$person:person/eterms:pseudonym"/>
 					</xsl:with-param>
 					<xsl:with-param name="organization:organization" as="element(organization:organization)*">
-						<xsl:variable name="cone-organizations" as="element(organization:organization)*" select="$cone-result/rdf:RDF/rdf:Description/eterms:position/hidden:cone-organization-to-organization-organization(.)         [not(hidden:is-generic-organization-organization(.) )]"/>
+						<xsl:variable name="cone-organizations" as="element(organization:organization)*" select="$cone-result/rdf:RDF/rdf:Description/eterms:position/hidden:cone-organization-to-organization-organization(.) [not(hidden:is-generic-organization-organization(.) )]"/>
 						<xsl:variable name="collected-organizations" as="element(x)">
 							<x>
 								<xsl:if test="not($misc:use-CoNE-organizations-only)">
@@ -1720,7 +1768,8 @@
 		</xsl:call-template>
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">TRACE</xsl:with-param>
-			<xsl:with-param name="message">[mapping-commons.xsl#hidden:all-cone-datasets-refer-to-same-person] count($cone-element/rdf:RDF): <xsl:sequence select="count($cone-element/rdf:RDF)"/>
+			<xsl:with-param name="message">[mapping-commons.xsl#hidden:all-cone-datasets-refer-to-same-person] count($cone-element/rdf:RDF): 
+				<xsl:sequence select="count($cone-element/rdf:RDF)"/>
 			</xsl:with-param>
 			<xsl:with-param name="show-context" select="false()"/>
 		</xsl:call-template>
@@ -1731,7 +1780,7 @@
 			<xsl:when test="misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/@rdf:about) )">
 				<xsl:sequence select="true()"/>
 			</xsl:when>
-			<xsl:when test="     misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/foaf:givenname)) and     misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/foaf:family_name)) and     (      misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/eterms:position[1]/rdf:Description[1]/dc:identifier[1])) or      misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/eterms:position[1]/rdf:Description[1]/eprints:affiliatedInstitution[1]))     )       ">
+			<xsl:when test=" misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/foaf:givenname)) and misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/foaf:family_name)) and ( misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/eterms:position[1]/rdf:Description[1]/dc:identifier[1])) or misc:all-equal-but-not-empty($cone-element/rdf:RDF/string(rdf:Description/eterms:position[1]/rdf:Description[1]/eprints:affiliatedInstitution[1])) ) ">
 				<xsl:sequence select="true()"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -1742,7 +1791,7 @@
 	<xsl:function name="misc:all-equal-but-not-empty" as="xs:boolean">
 		<xsl:param name="items" as="item()*"/>
 		<xsl:choose>
-			<xsl:when test="        (every $i in $items satisfies normalize-space($i) ) and        (count(distinct-values($items)) eq 1)       ">
+			<xsl:when test=" (every $i in $items satisfies normalize-space($i) ) and (count(distinct-values($items)) eq 1) ">
 				<xsl:sequence select="true()"/>
 			</xsl:when>
 			<xsl:otherwise>

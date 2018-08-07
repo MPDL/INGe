@@ -47,10 +47,9 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -178,7 +177,7 @@ public class ViewItemFull extends FacesBean {
   private boolean canAddToBasket = false;
   private boolean canDeleteFromBasket = false;
   private boolean canViewLocalTags = false;
-  private boolean canManageAudience = false;
+  //  private boolean canManageAudience = false;
   private boolean canShowItemLog = false;
   private boolean canShowStatistics = false;
   private boolean canShowReleaseHistory = false;
@@ -201,6 +200,8 @@ public class ViewItemFull extends FacesBean {
   private boolean isStateWithdrawn = false;
   private boolean isWorkflowSimple = false;
 
+  private AccountUserDbVO owner;
+  private AccountUserDbVO modifier;
 
   //  private boolean isWorkflowStandard = false;
 
@@ -291,6 +292,15 @@ public class ViewItemFull extends FacesBean {
       this.isOwner = true;
 
       if (this.pubItem.getObject().getCreator() != null) {
+
+        try {
+          this.owner = ApplicationBean.INSTANCE.getUserAccountService().get(this.pubItem.getObject().getCreator().getObjectId(),
+              this.getLoginHelper().getAuthenticationToken());
+        } catch (Exception e) {
+
+        }
+
+
         this.isOwner = (this.getLoginHelper().getAccountUser() != null
             ? this.getLoginHelper().getAccountUser().getObjectId().equals(this.getPubItem().getObject().getCreator().getObjectId())
             : false);
@@ -310,6 +320,15 @@ public class ViewItemFull extends FacesBean {
               }
             }
           }
+        }
+      }
+
+      if (this.getPubItem().getModifier() != null) {
+        try {
+          this.modifier = ApplicationBean.INSTANCE.getUserAccountService().get(this.pubItem.getModifier().getObjectId(),
+              this.getLoginHelper().getAuthenticationToken());
+        } catch (Exception e) {
+
         }
       }
 
@@ -1165,9 +1184,7 @@ public class ViewItemFull extends FacesBean {
     return ConeUtils.getConeServiceUrl();
   }
 
-  public AccountUserDbRO getOwner() {
-    return this.pubItem.getObject().getCreator();
-  }
+
 
   /**
    * Returns the Context the item belongs to
@@ -1518,19 +1535,19 @@ public class ViewItemFull extends FacesBean {
     this.isOwner = isOwner;
   }
 
-  public boolean getHasAudience() {
-    if (this.pubItem != null && (ItemVersionRO.State.RELEASED.equals(this.pubItem.getVersionState())
-        || ItemVersionRO.State.SUBMITTED.equals(this.pubItem.getVersionState())) && (this.getIsModerator() || this.getIsDepositor())) {
-
-      for (final FileDbVO file : this.pubItem.getFiles()) {
-        if (Visibility.AUDIENCE.equals(file.getVisibility())) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
+  //  public boolean getHasAudience() {
+  //    if (this.pubItem != null && (ItemVersionRO.State.RELEASED.equals(this.pubItem.getVersionState())
+  //        || ItemVersionRO.State.SUBMITTED.equals(this.pubItem.getVersionState())) && (this.getIsModerator() || this.getIsDepositor())) {
+  //
+  //      for (final FileDbVO file : this.pubItem.getFiles()) {
+  //        if (Visibility.AUDIENCE.equals(file.getVisibility())) {
+  //          return true;
+  //        }
+  //      }
+  //    }
+  //
+  //    return false;
+  //  }
 
   public String reviseItem() {
     return ReviseItem.LOAD_REVISEITEM;
@@ -1968,9 +1985,9 @@ public class ViewItemFull extends FacesBean {
       this.canViewLocalTags = true;
     }
 
-    if (this.getHasAudience() && !this.isStateWithdrawn) {
-      this.canManageAudience = true;
-    }
+    //    if (this.getHasAudience() && !this.isStateWithdrawn) {
+    //      this.canManageAudience = true;
+    //    }
 
     if (this.isLatestVersion && !this.isStateWithdrawn && this.isLoggedIn && (this.isOwner || this.isModerator)) {
       this.canShowItemLog = true;
@@ -2038,9 +2055,9 @@ public class ViewItemFull extends FacesBean {
     return this.canViewLocalTags;
   }
 
-  public boolean isCanManageAudience() {
-    return this.canManageAudience;
-  }
+  //  public boolean isCanManageAudience() {
+  //    return this.canManageAudience;
+  //  }
 
   public boolean isCanShowItemLog() {
     return this.canShowItemLog;
@@ -2181,5 +2198,21 @@ public class ViewItemFull extends FacesBean {
 
   private ExportItemsSessionBean getExportItemsSessionBean() {
     return (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+  }
+
+  public AccountUserDbVO getModifier() {
+    return modifier;
+  }
+
+  public void setModifier(AccountUserDbVO modifier) {
+    this.modifier = modifier;
+  }
+
+  public void setOwner(AccountUserDbVO owner) {
+    this.owner = owner;
+  }
+
+  public AccountUserDbVO getOwner() {
+    return this.owner;
   }
 }

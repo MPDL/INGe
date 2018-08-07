@@ -90,7 +90,6 @@ public class PropertyReader {
   public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
   public static final String INGE_DATABASE_DRIVER_CLASS = "inge.database.driver.class";
   public static final String INGE_DATABASE_JDBC_URL = "inge.database.jdbc.url";
-  public static final String INGE_DATABASE_JDBC_URL_TEST = "inge.database.jdbc.url.test";
   public static final String INGE_DATABASE_USER_NAME = "inge.database.user.name";
   public static final String INGE_DATABASE_USER_PASSWORD = "inge.database.user.password";
   public static final String INGE_DOI_SERVICE_CREATE_URL = "inge.doi.service.create.url";
@@ -103,9 +102,7 @@ public class PropertyReader {
   public static final String INGE_EMAIL_SENDER = "inge.email.sender";
   public static final String INGE_EMAIL_WITHAUTHENTICATION = "inge.email.withauthentication";
   public static final String INGE_ES_CLUSTER_NAME = "inge.es.cluster.name";
-  public static final String INGE_ES_CLUSTER_NAME_TEST = "inge.es.cluster.name.test";
   public static final String INGE_ES_TRANSPORT_IPS = "inge.es.transport.ips";
-  public static final String INGE_ES_TRANSPORT_IPS_TEST = "inge.es.transport.ips.test";
   public static final String INGE_FILESTORAGE_FILESYSTEM_PATH = "inge.filestorage.filesystem_path";
   public static final String INGE_FILESTORAGE_OAI_FILESYSTEM_PATH = "inge.filestorage.oai.filesystem_path";
   public static final String INGE_FILESTORAGE_SEAWEED_DIRECT_SUBMIT_PATH = "inge.filestorage.seaweed_direct_submit_path";

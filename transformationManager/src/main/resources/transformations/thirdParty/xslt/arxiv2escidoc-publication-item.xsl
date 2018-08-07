@@ -1,71 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-	CDDL HEADER START
-	
-	The contents of this file are subject to the terms of the
-	Common Development and Distribution License, Version 1.0 only
-	(the "License"). You may not use this file except in compliance
-	with the License.
-	
-	You can obtain a copy of the license at license/ESCIDOC.LICENSE
-	or http://www.escidoc.org/license.
-	See the License for the specific language governing permissions
-	and limitations under the License.
-	
-	When distributing Covered Code, include this CDDL HEADER in each
-	file and include the License file at license/ESCIDOC.LICENSE.
-	If applicable, add the following below this CDDL HEADER, with the
-	fields enclosed by brackets "[]" replaced with your own identifying
-	information: Portions Copyright [yyyy] [name of copyright owner]
-	
-	CDDL HEADER END
-	
-	
-	Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
-	für wissenschaftlich-technische Information mbH and Max-Planck-
-	Gesellschaft zur Förderung der Wissenschaft e.V.
-	All rights reserved. Use is subject to license terms.
--->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:escidocContext="${xsd.soap.context.context}" 
+<!--  CDDL HEADER START    The contents of this file are subject to the terms of the  Common Development and Distribution License, Version 1.0 only  (the "License"). You may not use this file except in compliance  with the License.    You can obtain a copy of the license at license/ESCIDOC.LICENSE  or http://www.escidoc.org/license.  See the License for the specific language governing permissions  and limitations under the License.    When distributing Covered Code, include this CDDL HEADER in each  file and include the License file at license/ESCIDOC.LICENSE.  If applicable, add the following below this CDDL HEADER, with the  fields enclosed by brackets "[]" replaced with your own identifying  information: Portions Copyright [yyyy] [name of copyright owner]    CDDL HEADER END      Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft  für wissenschaftlich-technische Information mbH and Max-Planck-  Gesellschaft zur Förderung der Wissenschaft e.V.  All rights reserved. Use is subject to license terms. -->
+<xsl:stylesheet version="2.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:escidocContext="${xsd.soap.context.context}"
 	xmlns:escidocContextList="${xsd.soap.context.contextlist}"
-	xmlns:escidocComponents="${xsd.soap.item.components}" 
+	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocItem="${xsd.soap.item.item}"
-	xmlns:escidocItemList="${xsd.soap.item.itemlist}" 
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
 	xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
 	xmlns:escidocRelations="${xsd.soap.common.relations}"
-	xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" 
+	xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:prop="${xsd.soap.common.prop}" 
-	xmlns:srel="${xsd.soap.common.srel}" 
-	xmlns:version="${xsd.soap.common.version}" 
-	xmlns:release="${xsd.soap.common.release}" 	 
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}"
 	xmlns:organization="${xsd.metadata.organization}"
 	xmlns:person="${xsd.metadata.person}"
 	xmlns:source="${xsd.metadata.source}"
 	xmlns:event="${xsd.metadata.event}"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
 	xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
 	xmlns:dcterms="${xsd.metadata.dcterms}"
 	xmlns:eterms="${xsd.metadata.terms}">
-
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
-
 	<xsl:output method="xml" encoding="UTF-8" indent="yes" />
-
 	<xsl:include href="msc.xsl" />
 	<xsl:include href="arxiv_subjects.xsl" />
-
 	<xsl:param name="external_organization_id" />
 	<xsl:param name="content-model" select="'dummy-content-model'" />
-
 	<xsl:template match="/">
-
 		<xsl:if test="oaipmh:OAI-PMH/oaipmh:error">
 			<xsl:value-of select="error(QName('http://www.arxiv.org', oaipmh:OAI-PMH/oaipmh:error/@code ), oaipmh:OAI-PMH/oaipmh:error)"/>
 		</xsl:if>
-
 		<escidocItem:item>
 			<escidocItem:properties>
 				<srel:content-model objid="{$content-model}"/>
@@ -73,10 +41,12 @@
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
-					<publication:publication xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}"
-						xmlns:eterms="${xsd.metadata.terms}" 
-						xmlns:publication="${xsd.metadata.publication}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-						>
+					<publication:publication
+						xmlns:dc="${xsd.metadata.dc}"
+						xmlns:dcterms="${xsd.metadata.dcterms}"
+						xmlns:eterms="${xsd.metadata.terms}"
+						xmlns:publication="${xsd.metadata.publication}"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  >
 						<xsl:attribute name="type">
 							<xsl:choose>
 								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">
@@ -89,7 +59,7 @@
 						</xsl:attribute>
 						<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:authors/arxiv:author">
 							<xsl:element name="eterms:creator">
-								<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>							
+								<xsl:attribute name="role" select="$creator-ves/enum[.='author']/@uri"/>
 								<person:person>
 									<eterms:family-name>
 										<xsl:value-of select="arxiv:keyname" />
@@ -108,13 +78,15 @@
 											</dc:identifier>
 										</organization:organization>
 									</xsl:if>
-								</person:person>							
+								</person:person>
 							</xsl:element>
 						</xsl:for-each>
 						<dc:title>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:title" />
 						</dc:title>
-						<dc:identifier xsi:type="eterms:ARXIV"><xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:id" /></dc:identifier>
+						<dc:identifier xsi:type="eterms:ARXIV">
+							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:id" />
+						</dc:identifier>
 						<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:doi != ''">
 							<dc:identifier xsi:type="eterms:DOI">
 								<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:doi" />
@@ -133,7 +105,7 @@
 						</dcterms:modified>
 						<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
 						<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
-						<!--  -->
+						<!-- -->
 						<eterms:published-online xsi:type="dcterms:W3CDTF">
 							<xsl:value-of select="OAI-PMH/GetRecord/record/datestamp" />
 						</eterms:published-online>
@@ -160,7 +132,6 @@
 									<eterms:issue></eterms:issue>
 									<eterms:start-page></eterms:start-page>
 									<eterms:end-page></eterms:end-page>
-
 									<!-- Report-No -->
 									<eterms:sequence-number>
 										<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:report-no" />
@@ -208,21 +179,17 @@
 						<dcterms:abstract>
 							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:abstract" />
 						</dcterms:abstract>
-						
 						<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories != ''">
-							<dcterms:subject> 
+							<dcterms:subject>
 								<!-- <xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />-->
-								<xsl:call-template name="parseCategories">   
-										<xsl:with-param name="string"
-											select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />
-								</xsl:call-template>	
-								
+								<xsl:call-template name="parseCategories">
+									<xsl:with-param name="string"  select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:categories" />
+								</xsl:call-template>
 								<xsl:if test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class != ''">
-									<xsl:text>, </xsl:text>							
+									<xsl:text>, </xsl:text>
 									<xsl:call-template name="msc">
-										<xsl:with-param name="code"
-											select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class" />
-									</xsl:call-template>							
+										<xsl:with-param name="code"  select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:msc-class" />
+									</xsl:call-template>
 								</xsl:if>
 							</dcterms:subject>
 						</xsl:if>
@@ -232,29 +199,24 @@
 				</escidocMetadataRecords:md-record>
 			</escidocMetadataRecords:md-records>
 		</escidocItem:item>
-
 	</xsl:template>
-	
 	<xsl:template name="parseCategories">
 		<xsl:param name="string"/>
-
 		<xsl:choose>
-			<xsl:when test="substring-before($string,' ')=''">								
-					<xsl:call-template name="arxiv_subjects"> 	
-						<xsl:with-param name="subject" select="$string" />
-					</xsl:call-template>				
+			<xsl:when test="substring-before($string,' ')=''">
+				<xsl:call-template name="arxiv_subjects">
+					<xsl:with-param name="subject" select="$string" />
+				</xsl:call-template>
 			</xsl:when>
-  			<xsl:when test="substring-before($string,' ')!=''">	
-				<xsl:call-template name="arxiv_subjects">   
-							<xsl:with-param name="subject"
-									select="substring-before($string,' ')" />
+			<xsl:when test="substring-before($string,' ')!=''">
+				<xsl:call-template name="arxiv_subjects">
+					<xsl:with-param name="subject"  select="substring-before($string,' ')" />
 				</xsl:call-template>
 				<xsl:value-of select="','"/>
 				<xsl:call-template name="parseCategories">
 					<xsl:with-param name="string" select="substring-after($string,' ')"/>
-				</xsl:call-template>				
+				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
-
 </xsl:stylesheet>

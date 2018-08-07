@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- CDDL HEADER START
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.org/license.
- See the License for the specific language governing permissions
- and limitations under the License.
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
- CDDL HEADER END
- Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
--->
-<!-- 
-	Transformations from EndNote Item to eSciDoc PubItem 
-	Author: Vlad Makarenko (initial creation) 
-	$Author$ (last changed)
-	$Revision$ 
-	$LastChangedDate$
--->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:mdr="${xsd.soap.common.mdrecords}" xmlns:ei="${xsd.soap.item.item}" xmlns:srel="${xsd.soap.common.srel}" xmlns:prop="${xsd.core.properties}" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:ec="${xsd.soap.item.components}" xmlns:file="${xsd.metadata.file}" xmlns:pub="${xsd.metadata.publication}" xmlns:person="${xsd.metadata.person}" xmlns:source="${xsd.metadata.source}" xmlns:event="${xsd.metadata.event}" xmlns:organization="${xsd.metadata.organization}" xmlns:eterms="${xsd.metadata.terms}" xmlns:escidoc="urn:escidoc:functions" xmlns:escidocTerms="${xsd.metadata.terms}" xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder" xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:esc="http://escidoc.mpg.de/" xmlns:itemlist="${xsd.soap.item.itemlist}" xmlns:eprints="http://purl.org/eprint/terms/" xmlns:srw="${xsd.soap.searchRetrieveResponse}" xmlns:search-result="${xsd.soap.searchresult.searchresult}" xmlns:organizational-unit="${xsd.soap.ou.ou}" xmlns:mdou="${xsd.metadata.organizationalunit}">
+<!--  CDDL HEADER START  The contents of this file are subject to the terms of the  Common Development and Distribution License, Version 1.0 only  (the "License"). You may not use this file except in compliance  with the License.  You can obtain a copy of the license at license/ESCIDOC.LICENSE  or http://www.escidoc.org/license.  See the License for the specific language governing permissions  and limitations under the License.  When distributing Covered Code, include this CDDL HEADER in each  file and include the License file at license/ESCIDOC.LICENSE.  If applicable, add the following below this CDDL HEADER, with the  fields enclosed by brackets "[]" replaced with your own identifying  information: Portions Copyright [yyyy] [name of copyright owner]  CDDL HEADER END  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft  für wissenschaftlich-technische Information mbH and Max-Planck-  Gesellschaft zur Förderung der Wissenschaft e.V.  All rights reserved. Use is subject to license terms. -->
+<!--   Transformations from EndNote Item to eSciDoc PubItem   Author: Vlad Makarenko (initial creation)   $Author$ (last changed)  $Revision$   $LastChangedDate$ -->
+<xsl:stylesheet version="2.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:mdr="${xsd.soap.common.mdrecords}"
+	xmlns:ei="${xsd.soap.item.item}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:prop="${xsd.core.properties}"
+	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+	xmlns:ec="${xsd.soap.item.components}"
+	xmlns:file="${xsd.metadata.file}"
+	xmlns:pub="${xsd.metadata.publication}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:eterms="${xsd.metadata.terms}"
+	xmlns:escidoc="urn:escidoc:functions"
+	xmlns:escidocTerms="${xsd.metadata.terms}"
+	xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+	xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:esc="http://escidoc.mpg.de/"
+	xmlns:itemlist="${xsd.soap.item.itemlist}"
+	xmlns:eprints="http://purl.org/eprint/terms/"
+	xmlns:srw="${xsd.soap.searchRetrieveResponse}"
+	xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+	xmlns:organizational-unit="${xsd.soap.ou.ou}"
+	xmlns:mdou="${xsd.metadata.organizationalunit}">
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="user" select="'dummy:user'"/>
@@ -42,12 +48,9 @@
 	<xsl:param name="Flavor" select="'OTHER'"/>
 	<xsl:param name="CoNE" select="'false'"/>
 	<xsl:param name="refType" />
-	
-	
 	<xsl:variable name="issnPurl">
 		<xsl:value-of select="'http://purl.org/escidoc/metadata/terms/0.1/ISSN'" />
 	</xsl:variable>
-	
 	<xsl:variable name="fulltext-location">
 		<xsl:if test="$Flavor = 'ICE'">
 			<xsl:value-of select="'http://www.clib-jena.mpg.de/theses/ice/'"/>
@@ -279,7 +282,7 @@
 						<xsl:when test="G = 'English'">eng</xsl:when>
 					</xsl:choose>
 				</xsl:element>
-			</xsl:if> 
+			</xsl:if>
 			<!--ALTTITLE -->
 			<xsl:choose>
 				<!-- ICE puts filename into %F -->
@@ -325,12 +328,13 @@
 					<xsl:value-of select="."/>
 				</xsl:element>
 			</xsl:for-each>
-			
 			<xsl:choose>
 				<xsl:when test="$Flavor = 'BGC'">
 					<xsl:for-each select="U">
 						<dc:identifier>
-							<xsl:attribute name="xsi:type"><xsl:value-of select="if (starts-with(lower-case(.), 'http://' )) then 'eterms:URI' else 'eterms:ISI'"/></xsl:attribute>
+							<xsl:attribute name="xsi:type">
+								<xsl:value-of select="if (starts-with(lower-case(.), 'http://' )) then 'eterms:URI' else 'eterms:ISI'"/>
+							</xsl:attribute>
 							<xsl:value-of select="."/>
 						</dc:identifier>
 					</xsl:for-each>
@@ -340,7 +344,6 @@
 							<xsl:value-of select="."/>
 						</dc:identifier>
 					</xsl:for-each>
-					
 					<xsl:if test="not(fn:matches(AT, '\d{4}-\d{4}'))">
 						<xsl:comment>Creating new ISBN</xsl:comment>
 						<xsl:for-each select="AT[ $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Thesis') ]">
@@ -364,9 +367,7 @@
 							<xsl:value-of select="."/>
 						</xsl:element>
 					</xsl:for-each>
-					<xsl:for-each select="AT[
-							$refType = ('Book Section') and $sourceGenre != $genre-ves/enum[.='book']/@uri	
-						]">
+					<xsl:for-each select="AT[  $refType = ('Book Section') and $sourceGenre != $genre-ves/enum[.='book']/@uri   ]">
 						<dc:identifier>
 							<xsl:attribute name="xsi:type">eterms:ISBN</xsl:attribute>
 							<xsl:value-of select="."/>
@@ -396,18 +397,8 @@
 			</xsl:if>
 			<!-- END OF IDENTIFIERS -->
 			<!-- PUBLISHING INFO -->
-			<xsl:variable name="place" select="
-				if (C and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Generic')) then C
-				else ''
-			"/>
-			
-			<xsl:variable name="publisher" select="
-				if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')
-				else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Generic', 'Thesis' )) then I
-				else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')
-				else if ($place!='') then 'Any Publisher'
-				else ''
-			"/>
+			<xsl:variable name="place" select="  if (C and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Report', 'Thesis', 'Generic')) then C  else ''  "/>
+			<xsl:variable name="publisher" select="  if (B and I and $refType = 'Thesis') then string-join((B, I), ', ')  else if (I and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Manuscript', 'Generic', 'Thesis' )) then I  else if ((I or Y or QUESTION) and $refType = 'Report') then string-join((I, Y, QUESTION), ', ')  else if ($place!='') then 'Any Publisher'  else ''  "/>
 			<xsl:if test="$publisher!=''">
 				<eterms:publishing-info>
 					<dc:publisher>
@@ -418,12 +409,7 @@
 							<xsl:value-of select="$place"/>
 						</eterms:place>
 					</xsl:if>
-					
-					<xsl:variable name="edition" select="
-						if (NUM_7 and $sourceGenre='' and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7
-						else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET
-						else ''
-					"/>
+					<xsl:variable name="edition" select="  if (NUM_7 and $sourceGenre='' and $refType = ('Book', 'Conference Proceedings', 'Edited Book', 'Electronic Book', 'Generic', 'Report')) then NUM_7  else if (ROUND_RIGHT_BRACKET and not(NUM_7)and $refType = ('Book', 'Edited Book', 'Generic')) then ROUND_RIGHT_BRACKET  else ''  "/>
 					<xsl:if test="$edition!=''">
 						<eterms:edition>
 							<xsl:value-of select="$edition"/>
@@ -463,7 +449,7 @@
 					<xsl:value-of select="EQUAL"/>
 				</dcterms:modified>
 			</xsl:if>
-          	<!-- end of DATES -->
+			<!-- end of DATES -->
 			<!-- SOURCE -->
 			<xsl:if test="$sourceGenre!=''">
 				<xsl:call-template name="createSource">
@@ -487,7 +473,7 @@
 				<xsl:element name="eterms:total-number-of-pages">
 					<xsl:value-of select="AMPERSAND"/>
 				</xsl:element>
-			</xsl:if>			
+			</xsl:if>
 			<!-- EVENT -->
 			<xsl:if test="B and $refType = ('Conference Paper', 'Conference Proceedings')">
 				<xsl:element name="event:event">
@@ -541,15 +527,11 @@
 	<xsl:template name="createSource">
 		<xsl:param name="sgen"/>
 		<xsl:param name="identifier"/>
-		
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
-		
 		<xsl:variable name="cone-journal">
 			<xsl:copy-of select="Util:queryCone('journals', J)"/>
 		</xsl:variable>
-		
 		<xsl:variable name="J" select="J"/>
-		
 		<xsl:element name="source:source">
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
@@ -574,7 +556,6 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
-					
 					<xsl:when test="S and $refType = ('Conference Proceedings')">
 						<xsl:value-of select="S"/>
 					</xsl:when>
@@ -630,9 +611,7 @@
 			<xsl:if test="P and $refType = ('Electronic Article', 'Journal Article', 'Magazine Article', 'Newspaper Article', 'Book Section', 'Conference Paper' )">
 				<xsl:comment>IN SOURCE PAGES</xsl:comment>
 				<xsl:variable name="pages" select="tokenize(normalize-space(P), '[-–]+')"/>
-				<xsl:comment>Pages = <xsl:value-of select="$pages" />
-				Number of Pages: <xsl:value-of select="count($pages)"/>
-				pages[1] = <xsl:value-of select="$pages[1]" /></xsl:comment>
+				<xsl:comment>Pages = <xsl:value-of select="$pages" />Number of Pages: <xsl:value-of select="count($pages)"/>pages[1] = <xsl:value-of select="$pages[1]" /></xsl:comment>
 				<xsl:if test="count($pages)>=1 and $pages[1]!=''">
 					<xsl:element name="eterms:start-page">
 						<xsl:value-of select="$pages[1]"/>
@@ -727,8 +706,8 @@
 						</eterms:edition>
 					</xsl:if>
 				</eterms:publishing-info>
-			</xsl:if>			
-			<!--  SOURCE IDENTIFIER -->
+			</xsl:if>
+			<!-- SOURCE IDENTIFIER -->
 			<xsl:choose>
 				<xsl:when test="$Flavor = 'BGC'">
 					<xsl:if test="exists($cone-journal/cone/rdf:RDF/rdf:Description[dc:title=$J or dcterms:alternative=$J]/@rdf:about)">
@@ -776,22 +755,16 @@
 		</xsl:element>
 	</xsl:template>
 	<!-- END OF SOURCE -->
-	
 	<!-- SECOND SOURCE -->
 	<xsl:template name="createSecondSource">
 		<xsl:param name="ssgen"/>
 		<xsl:param name="identifier"/>
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
-		
 		<source:source>
-
-
 			<!-- SOURCE GENRE -->
 			<xsl:attribute name="type">
 				<xsl:value-of select="$ssgen"/>
 			</xsl:attribute>
-			
-
 			<!-- SOURCE TITLE -->
 			<dc:title>
 				<xsl:choose>
@@ -800,14 +773,10 @@
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:NoSeriesTitle' ), concat('There is no Title for SecondSource (%S) -', S))"/>
-						</xsl:otherwise>
+					</xsl:otherwise>
 				</xsl:choose>
 			</dc:title>
-			<xsl:for-each select="
-				Y[
-					$refType = ('Book Section')
-				]
-				">
+			<xsl:for-each select="  Y[  $refType = ('Book Section')  ]  ">
 				<xsl:call-template name="createCreator">
 					<xsl:with-param name="role" select="$creator-ves/enum[.='editor']/@uri"/>
 					<xsl:with-param name="isSource" select="true()"/>
@@ -815,15 +784,15 @@
 			</xsl:for-each>
 			<!-- SECOND SOURCE IDENTIFIER -->
 			<xsl:if test="$Flavor = 'BGC'">
-					<xsl:if test="$identifier and fn:matches($identifier, '\d{4}-\d{4}')">
-						<xsl:comment>Creating new ISSN in second source</xsl:comment>
-						<xsl:for-each select="$identifier[ $refType = ('Book Section', 'Conference Paper') ]">
-							<dc:identifier>
-								<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
-								<xsl:value-of select="."/>
-							</dc:identifier>
-						</xsl:for-each>
-					</xsl:if>
+				<xsl:if test="$identifier and fn:matches($identifier, '\d{4}-\d{4}')">
+					<xsl:comment>Creating new ISSN in second source</xsl:comment>
+					<xsl:for-each select="$identifier[ $refType = ('Book Section', 'Conference Paper') ]">
+						<dc:identifier>
+							<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
+							<xsl:value-of select="."/>
+						</dc:identifier>
+					</xsl:for-each>
+				</xsl:if>
 			</xsl:if>
 			<!-- SECOND SOURCE VOLUME -->
 			<xsl:if test="N">
@@ -831,15 +800,12 @@
 					<xsl:value-of select="N"/>
 				</eterms:volume>
 			</xsl:if>
-			
 		</source:source>
 	</xsl:template>
 	<!-- END OF SECOND SOURCE -->
-	
 	<!-- CREATORS -->
 	<xsl:template name="createCreators">
 		<xsl:variable name="refType" select="normalize-space(NUM_0)"/>
-		
 		<xsl:for-each select="A|E|Y|QUESTION">
 			<xsl:if test="name(.)='A'">
 				<xsl:variable name="currentAuthorPosition" select="position()"/>
@@ -926,9 +892,7 @@
 	<xsl:template name="createPerson">
 		<xsl:param name="isSource"/>
 		<xsl:param name="pos" select="0"/>
-		
 		<xsl:variable name="person" select="AuthorDecoder:parseAsNode(.)/authors/author[1]"/>
-		
 		<xsl:choose>
 			<xsl:when test="$CoNE = 'false'">
 				<xsl:element name="person:person">
@@ -945,9 +909,7 @@
 				<xsl:variable name="additionalAuthorInformation" select="normalize-space(escidoc:get-part(../NUM_3, ',', $pos))"/>
 				<xsl:variable name="iris-id" select="substring-before(substring-after($additionalAuthorInformation, '-'), '-')"/>
 				<xsl:variable name="ou-id" select="substring-after(substring-after($additionalAuthorInformation, '-'), '-')"/>
-				<xsl:comment>
-					<xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/>
-				</xsl:comment>
+				<xsl:comment><xsl:value-of select="(substring-after($additionalAuthorInformation, '-') = '-')"/></xsl:comment>
 				<xsl:variable name="cone-creator">
 					<xsl:if test="$pos != 0 and not(substring-after($additionalAuthorInformation, '-') = '-')">
 						<xsl:if test="not(starts-with($additionalAuthorInformation, concat($pos, '-')))">
@@ -977,7 +939,8 @@
 							<xsl:if test="exists($ou-mapping-ice/unit[code = $ou-id])">
 								<organization:organization>
 									<dc:title>
-										<xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society</dc:title>
+										<xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/name_en"/>, MPI for Chemical Ecology, Max Planck Society
+									</dc:title>
 									<dc:identifier>
 										<xsl:value-of select="$ou-mapping-ice/unit[code = $ou-id]/escidoc_id"/>
 									</dc:identifier>
@@ -1048,16 +1011,18 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
-				
-				<xsl:comment>SEARCHING FOR OU-ID'<xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/id"/>'</xsl:comment>
-                <xsl:comment>GOT OU WITH TITLE: '<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/>'</xsl:comment>
+				<xsl:comment>SEARCHING FOR OU-ID' <xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/id"/>'</xsl:comment>
+				<xsl:comment>GOT OU WITH TITLE: '<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/>'</xsl:comment>
 				<xsl:comment><xsl:value-of select="$pos"/> = <xsl:value-of select="$institute-authors-positions/entry[pos = $pos]/pos"/></xsl:comment>
-				
 				<xsl:choose>
 					<xsl:when test="exists($institute-authors-positions/entry/pos) and $institute-authors-positions/entry/pos != '' and $institute-authors-positions/entry[pos = $pos]">
-						<xsl:variable name="ouExactName"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/></xsl:variable>
-						<xsl:variable name="ouId"><xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/></xsl:variable>
-						<xsl:comment>OUID<xsl:value-of select="$ouId"/></xsl:comment>
+						<xsl:variable name="ouExactName">
+							<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title"/>
+						</xsl:variable>
+						<xsl:variable name="ouId">
+							<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:identifier = $institute-authors-positions/entry[pos = $pos]/id]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
+						</xsl:variable>
+						<xsl:comment>OUID <xsl:value-of select="$ouId"/></xsl:comment>
 						<xsl:variable name="cone-creator">
 							<xsl:choose>
 								<xsl:when test="exists($ouExactName) and $ouExactName != ''">
@@ -1073,8 +1038,7 @@
 							<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>
 						</xsl:if>
 						<xsl:if test="exists($cone-creator/cone) and not(exists($cone-creator/cone/rdf:RDF/rdf:Description))">
-							<xsl:comment>
-								<xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/> not found in CoNE service!</xsl:comment>
+							<xsl:comment><xsl:value-of select="concat($person/familyname, ', ', $person/givenname)"/> not found in CoNE service!</xsl:comment>
 						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="exists($cone-creator/cone/rdf:RDF/rdf:Description)">
@@ -1194,7 +1158,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
-<!--	END OF CREATORS-->
+	<!-- END OF CREATORS-->
 	<xsl:template name="component">
 		<xsl:param name="oa" select="false()"/>
 		<xsl:variable name="suffix">
@@ -1211,7 +1175,8 @@
 					<xsl:value-of select="."/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="."/>.<xsl:value-of select="$suffix"/>
+					<xsl:value-of select="."/>.
+					<xsl:value-of select="$suffix"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -1219,7 +1184,8 @@
 			<xsl:value-of select="Util:getMimetype($filename)"/>
 		</xsl:variable>
 		<ec:component>
-			<ec:properties xmlns:xlink="http://www.w3.org/1999/xlink">
+			<ec:properties
+				xmlns:xlink="http://www.w3.org/1999/xlink">
 				<prop:visibility>
 					<xsl:choose>
 						<xsl:when test="$oa">public</xsl:when>
@@ -1247,9 +1213,16 @@
 				</prop:mime-type>
 			</ec:properties>
 			<ec:content xlink:type="simple" xlink:title="{.}.{$suffix}" xlink:href="{$fulltext-location}{$filename}" storage="internal-managed"/>
-			<mdr:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+			<mdr:md-records
+				xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 				<mdr:md-record name="escidoc">
-					<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:e="${xsd.metadata.escidocprofile.types}" xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+					<file:file
+						xmlns:file="${xsd.metadata.file}"
+						xmlns:dc="${xsd.metadata.dc}"
+						xmlns:dcterms="${xsd.metadata.dcterms}"
+						xmlns:e="${xsd.metadata.escidocprofile.types}"
+						xmlns:eidt="${xsd.metadata.escidocprofile.idtypes}"
+						xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<dc:title>
 							<xsl:value-of select="$filename"/>
 						</dc:title>

@@ -23,7 +23,7 @@
                   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <escidocItem:properties>
       <srel:context xlink:href="InsertAProperURI"/>
-      <srel:content-model xlink:href="escidoc:2001"/>
+      <srel:content-model xlink:href="InsertAProperURI"/>
       <srel:origin xlink:href="Pubman File-Import"/>
       <prop:content-model-specific>
          <local-tags>

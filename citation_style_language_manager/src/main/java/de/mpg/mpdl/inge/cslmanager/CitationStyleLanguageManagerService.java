@@ -27,12 +27,14 @@ public class CitationStyleLanguageManagerService {
 
   private static final String CITATION_PROCESSOR_OUTPUT_FORMAT = "html";
 
-  public static List<String> getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
+
+
+  public static List<String> getOutput(String citationStyle, String itemList) throws CitationStyleLanguageException {
     List<String> citationList = new ArrayList<String>();
 
     try {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
-      String citationStyle = CitationStyleLanguageUtils.loadStyleFromConeJsonUrl(exportFormat.getId());
+
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
 
       CSL citeproc = null;
@@ -76,16 +78,21 @@ public class CitationStyleLanguageManagerService {
     } catch (IOException e) {
       logger.error("Error creating CSL processor", e);
       throw new CitationStyleLanguageException("Error creating CSL processor", e);
-    } catch (TransformerConfigurationException e) {
-      logger.error("Error preparing transformation itemList to snippet", e);
-      throw new CitationStyleLanguageException("Error preparing transformation itemList to snippet", e);
-    } catch (TransformerException e) {
-      logger.error("Error transforming itemList to snippet", e);
-      throw new CitationStyleLanguageException("Error transforming itemList to snippet", e);
     } catch (Exception e) {
       logger.error("Error getting output", e);
       throw new CitationStyleLanguageException("Error getting output", e);
     }
   }
 
+  public static List<String> getOutput(ExportFormatVO exportFormat, String itemList) throws CitationStyleLanguageException {
+
+    String citationStyle;
+    try {
+      citationStyle = CitationStyleLanguageUtils.loadStyleFromConeJsonUrl(exportFormat.getId());
+    } catch (Exception e) {
+      throw new CitationStyleLanguageException("Error while getting citation style from cone", e);
+    }
+    return getOutput(citationStyle, itemList);
+
+  }
 }

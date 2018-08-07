@@ -146,7 +146,9 @@ public class TransformerFactoryTest {
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_DC_XML);
 
-    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
+    t.transform(
+        new TransformerStreamSource(
+            getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_component_public_pdf_v13.xml")),
         new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
@@ -161,7 +163,9 @@ public class TransformerFactoryTest {
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML);
 
-    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
+    t.transform(
+        new TransformerStreamSource(
+            getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_component_public_pdf_v13.xml")),
         new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
@@ -319,6 +323,7 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMabXmlToEscidocItem.xml");
   }
 
+  @Ignore
   @Test(expected = TransformationException.class)
   public void testMabXmlWrongLinkToItemXmlV3() throws TransformationException {
 

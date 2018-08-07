@@ -166,7 +166,7 @@ public class Util {
               detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             }
             //            ProxyHelper.executeMethod(client, detailMethod);
-            client.executeMethod(method);
+            client.executeMethod(detailMethod);
             logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
 
             if (detailMethod.getStatusCode() == 200) {

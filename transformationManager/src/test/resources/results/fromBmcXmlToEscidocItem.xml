@@ -23,7 +23,7 @@
                   xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization">
    <escidocItem:properties>
       <srel:context xlink:href="InsertAProperURI"/>
-      <srel:content-model xlink:href="escidoc:2001"/>
+      <srel:content-model xlink:href="dummy-content-model"/>
       <srel:origin xlink:href="Pubman File-Import"/>
       <prop:content-model-specific>
          <local-tags>

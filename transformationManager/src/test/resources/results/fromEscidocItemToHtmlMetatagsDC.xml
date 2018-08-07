@@ -17,24 +17,7 @@
       content="National Academy of Sciences" />
 <meta xmlns="http://www.w3.org/1999/xhtml" name="DC.identifier"
       content="urn:ISSN:0027-8424" />
-INFO  [de.mpg.mpdl.inge.transformation.TransformerFactoryTest] [main]: 
-
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.issued" content="2016" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.creator" content="Samuni, Liran" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.creator" content="Preis, Anna" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.creator" content="Mundry, Roger" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.creator"
-      content="Deschner, Tobias" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.creator"
-      content="Crockford, Catherine ǂ" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.creator"
-      content="Wittig, Roman M." />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.title"
-      content="Oxytocin reactivity during intergroup conflict in wild chimpanzees" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.language" content="eng" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.relation.ispartof"
-      content="Proceedings of the National Academy of Sciences of the United States of America" />
-<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.publisher"
-      content="National Academy of Sciences" />
 <meta xmlns="http://www.w3.org/1999/xhtml" name="DC.identifier"
-      content="urn:ISSN:0027-8424" />
+      content="${inge.pubman.instance.url}pubman/item/escidoc:2368787:2/component/escidoc:2297217/BGC2461.pdf" />
+<meta xmlns="http://www.w3.org/1999/xhtml" name="DC.identifier"
+      content="http://www.pnas.org/content/113/21/5768" />

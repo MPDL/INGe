@@ -24,8 +24,8 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   private static final String JOIN_FIELD_NAME = "joinField";
 
-  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort-metadata-creators-compound",
-      "sort-metadata-dates-by-category", "sort-metadata-dates-by-category-year"};
+  private static final String[] SOURCE_EXCLUSIONS = new String[] {"joinField.name", "sort-metadata-creators-first",
+      "sort-metadata-creators-compound", "sort-metadata-dates-by-category", "sort-metadata-dates-by-category-year"};
 
   public PubItemDaoImpl() {
     super(indexName, indexType, typeParameterClass);
@@ -36,7 +36,9 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
   protected JsonNode applyCustomValues(ItemVersionVO item) {
     ObjectNode node = (ObjectNode) super.applyCustomValues(item);
     node.putObject(JOIN_FIELD_NAME).put("name", "item");
-    node.put("sort-metadata-creators-compound", createSortCreatorsString(item));
+    String[] creatorStrings = createSortCreatorsString(item);
+    node.put("sort-metadata-creators-first", creatorStrings[0]);
+    node.put("sort-metadata-creators-compound", creatorStrings[1]);
     String firstDate = createSortMetadataDates(item);
     if (firstDate != null) {
       node.put("sort-metadata-dates-by-category", firstDate);
@@ -76,30 +78,36 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   }
 
-  private String createSortCreatorsString(ItemVersionVO item) {
-    StringBuilder sb = new StringBuilder();
+  private String[] createSortCreatorsString(ItemVersionVO item) {
+    StringBuilder sbCompound = new StringBuilder();
+    String first = null;
     if (item != null && item.getMetadata() != null && item.getMetadata().getCreators() != null) {
+      int i = 0;
       for (CreatorVO creator : item.getMetadata().getCreators()) {
         if (creator.getPerson() != null) {
           if (creator.getPerson().getFamilyName() != null) {
-            sb.append(creator.getPerson().getFamilyName());
+            sbCompound.append(creator.getPerson().getFamilyName());
           }
           if (creator.getPerson().getGivenName() != null) {
-            sb.append(" ");
-            sb.append(creator.getPerson().getGivenName());
+            sbCompound.append(" ");
+            sbCompound.append(creator.getPerson().getGivenName());
           }
 
         } else if (creator.getOrganization() != null) {
           if (creator.getOrganization().getName() != null) {
-            sb.append(creator.getOrganization().getName());
+            sbCompound.append(creator.getOrganization().getName());
           }
         }
 
-        sb.append(", ");
+        if (i == 0) {
+          first = sbCompound.toString();
+        }
+        sbCompound.append(", ");
+        i++;
       }
     }
 
-    return sb.toString();
+    return new String[] {first, sbCompound.toString()};
   }
 
 

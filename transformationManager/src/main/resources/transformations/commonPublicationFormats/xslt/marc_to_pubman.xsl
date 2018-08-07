@@ -545,7 +545,7 @@
 	<xsl:template name="local:make_organization-organization_from_x10_x11" as="element(organization:organization)" xml:id="make_organization-organization_from_x10_x11">
 		<xsl:call-template name="misc:make_organization-organization">
 			<xsl:with-param name="dc:title" as="element()">
-				<xsl:sequence select="misc:create_dc-title(            string-join(             (              local:subfield(., 'a')/normalize-space(.),              local:subfield(., 'b')/normalize-space(.)             )[normalize-space(.)],             '; '            )           )"/>
+				<xsl:sequence select="misc:create_dc-title( string-join( ( local:subfield(., 'a')/normalize-space(.), local:subfield(., 'b')/normalize-space(.) )[normalize-space(.)], '; ' ) )"/>
 			</xsl:with-param>
 			<xsl:with-param name="eterms:address" as="element()?">
 				<xsl:if test="local:subfield(., 'c')[normalize-space(.)]">
@@ -780,7 +780,7 @@
 	</xsl:function>
 	<xsl:function name="local:dc-rights" as="element(dc:rights)">
 		<xsl:param name="MARC_record" as="element(marc:record)"/>
-		<xsl:variable name="datafield-542-subfield-f" as="xs:string" select="string-join(          distinct-values(           local:datafield($MARC_record, '542')/local:subfield(., 'f')/normalize-space(.)[.]          ),          '; '         )"/>
+		<xsl:variable name="datafield-542-subfield-f" as="xs:string" select="string-join( distinct-values( local:datafield($MARC_record, '542')/local:subfield(., 'f')/normalize-space(.)[.] ), '; ' )"/>
 		<xsl:variable name="dc-rights-content" as="xs:string">
 			<xsl:choose>
 				<xsl:when test="$datafield-542-subfield-f">
@@ -802,7 +802,7 @@
 	</xsl:function>
 	<xsl:function name="local:dcterms-license" as="element(dcterms:license)">
 		<xsl:param name="MARC_record" as="element(marc:record)"/>
-		<xsl:variable name="datafield-540-subfield-a" as="xs:string" select="string-join(          distinct-values(           local:datafield($MARC_record, '540')/local:subfield(., 'a')/normalize-space(.)[.]          ),          '; '         )"/>
+		<xsl:variable name="datafield-540-subfield-a" as="xs:string" select="string-join( distinct-values( local:datafield($MARC_record, '540')/local:subfield(., 'a')/normalize-space(.)[.] ), '; ' )"/>
 		<xsl:variable name="dcterms-license-content" as="xs:string">
 			<xsl:choose>
 				<xsl:when test="$datafield-540-subfield-a">

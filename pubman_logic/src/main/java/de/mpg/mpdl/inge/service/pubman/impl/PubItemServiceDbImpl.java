@@ -217,6 +217,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
       "metadata.sources.creators.person.organizations.identifierPath";
 
+  public static String INDEX_FILE_OBJECT_ID = "files.objectId";
+
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
 
   public static String INDEX_FILE_VISIBILITY = "files.visibility";
@@ -224,6 +226,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_FILE_CONTENTCATEGORY = "files.metadata.contentCategory";
 
   public static String INDEX_FILE_STORAGE = "files.storage";
+
+  public static String INDEX_FILE_NAME = "files.name";
 
   public static String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
 

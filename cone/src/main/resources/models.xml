@@ -506,6 +506,29 @@ AND{&lt;http://purl.org/dc/elements/1.1/relation|http://purl.org/dc/elements/1.1
 	</model>
 	
 	<model>
+		<name>mpicc-projects</name>
+		<aliases>
+			<alias>mpicc-projects</alias>
+		</aliases>
+		<description>Project classification for MPI for Foreign and International Criminal Law </description>
+		<open>true</open>
+		<primary-identifier control="false" subject-prefix="mpicc-projects/resource/" generate-cone-id="false">http://purl.org/dc/elements/1.1/identifier</primary-identifier>
+		<predicates>
+			<predicate name="Code" value="http://purl.org/dc/elements/1.1/identifier" localized="false" mandatory="true" multiple="false" modify="true" searchable="true" restricted="false" shouldBeUnique="false"></predicate>
+			<predicate name="Title" value="http://purl.org/dc/elements/1.1/title" localized="false" mandatory="true" multiple="false" modify="true" restricted="false" searchable="true" shouldBeUnique="true"/>
+		</predicates>
+		<results>
+			<result>
+				<result-pattern>
+&lt;http://purl.org/dc/elements/1.1/identifier&gt;
+ - 
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+				</result-pattern>
+			</result>
+		</results>
+	</model>
+	
+	<model>
 		<name>jel</name>
 		<aliases>
 			<alias>jel</alias>

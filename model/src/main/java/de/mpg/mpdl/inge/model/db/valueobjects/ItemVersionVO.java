@@ -180,4 +180,47 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
     }
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = super.hashCode();
+    result = prime * result + ((files == null) ? 0 : files.hashCode());
+    result = prime * result + ((message == null) ? 0 : message.hashCode());
+    result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
+    result = prime * result + ((object == null) ? 0 : object.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (!super.equals(obj))
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ItemVersionVO other = (ItemVersionVO) obj;
+    if (files == null) {
+      if (other.files != null)
+        return false;
+    } else if (!files.equals(other.files))
+      return false;
+    if (message == null) {
+      if (other.message != null)
+        return false;
+    } else if (!message.equals(other.message))
+      return false;
+    if (metadata == null) {
+      if (other.metadata != null)
+        return false;
+    } else if (!metadata.equals(other.metadata))
+      return false;
+    if (object == null) {
+      if (other.object != null)
+        return false;
+    } else if (!object.equals(other.object))
+      return false;
+    return true;
+  }
+
 }

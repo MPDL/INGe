@@ -25,7 +25,7 @@
                           xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
                           xmlns:dcterms="http://purl.org/dc/terms/"
                           xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-                          objid="escidoc:2001"/>
+                          objid="dummy-content-model"/>
       <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
    </ei:properties>
    <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5">

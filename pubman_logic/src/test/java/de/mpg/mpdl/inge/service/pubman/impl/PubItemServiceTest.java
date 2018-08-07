@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import javax.persistence.EntityManager;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,7 @@ public class PubItemServiceTest extends TestBase {
 
 
   @Test
+  @Ignore
   public void createAndDeleteByAdmin() throws Exception {
 
     super.logMethodName();
@@ -157,6 +159,8 @@ public class PubItemServiceTest extends TestBase {
 
     assertTrue(itemVersionVO == null);
   }
+
+
 
   @Test
   public void getInvalidIdWithoutAuthentication() throws Exception {

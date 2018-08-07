@@ -32,8 +32,8 @@ public class ItemXmlToHtmlMetaTagsXml extends XslTransformer implements Chainabl
   public Map<String, Object> getParameters() throws TransformationException {
     Map<String, Object> map = new HashMap<String, Object>();
 
-    map.put("pubmanUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
+    map.put("pubmanInstanceUrl", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL));
+    map.put("pubmanContextPath", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH));
     map.put("pubmanComponentPattern", PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN));
 
     return map;

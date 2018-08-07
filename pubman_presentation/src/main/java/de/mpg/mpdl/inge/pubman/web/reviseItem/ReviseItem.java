@@ -52,6 +52,13 @@ public class ReviseItem extends FacesBean {
   }
 
   public String cancel() {
+    try {
+      FacesTools.getExternalContext()
+          .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
+    } catch (final IOException e) {
+      ReviseItem.logger.error("Could not redirect to View Item Page", e);
+    }
+
     return MyTasksRetrieverRequestBean.LOAD_QAWS;
   }
 

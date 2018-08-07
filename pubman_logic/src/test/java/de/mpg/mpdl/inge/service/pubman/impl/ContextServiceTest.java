@@ -14,6 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -23,6 +25,7 @@ import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ContextService;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogicTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,6 +35,9 @@ public class ContextServiceTest extends TestBase {
 
   @Autowired
   ContextService contextService;
+
+  @Autowired
+  OrganizationService organizationService;
 
   @Before
   public void setUp() throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
@@ -164,6 +170,13 @@ public class ContextServiceTest extends TestBase {
     contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_GROUPS);
     contextVO.getAllowedSubjectClassifications().add(SubjectClassification.MPIS_PROJECTS);
 
+    contextVO.setWorkflow(ContextDbVO.Workflow.SIMPLE);
+
+    List<AffiliationDbRO> affList = new ArrayList<>();
+    AffiliationDbRO aff = new AffiliationDbRO();
+    aff.setObjectId(ORG_OBJECTID_25);
+    affList.add(aff);
+    contextVO.setResponsibleAffiliations(affList);
 
     contextVO.setCreator(new AccountUserDbRO());
     contextVO.setName("Test Context");;

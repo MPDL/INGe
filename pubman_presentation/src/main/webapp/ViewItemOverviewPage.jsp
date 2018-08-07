@@ -219,12 +219,12 @@
                                     </h2>
                                     <ul>
                                         <ui:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
-                                            <h:panelGroup rendered="#{valitem.restrictive}">
+                                            <h:panelGroup rendered="#{valitem.severity == 'ERROR'}">
                                                 <li class="messageWarn">
                                                     <h:outputText value="#{msg[valitem.content]}" />
                                                 </li>
                                             </h:panelGroup>
-                                            <h:panelGroup rendered="#{!valitem.restrictive}">
+                                            <h:panelGroup rendered="#{valitem.severity != 'ERROR'}">
                                                 <li class="messageStatus">
                                                     <h:outputText value="#{msg[valitem.content]}" />
                                                 </li>
@@ -272,11 +272,6 @@
 										rendered="#{ViewItemFull.canViewLocalTags}">
 										<h:outputText
 											value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
-									</h:outputLink> <h:panelGroup styleClass="seperator" rendered="false" /> <h:outputLink
-										id="lnkCollaboratorPage" styleClass="free_area0"
-										value="#{ApplicationBean.appContext}CollaboratorPage.jsp"
-										rendered="false">
-										<h:outputText value="#{lbl.CollaboratorPage}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowItemLog}" /> <h:commandLink
 										id="lnkViewItemLogPage" styleClass="free_area0"

@@ -52,6 +52,7 @@ public class TestCitationStyleLanguageManager {
 
   private String escidocItemXml = null;
   private ExportFormatVO exportFormat;
+  private String citationXml;
 
   /**
    * initializing TestCitationStyleLanguageManager before tests run
@@ -61,7 +62,8 @@ public class TestCitationStyleLanguageManager {
   @Before
   public void init() throws Exception {
     BasicConfigurator.configure();
-    IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
+    this.citationXml =
+        IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_CITATION_STYLE), "UTF-8");
     this.escidocItemXml =
         IOUtils.toString(TestCitationStyleLanguageManager.class.getClassLoader().getResourceAsStream(PATH_ESCDOC_ITEM), "UTF-8");
     this.exportFormat = new ExportFormatVO("snippet", EXPORT_FORMAT_NAME);
@@ -95,7 +97,7 @@ public class TestCitationStyleLanguageManager {
    */
   @Test
   public void testDefaultImplementation() throws Exception {
-    String citationSnippet = CitationStyleLanguageManagerService.getOutput(this.exportFormat, this.escidocItemXml).get(0);
+    String citationSnippet = CitationStyleLanguageManagerService.getOutput(this.citationXml, this.escidocItemXml).get(0);
     assertEquals(
         "Walter, Matthias, Markus Haarländer, Franky S., - Testmann, G. Hoyden-Siedersleben, and J. C. Alonso. 2015. “CSL Test - Vortrag - Do Not Change!” Edited by Frank Demmig, Hideki ABE, Udo Stenzel, Shan Lu, Daniela Alic, Jana Wäldchen, and Collections, Max Planck Digital Library, Max Planck Gesellschaft. Translated by Martin Boosen. Directed by Michael Franke. <i>International Zoo Yearbook</i>. Habilitation Thesis presented at the EventTitel, EventOrt.",
         citationSnippet);

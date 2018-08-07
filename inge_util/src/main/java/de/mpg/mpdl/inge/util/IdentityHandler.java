@@ -98,8 +98,8 @@ public class IdentityHandler extends ShortContentHandler {
       this.length += attributes.getQName(i).length();
       result.append("=\"");
       this.length += 2;
-      result.append(escape(attributes.getValue(i)));
-      this.length += escape(attributes.getValue(i)).length();
+      result.append(XmlUtilities.escape(attributes.getValue(i)));
+      this.length += XmlUtilities.escape(attributes.getValue(i)).length();
       result.append("\"");
       this.length += 1;
     }
@@ -107,21 +107,7 @@ public class IdentityHandler extends ShortContentHandler {
     this.length += 1;
   }
 
-  /**
-   * Returns an XML-escaped String that can be used for writing an XML.
-   * 
-   * @param input A string
-   * @return The XML-escaped string
-   */
-  public String escape(String input) {
-    if (input != null) {
-      input = input.replace("&", "&amp;");
-      input = input.replace("<", "&lt;");
-      input = input.replace("\"", "&quot;");
-    }
 
-    return input;
-  }
 
   /**
    * {@inheritDoc}
@@ -129,8 +115,8 @@ public class IdentityHandler extends ShortContentHandler {
   @Override
   public void content(String uri, String localName, String name, String content) throws SAXException {
     super.content(uri, localName, name, content);
-    result.append(escape(content));
-    this.length += escape(content).length();
+    result.append(XmlUtilities.escape(content));
+    this.length += XmlUtilities.escape(content).length();
   }
 
   /**

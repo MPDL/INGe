@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:misc="http://www.editura.de/ns/2012/misc" xmlns:tools="http://www.editura.de/ns/2012/tools" xmlns:local="http://www.editura.de/ns/2012/local" xmlns:dc="${xsd.metadata.dc}" xmlns:dcterms="${xsd.metadata.dcterms}" xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}" xmlns:eterms="${xsd.metadata.escidocprofile.types}" xmlns:event="${xsd.metadata.event}" xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/" xmlns:organization="${xsd.metadata.organization}" xmlns:person="${xsd.metadata.person}" xmlns:prop="${xsd.soap.common.prop}" xmlns:publication="${xsd.metadata.publication}" xmlns:source="${xsd.metadata.source}" xmlns:srel="${xsd.soap.common.srel}" xmlns:bmc="http://www.biomedcentral.com/xml/schemas/" exclude-result-prefixes="xsl xs xd xhtml saxon misc local" version="2.0">
+<xsl:stylesheet
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:saxon="http://saxon.sf.net/"
+	xmlns:misc="http://www.editura.de/ns/2012/misc"
+	xmlns:tools="http://www.editura.de/ns/2012/tools"
+	xmlns:local="http://www.editura.de/ns/2012/local"
+	xmlns:dc="${xsd.metadata.dc}"
+	xmlns:dcterms="${xsd.metadata.dcterms}"
+	xmlns:escidocComponents="${xsd.soap.item.components}"
+	xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}"
+	xmlns:escidocMetadataRecords="${xsd.soap.common.metadatarecords}"
+	xmlns:eterms="${xsd.metadata.escidocprofile.types}"
+	xmlns:event="${xsd.metadata.event}"
+	xmlns:eves="http://purl.org/escidoc/metadata/ves/0.1/"
+	xmlns:organization="${xsd.metadata.organization}"
+	xmlns:person="${xsd.metadata.person}"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:publication="${xsd.metadata.publication}"
+	xmlns:source="${xsd.metadata.source}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:bmc="http://www.biomedcentral.com/xml/schemas/" exclude-result-prefixes="xsl xs xd xhtml saxon misc local" version="2.0">
 	<xsl:import href="mapping_commons.xsl"/>
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	<xsl:param name="Files_to_Import" as="xs:string?">both</xsl:param>
@@ -939,10 +963,10 @@
 				<xsl:call-template name="misc:make_person-person">
 					<xsl:with-param name="eterms:complete-name" select="misc:create_eterms-complete-name(*:fnm, *:mi, *:mnm, *:snm, *:suf)"/>
 					<xsl:with-param name="eterms:family-name" as="element()?">
-						<xsl:sequence select="misc:create_eterms-family-name(                 normalize-space(                    concat(                     local:string(*:snm, false()), ' ',                     local:string(*:suf, false())                 ) ) )"/>
+						<xsl:sequence select="misc:create_eterms-family-name( normalize-space( concat( local:string(*:snm, false()), ' ', local:string(*:suf, false()) ) ) )"/>
 					</xsl:with-param>
 					<xsl:with-param name="eterms:given-name" as="element()?">
-						<xsl:sequence select="misc:create_eterms-given-name(                normalize-space(                   concat(                    local:string(*:fnm, false() ), ' ' ,                    local:string(*:mi, false() ) , ' ',                    local:string(*:mnm, false() )             ) ) )"/>
+						<xsl:sequence select="misc:create_eterms-given-name( normalize-space( concat( local:string(*:fnm, false() ), ' ' , local:string(*:mi, false() ) , ' ', local:string(*:mnm, false() ) ) ) )"/>
 					</xsl:with-param>
 					<xsl:with-param name="organization:organization" as="element()*">
 						<xsl:for-each select="*:insr">
@@ -967,7 +991,8 @@
 			<xsl:otherwise>
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">WARN</xsl:with-param>
-					<xsl:with-param name="message">[bmc_to_pubman.xsl#match-art-fm-bibl] *:art/*:fm/*:bibl without *:source and *:supplement, could not create source:source @ID <xsl:sequence select="ancestor::*:art/*:ui"/>
+					<xsl:with-param name="message">[bmc_to_pubman.xsl#match-art-fm-bibl] *:art/*:fm/*:bibl without *:source and *:supplement, could not create source:source @ID 
+						<xsl:sequence select="ancestor::*:art/*:ui"/>
 					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
@@ -1243,7 +1268,9 @@
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
-					<xsl:with-param name="message">[bmc_to_pubman.xsl#match-ji] did not recognize type of *:ji (Journal-ID) »<xsl:sequence select="."/>«</xsl:with-param>
+					<xsl:with-param name="message">[bmc_to_pubman.xsl#match-ji] did not recognize type of *:ji (Journal-ID) »
+						<xsl:sequence select="."/>«
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -1271,7 +1298,7 @@
 			</misc:root>
 		</xsl:variable>
 		<xsl:variable name="temp-result" as="xs:string*">
-			<xsl:sequence select="string-join(             for $i in tokenize($strings, '\n')[normalize-space(.)]              return normalize-space($i),             '&#xA;'           )"/>
+			<xsl:sequence select="string-join( for $i in tokenize($strings, '\n')[normalize-space(.)] return normalize-space($i), '&#xA;' )"/>
 		</xsl:variable>
 		<xsl:choose>
 			<xsl:when test="not(normalize-space(string-join($temp-result, '')) )"/>
@@ -1290,7 +1317,7 @@
 		<xsl:apply-templates mode="#current"/>
 		<xsl:text>&#xa;</xsl:text>
 	</xsl:template>
-	<xsl:template match="*:it|*:b|*:smcaps|*:ul|*:url|*:email|*:a|*:inline-formula|*:aff|*:abbr|   *:abbrgrp|*:tblr|*:figr|*:formr|*:supplr|*:monospace|*:xrefart|*:xfigr|*:xtblr|*:xsupplr|*:ext-link|*:aur|*:schemer|*:display-formula|*:endnoter|   *:fnm|*:mi|*:mnm|*:snm|*:suf   " as="text()*" mode="TextOnly" xml:id="textonly-match-it">
+	<xsl:template match="*:it|*:b|*:smcaps|*:ul|*:url|*:email|*:a|*:inline-formula|*:aff|*:abbr| *:abbrgrp|*:tblr|*:figr|*:formr|*:supplr|*:monospace|*:xrefart|*:xfigr|*:xtblr|*:xsupplr|*:ext-link|*:aur|*:schemer|*:display-formula|*:endnoter| *:fnm|*:mi|*:mnm|*:snm|*:suf " as="text()*" mode="TextOnly" xml:id="textonly-match-it">
 		<xsl:apply-templates mode="#current"/>
 	</xsl:template>
 	<xsl:template match="*:sub|*:sup" as="text()*" mode="TextOnly" xml:id="textonly-match-sup">
@@ -1308,12 +1335,16 @@
 	</xsl:template>
 	<xsl:template match="*:st/*:p[ancestor::*:abs][normalize-space(.) eq 'Abstract']" as="item()*" mode="TextOnly" xml:id="textonly-match-st-abs"/>
 	<xsl:template match="text()" as="text()" mode="TextOnly" xml:id="textonly-match-text">
-		<xsl:value-of select="concat(          if (matches(., '^\s') ) then ' ' else '',          normalize-space(.),          if (normalize-space(.) and matches(., '\s$') ) then ' ' else ()         )"/>
+		<xsl:value-of select="concat( if (matches(., '^\s') ) then ' ' else '', normalize-space(.), if (normalize-space(.) and matches(., '\s$') ) then ' ' else () )"/>
 	</xsl:template>
 	<xsl:template match="*" mode="#all" as="node()?" xml:id="match-all">
 		<xsl:call-template name="misc:message">
 			<xsl:with-param name="level">INFO</xsl:with-param>
-			<xsl:with-param name="message">[bmc_to_pubman.xsl#match-all]<xsl:if test="function-available('saxon:current-mode-name')">[Mode: <xsl:sequence select="saxon:current-mode-name()" use-when="function-available('saxon:current-mode-name')"/>]</xsl:if>unexpected element, no matching template found</xsl:with-param>
+			<xsl:with-param name="message">[bmc_to_pubman.xsl#match-all]
+				<xsl:if test="function-available('saxon:current-mode-name')">[Mode: 
+					<xsl:sequence select="saxon:current-mode-name()" use-when="function-available('saxon:current-mode-name')"/>]
+				</xsl:if>unexpected element, no matching template found
+			</xsl:with-param>
 			<xsl:with-param name="show-context" select="true()"/>
 		</xsl:call-template>
 	</xsl:template>
@@ -1333,7 +1364,7 @@
 		<xsl:variable name="temp" as="xs:string*">
 			<xsl:for-each select="/*:art/*:bdy//*:sec/*:st">
 				<xsl:variable name="temp2" as="xs:string*" select="local:string(., false())"/>
-				<xsl:sequence select="concat(             string-join(for $i in 2 to count(ancestor::*:sec) return '  ', ''),             normalize-space(string-join($temp2, '') ),             '&#xA;'            )"/>
+				<xsl:sequence select="concat( string-join(for $i in 2 to count(ancestor::*:sec) return '  ', ''), normalize-space(string-join($temp2, '') ), '&#xA;' )"/>
 			</xsl:for-each>
 		</xsl:variable>
 		<xsl:sequence select="misc:create_dcterms-tableOfContents(string-join($temp, '') )"/>
@@ -1351,7 +1382,10 @@
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
-					<xsl:with-param name="message">[bmc_to_pubman.xsl#local:escidoc_genre-from-bmc_dochead] no mapping for »<xsl:sequence select="$dochead"/>«, used »<xsl:value-of select="$default-result"/>«</xsl:with-param>
+					<xsl:with-param name="message">[bmc_to_pubman.xsl#local:escidoc_genre-from-bmc_dochead] no mapping for »
+						<xsl:sequence select="$dochead"/>«, used »
+						<xsl:value-of select="$default-result"/>«
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -1387,7 +1421,9 @@
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">INFO</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
-					<xsl:with-param name="message">[bmc_to_pubman.xsl#local:escidoc_genre-from-bmc_bibl()] no matching rule, used »<xsl:value-of select="$default-result"/>«</xsl:with-param>
+					<xsl:with-param name="message">[bmc_to_pubman.xsl#local:escidoc_genre-from-bmc_bibl()] no matching rule, used »
+						<xsl:value-of select="$default-result"/>«
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -1401,7 +1437,7 @@
 		<xsl:variable name="year" as="xs:integer" select="if ($date/*:year castable as xs:integer) then xs:integer($date/*:year) else 0"/>
 		<xsl:variable name="month" as="xs:integer" select="if ($date/*:month castable as xs:integer) then xs:integer($date/*:month) else 0"/>
 		<xsl:variable name="day" as="xs:integer" select="if ($date/*:day castable as xs:integer) then xs:integer($date/*:day) else 0"/>
-		<xsl:variable name="temp" as="xs:string" select="string-join(                   (                    format-number($year, '0000'),                    format-number($month, '00'),                    format-number($day, '00')                   ),                   '-')"/>
+		<xsl:variable name="temp" as="xs:string" select="string-join( ( format-number($year, '0000'), format-number($month, '00'), format-number($day, '00') ), '-')"/>
 		<xsl:choose>
 			<xsl:when test="$temp castable as xs:date">
 				<xsl:sequence select="$temp"/>
@@ -1442,7 +1478,9 @@
 						<xsl:call-template name="misc:message">
 							<xsl:with-param name="level">WARN</xsl:with-param>
 							<xsl:with-param name="show-context" select="false()"/>
-							<xsl:with-param name="message">[bmc_to_pubman.xsl#local:ui-to-bmc-uri()] can't construct BMC-URL from UI »<xsl:value-of select="$ui"/>«</xsl:with-param>
+							<xsl:with-param name="message">[bmc_to_pubman.xsl#local:ui-to-bmc-uri()] can't construct BMC-URL from UI »
+								<xsl:value-of select="$ui"/>«
+							</xsl:with-param>
 						</xsl:call-template>
 					</xsl:otherwise>
 				</xsl:choose>
@@ -1452,7 +1490,9 @@
 				<xsl:call-template name="misc:message">
 					<xsl:with-param name="level">ERROR</xsl:with-param>
 					<xsl:with-param name="show-context" select="false()"/>
-					<xsl:with-param name="message">[bmc_to_pubman.xsl#local:ui-to-bmc-uri()] wrong type »<xsl:value-of select="$type"/>« required, type should be "html", "xml" or "pdf"</xsl:with-param>
+					<xsl:with-param name="message">[bmc_to_pubman.xsl#local:ui-to-bmc-uri()] wrong type »
+						<xsl:value-of select="$type"/>« required, type should be "html", "xml" or "pdf"
+					</xsl:with-param>
 				</xsl:call-template>
 			</xsl:otherwise>
 		</xsl:choose>
