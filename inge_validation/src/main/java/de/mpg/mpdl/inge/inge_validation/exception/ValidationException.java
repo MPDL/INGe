@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.inge_validation.exception;
 
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 
 @SuppressWarnings("serial")
@@ -13,5 +14,16 @@ public class ValidationException extends Exception {
 
   public ValidationReportVO getReport() {
     return this.report;
+  }
+
+  public String getMessage() {
+    StringBuilder sb = new StringBuilder();
+    if (report != null) {
+      for (ValidationReportItemVO item : report.getItems()) {
+        sb.append(item.toString());
+        sb.append(" ");
+      }
+    }
+    return sb.toString();
   }
 }
