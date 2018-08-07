@@ -85,7 +85,7 @@ public class OaiRestController {
         String s;
         try {
           s = XmlTransformingService.transformToItem(pubItemVO);
-          OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion().getObjectIdAndVersion() + ".xml");
+          OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), pubItemVO.getVersion().getObjectId() + ".xml");
           countSuccess++;
         } catch (Exception e) {
           countFailure++;

@@ -21,7 +21,7 @@ public class OaiPmhItemChangeListener {
   public void createOrUpdateOai(ItemVersionVO item) {
     try {
       String s = XmlTransformingService.transformToItem(EntityTransformer.transformToOld(item));
-      OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), item.getObjectIdAndVersion() + ".xml");
+      OaiFileTools.createFile(new ByteArrayInputStream(s.getBytes()), item.getObjectId() + ".xml");
     } catch (Exception e) {
       logger.error("Error while creating OAI-PMH file for " + item.getObjectId(), e);
 
@@ -31,7 +31,7 @@ public class OaiPmhItemChangeListener {
   @JmsListener(containerFactory = "topicContainerFactory", destination = "items-topic", selector = "method='delete' OR method='withdraw'")
   public void deleteOai(ItemVersionVO item) {
     try {
-      OaiFileTools.deleteFile(item.getObjectIdAndVersion() + ".xml");
+      OaiFileTools.deleteFile(item.getObjectId() + ".xml");
     } catch (Exception e) {
       logger.error("Error while creating OAI-PMH file for " + item.getObjectId(), e);
 
