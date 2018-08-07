@@ -121,6 +121,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     SearchSourceBuilder ssb = new SearchSourceBuilder();
     ssb.docValueField(INDEX_OBJECT_ID);
     ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
+    ssb.size(100);
 
     SearchResponse resp = null;
     List<SearchHit> listHits = new ArrayList<SearchHit>();
