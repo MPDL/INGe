@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
+import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -40,7 +41,7 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
                 if (ValidationTools.isEmpty(p.getFamilyName())) {
 
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED)
-                      .setField("source[" + i + "].creator[" + j + "]"));
+                      .setField("source[" + i + "].creator[" + j + "]").setErrorCode(Validation.WARNING));
 
                   ok = false;
 
@@ -49,7 +50,7 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
                 if (ValidationTools.isEmpty(p.getGivenName())) {
 
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED)
-                      .setField("source[" + i + "].creator[" + j + "]"));
+                      .setField("source[" + i + "].creator[" + j + "]").setErrorCode(Validation.WARNING));
 
                   ok = false;
 

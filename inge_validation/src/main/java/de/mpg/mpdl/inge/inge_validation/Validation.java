@@ -59,6 +59,9 @@ public class Validation {
 
   private static final Logger logger = Logger.getLogger(Validation.class);
 
+  public static final int ERROR = 0; // DEFAULT
+  public static final int WARNING = 1;
+
   public Validation() {}
 
   public void validate(final ItemVersionVO pubItemVO, ValidationPoint validationPoint)
@@ -297,7 +300,8 @@ public class Validation {
 
     if (complexResult.isSuccess() == false) {
       for (final ValidationError error : complexResult.getErrors()) {
-        final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(), ValidationReportItemVO.Severity.ERROR);
+        final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
+            (error.getErrorCode() == Validation.WARNING ? ValidationReportItemVO.Severity.WARNING : ValidationReportItemVO.Severity.ERROR));
         item.setElement(error.getField());
         v.addItem(item);
       }

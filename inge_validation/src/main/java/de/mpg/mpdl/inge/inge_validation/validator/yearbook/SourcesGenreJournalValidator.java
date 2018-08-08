@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
+import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -27,7 +28,8 @@ public class SourcesGenreJournalValidator extends ValidatorHandler<List<SourceVO
 
           if (!SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setField("source[" + i + "]")
+                .setErrorCode(Validation.WARNING));
 
             ok = false;
 

@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
+import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -30,7 +31,8 @@ public class SourcesSequenceInfomationValidator extends ValidatorHandler<List<So
               || ValidationTools.isNotEmpty(sourceVO.getSequenceNumber()) && ValidationTools.isNotEmpty(sourceVO.getStartPage())
                   && ValidationTools.isNotEmpty(sourceVO.getEndPage())) {
 
-            context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN).setField("source[" + i + "]")
+                .setErrorCode(Validation.WARNING));
 
             ok = false;
 

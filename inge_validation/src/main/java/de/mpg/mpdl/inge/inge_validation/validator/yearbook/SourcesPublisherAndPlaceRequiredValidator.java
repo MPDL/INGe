@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
+import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
@@ -30,7 +31,8 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           if (p == null || ValidationTools.isEmpty(p.getPublisher())) {
 
-            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField("source[" + i + "]")
+                .setErrorCode(Validation.WARNING));
 
             ok = false;
 
@@ -38,7 +40,8 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           if (p != null && ValidationTools.isEmpty(p.getPlace())) {
 
-            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setField("source[" + i + "]")
+                .setErrorCode(Validation.WARNING));
 
             ok = false;
 

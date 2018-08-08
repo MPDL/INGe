@@ -7,6 +7,7 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
+import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -33,8 +34,8 @@ public class SourcesCreatorsRoleValidator extends ValidatorHandler<List<SourceVO
                 || !CreatorVO.CreatorRole.AUTHOR.equals(creatorVO.getRole()) //
                     && !CreatorVO.CreatorRole.EDITOR.equals(creatorVO.getRole()))) {
 
-              context.addError(
-                  ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_INVALID).setField("source[" + i + "].creator[" + j + "]"));
+              context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_INVALID)
+                  .setField("source[" + i + "].creator[" + j + "]").setErrorCode(Validation.WARNING));
 
               ok = false;
 

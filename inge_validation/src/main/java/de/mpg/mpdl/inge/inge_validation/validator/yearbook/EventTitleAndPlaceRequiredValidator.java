@@ -1,9 +1,11 @@
 package de.mpg.mpdl.inge.inge_validation.validator.yearbook;
 
+import com.baidu.unbiz.fluentvalidator.ValidationError;
 import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
+import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
@@ -18,14 +20,14 @@ public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventV
     if (e != null) {
 
       if (ValidationTools.isEmpty(e.getTitle())) {
-        context.addErrorMsg(ErrorMessages.EVENT_TITLE_REQUIRED);
+        context.addError(ValidationError.create(ErrorMessages.EVENT_TITLE_REQUIRED).setErrorCode(Validation.WARNING));
 
         ok = false;
 
       } // if
 
       if (ValidationTools.isEmpty(e.getPlace())) {
-        context.addErrorMsg(ErrorMessages.EVENT_PLACE_REQUIRED);
+        context.addError(ValidationError.create(ErrorMessages.EVENT_PLACE_REQUIRED).setErrorCode(Validation.WARNING));
 
         ok = false;
 

@@ -16,6 +16,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -383,18 +384,22 @@ public class YearbookItemSessionBean extends FacesBean {
       for (final PubItemVOPresentation pubItem : pubItemList) {
         final boolean valid = this.validateItem(pubItem);
         if (!valid) {
-          this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1", "\"" + pubItem.getMetadata().getTitle() + "\""));
-          allValid = false;
+          final YearbookInvalidItemRO invItem = this.invalidItemMap.get(pubItem.getObjectId());
+          for (ValidationReportItemVO validationReportItemVO : invItem.getValidationReport().getItems()) {
+            if (validationReportItemVO.getSeverity() == ValidationReportItemVO.Severity.ERROR) {
+              this.error(this.getMessage("Yearbook_ItemInvalid").replaceAll("\\$1", "\"" + pubItem.getMetadata().getTitle() + "\""));
+              allValid = false;
+            }
+          }
         }
       }
+
       if (!allValid) {
         this.error(this.getMessage("Yearbook_SubmitError"));
       } else {
-
         YearbookDbVO updatedYb = ApplicationBean.INSTANCE.getYearbookService().submit(this.yearbook.getObjectId(),
             this.yearbook.getLastModificationDate(), getLoginHelper().getAuthenticationToken());
         this.setYearbook(updatedYb);
-
         this.info(this.getMessage("Yearbook_SubmittedSuccessfully"));
 
         return "loadYearbookModeratorPage";
@@ -403,7 +408,6 @@ public class YearbookItemSessionBean extends FacesBean {
       this.error(this.getMessage("Yearbook_SubmitError"));
       YearbookItemSessionBean.logger.error("Could not submit Yearbook Item", e);
     }
-
 
     return "";
   }
