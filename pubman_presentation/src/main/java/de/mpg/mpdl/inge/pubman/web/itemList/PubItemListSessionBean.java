@@ -88,39 +88,42 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   public static enum SORT_CRITERIA
   {
     // Use dummy value "score" for default sorting
-    RELEVANCE("", SortOrder.DESC),
+    RELEVANCE("", SortOrder.DESC, false),
 
-    TITLE(PubItemServiceDbImpl.INDEX_METADATA_TITLE, SortOrder.ASC),
+    MODIFICATION_DATE(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC, false),
 
-    GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE,
-        PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC),
+    CREATION_DATE(PubItemServiceDbImpl.INDEX_CREATION_DATE, SortOrder.ASC, false),
 
-    DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_CATEGORY_SORT, SortOrder.DESC), //
+    TITLE(PubItemServiceDbImpl.INDEX_METADATA_TITLE, SortOrder.ASC, false),
 
-    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC),
+    GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE, PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC, false),
 
-    PUBLISHING_INFO(new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION} , SortOrder.ASC), //
+    DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_CATEGORY_SORT, SortOrder.DESC, false), //
 
-    MODIFICATION_DATE(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE, SortOrder.DESC),
+    CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC, false),
 
-    EVENT_TITLE(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE, SortOrder.ASC),
+    PUBLISHING_INFO(
+        new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID,
+            PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION},
+        SortOrder.ASC, false), //
 
-    SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SortOrder.ASC),
+    EVENT_TITLE(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE, SortOrder.ASC, false),
+
+    SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SortOrder.ASC, false),
 
     /*
     SOURCE_CREATOR(new String[] {
         PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME,
         PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME}, SortOrder.ASC), //
-*/
-    REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SortOrder.ASC), // ,
+    */
+    REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SortOrder.ASC, false), // ,
 
-    CREATION_DATE(PubItemServiceDbImpl.INDEX_CREATION_DATE, SortOrder.ASC),
 
-    STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SortOrder.ASC),
+    STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SortOrder.ASC, true),
 
     //OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
 
-    COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SortOrder.ASC);
+    COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SortOrder.ASC, true);
 
   /**
    * The search sorting index
@@ -128,21 +131,24 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   private String[] index;
 
 
+  private boolean showOnlyForLoggedIn = false;
   /**
    * An additional attribute indicating the default sort order ("ascending" or "descending")
    */
   private SortOrder sortOrder;
 
-  SORT_CRITERIA(String index, SortOrder sortOrder) {
+  SORT_CRITERIA(String index, SortOrder sortOrder, boolean showForLoggedIn) {
       this.index = new String[] {index};
       this.sortOrder = sortOrder;
+      this.showOnlyForLoggedIn = showForLoggedIn;
     }
 
 
 
-  SORT_CRITERIA(String[] index, SortOrder sortOrder) {
+  SORT_CRITERIA(String[] index, SortOrder sortOrder, boolean showForLoggedIn) {
       this.index = index;
       this.sortOrder = sortOrder;
+      this.showOnlyForLoggedIn = showForLoggedIn;
     }
 
   /**
@@ -500,21 +506,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   public List<SelectItem> getSortBySelectItems() {
     this.sortBySelectItems = new ArrayList<SelectItem>();
 
-    // the last three should not be in if not logged in
-    if (!this.getLoginHelper().isLoggedIn()) {
-      for (int i = 0; i < SORT_CRITERIA.values().length - 3; i++) {
-        final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
+    for (SORT_CRITERIA sc : SORT_CRITERIA.values()) {
 
+      if (!sc.showOnlyForLoggedIn || (sc.showOnlyForLoggedIn && this.getLoginHelper().isLoggedIn())) {
         this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_" + sc.name())));
-      }
-
-    } else {
-      for (int i = 0; i < SORT_CRITERIA.values().length; i++) {
-        final SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
-        // only add if index/sorting path is available
-
-        this.sortBySelectItems.add(new SelectItem(sc.name(), this.getLabel("ENUM_CRITERIA_" + sc.name())));
-
       }
     }
 
