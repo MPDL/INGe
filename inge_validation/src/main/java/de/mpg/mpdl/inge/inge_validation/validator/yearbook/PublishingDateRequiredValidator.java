@@ -5,7 +5,6 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
-import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
@@ -17,7 +16,7 @@ public class PublishingDateRequiredValidator extends ValidatorHandler<MdsPublica
 
     if (ValidationTools.isEmpty(m.getDatePublishedOnline()) //
         && ValidationTools.isEmpty(m.getDatePublishedInPrint())) {
-      context.addError(ValidationError.create(ErrorMessages.PUBLISHING_DATE_NOT_PROVIDED).setErrorCode(Validation.ERROR));
+      context.addError(ValidationError.create(ErrorMessages.PUBLISHING_DATE_NOT_PROVIDED).setErrorCode(ErrorMessages.ERROR));
 
       return false;
 

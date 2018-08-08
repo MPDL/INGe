@@ -13,6 +13,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
+import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDataRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDateFormatValidator;
@@ -58,9 +59,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 public class Validation {
 
   private static final Logger logger = Logger.getLogger(Validation.class);
-
-  public static final int ERROR = 0; // DEFAULT
-  public static final int WARNING = 1;
 
   public Validation() {}
 
@@ -301,7 +299,8 @@ public class Validation {
     if (complexResult.isSuccess() == false) {
       for (final ValidationError error : complexResult.getErrors()) {
         final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
-            (error.getErrorCode() == Validation.WARNING ? ValidationReportItemVO.Severity.WARNING : ValidationReportItemVO.Severity.ERROR));
+            (error.getErrorCode() == ErrorMessages.WARNING ? ValidationReportItemVO.Severity.WARNING
+                : ValidationReportItemVO.Severity.ERROR));
         item.setElement(error.getField());
         v.addItem(item);
       }

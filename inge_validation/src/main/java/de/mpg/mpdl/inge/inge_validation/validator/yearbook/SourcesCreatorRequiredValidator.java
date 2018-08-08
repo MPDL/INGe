@@ -7,7 +7,6 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
-import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -27,7 +26,7 @@ public class SourcesCreatorRequiredValidator extends ValidatorHandler<List<Sourc
         if (ValidationTools.isEmpty(sourceVO.getCreators())) {
 
           context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_NOT_PROVIDED).setField("source[" + i + "]")
-              .setErrorCode(Validation.WARNING));
+              .setErrorCode(ErrorMessages.WARNING));
 
           return false;
 

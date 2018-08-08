@@ -7,7 +7,6 @@ import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 
-import de.mpg.mpdl.inge.inge_validation.Validation;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
@@ -29,7 +28,7 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
     if (ValidationTools.isNotEmpty(creators)) {
 
       if (this.childsOfMPG.size() == 0) {
-        context.addError(ValidationError.create(ErrorMessages.EMPTY_CHILDS_OF_MPG).setErrorCode(Validation.ERROR));
+        context.addError(ValidationError.create(ErrorMessages.EMPTY_CHILDS_OF_MPG).setErrorCode(ErrorMessages.ERROR));
         return false;
       }
 
@@ -80,7 +79,7 @@ public class CreatorsMaxPlanckAffiliationValidator extends ValidatorHandler<List
 
       } // for
 
-      context.addError(ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setErrorCode(Validation.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.NO_MAX_PLANCK_AFFILIATION).setErrorCode(ErrorMessages.WARNING));
       return false;
 
     } // if
