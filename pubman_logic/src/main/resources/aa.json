@@ -69,9 +69,7 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				},
-				"item.versionState" : ["PENDING", "IN_REVISION"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED"]
+				}
 			},			{
 				"user" : {
 					"field_user_id_match" : "item.object.creator.objectId"
@@ -220,8 +218,7 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"ou.hasChildren" : "false",
-				"ou.publicStatus" : "CREATED"
+				"ou.hasChildren" : "false"
 				
 			}
 		],
@@ -235,7 +232,7 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"ou.publicStatus" : "CREATED"
+				"ou.publicStatus" : ["CREATED", "CLOSED"]
 			}
 		],
 		"close" : [
@@ -288,7 +285,7 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"context.state" : "CREATED"
+				"context.state" : ["CREATED", "CLOSED"]
 			}
 		],
 		"close" : [
