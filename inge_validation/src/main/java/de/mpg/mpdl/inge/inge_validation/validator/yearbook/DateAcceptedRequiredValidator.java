@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.inge_validation.validator.yearbook;
 
+import com.baidu.unbiz.fluentvalidator.ValidationError;
 import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
 import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
@@ -15,7 +16,7 @@ public class DateAcceptedRequiredValidator extends ValidatorHandler<MdsPublicati
 
     if (ValidationTools.isEmpty(m.getDateAccepted())) {
 
-      context.addErrorMsg(ErrorMessages.DATE_ACCEPTED_NOT_PROVIDED);
+      context.addError(ValidationError.create(ErrorMessages.DATE_ACCEPTED_NOT_PROVIDED).setErrorCode(ErrorMessages.ERROR));
 
       return false;
 

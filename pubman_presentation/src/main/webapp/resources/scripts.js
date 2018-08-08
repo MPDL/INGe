@@ -264,7 +264,7 @@ function showCollectionDescription()
 */
 /**
  * Allow only numbers, "-" and "v" and "c" (for copy and pasting with strg-c and strg-v) for dte fields.
- * @author Thomas Dieb�cker
+ * @author Thomas Diebäcker
  */
 /*
 function restrictDateEntry(e)

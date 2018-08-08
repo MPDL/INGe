@@ -25,7 +25,8 @@ public class SourcesCreatorRequiredValidator extends ValidatorHandler<List<Sourc
 
         if (ValidationTools.isEmpty(sourceVO.getCreators())) {
 
-          context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_NOT_PROVIDED).setField("source[" + i + "]"));
+          context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_NOT_PROVIDED).setField("source[" + i + "]")
+              .setErrorCode(ErrorMessages.WARNING));
 
           return false;
 

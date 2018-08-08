@@ -27,8 +27,8 @@ public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceV
 
           if (ValidationTools.isEmpty(sourceVO.getTitle())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED).setField("source[" + i + "]"));
-
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED).setField("source[" + i + "]")
+                .setErrorCode(ErrorMessages.WARNING));
             ok = false;
 
           } // if

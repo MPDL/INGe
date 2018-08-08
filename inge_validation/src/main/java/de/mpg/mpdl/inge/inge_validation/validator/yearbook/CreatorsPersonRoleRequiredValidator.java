@@ -35,7 +35,8 @@ public class CreatorsPersonRoleRequiredValidator extends ValidatorHandler<List<C
               if (ValidationTools.isNotEmpty(p.getFamilyName()) //
                   || ValidationTools.isNotEmpty(p.getGivenName())) {
 
-                context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
+                context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]")
+                    .setErrorCode(ErrorMessages.WARNING));
 
                 ok = false;
 

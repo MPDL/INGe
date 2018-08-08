@@ -41,7 +41,7 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends Validator
                 if (ValidationTools.isEmpty(o.getName())) {
 
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED)
-                      .setField("source[" + i + "].creator[" + j + "]"));
+                      .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 
                   ok = false;
 

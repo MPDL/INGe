@@ -1,6 +1,9 @@
 package de.mpg.mpdl.inge.inge_validation.util;
 
 public class ErrorMessages {
+  public static final int ERROR = 0; // DEFAULT
+  public static final int WARNING = 1;
+
   public static final String COMPONENT_CONTENT_CATEGORY_NOT_PROVIDED = "ComponentContentCategoryNotProvided";
   public static final String COMPONENT_CONTENT_NOT_PROVIDED = "ComponentContentNotProvided";
   public static final String COMPONENT_FILE_NAME_NOT_PROVIDED = "ComponentFileNameNotProvided";

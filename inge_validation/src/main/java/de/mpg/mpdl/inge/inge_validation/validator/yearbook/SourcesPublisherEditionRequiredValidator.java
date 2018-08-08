@@ -30,7 +30,8 @@ public class SourcesPublisherEditionRequiredValidator extends ValidatorHandler<L
 
           if (p != null && ValidationTools.isEmpty(p.getEdition())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_EDITION_NOT_PROVIDED).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_EDITION_NOT_PROVIDED).setField("source[" + i + "]")
+                .setErrorCode(ErrorMessages.WARNING));
 
             ok = false;
 

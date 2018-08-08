@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 
+@SuppressWarnings("serial")
 @Entity(name = "YearbookDbVO")
 @Table(name = "yearbook", uniqueConstraints = @UniqueConstraint(columnNames = {"organization", "year"}))
 @TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)

@@ -40,7 +40,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory.FORMAT;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
- * Superclass for keeping the attributes used d�ring the session by ExportItems.
+ * Superclass for keeping the attributes used during the session by ExportItems.
  * 
  * @author: Galina Stancheva, created 02.08.2007
  * @version: $Revision$ $LastChangedDate$ Revised by StG: 28.09.2007 - Comments for the get- and

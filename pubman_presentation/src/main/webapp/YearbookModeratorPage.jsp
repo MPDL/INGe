@@ -48,7 +48,7 @@
 										rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}" />
 									</h:outputLink>
-									<h:panelGroup id="txtMenuYearbookWorkspace" rendered="#{LoginHelper.isYearbookEditor}">
+									<h:panelGroup id="txtMenuYearbookWorkspace" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}">
 										<h:outputText styleClass="seperator void" />
 										<h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}" />
 									</h:panelGroup>

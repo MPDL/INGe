@@ -33,7 +33,8 @@ public class CreatorsPersonNamesRequiredValidator extends ValidatorHandler<List<
 
             if (ValidationTools.isEmpty(p.getFamilyName())) {
 
-              context.addError(ValidationError.create(ErrorMessages.CREATOR_FAMILY_NAME_NOT_PROVIDED).setField("creator[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.CREATOR_FAMILY_NAME_NOT_PROVIDED).setField("creator[" + i + "]")
+                  .setErrorCode(ErrorMessages.WARNING));
 
               ok = false;
 
@@ -41,7 +42,8 @@ public class CreatorsPersonNamesRequiredValidator extends ValidatorHandler<List<
 
             if (ValidationTools.isEmpty(p.getGivenName())) {
 
-              context.addError(ValidationError.create(ErrorMessages.CREATOR_GIVEN_NAME_NOT_PROVIDED).setField("creator[" + i + "]"));
+              context.addError(ValidationError.create(ErrorMessages.CREATOR_GIVEN_NAME_NOT_PROVIDED).setField("creator[" + i + "]")
+                  .setErrorCode(ErrorMessages.WARNING));
 
               ok = false;
 

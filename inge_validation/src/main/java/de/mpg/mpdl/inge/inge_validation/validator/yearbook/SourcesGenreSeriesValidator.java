@@ -27,7 +27,8 @@ public class SourcesGenreSeriesValidator extends ValidatorHandler<List<SourceVO>
 
           if (!SourceVO.Genre.SERIES.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_SERIES).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_SERIES).setField("source[" + i + "]")
+                .setErrorCode(ErrorMessages.WARNING));
 
             ok = false;
 

@@ -98,7 +98,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * <p>
  * In addition you can perform Unicode normalization. This is for example not done by the MARC-8 to
  * UCS/Unicode converter. With Unicode normalization text is transformed into the canonical composed
- * form. For example &quot;a�bc&quot; is normalized to &quot;�bc&quot;. To perform normalization set
+ * form. For example &quot;abc&quot; is normalized to &quot;abc&quot;. To perform normalization set
  * Unicode normalization to true:
  * </p>
  * <p/>

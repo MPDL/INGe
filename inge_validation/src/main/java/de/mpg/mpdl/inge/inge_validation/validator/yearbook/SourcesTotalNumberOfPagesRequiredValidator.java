@@ -27,7 +27,8 @@ public class SourcesTotalNumberOfPagesRequiredValidator extends ValidatorHandler
 
           if (ValidationTools.isEmpty(sourceVO.getTotalNumberOfPages())) {
 
-            context.addError(ValidationError.create(ErrorMessages.TOTAL_NUMBER_OF_PAGES_NOT_PROVIDED).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.TOTAL_NUMBER_OF_PAGES_NOT_PROVIDED).setField("source[" + i + "]")
+                .setErrorCode(ErrorMessages.WARNING));
 
             ok = false;
 

@@ -30,7 +30,8 @@ public class SourcesSequenceInfomationValidator extends ValidatorHandler<List<So
               || ValidationTools.isNotEmpty(sourceVO.getSequenceNumber()) && ValidationTools.isNotEmpty(sourceVO.getStartPage())
                   && ValidationTools.isNotEmpty(sourceVO.getEndPage())) {
 
-            context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN).setField("source[" + i + "]")
+                .setErrorCode(ErrorMessages.WARNING));
 
             ok = false;
 

@@ -40,7 +40,7 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
                 if (ValidationTools.isEmpty(p.getFamilyName())) {
 
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED)
-                      .setField("source[" + i + "].creator[" + j + "]"));
+                      .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 
                   ok = false;
 
@@ -49,7 +49,7 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
                 if (ValidationTools.isEmpty(p.getGivenName())) {
 
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED)
-                      .setField("source[" + i + "].creator[" + j + "]"));
+                      .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 
                   ok = false;
 

@@ -27,7 +27,8 @@ public class SourcesGenreJournalValidator extends ValidatorHandler<List<SourceVO
 
           if (!SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setField("source[" + i + "]"));
+            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setField("source[" + i + "]")
+                .setErrorCode(ErrorMessages.WARNING));
 
             ok = false;
 

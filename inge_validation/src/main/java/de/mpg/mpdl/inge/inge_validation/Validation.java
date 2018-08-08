@@ -13,6 +13,7 @@ import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
 import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
+import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDataRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDateFormatValidator;
@@ -297,7 +298,9 @@ public class Validation {
 
     if (complexResult.isSuccess() == false) {
       for (final ValidationError error : complexResult.getErrors()) {
-        final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(), ValidationReportItemVO.Severity.ERROR);
+        final ValidationReportItemVO item = new ValidationReportItemVO(error.getErrorMsg(),
+            (error.getErrorCode() == ErrorMessages.WARNING ? ValidationReportItemVO.Severity.WARNING
+                : ValidationReportItemVO.Severity.ERROR));
         item.setElement(error.getField());
         v.addItem(item);
       }
