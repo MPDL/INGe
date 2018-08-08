@@ -47,8 +47,8 @@
                                     <h:outputLink id="lnkMenuImportWorkspace" title="#{tip.chooseWorkspace_ImportWorkspace}" value="#{ApplicationBean.appContext}ImportWorkspace.jsp" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}">
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}" />
                                     </h:outputLink>
-                                    <h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor}" />
-                                    <h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
+                                    <h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}" />
+                                    <h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}">
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />

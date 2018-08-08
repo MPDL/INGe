@@ -76,8 +76,8 @@
                                         <h:outputText styleClass="seperator void" />
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuImportWorkspace}" />
                                     </h:panelGroup>
-                                    <h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor}" />
-                                    <h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp" rendered="#{LoginHelper.isYearbookEditor}">
+                                    <h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}" />
+                                    <h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}">
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />
