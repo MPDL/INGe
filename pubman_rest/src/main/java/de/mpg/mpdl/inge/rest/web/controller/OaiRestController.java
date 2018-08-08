@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.sort.FieldSortBuilder;
@@ -56,7 +56,8 @@ public class OaiRestController {
 
     logger.info("Es werden maximal " + (readSize * upperBorder) + " Datensätze generiert");
 
-    QueryBuilder qb = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED");
+    BoolQueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
+        .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
 
     SearchResponse scrollResp = this.client.getClient().prepareSearch(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_NAME))
         .addSort(FieldSortBuilder.DOC_FIELD_NAME, SortOrder.ASC) //
