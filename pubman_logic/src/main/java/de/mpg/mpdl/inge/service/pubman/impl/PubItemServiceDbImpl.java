@@ -707,12 +707,12 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
               + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
               + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectId()));
-          pubItemObject.setObjectPid(pidService.createPid(url).getIdentifier());
+          pubItemObject.setObjectPid("hdl:" + pidService.createPid(url).getIdentifier());
         }
         URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
             + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
                 .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
-        latestVersion.setVersionPid(pidService.createPid(url).getIdentifier());
+        latestVersion.setVersionPid("hdl:" + pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
         throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
@@ -723,7 +723,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         try {
           if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && fileDbVO.getPid() == null) {
             URI uri = new URI(REST_SERVICE_URL + REST_COMPONENT_PATH + "/" + fileDbVO.getObjectId());
-            fileDbVO.setPid(pidService.createPid(uri).getIdentifier());
+            fileDbVO.setPid("hdl:" + pidService.createPid(uri).getIdentifier());
           }
         } catch (URISyntaxException | TechnicalException e) {
           logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
