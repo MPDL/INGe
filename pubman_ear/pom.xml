@@ -60,11 +60,13 @@
 							<artifactId>pubman_rest</artifactId>
 							<contextRoot>/rest</contextRoot>
 						</webModule>
+						<!-- 
 						<webModule>
 							<groupId>de.mpg.mpdl.inge</groupId>
 							<artifactId>admintool</artifactId>
 							<contextRoot>/admintool</contextRoot>
 						</webModule>
+						-->
 					</modules>
 				</configuration>
 			</plugin>
@@ -287,11 +289,13 @@
 			<artifactId>pubman_rest</artifactId>
 			<type>war</type>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>admintool</artifactId>
 			<type>war</type>
 		</dependency>
+		-->
 		
 		<!-- Import pubman logic and spring dependencies to use all of the dependencies as common dependencies -->
 		<dependency>
