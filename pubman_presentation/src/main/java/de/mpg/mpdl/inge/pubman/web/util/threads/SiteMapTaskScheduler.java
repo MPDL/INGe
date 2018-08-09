@@ -7,9 +7,8 @@ import org.springframework.stereotype.Component;
 public class SiteMapTaskScheduler {
 
   @Scheduled(cron = "${inge.cron.pubman.sitemap}")
-  public void createSiteMap()
-  {
+  public void createSiteMap() {
     new SiteMapTask().run();
   }
-  
+
 }

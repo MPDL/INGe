@@ -49,7 +49,7 @@ public class OrganizationServiceTest extends TestBase {
     assertTrue(organizationService != null);
   }
 
-  @Test(expected = AuthorizationException.class)
+  @Test
   public void deleteInStateOpened()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     super.logMethodName();
@@ -57,11 +57,17 @@ public class OrganizationServiceTest extends TestBase {
     String authenticationToken = loginAdmin();
     assertTrue(authenticationToken != null);
 
-    AffiliationDbVO affiliationVO = organizationService.get(ORG_OBJECTID_25, authenticationToken);
+
+    AffiliationDbVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
     assertTrue(affiliationVO != null);
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CREATED));
+    affiliationVO = organizationService.open(affiliationVO.getObjectId(), affiliationVO.getLastModificationDate(), authenticationToken);
     assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
 
-    organizationService.delete(ORG_OBJECTID_25, authenticationToken);
+
+    organizationService.delete(affiliationVO.getObjectId(), authenticationToken);
+
+    assertTrue(organizationService.get(affiliationVO.getObjectId(), authenticationToken) == null);
 
   }
 
@@ -152,12 +158,16 @@ public class OrganizationServiceTest extends TestBase {
     affiliationVO = organizationService.close(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
     assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
 
+    /*
     try {
       affiliationVO = organizationService.open(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
     } catch (Exception e) {
       assertTrue(e instanceof AuthorizationException);
     }
-    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
+    */
+
+    affiliationVO = organizationService.open(ORG_OBJECTID_13, affiliationVO.getLastModificationDate(), authenticationToken);
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
   }
 
   @Test
