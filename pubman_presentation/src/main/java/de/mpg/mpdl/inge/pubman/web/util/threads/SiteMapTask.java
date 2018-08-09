@@ -47,12 +47,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-
-import com.ibm.icu.text.DateFormat;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -69,7 +64,7 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@Component
+
 public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
@@ -108,7 +103,7 @@ public class SiteMapTask {
   /**
    * {@inheritDoc}
    */
-  @Scheduled(cron = "${inge.cron.pubman.sitemap}")
+
   public void run() {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
@@ -116,41 +111,22 @@ public class SiteMapTask {
       this.contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
       this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
       this.componentPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN);
-
-      /*
-       * this.interval =
-       * Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_TASK_INTERVAL));
-       */
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
 
-
-
-      //      this.contentModel = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ACCESS_CONTENT-MODEL_ID_PUBLICATION);
-
-      //      this.contentModels = new ArrayList<String>();
-      //      this.contentModels.add(this.contentModel);
 
       this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
       this.changeFile();
 
-      //      final long alreadyWritten = this.addViewItemPages();
       this.addViewItemPages();
 
-      // this.addOUSearchResultPages(alreadyWritten);
+
 
       this.finishSitemap();
 
-      // String appPath = System.getProperty(PropertyReader.JBOSS_HOME_DIR) + "/modules/pubman/main/sitemap/";
       new File(SiteMapTask.SITEMAP_PATH).mkdir();
-      /*
-       * try { appPath = ResourceUtil.getResourceAsFile("EditItemPage.jsp",
-       * SiteMapTask.class.getClassLoader()).getAbsolutePath(); } catch (Exception e) {
-       * logger.error("EditItemPage.jsp was not found in web root, terminating sitemap task", e);
-       * return; } appPath = appPath.substring(0,
-       * appPath.lastIndexOf(System.getProperty(PropertyReader.FILE_SEPARATOR)) + 1);
-       */
+
       if (this.files.size() == 1) {
         final File finalFile = new File(SiteMapTask.SITEMAP_PATH + "sitemap.xml");
         try {
@@ -262,13 +238,10 @@ public class SiteMapTask {
         .must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "RELEASED"));
 
     SearchResponse resp = null;
-    // fileWriter.write("<ul>");
     do {
 
 
       try {
-        // logger.info("Trying to creatie sitemap part for items from offset " + firstRecord +
-        // " to " + (firstRecord+maxItemsPerRetrieve));
 
         logger.debug("SiteMapTask: Querying items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
 
@@ -289,7 +262,6 @@ public class SiteMapTask {
         for (final SearchHit result : resp.getHits().getHits()) {
 
           Map<String, Object> sourceMap = result.getSourceAsMap();
-          // final ItemVersionVO pubItemVO = new ItemVersionVO(result.getData());
           try {
 
             String itemId = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).toString();
@@ -332,12 +304,6 @@ public class SiteMapTask {
 
         }
 
-        /*
-         * final ItemContainerSearchResult itemSearchResult = this.getItems(firstRecord);
-         * totalRecords = itemSearchResult.getTotalNumberOfResults().intValue();
-         * this.addItemsToSitemap(itemSearchResult);
-         */
-
         logger.debug("SiteMapTask: finished with items from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
         firstRecord += this.maxItemsPerRetrieve;
 
@@ -355,32 +321,6 @@ public class SiteMapTask {
     return totalRecords;
   }
 
-  //  private void addOUSearchResultPages(int alreadyWritten) {
-  //    this.changeFile();
-  //
-  //    int firstRecord = 0;
-  //    int totalRecords = 0;
-  //
-  //    // fileWriter.write("<ul>");
-  //    do {
-  //      try {
-  //        final SearchRetrieveResponseVO<AffiliationDbVO> ouSearchResult = this.getOUs(firstRecord);
-  //        totalRecords = ouSearchResult.getNumberOfRecords();
-  //        this.addOUsToSitemap(ouSearchResult);
-  //
-  //        firstRecord += this.maxItemsPerRetrieve;
-  //
-  //        if (firstRecord <= totalRecords && firstRecord % this.maxItemsPerFile == 0) {
-  //          this.changeFile();
-  //        }
-  //      } catch (final Exception e) {
-  //        SiteMapTask.logger.error(
-  //            "Error while creating sitemap part for ous from offset " + firstRecord + " to " + (firstRecord + this.maxItemsPerRetrieve));
-  //      }
-  //
-  //
-  //    } while (firstRecord <= totalRecords);
-  //  }
 
   private void changeFile() {
     try {
@@ -399,34 +339,6 @@ public class SiteMapTask {
   }
 
 
-
-  //  /**
-  //   * @param contentModels
-  //   * @param orgUnit
-  //   * @return
-  //   * @throws TechnicalException
-  //   * @throws Exception
-  //   */
-  //  private SearchRetrieveResponseVO<AffiliationDbVO> getOUs(int firstRecord) throws Exception {
-  //    // SearchQuery ouQuery = new PlainCqlQuery("(escidoc.any-identifier=e*)");
-  //
-  //    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(null, firstRecord, this.maxItemsPerRetrieve);
-  //    SearchRetrieveResponseVO<AffiliationDbVO> resp = ouService.search(srr, null);
-  //
-  //
-  //    return resp;
-  //    /*
-  //     * final SearchQuery ouQuery = new
-  //     * PlainCqlQuery("(escidoc.public-status=opened or escidoc.public-status=closed)");
-  //     * ouQuery.setStartRecord(firstRecord + ""); ouQuery.setMaximumRecords(this.maxItemsPerRetrieve
-  //     * + ""); try { final OrgUnitsSearchResult ouSearchResult =
-  //     * SearchService.searchForOrganizationalUnits(ouQuery); return ouSearchResult; } catch (final
-  //     * Exception e) { SiteMapTask.logger.error("Error getting ous", e); }
-  //     * 
-  //     * return null;
-  //     */
-  //  }
-
   private void startSitemap() {
     try {
       this.fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -437,28 +349,6 @@ public class SiteMapTask {
       e.printStackTrace();
     }
   }
-
-
-
-  //  private void addOUsToSitemap(SearchRetrieveResponseVO<AffiliationDbVO> searchResult) {
-  //
-  //    for (final SearchRetrieveRecordVO<AffiliationDbVO> result : searchResult.getRecords()) {
-  //
-  //      try {
-  //        this.fileWriter.write("\t<url>\n\t\t<loc>");
-  //        this.fileWriter.write(this.instanceUrl);
-  //        this.fileWriter.write(this.contextPath);
-  //        this.fileWriter.write("/faces/SearchResultListPage.jsp?cql=((escidoc.any-organization-pids%3D%22");
-  //        this.fileWriter.write(result.getData().getObjectId());
-  //        this.fileWriter.write("%22)+and+(escidoc.objecttype%3D%22item%22))+and+(escidoc.content-model.objid%3D%22");
-  //        this.fileWriter.write("'dummy-content-model'");
-  //        this.fileWriter.write("%22)&amp;searchType=org");
-  //        this.fileWriter.write("</loc>\n\t</url>\n");
-  //      } catch (final Exception e) {
-  //        SiteMapTask.logger.error("Error", e);
-  //      }
-  //    }
-  //  }
 
   private void finishSitemap() {
     try {
