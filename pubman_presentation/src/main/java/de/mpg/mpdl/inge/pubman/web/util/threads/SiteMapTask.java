@@ -48,6 +48,9 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
@@ -65,6 +68,8 @@ import de.mpg.mpdl.inge.util.XmlUtilities;
  * 
  */
 
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SiteMapTask {
   private static final Logger logger = Logger.getLogger(SiteMapTask.class);
 
@@ -88,6 +93,7 @@ public class SiteMapTask {
   private int maxItemsPerFile;
   private int maxItemsPerRetrieve;
 
+  private int writtenInCurrentFile = 0;
 
 
   @Autowired
@@ -231,7 +237,7 @@ public class SiteMapTask {
   private long addViewItemPages() {
     int firstRecord = 0;
     long totalRecords = 0;
-    int writtenInThisFile = 0;
+    writtenInCurrentFile = 0;
 
 
     QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "RELEASED"))
@@ -270,7 +276,7 @@ public class SiteMapTask {
             String version = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER).toString();
 
             writeEntry(this.fileWriter, loc, lmd);
-            writtenInThisFile++;
+
 
             if (sourceMap.containsKey("files")) {
               List<Map<String, Object>> fileList = (List<Map<String, Object>>) sourceMap.get("files");
@@ -286,17 +292,12 @@ public class SiteMapTask {
                         .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()));
                     fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
-                    writtenInThisFile++;
                   }
                 }
               }
             }
 
 
-            if (writtenInThisFile == maxItemsPerFile) {
-              changeFile();
-              writtenInThisFile = 0;
-            }
 
           } catch (final Exception e) {
             SiteMapTask.logger.error("Error", e);
@@ -361,12 +362,18 @@ public class SiteMapTask {
   }
 
 
-  public static void writeEntry(FileWriter fw, String loc, String lmd) throws IOException {
+  public void writeEntry(FileWriter fw, String loc, String lmd) throws IOException {
     fw.write("\t<url>\n\t\t<loc>");
     fw.write(loc);
     fw.write("</loc>\n\t\t<lastmod>");
     fw.write(lmd);
     fw.write("</lastmod>\n\t</url>\n");
+
+    writtenInCurrentFile++;
+    if (writtenInCurrentFile >= maxItemsPerFile) {
+      changeFile();
+      writtenInCurrentFile = 0;
+    }
 
   }
 
