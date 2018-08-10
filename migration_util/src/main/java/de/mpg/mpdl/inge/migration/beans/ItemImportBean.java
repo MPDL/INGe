@@ -123,7 +123,7 @@ public class ItemImportBean {
       e1.printStackTrace();
     }
     int versionNumber = pubItemVo.getLatestVersion().getVersionNumber();
-    Map<String, String> fileMap = new HashMap<String, String>();
+    Map<String, String[]> fileMap = new HashMap<String, String[]>();
 
     for (int i = 1; i <= versionNumber; i++) {
       try {
@@ -154,7 +154,7 @@ public class ItemImportBean {
     }
   }
 
-  private void savePubItem(PubItemVO pubItem, Map<String, String> fileMap) {
+  private void savePubItem(PubItemVO pubItem, Map<String, String[]> fileMap) {
     ItemVersionVO newVo = null;
     try {
       newVo = transformToNew(pubItem, fileMap);
@@ -166,7 +166,7 @@ public class ItemImportBean {
     }
   }
 
-  private ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo, Map<String, String> fileMap)
+  private ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo, Map<String, String[]> fileMap)
       throws Exception {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
@@ -214,26 +214,35 @@ public class ItemImportBean {
       file.setStorage(Storage.valueOf(oldFile.getStorage().name()));
       file.setVisibility(Visibility.valueOf(oldFile.getVisibility().name()));
 
-      if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
-        String old_content = oldFile.getContent();
-        String[] pieces = old_content.split("/");
-        String new_content = "/rest/items/" + pieces[3].replaceAll("escidoc:", "item_") + "/component/"
-            + pieces[6].replaceAll("escidoc:", "file_") + "/content";
-        file.setContent(new_content);
-      } else {
-        file.setContent(oldFile.getContent());
-      }
-
       if (fileMap.containsKey(currentFileId)) {
         log.info("no need for upload, using existing localId " + fileMap.get(currentFileId));
-        file.setLocalFileIdentifier(fileMap.get(currentFileId));
+        file.setLocalFileIdentifier(fileMap.get(currentFileId)[0]);
+        if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
+          String old_content = oldFile.getContent();
+          String[] pieces = old_content.split("/");
+          String new_content = "/rest/items/" + pieces[3].replaceAll("escidoc:", "item_") + "_" + fileMap.get(currentFileId)[1]
+              + "/component/" + pieces[6].replaceAll("escidoc:", "file_") + "/content";
+          file.setContent(new_content);
+        } else {
+          file.setContent(oldFile.getContent());
+        }
       } else {
         if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
           String localId;
           try {
             localId = upload(oldFile.getContent(), oldFile.getName());
             file.setLocalFileIdentifier(localId);
-            fileMap.put(currentFileId, localId);
+            String[] values = {localId, Integer.toString(itemVo.getVersion().getVersionNumber())};
+            fileMap.put(currentFileId, values);
+            if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
+              String old_content = oldFile.getContent();
+              String[] pieces = old_content.split("/");
+              String new_content = "/rest/items/" + pieces[3].replaceAll("escidoc:", "item_") + "_" + fileMap.get(currentFileId)[1]
+                  + "/component/" + pieces[6].replaceAll("escidoc:", "file_") + "/content";
+              file.setContent(new_content);
+            } else {
+              file.setContent(oldFile.getContent());
+            }
 
           } catch (Exception e) {
             log.error("ERROR uploading" + oldFile.getContent(), e);
