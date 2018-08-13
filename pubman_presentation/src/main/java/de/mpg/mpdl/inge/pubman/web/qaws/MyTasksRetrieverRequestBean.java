@@ -101,7 +101,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
       if (getSelectedItemState().toLowerCase().equals("withdrawn")) {
-        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_STATE, "WITHDRAWN"));
+        bq.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_PUBLIC_STATE, "WITHDRAWN"));
         if (getSelectedItemState().toLowerCase().equals(State.SUBMITTED.name())
             || getSelectedItemState().toLowerCase().equals(State.IN_REVISION.name())) {
           // filter out possible duplicates
