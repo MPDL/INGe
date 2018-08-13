@@ -180,12 +180,10 @@
 								<span class="seperator status"/>
 								<span class="free_area0_p6 endline itemHeadline">
 									<b>
-									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.editMembers(item)}" rendered="#{item.state == 'CREATED'}">
+									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.editMembers(item)}">
 										<h:outputText escape="false" value="#{item.name}"/>
 									</h:commandLink>
-									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.viewMembers(item)}" rendered="#{item.state != 'CREATED'}">
-										<h:outputText escape="false" value="#{item.name}"/>
-									</h:commandLink>
+									
 									</b>
 								</span>
 							</h:panelGroup>

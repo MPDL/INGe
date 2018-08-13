@@ -338,13 +338,6 @@ public class YearbookModeratorRetrieverRequestBean
     return "";
   }
 
-  public String viewMembers(YearbookDbVO yearbook) {
-
-    YearbookItemSessionBean yisb = FacesTools.findBean("YearbookItemSessionBean");
-    yisb.setYearbookForView(yearbook);
-    return "loadYearbookArchiveItemViewPage";
-
-  }
 
 
   public String editMembers(YearbookDbVO yearbook) {

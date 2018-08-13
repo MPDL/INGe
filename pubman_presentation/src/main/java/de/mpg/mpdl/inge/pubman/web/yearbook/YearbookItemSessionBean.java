@@ -51,7 +51,6 @@ public class YearbookItemSessionBean extends FacesBean {
 
   private YearbookDbVO yearbook;
 
-  private YearbookDbVO yearbookForView;
 
   private PubItemListSessionBean pilsb;
   private Map<String, YearbookInvalidItemRO> invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
@@ -118,6 +117,10 @@ public class YearbookItemSessionBean extends FacesBean {
           throw new IngeApplicationException("Yearbook with id " + id + " not found");
         }
         this.setYearbook(yb);
+      }
+
+      if (!YearbookDbVO.State.CREATED.equals(this.yearbook.getState())) {
+        this.selectedWorkspace = YBWORKSPACE.MEMBERS;
       }
 
 
@@ -432,11 +435,4 @@ public class YearbookItemSessionBean extends FacesBean {
     return "";
   }
 
-  public YearbookDbVO getYearbookForView() {
-    return yearbookForView;
-  }
-
-  public void setYearbookForView(YearbookDbVO yearbookForView) {
-    this.yearbookForView = yearbookForView;
-  }
 }
