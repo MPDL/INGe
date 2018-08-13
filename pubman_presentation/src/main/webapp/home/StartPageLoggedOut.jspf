@@ -50,10 +50,7 @@
 				href="/pubman/faces/SwordStartPage.jsp" target="_blank">push
 					service</a> for automatic depositing from external servers.
 			     -->
-			</span> <br /> <br /> <span>Further information on the interfaces
-				can be found under:</span> <a
-				href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
-				target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+			</span>
 		</div>
 	</h:panelGroup>
 	<!-- HOMEPAGE GERMAN VERSION -->
@@ -103,9 +100,7 @@
 				href="/pubman/faces/SwordStartPage.jsp" target="_blank">Push-Dienst</a>
 				zum automatisierten Datenimport von externen Servern.
 				 -->
-			</span> <br /> <br /> <span>Weitere Informationen finden Sie unter:</span>
-			<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
-				target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+			</span>
 		</div>
 	</h:panelGroup>
 	<!-- HOMEPAGE JAPANESE VERSION -->
@@ -159,9 +154,7 @@
 				自動登録用インタフェース</li>
 		     -->
 		</ul>
-		<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
-			target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
+		
 	</h:panelGroup>
 	
 </ui:composition>
