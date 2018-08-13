@@ -68,7 +68,7 @@
 									<label class="xLarge_area0_p8 endline labelLine clear">#{lbl.searchAndExport_Sorting}</label>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="xHuge_area0 endline">
-											<a href="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Material/SortingKeys.xlsx" target="_blank">#{lbl.searchAndExport_ListSortingKey}</a>
+											<a href="http://colab.mpdl.mpg.de/mediawiki/INGe-REST_Sortierschl%C3%BCssel" target="_blank">#{lbl.searchAndExport_ListSortingKey}</a>
 										</span>
 										<span class="double_area0 xTiny_marginRIncl">
 											<label class="double_label" for="sortKeys">#{lbl.searchAndExport_SortingKey}</label>
