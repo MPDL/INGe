@@ -53,11 +53,6 @@
 				service</a> for automatic depositing from external servers.
 		     -->
 		</span>
-		<br />
-		<br />
-		<span>Further information on the interfaces can be found under:</span>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
-			target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 	</h:panelGroup>
 	<!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
@@ -106,11 +101,6 @@
 			zum automatisierten Datenimport von externen Servern.
 			 -->
 		</span>
-		<br />
-		<br />
-		<span>Weitere Informationen finden Sie unter:</span>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
-			target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 	</h:panelGroup>
 	<!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
@@ -163,9 +153,6 @@
 				自動登録用インタフェース</li>
 			 -->
 		</ul>
-		<span>各APIインタフェースは以下のサイトで詳しく紹介しています:</span>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces"
-			target="_blank">http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces</a>
 	</h:panelGroup>
 	
 </ui:composition>
