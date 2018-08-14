@@ -159,7 +159,7 @@ public class YearbookRestController {
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(qb, null);
     srRequest.setLimit(10000);
 
-    return utils.searchOrExport(format, citation, cslConeId, false, srRequest, response, token);
+    return utils.searchOrExport(format, citation, cslConeId, false, srRequest, response, null);
   }
 
   @RequestMapping(method = RequestMethod.POST)
