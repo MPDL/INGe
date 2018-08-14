@@ -7,6 +7,8 @@
     <ui:include src="header/ui/StandardImports.jspf" />
     <!-- unapi interface for zotero -->
     <link rel="unapi-server" type="application/xml" title="unAPI" href="${YearbookCandidatesRetrieverRequestBean.unapiURLview}" />
+    <script src="/cone/js/jquery.suggest.js"></script>
+    <h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
@@ -177,7 +179,7 @@
                                             <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
-                                    <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.Yearbook_btnExport}" action="#{YearbookItemSessionBean.exportYearbook}" onclick="fullItemReloadAjax();" />
+                                    <h:commandLink title="#{tip.export_btDownload}" id="btnExportDownload" styleClass="free_area0" value="#{lbl.Yearbook_btnExport}" action="#{YearbookItemSessionBean.exportYearbook}"/>
                                     <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
                                         <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
                                         <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
@@ -236,9 +238,9 @@
         </div>
         <ui:include src="footer/Footer.jspf" />
         <script type="text/javascript">
-            //<![CDATA[
+            /*<![CDATA[*/
 
-            	var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>citation-styles/query';
+            	var citationStyleSuggestURL = '#{AdvancedSearchBean.suggestConeUrl}citation-styles/query';
                 var citationStyleSuggestBaseURL = '$1?format=json';
 
                 function checkUpdateCslUi() {
@@ -265,7 +267,7 @@
                         }
                         checkUpdateCslUi();
                     });
-            //]]>
+            /*]]>*/
         </script>
     </f:view>
 </body>

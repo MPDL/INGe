@@ -5,6 +5,8 @@
 <h:head>
 	<title><h:outputText value="#{ApplicationBean.appTitle}" /></title>
 	<ui:include src="header/ui/StandardImports.jspf" />
+	<script src="/cone/js/jquery.suggest.js"></script>
+    <h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
 </h:head>
 
 <body lang="${InternationalizationHelper.locale}">
@@ -144,7 +146,7 @@
                                             <h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
                                         </h:panelGroup>
                                         <h:selectOneMenu id="selEXPORTFORMAT" styleClass="replace" onfocus="updateSelectionBox(this);" value="#{ExportItemsSessionBean.exportFormatName}">
-                                            <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS_EXTENDED}" />
+                                            <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}" />
                                             <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>                           
@@ -227,7 +229,15 @@
 		</div>
 		<ui:include src="footer/Footer.jspf" />
 		<script type="text/javascript">
-			<![CDATA[
+			//<![CDATA[
+
+
+            	var citationStyleSuggestURL = '#{AdvancedSearchBean.suggestConeUrl}citation-styles/query';
+                var citationStyleSuggestBaseURL = '$1?format=json';
+
+                function checkUpdateCslUi() {
+                    (typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
+                }
 			$("input[id$='offset']").submit(function() {
 				$(this).val($(window).scrollTop());
 			});
@@ -247,8 +257,10 @@
 							$.getJSON('AffiliationsAsJSON.jsp',
 									loadAffiliations);
 						}
+
+						checkUpdateCslUi();
 					});
-			]]>
+			//]]>
 		</script>
 	</f:view>
 </body>
