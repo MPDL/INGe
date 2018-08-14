@@ -126,36 +126,14 @@ public class ItemRestController {
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
-    if (scroll) {
-      srRequest.setScrollTime(DEFAULT_SCROLL_TIME);
-    }
 
-    if (format == null || format.equals(TransformerFactory.JSON)) {
-      SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
-      HttpHeaders headers = new HttpHeaders();
-      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
-      if (scroll) {
-        headers.add("scrollId", srResponse.getScrollId());
-      }
-      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
-    }
 
-    ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
-    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
-    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+    return utils.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
 
-    response.setContentType(saerVO.getTargetMimetype());
-    response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
-    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
-    if (scroll) {
-      response.setHeader("scrollId", saerrVO.getSearchRetrieveReponseVO().getScrollId());
-    }
 
-    OutputStream output = response.getOutputStream();
-    output.write(saerVO.getResult());
-
-    return null;
   }
+
+
 
   @RequestMapping(value = "/search/scroll", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchScroll( //
@@ -192,6 +170,8 @@ public class ItemRestController {
 
     return null;
   }
+
+
 
   //  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
   //      value = @ExampleProperty(mediaType = "application/json", value = "{\n\t\"query\" : {\n\t\t\"match_all\": {}\n\t}\n}")))})

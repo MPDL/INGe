@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.rest.web.util;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchModule;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,18 +34,33 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
+import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportResultVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchAndExportRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
+import de.mpg.mpdl.inge.rest.web.controller.ItemRestController;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.GenericService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.transformation.TransformerFactory;
 
 @Service
 public class UtilServiceBean {
+
+  @Autowired
+  private PubItemService pis;
+
+  @Autowired
+  private SearchAndExportService saes;
 
   public Date string2Date(String dateString) {
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSxxxx");
@@ -219,6 +236,41 @@ public class UtilServiceBean {
   //    return new SearchAndExportRetrieveRequestVO(exportFormat, outputFormat, cslConeId, queryBuilder, limit, offset,
   //        sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
   //  }
+
+
+  public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchOrExport(String format, String citation, String cslConeId,
+      boolean scroll, SearchRetrieveRequestVO srRequest, HttpServletResponse response, String token)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+    if (scroll) {
+      srRequest.setScrollTime(ItemRestController.DEFAULT_SCROLL_TIME);
+    }
+
+    if (format == null || format.equals(TransformerFactory.JSON)) {
+      SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
+      if (scroll) {
+        headers.add("scrollId", srResponse.getScrollId());
+      }
+      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
+    }
+
+    ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
+    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
+    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+
+    response.setContentType(saerVO.getTargetMimetype());
+    response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
+    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
+    if (scroll) {
+      response.setHeader("scrollId", saerrVO.getSearchRetrieveReponseVO().getScrollId());
+    }
+
+    OutputStream output = response.getOutputStream();
+    output.write(saerVO.getResult());
+
+    return null;
+  }
 
 }
 
