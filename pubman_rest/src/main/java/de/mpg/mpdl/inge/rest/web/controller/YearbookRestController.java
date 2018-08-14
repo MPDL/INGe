@@ -140,13 +140,10 @@ public class YearbookRestController {
   @RequestMapping(value = YEARBOOK_ID_PATH + "/items", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getItems(
       @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @PathVariable(value = YEARBOOK_ID_VAR) String yearbookId,
-      @RequestParam(value = "format", required = false, defaultValue = "json") @ApiParam(
-          allowableValues = TransformerFactory.JSON + "," + TransformerFactory.ESCIDOC_ITEMLIST_XML + "," + TransformerFactory.BIBTEX + ","
-              + TransformerFactory.ENDNOTE + "," + TransformerFactory.MARC_XML + "," + TransformerFactory.PDF + ","
-              + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
-              + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET) String format, //
+      @RequestParam(value = "format", required = false,
+          defaultValue = "json") @ApiParam(allowableValues = ItemRestController.EXPORT_FORMAT_ALLOWABLE_VALUES) String format, //
       @RequestParam(value = "citation", required = false,
-          defaultValue = "APA") @ApiParam(allowableValues = "APA, APA(CJK), AJP, JUS, CSL") String citation, //
+          defaultValue = "APA") @ApiParam(allowableValues = ItemRestController.EXPORT_CITATION_ALLOWABLE_VALUES) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       HttpServletResponse response) throws AuthenticationException, AuthorizationException, IngeTechnicalException,
       IngeApplicationException, NotFoundException, IOException {
