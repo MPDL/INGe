@@ -248,7 +248,7 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
       if (searchQuery.getLimit() != -1) {
         srb.setSize(searchQuery.getLimit());
       } else {
-        srb.setSize(10000);
+        srb.setSize(100);
       }
 
       if (searchQuery.getSortKeys() != null) {
