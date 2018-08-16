@@ -289,7 +289,7 @@ public class YearbookItemEditBean extends FacesBean {
       this.error(this.getMessage("Yearbook_deleteError"));
       YearbookItemEditBean.logger.error("Problem deleting yearbook", e);
     }
-    this.info(this.getMessage("Yearbook_deleteSuccessful"));
+    this.info(this.getMessage("Yearbook_deletedSuccessfully"));
     return "loadYearbookModeratorPage";
   }
 
