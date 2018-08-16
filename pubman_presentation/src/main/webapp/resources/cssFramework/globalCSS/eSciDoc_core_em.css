@@ -396,7 +396,7 @@ option {
 }
 
 /*TEXT INPUTS (base size-6px)*/
-.free_txtInput, .free_txtInput input, .xTiny_txtInput, .xTiny_txtInput input, .tiny_txtInput, .tiny_txtInput input, .xSmall_txtInput, .xSmall_txtInput input, .small_txtInput, .small_txtInput input, .medium_txtInput, .medium_txtInput input, .large_txtInput, .large_txtInput input, .xLarge_txtInput, .xLarge_txtInput input, .double_txtInput, .double_txtInput input, .xDouble_txtInput, .xDouble_txtInput input, .quad_txtInput, .quad_txtInput input, .huge_txtInput, .huge_txtInput input, .xHuge_txtInput, .xHuge_txtInput input, .half_txtInput, .half_txtInput input, .full_txtInput, .full_txtInput input {
+.free_txtInput, .free_txtInput input, .xTiny_txtInput, .xTiny_txtInput input, .tiny_txtInput, .tiny_txtInput input, .pag_txtInput, .pag_txtInput input,.xSmall_txtInput, .xSmall_txtInput input, .small_txtInput, .small_txtInput input, .medium_txtInput, .medium_txtInput input, .large_txtInput, .large_txtInput input, .xLarge_txtInput, .xLarge_txtInput input, .double_txtInput, .double_txtInput input, .xDouble_txtInput, .xDouble_txtInput input, .quad_txtInput, .quad_txtInput input, .huge_txtInput, .huge_txtInput input, .xHuge_txtInput, .xHuge_txtInput input, .half_txtInput, .half_txtInput input, .full_txtInput, .full_txtInput input {
     padding-left: 0.0909em;
     padding-right: 0.0909em;
     border-width: 0.0909em;
@@ -416,6 +416,10 @@ option {
 
 .xSmall_txtInput, .xSmall_txtInput input {
     width: 2.4545em;
+}
+
+.pag_txtInput, .pag_txtInput input {
+    width: 3.5em;
 }
 
 .small_txtInput, .small_txtInput input {
