@@ -48,14 +48,8 @@
 							value="#{lbl.import_workspace_format}" /><span class="noDisplay">:
 					</span>
 					</b>
-					<div class="xSmall_marginLExcl clear">
-						<h:panelGroup layout="block"
-							styleClass="large_area1 endline selectContainer marginTExcl6p xSmall_marginLExcl">
-							<h:panelGroup layout="block" styleClass="large_area0">
-								<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
-								<h:panelGroup layout="block"
-									styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
-							</h:panelGroup>
+					<span class="free_area0 endline"> <h:panelGroup	
+							layout="block" styleClass="xSmall_marginLExcl clear">
 							<h:selectOneMenu id="selFormat"
 								value="#{ReportWorkspaceBean.format}"
 								onfocus="updateSelectionBox(this);"
@@ -63,8 +57,8 @@
 								<f:selectItems id="selFormats"
 									value="#{ReportWorkspaceBean.outputFormats}" />
 							</h:selectOneMenu>
-						</h:panelGroup>
-					</div>
+							</h:panelGroup>
+					</span>
 				</h:panelGroup>
 			</div>
 		</div>
