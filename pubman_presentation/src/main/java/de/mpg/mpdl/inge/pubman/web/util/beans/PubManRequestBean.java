@@ -29,7 +29,6 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
-import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "PubManRequestBean")
@@ -37,36 +36,36 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubManRequestBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(PubManRequestBean.class);
 
-  private String helpAnchor = "";
-  private String requestedPage = "";
+  //  private String helpAnchor = "";
+  //  private String requestedPage = "";
 
   public PubManRequestBean() {
     this.init();
   }
 
   public void init() {
-    if (FacesTools.getExternalContext().getRequestPathInfo() != null) {
-      this.helpAnchor = FacesTools.getExternalContext().getRequestPathInfo().replace("/", "");
-      this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
-      this.helpAnchor = "#" + this.helpAnchor.replaceAll(".jsp", "");
-    }
+    //    if (FacesTools.getExternalContext().getRequestPathInfo() != null) {
+    //      this.helpAnchor = FacesTools.getExternalContext().getRequestPathInfo().replace("/", "");
+    //      this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
+    //      this.helpAnchor = "#" + this.helpAnchor.replaceAll(".jsp", "");
+    //    }
   }
 
-  public String getHelpAnchor() {
-    return this.helpAnchor;
-  }
+  //  public String getHelpAnchor() {
+  //    return this.helpAnchor;
+  //  }
+  //
+  //  public void setHelpAnchor(String helpAnchor) {
+  //    this.helpAnchor = helpAnchor;
+  //  }
 
-  public void setHelpAnchor(String helpAnchor) {
-    this.helpAnchor = helpAnchor;
-  }
-
-  public String getRequestedPage() {
-    return this.requestedPage;
-  }
-
-  public void setRequestedPage(String requestedPage) {
-    this.requestedPage = requestedPage;
-  }
+  //  public String getRequestedPage() {
+  //    return this.requestedPage;
+  //  }
+  //
+  //  public void setRequestedPage(String requestedPage) {
+  //    this.requestedPage = requestedPage;
+  //  }
 
   /**
    * Reads the policy URL from the properties file.
