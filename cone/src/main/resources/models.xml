@@ -213,7 +213,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<!-- changed namespace, no data in cone-->
 			<predicate name="Position" value="http://purl.org/escidoc/metadata/terms/0.1/position" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="true" restricted="false">
 				<predicate name="Organization" value="http://purl.org/eprint/terms/affiliatedInstitution" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false" suggest-url="/pubman/faces/OrganizationSuggest.jsp?format=json&amp;lang=en"/>
-				<predicate name="eSciDoc-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" restricted="false"/>
+				<predicate name="INGe-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" restricted="false"/>
 				<predicate name="Position Appellation" value="http://purl.org/escidoc/metadata/terms/0.1/position-name" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
 				<predicate name="From" value="http://purl.org/escidoc/metadata/terms/0.1/start-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
 				<predicate name="Until" value="http://purl.org/escidoc/metadata/terms/0.1/end-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
