@@ -953,13 +953,13 @@
 								<prop:content-category>
 									<xsl:choose>
 										<xsl:when test="@comment = 'Fulltext via Publisher'">
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 										</xsl:when>
 										<xsl:when test="@comment = 'Abstract'">
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri" />
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']" />
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 										</xsl:otherwise>
 									</xsl:choose>
 								</prop:content-category>
@@ -980,13 +980,13 @@
 										<eterms:content-category>
 											<xsl:choose>
 												<xsl:when test="@comment = 'Fulltext via Publisher'">
-													<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+													<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 												</xsl:when>
 												<xsl:when test="@comment = 'Abstract'">
-													<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri" />
+													<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']" />
 												</xsl:when>
 												<xsl:otherwise>
-													<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+													<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 												</xsl:otherwise>
 											</xsl:choose>
 										</eterms:content-category>
@@ -1007,7 +1007,7 @@
 								</xsl:if>
 								<prop:visibility>public</prop:visibility>
 								<prop:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 								</prop:content-category>
 								<prop:file-name>
 									<xsl:value-of select="./identifier" />
@@ -1273,7 +1273,7 @@
 								</xsl:choose>
 							</xsl:variable>
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]" />
 							</prop:content-category>
 						</xsl:when>
 						<!-- Customized - FHI: prop:content-category -->
@@ -1300,17 +1300,17 @@
 								<xsl:value-of select="lower-case(@comment)" />
 							</xsl:comment>
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIBPH'or $import-name = 'MPIIB' or $import-name = 'MPIMET' or $import-name = 'MPIPF'">
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIDS' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPIBF' or $import-name = 'MPIMF' or $import-name = 'MPI MoleGen' or $import-name = 'MPIIPP' or $import-name = 'MolePhys' or $import-name = 'MPIP' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'EVOLBIO'">
@@ -1318,10 +1318,10 @@
 							<prop:content-category>
 								<xsl:choose>
 									<xsl:when test="lower-case($comment) = 'scan'">
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 									</xsl:otherwise>
 								</xsl:choose>
 							</prop:content-category>
@@ -1329,27 +1329,27 @@
 						<xsl:when test="exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment])">
 							<xsl:variable name="content-category" select="$genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]/pubman-genre" />
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIGF' and exists(../../identifiers/identifier[@type = 'doi' or @comment = 'Fulltext via Publisher'])">
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIGF' and not(exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]))">
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 							</prop:content-category>
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIIS'">
 							<prop:content-category>
-								<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri" />
+								<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']" />
 							</prop:content-category>
 						</xsl:when>
 						<!-- Default: prop:content-category -->
@@ -1357,12 +1357,12 @@
 							<xsl:choose>
 								<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
 									<prop:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 									</prop:content-category>
 								</xsl:when>
 								<xsl:when test="$access='PUBLIC'">
 									<prop:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 									</prop:content-category>
 								</xsl:when>
 								<xsl:otherwise>
@@ -1437,7 +1437,7 @@
 										</xsl:choose>
 									</xsl:variable>
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]" />
 									</eterms:content-category>
 								</xsl:when>
 								<!-- Customized - FHI: prop:content-category -->
@@ -1460,50 +1460,50 @@
 										</xsl:choose>
 									</xsl:variable>
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]" />
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'BPC' or $import-name = 'MPIBPH' or $import-name = 'MPIIB' or $import-name = 'MPIMET'">
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'EVOLBIO'">
 									<eterms:content-category>
 										<xsl:choose>
 											<xsl:when test="lower-case($comment) = 'scan'">
-												<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 											</xsl:when>
 											<xsl:otherwise>
-												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 											</xsl:otherwise>
 										</xsl:choose>
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'MPIA' or $import-name = 'MPIBF' or $import-name = 'MPIE' or $import-name = 'ETH' or $import-name = 'MPINEURO' or $import-name = 'MPIP' or $import-name = 'MPI MoleGen' or $import-name = 'MPIDS' or $import-name = 'MPIDynamics' or $import-name = 'MPIBioChem' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIEIS' or $import-name = 'MPIKG'">
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]">
 									<xsl:variable name="content-category" select="$genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]/pubman-genre" />
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = $content-category]" />
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'MPIGF' and not(exists($genre-mapping/genres/genre[@type = $import-name and edoc-genre = $comment]))">
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'MPQ'">
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 									</eterms:content-category>
 								</xsl:when>
 								<xsl:when test="$import-name = 'MPIIS'">
 									<eterms:content-category>
-										<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']/@uri" />
+										<xsl:value-of select="$contentCategory-ves/enum[. = 'abstract']" />
 									</eterms:content-category>
 								</xsl:when>
 								<!-- Default: eterms:content-category -->
@@ -1511,12 +1511,12 @@
 									<xsl:choose>
 										<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
 											<eterms:content-category>
-												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri" />
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 											</eterms:content-category>
 										</xsl:when>
 										<xsl:when test="$access='PUBLIC'">
 											<eterms:content-category>
-												<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri" />
+												<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']" />
 											</eterms:content-category>
 										</xsl:when>
 										<xsl:otherwise>
@@ -1632,7 +1632,7 @@
 			</xsl:element>
 		</xsl:if>
 	</xsl:template>
-	<!-- <xsl:template name="createLocator"><xsl:param name="filename"/><xsl:param name="access"/><xsl:element name="ec:component"><ec:properties><prop:visibility>public</prop:visibility><prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'supplementary-material']/@uri"/></prop:content-category></ec:properties><xsl:element name="ec:content"><xsl:attribute name="xlink:href" select="."/><xsl:attribute name="storage" select="'external-url'"/></xsl:element><xsl:element name="mdr:md-records"><mdr:md-record name="escidoc"><xsl:element name="file:file"><xsl:comment><xsl:value-of select="$access"/></xsl:comment><xsl:choose><xsl:when test="$access='USER'"><xsl:element name="dc:title">restricted access to full text (selected user)</xsl:element><xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:when test="$access='INSTITUT'"><xsl:element name="dc:title">restricted access to full text (institute-wide)</xsl:element><xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:when test="$access='MPG'"><xsl:element name="dc:title">restricted access to full text (MPS-wide)</xsl:element><xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:when test="$access='PUBLIC'"><xsl:element name="dc:title"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:otherwise><xsl:comment>ERROR</xsl:comment></xsl:otherwise></xsl:choose><xsl:if test="$import-name = 'FHI'"><xsl:call-template name="copyrightFHI"/></xsl:if></xsl:element></mdr:md-record></xsl:element></xsl:element></xsl:template> -->
+	<!-- <xsl:template name="createLocator"><xsl:param name="filename"/><xsl:param name="access"/><xsl:element name="ec:component"><ec:properties><prop:visibility>public</prop:visibility><prop:content-category><xsl:value-of select="$contentCategory-ves/enum[. = 'supplementary-material']"/></prop:content-category></ec:properties><xsl:element name="ec:content"><xsl:attribute name="xlink:href" select="."/><xsl:attribute name="storage" select="'external-url'"/></xsl:element><xsl:element name="mdr:md-records"><mdr:md-record name="escidoc"><xsl:element name="file:file"><xsl:comment><xsl:value-of select="$access"/></xsl:comment><xsl:choose><xsl:when test="$access='USER'"><xsl:element name="dc:title">restricted access to full text (selected user)</xsl:element><xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:when test="$access='INSTITUT'"><xsl:element name="dc:title">restricted access to full text (institute-wide)</xsl:element><xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:when test="$access='MPG'"><xsl:element name="dc:title">restricted access to full text (MPS-wide)</xsl:element><xsl:element name="dc:description"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:when test="$access='PUBLIC'"><xsl:element name="dc:title"><xsl:value-of select="@filename"/></xsl:element></xsl:when><xsl:otherwise><xsl:comment>ERROR</xsl:comment></xsl:otherwise></xsl:choose><xsl:if test="$import-name = 'FHI'"><xsl:call-template name="copyrightFHI"/></xsl:if></xsl:element></mdr:md-record></xsl:element></xsl:element></xsl:template> -->
 	<!-- BASIC -->
 	<xsl:template match="basic">
 		<xsl:choose>

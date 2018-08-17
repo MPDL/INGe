@@ -719,7 +719,7 @@
 							<ec:properties>
 								<prop:visibility>audience</prop:visibility>
 								<prop:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']"/>
 								</prop:content-category>
 								<prop:file-name>
 									<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
@@ -746,7 +746,7 @@
 											<xsl:value-of select="."/>
 										</xsl:element>
 										<eterms:content-category>
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']/@uri"/>
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'any-fulltext']"/>
 										</eterms:content-category>
 										<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 										<xsl:variable name="file-size" select="Util:getSize($filename)"/>
@@ -765,7 +765,7 @@
 							<ec:properties>
 								<prop:visibility>public</prop:visibility>
 								<prop:content-category>
-									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+									<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']"/>
 								</prop:content-category>
 								<prop:file-name>
 									<xsl:value-of select="$filename"/>
@@ -792,7 +792,7 @@
 											<xsl:value-of select="escidoc:substring-after-last($filename, '/')"/>
 										</xsl:element>
 										<xsl:element name="eterms:content-category">
-											<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']/@uri"/>
+											<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']"/>
 										</xsl:element>
 									</xsl:element>
 								</mdr:md-record>

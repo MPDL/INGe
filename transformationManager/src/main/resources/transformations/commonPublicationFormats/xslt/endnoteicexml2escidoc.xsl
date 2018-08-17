@@ -1195,13 +1195,13 @@
 				<prop:content-category>
 					<xsl:choose>
 						<xsl:when test="contains(lower-case(.), 's')">
-							<xsl:value-of select="$contentCategory-ves/enum[.='supplementary-material']/@uri"/>
+							<xsl:value-of select="$contentCategory-ves/enum[.='supplementary-material']"/>
 						</xsl:when>
 						<xsl:when test="contains(lower-case(.), 'd')">
-							<xsl:value-of select="$contentCategory-ves/enum[.='pre-print']/@uri"/>
+							<xsl:value-of select="$contentCategory-ves/enum[.='pre-print']"/>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:value-of select="$contentCategory-ves/enum[.='publisher-version']/@uri"/>
+							<xsl:value-of select="$contentCategory-ves/enum[.='publisher-version'"/>
 						</xsl:otherwise>
 					</xsl:choose>
 				</prop:content-category>

@@ -1166,7 +1166,7 @@
 							</xsl:choose>
 						</prop:visibility>
 						<prop:content-category>
-							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+							<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']"/>
 						</prop:content-category>
 						<prop:file-name>
 							<xsl:value-of select="$filename"/>
@@ -1208,10 +1208,10 @@
 						<prop:content-category>
 							<xsl:choose>
 								<xsl:when test="$Flavor='MPIGEM' and contains(., 'http://www.coll.mpg.de/pdf_dat')">
-									<xsl:value-of select="$contentCategory-ves/enum[.='pre-print']/@uri"/>
+									<xsl:value-of select="$contentCategory-ves/enum[.='pre-print']"/>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']/@uri"/>
+									<xsl:value-of select="$contentCategory-ves/enum[.='any-fulltext']"/>
 								</xsl:otherwise>
 							</xsl:choose>
 						</prop:content-category>
