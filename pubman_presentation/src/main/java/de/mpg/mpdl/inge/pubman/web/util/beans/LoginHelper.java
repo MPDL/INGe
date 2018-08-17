@@ -284,8 +284,7 @@ public class LoginHelper extends FacesBean {
    * @return
    */
   public boolean getIsReporter() {
-    //    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.REPORTER);
-    return true;
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.REPORTER);
   }
 
   public List<AffiliationVOPresentation> getAccountUsersAffiliations() throws Exception {

@@ -90,7 +90,7 @@
 				</h:outputLink>
 			</div>
 			<div class="gotoBox">
-				<h:inputText id="inpGoToPageTop" styleClass="tiny_txtInput"
+				<h:inputText id="inpGoToPageTop" styleClass="pag_txtInput"
 					value="#{PubItemListSessionBean.goToPageTop}" />
 				<h:outputLabel id="lblItemList_of" styleClass="free_label"
 					value="#{lbl.ItemList_of} " />
@@ -431,7 +431,7 @@
 				</h:outputLink>
 			</div>
 			<div class="gotoBox">
-				<h:inputText styleClass="tiny_txtInput"
+				<h:inputText styleClass="pag_txtInput"
 					value="#{PubItemListSessionBean.goToPageBottom}" />
 				<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
 				<h:outputLabel styleClass="free_label"

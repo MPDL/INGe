@@ -46,6 +46,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
  * @version $Revision$ $LastChangedDate$ by $Author$
  * @updated 05-Sep-2007 10:30:46
  */
+@SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class AccountUserVO extends ValueObject {
   /**

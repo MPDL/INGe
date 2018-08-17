@@ -204,6 +204,8 @@ public class AuthorizationService {
 
             }
             if (!userMatch) {
+              //reset queryBuilder
+              subQb = QueryBuilders.boolQuery();
               break rulesLoop;
             }
 

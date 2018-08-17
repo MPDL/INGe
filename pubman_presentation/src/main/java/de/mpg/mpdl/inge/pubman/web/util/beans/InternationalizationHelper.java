@@ -59,12 +59,12 @@ public class InternationalizationHelper implements Serializable {
 
   public static final String LABEL_BUNDLE = "Label";
   public static final String MESSAGES_BUNDLE = "Messages";
-  public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.jsp";
-  public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.jsp";
+  //  public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.jsp";
+  //  public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.jsp";
 
   public List<String> test = new ArrayList<String>();
 
-  private String selectedHelpPage;
+  //  private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
 
@@ -92,11 +92,11 @@ public class InternationalizationHelper implements Serializable {
       this.userLocale = new Locale("en");
     }
 
-    if (this.userLocale.getLanguage().equals("de")) {
-      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
-    } else {
-      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
-    }
+//    if (this.userLocale.getLanguage().equals("de")) {
+//      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
+//    } else {
+//      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
+//    }
 
     this.locale = this.userLocale.getLanguage();
 
@@ -111,9 +111,9 @@ public class InternationalizationHelper implements Serializable {
     return InternationalizationHelper.MESSAGES_BUNDLE + "_" + this.userLocale.getLanguage();
   }
 
-  public String getSelectedHelpPage() {
-    return this.selectedHelpPage;
-  }
+  //  public String getSelectedHelpPage() {
+  //    return this.selectedHelpPage;
+  //  }
 
   public void changeLanguage(ValueChangeEvent event) {
     final FacesContext fc = FacesTools.getCurrentInstance();
@@ -136,11 +136,11 @@ public class InternationalizationHelper implements Serializable {
         InternationalizationHelper.logger.error("unable to switch to locale using language = " + language + " and country = " + country, e);
       }
 
-      if (language.equals("de")) {
-        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
-      } else {
-        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
-      }
+      //      if (language.equals("de")) {
+      //        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
+      //      } else {
+      //        this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
+      //      }
     }
   }
 

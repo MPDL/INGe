@@ -78,7 +78,7 @@
 			</div>
 			<div class="gotoBox">
 				<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}" /></label>
-				<h:inputText id="inpGoToPageTop" styleClass="tiny_txtInput"
+				<h:inputText id="inpGoToPageTop" styleClass="pag_txtInput"
 					value="#{YearbookModeratorListSessionBean.goToPageTop}" />
 				<h:outputLabel id="lblItemList_of" styleClass="free_label" value="#{lbl.ItemList_of} " />
 				<h:outputLabel id="lblPaginatorPageSize" styleClass="free_label"
@@ -180,12 +180,10 @@
 								<span class="seperator status"/>
 								<span class="free_area0_p6 endline itemHeadline">
 									<b>
-									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.editMembers(item)}" rendered="#{item.state == 'CREATED'}">
+									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.editMembers(item)}">
 										<h:outputText escape="false" value="#{item.name}"/>
 									</h:commandLink>
-									<h:commandLink styleClass="" action="#{YearbookModeratorRetrieverRequestBean.viewMembers(item)}" rendered="#{item.state != 'CREATED'}">
-										<h:outputText escape="false" value="#{item.name}"/>
-									</h:commandLink>
+									
 									</b>
 								</span>
 							</h:panelGroup>
@@ -335,7 +333,7 @@
 			</div>
 			<div class="gotoBox">
 				<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}" /></label>
-				<h:inputText id="inpGoToPageBottom" styleClass="tiny_txtInput"
+				<h:inputText id="inpGoToPageBottom" styleClass="pag_txtInput"
 					value="#{YearbookModeratorListSessionBean.goToPageBottom}" />
 				<h:outputLabel id="lblItemList_ofBottom" styleClass="free_label" value="#{lbl.ItemList_of} " />
 				<h:outputLabel id="lblpaginatorPageSizeBottom" styleClass="free_label"

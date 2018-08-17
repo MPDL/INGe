@@ -69,6 +69,13 @@ public class ItemRestController {
 
   public final static long DEFAULT_SCROLL_TIME = 90000;
 
+  public static final String EXPORT_FORMAT_ALLOWABLE_VALUES = TransformerFactory.JSON + "," + TransformerFactory.ESCIDOC_ITEMLIST_XML + ","
+      + TransformerFactory.BIBTEX + "," + TransformerFactory.ENDNOTE + "," + TransformerFactory.MARC_XML + "," + TransformerFactory.PDF
+      + "," + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
+      + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET;
+
+  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL";
+
   @Autowired
   private PubItemService pis;
 
@@ -113,49 +120,24 @@ public class ItemRestController {
   @RequestMapping(value = "/search", method = RequestMethod.POST)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> search( //
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, // 
-      @RequestParam(value = "format", required = false, defaultValue = "json") @ApiParam(
-          allowableValues = TransformerFactory.JSON + "," + TransformerFactory.ESCIDOC_ITEMLIST_XML + "," + TransformerFactory.BIBTEX + ","
-              + TransformerFactory.ENDNOTE + "," + TransformerFactory.MARC_XML + "," + TransformerFactory.PDF + ","
-              + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
-              + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET) String format, //
+      @RequestParam(value = "format", required = false,
+          defaultValue = "json") @ApiParam(allowableValues = EXPORT_FORMAT_ALLOWABLE_VALUES) String format, //
       @RequestParam(value = "citation", required = false,
-          defaultValue = "APA") @ApiParam(allowableValues = "APA, APA(CJK), AJP, JUS, CSL") String citation, //
+          defaultValue = "APA") @ApiParam(allowableValues = EXPORT_CITATION_ALLOWABLE_VALUES) String citation, //
       @RequestParam(value = "cslConeId", required = false) String cslConeId, //
       @RequestParam(value = "scroll", required = false) boolean scroll, //
       @RequestBody JsonNode query, //
       HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
-    if (scroll) {
-      srRequest.setScrollTime(DEFAULT_SCROLL_TIME);
-    }
 
-    if (format == null || format.equals(TransformerFactory.JSON)) {
-      SearchRetrieveResponseVO<ItemVersionVO> srResponse = pis.search(srRequest, token);
-      HttpHeaders headers = new HttpHeaders();
-      headers.add("x-total-number-of-results", "" + srResponse.getNumberOfRecords());
-      if (scroll) {
-        headers.add("scrollId", srResponse.getScrollId());
-      }
-      return new ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>>(srResponse, headers, HttpStatus.OK);
-    }
 
-    ExportFormatVO exportFormat = new ExportFormatVO(format, citation, cslConeId);
-    SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srRequest, exportFormat);
-    SearchAndExportResultVO saerVO = this.saes.searchAndExportItems(saerrVO, token);
+    return utils.searchOrExport(format, citation, cslConeId, scroll, srRequest, response, token);
 
-    response.setContentType(saerVO.getTargetMimetype());
-    response.setHeader("Content-disposition", "attachment; filename=" + saerVO.getFileName());
-    response.setIntHeader("x-total-number-of-results", saerVO.getTotalNumberOfRecords());
-    if (scroll) {
-      response.setHeader("scrollId", saerrVO.getSearchRetrieveReponseVO().getScrollId());
-    }
 
-    OutputStream output = response.getOutputStream();
-    output.write(saerVO.getResult());
-
-    return null;
   }
+
+
 
   @RequestMapping(value = "/search/scroll", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> searchScroll( //
@@ -192,6 +174,8 @@ public class ItemRestController {
 
     return null;
   }
+
+
 
   //  @ApiImplicitParams({@ApiImplicitParam(name = "searchSource", dataType = "[Ljava.lang.String;", examples = @Example(
   //      value = @ExampleProperty(mediaType = "application/json", value = "{\n\t\"query\" : {\n\t\t\"match_all\": {}\n\t}\n}")))})

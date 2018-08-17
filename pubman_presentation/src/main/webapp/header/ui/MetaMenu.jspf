@@ -27,12 +27,6 @@
 					</h:selectOneMenu>
 				</div>
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
-				<!-- Help -->
-				<h:commandLink id="lnkHelp" styleClass="free_area0_p8 endline"
-					title="#{tip.mainMenu_lnkHelp}"
-					onclick="loadHelp('#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.appContext}#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false"
-					value="#{lbl.mainMenu_lnkHelp}" />
-				<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 				<!-- Guide -->
 				<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline"

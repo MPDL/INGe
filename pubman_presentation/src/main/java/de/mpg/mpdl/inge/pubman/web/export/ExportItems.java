@@ -81,7 +81,7 @@ public class ExportItems extends FacesBean {
     final SelectItem EXPORTFORMAT_JSON = new SelectItem(TransformerFactory.JSON, this.getLabel("Export_ExportFormat_JSON"));
 
     exportGroup.setSelectItems(
-        new SelectItem[] {EXPORTFORMAT_MARCXML, EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_JSON, EXPORTFORMAT_ESCIDOC_XML});
+        new SelectItem[] {EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_JSON, EXPORTFORMAT_ESCIDOC_XML, EXPORTFORMAT_MARCXML});
 
 
     SelectItemGroup citationGroup = new SelectItemGroup(this.getLabel("Export_ExportFormat_CitationGroup"));

@@ -52,7 +52,7 @@
                 </h:outputLink>
             </div>
             <div class="gotoBox">
-                <h:inputText id="inpGoToPageTop" styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageTop}" />
+                <h:inputText id="inpGoToPageTop" styleClass="pag_txtInput" value="#{PubItemListSessionBean.goToPageTop}" />
                 <h:outputLabel id="lblItemList_of" styleClass="free_label" value="#{lbl.ItemList_of} " />
                 <h:outputLabel id="lblPaginatorPageSize" styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
                 <h:commandButton id="btList_btGo" styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="#{lbl.list_btGo}" title="#{tip.List_btGo}" action="#{PubItemListSessionBean.doGoToPageTop}" /> 
@@ -231,7 +231,7 @@
                     <h:outputText value=" " /> </h:outputLink>
             </div>
             <div class="gotoBox">
-                <h:inputText id="inpGoToPageBottom" styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageBottom}" />
+                <h:inputText id="inpGoToPageBottom" styleClass="pag_txtInput" value="#{PubItemListSessionBean.goToPageBottom}" />
                 <h:outputLabel id="lblItemList_ofBottom" styleClass="free_label" value="#{lbl.ItemList_of} " />
                 <h:outputLabel id="lblpaginatorPageSizeBottom" styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
                 <h:commandButton id="btnGoToPageBottom" styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="#{lbl.List_btGo}" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.doGoToPageBottom}" /> </div>

@@ -33,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import de.mpg.mpdl.inge.model.referenceobjects.GrantRO;
-import de.mpg.mpdl.inge.model.referenceobjects.ReferenceObject;
 
 /**
  * A grant wraps a role that is granted to a certain certain object (like an affiliation or a
@@ -100,11 +99,11 @@ public class GrantVO extends ValueObject {
     SYSADMIN("SYSADMIN"),
     YEARBOOK_EDITOR("YEARBOOK-EDITOR"),
     YEARBOOK_ADMIN("YEARBOOK-ADMIN"),
-    CONE_OPEN_VOCABULARY_EDITOR("CONE_OPEN_VOCABULARY_EDITOR"),
-    CONE_CLOSED_VOCABULARY_EDITOR("CONE_CLOSED_VOCABULARY_EDITOR"),
+//    CONE_OPEN_VOCABULARY_EDITOR("CONE_OPEN_VOCABULARY_EDITOR"),
+//    CONE_CLOSED_VOCABULARY_EDITOR("CONE_CLOSED_VOCABULARY_EDITOR"),
     PRIVILEGEDVIEWER("escidoc:role-privileged-viewer"),
-    REPORTER("escidoc:role-reporter"),
-    AUDIENCE("escidoc:role-audience");
+    REPORTER("REPORTER");
+//    AUDIENCE("escidoc:role-audience");
 
   private final String frameworkValue;
 
@@ -147,27 +146,27 @@ public class GrantVO extends ValueObject {
     this.role = grant.role;
   }
 
-  /**
-   * Delivers true if the granted role is of type 'depositor' for the given object (normally a
-   * PubCollection).
-   */
-  public boolean isDepositor(ReferenceObject objRef) {
-    if (objRef == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
-    }
-    return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
-  }
+  //  /**
+  //   * Delivers true if the granted role is of type 'depositor' for the given object (normally a
+  //   * PubCollection).
+  //   */
+  //  public boolean isDepositor(ReferenceObject objRef) {
+  //    if (objRef == null) {
+  //      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
+  //    }
+  //    return (PredefinedRoles.DEPOSITOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
+  //  }
 
-  /**
-   * Delivers true if the granted role is of type 'moderator' for the given object (normally a
-   * PubCollection).
-   */
-  public boolean isModerator(ReferenceObject objRef) {
-    if (objRef == null) {
-      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
-    }
-    return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
-  }
+  //  /**
+  //   * Delivers true if the granted role is of type 'moderator' for the given object (normally a
+  //   * PubCollection).
+  //   */
+  //  public boolean isModerator(ReferenceObject objRef) {
+  //    if (objRef == null) {
+  //      throw new IllegalArgumentException(getClass().getSimpleName() + ":isModerator:objectRef is null");
+  //    }
+  //    return (PredefinedRoles.MODERATOR.frameworkValue().equals(role) && this.objectRef.equals(objRef));
+  //  }
 
   /**
    * Delivers the object reference of the object the rights are granted for.
