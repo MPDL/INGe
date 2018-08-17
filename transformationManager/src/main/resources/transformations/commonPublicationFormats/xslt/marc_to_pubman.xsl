@@ -771,9 +771,9 @@
 		<xsl:param name="datafield-856" as="element(marc:datafield)"/>
 		<xsl:variable name="content-category" as="xs:string">
 			<xsl:choose>
-				<xsl:when test="$datafield-856[@ind2 = ('0', '1')] and local:datafield($datafield-856/.., ('020', '022'))/local:subfield(., ('a'))[normalize-space(.)]">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</xsl:when>
-				<xsl:when test="$datafield-856[@ind2 = ('0', '1')] and local:datafield($datafield-856/.., ('490', '770', '773'))/local:subfield(., ('x', 'z'))[normalize-space(.)]">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</xsl:when>
-				<xsl:otherwise>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</xsl:otherwise>
+				<xsl:when test="$datafield-856[@ind2 = ('0', '1')] and local:datafield($datafield-856/.., ('020', '022'))/local:subfield(., ('a'))[normalize-space(.)]">publisher-version</xsl:when>
+				<xsl:when test="$datafield-856[@ind2 = ('0', '1')] and local:datafield($datafield-856/.., ('490', '770', '773'))/local:subfield(., ('x', 'z'))[normalize-space(.)]">publisher-version</xsl:when>
+				<xsl:otherwise>any-fulltext</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:sequence select="misc:create_prop-content-category($content-category)"/>

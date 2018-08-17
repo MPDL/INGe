@@ -132,7 +132,7 @@ Translated from German, a contemporary witness describing the contrasting impact
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>private</prop:visibility>
           <prop:pid>hdl:11858/00-001M-0000-002A-819D-2</prop:pid>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+          <prop:content-category>publisher-version</prop:content-category>
           <prop:file-name>BGC2461.pdf</prop:file-name>
           <prop:mime-type>application/pdf</prop:mime-type>
           <prop:checksum>2600eb6a062c35a84de94d5e36fca566</prop:checksum>
@@ -155,7 +155,7 @@ Translated from German, a contemporary witness describing the contrasting impact
           <prop:description>OA</prop:description>
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>public</prop:visibility>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+          <prop:content-category>publisher-version</prop:content-category>
           <prop:file-name>http://www.pnas.org/content/113/21/5768</prop:file-name>
           <prop:checksum>603ad13bceb1c36d3576f9db46a722f5</prop:checksum>
           <prop:checksum-algorithm>MD5</prop:checksum-algorithm>

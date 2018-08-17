@@ -78,7 +78,7 @@
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>public</prop:visibility>
           <prop:pid>hdl:11858/00-001M-0000-0010-BABF-0</prop:pid>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+          <prop:content-category>any-fulltext</prop:content-category>
           <prop:file-name>schubotz_habil.pdf</prop:file-name>
           <prop:mime-type>application/pdf</prop:mime-type>
           <prop:checksum>fb2accd0731bed6aba505137e16d8228</prop:checksum>
@@ -89,7 +89,7 @@
           <escidocMetadataRecords:md-record name="escidoc">
             <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
               <dc:title>schubotz_habil.pdf</dc:title>
-              <eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
+              <eterms:content-category>any-fulltext</eterms:content-category>
               <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
               <dcterms:extent>2744320</dcterms:extent>
               <dcterms:license>http://creativecommons.org/licenses/by-nc/3.0/</dcterms:license>

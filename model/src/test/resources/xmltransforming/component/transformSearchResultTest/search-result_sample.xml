@@ -32,7 +32,7 @@
                 <prop:valid-status>valid</prop:valid-status>
                 <prop:visibility>public</prop:visibility>
                 <prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
-                <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+                <prop:content-category>publisher-version</prop:content-category>
                 <prop:file-name>farbtest.gif</prop:file-name>
             </escidocComponents:properties>
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
@@ -43,7 +43,7 @@
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eterms:ESCIDOC">19484</dc:identifier>
 						<dc:identifier xsi:type="eterms:URI">http://myFile.com</dc:identifier>
-						<eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</eterms:content-category>
+						<eterms:content-category>any-fulltext</eterms:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
 					</file:file>

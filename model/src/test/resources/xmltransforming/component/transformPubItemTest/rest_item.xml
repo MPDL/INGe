@@ -513,7 +513,7 @@
 				<prop:valid-status>valid</prop:valid-status>
 				<prop:visibility>public</prop:visibility>
 
-				<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+				<prop:content-category>publisher-version
 				</prop:content-category>
 				<prop:file-name>cqg7_22_025.pdf</prop:file-name>
 				<prop:mime-type>application/pdf</prop:mime-type>
@@ -535,7 +535,7 @@
 						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">cqg7_22_025.pdf</dc:title>
 						<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
 						<eterms:content-category
-							xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+							xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/">publisher-version
 						</eterms:content-category>
 						<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/"
 							xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:IMT">application/pdf

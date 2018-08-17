@@ -92,7 +92,7 @@
 									<xsl:value-of select="'public'"/>
 								</xsl:element>
 								<xsl:element name="prop:content-category">
-									<xsl:value-of select="'http://purl.org/escidoc/metadata/ves/content-categories/publisher-version'"/>
+									<xsl:value-of select="'publisher-version'"/>
 								</xsl:element>
 								<xsl:element name="prop:file-name">
 									<xsl:value-of select="$component-name"/>
@@ -122,7 +122,7 @@
 										<dc:title>
 											<xsl:value-of select="$component-name"/>
 										</dc:title>
-										<file:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</file:content-category>
+										<file:content-category>publisher-version</file:content-category>
 										<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
 										<!-- TODO: Filesize -->
 										<dcterms:extent>

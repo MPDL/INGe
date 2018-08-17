@@ -259,7 +259,7 @@
           <prop:description>Der Text auf der Seite vom Insitut.</prop:description>
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>public</prop:visibility>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+          <prop:content-category>any-fulltext</prop:content-category>
           <prop:file-name>http://www.ip.mpg.de/shared/data/pdf/stellungahme_mpi_rl_2004-48-eg.pdf</prop:file-name>
           <prop:checksum>85efc19807c88660abd33191819548cb</prop:checksum>
           <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
@@ -577,7 +577,7 @@
 					<prop:valid-status>valid</prop:valid-status>
 					<prop:visibility>public</prop:visibility>
 					<prop:pid>hdl:someHandle/test/escidoc:18004</prop:pid>
-					<prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/table-of-contents
+					<prop:content-category>table-of-contents
 					</prop:content-category>
 					<prop:file-name>http://www.vfst.de/download/900000_BFH_Inhalt.pdf
 					</prop:file-name>
@@ -867,7 +867,7 @@
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>public</prop:visibility>
           <prop:pid>hdl:11858/00-ZZZZ-0000-0000-4435-1</prop:pid>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+          <prop:content-category>any-fulltext</prop:content-category>
           <prop:file-name>http://www.ip.mpg.de/shared/data/pdf/stakeholder_consultation_on_copyright_levies_in_a_converging_world.pdf</prop:file-name>
           <prop:mime-type>application/octet-stream</prop:mime-type>
           <prop:checksum>1da0ab0f7237d0b3905e837a2fcef67c</prop:checksum>

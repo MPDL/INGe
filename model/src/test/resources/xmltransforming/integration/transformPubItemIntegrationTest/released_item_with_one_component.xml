@@ -47,7 +47,7 @@
 				<escidocComponents:valid-status>valid</escidocComponents:valid-status>
 				<escidocComponents:visibility>public</escidocComponents:visibility>
 				<escidocComponents:pid>hdl:someHandle/test/escidoc:375</escidocComponents:pid>
-				<escidocComponents:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</escidocComponents:content-category>
+				<escidocComponents:content-category>publisher-version</escidocComponents:content-category>
 				<escidocComponents:file-name>farbtest.gif</escidocComponents:file-name>
 				<escidocComponents:file-size>0</escidocComponents:file-size>
 			</escidocComponents:properties>

@@ -114,7 +114,7 @@
                         xmlns:dcterms="http://purl.org/dc/terms/"
                         xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
             <prop:visibility>public</prop:visibility>
-            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+            <prop:content-category>publisher-version</prop:content-category>
             <prop:file-name>http://www.db-thueringen.de/servlets/DerivateServlet/Derivate-2058/ASSidUE09.pdf</prop:file-name>
          </ec:properties>
          <ec:content xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
@@ -172,7 +172,7 @@
                <file:file>
                   <dc:title>ASSidUE09.pdf</dc:title>
                   <dc:identifier xsi:type="eterms:URI">ASSidUE09.pdf</dc:identifier>
-                  <eterms:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</eterms:content-category>
+                  <eterms:content-category>publisher-version</eterms:content-category>
                </file:file>
             </mdr:md-record>
          </mdr:md-records>

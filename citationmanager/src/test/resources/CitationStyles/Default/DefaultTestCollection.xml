@@ -140,7 +140,7 @@
                     <prop:creation-date>2009-10-08T14:36:24.980Z</prop:creation-date>
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>public</prop:visibility>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+                    <prop:content-category>publisher-version
 					</prop:content-category>
                     <prop:file-name>Gentner&amp;Bowerman_2009.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
@@ -253,7 +253,7 @@
                     <prop:creation-date>2009-09-10T16:11:02.065Z</prop:creation-date>
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>public</prop:visibility>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+                    <prop:content-category>publisher-version
 					</prop:content-category>
                     <prop:file-name>2003_Language_and_mind.pdf</prop:file-name>
                     <prop:mime-type>application/octet-stream</prop:mime-type>
@@ -408,7 +408,7 @@
                     <prop:creation-date>2009-10-13T12:03:01.733Z</prop:creation-date>
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>public</prop:visibility>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+                    <prop:content-category>publisher-version
 					</prop:content-category>
                     <prop:file-name>scott,sauter,mcgettigan-handbook.pdf
 					</prop:file-name>
@@ -831,7 +831,7 @@
                     <prop:creation-date>2010-03-30T08:09:44.662Z</prop:creation-date>
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>public</prop:visibility>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+                    <prop:content-category>publisher-version
 					</prop:content-category>
                     <prop:file-name>Burki_Is_There_only_Jou_Memo_Lang_2010_pdf.pdf
 					</prop:file-name>
@@ -1063,7 +1063,7 @@
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>private</prop:visibility>
                     <prop:pid>hdl:someHandle/test/escidoc:408414</prop:pid>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+                    <prop:content-category>any-fulltext
 					</prop:content-category>
                     <prop:file-name>goodger.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
@@ -1239,7 +1239,7 @@
 					</prop:description>
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>public</prop:visibility>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/pre-print
+                    <prop:content-category>pre-print
 					</prop:content-category>
                     <prop:file-name>1002.1733</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
@@ -2791,7 +2791,7 @@
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>private</prop:visibility>
                     <prop:pid>hdl:someHandle/test/escidoc:417664</prop:pid>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext
+                    <prop:content-category>any-fulltext
 					</prop:content-category>
                     <prop:file-name>abdo-pks.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
@@ -2949,7 +2949,7 @@
                     <prop:valid-status>valid</prop:valid-status>
                     <prop:visibility>public</prop:visibility>
                     <prop:pid>hdl:someHandle/test/escidoc:420913</prop:pid>
-                    <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version
+                    <prop:content-category>publisher-version
 					</prop:content-category>
                     <prop:file-name>Acheson,Postle&amp;MacDonald_JEPLMC_2010.pdf
 					</prop:file-name>

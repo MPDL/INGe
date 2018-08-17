@@ -75,7 +75,7 @@
           <prop:description>handout</prop:description>
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>public</prop:visibility>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material</prop:content-category>
+          <prop:content-category>supplementary-material</prop:content-category>
           <prop:file-name>rpe_slfa+sem4.pdf</prop:file-name>
           <prop:mime-type>application/pdf</prop:mime-type>
           <prop:checksum>d874d33167d398b050a486d019a21540</prop:checksum>

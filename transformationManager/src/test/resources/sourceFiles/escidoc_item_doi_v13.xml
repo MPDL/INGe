@@ -71,7 +71,7 @@
           <prop:valid-status>valid</prop:valid-status>
           <prop:visibility>public</prop:visibility>
           <prop:pid>hdl:11858/00-001M-0000-002C-2AE4-7</prop:pid>
-          <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</prop:content-category>
+          <prop:content-category>publisher-version</prop:content-category>
           <prop:file-name>2376868.pdf</prop:file-name>
           <prop:mime-type>application/pdf</prop:mime-type>
           <prop:checksum>dac5d6abca511eab98cc59d168f56ff1</prop:checksum>

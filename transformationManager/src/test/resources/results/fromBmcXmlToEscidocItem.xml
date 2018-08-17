@@ -76,7 +76,7 @@
       <escidocComponents:component>
          <escidocComponents:properties>
             <prop:visibility>public</prop:visibility>
-            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+            <prop:content-category>any-fulltext</prop:content-category>
             <prop:mime-type>application/xml</prop:mime-type>
          </escidocComponents:properties>
          <escidocComponents:content xlink:type="simple" xlink:title="1471-2105-12-S1-S29.xml"
@@ -99,7 +99,7 @@
       <escidocComponents:component>
          <escidocComponents:properties>
             <prop:visibility>public</prop:visibility>
-            <prop:content-category>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</prop:content-category>
+            <prop:content-category>any-fulltext</prop:content-category>
             <prop:mime-type>application/pdf</prop:mime-type>
          </escidocComponents:properties>
          <escidocComponents:content xlink:type="simple" xlink:title="1471-2105-12-S1-S29.pdf"

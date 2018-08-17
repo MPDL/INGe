@@ -1505,12 +1505,12 @@
 		<xsl:param name="art-node" as="element()"/>
 		<xsl:variable name="content-category" as="xs:string">
 			<xsl:choose>
-				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:pub[1])">http://purl.org/escidoc/metadata/ves/content-categories/publisher-version</xsl:when>
-				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:acc[1])">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</xsl:when>
-				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:revrec[1])">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</xsl:when>
-				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:revreq[1])">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</xsl:when>
-				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:rec[1])">http://purl.org/escidoc/metadata/ves/content-categories/pre-print</xsl:when>
-				<xsl:otherwise>http://purl.org/escidoc/metadata/ves/content-categories/any-fulltext</xsl:otherwise>
+				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:pub[1])">publisher-version</xsl:when>
+				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:acc[1])">pre-print</xsl:when>
+				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:revrec[1])">pre-print</xsl:when>
+				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:revreq[1])">pre-print</xsl:when>
+				<xsl:when test="normalize-space($art-node/*:fm[1]/*:history[1]/*:rec[1])">pre-print</xsl:when>
+				<xsl:otherwise>any-fulltext</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:sequence select="misc:create_prop-content-category($content-category)"/>
