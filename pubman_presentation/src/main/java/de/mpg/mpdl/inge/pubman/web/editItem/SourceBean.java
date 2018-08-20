@@ -267,7 +267,7 @@ public class SourceBean extends EditItemBean {
         IdType idType = IdType.OTHER;
 
         for (final IdType id : IdType.values()) {
-          if (id.getUri().equals(idParts[0])) {
+          if (id.getUri().equals(idParts[0]) || id.name().toLowerCase().equals(idParts[0].toLowerCase())) {
             idType = id;
           }
         }
