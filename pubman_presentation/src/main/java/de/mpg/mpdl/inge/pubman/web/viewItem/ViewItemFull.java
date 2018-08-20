@@ -191,7 +191,6 @@ public class ViewItemFull extends FacesBean {
   private boolean isMemberOfYearbook = false;
   private boolean isModerator = false;
   private boolean isOwner = false;
-  private boolean isPrivilegedViewer = false;
   private boolean isPublicStateReleased = false;
   private boolean isStateInRevision = false;
   private boolean isStatePending = false;
@@ -309,8 +308,6 @@ public class ViewItemFull extends FacesBean {
           this.isModerator = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.MODERATOR,
               this.getPubItem().getObject().getContext().getObjectId());
           this.isDepositor = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.DEPOSITOR);
-          this.isPrivilegedViewer = GrantUtil.hasRole(this.getLoginHelper().getAccountUser(), PredefinedRoles.PRIVILEGEDVIEWER,
-              this.getPubItem().getObject().getContext().getObjectId());
 
           if (!this.isOwner) {
             for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
@@ -1469,14 +1466,6 @@ public class ViewItemFull extends FacesBean {
 
   public void setModerator(boolean isModerator) {
     this.isModerator = isModerator;
-  }
-
-  public boolean getIsPrivilegedViewer() {
-    return this.isPrivilegedViewer;
-  }
-
-  public void setPrivilegedViewer(boolean isPrivilegedViewer) {
-    this.isPrivilegedViewer = isPrivilegedViewer;
   }
 
   public boolean getIsLoggedIn() {

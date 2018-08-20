@@ -43,7 +43,7 @@
 										<h:outputLink id="lnkCitationURL" target="_blank"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 											<span class="std_imgBtn viewFileIcon"></span>
 											<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 										</h:outputLink>
@@ -51,7 +51,7 @@
 										<h:outputLink id="lnkSearchHitsURL" target="_blank"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 											<span class="std_imgBtn viewFileIcon"></span>
 											<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 										</h:outputLink>
@@ -60,7 +60,7 @@
 											styleClass="tiny_marginLExcl"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 											<span class="std_imgBtn downloadFileIcon "></span>
 											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
@@ -69,7 +69,7 @@
 											styleClass="tiny_marginLExcl"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 											<span class="std_imgBtn downloadFileIcon"></span>
 											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
@@ -88,11 +88,11 @@
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
 								id="lnkFileHandle"
 								value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(file.file.pid)}"
-								rendered="#{ViewItemFull.isStateReleased and file.file.pid != null and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+								rendered="#{ViewItemFull.isStateReleased and file.file.pid != null and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 								<h:outputText
 									value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(file.file.pid)}" />
 							</h:outputLink> <h:outputText value="#{lbl.lbl_noEntry}"
-								rendered="#{!ViewItemFull.isStateReleased or file.file.pid == null or !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}" />
+								rendered="#{!ViewItemFull.isStateReleased or file.file.pid == null or !(file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}" />
 						</span>
 					</h:panelGroup>
 					<!-- File name -->
@@ -150,7 +150,7 @@
 								value="#{file.file.mimeType}" /> <h:commandLink id="lnkChecksum"
 								value=" / [#{file.checksumAlgorithmAsString}]"
 								action="#{file.displayChecksum}" target="_blank"
-								rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}" />
+								rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}" />
 						</span>
 					</h:panelGroup>
 					<!-- File technical metadata -->
@@ -164,7 +164,7 @@
 							<div class="xHuge_area0 endline marginTExcl6p">
 								<h:outputLink id="lnkCitationURLTme" target="_blank"
 									value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=tme"
-									rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer || file.fileAccessGranted)}">
+									rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 									<span class="std_imgBtn viewFileIcon"></span>
 									<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 								</h:outputLink>
