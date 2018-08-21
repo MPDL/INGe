@@ -36,6 +36,7 @@ import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/yearbooks")
@@ -65,8 +66,8 @@ public class YearbookRestController {
 
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<YearbookDbVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, null);
@@ -74,10 +75,11 @@ public class YearbookRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<YearbookDbVO>>(srResponse, HttpStatus.OK);
   }
 
+  @ApiIgnore
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<YearbookDbVO>> filter(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "q") String query, @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "q") String query, @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset);

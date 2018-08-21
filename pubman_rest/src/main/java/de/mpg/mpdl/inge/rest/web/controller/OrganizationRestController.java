@@ -33,6 +33,7 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import io.swagger.annotations.Api;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/ous")
@@ -54,8 +55,8 @@ public class OrganizationRestController {
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> getAll(
       @RequestHeader(value = AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting =
@@ -65,11 +66,12 @@ public class OrganizationRestController {
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);
   }
 
+  @ApiIgnore
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>> filter(
       @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
-      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
     //QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));

@@ -92,8 +92,8 @@ public class ItemRestController {
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> getAll(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ITEM_SORT), SortOrder.ASC);
@@ -106,8 +106,8 @@ public class ItemRestController {
   @RequestMapping(value = "", params = "q", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ItemVersionVO>> filter(
       @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token, @RequestParam(value = "q") String query,
-      @RequestParam(value = "limit", required = true, defaultValue = "10") int limit,
-      @RequestParam(value = "offset", required = true, defaultValue = "0") int offset)
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchQueryParam = QueryBuilders.queryStringQuery(query);
     //QueryBuilder matchQueryParam = QueryBuilders.boolQuery().filter(QueryBuilders.termQuery(query.split(":")[0], query.split(":")[1]));
