@@ -962,7 +962,7 @@
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>
 		<inge.cone.service.url.test>https://dev.inge.mpdl.mpg.de/cone/</inge.cone.service.url.test>
-		<inge.cone.service.url>https://localhost:8080/cone/</inge.cone.service.url>
+		<inge.cone.service.url>http://localhost:8080/cone/</inge.cone.service.url>
 		<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
