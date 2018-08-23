@@ -6,18 +6,18 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>1.0.0-RC</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>reporting</artifactId>
 	<name>reporting</name>
-	<version>0.39</version>
+	<version>0.40-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/reporting</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/reporting</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>INGe-1.0.0-RC</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<build>
