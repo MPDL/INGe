@@ -1,14 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<artifactId>INGe</artifactId>
 		<groupId>de.mpg.mpdl.inge</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-RC</version>
 	</parent>
 
 	<artifactId>pubman_rest</artifactId>
+  <version>0.0.1</version>
 
 	<name>PubMan REST Web Service</name>
 	<packaging>war</packaging>
@@ -17,7 +17,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_rest</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_rest</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-1.0.0-RC</tag>
 	</scm>
 
 

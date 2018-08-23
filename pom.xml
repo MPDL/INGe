@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-RC</version>
 
 	<packaging>pom</packaging>
 
@@ -135,7 +133,7 @@
 		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
 		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
 		<url>https://github.com/MPDL/INGe</url>
-		<tag>HEAD</tag>
+		<tag>INGe-1.0.0-RC</tag>
 	</scm>
 
 	<repositories>
@@ -273,107 +271,107 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>0.2.33-SNAPSHOT</version>
+				<version>0.2.33</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>0.2.33-SNAPSHOT</version>
+				<version>0.2.33</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>1.0.100-SNAPSHOT</version>
+				<version>1.0.100</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>0.0.6-SNAPSHOT</version>
+				<version>0.0.6</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>1.2.55-SNAPSHOT</version>
+				<version>1.2.55</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>1.2.55-SNAPSHOT</version>
+				<version>1.2.55</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>1.0.91-SNAPSHOT</version>
+				<version>1.0.91</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
 				<classifier>tests</classifier>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
 				<classifier>tests</classifier>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.0.0-SNAPSHOT</version>
+				<version>8.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.0.1</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.0.0-SNAPSHOT</version>
+				<version>8.0.0</version>
 				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
@@ -935,8 +933,8 @@
 	</reporting>
 
 	<properties>
-		<framework.admin.password></framework.admin.password>
-		<framework.admin.username></framework.admin.username>
+		<framework.admin.password />
+		<framework.admin.username />
 		<inge.aa.client.class />
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
@@ -997,9 +995,9 @@
 		<inge.index.yearbook.name>yearbooks</inge.index.yearbook.name>
 		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
-		<inge.matomo.analytics.auth.token></inge.matomo.analytics.auth.token>
+		<inge.matomo.analytics.auth.token />
 		<inge.matomo.analytics.base.uri>https://analytics.mpdl.mpg.de</inge.matomo.analytics.base.uri>
-		<inge.matomo.analytics.site.id></inge.matomo.analytics.site.id>
+		<inge.matomo.analytics.site.id />
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pubman.blog.baseUrl />
@@ -1046,7 +1044,7 @@
 		<inge.pubman.survey.url />
 		<inge.pubman_presentation.overview_page.authors_ou />
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
-		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br/>Please be aware that example values in particular might not be fully correct.<br/>Valid examples can be found in <a href="http://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank">MPDL CoLab</a>.]]></inge.rest.api.description>
+		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br />Please be aware that example values in particular might not be fully correct.<br />Valid examples can be found in <a href="http://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank">MPDL CoLab</a>.]]></inge.rest.api.description>
 		<inge.rest.file.path>/component</inge.rest.file.path>
 		<inge.search.and.export.default.query>{\"bool\":{\"must\":[{\"bool\":{\"should\":[{\"term\":{\"versionState\":{\"value\":\"RELEASED\",\"boost\":1.0}}}],\"adjust_pure_negative\":true,\"boost\":1.0}}],\"adjust_pure_negative\":true,\"boost\":1.0}}</inge.search.and.export.default.query>
 		<inge.search.and.export.default.sort.key>metadata.title.keyword</inge.search.and.export.default.sort.key>
@@ -1211,7 +1209,7 @@
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
-				<inge.rest.development.file_url></inge.rest.development.file_url>
+				<inge.rest.development.file_url />
 				<inge.rest.service.url>https://dev.inge.mpdl.mpg.de/rest</inge.rest.service.url>
 				<inge.systemtype>dev</inge.systemtype>
 				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>

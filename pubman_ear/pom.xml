@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-RC</version>
 	</parent>
 
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
-	<version>8.0.0-SNAPSHOT</version>
+	<version>8.0.0</version>
 
 	<packaging>ear</packaging>
 
@@ -20,7 +19,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_ear</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_ear</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-1.0.0-RC</tag>
 	</scm>
 
 	<build>
@@ -130,37 +129,22 @@
 								</goals>
 								<configuration>
 									<target>
-										<copy overwrite="true"
-											file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}"
-											todir="${jboss.install.dir}/standalone/deployments" />
+										<copy overwrite="true" file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}" todir="${jboss.install.dir}/standalone/deployments" />
 										<!-- configuration for the deploy jboss server -->
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/module.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the configuration file -->
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/pubman.properties"
-											todir="${jboss.install.dir}/modules/pubman/main" />
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/solution.properties"
-											todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/solution.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration file -->
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/auth.properties"
-											tofile="${jboss.install.dir}/modules/pubman/main/cone.properties" />
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" tofile="${jboss.install.dir}/modules/pubman/main/cone.properties" />
 										<!-- copy over the aa configuration file -->
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/auth.properties"
-											todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/auth.properties" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the aa configuration xml -->
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/conf.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 										<!-- copy over the validation datasource descriptor -->
-										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" 
-											todir="${jboss.install.dir}/standalone/deployments" /> -->
+										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" /> -->
 										<!-- copy over the apache FOP configuration file -->
-										<copy overwrite="true"
-											file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml"
-											todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 									</target>
 								</configuration>
 							</execution>
@@ -196,54 +180,25 @@
 								<configuration>
 									<target>
 						                <!-- first copy the ear file to a temporary directory and move it to the deployment directory afterwards -->  
-										<scp
-                                            file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}"
-                                            todir="${jboss.user.scp}:${jboss.tmp.deploy}"
-                                            keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-                                            passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging}" todir="${jboss.user.scp}:${jboss.tmp.deploy}" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
                                         
 										<!-- configuration for the deploy wildfly server -->
-										<scp file="${project.build.directory}/classes/module.xml"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/module.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the configuration file -->
-										<scp file="${project.build.directory}/classes/pubman.properties"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
-										<scp file="${project.build.directory}/classes/solution.properties"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/pubman.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/solution.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the aa configuration file -->
-										<scp file="${project.build.directory}/classes/auth.properties"
-											remoteTofile="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main/cone.properties"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/auth.properties" remoteTofile="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main/cone.properties" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the aa configuration file -->
-										<scp file="${project.build.directory}/classes/auth.properties"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/auth.properties" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										<!-- copy over the aa configuration xml -->
-										<scp file="${project.build.directory}/classes/conf.xml"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/conf.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										
 										<!-- copy over the apache FOP configuration file -->
-										<scp
-											file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml"
-											todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main"
-											keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-											passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 											
 										<!-- finally move the ear file to the deployment directory -->	
-										<sshexec host="${jboss.host}" username="${jboss.username}" 
-                                            keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts"
-                                            passphrase="" trust="true" verbose="true"
-                                            command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments"/>  
+										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />  
                                         	
 									</target>
 								</configuration>

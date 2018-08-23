@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0-RC</version>
 	</parent>
 
 	<artifactId>cone</artifactId>
 	<name>cone</name>
-	<version>1.2.55-SNAPSHOT</version>
+	<version>1.2.55</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/cone</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/cone</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-1.0.0-RC</tag>
 	</scm>
 
 	<build>
