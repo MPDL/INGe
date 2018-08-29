@@ -400,6 +400,12 @@
 		"create" : [
 			{
 				"user" : {
+					"role" : "SYSADMIN"
+				}
+				
+			},
+			{
+				"user" : {
 					"role" : "YEARBOOK-EDITOR",
 					"field_grant_id_match" : "yearbook.organization.objectId"
 				}
@@ -407,6 +413,12 @@
 		],
 		
 		"update" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+				
+			},
 			{
 				"user" : {
 					"role" : "YEARBOOK-EDITOR",
@@ -432,6 +444,12 @@
 		
 		"get" : [
 			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+				
+			},
+			{
 				"yearbook.state" : ["RELEASED"]
 			},
 			{
@@ -452,6 +470,12 @@
 		
 		"submit" : [
 			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+				
+			},
+			{
 				
 				"user" : {
 					"role" : "YEARBOOK-EDITOR"
@@ -471,6 +495,12 @@
 		"release" : [
 			{
 				"user" : {
+					"role" : "SYSADMIN"
+				}
+				
+			},
+			{
+				"user" : {
 					"role" : "YEARBOOK-ADMIN"
 				},
 				"yearbook.state" : ["SUBMITTED"]
@@ -478,6 +508,12 @@
 			}
 		],
 		"revise" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+				
+			},
 			{
 				"user" : {
 					"role" : "YEARBOOK-ADMIN"
