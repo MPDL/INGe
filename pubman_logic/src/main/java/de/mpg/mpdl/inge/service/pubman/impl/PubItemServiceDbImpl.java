@@ -549,7 +549,17 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     List<String> deletedFiles = new ArrayList<>();
 
-    //Delete all files
+    // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
+    // deleted by EntityManager.
+    // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
+    ItemRootVO pubItemObjectToDelete = itemObjectRepository.findOne(latestPubItemDbVersion.getObject().getObjectId());
+    ((ItemVersionVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
+    if (pubItemObjectToDelete.getLatestRelease() != null) {
+      ((ItemVersionVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
+    }
+
+
+    //Delete all files and versions
     for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
       ItemVersionVO item = itemRepository.findOne(new VersionableId(latestPubItemDbVersion.getObjectId(), i));
       for (FileDbVO file : item.getFiles()) {
@@ -561,20 +571,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       }
       item.setFiles(null);
+      itemRepository.delete(item);
     }
 
-
-
-    // Delete reference to Object in latestRelease and latestVersion. Otherwise the object is not
-    // deleted by EntityManager.
-    // See http://www.baeldung.com/delete-with-hibernate or JPA spec section 3.2.2
-    ItemRootVO pubItemObjectToDelete = itemObjectRepository.findOne(latestPubItemDbVersion.getObject().getObjectId());
-    ((ItemVersionVO) pubItemObjectToDelete.getLatestVersion()).setObject(null);
-    if (pubItemObjectToDelete.getLatestRelease() != null) {
-      ((ItemVersionVO) pubItemObjectToDelete.getLatestRelease()).setObject(null);
-    }
-
-
+    //Delete Object
     itemObjectRepository.delete(pubItemObjectToDelete);
 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
@@ -631,6 +631,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     {
       requestedItem = itemRepository.findOne(new VersionableId(objectId, Integer.parseInt(version)));
       if (requestedItem != null) {
+        System.out.println(requestedItem.getModificationDate());
         ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
         checkAa("get", principal, requestedItem, context);
       }
