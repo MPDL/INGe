@@ -296,7 +296,6 @@ public class YearbookCandidatesRetrieverRequestBean
             }
           }
 
-          System.out.println(ssb.toString());
           SearchResponse resp = pis.searchDetailed(ssb, null);
 
           this.numberOfRecords = (int) resp.getHits().getTotalHits();

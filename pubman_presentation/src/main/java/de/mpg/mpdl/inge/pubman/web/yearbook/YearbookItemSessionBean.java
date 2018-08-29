@@ -117,11 +117,12 @@ public class YearbookItemSessionBean extends FacesBean {
           throw new IngeApplicationException("Yearbook with id " + id + " not found");
         }
         this.setYearbook(yb);
+        if (!YearbookDbVO.State.CREATED.equals(this.yearbook.getState())) {
+          this.selectedWorkspace = YBWORKSPACE.MEMBERS;
+        }
       }
 
-      if (!YearbookDbVO.State.CREATED.equals(this.yearbook.getState())) {
-        this.selectedWorkspace = YBWORKSPACE.MEMBERS;
-      }
+     
 
 
     } catch (final Exception e) {
