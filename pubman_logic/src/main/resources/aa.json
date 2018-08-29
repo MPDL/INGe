@@ -76,6 +76,14 @@
 				},
 				"item.versionState" : ["PENDING", "IN_REVISION"],
 				"item.object.publicState" : ["PENDING", "SUBMITTED"]
+			},
+			{
+				"user" : {
+					"role" : "MODERATOR",
+					"field_grant_id_match" : "item.object.context.objectId"
+				},
+				"item.versionState" : ["SUBMITTED", "IN_REVISION"],
+				"item.object.publicState" : ["SUBMITTED"]
 			}
 		],
 		
