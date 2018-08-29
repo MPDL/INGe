@@ -68,16 +68,6 @@
                                     <!-- Subheadline ends here -->
                                 </div>
                                 <ui:include src="tools/Tools.jspf" />
-                                <div class="full_area0 itemHeader">
-                                    <div class="full_area0 small_marginLExcl">
-                                        <h3>
-                                            <h:outputText value="#{msg.toolsMoreInformation} " />
-                                            <h:outputLink id="lnkColab" value="#{lbl.Tools_lblColab}" target="_blank">
-                                                <h:outputText value="#{lbl.Tools_lblColab}" />
-                                            </h:outputLink>
-                                        </h3>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
