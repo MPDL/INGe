@@ -122,7 +122,6 @@ public class YearbookItemSessionBean extends FacesBean {
         }
       }
 
-     
 
 
     } catch (final Exception e) {
