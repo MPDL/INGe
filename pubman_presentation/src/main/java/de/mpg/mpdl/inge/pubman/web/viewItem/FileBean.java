@@ -494,11 +494,11 @@ public class FileBean extends FacesBean {
         FacesTools.getCurrentInstance().responseComplete();
         out.close();
       } catch (final Exception e) {
-        this.error("Could not display checksum of file!");
+        this.error(this.getMessage("File_noCheckSum"));
         FileBean.logger.error("Could not display checksum of file", e);
       }
     } else {
-      this.error("Could not display checksum of file!");
+      this.error(this.getMessage("File_noCheckSum"));
       FileBean.logger.error("File checksum is null");
     }
   }

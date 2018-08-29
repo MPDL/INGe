@@ -166,7 +166,7 @@ public class YearbookCandidatesRetrieverRequestBean
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
     return "";
   }
@@ -296,7 +296,6 @@ public class YearbookCandidatesRetrieverRequestBean
             }
           }
 
-          System.out.println(ssb.toString());
           SearchResponse resp = pis.searchDetailed(ssb, null);
 
           this.numberOfRecords = (int) resp.getHits().getTotalHits();
@@ -324,7 +323,7 @@ public class YearbookCandidatesRetrieverRequestBean
       }
     } catch (final Exception e) {
       YearbookCandidatesRetrieverRequestBean.logger.error("Error in retrieving items", e);
-      this.error("Error in retrieving items");
+      this.error(this.getMessage("ItemsRetrieveError"));
       this.numberOfRecords = 0;
     }
 

@@ -562,7 +562,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, SortCriteria
       BasePaginatorListSessionBean.logger.debug("redirectURL :" + this.getRedirectUrl());
       FacesTools.getExternalContext().redirect(this.getRedirectUrl());
     } catch (final IOException e) {
-      this.error("Could not redirect!");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 

@@ -209,7 +209,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -226,7 +226,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -243,7 +243,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -260,7 +260,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -277,7 +277,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -294,7 +294,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -311,7 +311,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -332,7 +332,7 @@ public class YearbookModeratorListSessionBean
       this.setCurrentPageNumber(1);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -347,7 +347,7 @@ public class YearbookModeratorListSessionBean
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -362,7 +362,7 @@ public class YearbookModeratorListSessionBean
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -377,7 +377,7 @@ public class YearbookModeratorListSessionBean
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -392,7 +392,7 @@ public class YearbookModeratorListSessionBean
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -407,7 +407,7 @@ public class YearbookModeratorListSessionBean
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 

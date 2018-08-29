@@ -1726,7 +1726,7 @@ public class ViewItemFull extends FacesBean {
       out.close();
       FacesTools.getCurrentInstance().responseComplete();
     } catch (final Exception e) {
-      error("Error while exporting " + e.getMessage());
+      this.error(this.getMessage("ExportError") + e.getMessage());
     }
 
 
@@ -1917,7 +1917,7 @@ public class ViewItemFull extends FacesBean {
       this.canWithdraw = pis.checkAccess(AccessType.WITHDRAW, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canDelete = pis.checkAccess(AccessType.DELETE, getLoginHelper().getPrincipal(), this.getPubItem());
     } catch (Exception e) {
-      info("Error while retrieving access information.");
+      this.error(this.getMessage("AccessInfoError"));
       logger.error("Error while getting access information", e);
     }
 

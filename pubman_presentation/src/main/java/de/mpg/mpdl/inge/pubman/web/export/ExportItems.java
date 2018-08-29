@@ -231,7 +231,7 @@ public class ExportItems extends FacesBean {
       try {
         FacesTools.getExternalContext().redirect(bhsb.getPreviousItem().getPage());
       } catch (final IOException e) {
-        this.error("Could not redirect!");
+        this.error(this.getMessage("NoRedirect"));
       }
 
       return "";

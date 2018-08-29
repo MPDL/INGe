@@ -651,7 +651,7 @@ public class SwordUtil extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            this.error("There is no content category available.");
+            this.error(this.getMessage("NoContentCategory"));
             Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
           }
         }
@@ -665,7 +665,7 @@ public class SwordUtil extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            this.error("There is no content category available.");
+            this.error(this.getMessage("NoContentCategory"));
             Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
           }
         }

@@ -151,7 +151,7 @@ public class ReportWorkspaceBean extends FacesBean {
       }
     } catch (final Exception e) {
       logger.error("Error while generating report output file.", e);
-      this.error("Error while generating output file.");
+      this.error(this.getMessage("File_errorGenerate"));
     }
   }
 
@@ -219,7 +219,7 @@ public class ReportWorkspaceBean extends FacesBean {
       }
     } catch (Exception e) {
       logger.error("Error while getting childOUs.", e);
-      this.error("Error while getting childOUs.");
+      this.error(this.getMessage("ChildOuError"));
     }
 
     scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
@@ -241,7 +241,7 @@ public class ReportWorkspaceBean extends FacesBean {
       }
     } catch (final Exception e) {
       logger.error("Error when trying to find search service.", e);
-      this.error("Did not find Search service");
+      this.error(this.getMessage("NoSearchService"));
     }
 
 
@@ -256,7 +256,7 @@ public class ReportWorkspaceBean extends FacesBean {
           new ExportFormatVO(FILE_FORMAT.ESCIDOC_SNIPPET.getName(), CitationTypes.JUS_Report.getCitationName()), searchResult);
     } catch (final Exception e) {
       logger.error("Error when trying to find citation service.", e);
-      this.error("Did not find Citation service");
+      this.error(this.getMessage("NoCitationService"));
     }
 
     return exportData;

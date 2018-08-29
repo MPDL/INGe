@@ -159,10 +159,10 @@ public class LoginHelper extends FacesBean {
       }
     } catch (final AuthenticationException e) {
       LoginHelper.logger.error("Error while logging in", e);
-      this.error("Username and/or password not correct");
+      this.error(this.getMessage("LoginError"));
     } catch (final Exception e) {
       LoginHelper.logger.error("Error while logging in", e);
-      this.error("Technical error while logging in.");
+      this.error(this.getMessage("LoginTechnicalError"));
     }
 
     return "";

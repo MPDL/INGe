@@ -117,15 +117,16 @@ public class YearbookItemSessionBean extends FacesBean {
           throw new IngeApplicationException("Yearbook with id " + id + " not found");
         }
         this.setYearbook(yb);
+        if (!YearbookDbVO.State.CREATED.equals(this.yearbook.getState())) {
+          this.selectedWorkspace = YBWORKSPACE.MEMBERS;
+        }
       }
 
-      if (!YearbookDbVO.State.CREATED.equals(this.yearbook.getState())) {
-        this.selectedWorkspace = YBWORKSPACE.MEMBERS;
-      }
+     
 
 
     } catch (final Exception e) {
-      this.error("Error initializing yearbook item!");
+      this.error(this.getMessage("YearBook_errorInitialize"));
       YearbookItemSessionBean.logger.error("Error initializing yearbook item!", e);
     }
   }
@@ -428,7 +429,7 @@ public class YearbookItemSessionBean extends FacesBean {
       this.pilsb.downloadExportFile(result);
 
     } catch (final Exception e) {
-      this.error("Error while exporting");
+      this.error(this.getMessage("ExportError") + e.getMessage());
       YearbookItemSessionBean.logger.error("Error exporting yearbook", e);
     }
 

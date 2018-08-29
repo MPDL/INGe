@@ -130,7 +130,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       }
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error getting imports from database", e);
-      this.error("Error getting imports from database");
+      this.error(this.getMessage("ImportDatabaseError"));
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
@@ -212,7 +212,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error in retrieving items", e);
-      this.error("Error in retrieving items");
+      this.error(this.getMessage("ItemsRetrieveError"));
       this.numberOfRecords = 0;
     }
 
@@ -324,7 +324,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
       MyItemsRetrieverRequestBean.logger.error("Error during redirection.", e);
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
 
     return "";
@@ -342,7 +342,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
       this.getBasePaginatorListSessionBean().setCurrentPageNumber(1);
       this.getBasePaginatorListSessionBean().redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
 
     return "";
