@@ -150,7 +150,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
     if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
       this.setElasticSearchQuery("");
-      this.error("You have to call this page with a parameter \"esq\" and a elastic search query!");
+      this.error(this.getMessage("SearchQueryError"));
 
     } else {
       this.setElasticSearchQuery(elasticSearchQuery);
@@ -210,8 +210,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
       }
     } catch (final Exception e) {
-      this.error("Error in search!");
-      SearchRetrieverRequestBean.logger.error("Error during search. ", e);
+      this.error(this.getMessage("ItemsRetrieveError"));
+      SearchRetrieverRequestBean.logger.error("Error in retrieving items", e);
     }
 
     return pubItemList;

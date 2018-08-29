@@ -160,7 +160,7 @@ public class EasySubmission extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            this.error("There is no content category available.");
+            this.error(this.getMessage("NoContentCategory"));
             Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
           }
         }
@@ -358,7 +358,7 @@ public class EasySubmission extends FacesBean {
         if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
           contentCategory = contentCategoryMap.values().iterator().next();
         } else {
-          this.error("There is no content category available.");
+          this.error(this.getMessage("NoContentCategory"));
           Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
         }
       }
@@ -551,7 +551,7 @@ public class EasySubmission extends FacesBean {
       path = String.valueOf(stagedFile.getId());
     } catch (Exception e) {
       logger.error("Could not upload staged file [" + path + "]", e);
-      error("Could not upload staged file [" + path + "]");
+      this.error((this.getMessage("File_noUpload") + "[" + path + "]"));
     }
     return path;
   }
@@ -618,7 +618,7 @@ public class EasySubmission extends FacesBean {
           fileId = String.valueOf(stagedFile.getId());
         } catch (Exception e) {
           logger.error("Could not upload staged file [" + fileId + "]", e);
-          error("Could not upload staged file [" + fileId + "]");
+          this.error(this.getMessage("File_noUpload") + "[" + fileId + "]");
         }
 
         if (fileId != null && !fileId.trim().equals("")) {
@@ -801,7 +801,7 @@ public class EasySubmission extends FacesBean {
           if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
             contentCategory = contentCategoryMap.values().iterator().next();
           } else {
-            this.error("There is no content category available.");
+            this.error(this.getMessage("NoContentCategory"));
             Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
           }
         }

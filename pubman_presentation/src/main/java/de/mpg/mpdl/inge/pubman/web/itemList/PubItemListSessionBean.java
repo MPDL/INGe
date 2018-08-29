@@ -250,7 +250,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -267,7 +267,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -284,7 +284,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -301,7 +301,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -318,7 +318,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -335,7 +335,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -352,7 +352,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -373,7 +373,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setCurrentPageNumber(1);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -388,7 +388,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setSelectedSortOrder(SORT_CRITERIA.valueOf(this.getSelectedSortBy()).getSortOrder().name());
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -403,7 +403,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -418,7 +418,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -433,7 +433,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -448,7 +448,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -463,7 +463,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -478,7 +478,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
       this.setListUpdate(false);
       this.redirect();
     } catch (final Exception e) {
-      this.error("Could not redirect");
+      this.error(this.getMessage("NoRedirect"));
     }
   }
 
@@ -827,10 +827,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
    * @return
    */
   private List<PubItemVOPresentation> retrieveAll() {
-    if (this.getTotalNumberOfElements() > 10000) {
-      this.warn("Cannot export more than 10000 items, only the first 10000 items are exported");
+    int maxSize = 10000;
+    if (this.getTotalNumberOfElements() > maxSize) {
+      this.warn(this.getMessage("ExportSizeError").replaceAll("$1", "" + maxSize));
     }
-    final List<PubItemVOPresentation> itemList = this.getPaginatorListRetriever().retrieveList(0, 10000, this.getSortCriteria());
+    final List<PubItemVOPresentation> itemList = this.getPaginatorListRetriever().retrieveList(0, maxSize, this.getSortCriteria());
     return itemList;
   }
 

@@ -451,8 +451,7 @@ public class EditItem extends FacesBean {
       PubItemUtil.cleanUpItem(itemVO);
       cleanUp(itemVO);
       ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, ValidationPoint.STANDARD);
-      final String message = this.getMessage("itemIsValid");
-      this.info(message);
+      this.info(this.getMessage("itemIsValid"));
     } catch (final ValidationException e) {
       this.showValidationMessages(e.getReport());
       return null;
@@ -672,7 +671,7 @@ public class EditItem extends FacesBean {
           path = String.valueOf(stagedFile.getId());
         } catch (Exception e) {
           logger.error("Could not upload staged file [" + path + "]", e);
-          error("Could not upload staged file [" + path + "]");
+          this.error(this.getMessage("File_noUpload") + "[" + path + "]");
         }
 
         mdsFileVO.getIdentifiers().add(new IdentifierVO());
@@ -858,7 +857,7 @@ public class EditItem extends FacesBean {
 
 
     } catch (Exception e) {
-      info("Error while retrieving access information.");
+      this.error(this.getMessage("AccessInfoError"));
       logger.error("Error while getting access information", e);
     }
 

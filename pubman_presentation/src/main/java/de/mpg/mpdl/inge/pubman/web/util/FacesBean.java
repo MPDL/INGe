@@ -280,7 +280,7 @@ public class FacesBean implements Serializable {
 
   public void checkForLogin() {
     if (!this.getLoginHelper().isLoggedIn()) {
-      this.info(this.getI18nHelper().getMessage("NotLoggedIn"));
+      this.info(this.getMessage("NotLoggedIn"));
     }
   }
 

@@ -263,7 +263,7 @@ public class EditItemBean extends FacesBean {
 
     final List<Author> authorList = authDec.getBestAuthorList();
     if (authorList == null || authorList.size() == 0) {
-      throw new Exception("Couldn't parse given creator string");
+      throw new Exception(this.getMessage("EditItemBean_errorParseCreator"));
     }
 
     if (overwrite) {

@@ -215,13 +215,13 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final AuthenticationException | AuthorizationException e) {
       ItemControllerSessionBean.logger.error("Authentication/Authorization error while deleting current PubItem", e);
-      this.error("Authentication/Authorization error while deleting current PubItem: " + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_noPermissionDelete") + e.getMessage());
     } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while deleting current PubItem", e);
-      this.error("Technical error while deleting current PubItem");
+      this.error(this.getMessage("ItemControllerSessionBean_errorDelete") + e.getMessage());
     } catch (final IngeApplicationException e) {
       ItemControllerSessionBean.logger.error("Application error while deleting current PubItem", e);
-      this.error("Application error while deleting current PubItem: " + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_applicationErrorDelete") + e.getMessage());
     }
 
     return "";
@@ -487,7 +487,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while submitting current PubItem", e);
-      this.error("Error while submitting current PubItem" + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_errorSubmit") + e.getMessage());
     }
 
     return "";
@@ -601,7 +601,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccesfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while revising current PubItem", e);
-      this.error("Error while revising current PubItem" + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_errorRevise") + e.getMessage());
     }
 
     return "";
@@ -634,16 +634,16 @@ public class ItemControllerSessionBean extends FacesBean {
     } catch (final AuthenticationException | AuthorizationException e) {
       // TODO Auto-generated catch block
       ItemControllerSessionBean.logger.error("Authentication error while saving current PubItem", e);
-      this.error("Authentication error while saving current PubItem: " + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_noPermissionSave") + e.getMessage());
     } catch (final IngeTechnicalException e) {
       ItemControllerSessionBean.logger.error("Technical Error while saving current PubItem", e);
-      this.error("Technical error while saving current PubItem" + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_errorSave") + e.getMessage());
     } catch (final IngeApplicationException e) {
       if (e.getCause() instanceof ValidationException) {
         throw (ValidationException) e.getCause();
       } else {
         ItemControllerSessionBean.logger.error("Application Error while saving current PubItem", e);
-        this.error("Application error while saving current PubItem: " + e.getMessage());
+        this.error(this.getMessage("ItemControllerSessionBean_applicationErrorSave") + e.getMessage());
       }
 
     }
@@ -675,7 +675,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while releasing current PubItem", e);
-      this.error("Error while releasing current PubItem" + e.getMessage());
+      this.error(this.getMessage("ItemControllerSessionBean_errorRelease") + e.getMessage());
     }
 
     return "";
@@ -698,7 +698,7 @@ public class ItemControllerSessionBean extends FacesBean {
       return navigationRuleWhenSuccessfull;
     } catch (final Exception e) {
       ItemControllerSessionBean.logger.error("Error while withdrawing current PubItem", e);
-      this.error("Error while withdrawing current PubItem");
+      this.error(this.getMessage("ItemControllerSessionBean_errorWithdraw") + e.getMessage());
     }
 
     return "";

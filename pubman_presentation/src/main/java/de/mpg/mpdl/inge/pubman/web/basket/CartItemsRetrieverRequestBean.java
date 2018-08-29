@@ -126,7 +126,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
 
     } catch (final Exception e) {
-      this.error("Error in retrieving items");
+      this.error(this.getMessage("ItemsRetrieveError"));
       CartItemsRetrieverRequestBean.logger.error("Error while retrieving items for basket", e);
     }
     return returnList;
