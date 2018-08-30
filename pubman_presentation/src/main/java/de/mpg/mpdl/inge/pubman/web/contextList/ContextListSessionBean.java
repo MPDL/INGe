@@ -48,7 +48,9 @@ import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -171,17 +173,19 @@ public class ContextListSessionBean extends FacesBean {
           }
         }
 
+        ContextService contextService = ApplicationBean.INSTANCE.getContextService();
+
         // ... and transform filter to xml
         if (hasGrants) {
           BoolQueryBuilder bq = QueryBuilders.boolQuery();
-          bq.must(QueryBuilders.termQuery("state", ContextDbVO.State.OPENED.name()));
+          bq.must(SearchUtils.baseElasticSearchQueryBuilder(contextService.getElasticSearchIndexFields(), ContextServiceDbImpl.INDEX_STATE,
+              ContextDbVO.State.OPENED.name()));
 
           for (final String id : ctxIdList) {
             bq.should(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_OBJECT_ID, id));
           }
 
-          SearchRetrieveResponseVO<ContextDbVO> response =
-              ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO(bq), null);
+          SearchRetrieveResponseVO<ContextDbVO> response = contextService.search(new SearchRetrieveRequestVO(bq, 1000, 0, null), null);
           List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
           // ... and transform to PubCollections.
@@ -214,12 +218,14 @@ public class ContextListSessionBean extends FacesBean {
           }
 
 
-
-          QueryBuilder yearbookContextsQueryBuilder =
-              QueryBuilders.termsQuery(ContextServiceDbImpl.INDEX_AFILLIATIONS_OBJECT_ID, yearbookOuIdList.toArray(new String[] {}));
+          BoolQueryBuilder yearbookContextsQueryBuilder = QueryBuilders.boolQuery();
+          yearbookContextsQueryBuilder.must(SearchUtils.baseElasticSearchQueryBuilder(contextService.getElasticSearchIndexFields(),
+              ContextServiceDbImpl.INDEX_STATE, ContextDbVO.State.OPENED.name()));
+          yearbookContextsQueryBuilder
+              .must(QueryBuilders.termsQuery(ContextServiceDbImpl.INDEX_AFILLIATIONS_OBJECT_ID, yearbookOuIdList.toArray(new String[] {})));
 
           SearchRetrieveResponseVO<ContextDbVO> ybResponse =
-              ApplicationBean.INSTANCE.getContextService().search(new SearchRetrieveRequestVO(yearbookContextsQueryBuilder), null);
+              contextService.search(new SearchRetrieveRequestVO(yearbookContextsQueryBuilder, 1000, 0, null), null);
           this.yearbookContextList = CommonUtils.convertToPubCollectionVOPresentationList(
               ybResponse.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList()));
         }
