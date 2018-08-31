@@ -631,7 +631,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     {
       requestedItem = itemRepository.findOne(new VersionableId(objectId, Integer.parseInt(version)));
       if (requestedItem != null) {
-        System.out.println(requestedItem.getModificationDate());
         ContextDbVO context = contextRepository.findOne(requestedItem.getObject().getContext().getObjectId());
         checkAa("get", principal, requestedItem, context);
       }
