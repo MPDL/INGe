@@ -111,14 +111,8 @@ public class ItemTransformingServiceImpl implements ItemTransformingService {
 
     final Transformer t = TransformerFactory.newTransformer(source, target);
 
-    if (configuration != null && !configuration.isEmpty()) {
-      if (t.getConfiguration() == null || t.getConfiguration().isEmpty()) {
-        t.setConfiguration(configuration);
-      } else {
-        Map<String, String> map = t.getConfiguration();
-        map.putAll(configuration);
-        t.setConfiguration(map);
-      }
+    if (configuration != null) {
+      t.mergeConfiguration(configuration);
     }
 
     try {

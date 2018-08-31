@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -20,19 +21,11 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
 
   @Override
   public void transform(TransformerSource source, TransformerResult result) throws TransformationException {
-
-
-    logger.debug("Found " + getTransformerChain().size() + " transformations in transformation chain: " + this.toString());
-
-
     TransformerSource currentSource = null;
     TransformerResult currentResult = null;
 
     for (int i = 0; i < getTransformerChain().size(); i++) {
-
-
       ChainableTransformer transformer = getTransformerChain().get(i);
-      transformer.setConfiguration(getConfiguration());
 
       // First round
       if (i == 0) {
@@ -41,7 +34,6 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
         currentSource = currentResult.createSourceFromInBetweenResult();
       }
 
-
       // Last round
       if (i == getTransformerChain().size() - 1) {
         currentResult = result;
@@ -49,18 +41,12 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
         currentResult = transformer.createNewInBetweenResult();
       }
 
-
-      logger.debug("Delegating to transformer " + transformer);
       transformer.transform(currentSource, currentResult);
-
     }
-
   }
 
-
-
   public List<ChainableTransformer> getTransformerChain() {
-    return transformerChain;
+    return this.transformerChain;
   }
 
   public void setTransformerChain(List<ChainableTransformer> transformerChain) {
@@ -69,34 +55,54 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
 
   @Override
   public Map<String, String> getConfiguration() {
-
     Map<String, String> c = new HashMap<String, String>();
 
-    for (ChainableTransformer t : transformerChain) {
-      if (t.getConfiguration() != null) {
-        c.putAll(t.getConfiguration());
+    for (ChainableTransformer t : this.transformerChain) {
+      Map<String, String> tConfig = t.getConfiguration();
+      if (tConfig != null) {
+        c.putAll(tConfig);
       }
+    }
+
+    logger.info("Chaintransformer");
+    for (Entry<String, String> entry : c.entrySet()) {
+      logger.info("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
     }
 
     return c;
   }
 
   @Override
+  public void setConfiguration(Map<String, String> config) {
+    for (ChainableTransformer t : this.transformerChain) {
+      t.setConfiguration(config);
+    }
+  }
+
+  @Override
+  public void mergeConfiguration(Map<String, String> config) {
+    for (ChainableTransformer t : this.transformerChain) {
+      t.mergeConfiguration(config);
+    }
+  }
+
+  @Override
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {
     List<String> v = new ArrayList<String>();
-
-    for (ChainableTransformer t : transformerChain) {
+    for (ChainableTransformer t : this.transformerChain) {
       if (t.getAllConfigurationValuesFor(key) != null)
         v.addAll(t.getAllConfigurationValuesFor(key));
     }
+
     return v;
   }
 
   public String toString() {
     String chain = "";
-    if (transformerChain != null) {
+    if (this.transformerChain != null) {
       chain = transformerChain.stream().map(i -> i.toString()).collect(Collectors.joining(" -- "));
     }
+
     return super.toString() + " via " + chain;
   }
 

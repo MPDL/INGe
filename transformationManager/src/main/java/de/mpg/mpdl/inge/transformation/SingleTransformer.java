@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -33,11 +34,27 @@ public abstract class SingleTransformer implements Transformer {
 
 
   public Map<String, String> getConfiguration() {
+    logger.info("Singletransformer");
+    for (Entry<String, String> entry : this.configuration.entrySet()) {
+      logger.info("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
+    }
+
     return this.configuration;
   }
 
   public void setConfiguration(Map<String, String> configuration) {
     this.configuration = configuration;
+  }
+
+  public void mergeConfiguration(Map<String, String> givenConfiguration) {
+    if (givenConfiguration != null) {
+      if (this.configuration != null) {
+        this.configuration.putAll(givenConfiguration);
+      } else {
+        this.configuration = new HashMap<>();
+        this.configuration.putAll(givenConfiguration);
+      }
+    }
   }
 
   public TransformerFactory.FORMAT getTargetFormat() {
@@ -113,7 +130,6 @@ public abstract class SingleTransformer implements Transformer {
   }
 
   public static String getStringFromSource(TransformerSource transformerSource) throws TransformationException {
-
     TransformerStreamSource s;
     try {
       s = (TransformerStreamSource) transformerSource;
@@ -139,7 +155,6 @@ public abstract class SingleTransformer implements Transformer {
   }
 
   public static void writeStringToStreamResult(String s, TransformerResult transformerRes) throws TransformationException {
-
     TransformerStreamResult res;
     try {
       res = (TransformerStreamResult) transformerRes;
@@ -154,7 +169,6 @@ public abstract class SingleTransformer implements Transformer {
       } catch (IOException e) {
         throw new TransformationException("Could not write to output stream", e);
       }
-
     } else if (res.getWriter() != null) {
       try {
         res.getWriter().write(s);
@@ -165,11 +179,9 @@ public abstract class SingleTransformer implements Transformer {
     } else {
       throw new TransformationException("The result does not contain an output stream or a writer");
     }
-
   }
 
   public static void writeByteArrayToStreamResult(byte[] content, TransformerResult transformerRes) throws TransformationException {
-
     TransformerStreamResult res;
     try {
       res = (TransformerStreamResult) transformerRes;
@@ -195,7 +207,6 @@ public abstract class SingleTransformer implements Transformer {
     } else {
       throw new TransformationException("The result does not contain an output stream or a writer");
     }
-
   }
 
   public List<String> getAllConfigurationValuesFor(String key) throws TransformationException {

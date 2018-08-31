@@ -50,7 +50,8 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
 
   @Override
   public Map<String, String> getConfiguration() {
-    if (super.getConfiguration() == null || super.getConfiguration().isEmpty()) {
+    Map<String, String> superConfig = super.getConfiguration();
+    if (superConfig == null || superConfig.isEmpty()) {
       Map<String, String> c = new HashMap<String, String>();
       try {
         c = getDefaultConfigurationFromProperty(PropertyReader.INGE_TRANSFORMATION_BIBTEX_CONFIGURATION_FILENAME);
@@ -63,7 +64,7 @@ public class BibtexToItemXml extends SingleTransformer implements ChainableTrans
       }
     }
 
-    return super.getConfiguration();
+    return superConfig;
   }
 
 }

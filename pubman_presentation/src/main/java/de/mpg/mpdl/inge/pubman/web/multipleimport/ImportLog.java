@@ -33,6 +33,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -552,8 +553,10 @@ public class ImportLog extends BaseImportLog {
     ResultSet rs = null;
 
     try {
-      ps = connection.prepareStatement("insert into import_log "
-          + "(status, errorlevel, startdate, userid, name, context, format, percentage) " + "values (?, ?, ?, ?, ?, ?, ?, 0)");
+      ps = connection.prepareStatement(
+          "insert into import_log "
+              + "(status, errorlevel, startdate, userid, name, context, format, percentage) values (?, ?, ?, ?, ?, ?, ?, 0) returning id",
+          Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, this.status.toString());
       ps.setString(2, this.errorLevel.toString());
@@ -566,17 +569,14 @@ public class ImportLog extends BaseImportLog {
       ps.executeUpdate();
       // DbTools.closePreparedStatement(ps);
 
-      ps = connection.prepareStatement("select max(id) as maxid from import_log");
-
-      rs = ps.executeQuery();
-
+      rs = ps.getGeneratedKeys();
       if (rs.next()) {
-        this.id = rs.getInt("maxid");
+        this.id = rs.getInt(1);
       } else {
-        throw new RuntimeException("Error saving log");
+        throw new RuntimeException("Error saving import_log");
       }
     } catch (final Exception e) {
-      throw new RuntimeException("Error saving log", e);
+      throw new RuntimeException("Error saving import_log", e);
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
@@ -589,7 +589,8 @@ public class ImportLog extends BaseImportLog {
 
     try {
       ps = connection.prepareStatement(
-          "insert into import_log_item " + "(status, errorlevel, startdate, parent, message, item_id) " + "values (?, ?, ?, ?, ?, ?)");
+          "insert into import_log_item (status, errorlevel, startdate, parent, message, item_id) values (?, ?, ?, ?, ?, ?) returning id",
+          Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, importLogItem.getStatus().toString());
       ps.setString(2, importLogItem.getErrorLevel().toString());
@@ -601,17 +602,14 @@ public class ImportLog extends BaseImportLog {
       ps.executeUpdate();
       // DbTools.closePreparedStatement(ps);
 
-      ps = connection.prepareStatement("select max(id) as maxid from import_log_item");
-
-      rs = ps.executeQuery();
-
+      rs = ps.getGeneratedKeys();
       if (rs.next()) {
-        importLogItem.setId(rs.getInt("maxid"));
+        importLogItem.setId(rs.getInt(1));
       } else {
-        throw new RuntimeException("Error saving log item");
+        throw new RuntimeException("Error saving import_log_item");
       }
     } catch (final Exception e) {
-      throw new RuntimeException("Error saving log", e);
+      throw new RuntimeException("Error saving import_log_item", e);
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
@@ -623,8 +621,8 @@ public class ImportLog extends BaseImportLog {
     //    final ResultSet rs = null;
 
     try {
-      ps = connection.prepareStatement(
-          "insert into import_log_item_detail " + "(status, errorlevel, startdate, parent, message) values (?, ?, ?, ?, ?)");
+      ps = connection
+          .prepareStatement("insert into import_log_item_detail (status, errorlevel, startdate, parent, message) values (?, ?, ?, ?, ?)");
 
       ps.setString(1, importLogItemDetail.getStatus().toString());
       ps.setString(2, importLogItemDetail.getErrorLevel().toString());
@@ -634,7 +632,7 @@ public class ImportLog extends BaseImportLog {
 
       ps.executeUpdate();
     } catch (final Exception e) {
-      throw new RuntimeException("Error saving log", e);
+      throw new RuntimeException("Error saving log_item_detail", e);
     } finally {
       // DbTools.closeResultSet(rs);
       // DbTools.closePreparedStatement(ps);
@@ -892,7 +890,7 @@ public class ImportLog extends BaseImportLog {
 
       ps.executeUpdate();
     } catch (final Exception e) {
-      throw new RuntimeException("Error saving log", e);
+      throw new RuntimeException("Error updating import_log", e);
     } finally {
       // DbTools.closePreparedStatement(ps);
     }
@@ -922,7 +920,7 @@ public class ImportLog extends BaseImportLog {
 
       ps.executeUpdate();
     } catch (final Exception e) {
-      throw new RuntimeException("Error saving log", e);
+      throw new RuntimeException("Error updating import_log_item", e);
     } finally {
       // DbTools.closePreparedStatement(ps);
     }

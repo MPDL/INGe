@@ -40,7 +40,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
   public void transform(Source source, Result result) throws TransformationException {
     try {
-      logger.debug("Starting XSL transformation " + getSourceFormat() + " --> " + getTargetFormat());
+      logger.info("Starting XSL transformation " + getSourceFormat() + " --> " + getTargetFormat());
 
       TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
 
@@ -75,8 +75,8 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
       Map<String, String> config = getConfiguration();
       if (config != null) {
-        for (Entry<String, String> entry : getConfiguration().entrySet()) {
-          logger.debug("Set xml transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
+        for (Entry<String, String> entry : config.entrySet()) {
+          logger.info("Set xml transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
           xslTransformer.setParameter(entry.getKey(), entry.getValue());
         }
       }

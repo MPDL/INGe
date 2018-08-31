@@ -15,6 +15,8 @@ public interface Transformer {
 
   public void setConfiguration(Map<String, String> config);
 
+  public void mergeConfiguration(Map<String, String> config);
+
   public void setSourceFormat(FORMAT sourceFormat);
 
   public FORMAT getSourceFormat();

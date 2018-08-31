@@ -81,8 +81,8 @@ public class MultipleImport extends FacesBean {
   private String fixedFileName;
   private String name;
   private UploadedFile uploadedImportFile;
-  private boolean rollback = true;
-  private int duplicateStrategy = 3;
+  private boolean rollback = false;
+  private int duplicateStrategy = 1;
 
   public MultipleImport() {
     this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.ENDNOTE_STRING, TransformerFactory.FORMAT.ENDNOTE_STRING.getName()));
@@ -99,12 +99,14 @@ public class MultipleImport extends FacesBean {
     this.importFormats.add(new SelectItem(TransformerFactory.FORMAT.BMC_XML, TransformerFactory.FORMAT.BMC_XML.getName()));
   }
 
-  public String uploadFile() {
+  public String uploadFile() throws Exception {
     MultipleImport.logger.info(this.uploadedImportFile);
     if (this.uploadedImportFile == null) {
       this.error(this.getMessage("UploadFileNotProvided"));
       return null;
     }
+
+    this.initConfigParameters();
 
     return MultipleImport.LOAD_MULTIPLE_IMPORT_FORM;
   }
@@ -191,12 +193,13 @@ public class MultipleImport extends FacesBean {
     }
   }
 
-  public List<SelectItem> getConfigParameters() throws Exception {
+  public List<SelectItem> initConfigParameters() throws Exception {
     Transformer transformer = null;
     Map<String, String> config = null;
 
     if (this.format != null) {
       transformer = TransformerFactory.newTransformer(this.format, TransformerFactory.getInternalFormat());
+      MultipleImport.logger.info("Get Default Configuration:");
       config = transformer.getConfiguration();
     }
 
@@ -218,6 +221,10 @@ public class MultipleImport extends FacesBean {
       }
     }
 
+    return this.configParameters;
+  }
+
+  public List<SelectItem> getConfigParameters() throws Exception {
     return this.configParameters;
   }
 
