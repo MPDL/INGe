@@ -30,6 +30,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
@@ -78,6 +78,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.Organizati
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
+import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
@@ -293,30 +294,34 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     return vocabs;
   }
 
-
-
   private List<SelectItem> initIdentifierTypesListMenu() {
-
     final List<SelectItem> identifierRoleMenu = new ArrayList<SelectItem>();
 
-    identifierRoleMenu.add(new SelectItem(null, "-"));
-    for (final IdType type : IdentifierVO.IdType.values()) {
+    identifierRoleMenu.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
+    for (final IdType type : DisplayTools.ID_TYPES_TO_DISPLAY) {
       identifierRoleMenu.add(new SelectItem(type.name(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.name())));
     }
-    return identifierRoleMenu;
 
+    // Sort identifiers alphabetically
+    Collections.sort(identifierRoleMenu, new Comparator<SelectItem>() {
+      @Override
+      public int compare(SelectItem o1, SelectItem o2) {
+        return o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase());
+      }
+    });
+
+    return identifierRoleMenu;
   }
 
   private List<SelectItem> initPersonRoleMenu() {
-
     final List<SelectItem> personRoleMenu = new ArrayList<SelectItem>();
 
     personRoleMenu.add(new SelectItem(null, this.getLabel("adv_search_lblSearchPerson")));
     for (final CreatorRole role : CreatorRole.values()) {
       personRoleMenu.add(new SelectItem(role.name(), this.getLabel("ENUM_CREATORROLE_" + role.name())));
     }
-    return personRoleMenu;
 
+    return personRoleMenu;
   }
 
   private List<SelectItem> initCriterionTypeListMenu(Index indexName) {
@@ -517,7 +522,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     final Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
 
     if (evt.getNewValue() != null && position != null) {
-
       final SearchCriterion newValue = SearchCriterion.valueOf(evt.getNewValue().toString());
       AdvancedSearchBean.logger.debug("Changing sortCriteria at position " + position + " to " + newValue);
 
@@ -531,28 +535,20 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       }
       this.copyValuesFromOldToNew(oldSearchCriterion, newSearchCriterion);
       this.criterionList.add(position, newSearchCriterion);
-      // logger.info("New criterion list:" + criterionList);
     }
-
-
   }
-
-
 
   public List<SearchCriterionBase> getCriterionList() {
     return this.criterionList;
   }
 
-
   public void setCriterionList(List<SearchCriterionBase> criterionList) {
     this.criterionList = criterionList;
   }
 
-
   public List<SelectItem> getCriterionTypeListMenu() {
     return this.criterionTypeListMenu;
   }
-
 
   public void setCriterionTypeListMenu(List<SelectItem> criterionTypeListMenu) {
     this.criterionTypeListMenu = criterionTypeListMenu;
@@ -1019,15 +1015,18 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   @Override
   public void languageChanged(String oldLang, String newLang) {
-    this.criterionTypeListMenu = this.initCriterionTypeListMenu(Index.ESCIDOC_ALL);
-    this.setCriterionTypeListMenuAdmin(this.initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN));
+    this.clearAndInit();
+    
+    this.criterionTypeListMenu = this.initCriterionTypeListMenu(Index.ESCIDOC_ALL); //
+    this.setCriterionTypeListMenuAdmin(this.initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN)); //
     this.operatorTypeListMenu = this.initOperatorListMenu();
-    this.genreListMenu = this.initGenreListMenu();
+    this.genreListMenu = this.initGenreListMenu(); //
     this.reviewMethodListMenu = this.initReviewMethodListMenu();
-    this.contentCategoryListMenu = this.initContentCategoryListMenu();
-    this.componentVisibilityListMenu = this.initComponentVisibilityListMenu();
+    this.contentCategoryListMenu = this.initContentCategoryListMenu(); //
+    this.componentVisibilityListMenu = this.initComponentVisibilityListMenu(); //
     this.subjectTypesListMenu = this.initSubjectTypesListMenu();
-
+    this.identifierTypesListMenu = this.initIdentifierTypesListMenu();
+    this.personRoleMenu = this.initPersonRoleMenu();
 
     // if langugage is changed on AdvancedSearchPage, set flag
     try {
