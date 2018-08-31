@@ -91,7 +91,7 @@ public class ExportItemsSessionBean extends FacesBean {
 
   public void init() {
     try {
-      this.curExportFormatVO = new ExportFormatVO(TransformerFactory.MARC_XML);
+      this.curExportFormatVO = new ExportFormatVO(TransformerFactory.ENDNOTE);
       this.emailSenderProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
       this.emailServernameProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
       this.emailWithAuthProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
