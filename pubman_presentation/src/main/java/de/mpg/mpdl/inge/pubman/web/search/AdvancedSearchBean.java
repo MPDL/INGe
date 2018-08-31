@@ -1016,7 +1016,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   @Override
   public void languageChanged(String oldLang, String newLang) {
     this.clearAndInit();
-    
+
     this.criterionTypeListMenu = this.initCriterionTypeListMenu(Index.ESCIDOC_ALL); //
     this.setCriterionTypeListMenuAdmin(this.initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN)); //
     this.operatorTypeListMenu = this.initOperatorListMenu();
