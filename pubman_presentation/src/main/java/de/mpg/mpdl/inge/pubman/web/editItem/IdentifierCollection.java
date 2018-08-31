@@ -34,8 +34,8 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
-import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.pubman.web.util.DataModelManager;
+import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 
 /**
@@ -74,17 +74,17 @@ public class IdentifierCollection extends FacesBean {
    * @return SelectItem[] with Strings representing identifier types
    */
   public SelectItem[] getIdentifierTypes() {
-    final IdType[] typesToDisplay =
-        new IdType[] {IdType.CONE, IdType.URI, IdType.ISBN, IdType.ISSN, IdType.DOI, IdType.URN, IdType.PII, IdType.EDOC, IdType.ESCIDOC,
-            IdType.ISI, IdType.PND, IdType.ZDB, IdType.PMID, IdType.ARXIV, IdType.PMC, IdType.BMC, IdType.BIBTEX_CITEKEY, IdType.REPORT_NR,
-            IdType.SSRN, IdType.PATENT_NR, IdType.PATENT_APPLICATION_NR, IdType.PATENT_PUBLICATION_NR, IdType.OTHER};
+    //    final IdType[] typesToDisplay =
+    //        new IdType[] {IdType.CONE, IdType.URI, IdType.ISBN, IdType.ISSN, IdType.DOI, IdType.URN, IdType.PII, IdType.EDOC, IdType.ESCIDOC,
+    //            IdType.ISI, IdType.PND, IdType.ZDB, IdType.PMID, IdType.ARXIV, IdType.PMC, IdType.BMC, IdType.BIBTEX_CITEKEY, IdType.REPORT_NR,
+    //            IdType.SSRN, IdType.PATENT_NR, IdType.PATENT_APPLICATION_NR, IdType.PATENT_PUBLICATION_NR, IdType.OTHER};
 
     final ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
 
     // constants for comboBoxes
-    selectItemList.add(new SelectItem("", this.getLabel("EditItem_NO_ITEM_SET")));
+    selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
 
-    for (final IdentifierVO.IdType type : typesToDisplay) {
+    for (final IdentifierVO.IdType type : DisplayTools.ID_TYPES_TO_DISPLAY) {
       selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.toString())));
     }
 
