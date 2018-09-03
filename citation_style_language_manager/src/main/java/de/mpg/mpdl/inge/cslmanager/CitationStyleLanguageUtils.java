@@ -65,7 +65,7 @@ public class CitationStyleLanguageUtils {
       JsonFactory jfactory = new JsonFactory();
       // read JSON from url
       JsonParser jParser = jfactory.createParser(new URL(url + "?format=json"));
-      while (jParser.nextToken() != JsonToken.END_OBJECT) {
+      while (jParser.nextToken() != null && jParser.nextToken() != JsonToken.END_OBJECT) {
         String fieldname = jParser.getCurrentName();
         if ("http_www_w3_org_1999_02_22_rdf_syntax_ns_value".equals(fieldname)) {
           // current token is "name",
