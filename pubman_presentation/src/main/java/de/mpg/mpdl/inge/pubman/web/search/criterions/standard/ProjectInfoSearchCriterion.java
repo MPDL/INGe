@@ -48,14 +48,10 @@ public class ProjectInfoSearchCriterion extends StandardSearchCriterion {
   @Override
   public String[] getElasticIndexes() {
     return new String[] {PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_TITLE,
-
         PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE,
-
         PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID,
-
         PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE,
-
-        PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE,
+        PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID,
         PubItemServiceDbImpl.INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID
 
     };
