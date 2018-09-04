@@ -75,9 +75,6 @@
 		<m key="Courseware">courseware-lecture</m>
 	</xsl:variable>
 	<xsl:template match="/">
-		<xsl:message>is-item-list 
-			<xsl:value-of select="$is-item-list"/>
-		</xsl:message>
 		<xsl:choose>
 			<xsl:when test="$is-item-list">
 				<itemlist:item-list>

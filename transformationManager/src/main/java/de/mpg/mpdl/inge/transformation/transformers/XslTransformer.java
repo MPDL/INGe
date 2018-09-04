@@ -56,7 +56,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
       if (outputKeys != null) {
         for (Entry<String, String> entry : outputKeys.entrySet()) {
-          logger.debug("Set xml transformation output property " + entry.getKey() + " -- " + entry.getValue());
+          logger.info("Set xml transformation output property " + entry.getKey() + " -- " + entry.getValue());
           xslTransformer.setOutputProperty(entry.getKey(), entry.getValue());
         }
       }
@@ -65,16 +65,16 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       if (parameters != null) {
         for (Entry<String, Object> entry : parameters.entrySet()) {
           if (entry.getValue() != null) {
-            logger.debug("Set xml transformation parameter " + entry.getKey() + " -- " + entry.getValue());
+            logger.info("Set xml transformation parameter " + entry.getKey() + " -- " + entry.getValue());
             xslTransformer.setParameter(entry.getKey(), entry.getValue());
           } else {
-            logger.warn("Ignoring XSL Parameter " + entry.getKey() + " because it is " + entry.getValue());
+            logger.info("Ignoring XSL Parameter " + entry.getKey() + " because it is " + entry.getValue());
           }
         }
       }
 
       Map<String, String> config = getConfiguration();
-      if (config != null) {
+      if (config != null && config.entrySet() != null) {
         for (Entry<String, String> entry : config.entrySet()) {
           logger.info("Set xml transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
           xslTransformer.setParameter(entry.getKey(), entry.getValue());
