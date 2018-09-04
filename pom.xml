@@ -1205,7 +1205,7 @@
 				<inge.doi.service.url>https://test.doi.mpdl.mpg.de</inge.doi.service.url>
 				<inge.filestorage.seaweed_master_server_ip>https://dev.inge.mpdl.mpg.de/seaweedfs-master</inge.filestorage.seaweed_master_server_ip>
 				<inge.pid.service.url>https://test.doi.mpdl.mpg.de</inge.pid.service.url>
-				<inge.pubman.csl_editor.instance>http://pure.mpdl.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
+				<inge.pubman.csl_editor.instance>https://pure.mpg.de/csl-editor/</inge.pubman.csl_editor.instance>
 				<inge.pubman.instance.url>https://dev.inge.mpdl.mpg.de</inge.pubman.instance.url>
 				<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 				<inge.rest.development.enabled>false</inge.rest.development.enabled>
