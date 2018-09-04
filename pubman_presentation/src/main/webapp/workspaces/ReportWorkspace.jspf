@@ -26,6 +26,12 @@
 							<h:inputText id="inporganizations_organization_identifier"
 								styleClass="noDisplay organizationIdentifier"
 								value="#{ReportWorkspaceBean.organization.identifier}" />
+							<h:commandButton id="btnRemoveAuthorAutoSuggestFirst" value=" "
+								styleClass="free_area0 min_imgBtn closeIcon removeAutoSuggestOrganization" style="display:none;"
+								oncomplete="return removeOrganizationAutoSuggest($(this))"
+								action="#{ReportWorkspaceBean.removeAutoSuggestValues(indexVar)}">
+								<f:ajax render="formTest" execute="@form" />
+							</h:commandButton>
 						</h:panelGroup>
 					</span>
 				</h:panelGroup>

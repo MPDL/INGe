@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -112,7 +113,15 @@ public class ReportWorkspaceBean extends FacesBean {
       this.error(this.getMessage("ReportOrgIdNotProvided"));
       return;
     }
-    if ("".equals(this.getReportYear()) || this.getReportYear() == null) {
+
+    if ("".equals(this.reportYear) || this.reportYear == null) {
+      this.error(this.getMessage("ReportYearNotProvided"));
+      return;
+    }
+
+    try {
+      Integer.parseInt(this.reportYear);
+    } catch (Exception e) {
       this.error(this.getMessage("ReportYearNotProvided"));
       return;
     }
@@ -283,5 +292,9 @@ public class ReportWorkspaceBean extends FacesBean {
     }
 
     return result.getBytes();
+  }
+
+  public void removeAutoSuggestValues(int position) {
+    this.organization = new OrganizationVOPresentation();
   }
 }
