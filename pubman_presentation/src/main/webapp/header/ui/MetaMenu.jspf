@@ -31,7 +31,7 @@
 				<!-- Guide -->
 				<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline"
 					title="#{tip.mainMenu_lnkPubManGuide}" target="_blank"
-					value="https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Wegweiser_durch_PubMan/Wegweiser_durch_PubMan.pdf">
+					value="https://ntaller.gitbooks.io/benutzerhandbuch_fuer_pubman/content/">
 					<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
 				</h:outputLink>
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
