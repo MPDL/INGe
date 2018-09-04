@@ -657,7 +657,7 @@ public class PubItemServiceTest extends TestBase {
     ItemVersionVO itemVersionVO = createInRevisionItemStandardWorkflow();
 
     pubItemService.delete(itemVersionVO.getObject().getLatestVersion().getObjectId(), authenticationToken);
-    
+
     assertTrue(pubItemService.get(itemVersionVO.getObject().getLatestVersion().getObjectId(), authenticationToken) == null);
   }
 
