@@ -74,7 +74,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
       }
 
       Map<String, String> config = getConfiguration();
-      if (config != null) {
+      if (config != null && config.entrySet() != null) {
         for (Entry<String, String> entry : config.entrySet()) {
           logger.info("Set xml transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
           xslTransformer.setParameter(entry.getKey(), entry.getValue());

@@ -65,8 +65,10 @@ public class ChainTransformer extends SingleTransformer implements Transformer {
     }
 
     logger.info("Chaintransformer");
-    for (Entry<String, String> entry : c.entrySet()) {
-      logger.info("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
+    if (c != null && c.entrySet() != null) {
+      for (Entry<String, String> entry : c.entrySet()) {
+        logger.info("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
+      }
     }
 
     return c;
