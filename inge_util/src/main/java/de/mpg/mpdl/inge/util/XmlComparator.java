@@ -91,7 +91,14 @@ public class XmlComparator {
   }
 
   public String listErrors() {
-    return Arrays.toString(errors.toArray(new String[this.errors.size()]));
+    StringBuilder sb = new StringBuilder();
+    for (String error : errors)
+    {
+      sb.append(error);
+      sb.append("\n");
+    }
+    
+    return sb.toString();
   }
 
   private void addElementsToIgnore(List<String> elements) {
