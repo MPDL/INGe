@@ -97,6 +97,8 @@ public class RedirectServlet extends HttpServlet {
       // open component or download it
       if (req.getParameter("mode") == null || download) {
         redirectUrl.append("/content");
+        if (download)
+          redirectUrl.append("?download=true");
       }
 
       // view technical metadata

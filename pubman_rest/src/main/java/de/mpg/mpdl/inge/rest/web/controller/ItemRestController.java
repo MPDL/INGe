@@ -247,18 +247,25 @@ public class ItemRestController {
    */
   @RequestMapping(path = ITEM_ID_PATH + "/component/{componentId}/content", method = RequestMethod.GET)
   public void getComponentContent(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
-      @PathVariable String itemId, @PathVariable String componentId, HttpServletResponse response)
+      @PathVariable String itemId, @PathVariable String componentId,
+      @RequestParam(value = "download", required = false, defaultValue = "false") boolean forceDownload, HttpServletResponse response)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
     try {
       FileVOWrapper fileVOWrapper = fileService.readFile(itemId, componentId, token);
       if (fileVOWrapper == null) {
         throw new NotFoundException();
       }
+      String contentDispositionType = "inline";
+      if (forceDownload) {
+        contentDispositionType = "attachment";
+      }
       response.setContentType(fileVOWrapper.getFileVO().getMimeType());
 
+
       //Add filename and RFC 5987 encoded filename as content disposition headers
-      response.setHeader("Content-disposition", "attachment; filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; filename*=utf-8''"
-          + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
+      response.setHeader("Content-disposition",
+          contentDispositionType + "; filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; filename*=utf-8''"
+              + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
       OutputStream output = response.getOutputStream();
       fileVOWrapper.readFile(output);
       output.flush();

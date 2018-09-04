@@ -92,12 +92,11 @@ public class XmlComparator {
 
   public String listErrors() {
     StringBuilder sb = new StringBuilder();
-    for (String error : errors)
-    {
+    for (String error : errors) {
       sb.append(error);
       sb.append("\n");
     }
-    
+
     return sb.toString();
   }
 
