@@ -54,7 +54,9 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -103,6 +105,10 @@ public class LoginHelper extends FacesBean {
     this.loggedIn = false;
 
     ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+    //Delete old cookie, if there
+    UserAccountServiceImpl.removeTokenCookie((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse());
+
 
     String ip = ec.getRequestHeaderMap().get("X-Forwarded-For");
     logger.info("Init LoginHelper with IP " + ip);
@@ -185,18 +191,6 @@ public class LoginHelper extends FacesBean {
     return HomePage.LOAD_HOMEPAGE;
   }
 
-  public void logoutCallBySessionListener() {
-    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-
-    try {
-      ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request, response);
-    } catch (Exception e) {
-      logger.error("Error while logging out", e);
-    }
-
-    this.init();
-  }
 
   public String getAuthenticationToken() {
     return this.authenticationToken;

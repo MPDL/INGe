@@ -311,6 +311,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
+    removeTokenCookie(request, response);
+
+  }
+
+  public static void removeTokenCookie(HttpServletRequest request, HttpServletResponse response) {
     // Delete cookie
     if (request != null && request.getCookies() != null) {
       for (Cookie cookie : request.getCookies()) {
@@ -322,9 +327,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         }
       }
     }
-
   }
-
 
   @Override
   public Principal login(String username, String password, HttpServletRequest request, HttpServletResponse response)
