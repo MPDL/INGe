@@ -90,7 +90,7 @@ name="escidoc">
 								<person:person>
 									<eterms:family-name>Bowman</eterms:family-name>
 									<eterms:given-name>Benjamin F.</eterms:given-name>
-									<dc:identifier xsi:type="eterms:CONE">http://localhost:8080/cone/persons/resource/persons77797</dc:identifier>
+									<dc:identifier xsi:type="eterms:CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons77797</dc:identifier>
 									<!--pubdate: 
                   1979-
                 02-
