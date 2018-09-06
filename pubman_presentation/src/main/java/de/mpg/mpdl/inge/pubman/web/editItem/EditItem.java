@@ -326,6 +326,7 @@ public class EditItem extends FacesBean {
           file.getMetadata().getIdentifiers().add(new IdentifierVO());
         }
         if (file.getAllowedAudienceIds() == null || file.getAllowedAudienceIds().isEmpty()) {
+          file.setAllowedAudienceIds(new ArrayList<>());
           file.getAllowedAudienceIds().add(null);
         }
 

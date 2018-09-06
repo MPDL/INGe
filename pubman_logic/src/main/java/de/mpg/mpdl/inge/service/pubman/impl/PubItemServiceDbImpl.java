@@ -526,16 +526,19 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
 
-      if (fileVo.getAllowedAudienceIds() != null) {
-        for (String audienceId : fileVo.getAllowedAudienceIds()) {
-          if (ipListProvider.get(audienceId) == null) {
-            throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+      currentFileDbVO.setAllowedAudienceIds(null);
+
+      if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
+        if (fileVo.getAllowedAudienceIds() != null) {
+          for (String audienceId : fileVo.getAllowedAudienceIds()) {
+            if (ipListProvider.get(audienceId) == null) {
+              throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+            }
           }
         }
+        currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
       }
 
-
-      currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
       updatedFileList.add(currentFileDbVO);
     }
 
