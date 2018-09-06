@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import de.mpg.mpdl.inge.util.CSVUtils;
@@ -16,12 +19,20 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
 @Component
 public class MpgIpListProvider implements IpListProvider {
 
-  private final Map<String, IpRange> ipRangeMap = new HashMap<>();
+  private static final Logger logger = LogManager.getLogger(MpgIpListProvider.class);
+  private Map<String, IpRange> ipRangeMap = new HashMap<>();
 
   public MpgIpListProvider() {
-    try (
-        Scanner scanner = new Scanner(ResourceUtil.getResourceAsStream("expoipra_all.txt", AuthorizationService.class.getClassLoader()));) {
+    init();
+  }
 
+
+  @Scheduled(cron = "0 0 0/1 * * ?")
+  private void init() {
+    logger.info("(re-)initializing IP List");
+    try (Scanner scanner = new Scanner(ResourceUtil.getResourceAsStream("expoipra_all.txt", AuthorizationService.class.getClassLoader()))) {
+
+      Map<String, IpRange> ipRangeMap = new HashMap<>();
       scanner.nextLine();
       while (scanner.hasNext()) {
         List<String> line = CSVUtils.parseLine(scanner.nextLine(), ';');
@@ -36,6 +47,8 @@ public class MpgIpListProvider implements IpListProvider {
 
       }
 
+      this.ipRangeMap = ipRangeMap;
+      logger.info("Successfully set IP List with " + ipRangeMap.size() + " entries");
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing ip list file.", e);
     }
