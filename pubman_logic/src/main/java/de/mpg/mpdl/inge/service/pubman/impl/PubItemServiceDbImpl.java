@@ -68,6 +68,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -133,6 +134,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   @Autowired
   private FileRepository fileRepository;
+
+  @Autowired
+  private IpListProvider ipListProvider;
 
 
   public static String INDEX_MODIFICATION_DATE = "modificationDate";
@@ -521,6 +525,16 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       currentFileDbVO.setMetadata(fileVo.getMetadata());
 
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
+
+      if (fileVo.getAllowedAudienceIds() != null) {
+        for (String audienceId : fileVo.getAllowedAudienceIds()) {
+          if (ipListProvider.get(audienceId) == null) {
+            throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+          }
+        }
+      }
+
+
       currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
       updatedFileList.add(currentFileDbVO);
     }

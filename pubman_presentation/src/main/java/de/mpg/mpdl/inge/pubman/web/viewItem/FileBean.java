@@ -44,6 +44,8 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 
 /**
@@ -561,5 +563,24 @@ public class FileBean extends FacesBean {
     }
 
     return false;
+  }
+
+  public String getAudienceOrganizations() {
+    if (Visibility.AUDIENCE.equals(file.getVisibility())) {
+      IpListProvider ipListProvider = ApplicationBean.INSTANCE.getIpListProvider();
+      StringBuilder sb = new StringBuilder();
+      for (String audienceId : file.getAllowedAudienceIds()) {
+        IpRange ipRange = ipListProvider.get(audienceId);
+        if (ipRange != null) {
+          sb.append(ipRange.getName());
+        } else {
+          sb.append("UNKNOWN id " + audienceId);
+        }
+
+        sb.append("; ");
+      }
+      return sb.toString();
+    }
+    return null;
   }
 }
