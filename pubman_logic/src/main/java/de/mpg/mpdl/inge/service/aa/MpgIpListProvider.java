@@ -102,9 +102,11 @@ public class MpgIpListProvider implements IpListProvider {
   @Override
   public IpRange getMatch(String adress) {
     for (IpRange ipRange : ipRangeMap.values()) {
-      for (String ipPattern : ipRange.getIpRanges()) {
-        if (NetworkUtils.checkIPMatching(ipPattern, adress)) {
-          return ipRange;
+      if (!"mpg".equals(ipRange.getId())) {
+        for (String ipPattern : ipRange.getIpRanges()) {
+          if (NetworkUtils.checkIPMatching(ipPattern, adress)) {
+            return ipRange;
+          }
         }
       }
     }
