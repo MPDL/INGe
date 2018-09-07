@@ -144,7 +144,7 @@ name="escidoc">
 </person:person>
 </eterms:creator>
 <dc:title>The role of self-trapped excitons and defects in the formation of
-nanogratings in fused silica</dc:title>
+   nanogratings in fused silica</dc:title>
 <!--LANGUAGE: 
       English--><dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
 <dc:identifier xsi:type="eterms:ISI">000300706500013</dc:identifier>
