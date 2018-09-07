@@ -321,7 +321,7 @@ public class TransformerFactoryTest {
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mabXml_item_wronglink.xml")),
         new TransformerStreamResult(wr));
-    
+
     logger.info("\n" + wr.toString());
   }
 
@@ -563,21 +563,21 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromEndnoteToItemXml.xml");
   }
 
-//  @Test
-//  public void testEndnoteToItemXmlList() throws TransformationException, IOException {
-//
-//    StringWriter wr = new StringWriter();
-//
-//    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
-//
-//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
-//        new TransformerStreamResult(wr));
-//
-//    logger.info("\n" + wr.toString());
-//
-//    assertXmlTransformation(wr, "results/fromEndnoteToItemListXml.xml");
-//  }
-//
+  //  @Test
+  //  public void testEndnoteToItemXmlList() throws TransformationException, IOException {
+  //
+  //    StringWriter wr = new StringWriter();
+  //
+  //    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+  //
+  //    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
+  //        new TransformerStreamResult(wr));
+  //
+  //    logger.info("\n" + wr.toString());
+  //
+  //    assertXmlTransformation(wr, "results/fromEndnoteToItemListXml.xml");
+  //  }
+  //
   @Test
   public void testMabToItemXmlV3() throws TransformationException, IOException {
 
@@ -593,20 +593,20 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMabToEscidocItemXml.xml");
   }
 
-//  @Test
-//  public void testMarc21ToItemXmlV3() throws TransformationException, IOException {
-//
-//    StringWriter wr = new StringWriter();
-//
-//    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
-//
-//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc21.txt")),
-//        new TransformerStreamResult(wr));
-//
-//    logger.info("\n" + wr.toString());
-//
-//    assertXmlTransformation(wr, "results/fromMarc21ToEscidocItemXml.xml");
-//  }
+  //  @Test
+  //  public void testMarc21ToItemXmlV3() throws TransformationException, IOException {
+  //
+  //    StringWriter wr = new StringWriter();
+  //
+  //    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+  //
+  //    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc21.txt")),
+  //        new TransformerStreamResult(wr));
+  //
+  //    logger.info("\n" + wr.toString());
+  //
+  //    assertXmlTransformation(wr, "results/fromMarc21ToEscidocItemXml.xml");
+  //  }
 
   @Test
   public void testWosToItemXmlV3() throws TransformationException, IOException {
@@ -646,38 +646,38 @@ public class TransformerFactoryTest {
   //
   // deprecated transformations
   //
-//  @Test
-//  @Ignore
-//  public void testItemXmlV2ToItemXmlV1() throws FileNotFoundException, TransformationException {
-//
-//    StringWriter wr = new StringWriter();
-//
-//    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
-//
-//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v2.xml")),
-//        new TransformerStreamResult(wr));
-//
-//    logger.info("\n" + wr.toString());
-//
-//    assertTrue(wr.toString().length() > 10000);
-//  }
-//
-//  @Test
-//  @Ignore
-//  public void testItemXmlV3ToItemXmlV1() throws FileNotFoundException, TransformationException {
-//
-//    StringWriter wr = new StringWriter();
-//
-//    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
-//
-//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
-//        new TransformerStreamResult(wr));
-//
-//    logger.info("\n" + wr.toString());
-//
-//    assertTrue(wr.toString().length() > 1000);
-//
-//  }
+  //  @Test
+  //  @Ignore
+  //  public void testItemXmlV2ToItemXmlV1() throws FileNotFoundException, TransformationException {
+  //
+  //    StringWriter wr = new StringWriter();
+  //
+  //    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
+  //
+  //    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v2.xml")),
+  //        new TransformerStreamResult(wr));
+  //
+  //    logger.info("\n" + wr.toString());
+  //
+  //    assertTrue(wr.toString().length() > 10000);
+  //  }
+  //
+  //  @Test
+  //  @Ignore
+  //  public void testItemXmlV3ToItemXmlV1() throws FileNotFoundException, TransformationException {
+  //
+  //    StringWriter wr = new StringWriter();
+  //
+  //    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
+  //
+  //    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
+  //        new TransformerStreamResult(wr));
+  //
+  //    logger.info("\n" + wr.toString());
+  //
+  //    assertTrue(wr.toString().length() > 1000);
+  //
+  //  }
 
   @Test
   public void testBmcXmlToBmcOaiPmhXml() throws FileNotFoundException, TransformationException {
@@ -694,7 +694,7 @@ public class TransformerFactoryTest {
 
     String result = wr.toString().replaceAll("[^A-Za-z0-9]", "");
     String expectedResult =
-    ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader()).replaceAll("[^A-Za-z0-9]", "");
+        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader()).replaceAll("[^A-Za-z0-9]", "");
 
     String difference = StringUtils.difference(expectedResult, result);
 
