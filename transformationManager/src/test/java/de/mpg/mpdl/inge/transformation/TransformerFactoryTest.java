@@ -37,8 +37,6 @@ public class TransformerFactoryTest {
       {FORMAT.DOI_METADATA_XML, FORMAT.ZIM_XML, FORMAT.EDOC_XML, FORMAT.OAI_DC, FORMAT.BIBTEX_STRING, FORMAT.ESCIDOC_ITEM_V2_XML,
           FORMAT.HTML_METATAGS_DC_XML, FORMAT.HTML_METATAGS_HIGHWIRE_PRESS_CIT_XML, FORMAT.ENDNOTE_STRING,};
 
-
-
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
@@ -59,7 +57,6 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertTrue(wr.toString().length() > 1000);
-
   }
 
   @Test
@@ -76,7 +73,6 @@ public class TransformerFactoryTest {
 
     assertTransformation(wr, "results/fromEscidocItemToBibtex.txt");
   }
-
 
 
   @Test
@@ -276,21 +272,16 @@ public class TransformerFactoryTest {
 
     Transformer t = TransformerFactory.newTransformer(FORMAT.EDOC_XML, FORMAT.ESCIDOC_ITEM_V3_XML);
 
-    TransformerStreamSource streamSource =
-        new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/edoc_item1.xml"));
-
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/edoc_item1.xml")),
         new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
 
-    String s = wr.toString();
-
     assertXmlTransformation(wr, "results/fromEdocToEscidocItem.xml");
   }
 
   @Test
-  public void testEndnoteXmlToItemXml() throws TransformationException, IOException {
+  public void testEndnoteXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -300,9 +291,6 @@ public class TransformerFactoryTest {
         new TransformerStreamResult(wr));
 
     logger.info("\n" + wr.toString());
-
-    String s = wr.toString();
-
 
     assertXmlTransformationWithIgnore(wr, "results/fromEndnoteXmlToItemXml.xml",
         Arrays.asList(new String[] {"creator,role=http://www.loc.gov/loc.terms/relators/AUT,http://purl.org/escidoc/metadata/terms/0.1/"}));
@@ -333,6 +321,7 @@ public class TransformerFactoryTest {
 
     t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/mabXml_item_wronglink.xml")),
         new TransformerStreamResult(wr));
+    
     logger.info("\n" + wr.toString());
   }
 
@@ -491,11 +480,10 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromRisToRisXml.xml");
-
   }
 
   @Test
-  public void testRisXmlToItemXml() throws TransformationException, IOException {
+  public void testRisXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -507,7 +495,6 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromRisXmlToEscidocItem.xml");
-
   }
 
   @Test
@@ -523,11 +510,10 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromWosToWosXml.xml");
-
   }
 
   @Test
-  public void testWosXmlToItemXml() throws TransformationException, IOException {
+  public void testWosXmlToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -539,7 +525,6 @@ public class TransformerFactoryTest {
     logger.info("\n" + wr.toString());
 
     assertXmlTransformation(wr, "results/fromWosXmlToEscidocItemXml.xml");
-
   }
 
   /*
@@ -564,7 +549,7 @@ public class TransformerFactoryTest {
   // chain transformers
   //
   @Test
-  public void testEndnoteToItemXml() throws TransformationException, IOException {
+  public void testEndnoteToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -575,28 +560,26 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    String s = wr.toString();
-
     assertXmlTransformation(wr, "results/fromEndnoteToItemXml.xml");
   }
 
+//  @Test
+//  public void testEndnoteToItemXmlList() throws TransformationException, IOException {
+//
+//    StringWriter wr = new StringWriter();
+//
+//    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
+//
+//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
+//        new TransformerStreamResult(wr));
+//
+//    logger.info("\n" + wr.toString());
+//
+//    assertXmlTransformation(wr, "results/fromEndnoteToItemListXml.xml");
+//  }
+//
   @Test
-  public void testEndnoteToItemXmlList() throws TransformationException, IOException {
-
-    StringWriter wr = new StringWriter();
-
-    Transformer t = TransformerFactory.newTransformer(FORMAT.ENDNOTE_STRING, FORMAT.ESCIDOC_ITEMLIST_V3_XML);
-
-    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/endnote_item.txt")),
-        new TransformerStreamResult(wr));
-
-    logger.info("\n" + wr.toString());
-
-    assertXmlTransformation(wr, "results/fromEndnoteToItemListXml.xml");
-  }
-
-  @Test
-  public void testMabToItemXml() throws TransformationException, IOException {
+  public void testMabToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -610,24 +593,23 @@ public class TransformerFactoryTest {
     assertXmlTransformation(wr, "results/fromMabToEscidocItemXml.xml");
   }
 
-  @Ignore
+//  @Test
+//  public void testMarc21ToItemXmlV3() throws TransformationException, IOException {
+//
+//    StringWriter wr = new StringWriter();
+//
+//    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
+//
+//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc21.txt")),
+//        new TransformerStreamResult(wr));
+//
+//    logger.info("\n" + wr.toString());
+//
+//    assertXmlTransformation(wr, "results/fromMarc21ToEscidocItemXml.xml");
+//  }
+
   @Test
-  public void testMarc21ToItemXml() throws TransformationException, IOException {
-
-    StringWriter wr = new StringWriter();
-
-    Transformer t = TransformerFactory.newTransformer(FORMAT.MARC_21_STRING, FORMAT.ESCIDOC_ITEM_V3_XML);
-
-    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/marc21.txt")),
-        new TransformerStreamResult(wr));
-
-    logger.info("\n" + wr.toString());
-
-    assertXmlTransformation(wr, "results/fromMarc21ToEscidocItemXml.xml");
-  }
-
-  @Test
-  public void testWosToItemXml() throws TransformationException, IOException {
+  public void testWosToItemXmlV3() throws TransformationException, IOException {
 
     StringWriter wr = new StringWriter();
 
@@ -638,7 +620,7 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformation(wr, "results/fromWosXmlToEscidocItemXml.xml");
+    assertXmlTransformation(wr, "results/fromWosToEscidocItemXml.xml");
   }
 
   @Test
@@ -658,47 +640,46 @@ public class TransformerFactoryTest {
     IOUtils.copy(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml"), wr1, "UTF-8");
 
     assertTrue(wr.toString().length() == wr1.toString().length());
-
   }
 
 
   //
   // deprecated transformations
   //
+//  @Test
+//  @Ignore
+//  public void testItemXmlV2ToItemXmlV1() throws FileNotFoundException, TransformationException {
+//
+//    StringWriter wr = new StringWriter();
+//
+//    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
+//
+//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v2.xml")),
+//        new TransformerStreamResult(wr));
+//
+//    logger.info("\n" + wr.toString());
+//
+//    assertTrue(wr.toString().length() > 10000);
+//  }
+//
+//  @Test
+//  @Ignore
+//  public void testItemXmlV3ToItemXmlV1() throws FileNotFoundException, TransformationException {
+//
+//    StringWriter wr = new StringWriter();
+//
+//    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
+//
+//    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
+//        new TransformerStreamResult(wr));
+//
+//    logger.info("\n" + wr.toString());
+//
+//    assertTrue(wr.toString().length() > 1000);
+//
+//  }
+
   @Test
-  @Ignore
-  public void testItemXmlV2ToItemXmlV1() throws FileNotFoundException, TransformationException {
-
-    StringWriter wr = new StringWriter();
-
-    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V2_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
-
-    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v2.xml")),
-        new TransformerStreamResult(wr));
-
-    logger.info("\n" + wr.toString());
-
-    assertTrue(wr.toString().length() > 10000);
-  }
-
-  @Test
-  @Ignore
-  public void testItemXmlV3ToItemXmlV1() throws FileNotFoundException, TransformationException {
-
-    StringWriter wr = new StringWriter();
-
-    Transformer t = TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEM_V3_XML, FORMAT.ESCIDOC_ITEM_V1_XML);
-
-    t.transform(new TransformerStreamSource(getClass().getClassLoader().getResourceAsStream("sourceFiles/escidoc_item_v13.xml")),
-        new TransformerStreamResult(wr));
-
-    logger.info("\n" + wr.toString());
-
-    assertTrue(wr.toString().length() > 1000);
-
-  }
-
-  @Test()
   public void testBmcXmlToBmcOaiPmhXml() throws FileNotFoundException, TransformationException {
 
     thrown.expect(TransformationException.class);
@@ -713,7 +694,7 @@ public class TransformerFactoryTest {
 
     String result = wr.toString().replaceAll("[^A-Za-z0-9]", "");
     String expectedResult =
-        ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader()).replaceAll("[^A-Za-z0-9]", "");
+    ResourceUtil.getResourceAsString(fileNameOfExpectedResult, getClass().getClassLoader()).replaceAll("[^A-Za-z0-9]", "");
 
     String difference = StringUtils.difference(expectedResult, result);
 
@@ -753,20 +734,14 @@ public class TransformerFactoryTest {
 
   @Test
   public void testGetAllSourceFormatsFor() {
-
     assertTrue(Arrays.asList(TransformerFactory.getAllSourceFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
         .containsAll(Arrays.asList(sourceForESCIDOC_ITEM_V3_XML)));
-
-
   }
 
   @Test
   public void testGetAllTargetFormatsFor() {
-
     assertTrue(Arrays.asList(TransformerFactory.getAllTargetFormatsFor(FORMAT.ESCIDOC_ITEM_V3_XML))
         .containsAll(Arrays.asList(targetForESCIDOC_ITEM_V3_XML)));
-
-
   }
 
 }
