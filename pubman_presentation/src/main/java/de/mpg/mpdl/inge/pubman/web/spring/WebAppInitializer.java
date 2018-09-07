@@ -17,7 +17,6 @@ import com.sun.faces.config.ConfigureListener;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManDepositServlet;
 import de.mpg.mpdl.inge.pubman.web.sword.PubManServiceDocumentServlet;
 import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
-import de.mpg.mpdl.inge.pubman.web.util.listener.PubManSessionListener;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.StatisticChartServlet;
@@ -36,9 +35,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // ear.context is defined in beanRefContext.xml in module pubman_logic
     servletContext.setInitParameter(ContextLoader.LOCATOR_FACTORY_KEY_PARAM, "ear.context");
 
-
-    // SessionListener
-    servletContext.addListener(PubManSessionListener.class);
 
     // JSF
     servletContext.addListener(ConfigureListener.class);
@@ -86,6 +82,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
     servletContext.setInitParameter("server-class", "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
     servletContext.setInitParameter("authentication-method", "Basic");
+
 
 
   }
