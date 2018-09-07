@@ -47,11 +47,16 @@ public class MpgIpListProvider implements IpListProvider {
       try (Scanner scanner = new Scanner(conn.getInputStream())) {
 
         Map<String, IpRange> ipRangeMap = new HashMap<>();
+        //Add entry for whole MPG
+        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", "Max Planck Society (every institute)", new ArrayList<>()));
         scanner.nextLine();
         while (scanner.hasNext()) {
           List<String> line = CSVUtils.parseLine(scanner.nextLine(), ';');
           String id = line.get(2);
           if (id.matches("\\d+")) {
+            //Add every range for whole MPG
+            ipRangeMap.get("mpg").getIpRanges().add(line.get(1));
+
             if (ipRangeMap.containsKey(id)) {
               ipRangeMap.get(id).getIpRanges().add(line.get(1));
             } else {
