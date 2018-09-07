@@ -1099,6 +1099,7 @@
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
 		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
+		<inge.auth.mpg.ip.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.url>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>

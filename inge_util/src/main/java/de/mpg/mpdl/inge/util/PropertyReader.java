@@ -264,6 +264,8 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
+  public static final String INGE_AUTH_MPG_IP_LIST_URL = "inge.auth.mpg.ip.url";
+
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";
