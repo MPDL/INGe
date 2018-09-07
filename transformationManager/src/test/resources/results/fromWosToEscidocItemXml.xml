@@ -95,7 +95,7 @@ name="escidoc">
 <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--CONE CREATOR--><person:person>
 <eterms:family-name>Peschel</eterms:family-name>
 <eterms:given-name>Ulf</eterms:given-name>
-<dc:identifier xsi:type="eterms:CONE">http://localhost:8080/cone/persons/resource/persons201152</dc:identifier>
+<dc:identifier xsi:type="eterms:CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons201152</dc:identifier>
 <!--pubdate: 
                   2012--><!--start: 
                   --><!--start < pubdate 
