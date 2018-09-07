@@ -78,7 +78,7 @@ public class MpgIpListProvider implements IpListProvider {
 
 
     } catch (Exception e) {
-      throw new RuntimeException("Problem with parsing ip list file.", e);
+      logger.error("Problem with parsing ip list file", e);
     } finally {
       if (conn != null) {
         conn.disconnect();
