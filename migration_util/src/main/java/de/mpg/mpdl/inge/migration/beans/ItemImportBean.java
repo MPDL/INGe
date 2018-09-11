@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -86,6 +91,7 @@ public class ItemImportBean {
   private MigrationUtilBean utils;
   @Autowired
   private OrganizationService organizationService;
+  
 
   public void importPubItems() throws Exception {
 
@@ -170,7 +176,7 @@ public class ItemImportBean {
       throws Exception {
     AccountUserDbRO owner = new AccountUserDbRO();
     AccountUserDbRO modifier = new AccountUserDbRO();
-
+   
     owner.setObjectId(utils.changeId("user", itemVo.getOwner().getObjectId()));
     /*
      * if (itemVo.getOwner().getTitle().length() > 255) {
@@ -213,6 +219,23 @@ public class ItemImportBean {
       file.setPid(oldFile.getPid());
       file.setStorage(Storage.valueOf(oldFile.getStorage().name()));
       file.setVisibility(Visibility.valueOf(oldFile.getVisibility().name()));
+      if (file.getVisibility().equals(FileDbVO.Visibility.AUDIENCE)) {
+    	  Path path;
+    	  ArrayList<String> audienceIds = new ArrayList<String>();
+    	  try {
+    			path = Paths.get(getClass().getClassLoader()
+    			  	      .getResource("Kontext_MPI-ID.txt").toURI());
+    			Stream<String> lines = Files.lines(path);
+    		    String ctx_id = itemVo.getContext().getObjectId().substring(itemVo.getContext().getObjectId().lastIndexOf("/")+1);
+
+    		    lines.filter(line -> line.startsWith(ctx_id))
+    		    .map(line -> line.split(", ")[1])
+    		    .forEach(id -> audienceIds.add(id));
+    		    file.setAllowedAudienceIds(audienceIds);
+    		} catch (URISyntaxException | IOException e) {
+    			e.printStackTrace();
+    		}
+      }
 
       if (fileMap.containsKey(currentFileId)) {
         log.info("no need for upload, using existing localId " + fileMap.get(currentFileId));
