@@ -48,7 +48,7 @@ public class MpgIpListProvider implements IpListProvider {
 
         Map<String, IpRange> ipRangeMap = new HashMap<>();
         //Add entry for whole MPG
-        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", "Max Planck Society (every institute)", new ArrayList<>()));
+        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", " Max Planck Society (every institute)", new ArrayList<>()));
         scanner.nextLine();
         while (scanner.hasNext()) {
           List<String> line = CSVUtils.parseLine(scanner.nextLine(), ';');
