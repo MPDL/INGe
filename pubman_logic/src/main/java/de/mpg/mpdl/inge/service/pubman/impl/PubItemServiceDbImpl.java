@@ -60,6 +60,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.VersionableId;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -258,6 +259,18 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
     PubItemUtil.cleanUpItem(pubItemVO);
+
+    //Remove old file ids and add absolute path to content - used e.g. for import
+    if (pubItemVO.getFiles() != null) {
+      for (FileDbVO file : pubItemVO.getFiles()) {
+        file.setObjectId(null);
+        if (file.getContent() != null && Storage.INTERNAL_MANAGED.equals(file.getStorage())
+            && file.getContent().startsWith("/rest/items")) {
+          file.setContent(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + file.getContent());
+        }
+
+      }
+    }
 
     PubItemUtil.setOrganizationIdPathInItem(pubItemVO, organizationService);
 

@@ -236,19 +236,19 @@ img.cc_js_info {
 #cc_js_required p { padding-bottom: 50px; }
 
 #cc_js_remix-label span {
-  background: url('http://creativecommons.org/images/deed/remix.png') no-repeat top left;
+  background: url('https://creativecommons.org/images/deed/remix.png') no-repeat top left;
   padding-left: 60px;
   padding-bottom: 60px;
 }
 
 #cc_js_nc-label span {
-  background: url('http://creativecommons.org/images/deed/nc.png') no-repeat top left;
+  background: url('https://creativecommons.org/images/deed/nc.png') no-repeat top left;
   padding-left: 60px;
   padding-bottom: 60px;
 }
 
 #cc_js_sa-label span {
-  background: url('http://creativecommons.org/images/deed/sa.png') no-repeat top left;
+  background: url('https://creativecommons.org/images/deed/sa.png') no-repeat top left;
   padding-left: 60px;
   padding-bottom: 60px;
 }
