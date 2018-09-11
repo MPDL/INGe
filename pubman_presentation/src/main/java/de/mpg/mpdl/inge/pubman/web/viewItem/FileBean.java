@@ -427,7 +427,7 @@ public class FileBean extends FacesBean {
           final String version = splittedURL[start + 3];
           final String image = "80x15.png";
 
-          return "http://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
+          return "https://i." + address + "/" + licenses + "/" + type + "/" + version + "/" + image;
         }
       }
     } catch (final Exception e) {
