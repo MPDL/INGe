@@ -18,7 +18,6 @@ public class Main {
       // String what = System.getProperty("what");
       String what = null, id = null;
 
-      System.out.println("NUMBER OF ARGS " + args.length);
       if (args.length < 1) {
         System.out.println("You need to specify, what you're going to migrate.");
         System.out.println("Valid args: ctxs, ous, users, logins, items");
