@@ -212,29 +212,34 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       //if content is an url, download content and create staged file  
       if (NetworkUtils.getUrlMatchPattern().matcher(fileVO.getContent()).matches()) {
         HttpResponse resp = Request.Get(fileVO.getContent()).execute().returnResponse();
-        try (InputStream is = resp.getEntity().getContent()) {
+        if (resp.getStatusLine().getStatusCode() != 200) {
+          throw new IngeApplicationException(
+              "Could not download file from " + fileVO.getContent() + ". Status " + resp.getStatusLine().getStatusCode());
+        } else {
+          try (InputStream is = resp.getEntity().getContent()) {
 
-          String filename = null;
-          //First try to get filename as Content-Disposition header
+            String filename = null;
+            //First try to get filename as Content-Disposition header
 
-          Header header = resp.getFirstHeader("Content-Disposition");
-          if (header != null) {
-            for (HeaderElement e : header.getElements()) {
-              if (e.getParameterByName("filename") != null) {
-                filename = e.getParameterByName("filename").getValue();
+            Header header = resp.getFirstHeader("Content-Disposition");
+            if (header != null) {
+              for (HeaderElement e : header.getElements()) {
+                if (e.getParameterByName("filename") != null) {
+                  filename = e.getParameterByName("filename").getValue();
+                }
               }
+
             }
 
+            //If no header was found, use last part of url as filename
+            if (filename == null || filename.trim().isEmpty()) {
+              String[] parts = fileVO.getContent().split("/");
+              filename = parts[parts.length - 1];
+            }
+
+
+            stagedFileVo = createStageFile(is, filename, user.getJwToken());
           }
-
-          //If no header was found, use last part of url as filename
-          if (filename == null || filename.trim().isEmpty()) {
-            String[] parts = fileVO.getContent().split("/");
-            filename = parts[parts.length - 1];
-          }
-
-
-          stagedFileVo = createStageFile(is, filename, user.getJwToken());
         }
       }
       //else get staged file from database

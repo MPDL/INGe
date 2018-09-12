@@ -263,7 +263,7 @@ public class ItemRestController {
 
 
       //Add filename and RFC 5987 encoded filename as content disposition headers
-      response.setHeader("Content-disposition",
+      response.setHeader("Content-Disposition",
           contentDispositionType + "; filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; filename*=utf-8''"
               + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
       OutputStream output = response.getOutputStream();
