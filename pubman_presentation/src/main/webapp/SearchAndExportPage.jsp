@@ -51,7 +51,7 @@
                         </h:panelGroup>
                     </h:panelGroup>
                     
-                    <div class="full_area0 fullItem">
+                    <div class="full_area0">
                        	<div class="full_area0 itemBlock">
                             <h:commandButton id="btnUpdatePage" styleClass="noDisplay updatePage" action="#{SearchAndExportPage.updatePage}" />
                        		<label class="xLarge_area0_p8 endline blockHeader">#{lbl.searchAndExport_Form}</label>
@@ -60,7 +60,7 @@
 								<div class="free_area0 endline itemLine noTopBorder">
 									<label class="xLarge_area0_p8 endline labelLine clear">#{lbl.searchAndExport_Query}</label>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
-										<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="#{msg.error_required}" validator="#{SearchAndExportPage.validateQuery}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" cols="15" rows="3" />
+										<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="esQuery" value="#{SearchAndExportPage.esQuery}" required="true" requiredMessage="#{msg.error_required}" validator="#{SearchAndExportPage.validateQuery}" onchange="$(this).parents('.full_area0').find('.updatePage').click();" cols="15" rows="30" />
 								    	<h:message styleClass="quad_txtInput" for="esQuery" style="color:red"/>
 									</span>
 								</div>

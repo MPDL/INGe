@@ -62,6 +62,7 @@ import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
+import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @ManagedBean(name = "SearchAndExportPage")
@@ -98,8 +99,9 @@ public class SearchAndExportPage extends BreadcrumbPage {
           final String decodedQuery = URLDecoder.decode(request.getQueryString(), "UTF-8");
           this.esQuery = decodedQuery.substring(decodedQuery.indexOf(SearchRetrieverRequestBean.parameterElasticSearchQuery)
               + SearchRetrieverRequestBean.parameterElasticSearchQuery.length() + 1);
+          this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
         }
-      } catch (final UnsupportedEncodingException e) {
+      } catch (final Exception e) {
         SearchAndExportPage.logger.error("Error during reading GET parameters.", e);
       }
 

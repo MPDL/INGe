@@ -776,10 +776,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     final List<SearchCriterionBase> componentSearchCriterions = this.getComponentSearchCriterions(indexName);
     allCriterions.addAll(componentSearchCriterions);
 
+    /*
     QueryBuilder qb = null;
     try {
       // cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
-
+    
       if (Index.ESCIDOC_ALL == indexName) {
         BoolQueryBuilder bqb = QueryBuilders.boolQuery();
         bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
@@ -790,14 +791,14 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         qb = bqb;
       } else {
         qb = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
-
+    
       }
-
-
+    
+    
     } catch (final SearchParseException e1) {
       this.error(this.getMessage("search_ParseError"));
     }
-
+    */
     this.query = SearchCriterionBase.scListToQueryString(allCriterions);
     AdvancedSearchBean.logger.debug("Internal Query: " + this.query);
 
@@ -818,9 +819,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       } else if (bihsb.getCurrentItem().getDisplayValue().equals("AdminAdvancedSearchPage")) {
         bihsb.getCurrentItem().setPage("AdminAdvancedSearchPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8"));
       }
-      FacesTools.getExternalContext()
-          .redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(JsonUtil.minifyJsonString(qb.toString()), "UTF-8") + "&q="
-              + URLEncoder.encode(this.query, "UTF-8") + "&" + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
+      FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?q=" + URLEncoder.encode(this.query, "UTF-8") + "&"
+          + SearchRetrieverRequestBean.parameterSearchType + "=" + searchType);
     } catch (final Exception e) {
       AdvancedSearchBean.logger.error("Error while redirecting to search result page", e);
     }
