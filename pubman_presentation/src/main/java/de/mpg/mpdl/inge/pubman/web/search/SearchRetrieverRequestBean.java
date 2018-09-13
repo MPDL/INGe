@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.pubman.web.search;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.Strings;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -25,11 +29,13 @@ import de.mpg.mpdl.inge.pubman.web.common_presentation.BaseListRetrieverRequestB
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean.SORT_CRITERIA;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.JsonUtil;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 
@@ -76,9 +82,9 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   /**
    * The current internal pubman query;
    */
-  private String queryString;
+  private String queryStringUrlParam;
 
-  private String elasticSearchQuery;
+  private String elasticSearchQueryUrlParam;
 
 
   /**
@@ -94,6 +100,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   public static final String LOAD_SEARCHRESULTLIST = "showSearchResults";
 
 
+  private QueryBuilder elasticSearchQueryBuilder;
 
   public SearchRetrieverRequestBean() {
     super((PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean"), false);
@@ -139,24 +146,16 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
 
     final String query = paramMap.get(SearchRetrieverRequestBean.parameterQuery);
-
-    if (query != null) {
-      this.setQueryString(query);
-    }
-
-    //    paramMap.get(SearchRetrieverRequestBean.parameterCqlQuery);
-
     final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
+    System.out.println("QueryString param is " + query);
+    System.out.println("esc param is " + elasticSearchQuery);
 
-    if ((elasticSearchQuery == null || elasticSearchQuery.equals(""))) {
-      this.setElasticSearchQuery("");
-      this.error(this.getMessage("SearchQueryError"));
-
+    if (query != null || elasticSearchQuery != null) {
+      this.setQueryStringUrlParam(query);
+      this.setElasticSearchQueryUrlParam(elasticSearchQuery);
     } else {
-      this.setElasticSearchQuery(elasticSearchQuery);
-
+      this.error(this.getMessage("SearchQueryError"));
     }
-
 
 
     final String searchType = paramMap.get(SearchRetrieverRequestBean.parameterSearchType);
@@ -164,6 +163,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       this.setSearchType("simple");
     } else {
       this.setSearchType(searchType);
+    }
+
+    if ((elasticSearchQuery == null || elasticSearchQuery.isEmpty()) && (query == null || query.isEmpty())) {
+      this.error(this.getMessage("SearchQueryError"));
+
     }
 
   }
@@ -175,11 +179,11 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
     // checkSortCriterias(sc);
     try {
-      final QueryBuilder qb = QueryBuilders.wrapperQuery(this.getElasticSearchQuery());
+
 
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
       SearchSourceBuilder ssb = new SearchSourceBuilder();
-      ssb.query(qb);
+
       ssb.from(offset);
       ssb.size(limit);
 
@@ -192,6 +196,28 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         }
       }
 
+      QueryBuilder escQueryBuilder = null;
+      if (getElasticSearchQueryUrlParam() == null) {
+        List<SearchCriterionBase> allCriterions = SearchCriterionBase.queryStringToScList(getQueryString());
+        escQueryBuilder = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
+
+        if (!"admin".equals(getSearchType())) {
+          //Search only for released items
+          BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+          bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+              PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+          bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+              PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+          bqb.must(escQueryBuilder);
+          escQueryBuilder = bqb;
+        }
+      } else {
+        escQueryBuilder = QueryBuilders.wrapperQuery(this.getElasticSearchQueryUrlParam());
+      }
+
+      this.elasticSearchQueryBuilder = escQueryBuilder;
+      ssb.query(this.elasticSearchQueryBuilder);
+      System.out.println("Setting query to " + elasticSearchQueryBuilder);
 
       SearchResponse resp;
       if ("admin".equals(getSearchType())) {
@@ -258,12 +284,12 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
    * @throws UnsupportedEncodingException
    */
   public String getAtomFeedLink() throws PubManVersionNotAvailableException, UnsupportedEncodingException {
-    if (this.getElasticSearchQuery() == null) {
+    if (this.getElasticSearchQueryUrlParam() == null) {
       return null;
     }
 
     return "<link href='" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + "/rest/feed/search?q="
-        + URLEncoder.encode(this.getElasticSearchQuery(), "UTF-8")
+        + URLEncoder.encode(this.getElasticSearchQueryUrlParam(), "UTF-8")
         + "' rel='alternate' type='application/atom+xml' title='Current Search | atom 1.0' />";
   }
 
@@ -329,13 +355,13 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   }
 
   public String getQueryString() {
-    return this.queryString;
+    return this.queryStringUrlParam;
   }
 
   public String getUrlEncodedQueryString() {
     try {
-      if (this.queryString != null) {
-        return URLEncoder.encode(this.queryString, "UTF-8");
+      if (this.queryStringUrlParam != null) {
+        return URLEncoder.encode(this.queryStringUrlParam, "UTF-8");
       }
     } catch (final UnsupportedEncodingException e) {
       SearchRetrieverRequestBean.logger.error("Could not encode query string", e);
@@ -344,30 +370,50 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     return "";
   }
 
-  public void setQueryString(String query) {
-    this.queryString = query;
+  public void setQueryStringUrlParam(String query) {
+    this.queryStringUrlParam = query;
     this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterQuery, query);
   }
 
-  public String getElasticSearchQuery() {
-    if (this.elasticSearchQuery == null) {
-      this.elasticSearchQuery =
+  public String getElasticSearchQueryUrlParam() {
+    if (this.elasticSearchQueryUrlParam == null) {
+      this.elasticSearchQueryUrlParam =
           this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
     }
-    return this.elasticSearchQuery;
+    return this.elasticSearchQueryUrlParam;
   }
 
-  public void setElasticSearchQuery(String elasticSearchQuery) {
-    this.elasticSearchQuery = elasticSearchQuery;
+  public void setElasticSearchQueryUrlParam(String elasticSearchQuery) {
+    this.elasticSearchQueryUrlParam = elasticSearchQuery;
     this.getBasePaginatorListSessionBean().getParameterMap().put(SearchRetrieverRequestBean.parameterElasticSearchQuery,
         elasticSearchQuery);
   }
 
   public String getPrettyElasticSearchQuery() {
     try {
-      return JsonUtil.prettifyJsonString(this.getElasticSearchQuery());
+      if (this.elasticSearchQueryUrlParam != null) {
+        return JsonUtil.prettifyJsonString(this.elasticSearchQueryUrlParam);
+      } else {
+        return this.elasticSearchQueryBuilder.toString();
+      }
+
     } catch (Exception e) {
-      logger.error("Cannot parse Json String " + getElasticSearchQuery());
+      logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
+      return "";
+    }
+  }
+
+  public String getMinifiedUrlEncodedElasticSearchQuery() {
+    try {
+      String json = null;
+      if (this.elasticSearchQueryUrlParam != null) {
+        json = this.elasticSearchQueryUrlParam;
+      } else {
+        json = this.elasticSearchQueryBuilder.toString();
+      }
+      return URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName());
+    } catch (Exception e) {
+      logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
       return "";
     }
   }

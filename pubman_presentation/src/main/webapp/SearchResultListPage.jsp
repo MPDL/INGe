@@ -139,7 +139,7 @@
                                 <a class="free_area0 xTiny_marginRIncl" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();">
                                     <h:outputText value="#{lbl.ShowQuery}" />
                                 </a>
-                                <h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="SearchAndExportPage.jsp?esq=#{SearchRetrieverRequestBean.elasticSearchQuery}">
+                                <h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="SearchAndExportPage.jsp?esq=#{SearchRetrieverRequestBean.minifiedUrlEncodedElasticSearchQuery}">
                                     <h:outputText value="#{lbl.SearchResultList_lblRestServiceExamplePage}" />
                                 </h:outputLink>
                                 <!-- Subheadline ends here -->
@@ -157,11 +157,11 @@
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="subHeader" rendered="#{SearchRetrieverRequestBean.searchType == 'advanced' or SearchRetrieverRequestBean.searchType == 'admin'}">
                                 <!-- Subheadline starts here -->
-                                <h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
+                                <h:panelGroup layout="block" styleClass="full_area0_p6 searchQuery" style="display: none;">
                                     <h2>
                                         <h:outputText value="#{msg.searchResultList_QueryString}" />
                                     </h2>
-                                    <h:outputText value="#{SearchRetrieverRequestBean.queryString}" style="white-space:pre-wrap;" />
+                                    <h:inputTextarea styleClass="half_txtArea inputTxtArea" rows="30" value="#{SearchRetrieverRequestBean.prettyElasticSearchQuery}" readonly="true" />
                                 </h:panelGroup>
                                 <!-- Subheadline ends here -->
                             </h:panelGroup>
@@ -172,6 +172,7 @@
                                 </h:outputLink>
                             </h:panelGroup>
                              -->
+                             
                             <div style="clear: both; margin-top: 0.6363em;">
                                 <!-- Subheadline starts here -->
                                 <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.numberOfMessages == 1}" />
