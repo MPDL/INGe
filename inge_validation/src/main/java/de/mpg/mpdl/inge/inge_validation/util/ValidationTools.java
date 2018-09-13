@@ -19,20 +19,7 @@ public class ValidationTools {
   }
 
   public static boolean isEmpty(List<?> l) {
-    boolean isEmpty = (l == null || l.isEmpty());
-    if (!isEmpty) {
-      int countEmpty = 0;
-      for (Object object : l) {
-        if (object.equals(null)) {
-          countEmpty++;
-        }
-      }
-      if (countEmpty == l.size()) {
-        isEmpty = true;
-      }
-    }
-    
-    return isEmpty;
+    return l == null || l.isEmpty();
   }
 
   public static boolean isNotEmpty(List<?> l) {
