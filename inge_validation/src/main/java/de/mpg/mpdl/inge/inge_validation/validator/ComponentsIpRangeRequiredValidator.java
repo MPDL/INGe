@@ -34,13 +34,13 @@ public class ComponentsIpRangeRequiredValidator extends ValidatorHandler<List<Fi
               for (String audienceId : fileDbVO.getAllowedAudienceIds()) {
                 if (audienceId == null) {
                   countEmpty++;
-                }  
+                }
               }
               if (countEmpty == fileDbVO.getAllowedAudienceIds().size()) {
                 context.addError(ValidationError.create(ErrorMessages.COMPONENT_IP_RANGE_NOT_PROVIDED).setField("file[" + i + "]"));
                 ok = false;
               }
-            }   
+            }
           }
 
         } // if
