@@ -8,6 +8,7 @@ public class ErrorMessages {
   public static final String COMPONENT_CONTENT_NOT_PROVIDED = "ComponentContentNotProvided";
   public static final String COMPONENT_FILE_NAME_NOT_PROVIDED = "ComponentFileNameNotProvided";
   public static final String COMPONENT_VISIBILITY_NOT_PROVIDED = "ComponentVisibilityNotProvided";
+  public static final String COMPONENT_IP_RANGE_NOT_PROVIDED = "ComponentIpRangeNotProvided";
   public static final String CONE_EMPTY_DDC_TITLE = "ConeEmptyDdcTitle";
   public static final String CONE_EMPTY_ISO639_3_TITLE = "ConeEmptyIso6393Title";
   public static final String CONE_EMPTY_JEL_TITLE = "ConeEmptyJelTitle";
