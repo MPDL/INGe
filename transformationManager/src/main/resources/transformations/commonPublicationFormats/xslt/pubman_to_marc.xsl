@@ -435,6 +435,7 @@
 		<xsl:variable name="ind1" as="xs:string">
 			<xsl:choose>
 				<xsl:when test="starts-with($url, 'http://')">4</xsl:when>
+				<xsl:when test="starts-with($url, 'https://')">4</xsl:when>
 				<xsl:otherwise>
 					<xsl:sequence select="' '"/>
 				</xsl:otherwise>
