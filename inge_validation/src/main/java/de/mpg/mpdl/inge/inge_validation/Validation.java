@@ -17,6 +17,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDataRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsDateFormatValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.ComponentsIpRangeRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsNoSlashesInNameValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsOrganizationsNameRequiredValidator;
@@ -92,6 +93,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
             .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
@@ -120,6 +122,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
             .on(pubItemVO.getMetadata(), new DateRequiredValidator()) //
             .when(!MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre()) //
@@ -156,6 +159,7 @@ public class Validation {
         final FluentValidator vEasy3 = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
@@ -173,6 +177,7 @@ public class Validation {
         final FluentValidator vEasy4 = FluentValidator.checkAll().failOver() //
             .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //

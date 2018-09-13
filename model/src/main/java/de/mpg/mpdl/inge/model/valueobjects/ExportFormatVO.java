@@ -30,25 +30,20 @@ package de.mpg.mpdl.inge.model.valueobjects;
 public class ExportFormatVO extends ValueObject {
   private String format;
   private String citationName;
-
-
   private String id;
-
-
-  public ExportFormatVO(String format, String citationName) {
-    this.citationName = citationName;
-    this.setFormat(format);
-  }
-
-  public ExportFormatVO(String format) {
-
-    this.setFormat(format);
-  }
 
   public ExportFormatVO(String format, String citationName, String id) {
     this.citationName = citationName;
-    this.setFormat(format);
+    this.format = format;
     this.id = id;
+  }
+
+  public ExportFormatVO(String format, String citationName) {
+    this(format, citationName, null);
+  }
+
+  public ExportFormatVO(String format) {
+    this(format, null, null);
   }
 
   public String getCitationName() {
@@ -63,6 +58,9 @@ public class ExportFormatVO extends ValueObject {
     return this.format;
   }
 
+  public void setFormat(String format) {
+    this.format = format;
+  }
 
   public String getId() {
     return this.id;
@@ -74,11 +72,7 @@ public class ExportFormatVO extends ValueObject {
 
   @Override
   public String toString() {
-    return "ExportFormatVO [formatType=" + getFormat() + ", name=" + citationName + ", id=" + id + " ]";
-  }
-
-  public void setFormat(String format) {
-    this.format = format;
+    return "ExportFormatVO [format=" + this.format + ", citationName=" + this.citationName + ", id=" + this.id + " ]";
   }
 
 }

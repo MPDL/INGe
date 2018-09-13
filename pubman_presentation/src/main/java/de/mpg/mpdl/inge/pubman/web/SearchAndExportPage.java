@@ -305,9 +305,10 @@ public class SearchAndExportPage extends BreadcrumbPage {
     sb.append("?format=");
     sb.append(saerrVO.getExportFormat().getFormat());
 
-    if (saerrVO.getExportFormat().getCitationName() != null)
+    if (saerrVO.getExportFormat().getCitationName() != null) {
       sb.append("&citation=");
-    sb.append(saerrVO.getExportFormat().getCitationName());
+      sb.append(saerrVO.getExportFormat().getCitationName());
+    }
 
     if (saerrVO.getExportFormat().getId() != null) {
       sb.append("&cslConeId=");

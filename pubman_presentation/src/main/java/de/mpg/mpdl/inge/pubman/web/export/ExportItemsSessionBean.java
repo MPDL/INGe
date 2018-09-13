@@ -122,7 +122,7 @@ public class ExportItemsSessionBean extends FacesBean {
     FORMAT format = TransformerFactory.getFormat(exportFormatName);
     String citations = curExportFormatVO.getCitationName();
 
-    curExportFormatVO.setFormat(exportFormatName);
+    this.curExportFormatVO.setFormat(exportFormatName);
 
     this.setEnableFileFormats(false);
     this.setEnableCslAutosuggest(false);
@@ -131,7 +131,12 @@ public class ExportItemsSessionBean extends FacesBean {
       this.setEnableFileFormats(true);
       if (CitationTypes.CSL.getCitationName().equals(citations)) {
         this.setEnableCslAutosuggest(true);
+      } else {
+        this.curExportFormatVO.setId(null);
       }
+    } else {
+      this.curExportFormatVO.setCitationName(null);
+      this.curExportFormatVO.setId(null);
     }
   }
 
@@ -140,12 +145,7 @@ public class ExportItemsSessionBean extends FacesBean {
   }
 
   public void setFileFormat(String fileFormatName) {
-    //    if (XmlHelper.APA.equalsIgnoreCase(this.getExportFormatName()) //
-    //        || XmlHelper.APA_CJK.equalsIgnoreCase(this.getExportFormatName()) //
-    //        || XmlHelper.JUS.equalsIgnoreCase(this.getExportFormatName()) //
-    //        || XmlHelper.AJP.equalsIgnoreCase(this.getExportFormatName())) {
     this.curExportFormatVO.setCitationName(fileFormatName);
-    //    }
   }
 
 
