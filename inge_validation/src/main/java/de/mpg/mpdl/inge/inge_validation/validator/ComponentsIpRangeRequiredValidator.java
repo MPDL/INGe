@@ -27,10 +27,20 @@ public class ComponentsIpRangeRequiredValidator extends ValidatorHandler<List<Fi
 
           //File with missing IP range
           if (FileDbVO.Storage.INTERNAL_MANAGED.equals(fileDbVO.getStorage())
-              && FileDbVO.Visibility.AUDIENCE.equals(fileDbVO.getVisibility())
-              && ValidationTools.isEmpty(fileDbVO.getAllowedAudienceIds())) {
-            context.addError(ValidationError.create(ErrorMessages.COMPONENT_IP_RANGE_NOT_PROVIDED).setField("file[" + i + "]"));
-            ok = false;
+              && FileDbVO.Visibility.AUDIENCE.equals(fileDbVO.getVisibility())) {
+            boolean isEmpty = ValidationTools.isEmpty(fileDbVO.getAllowedAudienceIds());
+            if (!isEmpty) {
+              int countEmpty = 0;
+              for (String audienceId : fileDbVO.getAllowedAudienceIds()) {
+                if (audienceId == null) {
+                  countEmpty++;
+                }  
+              }
+              if (countEmpty == fileDbVO.getAllowedAudienceIds().size()) {
+                context.addError(ValidationError.create(ErrorMessages.COMPONENT_IP_RANGE_NOT_PROVIDED).setField("file[" + i + "]"));
+                ok = false;
+              }
+            }   
           }
 
         } // if
