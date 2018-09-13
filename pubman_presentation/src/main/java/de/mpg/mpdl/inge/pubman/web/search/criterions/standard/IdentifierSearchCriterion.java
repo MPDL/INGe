@@ -31,6 +31,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
@@ -48,10 +49,21 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
     if (getSelectedIdentifierType() == null) {
       return super.toElasticSearchQuery();
     } else {
-      BoolQueryBuilder bq = QueryBuilders.boolQuery();
-      bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
-      bq.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID, getSearchString()));
-      return QueryBuilders.nestedQuery("metadata.identifiers", bq, ScoreMode.Avg);
+
+      BoolQueryBuilder idQueryBuilder = QueryBuilders.boolQuery();
+      idQueryBuilder
+          .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
+      idQueryBuilder.must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID, getSearchString()));
+
+      BoolQueryBuilder sourceIdQueryBuilder = QueryBuilders.boolQuery();
+      sourceIdQueryBuilder.must(
+          baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE, getSelectedIdentifierType().name()));
+      sourceIdQueryBuilder
+          .must(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_ID, getSearchString()));
+
+      return QueryBuilders.boolQuery().should(QueryBuilders.nestedQuery("metadata.identifiers", idQueryBuilder, ScoreMode.Avg))
+          .should(QueryBuilders.nestedQuery("metadata.sources.identifiers", sourceIdQueryBuilder, ScoreMode.Avg));
+
     }
 
 
@@ -79,7 +91,8 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
   @Override
   public String[] getElasticIndexes() {
     return new String[] {PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, PubItemServiceDbImpl.INDEX_PID,
-        PubItemServiceDbImpl.INDEX_VERSION_PID, PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID};
+        PubItemServiceDbImpl.INDEX_VERSION_PID, PubItemServiceDbImpl.INDEX_METADATA_IDENTIFIERS_ID,
+        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_IDENTIFIERS_ID};
 
   }
 
@@ -96,5 +109,27 @@ public class IdentifierSearchCriterion extends StandardSearchCriterion {
     this.selectedIdentifierType = selectedIdentifierType;
   }
 
+  @Override
+  public String getQueryStringContent() {
+    if (this.selectedIdentifierType == null) {
+      return super.getQueryStringContent();
+    } else {
+      return (this.selectedIdentifierType == null ? "" : SearchCriterionBase.escapeForQueryString(this.selectedIdentifierType.name()))
+          + "||" + super.getQueryStringContent();
+    }
+  }
+
+  @Override
+  public void parseQueryStringContent(String content) {
+    if (content.contains("||")) {
+      String[] parts = content.split("(?<!\\\\)\\|\\|");
+      this.selectedIdentifierType = IdType.valueOf(unescapeForQueryString(parts[0]));
+      super.parseQueryStringContent(parts[1]);
+
+    } else {
+      super.parseQueryStringContent(content);
+    }
+
+  }
 
 }

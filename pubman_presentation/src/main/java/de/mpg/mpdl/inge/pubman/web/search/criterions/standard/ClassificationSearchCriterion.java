@@ -84,9 +84,10 @@ public class ClassificationSearchCriterion extends StandardSearchCriterion {
   @Override
   public void parseQueryStringContent(String content) {
 
+    String[] parts = content.split("(?<!\\\\)\\|\\|");
 
-    this.setClassificationType(SearchCriterionBase.unescapeForQueryString(content.split("\\|\\|")[0]));
-    this.setSearchString(SearchCriterionBase.unescapeForQueryString(content.split("\\|\\|")[1]));
+    this.setClassificationType(SearchCriterionBase.unescapeForQueryString(parts[0]));
+    this.setSearchString(SearchCriterionBase.unescapeForQueryString(parts[1]));
   }
 
   public String getClassificationType() {
