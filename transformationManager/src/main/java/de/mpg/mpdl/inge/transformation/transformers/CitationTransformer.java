@@ -141,25 +141,26 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 
+      // TODO: Viel schöner machen!
       if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
-          System.out.println(entry);
-        }
+//        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+//          System.out.println(entry);
+//        }
         PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("dejavu sans");
         if (font != null) {
           Mapper fontMapper = new IdentityPlusMapper();
-          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-            System.out.println(entry);
-          }
+//          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+//            System.out.println(entry);
+//          }
           fontMapper.getFontMappings().put("Calibri", font);
           fontMapper.getFontMappings().put("MS Gothic", font);
           fontMapper.getFontMappings().put("Times New Roman", font);
           fontMapper.getFontMappings().put("calibri", font);
           fontMapper.getFontMappings().put("ms gothic", font);
           fontMapper.getFontMappings().put("times new roman", font);
-          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-            System.out.println(entry);
-          }
+//          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+//            System.out.println(entry);
+//          }
           wordOutputDoc.setFontMapper(fontMapper);
         }
       }
