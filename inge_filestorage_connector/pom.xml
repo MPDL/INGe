@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>8.0.1</version>
 	</parent>
 
 	<artifactId>inge_filestorage_connector</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.2</version>
 	<name>inge_filestorage_connector</name>
 
 	<build>

@@ -6,18 +6,18 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>8.0.1</version>
 	</parent>
 
 	<artifactId>inge_es_connector</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.2</version>
 	<name>inge_es_connector</name>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_es_connector</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_es_connector</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.0.1</tag>
 	</scm>
 
 	<build>
