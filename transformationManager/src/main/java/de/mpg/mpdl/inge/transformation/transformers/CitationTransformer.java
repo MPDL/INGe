@@ -18,6 +18,8 @@ import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.convert.out.FOSettings;
 import org.docx4j.fonts.IdentityPlusMapper;
 import org.docx4j.fonts.Mapper;
+import org.docx4j.fonts.PhysicalFont;
+import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
@@ -137,6 +139,19 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     } else if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat()) || TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
+
+      if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
+//        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+//          System.out.println(entry);
+//        }
+        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("dejavu sans");
+        Mapper fontMapper = new IdentityPlusMapper();
+        fontMapper.getFontMappings().put("Calibri", font);
+        fontMapper.getFontMappings().put("MS Gothic", font);
+        fontMapper.getFontMappings().put("Times New Roman", font);
+        wordOutputDoc.setFontMapper(fontMapper);
+      }
+
       XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
       MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
       List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
@@ -161,18 +176,6 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       if (TransformerFactory.FORMAT.DOCX.equals(getTargetFormat())) {
         wordOutputDoc.save(bos);
       } else if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-        Mapper fontMapper = new IdentityPlusMapper();
-        wordOutputDoc.setFontMapper(fontMapper);
-
-        // Does not work (try to get Cyrillic characters):
-        //        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
-        //          System.out.println(entry);
-        //        }
-        //        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("dejavu sans");
-        //        fontMapper.getFontMappings().put("Calibri", font);
-        //        fontMapper.getFontMappings().put("MS Gothic", font);
-        //        fontMapper.getFontMappings().put("Times New Roman", font);
-
         FOSettings foSettings = Docx4J.createFOSettings();
         foSettings.setWmlPackage(wordOutputDoc);
         Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
