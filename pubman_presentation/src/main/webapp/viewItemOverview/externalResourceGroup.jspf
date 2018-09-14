@@ -41,8 +41,8 @@
 							<!-- Link to the external resource -->
 							<h:outputLink id="lnkLocator" target="_blank"
 								value="#{locator.locatorLink}">
-								<h:outputText value="#{locator.fileName}"
-									title="#{locator.fileName}"
+								<h:outputText value="#{locator.file.metadata.title}"
+									title="#{locator.file.metadata.title}"
 									rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							</h:outputLink>
 							<!-- Text if publication is withdrawn -->

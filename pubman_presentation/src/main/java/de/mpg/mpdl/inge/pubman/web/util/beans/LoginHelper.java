@@ -112,8 +112,8 @@ public class LoginHelper extends FacesBean {
 
     String ip = ec.getRequestHeaderMap().get("X-Forwarded-For");
     logger.info("Init LoginHelper with IP " + ip);
-    
-    
+
+
     if (ip != null) {
       try {
         currentIp = ApplicationBean.INSTANCE.getIpListProvider().getMatch(ip);
