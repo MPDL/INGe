@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
@@ -165,6 +166,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       } else if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
         Mapper fontMapper = new IdentityPlusMapper();
         wordOutputDoc.setFontMapper(fontMapper);
+        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+          System.out.println(entry);
+        }
         PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("DejaVuSans");
         fontMapper.getFontMappings().put("Calibri", font);
         fontMapper.getFontMappings().put("MS Gothic", font);
