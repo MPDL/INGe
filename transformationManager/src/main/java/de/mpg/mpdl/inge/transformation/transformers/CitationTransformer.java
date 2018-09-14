@@ -169,7 +169,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
         for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
           System.out.println(entry);
         }
-        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("DejaVuSans");
+        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("dejavu sans");
         fontMapper.getFontMappings().put("Calibri", font);
         fontMapper.getFontMappings().put("MS Gothic", font);
         fontMapper.getFontMappings().put("Times New Roman", font);
