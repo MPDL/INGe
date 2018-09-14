@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
@@ -141,15 +142,26 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 
       if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-//        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
-//          System.out.println(entry);
-//        }
+        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+          System.out.println(entry);
+        }
         PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("dejavu sans");
-        Mapper fontMapper = new IdentityPlusMapper();
-        fontMapper.getFontMappings().put("Calibri", font);
-        fontMapper.getFontMappings().put("MS Gothic", font);
-        fontMapper.getFontMappings().put("Times New Roman", font);
-        wordOutputDoc.setFontMapper(fontMapper);
+        if (font != null) {
+          Mapper fontMapper = new IdentityPlusMapper();
+          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+            System.out.println(entry);
+          }
+          fontMapper.getFontMappings().put("Calibri", font);
+          fontMapper.getFontMappings().put("MS Gothic", font);
+          fontMapper.getFontMappings().put("Times New Roman", font);
+          fontMapper.getFontMappings().put("calibri", font);
+          fontMapper.getFontMappings().put("ms gothic", font);
+          fontMapper.getFontMappings().put("times new roman", font);
+          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+            System.out.println(entry);
+          }
+          wordOutputDoc.setFontMapper(fontMapper);
+        }
       }
 
       XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
