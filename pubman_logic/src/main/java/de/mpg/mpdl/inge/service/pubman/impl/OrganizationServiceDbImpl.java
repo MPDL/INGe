@@ -54,6 +54,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public final static String INDEX_METADATA_CITY = "metadata.city";
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliation.objectId";
   public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
+  public final static String INDEX_STATE = "publicStatus.keyword";
 
   private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 

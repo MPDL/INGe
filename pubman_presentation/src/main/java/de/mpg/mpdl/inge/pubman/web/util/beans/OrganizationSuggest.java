@@ -41,6 +41,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.OrganizationVOPresentation;
+import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 
@@ -64,15 +65,18 @@ public class OrganizationSuggest {
     if (query != null) {
 
       SearchSourceBuilder ssb = new SearchSourceBuilder();
+      OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
 
-      QueryBuilder qb =
-          QueryBuilders.boolQuery().should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_TITLE, query))
-              .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES, query));
+      QueryBuilder qb = QueryBuilders.boolQuery()
+          .mustNot(SearchUtils.baseElasticSearchQueryBuilder(organizationService.getElasticSearchIndexFields(),
+              OrganizationServiceDbImpl.INDEX_STATE, AffiliationDbVO.State.CREATED.name()))
+          .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_TITLE, query))
+          .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES, query));
 
       //String[] returnFields = new String[] {OrganizationServiceDbImpl.INDEX_OBJECT_ID, OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_CITY};
       ssb.query(qb).size(50);
 
-      SearchResponse resp = ApplicationBean.INSTANCE.getOrganizationService().searchDetailed(ssb, null);
+      SearchResponse resp = organizationService.searchDetailed(ssb, null);
       List<AffiliationDbVO> resultList = SearchUtils.getRecordListFromElasticSearchResponse(resp, AffiliationDbVO.class);
 
       for (final AffiliationDbVO affiliationVO : resultList) {

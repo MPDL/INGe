@@ -18,7 +18,7 @@ public class StatisticsViaPiwikService {
 
   static String pageUrl =
       //"https://analytics.mpdl.mpg.de/?module=API&method=Actions.getPageUrl&pageUrl=http://pubman.mpdl.mpg.de/pubman/faces/viewItemOverviewPage.jsp?itemId=escidoc:2593630&idSite=1&period=month&date=last12&token_auth=38cc64c1f177e45ec36f2809a910e89a&format=json&showColumns=nb_visits";
-  "https://analytics.mpdl.mpg.de?module=API&method=Actions.getPageUrl&idSite=1&period=range&date=2000-01-01%2Ctoday&token_auth=f65d066e35cc1d8974c1427d364ad830&format=json&showColumns=nb_visits&pageUrl=http%3A%2F%2Fpubman.mpdl.mpg.de%2Fpubman%2Ffaces%2FviewItemOverviewPage.jsp%3FitemId%3Descidoc%3A2451460";
+      "https://analytics.mpdl.mpg.de?module=API&method=Actions.getPageUrl&idSite=1&period=range&date=2000-01-01%2Ctoday&token_auth=f65d066e35cc1d8974c1427d364ad830&format=json&showColumns=nb_visits&pageUrl=http%3A%2F%2Fpubman.mpdl.mpg.de%2Fpubman%2Ffaces%2FviewItemOverviewPage.jsp%3FitemId%3Descidoc%3A2451460";
 
   // "https://analytics.mpdl.mpg.de/?module=API&method=Actions.getPageUrl&pageUrl=http://dlc.mpdl.mpg.de/dlc/view/escidoc:7119:4/recto-verso&idSite=15&period=month&date=last12&token_auth=38cc64c1f177e45ec36f2809a910e89a&format=json&showColumns=nb_visits";
   static String dlc_item =
