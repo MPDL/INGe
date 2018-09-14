@@ -222,6 +222,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
       "metadata.sources.creators.person.organizations.identifierPath";
 
+  public static String INDEX_METADATA_SOURCES_IDENTIFIERS_ID = "metadata.sources.identifiers.id";
+
+  public static String INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE = "metadata.sources.identifiers.type";
+
   public static String INDEX_FILE_OBJECT_ID = "files.objectId";
 
   public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";

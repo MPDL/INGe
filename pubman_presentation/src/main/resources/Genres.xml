@@ -123,27 +123,27 @@
 					<field id="publishing-info_place" repeatable="false" display="true" label="publishing-info_place" optional="true" class-attribute="metadata.publishingInfo.place"/>
 					<field id="publishing-info_edition" repeatable="false" display="true" optional="true" label="publishing-info_edition" class-attribute="metadata.publishingInfo.edition"/>
 				</group>
-				<group id="total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_total_number_of_pages">
+				<group id="total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_total_number_of_pages" class-attribute="metadata.totalNumberOfPages">
 					<field id="item_total-number-of-pages" repeatable="false" display="true" label="item_total-number-of-pages" optional="true" class-attribute="metadata.totalNumberOfPages"/>
 				</group>
 				<group id="identifiers" display="true" optional="true" repeatable="true" label="g_identifiers" form-id="all" class-attribute="metadata.identifiers">
 					<field id="item_identifier_type" repeatable="false" display="true" optional="false" label="item_identifier_type" class-attribute="metadata.identifiers.type"/>
 					<field id="item_identifier_value" repeatable="false" display="true" optional="false" label="item_identifier_value" class-attribute="metadata.identifiers.id"/>
 				</group>
-				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all" label="g_review_method">
+				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all" label="g_review_method" class-attribute="metadata.reviewMethod">
 					<field id="item_review-method" repeatable="false" optional="true" display="true" label="item_review-method" class-attribute="metadata.reviewMethod"/>
 				</group>
-				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all" label="g_item_degree">
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all" label="g_item_degree" class-attribute="metadata.degree">
 					<field id="item_degree" repeatable="false" optional="true" display="true" label="item_degree" class-attribute="metadata.degree"/>
 				</group>
-				<group id="item_location" repeatable="false" display="true" optional="true" form-id="all" label="g_item_location">
+				<group id="item_location" repeatable="false" display="true" optional="true" form-id="all" label="g_item_location" class-attribute="metadata.location">
 					<field id="item_location" repeatable="false" optional="true" display="true" label="item_location" class-attribute="metadata.location"/>
 				</group>
 				<group id="item_language" repeatable="true" display="true" optional="true" form-id="all" label="g_item_language" class-attribute="metadata.languages">
 					<field id="item_language" repeatable="true" optional="true" display="true" label="item_language" class-attribute="metadata.languages"/>
 					<!-- was not certain on this one for class-attribute-->
 				</group>
-				<group id="item_toc" repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
+				<group id="item_toc" repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc" class-attribute="metadata.tableOfContents">
 					<field id="item_table-of-contents" repeatable="false" optional="true" display="true" label="item_table-of-contents" class-attribute="metadata.tableOfContents"/>
 				</group>
 			</group>
@@ -194,7 +194,7 @@
 					<field id="publishing-info_place" repeatable="false" display="true" label="publishing-info_place" optional="true" class-attribute="metadata.sources.publishingInfo.place"/>
 					<field id="publishing-info_edition" repeatable="false" display="true" optional="true" label="publishing-info_edition" class-attribute="metadata.sources.publishingInfo.edition"/>
 				</group>
-				<group id="source_total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_source_total_number_of_pages">
+				<group id="source_total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all" label="g_source_total_number_of_pages" class-attribute="metadata.sources.totalNumberOfPages">
 					<field id="source_total-number-of-pages" repeatable="false" display="true" label="source_total-number-of-pages" optional="true" class-attribute="metadata.sources.totalNumberOfPages"/>
 				</group>
 				<group id="source_volume_issue_pages" repeatable="false" display="true" optional="true" label="g_source_volume_issue_pages" form-id="all">
@@ -203,7 +203,7 @@
 					<field id="source_start-page" repeatable="false" display="true" optional="true" label="source_start-page" class-attribute="metadata.sources.startPage"/>
 					<field id="source_end-page" repeatable="false" display="true" optional="true" label="source_end-page" class-attribute="metadata.sources.endPage"/>
 				</group>
-				<group id="source_sequence_number" repeatable="false" display="true" optional="true" label="g_source_sequence_number" form-id="all">
+				<group id="source_sequence_number" repeatable="false" display="true" optional="true" label="g_source_sequence_number" form-id="all" class-attribute="metadata.sources.sequenceNumber">
 					<field id="source_sequence-number" repeatable="false" display="true" optional="true" label="source_sequence_number" class-attribute="metadata.sources.sequenceNumber"/>
 				</group>
 				<group id="source_identifiers" display="true" optional="true" repeatable="true" label="g_source_identifiers" form-id="all" class-attribute="metadata.sources.identifiers">
