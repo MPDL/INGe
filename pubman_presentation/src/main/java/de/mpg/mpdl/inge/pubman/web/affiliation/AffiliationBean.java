@@ -210,9 +210,12 @@ public class AffiliationBean extends FacesBean {
       if (childList != null) {
         for (final AffiliationVOPresentation childAff : childList) {
           // System.out.println("Loading aff " + childAff.getName());
-          final TreeNode childNode = new DefaultTreeNode(childAff, parent);
-          childNode.setSelectable(false);
-          childNode.setExpanded(expand);
+          if (!AffiliationDbVO.State.CREATED.equals(childAff.getPublicStatus())) {
+            final TreeNode childNode = new DefaultTreeNode(childAff, parent);
+            childNode.setSelectable(false);
+            childNode.setExpanded(expand);
+          }
+
         }
       }
 

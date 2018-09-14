@@ -147,8 +147,6 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
     final String query = paramMap.get(SearchRetrieverRequestBean.parameterQuery);
     final String elasticSearchQuery = paramMap.get(SearchRetrieverRequestBean.parameterElasticSearchQuery);
-    System.out.println("QueryString param is " + query);
-    System.out.println("esc param is " + elasticSearchQuery);
 
     if (query != null || elasticSearchQuery != null) {
       this.setQueryStringUrlParam(query);
@@ -217,7 +215,6 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
 
       this.elasticSearchQueryBuilder = escQueryBuilder;
       ssb.query(this.elasticSearchQueryBuilder);
-      System.out.println("Setting query to " + elasticSearchQueryBuilder);
 
       SearchResponse resp;
       if ("admin".equals(getSearchType())) {
