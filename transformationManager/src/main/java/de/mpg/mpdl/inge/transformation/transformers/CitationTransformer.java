@@ -7,7 +7,6 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
@@ -18,7 +17,7 @@ import org.docx4j.Docx4J;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.convert.out.FOSettings;
-import org.docx4j.fonts.BestMatchingMapper;
+import org.docx4j.fonts.IdentityPlusMapper;
 import org.docx4j.fonts.Mapper;
 import org.docx4j.fonts.PhysicalFont;
 import org.docx4j.fonts.PhysicalFonts;
@@ -150,11 +149,12 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
         PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("freeserif");
         if (font != null) {
-          Mapper fontMapper = new BestMatchingMapper();
+          Mapper fontMapper = new IdentityPlusMapper();
+          wordOutputDoc.setFontMapper(fontMapper, true);
 
-          //          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-          //            System.out.println(entry);
-          //          }
+          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+            System.out.println(entry);
+          }
 
           fontMapper.getFontMappings().put("calibri", font);
           fontMapper.getFontMappings().put("ms gothic", font);
