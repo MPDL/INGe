@@ -6,6 +6,8 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
@@ -16,6 +18,10 @@ import org.docx4j.Docx4J;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.convert.out.FOSettings;
+import org.docx4j.fonts.BestMatchingMapper;
+import org.docx4j.fonts.Mapper;
+import org.docx4j.fonts.PhysicalFont;
+import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
@@ -136,38 +142,34 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 
-//      Set<String> fontsInUse = wordOutputDoc.getMainDocumentPart().fontsInUse();
-//      Mapper fontMapper = new BestMatchingMapper();
-//      wordOutputDoc.setFontMapper(fontMapper, true);
-//
-//      // TODO: Viel schöner machen!
-//      if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-//        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
-//          System.out.println(entry);
-//        }
-//        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("lato regular");
-//        if (font != null) {
-//          fontMapper = new IdentityPlusMapper();
+      // TODO: Viel schöner machen!
+      if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
+        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+          System.out.println(entry);
+        }
+        
+        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("dejavu serif");
+        if (font != null) {
+          Mapper fontMapper = new BestMatchingMapper();
+          
 //          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
 //            System.out.println(entry);
 //          }
-//          fontMapper.getFontMappings().put("Calibri", font);
-//          fontMapper.getFontMappings().put("MS Gothic", font);
-//          fontMapper.getFontMappings().put("Times New Roman", font);
-//          fontMapper.getFontMappings().put("calibri", font);
-//          fontMapper.getFontMappings().put("ms gothic", font);
-//          fontMapper.getFontMappings().put("times new roman", font);
-//          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-//            System.out.println(entry);
-//          }
-//          wordOutputDoc.setFontMapper(fontMapper, true);
-//        }
-//      }
+          
+          fontMapper.getFontMappings().put("calibri", font);
+          fontMapper.getFontMappings().put("ms gothic", font);
+          fontMapper.getFontMappings().put("times new roman", font);
+          
+          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+            System.out.println(entry);
+          }
+          
+          wordOutputDoc.setFontMapper(fontMapper, true);
+        }
+      }
 
       XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
       MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
-
-//      fontsInUse = wordOutputDoc.getMainDocumentPart().fontsInUse();
 
       List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
 
