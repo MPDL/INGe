@@ -147,7 +147,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
           System.out.println(entry);
         }
 
-        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("freeserif");
+        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("freeserif bold");
         if (font != null) {
           Mapper fontMapper = new IdentityPlusMapper();
           wordOutputDoc.setFontMapper(fontMapper, true);
