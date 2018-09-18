@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS user_login (
     loginname varchar(255), 
     password varchar(255), 
     PRIMARY KEY (loginname),
-	FOREIGN KEY (loginname) REFERENCES user_account(loginname) ON DELETE CASCADE
+	FOREIGN KEY (loginname) REFERENCES user_account(loginname) ON DELETE CASCADE ON UPDATE CASCADE
     );
 
 
