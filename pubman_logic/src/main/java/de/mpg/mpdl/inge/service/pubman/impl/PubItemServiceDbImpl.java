@@ -884,6 +884,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   private void reindex(ItemRootVO object, boolean immediate) throws IngeTechnicalException {
 
+    logger.info("Reindexing object " + object.getObjectId());
+
     ItemVersionVO latestVersion = (ItemVersionVO) object.getLatestVersion();
     latestVersion = latestVersion;
     // First try to delete the old version from index
