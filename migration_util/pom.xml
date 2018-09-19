@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>8.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>migration_util</artifactId>
 	
@@ -59,7 +59,7 @@
 		<inge.index.user.name>users</inge.index.user.name>
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
-		<inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
+		<inge.index.yearbook.name>yearbooks</inge.index.yearbook.name>
 		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.matomo.analytics.base.uri>https://analytics.mpdl.mpg.de/</inge.matomo.analytics.base.uri>

@@ -50,27 +50,24 @@ public class MigrationUtilBean {
   }
 
   public void wfTesting() {
-	  Path path;
-	  ArrayList<String> audienceIds = new ArrayList<String>();
-	  FileVO file = new FileVO();
-	  FileDbVO inge_file = new FileDbVO();
-	  file.setVisibility(FileVO.Visibility.AUDIENCE);
-	try {
-		path = Paths.get(getClass().getClassLoader()
-		  	      .getResource("Kontext_MPI-ID.txt").toURI());
-		Stream<String> lines = Files.lines(path);
-	    lines.filter(line -> line.startsWith("escidoc:1861388"))
-	    .map(line -> line.split(", ")[1])
-	    .forEach(id -> audienceIds.add(id));
-	    System.out.println("Collected ids: "+audienceIds);
-	    if (file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
-	    	inge_file.setAllowedAudienceIds(audienceIds);
-	    }
-	    System.out.println("new file has audienceIds " + inge_file.getAllowedAudienceIds());
-	} catch (URISyntaxException | IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	    
+    Path path;
+    ArrayList<String> audienceIds = new ArrayList<String>();
+    FileVO file = new FileVO();
+    FileDbVO inge_file = new FileDbVO();
+    file.setVisibility(FileVO.Visibility.AUDIENCE);
+    try {
+      path = Paths.get(getClass().getClassLoader().getResource("Kontext_MPI-ID.txt").toURI());
+      Stream<String> lines = Files.lines(path);
+      lines.filter(line -> line.startsWith("escidoc:1861388")).map(line -> line.split(", ")[1]).forEach(id -> audienceIds.add(id));
+      System.out.println("Collected ids: " + audienceIds);
+      if (file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
+        inge_file.setAllowedAudienceIds(audienceIds);
+      }
+      System.out.println("new file has audienceIds " + inge_file.getAllowedAudienceIds());
+    } catch (URISyntaxException | IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
   }
 }
