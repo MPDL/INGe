@@ -143,30 +143,34 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
 
       // TODO: Viel schöner machen!
       if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-                for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
-                  System.out.println(entry);
-                }
-        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("lato regular");
+        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+          System.out.println(entry);
+        }
+
+        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("freeserif bold");
         if (font != null) {
           Mapper fontMapper = new IdentityPlusMapper();
-                    for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-                      System.out.println(entry);
-                    }
-          fontMapper.getFontMappings().put("Calibri", font);
-          fontMapper.getFontMappings().put("MS Gothic", font);
-          fontMapper.getFontMappings().put("Times New Roman", font);
+          wordOutputDoc.setFontMapper(fontMapper, true);
+
+          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+            System.out.println(entry);
+          }
+
           fontMapper.getFontMappings().put("calibri", font);
           fontMapper.getFontMappings().put("ms gothic", font);
           fontMapper.getFontMappings().put("times new roman", font);
-                    for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-                      System.out.println(entry);
-                    }
-          wordOutputDoc.setFontMapper(fontMapper);
+
+          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+            System.out.println(entry);
+          }
+
+          wordOutputDoc.setFontMapper(fontMapper, true);
         }
       }
 
       XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
       MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
+
       List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
 
       // Remove line-height information for every paragraph
