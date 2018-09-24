@@ -29,7 +29,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
 
   public FileSectionSearchCriterion(SearchCriterion type) {
-    super();
+    super(type);
     if (SearchCriterion.FILE_SECTION.equals(type)) {
       storageType = Storage.INTERNAL_MANAGED;
     } else if (SearchCriterion.LOCATOR_SECTION.equals(type)) {
