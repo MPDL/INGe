@@ -147,7 +147,7 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
           System.out.println(entry);
         }
 
-        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("freeserif bold");
+        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("liberation serif");
         if (font != null) {
           Mapper fontMapper = new IdentityPlusMapper();
           wordOutputDoc.setFontMapper(fontMapper, true);
@@ -157,7 +157,6 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
           }
 
           fontMapper.getFontMappings().put("calibri", font);
-          fontMapper.getFontMappings().put("ms gothic", font);
           fontMapper.getFontMappings().put("times new roman", font);
 
           for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
