@@ -35,7 +35,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
   public static final String DDC = "DDC";
   public static final String ISO639_3 = "ISO639_3";
   public static final String JEL = "JEL";
-  public static final String JUS = "JUS";
   public static final String MPICC_PROJECTS = "MPICC_PROJECTS";
   public static final String MPINP = "MPINP";
   public static final String MPIPKS = "MPIPKS";
@@ -43,7 +42,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
   public static final String MPIS_GROUPS = "MPIS_GROUPS";
   public static final String MPIS_PROJECTS = "MPIS_PROJECTS";
   public static final String MPIWG_PROJECTS = "MPIWG_PROJECTS";
-  public static final String PACS = "PACS";
 
   public static final String CONE_EMPTY_LANGUAGE_CODE = "ConeEmptyLanguageCode";
 
@@ -59,7 +57,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
       final Set<String> ddcTitleSet = coneCache.getDdcTitleSet();
       final Set<String> iso639_3_TitleSet = coneCache.getIso639_3_TitleSet();
       final Set<String> jelTitleSet = coneCache.getJelTitleSet();
-      final Set<String> jusTitleSet = coneCache.getJusTitleSet();
       final Set<String> mpiccProjectsTitleSet = coneCache.getMpiccProjectsTitleSet();
       final Set<String> mpinpTitleSet = coneCache.getMpinpTitleSet();
       final Set<String> mpipksTitleSet = coneCache.getMpipksTitleSet();
@@ -67,7 +64,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
       final Set<String> mpisGroupsTitleSet = coneCache.getMpisGroupsTitleSet();
       final Set<String> mpisProjectsTitleSet = coneCache.getMpisProjectsTitleSet();
       final Set<String> mpiwgProjectsTitleSet = coneCache.getMpiwgProjectsTitleSet();
-      final Set<String> pacsTitleSet = coneCache.getPacsTitleSet();
 
       int i = 1;
       for (final SubjectVO subjectVO : subjects) {
@@ -98,15 +94,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
               ok = false;
             } else if (!jelTitleSet.contains(subjectVO.getValue())) {
               context.addError(ValidationError.create(ErrorMessages.INCORRECT_JEL_CLASSIFICATION).setField("subject[" + i + "]"));
-              ok = false;
-            }
-
-          } else if (ClassifiedKeywordsValidator.JUS.equals(subjectVO.getType())) { //
-            if (ValidationTools.isEmpty(jusTitleSet)) {
-              context.addErrorMsg(ErrorMessages.CONE_EMPTY_JUS_TITLE);
-              ok = false;
-            } else if (!jusTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(ErrorMessages.INCORRECT_JUS_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
 
@@ -172,15 +159,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
             } else if (!mpiwgProjectsTitleSet.contains(subjectVO.getValue())) {
               context
                   .addError(ValidationError.create(ErrorMessages.INCORRECT_MPIWG_PROJECTS_CLASSIFICATION).setField("subject[" + i + "]"));
-              ok = false;
-            }
-
-          } else if (ClassifiedKeywordsValidator.PACS.equals(subjectVO.getType())) { //
-            if (ValidationTools.isEmpty(pacsTitleSet)) { //
-              context.addErrorMsg(ErrorMessages.CONE_EMPTY_PACS_TITLE);
-              ok = false;
-            } else if (!pacsTitleSet.contains(subjectVO.getValue())) {
-              context.addError(ValidationError.create(ErrorMessages.INCORRECT_PACS_CLASSIFICATION).setField("subject[" + i + "]"));
               ok = false;
             }
           }
