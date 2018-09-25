@@ -466,7 +466,7 @@ public class CommonUtils {
         valid = true;
       }
     } catch (final MalformedURLException e) {
-      CommonUtils.logger.warn("URI: " + id.getId() + "is no valid URL");
+      CommonUtils.logger.warn("URI: " + id.getId() + " is no valid URL");
       return false;
     }
 
