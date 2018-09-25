@@ -173,7 +173,7 @@ public class HomePage extends BreadcrumbPage {
     ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_MODIFICATION_DATE,
         org.elasticsearch.search.sort.SortOrder.DESC));
 
-    SearchResponse resp = pi.searchDetailed(ssb, getLoginHelper().getAuthenticationToken());
+    SearchResponse resp = pi.searchDetailed(ssb, null);
 
     List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
 
