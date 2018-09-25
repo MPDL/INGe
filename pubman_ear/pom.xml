@@ -144,7 +144,7 @@
 										<!-- copy over the validation datasource descriptor -->
 										<!-- <copy overwrite="true" file="${project.build.directory}/classes/pid-cache-ds.xml" todir="${jboss.install.dir}/standalone/deployments" /> -->
 										<!-- copy over the apache FOP configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.install.dir}/modules/pubman/main" />
+										<copy overwrite="true" file="${project.build.directory}/classes/apache-fop-config.xml" todir="${jboss.install.dir}/modules/pubman/main" />
 									</target>
 								</configuration>
 							</execution>
@@ -195,7 +195,7 @@
 										<scp file="${project.build.directory}/classes/conf.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 										
 										<!-- copy over the apache FOP configuration file -->
-										<scp file="${project.build.directory}/classes/in_ear/dataaquisition/apache-fop-config.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
+										<scp file="${project.build.directory}/classes/apache-fop-config.xml" todir="${jboss.user.scp}:${jboss.install.dir}/modules/pubman/main" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" />
 											
 										<!-- finally move the ear file to the deployment directory -->	
 										<sshexec host="${jboss.host}" username="${jboss.username}" keyfile="${user.home}/.ssh/id_rsa" knownhosts="${user.home}/.ssh/known_hosts" passphrase="" trust="true" verbose="true" command="mv -f ${jboss.tmp.deploy}/${project.build.finalName}${inge.pubman.build.hyphen}${inge.pubman.build.mode}.${project.packaging} ${jboss.install.dir}/standalone/deployments" />  
