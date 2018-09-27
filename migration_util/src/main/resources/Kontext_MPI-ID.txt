@@ -1,6 +1,3 @@
-escidoc:1600138, 100
-escidoc:1258627, 100
-escidoc:747547, 100
 escidoc:persistent3, 200
 escidoc:95164, 200
 escidoc:37020, 200
@@ -85,9 +82,9 @@ escidoc:2160173, 336
 escidoc:2027833, 337
 escidoc:2019354, 337
 escidoc:1896905, 337
-escidoc:2190151, 339
-escidoc:644575, 339
-escidoc:23049, 339
+escidoc:2190151, mpg
+escidoc:644575, mpg
+escidoc:23049, mpg
 escidoc:147965, 340
 escidoc:23042, 340
 escidoc:39531, 341

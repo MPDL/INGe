@@ -580,7 +580,7 @@ public abstract class SearchCriterionBase implements Serializable {
   private static QueryBuilder cleanedScListToElasticSearchQuery(List<SearchCriterionBase> scList, String parentNestedPath)
       throws SearchParseException {
 
-    SearchCriterionBase.logger.info("Call with list: " + scList);
+    SearchCriterionBase.logger.debug("Call with list: " + scList);
 
     if (scList.isEmpty()) {
       return QueryBuilders.matchAllQuery();
@@ -598,7 +598,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
     final List<SearchCriterionBase> criterionList = new ArrayList<>(scList);
 
-    SearchCriterionBase.logger.info("List: " + criterionList);
+    SearchCriterionBase.logger.debug("List: " + criterionList);
 
     // Remove unnecessary parenthesis
     while (SearchCriterion.OPENING_PARENTHESIS.equals(criterionList.get(0).getSearchCriterion())
@@ -609,7 +609,7 @@ public abstract class SearchCriterionBase implements Serializable {
       criterionList.remove(criterionList.size() - 1);
     }
 
-    SearchCriterionBase.logger.info("List after removal: " + criterionList);
+    SearchCriterionBase.logger.debug("List after removal: " + criterionList);
 
 
 
@@ -663,7 +663,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
 
     if (sharedNestedField != null) {
-      SearchCriterionBase.logger.info("Found common nested field: " + sharedNestedField);
+      SearchCriterionBase.logger.debug("Found common nested field: " + sharedNestedField);
     }
 
 
@@ -673,7 +673,7 @@ public abstract class SearchCriterionBase implements Serializable {
     } else if (mainOperators.size() > 0) {
 
 
-      SearchCriterionBase.logger.info("found main operators: " + mainOperators);
+      SearchCriterionBase.logger.debug("found main operators: " + mainOperators);
 
 
       final BoolQueryBuilder bq = QueryBuilders.boolQuery();

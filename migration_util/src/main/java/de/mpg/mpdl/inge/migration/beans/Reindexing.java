@@ -54,6 +54,7 @@ public class Reindexing {
 
   public void reindexItem(String id) throws Exception {
     itemService.reindex(id, null);
+    //Thread.sleep(30000);
   }
 
   public void reindexYBs() throws Exception {

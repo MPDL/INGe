@@ -6,7 +6,6 @@ import java.io.StringWriter;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
@@ -17,10 +16,6 @@ import org.docx4j.Docx4J;
 import org.docx4j.convert.in.xhtml.XHTMLImporter;
 import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.docx4j.convert.out.FOSettings;
-import org.docx4j.fonts.IdentityPlusMapper;
-import org.docx4j.fonts.Mapper;
-import org.docx4j.fonts.PhysicalFont;
-import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.P;
@@ -141,32 +136,31 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       String htmlResult = generateHtmlOutput(escidocSnippet, TransformerFactory.FORMAT.HTML_PLAIN, "xhtml", false);
       WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
 
-      // TODO: Viel schöner machen!
-      if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
-        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
-          System.out.println(entry);
-        }
-
-        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("freeserif bold");
-        if (font != null) {
-          Mapper fontMapper = new IdentityPlusMapper();
-          wordOutputDoc.setFontMapper(fontMapper, true);
-
-          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-            System.out.println(entry);
-          }
-
-          fontMapper.getFontMappings().put("calibri", font);
-          fontMapper.getFontMappings().put("ms gothic", font);
-          fontMapper.getFontMappings().put("times new roman", font);
-
-          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
-            System.out.println(entry);
-          }
-
-          wordOutputDoc.setFontMapper(fontMapper, true);
-        }
-      }
+      //      // TODO: Viel schöner machen!
+      //      if (TransformerFactory.FORMAT.PDF.equals(getTargetFormat())) {
+      //        for (Entry<String, PhysicalFont> entry : PhysicalFonts.getPhysicalFonts().entrySet()) {
+      //          System.out.println(entry);
+      //        }
+      //
+      //        PhysicalFont font = PhysicalFonts.getPhysicalFonts().get("liberation serif");
+      //        if (font != null) {
+      //          Mapper fontMapper = new IdentityPlusMapper();
+      //          wordOutputDoc.setFontMapper(fontMapper, true);
+      //
+      //          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+      //            System.out.println(entry);
+      //          }
+      //
+      //          fontMapper.getFontMappings().put("calibri", font);
+      //          fontMapper.getFontMappings().put("times new roman", font);
+      //
+      //          for (Entry<String, PhysicalFont> entry : fontMapper.getFontMappings().entrySet()) {
+      //            System.out.println(entry);
+      //          }
+      //
+      //          wordOutputDoc.setFontMapper(fontMapper, true);
+      //        }
+      //      }
 
       XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
       MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();

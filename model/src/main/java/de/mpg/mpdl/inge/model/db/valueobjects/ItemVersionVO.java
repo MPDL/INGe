@@ -39,6 +39,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OrderColumn;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -55,6 +56,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import de.mpg.mpdl.inge.model.db.hibernate.MdsPublicationVOJsonUserType;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Storage;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
@@ -105,6 +107,19 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   @OrderColumn(name = "creationDate")
   @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "item")
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
+
+
+  @PostLoad
+  private void setFileLinks() {
+    if (files != null) {
+      for (FileDbVO file : files) {
+        if (file!=null && Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+          file.setContent("/rest/items/" + getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content");
+        }
+      }
+    }
+
+  }
 
   public ItemRootVO getObject() {
     return object;

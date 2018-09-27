@@ -109,8 +109,9 @@ public class Migration {
         }
         break;
       case "wwf":
-          util.wfTesting();
-          break;
+        //  util.wfTesting();
+        itemImport.reimport();
+        break;
       default:
         log.info("you don't really know, what exactly you want to do!!!");
     }

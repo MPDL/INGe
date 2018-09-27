@@ -275,7 +275,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       //Uploading file
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
         if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
-          String relativePath = fsi.createFile(stagedFileStream, stagedFileVo.getFilename());
+          String relativePath = fsi.createFile(stagedFileStream, fileVO.getObjectId());
           fileVO.setLocalFileIdentifier(relativePath);
         } else {
           Request request = Request
