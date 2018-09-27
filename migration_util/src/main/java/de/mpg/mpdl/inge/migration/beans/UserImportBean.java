@@ -228,7 +228,7 @@ public class UserImportBean {
     dataSource.setUser("postgres");
     dataSource.setPassword(dbpwd);
     dataSource.setDatabaseName("escidoc-core");
-    dataSource.setServerName("srv02.mpdl.mpg.de");
+    dataSource.setServerName("srv11.mpdl.mpg.de");
     dataSource.setPortNumber(5432);
 
     Connection conn = dataSource.getConnection();
