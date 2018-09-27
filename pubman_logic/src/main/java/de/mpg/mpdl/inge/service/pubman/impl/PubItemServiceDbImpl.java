@@ -503,7 +503,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
           this.setVisibility(currentFileDbVO, fileVo);
 
-          fileService.createFileFromStagedFile(fileVo, principal);
+          fileService.createFileFromStagedFile(fileVo, principal, currentFileDbVO.getObjectId());
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
           // TODO Set content to a REST path
 
