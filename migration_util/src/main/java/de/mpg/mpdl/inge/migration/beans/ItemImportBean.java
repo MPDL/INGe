@@ -95,14 +95,40 @@ public class ItemImportBean {
   private MigrationUtilBean utils;
   @Autowired
   private OrganizationService organizationService;
+  @Autowired
+  private Reindexing reIndexing;
 
+  public void reimport() throws Exception {
+    String contentModelId = "escidoc:persistent4";
+    HttpClient client = utils.setup();
+    try (InputStream file_content = ResourceUtil.getResourceAsStream("file_error_ids", getClass().getClassLoader())) {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(file_content, "UTF-8"));
+      Stream<String> lines = reader.lines();
+      lines.parallel().forEach(line -> {
+        try {
+          URI itemUri = new URIBuilder(escidocUrl + itemPath + "/" + line).build();
+          final HttpGet request = new HttpGet(itemUri);
+          HttpResponse response = client.execute(request);
+          String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+          PubItemVO itemVO = XmlTransformingService.transformToPubItem(xml);
+          saveAllVersionsOfPubItem(itemVO);
+          reIndexing.reindexItem(line.replace("escidoc:", "item_"));
+        } catch (Exception e) {
+          log.error("erst mal pech", e);
+        }
+      });
+    } catch (IOException e) {
+      log.error("schon wieder pech!", e);
+    }
+    Thread.sleep(300000);
+  }
 
   public void importPubItems() throws Exception {
 
     String contentModelId = "escidoc:persistent4";
     HttpClient client = utils.setup();
 
-    int startRecord = 1;
+    int startRecord = 101001;
     int allRecords = Integer.MAX_VALUE;
 
     while (allRecords > startRecord + limit) {
@@ -219,7 +245,7 @@ public class ItemImportBean {
       file.setMimeType(oldFile.getMimeType());
       file.setSize(oldFile.getDefaultMetadata().getSize());
       if (FileVO.Storage.INTERNAL_MANAGED.equals(oldFile.getStorage())) {
-        file.setName(oldFile.getName().replace("/", "_"));
+        file.setName(oldFile.getName().replaceAll("[:\\\\/*\"?|<>]", "_"));
       } else {
         file.setName(oldFile.getName());
       }
@@ -261,23 +287,23 @@ public class ItemImportBean {
         if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
           String localId;
           try {
-            localId = upload(oldFile.getContent(), oldFile.getName().replace("/", "_"));
+            //            localId = upload(oldFile.getContent(), oldFile.getName().replaceAll("[:\\\\/*\"?|<>]", "_"));
+            log.info("uploading file " + oldFile.getName() + " as " + file.getObjectId());
+            localId = upload(oldFile.getContent(), file.getObjectId());
             file.setLocalFileIdentifier(localId);
             String[] values = {localId, Integer.toString(itemVo.getVersion().getVersionNumber())};
             fileMap.put(currentFileId, values);
-            if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
-              String old_content = oldFile.getContent();
-              String[] pieces = old_content.split("/");
-              String new_content = "/rest/items/" + pieces[3].replaceAll("escidoc:", "item_") + "_" + fileMap.get(currentFileId)[1]
-                  + "/component/" + pieces[6].replaceAll("escidoc:", "file_") + "/content";
-              file.setContent(new_content);
-            } else {
-              file.setContent(oldFile.getContent());
-            }
+            String old_content = oldFile.getContent();
+            String[] pieces = old_content.split("/");
+            String new_content = "/rest/items/" + pieces[3].replaceAll("escidoc:", "item_") + "_" + fileMap.get(currentFileId)[1]
+                + "/component/" + pieces[6].replaceAll("escidoc:", "file_") + "/content";
+            file.setContent(new_content);
 
           } catch (Exception e) {
             log.error("ERROR uploading" + oldFile.getContent(), e);
           }
+        } else {
+          file.setContent(oldFile.getContent());
         }
       }
       newPubItem.getFiles().add(file);
@@ -333,7 +359,7 @@ public class ItemImportBean {
     try {
       PubItemUtil.setOrganizationIdPathInItem(newPubItem, organizationService);
     } catch (Exception e) {
-      log.error("ERROR creating OU path");
+      log.error("ERROR creating OU path", e);
     }
 
     return newPubItem;
