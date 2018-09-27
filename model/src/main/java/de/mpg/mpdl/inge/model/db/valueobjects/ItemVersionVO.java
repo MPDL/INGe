@@ -113,7 +113,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   private void setFileLinks() {
     if (files != null) {
       for (FileDbVO file : files) {
-        if (file!=null && Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+        if (file != null && Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
           file.setContent("/rest/items/" + getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content");
         }
       }
