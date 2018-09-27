@@ -479,6 +479,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         // Already existing file, just update some fields
         //currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
         currentFileDbVO = fileRepository.findOne(fileVo.getObjectId());
+        this.setVisibility(currentFileDbVO, fileVo);
 
       } else {
 
@@ -500,7 +501,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         //New real file
         if (Storage.INTERNAL_MANAGED.equals(fileVo.getStorage())) {
 
-
+          this.setVisibility(currentFileDbVO, fileVo);
 
           fileService.createFileFromStagedFile(fileVo, principal);
           currentFileDbVO.setLocalFileIdentifier(fileVo.getLocalFileIdentifier());
@@ -543,18 +544,18 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
 
-      currentFileDbVO.setAllowedAudienceIds(null);
-
-      if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
-        if (fileVo.getAllowedAudienceIds() != null) {
-          for (String audienceId : fileVo.getAllowedAudienceIds()) {
-            if (ipListProvider.get(audienceId) == null) {
-              throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
-            }
-          }
-        }
-        currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
-      }
+      //      currentFileDbVO.setAllowedAudienceIds(null);
+      //
+      //      if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
+      //        if (fileVo.getAllowedAudienceIds() != null) {
+      //          for (String audienceId : fileVo.getAllowedAudienceIds()) {
+      //            if (ipListProvider.get(audienceId) == null) {
+      //              throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+      //            }
+      //          }
+      //        }
+      //        currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
+      //      }
 
       updatedFileList.add(currentFileDbVO);
     }
@@ -563,6 +564,21 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     // Delete files which are left in currentFiles Map if they are not part of an released item
 
     return updatedFileList;
+  }
+
+  private void setVisibility(FileDbVO currentFileDbVO, FileDbVO fileVo) throws IngeApplicationException {
+    currentFileDbVO.setAllowedAudienceIds(null);
+
+    if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
+      if (fileVo.getAllowedAudienceIds() != null) {
+        for (String audienceId : fileVo.getAllowedAudienceIds()) {
+          if (ipListProvider.get(audienceId) == null) {
+            throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+          }
+        }
+      }
+      currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
+    }
   }
 
   @Override
