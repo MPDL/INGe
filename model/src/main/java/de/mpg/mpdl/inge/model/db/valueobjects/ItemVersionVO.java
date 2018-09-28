@@ -110,7 +110,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
 
 
   @PostLoad
-  private void setFileLinks() {
+  public void setFileLinks() {
     if (files != null) {
       for (FileDbVO file : files) {
         if (file != null && Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
