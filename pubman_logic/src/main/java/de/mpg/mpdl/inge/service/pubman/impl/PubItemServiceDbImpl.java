@@ -903,7 +903,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     logger.info("Reindexing object " + object.getObjectId());
 
     ItemVersionVO latestVersion = (ItemVersionVO) object.getLatestVersion();
-    latestVersion = latestVersion;
     // First try to delete the old version from index
     String oldVersion = new VersionableId(latestVersion.getObjectId(), latestVersion.getVersionNumber() - 1).toString();
     pubItemDao.delete(oldVersion);
@@ -923,7 +922,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     if (object.getLatestRelease() != null && object.getLatestRelease().getVersionNumber() != object.getLatestVersion().getVersionNumber()) {
       ItemVersionVO latestRelease = (ItemVersionVO) object.getLatestRelease();
-      latestRelease = latestRelease;
       logger.info("Reindexing item latest release " + latestRelease.getObjectIdAndVersion());
       if (immediate) {
         pubItemDao.createImmediately(latestRelease.getObjectId() + "_" + latestRelease.getVersionNumber(), latestRelease);
