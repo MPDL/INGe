@@ -34,12 +34,19 @@ public class PubItemDaoImpl extends ElasticSearchGenericDAOImpl<ItemVersionVO> i
 
   @Override
   protected JsonNode applyCustomValues(ItemVersionVO item) {
-    ObjectNode node = (ObjectNode) super.applyCustomValues(item);
+
+    ItemVersionVO itemToIndex = new ItemVersionVO(item);
+    //Index files with correct link
+    itemToIndex.setFileLinks();
+    ObjectNode node = (ObjectNode) super.applyCustomValues(itemToIndex);
+
+
+
     node.putObject(JOIN_FIELD_NAME).put("name", "item");
-    String[] creatorStrings = createSortCreatorsString(item);
+    String[] creatorStrings = createSortCreatorsString(itemToIndex);
     node.put("sort-metadata-creators-first", creatorStrings[0]);
     node.put("sort-metadata-creators-compound", creatorStrings[1]);
-    String firstDate = createSortMetadataDates(item);
+    String firstDate = createSortMetadataDates(itemToIndex);
     if (firstDate != null) {
       node.put("sort-metadata-dates-by-category", firstDate);
       node.put("sort-metadata-dates-by-category-year", firstDate.substring(0, 4));

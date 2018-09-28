@@ -35,6 +35,9 @@ public interface FileService extends FileServiceExternal {
    */
   public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException;
 
+  public void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
+      throws IngeTechnicalException, IngeApplicationException;
+
 
   /**
    * @param fileInputStream

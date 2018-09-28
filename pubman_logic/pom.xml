@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.2-SNAPSHOT</version>
+		<version>8.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
-	<version>8.0.2-SNAPSHOT</version>
+	<version>8.0.3-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_logic</connection>

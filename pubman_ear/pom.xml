@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.2-SNAPSHOT</version>
+		<version>8.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
-	<version>8.0.2-SNAPSHOT</version>
+	<version>8.0.3-SNAPSHOT</version>
 
 	<packaging>ear</packaging>
 

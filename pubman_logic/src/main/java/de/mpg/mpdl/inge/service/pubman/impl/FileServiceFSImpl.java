@@ -195,11 +195,20 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     stagedFileVo = stagedFileRepository.save(stagedFileVo);
     return stagedFileVo;
 
+
+  }
+
+
+
+  @Override
+  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException {
+    createFileFromStagedFile(fileVO, user, null);
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
-  public void createFileFromStagedFile(FileDbVO fileVO, Principal user) throws IngeTechnicalException, IngeApplicationException {
+  public void createFileFromStagedFile(FileDbVO fileVO, Principal user, String forcedFileName)
+      throws IngeTechnicalException, IngeApplicationException {
 
     if (fileVO.getContent() == null || fileVO.getContent().trim().isEmpty()) {
       throw new IngeApplicationException("A file content containing the id of the staged file has to be provided");
@@ -274,13 +283,18 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
       //Uploading file
       try (FileInputStream stagedFileStream = new FileInputStream(stagedFile)) {
+
+        if (forcedFileName == null) {
+          forcedFileName = stagedFileVo.getFilename();
+        }
+
         if (!"true".equals(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ENABLED))) {
-          String relativePath = fsi.createFile(stagedFileStream, fileVO.getObjectId());
+          String relativePath = fsi.createFile(stagedFileStream, forcedFileName);
           fileVO.setLocalFileIdentifier(relativePath);
         } else {
           Request request = Request
               .Post(PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_FILE_URL)
-                  + URLEncoder.encode(stagedFileVo.getFilename(), StandardCharsets.UTF_8.name()))
+                  + URLEncoder.encode(forcedFileName, StandardCharsets.UTF_8.name()))
               .addHeader("Authorization",
                   "Basic " + Base64.encode((PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_USERNAME) + ":"
                       + PropertyReader.getProperty(PropertyReader.INGE_REST_DEVELOPMENT_ADMIN_PASSWORD)).getBytes()))

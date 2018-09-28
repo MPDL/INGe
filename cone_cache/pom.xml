@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.2-SNAPSHOT</version>
+		<version>8.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>cone_cache</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.4-SNAPSHOT</version>
 	<name>cone_cache</name>
 
 	<scm>

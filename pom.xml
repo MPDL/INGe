@@ -6,7 +6,7 @@
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>8.0.2-SNAPSHOT</version>
+	<version>8.0.3-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 
@@ -271,107 +271,107 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>0.2.35-SNAPSHOT</version>
+				<version>0.2.36-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>0.2.35-SNAPSHOT</version>
+				<version>0.2.36-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>1.0.102-SNAPSHOT</version>
+				<version>1.0.103-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>0.0.8-SNAPSHOT</version>
+				<version>0.0.9-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>1.2.57-SNAPSHOT</version>
+				<version>1.2.58-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>1.2.57-SNAPSHOT</version>
+				<version>1.2.58-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>1.0.93-SNAPSHOT</version>
+				<version>1.0.94-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
 				<classifier>tests</classifier>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
 				<classifier>tests</classifier>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.0.2-SNAPSHOT</version>
+				<version>8.0.3-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>0.0.3-SNAPSHOT</version>
+				<version>0.0.4-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.0.2-SNAPSHOT</version>
+				<version>8.0.3-SNAPSHOT</version>
 				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
