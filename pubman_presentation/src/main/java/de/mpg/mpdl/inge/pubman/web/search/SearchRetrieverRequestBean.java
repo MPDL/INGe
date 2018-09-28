@@ -391,9 +391,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if (this.elasticSearchQueryUrlParam != null) {
         return JsonUtil.prettifyJsonString(this.elasticSearchQueryUrlParam);
       } else {
-        return this.elasticSearchQueryBuilder.toString();
+        return this.elasticSearchQueryBuilder != null ? this.elasticSearchQueryBuilder.toString() : "";
       }
-
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
       return "";
@@ -408,7 +407,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       } else {
         json = this.elasticSearchQueryBuilder.toString();
       }
-      return URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName());
+      return json != null ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
     } catch (Exception e) {
       logger.error("Cannot parse Json String " + getElasticSearchQueryUrlParam());
       return "";
