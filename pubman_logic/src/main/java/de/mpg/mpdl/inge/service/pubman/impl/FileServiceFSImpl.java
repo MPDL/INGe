@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -233,6 +234,17 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
             Header header = resp.getFirstHeader("Content-Disposition");
             if (header != null) {
               for (HeaderElement e : header.getElements()) {
+
+                try {
+                  if (e.getParameterByName("filename*") != null) {
+                    String[] utf8filename = e.getParameterByName("filename*").getValue().split("''");
+                    filename = URLDecoder.decode(utf8filename[1], utf8filename[0]);
+                    break;
+                  }
+                } catch (Exception e1) {
+                  logger.warn("Could not read 'filename*' HTTP Content-Dispositon header from " + fileVO.getContent(), e1);
+                }
+
                 if (e.getParameterByName("filename") != null) {
                   filename = e.getParameterByName("filename").getValue();
                 }
