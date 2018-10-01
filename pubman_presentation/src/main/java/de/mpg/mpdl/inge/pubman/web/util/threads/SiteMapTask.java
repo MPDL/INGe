@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UriBuilder;
 import de.mpg.mpdl.inge.util.XmlUtilities;
 
 /**
@@ -113,10 +114,6 @@ public class SiteMapTask {
   public void run() {
     try {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
-      this.instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
-      this.contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-      this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN);
-      this.componentPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN);
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
 
@@ -272,7 +269,8 @@ public class SiteMapTask {
 
             String itemId = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID).toString();
             String lmd = sourceMap.get(PubItemServiceDbImpl.INDEX_MODIFICATION_DATE).toString().substring(0, 10);
-            String loc = this.instanceUrl + this.contextPath + this.itemPattern.replace("$1", itemId);
+            String loc = UriBuilder.getItemObjectLink(itemId).toString();
+            //String loc = this.instanceUrl + this.contextPath + this.itemPattern.replace("$1", itemId);
             String version = sourceMap.get(PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER).toString();
 
             writeEntry(this.fileWriter, loc, lmd);
@@ -288,8 +286,7 @@ public class SiteMapTask {
                   if (Visibility.PUBLIC.name().equals(visibility)) {
                     String fileId = fileMap.get("objectId").toString();
                     String fileName = fileMap.get("name").toString();
-                    String fileLoc = this.instanceUrl + this.contextPath + this.componentPattern.replace("$1", itemId + "_" + version)
-                        .replace("$2", fileId).replace("$3", URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()));
+                    String fileLoc = UriBuilder.getItemComponentLink(itemId, Integer.parseInt(version), fileId, fileName).toString();
                     fileLoc = XmlUtilities.escape(fileLoc);
                     writeEntry(this.fileWriter, fileLoc, lmd);
                   }
