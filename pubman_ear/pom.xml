@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.3-SNAPSHOT</version>
+		<version>8.0.3</version>
 	</parent>
 
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
-	<version>8.0.3-SNAPSHOT</version>
+	<version>8.0.3</version>
 
 	<packaging>ear</packaging>
 
@@ -19,7 +19,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_ear</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_ear</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.0.3</tag>
 	</scm>
 
 	<build>
