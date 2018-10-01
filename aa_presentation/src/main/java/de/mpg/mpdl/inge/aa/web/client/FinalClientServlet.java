@@ -53,7 +53,6 @@ public class FinalClientServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println("Finish");
     try {
       String clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
       if (clientClassName == null || clientClassName.isEmpty()) {

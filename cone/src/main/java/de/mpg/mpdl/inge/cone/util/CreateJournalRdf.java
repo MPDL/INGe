@@ -72,7 +72,6 @@ public class CreateJournalRdf {
       String sfxIssn = rs.getString("sfxIssn");
       String sfxPublisher = rs.getString("sfxpublisher");
       String sfxPlace = rs.getString("sfxplace");
-      System.out.println(sfxId + ": " + eDocTitle);
       fileWriter.append("\t<rdf:Description rdf:about=\"urn:sfx:");
       fileWriter.append(xmlFormat(sfxId));
       fileWriter.append("\">\n");

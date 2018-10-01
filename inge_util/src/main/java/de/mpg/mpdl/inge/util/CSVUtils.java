@@ -17,7 +17,7 @@ public class CSVUtils {
     Scanner scanner = new Scanner(new File(csvFile));
     while (scanner.hasNext()) {
       List<String> line = parseLine(scanner.nextLine());
-      System.out.println("Country [id= " + line.get(0) + ", code= " + line.get(1) + " , name=" + line.get(2) + "]");
+//      System.out.println("Country [id= " + line.get(0) + ", code= " + line.get(1) + " , name=" + line.get(2) + "]");
     }
     scanner.close();
 

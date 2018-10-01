@@ -46,7 +46,7 @@ public class MatomoTracker {
     try {
       try {
         int i = client.executeMethod(getMethod);
-        System.out.println(i);
+//        System.out.println(i);
       } catch (IOException e) {
         logger.error("Could not execute statistics call", e);
       }
