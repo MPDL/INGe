@@ -23,8 +23,9 @@ public class UriBuilder {
    * @throws URISyntaxException
    */
   public static URI getItemObjectLink(String itemObjectId) throws URISyntaxException {
-    return new URI(PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-        + PropertyReader.getProperty("inge.pubman.item.pattern").replace("$1", itemObjectId));
+    return new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replace("$1", itemObjectId));
   }
 
   /**
@@ -37,8 +38,9 @@ public class UriBuilder {
    * @throws URISyntaxException
    */
   public static URI getItemObjectAndVersionLink(String itemObjectId, int versionNumber) throws URISyntaxException {
-    return new URI(PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-        + PropertyReader.getProperty("inge.pubman.item.pattern").replace("$1", (itemObjectId + "_" + versionNumber)));
+    return new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replace("$1", (itemObjectId + "_" + versionNumber)));
   }
 
   /**
@@ -50,8 +52,9 @@ public class UriBuilder {
    * @throws URISyntaxException
    */
   public static URI getItemComponentLink(String itemObjectId, int versionNumber, String fileId, String fileName) throws URISyntaxException {
-    return new URI(PropertyReader.getProperty("inge.pubman.instance.url") + PropertyReader.getProperty("inge.pubman.instance.context.path")
-        + PropertyReader.getProperty("inge.pubman.component.pattern").replace("$1", (itemObjectId + "_" + versionNumber)).replace("$2", fileId)
-            .replace("$3", fileName));
+    return new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
+        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_COMPONENT_PATTERN).replace("$1", (itemObjectId + "_" + versionNumber))
+            .replace("$2", fileId).replace("$3", fileName));
   }
 }
