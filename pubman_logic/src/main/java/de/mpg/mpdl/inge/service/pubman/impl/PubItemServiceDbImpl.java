@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -782,7 +783,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
                 fileDbVO.getName());
             fileDbVO.setPid("hdl:" + pidService.createPid(uri).getIdentifier());
           }
-        } catch (URISyntaxException | TechnicalException e) {
+        } catch (URISyntaxException | TechnicalException | UnsupportedEncodingException e) {
           logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
               + latestVersion.getObjectIdAndVersion() + "]", e);
           throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
