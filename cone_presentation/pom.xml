@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.3</version>
+		<version>8.0.4-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>cone_presentation</artifactId>
 	<name>cone_presentation</name>
-	<version>1.2.58</version>
+	<version>1.2.59-SNAPSHOT</version>
 
 	<packaging>war</packaging>
 
@@ -19,7 +19,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/cone_presentation</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/cone_presentation</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>INGe-8.0.3</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<profiles>
