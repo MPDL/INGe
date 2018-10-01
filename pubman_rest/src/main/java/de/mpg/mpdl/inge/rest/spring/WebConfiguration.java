@@ -59,7 +59,7 @@ public class WebConfiguration extends RepositoryRestMvcConfiguration {
     StringHttpMessageConverter smc = new StringHttpMessageConverter();
     smc.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8));
     converters.add(0, smc);
-//    System.out.println("Converters" + converters);
+    //    System.out.println("Converters" + converters);
     super.extendMessageConverters(converters);
   }
 

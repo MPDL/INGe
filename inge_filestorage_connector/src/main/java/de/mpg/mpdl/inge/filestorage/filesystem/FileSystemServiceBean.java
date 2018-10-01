@@ -61,12 +61,12 @@ public class FileSystemServiceBean implements FileStorageInterface {
     try {
 
       if (Files.notExists(directoryPath)) {
-//        System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
+        //        System.out.println("trying to create directory [ " + directoryPath.toString() + "]");
         Files.createDirectories(directoryPath);
       }
 
       if (Files.notExists(filePath)) {
-//        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+        //        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
         Files.copy(fileInputStream, filePath);
       } else {
         int i = 1;
@@ -89,7 +89,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
           filePath = FileSystems.getDefault().getPath(directoryPath + "/" + newFileName);
           i++;
         } while (Files.exists(filePath));
-//        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
+        //        System.out.println("Trying to copy fileInputStream into new File [" + filePath.toString() + "]");
         Files.copy(fileInputStream, filePath);
       }
     } catch (IOException e) {
@@ -148,7 +148,7 @@ public class FileSystemServiceBean implements FileStorageInterface {
    */
   @Override
   public void deleteFile(String fileRelativePath) throws IngeTechnicalException {
-//    System.out.println("Trying to delete File [" + fileRelativePath + "]");
+    //    System.out.println("Trying to delete File [" + fileRelativePath + "]");
     Path path = FileSystems.getDefault().getPath(FILESYSTEM_ROOT_PATH + fileRelativePath);
     try {
       if (Files.exists(path)) {

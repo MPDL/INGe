@@ -180,7 +180,7 @@ public class MatomoStatisticsService {
       }
 
       URI analytics_URI = builder.build();
-//      System.out.println("Requesting item stats 4 " + analytics_URI.toString());
+      //      System.out.println("Requesting item stats 4 " + analytics_URI.toString());
       return analytics_URI;
 
     } catch (URISyntaxException e) {
@@ -210,7 +210,7 @@ public class MatomoStatisticsService {
       }
 
       URI analytics_URI = builder.build();
-//      System.out.println("Requesting file stats 4 " + analytics_URI.toString());
+      //      System.out.println("Requesting file stats 4 " + analytics_URI.toString());
       return analytics_URI;
     } catch (URISyntaxException e) {
       logger.error(e.getMessage());
