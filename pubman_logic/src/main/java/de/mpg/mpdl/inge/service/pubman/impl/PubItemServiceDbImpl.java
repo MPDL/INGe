@@ -693,6 +693,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       return null;
     }
 
+    requestedItem.setFileLinks();
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + id + " successfully retrieved in " + time + " ms");
 

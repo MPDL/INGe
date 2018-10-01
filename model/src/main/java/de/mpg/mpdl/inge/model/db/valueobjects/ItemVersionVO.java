@@ -25,6 +25,7 @@ package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -42,6 +43,8 @@ import javax.persistence.OrderColumn;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
@@ -84,6 +87,7 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
    */
 
 
+  private static Logger logger = LogManager.getLogger(ItemVersionVO.class);
   /**
    * The message of the last action event of this item.
    */
@@ -109,7 +113,6 @@ public class ItemVersionVO extends ItemVersionRO implements Serializable {
   private List<FileDbVO> files = new ArrayList<FileDbVO>();
 
 
-  @PostLoad
   public void setFileLinks() {
     if (files != null) {
       for (FileDbVO file : files) {
