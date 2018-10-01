@@ -121,7 +121,7 @@ public class RISImport {
     List<String> itemStrings = new ArrayList<String>();
     while (risItemMatcher.find()) {
       itemStrings.add(risItemMatcher.group());
-      System.out.println();
+//      System.out.println();
     }
 
     return itemStrings;

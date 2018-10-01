@@ -294,13 +294,7 @@ public class FontStylesCollection implements Cloneable {
 
     FontStylesCollection fscclone = (FontStylesCollection) fsc.clone();
 
-    System.out.println("Source: -->" + fsc);
-
     fscclone.fontStyles.get(0).setFontName("Name in clone!!!");
-
-    System.out.println("Source after cloning:" + fsc);
-
-    System.out.println("Clone: -->" + fscclone);
   }
 
 }

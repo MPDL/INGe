@@ -92,7 +92,6 @@ public class Pair {
    */
   @Override
   public int hashCode() {
-    // System.out.println("Object wird aufgerufen " + key + ", " + key.hashCode());
     return key.hashCode();
   }
 
