@@ -193,12 +193,15 @@ public class PubItemUtil {
 
   private static void setOrganizationIdPathInOrganization(OrganizationVO ou, OrganizationService ouService)
       throws IngeTechnicalException, IngeApplicationException, AuthorizationException, AuthenticationException {
-    if (ou.getIdentifier() != null || !ou.getIdentifier().trim().isEmpty()) {
+
+    if (ou.getIdentifier() != null && !ou.getIdentifier().trim().isEmpty()) {
       List<String> ouPath = ouService.getIdPath(ou.getIdentifier().trim());
       ou.setIdentifierPath(ouPath.toArray(new String[] {}));
     } else {
       ou.setIdentifierPath(null);
     }
+
+
   }
 
 

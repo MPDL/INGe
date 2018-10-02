@@ -26,6 +26,8 @@
 
 package de.mpg.mpdl.inge.model.valueobjects.metadata;
 
+import java.util.Arrays;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -117,46 +119,39 @@ public class OrganizationVO extends ValueObject implements Cloneable {
     int result = 1;
     result = prime * result + ((address == null) ? 0 : address.hashCode());
     result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
+    result = prime * result + Arrays.hashCode(identifierPath);
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     return result;
   }
 
   @Override
-  /**
-   * Returns true if values of this class and the given object are equal. Also true for super
-   * classes with same values
-   */
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-
     if (obj == null)
       return false;
-
     // Enabling comparison with super classes like OrganizationVOPresentation
     if (!getClass().isAssignableFrom(obj.getClass()))
       return false;
 
     OrganizationVO other = (OrganizationVO) obj;
-
     if (address == null) {
       if (other.address != null)
         return false;
     } else if (!address.equals(other.address))
       return false;
-
     if (identifier == null) {
       if (other.identifier != null)
         return false;
     } else if (!identifier.equals(other.identifier))
       return false;
-
+    if (!Arrays.equals(identifierPath, other.identifierPath))
+      return false;
     if (name == null) {
       if (other.name != null)
         return false;
     } else if (!name.equals(other.name))
       return false;
-
     return true;
   }
 
