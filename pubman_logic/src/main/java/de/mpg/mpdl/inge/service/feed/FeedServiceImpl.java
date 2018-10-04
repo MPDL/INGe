@@ -1,8 +1,11 @@
 package de.mpg.mpdl.inge.service.feed;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -35,11 +38,14 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.UriBuilder;
 
 
 @Service
 public class FeedServiceImpl {
 
+
+  private static final Logger logger = LogManager.getLogger(FeedServiceImpl.class);
 
   @Autowired
   private PubItemService pubItemService;
@@ -221,9 +227,12 @@ public class FeedServiceImpl {
       // Contents ???
       // se.setContents(contents)
 
-      se.setLink(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-          + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + "/item/"
-          + pi.getLatestRelease().getObjectIdAndVersion());
+      try {
+        se.setLink(UriBuilder.getItemObjectAndVersionLink(pi.getLatestRelease().getObjectId(), pi.getLatestRelease().getVersionNumber())
+            .toString());
+      } catch (URISyntaxException e) {
+        logger.error("Error building URL", e);
+      }
 
       // Uri ????
       se.setUri(se.getLink());
