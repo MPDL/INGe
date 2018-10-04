@@ -170,7 +170,7 @@ public class HomePage extends BreadcrumbPage {
     ssb.query(bqb);
     ssb.from(0);
     ssb.size(4);
-    ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_MODIFICATION_DATE,
+    ssb.sort(SearchUtils.baseElasticSearchSortBuilder(pi.getElasticSearchIndexFields(), PubItemServiceDbImpl.INDEX_LATESTRELEASE_DATE,
         org.elasticsearch.search.sort.SortOrder.DESC));
 
     SearchResponse resp = pi.searchDetailed(ssb, null);
