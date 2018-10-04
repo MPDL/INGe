@@ -87,7 +87,6 @@ public class SiteMapTask {
   //  private String contentModel;
   private String contextPath;
   private String instanceUrl;
-  private String itemPattern;
 
   //  private boolean signal = false;
 
@@ -100,7 +99,6 @@ public class SiteMapTask {
   @Autowired
   private PubItemService pubItemService;
 
-  private String componentPattern;
 
 
   //  @Autowired
@@ -116,6 +114,8 @@ public class SiteMapTask {
       SiteMapTask.logger.info("CRON: Starting to create Sitemap.");
       this.maxItemsPerFile = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_MAX_ITEMS));
       this.maxItemsPerRetrieve = Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS));
+      this.instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
+      this.contextPath = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
 
 
       this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
