@@ -22,7 +22,7 @@ import io.swagger.annotations.Api;
 public class FeedRestController {
 
   private static final String DEFAULT_FEEDTYPE = "atom_1.0";
-  private static final String DEFAULT_PRODUCE_MIMETYPE = MediaType.APPLICATION_ATOM_XML_VALUE;
+  private static final String DEFAULT_PRODUCE_MIMETYPE = MediaType.APPLICATION_ATOM_XML_VALUE + ";charset=UTF-8";
 
   @Autowired
   private FeedServiceImpl feedService;
