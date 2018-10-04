@@ -762,14 +762,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       ItemRootVO pubItemObject = latestVersion.getObject();
       try {
         if (pubItemObject.getObjectPid() == null) {
-          URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH)
-              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectId()));
+          URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
           pubItemObject.setObjectPid("hdl:" + pidService.createPid(url).getIdentifier());
         }
-        URI url = new URI(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-            + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH) + PropertyReader
-                .getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", latestVersion.getObjectIdAndVersion()));
+        URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
         latestVersion.setVersionPid("hdl:" + pidService.createPid(url).getIdentifier());
       } catch (URISyntaxException | TechnicalException e) {
         logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
@@ -898,11 +894,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Override
   @JmsListener(containerFactory = "queueContainerFactory", destination = "reindex-ItemVersionVO")
   public void reindexListener(String id) throws IngeTechnicalException {
-    reindex(id, false);
+    reindex(id, false, true);
   }
 
 
-  private void reindex(ItemRootVO object, boolean immediate) throws IngeTechnicalException {
+  private void reindex(ItemRootVO object, boolean immediate, boolean includeFulltext) throws IngeTechnicalException {
 
     logger.info("Reindexing object " + object.getObjectId());
 
@@ -912,7 +908,10 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItemDao.delete(oldVersion);
 
     //Delete all fulltexts of old version from index
-    pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, oldVersion));
+    if (includeFulltext) {
+      pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, oldVersion));
+    }
+
 
     logger.info("Reindexing item latest version " + latestVersion.getObjectIdAndVersion());
 
@@ -922,7 +921,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       pubItemDao.create(latestVersion.getObjectId() + "_" + latestVersion.getVersionNumber(), latestVersion);
     }
 
-    queueJmsTemplate.convertAndSend("reindex-fulltext", latestVersion);
+    if (includeFulltext) {
+      queueJmsTemplate.convertAndSend("reindex-fulltext", latestVersion);
+    }
 
     if (object.getLatestRelease() != null && object.getLatestRelease().getVersionNumber() != object.getLatestVersion().getVersionNumber()) {
       ItemVersionVO latestRelease = (ItemVersionVO) object.getLatestRelease();
@@ -932,26 +933,36 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       } else {
         pubItemDao.create(latestRelease.getObjectId() + "_" + latestRelease.getVersionNumber(), latestRelease);
       }
-      queueJmsTemplate.convertAndSend("reindex-fulltext", latestRelease);
+      if (includeFulltext) {
+        queueJmsTemplate.convertAndSend("reindex-fulltext", latestRelease);
+      }
     }
 
   }
 
-  private void reindex(String objectId, boolean immediate) throws IngeTechnicalException {
+  private void reindex(String objectId, boolean immediate, boolean includeFulltexts) throws IngeTechnicalException {
     de.mpg.mpdl.inge.model.db.valueobjects.ItemRootVO object = itemObjectRepository.findOne(objectId);
-    reindex(object, immediate);
+    reindex(object, immediate, includeFulltexts);
 
   }
 
   private void reindex(ItemVersionVO item) throws IngeTechnicalException {
-    reindex(item.getObject(), true);
+    reindex(item.getObject(), true, true);
   }
 
   @Override
   public void reindex(String id, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     // TODO AA
-    reindex(id, false);
+    reindex(id, false, true);
+  }
+
+
+  @Override
+  public void reindex(String id, boolean includeFulltext, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    // TODO AA
+    reindex(id, false, includeFulltext);
   }
 
 

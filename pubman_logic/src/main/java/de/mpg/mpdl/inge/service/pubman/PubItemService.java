@@ -31,4 +31,6 @@ public interface PubItemService extends GenericService<ItemVersionVO, String> {
   public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
       throws IngeApplicationException, IngeTechnicalException;
 
+  public void reindex(String id, boolean includeFulltext, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 }
