@@ -110,6 +110,9 @@ public class OrganizationVO extends ValueObject implements Cloneable {
     if (getName() != null) {
       clone.setName(getName());
     }
+    if ((getIdentifierPath() != null)) {
+      clone.setIdentifierPath(Arrays.copyOf(getIdentifierPath(), getIdentifierPath().length));
+    }
     return clone;
   }
 
@@ -130,6 +133,7 @@ public class OrganizationVO extends ValueObject implements Cloneable {
       return true;
     if (obj == null)
       return false;
+
     // Enabling comparison with super classes like OrganizationVOPresentation
     if (!getClass().isAssignableFrom(obj.getClass()))
       return false;

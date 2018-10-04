@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.pubman.web.util.vos;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
@@ -53,6 +54,9 @@ public class OrganizationVOPresentation extends OrganizationVO {
     this.setAddress(organizationVO.getAddress());
     this.setIdentifier(organizationVO.getIdentifier());
     this.setName(organizationVO.getName());
+    if (organizationVO.getIdentifierPath() != null) {
+      this.setIdentifierPath(Arrays.copyOf(organizationVO.getIdentifierPath(), organizationVO.getIdentifierPath().length));
+    }
   }
 
   /**
