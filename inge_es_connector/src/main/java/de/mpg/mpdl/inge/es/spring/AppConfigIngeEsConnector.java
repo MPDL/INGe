@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.es.spring;
 
+import javax.annotation.PreDestroy;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -18,5 +20,11 @@ public class AppConfigIngeEsConnector {
   public ElasticSearchClientProvider elasticSearchClientProvider() {
     logger.info("Initializing Spring Bean ElasticSearchTransportClientProvider");
     return new ElasticSearchTransportClientProvider();
+  }
+
+
+  @PreDestroy
+  public void closeClient() {
+    elasticSearchClientProvider().getClient().close();
   }
 }
