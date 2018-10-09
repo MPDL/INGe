@@ -43,12 +43,15 @@ public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileD
 
         if (fileDbVO != null) {
           if (ValidationTools.isNotEmpty(fileDbVO.getContent()) //
-              && fileDbVO.getStorage().equals(FileDbVO.Storage.EXTERNAL_URL) //
-              && !Pattern.matches(ComponentsUriAsLocatorValidator.URL_PATTERN, fileDbVO.getContent())
-              && (fileDbVO.getContent().startsWith("http://") || fileDbVO.getContent().startsWith("https://")
-                  || fileDbVO.getContent().startsWith("ftp://"))) {
-            context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField("file[" + i + "]"));
-            ok = false;
+              && fileDbVO.getStorage().equals(FileDbVO.Storage.EXTERNAL_URL)) {
+            if (!(fileDbVO.getContent().startsWith("http://") || fileDbVO.getContent().startsWith("https://")
+                || fileDbVO.getContent().startsWith("ftp://"))) {
+              context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField("file[" + i + "]"));
+              ok = false;
+            } else if (!Pattern.matches(ComponentsUriAsLocatorValidator.URL_PATTERN, fileDbVO.getContent())) {
+              context.addError(ValidationError.create(ErrorMessages.LOCATOR_IS_NO_URI).setField("file[" + i + "]"));
+              ok = false;
+            }
           }
         }
 
