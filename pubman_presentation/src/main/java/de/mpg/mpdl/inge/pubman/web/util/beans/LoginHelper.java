@@ -56,7 +56,6 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism

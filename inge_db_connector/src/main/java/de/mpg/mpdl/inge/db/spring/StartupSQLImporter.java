@@ -4,12 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Scanner;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import org.apache.log4j.Logger;
 import org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor;
 import org.springframework.beans.factory.annotation.Autowired;

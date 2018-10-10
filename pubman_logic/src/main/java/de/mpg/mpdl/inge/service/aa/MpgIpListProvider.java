@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Component;
 import de.mpg.mpdl.inge.util.CSVUtils;
 import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 @Component
 public class MpgIpListProvider implements IpListProvider {
