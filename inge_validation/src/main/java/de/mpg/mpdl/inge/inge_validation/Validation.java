@@ -23,7 +23,6 @@ import de.mpg.mpdl.inge.inge_validation.validator.ComponentsUriAsLocatorValidato
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsOrganizationsNameRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.CreatorsWithOrganisationRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.DateOrEventDateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
@@ -126,17 +125,6 @@ public class Validation {
             .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
             .on(pubItemVO.getMetadata(), new DateRequiredValidator()) //
-            .when(!MdsPublicationVO.Genre.SERIES.equals(pubItemVO.getMetadata().getGenre()) //
-                && !MdsPublicationVO.Genre.JOURNAL.equals(pubItemVO.getMetadata().getGenre()) //
-                && !MdsPublicationVO.Genre.MANUSCRIPT.equals(pubItemVO.getMetadata().getGenre()) //
-                && !MdsPublicationVO.Genre.OTHER.equals(pubItemVO.getMetadata().getGenre()) //
-                && !MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(pubItemVO.getMetadata().getGenre()) //
-                && !MdsPublicationVO.Genre.TALK_AT_EVENT.equals(pubItemVO.getMetadata().getGenre()) //
-                && !MdsPublicationVO.Genre.POSTER.equals(pubItemVO.getMetadata().getGenre())) //
-            .on(pubItemVO.getMetadata(), new DateOrEventDateRequiredValidator()) //
-            .when(MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(pubItemVO.getMetadata().getGenre()) //
-                || MdsPublicationVO.Genre.TALK_AT_EVENT.equals(pubItemVO.getMetadata().getGenre()) //
-                || MdsPublicationVO.Genre.POSTER.equals(pubItemVO.getMetadata().getGenre())) //
             .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
             .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator()) //

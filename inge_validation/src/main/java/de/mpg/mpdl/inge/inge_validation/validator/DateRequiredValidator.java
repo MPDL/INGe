@@ -26,14 +26,28 @@ public class DateRequiredValidator extends ValidatorHandler<MdsPublicationVO> im
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
 
+    if (MdsPublicationVO.Genre.SERIES.equals(m.getGenre()) //
+        || MdsPublicationVO.Genre.JOURNAL.equals(m.getGenre()) //
+        || MdsPublicationVO.Genre.MANUSCRIPT.equals(m.getGenre()) //
+        || MdsPublicationVO.Genre.OTHER.equals(m.getGenre())) {
+      return true;
+    }
+
     if (ValidationTools.isEmpty(m.getDateAccepted()) //
         && ValidationTools.isEmpty(m.getDateCreated()) //
         && ValidationTools.isEmpty(m.getDateModified()) //
         && ValidationTools.isEmpty(m.getDatePublishedInPrint()) //
         && ValidationTools.isEmpty(m.getDatePublishedOnline()) //
         && ValidationTools.isEmpty(m.getDateSubmitted())) {
-      context.addErrorMsg(ErrorMessages.DATE_NOT_PROVIDED);
 
+      if ((MdsPublicationVO.Genre.COURSEWARE_LECTURE.equals(m.getGenre()) //
+          || MdsPublicationVO.Genre.TALK_AT_EVENT.equals(m.getGenre()) //
+          || MdsPublicationVO.Genre.POSTER.equals(m.getGenre()))
+          && (m.getEvent() != null && ValidationTools.isNotEmpty(m.getEvent().getStartDate()))) {
+        return true;
+      }
+
+      context.addErrorMsg(ErrorMessages.DATE_NOT_PROVIDED);
       return false;
     }
 
