@@ -18,15 +18,20 @@ Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Ev
 Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
 Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
 %T Oxytocin reactivity during intergroup conflict in wild
-chimpanzees (advance online) : 
+chimpanzees  : 
 %G eng
 %U http://hdl.handle.net/11858/00-001M-0000-002C-186C-8
 %R 10.1073/pnas.1616812114
 %7 2016-12
-%D 2016
+%D 2017
+%8 10.01.2017
 %* Review method: peer-reviewed
 %J Proceedings of the National Academy of Sciences of the United States of America
 %O Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS
+%V 114
+%N 2
+%& 268
+%P 268 - 273
 %I National Academy of Sciences
 %C Washington, D.C.
 %@ 0027-8424
