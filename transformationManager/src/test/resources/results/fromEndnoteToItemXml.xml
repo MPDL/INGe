@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ei:item xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
          xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
@@ -43,7 +44,7 @@
                   <eterms:given-name>Liran</eterms:given-name>
                   <!--
 							Publication-Date:
-							2016--></person:person>
+							2017--></person:person>
             </eterms:creator>
             <!--
 							- -Author - -
@@ -53,7 +54,7 @@
                   <eterms:given-name>Anna</eterms:given-name>
                   <!--
 							Publication-Date:
-							2016--></person:person>
+							2017--></person:person>
             </eterms:creator>
             <!--
 							- -Author - -
@@ -63,7 +64,7 @@
                   <eterms:given-name>Roger</eterms:given-name>
                   <!--
 							Publication-Date:
-							2016--></person:person>
+							2017--></person:person>
             </eterms:creator>
             <!--
 							- -Author - -
@@ -73,7 +74,7 @@
                   <eterms:given-name>Tobias</eterms:given-name>
                   <!--
 							Publication-Date:
-							2016--></person:person>
+							2017--></person:person>
             </eterms:creator>
             <!--
 							- -Author - -
@@ -83,7 +84,7 @@
                   <eterms:given-name>Catherine ǂ</eterms:given-name>
                   <!--
 							Publication-Date:
-							2016--></person:person>
+							2017--></person:person>
             </eterms:creator>
             <!--
 							- -Author - -
@@ -93,7 +94,7 @@
                   <eterms:given-name>Roman M.</eterms:given-name>
                   <!--
 							Publication-Date:
-							2016--></person:person>
+							2017--></person:person>
             </eterms:creator>
             <dc:title>Oxytocin reactivity during intergroup conflict in wild
 chimpanzees  : </dc:title>
@@ -102,9 +103,14 @@ chimpanzees  : </dc:title>
             <dc:identifier xsi:type="eterms:DOI">10.1073/pnas.1616812114</dc:identifier>
             <dc:identifier xsi:type="eterms:ISSN">0027-8424</dc:identifier>
             <dcterms:issued xsi:type="dcterms:W3CDTF">2016-12</dcterms:issued>
+            <eterms:published-online xsi:type="dcterms:W3CDTF">10.01.2017</eterms:published-online>
             <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
                <dc:title>Proceedings of the National Academy of Sciences of the United States of America</dc:title>
                <dcterms:alternative>Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS</dcterms:alternative>
+               <eterms:volume>114</eterms:volume>
+               <eterms:issue>2</eterms:issue>
+               <eterms:start-page>268</eterms:start-page>
+               <eterms:end-page>273</eterms:end-page>
                <eterms:publishing-info>
                   <dc:publisher>National Academy of Sciences</dc:publisher>
                </eterms:publishing-info>

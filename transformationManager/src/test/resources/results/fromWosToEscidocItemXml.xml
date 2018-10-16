@@ -1,172 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ei:item xmlns:ei="http://www.escidoc.de/schemas/item/0.10">
-<ei:properties>
-<srel:content-model xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
-xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-xmlns:fn="http://www.w3.org/2005/xpath-functions"
-xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
-xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
-xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
-xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
-xmlns:escidocFunction="urn:escidoc:functions"
-xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
-xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-xmlns:eprints="http://purl.org/eprint/terms/"
-xmlns:dc="http://purl.org/dc/elements/1.1/"
-xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:prop="http://escidoc.de/core/01/properties/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-objid="dummy-content-model"/>
-<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
-</ei:properties>
-<mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5">
-<mdr:md-record xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-xmlns:fn="http://www.w3.org/2005/xpath-functions"
-xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
-xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
-xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
-xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
-xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
-xmlns:escidocFunction="urn:escidoc:functions"
-xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
-xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-xmlns:eprints="http://purl.org/eprint/terms/"
-xmlns:dc="http://purl.org/dc/elements/1.1/"
-xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:prop="http://escidoc.de/core/01/properties/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-name="escidoc">
-<pub:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article">
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
-<eterms:family-name>Richter</eterms:family-name>
-<eterms:given-name>Soeren</eterms:given-name>
-<organization:organization>
-<dc:title>external</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
-<eterms:family-name>Jia</eterms:family-name>
-<eterms:given-name>Fei</eterms:given-name>
-<organization:organization>
-<dc:title>external</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
-<eterms:family-name>Heinrich</eterms:family-name>
-<eterms:given-name>Matthias</eterms:given-name>
-<organization:organization>
-<dc:title>external</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
-<eterms:family-name>Doering</eterms:family-name>
-<eterms:given-name>Sven</eterms:given-name>
-<organization:organization>
-<dc:title>external</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--CONE CREATOR--><person:person>
-<eterms:family-name>Peschel</eterms:family-name>
-<eterms:given-name>Ulf</eterms:given-name>
-<dc:identifier xsi:type="eterms:CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons201152</dc:identifier>
-<!--pubdate: 
-                  2012--><!--start: 
-                  --><!--start < pubdate 
-                  true--><!--end: 
-                  --><!--pubdate < end 
-                  true--><!-- Case 1 --><organization:organization>
-<dc:title>Nonlinear Optics and Nanophotonics, Leuchs Division, Max Planck Institute for the Science of Light, Max Planck Society</dc:title>
-<dc:identifier>ou_2364701</dc:identifier>
-</organization:organization>
-<!--pubdate: 
-                  2012--><!--start: 
-                  --><!--start < pubdate 
-                  true--><!--end: 
-                  --><!--pubdate < end 
-                  true--><!-- Case 1 --><organization:organization>
-<dc:title>External Organizations</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-<!--pubdate: 
-                  2012--><!--start: 
-                  --><!--start < pubdate 
-                  true--><!--end: 
-                  --><!--pubdate < end 
-                  true--><!-- Case 1 --><organization:organization>
-<dc:title>Max Planck Research Group, Max Planck Institute for the Science of Light, Max Planck Society</dc:title>
-<dc:identifier>ou_2364712</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
-<eterms:family-name>Tuennermann</eterms:family-name>
-<eterms:given-name>Andreas</eterms:given-name>
-<organization:organization>
-<dc:title>external</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
-<eterms:family-name>Nolte</eterms:family-name>
-<eterms:given-name>Stefan</eterms:given-name>
-<organization:organization>
-<dc:title>external</dc:title>
-<dc:identifier>ou_persistent22</dc:identifier>
-</organization:organization>
-</person:person>
-</eterms:creator>
-<dc:title>The role of self-trapped excitons and defects in the formation of
+   <ei:properties>
+      <srel:content-model xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                          xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                          xmlns:escidocFunction="urn:escidoc:functions"
+                          xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                          xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
+                          xmlns:eprints="http://purl.org/eprint/terms/"
+                          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                          xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                          xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+                          xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
+                          xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                          xmlns:prop="http://escidoc.de/core/01/properties/"
+                          xmlns:dc="http://purl.org/dc/elements/1.1/"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:dcterms="http://purl.org/dc/terms/"
+                          xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                          xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                          xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+                          xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                          xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                          objid="dummy-content-model"/>
+      <prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"/>
+   </ei:properties>
+   <mdr:md-records xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5">
+      <mdr:md-record xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+                     xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+                     xmlns:escidocFunction="urn:escidoc:functions"
+                     xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+                     xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
+                     xmlns:eprints="http://purl.org/eprint/terms/"
+                     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                     xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+                     xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+                     xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                     xmlns:ec="http://www.escidoc.de/schemas/components/0.9"
+                     xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
+                     xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+                     xmlns:prop="http://escidoc.de/core/01/properties/"
+                     xmlns:dc="http://purl.org/dc/elements/1.1/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xmlns:dcterms="http://purl.org/dc/terms/"
+                     xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
+                     xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
+                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
+                     xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+                     name="escidoc">
+         <pub:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article">
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Richter</eterms:family-name>
+                  <eterms:given-name>Soeren</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Jia</eterms:family-name>
+                  <eterms:given-name>Fei</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Heinrich</eterms:family-name>
+                  <eterms:given-name>Matthias</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Doering</eterms:family-name>
+                  <eterms:given-name>Sven</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Peschel</eterms:family-name>
+                  <eterms:given-name>Ulf</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Tuennermann</eterms:family-name>
+                  <eterms:given-name>Andreas</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT"><!--NOT FOUND IN CONE--><person:person>
+                  <eterms:family-name>Nolte</eterms:family-name>
+                  <eterms:given-name>Stefan</eterms:given-name>
+                  <organization:organization>
+                     <dc:title>external</dc:title>
+                     <dc:identifier>ou_persistent22</dc:identifier>
+                  </organization:organization>
+               </person:person>
+            </eterms:creator>
+            <dc:title>The role of self-trapped excitons and defects in the formation of
    nanogratings in fused silica</dc:title>
-<!--LANGUAGE: 
-      English--><dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
-<dc:identifier xsi:type="eterms:ISI">000300706500013</dc:identifier>
-<dcterms:issued>2012</dcterms:issued>
-<source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
-<dc:title>OPTICS LETTERS</dc:title>
-<eterms:volume>37</eterms:volume>
-<eterms:issue>4</eterms:issue>
-<eterms:start-page>482</eterms:start-page>
-<eterms:end-page>484</eterms:end-page>
-<eterms:publishing-info>
-<dc:publisher>OPTICAL SOC AMER</dc:publisher>
-<eterms:place>2010 MASSACHUSETTS AVE NW, WASHINGTON, DC 20036 USA</eterms:place>
-</eterms:publishing-info>
-<dc:identifier xsi:type="eterms:ISSN">0146-9592</dc:identifier>
-</source:source>
-<eterms:total-number-of-pages>3</eterms:total-number-of-pages>
-<dcterms:abstract>We investigate the role of self-trapped excitons (STEs) and defects in the formation of femtosecond laser pulse induced nanogratings (NGs) in fused silica. Our experiments reveal strongly enhanced NG formation for pulse separations up to the STE lifetime. In addition, the absorption spectra show that the weaker cumulative action of laser pulses for longer temporal separations is predominantly mediated by dangling-bond-type lattice defects that emerge from decaying STEs. (C) 2012 Optical Society of America</dcterms:abstract>
-<dcterms:subject>AMORPHOUS SIO2; LASER; GLASS; PHOTOLUMINESCENCE; SUBPICOSECOND;
+            <!--LANGUAGE: 
+			English--><dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+            <dc:identifier xsi:type="eterms:ISI">000300706500013</dc:identifier>
+            <dcterms:issued>2012</dcterms:issued>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>OPTICS LETTERS</dc:title>
+               <eterms:volume>37</eterms:volume>
+               <eterms:issue>4</eterms:issue>
+               <eterms:start-page>482</eterms:start-page>
+               <eterms:end-page>484</eterms:end-page>
+               <eterms:publishing-info>
+                  <dc:publisher>OPTICAL SOC AMER</dc:publisher>
+                  <eterms:place>2010 MASSACHUSETTS AVE NW, WASHINGTON, DC 20036 USA</eterms:place>
+               </eterms:publishing-info>
+               <dc:identifier xsi:type="eterms:ISSN">0146-9592</dc:identifier>
+            </source:source>
+            <eterms:total-number-of-pages>3</eterms:total-number-of-pages>
+            <dcterms:abstract>We investigate the role of self-trapped excitons (STEs) and defects in the formation of femtosecond laser pulse induced nanogratings (NGs) in fused silica. Our experiments reveal strongly enhanced NG formation for pulse separations up to the STE lifetime. In addition, the absorption spectra show that the weaker cumulative action of laser pulses for longer temporal separations is predominantly mediated by dangling-bond-type lattice defects that emerge from decaying STEs. (C) 2012 Optical Society of America</dcterms:abstract>
+            <dcterms:subject>AMORPHOUS SIO2; LASER; GLASS; PHOTOLUMINESCENCE; SUBPICOSECOND;
    LUMINESCENCE; FABRICATION; DYNAMICS; CENTERS; PULSESOptics; </dcterms:subject>
-</pub:publication>
-</mdr:md-record>
-</mdr:md-records>
-<ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.9"/>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <ec:components xmlns:ec="http://www.escidoc.de/schemas/components/0.9"/>
 </ei:item>
