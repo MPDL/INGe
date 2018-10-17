@@ -27,88 +27,117 @@
                     xmlns:dcterms="http://purl.org/dc/terms/"
                     xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event">
    <ei:item>
-      <ei:properties>
-         <srel:context objid="dummy:context"/>
-         <srel:content-model objid="dummy-content-model"/>
-         <prop:content-model-specific>
-            <local-tags/>
-         </prop:content-model-specific>
-      </ei:properties>
-      <mdr:md-records>
-         <mdr:md-record name="escidoc">
-            <pub:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article"><!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-                  <person:person>
-                     <eterms:family-name>Samuni</eterms:family-name>
-                     <eterms:given-name>Liran</eterms:given-name>
-                     <!--Publication-Date: 2016--></person:person>
-               </eterms:creator>
-               <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-                  <person:person>
-                     <eterms:family-name>Preis</eterms:family-name>
-                     <eterms:given-name>Anna</eterms:given-name>
-                     <!--Publication-Date: 2016--></person:person>
-               </eterms:creator>
-               <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-                  <person:person>
-                     <eterms:family-name>Mundry</eterms:family-name>
-                     <eterms:given-name>Roger</eterms:given-name>
-                     <!--Publication-Date: 2016--></person:person>
-               </eterms:creator>
-               <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-                  <person:person>
-                     <eterms:family-name>Deschner</eterms:family-name>
-                     <eterms:given-name>Tobias</eterms:given-name>
-                     <!--Publication-Date: 2016--></person:person>
-               </eterms:creator>
-               <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-                  <person:person>
-                     <eterms:family-name>Crockford</eterms:family-name>
-                     <eterms:given-name>Catherine ǂ</eterms:given-name>
-                     <!--Publication-Date: 2016--></person:person>
-               </eterms:creator>
-               <!--- -Author - - --><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-                  <person:person>
-                     <eterms:family-name>Wittig</eterms:family-name>
-                     <eterms:given-name>Roman M.</eterms:given-name>
-                     <!--Publication-Date: 2016--></person:person>
-               </eterms:creator>
-               <dc:title>Oxytocin reactivity during intergroup conflict in wild
+   <ei:properties>
+      <srel:context objid="dummy:context"/>
+      <srel:content-model objid="dummy-content-model"/>
+      <prop:content-model-specific>
+         <local-tags/>
+      </prop:content-model-specific>
+   </ei:properties>
+   <mdr:md-records>
+      <mdr:md-record name="escidoc">
+         <pub:publication type="http://purl.org/escidoc/metadata/ves/publication-types/article"><!--
+							- -Author - -
+						--><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Samuni</eterms:family-name>
+                  <eterms:given-name>Liran</eterms:given-name>
+                  <!--
+							Publication-Date:
+							2017--></person:person>
+            </eterms:creator>
+            <!--
+							- -Author - -
+						--><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Preis</eterms:family-name>
+                  <eterms:given-name>Anna</eterms:given-name>
+                  <!--
+							Publication-Date:
+							2017--></person:person>
+            </eterms:creator>
+            <!--
+							- -Author - -
+						--><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Mundry</eterms:family-name>
+                  <eterms:given-name>Roger</eterms:given-name>
+                  <!--
+							Publication-Date:
+							2017--></person:person>
+            </eterms:creator>
+            <!--
+							- -Author - -
+						--><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Deschner</eterms:family-name>
+                  <eterms:given-name>Tobias</eterms:given-name>
+                  <!--
+							Publication-Date:
+							2017--></person:person>
+            </eterms:creator>
+            <!--
+							- -Author - -
+						--><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Crockford</eterms:family-name>
+                  <eterms:given-name>Catherine ǂ</eterms:given-name>
+                  <!--
+							Publication-Date:
+							2017--></person:person>
+            </eterms:creator>
+            <!--
+							- -Author - -
+						--><eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
+               <person:person>
+                  <eterms:family-name>Wittig</eterms:family-name>
+                  <eterms:given-name>Roman M.</eterms:given-name>
+                  <!--
+							Publication-Date:
+							2017--></person:person>
+            </eterms:creator>
+            <dc:title>Oxytocin reactivity during intergroup conflict in wild
 chimpanzees  : </dc:title>
-               <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
-               <dcterms:alternative>Review of: Review method: peer-reviewed</dcterms:alternative>
-               <dc:identifier xsi:type="eterms:DOI">10.1073/pnas.1616812114</dc:identifier>
-               <dc:identifier xsi:type="eterms:ISSN">0027-8424</dc:identifier>
-               <dcterms:issued xsi:type="dcterms:W3CDTF">2016-12</dcterms:issued>
-               <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
-                  <dc:title>Proceedings of the National Academy of Sciences of the United States of America</dc:title>
-                  <dcterms:alternative>Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS</dcterms:alternative>
-                  <eterms:publishing-info>
-                     <dc:publisher>National Academy of Sciences</dc:publisher>
-                  </eterms:publishing-info>
-               </source:source>
-            </pub:publication>
-         </mdr:md-record>
-      </mdr:md-records>
-      <escidocComponents:components>
-         <escidocComponents:component>
-            <escidocComponents:properties>
-               <prop:visibility>public</prop:visibility>
-               <prop:content-category>any-fulltext</prop:content-category>
-               <prop:file-name>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</prop:file-name>
-            </escidocComponents:properties>
-            <escidocComponents:content xlink:type="simple"
-                                       xlink:title="http://hdl.handle.net/11858/00-001M-0000-002C-186C-8"
-                                       xlink:href="http://hdl.handle.net/11858/00-001M-0000-002C-186C-8"
-                                       storage="external-url"/>
-            <mdr:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5">
-               <mdr:md-record name="escidoc">
-                  <file:file xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
-                             xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/">
-                     <dc:title>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</dc:title>
-                  </file:file>
-               </mdr:md-record>
-            </mdr:md-records>
-         </escidocComponents:component>
-      </escidocComponents:components>
-   </ei:item>
+            <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
+            <dcterms:alternative>Review of: Review method: peer-reviewed</dcterms:alternative>
+            <dc:identifier xsi:type="eterms:DOI">10.1073/pnas.1616812114</dc:identifier>
+            <dc:identifier xsi:type="eterms:ISSN">0027-8424</dc:identifier>
+            <dcterms:issued xsi:type="dcterms:W3CDTF">2016-12</dcterms:issued>
+            <eterms:published-online xsi:type="dcterms:W3CDTF">10.01.2017</eterms:published-online>
+            <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
+               <dc:title>Proceedings of the National Academy of Sciences of the United States of America</dc:title>
+               <dcterms:alternative>Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS</dcterms:alternative>
+               <eterms:volume>114</eterms:volume>
+               <eterms:issue>2</eterms:issue>
+               <eterms:start-page>268</eterms:start-page>
+               <eterms:end-page>273</eterms:end-page>
+               <eterms:publishing-info>
+                  <dc:publisher>National Academy of Sciences</dc:publisher>
+               </eterms:publishing-info>
+            </source:source>
+         </pub:publication>
+      </mdr:md-record>
+   </mdr:md-records>
+   <escidocComponents:components>
+      <escidocComponents:component>
+         <escidocComponents:properties>
+            <prop:visibility>public</prop:visibility>
+            <prop:content-category>any-fulltext</prop:content-category>
+            <prop:file-name>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</prop:file-name>
+         </escidocComponents:properties>
+         <escidocComponents:content xlink:type="simple"
+                                    xlink:title="http://hdl.handle.net/11858/00-001M-0000-002C-186C-8"
+                                    xlink:href="http://hdl.handle.net/11858/00-001M-0000-002C-186C-8"
+                                    storage="external-url"/>
+         <mdr:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5">
+            <mdr:md-record name="escidoc">
+               <file:file xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
+                          xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/">
+                  <dc:title>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</dc:title>
+               </file:file>
+            </mdr:md-record>
+         </mdr:md-records>
+      </escidocComponents:component>
+   </escidocComponents:components>
+</ei:item>
 </itemlist:item-list>
