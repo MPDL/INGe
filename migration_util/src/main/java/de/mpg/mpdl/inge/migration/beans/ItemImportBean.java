@@ -212,7 +212,7 @@ public class ItemImportBean {
     try {
       newVo = transformToNew(pubItem, fileMap);
       log.info("Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
-      itemRepository..save(newVo);
+      itemRepository.save(newVo);
     } catch (Exception e) {
       log.info("FAILED Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       e.printStackTrace();
