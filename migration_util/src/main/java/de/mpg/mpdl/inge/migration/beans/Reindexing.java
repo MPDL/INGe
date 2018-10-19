@@ -32,6 +32,10 @@ public class Reindexing {
     Thread.sleep(300000);
   }
 
+  public void reindexOU(String id) throws Exception {
+    ouService.reindex(id, null);
+  }
+
   public void reindexContexts() throws Exception {
     ctxService.reindexAll(null);
     Thread.sleep(300000);

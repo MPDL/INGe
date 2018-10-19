@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.migration.beans;
 
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -21,6 +23,7 @@ import de.mpg.mpdl.inge.model.valueobjects.AffiliationVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
+import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 
 @Component
 public class OrganizationImportBean {
@@ -35,6 +38,8 @@ public class OrganizationImportBean {
   private OrganizationRepository orgRepository;
   @Autowired
   private MigrationUtilBean utils;
+  @Autowired
+  private Reindexing reindexing;
 
   private Queue<AffiliationVO> updateLaterAffs = new LinkedList<AffiliationVO>();
 
@@ -60,6 +65,35 @@ public class OrganizationImportBean {
 
     } catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+
+  public void saveChildren4GivenParent(String motherId) {
+    URI uri;
+    AffiliationDbVO newVo = null;
+    try {
+      uri = new URIBuilder(escidocUrl + ousPath).addParameter("query", "\"/parents/parent/id\"=\"" + motherId + "\"").build();
+      String ouXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
+      SearchRetrieveResponseVO<AffiliationVO> ouList = XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
+      for (SearchRetrieveRecordVO<AffiliationVO> affRecord : ouList.getRecords()) {
+        String href = affRecord.getData().getReference().getObjectId();
+        String objectId = href.substring(href.lastIndexOf("/") + 1, href.length());
+        // saveOuWithoutPredecessor(affRecord.getData());
+        newVo = transformToNew(affRecord.getData());
+        newVo.getPredecessorAffiliations().clear();
+        log.info("Saving " + newVo.getObjectId());
+        orgRepository.save(newVo);
+        reindexing.reindexOU(newVo.getObjectId());
+      }
+    } catch (URISyntaxException | IOException | TechnicalException e) {
+      log.error("error getting children 4" + motherId, e);
+    } catch (Exception e) {
+      log.error("error reindexing " + newVo.getObjectId(), e);
+    }
+    try {
+      Thread.sleep(30000);
+    } catch (InterruptedException e) {
+      log.error("how can you sleep whilst the world is burnin'", e);
     }
   }
 

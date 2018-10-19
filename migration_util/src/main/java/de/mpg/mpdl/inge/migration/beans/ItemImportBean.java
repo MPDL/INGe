@@ -123,12 +123,29 @@ public class ItemImportBean {
     Thread.sleep(300000);
   }
 
+  public void reindexList() throws Exception {
+    try (InputStream file_content = ResourceUtil.getResourceAsStream("ids2reindex", getClass().getClassLoader())) {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(file_content, "UTF-8"));
+      Stream<String> lines = reader.lines();
+      lines.parallel().forEach(line -> {
+        try {
+          reIndexing.reindexItem(line);
+        } catch (Exception e) {
+          log.error("pech", e);
+        }
+      });
+    } catch (Exception e2) {
+      log.error("mega pech", e2);
+    }
+    Thread.sleep(3600000);
+  }
+
   public void importPubItems() throws Exception {
 
     String contentModelId = "escidoc:persistent4";
     HttpClient client = utils.setup();
 
-    int startRecord = 101001;
+    int startRecord = 1;
     int allRecords = Integer.MAX_VALUE;
 
     while (allRecords > startRecord + limit) {
@@ -195,7 +212,7 @@ public class ItemImportBean {
     try {
       newVo = transformToNew(pubItem, fileMap);
       log.info("Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
-      itemRepository.save(newVo);
+      itemRepository..save(newVo);
     } catch (Exception e) {
       log.info("FAILED Saving " + newVo.getObjectId() + "_" + newVo.getVersionNumber());
       e.printStackTrace();

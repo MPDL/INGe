@@ -46,6 +46,11 @@ public class Migration {
       case "ous_reindex":
         reIndexing.reindexOus();
         break;
+      case "ous_4Mother":
+        if (id != null) {
+          ouImport.saveChildren4GivenParent(id);
+          break;
+        }
       case "items":
         itemImport.importPubItems();
         break;
@@ -111,6 +116,7 @@ public class Migration {
       case "wwf":
         //  util.wfTesting();
         itemImport.reimport();
+        // itemImport.reindexList();
         break;
       default:
         log.info("you don't really know, what exactly you want to do!!!");
