@@ -449,6 +449,9 @@ public class ImportProcess extends Thread {
           for (final ValidationReportItemVO item : e.getReport().getItems()) {
             this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, item.getContent(), this.connection);
           }
+          this.importLog.setItemVO(itemVersionVO);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_generate_item", this.connection);
+          this.importLog.suspendItem(this.connection);
         }
       } catch (final ValidationException e) { // Simple Validation
         this.importLog.addDetail(BaseImportLog.ErrorLevel.PROBLEM, "import_process_default_validation_failed", this.connection);
