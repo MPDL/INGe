@@ -234,7 +234,7 @@ public class ReportWorkspaceBean extends FacesBean {
 
     try {
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 10000, 0); // TODO: als Parameter
       SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
 
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
