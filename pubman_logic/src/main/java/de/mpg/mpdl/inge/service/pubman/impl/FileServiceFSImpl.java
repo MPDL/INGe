@@ -80,7 +80,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       + PropertyReader.getProperty(PropertyReader.INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH);
 
   @Autowired
-  //  @Qualifier("postgresDbFileServiceBean")
+  //@Qualifier("postgresDbFileServiceBean")
   @Qualifier("fileSystemServiceBean")
   private FileStorageInterface fsi;
 
@@ -220,7 +220,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
     try {
 
       //if content is an url, download content and create staged file  
-      if (NetworkUtils.getUrlMatchPattern().matcher(fileVO.getContent()).matches()) {
+      if (fileVO.getContent().startsWith("http")) {
         HttpResponse resp = Request.Get(fileVO.getContent()).execute().returnResponse();
         if (resp.getStatusLine().getStatusCode() != 200) {
           throw new IngeApplicationException(
@@ -265,7 +265,11 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       }
       //else get staged file from database
       else {
-        stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
+        try {
+          stagedFileVo = stagedFileRepository.findOne(Integer.parseInt(fileVO.getContent()));
+        } catch (Exception e) {
+          throw new IngeApplicationException("Given file id " + fileVO.getContent() + " is invalid!");
+        }
       }
 
 
