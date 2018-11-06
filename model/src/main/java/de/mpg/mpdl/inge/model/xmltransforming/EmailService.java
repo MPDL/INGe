@@ -76,6 +76,7 @@ public class EmailService {
       // Setup mail server
       Properties props = System.getProperties();
       props.put("mail.smtp.host", smtpHost);
+      // props.put("mail.smtp.port", 587);
       props.put("mail.smtp.auth", withAuth);
       props.put("mail.smtp.starttls.enable", "true");
 

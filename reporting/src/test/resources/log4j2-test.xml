@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d %p %C [%t] %m%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="debug">
+      <AppenderRef ref="Console"/>
+    </Root>
+    <Logger name="org.hibernate.cache" level="info" />
+    <Logger name="org.hibernate.SQL" level="info" />
+    <Logger name="org.hibernate.event.internal.DefaultPersistEventListener" level="trace" />
+    <Logger name="net.sf.ehcache" level="info" />
+    <Logger name="de.mpg.mpdl.inge.service.pubman.impl" level="info" />
+    <Logger name="de.mpg.mpdl.inge.service.pubman" level="debug" />
+	<Logger name="de.mpg.mpdl.inge.es.connector" level="debug" />
+	<Logger name="de.mpg.mpdl.inge.es.dao.impl" level="debug" />
+    <Logger name="org.dozer" level="info"/>
+    <Logger name="org.elasticsearch" level="debug"/>
+  </Loggers>
+</Configuration>

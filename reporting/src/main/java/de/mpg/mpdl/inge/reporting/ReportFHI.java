@@ -264,7 +264,7 @@ public class ReportFHI {
       if (FileFormatVO.PDF_NAME.equalsIgnoreCase(f)) {
         JRPdfExporter pdfExp = new JRPdfExporter();
         pdfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        fn = "E:\\tmp\\FHI_Bibilothek_report.pdf";
+        fn = "FHI_Bibilothek_report.pdf";
         pdfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
         pdfExp.exportReport();
         atts.add(fn);
