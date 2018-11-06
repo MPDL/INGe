@@ -96,8 +96,11 @@ public class SubmitProcess extends Thread {
             final ItemVersionVO itemVersionVO = pubItemService.get(item.getItemId(), this.authenticationToken);
             if (this.alsoRelease) {
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_item", this.connection);
-              pubItemService.releasePubItem(item.getItemId(), itemVersionVO.getModificationDate(),
-                  "Batch submit/release from import " + this.importLog.getMessage(), this.authenticationToken);
+              pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
+                  "Batch submit from import " + this.importLog.getMessage(), this.authenticationToken);
+              ItemVersionVO itemVersionVO_ = pubItemService.get(item.getItemId(), this.authenticationToken);
+              pubItemService.releasePubItem(item.getItemId(), itemVersionVO_.getModificationDate(),
+                  "Batch release from import " + this.importLog.getMessage(), this.authenticationToken);
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_successful", this.connection);
             } else {
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item", this.connection);
