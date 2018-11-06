@@ -303,12 +303,14 @@
 					<!-- start: header section -->
 						<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 							<!-- logo alternate area starts here -->
+							<!-- 
 							<div class="free_area0 small_marginLExcl logoAlternate">
 								<a href="" >
 									<span>eSciDoc.</span>
 									<span>CoNE</span>
 								</a>
 							</div>
+							 -->
 							<!-- logo alternate area starts here -->
 							<!-- meta Menu starts here -->
 							<xsl:comment>
