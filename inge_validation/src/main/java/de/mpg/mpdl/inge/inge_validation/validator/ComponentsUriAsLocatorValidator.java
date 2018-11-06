@@ -82,7 +82,7 @@ public class ComponentsUriAsLocatorValidator extends ValidatorHandler<List<FileD
             + ")                   \n";
     final String Hostname = "(?:" + SubDomain + "\\.)+" + TopDomains;
 
-//    final String NOT_IN = ";\"'<>()\\[\\]{}\\s\\x7F-\\xFF";
+    //    final String NOT_IN = ";\"'<>()\\[\\]{}\\s\\x7F-\\xFF";
     final String NOT_IN = ";\"'<>\\[\\]{}\\s\\x7F-\\xFF";
     final String NOT_END = "!.,?";
     final String ANYWHERE = "[^" + NOT_IN + NOT_END + "]";
