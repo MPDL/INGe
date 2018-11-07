@@ -33,7 +33,6 @@ import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
 public class ReportingTest {
 
   @SuppressWarnings("unused")

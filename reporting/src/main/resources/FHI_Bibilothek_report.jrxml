@@ -271,7 +271,7 @@
 				<textElement>
 					<font fontName="Arial" size="12" isBold="true" pdfFontName="ARIALBD.TTF" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[eSciDocID: ]]></text>
+				<text><![CDATA[PuRe-ID: ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="27" width="150" height="20"/>

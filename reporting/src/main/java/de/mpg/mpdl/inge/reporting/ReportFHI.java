@@ -146,8 +146,8 @@ public class ReportFHI {
   // Generate query for time range
   private static String getTimeRangeQuery() {
     String[] dd = getStartEndDateOfQuery();
-
-    return "(\"/properties/creation-date\">=\"" + dd[0] + "\"" + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
+    return "\"bool\":{\"must\":{\"range\":{\"creationDate\":{\"from\":\"" + dd[0] + "\",\"to\":\"" + dd[1] + "\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}}}";
+    //    return "(\"/properties/creation-date\">=\"" + dd[0] + "\"" + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
   }
 
   public static String getItemListFromFramework() {
@@ -162,8 +162,8 @@ public class ReportFHI {
           PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD));
       method =
           new PostMethod(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/items/search?format=eSciDoc_Itemlist_Xml");
-      method.setRequestEntity(
-          new StringRequestEntity(rprops.getProperty("FHI.query"), "application/json", StandardCharsets.UTF_8.displayName()));
+      method.setRequestEntity(new StringRequestEntity((rprops.getProperty("FHI.query")).replace("$CREATION_DATE$", getTimeRangeQuery()),
+          "application/json", StandardCharsets.UTF_8.displayName()));
       method.setRequestHeader("Authorization", token);
 
       logger.info("URI:" + method.getURI());
