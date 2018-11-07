@@ -146,7 +146,8 @@ public class ReportFHI {
   // Generate query for time range
   private static String getTimeRangeQuery() {
     String[] dd = getStartEndDateOfQuery();
-    return "\"bool\":{\"must\":{\"range\":{\"creationDate\":{\"from\":\"" + dd[0] + "\",\"to\":\"" + dd[1] + "\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}}}";
+    return "\"bool\":{\"must\":{\"range\":{\"creationDate\":{\"from\":\"" + dd[0] + "\",\"to\":\"" + dd[1]
+        + "\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}}}";
     //    return "(\"/properties/creation-date\">=\"" + dd[0] + "\"" + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
   }
 
