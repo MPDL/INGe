@@ -40,7 +40,7 @@
 		</h:panelGroup>
 		<!-- If no authors available show message -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p6"
-			rendered="#{ViewItemFull.pubItem.organizationsAuthors == null or empty(ViewItemFull.pubItem.organizationsAuthors)}">
+			rendered="#{ViewItemFull.pubItem.organizationsAuthors == null or ViewItemFull.pubItem.organizationsAuthors != null and empty(ViewItemFull.pubItem.organizationsAuthors)}">
 			<h:outputText value="#{msg.ViewItemOverview_noMpgAuthorsAvailable}"
 				rendered="#{ViewItemFull.specificOrganization == 'Max Planck Society'}" />
 			<h:outputText
