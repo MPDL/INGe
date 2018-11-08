@@ -30,10 +30,10 @@ import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 
-@ManagedBean(name = "LocalTagsPage")
+@ManagedBean(name = "ViewLocalTagsPage")
 @SuppressWarnings("serial")
-public class LocalTagsPage extends BreadcrumbPage {
-  public LocalTagsPage() {}
+public class ViewLocalTagsPage extends BreadcrumbPage {
+  public ViewLocalTagsPage() {}
 
   @Override
   public void init() {
