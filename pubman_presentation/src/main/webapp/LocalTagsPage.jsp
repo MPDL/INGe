@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
     <title>
-        <h:outputText value="#{ApplicationBean.appTitle}" />
+        <h:outputText value="#{ViewItemFull.pubItem.metadata.title} :: #{ApplicationBean.appTitle}" converter="HTMLTitleSubSupConverter" />
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
 </h:head>
