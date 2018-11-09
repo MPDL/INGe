@@ -106,8 +106,8 @@ public class ReportFHI {
   public static String emailAuthPwdProp;
 
   public ReportFHI() throws IOException, URISyntaxException {
-    USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME);
-    USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
+    USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_USERNAME);
+    USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_PASSWORD);
     emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
     emailServernameProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_MAILSERVERNAME);
     emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
@@ -159,8 +159,8 @@ public class ReportFHI {
 
     PostMethod method;
     try {
-      String token = loginInInge(PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME),
-          PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD));
+      String token = loginInInge(PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_USERNAME),
+          PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_PASSWORD));
       method =
           new PostMethod(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/items/search?format=eSciDoc_Itemlist_Xml");
       method.setRequestEntity(new StringRequestEntity((rprops.getProperty("FHI.query")).replace("$CREATION_DATE$", getTimeRangeQuery()),
