@@ -147,7 +147,7 @@ public class ObjectComparator {
   private void compareObjects(Object fieldValue1, Object fieldValue2, String fieldname, String enclosingClass)
       throws IllegalAccessException {
 
-    logger.info("Comparing: <" + fieldValue1 + "> and <" + fieldValue2 + "> (Field: " + fieldname + ")");
+    logger.debug("Comparing: <" + fieldValue1 + "> and <" + fieldValue2 + "> (Field: " + fieldname + ")");
 
     if (fieldValue1 == fieldValue2) {
       return;

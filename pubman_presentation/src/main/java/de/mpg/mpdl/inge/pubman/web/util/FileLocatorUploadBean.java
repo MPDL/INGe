@@ -165,7 +165,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
       final int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
-          this.logger.info("Source responded with 200.");
+          this.logger.debug("Source responded with 200.");
 
           // Fetch file
           final GetMethod method = new GetMethod(locator.toString());

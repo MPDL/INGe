@@ -459,7 +459,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       Instant now = Instant.now();
       Date issueDate = Date.from(now);
       Date expirationDate = Date.from(now.plus(TOKEN_MAX_AGE_HOURS, ChronoUnit.HOURS));
-      logger.info("Creating token with issue date: " + issueDate + " and expiration date " + expirationDate);
+      logger.debug("Creating token with issue date: " + issueDate + " and expiration date " + expirationDate);
 
       Builder jwtBuilder = JWT.create().withIssuedAt(issueDate).withIssuer(jwtIssuer).withExpiresAt(expirationDate);
 

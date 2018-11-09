@@ -691,7 +691,7 @@ public class EditItem extends FacesBean {
           fileVO.setMimeType(tika.detect(fis, file.getFileName()));
           fis.close();
         } catch (final IOException e) {
-          EditItem.logger.info("Error while trying to detect mimetype of file " + file.getFileName(), e);
+          logger.error("Error while trying to detect mimetype of file " + file.getFileName(), e);
         }
 
         final FormatVO formatVO = new FormatVO();

@@ -243,6 +243,7 @@ public class ViewItemFull extends FacesBean {
     } else { // TODO: Dieser ELSE Teil ist aeusserst dubios!!!!
       final ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
       if (icsb.getCurrentPubItem() == null) {
+        ViewItemFull.logger.warn("ViewItemFull: icsb.getCurrentPubItem() == null");
         return;
       }
 

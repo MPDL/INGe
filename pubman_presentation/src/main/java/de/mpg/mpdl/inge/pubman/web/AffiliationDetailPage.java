@@ -58,7 +58,7 @@ public class AffiliationDetailPage extends FacesBean {
 
       AffiliationDbVO affVO = ApplicationBean.INSTANCE.getOrganizationService().get(affiliationId, null);
       if (affVO == null) {
-        AffiliationDetailPage.logger.info("Organizational unit not found: " + affiliationId);
+        AffiliationDetailPage.logger.warn("Organizational unit not found: " + affiliationId);
         this.error(this.getMessage("AffiliationDetailPage_detailsNotRetrieved"));
       }
       this.affiliation = new AffiliationVOPresentation(affVO);

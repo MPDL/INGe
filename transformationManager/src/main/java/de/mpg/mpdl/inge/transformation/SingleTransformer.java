@@ -34,10 +34,10 @@ public abstract class SingleTransformer implements Transformer {
 
 
   public Map<String, String> getConfiguration() {
-    logger.info("Singletransformer");
+    logger.debug("Singletransformer");
     if (this.configuration != null && this.configuration.entrySet() != null) {
       for (Entry<String, String> entry : this.configuration.entrySet()) {
-        logger.info("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
+        logger.debug("Transformation parameter from configuration " + entry.getKey() + " -- " + entry.getValue());
       }
     }
 

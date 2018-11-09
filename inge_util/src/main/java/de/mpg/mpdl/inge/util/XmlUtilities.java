@@ -50,7 +50,7 @@ public class XmlUtilities {
 
     Schema schema = schemas.get(nameSpace);
 
-    logger.info("Schema: " + schema);
+    logger.debug("Schema: " + schema);
 
   }
 

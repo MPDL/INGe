@@ -181,7 +181,7 @@ public class MulgaraQuerier implements Querier {
           }
         }
       }
-      logger.info("Result: " + resultMap);
+      logger.debug("Result: " + resultMap);
       return resultMap;
     } catch (ItqlInterpreterException | TuplesException e) {
       throw new ConeException(e);

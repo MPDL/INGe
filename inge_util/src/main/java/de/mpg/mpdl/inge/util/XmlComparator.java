@@ -219,7 +219,7 @@ public class XmlComparator {
       }
 
       if (elementsToIgnore.contains(xmlNode)) {
-        logger.info("omitting <" + xmlNode.toString() + ">");
+        logger.debug("omitting <" + xmlNode.toString() + ">");
         omit = true;
       }
 
