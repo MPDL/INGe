@@ -39,10 +39,6 @@ public class EhCacheRestController {
             srResponse.append(key + ":" + cache.get(key) + "\n");
           }
         }
-
-        if (name == null || cacheName.equals(name)) {
-          srResponse.append("\n");
-        }
       }
     } catch (Exception e) {
       srResponse.append("Error: " + e);
