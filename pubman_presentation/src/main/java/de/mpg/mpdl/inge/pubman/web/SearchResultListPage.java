@@ -26,9 +26,12 @@
 
 package de.mpg.mpdl.inge.pubman.web;
 
+import java.util.Map;
+
 import javax.faces.bean.ManagedBean;
 
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 @ManagedBean(name = "SearchResultListPage")
 @SuppressWarnings("serial")
@@ -43,5 +46,13 @@ public class SearchResultListPage extends BreadcrumbPage {
   @Override
   public boolean isItemSpecific() {
     return false;
+  }
+
+  public String rest() {
+    Map<String, String> params = FacesTools.getExternalContext().getRequestParameterMap();
+    String query = params.get("query");
+    ((SearchAndExportPage) FacesTools.findBean("SearchAndExportPage")).setEsQuery(query);
+
+    return "SearchAndExportPage.jsp";
   }
 }
