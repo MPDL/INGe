@@ -76,7 +76,7 @@
 	
 	<xsl:template match="kml:coordinates">
 		<li>
-			<iframe width="300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.de/maps?hl=de&amp;ie=UTF8&amp;t=h&amp;ll={.}&amp;spn=3.967501,6.591797&amp;z=6&amp;output=embed"></iframe>
+			<iframe width="300" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.de/maps?hl=de&amp;ie=UTF8&amp;t=h&amp;ll={.}&amp;spn=3.967501,6.591797&amp;z=6&amp;output=embed"></iframe>
 			<ul>
 				<li>
 					<xsl:text>Latitude: </xsl:text>
