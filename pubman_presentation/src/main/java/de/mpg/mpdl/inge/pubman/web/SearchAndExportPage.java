@@ -41,7 +41,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -58,7 +57,6 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
-import de.mpg.mpdl.inge.pubman.web.search.SearchRetrieverRequestBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
@@ -89,28 +87,37 @@ public class SearchAndExportPage extends BreadcrumbPage {
   public void init() {
     super.init();
 
-    String oldQuery = this.esQuery;
+    //    String oldQuery = this.esQuery;
+    //
+    //    if (FacesTools.getCurrentInstance().getRenderResponse()) {
+    //      final HttpServletRequest request = FacesTools.getRequest();
+    //
+    //      try {
+    //        if (request.getQueryString() != null) {
+    //          final String decodedQuery = URLDecoder.decode(request.getQueryString(), "UTF-8");
+    //          this.esQuery = decodedQuery.substring(decodedQuery.indexOf(SearchRetrieverRequestBean.parameterElasticSearchQuery)
+    //              + SearchRetrieverRequestBean.parameterElasticSearchQuery.length() + 1);
+    //          this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
+    //        }
+    //      } catch (final Exception e) {
+    //        SearchAndExportPage.logger.error("Error during reading GET parameters.", e);
+    //      }
+    //
+    //    }
 
-    if (FacesTools.getCurrentInstance().getRenderResponse()) {
-      final HttpServletRequest request = FacesTools.getRequest();
+    //    if (this.esQuery == null && oldQuery != null) {
+    //      this.esQuery = oldQuery;
+    //    } else if (this.esQuery == null) {
 
-      try {
-        if (request.getQueryString() != null) {
-          final String decodedQuery = URLDecoder.decode(request.getQueryString(), "UTF-8");
-          this.esQuery = decodedQuery.substring(decodedQuery.indexOf(SearchRetrieverRequestBean.parameterElasticSearchQuery)
-              + SearchRetrieverRequestBean.parameterElasticSearchQuery.length() + 1);
-          this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
-        }
-      } catch (final Exception e) {
-        SearchAndExportPage.logger.error("Error during reading GET parameters.", e);
-      }
-
+    if (this.esQuery == null || this.esQuery.isEmpty()) {
+      this.esQuery = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY);
     }
 
-    if (this.esQuery == null && oldQuery != null) {
-      this.esQuery = oldQuery;
-    } else if (this.esQuery == null) {
-      this.esQuery = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_QUERY);
+    try {
+      this.esQuery = URLDecoder.decode(this.esQuery, "UTF-8");
+      this.esQuery = JsonUtil.prettifyJsonString(this.esQuery);
+    } catch (final Exception e) {
+      SearchAndExportPage.logger.error("Error during decoding parameters.", e);
     }
   }
 

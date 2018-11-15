@@ -139,9 +139,17 @@
                                 <a class="free_area0 xTiny_marginRIncl" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();">
                                     <h:outputText value="#{lbl.ShowQuery}" />
                                 </a>
+                                
+                                <!-- 
                                 <h:outputLink id="lnkRestServiceExamplePage" styleClass="free_area0 xTiny_marginRIncl" value="SearchAndExportPage.jsp?esq=#{SearchRetrieverRequestBean.minifiedUrlEncodedElasticSearchQuery}">
                                     <h:outputText value="#{lbl.SearchResultList_lblRestServiceExamplePage}" />
                                 </h:outputLink>
+                                 -->
+                                
+                                <h:commandLink id="btnRest" styleClass="free_area1_p8 activeButton" value="#{lbl.SearchResultList_lblRestServiceExamplePage}" action="#{SearchResultListPage.rest()}">
+                                   <f:param name="query" value="#{SearchRetrieverRequestBean.minifiedUrlEncodedElasticSearchQuery}" />
+                                </h:commandLink> 
+                                
                                 <!-- Subheadline ends here -->
                             </h:panelGroup>
                             <!-- For admin search, show links for refine and cql query -->
