@@ -188,12 +188,7 @@ public class HtmlFormatter extends AbstractFormatter {
       postData.append("     {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}}");
       postData.append(" ]}},");
       postData.append(" \"sort\": [");
-      postData.append("     {\"metadata.datePublishedInPrint\": {\"order\": \"desc\"}},");
-      postData.append("     {\"metadata.datePublishedOnline\": {\"order\": \"desc\"}},");
-      postData.append("     {\"metadata.dateAccepted\": {\"order\": \"desc\"}},");
-      postData.append("     {\"metadata.dateSubmitted\": {\"order\": \"desc\"}},");
-      postData.append("     {\"metadata.dateModified\": {\"order\": \"desc\"}},");
-      postData.append("     {\"metadata.dateCreated\": {\"order\": \"desc\"}}");
+      postData.append("     {\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}");
       postData.append(" ]");
 
       String itemLink = //
