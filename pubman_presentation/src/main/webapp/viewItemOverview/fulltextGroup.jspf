@@ -47,20 +47,20 @@
 							<h:outputLink id="lnkShowComponent" target="_blank"
 								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 								rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
-								<h:outputText value="#{file.fileName}" title="#{file.fileName}"
+								<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
 									rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							</h:outputLink>
 							<h:outputLink id="lnkDownloadComponent" target="_blank"
 								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
 								rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
-								<h:outputText value="#{file.fileName}" title="#{file.fileName}"
+								<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
 									rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							</h:outputLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
 							<h:outputLink id="lnkSearchHitsURL" target="_blank"
 								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
 								rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
-								<h:outputText value="#{file.fileName}" title="#{file.fileName}"
+								<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
 									rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							</h:outputLink>
 							<!-- Text if publication is withdrawn -->
