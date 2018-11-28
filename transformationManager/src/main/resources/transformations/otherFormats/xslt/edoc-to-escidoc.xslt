@@ -3947,13 +3947,73 @@
 											<xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)" />
 										</xsl:comment>
 										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
-											<xsl:comment>Case 8</xsl:comment>
+											<xsl:comment>Case 8.1</xsl:comment>
 											<organization:organization>
 												<dc:title>
 													<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution" />
 												</dc:title>
 												<dc:identifier>
 													<xsl:value-of select="rdf:Description/dc:identifier" />
+												</dc:identifier>
+											</organization:organization>
+										</xsl:if>
+									</xsl:for-each>
+								</xsl:when>
+								<xsl:when test="($coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] and not($import-name='MPIBioChem'))
+												or ($coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] 
+													and $import-name='MPIBioChem'
+													and @internextern='mpg')">
+									<xsl:for-each select="$coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/escidoc:position">
+										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/>
+										</xsl:comment>
+										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
+										</xsl:comment>
+										<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/>
+										</xsl:comment>
+										<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
+										</xsl:comment>
+										<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
+										</xsl:comment>
+										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
+											<xsl:comment> Case 8.2 </xsl:comment>
+											<organization:organization>
+												<dc:title>
+													<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+												</dc:title>
+												<dc:identifier>
+													<xsl:value-of select="rdf:Description/dc:identifier"/>
+												</dc:identifier>
+											</organization:organization>
+										</xsl:if>
+									</xsl:for-each>
+								</xsl:when>
+								<xsl:when test="($coneCreator/cone[3]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] and not($import-name='MPIBioChem'))
+												or ($coneCreator/cone[3]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) 
+													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] 
+													and $import-name='MPIBioChem'
+													and @internextern='mpg')">
+									<xsl:for-each select="$coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/escidoc:position">
+										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/>
+										</xsl:comment>
+										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
+										</xsl:comment>
+										<xsl:comment>start &lt; pubdate <xsl:value-of select="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date)"/>
+										</xsl:comment>
+										<xsl:comment>end: <xsl:value-of select="rdf:Description/escidoc:end-date"/>
+										</xsl:comment>
+										<xsl:comment>pubdate &lt; end <xsl:value-of select="escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)"/>
+										</xsl:comment>
+										<xsl:if test="escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)">
+											<xsl:comment> Case 8.3 </xsl:comment>
+											<organization:organization>
+												<dc:title>
+													<xsl:value-of select="rdf:Description/eprints:affiliatedInstitution"/>
+												</dc:title>
+												<dc:identifier>
+													<xsl:value-of select="rdf:Description/dc:identifier"/>
 												</dc:identifier>
 											</organization:organization>
 										</xsl:if>
