@@ -1192,7 +1192,7 @@
 						<xsl:when test="$import-name = 'MPQ'">
 							<prop:visibility>audience</prop:visibility>
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM'">
+						<xsl:when test="$import-name = 'MPIBioChem' or $import-name = 'MPIIB' or $import-name = 'MolePhys' or $import-name = 'MPDL' or $import-name = 'MPDLExt' or $import-name = 'MPIEM' or $import-name = 'MPIM'">
 							<xsl:choose>
 								<xsl:when test="$access='USER' or $access='INTERNAL'">
 									<prop:visibility>private</prop:visibility>
@@ -3539,6 +3539,9 @@
 						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMM'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Marine Microbiology')" />
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIM'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Mathematics')"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of select="Util:queryCone('persons', concat('&quot;',$creatornfamily, ', ', $creatorngiven, '&quot;'))" />
