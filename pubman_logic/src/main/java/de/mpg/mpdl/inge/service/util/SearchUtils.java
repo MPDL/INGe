@@ -56,11 +56,11 @@ public class SearchUtils {
       switch (field.getType()) {
         case TEXT: {
           if (value.length == 1) {
-            return checkMatchOrPhraseMatch(index, value[0]);
+            return checkMatchOrPhraseOrWildcardMatch(index, value[0]);
           } else {
             BoolQueryBuilder bq = QueryBuilders.boolQuery();
             for (String searchString : value) {
-              bq.should(checkMatchOrPhraseMatch(index, searchString));
+              bq.should(checkMatchOrPhraseOrWildcardMatch(index, searchString));
             }
             return bq;
           }
@@ -84,9 +84,11 @@ public class SearchUtils {
   }
 
 
-  private static QueryBuilder checkMatchOrPhraseMatch(String index, String searchString) {
+  private static QueryBuilder checkMatchOrPhraseOrWildcardMatch(String index, String searchString) {
     if (searchString != null && searchString.trim().startsWith("\"") && searchString.trim().endsWith("\"")) {
       return QueryBuilders.matchPhraseQuery(index, searchString.trim().substring(1, searchString.length() - 1));
+    } else if (searchString != null && searchString.contains("*")) {
+      return QueryBuilders.wildcardQuery(index + ".keyword", searchString);
     } else {
       return QueryBuilders.matchQuery(index, searchString).operator(Operator.AND);
     }
