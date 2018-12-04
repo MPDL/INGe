@@ -215,8 +215,9 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     htmlTransformer.setOutputProperty(OutputKeys.INDENT, indent ? "yes" : "no");
     htmlTransformer.setOutputProperty(OutputKeys.METHOD, outputMethod);
 
-    String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-        + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+    String instanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
+    String pubmanUrl = instanceUrl + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+    htmlTransformer.setParameter("instanceUrl", instanceUrl);
     htmlTransformer.setParameter("pubmanUrl", pubmanUrl);
 
     if (TransformerFactory.FORMAT.HTML_LINKED.equals(fileFormat)) {
