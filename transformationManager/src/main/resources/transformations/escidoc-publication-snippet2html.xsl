@@ -15,6 +15,7 @@
 	xmlns:escidocComponents="${xsd.soap.item.components}"
 	xmlns:escidocItem="${xsd.soap.item.item}"  >
 	<xsl:output method="html" encoding="UTF-8" indent="yes"/>
+	<xsl:param name="instanceUrl"/>
 	<xsl:param name="pubmanUrl"/>
 	<xsl:param name="html_linked" select="false()"/>
 	<xsl:template match="/">
@@ -42,13 +43,13 @@
 				<xsl:if test="$html_linked">
 					<br/>
 					<xsl:element name="a">
-						<xsl:attribute name="href" select="  concat(  $pubmanUrl,  '/item/',   $item/escidocItem:properties/prop:version/@objid  )"  />
+						<xsl:attribute name="href" select="concat($pubmanUrl,'/item/',$item/escidocItem:properties/prop:version/@objid)"/>
 						<xsl:attribute name="class" select="'Item'"/>[Item] 
 					</xsl:element>
 					<xsl:variable name="comp" select="$item/escidocComponents:components/escidocComponents:component"/>
 					<xsl:for-each select="$comp[escidocComponents:content/@storage='internal-managed' and escidocComponents:properties/prop:visibility = 'public']/escidocComponents:content">
 						<a>
-							<xsl:attribute name="href" select="@xlink:href"/>
+							<xsl:attribute name="href" select="concat($instanceUrl,@xlink:href)"/>
 							<xsl:attribute name="class" select="'File'"/>
 							<span>
 								<xsl:value-of select="concat('[File ', position(), ']')"/>
