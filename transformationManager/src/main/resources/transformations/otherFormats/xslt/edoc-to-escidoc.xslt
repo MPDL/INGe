@@ -3998,7 +3998,7 @@
 													and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] 
 													and $import-name='MPIBioChem'
 													and @internextern='mpg')">
-									<xsl:for-each select="$coneCreator/cone[2]/rdf:RDF[1]/rdf:Description/escidoc:position">
+									<xsl:for-each select="$coneCreator/cone[3]/rdf:RDF[1]/rdf:Description/escidoc:position">
 										<xsl:comment>pubdate: <xsl:value-of select="$publication-date"/>
 										</xsl:comment>
 										<xsl:comment>start: <xsl:value-of select="rdf:Description/escidoc:start-date"/>
