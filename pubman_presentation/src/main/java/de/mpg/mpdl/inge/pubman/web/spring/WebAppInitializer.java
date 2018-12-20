@@ -14,8 +14,6 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 import com.sun.faces.config.ConfigureListener;
 
-import de.mpg.mpdl.inge.pubman.web.sword.PubManDepositServlet;
-import de.mpg.mpdl.inge.pubman.web.sword.PubManServiceDocumentServlet;
 import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
@@ -27,14 +25,12 @@ public class WebAppInitializer implements WebApplicationInitializer {
     myctx.register(AppConfigPubmanPresentation.class);
     myctx.setServletContext(servletContext);
 
-
     // Spring
     servletContext.addListener(new ContextLoaderListener(myctx));
     servletContext.addListener(new RequestContextListener());
     // Use ear.context (pubman_logic) as shared context between all webapps in the ear.
     // ear.context is defined in beanRefContext.xml in module pubman_logic
     servletContext.setInitParameter(ContextLoader.LOCATOR_FACTORY_KEY_PARAM, "ear.context");
-
 
     // JSF
     servletContext.addListener(ConfigureListener.class);
@@ -45,13 +41,9 @@ public class WebAppInitializer implements WebApplicationInitializer {
     servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "client");
     servletContext.setInitParameter("javax.faces.CONFIG_FILES", "/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml");
 
-
     ServletRegistration.Dynamic facesServlet = servletContext.addServlet("Faces Servlet", new FacesServlet());
     facesServlet.addMapping("/faces/*");
     facesServlet.setLoadOnStartup(2);
-
-
-    // TODO ???? Was ist mit dem früheren InitializerServlet?
 
     // Sitemap
     FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
@@ -61,29 +53,24 @@ public class WebAppInitializer implements WebApplicationInitializer {
     ServletRegistration statisticChartServlet = servletContext.addServlet("Statistic Chart Servlet", StatisticChartServlet.class);
     statisticChartServlet.addMapping("/statisticchart/*");
 
-
     // Genre Servlet
     ServletRegistration.Dynamic genreServlet = servletContext.addServlet("Genre Servlet", GenreServlet.class);
     genreServlet.setLoadOnStartup(1);
-
 
     // Redirect Servlet
     ServletRegistration.Dynamic redirectServlet = servletContext.addServlet("Redirect Servlet", RedirectServlet.class);
     redirectServlet.addMapping("/item/*");
 
-
-    // SWORD
-    ServletRegistration.Dynamic swordServiceDocumentServlet =
-        servletContext.addServlet("Sword Service Document Servlet", PubManServiceDocumentServlet.class);
-    swordServiceDocumentServlet.addMapping("/sword-app/servicedocument");
-
-    ServletRegistration.Dynamic swordDepositServlet = servletContext.addServlet("Sword Deposit Servlet", PubManDepositServlet.class);
-    swordDepositServlet.addMapping("/sword-app/deposit");
-
-    servletContext.setInitParameter("server-class", "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
-    servletContext.setInitParameter("authentication-method", "Basic");
-
-
-
+//    // SWORD SP 20.12.2018 -> Not used
+//    ServletRegistration.Dynamic swordServiceDocumentServlet =
+//        servletContext.addServlet("Sword Service Document Servlet", PubManServiceDocumentServlet.class);
+//    swordServiceDocumentServlet.addMapping("/sword-app/servicedocument");
+//
+//    ServletRegistration.Dynamic swordDepositServlet = servletContext.addServlet("Sword Deposit Servlet", PubManDepositServlet.class);
+//    swordDepositServlet.addMapping("/sword-app/deposit");
+//
+//    servletContext.setInitParameter("server-class", "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
+//    servletContext.setInitParameter("authentication-method", "Basic");
   }
+  
 }
