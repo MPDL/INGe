@@ -11,8 +11,6 @@
 
 	<artifactId>pubman_presentation</artifactId>
 	<name>pubman_presentation</name>
-	<version>8.0.4-SNAPSHOT</version>
-
 	<packaging>war</packaging>
 
 	<scm>
