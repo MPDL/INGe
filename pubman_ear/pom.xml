@@ -11,8 +11,6 @@
 
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
-	<version>8.0.4-SNAPSHOT</version>
-
 	<packaging>ear</packaging>
 
 	<scm>
