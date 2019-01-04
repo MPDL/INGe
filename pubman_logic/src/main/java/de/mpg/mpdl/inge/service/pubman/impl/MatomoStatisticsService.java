@@ -3,7 +3,10 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.http.HttpResponse;
@@ -50,28 +53,32 @@ public class MatomoStatisticsService {
     JsonNode legacy_fullpage = om.readValue(legacy_fullpage_response.getEntity().getContent(), JsonNode.class);
     HttpResponse legacy_overview_response = Request.Get(prepareItemURL(id, "legacy_over", "month", "last12")).execute().returnResponse();
     JsonNode legacy_overview = om.readValue(legacy_overview_response.getEntity().getContent(), JsonNode.class);
-    fullpage.fields().forEachRemaining(set -> {
+    Iterator<Entry<String, JsonNode>> iteratorFullpage = fullpage.fields();
+    while (iteratorFullpage.hasNext()) {
+
+      Entry<String, JsonNode> set = iteratorFullpage.next();
       String key = set.getKey();
       int fullpage_visits = 0;
       int overview_visits = 0;
       int legacy_fullpage_visits = 0;
       int legacy_overview_visits = 0;
 
-      if (legacy_fullpage.get(key).get(0) != null) {
-        legacy_fullpage_visits = legacy_fullpage.get(key).get(0).get("nb_visits").asInt();
+      if (legacy_fullpage.get(key) != null && legacy_fullpage.get(key).get("nb_pageviews") != null) {
+        legacy_fullpage_visits = legacy_fullpage.get(key).get("nb_pageviews").asInt();
       }
-      if (legacy_overview.get(key).get(0) != null) {
-        legacy_overview_visits = legacy_overview.get(key).get(0).get("nb_visits").asInt();
+      if (legacy_overview.get(key) != null && legacy_overview.get(key).get("nb_pageviews") != null) {
+        legacy_overview_visits = legacy_overview.get(key).get("nb_pageviews").asInt();
       }
-      if (overview.get(key).get(0) != null) {
-        overview_visits = overview.get(key).get(0).get("nb_visits").asInt();
+      if (overview.get(key) != null && overview.get(key).get("nb_pageviews") != null) {
+        overview_visits = overview.get(key).get("nb_pageviews").asInt();
       }
-      if (set.getValue().get(0) != null) {
-        fullpage_visits = set.getValue().get(0).get("nb_visits").asInt();
+
+      if (set.getValue() != null && set.getValue().get("nb_pageviews") != null) {
+        fullpage_visits = set.getValue().get("nb_pageviews").asInt();
       }
 
       pageStatistics.put(key, legacy_fullpage_visits + legacy_overview_visits + overview_visits + fullpage_visits);
-    });
+    } ;
     return pageStatistics;
 
   }
@@ -83,19 +90,26 @@ public class MatomoStatisticsService {
     HttpResponse legacy_file_response =
         Request.Get(prepareFileURL(id, "legacy", file_id, name, "month", "last12")).execute().returnResponse();
     JsonNode legacy_downloads = om.readValue(legacy_file_response.getEntity().getContent(), JsonNode.class);
-    downloads.fields().forEachRemaining(set -> {
+
+
+    Iterator<Entry<String, JsonNode>> iteratorDownloads = downloads.fields();
+    while (iteratorDownloads.hasNext()) {
+
+      Entry<String, JsonNode> set = iteratorDownloads.next();
       String key = set.getKey();
-      int legacy_visits = 0;
-      int visits = 0;
-      if (legacy_downloads.get(key).get(0) != null) {
-        legacy_visits = legacy_downloads.get(key).get(0).get("nb_visits").asInt();
-      }
-      if (set.getValue().get(0) != null) {
-        visits = set.getValue().get(0).get("nb_visits").asInt();
+      int download_count = 0;
+      int legacy_download_count = 0;
+
+      if (legacy_downloads.get(key) != null && legacy_downloads.get(key).get("nb_pageviews") != null) {
+        legacy_download_count = legacy_downloads.get(key).get("nb_pageviews").asInt();
       }
 
-      fileStatistics.put(key, legacy_visits + visits);
-    });
+      if (set.getValue() != null && set.getValue().get("nb_pageviews") != null) {
+        download_count = set.getValue().get("nb_pageviews").asInt();
+      }
+
+      fileStatistics.put(key, download_count + legacy_download_count);
+    } ;
     return fileStatistics;
   }
 
@@ -110,17 +124,17 @@ public class MatomoStatisticsService {
     JsonNode legacy_fullpage = om.readValue(legacy_full_response.getEntity().getContent(), JsonNode.class);
     JsonNode legacy_overview = om.readValue(legacy_over_response.getEntity().getContent(), JsonNode.class);
     int total = 0, full = 0, over = 0, legacy_full = 0, legacy_over = 0;
-    if (fullpage.get(0) != null) {
-      full = fullpage.get(0).get("nb_visits").asInt();
+    if (fullpage != null && fullpage.get("nb_pageviews") != null) {
+      full = fullpage.get("nb_pageviews").asInt();
     }
-    if (overview.get(0) != null) {
-      over = overview.get(0).get("nb_visits").asInt();
+    if (overview != null && overview.get("nb_pageviews") != null) {
+      over = overview.get("nb_pageviews").asInt();
     }
-    if (legacy_fullpage.get(0) != null) {
-      legacy_full = legacy_fullpage.get(0).get("nb_visits").asInt();
+    if (legacy_fullpage != null && legacy_fullpage.get("nb_pageviews") != null) {
+      legacy_full = legacy_fullpage.get("nb_pageviews").asInt();
     }
-    if (legacy_overview.get(0) != null) {
-      legacy_over = legacy_overview.get(0).get("nb_visits").asInt();
+    if (legacy_overview != null && legacy_overview.get("nb_pageviews") != null) {
+      legacy_over = legacy_overview.get("nb_pageviews").asInt();
     }
     total = full + over + legacy_full + legacy_over;
 
@@ -136,11 +150,11 @@ public class MatomoStatisticsService {
     JsonNode legacy_file_downloads = om.readValue(legacy_file_response.getEntity().getContent(), JsonNode.class);
     int total = 0;
     int legacy_total = 0;
-    if (file_downloads.get(0) != null) {
-      total = file_downloads.get(0).get("nb_visits").asInt();
+    if (file_downloads != null && file_downloads.get("nb_pageviews") != null) {
+      total = file_downloads.get("nb_pageviews").asInt();
     }
-    if (legacy_file_downloads.get(0) != null) {
-      legacy_total = legacy_file_downloads.get(0).get("nb_visits").asInt();
+    if (legacy_file_downloads != null && legacy_file_downloads.get("nb_pageviews") != null) {
+      legacy_total = legacy_file_downloads.get("nb_pageviews").asInt();
     }
     return legacy_total + total;
   }
@@ -153,34 +167,34 @@ public class MatomoStatisticsService {
       switch (what) {
         case "legacy_full":
           legacy_id = id.replace("item", "escidoc").replaceAll("_", ":");
-          builder.addParameter("module", "API").addParameter("method", "Actions.getPageUrl").addParameter("idSite", ANALYTICS_SITE_ID)
+          builder.addParameter("module", "API").addParameter("method", "Actions.get").addParameter("idSite", ANALYTICS_SITE_ID)
               .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-              .addParameter("format", "json").addParameter("showColumns", "nb_visits");
-          builder.addParameter("pageUrl", LEGACY_FULLPAGE + "?itemId=" + legacy_id);
+              .addParameter("format", "json");
+          builder.addParameter("segment", "pageUrl=@" + LEGACY_FULLPAGE + "?itemId=" + legacy_id);
           break;
         case "legacy_over":
           legacy_id = id.replace("item", "escidoc").replaceAll("_", ":");
-          builder.addParameter("module", "API").addParameter("method", "Actions.getPageUrl").addParameter("idSite", ANALYTICS_SITE_ID)
+          builder.addParameter("module", "API").addParameter("method", "Actions.get").addParameter("idSite", ANALYTICS_SITE_ID)
               .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-              .addParameter("format", "json").addParameter("showColumns", "nb_visits");
-          builder.addParameter("pageUrl", LEGACY_OVERVIEW + "?itemId=" + legacy_id);
+              .addParameter("format", "json");
+          builder.addParameter("segment", "pageUrl=@" + LEGACY_OVERVIEW + "?itemId=" + legacy_id);
           break;
         case "full":
-          builder.addParameter("module", "API").addParameter("method", "Actions.getPageUrl").addParameter("idSite", ANALYTICS_SITE_ID)
+          builder.addParameter("module", "API").addParameter("method", "Actions.get").addParameter("idSite", ANALYTICS_SITE_ID)
               .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-              .addParameter("format", "json").addParameter("showColumns", "nb_visits");
-          builder.addParameter("pageUrl", PURE_FULLPAGE + "?itemId=" + id);
+              .addParameter("format", "json");
+          builder.addParameter("segment", "pageUrl=@" + PURE_FULLPAGE + "?itemId=" + id);
           break;
         case "over":
-          builder.addParameter("module", "API").addParameter("method", "Actions.getPageUrl").addParameter("idSite", ANALYTICS_SITE_ID)
+          builder.addParameter("module", "API").addParameter("method", "Actions.get").addParameter("idSite", ANALYTICS_SITE_ID)
               .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-              .addParameter("format", "json").addParameter("showColumns", "nb_visits");
-          builder.addParameter("pageUrl", PURE_OVERVIEW + "?itemId=" + id);
+              .addParameter("format", "json");
+          builder.addParameter("segment", "pageUrl=@" + PURE_OVERVIEW + "?itemId=" + id);
           break;
       }
 
       URI analytics_URI = builder.build();
-      //      System.out.println("Requesting item stats 4 " + analytics_URI.toString());
+      // System.out.println("Requesting item stats 4 " + analytics_URI.toString());
       return analytics_URI;
 
     } catch (URISyntaxException e) {
@@ -198,19 +212,19 @@ public class MatomoStatisticsService {
       if (what.equalsIgnoreCase("legacy")) {
         legacy_id = id.replace("item", "escidoc").replaceAll("_", ":");
         legacy_file_id = file_id.replace("file", "escidoc").replaceAll("_", ":");
-        builder.addParameter("module", "API").addParameter("method", "Actions.getDownload").addParameter("idSite", ANALYTICS_SITE_ID)
+        builder.addParameter("module", "API").addParameter("method", "Actions.get").addParameter("idSite", ANALYTICS_SITE_ID)
             .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-            .addParameter("format", "json").addParameter("showColumns", "nb_visits");
-        builder.addParameter("downloadUrl", LEGACY_ITEM + legacy_id + PURE_FILE + legacy_file_id + "/" + name);
+            .addParameter("format", "json");
+        builder.addParameter("segment", "pageUrl=@" + LEGACY_ITEM + legacy_id + PURE_FILE + legacy_file_id);
       } else {
-        builder.addParameter("module", "API").addParameter("method", "Actions.getDownload").addParameter("idSite", ANALYTICS_SITE_ID)
+        builder.addParameter("module", "API").addParameter("method", "Actions.get").addParameter("idSite", ANALYTICS_SITE_ID)
             .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-            .addParameter("format", "json").addParameter("showColumns", "nb_visits");
-        builder.addParameter("downloadUrl", PURE_ITEM + id + PURE_FILE + file_id + "/" + name);
+            .addParameter("format", "json");
+        builder.addParameter("segment", "pageUrl=@" + PURE_ITEM + id + PURE_FILE + file_id);
       }
 
       URI analytics_URI = builder.build();
-      //      System.out.println("Requesting file stats 4 " + analytics_URI.toString());
+      // System.out.println("Requesting file stats 4 " + analytics_URI.toString());
       return analytics_URI;
     } catch (URISyntaxException e) {
       logger.error(e.getMessage());
