@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.4-SNAPSHOT</version>
+		<version>8.0.5-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>citation_style_language_manager</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
+	<version>0.0.11-SNAPSHOT</version>
 	<name>citation_style_language_manager</name>
 
 	<scm>

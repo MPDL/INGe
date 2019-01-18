@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.4-SNAPSHOT</version>
+		<version>8.0.5-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>dataacquisition</artifactId>
 	<name>dataacquisition</name>
-	<version>1.0.95-SNAPSHOT</version>
+	<version>1.0.96-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/dataacquisition</connection>
