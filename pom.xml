@@ -1170,7 +1170,7 @@
 		<profile>
 			<id>env-pure</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<inge.pubman.blog.baseUrl>http://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
@@ -1276,7 +1276,7 @@
 		<profile>
 			<id>deploy-artifacts</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 		</profile>
 
@@ -1559,7 +1559,6 @@
 								</lifecycleMappingMetadata>
 							</configuration>
 						</plugin>
-
 					</plugins>
 				</pluginManagement>
 			</build>

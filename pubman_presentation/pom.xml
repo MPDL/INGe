@@ -60,6 +60,9 @@
 	<profiles>
 		<profile>
 			<id>env-pure</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<properties />
 			<build>
 				<plugins>
@@ -86,7 +89,7 @@
 		<profile>
 			<id>env-opensource</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties />
 			<build>
@@ -157,6 +160,9 @@
 		</profile>
 		<profile>
 			<id>env-nims</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
 			<properties />
 			<build>
 				<plugins>
