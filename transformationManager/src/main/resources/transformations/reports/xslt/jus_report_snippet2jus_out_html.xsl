@@ -219,14 +219,14 @@
 				<xsl:variable name="afterOccurance" select="substring-after($bibCitation, '&lt;/span&gt;')"></xsl:variable>
 				<xsl:variable name="beforeOccurance" select="substring-before($bibCitation, '&lt;span class')"></xsl:variable>
 				<xsl:variable name="occurance" select="substring-after(substring-before($bibCitation, '&lt;/'), '&gt;')"></xsl:variable>
-				<xsl:value-of select="$beforeOccurance"></xsl:value-of>
+				<xsl:value-of disable-output-escaping="yes" select="$beforeOccurance"></xsl:value-of>
 				<xsl:text disable-output-escaping="yes">&lt;span class="Italic"&gt;&lt;i&gt;</xsl:text>
-				<xsl:value-of select="$occurance"></xsl:value-of>
+				<xsl:value-of disable-output-escaping="yes" select="$occurance"></xsl:value-of>
 				<xsl:text disable-output-escaping="yes">&lt;/i&gt;&lt;/span&gt;</xsl:text>
-				<xsl:value-of select="$afterOccurance"></xsl:value-of>
+				<xsl:value-of disable-output-escaping="yes" select="$afterOccurance"></xsl:value-of>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="$bibCitation"></xsl:value-of>
+				<xsl:value-of disable-output-escaping="yes" select="$bibCitation"></xsl:value-of>
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>

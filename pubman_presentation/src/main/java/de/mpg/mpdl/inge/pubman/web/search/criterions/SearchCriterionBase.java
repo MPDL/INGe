@@ -53,6 +53,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearch
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.StateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.ReviewMethodSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
@@ -127,6 +128,7 @@ public abstract class SearchCriterionBase implements Serializable {
 
     GENRE_DEGREE_LIST(GenreListSearchCriterion.class, null),
     GENRE(GenreSearchCriterion.class, null),
+    STATE(StateSearchCriterion.class, null),
     REVIEW_METHOD(ReviewMethodSearchCriterion.class, null),
     DEGREE(DegreeSearchCriterion.class, null),
     FILE_AVAILABLE(FileAvailableSearchCriterion.class, null),

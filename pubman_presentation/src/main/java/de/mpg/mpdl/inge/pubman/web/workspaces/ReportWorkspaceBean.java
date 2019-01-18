@@ -18,6 +18,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO.FILE_FORMAT;
+import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -25,6 +26,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.StateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.OrganizationSearchCriterion;
@@ -208,6 +210,10 @@ public class ReportWorkspaceBean extends FacesBean {
     gsc2.setSelectedEnum(Genre.SERIES);
     scList.add(gsc2);
     scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
+    scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
+    StateSearchCriterion ssc = new StateSearchCriterion();
+    ssc.setSelectedEnum(ItemVO.State.RELEASED);
+    scList.add(ssc);
     scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
 
