@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.mpg.mpdl.inge</groupId>
@@ -945,6 +947,7 @@
 		<inge.aa.ip.table>ips.xml</inge.aa.ip.table>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
+		<inge.auth.mpg.ip.url/>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>
 		<inge.cone.database.server.name.test>dev.inge.mpdl.mpg.de</inge.cone.database.server.name.test>
@@ -1003,7 +1006,7 @@
 		<inge.pubman.blog.baseUrl />
 		<inge.pubman.blog.news />
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
-		<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
+		<inge.pubman.contact.url />
 		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
 		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
 		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
@@ -1011,16 +1014,16 @@
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
 		<inge.pubman.footer.fileName />
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
+		<inge.pubman.handbook.url />
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
-		<inge.pubman.instance.seal_number />
 		<inge.pubman.instance.ssrn_contexts>ctx_167026,ctx_1002</inge.pubman.instance.ssrn_contexts>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.logo.css />
-		<inge.pubman.logo.url>/resources/images/pubman_logo_web.png</inge.pubman.logo.url>
-		<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
+		<inge.pubman.logo.url />
+		<inge.pubman.policy.url />
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
-		<inge.pubman.privacy.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.policy.url>
+		<inge.pubman.privacy.policy.url />
 		<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
@@ -1099,7 +1102,6 @@
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
 		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
-		<inge.auth.mpg.ip.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.url>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
@@ -1173,15 +1175,52 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
+				<inge.auth.mpg.ip.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.url>
+				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
 				<inge.pubman.blog.baseUrl>http://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>http://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
 				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
 				<inge.pubman.build.mode>pure</inge.pubman.build.mode>
-				<inge.pubman.instance.seal_number>ZDB-97-MPR </inge.pubman.instance.seal_number>
+				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
+				<inge.pubman.handbook.url>https://ntaller.gitbooks.io/benutzerhandbuch_fuer_pubman/content/</inge.pubman.handbook.url>
 				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>
-				<inge.pubman_presentation.overview_page.authors_ou>Max Planck
-					Society</inge.pubman_presentation.overview_page.authors_ou>
-				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
+				<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
+				<inge.pubman.privacy.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.policy.url>
+				<inge.pubman_presentation.overview_page.authors_ou>Max Planck Society</inge.pubman_presentation.overview_page.authors_ou>
+			</properties>
+			<distributionManagement>
+				<site>
+					<id>website</id>
+					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
+				</site>
+			</distributionManagement>
+		</profile>
+
+		<!-- activate this profile for an open source build -->
+		<profile>
+			<id>env-opensource</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<inge.auth.mpg.ip.url />
+				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
+				<inge.pubman.blog.baseUrl />
+				<inge.pubman.blog.news />
+				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
+				<inge.pubman.build.mode>opensource</inge.pubman.build.mode>
+				<inge.pubman.contact.url />
+				<inge.pubman.handbook.url />
+				<inge.pubman.logo.url>/resources/images/pubman_logo_web.png</inge.pubman.logo.url>
+				<inge.pubman.policy.url />
+				<inge.pubman.privacy.policy.url />
+				<inge.pubman.stylesheet.classic.apply>false</inge.pubman.stylesheet.classic.apply>
+				<inge.pubman.stylesheet.contrast.apply>false</inge.pubman.stylesheet.contrast.apply>
+				<inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
+				<inge.pubman.stylesheet.special.type>stylesheet</inge.pubman.stylesheet.special.type>
+				<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</inge.pubman.stylesheet.special.url>
+				<inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
+				<inge.pubman_presentation.overview_page.authors_ou>OpenSource Society</inge.pubman_presentation.overview_page.authors_ou>
 			</properties>
 			<distributionManagement>
 				<site>

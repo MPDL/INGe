@@ -11,7 +11,7 @@
 		<h2>
 			PubMan
 			<h:outputText value="#{ApplicationBean.version}" />
-			- an eSciDoc solution for publication data management
+			- a solution for publication data management
 		</h2>
 		<p>
 			Provide persistent access to your papers and supplementary material!
@@ -38,7 +38,7 @@
 		<br />
 		<br />
 		<br />
-		<h2>PubMan Interfaces</h2>
+		<h2>Tools and Interfaces</h2>
 		<span>
 			<h4>Search and Export</h4> Do you want to integrate your PubMan Data
 			within an external system? <br /> Necessary queries can be carried
@@ -47,11 +47,6 @@
 			<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
 			href="/cone/" target="_blank">controlled vocabularies</a> for
 			persons, journals, classifications or languages.
-			<!-- 
-			<h4>SWORD-Interface</h4> Use this <a
-			href="/pubman/faces/SwordStartPage.jsp" target="_blank">push
-				service</a> for automatic depositing from external servers.
-		     -->
 		</span>
 	</h:panelGroup>
 	<!-- HOMEPAGE GERMAN VERSION -->
@@ -59,7 +54,7 @@
 		<h2>
 			PubMan
 			<h:outputText value="#{ApplicationBean.version}" />
-			- Eine eSciDoc Anwendung für Publikationsdaten
+			- Eine Anwendung für Publikationsdaten
 		</h2>
 		<p>PubMan bietet Ihnen die Möglichkeit Ihre Publikationen und
 			ergänzendes Material dauerhaft zu veröffentlichen.</p>
@@ -86,7 +81,7 @@
 		<br />
 		<br />
 		<br />
-		<h2>PubMan Schnittstellen</h2>
+		<h2>Werkzeuge und Schnittstellen</h2>
 		<span>
 			<h4>Suchen und Exportieren</h4> Möchten Sie Ihre PubMan Daten in
 			einem externen System integrieren? <br /> Die notwendigen
@@ -95,11 +90,6 @@
 			<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
 			Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
 			für Personen, Zeitschriften, Klassifikationen oder Sprachen.
-			<!-- 
-			<h4>SWORD-Schnittstelle</h4> Nutzen Sie diesen <a
-			href="/pubman/faces/SwordStartPage.jsp" target="_blank">Push-Dienst</a>
-			zum automatisierten Datenimport von externen Servern.
-			 -->
 		</span>
 	</h:panelGroup>
 	<!-- HOMEPAGE JAPANESE VERSION -->
@@ -107,7 +97,7 @@
 		<h2>
 			PubMan
 			<h:outputText value="#{ApplicationBean.version}" />
-			- eSciDoc文献管理ソリューション
+			- 文献管理ソリューション
 		</h2>
 		<p>
 			研究成果文献と関連資料を半永久的に保存提供できます。<br />
@@ -148,10 +138,6 @@
 					Control of Named Entities Service (CoNE)</a>:
 				雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher
 				Portfolio)の提供が可能です。</li>
-			<!-- 
-			<li><a href="/pubman/faces/SwordStartPage.jsp" target="_blank">SWORD</a>:
-				自動登録用インタフェース</li>
-			 -->
 		</ul>
 	</h:panelGroup>
 	

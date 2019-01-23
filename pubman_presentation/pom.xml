@@ -70,8 +70,6 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
-							<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
-							<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
 							<webResources>
 								<resource>
 									<targetPath>WEB-INF/classes</targetPath>
@@ -114,10 +112,6 @@
 										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
-								<!-- <merge> <targetFile>${project.build.outputDirectory}/Label_es.properties</targetFile> 
-									<propertiesFiles> <propertiesFile>src/main/resources/opensource/Label_es.properties</propertiesFile> 
-									<propertiesFile>src/main/resources/mpg/Label_es.properties</propertiesFile> 
-									</propertiesFiles> </merge> -->
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
 									<propertiesFiles>
@@ -140,12 +134,9 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
-							<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
-							<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
-							<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
 							<webResources>
 								<resource>
-									<targetPath />
+									<targetPath>/home</targetPath>
 									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
 									<includes>
 										<include>StartPageLoggedIn.jspf</include>
@@ -166,11 +157,10 @@
 			<properties />
 			<build>
 				<plugins>
-
 					<plugin>
 						<groupId>org.beardedgeeks</groupId>
 						<artifactId>maven-merge-properties-plugin</artifactId>
-						<version>0.1.1</version>
+						<version>0.2</version>
 						<configuration>
 							<merges>
 								<merge>
@@ -185,13 +175,6 @@
 									<propertiesFiles>
 										<propertiesFile>src/main/resources/nims/Label_en.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
-									</propertiesFiles>
-								</merge>
-								<merge>
-									<targetFile>${project.build.outputDirectory}/Label_es.properties</targetFile>
-									<propertiesFiles>
-										<propertiesFile>src/main/resources/nims/Label_es.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_es.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
@@ -216,12 +199,9 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
-							<warSourceExcludes>${project.basedir}/src/main/resources/mpg</warSourceExcludes>
-							<warSourceExcludes>${project.basedir}/src/main/resources/opensource</warSourceExcludes>
-							<warSourceExcludes>${project.basedir}/src/main/resources/nims</warSourceExcludes>
 							<webResources>
 								<resource>
-									<targetPath />
+									<targetPath>/home</targetPath>
 									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
 									<includes>
 										<include>StartPageLoggedIn.jspf</include>
