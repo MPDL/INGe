@@ -199,7 +199,7 @@
 	<!-- GENRE -->
 	<xsl:template name="itemMetadata">
 		<xsl:choose>
-			<xsl:when test="PT='C'">
+			<xsl:when test="PT='C' or PT='S'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen" select="'conference-paper'"/>
 				</xsl:call-template>
@@ -501,7 +501,7 @@
 						<!-- NORMAL CASES -->
 						<xsl:otherwise>
 							<xsl:choose>
-								<xsl:when test="SO and not(SN) and not(BN) and PT='C' and not(SI and IS)">
+								<xsl:when test="SO and not(SN) and not(BN) and (PT='C' or PT='S') and not(SI and IS)">
 									<xsl:value-of select="$genre-ves/enum[.='proceedings']/@uri"/>
 								</xsl:when>
 								<xsl:when test="BN">
