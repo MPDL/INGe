@@ -46,6 +46,7 @@
 	<xsl:variable name="genreProceedings" select="'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'"></xsl:variable>
 	<xsl:variable name="genreJournal" select="'http://purl.org/escidoc/metadata/ves/publication-types/journal'"></xsl:variable>
 	<xsl:variable name="genreSeries" select="'http://purl.org/escidoc/metadata/ves/publication-types/series'"></xsl:variable>
+	<xsl:variable name="genreFestschrift" select="'http://purl.org/escidoc/metadata/ves/publication-types/festschrift'"></xsl:variable>
 	<xsl:param name="institutsId"></xsl:param>
 	<xsl:param name="conePersonsIdIdentifier"></xsl:param>
 	<xsl:key match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:authorship/s:genre/@priority" name="authorshipGenreOrder" use="../s:name"></xsl:key>
@@ -101,7 +102,7 @@
 					</xsl:element>
 					<xsl:element name="div">
 						<xsl:attribute name="class" select="'Editorship'"></xsl:attribute>
-						<xsl:variable name="firstEditorListCount" select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role = $editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings)])"></xsl:variable>
+						<xsl:variable name="firstEditorListCount"  select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role = $editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings or publication:publication/@type = $genreFestschrift)])"></xsl:variable>
 						<xsl:variable name="secondEditorListCount" select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role = $editorRole and (publication:publication/@type = $genreJournal or publication:publication/@type = $genreSeries)])"></xsl:variable>
 						<xsl:choose>
 							<xsl:when test="($firstEditorListCount &gt; 0) or ($secondEditorListCount &gt; 0)">
@@ -113,7 +114,7 @@
 							<xsl:attribute name="class" select="'Editorship_1'"></xsl:attribute>
 							<xsl:choose>
 								<xsl:when test="$firstEditorListCount &gt; 0">
-									<xsl:text>SAMMEL- UND TAGUNGSBÄNDE/HERAUSGEBER- UND VERFASSUNGSWERKE</xsl:text>
+									<xsl:text>SAMMEL- UND TAGUNGSBÄNDE/HERAUSGEBER- UND VERFASSUNGSWERKE/FESTSCHRIFTEN</xsl:text>
 									<xsl:text disable-output-escaping="yes">&lt;br&gt;</xsl:text>
 								</xsl:when>
 							</xsl:choose>
@@ -127,7 +128,7 @@
 									<xsl:when test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and publication:publication/eterms:creator/@role = $editorRole]) &gt; 0">
 										<xsl:element name="p">
 											<xsl:variable name="currentFirstEditorList">
-												<xsl:for-each select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and publication:publication/eterms:creator/@role = $editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings)]">
+												<xsl:for-each select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and publication:publication/eterms:creator/@role = $editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings or publication:publication/@type = $genreFestschrift)]">
 													<xsl:sort select="string-join((publication:publication/eterms:creator[person:person/eterms:concat-complete-name != $currentFirstEditorName]/person:person/eterms:sort-name), '; ')"></xsl:sort>
 													<xsl:sort data-type="number" select="key('firstListEditorshipGenreOrder', publication:publication/@type)"></xsl:sort>
 													<xsl:copy-of select="../.."></xsl:copy-of>

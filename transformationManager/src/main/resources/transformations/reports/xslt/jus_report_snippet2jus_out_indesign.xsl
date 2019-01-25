@@ -47,6 +47,7 @@
 	<xsl:variable name="genreProceedings" select="'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'" />
 	<xsl:variable name="genreJournal" select="'http://purl.org/escidoc/metadata/ves/publication-types/journal'" />
 	<xsl:variable name="genreSeries" select="'http://purl.org/escidoc/metadata/ves/publication-types/series'" />
+	<xsl:variable name="genreFestschrift" select="'http://purl.org/escidoc/metadata/ves/publication-types/festschrift'"></xsl:variable>
 	<xsl:param name="institutsId"/>
 	<xsl:param name="conePersonsIdIdentifier"></xsl:param>
 	<xsl:key name="authorshipGenreOrder" match="transformations/reports/conf/reportSortOrder.xml/s:sortorder/s:authorship/s:genre/@priority" use="../s:name" />
@@ -90,15 +91,15 @@
 					</xsl:choose>
 				</xsl:for-each>
 			</xsl:element>
-			<xsl:variable name="firstEditorListCount"  select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role=$editorRole and  (publication:publication/@type = $genreCollectedEdition or   publication:publication/@type = $genreMonograph or  publication:publication/@type = $genreCommentary or  publication:publication/@type = $genreHandbook or  publication:publication/@type = $genreProceedings)])"/>
-			<xsl:variable name="secondEditorListCount"   select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role=$editorRole and  (publication:publication/@type = $genreJournal or  publication:publication/@type = $genreSeries)])" />
+			<xsl:variable name="firstEditorListCount"  select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role=$editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings or publication:publication/@type = $genreFestschrift)])"/>
+			<xsl:variable name="secondEditorListCount" select="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/@role=$editorRole and (publication:publication/@type = $genreJournal or publication:publication/@type = $genreSeries)])" />
 			<xsl:element name="editorship-1">
 				<xsl:element name="h1">
 					<xsl:attribute name="aid:cstyle" select="'h1'"/>Herausgeberschaften
 				</xsl:element>
 				<xsl:text>&#x0D;</xsl:text>
 				<xsl:element name="h2">
-					<xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke
+					<xsl:attribute name="aid:cstyle" select="'h2'"/>Sammel- und Tagungsbände/Herausgeber- und Verfassungswerke/Festschriften
 				</xsl:element>
 				<xsl:text>&#x0D;</xsl:text>
 				<xsl:for-each select="$coneResult/rdf:RDF/rdf:Description">
@@ -108,11 +109,11 @@
 					<xsl:variable name="currentFirstEditorName" select="concat(foaf:givenname, ' ', foaf:family_name)" />
 					<xsl:variable name="currentFirstEditorCitationStyleName" select="concat(foaf:family_name,', ',foaf:givenname)" />
 					<xsl:choose>
-						<xsl:when  test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId   and publication:publication/eterms:creator/@role=$editorRole and  (publication:publication/@type = $genreCollectedEdition or   publication:publication/@type = $genreMonograph or  publication:publication/@type = $genreCommentary or  publication:publication/@type = $genreHandbook or  publication:publication/@type = $genreProceedings)]) &gt; 0">
+						<xsl:when test="count($item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and publication:publication/eterms:creator/@role=$editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings) or publication:publication/@type = $genreFestschrift]) &gt; 0">
 							<xsl:element name="p">
 								<xsl:attribute name="aid:pstyle" select="'p'"/>
 								<xsl:variable name="currentFirstEditorList">
-									<xsl:for-each  select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and   publication:publication/eterms:creator/@role=$editorRole and  (publication:publication/@type = $genreCollectedEdition or   publication:publication/@type = $genreMonograph or  publication:publication/@type = $genreCommentary or  publication:publication/@type = $genreHandbook or  publication:publication/@type = $genreProceedings)]">
+									<xsl:for-each select="$item-list/escidocItem:item/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[publication:publication/eterms:creator/person:person/dc:identifier = $currentFirstEditorId and publication:publication/eterms:creator/@role=$editorRole and (publication:publication/@type = $genreCollectedEdition or publication:publication/@type = $genreMonograph or publication:publication/@type = $genreCommentary or publication:publication/@type = $genreHandbook or publication:publication/@type = $genreProceedings or publication:publication/@type = $genreFestschrift)]">
 										<xsl:sort select="string-join((publication:publication/eterms:creator[person:person/eterms:concat-complete-name != $currentFirstEditorName]/person:person/eterms:sort-name), '; ')" />
 										<xsl:sort select="key('firstListEditorshipGenreOrder', publication:publication/@type)" data-type="number" />
 										<xsl:copy-of select="../.."></xsl:copy-of>
