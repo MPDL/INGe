@@ -118,10 +118,10 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
       if (searchResult != null) {
         JsonNode node = MapperFactory.getObjectMapper().valueToTree(searchResult);
         if (searchResult.getRecords() != null && !searchResult.getRecords().isEmpty()) {
-          //          int i = 0;
+          int i = 0;
           for (JsonNode itemNode : node.get("records").findValues("data")) {
-            ((ObjectNode) itemNode).put("bibliographicCitation", citationList.get(0));
-            //            i++;
+            ((ObjectNode) itemNode).put("bibliographicCitation", citationList.get(i));
+            i++;
           }
         }
 
