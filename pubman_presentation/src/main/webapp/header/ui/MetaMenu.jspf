@@ -99,7 +99,6 @@
 						rendered="#{LoginHelper.loggedIn}" />
 				</h:panelGroup>
 
-
 			</h:panelGroup>
 
 			<!-- meta Menu ends here -->
