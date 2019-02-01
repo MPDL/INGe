@@ -31,37 +31,41 @@
 				<!-- Guide -->
 				<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline"
 					title="#{tip.mainMenu_lnkPubManGuide}" target="_blank"
-					value="#{PubManRequestBean.handbookUrl}">
+					value="#{PubManRequestBean.handbookUrl}"
+					rendered="#{PubManRequestBean.handbookUrl != ''}">
 					<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
 				</h:outputLink>
-				<h:panelGroup styleClass="seperator"></h:panelGroup>
+				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.handbookUrl != ''}" />>
 
 				<!-- Privacy Policy -->
 				<h:commandLink id="lnkPrivacyPolicy" styleClass="free_area0_p8 endline"
 					title="#{tip.mainMenu_lnkPrivacyPolicy}"
 					onclick="loadBlog('#{PubManRequestBean.privacyPolicyUrl}');return false"
-					value="#{lbl.mainMenu_lnkPrivacyPolicy}" />
-				<h:panelGroup styleClass="seperator"></h:panelGroup>
+					value="#{lbl.mainMenu_lnkPrivacyPolicy}"
+					rendered="#{PubManRequestBean.privacyPolicyUrl != ''}" />
+				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.privacyPolicyUrl != ''}" />
 
 				<!-- Policy -->
 				<h:commandLink id="lnkPolicy" styleClass="free_area0_p8 endline"
 					title="#{tip.mainMenu_lnkPolicy}"
 					onclick="loadBlog('#{PubManRequestBean.policyUrl}');return false"
-					value="#{lbl.mainMenu_lnkPolicy}" />
-				<h:panelGroup styleClass="seperator"></h:panelGroup>
+					value="#{lbl.mainMenu_lnkPolicy}"
+					rendered="#{PubManRequestBean.policyUrl != ''}" />
+				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.policyUrl != ''}" />
 
 				<!-- Contact -->
 				<h:commandLink id="lnkContact" styleClass="free_area0_p8 endline"
 					title="#{tip.contact}"
 					onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false"
-					value="#{lbl.contact}" />
-				<h:panelGroup styleClass="seperator"></h:panelGroup>
+					value="#{lbl.contact}"
+					rendered="#{PubManRequestBean.contactUrl != ''}" />
+				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.contactUrl != ''}" />
 
-				<!-- Contact -->
+				<!-- CurrentIp -->
 				<h:outputText styleClass="xDouble_area0_p3 endline"
 					value="#{LoginHelper.currentIp.name}"
 					rendered="#{LoginHelper.currentIp != null}" />
-				<h:panelGroup styleClass="seperator"></h:panelGroup>
+				<h:panelGroup styleClass="seperator" rendered="#{LoginHelper.currentIp != null}" />
 
 				<!-- LogIn, LogOut -->
 				<h:panelGroup id="login" layout="block"
