@@ -35,7 +35,7 @@
 					rendered="#{PubManRequestBean.handbookUrl != ''}">
 					<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
 				</h:outputLink>
-				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.handbookUrl != ''}" />>
+				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.handbookUrl != ''}" />
 
 				<!-- Privacy Policy -->
 				<h:commandLink id="lnkPrivacyPolicy" styleClass="free_area0_p8 endline"
