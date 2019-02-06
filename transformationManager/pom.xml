@@ -6,18 +6,18 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.5-SNAPSHOT</version>
+		<version>8.0.5</version>
 	</parent>
 
 	<artifactId>transformationManager</artifactId>
-  <version>0.0.6-SNAPSHOT</version>
+  <version>0.0.6</version>
 	<name>transformationManager</name>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/transformationManager</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/transformationManager</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.0.5</tag>
 	</scm>
 
 	<build>
