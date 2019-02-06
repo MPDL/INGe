@@ -6,18 +6,18 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.5</version>
+		<version>8.0.6-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>citationmanager</artifactId>
 	<name>citationmanager</name>
-	<version>1.0.105</version>
+	<version>1.0.106-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/citationmanager</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/citationmanager</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>INGe-8.0.5</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<build>
