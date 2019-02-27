@@ -66,7 +66,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.aa.Aa;
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList;
@@ -156,14 +155,18 @@ public class ConeServlet extends HttpServlet {
       loggedIn = ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue();
     }
 
-    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
-        || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))) {
-      try {
-        response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
-      } catch (Exception e) {
-        throw new ServletException("Error redirecting to Login", e);
-      }
+    if (!loggedIn && request.getParameter("eSciDocUserHandle") != null) {
+      loggedIn = true;
     }
+
+    //    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
+    //        || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))) {
+    //      try {
+    //        response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
+    //      } catch (Exception e) {
+    //        throw new ServletException("Error redirecting to Login", e);
+    //      }
+    //    }
 
     if (path.length == 3 && "".equals(path[2])) {
       action = path[1];

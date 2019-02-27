@@ -24,16 +24,21 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.aa.web.client;
+package de.mpg.mpdl.inge.aa.web.client.old;
+
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
-
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
+import de.mpg.mpdl.inge.aa.web.client.FinalClient;
+import de.mpg.mpdl.inge.aa.Config;
+import de.mpg.mpdl.inge.util.PropertyReader;
+import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description
@@ -43,50 +48,30 @@ import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class BasicAaClient extends FinalClient {
+public class IpAaClient extends FinalClient {
 
   @Override
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    AuthenticationVO authenticationVO = new AuthenticationVO();
-    authenticationVO.setType(Type.USER);
-    if (testLogin(request, response)) {
-      authenticationVO.setFullName("System Administrator");
-      Role role = authenticationVO.new Role();
-      role.setKey("escidoc:role-system-administrator");
-      authenticationVO.getRoles().add(role);
-    } else {
-      authenticationVO.setFullName("Outsider");
-    }
+    Properties ips = new Properties();
+    InputStream ipStream =
+        ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
+    ips.loadFromXML(ipStream);
+    ipStream.close();
 
+    String clientIp = request.getRemoteAddr();
+
+    String[] roles = ips.getProperty(clientIp).split(",");
+
+    AuthenticationVO authenticationVO = new AuthenticationVO();
+    authenticationVO.setType(Type.ATTRIBUTE);
+    authenticationVO.setFullName(clientIp);
+    for (String roleKey : roles) {
+      Role role = authenticationVO.new Role();
+      role.setKey(roleKey);
+      authenticationVO.getRoles().add(role);
+    }
     return authenticationVO;
   }
 
-  private boolean testLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String auth = request.getHeader("authorization");
-    if (auth == null) {
-      response.addHeader("WWW-Authenticate", "Basic realm=\"Validation Service\"");
-      response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-      return false;
-    } else {
-      auth = auth.substring(6);
-      String cred = new String(Base64.decodeBase64(auth.getBytes()));
-      if (cred.contains(":")) {
-
-        String[] userPass = cred.split(":");
-        String userName = "admin";
-        String password = "nimda";
-
-        if (!userPass[0].equals(userName) || !userPass[1].equals(password)) {
-          response.sendError(HttpServletResponse.SC_FORBIDDEN);
-          return false;
-        } else {
-          return true;
-        }
-      } else {
-        response.sendError(HttpServletResponse.SC_FORBIDDEN);
-        return false;
-      }
-    }
-  }
 }

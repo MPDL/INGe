@@ -22,12 +22,13 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.aa.web.client;
+package de.mpg.mpdl.inge.aa.web.client.old;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
+import de.mpg.mpdl.inge.aa.web.client.FinalClient;
 
 /**
  * TODO Description

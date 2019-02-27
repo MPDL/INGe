@@ -130,7 +130,6 @@ public class BrowseByPage extends BreadcrumbPage {
       final int responseCode = httpConn.getResponseCode();
       switch (responseCode) {
         case 200:
-          BrowseByPage.logger.debug("Cone Service responded with 200.");
           break;
         default:
           throw new RuntimeException(
