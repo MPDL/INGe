@@ -106,11 +106,11 @@ public class Util {
     return thisMimetype;
   }
 
-  private static String getAdminUrl() {
-    return PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "adminLogin" + "?username="
-        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME) + "&password="
-        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
-  }
+  //  private static String getAdminUrl() {
+  //    return PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "adminLogin" + "?username="
+  //        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME) + "&password="
+  //        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
+  //  }
 
   /**
    * Queries CoNE service and returns the result as DOM node. The returned XML has the following
@@ -154,11 +154,10 @@ public class Util {
             String id = result.split("\\|")[1];
             // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
             String tan = TanStore.getNewTan();
-            GetMethod detailMethod = new GetMethod(Util.getAdminUrl() + "&target="
-                + URLEncoder.encode(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"), "UTF-8"));
+            GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
             //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
             //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-            detailMethod.setFollowRedirects(true);
+            //detailMethod.setFollowRedirects(true);
 
             //            if (coneSession != null) {
             //              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
@@ -366,11 +365,10 @@ public class Util {
               if (!oldIds.contains(id)) {
                 // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
                 String tan = TanStore.getNewTan();
-                GetMethod detailMethod = new GetMethod(Util.getAdminUrl() + "&target="
-                    + URLEncoder.encode(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"), "UTF-8"));
+                GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-                detailMethod.setFollowRedirects(true);
+                //detailMethod.setFollowRedirects(true);
                 client.executeMethod(detailMethod);
                 logger
                     .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
@@ -444,11 +442,10 @@ public class Util {
             if (!oldIds.contains(id)) {
               // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
               String tan = TanStore.getNewTan();
-              GetMethod detailMethod = new GetMethod(Util.getAdminUrl() + "&target="
-                  + URLEncoder.encode(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"), "UTF-8"));
+              GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-              detailMethod.setFollowRedirects(true);
+              // detailMethod.setFollowRedirects(true);
               client.executeMethod(detailMethod);
               logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
               if (detailMethod.getStatusCode() == 200) {

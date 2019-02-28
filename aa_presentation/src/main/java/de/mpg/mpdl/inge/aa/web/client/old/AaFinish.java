@@ -24,7 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.aa.web;
+package de.mpg.mpdl.inge.aa.web.client.old;
 
 import java.io.IOException;
 

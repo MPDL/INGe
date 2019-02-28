@@ -56,8 +56,6 @@ import org.apache.log4j.Logger;
 public class PropertyReader {
   private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
-  public static final String INGE_AA_ADMIN_PASSWORD = "inge.aa.admin.password";
-  public static final String INGE_AA_ADMIN_USERNAME = "inge.aa.admin.username";
   public static final String INGE_AA_ADMIN_LIVE_PASSWORD = "inge.aa.admin.live.password";
   public static final String INGE_AA_ADMIN_LIVE_USERNAME = "inge.aa.admin.live.username";
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";

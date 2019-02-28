@@ -107,11 +107,11 @@ public class ConeServlet extends HttpServlet {
       this.add("number");
       this.add("l");
       this.add("lang");
-      this.add("r");
-      this.add("redirect");
+      //      this.add("r");
+      //      this.add("redirect");
       this.add("q");
       this.add("query");
-      this.add("h");
+      //      this.add("h");
       this.add("tan4directLogin");
     }
   };

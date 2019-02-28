@@ -26,8 +26,6 @@
 
 package de.mpg.mpdl.inge.aa.web.client;
 
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +50,7 @@ public abstract class FinalClient extends Client {
   protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String target = request.getParameter("target");
-    String handle = request.getParameter("tan4directLogin");
+    //    String handle = request.getParameter("tan4directLogin");
 
     try {
       AuthenticationVO authenticationVO = finalizeAuthentication(request, response);
@@ -62,9 +60,9 @@ public abstract class FinalClient extends Client {
       String encodedXml = RSAEncoder.rsaEncrypt(xml);
       String separator = "?";
 
-      if (handle != null) {
-        target += "&tan4directLogin=" + URLEncoder.encode(handle, "ISO-8859-1");
-      }
+      //      if (handle != null) {
+      //        target += "&tan4directLogin=" + URLEncoder.encode(handle, "ISO-8859-1");
+      //      }
 
       if (target.contains("?")) {
         separator = "&";

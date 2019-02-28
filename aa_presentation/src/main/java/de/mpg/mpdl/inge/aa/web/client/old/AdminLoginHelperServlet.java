@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.aa.web.util;
+package de.mpg.mpdl.inge.aa.web.client.old;
 
 import java.io.IOException;
 import java.net.URLDecoder;
