@@ -52,7 +52,7 @@ public abstract class FinalClient extends Client {
   protected void process(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String tan = request.getParameter("tan");
     String target = request.getParameter("target");
-    String handle = request.getParameter("eSciDocUserHandle");
+    String handle = request.getParameter("tan4directLogin");
 
     try {
       AuthenticationVO authenticationVO = finalizeAuthentication(request, response);
@@ -63,7 +63,7 @@ public abstract class FinalClient extends Client {
       String separator = "?";
 
       if (handle != null) {
-        target += "&eSciDocUserHandle=" + URLEncoder.encode(handle, "ISO-8859-1");
+        target += "&tan4directLogin=" + URLEncoder.encode(handle, "ISO-8859-1");
       }
 
       if (target.contains("?")) {

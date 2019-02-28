@@ -30,7 +30,7 @@ public class AdminLoginHelperServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String tan = getTan(request);
+    String tan = getTan();
 
     String username = request.getParameter("username");
     String password = request.getParameter("password");
@@ -51,10 +51,10 @@ public class AdminLoginHelperServlet extends HttpServlet {
     }
   }
 
-  private static String getTan(HttpServletRequest request) {
+  private static String getTan() {
     String tan;
     do {
-      tan = TanStore.createTan(request.getSession().getId());
+      tan = TanStore.createTan();
     } while (!TanStore.storeTan(tan));
     return tan;
   }

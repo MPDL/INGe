@@ -105,7 +105,7 @@ public class Aa {
 
     String tan;
     do {
-      tan = TanStore.createTan(request.getSession().getId());
+      tan = TanStore.createTan();
     } while (!TanStore.storeTan(tan));
 
     String from = request.getRequestURI().toString();

@@ -66,6 +66,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList;
@@ -111,7 +112,7 @@ public class ConeServlet extends HttpServlet {
       this.add("q");
       this.add("query");
       this.add("h");
-      this.add("eSciDocUserHandle");
+      this.add("tan4directLogin");
     }
   };
 
@@ -155,8 +156,12 @@ public class ConeServlet extends HttpServlet {
       loggedIn = ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue();
     }
 
-    if (!loggedIn && request.getParameter("eSciDocUserHandle") != null) {
-      loggedIn = true;
+    // CONE Zugriff im LoggedIn Modus (obwohl nicht eingelogged)
+    if (!loggedIn) {
+      String tan = request.getParameter("tan4directLogin");
+      if (tan != null && TanStore.checkTan(tan)) {
+        loggedIn = true;
+      }
     }
 
     //    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
@@ -290,7 +295,6 @@ public class ConeServlet extends HttpServlet {
     }
 
     response.setHeader("Connection", "close");
-
   }
 
   /**

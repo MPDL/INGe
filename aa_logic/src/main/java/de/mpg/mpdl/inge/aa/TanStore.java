@@ -69,10 +69,9 @@ public class TanStore {
   /**
    * Generate a random transaction number.
    * 
-   * @param id The session id.
    * @return a random transaction number
    */
-  public static String createTan(String id) {
+  public static String createTan() {
     Random random = new Random(new Date().getTime());
 
     byte[] tanBytes = new byte[16];
