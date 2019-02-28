@@ -30,8 +30,6 @@ public class AdminLoginHelperServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String tan = getTan();
-
     String username = request.getParameter("username");
     String password = request.getParameter("password");
 
@@ -40,6 +38,7 @@ public class AdminLoginHelperServlet extends HttpServlet {
       token = IngeAaClientFinish.loginInInge(username, password);
       if (token != null) {
         String aaInstanceUrl = Config.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
+        String tan = TanStore.getNewTan();
         response.sendRedirect(aaInstanceUrl + "clientReturn?target="
             + URLDecoder.decode(request.getParameter("target"), StandardCharsets.UTF_8.toString()) + "&token=" + token + "&tan=" + tan);
       } else {
@@ -50,12 +49,12 @@ public class AdminLoginHelperServlet extends HttpServlet {
       response.setStatus(HttpStatus.SC_UNAUTHORIZED);
     }
   }
-
-  private static String getTan() {
-    String tan;
-    do {
-      tan = TanStore.createTan();
-    } while (!TanStore.storeTan(tan));
-    return tan;
-  }
+  //
+  //  private static String getTan() {
+  //    String tan;
+  //    do {
+  //      tan = TanStore.createTan();
+  //    } while (!TanStore.storeTan(tan));
+  //    return tan;
+  //  }
 }

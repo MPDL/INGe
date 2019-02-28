@@ -103,10 +103,10 @@ public class Aa {
       initConfig(request);
     }
 
-    String tan;
-    do {
-      tan = TanStore.createTan();
-    } while (!TanStore.storeTan(tan));
+    //    String tan;
+    //    do {
+    //      tan = TanStore.createTan();
+    //    } while (!TanStore.storeTan(tan));
 
     String from = request.getRequestURI().toString();
 
@@ -118,6 +118,8 @@ public class Aa {
     } else {
       query = "";
     }
+
+    String tan = TanStore.getNewTan();
 
     return page + "login.jsp?from=" + URLEncoder.encode(from + query, "UTF-8") + "&tan=" + URLEncoder.encode(tan, "UTF-8");
   }

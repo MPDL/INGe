@@ -153,7 +153,7 @@ public class Util {
           if (!"".equals(result.trim())) {
             String id = result.split("\\|")[1];
             // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
-            String tan = getTan();
+            String tan = TanStore.getNewTan();
             GetMethod detailMethod = new GetMethod(Util.getAdminUrl() + "&target="
                 + URLEncoder.encode(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"), "UTF-8"));
             //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
@@ -365,7 +365,7 @@ public class Util {
               String id = result.split("\\|")[1];
               if (!oldIds.contains(id)) {
                 // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
-                String tan = getTan();
+                String tan = TanStore.getNewTan();
                 GetMethod detailMethod = new GetMethod(Util.getAdminUrl() + "&target="
                     + URLEncoder.encode(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"), "UTF-8"));
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
@@ -443,7 +443,7 @@ public class Util {
             String id = result.split("\\|")[1];
             if (!oldIds.contains(id)) {
               // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
-              String tan = getTan();
+              String tan = TanStore.getNewTan();
               GetMethod detailMethod = new GetMethod(Util.getAdminUrl() + "&target="
                   + URLEncoder.encode(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"), "UTF-8"));
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
@@ -698,13 +698,5 @@ public class Util {
    */
   public static String simpleLiteralTostring(org.purl.dc.elements.x11.SimpleLiteral sl) {
     return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
-  }
-
-  private static String getTan() {
-    String tan;
-    do {
-      tan = TanStore.createTan();
-    } while (!TanStore.storeTan(tan));
-    return tan;
   }
 }
