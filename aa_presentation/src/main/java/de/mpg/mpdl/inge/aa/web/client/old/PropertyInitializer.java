@@ -24,20 +24,9 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.aa.web;
+package de.mpg.mpdl.inge.aa.web.client.old;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.aa.Config;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description
@@ -49,28 +38,28 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  */
 @SuppressWarnings("serial")
 public class PropertyInitializer extends HttpServlet {
-  private static final Logger logger = Logger.getLogger(PropertyInitializer.class);
-
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    init();
-    resp.getWriter().write("Properties reloaded!");
-    // resp.getWriter().write(Config.getProperties().toString());
-  }
-
-  @Override
-  public void init() throws ServletException {
-    String context = this.getServletContext().getContextPath();
-    if (context != null && context.startsWith("/")) {
-      String propertyFilename = context.substring(1) + ".properties";
-      logger.info("Loading properties from " + propertyFilename);
-      try {
-        InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, PropertyInitializer.class.getClassLoader());
-        Config.getProperties().load(propertyStream);
-        // propertyStream.close();
-      } catch (Exception e) {
-        throw new ServletException(e);
-      }
-    }
-  }
+  //  private static final Logger logger = Logger.getLogger(PropertyInitializer.class);
+  //
+  //  @Override
+  //  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  //    init();
+  //    resp.getWriter().write("Properties reloaded!");
+  //    // resp.getWriter().write(Config.getProperties().toString());
+  //  }
+  //
+  //  @Override
+  //  public void init() throws ServletException {
+  //    String context = this.getServletContext().getContextPath();
+  //    if (context != null && context.startsWith("/")) {
+  //      String propertyFilename = context.substring(1) + ".properties";
+  //      logger.info("Loading properties from " + propertyFilename);
+  //      try {
+  //        InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, PropertyInitializer.class.getClassLoader());
+  //        Config.getProperties().load(propertyStream);
+  //        // propertyStream.close();
+  //      } catch (Exception e) {
+  //        throw new ServletException(e);
+  //      }
+  //    }
+  //  }
 }

@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.mpdl.inge.aa.Config;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -78,7 +77,7 @@ public class AaStart extends HttpServlet {
     String target = request.getParameter("target");
 
     if (target == null) {
-      target = Config.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
+      target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
     }
 
     String separator = "?";

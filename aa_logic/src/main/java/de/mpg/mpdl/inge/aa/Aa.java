@@ -26,16 +26,11 @@
 
 package de.mpg.mpdl.inge.aa;
 
-import java.io.InputStream;
 import java.net.URLEncoder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description
@@ -46,14 +41,14 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * 
  */
 public class Aa {
-  private static Logger logger = Logger.getLogger(Aa.class);
+  //  private static Logger logger = Logger.getLogger(Aa.class);
 
   private AuthenticationVO authenticationVO = null;
 
   public Aa(HttpServletRequest request) throws Exception {
-    if (!Config.isLoaded()) {
-      initConfig(request);
-    }
+    //    if (!Config.isLoaded()) {
+    //      initConfig(request);
+    //    }
     String[] encodedXml = request.getParameterValues("auth");
     if (encodedXml != null) {
       String xml = de.mpg.mpdl.inge.aa.crypto.RSAEncoder.rsaDecrypt(encodedXml);
@@ -73,23 +68,23 @@ public class Aa {
     return authenticationVO;
   }
 
-  public static void initConfig(HttpServletRequest request) throws ServletException {
-    if (Config.getProperties().isEmpty()) {
-      String context = request.getContextPath();
-      if (context != null && context.startsWith("/")) {
-        String propertyFilename = context.substring(1) + ".properties";
-        logger.info("Loading properties from " + propertyFilename);
-        try {
-          InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, Aa.class.getClassLoader());
-          Config.getProperties().load(propertyStream);
-          Config.setLoaded(true);
-          // propertyStream.close();
-        } catch (Exception e) {
-          throw new ServletException(e);
-        }
-      }
-    }
-  }
+  //  public static void initConfig(HttpServletRequest request) throws ServletException {
+  //    if (Config.getProperties().isEmpty()) {
+  //      String context = request.getContextPath();
+  //      if (context != null && context.startsWith("/")) {
+  //        String propertyFilename = context.substring(1) + ".properties";
+  //        logger.info("Loading properties from " + propertyFilename);
+  //        try {
+  //          InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, Aa.class.getClassLoader());
+  //          Config.getProperties().load(propertyStream);
+  //          Config.setLoaded(true);
+  //          // propertyStream.close();
+  //        } catch (Exception e) {
+  //          throw new ServletException(e);
+  //        }
+  //      }
+  //    }
+  //  }
 
   /**
    * Create a link to the login page with the referer information and a random TAN.
@@ -99,9 +94,9 @@ public class Aa {
    * @throws Exception Encoding exception is unlikely.
    */
   public static String getLoginLink(HttpServletRequest request) throws Exception {
-    if (!Config.isLoaded()) {
-      initConfig(request);
-    }
+    //    if (!Config.isLoaded()) {
+    //      initConfig(request);
+    //    }
 
     //    String tan;
     //    do {
@@ -110,7 +105,7 @@ public class Aa {
 
     String from = request.getRequestURI().toString();
 
-    String page = Config.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
+    String page = PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL);
 
     String query = request.getQueryString();
     if (query != null && !"".equals(query)) {

@@ -24,11 +24,7 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.aa;
-
-import java.util.Properties;
-
-import org.apache.log4j.Logger;
+package de.mpg.mpdl.inge.aa.old;
 
 /**
  * TODO Description
@@ -39,37 +35,37 @@ import org.apache.log4j.Logger;
  * 
  */
 public class Config {
-  private static final Logger logger = Logger.getLogger(Config.class);
-
-  private static Properties properties = new Properties();
-
-  private static boolean loaded = false;
-
-  private Config() {}
-
-  public static String getProperty(String key) {
-    if (properties.containsKey(key)) {
-      return properties.get(key).toString();
-    } else {
-      logger.warn("Property not found: '" + key + "', returning null");
-      return null;
-    }
-  }
-
-  public static Properties getProperties() {
-    return properties;
-  }
-
-  public static void setProperties(Properties properties) {
-    Config.properties = properties;
-  }
-
-  public static boolean isLoaded() {
-    return loaded;
-  }
-
-  public static void setLoaded(boolean loaded) {
-    Config.loaded = loaded;
-  }
+  //  private static final Logger logger = Logger.getLogger(Config.class);
+  //
+  //  private static Properties properties = new Properties();
+  //
+  //  private static boolean loaded = false;
+  //
+  //  private Config() {}
+  //
+  //  public static String getProperty(String key) {
+  //    if (properties.containsKey(key)) {
+  //      return properties.get(key).toString();
+  //    } else {
+  //      logger.warn("Property not found: '" + key + "', returning null");
+  //      return null;
+  //    }
+  //  }
+  //
+  //  public static Properties getProperties() {
+  //    return properties;
+  //  }
+  //
+  //  public static void setProperties(Properties properties) {
+  //    Config.properties = properties;
+  //  }
+  //
+  //  public static boolean isLoaded() {
+  //    return loaded;
+  //  }
+  //
+  //  public static void setLoaded(boolean loaded) {
+  //    Config.loaded = loaded;
+  //  }
 
 }

@@ -26,19 +26,11 @@
 
 package de.mpg.mpdl.inge.aa.web.client.old;
 
-import java.io.InputStream;
-import java.util.Properties;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.mpdl.inge.aa.AuthenticationVO;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
-import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 import de.mpg.mpdl.inge.aa.web.client.FinalClient;
-import de.mpg.mpdl.inge.aa.Config;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import de.mpg.mpdl.inge.util.ResourceUtil;
 
 /**
  * TODO Description
@@ -53,25 +45,27 @@ public class IpAaClient extends FinalClient {
   @Override
   protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    Properties ips = new Properties();
-    InputStream ipStream =
-        ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
-    ips.loadFromXML(ipStream);
-    ipStream.close();
+    //    Properties ips = new Properties();
+    //    InputStream ipStream =
+    //        ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
+    //    ips.loadFromXML(ipStream);
+    //    ipStream.close();
+    //
+    //    String clientIp = request.getRemoteAddr();
+    //
+    //    String[] roles = ips.getProperty(clientIp).split(",");
+    //
+    //    AuthenticationVO authenticationVO = new AuthenticationVO();
+    //    authenticationVO.setType(Type.ATTRIBUTE);
+    //    authenticationVO.setFullName(clientIp);
+    //    for (String roleKey : roles) {
+    //      Role role = authenticationVO.new Role();
+    //      role.setKey(roleKey);
+    //      authenticationVO.getRoles().add(role);
+    //    }
+    //    return authenticationVO;
+    //  }
 
-    String clientIp = request.getRemoteAddr();
-
-    String[] roles = ips.getProperty(clientIp).split(",");
-
-    AuthenticationVO authenticationVO = new AuthenticationVO();
-    authenticationVO.setType(Type.ATTRIBUTE);
-    authenticationVO.setFullName(clientIp);
-    for (String roleKey : roles) {
-      Role role = authenticationVO.new Role();
-      role.setKey(roleKey);
-      authenticationVO.getRoles().add(role);
-    }
-    return authenticationVO;
+    return null;
   }
-
 }

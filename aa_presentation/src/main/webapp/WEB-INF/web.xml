@@ -7,13 +7,6 @@
 	
 	<display-name>Control of Named Entities</display-name>
 	
-	<!-- Property Initializer -->
-	<servlet>
-		<servlet-name>PropertyInitializer</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.aa.web.PropertyInitializer</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	
 	<!-- AA Servlets -->
 	<servlet>
 		<servlet-name>AaStart</servlet-name>
@@ -57,11 +50,6 @@
 	<servlet-mapping>
 		<servlet-name>LogoutClientServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>PropertyInitializer</servlet-name>
-		<url-pattern>/reload</url-pattern>
 	</servlet-mapping>
 
 	<!-- Welcome files -->

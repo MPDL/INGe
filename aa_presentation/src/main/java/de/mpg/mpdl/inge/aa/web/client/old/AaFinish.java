@@ -26,16 +26,7 @@
 
 package de.mpg.mpdl.inge.aa.web.client.old;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import de.mpg.mpdl.inge.aa.AuthenticationVO;
-import de.mpg.mpdl.inge.aa.TanStore;
-import de.mpg.mpdl.inge.aa.crypto.RSAEncoder;
 
 /**
  * TODO Description
@@ -47,32 +38,32 @@ import de.mpg.mpdl.inge.aa.crypto.RSAEncoder;
  */
 @SuppressWarnings("serial")
 public class AaFinish extends HttpServlet {
-
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    doPost(request, response);
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String[] encodedXml = request.getParameterValues("auth");
-    String target = request.getParameter("target");
-
-    try {
-      String xml = RSAEncoder.rsaDecrypt(encodedXml);
-      AuthenticationVO authenticationVO = new AuthenticationVO(xml);
-
-      String tan = authenticationVO.getTan();
-      if (TanStore.checkTan(tan)) {
-        request.getSession().setAttribute("authentication", authenticationVO);
-        response.sendRedirect(target);
-      } else {
-        response.setStatus(401);
-      }
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
-
-  }
-
+  //
+  //  @Override
+  //  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  //    doPost(request, response);
+  //  }
+  //
+  //  @Override
+  //  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  //    String[] encodedXml = request.getParameterValues("auth");
+  //    String target = request.getParameter("target");
+  //
+  //    try {
+  //      String xml = RSAEncoder.rsaDecrypt(encodedXml);
+  //      AuthenticationVO authenticationVO = new AuthenticationVO(xml);
+  //
+  //      String tan = authenticationVO.getTan();
+  //      if (TanStore.checkTan(tan)) {
+  //        request.getSession().setAttribute("authentication", authenticationVO);
+  //        response.sendRedirect(target);
+  //      } else {
+  //        response.setStatus(401);
+  //      }
+  //    } catch (Exception e) {
+  //      throw new ServletException(e);
+  //    }
+  //
+  //  }
+  //
 }
