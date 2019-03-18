@@ -24,20 +24,13 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.aa.web;
+package de.mpg.mpdl.inge.aa.web.client.old;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.aa.Config;
-import de.mpg.mpdl.inge.util.ResourceUtil;
+import de.mpg.mpdl.inge.aa.AuthenticationVO;
+import de.mpg.mpdl.inge.aa.web.client.FinalClient;
 
 /**
  * TODO Description
@@ -47,30 +40,32 @@ import de.mpg.mpdl.inge.util.ResourceUtil;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@SuppressWarnings("serial")
-public class PropertyInitializer extends HttpServlet {
-  private static final Logger logger = Logger.getLogger(PropertyInitializer.class);
+public class IpAaClient extends FinalClient {
 
   @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    init();
-    resp.getWriter().write("Properties reloaded!");
-    // resp.getWriter().write(Config.getProperties().toString());
-  }
+  protected AuthenticationVO finalizeAuthentication(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-  @Override
-  public void init() throws ServletException {
-    String context = this.getServletContext().getContextPath();
-    if (context != null && context.startsWith("/")) {
-      String propertyFilename = context.substring(1) + ".properties";
-      logger.info("Loading properties from " + propertyFilename);
-      try {
-        InputStream propertyStream = ResourceUtil.getResourceAsStream(propertyFilename, PropertyInitializer.class.getClassLoader());
-        Config.getProperties().load(propertyStream);
-        // propertyStream.close();
-      } catch (Exception e) {
-        throw new ServletException(e);
-      }
-    }
+    //    Properties ips = new Properties();
+    //    InputStream ipStream =
+    //        ResourceUtil.getResourceAsStream(Config.getProperty(PropertyReader.INGE_AA_IP_TABLE), IpAaClient.class.getClassLoader());
+    //    ips.loadFromXML(ipStream);
+    //    ipStream.close();
+    //
+    //    String clientIp = request.getRemoteAddr();
+    //
+    //    String[] roles = ips.getProperty(clientIp).split(",");
+    //
+    //    AuthenticationVO authenticationVO = new AuthenticationVO();
+    //    authenticationVO.setType(Type.ATTRIBUTE);
+    //    authenticationVO.setFullName(clientIp);
+    //    for (String roleKey : roles) {
+    //      Role role = authenticationVO.new Role();
+    //      role.setKey(roleKey);
+    //      authenticationVO.getRoles().add(role);
+    //    }
+    //    return authenticationVO;
+    //  }
+
+    return null;
   }
 }

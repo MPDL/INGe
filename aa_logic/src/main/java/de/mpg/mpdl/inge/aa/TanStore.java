@@ -55,7 +55,16 @@ public class TanStore {
     }
   }
 
-  public static boolean storeTan(String tan) {
+  public static String getNewTan() {
+    String tan;
+    do {
+      tan = TanStore.createTan();
+    } while (!TanStore.storeTan(tan));
+
+    return tan;
+  }
+
+  private static boolean storeTan(String tan) {
     if (tanSet.contains(tan)) {
       // TAN already stored
       return false;
@@ -66,17 +75,9 @@ public class TanStore {
     }
   }
 
-  /**
-   * Generate a random transaction number.
-   * 
-   * @param id The session id.
-   * @return a random transaction number
-   */
-  public static String createTan(String id) {
+  private static String createTan() {
     Random random = new Random(new Date().getTime());
-
     byte[] tanBytes = new byte[16];
-
     random.nextBytes(tanBytes);
 
     return new String(Base64.encodeBase64(tanBytes));

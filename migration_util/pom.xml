@@ -17,8 +17,6 @@
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
-		<inge.aa.config.file>conf.xml</inge.aa.config.file>
-		<inge.aa.ip.table>ips.xml</inge.aa.ip.table>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>

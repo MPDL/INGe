@@ -33,7 +33,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.mpdl.inge.aa.Config;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -54,9 +53,9 @@ public class FinalClientServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
-      String clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
+      String clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_CLASS);
       if (clientClassName == null || clientClassName.isEmpty()) {
-        clientClassName = Config.getProperty(PropertyReader.INGE_AA_CLIENT_FINISH_CLASS);
+        clientClassName = PropertyReader.getProperty(PropertyReader.INGE_AA_CLIENT_FINISH_CLASS);
         Class<?> clientClass = Class.forName(clientClassName);
         FinalClient client = (FinalClient) clientClass.newInstance();
         client.process(request, response);

@@ -66,7 +66,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.mpdl.inge.aa.Aa;
+import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.cone.ConeException;
 import de.mpg.mpdl.inge.cone.Describable;
 import de.mpg.mpdl.inge.cone.ModelList;
@@ -107,12 +107,12 @@ public class ConeServlet extends HttpServlet {
       this.add("number");
       this.add("l");
       this.add("lang");
-      this.add("r");
-      this.add("redirect");
+      //      this.add("r");
+      //      this.add("redirect");
       this.add("q");
       this.add("query");
-      this.add("h");
-      this.add("eSciDocUserHandle");
+      //      this.add("h");
+      this.add("tan4directLogin");
     }
   };
 
@@ -156,14 +156,22 @@ public class ConeServlet extends HttpServlet {
       loggedIn = ((Boolean) request.getSession().getAttribute("logged_in")).booleanValue();
     }
 
-    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
-        || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))) {
-      try {
-        response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
-      } catch (Exception e) {
-        throw new ServletException("Error redirecting to Login", e);
+    // CONE Zugriff im LoggedIn Modus (obwohl nicht eingelogged)
+    if (!loggedIn) {
+      String tan = request.getParameter("tan4directLogin");
+      if (tan != null && TanStore.checkTan(tan)) {
+        loggedIn = true;
       }
     }
+
+    //    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
+    //        || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))) {
+    //      try {
+    //        response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
+    //      } catch (Exception e) {
+    //        throw new ServletException("Error redirecting to Login", e);
+    //      }
+    //    }
 
     if (path.length == 3 && "".equals(path[2])) {
       action = path[1];
@@ -287,7 +295,6 @@ public class ConeServlet extends HttpServlet {
     }
 
     response.setHeader("Connection", "close");
-
   }
 
   /**

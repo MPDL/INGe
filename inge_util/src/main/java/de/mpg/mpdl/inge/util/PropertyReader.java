@@ -56,18 +56,14 @@ import org.apache.log4j.Logger;
 public class PropertyReader {
   private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
-  public static final String INGE_AA_ADMIN_PASSWORD = "inge.aa.admin.password";
-  public static final String INGE_AA_ADMIN_USERNAME = "inge.aa.admin.username";
   public static final String INGE_AA_ADMIN_LIVE_PASSWORD = "inge.aa.admin.live.password";
   public static final String INGE_AA_ADMIN_LIVE_USERNAME = "inge.aa.admin.live.username";
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
   public static final String INGE_AA_CLIENT_FINISH_CLASS = "inge.aa.client.finish.class";
   public static final String INGE_AA_CLIENT_LOGOUT_CLASS = "inge.aa.client.logout.class";
   public static final String INGE_AA_CLIENT_START_CLASS = "inge.aa.client.start.class";
-  public static final String INGE_AA_CONFIG_FILE = "inge.aa.config.file";
   public static final String INGE_AA_DEFAULT_TARGET = "inge.aa.default.target";
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
-  public static final String INGE_AA_IP_TABLE = "inge.aa.ip.table";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";

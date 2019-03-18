@@ -78,7 +78,7 @@ public class LoginHelper extends FacesBean {
 
   private String authenticationToken;
   private String displayUserName;
-  private String eSciDocUserHandle;
+  //  private String eSciDocUserHandle;
   private String password;
   private String username;
 
@@ -96,7 +96,7 @@ public class LoginHelper extends FacesBean {
   private void init() {
     this.authenticationToken = null;
     this.displayUserName = null;
-    this.eSciDocUserHandle = null;
+    //    this.eSciDocUserHandle = null;
     this.password = null;
     this.username = null;
 
@@ -125,13 +125,13 @@ public class LoginHelper extends FacesBean {
     }
   }
 
-  public String getESciDocUserHandle() {
-    return this.eSciDocUserHandle;
-  }
-
-  public void setESciDocUserHandle(String eSciDocUserHandle) {
-    this.eSciDocUserHandle = eSciDocUserHandle;
-  }
+  //  public String getESciDocUserHandle() {
+  //    return this.eSciDocUserHandle;
+  //  }
+  //
+  //  public void setESciDocUserHandle(String eSciDocUserHandle) {
+  //    this.eSciDocUserHandle = eSciDocUserHandle;
+  //  }
 
   /**
    * Method checks if the user is already logged in and inserts the escidoc user handle.

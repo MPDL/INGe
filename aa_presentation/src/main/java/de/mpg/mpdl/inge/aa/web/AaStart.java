@@ -36,7 +36,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.mpg.mpdl.inge.aa.Config;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
@@ -72,16 +71,13 @@ public class AaStart extends HttpServlet {
     String from = request.getParameter("from");
     String tan = request.getParameter("tan");
 
-    // TODO: Make this generic
-    String handle = request.getParameter("eSciDocUserHandle");
-
     Matcher matcher = authPattern.matcher(from);
     from = matcher.replaceAll("");
 
     String target = request.getParameter("target");
 
     if (target == null) {
-      target = Config.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
+      target = PropertyReader.getProperty(PropertyReader.INGE_AA_DEFAULT_TARGET);
     }
 
     String separator = "?";
@@ -90,12 +86,6 @@ public class AaStart extends HttpServlet {
     }
     target += separator + "target=" + URLEncoder.encode(from, "ISO-8859-1") + "&tan=" + URLEncoder.encode(tan, "ISO-8859-1");
 
-    if (handle != null) {
-      target += "&eSciDocUserHandle=" + URLEncoder.encode(handle, "ISO-8859-1");
-    }
-
     response.sendRedirect(target);
-
   }
-
 }

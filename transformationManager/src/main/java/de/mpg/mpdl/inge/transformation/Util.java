@@ -29,10 +29,8 @@ package de.mpg.mpdl.inge.transformation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,6 +53,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import de.mpg.mpdl.inge.aa.TanStore;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
 
@@ -68,8 +67,8 @@ import net.sf.saxon.dom.DocumentBuilderFactoryImpl;
  */
 public class Util {
   private static Logger logger = Logger.getLogger(Util.class);
-  private static long coneSessionTimestamp = 0;
-  private static String coneSession = null;
+  //  private static long coneSessionTimestamp = 0;
+  //  private static String coneSession = null;
 
   /**
    * Hide constructor of static class
@@ -107,11 +106,11 @@ public class Util {
     return thisMimetype;
   }
 
-  private static String getAdminUrl() {
-    return PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "adminLogin" + "?username="
-        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME) + "&password="
-        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
-  }
+  //  private static String getAdminUrl() {
+  //    return PropertyReader.getProperty(PropertyReader.INGE_AA_INSTANCE_URL) + "adminLogin" + "?username="
+  //        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_USERNAME) + "&password="
+  //        + PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_PASSWORD);
+  //  }
 
   /**
    * Queries CoNE service and returns the result as DOM node. The returned XML has the following
@@ -141,12 +140,11 @@ public class Util {
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
 
-      String coneSession = getConeSession();
-
-      if (coneSession != null) {
-        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-      }
-      //      ProxyHelper.executeMethod(client, method);
+      //      String coneSession = getConeSession();
+      //
+      //      if (coneSession != null) {
+      //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+      //      }
       client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
@@ -154,20 +152,18 @@ public class Util {
         for (String result : results) {
           if (!"".equals(result.trim())) {
             String id = result.split("\\|")[1];
-            // TODO "&redirect=true" must be reinserted again
-            GetMethod detailMethod =
-                new GetMethod(Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+            // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
+            String tan = TanStore.getNewTan();
+            GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
             //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
             //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-            detailMethod.setFollowRedirects(true);
+            //detailMethod.setFollowRedirects(true);
 
-
-            if (coneSession != null) {
-              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-            }
-            //            ProxyHelper.executeMethod(client, detailMethod);
+            //            if (coneSession != null) {
+            //              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+            //            }
             client.executeMethod(detailMethod);
-            logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
+            logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
 
             if (detailMethod.getStatusCode() == 200) {
               Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -187,7 +183,6 @@ public class Util {
           + ") .Otherwise it should be clarified if any measures have to be taken.", e);
       logger.debug("Stacktrace", e);
       return null;
-      // throw new RuntimeException(e);
     }
   }
 
@@ -203,12 +198,11 @@ public class Util {
       HttpClient client = new HttpClient();
       GetMethod method = new GetMethod(queryUrl);
 
-      String coneSession = getConeSession();
-
-      if (coneSession != null) {
-        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-      }
-      //      ProxyHelper.executeMethod(client, method);
+      //      String coneSession = getConeSession();
+      //
+      //      if (coneSession != null) {
+      //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+      //      }
       client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
@@ -231,7 +225,6 @@ public class Util {
           + ") .Otherwise it should be clarified if any measures have to be taken.", e);
       logger.debug("Stacktrace", e);
       return null;
-      // throw new RuntimeException(e);
     }
   }
 
@@ -253,9 +246,6 @@ public class Util {
     try {
       frameworkUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
       url = frameworkUrl + request;
-
-      if (logger.isDebugEnabled())
-        logger.debug("queryFramework: (" + url.toString() + ")");
 
       documentBuilderFactory.setNamespaceAware(true);
       documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -284,37 +274,37 @@ public class Util {
     return document;
   }
 
-  public static String getConeSession() throws Exception {
-    long now = new Date().getTime();
-    if (coneSession == null || (now - coneSessionTimestamp) > 1000 * 60 * 30) {
-      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
-      HttpClient client = new HttpClient();
-      GetMethod method = new GetMethod(queryUrl);
-      try {
-        client.executeMethod(method);
-      } catch (Exception e) {
-        logger.warn("Error while retrieving CoNE session", e);
-        return null;
-      }
-      Header[] cookies = method.getResponseHeaders("Set-Cookie");
-      if (cookies != null && cookies.length > 0) {
-        for (Header cookie : cookies) {
-          if (cookie.getValue().startsWith("JSESSIONID=")) {
-            int end = cookie.getValue().indexOf(";", 11);
-            if (end >= 0) {
-              coneSession = cookie.getValue().substring(11, end);
-              coneSessionTimestamp = now;
-              logger.info("Refreshing CoNE session: " + coneSession);
-              return coneSession;
-            }
-          }
-        }
-      }
-      return null;
-    } else {
-      return coneSession;
-    }
-  }
+  //  public static String getConeSession() throws Exception {
+  //    long now = new Date().getTime();
+  //    if (coneSession == null || (now - coneSessionTimestamp) > 1000 * 60 * 30) {
+  //      String queryUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
+  //      HttpClient client = new HttpClient();
+  //      GetMethod method = new GetMethod(queryUrl);
+  //      try {
+  //        client.executeMethod(method);
+  //      } catch (Exception e) {
+  //        logger.warn("Error while retrieving CoNE session", e);
+  //        return null;
+  //      }
+  //      Header[] cookies = method.getResponseHeaders("Set-Cookie");
+  //      if (cookies != null && cookies.length > 0) {
+  //        for (Header cookie : cookies) {
+  //          if (cookie.getValue().startsWith("JSESSIONID=")) {
+  //            int end = cookie.getValue().indexOf(";", 11);
+  //            if (end >= 0) {
+  //              coneSession = cookie.getValue().substring(11, end);
+  //              coneSessionTimestamp = now;
+  //              logger.info("Refreshing CoNE session: " + coneSession);
+  //              return coneSession;
+  //            }
+  //          }
+  //        }
+  //      }
+  //      return null;
+  //    } else {
+  //      return coneSession;
+  //    }
+  //  }
 
   /**
    * Queries the CoNE service and transforms the result into a DOM node.
@@ -341,19 +331,17 @@ public class Util {
           + URLEncoder.encode("dc:title", "UTF-8") + "=" + URLEncoder.encode("\"" + name + "\"", "UTF-8") + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
           + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-      String detailsUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
 
-      String coneSession = getConeSession();
-
-      if (coneSession != null) {
-        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-      }
-      //      ProxyHelper.executeMethod(client, method);
+      //      String coneSession = getConeSession();
+      //
+      //      if (coneSession != null) {
+      //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+      //      }
       client.executeMethod(method);
-      logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
+      logger.info("CoNE query: " + queryUrl);
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
         results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
@@ -363,12 +351,11 @@ public class Util {
             + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
         client = new HttpClient();
         method = new GetMethod(queryUrl);
-        if (coneSession != null) {
-          method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-        }
-        //        ProxyHelper.executeMethod(client, method);
+        //        if (coneSession != null) {
+        //          method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+        //        }
         client.executeMethod(method);
-        logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
+        logger.info("CoNE query: " + queryUrl);
         if (method.getStatusCode() == 200) {
           results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
           Set<String> oldIds = new HashSet<String>();
@@ -376,16 +363,15 @@ public class Util {
             if (!"".equals(result.trim())) {
               String id = result.split("\\|")[1];
               if (!oldIds.contains(id)) {
-                // TODO "&redirect=true" must be reinserted again
-                GetMethod detailMethod = new GetMethod(
-                    Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+                // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
+                String tan = TanStore.getNewTan();
+                GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-                detailMethod.setFollowRedirects(true);
-                //                ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+                //detailMethod.setFollowRedirects(true);
                 client.executeMethod(detailMethod);
-                // TODO "&redirect=true" must be reinserted again
-                logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
+                logger
+                    .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
                 if (detailMethod.getStatusCode() == 200) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                   element.appendChild(document.importNode(details.getFirstChild(), true));
@@ -406,7 +392,6 @@ public class Util {
       logger.error("Error querying CoNE service. This is normal during unit tests. "
           + "Otherwise it should be clarified if any measures have to be taken.", e);
       return null;
-      // throw new RuntimeException(e);
     }
   }
 
@@ -436,19 +421,17 @@ public class Util {
           + URLEncoder.encode("rdf:value", "UTF-8") + "=" + URLEncoder.encode("\"" + identifier + "\"", "UTF-8") + "&"
           + URLEncoder.encode("escidoc:position/eprints:affiliatedInstitution", "UTF-8") + "="
           + URLEncoder.encode("\"*" + ou + "*\"", "UTF-8");
-      String detailsUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + model + "/resource/$1?format=rdf";
       HttpClient client = new HttpClient();
       client.getParams().setParameter(HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, true);
       GetMethod method = new GetMethod(queryUrl);
 
-      String coneSession = getConeSession();
-
-      if (coneSession != null) {
-        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
-      }
-      //      ProxyHelper.executeMethod(client, method);
+      //      String coneSession = getConeSession();
+      //
+      //      if (coneSession != null) {
+      //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
+      //      }
       client.executeMethod(method);
-      logger.info("CoNE query: " + queryUrl + " returned " + method.getResponseBodyAsString());
+      logger.info("CoNE query: " + queryUrl);
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
         results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
@@ -457,16 +440,14 @@ public class Util {
           if (!"".equals(result.trim())) {
             String id = result.split("\\|")[1];
             if (!oldIds.contains(id)) {
-              // TODO "&redirect=true" must be reinserted again
-              GetMethod detailMethod =
-                  new GetMethod(Util.getAdminUrl() + "&target=" + URLEncoder.encode(id + "?format=rdf", StandardCharsets.UTF_8.toString()));
+              // CONE Zugriff im LoggedIn Modus (obwohl evtl. nicht eingelogged)
+              String tan = TanStore.getNewTan();
+              GetMethod detailMethod = new GetMethod(id + "?format=rdf&tan4directLogin=" + URLEncoder.encode(tan, "UTF-8"));
               //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
               //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
-              detailMethod.setFollowRedirects(true);
-              //              ProxyHelper.setProxy(client, detailsUrl.replace("$1", id));
+              // detailMethod.setFollowRedirects(true);
               client.executeMethod(detailMethod);
-              // TODO "&redirect=true" must be reinserted again
-              logger.info("CoNE query: " + id + "?format=rdf returned " + detailMethod.getResponseBodyAsString());
+              logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
               if (detailMethod.getStatusCode() == 200) {
                 Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                 element.appendChild(document.importNode(details.getFirstChild(), true));
@@ -485,7 +466,6 @@ public class Util {
       logger.error("Error querying CoNE service. This is normal during unit tests. "
           + "Otherwise it should be clarified if any measures have to be taken.", e);
       return null;
-      // throw new RuntimeException(e);
     }
   }
 
@@ -512,9 +492,7 @@ public class Util {
     }
 
     try {
-
       documentBuilder = DocumentBuilderFactoryImpl.newInstance().newDocumentBuilder();
-
       Document document = documentBuilder.newDocument();
       Element element = document.createElement("cone");
       document.appendChild(element);
@@ -547,7 +525,6 @@ public class Util {
       logger.error("Error querying CoNE service. This is normal during unit tests. "
           + "Otherwise it should be clarified if any measures have to be taken.", e);
 
-
       return null;
     }
   }
@@ -569,7 +546,6 @@ public class Util {
       logger.info("queryURL from executeGetMethod  " + queryUrl);
       GetMethod method = new GetMethod(queryUrl);
       client.executeMethod(method);
-      //      ProxyHelper.executeMethod(client, method);
 
       if (method.getStatusCode() == 200) {
         String[] results = method.getResponseBodyAsString().split("\n");
@@ -580,7 +556,6 @@ public class Util {
             if (!detailsUrl.equalsIgnoreCase(previousUrl)) {
               GetMethod detailMethod = new GetMethod(detailsUrl + "?format=rdf");
               previousUrl = detailsUrl;
-              //              ProxyHelper.setProxy(client, detailsUrl);
               client.executeMethod(detailMethod);
 
               if (detailMethod.getStatusCode() == 200) {
@@ -617,7 +592,6 @@ public class Util {
       Element element = document.createElement("cone");
       document.appendChild(element);
       GetMethod detailMethod = new GetMethod(conePersonUrl + "?format=rdf");
-      //      ProxyHelper.setProxy(client, conePersonUrl);
       client.executeMethod(detailMethod);
       if (detailMethod.getStatusCode() == 200) {
         Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -644,7 +618,7 @@ public class Util {
 
     try {
       logger.info("Getting size of " + url);
-      //      ProxyHelper.executeMethod(httpClient, headMethod);
+
       httpClient.executeMethod(headMethod);
 
       if (headMethod.getStatusCode() != 200) {
@@ -668,7 +642,6 @@ public class Util {
         logger.info("GET request to " + url + " did not return any Content-Length. Trying GET request.");
         httpClient = new HttpClient();
         GetMethod getMethod = new GetMethod(url);
-        //        ProxyHelper.executeMethod(httpClient, getMethod);
         httpClient.executeMethod(getMethod);
 
         if (getMethod.getStatusCode() != 200) {
@@ -688,14 +661,12 @@ public class Util {
         return document;
       }
 
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
   public static String getMimetype(String filename) {
-
     try {
       Tika tika = new Tika();
       String mimetype = tika.detect(filename);
@@ -711,8 +682,9 @@ public class Util {
   public static String stripHtml(String text) {
     if (text != null) {
       return new HtmlToPlainText().getPlainText(Jsoup.parse(text));
-    } else
-      return "";
+    }
+
+    return "";
   }
 
   /**

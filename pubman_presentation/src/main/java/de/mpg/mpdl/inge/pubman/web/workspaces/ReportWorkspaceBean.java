@@ -211,8 +211,8 @@ public class ReportWorkspaceBean extends FacesBean {
     scList.add(gsc2);
     scList.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
     scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-    StateSearchCriterion ssc = new StateSearchCriterion();
-    ssc.setSelectedEnum(ItemVO.State.RELEASED);
+    StateSearchCriterion ssc = new StateSearchCriterion(); //anonyme Suche -> Nur RELEASED und WITHDRAWN Stati zurückgegeben (s.u.)
+    ssc.setSelectedEnum(ItemVO.State.RELEASED); // nur RELEASED ausgeben
     scList.add(ssc);
     scList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     scList.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
@@ -241,7 +241,7 @@ public class ReportWorkspaceBean extends FacesBean {
     try {
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
       SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 10000, 0); // TODO: als Parameter
-      SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+      SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null); //anonyme Suche -> Nur RELEASED und WITHDRAWN Stati zurückgegeben
 
       totalNrOfSerchResultItems = resp.getNumberOfRecords();
       logger.info("Anzahl gefundener Sätze: " + resp.getNumberOfRecords());

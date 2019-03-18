@@ -7,22 +7,10 @@
 	
 	<display-name>Control of Named Entities</display-name>
 	
-	<!-- Property Initializer -->
-	<servlet>
-		<servlet-name>PropertyInitializer</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.aa.web.PropertyInitializer</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	
 	<!-- AA Servlets -->
 	<servlet>
 		<servlet-name>AaStart</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.aa.web.AaStart</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<servlet-name>AaFinish</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.aa.web.AaFinish</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -39,10 +27,6 @@
 		<servlet-name>LogoutClientServlet</servlet-name>
 		<servlet-class>de.mpg.mpdl.inge.aa.web.client.LogoutClientServlet</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>AdminLoginHelperServlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.aa.web.util.AdminLoginHelperServlet</servlet-class>
-	</servlet>
 	
 	<session-config>
 		<session-timeout>120</session-timeout>
@@ -51,11 +35,6 @@
 	<servlet-mapping>
 		<servlet-name>AaStart</servlet-name>
 		<url-pattern>/login</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>AaFinish</servlet-name>
-		<url-pattern>/return</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
@@ -71,16 +50,6 @@
 	<servlet-mapping>
 		<servlet-name>LogoutClientServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>PropertyInitializer</servlet-name>
-		<url-pattern>/reload</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>AdminLoginHelperServlet</servlet-name>
-		<url-pattern>/adminLogin</url-pattern>
 	</servlet-mapping>
 
 	<!-- Welcome files -->

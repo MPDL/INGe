@@ -311,7 +311,7 @@
 						<h:panelGroup layout="block"
 							styleClass="suggestAnchor personOrganizations large_marginLExcl clear">
 							<h:outputText
-								styleClass="xTiny_area0 xTiny_marginRExcl labelLine"
+								styleClass="tiny_area0 xxTiny_marginRExcl labelLine"
 								value="#{organization.number}" />
 							<h:inputTextarea id="inporganizations_organization_name"
 								styleClass="huge_txtArea organizationSuggest organizationName"

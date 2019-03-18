@@ -17,7 +17,7 @@ public class StateSearchCriterion extends EnumSearchCriterion<ItemVO.State> {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_PUBLIC_STATE, PubItemServiceDbImpl.INDEX_VERSION_STATE};
+    return new String[] {PubItemServiceDbImpl.INDEX_PUBLIC_STATE};
   }
 
   @Override
