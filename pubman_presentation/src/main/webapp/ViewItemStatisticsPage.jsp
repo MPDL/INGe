@@ -84,7 +84,8 @@
 									</h:commandLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:outputLink id="lnkViewItemStatisticsPageStatisticsLink"
-										styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
+										styleClass="free_area0 actual" value="#contentSkipLinkAnchor"
+										target="_blank">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />

@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -107,11 +108,21 @@ public class RedirectServlet extends HttpServlet {
       }
       HashMap<String, String> matomoParameterMap = new HashMap<String, String>();
       matomoParameterMap.put(MatomoTracker.SITE_ID, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID));
-      matomoParameterMap.put(MatomoTracker.REC, Integer.toString(1)); // fixed value that needs to be sent as it is
+      matomoParameterMap.put(MatomoTracker.REC, Integer.toString(1)); // fixed value that needs to
+                                                                      // be sent as it is
       matomoParameterMap.put(MatomoTracker.SITE_URL,
+          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
+      matomoParameterMap.put(MatomoTracker.DOWNLOAD_URL,
           PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
       matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN));
       matomoParameterMap.put(MatomoTracker.USER_IP, req.getRemoteAddr());
+      Cookie[] cookies = req.getCookies();
+      for (Cookie cookie : cookies) {
+        if ("JSESSIONID".equals(cookie.getName())) {
+          System.out.println("SessionId: " + cookie.getValue());
+          matomoParameterMap.put(MatomoTracker.User_ID, cookie.getValue());
+        }
+      }
       MatomoTracker.trackUrl(matomoParameterMap);
 
       resp.sendRedirect(redirectUrl.toString());

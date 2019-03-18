@@ -265,7 +265,7 @@ public class ItemControllerSessionBean extends FacesBean {
   }
 
   public String getStatisticValue() throws Exception {
-    return MatomoStatisticsService.getNumberOfItemOrFileRequests(this.currentPubItem.getObjectId());
+    return Integer.toString(MatomoStatisticsService.getTotal4Item(this.currentPubItem.getObjectId()));
   }
 
   /**

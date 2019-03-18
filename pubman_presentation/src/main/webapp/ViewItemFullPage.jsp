@@ -298,7 +298,8 @@
 										rendered="#{ViewItemFull.canShowStatistics}" /> <h:commandLink
 										id="lnkViewItemFull_btnItemStatistics" styleClass="free_area0"
 										action="#{ViewItemFull.showStatistics}"
-										rendered="#{ViewItemFull.canShowStatistics}">
+										rendered="#{ViewItemFull.canShowStatistics}"
+										target="_blank">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowReleaseHistory}" /> <h:commandLink

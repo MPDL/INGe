@@ -26,7 +26,9 @@ public class MatomoTracker {
   public final static String REC = "rec";
   public final static String SITE_ID = "idsite";
   public final static String SITE_URL = "url";
+  public final static String DOWNLOAD_URL = "download";
   public final static String USER_IP = "cip";
+  public final static String User_ID = "_id";
 
   public MatomoTracker() {
 

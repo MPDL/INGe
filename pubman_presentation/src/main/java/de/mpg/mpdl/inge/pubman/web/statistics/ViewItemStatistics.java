@@ -89,28 +89,12 @@ public class ViewItemStatistics extends FacesBean {
   }
 
   public String getNumberOfItemRetrievalsAllUsers() throws Exception {
-    return MatomoStatisticsService.getNumberOfItemOrFileRequests(pubItem.getObjectId());
+    return Integer.toString(MatomoStatisticsService.getTotal4Item(pubItem.getObjectId()));
   }
 
-  public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue();
-  }
-
-  public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue();
-  }
-
-  public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception {
-    return this.getItemControllerSessionBean().getStatisticValue();
-  }
 
   public String getNumberOfFileDownloadsPerFileAllUsers(String fileId, String name) throws Exception {
     final String result = MatomoStatisticsService.getNumberOfFileDownloads(itemId, fileId, name);
-    return result;
-  }
-
-  public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception {
-    final String result = MatomoStatisticsService.getNumberOfItemOrFileRequests(itemId);
     return result;
   }
 
