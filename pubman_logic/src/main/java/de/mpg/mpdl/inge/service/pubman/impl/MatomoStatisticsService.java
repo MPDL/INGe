@@ -29,8 +29,8 @@ public class MatomoStatisticsService {
 
   private static final String PURE_ITEM = INSTANCE_URI + INSTANCE_CONTEXT_PATH + "/item/";
   // used for Testing on another instance
-//  private static final String PURE_ITEM = "https://qa.pure.mpdl.mpg.de/pubman/item/";
-//  private static final String PURE_FILE = "/component/";
+  //  private static final String PURE_ITEM = "https://qa.pure.mpdl.mpg.de/pubman/item/";
+  //  private static final String PURE_FILE = "/component/";
   private static final String DATE_RANGE = "2000-01-01,today";
 
 
