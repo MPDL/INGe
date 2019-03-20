@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>INGe</artifactId>
 		<groupId>de.mpg.mpdl.inge</groupId>
-		<version>8.0.6-SNAPSHOT</version>
+		<version>8.0.7-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>pubman_rest</artifactId>
-  <version>0.0.7-SNAPSHOT</version>
+  <version>0.0.8-SNAPSHOT</version>
 
 	<name>PubMan REST Web Service</name>
 	<packaging>war</packaging>
