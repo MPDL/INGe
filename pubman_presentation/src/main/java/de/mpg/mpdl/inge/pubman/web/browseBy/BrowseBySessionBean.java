@@ -44,6 +44,7 @@ import javax.faces.bean.SessionScoped;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
@@ -51,11 +52,15 @@ import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -237,70 +242,64 @@ public class BrowseBySessionBean extends FacesBean {
     return links;
   }
 
+  private void fillDateMap(String... indexes)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    QueryBuilder queryBuilder =
+        SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+            PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name());
 
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(queryBuilder, 0, 0); // Limit 0, da nur Aggregationen interessieren
 
-  private void fillDateMap(String... indexes) {
-
-    try {
-
-      SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO();
-      yearMap.clear();
-
-      for (String index : indexes) {
-        AggregationBuilder aggBuilder =
-            AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
-        srr.getAggregationBuilders().add(aggBuilder);
-      }
-
-      srr.setQueryBuilder(
-          SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-              PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
-
-      srr.setLimit(0);
-
-      SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
-
-
-      for (String index : indexes) {
-        Histogram dh = resp.getOriginalResponse().getAggregations().get(index);
-
-        for (Histogram.Bucket entry : dh.getBuckets()) {
-          String year = entry.getKeyAsString().substring(0, 4);
-          if (yearMap.containsKey(year)) {
-            yearMap.put(year, yearMap.get(year) + entry.getDocCount());
-          } else {
-            yearMap.put(year, entry.getDocCount());
-          }
-        }
-
-
-      }
-
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    for (String index : indexes) {
+      AggregationBuilder aggBuilder =
+          AggregationBuilders.dateHistogram(index).field(index).dateHistogramInterval(DateHistogramInterval.YEAR).minDocCount(1);
+      srr.getAggregationBuilders().add(aggBuilder);
     }
 
+    SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
+
+    yearMap.clear();
+    for (String index : indexes) {
+      Histogram dh = resp.getOriginalResponse().getAggregations().get(index);
+      for (Histogram.Bucket entry : dh.getBuckets()) {
+        String year = entry.getKeyAsString().substring(0, 4);
+        if (yearMap.containsKey(year)) {
+          yearMap.put(year, yearMap.get(year) + entry.getDocCount());
+        } else {
+          yearMap.put(year, entry.getDocCount());
+        }
+      }
+    }
   }
 
 
   /**
    * Searches the rep for the oldest year.
+   * 
+   * @throws IngeApplicationException
+   * @throws AuthorizationException
+   * @throws AuthenticationException
+   * @throws IngeTechnicalException
    */
   public void setYearPublished() {
-
-    fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE});
+    try {
+      fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
+          PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE});
+    } catch (final Exception e) {
+      BrowseBySessionBean.logger.error("An error occurred while calling setYearPublished.", e);
+    }
   }
 
   public void setYearStartAny() {
-
-    fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
-        PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED,});
+    try {
+      fillDateMap(new String[] {PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_IN_PRINT,
+          PubItemServiceDbImpl.INDEX_METADATA_DATE_PUBLISHED_ONLINE, PubItemServiceDbImpl.INDEX_METADATA_DATE_ACCEPTED,
+          PubItemServiceDbImpl.INDEX_METADATA_DATE_SUBMITTED, PubItemServiceDbImpl.INDEX_METADATA_DATE_MODIFIED,
+          PubItemServiceDbImpl.INDEX_METADATA_DATE_CREATED,});
+    } catch (final Exception e) {
+      BrowseBySessionBean.logger.error("An error occurred while calling setYearStartAny.", e);
+    }
   }
-
 
   public String getQuery() {
     return this.query;
@@ -309,8 +308,6 @@ public class BrowseBySessionBean extends FacesBean {
   public void setQuery(String query) {
     this.query = query;
   }
-
-
 
   public String getDateType() {
     return this.dateType;
@@ -354,6 +351,5 @@ public class BrowseBySessionBean extends FacesBean {
   public void setYearMap(Map<String, Long> yearMap) {
     this.yearMap = yearMap;
   }
-
 
 }

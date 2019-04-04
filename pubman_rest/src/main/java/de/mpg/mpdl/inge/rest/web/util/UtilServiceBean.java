@@ -126,7 +126,7 @@ public class UtilServiceBean {
 
 
   public SearchRetrieveRequestVO query2VO(JsonNode query) throws JsonProcessingException, IngeApplicationException {
-    SearchRetrieveRequestVO request = new SearchRetrieveRequestVO();
+    //    SearchRetrieveRequestVO request = new SearchRetrieveRequestVO();
     ArrayList<SearchSortCriteria> sortCriterias = new ArrayList<>();
     QueryBuilder queryBuilder = null;
     int limit = 10;
@@ -165,10 +165,12 @@ public class UtilServiceBean {
       offset = query.get("from").asInt();
     }
 
-    request.setQueryBuilder(queryBuilder);
-    request.setSortKeys(sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
-    request.setLimit(limit);
-    request.setOffset(offset);;
+    SearchRetrieveRequestVO request =
+        new SearchRetrieveRequestVO(queryBuilder, limit, offset, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+    //    request.setQueryBuilder(queryBuilder);
+    //    request.setSortKeys(sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+    //    request.setLimit(limit);
+    //    request.setOffset(offset);;
 
     return request;
   }

@@ -15,6 +15,7 @@ import de.mpg.mpdl.inge.model.valueobjects.GrantVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
@@ -108,14 +109,18 @@ public class YearbookUtils {
     */
   }
 
-  public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken) throws Exception {
-
+  public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken, SearchSortCriteria sc)
+      throws Exception {
     QueryBuilder qb = YearbookUtils.getMemberQuery(yearbook);
 
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+    SearchRetrieveRequestVO srr;
+    if (sc == null) {
+      srr = new SearchRetrieveRequestVO(qb, -2, 0); // unbegrenzte Suche
+    } else {
+      srr = new SearchRetrieveRequestVO(qb, -2, 0, sc); // unbegrenzte Suche
+    }
+
     SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
-
-
     List<ItemVersionVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
     return CommonUtils.convertToPubItemVOPresentationList(resultList);

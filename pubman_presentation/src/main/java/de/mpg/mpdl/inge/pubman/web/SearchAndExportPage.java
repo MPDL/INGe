@@ -204,11 +204,12 @@ public class SearchAndExportPage extends BreadcrumbPage {
       int _limit = Integer.parseInt(this.limit);
       int _offset = Integer.parseInt(this.offset);
 
-      SearchRetrieveRequestVO srrVO = new SearchRetrieveRequestVO();
-      srrVO.setQueryBuilder(queryBuilder);
-      srrVO.setSortKeys(sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
-      srrVO.setLimit(_limit);
-      srrVO.setOffset(_offset);
+      SearchRetrieveRequestVO srrVO =
+          new SearchRetrieveRequestVO(queryBuilder, _limit, _offset, sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+      //      srrVO.setQueryBuilder(queryBuilder);
+      //      srrVO.setSortKeys(sortCriterias.toArray(new SearchSortCriteria[sortCriterias.size()]));
+      //      srrVO.setLimit(_limit);
+      //      srrVO.setOffset(_offset);
 
       SearchAndExportRetrieveRequestVO saerrVO = new SearchAndExportRetrieveRequestVO(srrVO, curExportFormat);
 
