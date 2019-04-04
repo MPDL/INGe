@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import javax.ws.rs.core.MediaType;
+
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
@@ -63,7 +66,47 @@ public class OrganizationRestController {
         new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ORGANIZATION_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
+
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);
+  }
+
+  @ApiIgnore
+  @RequestMapping(value = "/xml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML + ";charset=UTF-8")
+  public ResponseEntity<String> getAllAsXml(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestParam(value = "size", required = true, defaultValue = "10") int limit,
+      @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
+    SearchSortCriteria sorting =
+        new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ORGANIZATION_SORT), SortOrder.ASC);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
+    SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
+    StringBuilder xml = new StringBuilder();
+    xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    xml.append("<root>");
+    xml.append("<records>");
+    for (SearchRetrieveRecordVO<AffiliationDbVO> record : srResponse.getRecords()) {
+      xml.append("<record>");
+      AffiliationDbVO affiliation = record.getData();
+      String name = affiliation.getName() //
+          .replaceAll("&", "&amp;") //
+          .replaceAll("'", "&apos;") //
+          .replaceAll("<", "&lt;") //
+          .replaceAll(">", "&gt;") //
+          .replaceAll("\"", "&quot;");
+      xml.append("<name>");
+      xml.append(name);
+      xml.append("</name>");
+      String objectId = affiliation.getObjectId();
+      xml.append("<objectId>");
+      xml.append(objectId);
+      xml.append("</objectId>");
+      xml.append("</record>");
+    }
+    xml.append("</records>");
+    xml.append("</root>");
+
+    return new ResponseEntity<String>(xml.toString(), HttpStatus.OK);
   }
 
   @ApiIgnore
@@ -79,6 +122,7 @@ public class OrganizationRestController {
         new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_ORGANIZATION_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
+
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);
   }
 
@@ -88,6 +132,7 @@ public class OrganizationRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AffiliationDbVO> srResponse = organizationSvc.search(srRequest, token);
+
     return new ResponseEntity<SearchRetrieveResponseVO<AffiliationDbVO>>(srResponse, HttpStatus.OK);
   }
 
@@ -95,6 +140,7 @@ public class OrganizationRestController {
   public ResponseEntity<List<AffiliationDbVO>> topLevel()
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AffiliationDbVO> response = organizationSvc.searchTopLevelOrganizations();
+
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
   }
 
@@ -103,6 +149,7 @@ public class OrganizationRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     List<AffiliationDbVO> response = organizationSvc.searchChildOrganizations(parentAffiliationId);
     response.sort((ou1, ou2) -> ou1.getMetadata().getName().compareTo(ou2.getMetadata().getName()));
+
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
   }
 
@@ -119,6 +166,7 @@ public class OrganizationRestController {
     if (ou == null) {
       throw new NotFoundException();
     }
+
     return new ResponseEntity<AffiliationDbVO>(ou, HttpStatus.OK);
   }
 
@@ -127,6 +175,7 @@ public class OrganizationRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationDbVO created = null;
     created = organizationSvc.create(ou, token);
+
     return new ResponseEntity<AffiliationDbVO>(created, HttpStatus.CREATED);
   }
 
@@ -137,6 +186,7 @@ public class OrganizationRestController {
     AffiliationDbVO opened = null;
     Date lmd = utils.string2Date(modificationDate);
     opened = organizationSvc.open(ouId, lmd, token);
+
     return new ResponseEntity<AffiliationDbVO>(opened, HttpStatus.OK);
   }
 
@@ -147,6 +197,7 @@ public class OrganizationRestController {
     AffiliationDbVO closed = null;
     Date lmd = utils.string2Date(modificationDate);
     closed = organizationSvc.close(ouId, lmd, token);
+
     return new ResponseEntity<AffiliationDbVO>(closed, HttpStatus.OK);
   }
 
@@ -156,6 +207,7 @@ public class OrganizationRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AffiliationDbVO updated = null;
     updated = organizationSvc.update(ou, token);
+
     return new ResponseEntity<AffiliationDbVO>(updated, HttpStatus.OK);
   }
 
@@ -163,6 +215,7 @@ public class OrganizationRestController {
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = OU_ID_VAR) String ouId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     organizationSvc.delete(ouId, token);
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
