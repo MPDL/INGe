@@ -125,8 +125,7 @@ public class MatomoStatisticsService {
   private static URI prepareFileURL(String id, String what, String file_id, String name, String period, String date) {
     URIBuilder builder;
     String idForFileGet = null;
-    if ((id.substring(id.indexOf("_"))).contains("_"))
-    {
+    if ((id.substring(id.indexOf("_"))).contains("_")) {
       idForFileGet = id.substring(0, id.lastIndexOf("_"));
     } else {
       idForFileGet = id;
