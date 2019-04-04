@@ -27,10 +27,10 @@ public class MatomoStatisticsService {
   private static final String ANALYTICS_SITE_ID = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID);
   private static final String ANALYTICS_TOKEN = PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN);
 
-  private static final String PURE_ITEM = INSTANCE_URI + INSTANCE_CONTEXT_PATH + "/item/";
+  //  private static final String PURE_ITEM = INSTANCE_URI + INSTANCE_CONTEXT_PATH + "/item/";
   // used for Testing on another instance
-  //  private static final String PURE_ITEM = "https://qa.pure.mpdl.mpg.de/pubman/item/";
-  //  private static final String PURE_FILE = "/component/";
+  private static final String PURE_ITEM = "https://qa.pure.mpdl.mpg.de/pubman/item/";
+  private static final String PURE_FILE = "/component/";
   private static final String DATE_RANGE = "2000-01-01,today";
 
 
@@ -96,7 +96,6 @@ public class MatomoStatisticsService {
     HttpResponse file_response = Request.Get(prepareFileURL(id, "pure", file_id, name, "range", DATE_RANGE)).execute().returnResponse();
     JsonNode file_downloads = om.readValue(file_response.getEntity().getContent(), JsonNode.class);
     int total = 0;
-    //    if (file_downloads != null && file_downloads.get("nb_visits") != null) {
     if (file_downloads != null && file_downloads.get(0) != null && file_downloads.get(0).get("nb_visits") != null) {
       total = file_downloads.get(0).get("nb_visits").asInt();
     }
@@ -125,13 +124,19 @@ public class MatomoStatisticsService {
 
   private static URI prepareFileURL(String id, String what, String file_id, String name, String period, String date) {
     URIBuilder builder;
+    String idForFileGet = null;
+    if ((id.substring(id.indexOf("_"))).contains("_"))
+    {
+      idForFileGet = id.substring(0, id.lastIndexOf("_"));
+    } else {
+      idForFileGet = id;
+    }
+
     try {
       builder = new URIBuilder(new URI(ANALYTICS_BASE_URI));
-      builder.addParameter("module", "API").addParameter("method", "Actions.getDownloads").addParameter("idSite", ANALYTICS_SITE_ID)
+      builder.addParameter("module", "API").addParameter("method", "Actions.getDownload").addParameter("idSite", ANALYTICS_SITE_ID)
           .addParameter("period", period).addParameter("date", date).addParameter("token_auth", ANALYTICS_TOKEN)
-          .addParameter("format", "json");
-      //      builder.addParameter("segment", "downloadUrl=^" + PURE_ITEM + id + PURE_FILE + file_id);
-      builder.addParameter("segment", "downloadUrl=@" + file_id);
+          .addParameter("format", "json").addParameter("downloadUrl", PURE_ITEM + idForFileGet + PURE_FILE + file_id + "/" + name);
 
       URI analytics_URI = builder.build();
       logger.info("Requesting item stats 4 " + analytics_URI.toString());
