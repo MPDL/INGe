@@ -235,26 +235,18 @@ public class YearbookModeratorRetrieverRequestBean
 
   public String exportSelectedDownload() {
     try {
-
       List<YearbookDbVO> selectedYearbooks = getSelectedYearbooks();
-
       List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
-      //      BoolQueryBuilder bq = QueryBuilders.boolQuery();
       for (YearbookDbVO yb : selectedYearbooks) {
-
-        pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper().getAuthenticationToken()));
+        pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper().getAuthenticationToken(), null));
       }
-
 
       if (pubItemList.size() != 0) {
         PubItemListSessionBean.exportAndDownload(pubItemList);
-
       } else {
         this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
       }
-
-
     } catch (final Exception e) {
       this.error(this.getMessage("ExportError") + e.getMessage());
       YearbookModeratorRetrieverRequestBean.logger.error("Error exporting yearbook", e);

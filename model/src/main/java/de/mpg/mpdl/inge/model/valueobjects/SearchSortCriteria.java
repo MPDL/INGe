@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.model.valueobjects;
 
+@SuppressWarnings("serial")
 public class SearchSortCriteria extends ValueObject {
 
   public enum SortOrder
@@ -9,10 +10,7 @@ public class SearchSortCriteria extends ValueObject {
   }
 
   private String indexField;
-
   private SortOrder sortOrder;
-
-
 
   public SearchSortCriteria(String indexField, SortOrder sortOrder) {
     super();
@@ -27,7 +25,6 @@ public class SearchSortCriteria extends ValueObject {
   public void setIndexField(String indexField) {
     this.indexField = indexField;
   }
-
 
   public SortOrder getSortOrder() {
     return sortOrder;

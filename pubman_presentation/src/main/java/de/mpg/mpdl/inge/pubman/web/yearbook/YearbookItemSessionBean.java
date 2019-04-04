@@ -23,6 +23,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -248,7 +249,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
     BoolQueryBuilder qb = YearbookUtils.getCandidateQuery();
     qb.must(QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, id));
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 0, 0, null);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, 0, 0); // Limit 0, da nur Gesamtzahl interessieert
     SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, null);
     return resp.getNumberOfRecords() > 0;
   }
@@ -266,8 +267,8 @@ public class YearbookItemSessionBean extends FacesBean {
      */
   }
 
-  public List<PubItemVOPresentation> retrieveAllMembers() throws Exception {
-    return YearbookUtils.retrieveAllMembers(yearbook, getLoginHelper().getAuthenticationToken());
+  public List<PubItemVOPresentation> retrieveAllMembers(SearchSortCriteria sc) throws Exception {
+    return YearbookUtils.retrieveAllMembers(yearbook, getLoginHelper().getAuthenticationToken(), sc);
   }
 
   public boolean validateItem(ItemVersionVO pubItem) throws Exception {
@@ -317,7 +318,7 @@ public class YearbookItemSessionBean extends FacesBean {
     this.validItemMap = new HashMap<String, YearbookInvalidItemRO>();
     this.invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
 
-    final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
+    final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers(null);
     for (final PubItemVOPresentation pubItem : pubItemList) {
       this.validateItem(pubItem);
     }
@@ -382,7 +383,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public String submitYearbook() {
     try {
-      final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
+      final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers(null);
       boolean allValid = true;
       for (final PubItemVOPresentation pubItem : pubItemList) {
         final boolean valid = this.validateItem(pubItem);
@@ -422,8 +423,10 @@ public class YearbookItemSessionBean extends FacesBean {
    */
   public String exportYearbook() {
     try {
+      PubItemListSessionBean.SORT_CRITERIA psc = this.pilsb.getSortCriteria();
+      SearchSortCriteria sc = new SearchSortCriteria(psc.getIndex()[0], psc.getSortOrder());
 
-      List<PubItemVOPresentation> result = retrieveAllMembers();
+      List<PubItemVOPresentation> result = retrieveAllMembers(sc);
 
       this.pilsb.downloadExportFile(result);
 
