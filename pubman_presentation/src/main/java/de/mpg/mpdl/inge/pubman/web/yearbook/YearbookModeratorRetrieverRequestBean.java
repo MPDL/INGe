@@ -239,7 +239,7 @@ public class YearbookModeratorRetrieverRequestBean
       List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
       for (YearbookDbVO yb : selectedYearbooks) {
-        pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper().getAuthenticationToken(), null));
+        pubItemList.addAll(YearbookUtils.retrieveAllMembers(yb, getLoginHelper().getAuthenticationToken()));
       }
 
       if (pubItemList.size() != 0) {

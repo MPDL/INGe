@@ -12,8 +12,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.inge_validation.ItemValidatingService;
 import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
@@ -23,7 +25,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
@@ -33,9 +35,11 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.OrganizationService;
+import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 @ManagedBean(name = "YearbookItemSessionBean")
 @SessionScoped
@@ -60,6 +64,7 @@ public class YearbookItemSessionBean extends FacesBean {
   private final YearbookService yearbookService = ApplicationBean.INSTANCE.getYearbookService();
   private final OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
   private final ItemValidatingService itemValidatingService = ApplicationBean.INSTANCE.getItemValidatingService();
+  private final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
 
   public YearbookItemSessionBean() {
     try {
@@ -267,8 +272,8 @@ public class YearbookItemSessionBean extends FacesBean {
      */
   }
 
-  public List<PubItemVOPresentation> retrieveAllMembers(SearchSortCriteria sc) throws Exception {
-    return YearbookUtils.retrieveAllMembers(yearbook, getLoginHelper().getAuthenticationToken(), sc);
+  public List<PubItemVOPresentation> retrieveAllMembers() throws Exception {
+    return YearbookUtils.retrieveAllMembers(this.yearbook, getLoginHelper().getAuthenticationToken());
   }
 
   public boolean validateItem(ItemVersionVO pubItem) throws Exception {
@@ -318,7 +323,7 @@ public class YearbookItemSessionBean extends FacesBean {
     this.validItemMap = new HashMap<String, YearbookInvalidItemRO>();
     this.invalidItemMap = new HashMap<String, YearbookInvalidItemRO>();
 
-    final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers(null);
+    final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
     for (final PubItemVOPresentation pubItem : pubItemList) {
       this.validateItem(pubItem);
     }
@@ -383,7 +388,7 @@ public class YearbookItemSessionBean extends FacesBean {
 
   public String submitYearbook() {
     try {
-      final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers(null);
+      final List<PubItemVOPresentation> pubItemList = this.retrieveAllMembers();
       boolean allValid = true;
       for (final PubItemVOPresentation pubItem : pubItemList) {
         final boolean valid = this.validateItem(pubItem);
@@ -423,13 +428,31 @@ public class YearbookItemSessionBean extends FacesBean {
    */
   public String exportYearbook() {
     try {
-      PubItemListSessionBean.SORT_CRITERIA psc = this.pilsb.getSortCriteria();
-      SearchSortCriteria sc = new SearchSortCriteria(psc.getIndex()[0], psc.getSortOrder());
+      SearchSourceBuilder ssb = new SearchSourceBuilder();
+      ssb.query(YearbookUtils.getMemberQuery(this.yearbook));
+      ssb.from(0);
+      ssb.size(5000);
 
-      List<PubItemVOPresentation> result = retrieveAllMembers(sc);
+      PubItemListSessionBean.SORT_CRITERIA sc = this.pilsb.getSortCriteria();
+      for (String index : sc.getIndex()) {
+        if (!index.isEmpty()) {
+          ssb.sort(SearchUtils.baseElasticSearchSortBuilder(this.pubItemService.getElasticSearchIndexFields(), index,
+              SortOrder.ASC.equals(sc.getSortOrder()) ? org.elasticsearch.search.sort.SortOrder.ASC
+                  : org.elasticsearch.search.sort.SortOrder.DESC));
+        }
+      }
 
-      this.pilsb.downloadExportFile(result);
+      SearchResponse resp = this.pubItemService.searchDetailed(ssb, null);
 
+      List<ItemVersionVO> pubItemList = SearchUtils.getRecordListFromElasticSearchResponse(resp, ItemVersionVO.class);
+      List<PubItemVOPresentation> resultList = new ArrayList<>();
+
+      for (ItemVersionVO pubItem : pubItemList) {
+        PubItemVOPresentation pubItemPres = new PubItemVOPresentation(pubItem);
+        resultList.add(pubItemPres);
+      }
+
+      this.pilsb.downloadExportFile(resultList);
     } catch (final Exception e) {
       this.error(this.getMessage("ExportError") + e.getMessage());
       YearbookItemSessionBean.logger.error("Error exporting yearbook", e);
