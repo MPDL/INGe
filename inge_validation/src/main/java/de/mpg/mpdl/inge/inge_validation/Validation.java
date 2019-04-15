@@ -259,13 +259,16 @@ public class Validation {
         .when(isBook(pubItemVO.getMetadata().getGenre()))
 
         // Thesis
-        .on(pubItemVO.getMetadata(), new DateAcceptedRequiredValidator()).when(isThesis(pubItemVO.getMetadata().getGenre()))
+        .on(pubItemVO.getMetadata(), new DateAcceptedRequiredValidator()) //
+        .when(isThesis(pubItemVO.getMetadata().getGenre())) //
         .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
         .when(isThesis(pubItemVO.getMetadata().getGenre()))
 
         // Issue
-        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreJournalValidator()).when(isIssue(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()).when(isIssue(pubItemVO.getMetadata().getGenre()))
+        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreJournalValidator()) //
+        .when(isIssue(pubItemVO.getMetadata().getGenre())) //
+        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
+        .when(isIssue(pubItemVO.getMetadata().getGenre()))
 
         // Journal
         .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
@@ -312,20 +315,28 @@ public class Validation {
 
   // ### Yearbook Section ########################################
   private boolean isArticle(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.ARTICLE.equals(genre) || MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre)
-        || MdsPublicationVO.Genre.CASE_NOTE.equals(genre) || MdsPublicationVO.Genre.CASE_STUDY.equals(genre)
-        || MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre) || MdsPublicationVO.Genre.EDITORIAL.equals(genre)
-        || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre);
+    return (MdsPublicationVO.Genre.ARTICLE.equals(genre) //
+        || MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre) //
+        || MdsPublicationVO.Genre.CASE_NOTE.equals(genre) //
+        || MdsPublicationVO.Genre.CASE_STUDY.equals(genre) //
+        || MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre) //
+        || MdsPublicationVO.Genre.EDITORIAL.equals(genre) //
+        || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre));
   }
 
   private boolean isBookChapter(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.BOOK_ITEM.equals(genre) || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre)
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre)
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre);
+    return (MdsPublicationVO.Genre.BOOK_ITEM.equals(genre) //
+        || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre) //
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre) //
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) //
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre) //
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre) //
+        || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre));
   }
 
   private boolean isConferencePaper(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre) || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre);
+    return (MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre) //
+        || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre));
   }
 
   private boolean isProceedings(MdsPublicationVO.Genre genre) {
@@ -333,9 +344,12 @@ public class Validation {
   }
 
   private boolean isBook(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.BOOK.equals(genre) || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre)
-        || MdsPublicationVO.Genre.COMMENTARY.equals(genre) || MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre)
-        || MdsPublicationVO.Genre.HANDBOOK.equals(genre) || MdsPublicationVO.Genre.MONOGRAPH.equals(genre);
+    return (MdsPublicationVO.Genre.BOOK.equals(genre) // 
+        || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre) //
+        || MdsPublicationVO.Genre.COMMENTARY.equals(genre) //
+        || MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre) //
+        || MdsPublicationVO.Genre.HANDBOOK.equals(genre) //
+        || MdsPublicationVO.Genre.MONOGRAPH.equals(genre));
   }
 
   private boolean isThesis(MdsPublicationVO.Genre genre) {
@@ -347,7 +361,13 @@ public class Validation {
   }
 
   private boolean isJournal(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.JOURNAL.equals(genre);
+    return (MdsPublicationVO.Genre.JOURNAL.equals(genre) //
+        || MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre) //
+        || MdsPublicationVO.Genre.CASE_NOTE.equals(genre) //
+        || MdsPublicationVO.Genre.CASE_STUDY.equals(genre) //
+        || MdsPublicationVO.Genre.EDITORIAL.equals(genre) //
+        || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre) //
+        || MdsPublicationVO.Genre.OPINION.equals(genre));
   }
 
   private boolean isSeries(MdsPublicationVO.Genre genre) {
@@ -355,7 +375,8 @@ public class Validation {
   }
 
   private boolean isPaper(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.PAPER.equals(genre) || MdsPublicationVO.Genre.OPINION.equals(genre);
+    return (MdsPublicationVO.Genre.PAPER.equals(genre) //
+        || MdsPublicationVO.Genre.OPINION.equals(genre));
   }
 
   private boolean isReport(MdsPublicationVO.Genre genre) {
