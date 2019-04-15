@@ -375,8 +375,7 @@ public class Validation {
   }
 
   private boolean isPaper(MdsPublicationVO.Genre genre) {
-    return (MdsPublicationVO.Genre.PAPER.equals(genre) //
-        || MdsPublicationVO.Genre.OPINION.equals(genre));
+    return MdsPublicationVO.Genre.PAPER.equals(genre);
   }
 
   private boolean isReport(MdsPublicationVO.Genre genre) {
