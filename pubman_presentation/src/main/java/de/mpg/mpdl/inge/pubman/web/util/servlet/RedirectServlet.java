@@ -117,10 +117,12 @@ public class RedirectServlet extends HttpServlet {
       matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN));
       matomoParameterMap.put(MatomoTracker.USER_IP, req.getRemoteAddr());
       Cookie[] cookies = req.getCookies();
-      for (Cookie cookie : cookies) {
-        if ("JSESSIONID".equals(cookie.getName())) {
-          System.out.println("SessionId: " + cookie.getValue());
-          matomoParameterMap.put(MatomoTracker.User_ID, cookie.getValue());
+      if (cookies != null) {
+        for (Cookie cookie : cookies) {
+          if ("JSESSIONID".equals(cookie.getName())) {
+            System.out.println("SessionId: " + cookie.getValue());
+            matomoParameterMap.put(MatomoTracker.User_ID, cookie.getValue());
+          }
         }
       }
       MatomoTracker.trackUrl(matomoParameterMap);
