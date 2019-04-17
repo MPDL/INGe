@@ -44,6 +44,10 @@ public class SourcesGenreJournalValidator extends ValidatorHandler<List<SourceVO
         ok = true;
       }
 
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
+
     } // if
 
     return ok;

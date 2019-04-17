@@ -44,6 +44,10 @@ public class SourcesGenreSeriesValidator extends ValidatorHandler<List<SourceVO>
 
       } // for
 
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_SERIES).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
+
     } // if
 
     return ok;

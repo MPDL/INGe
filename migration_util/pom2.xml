@@ -153,7 +153,7 @@
 		<inge.transformation.mab.content.url.prefix>http://migration-coreservice.mpdl.mpg.de/import/linguistic_literature/</inge.transformation.mab.content.url.prefix>
 		<inge.transformation.escidoc.snippet.to.html.stylesheet.filename >transformations/escidoc-publication-snippet2html.xsl</inge.transformation.escidoc.snippet.to.html.stylesheet.filename >
 		<inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename >transformations/itemList2snippet.xsl</inge.transformation.escidoc.itemlist.to.snippet.stylesheet.filename >
-		<inge.yearbook.allowed_genres>JOURNAL,ARTICLE,ISSUE,BOOK,BOOK_ITEM,PROCEEDINGS,CONFERENCE_PAPER,PAPER,THESIS,SERIES,CONTRIBUTION_TO_HANDBOOK,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_COLLECTED_EDITION,MONOGRAPH,HANDBOOK,COLLECTED_EDITION,FESTSCHRIFT,NEWSPAPER_ARTICLE,CONFERENCE_REPORT,EDITORIAL,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_COMMENTARY,BOOK_REVIEW,OPINION,CASE_STUDY,CASE_NOTE,COMMENTARY</inge.yearbook.allowed_genres>
+		<inge.yearbook.allowed_genres>ARTICLE,BOOK,BOOK_ITEM,BOOK_REVIEW,CASE_NOTE,CASE_STUDY,COLLECTED_EDITION,COMMENTARY,CONFERENCE_PAPER,CONFERENCE_REPORT,CONTRIBUTION_TO_COLLECTED_EDITION,CONTRIBUTION_TO_COMMENTARY,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_HANDBOOK,EDITORIAL,FESTSCHRIFT,HANDBOOK,ISSUE,JOURNAL,MONOGRAPH,NEWSPAPER_ARTICLE,OPINION,PAPER,PROCEEDINGS,SERIES,THESIS</inge.yearbook.allowed_genres>
 		<jdk.version>1.8</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>

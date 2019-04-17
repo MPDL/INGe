@@ -46,6 +46,11 @@ public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<
         ok = true;
       }
 
+    } else {
+      context
+          .addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
+
     } // if
 
     return ok;
