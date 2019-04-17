@@ -26,7 +26,6 @@ public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<Source
         if (sourceVO != null) {
 
           if (ValidationTools.isEmpty(sourceVO.getVolume())) {
-
             context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 
@@ -37,11 +36,17 @@ public class SourcesVolumeRequiredValidator extends ValidatorHandler<List<Source
         } // if
 
         i++;
+
       } // for
 
-    } // if
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_VOLUME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
+
+    }
 
     return ok;
   }
-
 }
+

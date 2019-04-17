@@ -41,6 +41,7 @@ public class SourcesGenreSeriesValidator extends ValidatorHandler<List<SourceVO>
         } else {
           ok = true;
         }
+
       } // for
 
     } // if

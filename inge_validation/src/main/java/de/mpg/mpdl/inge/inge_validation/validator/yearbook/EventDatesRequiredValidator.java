@@ -32,7 +32,13 @@ public class EventDatesRequiredValidator extends ValidatorHandler<EventVO> imple
 
       } // if
 
-    }
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.EVENT_START_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.EVENT_END_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
+
+    } // if
 
     return ok;
   }

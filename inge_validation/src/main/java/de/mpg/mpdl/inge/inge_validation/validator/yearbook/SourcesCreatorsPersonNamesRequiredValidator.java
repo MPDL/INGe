@@ -38,7 +38,6 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
               if (p != null) {
 
                 if (ValidationTools.isEmpty(p.getFamilyName())) {
-
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED)
                       .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 
@@ -47,7 +46,6 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
                 } // if
 
                 if (ValidationTools.isEmpty(p.getGivenName())) {
-
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED)
                       .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 
@@ -64,10 +62,17 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
 
         } // if
 
-      } // if
+      } // for
 
       i++;
-    } // for
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
+
+    } // if
 
     return ok;
   }

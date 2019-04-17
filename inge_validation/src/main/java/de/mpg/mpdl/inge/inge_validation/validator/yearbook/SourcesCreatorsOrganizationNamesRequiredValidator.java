@@ -39,7 +39,6 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends Validator
               if (o != null) {
 
                 if (ValidationTools.isEmpty(o.getName())) {
-
                   context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED)
                       .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 
@@ -56,10 +55,17 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends Validator
 
         } // if
 
-      } // if
+      } // for
 
       i++;
-    } // for
+
+    } else {
+      context.addError(
+          ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
+
+    } // if
 
     return ok;
   }

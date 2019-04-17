@@ -28,12 +28,17 @@ public class SourcesCreatorRequiredValidator extends ValidatorHandler<List<Sourc
           context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_NOT_PROVIDED).setField("source[" + i + "]")
               .setErrorCode(ErrorMessages.WARNING));
 
-          return false;
+          ok = false;
 
         } // if
 
         i++;
       } // for
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
 
     } // if
 

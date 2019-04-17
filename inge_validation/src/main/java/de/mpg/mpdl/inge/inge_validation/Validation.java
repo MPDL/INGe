@@ -42,6 +42,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.yearbook.DateAcceptedRequiredV
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.EventDatesRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.EventTitleAndPlaceRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.PublisherAndPlaceRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.PublishingDateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsOrganizationNamesRequiredValidator;
@@ -50,11 +51,9 @@ import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsRoleVa
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreJournalValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreProceedingsOrJournalValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreSeriesOrJournalValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreSeriesValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesPublisherAndPlaceRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesPublisherEditionRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesSequenceInfomationValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesTotalNumberOfPagesRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.yearbook.TotalNumberOfPagesRequiredValidator;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
@@ -216,9 +215,9 @@ public class Validation {
         .when(!MdsPublicationVO.Genre.THESIS.equals(pubItemVO.getMetadata().getGenre()))
 
         // Book
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
+        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
         .when(isBook(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTotalNumberOfPagesRequiredValidator())
+        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
         .when(isBook(pubItemVO.getMetadata().getGenre()))
 
         // Book Chapter
@@ -262,7 +261,7 @@ public class Validation {
         .when(isIssue(pubItemVO.getMetadata().getGenre()))
 
         // Journal
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
+        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
         .when(isJournal(pubItemVO.getMetadata().getGenre()))
 
         // Journal-Article
@@ -276,33 +275,23 @@ public class Validation {
         // Proceedings
         .on(pubItemVO.getMetadata().getEvent(), new EventTitleAndPlaceRequiredValidator())
         .when(isProceedings(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
+        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
         .when(isProceedings(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTotalNumberOfPagesRequiredValidator())
+        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
         .when(isProceedings(pubItemVO.getMetadata().getGenre()))
 
         // Thesis
         .on(pubItemVO.getMetadata(), new DateAcceptedRequiredValidator()) //
         .when(isThesis(pubItemVO.getMetadata().getGenre())) //
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
+        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
         .when(isThesis(pubItemVO.getMetadata().getGenre()))
 
         // Paper
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTotalNumberOfPagesRequiredValidator())
+        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
         .when(isPaper(pubItemVO.getMetadata().getGenre()))
 
-        // Report
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherEditionRequiredValidator())
-        .when(isReport(pubItemVO.getMetadata().getGenre())) //
-        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreSeriesValidator()) //
-        .when(isReport(pubItemVO.getMetadata().getGenre())) //
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
-        .when(isReport(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTotalNumberOfPagesRequiredValidator())
-        .when(isReport(pubItemVO.getMetadata().getGenre()))
-
         // Series
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
+        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
         .when(isSeries(pubItemVO.getMetadata().getGenre()));
 
     final ComplexResult result = vYearbook.doValidate().result(ResultCollectors.toComplex());
@@ -349,8 +338,7 @@ public class Validation {
   }
 
   private boolean isConferencePaper(MdsPublicationVO.Genre genre) {
-    return (MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre) //
-        || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(genre));
+    return MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre);
   }
 
   private boolean isConferenceReport(MdsPublicationVO.Genre genre) {
@@ -385,10 +373,6 @@ public class Validation {
 
   private boolean isProceedings(MdsPublicationVO.Genre genre) {
     return MdsPublicationVO.Genre.PROCEEDINGS.equals(genre);
-  }
-
-  private boolean isReport(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.REPORT.equals(genre);
   }
 
   private boolean isThesis(MdsPublicationVO.Genre genre) {

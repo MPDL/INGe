@@ -32,7 +32,13 @@ public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventV
 
       } // if
 
-    }
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.EVENT_TITLE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.EVENT_PLACE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
+
+    } // if
 
     return ok;
   }
