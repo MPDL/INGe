@@ -59,12 +59,6 @@ public class SourcesCreatorsOrganizationNamesRequiredValidator extends Validator
 
       i++;
 
-    } else {
-      context.addError(
-          ValidationError.create(ErrorMessages.SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
-
-      ok = false;
-
     } // if
 
     return ok;

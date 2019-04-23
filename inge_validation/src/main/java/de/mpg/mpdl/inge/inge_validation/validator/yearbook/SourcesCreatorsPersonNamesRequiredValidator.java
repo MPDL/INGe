@@ -66,12 +66,6 @@ public class SourcesCreatorsPersonNamesRequiredValidator extends ValidatorHandle
 
       i++;
 
-    } else {
-      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
-      context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
-
-      ok = false;
-
     } // if
 
     return ok;

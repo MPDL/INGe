@@ -36,7 +36,7 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           } // if
 
-          if (p != null && ValidationTools.isEmpty(p.getPlace())) {
+          if (p == null || ValidationTools.isEmpty(p.getPlace())) {
             context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 
