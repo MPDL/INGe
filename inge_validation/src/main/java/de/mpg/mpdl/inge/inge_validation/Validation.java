@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsNameRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourcesGenreRequiredValidator;
@@ -103,6 +104,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsNameRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
@@ -133,6 +135,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsNameRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator()) //
             .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
@@ -179,6 +182,7 @@ public class Validation {
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsNameRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
 
