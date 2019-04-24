@@ -1135,7 +1135,7 @@
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:copy-of
-								select="Util:queryCone('persons', concat($familyname, ', ', $givenname))" />
+								select="Util:queryCone('persons', concat('&quot;',$familyname, ', ', $givenname, '&quot;'))" />
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:variable>
