@@ -677,7 +677,7 @@ public class PubItemServiceTest extends TestBase {
     personVO.setFamilyName("Meier");
     personVO.setGivenName("Hans");
     creatorVO.setPerson(personVO);
-    
+
     OrganizationVO organizationVO = new OrganizationVO();
     organizationVO.setName("Test Orga");
     creatorVO.setOrganization(organizationVO);

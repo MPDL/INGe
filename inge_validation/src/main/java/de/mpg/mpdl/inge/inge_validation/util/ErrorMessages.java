@@ -62,9 +62,11 @@ public class ErrorMessages {
   public static final String PUBLISHING_DATE_NOT_PROVIDED = "PublishingDateNotProvided";
   public static final String SLASH_IN_FILENAME = "SlashInFilename";
   public static final String SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED = "SourceCreatorFamilyNameNotProvided";
+  public static final String NO_SOURCE_CREATOR_FAMILY_NAME = "NoSourceCreatorFamilyName";
   public static final String SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED = "SourceCreatorGivenNameNotProvided";
   public static final String SOURCE_CREATOR_NOT_PROVIDED = "SourceCreatorNotProvided";
   public static final String SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED = "SourceCreatorOrganizationNameNotProvided";
+  public static final String NO_SOURCE_CREATOR_ORGANIZATION_NAME = "NoSourceCreatorOrganizationName";
   public static final String SOURCE_CREATOR_ROLE_INVALID = "SourceCreatorRoleInvalid";
   public static final String SOURCE_CREATOR_ROLE_NOT_PROVIDED = "SourceCreatorRoleNotProvided";
   public static final String SOURCE_EDITION_NOT_PROVIDED = "SourceEditionNotProvided";

@@ -69,30 +69,32 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                       context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
                           .setField("source[" + i + "].creator[" + j + "]"));
                       ok = false;
+
+                      break;
                     }
                   }
 
-                  if (p != null) {
-                    final List<OrganizationVO> orgs = p.getOrganizations();
+                  final List<OrganizationVO> orgs = p.getOrganizations();
 
-                    if (ValidationTools.isNotEmpty(orgs)) {
+                  if (ValidationTools.isNotEmpty(orgs)) {
 
-                      int z = 1;
-                      for (final OrganizationVO organizationVO : orgs) {
+                    int z = 1;
+                    for (final OrganizationVO organizationVO : orgs) {
 
-                        if (organizationVO != null) {
-                          if (ValidationTools.isNotEmpty(organizationVO.getName()) //
-                              || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
-                            context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
-                                .setField("source[" + i + "].creator[" + j + "].organization[" + z + "]"));
-                            ok = false;
-                          }
+                      if (organizationVO != null) {
+                        if (ValidationTools.isNotEmpty(organizationVO.getName()) //
+                            || ValidationTools.isNotEmpty(organizationVO.getAddress())) {
+                          context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
+                              .setField("source[" + i + "].creator[" + j + "].organization[" + z + "]"));
+                          ok = false;
+
+                          break;
                         }
+                      }
 
-                        z++;
-                      } // for
+                      z++;
+                    } // for
 
-                    } // if
                   }
 
                   break;
