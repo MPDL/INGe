@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRecordVO;
@@ -101,6 +102,16 @@ public class OrganizationRestController {
       xml.append("<objectId>");
       xml.append(objectId);
       xml.append("</objectId>");
+      AffiliationDbRO parentAffiliation = affiliation.getParentAffiliation();
+      String parent = parentAffiliation.getName() //
+          .replaceAll("&", "&amp;") //
+          .replaceAll("'", "&apos;") //
+          .replaceAll("<", "&lt;") //
+          .replaceAll(">", "&gt;") //
+          .replaceAll("\"", "&quot;");
+      xml.append("<parent>");
+      xml.append(parent);
+      xml.append("</parent>");
       xml.append("</record>");
     }
     xml.append("</records>");
