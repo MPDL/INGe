@@ -90,23 +90,23 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<xsl:comment>ID for OU '<xsl:value-of select="$ou"></xsl:value-of>' and Parent '<xsl:value-of select="$ou_parent"></xsl:value-of>'&#xA;</xsl:comment>
 		<xsl:if
 			test="count($ou-list/root/records/record[normalize-space(name) = $ou and normalize-space(parent) = $ou_parent]) &gt; 1">
-			<xsl:comment>ERROR with "<xsl:value-of select="$ou"></xsl:value-of>" (found more than one entry)</xsl:comment>
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"></xsl:value-of>" (found more than one entry)&#xA;</xsl:comment>
 		</xsl:if>
 		<xsl:if
 			test="not(exists($ou-list/root/records/record[normalize-space(name) = $ou and normalize-space(parent) = $ou_parent]/objectId))">
-			<xsl:comment>ERROR with "<xsl:value-of select="$ou"></xsl:value-of>" (NO ID FOUND)</xsl:comment>
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"></xsl:value-of>" (NO ID FOUND)&#xA;</xsl:comment>
 		</xsl:if>
 		<xsl:if
 			test="$ou-list/root/records/record[normalize-space(name) = $ou and normalize-space(parent) = $ou_parent]/objectId = ''">
-			<xsl:comment>ERROR with "<xsl:value-of select="$ou"></xsl:value-of>" (ID EMPTY)</xsl:comment>
+			<xsl:comment>ERROR with "<xsl:value-of select="$ou"></xsl:value-of>" (ID EMPTY)&#xA;</xsl:comment>
 		</xsl:if>
 		<dc:identifier>
 			<xsl:value-of
 				select="$ou-list/root/records/record[normalize-space(name) = $ou and normalize-space(parent) = $ou_parent]/objectId"
 			></xsl:value-of>
 		</dc:identifier>
-		<xsl:comment>ID set for OU '<xsl:value-of select="$ou"></xsl:value-of>'</xsl:comment>
 	</xsl:template>
 </xsl:stylesheet>
