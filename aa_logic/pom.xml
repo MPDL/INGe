@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.8-SNAPSHOT</version>
+		<version>8.0.9-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>aa_logic</artifactId>
 	<name>aa_logic</name>
-	<version>0.2.41-SNAPSHOT</version>
+	<version>0.2.42-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/aa_logic</connection>

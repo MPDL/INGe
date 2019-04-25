@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.8-SNAPSHOT</version>
+		<version>8.0.9-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>citationmanager</artifactId>
 	<name>citationmanager</name>
-	<version>1.0.108-SNAPSHOT</version>
+	<version>1.0.109-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/citationmanager</connection>
