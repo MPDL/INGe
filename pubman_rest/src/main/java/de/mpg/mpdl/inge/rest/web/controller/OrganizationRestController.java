@@ -103,12 +103,15 @@ public class OrganizationRestController {
       xml.append(objectId);
       xml.append("</objectId>");
       AffiliationDbRO parentAffiliation = affiliation.getParentAffiliation();
-      String parent = parentAffiliation.getName() //
-          .replaceAll("&", "&amp;") //
-          .replaceAll("'", "&apos;") //
-          .replaceAll("<", "&lt;") //
-          .replaceAll(">", "&gt;") //
-          .replaceAll("\"", "&quot;");
+      String parent = "";
+      if (parentAffiliation != null && parentAffiliation.getName() != null) {
+        parent = parentAffiliation.getName() //
+            .replaceAll("&", "&amp;") //
+            .replaceAll("'", "&apos;") //
+            .replaceAll("<", "&lt;") //
+            .replaceAll(">", "&gt;") //
+            .replaceAll("\"", "&quot;");
+      }
       xml.append("<parent>");
       xml.append(parent);
       xml.append("</parent>");
