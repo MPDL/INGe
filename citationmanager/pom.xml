@@ -11,7 +11,6 @@
 
 	<artifactId>citationmanager</artifactId>
 	<name>citationmanager</name>
-	<version>1.0.110-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/citationmanager</connection>

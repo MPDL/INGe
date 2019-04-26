@@ -10,7 +10,6 @@
 	</parent>
 
 	<artifactId>citation_style_language_manager</artifactId>
-	<version>0.0.16-SNAPSHOT</version>
 	<name>citation_style_language_manager</name>
 
 	<scm>

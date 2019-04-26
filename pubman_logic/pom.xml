@@ -11,6 +11,7 @@
 
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
+	
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_logic</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_logic</developerConnection>

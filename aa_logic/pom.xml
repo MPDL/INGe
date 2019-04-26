@@ -11,7 +11,6 @@
 
 	<artifactId>aa_logic</artifactId>
 	<name>aa_logic</name>
-	<version>0.2.43-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:git:git@github.com:MPDL/INGe/aa_logic</connection>
