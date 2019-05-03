@@ -13,7 +13,8 @@ public class SearchRetrieveRequestVO extends ValueObject {
 
   private List<AggregationBuilder> aggregationBuilders = new ArrayList<>();
 
-  // use -1 for limit set by property (currently 10000)
+  // use -1 for default limit set by property (currently 100)
+  // use -2 for max limit set by property (currently 10000)
   private int limit = -1;
 
   private int offset = 0;
@@ -25,9 +26,9 @@ public class SearchRetrieveRequestVO extends ValueObject {
 
   public SearchRetrieveRequestVO() {}
 
-  public SearchRetrieveRequestVO(AggregationBuilder aggBuilder) {
-    this.aggregationBuilders.add(aggBuilder);
-  }
+  //  public SearchRetrieveRequestVO(AggregationBuilder aggBuilder) {
+  //    this.aggregationBuilders.add(aggBuilder);
+  //  }
 
   public SearchRetrieveRequestVO(QueryBuilder queryBuilder, int limit, int offset, SearchSortCriteria... sortKeys) {
     this.setQueryBuilder(queryBuilder);
@@ -76,9 +77,9 @@ public class SearchRetrieveRequestVO extends ValueObject {
     return this.aggregationBuilders;
   }
 
-  public void setAggregationBuilders(List<AggregationBuilder> aggregationBuilders) {
-    this.aggregationBuilders = aggregationBuilders;
-  }
+  //  public void setAggregationBuilders(List<AggregationBuilder> aggregationBuilders) {
+  //    this.aggregationBuilders = aggregationBuilders;
+  //  }
 
   public long getScrollTime() {
     return this.scrollTime;

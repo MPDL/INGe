@@ -6,11 +6,10 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.7-SNAPSHOT</version>
+		<version>8.0.10-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>inge_util</artifactId>
-  <version>0.0.8-SNAPSHOT</version>
 	<name>inge_util</name>
 
 	<scm>

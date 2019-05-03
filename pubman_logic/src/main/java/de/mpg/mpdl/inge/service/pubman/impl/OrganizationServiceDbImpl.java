@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
@@ -55,7 +52,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliation.objectId";
   public final static String INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID = "predecessorAffiliations.objectId";
   public final static String INDEX_STATE = "publicStatus.keyword";
-  public final static int OU_SEARCH_LIMIT = 500;
+  public final static int OU_SEARCH_LIMIT = -2; // unbegrenzte Suche
 
   private static final Logger logger = LogManager.getLogger(OrganizationServiceDbImpl.class);
 
@@ -68,9 +65,6 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   @Autowired
   private OrganizationRepository organizationRepository;
-
-  @PersistenceContext
-  EntityManager entityManager;
 
   @Autowired
   private AuthorizationService aaService;
@@ -123,7 +117,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     SearchSourceBuilder ssb = new SearchSourceBuilder();
     ssb.docValueField(INDEX_OBJECT_ID);
     ssb.query(SearchUtils.baseElasticSearchQueryBuilder(getElasticSearchIndexFields(), INDEX_PARENT_AFFILIATIONS_OBJECT_ID, ouId));
-    ssb.size(OU_SEARCH_LIMIT);
+    ssb.size(500);
 
     SearchResponse resp = null;
     List<SearchHit> listHits = new ArrayList<SearchHit>();

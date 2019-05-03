@@ -26,10 +26,7 @@ public class SourcesSequenceInfomationValidator extends ValidatorHandler<List<So
         if (sourceVO != null) {
 
           if (ValidationTools.isEmpty(sourceVO.getSequenceNumber()) && ValidationTools.isEmpty(sourceVO.getStartPage())
-              && ValidationTools.isEmpty(sourceVO.getEndPage())
-              || ValidationTools.isNotEmpty(sourceVO.getSequenceNumber()) && ValidationTools.isNotEmpty(sourceVO.getStartPage())
-                  && ValidationTools.isNotEmpty(sourceVO.getEndPage())) {
-
+              && ValidationTools.isEmpty(sourceVO.getEndPage())) {
             context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 
@@ -41,6 +38,11 @@ public class SourcesSequenceInfomationValidator extends ValidatorHandler<List<So
 
         i++;
       } // for
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.NO_SEQUENCE_INFORMATION_GIVEN).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
 
     } // if
 

@@ -1112,7 +1112,7 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat($person/familyname, ', ', $person/givenname))"/>
+				<xsl:variable name="cone-creator" select="Util:queryCone('persons', concat('&quot;',$familyname, ', ', $givenname, '&quot;'))"/>
 				<xsl:variable name="multiplePersonsFound" select="exists($cone-creator/cone/rdf:RDF/rdf:Description[@rdf:about != preceding-sibling::attribute/@rdf:about])"/>
 				<xsl:if test="$multiplePersonsFound">
 					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:MultipleCreatorsFound' ), concat('There is more than one CoNE entry matching -', concat($person/familyname, ', ', $person/givenname), '-'))"/>

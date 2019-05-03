@@ -11,33 +11,43 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 
-public class SourcesTotalNumberOfPagesRequiredValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
+public class SourcesGenreSeriesOrJournalValidator extends ValidatorHandler<List<SourceVO>> implements Validator<List<SourceVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<SourceVO> sources) {
 
     boolean ok = true;
 
+    int countNotOk = 0;
+
     if (ValidationTools.isNotEmpty(sources)) {
 
-      int i = 1;
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
 
-          if (ValidationTools.isEmpty(sourceVO.getTotalNumberOfPages())) {
-
-            context.addError(ValidationError.create(ErrorMessages.TOTAL_NUMBER_OF_PAGES_NOT_PROVIDED).setField("source[" + i + "]")
-                .setErrorCode(ErrorMessages.WARNING));
+          if (!SourceVO.Genre.SERIES.equals(sourceVO.getGenre()) //
+              && !SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {
 
             ok = false;
+            countNotOk++;
 
           } // if
 
         } // if
 
-        i++;
       } // for
+
+      if (sources.size() == countNotOk) {
+        context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_SERIES_OR_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+        ok = false;
+      } else {
+        ok = true;
+      }
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_SERIES_OR_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
 
     } // if
 

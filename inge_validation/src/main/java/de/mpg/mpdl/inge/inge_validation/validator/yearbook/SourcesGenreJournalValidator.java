@@ -18,26 +18,35 @@ public class SourcesGenreJournalValidator extends ValidatorHandler<List<SourceVO
 
     boolean ok = true;
 
+    int countNotOk = 0;
+
     if (ValidationTools.isNotEmpty(sources)) {
 
-      int i = 1;
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
 
           if (!SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setField("source[" + i + "]")
-                .setErrorCode(ErrorMessages.WARNING));
-
             ok = false;
+            countNotOk++;
 
           } // if
 
         } // if
 
-        i++;
       } // for
+
+      if (sources.size() == countNotOk) {
+        context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+        ok = false;
+      } else {
+        ok = true;
+      }
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
 
     } // if
 

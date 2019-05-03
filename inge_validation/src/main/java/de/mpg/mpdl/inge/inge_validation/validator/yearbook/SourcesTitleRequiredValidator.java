@@ -26,9 +26,9 @@ public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceV
         if (sourceVO != null) {
 
           if (ValidationTools.isEmpty(sourceVO.getTitle())) {
-
             context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
+
             ok = false;
 
           } // if
@@ -36,7 +36,13 @@ public class SourcesTitleRequiredValidator extends ValidatorHandler<List<SourceV
         } // if
 
         i++;
+
       } // for
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_TITLE_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
 
     } // if
 

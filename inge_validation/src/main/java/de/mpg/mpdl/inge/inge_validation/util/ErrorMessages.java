@@ -35,6 +35,8 @@ public class ErrorMessages {
   public static final String EVENT_PLACE_REQUIRED = "EventPlaceRequired";
   public static final String EVENT_TITLE_NOT_PROVIDED = "EventTitleNotProvided";
   public static final String EVENT_TITLE_REQUIRED = "EventTitleRequired";
+  public static final String EVENT_START_DATE_REQUIRED = "EventStartDateRequired";
+  public static final String EVENT_END_DATE_REQUIRED = "EventEndDateRequired";
   public static final String GENRE_NOT_PROVIDED = "GenreNotProvided";
   public static final String ID_TYPE_NOT_PROVIDED = "IdTypeNotProvided";
   public static final String INCORRECT_ISO639_3_CLASSIFICATION = "IncorrectISO6393Classification";
@@ -60,13 +62,16 @@ public class ErrorMessages {
   public static final String PUBLISHING_DATE_NOT_PROVIDED = "PublishingDateNotProvided";
   public static final String SLASH_IN_FILENAME = "SlashInFilename";
   public static final String SOURCE_CREATOR_FAMILY_NAME_NOT_PROVIDED = "SourceCreatorFamilyNameNotProvided";
+  public static final String NO_SOURCE_CREATOR_FAMILY_NAME = "NoSourceCreatorFamilyName";
   public static final String SOURCE_CREATOR_GIVEN_NAME_NOT_PROVIDED = "SourceCreatorGivenNameNotProvided";
   public static final String SOURCE_CREATOR_NOT_PROVIDED = "SourceCreatorNotProvided";
   public static final String SOURCE_CREATOR_ORGANIZATION_NAME_NOT_PROVIDED = "SourceCreatorOrganizationNameNotProvided";
+  public static final String NO_SOURCE_CREATOR_ORGANIZATION_NAME = "NoSourceCreatorOrganizationName";
   public static final String SOURCE_CREATOR_ROLE_INVALID = "SourceCreatorRoleInvalid";
   public static final String SOURCE_CREATOR_ROLE_NOT_PROVIDED = "SourceCreatorRoleNotProvided";
   public static final String SOURCE_EDITION_NOT_PROVIDED = "SourceEditionNotProvided";
   public static final String SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL = "SourceGenreMustBeProceedingsOrJournal";
+  public static final String SOURCE_GENRE_MUST_BE_SERIES_OR_JOURNAL = "SourceGenreMustBeSeriesOrJournal";
   public static final String SOURCE_GENRE_NOT_PROVIDED = "SourceGenreNotProvided";
   public static final String SOURCE_GENRE_SHOULD_BE_JOURNAL = "SourceGenreShouldBeJournal";
   public static final String SOURCE_GENRE_SHOULD_BE_SERIES = "SourceGenreShouldBeSeries";

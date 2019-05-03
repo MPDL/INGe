@@ -70,6 +70,9 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
 
   protected Class<E> typeParameterClass;
 
+  private static final int DEFAULT_SEARCH_SIZE = 100;
+  private static final int MAX_SEARCH_SIZE = 10000;
+
 
   public ElasticSearchGenericDAOImpl(String indexName, String indexType, Class<E> typeParameterClass) {
     this.indexName = indexName;
@@ -245,10 +248,12 @@ public abstract class ElasticSearchGenericDAOImpl<E> implements GenericDaoEs<E> 
         srb.setFrom(searchQuery.getOffset());
       }
 
-      if (searchQuery.getLimit() != -1) {
-        srb.setSize(searchQuery.getLimit());
+      if (searchQuery.getLimit() == -2) {
+        srb.setSize(ElasticSearchGenericDAOImpl.MAX_SEARCH_SIZE);
+      } else if (searchQuery.getLimit() == -1) {
+        srb.setSize(ElasticSearchGenericDAOImpl.DEFAULT_SEARCH_SIZE);
       } else {
-        srb.setSize(100);
+        srb.setSize(searchQuery.getLimit());
       }
 
       if (searchQuery.getSortKeys() != null) {

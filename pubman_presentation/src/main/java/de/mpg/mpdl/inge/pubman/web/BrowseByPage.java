@@ -42,6 +42,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
+import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.pubman.web.affiliation.AffiliationBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbPage;
 import de.mpg.mpdl.inge.pubman.web.browseBy.BrowseBySessionBean;
@@ -54,6 +55,9 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSear
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.LinkVO;
+import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
+import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 import de.mpg.mpdl.inge.util.ConeUtils;
@@ -235,6 +239,10 @@ public class BrowseByPage extends BreadcrumbPage {
    * loads the browse by year.
    * 
    * @return String navigation string (JSF navigation) to load the browse by year.
+   * @throws IngeApplicationException
+   * @throws AuthorizationException
+   * @throws AuthenticationException
+   * @throws IngeTechnicalException
    */
   public String loadBrowseByYear() {
     this.setSelectedValue("year");

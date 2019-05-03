@@ -19,6 +19,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -676,6 +677,10 @@ public class PubItemServiceTest extends TestBase {
     personVO.setFamilyName("Meier");
     personVO.setGivenName("Hans");
     creatorVO.setPerson(personVO);
+
+    OrganizationVO organizationVO = new OrganizationVO();
+    organizationVO.setName("Test Orga");
+    creatorVO.setOrganization(organizationVO);
 
     ContextDbRO context = new ContextDbRO();
     context.setObjectId(contextId);

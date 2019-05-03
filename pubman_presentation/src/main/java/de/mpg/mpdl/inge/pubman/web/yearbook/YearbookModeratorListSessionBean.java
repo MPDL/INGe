@@ -33,8 +33,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionBean;
@@ -54,7 +52,7 @@ import de.mpg.mpdl.inge.service.pubman.impl.YearbookServiceDbImpl;
 @SuppressWarnings("serial")
 public class YearbookModeratorListSessionBean
     extends BasePaginatorListSessionBean<YearbookDbVO, YearbookModeratorListSessionBean.SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(YearbookModeratorListSessionBean.class);
+  //  private static final Logger logger = Logger.getLogger(YearbookModeratorListSessionBean.class);
 
   /**
    * An enumeration that contains the index for the search service and the sorting filter for the

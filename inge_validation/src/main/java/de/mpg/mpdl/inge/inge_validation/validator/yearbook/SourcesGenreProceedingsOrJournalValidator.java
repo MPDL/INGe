@@ -18,9 +18,10 @@ public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<
 
     boolean ok = true;
 
+    int countNotOk = 0;
+
     if (ValidationTools.isNotEmpty(sources)) {
 
-      int i = 1;
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
@@ -28,17 +29,27 @@ public class SourcesGenreProceedingsOrJournalValidator extends ValidatorHandler<
           if (!SourceVO.Genre.PROCEEDINGS.equals(sourceVO.getGenre()) //
               && !SourceVO.Genre.JOURNAL.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL).setField("source[" + i + "]")
-                .setErrorCode(ErrorMessages.WARNING));
-
             ok = false;
+            countNotOk++;
 
           } // if
 
         } // if
 
-        i++;
       } // for
+
+      if (sources.size() == countNotOk) {
+        context.addError(
+            ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+        ok = false;
+      } else {
+        ok = true;
+      }
+
+    } else {
+      context
+          .addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
 
     } // if
 

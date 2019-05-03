@@ -15,7 +15,6 @@ public class DateAcceptedRequiredValidator extends ValidatorHandler<MdsPublicati
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
 
     if (ValidationTools.isEmpty(m.getDateAccepted())) {
-
       context.addError(ValidationError.create(ErrorMessages.DATE_ACCEPTED_NOT_PROVIDED).setErrorCode(ErrorMessages.ERROR));
 
       return false;

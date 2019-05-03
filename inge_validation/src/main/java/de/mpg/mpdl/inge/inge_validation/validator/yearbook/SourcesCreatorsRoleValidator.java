@@ -29,10 +29,9 @@ public class SourcesCreatorsRoleValidator extends ValidatorHandler<List<SourceVO
           int j = 1;
           for (final CreatorVO creatorVO : sourceVO.getCreators()) {
 
-            if (creatorVO != null && (creatorVO.getRole() == null //
+            if (creatorVO == null || creatorVO.getRole() == null //
                 || !CreatorVO.CreatorRole.AUTHOR.equals(creatorVO.getRole()) //
-                    && !CreatorVO.CreatorRole.EDITOR.equals(creatorVO.getRole()))) {
-
+                    && !CreatorVO.CreatorRole.EDITOR.equals(creatorVO.getRole())) {
               context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_INVALID)
                   .setField("source[" + i + "].creator[" + j + "]").setErrorCode(ErrorMessages.WARNING));
 

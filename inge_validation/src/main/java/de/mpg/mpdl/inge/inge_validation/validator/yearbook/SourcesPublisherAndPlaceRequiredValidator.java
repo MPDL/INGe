@@ -29,7 +29,6 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
           PublishingInfoVO p = sourceVO.getPublishingInfo();
 
           if (p == null || ValidationTools.isEmpty(p.getPublisher())) {
-
             context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 
@@ -37,8 +36,7 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
 
           } // if
 
-          if (p != null && ValidationTools.isEmpty(p.getPlace())) {
-
+          if (p == null || ValidationTools.isEmpty(p.getPlace())) {
             context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setField("source[" + i + "]")
                 .setErrorCode(ErrorMessages.WARNING));
 
@@ -49,7 +47,14 @@ public class SourcesPublisherAndPlaceRequiredValidator extends ValidatorHandler<
         } // if
 
         i++;
+
       } // for
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.PUBLISHER_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.PUBLISHER_PLACE_NOT_PROVIDED).setErrorCode(ErrorMessages.WARNING));
+
+      ok = false;
 
     } // if
 

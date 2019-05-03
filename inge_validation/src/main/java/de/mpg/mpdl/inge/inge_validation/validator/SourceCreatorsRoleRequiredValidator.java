@@ -87,13 +87,15 @@ public class SourceCreatorsRoleRequiredValidator extends ValidatorHandler<List<S
                           context.addError(ValidationError.create(ErrorMessages.SOURCE_CREATOR_ROLE_NOT_PROVIDED)
                               .setField("source[" + i + "].creator[" + j + "].organization[" + z + "]"));
                           ok = false;
+
+                          break;
                         }
                       }
 
                       z++;
                     } // for
 
-                  } // if
+                  }
 
                   break;
               } // switch

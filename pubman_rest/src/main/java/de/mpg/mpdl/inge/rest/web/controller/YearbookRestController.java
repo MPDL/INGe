@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +29,6 @@ import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
-import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import io.swagger.annotations.Api;
@@ -43,7 +40,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @Api(tags = "Yearbooks")
 public class YearbookRestController {
 
-  private static final Logger logger = Logger.getLogger(YearbookRestController.class);
+  //  private static final Logger logger = Logger.getLogger(YearbookRestController.class);
 
   private final String AUTHZ_HEADER = "Authorization";
   private final String YEARBOOK_ID_PATH = "/{yearbookId}";
@@ -51,15 +48,15 @@ public class YearbookRestController {
 
   public final static long DEFAULT_SCROLL_TIME = 90000;
 
-  @Autowired
-  private PubItemService pis;
+  //  @Autowired
+  //  private PubItemService pis;
 
   @Autowired
   private UtilServiceBean utils;
 
 
-  @Autowired
-  private SearchAndExportService saes;
+  //  @Autowired
+  //  private SearchAndExportService saes;
 
   @Autowired
   private YearbookService yearbookService;
@@ -70,7 +67,7 @@ public class YearbookRestController {
       @RequestParam(value = "from", required = true, defaultValue = "0") int offset)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     QueryBuilder matchAllQuery = QueryBuilders.matchAllQuery();
-    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, null);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset);
     SearchRetrieveResponseVO<YearbookDbVO> srResponse = yearbookService.search(srRequest, token);
     return new ResponseEntity<SearchRetrieveResponseVO<YearbookDbVO>>(srResponse, HttpStatus.OK);
   }
@@ -130,8 +127,8 @@ public class YearbookRestController {
     }
 
     QueryBuilder qb = QueryBuilders.termsQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, yearbook.getItemIds());
-    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(qb, null);
-    srRequest.setLimit(10000);
+    SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(qb, -2, 0); // unbegrenzte Suche
+    //    srRequest.setLimit(10000);
 
     return utils.searchOrExport(format, citation, cslConeId, false, srRequest, response, null);
   }

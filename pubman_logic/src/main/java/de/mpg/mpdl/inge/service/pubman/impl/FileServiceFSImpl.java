@@ -61,7 +61,6 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.service.pubman.FileServiceExternal;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
-import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import net.arnx.wmf2svg.util.Base64;
 
@@ -121,9 +120,13 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
   public FileVOWrapper readFile(String itemId, String fileId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    logger.info("Trying to read file " + fileId + " with authenticationToken " + authenticationToken);
+    logger.info("Trying to read file " + fileId + " in item " + itemId + " with authenticationToken " + authenticationToken);
     // Item-based aa covered by this method
     ItemVersionVO item = pubItemService.get(itemId, authenticationToken);
+
+    if (item == null) {
+      throw new IngeApplicationException("File with id [" + fileId + "] not found, because itemId [" + itemId + "] not found.");
+    }
 
     FileDbVO selectedFile = null;
     for (FileDbVO file : item.getFiles()) {

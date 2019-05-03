@@ -846,7 +846,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   private SearchRetrieveResponseVO<ItemVersionVO> getAllVersions(String objectId) throws IngeTechnicalException {
     QueryBuilder latestReleaseQuery = QueryBuilders.termQuery(PubItemServiceDbImpl.INDEX_VERSION_OBJECT_ID, objectId);
-    SearchRetrieveResponseVO<ItemVersionVO> resp = executeSearchSortByVersion(latestReleaseQuery, 10000, 0);
+    SearchRetrieveResponseVO<ItemVersionVO> resp = executeSearchSortByVersion(latestReleaseQuery, -2, 0); // unbegrenzte Suche
 
     return resp;
   }

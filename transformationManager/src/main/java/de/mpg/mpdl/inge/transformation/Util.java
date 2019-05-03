@@ -145,6 +145,7 @@ public class Util {
       //      if (coneSession != null) {
       //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       //      }
+      logger.info("CoNE query: " + queryUrl);
       client.executeMethod(method);
 
       if (method.getStatusCode() == 200) {
@@ -162,8 +163,8 @@ public class Util {
             //            if (coneSession != null) {
             //              detailMethod.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
             //            }
-            client.executeMethod(detailMethod);
             logger.info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn");
+            client.executeMethod(detailMethod);
 
             if (detailMethod.getStatusCode() == 200) {
               Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
@@ -340,8 +341,8 @@ public class Util {
       //      if (coneSession != null) {
       //        method.setRequestHeader("Cookie", "JSESSIONID=" + coneSession);
       //      }
-      client.executeMethod(method);
       logger.info("CoNE query: " + queryUrl);
+      client.executeMethod(method);
       if (method.getStatusCode() == 200) {
         ArrayList<String> results = new ArrayList<String>();
         results.addAll(Arrays.asList(method.getResponseBodyAsString().split("\n")));
@@ -369,9 +370,9 @@ public class Util {
                 //            GetMethod detailMethod = new GetMethod(id + "?format=rdf&eSciDocUserHandle="
                 //                + Base64.getEncoder().encodeToString(AdminHelper.getAdminUserHandle().getBytes("UTF-8")));
                 //detailMethod.setFollowRedirects(true);
-                client.executeMethod(detailMethod);
                 logger
                     .info("CoNE query: " + id + "?format=rdf&tan4directLogin=loggedIn returned " + detailMethod.getResponseBodyAsString());
+                client.executeMethod(detailMethod);
                 if (detailMethod.getStatusCode() == 200) {
                   Document details = documentBuilder.parse(detailMethod.getResponseBodyAsStream());
                   element.appendChild(document.importNode(details.getFirstChild(), true));

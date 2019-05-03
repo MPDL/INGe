@@ -109,25 +109,14 @@ public class YearbookUtils {
   }
 
   public static List<PubItemVOPresentation> retrieveAllMembers(YearbookDbVO yearbook, String authenticationToken) throws Exception {
-
     QueryBuilder qb = YearbookUtils.getMemberQuery(yearbook);
 
-    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb);
+    SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, -2, 0); // unbegrenzte Suche
+
     SearchRetrieveResponseVO<ItemVersionVO> resp = ApplicationBean.INSTANCE.getPubItemService().search(srr, authenticationToken);
-
-
     List<ItemVersionVO> resultList = resp.getRecords().stream().map(SearchRetrieveRecordVO::getData).collect(Collectors.toList());
 
     return CommonUtils.convertToPubItemVOPresentationList(resultList);
-
-    /*
-    List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
-    final MetadataSearchQuery mdQuery =
-        YearbookCandidatesRetrieverRequestBean.getMemberQuery(this.getYearbookItem());
-    final ItemContainerSearchResult result = SearchService.searchForItemContainer(mdQuery);
-    pubItemList = SearchRetrieverRequestBean.extractItemsOfSearchResult(result);
-    return pubItemList;
-    */
   }
 
   public static List<String> getYearbookOrganizationIds(AccountUserDbVO user) {

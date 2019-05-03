@@ -18,26 +18,35 @@ public class SourcesGenreSeriesValidator extends ValidatorHandler<List<SourceVO>
 
     boolean ok = true;
 
+    int countNotOk = 0;
+
     if (ValidationTools.isNotEmpty(sources)) {
 
-      int i = 1;
       for (final SourceVO sourceVO : sources) {
 
         if (sourceVO != null) {
 
           if (!SourceVO.Genre.SERIES.equals(sourceVO.getGenre())) {
 
-            context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_SERIES).setField("source[" + i + "]")
-                .setErrorCode(ErrorMessages.WARNING));
-
             ok = false;
+            countNotOk++;
 
           } // if
 
         } // if
 
-        i++;
+        if (sources.size() == countNotOk) {
+          context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_SERIES).setErrorCode(ErrorMessages.WARNING));
+          ok = false;
+        } else {
+          ok = true;
+        }
+
       } // for
+
+    } else {
+      context.addError(ValidationError.create(ErrorMessages.SOURCE_GENRE_SHOULD_BE_SERIES).setErrorCode(ErrorMessages.WARNING));
+      ok = false;
 
     } // if
 

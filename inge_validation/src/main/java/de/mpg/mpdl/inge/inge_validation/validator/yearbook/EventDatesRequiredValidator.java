@@ -9,7 +9,7 @@ import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
 
-public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventVO> implements Validator<EventVO> {
+public class EventDatesRequiredValidator extends ValidatorHandler<EventVO> implements Validator<EventVO> {
 
   @Override
   public boolean validate(ValidatorContext context, EventVO e) {
@@ -18,23 +18,23 @@ public class EventTitleAndPlaceRequiredValidator extends ValidatorHandler<EventV
 
     if (e != null) {
 
-      if (ValidationTools.isEmpty(e.getTitle())) {
-        context.addError(ValidationError.create(ErrorMessages.EVENT_TITLE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+      if (ValidationTools.isEmpty(e.getStartDate())) {
+        context.addError(ValidationError.create(ErrorMessages.EVENT_START_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
 
         ok = false;
 
       } // if
 
-      if (ValidationTools.isEmpty(e.getPlace())) {
-        context.addError(ValidationError.create(ErrorMessages.EVENT_PLACE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+      if (ValidationTools.isEmpty(e.getEndDate())) {
+        context.addError(ValidationError.create(ErrorMessages.EVENT_END_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
 
         ok = false;
 
       } // if
 
     } else {
-      context.addError(ValidationError.create(ErrorMessages.EVENT_TITLE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
-      context.addError(ValidationError.create(ErrorMessages.EVENT_PLACE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.EVENT_START_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
+      context.addError(ValidationError.create(ErrorMessages.EVENT_END_DATE_REQUIRED).setErrorCode(ErrorMessages.WARNING));
 
       ok = false;
 

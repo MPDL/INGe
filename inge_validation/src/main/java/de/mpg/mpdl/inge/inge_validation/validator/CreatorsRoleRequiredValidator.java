@@ -61,6 +61,8 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
                     || ValidationTools.isNotEmpty(p.getGivenName())) {
                   context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED).setField("creator[" + i + "]"));
                   ok = false;
+
+                  break;
                 }
               }
 
@@ -77,6 +79,8 @@ public class CreatorsRoleRequiredValidator extends ValidatorHandler<List<Creator
                       context.addError(ValidationError.create(ErrorMessages.CREATOR_ROLE_NOT_PROVIDED) //
                           .setField("creator[" + i + "].organization[" + j + "]"));
                       ok = false;
+
+                      break;
                     }
 
                   }

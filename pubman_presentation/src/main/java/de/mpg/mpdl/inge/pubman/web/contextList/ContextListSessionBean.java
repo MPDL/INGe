@@ -184,7 +184,7 @@ public class ContextListSessionBean extends FacesBean {
             bq.should(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_OBJECT_ID, id));
           }
 
-          SearchRetrieveResponseVO<ContextDbVO> response = contextService.search(new SearchRetrieveRequestVO(bq, 1000, 0, null), null);
+          SearchRetrieveResponseVO<ContextDbVO> response = contextService.search(new SearchRetrieveRequestVO(bq, 1000, 0), null);
           List<ContextDbVO> ctxList = response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
 
           // ... and transform to PubCollections.
@@ -224,7 +224,7 @@ public class ContextListSessionBean extends FacesBean {
               .must(QueryBuilders.termsQuery(ContextServiceDbImpl.INDEX_AFILLIATIONS_OBJECT_ID, yearbookOuIdList.toArray(new String[] {})));
 
           SearchRetrieveResponseVO<ContextDbVO> ybResponse =
-              contextService.search(new SearchRetrieveRequestVO(yearbookContextsQueryBuilder, 1000, 0, null), null);
+              contextService.search(new SearchRetrieveRequestVO(yearbookContextsQueryBuilder, 1000, 0), null);
           this.yearbookContextList = CommonUtils.convertToPubCollectionVOPresentationList(
               ybResponse.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList()));
         }

@@ -40,16 +40,14 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
       return false;
     }
 
-    int ok = 0;
+    boolean result = true;
+
+    boolean ok = false;
     boolean errorOrg = false;
     boolean errorPers = false;
     boolean errorPersOrg = false;
 
     for (final CreatorVO creatorVO : creators) {
-
-      if (ok > 0) {
-        break;
-      }
 
       if (creatorVO != null) {
 
@@ -60,10 +58,9 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
 
             final OrganizationVO o = creatorVO.getOrganization();
             if (o != null && ValidationTools.isNotEmpty(o.getName())) {
-              ok++;
+              ok = true;
             } else {
               errorOrg = true;
-              continue;
             }
 
             break;
@@ -73,52 +70,49 @@ public class CreatorsWithOrganisationRequiredValidator extends ValidatorHandler<
             final PersonVO p = creatorVO.getPerson();
             if (p == null || ValidationTools.isEmpty(p.getFamilyName())) {
               errorPers = true;
-              continue;
             }
 
-            int orgsOk = 0;
-            final List<OrganizationVO> orgs = p.getOrganizations();
-            if (ValidationTools.isNotEmpty(orgs)) {
-              for (final OrganizationVO organizationVO : orgs) {
-                if (organizationVO != null && ValidationTools.isNotEmpty(organizationVO.getName())) {
-                  orgsOk++;
+            if (p != null) {
+              boolean personOrgsOk = true;
+              final List<OrganizationVO> orgs = p.getOrganizations();
+              if (ValidationTools.isNotEmpty(orgs)) {
+                for (final OrganizationVO organizationVO : orgs) {
+                  if (organizationVO != null && ValidationTools.isNotEmpty(organizationVO.getName())) {
+                    ok = true;
+                  } else {
+                    personOrgsOk = false;
+                  }
+                } // for
+                if (!personOrgsOk) {
+                  errorPersOrg = true;
                 }
-              }
-            } else {
-              orgsOk++;
-            }
-
-            if (orgsOk > 0) {
-              ok++;
-            } else {
-              errorPersOrg = true;
-            }
+              } // if
+            } // if
 
             break;
-        }
+
+        } // switch
 
       } // if
 
     } // for
 
-    if (ok == 0) {
-
-      if (errorOrg) {
-        context.addErrorMsg(ErrorMessages.CREATOR_ORGANIZATION_NAME_NOT_PROVIDED);
-      }
-
-      if (errorPers) {
-        context.addErrorMsg(ErrorMessages.CREATOR_FAMILY_NAME_NOT_PROVIDED);
-      }
-
-      if (errorPersOrg) {
-        context.addErrorMsg(ErrorMessages.ORGANIZATIONAL_METADATA_NOT_PROVIDED);
-      }
-
-      return false;
+    if (!ok) {
+      context.addErrorMsg(ErrorMessages.ORGANIZATIONAL_METADATA_NOT_PROVIDED);
+      result = false;
     }
 
-    return true;
+    if (errorOrg || errorPersOrg) {
+      context.addErrorMsg(ErrorMessages.CREATOR_ORGANIZATION_NAME_NOT_PROVIDED);
+      result = false;
+    }
+
+    if (errorPers) {
+      context.addErrorMsg(ErrorMessages.CREATOR_FAMILY_NAME_NOT_PROVIDED);
+      result = false;
+    }
+
+    return result;
   }
 
 }
