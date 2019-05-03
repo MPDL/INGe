@@ -27,14 +27,6 @@
 		<h:panelGroup styleClass="seperator" />
 		<div class="free_area0 itemBlockContent endline">
 			<div class="free_area0 endline itemLine noTopBorder">
-				<span class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-						value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" /><span
-					class="noDisplay"> </span>
-				</span> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-						value="#{lbl.statistics_lblAllUsers}" />
-				</span>
-			</div>
-			<div class="free_area0 endline itemLine noTopBorder">
 				<h:graphicImage
 					url="#{ApplicationBean.pubmanInstanceUrl}#{ApplicationBean.instanceContextPath}/statisticchart/?id=#{ViewItemStatistics.pubItem.objectId}&amp;type=item&amp;lang=#{InternationalizationHelper.locale}" />
 					<!-- <h:graphicImage
@@ -56,14 +48,6 @@
 					</span> <span class="xHuge_area0 xTiny_marginLExcl endline itemHeadline">
 						<b><h:outputText
 								value="#{lbl.statistics_lblFile} #{file.file.name}" /></b>
-					</span>
-				</div>
-				<div class="free_area0 endline itemLine noTopBorder">
-					<span class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-							value="#{ViewItemStatistics.getNumberOfFileDownloadsPerFileAllUsers(file.file.objectId,  file.file.name)}" /><span
-						class="noDisplay">: </span>
-					</span> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{lbl.statistics_lblAllUsers}" />
 					</span>
 				</div>
 				<div class="free_area0 endline itemLine noTopBorder">

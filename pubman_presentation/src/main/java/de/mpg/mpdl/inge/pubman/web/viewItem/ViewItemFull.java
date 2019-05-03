@@ -148,9 +148,14 @@ public class ViewItemFull extends FacesBean {
 
   private PubItemVOPresentation pubItem = null;
 
+
+  private String itemPattern;
   private String citationURL;
   //  private String fwUrl;
-  private String itemPattern;
+  private String itemObjectPattern;
+  private String citationObjectUrl;
+
+
   private String languages;
   private String latestVersionURL;
 
@@ -201,6 +206,8 @@ public class ViewItemFull extends FacesBean {
 
   private AccountUserDbVO owner;
   private AccountUserDbVO modifier;
+
+
 
   //  private boolean isWorkflowStandard = false;
 
@@ -262,17 +269,22 @@ public class ViewItemFull extends FacesBean {
       try {
         String pubmanUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
             + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
-
-        this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
-            this.getPubItem().getObjectIdAndVersion());
         if (!pubmanUrl.endsWith("/")) {
           pubmanUrl = pubmanUrl + "/";
         }
+        this.itemPattern = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1",
+            this.getPubItem().getObjectIdAndVersion());
         if (this.itemPattern.startsWith("/")) {
           this.itemPattern = this.itemPattern.substring(1, this.itemPattern.length());
         }
+        this.itemObjectPattern =
+            PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ITEM_PATTERN).replaceAll("\\$1", this.getPubItem().getObjectId());
+        if (this.itemObjectPattern.startsWith("/")) {
+          this.itemObjectPattern = this.itemObjectPattern.substring(1, this.itemObjectPattern.length());
+        }
         // MF: Removed exclusion of pending items here
         this.citationURL = pubmanUrl + this.itemPattern;
+        this.citationObjectUrl = pubmanUrl + this.itemObjectPattern;
 
         if (this.getPubItem().getObject().getLatestVersion() != null
             && this.getPubItem().getObject().getLatestVersion().getObjectIdAndVersion() != null) {
@@ -1397,6 +1409,10 @@ public class ViewItemFull extends FacesBean {
     return this.citationURL;
   }
 
+  public String getCitationObjectUrl() {
+    return citationObjectUrl;
+  }
+
   public ArrayList<String> getOrganizationArray() {
     return this.organizationArray;
   }
@@ -1436,6 +1452,11 @@ public class ViewItemFull extends FacesBean {
   public void setCitationURL(String citationURL) {
     this.citationURL = citationURL;
   }
+
+  public void setCitationObjectUrl(String citationObjectUrl) {
+    this.citationObjectUrl = citationObjectUrl;
+  }
+
 
   public boolean getIsStateWithdrawn() {
     return ItemVersionRO.State.WITHDRAWN.equals(this.getPubItem().getObject().getPublicState());

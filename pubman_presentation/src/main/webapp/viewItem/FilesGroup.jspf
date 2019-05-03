@@ -41,35 +41,41 @@
 									</div>
 									<div class="xHuge_area0 endline marginTExcl6p">
 										<h:outputLink id="lnkCitationURL" target="_blank"
+											styleClass="piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}"
+											onclick="_paq.push(['trackLink', ''.concat('#{ViewItemFull.citationObjectUrl}', '/component/', '#{file.file.objectId}', '/', '#{file.urlEncodedFileName}'), 'download']);">
 											<span class="std_imgBtn viewFileIcon"></span>
 											<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 										</h:outputLink>
 										<!-- Link for fulltext searchhits with open pdf params-->
 										<h:outputLink id="lnkSearchHitsURL" target="_blank"
+											styleClass="piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}"
+											onclick="_paq.push(['trackLink', ''.concat('#{ViewItemFull.citationObjectUrl}', '/component/', '#{file.file.objectId}', '/', '#{file.urlEncodedFileName}'), 'download']);">
 											<span class="std_imgBtn viewFileIcon"></span>
 											<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 										</h:outputLink>
 										&#160;
 										<h:outputLink id="lnkCitationURLDownload"
-											styleClass="tiny_marginLExcl"
+											styleClass="tiny_marginLExcl piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+											rendered="#{!(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}"
+											onclick="_paq.push(['trackLink', ''.concat('#{ViewItemFull.citationObjectUrl}', '/component/', '#{file.file.objectId}', '/', '#{file.urlEncodedFileName}'), 'download']);">
 											<span class="std_imgBtn downloadFileIcon "></span>
 											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
 										<!-- Link for fulltext searchhits with open pdf params-->
 										<h:outputLink id="lnkSearchHitsURLDownload"
-											styleClass="tiny_marginLExcl"
+											styleClass="tiny_marginLExcl piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
-											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+											rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}"
+											onclick="_paq.push(['trackLink', ''.concat('#{ViewItemFull.citationObjectUrl}', '/component/', '#{file.file.objectId}', '/', '#{file.urlEncodedFileName}'), 'download']);">
 											<span class="std_imgBtn downloadFileIcon"></span>
 											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>

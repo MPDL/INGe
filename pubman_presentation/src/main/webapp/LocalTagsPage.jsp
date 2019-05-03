@@ -70,8 +70,7 @@
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkShowStatistics" styleClass="free_area0"
 										action="#{ViewItemFull.showStatistics}"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}"
-										target="_blank">
+										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
