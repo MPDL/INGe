@@ -26,17 +26,33 @@
 
 package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.concurrent.Future;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.http.impl.nio.client.HttpAsyncClients;
+import org.apache.http.nio.client.HttpAsyncClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.service.aa.Principal;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.util.IdentityHandler;
 
 /**
@@ -48,6 +64,9 @@ import de.mpg.mpdl.inge.util.IdentityHandler;
  * 
  */
 public class EdocProcessor extends FormatProcessor {
+
+  @Autowired
+  private FileService fileService;
 
   private boolean init = false;
   private final List<String> items = new ArrayList<String>();
@@ -130,6 +149,35 @@ public class EdocProcessor extends FormatProcessor {
     }
 
     return Base64.getEncoder().encodeToString(this.originalData);
+  }
+
+  /**
+   * Fetches a file from a given URL and adds the staged file-path to fileDbVO
+   * 
+   * @param url
+   * @param file
+   * @param authenticationToken
+   * @return
+   * @throws Exception
+   */
+  public void getFileforImport(String url, FileDbVO file, String authenticationToken) throws Exception {
+    CloseableHttpAsyncClient httpClient = HttpAsyncClients.createDefault();
+    try {
+      httpClient.start();
+      HttpGet getRequest = new HttpGet(url);
+      Future<HttpResponse> future = httpClient.execute(getRequest, null);
+      HttpResponse response = future.get();
+      if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
+        InputStream is = response.getEntity().getContent();
+        file.setContent(fileService.createStageFile(is, file.getName(), authenticationToken).getPath());
+      }
+      else {
+        throw new IngeApplicationException("Server did not respond with 200 - OK --> could not download file from [" + url + "]");
+      }
+    }
+    finally {
+      httpClient.close();
+    }
   }
 
   /**
@@ -218,6 +266,5 @@ public class EdocProcessor extends FormatProcessor {
 
       return input;
     }
-
   }
 }
