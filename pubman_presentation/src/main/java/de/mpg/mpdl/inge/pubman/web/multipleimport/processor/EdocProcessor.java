@@ -170,12 +170,10 @@ public class EdocProcessor extends FormatProcessor {
       if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
         InputStream is = response.getEntity().getContent();
         file.setContent(fileService.createStageFile(is, file.getName(), authenticationToken).getPath());
-      }
-      else {
+      } else {
         throw new IngeApplicationException("Server did not respond with 200 - OK --> could not download file from [" + url + "]");
       }
-    }
-    finally {
+    } finally {
       httpClient.close();
     }
   }
