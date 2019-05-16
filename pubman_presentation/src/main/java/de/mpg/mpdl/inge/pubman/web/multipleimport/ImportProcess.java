@@ -356,6 +356,16 @@ public class ImportProcess extends Thread {
                 } catch (final Exception e) {
                   this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
                 }
+              } else if (this.format.equals(TransformerFactory.FORMAT.EDOC_XML)) {
+                try {
+                  // upload and add files
+                  for (FileDbVO file : item.getItemVO().getFiles()) {
+                    ((EdocProcessor) this.formatProcessor).getFileforImport(file.getContent(), file, this.user.getJwToken());
+                  }
+
+                } catch (final Exception e) {
+                  this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
+                }
               }
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
