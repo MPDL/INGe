@@ -6,7 +6,7 @@
         <f:loadBundle var="lbl" basename="Label" />
         <f:loadBundle var="msg" basename="Messages" />
         <f:loadBundle var="tip" basename="Tooltip" />
-        <h:outputText value="#{ImportLogBean.release}" />
+        <h:outputText value="#{ImportLogBean.releaseAll}" />
     </f:view>
 </body>
 

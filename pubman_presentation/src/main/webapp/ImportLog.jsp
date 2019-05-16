@@ -89,15 +89,22 @@
 									styleClass="large_area0_p8 noPaddingTopBottom endline"
 									title="#{tip.import_workspace_submit_items}"
 									value="ImportWorkspaceSubmit.jsp?id=#{ImportLogBean.importId}"
-									rendered="#{ImportLogBean.import.importedItems and !ImportLogBean.simpleWorkflow and !LoginHelper.isModerator}">
+									rendered="#{ImportLogBean.import.importedItems and ImportLogBean.standardWorkflow and LoginHelper.isDepositor and !LoginHelper.isModerator}">
 									<h:outputText value="#{lbl.import_workspace_submit_items}" />
 								</h:outputLink>
 								<h:outputLink
 									styleClass="large_area0_p8 noPaddingTopBottom endline"
 									title="#{tip.import_workspace_submit_release_items}"
-									value="ImportWorkspaceRelease.jsp?id=#{ImportLogBean.importId}"
-									rendered="#{ImportLogBean.import.importedItems and (LoginHelper.isModerator or ImportLogBean.simpleWorkflow)}">
+									value="ImportWorkspaceSubmitAndRelease.jsp?id=#{ImportLogBean.importId}"
+									rendered="#{ImportLogBean.import.importedItems and ImportLogBean.standardWorkflow and LoginHelper.isModerator}">
 									<h:outputText value="#{lbl.import_workspace_submit_release_items}" />
+								</h:outputLink>
+								<h:outputLink
+									styleClass="large_area0_p8 noPaddingTopBottom endline"
+									title="#{tip.import_workspace_release_items}"
+									value="ImportWorkspaceRelease.jsp?id=#{ImportLogBean.importId}"
+									rendered="#{ImportLogBean.import.importedItems and ImportLogBean.simpleWorkflow and (LoginHelper.isDepositor or LoginHelper.isModerator)}">
+									<h:outputText value="#{lbl.import_workspace_release_items}" />
 								</h:outputLink>
 							</h:panelGroup>
 						</span>

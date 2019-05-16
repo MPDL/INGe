@@ -81,19 +81,25 @@ public class ImportLogBean extends FacesBean {
     return "";
   }
 
-  public String getDelete() {
+  public String getDeleteAll() {
     this.getImport().deleteAll();
 
     return "";
   }
 
-  public String getSubmit() {
+  public String getSubmitAll() {
     this.getImport().submitAll();
 
     return "";
   }
 
-  public String getRelease() {
+  public String getReleaseAll() {
+    this.getImport().releaseAll();
+
+    return "";
+  }
+
+  public String getSubmitAndReleaseAll() {
     this.getImport().submitAndReleaseAll();
 
     return "";
@@ -109,5 +115,9 @@ public class ImportLogBean extends FacesBean {
 
   public boolean isSimpleWorkflow() {
     return this.getImport().getSimpleWorkflow();
+  }
+
+  public boolean isStandardWorkflow() {
+    return this.getImport().getStandardWorkflow();
   }
 }
