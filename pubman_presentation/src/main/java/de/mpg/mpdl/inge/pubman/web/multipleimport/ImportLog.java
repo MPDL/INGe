@@ -472,6 +472,10 @@ public class ImportLog extends BaseImportLog {
     return (this.getWorkflow() == ContextDbVO.Workflow.SIMPLE);
   }
 
+  public boolean getStandardWorkflow() {
+    return (this.getWorkflow() == ContextDbVO.Workflow.STANDARD);
+  }
+
   public String getUser() {
     return this.user;
   }
@@ -777,7 +781,7 @@ public class ImportLog extends BaseImportLog {
   }
 
   /**
-   * JSF action to submit/release all items of an import from the repository.
+   * JSF action to submit all items of an import from the repository.
    * 
    * @return Always null.
    */
@@ -787,7 +791,7 @@ public class ImportLog extends BaseImportLog {
     final Connection connection = DbTools.getNewConnection();
     final SubmitProcess submitProcess;
     try {
-      submitProcess = new SubmitProcess(this, false, authenticationToken, connection);
+      submitProcess = new SubmitProcess(this, SubmitProcess.Modus.SUBMIT, authenticationToken, connection);
       submitProcess.start();
     } catch (final Exception e) {
       DbTools.closeConnection(connection);
@@ -812,7 +816,32 @@ public class ImportLog extends BaseImportLog {
     final Connection connection = DbTools.getNewConnection();
     final SubmitProcess submitProcess;
     try {
-      submitProcess = new SubmitProcess(this, true, authenticationToken, connection);
+      submitProcess = new SubmitProcess(this, SubmitProcess.Modus.SUBMIT_AND_RELEASE, authenticationToken, connection);
+      submitProcess.start();
+    } catch (final Exception e) {
+      DbTools.closeConnection(connection);
+      throw e;
+    }
+
+    try {
+      FacesTools.getExternalContext().redirect("ImportWorkspace.jsp");
+    } catch (final Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * JSF action to release all items of an import from the repository.
+   * 
+   * @return Always null.
+   */
+  public void releaseAll() {
+    final String authenticationToken = ((LoginHelper) FacesTools.findBean("LoginHelper")).getAuthenticationToken();
+
+    final Connection connection = DbTools.getNewConnection();
+    final SubmitProcess submitProcess;
+    try {
+      submitProcess = new SubmitProcess(this, SubmitProcess.Modus.RELEASE, authenticationToken, connection);
       submitProcess.start();
     } catch (final Exception e) {
       DbTools.closeConnection(connection);

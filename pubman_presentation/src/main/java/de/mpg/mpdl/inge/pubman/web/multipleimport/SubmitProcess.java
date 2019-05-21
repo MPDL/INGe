@@ -42,26 +42,55 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
  * 
  */
 public class SubmitProcess extends Thread {
+  public enum Modus
+  {
+    SUBMIT,
+    SUBMIT_AND_RELEASE,
+    RELEASE
+  };
+
   private final ImportLog importLog;
   private AccountUserVO user;
-  private final boolean alsoRelease;
   private final String authenticationToken;
   private Connection connection = null;
+  private Modus modus = null;
 
-  public SubmitProcess(ImportLog importLog, boolean alsoRelease, String authenticationToken, Connection connection) {
+  public SubmitProcess(ImportLog importLog, Modus modus, String authenticationToken, Connection connection) {
     this.importLog = importLog;
-    this.alsoRelease = alsoRelease;
+    this.modus = modus;
     this.authenticationToken = authenticationToken;
     this.connection = connection;
 
     try {
       this.importLog.reopen(connection);
-      this.importLog.startItem("import_process_submit_items", connection);
-      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_submit_process", connection);
+      switch (modus) {
+        case SUBMIT:
+          this.importLog.startItem("import_process_submit_items", connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_submit_process", connection);
+          break;
+        case SUBMIT_AND_RELEASE:
+          this.importLog.startItem("import_process_submit_release_items", connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_submit_release_process", connection);
+          break;
+        case RELEASE:
+          this.importLog.startItem("import_process_release_items", connection);
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_initialize_release_process", connection);
+          break;
+      }
       this.user = new AccountUserVO();
       this.user.setUserid(importLog.getUser());
     } catch (final Exception e) {
-      this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_initialize_submit_process_error", connection);
+      switch (modus) {
+        case SUBMIT:
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_initialize_submit_process_error", connection);
+          break;
+        case SUBMIT_AND_RELEASE:
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_initialize_submitAndRelease_process_error", connection);
+          break;
+        case RELEASE:
+          this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, "import_process_initialize_release_process_error", connection);
+          break;
+      }
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FATAL, e, connection);
       this.importLog.close(connection);
       throw new RuntimeException(e);
@@ -79,7 +108,17 @@ public class SubmitProcess extends Thread {
         if (item.getItemId() != null && !"".equals(item.getItemId())) {
           itemCount++;
           this.importLog.activateItem(item);
-          this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_schedule_submit", this.connection);
+          switch (modus) {
+            case SUBMIT:
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_schedule_submit", this.connection);
+              break;
+            case SUBMIT_AND_RELEASE:
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_schedule_submitAndRelease", this.connection);
+              break;
+            case RELEASE:
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_schedule_release", this.connection);
+              break;
+          }
           this.importLog.suspendItem(this.connection);
         }
       }
@@ -94,24 +133,42 @@ public class SubmitProcess extends Thread {
           try {
             final PubItemService pubItemService = ApplicationBean.INSTANCE.getPubItemService();
             final ItemVersionVO itemVersionVO = pubItemService.get(item.getItemId(), this.authenticationToken);
-            if (this.alsoRelease) {
-              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_item", this.connection);
-              pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
-                  "Batch submit from import " + this.importLog.getMessage(), this.authenticationToken);
-              ItemVersionVO itemVersionVO_ = pubItemService.get(item.getItemId(), this.authenticationToken);
-              pubItemService.releasePubItem(item.getItemId(), itemVersionVO_.getModificationDate(),
-                  "Batch release from import " + this.importLog.getMessage(), this.authenticationToken);
-              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_successful", this.connection);
-            } else {
-              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item", this.connection);
-              pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
-                  "Batch submit from import " + this.importLog.getMessage(), this.authenticationToken);
-              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_successful", this.connection);
+            switch (modus) {
+              case SUBMIT:
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_item", this.connection);
+                pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
+                    "Batch submit from import " + this.importLog.getMessage(), this.authenticationToken);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_successful", this.connection);
+                break;
+              case SUBMIT_AND_RELEASE:
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_item", this.connection);
+                pubItemService.submitPubItem(item.getItemId(), itemVersionVO.getModificationDate(),
+                    "Batch submit (and release) from import " + this.importLog.getMessage(), this.authenticationToken);
+                ItemVersionVO itemVersionVO_ = pubItemService.get(item.getItemId(), this.authenticationToken);
+                pubItemService.releasePubItem(item.getItemId(), itemVersionVO_.getModificationDate(),
+                    "Batch (submit and) release from import " + this.importLog.getMessage(), this.authenticationToken);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_submit_release_successful", this.connection);
+                break;
+              case RELEASE:
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_release_item", this.connection);
+                pubItemService.releasePubItem(item.getItemId(), itemVersionVO.getModificationDate(),
+                    "Batch release from import " + this.importLog.getMessage(), this.authenticationToken);
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_release_successful", this.connection);
+                break;
             }
-
             this.importLog.finishItem(this.connection);
           } catch (final Exception e) {
-            this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_submit_failed", this.connection);
+            switch (modus) {
+              case SUBMIT:
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_submit_failed", this.connection);
+                break;
+              case SUBMIT_AND_RELEASE:
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_submit_release_failed", this.connection);
+                break;
+              case RELEASE:
+                this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "import_process_release_failed", this.connection);
+                break;
+            }
             this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, e, this.connection);
             this.importLog.finishItem(this.connection);
           }
@@ -122,7 +179,17 @@ public class SubmitProcess extends Thread {
         }
       }
 
-      this.importLog.startItem("import_process_submit_finished", this.connection);
+      switch (modus) {
+        case SUBMIT:
+          this.importLog.startItem("import_process_submit_finished", this.connection);
+          break;
+        case SUBMIT_AND_RELEASE:
+          this.importLog.startItem("import_process_submit_release_finished", this.connection);
+          break;
+        case RELEASE:
+          this.importLog.startItem("import_process_release_finished", this.connection);
+          break;
+      }
       this.importLog.finishItem(this.connection);
       this.importLog.close(this.connection);
     } finally {
