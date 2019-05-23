@@ -1393,6 +1393,11 @@
 							<xsl:value-of select="@comment" />
 						</prop:description>
 					</xsl:if>
+					<xsl:if test="$access = 'INSTITUT' or $access='MPG' or $access='INTERNAL'">
+						<prop:description>
+							<xsl:value-of select="$access"/>
+						</prop:description>
+					</xsl:if>
 					<!-- <xsl:choose><xsl:when test="ends-with($filename, '.doc')"><prop:mime-type>application/msword</prop:mime-type></xsl:when><xsl:when test="ends-with($filename, '.zip')"><prop:mime-type>application/zip</prop:mime-type></xsl:when><xsl:otherwise><prop:mime-type>application/pdf</prop:mime-type></xsl:otherwise></xsl:choose> -->
 				</ec:properties>
 				<xsl:element name="ec:content">
