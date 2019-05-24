@@ -168,7 +168,6 @@ public class FileDbVO extends FileDbRO implements Serializable {
   @JsonIgnore
   private String localFileIdentifier;
 
-  @JsonIgnore
   @Type(type= "StringListJsonUserType")
   private List<String> allowedAudienceIds = new ArrayList<>();
 
