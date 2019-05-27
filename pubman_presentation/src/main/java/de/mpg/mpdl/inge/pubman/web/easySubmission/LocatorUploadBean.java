@@ -68,9 +68,10 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       // Public is static default value for locators
       fileVO.setVisibility(Visibility.PUBLIC);
+      fileVO.getAllowedAudienceIds().add(null);
 
-      // The initinally created empty file has to be deleted
-      this.removeEmptyFile();
+      //      // The initially created empty file has to be deleted
+      //      this.removeEmptyFile();
 
       final int index = this.easySubmission.getFiles().size();
 
@@ -85,20 +86,20 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
     }
   }
 
-  @Override
-  public void removeEmptyFile() {
-    final List<PubFileVOPresentation> list = this.easySubmission.getFiles();
-
-    for (int i = 0; i < list.size(); i++) {
-      final PubFileVOPresentation file = list.get(i);
-
-      if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
-        final List<PubFileVOPresentation> listClean = this.easySubmission.getFiles();
-        listClean.remove(i);
-        this.easySubmission.setFiles(listClean);
-      }
-    }
-  }
+  //  @Override
+  //  public void removeEmptyFile() {
+  //    final List<PubFileVOPresentation> list = this.easySubmission.getFiles();
+  //
+  //    for (int i = 0; i < list.size(); i++) {
+  //      final PubFileVOPresentation file = list.get(i);
+  //
+  //      if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
+  //        final List<PubFileVOPresentation> listClean = this.easySubmission.getFiles();
+  //        listClean.remove(i);
+  //        this.easySubmission.setFiles(listClean);
+  //      }
+  //    }
+  //  }
 
   @Override
   public void removeLocator() {

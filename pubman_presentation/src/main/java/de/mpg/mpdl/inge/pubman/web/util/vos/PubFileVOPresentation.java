@@ -357,13 +357,13 @@ public class PubFileVOPresentation extends FacesBean {
 
     editItemSessionBean.getFiles().remove(this.index);
 
-    // ensure that at least one file component is visible
-    if (editItemSessionBean.getFiles().size() == 0) {
-      final FileDbVO newFile = new FileDbVO();
-      newFile.setMetadata(new MdsFileVO());
-      newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-      editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, newFile, false));
-    }
+    //    // ensure that at least one file component is visible
+    //    if (editItemSessionBean.getFiles().size() == 0) {
+    //      final FileDbVO newFile = new FileDbVO();
+    //      newFile.setMetadata(new MdsFileVO());
+    //      newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+    //      editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, newFile, false));
+    //    }
 
     editItemSessionBean.reorganizeFileIndexes();
   }
