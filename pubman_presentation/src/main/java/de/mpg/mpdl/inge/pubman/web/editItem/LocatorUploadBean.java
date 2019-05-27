@@ -67,9 +67,10 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
       // Public is static default value for locators
       fileVO.setVisibility(Visibility.PUBLIC);
+      fileVO.getAllowedAudienceIds().add(null);
 
       // The initinally created empty file has to be deleted
-      this.removeEmptyFile();
+      //      this.removeEmptyFile();
       final int index = this.getEditItemSessionBean().getFiles().size();
 
       final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
@@ -82,18 +83,18 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
     }
   }
 
-  @Override
-  public void removeEmptyFile() {
-    final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
-    for (int i = 0; i < list.size(); i++) {
-      final PubFileVOPresentation file = list.get(i);
-      if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
-        final List<PubFileVOPresentation> listClean = this.getEditItemSessionBean().getFiles();
-        listClean.remove(i);
-        this.getEditItemSessionBean().setFiles(listClean);
-      }
-    }
-  }
+  //  @Override
+  //  public void removeEmptyFile() {
+  //    final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
+  //    for (int i = 0; i < list.size(); i++) {
+  //      final PubFileVOPresentation file = list.get(i);
+  //      if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
+  //        final List<PubFileVOPresentation> listClean = this.getEditItemSessionBean().getFiles();
+  //        listClean.remove(i);
+  //        this.getEditItemSessionBean().setFiles(listClean);
+  //      }
+  //    }
+  //  }
 
   @Override
   public void removeLocator() {

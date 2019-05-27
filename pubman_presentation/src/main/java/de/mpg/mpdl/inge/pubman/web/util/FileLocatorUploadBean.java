@@ -63,7 +63,7 @@ public abstract class FileLocatorUploadBean extends FacesBean {
 
   public abstract void locatorUploaded();
 
-  public abstract void removeEmptyFile();
+  //  public abstract void removeEmptyFile();
 
   public abstract void removeLocator();
 
