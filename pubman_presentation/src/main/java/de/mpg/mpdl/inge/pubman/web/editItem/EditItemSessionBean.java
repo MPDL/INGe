@@ -76,8 +76,12 @@ public class EditItemSessionBean extends EditItemBean {
    */
   public void initEmptyComponents() {
     this.clean();
+    this.checkMinAnzLocators();
+  }
 
-    if (this.getLocators().size() < 1) {
+  public void checkMinAnzLocators() {
+    if (this.getLocators().size() < 1
+        || this.getLocators().size() > 0 && this.getLocators().get(this.getLocators().size() - 1).getFile().getSize() > 0) {
       final FileDbVO newLocator = new FileDbVO();
       newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
@@ -85,9 +89,6 @@ public class EditItemSessionBean extends EditItemBean {
     }
   }
 
-  /**
-     * 
-     */
   @Override
   public void clean() {
     super.clean();

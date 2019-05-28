@@ -25,6 +25,8 @@
 package de.mpg.mpdl.inge.pubman.web.easySubmission;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -52,7 +55,6 @@ import de.mpg.mpdl.inge.inge_validation.exception.ValidationServiceException;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationPoint;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
@@ -133,7 +135,7 @@ public class EasySubmission extends FacesBean {
   private String selectedDate;
   private String serviceID;
   private String suggestConeUrl = null;
-  private UploadedFile uploadedFile;
+  //  private UploadedFile uploadedFile_;
   private boolean overwriteCreators;
 
   public EasySubmission() {
@@ -150,28 +152,28 @@ public class EasySubmission extends FacesBean {
     // EasySubmissionSessionBean for further manipulation
     if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2)
         || this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3)) {
-
-      if (this.getLocators() == null || this.getLocators().size() == 0) {
-        String contentCategory = null;
-        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
-          contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
-        } else {
-          final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
-          if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
-            contentCategory = contentCategoryMap.values().iterator().next();
-          } else {
-            this.error(this.getMessage("NoContentCategory"));
-            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
-          }
-        }
-
-        final FileDbVO newLocator = new FileDbVO();
-        newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-        newLocator.setVisibility(FileDbVO.Visibility.PUBLIC);
-        newLocator.setMetadata(new MdsFileVO());
-        newLocator.getMetadata().setContentCategory(contentCategory);
-        this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
-      }
+      this.getEasySubmissionSessionBean().checkMinAnzLocators();
+      //      if (this.getLocators() == null || this.getLocators().size() == 0) {
+      ////        String contentCategory = null;
+      ////        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
+      ////          contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+      ////        } else {
+      ////          final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+      ////          if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+      ////            contentCategory = contentCategoryMap.values().iterator().next();
+      ////          } else {
+      ////            this.error(this.getMessage("NoContentCategory"));
+      ////            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+      ////          }
+      ////        }
+      //
+      //        final FileDbVO newLocator = new FileDbVO();
+      //        newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
+      //        newLocator.setVisibility(FileDbVO.Visibility.PUBLIC);
+      //        newLocator.setMetadata(new MdsFileVO());
+      ////        newLocator.getMetadata().setContentCategory(contentCategory);
+      //        this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+      //      }
     }
 
     if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4)) {
@@ -239,9 +241,9 @@ public class EasySubmission extends FacesBean {
 
     this.getEasySubmissionSessionBean().cleanup();
 
-    // also make sure that the EditItemSessionBean is cleaned, too
-    this.getFiles().clear();
-    this.getLocators().clear();
+    //    // also make sure that the EditItemSessionBean is cleaned, too
+    //    this.getFiles().clear();
+    //    this.getLocators().clear();
 
     // deselect the selected context
     final List<PubContextVOPresentation> depositorContextList = this.getDepositorContextList();
@@ -276,9 +278,9 @@ public class EasySubmission extends FacesBean {
 
     this.getEasySubmissionSessionBean().cleanup();
 
-    // also make sure that the EditItemSessionBean is cleaned, too
-    this.getFiles().clear();
-    this.getLocators().clear();
+    //    // also make sure that the EditItemSessionBean is cleaned, too
+    //    this.getFiles().clear();
+    //    this.getLocators().clear();
 
     // deselect the selected context
     final List<PubContextVOPresentation> depositorContextList = this.getDepositorContextList();
@@ -312,67 +314,84 @@ public class EasySubmission extends FacesBean {
     }
   }
 
+  //  /**
+  //   * This method adds a file to the list of files of the item
+  //   * 
+  //   * @return navigation string (null)
+  //   */
+  //  public String addFile() {
+  //    this.upload(true);
+  //    this.saveLocator();
+  //
+  //    final List<PubFileVOPresentation> files = this.getFiles();
+  //
+  //    if (files != null && files.size() > 0 && files.get(files.size() - 1).getFile().getSize() > 0) {
+  //
+  //      final FileDbVO newFile = new FileDbVO();
+  //      newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+  //      newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
+  //      newFile.setMetadata(new MdsFileVO());
+  //
+  //      files.add(new PubFileVOPresentation(files.size(), newFile, false));
+  //    }
+  //
+  //    return "loadNewEasySubmission";
+  //  }
+
   /**
-   * This method adds a file to the list of files of the item
+   * This method adds a locator to the list of locators of the item
    * 
-   * @return navigation string (null)
-   */
-  public String addFile() {
-    this.upload(true);
-    this.saveLocator();
-
-    final List<PubFileVOPresentation> files = this.getFiles();
-
-    if (files != null && files.size() > 0 && files.get(files.size() - 1).getFile().getSize() > 0) {
-
-      final FileDbVO newFile = new FileDbVO();
-      newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-      newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
-      newFile.setMetadata(new MdsFileVO());
-
-      files.add(new PubFileVOPresentation(files.size(), newFile, false));
-    }
-
-    return "loadNewEasySubmission";
-  }
-
-  /**
-   * This method adds a locator to the list of files of the item
-   * 
-   * @return navigation string (null)
+   * @return navigation string
    */
   public String addLocator() {
-    this.upload(true);
-    this.saveLocator();
-
-    final List<PubFileVOPresentation> locators = this.getLocators();
-
-    if (locators != null && locators.get(locators.size() - 1).getFile().getContent() != null
-        && !locators.get(locators.size() - 1).getFile().getContent().trim().equals("")) {
-
-      String contentCategory = null;
-      if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
-        contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
-      } else {
-        final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
-        if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
-          contentCategory = contentCategoryMap.values().iterator().next();
-        } else {
-          this.error(this.getMessage("NoContentCategory"));
-          Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
-        }
-      }
-
-      final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
-
-      newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
-      newLocator.getFile().setMetadata(new MdsFileVO());
-      newLocator.getFile().getMetadata().setContentCategory(contentCategory);
-      locators.add(newLocator);
+    if (this.getLocators() != null) {
+      final FileDbVO newLocator = new FileDbVO();
+      newLocator.setMetadata(new MdsFileVO());
+      newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
+      this.getLocators().add(new PubFileVOPresentation(this.getLocators().size(), newLocator, true));
     }
 
     return "loadNewEasySubmission";
+
   }
+
+  //  /**
+  //   * This method adds a locator to the list of files of the item
+  //   * 
+  //   * @return navigation string (null)
+  //   */
+  //  public String addLocator() {
+  //    this.upload(true);
+  //    this.saveLocator();
+  //
+  //    final List<PubFileVOPresentation> locators = this.getLocators();
+  //
+  //    if (locators != null && locators.get(locators.size() - 1).getFile().getContent() != null
+  //        && !locators.get(locators.size() - 1).getFile().getContent().trim().equals("")) {
+  //
+  //      String contentCategory = null;
+  //      if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
+  //        contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+  //      } else {
+  //        final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+  //        if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+  //          contentCategory = contentCategoryMap.values().iterator().next();
+  //        } else {
+  //          this.error(this.getMessage("NoContentCategory"));
+  //          Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+  //        }
+  //      }
+  //
+  //      final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
+  //
+  //      newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
+  //      newLocator.getFile().setMetadata(new MdsFileVO());
+  //      newLocator.getFile().getMetadata().setContentCategory(contentCategory);
+  //      locators.add(newLocator);
+  //    }
+  //
+  //    return "loadNewEasySubmission";
+  //  }
 
   /**
    * This method binds the uploaded files to the files in the PubItem during the save process
@@ -397,26 +416,53 @@ public class EasySubmission extends FacesBean {
     }
   }
 
+  /**
+   * This method saves the latest locator to the list of files of the item
+   * 
+   * @return navigation string
+   */
   public String saveLocator() {
-    final List<PubFileVOPresentation> locators = this.getLocators();
-
-    if (locators.get(locators.size() - 1).getFile().getMetadata().getTitle() == null
-        || locators.get(locators.size() - 1).getFile().getMetadata().getTitle().trim().equals("")) {
-      locators.get(locators.size() - 1).getFile().getMetadata().setTitle(locators.get(locators.size() - 1).getFile().getContent());
+    final int indexUpload = this.getLocators().size() - 1;
+    if (this.getLocators() != null) {
+      // Set empty MetadataSet if none exists
+      if (this.getLocators().get(indexUpload).getFile().getMetadata() == null) {
+        this.getLocators().get(indexUpload).getFile().setMetadata(new MdsFileVO());
+      }
+      // Set file name if not filled
+      if (this.getLocators().get(indexUpload).getFile().getMetadata().getTitle() == null
+          || this.getLocators().get(indexUpload).getFile().getMetadata().getTitle().trim().equals("")) {
+        this.getLocators().get(indexUpload).getFile().getMetadata()
+            .setTitle(this.getLocators().get(indexUpload).getFile().getContent().trim());
+      }
+      final List<PubFileVOPresentation> list = this.getLocators();
+      final PubFileVOPresentation pubFile = list.get(indexUpload);
+      list.set(indexUpload, pubFile);
+      this.setLocators(list);
     }
-
-    //TODO
-    // set a dummy file size for rendering purposes
-    if (locators.get(locators.size() - 1).getFile().getContent() != null
-        && !locators.get(locators.size() - 1).getFile().getContent().trim().equals("")) {
-      locators.get(locators.size() - 1).getFile().setSize(11);
-    }
-
-    // Visibility PUBLIC is static default value for locators
-    locators.get(locators.size() - 1).getFile().setVisibility(Visibility.PUBLIC);
 
     return "loadNewEasySubmission";
   }
+
+  //  public String saveLocator() {
+  //    final List<PubFileVOPresentation> locators = this.getLocators();
+  //
+  //    if (locators.get(locators.size() - 1).getFile().getMetadata().getTitle() == null
+  //        || locators.get(locators.size() - 1).getFile().getMetadata().getTitle().trim().equals("")) {
+  //      locators.get(locators.size() - 1).getFile().getMetadata().setTitle(locators.get(locators.size() - 1).getFile().getContent());
+  //    }
+  //
+  //    //TODO
+  //    // set a dummy file size for rendering purposes
+  //    if (locators.get(locators.size() - 1).getFile().getContent() != null
+  //        && !locators.get(locators.size() - 1).getFile().getContent().trim().equals("")) {
+  //      locators.get(locators.size() - 1).getFile().setSize(11);
+  //    }
+  //
+  //    // Visibility PUBLIC is static default value for locators
+  //    locators.get(locators.size() - 1).getFile().setVisibility(Visibility.PUBLIC);
+  //
+  //    return "loadNewEasySubmission";
+  //  }
 
   /**
    * This method reorganizes the index property in PubFileVOPresentation after removing one element
@@ -486,75 +532,130 @@ public class EasySubmission extends FacesBean {
    * @param event
    */
   public void fileUploaded(FileUploadEvent event) {
-    this.uploadedFile = event.getFile();
-    this.upload(true);
+    this.stageFile(event.getFile());
   }
 
-  /**
-   * This method uploads a selected file and gives out error messages if needed
-   * 
-   * @param needMessages Flag to invoke error messages (set it to false if you invoke the validation
-   *        service before or after)
-   * @return String navigation string
-   * @author schraut
-   */
-  public String upload(boolean needMessages) {
-    if (this.uploadedFile != null) {
-      final UploadedFile file = this.uploadedFile;
-      final StringBuffer errorMessage = new StringBuffer();
-      if (file != null) {
-
-        final String contentURL = this.uploadFile(file);
-        final String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
-        if (contentURL != null && !contentURL.trim().equals("")) {
-          final FileDbVO newFile = new FileDbVO();
-          newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-          newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
-          newFile.setMetadata(new MdsFileVO());
-
-          this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
-
-          newFile.getMetadata().setTitle(fixedFileName);
-          newFile.setName(fixedFileName);
-          newFile.setMimeType(file.getContentType());
-          newFile.setSize((int) file.getSize());
-          final FormatVO formatVO = new FormatVO();
-          formatVO.setType("dcterms:IMT");
-          formatVO.setValue(newFile.getMimeType());
-          newFile.getMetadata().getFormats().add(formatVO);
-          newFile.setContent(contentURL);
+  private String stageFile(UploadedFile file) {
+    if (file != null && file.getSize() > 0) {
+      try {
+        String path = null;
+        try {
+          StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
+              getLoginHelper().getAuthenticationToken());
+          path = String.valueOf(stagedFile.getId());
+        } catch (Exception e) {
+          logger.error("Could not upload staged file [" + path + "]", e);
+          this.error(this.getMessage("File_noUpload") + "[" + path + "]");
         }
 
-        this.init();
-      }
+        String mimeType = null;
+        final Tika tika = new Tika();
+        try {
+          final InputStream fis = file.getInputstream();
+          mimeType = tika.detect(fis, file.getFileName());
+          fis.close();
+        } catch (final IOException e) {
+          logger.error("Error while trying to detect mimetype of file " + file.getFileName(), e);
+        }
 
-      if (errorMessage.length() > 0) {
-        this.error(errorMessage.toString());
+        final FormatVO formatVO = new FormatVO();
+        formatVO.setType("dcterms:IMT");
+        formatVO.setValue(mimeType);
+
+        final MdsFileVO mdsFileVO = new MdsFileVO();
+        mdsFileVO.getFormats().add(formatVO);
+        mdsFileVO.getIdentifiers().add(new IdentifierVO());
+        mdsFileVO.setTitle(file.getFileName());
+
+        final FileDbVO fileVO = new FileDbVO();
+        fileVO.setMetadata(mdsFileVO);
+
+        fileVO.getAllowedAudienceIds().add(null);
+        fileVO.setContent(path);
+        fileVO.setMimeType(mimeType);
+        fileVO.setName(file.getFileName());
+        fileVO.setSize((int) file.getSize());
+        fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+        fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
+
+        this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), fileVO, false));
+        this.init();
+      } catch (Exception e) {
+        e.printStackTrace();
+        this.error(this.getMessage("Error uploading file"));
       }
+    } else {
+      this.error(this.getMessage("ComponentEmpty"));
     }
 
     return "loadNewEasySubmission";
   }
 
-  /**
-   * Uploads a file to the FIZ Framework and recieves and returns the location of the file in the FW
-   * 
-   * @param file
-   * @return
-   */
-  public String uploadFile(UploadedFile file) {
+  //  /**
+  //   * This method uploads a selected file and gives out error messages if needed
+  //   * 
+  //   * @param needMessages Flag to invoke error messages (set it to false if you invoke the validation
+  //   *        service before or after)
+  //   * @return String navigation string
+  //   * @author schraut
+  //   */
+  //  public String upload(boolean needMessages) {
+  //    if (this.uploadedFile != null) {
+  //      final UploadedFile file = this.uploadedFile;
+  //      final StringBuffer errorMessage = new StringBuffer();
+  //      if (file != null) {
+  //
+  //        final String contentURL = this.uploadFile(file);
+  //        final String fixedFileName = CommonUtils.fixURLEncoding(file.getFileName());
+  //        if (contentURL != null && !contentURL.trim().equals("")) {
+  //          final FileDbVO newFile = new FileDbVO();
+  //          newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+  //          newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
+  //          newFile.setMetadata(new MdsFileVO());
+  //
+  //          this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
+  //
+  //          newFile.getMetadata().setTitle(fixedFileName);
+  //          newFile.setName(fixedFileName);
+  //          newFile.setMimeType(file.getContentType());
+  //          newFile.setSize((int) file.getSize());
+  //          final FormatVO formatVO = new FormatVO();
+  //          formatVO.setType("dcterms:IMT");
+  //          formatVO.setValue(newFile.getMimeType());
+  //          newFile.getMetadata().getFormats().add(formatVO);
+  //          newFile.setContent(contentURL);
+  //        }
+  //
+  //        this.init();
+  //      }
+  //
+  //      if (errorMessage.length() > 0) {
+  //        this.error(errorMessage.toString());
+  //      }
+  //    }
+  //
+  //    return "loadNewEasySubmission";
+  //  }
 
-    String path = null;
-    try {
-      StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
-          getLoginHelper().getAuthenticationToken());
-      path = String.valueOf(stagedFile.getId());
-    } catch (Exception e) {
-      logger.error("Could not upload staged file [" + path + "]", e);
-      this.error((this.getMessage("File_noUpload") + "[" + path + "]"));
-    }
-    return path;
-  }
+  //  /**
+  //   * Uploads a file to the FIZ Framework and recieves and returns the location of the file in the FW
+  //   * 
+  //   * @param file
+  //   * @return
+  //   */
+  //  private String uploadFile(UploadedFile file) {
+  //
+  //    String path = null;
+  //    try {
+  //      StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
+  //          getLoginHelper().getAuthenticationToken());
+  //      path = String.valueOf(stagedFile.getId());
+  //    } catch (Exception e) {
+  //      logger.error("Could not upload staged file [" + path + "]", e);
+  //      this.error((this.getMessage("File_noUpload") + "[" + path + "]"));
+  //    }
+  //    return path;
+  //  }
 
 
   /**
@@ -777,43 +878,45 @@ public class EasySubmission extends FacesBean {
       this.getItem().getFiles().add(locators.get(i).getFile());
     }
 
+    this.getEasySubmissionSessionBean().checkMinAnzLocators();
+
     // add an empty file and an empty locator if necessary for display purposes
     // TODO: das passiert an tausend Stellen und ist teilweise unterschiedlich. WARUM????
     // -> Suche nach Konstruktor PubFileVOPresentation(int fileIndex, FileDbVO file, boolean
     // isLocator)
-    if (files != null && files.size() > 0) {
-      if (files.get(files.size() - 1).getFile().getSize() > 0) {
-        final FileDbVO newFile = new FileDbVO();
-        newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-        newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
-        newFile.setMetadata(new MdsFileVO());
-        files.add(new PubFileVOPresentation(files.size(), newFile, false));
-      }
-    }
+    //    if (files != null && files.size() > 0) {
+    //      if (files.get(files.size() - 1).getFile().getSize() > 0) {
+    //        final FileDbVO newFile = new FileDbVO();
+    //        newFile.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+    //        newFile.setVisibility(FileDbVO.Visibility.PUBLIC);
+    //        newFile.setMetadata(new MdsFileVO());
+    //        files.add(new PubFileVOPresentation(files.size(), newFile, false));
+    //      }
+    //    }
 
-    if (locators != null && locators.size() > 0) {
-      if (locators.get(locators.size() - 1).getFile().getSize() > 0) {
-        String contentCategory = null;
-        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
-          contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
-        } else {
-          final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
-          if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
-            contentCategory = contentCategoryMap.values().iterator().next();
-          } else {
-            this.error(this.getMessage("NoContentCategory"));
-            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
-          }
-        }
-
-        final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
-
-        newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
-        newLocator.getFile().setMetadata(new MdsFileVO());
-        newLocator.getFile().getMetadata().setContentCategory(contentCategory);
-        locators.add(newLocator);
-      }
-    }
+    //    if (locators != null && locators.size() > 0) {
+    //      if (locators.get(locators.size() - 1).getFile().getSize() > 0) {
+    ////        String contentCategory = null;
+    ////        if (PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL") != null) {
+    ////          contentCategory = PubFileVOPresentation.getContentCategoryUri("SUPPLEMENTARY_MATERIAL");
+    ////        } else {
+    ////          final Map<String, String> contentCategoryMap = PubFileVOPresentation.getContentCategoryMap();
+    ////          if (contentCategoryMap != null && !contentCategoryMap.entrySet().isEmpty()) {
+    ////            contentCategory = contentCategoryMap.values().iterator().next();
+    ////          } else {
+    ////            this.error(this.getMessage("NoContentCategory"));
+    ////            Logger.getLogger(PubFileVOPresentation.class).warn("WARNING: no content-category has been defined in Genres.xml");
+    ////          }
+    ////        }
+    //
+    //        final PubFileVOPresentation newLocator = new PubFileVOPresentation(locators.size(), true);
+    //
+    //        newLocator.getFile().setVisibility(FileDbVO.Visibility.PUBLIC);
+    //        newLocator.getFile().setMetadata(new MdsFileVO());
+    ////        newLocator.getFile().getMetadata().setContentCategory(contentCategory);
+    //        locators.add(newLocator);
+    //      }
+    //    }
 
     // validate
     if (this.validate(ValidationPoint.EASY_SUBMISSION_STEP_3, "loadNewEasySubmission") == null) {
@@ -1067,13 +1170,13 @@ public class EasySubmission extends FacesBean {
     this.getEasySubmissionSessionBean().setLocators(files);
   }
 
-  public UploadedFile getUploadedFile() {
-    return this.uploadedFile;
-  }
-
-  public void setUploadedFile(UploadedFile uploadedFile) {
-    this.uploadedFile = uploadedFile;
-  }
+  //  public UploadedFile getUploadedFile() {
+  //    return this.uploadedFile;
+  //  }
+  //
+  //  public void setUploadedFile(UploadedFile uploadedFile) {
+  //    this.uploadedFile = uploadedFile;
+  //  }
 
   public String getSelectedDate() {
     return this.selectedDate;

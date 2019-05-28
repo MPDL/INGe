@@ -174,7 +174,6 @@ public class ZfNProcessor extends FormatProcessor {
       fileVO.setMimeType(mimeType);
       fileVO.setName(this.getCurrentFile());
       fileVO.setContent(fileURL.toString());
-      //      System.out.println("SIZE:" + this.fileSize);
       fileVO.setSize(this.fileSize);
       String contentCategory = null;
       if (PubFileVOPresentation.getContentCategoryUri("PUBLISHER_VERSION") != null) {
