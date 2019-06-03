@@ -928,7 +928,7 @@
 									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='INSTITUT' or @viewftext='INSTITUT'">INSTITUT</xsl:when>
 									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='MPG' or @viewftext='MPG'">MPG</xsl:when>
 									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='PUBLIC' or @viewftext='PUBLIC'">PUBLIC</xsl:when>
-									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='INTERNAL' or @viewftext='INTERNAL'">INSTITUT</xsl:when>
+									<xsl:when test="following-sibling::fturl[@filename=$filename]/@viewftext='INTERNAL' or @viewftext='INTERNAL'">INTERNAL</xsl:when>
 									<xsl:otherwise>
 										<!-- ERROR -->
 										<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownAccessLevel' ), concat('acces level [', @viewftext, '] of fulltext is not supported at eSciDoc, record ', ../../../@id))" />
@@ -1355,7 +1355,7 @@
 						<!-- Default: prop:content-category -->
 						<xsl:otherwise>
 							<xsl:choose>
-								<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+								<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG' or $access='INTERNAL'">
 									<prop:content-category>
 										<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 									</prop:content-category>
@@ -1391,11 +1391,6 @@
 					<xsl:if test="$import-name = 'MPIBF' and exists(@comment)">
 						<prop:description>
 							<xsl:value-of select="@comment" />
-						</prop:description>
-					</xsl:if>
-					<xsl:if test="$access = 'INSTITUT' or $access='MPG' or $access='INTERNAL'">
-						<prop:description>
-							<xsl:value-of select="$access"/>
 						</prop:description>
 					</xsl:if>
 					<!-- <xsl:choose><xsl:when test="ends-with($filename, '.doc')"><prop:mime-type>application/msword</prop:mime-type></xsl:when><xsl:when test="ends-with($filename, '.zip')"><prop:mime-type>application/zip</prop:mime-type></xsl:when><xsl:otherwise><prop:mime-type>application/pdf</prop:mime-type></xsl:otherwise></xsl:choose> -->
@@ -1514,7 +1509,7 @@
 								<!-- Default: eterms:content-category -->
 								<xsl:otherwise>
 									<xsl:choose>
-										<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG'">
+										<xsl:when test="$access='USER' or $access='INSTITUT' or $access='MPG' or $access='INTERNAL'">
 											<eterms:content-category>
 												<xsl:value-of select="$contentCategory-ves/enum[. = 'publisher-version']" />
 											</eterms:content-category>

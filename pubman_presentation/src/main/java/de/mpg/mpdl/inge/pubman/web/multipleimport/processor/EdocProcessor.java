@@ -27,11 +27,9 @@
 package de.mpg.mpdl.inge.pubman.web.multipleimport.processor;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.Future;
 
@@ -42,15 +40,14 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
-import org.apache.http.nio.client.HttpAsyncClient;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
-import de.mpg.mpdl.inge.service.aa.Principal;
+import de.mpg.mpdl.inge.model.db.valueobjects.StagedFileDbVO;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.FileService;
 import de.mpg.mpdl.inge.util.IdentityHandler;
@@ -64,6 +61,9 @@ import de.mpg.mpdl.inge.util.IdentityHandler;
  * 
  */
 public class EdocProcessor extends FormatProcessor {
+
+  private static final Logger logger = Logger.getLogger(EdocProcessor.class);
+
 
   @Autowired
   private FileService fileService;
@@ -169,8 +169,20 @@ public class EdocProcessor extends FormatProcessor {
       HttpResponse response = future.get();
       if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
         InputStream is = response.getEntity().getContent();
-        file.setContent(fileService.createStageFile(is, file.getName(), authenticationToken).getPath());
+        // try to retrive name - if this is not possible set dummy-name
+        if (file.getMetadata() != null && file.getMetadata().getTitle() != null) {
+          StagedFileDbVO stagedFile = fileService.createStageFile(is, file.getMetadata().getTitle(), authenticationToken);
+          is.close();
+          logger.info("StagedFilePath: " + stagedFile.getPath());
+          file.setContent(stagedFile.getPath());
+        } else {
+          StagedFileDbVO stagedFile = fileService.createStageFile(is, "defaultFileName", authenticationToken);
+          logger.info("ElseStagedFilePath: " + stagedFile.getPath());
+          is.close();
+          file.setContent(stagedFile.getPath());
+        }
       } else {
+        logger.error("Could not donwload file for eDoc import");
         throw new IngeApplicationException("Server did not respond with 200 - OK --> could not download file from [" + url + "]");
       }
     } finally {

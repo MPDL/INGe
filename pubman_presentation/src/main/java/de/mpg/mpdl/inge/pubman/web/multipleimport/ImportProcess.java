@@ -355,17 +355,19 @@ public class ImportProcess extends Thread {
                   item.getItemVO().getFiles().add(file);
                 } catch (final Exception e) {
                   this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
+                  logger.info("Could not fetch file for import", e);
                 }
-              } else if (this.format.equals(TransformerFactory.FORMAT.EDOC_XML)) {
-                try {
-                  // upload and add files
-                  for (FileDbVO file : item.getItemVO().getFiles()) {
-                    ((EdocProcessor) this.formatProcessor).getFileforImport(file.getContent(), file, this.user.getJwToken());
-                  }
-
-                } catch (final Exception e) {
-                  this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
-                }
+                //              } else if (this.format.equals(TransformerFactory.FORMAT.EDOC_XML)) {
+                //                try {
+                //                  // upload and add files
+                //                  for (FileDbVO file : item.getItemVO().getFiles()) {
+                //                    ((EdocProcessor) this.formatProcessor).getFileforImport(file.getContent(), file, this.user.getJwToken());
+                //                  }
+                //
+                //                } catch (final Exception e) {
+                //                  this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
+                //                  logger.info("Could not fetch file for import", e);
+                //                }
               }
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
