@@ -95,25 +95,28 @@
 						</h:panelGroup>
 					</span>
 				</h:panelGroup>
+				
 				<!-- File visibility, Embargo Date -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
 					rendered="#{fileComponent.file.content != null}">
-					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-							rendered="false" /><span class="noDisplay">:</span>
+					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;
+						<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />
+						<span class="noDisplay">:</span>
 					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:panelGroup
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:panelGroup
 							rendered="#{!(genre.files_component_visibility_display == 'false' and genre.files_component_visibility_form_id == 'easy-submission' || genre.files_component_visibility_display == 'false' and genre.files_component_visibility_form_id == 'all')}">
-							<span class="xDouble_area0 tiny_marginRIncl endline"> <h:outputLabel
+							<span class="xDouble_area0 tiny_marginRIncl endline">
+								<h:outputLabel
 									id="lblFilesComponentVisibility" styleClass="xDouble_label"
 									value="#{genre.files_component_visibility_label}"
-									converter="GenreLabelConverter" /> <h:panelGroup layout="block"
+									converter="GenreLabelConverter" />
+								<h:panelGroup layout="block"
 									styleClass="xDouble_area1 endline selectContainer">
 									<h:panelGroup layout="block" styleClass="xDouble_area0">
 										<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
-										<h:panelGroup layout="block"
-											styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 									</h:panelGroup>
 									<h:selectOneMenu id="selFileVisibility" styleClass="replace"
 										onfocus="updateSelectionBox(this);"
@@ -122,26 +125,52 @@
 										<f:selectItems id="selFileVisibilities"
 											value="#{EasySubmission.visibilities}" />
 									</h:selectOneMenu>
-								</h:panelGroup> <!--
-							<h:selectOneMenu id="selFileVisibility" styleClass="xDouble_select" value="#{fileComponent.file.visibility}" onchange="this.form.submit()">
-								<f:selectItems id="selFileVisibilities" value="#{EasySubmission.visibilities}" />
-							</h:selectOneMenu>	-->
+								</h:panelGroup>
 							</span>
-						</h:panelGroup> <h:panelGroup styleClass="large_area0 tiny_marginLIncl"
+						</h:panelGroup>
+						
+						<h:panelGroup styleClass="large_area0 tiny_marginLIncl"
 							rendered="#{fileComponent.showEmbargoDate}">
-							<label class="large_label"> <span class="mandatory"
-								title="#{msg.mandatoryField}"> <h:outputText value="*"
-										rendered="false" />
-							</span>
-							<h:outputText value="#{lbl.easy_submission_lblFileEmbargo}" />
+							<label class="large_label">
+								<span class="mandatory" title="#{msg.mandatoryField}">
+									<h:outputText value="*" rendered="false" />
+								</span>
+								<h:outputText value="#{lbl.easy_submission_lblFileEmbargo}" />
 							</label>
 							<h:inputText id="fileEmbargoDate" styleClass="large_txtInput"
 								value="#{fileComponent.file.metadata.embargoUntil}"
 								pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}"
 								title="#{tip.DateFormatDescription}" />
 						</h:panelGroup>
+						
+						<h:panelGroup styleClass="free_area0 tiny_marginRIncl endline" rendered="#{fileComponent.file.visibility=='AUDIENCE' }">
+							<h:outputLabel id="txtFileAudienceIds" styleClass="xDouble_label" value="#{lbl.EditItem_lblFileAudienceIps}" />
+							<ui:repeat var="ip" value="#{fileComponent.file.allowedAudienceIds}" varStatus="status">
+								<h:panelGroup layout="block" styleClass="xDouble_area1 endline selectContainer">
+									<h:panelGroup layout="block" styleClass="xDouble_area0">
+										<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+									</h:panelGroup>
+									<h:selectOneMenu id="selFileAudienceIps" value="#{fileComponent.file.allowedAudienceIds[status.index]}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+										<f:selectItems value="#{EditItem.audienceIpListSelectItems}" />
+									</h:selectOneMenu>
+								</h:panelGroup>
+								<span class="small_area0_p8 lineToolSection">
+									<h:commandButton id="btnAddFirst" styleClass="min_imgBtn groupTool add" value=" " title="#{tip.search_btAdd}"
+										action="#{fileComponent.file.allowedAudienceIds.add(null)}">
+										<f:ajax render="form1:easySubmission:easySubmissionStep1Manual:files" execute="@form" />
+									</h:commandButton>
+									<h:commandButton id="btnRemoveFirst" styleClass="min_imgBtn groupTool remove" value=" " title="#{tip.search_btAdd}" rendered="#{fileComponent.file.allowedAudienceIds.size() > 1 }"
+										action="#{UtilBean.removeFromList(fileComponent.file.allowedAudienceIds, status.index)}">
+										<f:ajax render="form1:easySubmission:easySubmissionStep1Manual:files" execute="@form" />
+									</h:commandButton>
+								</span>
+							</ui:repeat>
+						</h:panelGroup>
+						
 					</span>
 				</h:panelGroup>
+				
 				<!-- File description, MIME type -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
@@ -275,7 +304,6 @@
 							process="@form" dragDropSupport="true" auto="true"
 							onstart="beforeAjaxRequest();" onerror="afterAjaxRequest();"
 							oncomplete="afterAjaxRequest();">
-
 						</p:fileUpload>
 					</span>
 				</h:panelGroup>

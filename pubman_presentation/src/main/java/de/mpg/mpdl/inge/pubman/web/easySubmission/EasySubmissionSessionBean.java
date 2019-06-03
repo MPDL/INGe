@@ -34,6 +34,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.editItem.CreatorBean;
 import de.mpg.mpdl.inge.pubman.web.editItem.EditItemBean;
@@ -120,6 +122,16 @@ public class EasySubmissionSessionBean extends EditItemBean {
     this.setSelectedDate("");
     this.initAuthorCopyPasteCreatorBean();
     this.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+  }
+
+  public void checkMinAnzLocators() {
+    if (this.getLocators().size() < 1
+        || this.getLocators().size() > 0 && this.getLocators().get(this.getLocators().size() - 1).getFile().getSize() > 0) {
+      final FileDbVO newLocator = new FileDbVO();
+      newLocator.setMetadata(new MdsFileVO());
+      newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
+      this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+    }
   }
 
   public String getCurrentSubmissionMethod() {

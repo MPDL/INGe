@@ -1,28 +1,3 @@
-/*
- * 
- * CDDL HEADER START
- * 
- * The contents of this file are subject to the terms of the Common Development and Distribution
- * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
- * the License.
- * 
- * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
- * http://www.escidoc.org/license. See the License for the specific language governing permissions
- * and limitations under the License.
- * 
- * When distributing Covered Code, include this CDDL HEADER in each file and include the License
- * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
- * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
- * Copyright [yyyy] [name of copyright owner]
- * 
- * CDDL HEADER END
- */
-
-/*
- * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
- * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
- * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
- */
 package de.mpg.mpdl.inge.pubman.web.easySubmission;
 
 import java.util.List;
@@ -33,22 +8,13 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.FormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
-/**
- * Class to handle the file upload of locators.
- * 
- * @author Friederike Kleinfercher (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * 
- */
 @SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
-
-  public EasySubmission easySubmission = new EasySubmission();
 
   @Override
   public void locatorUploaded() {
@@ -66,60 +32,37 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       fileVO.getMetadata().getFormats().add(formatVO);
       fileVO.setContent(this.getLocator());
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-      // Public is static default value for locators
       fileVO.setVisibility(Visibility.PUBLIC);
       fileVO.getAllowedAudienceIds().add(null);
 
-      //      // The initially created empty file has to be deleted
-      //      this.removeEmptyFile();
+      final int index = this.getEasySubmissionSessionBean().getFiles().size();
 
-      final int index = this.easySubmission.getFiles().size();
-
-      final List<PubFileVOPresentation> list = this.easySubmission.getFiles();
+      final List<PubFileVOPresentation> list = this.getEasySubmissionSessionBean().getFiles();
       final PubFileVOPresentation pubFile = new PubFileVOPresentation(index, fileVO, false);
       list.add(pubFile);
 
-      this.easySubmission.setFiles(list);
+      this.getEasySubmissionSessionBean().setFiles(list);
     } catch (final Exception e) {
       LocatorUploadBean.logger.error(e);
       this.error = this.getMessage("errorLocatorUploadFW");
     }
   }
 
-  //  @Override
-  //  public void removeEmptyFile() {
-  //    final List<PubFileVOPresentation> list = this.easySubmission.getFiles();
-  //
-  //    for (int i = 0; i < list.size(); i++) {
-  //      final PubFileVOPresentation file = list.get(i);
-  //
-  //      if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
-  //        final List<PubFileVOPresentation> listClean = this.easySubmission.getFiles();
-  //        listClean.remove(i);
-  //        this.easySubmission.setFiles(listClean);
-  //      }
-  //    }
-  //  }
-
   @Override
   public void removeLocator() {
-    final List<PubFileVOPresentation> list = this.easySubmission.getLocators();
-
+    final List<PubFileVOPresentation> list = this.getEasySubmissionSessionBean().getLocators();
     for (int i = 0; i < list.size(); i++) {
       final PubFileVOPresentation locatorPres = list.get(i);
       if (locatorPres.getFile().getContent().equals(super.locator)) {
-        final List<PubFileVOPresentation> listClean = this.easySubmission.getLocators();
+        final List<PubFileVOPresentation> listClean = this.getEasySubmissionSessionBean().getLocators();
         listClean.remove(i);
-        this.easySubmission.setLocators(listClean);
-
-        // Make sure at least one locator exists
-        if (listClean.size() == 0) {
-          final FileDbVO newLocator = new FileDbVO();
-          newLocator.setMetadata(new MdsFileVO());
-          newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-          this.easySubmission.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
-        }
+        this.getEasySubmissionSessionBean().setLocators(listClean);
+        this.getEasySubmissionSessionBean().checkMinAnzLocators();
       }
     }
+  }
+
+  private EasySubmissionSessionBean getEasySubmissionSessionBean() {
+    return (EasySubmissionSessionBean) FacesTools.findBean("EasySubmissionSessionBean");
   }
 }

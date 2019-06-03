@@ -1,28 +1,3 @@
-/*
- * 
- * CDDL HEADER START
- * 
- * The contents of this file are subject to the terms of the Common Development and Distribution
- * License, Version 1.0 only (the "License"). You may not use this file except in compliance with
- * the License.
- * 
- * You can obtain a copy of the license at license/ESCIDOC.LICENSE or
- * http://www.escidoc.org/license. See the License for the specific language governing permissions
- * and limitations under the License.
- * 
- * When distributing Covered Code, include this CDDL HEADER in each file and include the License
- * file at license/ESCIDOC.LICENSE. If applicable, add the following below this CDDL HEADER, with
- * the fields enclosed by brackets "[]" replaced with your own identifying information: Portions
- * Copyright [yyyy] [name of copyright owner]
- * 
- * CDDL HEADER END
- */
-
-/*
- * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft für
- * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
- * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
- */
 package de.mpg.mpdl.inge.pubman.web.editItem;
 
 import java.util.List;
@@ -37,14 +12,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.FileLocatorUploadBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 
-/**
- * Class to handle the file upload of locators.
- * 
- * @author Friederike Kleinfercher (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * 
- */
 @SuppressWarnings("serial")
 public class LocatorUploadBean extends FileLocatorUploadBean {
   private static final Logger logger = Logger.getLogger(LocatorUploadBean.class);
@@ -65,12 +32,9 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
       fileVO.getMetadata().getFormats().add(formatVO);
       fileVO.setContent(this.getLocator());
       fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-      // Public is static default value for locators
       fileVO.setVisibility(Visibility.PUBLIC);
       fileVO.getAllowedAudienceIds().add(null);
 
-      // The initinally created empty file has to be deleted
-      //      this.removeEmptyFile();
       final int index = this.getEditItemSessionBean().getFiles().size();
 
       final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
@@ -83,19 +47,6 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
     }
   }
 
-  //  @Override
-  //  public void removeEmptyFile() {
-  //    final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getFiles();
-  //    for (int i = 0; i < list.size(); i++) {
-  //      final PubFileVOPresentation file = list.get(i);
-  //      if (file.getFile().getContent() == null || file.getFile().getContent().equals("")) {
-  //        final List<PubFileVOPresentation> listClean = this.getEditItemSessionBean().getFiles();
-  //        listClean.remove(i);
-  //        this.getEditItemSessionBean().setFiles(listClean);
-  //      }
-  //    }
-  //  }
-
   @Override
   public void removeLocator() {
     final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
@@ -105,14 +56,7 @@ public class LocatorUploadBean extends FileLocatorUploadBean {
         final List<PubFileVOPresentation> listClean = this.getEditItemSessionBean().getLocators();
         listClean.remove(i);
         this.getEditItemSessionBean().setLocators(listClean);
-
-        // Make sure at least one locator exists
-        if (listClean.size() == 0) {
-          final FileDbVO newLocator = new FileDbVO();
-          newLocator.setMetadata(new MdsFileVO());
-          newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-          this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
-        }
+        this.getEditItemSessionBean().checkMinAnzLocators();
       }
     }
   }

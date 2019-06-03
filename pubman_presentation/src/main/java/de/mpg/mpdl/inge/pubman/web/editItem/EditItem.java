@@ -142,8 +142,6 @@ public class EditItem extends FacesBean {
   }
 
   public void init() {
-
-
     try {
       this.initializeItem();
     } catch (final Exception e) {
@@ -239,7 +237,7 @@ public class EditItem extends FacesBean {
 
       this.getItemControllerSessionBean().initializeItem(pubItem);
 
-      if (!this.getEditItemSessionBean().isFilesInitialized() || this.getEditItemSessionBean().getLocators().size() == 0) {
+      if (!this.getEditItemSessionBean().isFilesInitialized() || this.getLocators().size() == 0) {
         this.bindFiles();
         this.getEditItemSessionBean().setFilesInitialized(true);
       }
@@ -336,7 +334,7 @@ public class EditItem extends FacesBean {
       }
     }
 
-    this.getEditItemSessionBean().setFiles(files);
+    this.setFiles(files);
 
     // add locators
     final List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
@@ -360,16 +358,17 @@ public class EditItem extends FacesBean {
       }
     }
 
-    this.getEditItemSessionBean().setLocators(locators);
+    this.setLocators(locators);
+    this.getEditItemSessionBean().checkMinAnzLocators();
 
-    // make sure that at least one locator and one file is stored in the EditItemSessionBean
-    // TODO: where is the one file??
-    if (this.getEditItemSessionBean().getLocators().size() < 1) {
-      final FileDbVO newLocator = new FileDbVO();
-      newLocator.setMetadata(new MdsFileVO());
-      newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-      this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
-    }
+    //    // make sure that at least one locator and one file is stored in the EditItemSessionBean
+    //    // TODO: where is the one file??
+    //    if (this.getEditItemSessionBean().getLocators().size() < 1) {
+    //      final FileDbVO newLocator = new FileDbVO();
+    //      newLocator.setMetadata(new MdsFileVO());
+    //      newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
+    //      this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+    //    }
   }
 
   /**
@@ -394,7 +393,6 @@ public class EditItem extends FacesBean {
 
       // add the locators
       final List<PubFileVOPresentation> locators = this.getLocators();
-
       final int lsize = locators.size();
 
       if (locators != null && lsize > 0) {
@@ -606,7 +604,6 @@ public class EditItem extends FacesBean {
       return "";
     }
 
-
     cleanUp(this.getPubItem());
 
     String retVal = checkItemChanged(navigateTo);
@@ -668,13 +665,13 @@ public class EditItem extends FacesBean {
     return saveAndGoto(ReleaseItem.LOAD_RELEASEITEM);
   }
 
+  public void fileUploaded(FileUploadEvent event) {
+    this.stageFile(event.getFile());
+  }
 
-
-  public String stageFile(UploadedFile file) {
+  private String stageFile(UploadedFile file) {
     if (file != null && file.getSize() > 0) {
       try {
-        final FileDbVO fileVO = new FileDbVO();
-        final MdsFileVO mdsFileVO = new MdsFileVO();
         String path = null;
         try {
           StagedFileDbVO stagedFile = ApplicationBean.INSTANCE.getFileService().createStageFile(file.getInputstream(), file.getFileName(),
@@ -685,20 +682,11 @@ public class EditItem extends FacesBean {
           this.error(this.getMessage("File_noUpload") + "[" + path + "]");
         }
 
-        mdsFileVO.getIdentifiers().add(new IdentifierVO());
-        fileVO.setMetadata(mdsFileVO);
-        fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
-        this.getEditItemSessionBean().getFiles()
-            .add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), fileVO, false));
-        fileVO.setSize((int) file.getSize());
-        fileVO.setName(file.getFileName());
-        fileVO.getMetadata().setTitle(file.getFileName());
-        fileVO.getAllowedAudienceIds().add(null);
-
+        String mimeType = null;
         final Tika tika = new Tika();
         try {
           final InputStream fis = file.getInputstream();
-          fileVO.setMimeType(tika.detect(fis, file.getFileName()));
+          mimeType = tika.detect(fis, file.getFileName());
           fis.close();
         } catch (final IOException e) {
           logger.error("Error while trying to detect mimetype of file " + file.getFileName(), e);
@@ -706,9 +694,25 @@ public class EditItem extends FacesBean {
 
         final FormatVO formatVO = new FormatVO();
         formatVO.setType("dcterms:IMT");
-        formatVO.setValue(fileVO.getMimeType());
-        fileVO.getMetadata().getFormats().add(formatVO);
+        formatVO.setValue(mimeType);
+
+        final MdsFileVO mdsFileVO = new MdsFileVO();
+        mdsFileVO.getFormats().add(formatVO);
+        mdsFileVO.getIdentifiers().add(new IdentifierVO());
+        mdsFileVO.setTitle(file.getFileName());
+
+        final FileDbVO fileVO = new FileDbVO();
+        fileVO.setMetadata(mdsFileVO);
+
+        fileVO.getAllowedAudienceIds().add(null);
         fileVO.setContent(path);
+        fileVO.setMimeType(mimeType);
+        fileVO.setName(file.getFileName());
+        fileVO.setSize((int) file.getSize());
+        fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
+        fileVO.setVisibility(FileDbVO.Visibility.PUBLIC);
+
+        this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), fileVO, false));
       } catch (Exception e) {
         e.printStackTrace();
         this.error(this.getMessage("Error uploading file"));
@@ -716,11 +720,8 @@ public class EditItem extends FacesBean {
     } else {
       this.error(this.getMessage("ComponentEmpty"));
     }
-    return "";
-  }
 
-  public void fileUploaded(FileUploadEvent event) {
-    this.stageFile(event.getFile());
+    return "";
   }
 
   /**
@@ -745,12 +746,11 @@ public class EditItem extends FacesBean {
    * @return navigation string (null)
    */
   public void addLocator() {
-    if (this.getEditItemSessionBean().getLocators() != null) {
+    if (this.getLocators() != null) {
       final FileDbVO newLocator = new FileDbVO();
       newLocator.setMetadata(new MdsFileVO());
       newLocator.setStorage(FileDbVO.Storage.EXTERNAL_URL);
-      this.getEditItemSessionBean().getLocators()
-          .add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
+      this.getLocators().add(new PubFileVOPresentation(this.getLocators().size(), newLocator, true));
     }
   }
 
@@ -760,22 +760,22 @@ public class EditItem extends FacesBean {
    * @return navigation string (null)
    */
   public void saveLocator() {
-    final int indexUpload = this.getEditItemSessionBean().getLocators().size() - 1;
-    if (this.getEditItemSessionBean().getLocators() != null) {
+    final int indexUpload = this.getLocators().size() - 1;
+    if (this.getLocators() != null) {
       // Set empty MetadataSet if none exists
-      if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadata() == null) {
-        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().setMetadata(new MdsFileVO());
+      if (this.getLocators().get(indexUpload).getFile().getMetadata() == null) {
+        this.getLocators().get(indexUpload).getFile().setMetadata(new MdsFileVO());
       }
       // Set file name if not filled
-      if (this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadata().getTitle() == null
-          || this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadata().getTitle().trim().equals("")) {
-        this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getMetadata()
-            .setTitle(this.getEditItemSessionBean().getLocators().get(indexUpload).getFile().getContent().trim());
+      if (this.getLocators().get(indexUpload).getFile().getMetadata().getTitle() == null
+          || this.getLocators().get(indexUpload).getFile().getMetadata().getTitle().trim().equals("")) {
+        this.getLocators().get(indexUpload).getFile().getMetadata()
+            .setTitle(this.getLocators().get(indexUpload).getFile().getContent().trim());
       }
-      final List<PubFileVOPresentation> list = this.getEditItemSessionBean().getLocators();
+      final List<PubFileVOPresentation> list = this.getLocators();
       final PubFileVOPresentation pubFile = list.get(indexUpload);
       list.set(indexUpload, pubFile);
-      this.getEditItemSessionBean().setLocators(list);
+      this.setLocators(list);
     }
   }
 
@@ -842,7 +842,6 @@ public class EditItem extends FacesBean {
     this.lnkSaveAndSubmit.setRendered(false);
     this.lnkSave.setRendered(false);
 
-
     try {
       PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
 
@@ -859,8 +858,6 @@ public class EditItem extends FacesBean {
       this.lnkSaveAndSubmit.setRendered(canEdit && pis.checkAccess(AccessType.SUBMIT, getLoginHelper().getPrincipal(), itemAfterSave));
 
       // this.lnkAccept.setRendered(false);
-
-
     } catch (Exception e) {
       this.error(this.getMessage("AccessInfoError"));
       logger.error("Error while getting access information", e);
@@ -873,7 +870,6 @@ public class EditItem extends FacesBean {
      * this.lnkSaveAndSubmit.setRendered(isOwner && isWorkflowStandard && !(isStateSubmitted ||
      * isStateReleased || isStateWithdrawn));
      */
-
   }
 
   public boolean getLocalTagEditingAllowed() {
@@ -1051,16 +1047,16 @@ public class EditItem extends FacesBean {
   }
 
   public int getNumberOfFiles() {
-    if (this.getEditItemSessionBean().getFiles() != null) {
-      return this.getEditItemSessionBean().getFiles().size();
+    if (this.getFiles() != null) {
+      return this.getFiles().size();
     }
 
     return 0;
   }
 
   public int getNumberOfLocators() {
-    if (this.getEditItemSessionBean().getLocators() != null) {
-      return this.getEditItemSessionBean().getLocators().size();
+    if (this.getLocators() != null) {
+      return this.getLocators().size();
     }
 
     return 0;
