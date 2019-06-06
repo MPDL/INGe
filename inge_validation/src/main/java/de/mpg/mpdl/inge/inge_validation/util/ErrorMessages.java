@@ -55,6 +55,9 @@ public class ErrorMessages {
   public static final String NO_MAX_PLANCK_AFFILIATION = "NoMaxPlanckAffiliation";
   public static final String NO_SEQUENCE_INFORMATION_GIVEN = "NoSequenceInformationGiven";
   public static final String NO_YEARBOOK_GENRE = "NoYearbookGenre";
+  public static final String NO_UTF8_CHAR_IN_ALTERNATIVE_TITLE = "NoUtf8CharInAlternativeTitle";
+  public static final String NO_UTF8_CHAR_IN_TITLE = "NoUtf8CharInTitle";
+  public static final String NO_UTF8_CHAR_IN_ABSTRACT = "NoUtf8CharInAbstract";
   public static final String ORGANIZATIONAL_METADATA_NOT_PROVIDED = "OrganizationalMetadataNotProvided";
   public static final String ORGANIZATION_NAME_NOT_PROVIDED = "OrganizationNameNotProvided";
   public static final String PUBLISHER_NOT_PROVIDED = "PublisherNotProvided";
