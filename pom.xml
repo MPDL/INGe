@@ -1178,7 +1178,7 @@
 				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
 				<inge.pubman.build.mode>pure</inge.pubman.build.mode>
 				<inge.pubman.contact.url>http://colab.mpdl.mpg.de/mediawiki/PubMan_Support</inge.pubman.contact.url>
-				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm/</inge.pubman.handbook.url>
+				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
 				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>
 				<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.policy.url>
