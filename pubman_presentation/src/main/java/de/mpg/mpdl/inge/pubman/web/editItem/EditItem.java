@@ -440,7 +440,7 @@ public class EditItem extends FacesBean {
     return CommonUtils.getLanguageOptions();
   }
 
-  private String validate() {
+  public String validate() {
     if (check() == false) {
       return null;
     }
