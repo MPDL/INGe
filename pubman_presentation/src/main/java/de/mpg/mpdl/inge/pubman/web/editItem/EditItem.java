@@ -440,7 +440,7 @@ public class EditItem extends FacesBean {
     return CommonUtils.getLanguageOptions();
   }
 
-  public String validate() {
+  private String validate() {
     if (check() == false) {
       return null;
     }
@@ -644,23 +644,23 @@ public class EditItem extends FacesBean {
   }
 
   public String saveAndSubmit() {
-    if (this.getPubItem().getObjectId() == null) {
-      String retVal = this.validate();
-      if ("".equals(retVal) == false) {
-        return retVal;
-      }
+    //    if (this.getPubItem().getObjectId() == null) {
+    String retVal = this.validate();
+    if ("".equals(retVal) == false) {
+      return retVal;
     }
+    //    }
 
     return saveAndGoto(SubmitItem.LOAD_SUBMITITEM);
   }
 
   public String saveAndRelease() {
-    if (this.getPubItem().getObjectId() == null) {
-      String retVal = this.validate();
-      if ("".equals(retVal) == false) {
-        return retVal;
-      }
+    //    if (this.getPubItem().getObjectId() == null) {
+    String retVal = this.validate();
+    if ("".equals(retVal) == false) {
+      return retVal;
     }
+    //    }
 
     return saveAndGoto(ReleaseItem.LOAD_RELEASEITEM);
   }
