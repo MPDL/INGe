@@ -65,7 +65,7 @@
 			<xsl:sequence select="local:controlfield('003', $local:librarys-identifying-code)"/>
 			<xsl:sequence select="local:controlfield-005()"/>
 			<xsl:if test="exists(eterms:published-online)">
-				<xsl:sequence select="local:controlfield('007','cr||||||||||||')"/>
+				<xsl:sequence select="local:controlfield('007','cr|||||||||||')"/>
 			</xsl:if>
 			<xsl:sequence select="local:controlfield-008-wrapper( $date-entered-on-file, if ($bibliographic-level eq 's') then 'c' else if ($year-of-publication ne 'uuuu') then 's' else 'n', if (($year-of-publication eq 'uuuu') and ($bibliographic-level eq 's')) then ' ' else $year-of-publication, if ($bibliographic-level = ('s')) then local:cf008-type-specific-continuing-resources( local:type-of-continuing-resource(@type), $form-of-item, local:nature-of-contents(@type, 3), misc-marc:pubman_publication-type-to-marc_conference(@type) ) else local:cf008-type-specific-books( $form-of-item, local:nature-of-contents(@type, 4), misc-marc:pubman_publication-type-to-marc_conference(@type), misc-marc:pubman_publication-type-to-marc_festschrift(@type) ), if ($lang) then $lang else '|||' )"/>
 			<xsl:apply-templates select="dc:identifier[@xsi:type eq 'eterms:ISBN'][normalize-space(.)]"/>
