@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
+import com.baidu.unbiz.fluentvalidator.ValidationError;
+import com.baidu.unbiz.fluentvalidator.ValidatorContext;
+
 public class ValidationTools {
   private static final SimpleDateFormat SHORT = new SimpleDateFormat("yyyy");
   private static final SimpleDateFormat MEDIUM = new SimpleDateFormat("yyyy-MM");
@@ -73,4 +76,19 @@ public class ValidationTools {
     return true;
   }
 
+  public static boolean checkUtf8(ValidatorContext context, String text, String errorMessage) {
+    boolean ok = true;
+
+    for (int i = 0; i < text.length(); i++) {
+      char chr = text.charAt(i);
+      if (chr < 0x20 && chr != 0x9 && chr != 0xA && chr != 0xD
+          || chr > 0xD7FF && (chr < 0xE000 || chr == 0xFFFE || chr == 0xFFFF || chr > 0x10FFFF)) {
+        context.addError(ValidationError.create(errorMessage)
+            .setField(" " + Character.toString(chr) + " (0x" + Integer.toHexString(chr) + ", pos " + Integer.toString((i + 1)) + ")"));
+        ok = false;
+      }
+    }
+
+    return ok;
+  }
 }
