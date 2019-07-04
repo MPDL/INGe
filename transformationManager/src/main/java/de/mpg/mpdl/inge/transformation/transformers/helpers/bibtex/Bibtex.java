@@ -674,16 +674,14 @@ public class Bibtex implements BibtexInterface {
                    * This Case is using NO CoNE!
                    */
                   if (configuration != null && "false".equals(configuration.get("CoNE"))
-                          && ("identifier and affiliation in brackets"
-                                  .equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                          && (author.getTags().get("identifier") != null))
-                  {
-                      String identifier = author.getTags().get("identifier");
-                      String authoAffiliation = author.getTags().get("affiliation0");
-                      OrganizationVO org = new OrganizationVO();
-                      org.setName(authoAffiliation);
-                      org.setIdentifier(identifier);
-                      personVO.getOrganizations().add(org);
+                      && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (author.getTags().get("identifier") != null)) {
+                    String identifier = author.getTags().get("identifier");
+                    String authoAffiliation = author.getTags().get("affiliation0");
+                    OrganizationVO org = new OrganizationVO();
+                    org.setName(authoAffiliation);
+                    org.setIdentifier(identifier);
+                    personVO.getOrganizations().add(org);
                   }
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
@@ -1001,16 +999,14 @@ public class Bibtex implements BibtexInterface {
                    * This Case is using NO CoNE!
                    */
                   if (configuration != null && "false".equals(configuration.get("CoNE"))
-                          && ("identifier and affiliation in brackets"
-                                  .equals(configuration.get("CurlyBracketsForCoNEAuthors")))
-                          && (editor.getTags().get("identifier") != null))
-                  {
-                      String identifier = editor.getTags().get("identifier");
-                      String authoAffiliation = editor.getTags().get("affiliation0");
-                      OrganizationVO org = new OrganizationVO();
-                      org.setName(authoAffiliation);
-                      org.setIdentifier(identifier);
-                      personVO.getOrganizations().add(org);
+                      && ("identifier and affiliation in brackets".equals(configuration.get("CurlyBracketsForCoNEAuthors")))
+                      && (editor.getTags().get("identifier") != null)) {
+                    String identifier = editor.getTags().get("identifier");
+                    String authoAffiliation = editor.getTags().get("affiliation0");
+                    OrganizationVO org = new OrganizationVO();
+                    org.setName(authoAffiliation);
+                    org.setIdentifier(identifier);
+                    personVO.getOrganizations().add(org);
                   }
                   if (affiliation != null) {
                     OrganizationVO organization = new OrganizationVO();
