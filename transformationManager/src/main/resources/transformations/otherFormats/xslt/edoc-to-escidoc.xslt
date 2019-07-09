@@ -4029,7 +4029,8 @@
 									</xsl:for-each>
 								</xsl:when>
 								<!-- MPI Experimentelle Medizin (MPIEM) will Institut als Affiliation, falls Pub-Date nicht in einen CoNE-Zeitraum passt -->
-								<xsl:when test="($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description) and not($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)] and ($import-name='MPIEM'))">
+								<xsl:when test="($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description) and (not($coneCreator/cone[1]/rdf:RDF[1]/rdf:Description/escidoc:position[escidocFunctions:smaller(rdf:Description/escidoc:start-date, $publication-date) and escidocFunctions:smaller($publication-date, rdf:Description/escidoc:end-date)]) and ($import-name='MPIEM'))">
+									<xsl:comment>WRONG PATH</xsl:comment>
 									<organization:organization>
 										<dc:title>
 											<xsl:text>Max Planck Institute of Experimental Medicine</xsl:text>
