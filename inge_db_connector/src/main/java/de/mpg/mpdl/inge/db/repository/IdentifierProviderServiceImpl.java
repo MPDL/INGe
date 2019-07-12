@@ -31,8 +31,8 @@ public class IdentifierProviderServiceImpl {
     }
   }
 
-  @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
-  public String getNewId(ID_PREFIX prefix) {
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public synchronized String getNewId(ID_PREFIX prefix) {
 
     BigInteger res = (BigInteger) entityManager.createNativeQuery("SELECT current_id FROM id_provider;").getSingleResult();
     entityManager.createNativeQuery("UPDATE id_provider SET current_id=current_id+1;").executeUpdate();
