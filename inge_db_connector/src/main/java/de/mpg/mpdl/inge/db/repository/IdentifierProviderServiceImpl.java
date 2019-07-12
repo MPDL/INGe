@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
@@ -27,10 +29,9 @@ public class IdentifierProviderServiceImpl {
   public String getPrefix() {
       return prefix;
     }
-
   }
 
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
   public String getNewId(ID_PREFIX prefix) {
 
     BigInteger res = (BigInteger) entityManager.createNativeQuery("SELECT current_id FROM id_provider;").getSingleResult();
