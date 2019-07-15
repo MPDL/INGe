@@ -14,13 +14,12 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 public class ItemValidatingService {
   private static final Logger logger = Logger.getLogger(ItemValidatingService.class);
 
-  private final Validation validation = new Validation();
-
   public void validate(final ItemVersionVO itemVO, final ValidationPoint validationPoint)
       throws ValidationServiceException, ValidationException {
 
     try {
-      this.validation.validate(itemVO, validationPoint);
+      Validation validation = new Validation();
+      validation.validate(itemVO, validationPoint);
     } catch (final ValidationServiceException e) {
       logger.error("validate:", e);
       throw e;
@@ -36,7 +35,8 @@ public class ItemValidatingService {
       throws ValidationServiceException, ValidationException {
 
     try {
-      this.validation.validateYearbook(itemVO, childsOfMPG);
+      Validation validation = new Validation();
+      validation.validateYearbook(itemVO, childsOfMPG);
     } catch (final ValidationServiceException e) {
       logger.error("validateYearbook:", e);
       throw e;
