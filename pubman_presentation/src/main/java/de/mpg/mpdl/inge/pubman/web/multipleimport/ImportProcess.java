@@ -371,6 +371,9 @@ public class ImportProcess extends Thread {
               }
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
+              
+              item.getItemVO().getObject().getLocalTags().add("multiple_import");
+              item.getItemVO().getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
 
               final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);
@@ -424,8 +427,8 @@ public class ImportProcess extends Thread {
       final ItemVersionVO itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
       itemVersionVO.getObject().setContext(this.escidocContext);
       itemVersionVO.setObjectId(null);
-      itemVersionVO.getObject().getLocalTags().add("multiple_import");
-      itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+//      itemVersionVO.getObject().getLocalTags().add("multiple_import");
+//      itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
 
       // Simple Validation
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_default_validation", this.connection);
