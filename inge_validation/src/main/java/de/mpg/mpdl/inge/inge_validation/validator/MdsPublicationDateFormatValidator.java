@@ -1,5 +1,7 @@
 package de.mpg.mpdl.inge.inge_validation.validator;
 
+import org.apache.log4j.Logger;
+
 import com.baidu.unbiz.fluentvalidator.ValidationError;
 import com.baidu.unbiz.fluentvalidator.Validator;
 import com.baidu.unbiz.fluentvalidator.ValidatorContext;
@@ -29,6 +31,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
  * </iso:rule>
  */
 public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPublicationVO> implements Validator<MdsPublicationVO> {
+  private static final Logger logger = Logger.getLogger(MdsPublicationDateFormatValidator.class);
 
   @Override
   public boolean validate(ValidatorContext context, MdsPublicationVO m) {
@@ -96,6 +99,18 @@ public class MdsPublicationDateFormatValidator extends ValidatorHandler<MdsPubli
 
     } // if
 
+    if (ok == false) {
+      StringBuilder sb = new StringBuilder();
+      sb.append(m.getDateAccepted());
+      sb.append(m.getDateCreated());
+      sb.append(m.getDateModified());
+      sb.append(m.getDatePublishedInPrint());
+      sb.append(m.getDatePublishedOnline());
+      sb.append(m.getDateSubmitted());
+      logger.error("***** IMPORT ******: " + m.getTitle() + sb.toString());
+      
+    }
+    
     return ok;
   }
 

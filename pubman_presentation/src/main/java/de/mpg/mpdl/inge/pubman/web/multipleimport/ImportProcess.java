@@ -45,6 +45,7 @@ import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BibtexProcessor;
 import de.mpg.mpdl.inge.pubman.web.multipleimport.processor.BmcProcessor;
@@ -423,12 +424,38 @@ public class ImportProcess extends Thread {
           this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem, this.configuration);
 
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
-      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
+      
+      final PubItemVO pubItemVO =XmlTransformingService.transformToPubItem(escidocXml);
+      StringBuilder sb = new StringBuilder();
+      sb.append(pubItemVO.getMetadata().getTitle());
+      sb.append(pubItemVO.getMetadata().getDateAccepted());
+      sb.append(pubItemVO.getMetadata().getDateCreated());
+      sb.append(pubItemVO.getMetadata().getDateModified());
+      sb.append(pubItemVO.getMetadata().getDatePublishedInPrint());
+      sb.append(pubItemVO.getMetadata().getDatePublishedOnline());
+      sb.append(pubItemVO.getMetadata().getDateSubmitted());
+      
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, sb.toString(), this.connection);
+      
       final ItemVersionVO itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
+      
+      sb = new StringBuilder();
+      sb.append(pubItemVO.getMetadata().getTitle());
+      sb.append(itemVersionVO.getMetadata().getDateAccepted());
+      sb.append(itemVersionVO.getMetadata().getDateCreated());
+      sb.append(itemVersionVO.getMetadata().getDateModified());
+      sb.append(itemVersionVO.getMetadata().getDatePublishedInPrint());
+      sb.append(itemVersionVO.getMetadata().getDatePublishedOnline());
+      sb.append(itemVersionVO.getMetadata().getDateSubmitted());
+      
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, sb.toString(), this.connection);
+      
       itemVersionVO.getObject().setContext(this.escidocContext);
       itemVersionVO.setObjectId(null);
-//      itemVersionVO.getObject().getLocalTags().add("multiple_import");
-//      itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+//    itemVersionVO.getObject().getLocalTags().add("multiple_import");
+//    itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+      
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
 
       // Simple Validation
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_default_validation", this.connection);
