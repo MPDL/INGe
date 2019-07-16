@@ -341,6 +341,7 @@ public class ImportProcess extends Thread {
         this.importLog.finishItem(this.connection);
         counter = 0;
 
+//        List newList = Collections.synchronizedList(oldList);
         for (int i = 0; i < this.importLog.getItems().size(); i++) {
           final ImportLogItem item = this.importLog.getItems().get(i);
           if (item.getStatus() == BaseImportLog.Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
@@ -363,19 +364,20 @@ public class ImportProcess extends Thread {
 
               item.getItemVO().getObject().getLocalTags().add("multiple_import");
               String message = this.importLog.getMessage();
-              logger.info("*** IMPORT ***: " + this.importLog + "***" + message);
+              logger.info("*** IMPORT 1 ***: " + this.importLog + "***" + message);
               Date startDate = this.importLog.getStartDate();
-              logger.info("*** IMPORT ***: " + this.importLog + "***" + startDate);
+              logger.info("*** IMPORT 2 ***: " + this.importLog + "***" + startDate);
               String startDateFormatted = this.importLog.getStartDateFormatted();
-              logger.info("*** IMPORT ***: " + this.importLog + "***" + startDateFormatted);
+              logger.info("*** IMPORT 5 ***: " + this.importLog + "***" + startDateFormatted);
               StringBuilder sb = new StringBuilder();
               sb.append(message);
               sb.append(" ");
               sb.append(startDateFormatted);
-              logger.info("*** IMPORT ***: " + this.importLog + "***" + sb.toString());
+              logger.info("*** IMPORT 6 ***: " + this.importLog + "***" + sb.toString());
               item.getItemVO().getObject().getLocalTags().add(sb.toString());
-              logger.info("*** IMPORT ***: " + this.importLog + "***" + item.getItemVO().getObject());
-              logger.info("*** IMPORT ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags());
+              logger.info("*** IMPORT 7 ***: " + this.importLog + "***" + item.getItemVO().getObject().getObjectId());
+              logger.info("*** IMPORT 8 ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags().get(0));
+              logger.info("*** IMPORT 9 ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags().get(1));
 
               final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);

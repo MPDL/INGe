@@ -90,10 +90,10 @@ public class BaseImportLog {
   }
 
   public synchronized String getStartDateFormatted() {
-    logger.info("*** BASEIMPORTLOG ***: " + this.startDate);
+    logger.info("*** IMPORT 3 ***: " + this.startDate);
     if (this.startDate != null) {
       String startDateFormatted = BaseImportLog.DATE_FORMAT.format(this.startDate);
-      logger.info("*** BASEIMPORTLOG ***: " + startDateFormatted);
+      logger.info("*** IMPORT 4 ***: " + startDateFormatted);
       return startDateFormatted;
     }
 
