@@ -4,10 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.MissingResourceException;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 public class BaseImportLog {
+  private static final Logger logger = Logger.getLogger(BaseImportLog.class);
+
   /**
    * enum to describe if something went wrong with this element.
    * 
@@ -86,8 +90,11 @@ public class BaseImportLog {
   }
 
   public synchronized String getStartDateFormatted() {
+    logger.info("*** BASEIMPORTLOG ***: " + this.startDate);
     if (this.startDate != null) {
-      return BaseImportLog.DATE_FORMAT.format(this.startDate);
+      String startDateFormatted = BaseImportLog.DATE_FORMAT.format(this.startDate);
+      logger.info("*** BASEIMPORTLOG ***: " + startDateFormatted);
+      return startDateFormatted;
     }
 
     return "";
