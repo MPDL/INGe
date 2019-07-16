@@ -72,8 +72,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
-  public enum DuplicateStrategy
-  {
+  public enum DuplicateStrategy {
     NO_CHECK,
     CHECK,
     ROLLBACK
@@ -358,23 +357,14 @@ public class ImportProcess extends Thread {
                   this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
                   logger.info("Could not fetch file for import", e);
                 }
-                //              } else if (this.format.equals(TransformerFactory.FORMAT.EDOC_XML)) {
-                //                try {
-                //                  // upload and add files
-                //                  for (FileDbVO file : item.getItemVO().getFiles()) {
-                //                    ((EdocProcessor) this.formatProcessor).getFileforImport(file.getContent(), file, this.user.getJwToken());
-                //                  }
-                //
-                //                } catch (final Exception e) {
-                //                  this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
-                //                  logger.info("Could not fetch file for import", e);
-                //                }
               }
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
-              
-              item.getItemVO().getObject().getLocalTags().add("multiple_import");
-              item.getItemVO().getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+
+              synchronized (this.importLog) {
+                item.getItemVO().getObject().getLocalTags().add("multiple_import");
+                item.getItemVO().getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+              }
 
               final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);
@@ -422,39 +412,11 @@ public class ImportProcess extends Thread {
     try {
       escidocXml =
           this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem, this.configuration);
-
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
-      
-      final PubItemVO pubItemVO =XmlTransformingService.transformToPubItem(escidocXml);
-      StringBuilder sb = new StringBuilder();
-      sb.append(pubItemVO.getMetadata().getTitle());
-      sb.append(pubItemVO.getMetadata().getDateAccepted());
-      sb.append(pubItemVO.getMetadata().getDateCreated());
-      sb.append(pubItemVO.getMetadata().getDateModified());
-      sb.append(pubItemVO.getMetadata().getDatePublishedInPrint());
-      sb.append(pubItemVO.getMetadata().getDatePublishedOnline());
-      sb.append(pubItemVO.getMetadata().getDateSubmitted());
-      
-      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, sb.toString(), this.connection);
-      
+
       final ItemVersionVO itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
-      
-      sb = new StringBuilder();
-      sb.append(pubItemVO.getMetadata().getTitle());
-      sb.append(itemVersionVO.getMetadata().getDateAccepted());
-      sb.append(itemVersionVO.getMetadata().getDateCreated());
-      sb.append(itemVersionVO.getMetadata().getDateModified());
-      sb.append(itemVersionVO.getMetadata().getDatePublishedInPrint());
-      sb.append(itemVersionVO.getMetadata().getDatePublishedOnline());
-      sb.append(itemVersionVO.getMetadata().getDateSubmitted());
-      
-      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, sb.toString(), this.connection);
-      
       itemVersionVO.getObject().setContext(this.escidocContext);
       itemVersionVO.setObjectId(null);
-//    itemVersionVO.getObject().getLocalTags().add("multiple_import");
-//    itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
-      
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
 
       // Simple Validation
