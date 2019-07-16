@@ -71,7 +71,8 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
-  public enum DuplicateStrategy {
+  public enum DuplicateStrategy
+  {
     NO_CHECK,
     CHECK,
     ROLLBACK
@@ -362,7 +363,11 @@ public class ImportProcess extends Thread {
 
               synchronized (this.importLog) {
                 item.getItemVO().getObject().getLocalTags().add("multiple_import");
-                item.getItemVO().getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+                StringBuilder sb = new StringBuilder();
+                sb.append(this.importLog.getMessage());
+                sb.append(" ");
+                sb.append(this.importLog.getStartDateFormatted());
+                item.getItemVO().getObject().getLocalTags().add(sb.toString());
               }
 
               final ItemVersionVO savedPubItem =

@@ -28,6 +28,7 @@ public class IdentifierProviderServiceImpl {
   public String getPrefix() {
       return prefix;
     }
+
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)

@@ -52,7 +52,7 @@ public class BaseImportLog {
     return this.endDate;
   }
 
-  public String getEndDateFormatted() {
+  public synchronized String getEndDateFormatted() {
     if (this.endDate != null) {
       return BaseImportLog.DATE_FORMAT.format(this.endDate);
     }
@@ -85,7 +85,7 @@ public class BaseImportLog {
     return this.startDate;
   }
 
-  public String getStartDateFormatted() {
+  public synchronized String getStartDateFormatted() {
     if (this.startDate != null) {
       return BaseImportLog.DATE_FORMAT.format(this.startDate);
     }

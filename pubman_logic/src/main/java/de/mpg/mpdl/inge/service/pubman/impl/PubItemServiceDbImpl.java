@@ -805,7 +805,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         }
       }
     }
-    
+
     try {
       latestVersion = itemRepository.saveAndFlush(latestVersion);
     } catch (DataAccessException e) {
