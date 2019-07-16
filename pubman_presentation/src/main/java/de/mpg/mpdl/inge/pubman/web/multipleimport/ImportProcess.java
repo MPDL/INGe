@@ -375,9 +375,8 @@ public class ImportProcess extends Thread {
               sb.append(startDateFormatted);
               logger.info("*** IMPORT 6 ***: " + this.importLog + "***" + sb.toString());
               item.getItemVO().getObject().getLocalTags().add(sb.toString());
-              logger.info("*** IMPORT 7 ***: " + this.importLog + "***" + item.getItemVO().getObject().getObjectId());
-              logger.info("*** IMPORT 8 ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags().get(0));
-              logger.info("*** IMPORT 9 ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags().get(1));
+              logger.info("*** IMPORT 7 ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags().get(0));
+              logger.info("*** IMPORT 8 ***: " + this.importLog + "***" + item.getItemVO().getObject().getLocalTags().get(1));
 
               final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);
