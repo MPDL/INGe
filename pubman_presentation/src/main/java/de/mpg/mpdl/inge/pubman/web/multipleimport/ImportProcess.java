@@ -27,6 +27,7 @@ package de.mpg.mpdl.inge.pubman.web.multipleimport;
 import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -71,8 +72,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
-  public enum DuplicateStrategy
-  {
+  public enum DuplicateStrategy {
     NO_CHECK,
     CHECK,
     ROLLBACK
@@ -341,6 +341,7 @@ public class ImportProcess extends Thread {
         this.importLog.finishItem(this.connection);
         counter = 0;
 
+//        List newList = Collections.synchronizedList(oldList);
         for (int i = 0; i < this.importLog.getItems().size(); i++) {
           final ImportLogItem item = this.importLog.getItems().get(i);
           if (item.getStatus() == BaseImportLog.Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
@@ -357,20 +358,26 @@ public class ImportProcess extends Thread {
                   this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
                   logger.info("Could not fetch file for import", e);
                 }
-                //              } else if (this.format.equals(TransformerFactory.FORMAT.EDOC_XML)) {
-                //                try {
-                //                  // upload and add files
-                //                  for (FileDbVO file : item.getItemVO().getFiles()) {
-                //                    ((EdocProcessor) this.formatProcessor).getFileforImport(file.getContent(), file, this.user.getJwToken());
-                //                  }
-                //
-                //                } catch (final Exception e) {
-                //                  this.importLog.addDetail(BaseImportLog.ErrorLevel.WARNING, "Could not fetch file for import", this.connection);
-                //                  logger.info("Could not fetch file for import", e);
-                //                }
               }
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
+
+              item.getItemVO().getObject().getLocalTags().add("multiple_import");
+              String message = this.importLog.getMessage();
+              logger.info("*** IMPORT 1 ***: " + message);
+              Date startDate = this.importLog.getStartDate();
+              logger.info("*** IMPORT 2 ***: " + startDate);
+              String startDateFormatted = this.importLog.getStartDateFormatted();
+              logger.info("*** IMPORT 5 ***: " + startDateFormatted);
+              StringBuilder sb = new StringBuilder();
+              sb.append(message);
+              sb.append(" ");
+              sb.append(startDateFormatted);
+              logger.info("*** IMPORT 6 ***: " + sb.toString());
+              item.getItemVO().getObject().getLocalTags().add(sb.toString());
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, sb.toString(), this.connection);
+              logger.info("*** IMPORT 7 ***: " + item.getItemVO().getObject().getLocalTags().get(0));
+              logger.info("*** IMPORT 8 ***: " + item.getItemVO().getObject().getLocalTags().get(1));
 
               final ItemVersionVO savedPubItem =
                   ApplicationBean.INSTANCE.getPubItemService().create(item.getItemVO(), this.authenticationToken);
@@ -418,14 +425,12 @@ public class ImportProcess extends Thread {
     try {
       escidocXml =
           this.itemTransformingService.transformFromTo(this.format, TransformerFactory.getInternalFormat(), singleItem, this.configuration);
-
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, escidocXml, this.connection);
-      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
+
       final ItemVersionVO itemVersionVO = EntityTransformer.transformToNew(XmlTransformingService.transformToPubItem(escidocXml));
       itemVersionVO.getObject().setContext(this.escidocContext);
       itemVersionVO.setObjectId(null);
-      itemVersionVO.getObject().getLocalTags().add("multiple_import");
-      itemVersionVO.getObject().getLocalTags().add(this.importLog.getMessage() + " " + this.importLog.getStartDateFormatted());
+      this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_transformation_done", this.connection);
 
       // Simple Validation
       this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_default_validation", this.connection);

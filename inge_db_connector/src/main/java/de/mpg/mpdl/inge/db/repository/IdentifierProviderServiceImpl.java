@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
@@ -30,10 +31,10 @@ public class IdentifierProviderServiceImpl {
 
   }
 
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
   public String getNewId(ID_PREFIX prefix) {
 
-    BigInteger res = (BigInteger) entityManager.createNativeQuery("SELECT current_id FROM id_provider;").getSingleResult();
+    BigInteger res = (BigInteger) entityManager.createNativeQuery("SELECT current_id FROM id_provider FOR UPDATE;").getSingleResult();
     entityManager.createNativeQuery("UPDATE id_provider SET current_id=current_id+1;").executeUpdate();
 
     return new StringBuilder(prefix.getPrefix()).append("_").append(res.intValue()).toString();

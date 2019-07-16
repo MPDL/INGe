@@ -758,34 +758,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     if (ItemVersionRO.State.RELEASED.equals(state)) {
       latestVersion.getObject().setPublicState(ItemVersionRO.State.RELEASED);
       latestVersion.getObject().setLatestRelease(latestVersion);
-      ItemRootVO pubItemObject = latestVersion.getObject();
-      try {
-        if (pubItemObject.getObjectPid() == null) {
-          URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
-          pubItemObject.setObjectPid("hdl:" + pidService.createPid(url).getIdentifier());
-        }
-        URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
-        latestVersion.setVersionPid("hdl:" + pidService.createPid(url).getIdentifier());
-      } catch (URISyntaxException | TechnicalException e) {
-        logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-      }
-
-
-      for (FileDbVO fileDbVO : latestVersion.getFiles()) {
-        try {
-          if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && fileDbVO.getPid() == null) {
-            URI uri = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId(),
-                fileDbVO.getName());
-            fileDbVO.setPid("hdl:" + pidService.createPid(uri).getIdentifier());
-          }
-        } catch (URISyntaxException | TechnicalException | UnsupportedEncodingException e) {
-          logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
-              + latestVersion.getObjectIdAndVersion() + "]", e);
-          throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-        }
-      }
-
     }
 
     if (ItemVersionRO.State.WITHDRAWN.equals(state)) {
@@ -802,6 +774,36 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     if (!ItemVersionRO.State.WITHDRAWN.equals(state)) {
       validate(latestVersion);
+    }
+
+    // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase Commit!)
+    if (ItemVersionRO.State.RELEASED.equals(state)) {
+      ItemRootVO pubItemObject = latestVersion.getObject();
+      try {
+        if (pubItemObject.getObjectPid() == null) {
+          URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
+          pubItemObject.setObjectPid("hdl:" + pidService.createPid(url).getIdentifier());
+        }
+        URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
+        latestVersion.setVersionPid("hdl:" + pidService.createPid(url).getIdentifier());
+      } catch (URISyntaxException | TechnicalException e) {
+        logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+      }
+
+      for (FileDbVO fileDbVO : latestVersion.getFiles()) {
+        try {
+          if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && fileDbVO.getPid() == null) {
+            URI uri = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId(),
+                fileDbVO.getName());
+            fileDbVO.setPid("hdl:" + pidService.createPid(uri).getIdentifier());
+          }
+        } catch (URISyntaxException | TechnicalException | UnsupportedEncodingException e) {
+          logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
+              + latestVersion.getObjectIdAndVersion() + "]", e);
+          throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        }
+      }
     }
 
     try {
