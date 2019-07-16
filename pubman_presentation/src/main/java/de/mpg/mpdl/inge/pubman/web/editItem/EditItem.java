@@ -1155,7 +1155,10 @@ public class EditItem extends FacesBean {
 
     result.add(new SelectItem(null, "-"));
     final ContextDbRO contextRO = this.getPubItem().getObject().getContext();
-    for (final PubContextVOPresentation context : this.getContextListSessionBean().getDepositorContextList()) {
+    ArrayList<PubContextVOPresentation> userContexts = new ArrayList<PubContextVOPresentation>();
+    userContexts.addAll(this.getContextListSessionBean().getDepositorContextList());
+    userContexts.addAll(this.getContextListSessionBean().getModeratorContextList());
+    for (final PubContextVOPresentation context : userContexts) {
       if (context.getObjectId().equals(contextRO.getObjectId())) {
         final List<SubjectClassification> list = context.getAllowedSubjectClassifications();
         if (list != null) {
