@@ -341,16 +341,11 @@ public class ImportProcess extends Thread {
         counter = 0;
 
         String message = this.importLog.getMessage();
-//        logger.info("*** IMPORT 1 ***: " + message);
-//        Date startDate = this.importLog.getStartDate();
-//        logger.info("*** IMPORT 2 ***: " + startDate);
         String startDateFormatted = this.importLog.getStartDateFormatted();
-//        logger.info("*** IMPORT 5 ***: " + startDateFormatted);
         StringBuilder localTag = new StringBuilder();
         localTag.append(message);
         localTag.append(" ");
         localTag.append(startDateFormatted);
-//        logger.info("*** IMPORT 6 ***: " + localTag.toString());
         
         for (int i = 0; i < this.importLog.getItems().size(); i++) {
           final ImportLogItem item = this.importLog.getItems().get(i);
@@ -373,7 +368,6 @@ public class ImportProcess extends Thread {
               item.getItemVO().getObject().getLocalTags().add("multiple_import");
               item.getItemVO().getObject().getLocalTags().add(localTag.toString());
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "Local Tag: " + localTag.toString(), this.connection);
-//              logger.info("*** IMPORT 7 ***: " + item.getItemVO().getObject().getLocalTags().get(1));
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
 

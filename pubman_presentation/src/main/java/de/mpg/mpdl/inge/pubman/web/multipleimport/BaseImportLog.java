@@ -8,8 +8,6 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 
 public class BaseImportLog {
-//  private static final Logger logger = Logger.getLogger(BaseImportLog.class);
-
   /**
    * enum to describe if something went wrong with this element.
    * 
@@ -88,10 +86,8 @@ public class BaseImportLog {
   }
 
   public synchronized String getStartDateFormatted() {
-//    logger.info("*** IMPORT 3 ***: " + this.startDate);
     if (this.startDate != null) {
       String startDateFormatted = BaseImportLog.DATE_FORMAT.format(this.startDate);
-//      logger.info("*** IMPORT 4 ***: " + startDateFormatted);
       return startDateFormatted;
     }
 
