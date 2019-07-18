@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>INGe</artifactId>
 		<groupId>de.mpg.mpdl.inge</groupId>
-		<version>8.0.14-SNAPSHOT</version>
+		<version>8.0.14</version>
 	</parent>
 
 	<artifactId>pubman_rest</artifactId>
@@ -17,7 +17,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/pubman_rest</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/pubman_rest</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.0.14</tag>
 	</scm>
 
 	<dependencies>
