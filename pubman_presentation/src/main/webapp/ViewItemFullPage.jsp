@@ -46,9 +46,7 @@
                             <ui:include src="header/Breadcrumb.jspf" />
                             <div id="contentSkipLinkAnchor" class="clear headLine">
                                 <!-- Headline starts here -->
-                                <h1>
-                                    <h:outputText value="#{lbl.ViewItemPage}" />
-                                </h1>
+                                <h1><h:outputText value="#{lbl.ViewItemPage}" /></h1>
                                 <!-- Headline ends here -->
                             </div>
                         </div>

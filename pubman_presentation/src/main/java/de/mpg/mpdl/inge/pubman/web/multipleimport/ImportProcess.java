@@ -72,7 +72,8 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 public class ImportProcess extends Thread {
   private static final Logger logger = Logger.getLogger(ImportProcess.class);
 
-  public enum DuplicateStrategy {
+  public enum DuplicateStrategy
+  {
     NO_CHECK,
     CHECK,
     ROLLBACK
@@ -341,7 +342,7 @@ public class ImportProcess extends Thread {
         this.importLog.finishItem(this.connection);
         counter = 0;
 
-//        List newList = Collections.synchronizedList(oldList);
+        //        List newList = Collections.synchronizedList(oldList);
         for (int i = 0; i < this.importLog.getItems().size(); i++) {
           final ImportLogItem item = this.importLog.getItems().get(i);
           if (item.getStatus() == BaseImportLog.Status.SUSPENDED && item.getItemVO() != null && !this.failed) {
