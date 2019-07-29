@@ -89,7 +89,7 @@ public class OrganizationRestController {
     for (SearchRetrieveRecordVO<AffiliationDbVO> record : srResponse.getRecords()) {
       xml.append("<record>");
       AffiliationDbVO affiliation = record.getData();
-      
+
       String name = affiliation.getName() //
           .replaceAll("&", "&amp;") //
           .replaceAll("'", "&apos;") //
@@ -99,12 +99,12 @@ public class OrganizationRestController {
       xml.append("<name>");
       xml.append(name);
       xml.append("</name>");
-      
+
       String objectId = affiliation.getObjectId();
       xml.append("<objectId>");
       xml.append(objectId);
       xml.append("</objectId>");
-      
+
       AffiliationDbRO parentAffiliation = affiliation.getParentAffiliation();
       String parent = "";
       if (parentAffiliation != null && parentAffiliation.getName() != null) {
@@ -118,7 +118,7 @@ public class OrganizationRestController {
       xml.append("<parent>");
       xml.append(parent);
       xml.append("</parent>");
-      
+
       String parentId = "";
       if (parentAffiliation != null && parentAffiliation.getObjectId() != null) {
         parentId = parentAffiliation.getObjectId();
@@ -126,7 +126,7 @@ public class OrganizationRestController {
       xml.append("<parentId>");
       xml.append(parentId);
       xml.append("</parentId>");
-      
+
       xml.append("</record>");
     }
     xml.append("</records>");
