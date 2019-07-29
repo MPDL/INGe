@@ -341,7 +341,6 @@ public class ImportProcess extends Thread {
         this.importLog.finishItem(this.connection);
         counter = 0;
 
-        //        List newList = Collections.synchronizedList(oldList);
         String message = this.importLog.getMessage();
         String startDateFormatted = this.importLog.getStartDateFormatted();
         StringBuilder localTag = new StringBuilder();
@@ -366,6 +365,10 @@ public class ImportProcess extends Thread {
                   logger.info("Could not fetch file for import", e);
                 }
               }
+
+              item.getItemVO().getObject().getLocalTags().add("multiple_import");
+              item.getItemVO().getObject().getLocalTags().add(localTag.toString());
+              this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "Local Tag: " + localTag.toString(), this.connection);
 
               this.importLog.addDetail(BaseImportLog.ErrorLevel.FINE, "import_process_save_item", this.connection);
 
