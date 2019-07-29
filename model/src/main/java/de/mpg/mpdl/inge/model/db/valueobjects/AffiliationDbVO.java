@@ -38,6 +38,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
@@ -66,6 +67,8 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
+  private static final Logger logger = Logger.getLogger(AffiliationDbVO.class);
+  
   public enum State
   {
     CREATED,
@@ -117,7 +120,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
    * Delivers the list of the affiliations' parent affiliations.
    */
   public AffiliationDbRO getParentAffiliation() {
-    return parentAffiliation;
+    return this.parentAffiliation;
   }
 
   public void setParentAffiliation(AffiliationDbRO parentAffiliation) {
@@ -130,7 +133,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
    * by the system.
    */
   public AffiliationDbVO.State getPublicStatus() {
-    return publicStatus;
+    return this.publicStatus;
   }
 
   /**
@@ -140,7 +143,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
    * @param newVal
    */
   public void setPublicStatus(AffiliationDbVO.State newVal) {
-    publicStatus = newVal;
+    this.publicStatus = newVal;
   }
 
 
@@ -149,7 +152,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
    * @return the predecessorAffiliations
    */
   public java.util.List<AffiliationDbRO> getPredecessorAffiliations() {
-    return predecessorAffiliations;
+    return this.predecessorAffiliations;
   }
 
   /**
@@ -169,7 +172,7 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   }
 
   public MdsOrganizationalUnitDetailsVO getMetadata() {
-    return metadata;
+    return this.metadata;
   }
 
   public void setMetadata(MdsOrganizationalUnitDetailsVO metadata) {
@@ -177,7 +180,8 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   }
 
   public boolean getHasChildren() {
-    return hasChildren;
+    logger.info(this.getObjectId() + " hasChildren: " + this.hasChildren);
+    return this.hasChildren;
   }
 
   public void setHasChildren(boolean hasChildren) {
@@ -188,11 +192,11 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + (hasChildren ? 1231 : 1237);
-    result = prime * result + ((metadata == null) ? 0 : metadata.hashCode());
-    result = prime * result + ((parentAffiliation == null) ? 0 : parentAffiliation.hashCode());
-    result = prime * result + ((predecessorAffiliations == null) ? 0 : predecessorAffiliations.hashCode());
-    result = prime * result + ((publicStatus == null) ? 0 : publicStatus.hashCode());
+    result = prime * result + (this.hasChildren ? 1231 : 1237);
+    result = prime * result + ((this.metadata == null) ? 0 : this.metadata.hashCode());
+    result = prime * result + ((this.parentAffiliation == null) ? 0 : this.parentAffiliation.hashCode());
+    result = prime * result + ((this.predecessorAffiliations == null) ? 0 : this.predecessorAffiliations.hashCode());
+    result = prime * result + ((this.publicStatus == null) ? 0 : this.publicStatus.hashCode());
     return result;
   }
 
@@ -205,24 +209,24 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
     if (getClass() != obj.getClass())
       return false;
     AffiliationDbVO other = (AffiliationDbVO) obj;
-    if (hasChildren != other.hasChildren)
+    if (this.hasChildren != other.hasChildren)
       return false;
-    if (metadata == null) {
+    if (this.metadata == null) {
       if (other.metadata != null)
         return false;
-    } else if (!metadata.equals(other.metadata))
+    } else if (!this.metadata.equals(other.metadata))
       return false;
-    if (parentAffiliation == null) {
+    if (this.parentAffiliation == null) {
       if (other.parentAffiliation != null)
         return false;
-    } else if (!parentAffiliation.equals(other.parentAffiliation))
+    } else if (!this.parentAffiliation.equals(other.parentAffiliation))
       return false;
-    if (predecessorAffiliations == null) {
+    if (this.predecessorAffiliations == null) {
       if (other.predecessorAffiliations != null)
         return false;
-    } else if (!predecessorAffiliations.equals(other.predecessorAffiliations))
+    } else if (!this.predecessorAffiliations.equals(other.predecessorAffiliations))
       return false;
-    if (publicStatus != other.publicStatus)
+    if (this.publicStatus != other.publicStatus)
       return false;
     return true;
   }
