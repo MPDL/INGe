@@ -609,7 +609,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       handleDBException(e);
     }
 
-    userAccountDao.updateImmediately(accountToBeUpdated.getObjectId(), accountToBeUpdated);
+    userAccountDao.createImmediately(accountToBeUpdated.getObjectId(), accountToBeUpdated);
     return accountToBeUpdated;
   }
 

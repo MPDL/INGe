@@ -221,7 +221,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       handleDBException(e);
     }
 
-    organizationDao.updateImmediately(affDbToBeUpdated.getObjectId(), affDbToBeUpdated);
+    organizationDao.createImmediately(affDbToBeUpdated.getObjectId(), affDbToBeUpdated);
     return affDbToBeUpdated;
   }
 

@@ -101,7 +101,7 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     }
 
     if (getElasticDao() != null) {
-      getElasticDao().updateImmediately(objectToBeUpdated.getObjectId(), objectToBeUpdated);
+      getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToBeUpdated);
     }
     if (reindexList != null) {
       logger.info("UPDATE: Content Reindex List:");
