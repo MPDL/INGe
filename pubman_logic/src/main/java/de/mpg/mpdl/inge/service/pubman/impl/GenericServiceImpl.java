@@ -71,7 +71,11 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     }
 
     if (reindexList != null) {
-      reindex(reindexList);;
+      logger.info("Content Reindex List:");
+      for (Id id : reindexList) {
+        logger.info(id);
+      }
+      reindex(reindexList);
     }
     return objectToCreate;
   }
