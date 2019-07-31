@@ -71,10 +71,9 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
     }
 
     if (reindexList != null) {
-      logger.info("CREATE: Content Reindex List:");
-      for (Id id : reindexList) {
-        logger.info(id);
-      }
+      // ACHTUNG: siehe Kommentar bei AffiliationDbVO @Formula
+      entityManager.flush();
+      entityManager.clear();
       reindex(reindexList);
     }
     return objectToCreate;
@@ -104,10 +103,6 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       getElasticDao().createImmediately(objectToBeUpdated.getObjectId(), objectToBeUpdated);
     }
     if (reindexList != null) {
-      logger.info("UPDATE: Content Reindex List:");
-      for (Id id : reindexList) {
-        logger.info(id);
-      }
       reindex(reindexList);
     }
     return objectToBeUpdated;
@@ -202,7 +197,6 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
   protected void reindex(Id id, boolean immediate) throws IngeTechnicalException {
     // Reindex old and new Parents
     if (getElasticDao() != null) {
-      logger.info("Reindexing object " + id);
       ModelObject vo = getDbRepository().findOne(id);
       if (immediate) {
         getElasticDao().createImmediately(getIdForElasticSearch(id), vo);
@@ -244,18 +238,24 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
       int count = 0;
       while (results.next()) {
         try {
-          count++;
-
-          Id id = (Id) results.get(0);
-
-          queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
-
           // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
           if (count % 1000 == 0) {
             logger.info("Clearing entity manager while reindexing");
             entityManager.flush();
             entityManager.clear();
           }
+          count++;
+
+          Id id = (Id) results.get(0);
+
+          queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
+
+//          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+//          if (count % 1000 == 0) {
+//            logger.info("Clearing entity manager while reindexing");
+//            entityManager.flush();
+//            entityManager.clear();
+//          }
 
         } catch (Exception e) {
           logger.error("Error while reindexing ", e);

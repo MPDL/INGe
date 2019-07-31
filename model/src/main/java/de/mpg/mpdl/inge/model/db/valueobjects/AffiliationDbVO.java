@@ -37,8 +37,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import org.apache.log4j.Logger;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
@@ -67,8 +67,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsOrganizationalUnitDetails
 @Table(name = "organization")
 @TypeDef(name = "MdsOrganizationalUnitVOJsonUserType", typeClass = MdsOrganizationalUnitVOJsonUserType.class)
 public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
-  private static final Logger logger = Logger.getLogger(AffiliationDbVO.class);
-  
+
   public enum State
   {
     CREATED,
@@ -100,6 +99,9 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
   private AffiliationDbVO.State publicStatus;
 
 
+  // ACHTUNG: @Formula berechnet aktuelle Werte nur dann, wenn die Entität aus der Datenbank gelesen wird
+  //          d.h. die Entität muss vorher mit entityManager.clear() aus dem Kontext gelöscht werden
+  //               -> vorher zur Sicherheit ein entityManager.flush() aufrufen 
   @Formula("(select count(*)>0 from organization op WHERE op.parentAffiliation_objectid=objectId)")
   private boolean hasChildren;
 
@@ -179,13 +181,9 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
     this.metadata = metadata;
   }
 
+  @Transient
   public boolean getHasChildren() {
-    logger.info(this.getObjectId() + " hasChildren: " + this.hasChildren);
     return this.hasChildren;
-  }
-
-  public void setHasChildren(boolean hasChildren) {
-    this.hasChildren = hasChildren;
   }
 
   @Override

@@ -169,6 +169,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     super.delete(id, authenticationToken);
 
     if (ouDbTobeDeleted.getParentAffiliation() != null) {
+      // ACHTUNG: siehe Kommentar bei AffiliationDbVO @Formula
+      entityManager.flush();
+      entityManager.clear();
       AffiliationDbVO parentVO = organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
       organizationDao.createImmediately(parentVO.getObjectId(), parentVO);
     }
