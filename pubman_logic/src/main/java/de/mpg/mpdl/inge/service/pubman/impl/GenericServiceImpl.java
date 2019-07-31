@@ -250,12 +250,12 @@ public abstract class GenericServiceImpl<ModelObject extends BasicDbRO, Id exten
 
           queueJmsTemplate.convertAndSend("reindex-" + entityName, id);
 
-//          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
-//          if (count % 1000 == 0) {
-//            logger.info("Clearing entity manager while reindexing");
-//            entityManager.flush();
-//            entityManager.clear();
-//          }
+          //          // Clear entity manager after every 1000 items, otherwise OutOfMemory can occur
+          //          if (count % 1000 == 0) {
+          //            logger.info("Clearing entity manager while reindexing");
+          //            entityManager.flush();
+          //            entityManager.clear();
+          //          }
 
         } catch (Exception e) {
           logger.error("Error while reindexing ", e);
