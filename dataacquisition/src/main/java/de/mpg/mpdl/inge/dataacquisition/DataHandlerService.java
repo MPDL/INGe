@@ -68,7 +68,8 @@ public class DataHandlerService {
   private static final Logger logger = Logger.getLogger(DataHandlerService.class);
 
   private static final String REGEX = "GETID";
-  private static final String PROTOCOL = "oai-pmh";
+  private static final String PROTOCOL_ARXIV = "oai-pmh";
+  private static final String PROTOCOL_CROSSREF = "http";
 
   private DataSourceHandlerService sourceHandler;
 
@@ -134,11 +135,14 @@ public class DataHandlerService {
     // Select harvesting method
     String item = null;
     boolean supportedProtocol = false;
-    if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL)) {
-      item = fetchOAIRecord(metaDataVO, targetFormat.getFileFormat().getCharSet());
+    if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_ARXIV)) {
+      item = fetchRecord(metaDataVO, targetFormat.getFileFormat().getCharSet());
       // Check the record for error codes
       ProtocolHandler protocolHandler = new ProtocolHandler();
       protocolHandler.checkOAIRecord(item);
+      supportedProtocol = true;
+    } else if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_CROSSREF)) {
+      item = fetchRecord(metaDataVO, targetFormat.getFileFormat().getCharSet());
       supportedProtocol = true;
     }
 
@@ -269,7 +273,6 @@ public class DataHandlerService {
     byte[] input = null;
 
     try {
-      //      URLConnection con = ProxyHelper.openConnection(fulltext.getFtUrl());
       URLConnection con = fulltext.getFtUrl().openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
@@ -280,7 +283,6 @@ public class DataHandlerService {
           logger.info("Source responded with 200.");
           GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
           HttpClient client = new HttpClient();
-          //          ProxyHelper.executeMethod(client, method);
           client.executeMethod(method);
           input = method.getResponseBody();
           httpCon.disconnect();
@@ -317,17 +319,16 @@ public class DataHandlerService {
   }
 
   /**
-   * Fetches an OAI record for given record identifier.
+   * Fetches a record for given record identifier.
    * 
    * @param this.sourceURL
    * @return itemXML
    * @throws DataaquisitionException
    */
-  private String fetchOAIRecord(MetadataVO metaDataVO, String encoding) throws DataaquisitionException {
+  private String fetchRecord(MetadataVO metaDataVO, String encoding) throws DataaquisitionException {
     StringBuffer itemXML = new StringBuffer();
 
     try {
-      //      URLConnection con = ProxyHelper.openConnection(metaDataVO.getMdUrl());
       URLConnection con = metaDataVO.getMdUrl().openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
@@ -342,7 +343,7 @@ public class DataHandlerService {
           String alternativeLocation = con.getHeaderField("Location");
           metaDataVO.setMdUrl(new URL(alternativeLocation));
           this.currentDataSourceVO = this.sourceHandler.updateMdEntry(this.currentDataSourceVO, metaDataVO);
-          return fetchOAIRecord(metaDataVO, encoding);
+          return fetchRecord(metaDataVO, encoding);
 
         case 403:
           throw new AccessException("Access to url " + this.currentDataSourceVO.getName() + " is restricted.");

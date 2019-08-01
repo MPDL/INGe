@@ -674,7 +674,7 @@ public class EasySubmission extends FacesBean {
     String fetchedItem = null;
 
     try {
-      // Im Moment nur arXiv -> definiert in sources.xml
+      // Im Moment nur arXiv + Crossref -> definiert in sources.xml
       final String source = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
 
       final DataSourceVO dataSourceVO = this.dataSourceHandler.getSourceByName(source);

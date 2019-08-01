@@ -1059,6 +1059,7 @@
 		<inge.transformation.bmc2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-component.xsl</inge.transformation.bmc2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.bmc2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/bmc2escidoc-publication-item.xsl</inge.transformation.bmc2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>transformations/thirdParty/xslt/bmc-fulltext-xml2bmc-fulltext-html.xsl</inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename>
+		<inge.transformation.crossref2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/crossref2escidoc-publication-item.xsl</inge.transformation.crossref2escidoc_publication_item.stylesheet.filename>
 		<inge.transformation.doi.stylesheet.filename>transformations/otherFormats/xslt/escidoc2doi.xsl</inge.transformation.doi.stylesheet.filename>
 		<inge.transformation.edoc.configuration.filename>transformations/otherFormats/conf/edoc.properties</inge.transformation.edoc.configuration.filename>
 		<inge.transformation.edoc.stylesheet.filename>transformations/otherFormats/xslt/edoc-to-escidoc.xslt</inge.transformation.edoc.stylesheet.filename>

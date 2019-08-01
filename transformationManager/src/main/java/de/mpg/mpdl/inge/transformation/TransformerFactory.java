@@ -23,6 +23,7 @@ public class TransformerFactory {
   public static final String BMC_OAIPMH_XML = "BMC_Oaipmh_Xml";
   public static final String BMC_XML = "BMC_Xml";
   public static final String COINS = "Coins";
+  public static final String CROSSREF = "Crossref";
   public static final String DC_XML = "Dc_Xml";
   public static final String DOCX = "docx";
   public static final String DOI_XML = "Doi_Xml";
@@ -68,6 +69,7 @@ public class TransformerFactory {
   public enum FORMAT
   {
     ARXIV_OAIPMH_XML(TransformerFactory.ARXIV, FileFormatVO.FILE_FORMAT.XML), //
+    CROSSREF_XML(TransformerFactory.CROSSREF, FileFormatVO.FILE_FORMAT.XML), //
     BIBTEX_STRING(TransformerFactory.BIBTEX, FileFormatVO.FILE_FORMAT.TXT), //
     BMC_FULLTEXT_HTML(TransformerFactory.BMC_FULLTEXT_HTML, FileFormatVO.FILE_FORMAT.HTML_PLAIN), //
     BMC_FULLTEXT_XML(TransformerFactory.BMC_FULLTEXT_XML, FileFormatVO.FILE_FORMAT.XML), //

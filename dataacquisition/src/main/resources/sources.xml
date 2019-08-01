@@ -66,4 +66,32 @@
 		</FT-fetch-settings>
 	</Import-Source>
 	
+	<Import-Source name="Crossref">
+		<dc:description>Searching for Metadata from Crossref by DOIs</dc:description>
+		<dc:identifier xsi:type="dcterms:URI">http://doi.crossref.org/</dc:identifier>
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<dc:format>UTF-8</dc:format>
+		<item-url>http://doi.crossref.org/servlet/query?pid=bib@gfz-potsdam.de%26format=unixref%26id=GETID</item-url>
+		<source-identifier>doi</source-identifier>
+		<source-identifier-example>doi:10.1190/GEO2011-0515.1</source-identifier-example>
+		<harvest-protocol>http</harvest-protocol>
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<status>PUBLISHED</status>
+		<!--Information about Metadata fetching -->
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:description>http://www.crossref.org/schema/documentation/unixref1.0/unixref.html</dc:description>
+				<dc:identifier>http://doi.crossref.org/servlet/query?pid=bib@gfz-potsdam.de%26format=unixref%26id=GETID</dc:identifier>
+				<dc:format>application/xml</dc:format>
+				<label>Crossref</label>
+				<name>crossref</name>
+				<encoding>UTF-8</encoding>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+	
 </Import-Sources>

@@ -205,6 +205,8 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_BMC2ESCIDOC_STYLESHEET_FILENAME = "inge.transformation.bmc2escidoc.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_BMC_FULLTEXT_XML2BMC_FULLTEXT_HTML_STYLESHEET_FILENAME =
       "inge.transformation.bmc_fulltext_xml2bmc_fulltext_html.stylesheet.filename";
+  public static final String INGE_TRANSFORMATION_CROSSREF2ESCIDOC_PUBLICATION_ITEM_STYLESHEET_FILENAME =
+      "inge.transformation.crossref2escidoc_publication_item.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_DOI_STYLESHEET_FILENAME = "inge.transformation.doi.stylesheet.filename";
   public static final String INGE_TRANSFORMATION_EDOC_CONFIGURATION_FILENAME = "inge.transformation.edoc.configuration.filename";
   public static final String INGE_TRANSFORMATION_EDOC_STYLESHEET_FILENAME = "inge.transformation.edoc.stylesheet.filename";
