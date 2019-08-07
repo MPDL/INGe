@@ -50,7 +50,7 @@
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
-                    
+
                     <div class="full_area0">
                        	<div class="full_area0 itemBlock">
                             <h:commandButton id="btnUpdatePage" styleClass="noDisplay updatePage" action="#{SearchAndExportPage.updatePage}" />
@@ -70,16 +70,29 @@
 										<span class="xHuge_area0 endline">
 											<a href="http://colab.mpdl.mpg.de/mediawiki/INGe-REST_Sortierschl%C3%BCssel" target="_blank">#{lbl.searchAndExport_ListSortingKey}</a>
 										</span>
-										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="sortKeys">#{lbl.searchAndExport_SortingKey}</label>
-											<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{SearchAndExportPage.sortingKey}" />
-										</span>
-										<span class="double_area0 xTiny_marginRIncl">
-											<label class="double_label" for="sortOrder">#{lbl.searchAndExport_SortingOrder}</label>
-			                                <h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{SearchAndExportPage.sortOrder}" >
-			                                    <f:selectItems value="#{SearchAndExportPage.sortOptions}" />
-			                                </h:selectOneMenu>
-										</span>
+										<h:panelGroup id="sorting" layout="block" styleClass="xHuge_area0 sub action">
+											<ui:repeat value="#{SearchAndExportPage.sort}" var="sort">
+												<span class="double_area0 xTiny_marginRIncl clear">
+													<label class="double_label" for="sortKeys">#{lbl.searchAndExport_SortingKey}</label>
+													<h:inputText styleClass="double_txtInput" name="sortKeys" value="#{sort.key}" />
+												</span>
+												<span class="medium_area0 xTiny_marginRIncl">
+													<label class="double_label" for="sortOrder">#{lbl.searchAndExport_SortingOrder}</label>
+													<h:selectOneMenu id="selsortOptions" onfocus="updateSelectionBox(this);" value="#{sort.order}" >
+														<f:selectItems value="#{SearchAndExportPage.sortOptions}" />
+													</h:selectOneMenu>
+												</span>
+												<span class="medium_area0">
+													<label class="double_label">&#160;</label>
+													<h:commandButton id="btnSortKey_btRemove" styleClass="min_imgBtn groupBtn remove sectionTool" action="#{SearchAndExportPage.removeSorting(sort)}" disabled="#{SearchAndExportPage.sort.size() le 1 }" >
+														<f:ajax render="form1:sorting" execute="@form"/>
+													</h:commandButton>
+													<h:commandButton id="btnSortKey_btAdd" styleClass="min_imgBtn groupBtn add sectionTool" action="#{SearchAndExportPage.addSorting()}" >
+														<f:ajax render="form1:sorting" execute="@form"/>
+													</h:commandButton>
+												</span>
+											</ui:repeat>
+										</h:panelGroup>
 									</span>
 								</div>
 								<div class="free_area0 endline itemLine noTopBorder">
@@ -132,6 +145,7 @@
 									</span>
 								</div>
 							</div>
+							
                         </div>
                      
                     </div>
