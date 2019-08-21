@@ -125,7 +125,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean {
       }
 
       if (!this.getSelectedImport().toLowerCase().equals("all")) {
-        bq.must(QueryBuilders.matchQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()).operator(Operator.AND));
+        bq.must(QueryBuilders.matchPhraseQuery(PubItemServiceDbImpl.INDEX_LOCAL_TAGS, this.getSelectedImport()));
       }
 
       if (this.getSelectedContext().toLowerCase().equals("all")) {
