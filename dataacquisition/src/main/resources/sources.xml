@@ -11,7 +11,7 @@
 		<dc:identifier xsi:type="dcterms:URI">http://doi.crossref.org/</dc:identifier>
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
 		<dc:format>UTF-8</dc:format>
-		<item-url>http://doi.crossref.org/servlet/query?pid=bib@gfz-potsdam.de%26format=unixref%26id=GETID</item-url>
+		<item-url>http://doi.crossref.org/servlet/query?pid=pure-support@listsrv.mpg.de%26format=unixref%26id=GETID</item-url>
 		<source-identifier>doi</source-identifier>
 		<source-identifier-example>doi:10.1190/GEO2011-0515.1</source-identifier-example>
 		<harvest-protocol>http</harvest-protocol>
@@ -22,8 +22,8 @@
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
-				<dc:description>http://www.crossref.org/schema/documentation/unixref1.0/unixref.html</dc:description>
-				<dc:identifier>http://doi.crossref.org/servlet/query?pid=bib@gfz-potsdam.de%26format=unixref%26id=GETID</dc:identifier>
+				<dc:description>https://support.crossref.org/hc/en-us/articles/213566986-Using-HTTPS-to-Query</dc:description>
+				<dc:identifier>http://doi.crossref.org/servlet/query?pid=pure-support@listsrv.mpg.de%26format=unixref%26id=GETID</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>Crossref</label>
 				<name>crossref</name>
