@@ -615,7 +615,7 @@ public class TestBase {
     List<IdentifierVO> identifierList = mds.getIdentifiers();
     IdentifierVO identifierVO = new IdentifierVO();
     identifierVO.setId("id1");
-    identifierVO.setType(IdType.ESCIDOC);
+    identifierVO.setType(IdType.ISBN);
     for (int i = 0; i < 2; i++) {
       identifierList.add(identifierVO);
     }

@@ -106,6 +106,7 @@ public class PropertyReader {
   public static final String INGE_FILESTORAGE_SEAWEED_DIRECT_SUBMIT_PATH = "inge.filestorage.seaweed_direct_submit_path";
   public static final String INGE_FILESTORAGE_SEAWEED_MASTER_SERVER_IP = "inge.filestorage.seaweed_master_server_ip";
   public static final String INGE_HANDLES_ACTIVATED = "inge.handles.activated";
+  public static final String INGE_ID_TYPES_TO_DISPLAY = "inge.id.types.to.display";
   public static final String INGE_IMPORT_SOURCES_XML = "inge.import.sources.xml";
   public static final String INGE_INDEX_CONTEXT_NAME = "inge.index.context.name";
   public static final String INGE_INDEX_CONTEXT_SORT = "inge.index.context.sort";

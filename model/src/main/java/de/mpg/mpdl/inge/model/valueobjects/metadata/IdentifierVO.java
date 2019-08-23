@@ -66,12 +66,14 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     CONE("http://purl.org/escidoc/metadata/terms/0.1/CONE"), //
     DOI("http://purl.org/escidoc/metadata/terms/0.1/DOI"), //
     EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
-    ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), //
-    GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), //
+//    ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), //
+    GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
+    GFZPOF("http://purl.org/escidoc/metadata/terms/0.1/GFZPOF"), //
+    IASSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/IASSPROJECT"), //
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
-    OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), //
+    OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), // anderer Zusammenhang (Fundingorganization)
     OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER"), //
     PATENT_APPLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-APPLICATION-NR"), //
     PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), //

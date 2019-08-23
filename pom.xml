@@ -978,6 +978,7 @@
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
 		<inge.handles.activated>true</inge.handles.activated>
+		<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
 		<inge.index.context.name>contexts</inge.index.context.name>
 		<inge.index.context.sort>name.keyword</inge.index.context.sort>
@@ -1202,6 +1203,7 @@
 			<properties>
 				<inge.auth.mpg.ip.url />
 				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
+				<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ESCIDOC,GRANT_ID,GFZPOF,IASSPROJECT,ISBN,ISI,ISSN,OPEN_AIRE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 				<inge.pubman.blog.baseUrl />
 				<inge.pubman.blog.news />
 				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>

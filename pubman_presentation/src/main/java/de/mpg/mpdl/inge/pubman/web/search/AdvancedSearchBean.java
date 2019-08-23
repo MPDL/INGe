@@ -293,7 +293,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     final List<SelectItem> identifierRoleMenu = new ArrayList<SelectItem>();
 
     identifierRoleMenu.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
-    for (final IdType type : DisplayTools.ID_TYPES_TO_DISPLAY) {
+    for (final IdType type : DisplayTools.getIdTypesToDisplay()) {
       identifierRoleMenu.add(new SelectItem(type.name(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.name())));
     }
 

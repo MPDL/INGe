@@ -295,7 +295,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentIdentifiers() {
-    mds1.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "newId"));
+    mds1.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ISBN, "newId"));
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
@@ -305,7 +305,7 @@ public class ValueObjectEqualsTest extends TestBase {
    */
   @Test
   public void equalsMdsPublicationVOWithDifferentIdentifierType() {
-    mds1.getIdentifiers().get(0).setType(IdentifierVO.IdType.ESCIDOC);
+    mds1.getIdentifiers().get(0).setType(IdentifierVO.IdType.ISBN);
     assertFalse(mds1.equals(mds2));
     assertFalse(mds2.equals(mds1));
   }
