@@ -84,10 +84,10 @@
 												</span>
 												<span class="medium_area0">
 													<label class="double_label">&#160;</label>
-													<h:commandButton id="btnSortKey_btRemove" styleClass="min_imgBtn groupBtn remove sectionTool" action="#{SearchAndExportPage.removeSorting(sort)}" disabled="#{SearchAndExportPage.sort.size() le 1 }" >
+													<h:commandButton id="btnSortKey_btAdd" styleClass="min_imgBtn groupBtn add sectionTool" action="#{SearchAndExportPage.addSorting()}" >
 														<f:ajax render="form1:sorting" execute="@form"/>
 													</h:commandButton>
-													<h:commandButton id="btnSortKey_btAdd" styleClass="min_imgBtn groupBtn add sectionTool" action="#{SearchAndExportPage.addSorting()}" >
+													<h:commandButton id="btnSortKey_btRemove" styleClass="min_imgBtn groupBtn remove sectionTool" action="#{SearchAndExportPage.removeSorting(sort)}" disabled="#{SearchAndExportPage.sort.size() le 1 }" >
 														<f:ajax render="form1:sorting" execute="@form"/>
 													</h:commandButton>
 												</span>
