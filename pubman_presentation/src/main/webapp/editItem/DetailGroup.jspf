@@ -313,7 +313,7 @@
 				styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 						styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-						rendered="#{genre.details_publishing_info_publishing_info_edition_optional != 'true' || genre.details_item_degree_optional != 'true' || genre.details_item_location_optional != 'true'}" /><span
+						rendered="#{genre.details_publishing_info_publishing_info_edition_optional != 'true'}" /><span
 					class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:panelGroup
@@ -326,17 +326,6 @@
 								converter="GenreLabelConverter" />
 							<h:inputText styleClass="large_txtInput" id="txtEdition"
 								value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
-						</h:panelGroup>
-					</h:panelGroup> <h:panelGroup
-						rendered="#{!(genre.details_item_location_display == 'false' and genre.details_item_location_form_id == 'full-submission' || genre.details_item_location_display == 'false' and genre.details_item_location_form_id == 'all')}">
-						<h:panelGroup styleClass="large_area0 tiny_marginRIncl"
-							rendered="#{!(genre.details_item_location_item_location_display == 'false' and genre.details_item_location_item_location_form_id == 'full-submission' || genre.details_item_location_item_location_display == 'false' and genre.details_item_location_item_location_form_id == 'all')}">
-							<h:outputLabel styleClass="large_label" id="lblLocation"
-								for="txtLocation"
-								value="#{genre.details_item_location_item_location_label}"
-								converter="GenreLabelConverter" />
-							<h:inputText styleClass="large_txtInput" id="txtLocation"
-								value="#{EditItem.pubItem.metadata.location}" />
 						</h:panelGroup>
 					</h:panelGroup>
 				</span>
