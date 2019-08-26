@@ -66,7 +66,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     CONE("http://purl.org/escidoc/metadata/terms/0.1/CONE"), //
     DOI("http://purl.org/escidoc/metadata/terms/0.1/DOI"), //
     EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
-//    ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), //
+    ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), // wegen Altdaten noch notwendig
     GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
     GFZPOF("http://purl.org/escidoc/metadata/terms/0.1/GFZPOF"), //
     IASSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/IASSPROJECT"), //
