@@ -572,7 +572,6 @@
           <dc:identifier xsi:type="eterms:ISSN">1234567890</dc:identifier>
           <dc:identifier xsi:type="eterms:DOI">1234567890</dc:identifier>
           <dc:identifier xsi:type="eterms:EDOC">1234567890</dc:identifier>
-          <dc:identifier xsi:type="eterms:ESCIDOC">1234567890</dc:identifier>
           <dc:identifier xsi:type="eterms:OTHER">1234567890</dc:identifier>
           <eterms:publishing-info>
             <dc:publisher>Max Planck Society</dc:publisher>

@@ -428,7 +428,7 @@
 		<!-- ESCIDOC ID -->
 		<xsl:call-template name="print-line">
 			<xsl:with-param name="tag">M</xsl:with-param>
-			<xsl:with-param name="value" select="dc:identifier[@xsi:type='eterms:ESCIDOC']"/>
+			<xsl:with-param name="value" select="dc:identifier[@xsi:type='eterms:ISBN']"/>
 		</xsl:call-template>
 		<!-- SOURCE -->
 		<xsl:apply-templates select="source:source">

@@ -1069,9 +1069,6 @@
 		<xsl:param name="string" as="xs:string?"/>
 		<xsl:variable name="prepared" as="xs:string" select="for $i in normalize-space(upper-case($string) ) return (if (starts-with($i, 'ETERMS:')) then substring-after($i, 'ETERMS:') else $i)"/>
 		<xsl:choose>
-			<xsl:when test="$prepared eq 'ESCIDOC'">
-				<xsl:sequence select="'eterms:ESCIDOC'"/>
-			</xsl:when>
 			<xsl:when test="$prepared eq 'EDOC'">
 				<xsl:sequence select="'eterms:EDOC'"/>
 			</xsl:when>

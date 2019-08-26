@@ -107,7 +107,6 @@
                     <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="en">Alternative ScT 01</dcterms:alternative>
                     <dcterms:alternative xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xml:lang="de">nochn alternativer Titel</dcterms:alternative>
                     <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="eterms:ISBN">12761-45</dc:identifier>
-                    <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="eterms:ESCIDOC">65</dc:identifier>
                     <dc:identifier  xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" xsi:type="eterms:ISSN">5646545-855</dc:identifier>
                     <eterms:publishing-info xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">
                         <dc:publisher>Testpublisher</dc:publisher>
@@ -156,7 +155,6 @@
                             <eterms:edition>edition 1</eterms:edition>
                         </eterms:publishing-info>
                         <dc:identifier  xsi:type="eterms:ISBN">465465-88</dc:identifier>
-                        <dc:identifier  xsi:type="eterms:ESCIDOC">99</dc:identifier>
                     </source:source>
                     <source:source xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}">
                         <dc:title xml:lang="en">Source 2</dc:title>

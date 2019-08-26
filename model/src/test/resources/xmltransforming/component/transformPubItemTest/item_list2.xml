@@ -82,7 +82,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -128,7 +128,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -137,7 +137,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -233,7 +233,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -279,7 +279,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -288,7 +288,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -384,7 +384,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -430,7 +430,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -439,7 +439,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -831,7 +831,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -877,7 +877,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -886,7 +886,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -982,7 +982,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1028,7 +1028,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1037,7 +1037,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -1199,7 +1199,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1245,7 +1245,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1254,7 +1254,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -1350,7 +1350,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1396,7 +1396,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1405,7 +1405,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>
@@ -1501,7 +1501,7 @@
 								Department of Physics, University of Californiay
 							</dc:title>
 							<eterms:address>Berkeley, CA 94720, USA</eterms:address>
-							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+							<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 								P4711
 							</dc:identifier>
 						</organization:organization>
@@ -1547,7 +1547,7 @@
 										Facultad de Ciencias
 									</dc:title>
 									<eterms:address>Campus de Teatinos, 29071 Malaga, Spain</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										ASG 2233-3
 									</dc:identifier>
 								</organization:organization>
@@ -1556,7 +1556,7 @@
 										Instituta Geometra y Topologa
 									</dc:title>
 									<eterms:address>Placo Dominico, Madrid</eterms:address>
-									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ESCIDOC">
+									<dc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="eterms:ISBN">
 										IOP 998
 									</dc:identifier>
 								</organization:organization>

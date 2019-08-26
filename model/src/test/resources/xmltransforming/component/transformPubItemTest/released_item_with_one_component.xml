@@ -68,7 +68,7 @@
             		<file:file xmlns:e="${xsd.metadata.escidocprofile.types}" >
 						<dc:title>My File</dc:title>
 						<dc:description>This is my file.</dc:description>
-						<dc:identifier xsi:type="eterms:ESCIDOC">19484</dc:identifier>
+						<dc:identifier xsi:type="eterms:ISBN">19484</dc:identifier>
 						<dc:identifier xsi:type="eterms:URI">http://myFile.com</dc:identifier>
 						<eterms:content-category>any-fulltext</eterms:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
