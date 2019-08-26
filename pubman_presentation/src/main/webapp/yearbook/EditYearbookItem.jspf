@@ -35,47 +35,34 @@
 						id="selSelectedOrgUnit" styleClass="xDouble_select replace"
 						value="#{YearbookItemSessionBean.yearbook.organization.name} (#{YearbookItemSessionBean.yearbook.organization.objectId})" />
 				</span>
-			 </h:panelGroup>
-			 <h:panelGroup layout="block"
+			</h:panelGroup>
+			<h:panelGroup layout="block"
 				styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 						styleClass="mandatory" title="#{msg.mandatoryField}" value="*" />
 					<h:outputText value="#{lbl.Yearbook_contextIds}" /> <span
 					class="noDisplay">: </span>
 				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline"
-					id="contextGroup"> <ui:repeat var="context"
-						value="#{YearbookItemEditBean.contextIds}">
+				<span class="xHuge_area0 xTiny_marginLExcl endline" id="contextGroup">
+					<ui:repeat var="context" value="#{YearbookItemEditBean.contextIds}" varStatus="loop">
 						<h:panelGroup styleClass="xHuge_area0 endline multipleAjax">
 							<div class="xHuge_area0 endline selectContainer">
 								<div class="xHuge_area0">
 									<span class="xHuge_area0 selectionBox">&#160;</span>
 									<div class="min_imgArea selectboxIcon">&#160;</div>
 								</div>
-								<h:selectOneMenu styleClass="xDouble_select"
-									value="#{context}" onfocus="updateSelectionBox(this);"
-									onchange="updateSelectionBox(this);">
-									<f:selectItems
-										value="#{YearbookItemEditBean.contextSelectItems}" />
+								<h:selectOneMenu styleClass="xDouble_select" value="#{YearbookItemEditBean.contextIds[loop.index]}" onfocus="updateSelectionBox(this);" onchange="updateSelectionBox(this);">
+									<f:selectItems value="#{YearbookItemEditBean.contextSelectItems}" />
 								</h:selectOneMenu>
 							</div>
 						</h:panelGroup>
 						<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-							<h:commandButton styleClass="min_imgBtn groupTool add" value=" "
-								action="#{YearbookItemEditBean.addContext}">
-								<f:setPropertyActionListener value="#{index}"
-									target="#{YearbookItemEditBean.contextPosition}" />
-							</h:commandButton>
-							<h:commandButton styleClass="min_imgBtn groupTool remove"
-								value=" " action="#{YearbookItemEditBean.removeContext}"
-								rendered="#{YearbookItemEditBean.contextIdsListSize>1}">
-								<f:setPropertyActionListener value="#{index}"
-									target="#{YearbookItemEditBean.contextPosition}" />
-							</h:commandButton>
+							<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{YearbookItemEditBean.addContext(context)}"/>
+							<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " action="#{YearbookItemEditBean.removeContext(context)}" rendered="#{YearbookItemEditBean.contextIdsListSize>1}"/>
 						</h:panelGroup>
 					</ui:repeat>
 				</span>
-		     </h:panelGroup>
+			</h:panelGroup>
 			 <h:panelGroup layout="block"
 				styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
