@@ -444,7 +444,7 @@
 	<!-- http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_eSciDoc_To_eDoc_Mapping#Mapping_of_Identifier_Types -->
 	<identifier-type>
 		<v2-to-edoc>
-			<map v2="eterms:ESCIDOC"></map>
+<!--			<map v2="eterms:ESCIDOC"></map>-->
 			<map v2="eterms:EDOC">edocid</map> 
 			<map v2="eterms:ISSN">issn</map>
 			<map v2="eterms:ISBN">isbn</map>
