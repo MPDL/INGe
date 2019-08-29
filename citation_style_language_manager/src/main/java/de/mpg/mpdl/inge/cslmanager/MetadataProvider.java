@@ -371,18 +371,27 @@ public class MetadataProvider implements ItemDataProvider {
           // Source creators
           List<CSLName> containerAuthorList = new ArrayList<CSLName>();
           for (CreatorVO sourceCreator : source.getCreators()) {
-            if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())
-                || CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
+            if (CreatorVO.CreatorRole.AUTHOR.equals(sourceCreator.getRole())) {
               if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
                 containerAuthorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
                     .family(sourceCreator.getPerson().getFamilyName()).build());
               } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
                 containerAuthorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
               }
+            } else if (CreatorVO.CreatorRole.EDITOR.equals(sourceCreator.getRole())) {
+              if (CreatorVO.CreatorType.PERSON.equals(sourceCreator.getType())) {
+                editorList.add(new CSLNameBuilder().given(sourceCreator.getPerson().getGivenName())
+                    .family(sourceCreator.getPerson().getFamilyName()).build());
+              } else if (CreatorVO.CreatorType.ORGANIZATION.equals(sourceCreator.getType())) {
+                editorList.add(new CSLNameBuilder().given("").family(sourceCreator.getOrganization().getName()).build());
+              }
             }
           }
           if (containerAuthorList.size() > 0) {
             cslItem.containerAuthor(getCSLNameArrayFromList(containerAuthorList));
+          }
+          if (editorList.size() > 0) {
+            cslItem.editor(getCSLNameArrayFromList(editorList));
           }
         }
 
