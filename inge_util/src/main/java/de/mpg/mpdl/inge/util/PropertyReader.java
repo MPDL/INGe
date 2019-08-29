@@ -93,6 +93,7 @@ public class PropertyReader {
   public static final String INGE_DOI_SERVICE_CREATE_URL = "inge.doi.service.create.url";
   public static final String INGE_DOI_SERVICE_PASSWORD = "inge.doi.service.password";
   public static final String INGE_DOI_SERVICE_URL = "inge.doi.service.url";
+  public static final String INGE_DOI_SERVICE_USE = "inge.doi.service.use";
   public static final String INGE_DOI_SERVICE_USER = "inge.doi.service.user";
   public static final String INGE_EMAIL_AUTHENTICATIONPWD = "inge.email.authenticationpwd";
   public static final String INGE_EMAIL_AUTHENTICATIONUSER = "inge.email.authenticationuser";

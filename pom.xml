@@ -967,6 +967,7 @@
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
+		<inge.doi.service.use>true</inge.doi.service.use>
 		<inge.email.mailservername>mx03.mucam.mpg.de</inge.email.mailservername>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
 		<inge.email.withauthentication>false</inge.email.withauthentication>
@@ -1205,6 +1206,8 @@
 				<inge.auth.mpg.ip.url />
 				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 				<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ESCIDOC,GFZPOF,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.doi.service.create.url></inge.doi.service.create.url>
+				<inge.doi.service.use>false</inge.doi.service.use>
 				<inge.pid.service.create.path></inge.pid.service.create.path>
 				<inge.pid.service.timeout></inge.pid.service.timeout>
 				<inge.pid.service.use>false</inge.pid.service.use>

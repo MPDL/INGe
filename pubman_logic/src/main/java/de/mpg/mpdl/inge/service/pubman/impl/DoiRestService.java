@@ -116,16 +116,23 @@ public class DoiRestService {
    */
   public static boolean isDoiReady(ItemVersionVO pubItem) {
     boolean doiReady = false;
+    // useDOI must be true
+    if (!PropertyReader.INGE_DOI_SERVICE_USE.equalsIgnoreCase("true")) {
+      return false;
+    }
+
     // Item must be released to create a DOI
     if (State.RELEASED.equals(pubItem.getVersionState()) == false) {
       return false;
     }
+
     // Item must not contain any DOI to create a DOI
     for (IdentifierVO identifier : pubItem.getMetadata().getIdentifiers()) {
       if (IdType.DOI.equals(identifier.getType())) {
         return false;
       }
     }
+
     // Item must include at least one fulltext to create a DOI
     for (FileDbVO file : pubItem.getFiles()) {
       if (file.getVisibility() == Visibility.PUBLIC && ("any-fulltext".equals(file.getMetadata().getContentCategory())
