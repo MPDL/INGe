@@ -131,6 +131,7 @@ public class PropertyReader {
   public static final String INGE_PID_SERVICE_PASSWORD = "inge.pid.service.password";
   public static final String INGE_PID_SERVICE_TIMEOUT = "inge.pid.service.timeout";
   public static final String INGE_PID_SERVICE_URL = "inge.pid.service.url";
+  public static final String INGE_PID_SERVICE_USE = "inge.pid.service.use";
   public static final String INGE_PID_SERVICE_USER = "inge.pid.service.user";
   public static final String INGE_PUBMAN_BLOG_BASEURL = "inge.pubman.blog.baseUrl";
   public static final String INGE_PUBMAN_BLOG_NEWS = "inge.pubman.blog.news";

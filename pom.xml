@@ -978,7 +978,7 @@
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
 		<inge.handles.activated>true</inge.handles.activated>
-		<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ESCIDOC,GFZPOF,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+		<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ESCIDOC,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
 		<inge.index.context.name>contexts</inge.index.context.name>
 		<inge.index.context.sort>name.keyword</inge.index.context.sort>
@@ -1000,6 +1000,7 @@
 		<inge.matomo.analytics.site.id />
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
+		<inge.pid.service.use>true</inge.pid.service.use>
 		<inge.pubman.blog.baseUrl />
 		<inge.pubman.blog.news />
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
@@ -1203,7 +1204,10 @@
 			<properties>
 				<inge.auth.mpg.ip.url />
 				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
-				<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ESCIDOC,GRANT_ID,GFZPOF,IASSPROJECT,ISBN,ISI,ISSN,OPEN_AIRE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.id.types.to.display>ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ESCIDOC,GFZPOF,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.pid.service.create.path></inge.pid.service.create.path>
+				<inge.pid.service.timeout></inge.pid.service.timeout>
+				<inge.pid.service.use>false</inge.pid.service.use>
 				<inge.pubman.blog.baseUrl />
 				<inge.pubman.blog.news />
 				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>

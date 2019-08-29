@@ -344,7 +344,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItem.setObjectId(objectId);
     pubItem.setVersionState(ItemVersionRO.State.PENDING);
     pubItem.setVersionNumber(1);
-    pubItem.setVersionPid(null);// TODO
+    pubItem.setVersionPid(null);
 
     ItemRootVO pubItemObject = new ItemRootVO();
     pubItemObject.setContext(context);
@@ -354,7 +354,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItemObject.setLocalTags(givenPubItemVO.getObject().getLocalTags());
     pubItemObject.setObjectId(objectId);
     pubItemObject.setCreator(mod);
-    pubItemObject.setObjectPid(null);// TODO
+    pubItemObject.setObjectPid(null);
     pubItemObject.setPublicState(ItemVersionRO.State.PENDING);
 
     pubItem.setObject(pubItemObject);
@@ -533,11 +533,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         //Remove name due to DSGVO
         //creator.setName(principal.getUserAccount().getName());
         currentFileDbVO.setCreator(creator);
-
-        // TODO Pid ?
         currentFileDbVO.setPid(fileVo.getPid());
-
-
       }
 
       currentFileDbVO.setLastModificationDate(currentDate);
@@ -777,31 +773,34 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
     // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase Commit!)
-    if (ItemVersionRO.State.RELEASED.equals(state)) {
-      ItemRootVO pubItemObject = latestVersion.getObject();
-      try {
-        if (pubItemObject.getObjectPid() == null) {
-          URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
-          pubItemObject.setObjectPid("hdl:" + pidService.createPid(url).getIdentifier());
-        }
-        URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
-        latestVersion.setVersionPid("hdl:" + pidService.createPid(url).getIdentifier());
-      } catch (URISyntaxException | TechnicalException e) {
-        logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-        throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
-      }
-
-      for (FileDbVO fileDbVO : latestVersion.getFiles()) {
+    // PID Generierung
+    if (PropertyReader.INGE_PID_SERVICE_USE.equalsIgnoreCase("true")) {
+      if (ItemVersionRO.State.RELEASED.equals(state)) {
+        ItemRootVO pubItemObject = latestVersion.getObject();
         try {
-          if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && fileDbVO.getPid() == null) {
-            URI uri = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(), fileDbVO.getObjectId(),
-                fileDbVO.getName());
-            fileDbVO.setPid("hdl:" + pidService.createPid(uri).getIdentifier());
+          if (pubItemObject.getObjectPid() == null) {
+            URI url = UriBuilder.getItemObjectLink(latestVersion.getObjectId());
+            pubItemObject.setObjectPid("hdl:" + pidService.createPid(url).getIdentifier());
           }
-        } catch (URISyntaxException | TechnicalException | UnsupportedEncodingException e) {
-          logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
-              + latestVersion.getObjectIdAndVersion() + "]", e);
+          URI url = UriBuilder.getItemObjectAndVersionLink(latestVersion.getObjectId(), latestVersion.getVersionNumber());
+          latestVersion.setVersionPid("hdl:" + pidService.createPid(url).getIdentifier());
+        } catch (URISyntaxException | TechnicalException e) {
+          logger.error("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
           throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+        }
+
+        for (FileDbVO fileDbVO : latestVersion.getFiles()) {
+          try {
+            if ((FileDbVO.Storage.INTERNAL_MANAGED).equals(fileDbVO.getStorage()) && fileDbVO.getPid() == null) {
+              URI uri = UriBuilder.getItemComponentLink(latestVersion.getObjectId(), latestVersion.getVersionNumber(),
+                  fileDbVO.getObjectId(), fileDbVO.getName());
+              fileDbVO.setPid("hdl:" + pidService.createPid(uri).getIdentifier());
+            }
+          } catch (URISyntaxException | TechnicalException | UnsupportedEncodingException e) {
+            logger.error("Error creating PID for file [" + fileDbVO.getObjectId() + "] part of the item ["
+                + latestVersion.getObjectIdAndVersion() + "]", e);
+            throw new IngeTechnicalException("Error creating PID for item [" + latestVersion.getObjectIdAndVersion() + "]", e);
+          }
         }
       }
     }
@@ -812,17 +811,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       GenericServiceImpl.handleDBException(e);
     }
 
-
     createAuditEntry(latestVersion, auditEventType);
-
-
 
     reindex(latestVersion);
     sendEventTopic(latestVersion, aaMethod);
+
     return latestVersion;
   }
-
-
 
   private void validate(ItemVersionVO pubItem)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
