@@ -66,6 +66,8 @@ public class PropertyReader {
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
+  public static final String INGE_AUTH_MPG_IP_LIST_URL = "inge.auth.mpg.ip.url";
+  public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";
   public static final String INGE_CONE_DATABASE_NAME = "inge.cone.database.name";
   public static final String INGE_CONE_DATABASE_SERVER_NAME = "inge.cone.database.server.name";
@@ -268,8 +270,6 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
-  public static final String INGE_AUTH_MPG_IP_LIST_URL = "inge.auth.mpg.ip.url";
-
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";
