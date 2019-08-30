@@ -79,12 +79,6 @@ public class ExportItemsSessionBean extends FacesBean {
   private String emailAuthPwdProp = "";
   private String citationStyleName = "";
 
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME = "inge.email.mailservername";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER = "inge.email.sender";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION = "inge.email.withauthentication";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER = "inge.email.authenticationuser";
-  private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD = "inge.email.authenticationpwd";
-
   public ExportItemsSessionBean() {
     this.init();
   }
@@ -92,11 +86,11 @@ public class ExportItemsSessionBean extends FacesBean {
   public void init() {
     try {
       this.curExportFormatVO = new ExportFormatVO(TransformerFactory.ENDNOTE);
-      this.emailSenderProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SENDER);
-      this.emailServernameProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME);
-      this.emailWithAuthProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_WITHAUTHENTICATION);
-      this.emailAuthUserProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHUSER);
-      this.emailAuthPwdProp = PropertyReader.getProperty(this.PROPERTY_PREFIX_FOR_EMAILSERVICE_AUTHPWD);
+      this.emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
+      this.emailServernameProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_MAILSERVERNAME);
+      this.emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
+      this.emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
+      this.emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
     } catch (final Exception e) {
       ExportItemsSessionBean.logger.warn("Propertyfile not readable for emailserver  properties'");
     }
