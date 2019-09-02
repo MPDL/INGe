@@ -1050,7 +1050,7 @@
 		<inge.search.and.export.default.sort.key>metadata.title.keyword</inge.search.and.export.default.sort.key>
 		<inge.search.and.export.default.sort.order>ascending</inge.search.and.export.default.sort.order>
 		<inge.search.and.export.max.limit>5000</inge.search.and.export.max.limit>
-		<inge.search.and.export.maximum.records>50</inge.search.and.export.maximum.records>
+		<inge.search.and.export.maximum.records>5000</inge.search.and.export.maximum.records>
 		<inge.search.and.export.start.record>0</inge.search.and.export.start.record>
 		<inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-component.xsl</inge.transformation.arxiv2escidoc_publication_component.stylesheet.filename>
 		<inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>transformations/thirdParty/xslt/arxiv2escidoc-publication-item.xsl</inge.transformation.arxiv2escidoc_publication_item.stylesheet.filename>
