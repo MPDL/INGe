@@ -31,57 +31,51 @@ public class MpgIpListProvider implements IpListProvider {
 
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
-    logger.info("CRON: (re-)initializing IP List");
-    HttpURLConnection conn = null;
+    if (PropertyReader.INGE_AUTH_MPG_IP_LIST_USE.equalsIgnoreCase("true")) {
+      logger.info("CRON: (re-)initializing IP List");
+      HttpURLConnection conn = null;
 
-    try {
-      URL url = new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_URL));
+      try {
+        URL url = new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_URL));
 
-      conn = (HttpURLConnection) url.openConnection();
-      conn.setReadTimeout(60 * 1000);
+        conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(60 * 1000);
 
+        try (Scanner scanner = new Scanner(conn.getInputStream())) {
+          Map<String, IpRange> ipRangeMap = new HashMap<>();
+          //Add entry for whole MPG
+          ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", " Max Planck Society (every institute)", new ArrayList<>()));
+          scanner.nextLine();
+          while (scanner.hasNext()) {
+            List<String> line = CSVUtils.parseLine(scanner.nextLine(), ';');
+            String id = line.get(2);
+            if (id.matches("\\d+")) {
+              //Add every range for whole MPG
+              ipRangeMap.get("mpg").getIpRanges().add(line.get(1));
 
-      try (Scanner scanner = new Scanner(conn.getInputStream())) {
-
-        Map<String, IpRange> ipRangeMap = new HashMap<>();
-        //Add entry for whole MPG
-        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", " Max Planck Society (every institute)", new ArrayList<>()));
-        scanner.nextLine();
-        while (scanner.hasNext()) {
-          List<String> line = CSVUtils.parseLine(scanner.nextLine(), ';');
-          String id = line.get(2);
-          if (id.matches("\\d+")) {
-            //Add every range for whole MPG
-            ipRangeMap.get("mpg").getIpRanges().add(line.get(1));
-
-            if (ipRangeMap.containsKey(id)) {
-              ipRangeMap.get(id).getIpRanges().add(line.get(1));
+              if (ipRangeMap.containsKey(id)) {
+                ipRangeMap.get(id).getIpRanges().add(line.get(1));
+              } else {
+                List<String> ipList = new ArrayList<>();
+                ipList.add(line.get(1));
+                ipRangeMap.put(id, new IpListProvider.IpRange(id, line.get(4) + ", " + line.get(3), ipList));
+              }
             } else {
-              List<String> ipList = new ArrayList<>();
-              ipList.add(line.get(1));
-              ipRangeMap.put(id, new IpListProvider.IpRange(id, line.get(4) + ", " + line.get(3), ipList));
+              logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
             }
-          } else {
-            logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
           }
-
-
+          this.ipRangeMap = ipRangeMap;
+          logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
         }
-        this.ipRangeMap = ipRangeMap;
-        logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
-
-      }
-
-
-
-    } catch (Exception e) {
-      logger.error("Problem with parsing ip list file", e);
-    } finally {
-      if (conn != null) {
-        conn.disconnect();
-      }
-      if (ipRangeMap == null || ipRangeMap.isEmpty()) {
-        logger.warn("No IP RANGES found! - List is empty");
+      } catch (Exception e) {
+        logger.error("Problem with parsing ip list file", e);
+      } finally {
+        if (conn != null) {
+          conn.disconnect();
+        }
+        if (ipRangeMap == null || ipRangeMap.isEmpty()) {
+          logger.warn("No IP RANGES found! - List is empty");
+        }
       }
     }
   }
@@ -110,6 +104,5 @@ public class MpgIpListProvider implements IpListProvider {
 
     return null;
   }
-
 
 }

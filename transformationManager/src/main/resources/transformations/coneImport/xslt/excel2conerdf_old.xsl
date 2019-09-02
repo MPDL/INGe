@@ -31,22 +31,22 @@
 	
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:param name="ou-url" select="'http://pure.mpg.de'"/>
-	<xsl:param name="cone-url" select="'http://pure.mpg.de/cone'"/>
-	<xsl:param name="import-name" select="'TestImport'"/>
+	<xsl:param name="ou-url" select="'http://migration-pubman.mpdl.mpg.de'"/>
+	<xsl:param name="cone-url" select="'http://migration-pubman.mpdl.mpg.de/cone'"/>
+	<xsl:param name="import-name"/>
 	<xsl:param name="external-ou-id" select="'persistent:22'"/>
-	<xsl:param name="user" select="'TestUser'"/>
+	<xsl:param name="user" select="'administrator'"/>
 	
-	<xsl:variable name="ou-list" select="document(concat($ou-url, '/rest/ous/xml?from=0&amp;size=5000'))"/>
+	<xsl:variable name="ou-list" select="document(concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000'))"/>
 	<xsl:variable name="cone-list" select="document(concat($cone-url, '/persons/all?format=rdf'))"/>
 
 	<xsl:template match="/">
 		<rdf:RDF>
 			<xsl:comment>Found <xsl:value-of select="count(//excel:Row)"/> rows.</xsl:comment>
 			<xsl:comment>
-				<xsl:value-of select="concat($ou-url, '/rest/ous/xml?from=0&amp;size=5000')"/>
+				<xsl:value-of select="concat($ou-url, '/srw/search/escidocou_all?query=(escidoc.objid=e*)&amp;maximumRecords=10000')"/>
 				<xsl:text> - </xsl:text>
-				<xsl:value-of select="count($ou-list/root/records/record)"/>
+				<xsl:value-of select="count($ou-list//srw:record)"/>
 			</xsl:comment>
 			
 			<!-- Check if there are more than one worksheets -->
@@ -268,7 +268,7 @@
 		<escidoc:position>
 			<rdf:Description>
 				<xsl:variable name="escidoc-ou">
-					<xsl:value-of select="$ou-list/root/records/record[normalize-space(name) = $ouname]/objectId"/>
+					<xsl:value-of select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record[normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = $ouname or normalize-space(srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/mdr:md-records/mdr:md-record/mdou:organizational-unit/dcterms:alternative[1]) = $ouname]/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 				</xsl:variable>
 				<xsl:text>&#xa;</xsl:text>
 				<xsl:comment>Found ID: "<xsl:value-of select="$escidoc-ou"/>" for Name: "<xsl:value-of select="$ouname"/>"</xsl:comment>
@@ -305,24 +305,24 @@
 		<xsl:param name="familyname"/>
 		<xsl:param name="givenname"/>
 		<xsl:param name="ouname"/>
-		<xsl:variable name="ou" select="$ou-list/root/records/record[objectId = $id]"/>
+		<xsl:variable name="ou" select="$ou-list/srw:searchRetrieveResponse/srw:records/srw:record/srw:recordData/search-result:search-result-record/organizational-unit:organizational-unit[substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/') = $id]"/>
 		<xsl:choose>
 			<xsl:when test="$ouname != ''">
 				<xsl:value-of select="$ouname"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="normalize-space($ou/name)"/>
+				<xsl:value-of select="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title)"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		<xsl:if test="normalize-space($ou/name) = '' and not($import-name = 'MPIDynamics')">
+		<xsl:if test="normalize-space($ou/mdr:md-records/mdr:md-record/mdou:organizational-unit/dc:title) = '' and not($import-name = 'MPIDynamics')">
 			<xsl:message>ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/></xsl:message>
 			ERROR with "<xsl:value-of select="$ouname"/>" for <xsl:value-of select="$familyname"/>,  <xsl:value-of select="$givenname"/> at <xsl:value-of select="$id"/>
 		</xsl:if>
 		<xsl:choose>
-			<xsl:when test="exists($ou/parent) and $ou/parent != ''">
+			<xsl:when test="exists($ou/organizational-unit:parents/srel:parent)">
 				<xsl:text>, </xsl:text>
 				<xsl:call-template name="get-ou-path">
-					<xsl:with-param name="id" select="$ou-list/root/records/record[normalize-space(name) = $ou/parent]/objectId"/>
+					<xsl:with-param name="id" select="$ou/organizational-unit:parents/srel:parent[1]/substring-after(substring-after(substring-after(@xlink:href, '/'), '/'), '/')"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>

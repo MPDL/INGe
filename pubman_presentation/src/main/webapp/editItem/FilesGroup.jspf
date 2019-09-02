@@ -111,7 +111,7 @@
 								pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}" title="#{tip.DateFormatDescription}" />
 						</h:panelGroup>
 
-						<h:panelGroup styleClass="free_area0 tiny_marginRIncl endline" rendered="#{fileVar.file.visibility=='AUDIENCE' }">
+						<h:panelGroup styleClass="free_area0 tiny_marginRIncl endline" rendered="#{fileVar.file.visibility=='AUDIENCE' and EditItem.ipListReady=='true'}">
 							<h:outputLabel id="txtFileAudienceIds" styleClass="xDouble_label" value="#{lbl.EditItem_lblFileAudienceIps}" />
 
 							<ui:repeat var="ip" value="#{fileVar.file.allowedAudienceIds}" varStatus="status">

@@ -66,6 +66,8 @@ public class PropertyReader {
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
+  public static final String INGE_AUTH_MPG_IP_LIST_URL = "inge.auth.mpg.ip.url";
+  public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";
   public static final String INGE_CONE_DATABASE_NAME = "inge.cone.database.name";
   public static final String INGE_CONE_DATABASE_SERVER_NAME = "inge.cone.database.server.name";
@@ -93,6 +95,7 @@ public class PropertyReader {
   public static final String INGE_DOI_SERVICE_CREATE_URL = "inge.doi.service.create.url";
   public static final String INGE_DOI_SERVICE_PASSWORD = "inge.doi.service.password";
   public static final String INGE_DOI_SERVICE_URL = "inge.doi.service.url";
+  public static final String INGE_DOI_SERVICE_USE = "inge.doi.service.use";
   public static final String INGE_DOI_SERVICE_USER = "inge.doi.service.user";
   public static final String INGE_EMAIL_AUTHENTICATIONPWD = "inge.email.authenticationpwd";
   public static final String INGE_EMAIL_AUTHENTICATIONUSER = "inge.email.authenticationuser";
@@ -131,6 +134,7 @@ public class PropertyReader {
   public static final String INGE_PID_SERVICE_PASSWORD = "inge.pid.service.password";
   public static final String INGE_PID_SERVICE_TIMEOUT = "inge.pid.service.timeout";
   public static final String INGE_PID_SERVICE_URL = "inge.pid.service.url";
+  public static final String INGE_PID_SERVICE_USE = "inge.pid.service.use";
   public static final String INGE_PID_SERVICE_USER = "inge.pid.service.user";
   public static final String INGE_PUBMAN_BLOG_BASEURL = "inge.pubman.blog.baseUrl";
   public static final String INGE_PUBMAN_BLOG_NEWS = "inge.pubman.blog.news";
@@ -266,8 +270,6 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
   public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
-  public static final String INGE_AUTH_MPG_IP_LIST_URL = "inge.auth.mpg.ip.url";
-
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";

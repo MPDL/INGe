@@ -941,6 +941,14 @@ public class EditItem extends FacesBean {
     return this.getI18nHelper().getSelectItemsInvitationStatus(true);
   }
 
+  public String getIpListReady() {
+    if (PropertyReader.INGE_AUTH_MPG_IP_LIST_USE.equalsIgnoreCase("true")) {
+      return "true";
+    }
+
+    return "false";
+  }
+
   public List<SelectItem> getAudienceIpListSelectItems() {
 
     List<SelectItem> ipRangeSelectItems = new ArrayList<>();
