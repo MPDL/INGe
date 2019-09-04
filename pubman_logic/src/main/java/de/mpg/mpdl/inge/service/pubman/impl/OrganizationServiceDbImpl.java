@@ -31,6 +31,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -47,6 +48,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   public final static String INDEX_OBJECT_ID = "objectId";
   public final static String INDEX_METADATA_TITLE = "metadata.name";
+  public final static String INDEX_METADATA_TITLE_KEYWORD = "metadata.name.keyword";
   public final static String INDEX_METADATA_ALTERNATIVE_NAMES = "metadata.alternativeNames";
   public final static String INDEX_METADATA_CITY = "metadata.city";
   public final static String INDEX_PARENT_AFFILIATIONS_OBJECT_ID = "parentAffiliation.objectId";
@@ -81,7 +83,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     final QueryBuilder qb = QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
+        new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
+            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC)});
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
@@ -98,7 +102,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     final QueryBuilder qb = QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
-    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
+        new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
+            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC)});
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
@@ -135,13 +141,13 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
     } while (resp.getHits().getHits().length != 0);
 
-    //    StringBuilder sb = new StringBuilder();
-    //    sb.append(ouId + " size children: " + listHits.size() + " -> ");
-    //    for (SearchHit hit : listHits) {
-    //      sb.append((String) hit.field(INDEX_OBJECT_ID).getValue());
-    //      sb.append(" ");
-    //    }
-    //    logger.info(sb.toString());
+    // StringBuilder sb = new StringBuilder();
+    // sb.append(ouId + " size children: " + listHits.size() + " -> ");
+    // for (SearchHit hit : listHits) {
+    // sb.append((String) hit.field(INDEX_OBJECT_ID).getValue());
+    // sb.append(" ");
+    // }
+    // logger.info(sb.toString());
 
     if (listHits.size() > 0) {
       for (SearchHit hit : listHits) {
@@ -151,13 +157,13 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     idList.add(ouId);
 
-    //    sb = new StringBuilder();
-    //    sb.append(ouId + ": ");
-    //    for (String id : idList) {
-    //      sb.append(id);
-    //      sb.append(" ");
-    //    }
-    //    logger.info(sb.toString());
+    // sb = new StringBuilder();
+    // sb.append(ouId + ": ");
+    // for (String id : idList) {
+    // sb.append(id);
+    // sb.append(" ");
+    // }
+    // logger.info(sb.toString());
   }
 
   @Override

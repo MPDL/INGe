@@ -242,7 +242,7 @@ public class AffiliationVOPresentation extends AffiliationDbVO implements Compar
   }
 
   public boolean getIsClosed() {
-    return this.getPublicStatus().equals("closed");
+    return AffiliationDbVO.State.CLOSED.equals(this.getPublicStatus());
   }
 
   @Override

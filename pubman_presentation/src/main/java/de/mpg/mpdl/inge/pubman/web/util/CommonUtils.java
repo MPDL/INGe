@@ -437,14 +437,16 @@ public class CommonUtils {
    */
   public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationDbVO> list) {
     final List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
-
     for (int i = 0; i < list.size(); i++) {
-      affiliationList.add(new AffiliationVOPresentation(list.get(i)));
+      if (list.get(i) != null
+          && PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID).equals(list.get(i).getObjectId())) {
+        affiliationList.add(0, new AffiliationVOPresentation(list.get(i)));
+      } else {
+        affiliationList.add(new AffiliationVOPresentation(list.get(i)));
+      }
     }
-    final AffiliationVOPresentation[] affiliationArray = affiliationList.toArray(new AffiliationVOPresentation[] {});
-    Arrays.sort(affiliationArray);
 
-    return Arrays.asList(affiliationArray);
+    return affiliationList;
   }
 
   public static String currentDate() {
