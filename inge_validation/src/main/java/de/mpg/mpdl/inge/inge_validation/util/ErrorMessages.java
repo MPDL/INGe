@@ -39,6 +39,7 @@ public class ErrorMessages {
   public static final String EVENT_END_DATE_REQUIRED = "EventEndDateRequired";
   public static final String GENRE_NOT_PROVIDED = "GenreNotProvided";
   public static final String ID_TYPE_NOT_PROVIDED = "IdTypeNotProvided";
+  public static final String INCORRECT_ID_DOI_FORMAT = "IncorrectIdDoiFormat";
   public static final String INCORRECT_ISO639_3_CLASSIFICATION = "IncorrectISO6393Classification";
   public static final String INCORRECT_DDC_CLASSIFICATION = "IncorrectDDCClassification";
   public static final String INCORRECT_JEL_CLASSIFICATION = "IncorrectJELClassification";

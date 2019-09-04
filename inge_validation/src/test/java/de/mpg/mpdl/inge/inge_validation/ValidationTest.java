@@ -24,7 +24,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.CreatorsWithOrganisationRequir
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredAndFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceRequiredValidator;
@@ -605,7 +605,8 @@ public class ValidationTest {
     i2.setId("blubb");
     this.mdsPublicationVO.getIdentifiers().add(i2);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator());
+    final FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredAndFormatValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 
@@ -627,7 +628,8 @@ public class ValidationTest {
     i.setType(IdType.ARXIV);
     this.mdsPublicationVO.getIdentifiers().add(i);
 
-    final FluentValidator v = FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator());
+    final FluentValidator v =
+        FluentValidator.checkAll().on(this.pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredAndFormatValidator());
 
     final ComplexResult complexResult = v.doValidate().result(com.baidu.unbiz.fluentvalidator.ResultCollectors.toComplex());
 

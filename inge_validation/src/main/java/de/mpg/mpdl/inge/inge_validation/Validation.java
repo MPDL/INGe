@@ -26,7 +26,7 @@ import de.mpg.mpdl.inge.inge_validation.validator.CreatorsWithOrganisationRequir
 import de.mpg.mpdl.inge.inge_validation.validator.DateRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.EventTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.GenreRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredValidator;
+import de.mpg.mpdl.inge.inge_validation.validator.IdTypeRequiredAndFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.MdsPublicationDateFormatValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsNameRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.SourceCreatorsRoleRequiredValidator;
@@ -104,7 +104,7 @@ public class Validation {
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
             .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredAndFormatValidator()) //
             .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
@@ -138,7 +138,7 @@ public class Validation {
             .on(pubItemVO.getMetadata(), new DateRequiredValidator()) //
             .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
-            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredAndFormatValidator()) //
             .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
             .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
             .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //

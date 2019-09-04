@@ -16,9 +16,11 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
  * <iso:pattern name="id_type_required" id="id_type_required"> <iso:rule
  * context="publication:publication/dc:identifier"> <iso:assert test=". = '' or not(.) or @xsi:type
  * != ''"> IdTypeNotProvided</iso:assert> </iso:rule> </iso:pattern>
+ * 
+ * Additionally checking the format of specific IDs now
  */
 
-public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>> implements Validator<List<IdentifierVO>> {
+public class IdTypeRequiredAndFormatValidator extends ValidatorHandler<List<IdentifierVO>> implements Validator<List<IdentifierVO>> {
 
   @Override
   public boolean validate(ValidatorContext context, List<IdentifierVO> identifiers) {
@@ -31,11 +33,16 @@ public class IdTypeRequiredValidator extends ValidatorHandler<List<IdentifierVO>
       for (final IdentifierVO identifierVO : identifiers) {
 
         if (identifierVO != null) {
-          if (ValidationTools.isNotEmpty(identifierVO.getId()) //
-              && identifierVO.getType() == null) {
-            context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField("identifier[" + i + "]"));
-            ok = false;
-          }
+          if (ValidationTools.isNotEmpty(identifierVO.getId())) //
+            if (identifierVO.getType() == null) {
+              context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField("identifier[" + i + "]"));
+              ok = false;
+            } else { // Check format of the IDs
+              if (IdentifierVO.IdType.DOI.equals(identifierVO.getType()) && identifierVO.getId().startsWith("https://doi.org")) {
+                context.addError(ValidationError.create(ErrorMessages.INCORRECT_ID_DOI_FORMAT).setField("identifier[" + i + "]"));
+                ok = false;
+              }
+            }
         }
 
         i++;
