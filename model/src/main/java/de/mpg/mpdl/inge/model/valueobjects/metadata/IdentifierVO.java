@@ -60,6 +60,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
    */
   public enum IdType
   {
+    ADS("https://archive.org/services/purl/domain/ads"),
     ARXIV("http://purl.org/escidoc/metadata/terms/0.1/ARXIV"), //
     BIBTEX_CITEKEY("http://purl.org/escidoc/metadata/terms/0.1/BIBTEX-CITEKEY"), //
     BMC("http://purl.org/escidoc/metadata/terms/0.1/BMC"), //
