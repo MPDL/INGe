@@ -1024,7 +1024,7 @@ body .activeButton.disabled:hover {
 	color: #BE0031;
 }
 .mandatory {
-	/*	color: #BE0031; */
+	font-weight: bold;
 }
 /***** GLOBAL ELEMENTS *****/
 .searchHit {

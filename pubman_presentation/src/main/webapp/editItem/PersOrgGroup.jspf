@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<h:panelGroup layout="block" id="editPerson"
 		styleClass="full_area0 itemBlock"
 		rendered="#{EditItem.pubItem!=null and !(genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'full-submission' || genre.creator_person_organization_display == 'false' and genre.creator_person_organization_form_id == 'all')}">
@@ -71,16 +71,19 @@
 				<span class="clearLeft xLarge_area0_p8 endline blockHeader">&#160;</span>
 				<h:panelGroup styleClass="xHuge_area0 xTiny_marginLExcl endline"
 					rendered="#{!(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
-					<h:outputText styleClass="small_area0"
+
+					<h:outputText styleClass="small_area0 mandatory"
 						value="#{genre.creator_person_organization_creator_select_roles_label}"
 						converter="GenreLabelConverter" />
 					<h:outputText styleClass="small_area0"
 						value="#{genre.creator_person_organization_creator_select_roles_creator_type_label}"
 						converter="GenreLabelConverter" />
-					<h:outputText styleClass="large_area0"
+
+					<h:outputText styleClass="large_area0 mandatory"
 						value="#{genre.creator_person_organization_creator_persons_person_family_name_label}"
 						converter="GenreLabelConverter"
 						rendered="#{!(genre.creator_person_organization_creator_persons_person_family_name_display == 'false' and genre.creator_person_organization_creator_persons_person_family_name_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_person_family_name_display == 'false' and genre.creator_person_organization_creator_persons_person_family_name_form_id == 'all')}" />
+
 					<h:outputText styleClass="large_area0"
 						value="#{genre.creator_person_organization_creator_persons_person_given_name_label}"
 						converter="GenreLabelConverter"
@@ -91,9 +94,8 @@
 					<h:outputText styleClass="medium_area0" value=" " />
 				</h:panelGroup>
 				<!-- Start iteration of authors input -->
-				<span class="full_area0 marginTExcl6p"
-					id="iterCreatorOrganisationAuthors"> <ui:repeat
-						var="creator" value="#{EditItemSessionBean.creators}">
+				<span class="full_area0" id="iterCreatorOrganisationAuthors">
+					<ui:repeat var="creator" value="#{EditItemSessionBean.creators}">
 						<h:panelGroup layout="block"
 							styleClass="full_area0 suggestAnchor endline">
 							<!-- Creator person family name, Creator person given name -->
@@ -301,7 +303,8 @@
 						<span class="large_area0 clear">&#160;</span>
 						<h:outputText styleClass="xSmall_area0 xSmall_marginLExcl"
 							value="" />
-						<h:outputText styleClass="huge_area0 xSmall_marginLExcl"
+
+						<h:outputText styleClass="huge_area0 xSmall_marginLExcl mandatory"
 							value="#{lbl.EditItem_lblOrganization}" />
 						<h:outputText styleClass="xLarge_area0"
 							value="#{lbl.EditItem_lblOrganizationAddress}" />
@@ -360,5 +363,5 @@
 			</h:panelGroup>
 		</div>
 	</h:panelGroup>
-	
+
 </ui:composition>

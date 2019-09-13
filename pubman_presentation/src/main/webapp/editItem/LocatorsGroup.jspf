@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 	<h:panelGroup layout="block" id="editLocator"
 		styleClass="full_area0 itemBlock"
 		rendered="#{EditItem.pubItem!=null and  !(genre.locators_display == 'false' and genre.locators_form_id == 'full-submission' || genre.locators_display == 'false' and genre.locators_form_id == 'all')}">
@@ -24,9 +24,9 @@
 					styleClass="free_area0 endline itemLine noTopBorder"
 					rendered="#{(locator.locator == null || locator.locator == '') and locator.index == 0 }">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-							rendered="#{genre.locators_optional != 'true'}" />
-						<h:outputText value="#{lbl.EditItem_lblLocator}"
+							title="#{msg.mandatoryField}" value="*"
+							rendered="#{genre.locators_optional != 'true'}" /> <h:outputText
+							value="#{lbl.EditItem_lblLocator}"
 							rendered="#{genre.locators_display != 'false'}" /><span
 						class="noDisplay">: </span>
 					</b>
@@ -48,8 +48,8 @@
 					rendered="#{(locator.locator == null || locator.locator == '') and locator.index > 0 }">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
 							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-							rendered="#{genre.locators_optional != 'true'}" />
-						<h:outputText value="#{lbl.EditItem_lblNewLocator}" /><span
+							rendered="#{genre.locators_optional != 'true'}" /> <h:outputText
+							styleClass="mandatory" value="#{lbl.EditItem_lblNewLocator}" /><span
 						class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLabel
@@ -82,14 +82,10 @@
 					<h:panelGroup layout="block"
 						styleClass="free_area0 endline itemLine noTopBorder"
 						rendered="#{(locator.locator != null and locator.locator != '')}">
-						<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-								styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-								rendered="#{genre.locators_component_content_category_optional != 'true'}" />
-							<h:outputText
-								value="#{genre.locators_component_content_category_label}"
-								converter="GenreLabelConverter" /><span class="noDisplay">:
-						</span>
-						</b>
+						<h:outputText
+							styleClass="xLarge_area0_p8 endline labelLine clear mandatory"
+							value="#{genre.locators_component_content_category_label}"
+							converter="GenreLabelConverter" />
 						<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
 							<h:panelGroup layout="block"
 								styleClass="double_area1 endline selectContainer">
@@ -99,7 +95,8 @@
 										styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 								</h:panelGroup>
 								<h:selectOneMenu id="selLocatorContentCategory"
-									styleClass="replace" value="#{locator.contentCategoryAsXmlString}"
+									styleClass="replace"
+									value="#{locator.contentCategoryAsXmlString}"
 									onfocus="updateSelectionBox(this);"
 									onchange="updateSelectionBox(this);">
 									<f:selectItems value="#{EditItem.contentCategories}" />
@@ -116,19 +113,16 @@
 					styleClass="free_area0 endline itemLine noTopBorder"
 					rendered="#{(locator.locator != null and locator.locator != '')}">
 					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-							rendered="false" />
-						<h:outputText value="#{lbl.EditItem_lblFileProperties}" /><span
+							title="#{msg.mandatoryField}" value="*" rendered="false" /> <h:outputText
+							value="#{lbl.EditItem_lblFileProperties}" /><span
 						class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:panelGroup
 							styleClass="xDouble_area0 tiny_marginRIncl"
 							rendered="#{!(genre.locators_component_name_display == 'false' and genre.locators_component_name_form_id == 'full-submission' || genre.locators_component_name_display == 'false' and genre.locators_component_name_form_id == 'all')}">
-							<label class="xDouble_label"><span class="mandatory"
-								title="#{msg.mandatoryField}"><h:outputText value="*"
-										rendered="#{genre.files_component_name_optional != 'true'}" /></span>
-							<h:outputText value="#{genre.locators_component_name_label}"
-									converter="GenreLabelConverter" /></label>
+							<h:outputText styleClass="mandatory"
+								value="#{genre.locators_component_name_label}"
+								converter="GenreLabelConverter" />
 							<h:inputText id="inpLocatorName" styleClass="xDouble_txtInput"
 								value="#{locator.file.metadata.title}" />
 						</h:panelGroup>
@@ -141,7 +135,7 @@
 					<h:panelGroup
 						rendered="#{!(genre.locators_component_description_display == 'false' and genre.locators_component_description_form_id == 'full-submission' || genre.locators_component_description_display == 'false' and genre.locators_component_description_form_id == 'all')}">
 						<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-								styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
+								title="#{msg.mandatoryField}" value="*"
 								rendered="#{genre.locators_component_description_optional != 'true'}" /><span
 							class="noDisplay"> </span>
 						</b>
@@ -174,5 +168,5 @@
 			</ui:repeat>
 		</div>
 	</h:panelGroup>
-	
+
 </ui:composition>

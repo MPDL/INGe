@@ -739,10 +739,9 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 }
 
 /*MANDATORY FIELD*/
-	.mandatory {
-/*		color: #FF7F00;
+.mandatory {
 		font-weight: bold;
-*/	}
+}
 	
 /*UNDER REWORK*/
 

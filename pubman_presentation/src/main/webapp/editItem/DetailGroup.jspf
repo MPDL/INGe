@@ -4,7 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
-	
+
 	<h:panelGroup layout="block" id="editDetail"
 		styleClass="full_area0 itemBlock"
 		rendered="#{EditItem.pubItem!=null and !(genre.details_display == 'false' and genre.details_form_id == 'full-submission' || genre.details_display == 'false' and genre.details_form_id == 'all')}">
@@ -62,11 +62,9 @@
 			<h:panelGroup layout="block"
 				styleClass="free_area0 endline itemLine noTopBorder"
 				rendered="#{!(genre.details_item_details_dates_display == 'false' and genre.details_item_details_dates_form_id == 'full-submission' || genre.details_item_details_dates_display == 'false' and genre.details_item_details_dates_form_id == 'all')}">
-				<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-						styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-						rendered="#{genre.details_item_details_dates_optional != 'true'}" /><span
-					class="noDisplay"> </span>
-				</b>
+				<h:outputText
+					styleClass="xLarge_area0_p8 endline labelLine clear mandatory"
+					value="#{lbl.EditItem_lblDates}" />
 				<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:panelGroup
 						styleClass="large_area0 tiny_marginRIncl showAll"
 						rendered="#{!(genre.details_item_details_dates_item_date_issued_display == 'false' and genre.details_item_details_dates_item_date_issued_form_id == 'full-submission' || genre.details_item_details_dates_item_date_issued_display == 'false' and genre.details_item_details_dates_item_date_issued_form_id == 'all')}">
