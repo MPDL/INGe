@@ -91,7 +91,7 @@
 			<xsl:with-param name="content" select="Util:stripHtml(.)"/>
 		</xsl:call-template>
 	</xsl:template>
-	<xsl:template match="pub:publication/eterms:creator[@role!=($creator-ves/enum[.='referee']/@uri)]/person:person">
+	<xsl:template match="pub:publication/eterms:creator[@role!=($creator-ves/enum[.='referee']/@uri) and @role!=($creator-ves/enum[.='advisor']/@uri) and @role!=($creator-ves/enum[.='honoree']/@uri) and @role!=($creator-ves/enum[.='translator']/@uri) and @role!=($creator-ves/enum[.='transcriber']/@uri)  and @role!=($creator-ves/enum[.='contributor']/@uri)]/person:person">
 		<xsl:call-template name="createMetatag">
 			<xsl:with-param name="name" select="$key-author"/>
 			<xsl:with-param name="content" select="concat(eterms:family-name, ', ', eterms:given-name)"/>

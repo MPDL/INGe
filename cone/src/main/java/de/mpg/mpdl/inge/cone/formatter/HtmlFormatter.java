@@ -181,15 +181,18 @@ public class HtmlFormatter extends AbstractFormatter {
 
       String searchId = ConeUtils.convertConeId2EsId(id);
 
-      postData.append("{");
-      postData.append(" \"query\": {\"bool\": {\"must\": [");
-      postData.append("     {\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},");
-      postData.append("     {\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},");
-      postData.append("     {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}}");
-      postData.append(" ]}},");
-      postData.append(" \"sort\": [");
-      postData.append("     {\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}");
-      postData.append(" ]");
+      postData.append("{\"query\": {\"bool\": {\"must\": [");
+      postData.append("    {\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},");
+      postData.append("    {\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},");
+      postData.append("    {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}}");
+      postData.append("], \"must_not\": {\"bool\": {\"filter\": [");
+      postData.append("    {\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}},");
+      postData.append("    {\"term\": {\"metadata.creators.role\": {\"value\": \"ADVISOR\"}}},");
+      postData.append("    {\"term\": {\"metadata.creators.role\": {\"value\": \"HONOREE\"}}},");
+      postData.append("    {\"term\": {\"metadata.creators.role\": {\"value\": \"REFEREE\"}}}");
+      postData.append("]}}}},\"sort\": [");
+      postData.append("    {\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}");
+      postData.append("]"); // Do not close surrounding } this is done automatically during the pagination
 
       String itemLink = //
           PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
