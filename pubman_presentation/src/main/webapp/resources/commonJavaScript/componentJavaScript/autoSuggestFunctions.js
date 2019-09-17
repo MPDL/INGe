@@ -61,7 +61,12 @@ function getJournalDetails(details) {
                 if (typeof autopasteDelimiter && identifierType != 'undefined') {
                     allIDs += identifierType + '|';
                 }
-                allIDs += identifierValue;
+                if (idenfierValue.includes('/journals/resource/')) {
+                  allIDs += idenfierValue.substring(idenfierValue.indexOf('/journals/resource/'), idenfierValue.length);
+                }
+                else {
+                  allIDs += identifierValue;
+                }
             }
         } else {
             var identifierType = identifier['http_www_w3_org_2001_XMLSchema_instance_type'];
@@ -78,7 +83,12 @@ function getJournalDetails(details) {
         if (allIDs != '' || allIDs != 'undefined') {
             allIDs += autopasteDelimiter;
         }
-        allIDs += 'http://purl.org/escidoc/metadata/terms/0.1/CONE|' + globalId;
+        if (globalId.includes('/journals/resource/')) {
+          allIDs += 'http://purl.org/escidoc/metadata/terms/0.1/CONE|' + globalId.substring(globalId.indexOf('/journals/resource/'), globalId.length);
+        }
+        else {
+          allIDs += 'http://purl.org/escidoc/metadata/terms/0.1/CONE|' + globalId;
+        }
     }
 
     fillField('journalSuggest', title, parent);
