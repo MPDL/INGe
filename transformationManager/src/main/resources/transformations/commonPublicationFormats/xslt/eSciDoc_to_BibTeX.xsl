@@ -120,12 +120,14 @@
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:value-of select="concat('@', $entryType, '{')"/>
-		<xsl:value-of select="jfunc:texString($cite-key)"/>
+		<xsl:value-of select="$cite-key"/>
 		<xsl:value-of select="','"/>
 		<xsl:text disable-output-escaping="yes">&#xD;&#xA;</xsl:text>
 		<!-- line break -->
 		<!-- TITLE -->
 		<xsl:apply-templates select="dc:title"/>
+		<!--  ALTERNATIVE TITLE -->
+		<xsl:apply-templates select="dcterms:alternative"/>
 		<!-- CREATOR -->
 		<xsl:apply-templates select="eterms:creator[@role=$creator-ves/enum[.='author']/@uri]"/>
 		<!-- EDITOR -->
@@ -221,7 +223,21 @@
 	</xsl:template>
 	<!-- END createEntry -->
 	<xsl:template match="dc:title">
-		<xsl:if test=".!=''">
+	
+		<xsl:if test=".!='' and (not(./../dcterms:alternative[@xsi:type='eterms:LATEX']) or ./../dcterms:alternative[@xsi:type='eterms:LATEX'] = '')" >
+			<xsl:variable name="titleWithoutTags">
+				<xsl:call-template name="removeSubSup">
+					<xsl:with-param name="elem" select="."/>
+				</xsl:call-template>
+			</xsl:variable>
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'title'"/>
+				<xsl:with-param name="xpath" select="concat(normalize-space($titleWithoutTags), '')"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
+	<xsl:template match="dcterms:alternative">
+		<xsl:if test="./@xsi:type='eterms:LATEX'" >
 			<xsl:variable name="titleWithoutTags">
 				<xsl:call-template name="removeSubSup">
 					<xsl:with-param name="elem" select="."/>
