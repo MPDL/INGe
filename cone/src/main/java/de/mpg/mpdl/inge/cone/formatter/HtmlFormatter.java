@@ -182,7 +182,16 @@ public class HtmlFormatter extends AbstractFormatter {
       String searchId = ConeUtils.convertConeId2EsId(id);
 
       // Do not close surrounding } this is done automatically during the pagination
-      postData.append("{\"query\": {\"bool\": {\"must\": [{\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}}],\"must_not\": {\"bool\": {\"should\": [{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"ADVISOR\"}}}]}},{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"HONOREE\"}}}]}},{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \"" + searchId + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"REFEREE\"}}}]}}]}}}},\"sort\": [{\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}]");
+      postData.append(
+          "{\"query\": {\"bool\": {\"must\": [{\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
+              + searchId
+              + "\"}}}],\"must_not\": {\"bool\": {\"should\": [{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
+              + searchId
+              + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"ADVISOR\"}}}]}},{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
+              + searchId
+              + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"HONOREE\"}}}]}},{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
+              + searchId
+              + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"REFEREE\"}}}]}}]}}}},\"sort\": [{\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}]");
 
       String itemLink = //
           PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) //
