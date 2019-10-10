@@ -138,6 +138,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   private FileRepository fileRepository;
 
   @Autowired
+  @Qualifier("mpgJsonIpListProvider")
   private IpListProvider ipListProvider;
 
 

@@ -144,7 +144,7 @@ public class ApplicationBean extends FacesBean {
   @ManagedProperty("#{yearbookServiceDbImpl}")
   private YearbookService yearbookService;
 
-  @ManagedProperty("#{mpgIpListProvider}")
+  @ManagedProperty("#{mpgJsonIpListProvider}")
   private IpListProvider ipListProvider;
 
   @ManagedProperty("#{itemTransformingServiceImpl}")

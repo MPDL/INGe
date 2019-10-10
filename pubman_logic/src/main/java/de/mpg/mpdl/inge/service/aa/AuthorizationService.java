@@ -15,6 +15,7 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -51,6 +52,7 @@ public class AuthorizationService {
   OrganizationService ouService;
 
   @Autowired
+  @Qualifier("mpgJsonIpListProvider")
   private IpListProvider ipListProvider;
 
 

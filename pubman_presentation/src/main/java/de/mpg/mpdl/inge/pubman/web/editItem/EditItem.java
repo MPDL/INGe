@@ -942,7 +942,7 @@ public class EditItem extends FacesBean {
   }
 
   public String getIpListReady() {
-    if (PropertyReader.INGE_AUTH_MPG_IP_LIST_USE.equalsIgnoreCase("true")) {
+    if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE).equalsIgnoreCase("true")) {
       return "true";
     }
 

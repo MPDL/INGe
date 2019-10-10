@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.LogManager;
@@ -15,75 +16,103 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
+/**
+ * @inheritDoc
+ * 
+ *             Implementation of IpListProvider for JSON EXAMPLE: { "details": [ { "100": {
+ *             "ip_ranges": [ "123.123.123.123/31", "234.123.123.123/32", ], "inst_name_de":
+ *             "Generalverwaltung der Max-Planck-Gesellschaft", "domains": [ "gv.mpg.de" ],
+ *             "inst_code": "MMGV" } }, { "200": { "domains": [ "mpdl.mpg.de" ], "inst_code":
+ *             "MMDL", "ip_ranges": [ "123.123.123.123/29", "234.123.123.123/29", ], "inst_name_de":
+ *             "Max Planck Digital Library" } } ] }
+ * 
+ * @author walter
+ *
+ */
+@Component
 public class MpgJsonIpListProvider implements IpListProvider {
 
-  private static final Logger logger = LogManager.getLogger(MpgIpListProvider.class);
-  private static Map<String, IpRange> ipRangeMap = new HashMap<>();
-  
-  public static void main (String[] args) {
-    init();
+  private static final Logger logger = LogManager.getLogger(MpgJsonIpListProvider.class);
+  private Map<String, IpRange> ipRangeMap = new HashMap<>();
+
+  public MpgJsonIpListProvider() {
+    this.init();
   }
 
+  /**
+   * initializing IpListProvider with new IP list (done continuously as CRON job
+   */
   @Scheduled(cron = "0 0 2 * * ?")
-  private static void init() {
-//    if (PropertyReader.INGE_AUTH_MPG_IP_LIST_USE.equalsIgnoreCase("true")) {
-      if (true) {
+  private void init() {
+    if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE)
+        .equalsIgnoreCase("true")) {
       logger.info("CRON: (re-)initializing IP List");
       HttpURLConnection conn = null;
 
       try {
-        URL url = new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_URL));
-
+        // Setup Connection
+        URL url =
+            new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL));
+        // URL url = new URL("https://rena.mpdl.mpg.de/iplists/keeperx_en.json");
         conn = (HttpURLConnection) url.openConnection();
         conn.setReadTimeout(60 * 1000);
-//        JSONParser jsonParser = new JSONParser();
-//        JSONObject jsonObjectComplete = (JSONObject) jsonParser
-//            .parse(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
-        BufferedReader streamReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8)); 
+        BufferedReader streamReader = new BufferedReader(
+            new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder responseStrBuilder = new StringBuilder();
         String inputStr;
         while ((inputStr = streamReader.readLine()) != null) {
-            responseStrBuilder.append(inputStr);
+          responseStrBuilder.append(inputStr);
         }
+
+        // Read response
         JSONObject jsonObjectComplete = new JSONObject(responseStrBuilder.toString());
-        // try (Scanner scanner = new Scanner(conn.getInputStream())) {
         Map<String, IpRange> ipRangeMap = new HashMap<>();
         // Add entry for whole MPG
         ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg",
             " Max Planck Society (every institute)", new ArrayList<>()));
         JSONArray jsonArray = jsonObjectComplete.getJSONArray("details");
+        // Go through JSON for every Entry/Institute
         for (int i = 0; i < jsonArray.length(); i++) {
           JSONObject jsonObject = jsonArray.getJSONObject(i);
           String id = jsonObject.keys().next();
           if (id.matches("\\d+")) {
+            JSONObject singleOrganization = jsonObject.getJSONObject(id);
+            List<String> ipList = new ArrayList<>();
+            JSONArray ipRangeArray = singleOrganization.getJSONArray("ip_ranges");
+            // Add all ip_ranges Entries for each institute
+            for (int j = 0; j < ipRangeArray.length(); j++) {
+              ipList.add(ipRangeArray.getString(j));
+            }
             // Add every range for whole MPG
-            // ipRangeMap.get("mpg").getIpRanges().add(jsonObject.getString(id));
-            System.out.println("key: " + id + " value: " + jsonObject.getString(id));
+            ipRangeMap.get("mpg").getIpRanges().addAll(ipList);
+            // Add every institute as single IP list entry
+            // Case: institute already exists
+            if (ipRangeMap.containsKey(id)) {
+              for (int j = 0; j < ipRangeArray.length(); j++) {
+                ipRangeMap.get(id).getIpRanges().add(ipRangeArray.getString(j));
+              }
+            }
+            // Case: new institute entry
+            else {
+              for (int j = 0; j < ipRangeArray.length(); j++) {
+                ipList.add(ipRangeArray.getString(j));
+              }
+              ipRangeMap.put(id,
+                  new IpListProvider.IpRange(id, singleOrganization.getString("inst_name_en") + ", "
+                      + singleOrganization.getString("inst_code"), ipList));
+            }
+          } else {
+            logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
           }
-
-          // String id = line.get(2);
-          // if (id.matches("\\d+")) {
-          // //Add every range for whole MPG
-          // ipRangeMap.get("mpg").getIpRanges().add(line.get(1));
-          //
-          // if (ipRangeMap.containsKey(id)) {
-          // ipRangeMap.get(id).getIpRanges().add(line.get(1));
-          // } else {
-          // List<String> ipList = new ArrayList<>();
-          // ipList.add(line.get(1));
-          // ipRangeMap.put(id, new IpListProvider.IpRange(id, line.get(4) + ", " + line.get(3),
-          // ipList));
-          // }
-          // } else {
-          // logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
-          // }
-          // }
-          // this.ipRangeMap = ipRangeMap;
-          // logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
         }
+        // write local ipRangeMap back to class ipRangeMap
+        this.ipRangeMap = ipRangeMap;
+        logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
       } catch (Exception e) {
         logger.error("Problem with parsing ip list file", e);
       } finally {
@@ -100,19 +129,26 @@ public class MpgJsonIpListProvider implements IpListProvider {
 
   @Override
   public IpRange get(String id) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.ipRangeMap.get(id);
   }
 
   @Override
   public Collection<IpRange> getAll() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.ipRangeMap.values();
   }
 
   @Override
   public IpRange getMatch(String adress) {
-    // TODO Auto-generated method stub
+    System.out.println("IN MATCH");
+    for (IpRange ipRange : ipRangeMap.values()) {
+      if (!"mpg".equals(ipRange.getId())) {
+        for (String ipPattern : ipRange.getIpRanges()) {
+          if (NetworkUtils.checkIPMatching(ipPattern, adress)) {
+            return ipRange;
+          }
+        }
+      }
+    }
     return null;
   }
 
