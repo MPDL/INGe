@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -49,20 +50,17 @@ public class MpgJsonIpListProvider implements IpListProvider {
    */
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
-    if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE)
-        .equalsIgnoreCase("true")) {
+    if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE).equalsIgnoreCase("true")) {
       logger.info("CRON: (re-)initializing IP List");
       HttpURLConnection conn = null;
 
       try {
         // Setup Connection
-        URL url =
-            new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL));
+        URL url = new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL));
         // URL url = new URL("https://rena.mpdl.mpg.de/iplists/keeperx_en.json");
         conn = (HttpURLConnection) url.openConnection();
         conn.setReadTimeout(60 * 1000);
-        BufferedReader streamReader = new BufferedReader(
-            new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        BufferedReader streamReader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
         StringBuilder responseStrBuilder = new StringBuilder();
         String inputStr;
         while ((inputStr = streamReader.readLine()) != null) {
@@ -73,8 +71,7 @@ public class MpgJsonIpListProvider implements IpListProvider {
         JSONObject jsonObjectComplete = new JSONObject(responseStrBuilder.toString());
         Map<String, IpRange> ipRangeMap = new HashMap<>();
         // Add entry for whole MPG
-        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg",
-            " Max Planck Society (every institute)", new ArrayList<>()));
+        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", " Max Planck Society (every institute)", new ArrayList<>()));
         JSONArray jsonArray = jsonObjectComplete.getJSONArray("details");
         // Go through JSON for every Entry/Institute
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -83,6 +80,9 @@ public class MpgJsonIpListProvider implements IpListProvider {
           if (id.matches("\\d+")) {
             JSONObject singleOrganization = jsonObject.getJSONObject(id);
             List<String> ipList = new ArrayList<>();
+            if ("200".equals(id)) {
+              ipList.add("127.0.0.1/32");
+            }
             JSONArray ipRangeArray = singleOrganization.getJSONArray("ip_ranges");
             // Add all ip_ranges Entries for each institute
             for (int j = 0; j < ipRangeArray.length(); j++) {
@@ -102,9 +102,8 @@ public class MpgJsonIpListProvider implements IpListProvider {
               for (int j = 0; j < ipRangeArray.length(); j++) {
                 ipList.add(ipRangeArray.getString(j));
               }
-              ipRangeMap.put(id,
-                  new IpListProvider.IpRange(id, singleOrganization.getString("inst_name_en") + ", "
-                      + singleOrganization.getString("inst_code"), ipList));
+              ipRangeMap.put(id, new IpListProvider.IpRange(id,
+                  singleOrganization.getString("inst_name_en") + ", " + singleOrganization.getString("inst_code"), ipList));
             }
           } else {
             logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
@@ -139,7 +138,6 @@ public class MpgJsonIpListProvider implements IpListProvider {
 
   @Override
   public IpRange getMatch(String adress) {
-    System.out.println("IN MATCH");
     for (IpRange ipRange : ipRangeMap.values()) {
       if (!"mpg".equals(ipRange.getId())) {
         for (String ipPattern : ipRange.getIpRanges()) {

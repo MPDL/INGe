@@ -17,6 +17,7 @@ public class NetworkUtils {
 
   /**
    * method checks if an address fits in a given ip range (pattern)
+   * 
    * @param pattern
    * @param address
    * @return
@@ -27,8 +28,9 @@ public class NetworkUtils {
       return true;
     // pattern like 123.123.123.123/31
     if (pattern.contains("/")) {
-      SubnetUtils ipRange = new SubnetUtils(pattern);
-      if (ipRange.getInfo().isInRange(address)) {
+      SubnetUtils ipRangeUtil = new SubnetUtils(pattern);
+      ipRangeUtil.setInclusiveHostCount(true);
+      if (ipRangeUtil.getInfo().isInRange(address)) {
         return true;
       } else {
         return false;
