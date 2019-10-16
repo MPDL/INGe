@@ -65,7 +65,7 @@ public class MpgCsvIpListProvider implements IpListProvider {
             }
           }
           this.ipRangeMap = ipRangeMap;
-          logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
+          logger.info("CRON: Successfully set CSV IP List with " + ipRangeMap.size() + " entries");
         }
       } catch (Exception e) {
         logger.error("Problem with parsing ip list file", e);

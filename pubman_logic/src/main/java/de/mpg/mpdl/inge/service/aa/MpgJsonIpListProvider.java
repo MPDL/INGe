@@ -51,7 +51,7 @@ public class MpgJsonIpListProvider implements IpListProvider {
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
     if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE).equalsIgnoreCase("true")) {
-      logger.info("CRON: (re-)initializing IP List");
+      logger.info("CRON: (re-)initializing IP List from <" + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
       HttpURLConnection conn = null;
 
       try {
@@ -80,9 +80,6 @@ public class MpgJsonIpListProvider implements IpListProvider {
           if (id.matches("\\d+")) {
             JSONObject singleOrganization = jsonObject.getJSONObject(id);
             List<String> ipList = new ArrayList<>();
-            if ("200".equals(id)) {
-              ipList.add("127.0.0.1/32");
-            }
             JSONArray ipRangeArray = singleOrganization.getJSONArray("ip_ranges");
             // Add all ip_ranges Entries for each institute
             for (int j = 0; j < ipRangeArray.length(); j++) {
@@ -111,7 +108,7 @@ public class MpgJsonIpListProvider implements IpListProvider {
         }
         // write local ipRangeMap back to class ipRangeMap
         this.ipRangeMap = ipRangeMap;
-        logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
+        logger.info("CRON: Successfully set JSON IP List with " + ipRangeMap.size() + " entries");
       } catch (Exception e) {
         logger.error("Problem with parsing ip list file", e);
       } finally {
