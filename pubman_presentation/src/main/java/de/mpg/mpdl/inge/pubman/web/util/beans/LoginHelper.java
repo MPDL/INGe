@@ -74,11 +74,11 @@ public class LoginHelper extends FacesBean {
   private AccountUserDbVO accountUser;
 
   private List<AffiliationVOPresentation> userAccountAffiliations;
-  //  private List<UserGroupVO> userAccountUserGroups;
+  // private List<UserGroupVO> userAccountUserGroups;
 
   private String authenticationToken;
   private String displayUserName;
-  //  private String eSciDocUserHandle;
+  // private String eSciDocUserHandle;
   private String password;
   private String username;
 
@@ -96,7 +96,7 @@ public class LoginHelper extends FacesBean {
   private void init() {
     this.authenticationToken = null;
     this.displayUserName = null;
-    //    this.eSciDocUserHandle = null;
+    // this.eSciDocUserHandle = null;
     this.password = null;
     this.username = null;
 
@@ -105,13 +105,18 @@ public class LoginHelper extends FacesBean {
 
     ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 
-    //Delete old cookie, if there
+    // Delete old cookie, if there
     UserAccountServiceImpl.removeTokenCookie((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse());
 
 
     String ip = ec.getRequestHeaderMap().get("X-Forwarded-For");
-    logger.info("Init LoginHelper with IP " + ip);
+    // try to fallback to getRemoteAddr(), if Proxy doesn't fill X-Forwarded-For header
+    if (ip == null) {
+      HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+      ip = request.getRemoteAddr();
+    }
 
+    logger.info("Init LoginHelper with IP " + ip);
 
     if (ip != null) {
       try {
@@ -125,13 +130,13 @@ public class LoginHelper extends FacesBean {
     }
   }
 
-  //  public String getESciDocUserHandle() {
-  //    return this.eSciDocUserHandle;
-  //  }
+  // public String getESciDocUserHandle() {
+  // return this.eSciDocUserHandle;
+  // }
   //
-  //  public void setESciDocUserHandle(String eSciDocUserHandle) {
-  //    this.eSciDocUserHandle = eSciDocUserHandle;
-  //  }
+  // public void setESciDocUserHandle(String eSciDocUserHandle) {
+  // this.eSciDocUserHandle = eSciDocUserHandle;
+  // }
 
   /**
    * Method checks if the user is already logged in and inserts the escidoc user handle.
@@ -298,23 +303,22 @@ public class LoginHelper extends FacesBean {
 
   // only active UserGroups!
   /*
-  public List<UserGroupVO> getAccountUsersUserGroups() {
-    if (this.userAccountUserGroups == null && this.getAccountUser() != null && this.getAccountUser().getReference() != null) {
-      final HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
-      filterParams.put("operation", new String[] {"searchRetrieve"});
-      filterParams.put("version", new String[] {"1.1"});
-      // String orgId = "escidoc:persistent25";
-      filterParams.put("query", new String[] {"\"/structural-relations/user/id\"=" + this.getAccountUser().getReference().getObjectId()
-          + " and " + "\"/properties/active\"=\"true\""});
-      // filterParams.put("query", new String[] {"\"http://escidoc.de/core/01/properties/user\"=" +
-      // getAccountUser().getReference().getObjectId() + " and " +
-      // "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
-  
-    }
-  
-    return this.userAccountUserGroups;
-  }
-  */
+   * public List<UserGroupVO> getAccountUsersUserGroups() { if (this.userAccountUserGroups == null
+   * && this.getAccountUser() != null && this.getAccountUser().getReference() != null) { final
+   * HashMap<String, String[]> filterParams = new HashMap<String, String[]>();
+   * filterParams.put("operation", new String[] {"searchRetrieve"}); filterParams.put("version", new
+   * String[] {"1.1"}); // String orgId = "escidoc:persistent25"; filterParams.put("query", new
+   * String[] {"\"/structural-relations/user/id\"=" +
+   * this.getAccountUser().getReference().getObjectId() + " and " +
+   * "\"/properties/active\"=\"true\""}); // filterParams.put("query", new String[]
+   * {"\"http://escidoc.de/core/01/properties/user\"=" + //
+   * getAccountUser().getReference().getObjectId() + " and " + //
+   * "\"http://escidoc.de/core/01/properties/active\"=\"true\""});
+   * 
+   * }
+   * 
+   * return this.userAccountUserGroups; }
+   */
 
   public boolean getIsYearbookEditor() {
     return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.YEARBOOK_EDITOR);

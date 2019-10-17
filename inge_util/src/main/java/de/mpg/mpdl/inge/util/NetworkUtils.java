@@ -2,6 +2,8 @@ package de.mpg.mpdl.inge.util;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.net.util.SubnetUtils;
+
 public class NetworkUtils {
 
 
@@ -13,10 +15,29 @@ public class NetworkUtils {
 
 
 
+  /**
+   * method checks if an address fits in a given ip range (pattern)
+   * 
+   * @param pattern
+   * @param address
+   * @return
+   */
   public static boolean checkIPMatching(String pattern, String address) {
+
     if (pattern.equals("*.*.*.*") || pattern.equals("*"))
       return true;
+    // pattern like 123.123.123.123/31
+    if (pattern.contains("/")) {
+      SubnetUtils ipRangeUtil = new SubnetUtils(pattern);
+      ipRangeUtil.setInclusiveHostCount(true);
+      if (ipRangeUtil.getInfo().isInRange(address)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
+    // pattern like 123.123.123.123-124
     String[] mask = pattern.split("\\.");
     String[] ip_address = address.split("\\.");
     for (int i = 0; i < mask.length; i++) {

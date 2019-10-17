@@ -19,24 +19,24 @@ import de.mpg.mpdl.inge.util.NetworkUtils;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 @Component
-public class MpgIpListProvider implements IpListProvider {
+public class MpgCsvIpListProvider implements IpListProvider {
 
-  private static final Logger logger = LogManager.getLogger(MpgIpListProvider.class);
+  private static final Logger logger = LogManager.getLogger(MpgCsvIpListProvider.class);
   private Map<String, IpRange> ipRangeMap = new HashMap<>();
 
-  public MpgIpListProvider() {
+  public MpgCsvIpListProvider() {
     init();
   }
 
 
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
-    if (PropertyReader.INGE_AUTH_MPG_IP_LIST_USE.equalsIgnoreCase("true")) {
+    if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE).equalsIgnoreCase("true")) {
       logger.info("CRON: (re-)initializing IP List");
       HttpURLConnection conn = null;
 
       try {
-        URL url = new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_URL));
+        URL url = new URL(PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_CSV_IP_LIST_URL));
 
         conn = (HttpURLConnection) url.openConnection();
         conn.setReadTimeout(60 * 1000);
@@ -65,7 +65,7 @@ public class MpgIpListProvider implements IpListProvider {
             }
           }
           this.ipRangeMap = ipRangeMap;
-          logger.info("CRON: Successfully set IP List with " + ipRangeMap.size() + " entries");
+          logger.info("CRON: Successfully set CSV IP List with " + ipRangeMap.size() + " entries");
         }
       } catch (Exception e) {
         logger.error("Problem with parsing ip list file", e);

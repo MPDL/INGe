@@ -413,6 +413,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     else if (request != null && request.getHeader("X-Forwarded-For") != null) {
       String token = createToken(null, request);
       principal = new Principal(null, token);
+    } else if (request != null && request.getRemoteAddr() != null) {
+      String token = createToken(null, request);
+      principal = new Principal(null, token);
     }
 
     return principal;
@@ -471,6 +474,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       if (request != null && request.getHeader("X-Forwarded-For") != null) {
         Map<String, Object> headerMap = new HashMap<>();
         headerMap.put("ip", request.getHeader("X-Forwarded-For"));
+        jwtBuilder.withHeader(headerMap);
+      } else if (request != null && request.getRemoteAddr() != null) {
+        Map<String, Object> headerMap = new HashMap<>();
+        headerMap.put("ip", request.getRemoteAddr());
         jwtBuilder.withHeader(headerMap);
       }
 

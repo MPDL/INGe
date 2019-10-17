@@ -66,7 +66,8 @@ public class PropertyReader {
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
-  public static final String INGE_AUTH_MPG_IP_LIST_URL = "inge.auth.mpg.ip.url";
+  public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
+  public static final String INGE_AUTH_MPG_CSV_IP_LIST_URL = "inge.auth.mpg.ip.csv.url";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";
   public static final String INGE_CONE_DATABASE_NAME = "inge.cone.database.name";

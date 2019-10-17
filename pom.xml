@@ -652,6 +652,11 @@
 				<artifactId>xalan</artifactId>
 				<version>2.7.2</version>
 			</dependency>
+			<dependency>
+			    <groupId>commons-net</groupId>
+			    <artifactId>commons-net</artifactId>
+			    <version>3.6</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -1177,7 +1182,8 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<inge.auth.mpg.ip.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.url>
+				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
+				<inge.auth.mpg.ip.csv.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.csv.url>
 				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
 				<inge.pubman.blog.baseUrl>https://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
