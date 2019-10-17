@@ -151,7 +151,6 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_HANDBOOK_URL = "inge.pubman.handbook.url";
   public static final String INGE_PUBMAN_HOME_CONTENT_URL = "inge.pubman.home.content.url";
   public static final String INGE_PUBMAN_INSTANCE_CONTEXT_PATH = "inge.pubman.instance.context.path";
-  public static final String INGE_PUBMAN_INSTANCE_SEAL_NUMBER = "inge.pubman.instance.seal_number";
   public static final String INGE_PUBMAN_INSTANCE_SSRN_CONTEXTS = "inge.pubman.instance.ssrn_contexts";
   public static final String INGE_PUBMAN_INSTANCE_URL = "inge.pubman.instance.url";
   public static final String INGE_PUBMAN_ITEM_PATTERN = "inge.pubman.item.pattern";
