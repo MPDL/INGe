@@ -26,7 +26,7 @@ public class BaseImportLog {
     FINISHED, PENDING, ROLLBACK, SUSPENDED
   }
 
-  public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+  public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   public static final int PERCENTAGE_COMPLETED = 100;
   public static final int PERCENTAGE_DELETE_END = 89;
