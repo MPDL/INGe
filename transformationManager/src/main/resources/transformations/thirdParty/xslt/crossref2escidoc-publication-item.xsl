@@ -140,7 +140,7 @@
 		<xsl:apply-templates select="crossref/book/book_metadata/publication_date"></xsl:apply-templates>
 		<xsl:apply-templates select="crossref/book/book_metadata/publisher"></xsl:apply-templates>
 		<xsl:apply-templates select="crossref/book/book_metadata/content_item/pages"></xsl:apply-templates>
-		<xsl:apply-templates select="crossref/book/book_series_metadata/volume"
+		<xsl:apply-templates select="crossref/book/book_series_metadata/volume"></xsl:apply-templates>
 	</xsl:template>
 	
 	<xsl:template match="full_title">

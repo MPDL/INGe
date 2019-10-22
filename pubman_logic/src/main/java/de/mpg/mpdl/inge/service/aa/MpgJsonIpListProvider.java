@@ -51,7 +51,8 @@ public class MpgJsonIpListProvider implements IpListProvider {
   @Scheduled(cron = "0 0 2 * * ?")
   private void init() {
     if (PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_IP_LIST_USE).equalsIgnoreCase("true")) {
-      logger.info("CRON: (re-)initializing IP List from <" + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
+      logger
+          .info("CRON: (re-)initializing IP List from <" + PropertyReader.getProperty(PropertyReader.INGE_AUTH_MPG_JSON_IP_LIST_URL) + ">");
       HttpURLConnection conn = null;
 
       try {

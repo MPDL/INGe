@@ -948,7 +948,8 @@
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
-		<inge.auth.mpg.ip.url />
+		<inge.auth.mpg.ip.csv.url />
+		<inge.auth.mpg.ip.json.url />
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>
@@ -1181,8 +1182,8 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
 				<inge.auth.mpg.ip.csv.url>https://www2.mpdl.mpg.de/seco_irmapubl/expoipra_mpi?style=expo01&amp;la=en</inge.auth.mpg.ip.csv.url>
+				<inge.auth.mpg.ip.json.url>https://rena.mpdl.mpg.de/iplists/keeperx_en.json</inge.auth.mpg.ip.json.url>
 				<inge.cone.subjectVocab>iso639-3;ddc;mpipks;mpirg;mpis-groups;mpis-projects;mpicc-projects</inge.cone.subjectVocab>
 				<inge.pubman.blog.baseUrl>https://blog.pure.mpg.de/</inge.pubman.blog.baseUrl>
 				<inge.pubman.blog.news>https://blog.pure.mpg.de/feed/</inge.pubman.blog.news>
@@ -1212,7 +1213,8 @@
 			<properties>
 				<escidoc.framework_access.framework.url />
 				<escidoc.framework_access.login.url />
-				<inge.auth.mpg.ip.url />
+				<inge.auth.mpg.ip.csv.url />
+				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
 				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 				<inge.doi.service.create.url />
