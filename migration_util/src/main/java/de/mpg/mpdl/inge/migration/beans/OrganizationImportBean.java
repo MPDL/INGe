@@ -154,7 +154,7 @@ public class OrganizationImportBean {
     newAff.setCreationDate(affVo.getCreationDate());
 
     newAff.setCreator(owner);
-    newAff.setHasChildren(affVo.getHasChildren());
+    // newAff.setHasChildren(affVo.getHasChildren());
     newAff.setLastModificationDate(affVo.getLastModificationDate());
     newAff.setMetadata(affVo.getDefaultMetadata());
     newAff.setModifier(modifier);

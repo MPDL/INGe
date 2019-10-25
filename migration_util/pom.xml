@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.2-SNAPSHOT</version>
+		<version>8.0.15-SNAPSHOT</version>
 	</parent>
 	<artifactId>migration_util</artifactId>
 	
@@ -225,12 +225,11 @@
 		<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.6</xsd.soap.usergroup.usergroup>
 		<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.6</xsd.soap.usergroup.usergrouplist>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
-		</dependency>
+					</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

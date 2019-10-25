@@ -82,8 +82,6 @@ public class MigrationTests {
   @Autowired
   private ItemRepository itemRepository;
 
-
-
   @Autowired
   private ItemObjectRepository itemObjectRepository;
 
@@ -105,18 +103,12 @@ public class MigrationTests {
   @Autowired
   private YearbookRepository yearbookRepository;
 
-
-
   @PersistenceContext
   private EntityManager entityManager;
-
-
 
   private Queue<AffiliationVO> updateLaterAffs = new LinkedList<AffiliationVO>();
 
   private HttpClient httpClientWithEscidocCookie;
-
-
 
   @Before
   public void setup() {
@@ -132,10 +124,9 @@ public class MigrationTests {
   @Test
   public void testYearbook() throws Exception {
 
-
-
     /*
-     * Page<PubItemObjectDbVO> result = itemObjectRepository.findAll(new PageRequest(0, 10));
+     * Page<PubItemObjectDbVO> result = itemObjectRepository.findAll(new
+     * PageRequest(0, 10));
      * 
      * 
      * 
@@ -143,22 +134,22 @@ public class MigrationTests {
      * yearbook.setOrganization(orgRepository.findOne("ou_persistent25"));
      * yearbook.setState(State.OPENED);
      * 
-     * for(PubItemObjectDbVO pubItemO : result) { yearbook.getItems().add(pubItemO); }
+     * for(PubItemObjectDbVO pubItemO : result) { yearbook.getItems().add(pubItemO);
+     * }
      * 
      * yearbookRepository.save(yearbook);
      */
 
     // YearbookDbVO yearbookReturned = yearbookRepository.findOne(3);
     /*
-     * yearbookReturned.getItems(); PubItemObjectDbVO item = yearbookReturned.getItems().get(0);
+     * yearbookReturned.getItems(); PubItemObjectDbVO item =
+     * yearbookReturned.getItems().get(0);
      * 
      * 
      * System.out.println(item.getObjectId());
      */
 
-
   }
-
 
   @Test
   @Ignore
@@ -177,7 +168,6 @@ public class MigrationTests {
     System.out.println(aff.getHasChildren());
   }
 
-
   @Test
   @Ignore
   public void testRetrieve() throws Exception {
@@ -185,31 +175,36 @@ public class MigrationTests {
     while (true) {
       /*
        * SessionFactory sessionFactory =
-       * entityManager.getEntityManagerFactory().unwrap(SessionFactory.class); long oldMissCount =
-       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getMissCount(); long
-       * oldHitCount =
-       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount();
+       * entityManager.getEntityManagerFactory().unwrap(SessionFactory.class); long
+       * oldMissCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").
+       * getMissCount(); long oldHitCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").
+       * getHitCount();
        */
       long time = System.currentTimeMillis();
       ItemVersionVO returnedfindOne1 = itemRepository.findOne(new VersionableId("item_1000592", 1));
-      // PubItemVersionDbVO returnedfindOne1 = entityManager.find(PubItemVersionDbVO.class, new
+      // PubItemVersionDbVO returnedfindOne1 =
+      // entityManager.find(PubItemVersionDbVO.class, new
       // VersionableId("item_1000592", 1));
       System.out.println("1st findOne needed " + (System.currentTimeMillis() - time) + " ms");
       entityManager.clear();
       /*
        * long newMissCount =
-       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getMissCount(); long
-       * newHitCount =
-       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount(); if
-       * (oldHitCount + 1 == newHitCount && oldMissCount + 1 == newMissCount) {
-       * System.out.println("came from DB"); } else if (oldHitCount + 1 == newHitCount &&
-       * oldMissCount == newMissCount) { System.out.println("came from cache"); }
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").
+       * getMissCount(); long newHitCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").
+       * getHitCount(); if (oldHitCount + 1 == newHitCount && oldMissCount + 1 ==
+       * newMissCount) { System.out.println("came from DB"); } else if (oldHitCount +
+       * 1 == newHitCount && oldMissCount == newMissCount) {
+       * System.out.println("came from cache"); }
        * 
        * oldHitCount = newHitCount; oldMissCount = newMissCount;
        */
       time = System.currentTimeMillis();
       ItemVersionVO returnedfindOne2 = itemRepository.findOne(new VersionableId("item_1000592", 1));
-      // PubItemVersionDbVO returnedfindOne2 = entityManager.find(PubItemVersionDbVO.class, new
+      // PubItemVersionDbVO returnedfindOne2 =
+      // entityManager.find(PubItemVersionDbVO.class, new
       // VersionableId("item_1000592", 1));
       System.out.println("2nd findOne needed " + (System.currentTimeMillis() - time) + " ms");
       entityManager.clear();
@@ -225,19 +220,19 @@ public class MigrationTests {
       entityManager.clear();
       /*
        * newMissCount =
-       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getMissCount();
-       * newHitCount =
-       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").getHitCount(); if
-       * (oldHitCount + 1 == newHitCount && oldMissCount + 1 == newMissCount) {
-       * System.out.println("came from DB"); } else if (oldHitCount + 1 == newHitCount &&
-       * oldMissCount == newMissCount) { System.out.println("came from cache"); }
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").
+       * getMissCount(); newHitCount =
+       * sessionFactory.getStatistics().getSecondLevelCacheStatistics("item").
+       * getHitCount(); if (oldHitCount + 1 == newHitCount && oldMissCount + 1 ==
+       * newMissCount) { System.out.println("came from DB"); } else if (oldHitCount +
+       * 1 == newHitCount && oldMissCount == newMissCount) {
+       * System.out.println("came from cache"); }
        */
     }
 
-
-
     /*
-     * AffiliationVO affVo = findOu("ou_1113549"); findOu("ou_1113572"); findOu("ou_1113580");
+     * AffiliationVO affVo = findOu("ou_1113549"); findOu("ou_1113572");
+     * findOu("ou_1113580");
      * 
      * 
      * findLatestVersion("item_1287545"); findLatestVersion("item_1287612");
@@ -250,10 +245,12 @@ public class MigrationTests {
      * findLatestVersion("item_1291713");
      * 
      * findVersion(new VersionableId("item_1420835", 1)); findVersion(new
-     * VersionableId("item_108144", 1)); findVersion(new VersionableId("item_1287592", 1));
-     * findVersion(new VersionableId("item_1291616", 1)); findVersion(new
-     * VersionableId("item_1293631", 1)); findVersion(new VersionableId("item_1291713", 1));
-     * findVersion(new VersionableId("item_1420835", 1)); findVersion(new VersionableId("xx", 1));
+     * VersionableId("item_108144", 1)); findVersion(new
+     * VersionableId("item_1287592", 1)); findVersion(new
+     * VersionableId("item_1291616", 1)); findVersion(new
+     * VersionableId("item_1293631", 1)); findVersion(new
+     * VersionableId("item_1291713", 1)); findVersion(new
+     * VersionableId("item_1420835", 1)); findVersion(new VersionableId("xx", 1));
      */
   }
 
@@ -279,8 +276,6 @@ public class MigrationTests {
     long time = System.currentTimeMillis() - start;
     System.out.println("Took " + time + "  --  " + item.getObjectIdAndVersion());
   }
-
-
 
   @Test
   public void importObjects() throws Exception {
@@ -332,8 +327,6 @@ public class MigrationTests {
 
   }
 
-
-
   private void importContexts() throws Exception {
     URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/ir/contexts").addParameter("maximumRecords", "5000").build();
     System.out.println(uri.toString());
@@ -345,19 +338,15 @@ public class MigrationTests {
       SearchRetrieveResponseVO<de.mpg.mpdl.inge.model.valueobjects.ContextVO> contextList =
           XmlTransformingService.transformToSearchRetrieveResponse(contextXml);
 
-
       for (SearchRetrieveRecordVO<de.mpg.mpdl.inge.model.valueobjects.ContextVO> rec : contextList.getRecords()) {
         saveContext(rec.getData());
       }
-
-
 
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
-
 
   private void saveContext(de.mpg.mpdl.inge.model.valueobjects.ContextVO context) throws Exception {
     try {
@@ -369,14 +358,11 @@ public class MigrationTests {
     }
   }
 
-
-
   private void importAffs() throws Exception {
     URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/oum/organizational-units")
         .addParameter("query", "\"/id\"=\"e*\" not \"/parents/parent/id\">\"''\"").build();
     System.out.println(uri.toString());
     String ouXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
-
 
     try {
       SearchRetrieveResponseVO<AffiliationVO> ouList = XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
@@ -388,12 +374,9 @@ public class MigrationTests {
       ouXml = Request.Get(uri).execute().returnContent().asString(StandardCharsets.UTF_8);
       ouList = XmlTransformingService.transformToSearchRetrieveResponseOrganizationVO(ouXml);
 
-
       for (SearchRetrieveRecordVO<AffiliationVO> affRecord : ouList.getRecords()) {
         updateOUWithPredecessors(affRecord.getData());
       }
-
-
 
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -401,7 +384,6 @@ public class MigrationTests {
     }
 
   }
-
 
   private void importUsers() throws Exception {
     URI uri = new URIBuilder("https://qa-coreservice.mpdl.mpg.de/aa/user-accounts").addParameter("maximumRecords", String.valueOf(5000))
@@ -431,8 +413,6 @@ public class MigrationTests {
       String attrXml = EntityUtils.toString(responseAttrs.getEntity(), StandardCharsets.UTF_8);
       List<UserAttributeVO> userAttrList = XmlTransformingService.transformToUserAttributesList(attrXml);
 
-
-
       // System.out.println(srrList);
 
       // List<GrantVO> grantList = srrList.getRecords().stream().map(srr ->
@@ -444,13 +424,9 @@ public class MigrationTests {
         e.printStackTrace();
       }
 
-
-
     }
 
   }
-
-
 
   private void saveOuList(SearchRetrieveResponseVO<AffiliationVO> srr) throws Exception {
     if (srr.getNumberOfRecords() > 0) {
@@ -471,7 +447,6 @@ public class MigrationTests {
       }
     }
   }
-
 
   private void saveOuWithoutPredecessor(AffiliationVO affVo) throws Exception {
 
@@ -500,13 +475,10 @@ public class MigrationTests {
       orgRepository.save(newVo);
     }
 
-
   }
-
 
   private void importPubItems() throws Exception {
     String contentModelId = "escidoc:persistent4";
-
 
     int limit = 5000;
     int startRecord = 1;
@@ -520,7 +492,7 @@ public class MigrationTests {
       final HttpGet request = new HttpGet(uri);
       HttpResponse response = httpClientWithEscidocCookie.execute(request);
       String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-      //System.out.println(xml);
+      // System.out.println(xml);
 
       SearchRetrieveResponseVO<PubItemVO> pubItemList = XmlTransformingService.transformToSearchRetrieveResponse(xml);
 
@@ -528,15 +500,15 @@ public class MigrationTests {
       startRecord = startRecord + limit;
       System.out.println("Found " + allRecords + "items.");
 
-      //pubItemList.getRecords().stream().map(i->i.getData()).collect(Collectors.toList()).stream().parallel().forEach(i -> sa);;
+      // pubItemList.getRecords().stream().map(i->i.getData()).collect(Collectors.toList()).stream().parallel().forEach(i
+      // -> sa);;
       pubItemList.getRecords().parallelStream().forEach(i -> saveAllVersionsOfPubItem(i.getData()));
 
       /*
-      for(SearchRetrieveRecordVO<PubItemVO> rec : pubItemList.getRecords())
-      {
-      
-      }
-      */
+       * for(SearchRetrieveRecordVO<PubItemVO> rec : pubItemList.getRecords()) {
+       * 
+       * }
+       */
 
     }
 
@@ -568,7 +540,6 @@ public class MigrationTests {
 
   }
 
-
   private void savePubItem(PubItemVO pubItem) throws Exception {
     try {
       ItemVersionVO newVo = transformToNew(pubItem);
@@ -578,7 +549,6 @@ public class MigrationTests {
       e.printStackTrace();
     }
   }
-
 
   private static AffiliationDbVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.AffiliationVO affVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
@@ -600,7 +570,6 @@ public class MigrationTests {
     newAff.setName(affVo.getDefaultMetadata().getName());
     newAff.setObjectId(changeId("ou", affVo.getReference().getObjectId()));
 
-
     for (AffiliationRO oldAffRo : affVo.getPredecessorAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", oldAffRo.getObjectId()));
@@ -617,10 +586,7 @@ public class MigrationTests {
     newAff.setPublicStatus(AffiliationDbVO.State.valueOf(affVo.getPublicStatus().toUpperCase()));
     return newAff;
 
-
   }
-
-
 
   private static ContextDbVO transformToNew(ContextVO contextVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
@@ -647,7 +613,6 @@ public class MigrationTests {
 
     newContext.setAdminDescriptor(contextVo.getAdminDescriptor());
 
-
     for (AffiliationRO oldAffRo : contextVo.getResponsibleAffiliations()) {
       AffiliationDbRO newAffRo = new AffiliationDbRO();
       newAffRo.setObjectId(changeId("ou", changeId("ou", oldAffRo.getObjectId())));
@@ -655,13 +620,9 @@ public class MigrationTests {
       newContext.getResponsibleAffiliations().add(newAffRo);
     }
 
-
-
     return newContext;
 
-
   }
-
 
   private static ItemVersionVO transformToNew(de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO itemVo) {
     AccountUserDbRO owner = new AccountUserDbRO();
@@ -672,7 +633,6 @@ public class MigrationTests {
 
     modifier.setObjectId(changeId("user", itemVo.getVersion().getModifiedByRO().getObjectId()));
     modifier.setName(itemVo.getVersion().getModifiedByRO().getTitle());
-
 
     ItemVersionVO newPubItem = new ItemVersionVO();
     for (de.mpg.mpdl.inge.model.valueobjects.FileVO oldFile : itemVo.getFiles()) {
@@ -707,8 +667,6 @@ public class MigrationTests {
       newPubItem.getFiles().add(file);
     }
 
-
-
     newPubItem.setLastMessage(itemVo.getVersion().getLastMessage());
     newPubItem.setMetadata(itemVo.getMetadata());
     newPubItem.setModificationDate(itemVo.getVersion().getModificationDate());
@@ -717,7 +675,6 @@ public class MigrationTests {
     newPubItem.setVersionState(PubItemVersionDbVO.State.valueOf(itemVo.getVersion().getState().name()));
     newPubItem.setVersionNumber(itemVo.getVersion().getVersionNumber());
     newPubItem.setVersionPid(itemVo.getVersion().getPid());
-
 
     ItemRootVO pubItemObject = new ItemRootVO();
     newPubItem.setObject(pubItemObject);
@@ -729,7 +686,6 @@ public class MigrationTests {
     pubItemObject.setCreationDate(itemVo.getCreationDate());
     pubItemObject.setLastModificationDate(itemVo.getLatestVersion().getModificationDate());
 
-
     if (itemVo.getLatestRelease() != null) {
       if (itemVo.getLatestRelease().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
         pubItemObject.setLatestRelease(newPubItem);
@@ -740,9 +696,7 @@ public class MigrationTests {
         pubItemObject.setLatestRelease(latestRelease);
       }
 
-
     }
-
 
     if (itemVo.getLatestVersion().getVersionNumber() == itemVo.getVersion().getVersionNumber()) {
       pubItemObject.setLatestVersion(newPubItem);
@@ -753,7 +707,6 @@ public class MigrationTests {
       pubItemObject.setLatestVersion(latestVersion);
     }
 
-
     pubItemObject.setLocalTags(itemVo.getLocalTags());
     pubItemObject.setObjectId(changeId("item", itemVo.getVersion().getObjectId()));
     pubItemObject.setOwner(owner);
@@ -763,9 +716,7 @@ public class MigrationTests {
 
     return newPubItem;
 
-
   }
-
 
   private AccountUserDbVO transformToNew(AccountUserVO oldAccountUserVO, List<GrantVO> grants, List<UserAttributeVO> attributes) {
 
@@ -787,13 +738,11 @@ public class MigrationTests {
       newAccountUser.setAffiliation(affRO);
     }
 
-
     newAccountUser.setCreationDate(oldAccountUserVO.getCreationDate());
     newAccountUser.setCreator(owner);
     newAccountUser.setEmail(oldAccountUserVO.getEmail());
 
     if (grants != null) {
-
 
       for (GrantVO grant : grants) {
         grant.setGrantedTo(null);
@@ -825,7 +774,6 @@ public class MigrationTests {
           System.out.println("Unknown role: " + grant.getRole());
         }
 
-
       }
     }
 
@@ -854,7 +802,6 @@ public class MigrationTests {
 
     return newAccountUser;
 
-
   }
 
   private void importLogins() throws Exception {
@@ -882,14 +829,10 @@ public class MigrationTests {
       }
     }
 
-
   }
-
-
 
   private static String changeId(String prefix, String href) {
     return href.substring(href.lastIndexOf("/") + 1, href.length()).replaceAll("escidoc:", prefix + "_").replaceAll(":", "_");
   }
-
 
 }
