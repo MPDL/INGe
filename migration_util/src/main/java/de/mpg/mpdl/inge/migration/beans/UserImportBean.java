@@ -138,11 +138,12 @@ public class UserImportBean {
     newAccountUser.setActive(oldAccountUserVO.isActive());
 
     /*
-    if (oldAccountUserVO.getAffiliations() != null && oldAccountUserVO.getAffiliations().size() > 0) {
-    	usr_affRO.setObjectId(utils.changeId("ou", oldAccountUserVO.getAffiliations().get(0).getObjectId()));
-    	newAccountUser.setAffiliation(usr_affRO);
-    }
-    */
+     * if (oldAccountUserVO.getAffiliations() != null &&
+     * oldAccountUserVO.getAffiliations().size() > 0) {
+     * usr_affRO.setObjectId(utils.changeId("ou",
+     * oldAccountUserVO.getAffiliations().get(0).getObjectId()));
+     * newAccountUser.setAffiliation(usr_affRO); }
+     */
 
     newAccountUser.setCreationDate(oldAccountUserVO.getCreationDate());
     newAccountUser.setCreator(owner);

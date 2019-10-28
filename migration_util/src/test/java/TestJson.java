@@ -1,5 +1,4 @@
 
-
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.StringWriter;
@@ -16,9 +15,7 @@ import org.junit.Test;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 
-
 public class TestJson {
-
 
   @Test
   public void getFieldValueViaGetter() throws Exception {
@@ -65,7 +62,6 @@ public class TestJson {
 
   private JsonObjectBuilder getUserJson(String role, String grantType, String grantMatchId, String ownerIdMatchField) {
 
-
     JsonObjectBuilder jsob = Json.createObjectBuilder().add("type", "user_match");
     // JsonObjectBuilder mainJsob = Json.createObjectBuilder().add("match", jsob) ;
 
@@ -84,7 +80,6 @@ public class TestJson {
 
     return jsob;
   }
-
 
   private JsonObjectBuilder getFieldStringMatchJson(String matchField, String... strings) {
     JsonArrayBuilder jab = Json.createArrayBuilder();

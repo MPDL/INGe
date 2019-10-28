@@ -51,6 +51,11 @@ public class Migration {
           ouImport.saveChildren4GivenParent(id);
           break;
         }
+      case "items_gfz":
+        if (id != null) {
+          itemImport.importPubItems4GFZ(id);
+        }
+        break;
       case "items":
         itemImport.importPubItems();
         break;
@@ -114,7 +119,7 @@ public class Migration {
         }
         break;
       case "wwf":
-        //  util.wfTesting();
+        // util.wfTesting();
         itemImport.reimport();
         // itemImport.reindexList();
         break;
@@ -122,7 +127,5 @@ public class Migration {
         log.info("you don't really know, what exactly you want to do!!!");
     }
   }
-
-
 
 }

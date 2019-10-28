@@ -30,7 +30,6 @@ public class MigrationUtilBean {
   @Value("${escidoc.url}")
   private String escidocUrl;
 
-
   public String changeId(String prefix, String href) {
     return href.substring(href.lastIndexOf("/") + 1, href.length()).replaceAll("escidoc:", prefix + "_").replaceAll(":", "_");
   }
