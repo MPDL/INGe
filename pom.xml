@@ -971,6 +971,7 @@
 		<inge.cron.cleanup_staging_files>0 0 */2 * * *</inge.cron.cleanup_staging_files>
 		<inge.cron.import.surveyor>0 */10 * * * *</inge.cron.import.surveyor>
 		<inge.cron.pubman.sitemap>0 0 3 * * *</inge.cron.pubman.sitemap>
+		<inge.crossref.pid>pure-support@listsrv.mpg.de</inge.crossref.pid>
 		<inge.database.driver.class>org.postgresql.Driver</inge.database.driver.class>
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
@@ -1006,6 +1007,7 @@
 		<inge.matomo.analytics.auth.token />
 		<inge.matomo.analytics.base.uri>https://analytics.mpdl.mpg.de</inge.matomo.analytics.base.uri>
 		<inge.matomo.analytics.site.id />
+		<inge.matomo.tracker.use>true</inge.matomo.tracker.use>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pid.service.use>true</inge.pid.service.use>
@@ -1217,6 +1219,7 @@
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
 				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
+				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
 				<inge.doi.service.create.url />
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
@@ -1224,6 +1227,7 @@
 				<inge.es.transport.ips.test />
 				<inge.filestorage.seaweed_master_server_ip />
 				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPROJECT,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.matomo.tracker.use>false</inge.matomo.tracker.use>
 				<inge.pid.service.create.path />
 				<inge.pid.service.timeout>0</inge.pid.service.timeout>
 				<inge.pid.service.url />
@@ -1243,7 +1247,7 @@
 				<inge.pubman.stylesheet.special.type>stylesheet</inge.pubman.stylesheet.special.type>
 				<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</inge.pubman.stylesheet.special.url>
 				<inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
-				<inge.pubman_presentation.overview_page.authors_ou>OpenSource Society</inge.pubman_presentation.overview_page.authors_ou>
+				<inge.pubman_presentation.overview_page.authors_ou>Deutsches GeoForschungsZentrum</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
 			</properties>
 			<distributionManagement>

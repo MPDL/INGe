@@ -106,26 +106,29 @@ public class RedirectServlet extends HttpServlet {
       if (tme) {
         redirectUrl.append("/metadata");
       }
-      HashMap<String, String> matomoParameterMap = new HashMap<String, String>();
-      matomoParameterMap.put(MatomoTracker.SITE_ID, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID));
-      matomoParameterMap.put(MatomoTracker.REC, Integer.toString(1)); // fixed value that needs to
-                                                                      // be sent as it is
-      matomoParameterMap.put(MatomoTracker.SITE_URL,
-          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
-      matomoParameterMap.put(MatomoTracker.DOWNLOAD_URL,
-          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
-      matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN));
-      matomoParameterMap.put(MatomoTracker.USER_IP, req.getRemoteAddr());
-      Cookie[] cookies = req.getCookies();
-      if (cookies != null) {
-        for (Cookie cookie : cookies) {
-          if ("JSESSIONID".equals(cookie.getName())) {
-            System.out.println("SessionId: " + cookie.getValue());
-            matomoParameterMap.put(MatomoTracker.User_ID, cookie.getValue());
+
+      if (PropertyReader.getProperty(PropertyReader.INGE_MATOMO_TRACKER_USE).equalsIgnoreCase("true")) {
+        HashMap<String, String> matomoParameterMap = new HashMap<String, String>();
+        matomoParameterMap.put(MatomoTracker.SITE_ID, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_SITE_ID));
+        matomoParameterMap.put(MatomoTracker.REC, Integer.toString(1)); // fixed value that needs to
+                                                                        // be sent as it is
+        matomoParameterMap.put(MatomoTracker.SITE_URL,
+            PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
+        matomoParameterMap.put(MatomoTracker.DOWNLOAD_URL,
+            PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL) + req.getRequestURI());
+        matomoParameterMap.put(MatomoTracker.AUTH_TOKEN, PropertyReader.getProperty(PropertyReader.INGE_MATOMO_ANALYTICS_AUTH_TOKEN));
+        matomoParameterMap.put(MatomoTracker.USER_IP, req.getRemoteAddr());
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+          for (Cookie cookie : cookies) {
+            if ("JSESSIONID".equals(cookie.getName())) {
+              System.out.println("SessionId: " + cookie.getValue());
+              matomoParameterMap.put(MatomoTracker.User_ID, cookie.getValue());
+            }
           }
         }
+        MatomoTracker.trackUrl(matomoParameterMap);
       }
-      MatomoTracker.trackUrl(matomoParameterMap);
 
       resp.sendRedirect(redirectUrl.toString());
     }
