@@ -131,9 +131,10 @@ public class DataHandlerService {
     String decoded = URLDecoder.decode(metaDataVO.getMdUrl().toString(), this.currentDataSourceVO.getEncoding());
     metaDataVO.setMdUrl(new URL(decoded));
     metaDataVO.setMdUrl(new URL(metaDataVO.getMdUrl().toString().replace(REGEX_GETID, identifier.trim())));
-    
+
     if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_CROSSREF)) {
-      metaDataVO.setMdUrl(new URL(metaDataVO.getMdUrl().toString().replace(REGEX_CROSSREF_PID, PropertyReader.getProperty(PropertyReader.INGE_CROSSREF_PID))));
+      metaDataVO.setMdUrl(new URL(
+          metaDataVO.getMdUrl().toString().replace(REGEX_CROSSREF_PID, PropertyReader.getProperty(PropertyReader.INGE_CROSSREF_PID))));
     }
 
     this.currentDataSourceVO = this.sourceHandler.updateMdEntry(this.currentDataSourceVO, metaDataVO);
