@@ -1218,6 +1218,7 @@
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
+				<inge.cone.modelsxml.path>models_gfz.xml</inge.cone.modelsxml.path>
 				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
 				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
 				<inge.doi.service.create.url />
