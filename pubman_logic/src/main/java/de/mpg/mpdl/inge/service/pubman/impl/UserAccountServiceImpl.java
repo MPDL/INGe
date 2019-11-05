@@ -377,13 +377,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
             }
           }
         }
-        if (principal == null || !principal.getUserAccount().isActive()) {
+
+        if (principal == null || principal.getUserAccount() == null || !principal.getUserAccount().isActive()) {
           throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
         }
-
-      }
-
-      else {
+      } else {
         AccountUserDbVO userAccount = userAccountRepository.findByLoginname(username);
         String encodedPassword = userLoginRepository.findPassword(username);
 
@@ -391,7 +389,6 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
             && passwordEncoder.matches(password, encodedPassword)) {
           String token = createToken(userAccount, request);
           principal = new Principal(userAccount, token);
-
         } else {
           throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
         }
@@ -399,9 +396,6 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
       //Set Cookie
       if (principal != null && response != null) {
-
-
-
         Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
         cookie.setPath("/");
         cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);

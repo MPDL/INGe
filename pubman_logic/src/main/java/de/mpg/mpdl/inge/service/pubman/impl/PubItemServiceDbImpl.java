@@ -775,7 +775,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase Commit!)
     // PID Generierung
-    if (PropertyReader.INGE_PID_SERVICE_USE.equalsIgnoreCase("true")) {
+    if (PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE).equalsIgnoreCase("true")) {
       if (ItemVersionRO.State.RELEASED.equals(state)) {
         ItemRootVO pubItemObject = latestVersion.getObject();
         try {

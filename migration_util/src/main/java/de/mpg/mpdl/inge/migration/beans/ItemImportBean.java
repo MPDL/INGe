@@ -167,6 +167,35 @@ public class ItemImportBean {
     }
   }
 
+  public void importPubItems4GFZ(String contextId) throws Exception {
+
+    String contentModelId = "escidoc:persistent4";
+    HttpClient client = utils.setup();
+
+    int startRecord = 1;
+    int allRecords = Integer.MAX_VALUE;
+
+    while (allRecords > startRecord + limit) {
+      log.info("Searching from " + startRecord + " to " + (startRecord + limit));
+      URI uri = new URIBuilder(escidocUrl + itemsPath)
+          .addParameter("query",
+              "\"/properties/content-model/id\"=\"" + contentModelId + "\" AND \"/properties/context/id\"=\"" + contextId + "\"")
+          .addParameter("maximumRecords", String.valueOf(limit)).addParameter("startRecord", String.valueOf(startRecord)).build();
+      final HttpGet request = new HttpGet(uri);
+      HttpResponse response = client.execute(request);
+      String xml = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+
+      SearchRetrieveResponseVO<PubItemVO> pubItemList = XmlTransformingService.transformToSearchRetrieveResponse(xml);
+
+      allRecords = pubItemList.getNumberOfRecords();
+      startRecord = startRecord + limit;
+      log.info("Found " + allRecords + "items.");
+
+      pubItemList.getRecords().parallelStream().forEach(i -> saveAllVersionsOfPubItem(i.getData()));
+
+    }
+  }
+
   private void saveAllVersionsOfPubItem(PubItemVO pubItemVo) {
     HttpClient client = null;
     try {
@@ -274,7 +303,8 @@ public class ItemImportBean {
         Path path;
         ArrayList<String> audienceIds = new ArrayList<String>();
         try
-        // path = Paths.get(getClass().getClassLoader().getResource("Kontext_MPI-ID.txt").toURI());
+        // path =
+        // Paths.get(getClass().getClassLoader().getResource("Kontext_MPI-ID.txt").toURI());
         (InputStream file_content = ResourceUtil.getResourceAsStream("Kontext_MPI-ID.txt", getClass().getClassLoader())) {
           BufferedReader reader = new BufferedReader(new InputStreamReader(file_content, "UTF-8"));
           Stream<String> lines = reader.lines();
@@ -304,7 +334,8 @@ public class ItemImportBean {
         if (oldFile.getStorage().equals(FileVO.Storage.INTERNAL_MANAGED)) {
           String localId;
           try {
-            //            localId = upload(oldFile.getContent(), oldFile.getName().replaceAll("[:\\\\/*\"?|<>]", "_"));
+            // localId = upload(oldFile.getContent(),
+            // oldFile.getName().replaceAll("[:\\\\/*\"?|<>]", "_"));
             log.info("uploading file " + oldFile.getName() + " as " + file.getObjectId());
             localId = upload(oldFile.getContent(), file.getObjectId());
             file.setLocalFileIdentifier(localId);

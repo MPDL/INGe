@@ -59,6 +59,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 import de.mpg.mpdl.inge.transformation.exceptions.TransformationException;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * @author Friederike Kleinfercher (initial creation)
@@ -67,7 +68,8 @@ import de.mpg.mpdl.inge.transformation.sources.TransformerStreamSource;
 public class DataHandlerService {
   private static final Logger logger = Logger.getLogger(DataHandlerService.class);
 
-  private static final String REGEX = "GETID";
+  private static final String REGEX_GETID = "GETID";
+  private static final String REGEX_CROSSREF_PID = "CROSSREF_PID";
   private static final String PROTOCOL_ARXIV = "oai-pmh";
   private static final String PROTOCOL_CROSSREF = "http";
 
@@ -128,7 +130,12 @@ public class DataHandlerService {
 
     String decoded = URLDecoder.decode(metaDataVO.getMdUrl().toString(), this.currentDataSourceVO.getEncoding());
     metaDataVO.setMdUrl(new URL(decoded));
-    metaDataVO.setMdUrl(new URL(metaDataVO.getMdUrl().toString().replaceAll(REGEX, identifier)));
+    metaDataVO.setMdUrl(new URL(metaDataVO.getMdUrl().toString().replace(REGEX_GETID, identifier.trim())));
+
+    if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_CROSSREF)) {
+      metaDataVO.setMdUrl(new URL(
+          metaDataVO.getMdUrl().toString().replace(REGEX_CROSSREF_PID, PropertyReader.getProperty(PropertyReader.INGE_CROSSREF_PID))));
+    }
 
     this.currentDataSourceVO = this.sourceHandler.updateMdEntry(this.currentDataSourceVO, metaDataVO);
 
@@ -176,7 +183,7 @@ public class DataHandlerService {
         itemAfterTransformaton = wr.toString();
 
         if (this.currentDataSourceVO.getItemUrl() != null) {
-          this.itemUrl = new URL(this.currentDataSourceVO.getItemUrl().toString().replace("GETID", identifier));
+          this.itemUrl = new URL(this.currentDataSourceVO.getItemUrl().toString().replace(REGEX_GETID, identifier.trim()));
         }
 
         try {
@@ -220,7 +227,7 @@ public class DataHandlerService {
         // Replace regex with identifier
         String decoded = java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(), this.currentDataSourceVO.getEncoding());
         fulltextVO.setFtUrl(new URL(decoded));
-        fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString().replaceAll(REGEX, identifier.trim())));
+        fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString().replace(REGEX_GETID, identifier.trim())));
 
         in = this.fetchFile(fulltextVO);
 

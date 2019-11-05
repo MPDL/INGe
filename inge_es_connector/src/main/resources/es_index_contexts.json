@@ -147,31 +147,31 @@
   "settings": {
     "index": {
       "number_of_shards": "5",
-      "provided_name": "contexts_20180917",
-      "creation_date": "1537191657454",
+      "provided_name": "contexts_20180919",
+      "creation_date": "1537360602824",
       "analysis": {
-        "filter": {
-          "autocomplete_filter": {
-            "type": "edge_ngram",
-            "min_gram": "1",
-            "max_gram": "20"
+          "filter": {
+              "autocomplete_filter": {
+                  "type": "edge_ngram",
+                  "min_gram": "1",
+                  "max_gram": "20"
+              }
+          },
+          "analyzer": {
+              "autocomplete": {
+                  "filter": [
+                      "lowercase",
+                      "autocomplete_filter"
+                  ],
+                  "type": "custom",
+                  "tokenizer": "standard"
+              }
           }
-        },
-        "analyzer": {
-          "autocomplete": {
-            "filter": [
-              "lowercase",
-              "autocomplete_filter"
-            ],
-            "type": "custom",
-            "tokenizer": "standard"
-          }
-        }
       },
       "number_of_replicas": "0",
-      "uuid": "CYzbovl7TIGl3jo3uGHi-w",
+      "uuid": "urDwQ6gWR9C83JRBk8scjQ",
       "version": {
-        "created": "6030299"
+          "created": "6020299"
       }
     }
   }

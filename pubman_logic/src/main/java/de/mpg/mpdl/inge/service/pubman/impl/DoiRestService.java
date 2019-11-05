@@ -117,7 +117,7 @@ public class DoiRestService {
   public static boolean isDoiReady(ItemVersionVO pubItem) {
     boolean doiReady = false;
     // useDOI must be true
-    if (!PropertyReader.INGE_DOI_SERVICE_USE.equalsIgnoreCase("true")) {
+    if (!PropertyReader.getProperty(PropertyReader.INGE_DOI_SERVICE_USE).equalsIgnoreCase("true")) {
       return false;
     }
 

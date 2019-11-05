@@ -1,5 +1,4 @@
 
-
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.util.Date;
@@ -70,7 +69,6 @@ public class ReindexTests {
   @Autowired
   private YearbookService yearbookService;
 
-
   @Autowired
   private UserAccountService userAccountService;
 
@@ -92,55 +90,53 @@ public class ReindexTests {
   @Autowired
   ElasticSearchClientProvider client;
 
-
   @Test
   public void test() throws Exception {
-
 
     System.out.println(pubItemDao.getIndexFields());
 
     /*
-    List<String> idList = organizationService.getIdPath("ou_1753285");
-    
-    System.out.println(idList);
-    */
+     * List<String> idList = organizationService.getIdPath("ou_1753285");
+     * 
+     * System.out.println(idList);
+     */
 
     /*
      * 
-     * Map<String, ElasticSearchIndexField> map = orgDao.getIndexFields(); for(Entry<String,
-     * ElasticSearchIndexField> entry : map.entrySet()) {
+     * Map<String, ElasticSearchIndexField> map = orgDao.getIndexFields();
+     * for(Entry<String, ElasticSearchIndexField> entry : map.entrySet()) {
      * System.out.println(entry.getValue().toString()); }
      */
-
-
 
     /*
      * PubItemVO item = pubItemService.get("item_3002712_1", null);
      * 
      * StringWriter w = new StringWriter();
-     * JsonObjectMapperFactory.getObjectMapper().writerFor(PubItemVO.class).writeValue(w, item);
-     * System.out.println(w.toString());
+     * JsonObjectMapperFactory.getObjectMapper().writerFor(PubItemVO.class).
+     * writeValue(w, item); System.out.println(w.toString());
      */
 
     /*
-     * String token = userAccountService.login("boosen", "boosen"); AccountUserVO userAccount =
-     * authorizationService.checkLoginRequired(token);
+     * String token = userAccountService.login("boosen", "boosen"); AccountUserVO
+     * userAccount = authorizationService.checkLoginRequired(token);
      * 
      * AffiliationVO affv0 = organizationService.get("ou_1113557", token);
      * System.out.println("HasChildren :" + affv0.getHasChildren()); affv0 =
-     * organizationService.get("ou_persistent13", token); System.out.println("HasChildren :" +
-     * affv0.getHasChildren());
+     * organizationService.get("ou_persistent13", token);
+     * System.out.println("HasChildren :" + affv0.getHasChildren());
      * 
-     * QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name", "test");
-     * SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(testQuery);
-     * SearchRetrieveResponseVO<AffiliationVO> resp = organizationService.search(srr, null);
-     * System.out.println("Found: " + resp.getNumberOfRecords() + " records");
+     * QueryBuilder testQuery = QueryBuilders.matchQuery("defaultMetadata.name",
+     * "test"); SearchRetrieveRequestVO srr = new
+     * SearchRetrieveRequestVO(testQuery); SearchRetrieveResponseVO<AffiliationVO>
+     * resp = organizationService.search(srr, null); System.out.println("Found: " +
+     * resp.getNumberOfRecords() + " records");
      */
     /*
      * 
-     * QueryBuilder matchQuery = QueryBuilders.matchQuery("_all", "test"); QueryBuilder aaQuery =
-     * authorizationService.modifyQueryForAa("de.mpg.mpdl.inge.service.pubman.PubItemService",
-     * matchQuery, userAccount); System.out.println(aaQuery.toString());
+     * QueryBuilder matchQuery = QueryBuilders.matchQuery("_all", "test");
+     * QueryBuilder aaQuery = authorizationService.modifyQueryForAa(
+     * "de.mpg.mpdl.inge.service.pubman.PubItemService", matchQuery, userAccount);
+     * System.out.println(aaQuery.toString());
      * 
      * pubItemService.get("item_3000007_5", token);
      * 
@@ -148,8 +144,6 @@ public class ReindexTests {
      */
 
   }
-
-
 
   @Test
   @Ignore
@@ -177,7 +171,7 @@ public class ReindexTests {
   public void testReindexOu() throws Exception {
 
     organizationService.reindexAll(null);
-    //organizationService.reindexNotImmediately("ou_persistent35");
+    // organizationService.reindexNotImmediately("ou_persistent35");
     Thread.sleep(120000);
 
   }
@@ -241,11 +235,9 @@ public class ReindexTests {
           System.out.println("Not allowed: " + e.getMessage());
         }
 
-
       } catch (Exception e) {
 
       }
-
 
     }
   }
@@ -261,15 +253,12 @@ public class ReindexTests {
     MapperFactory.getObjectMapper().writerFor(AccountUserVO.class).writeValue(sw, userAccount);
     System.out.println(sw.toString());
 
-
-
     /*
-     * String token = userAccountService.login("frank", "mlehliW"); AccountUserVO userAccount =
-     * authorizationService.checkLoginRequired(token);
+     * String token = userAccountService.login("frank", "mlehliW"); AccountUserVO
+     * userAccount = authorizationService.checkLoginRequired(token);
      * 
      * contextService.open("ctx_3000022", token);
      */
-
 
   }
 
@@ -277,13 +266,9 @@ public class ReindexTests {
   @Ignore
   public void createUser() throws Exception {
 
-
-
     String adminUsername = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_USERNAME);
     String adminPass = PropertyReader.getProperty(PropertyReader.ESCIDOC_FRAMEWORK_ADMIN_PASSWORD);
     String token = userAccountService.login(adminUsername, adminPass);
-
-
 
     // userAccountService.delete("ctx_3000055", token);
 
@@ -304,20 +289,17 @@ public class ReindexTests {
 
     user.getGrants().add(grant);
 
-
-
     AccountUserVO userAccount = userAccountService.create(user, token);
 
     /*
      * 
      * 
      * 
-     * userAccountService.addGrants(userAccount.getReference().getObjectId(), new GrantVO[] {grant},
-     * token);
+     * userAccountService.addGrants(userAccount.getReference().getObjectId(), new
+     * GrantVO[] {grant}, token);
      */
 
   }
-
 
   private static void validateLoginname(String loginname) throws IngeTechnicalException {
     if (loginname == null || loginname.trim().isEmpty()) {
@@ -329,8 +311,6 @@ public class ReindexTests {
 
   }
 
-
-
   public static void main(String[] args) throws Exception {
     Date now = new Date();
     System.out.println(now.getTime());
@@ -338,7 +318,6 @@ public class ReindexTests {
     System.out.println(now.toGMTString());
     System.out.println(now.toString());
     System.out.println(now.toLocaleString());
-
 
     JavaType jt = TypeFactory.defaultInstance().constructRawMapLikeType(MdsOrganizationalUnitDetailsVO.class);
     System.out.println(jt.getRawClass());

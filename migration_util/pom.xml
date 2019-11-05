@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.2-SNAPSHOT</version>
+		<version>8.0.15-SNAPSHOT</version>
 	</parent>
 	<artifactId>migration_util</artifactId>
 	
@@ -77,7 +77,6 @@
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
-		<inge.pubman.instance.seal_number />
 		<inge.pubman.instance.ssrn_contexts>ctx_167026,ctx_1002</inge.pubman.instance.ssrn_contexts>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.logo.css />
@@ -225,12 +224,11 @@
 		<xsd.soap.usergroup.usergroup>http://www.escidoc.de/schemas/usergroup/0.6</xsd.soap.usergroup.usergroup>
 		<xsd.soap.usergroup.usergrouplist>http://www.escidoc.de/schemas/usergrouplist/0.6</xsd.soap.usergroup.usergrouplist>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>pubman_logic</artifactId>
-		</dependency>
+					</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

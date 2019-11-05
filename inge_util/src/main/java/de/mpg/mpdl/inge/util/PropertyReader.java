@@ -89,6 +89,7 @@ public class PropertyReader {
   public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";
   public static final String INGE_CRON_IMPORT_SURVEYOR = "inge.cron.import.surveyor";
   public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
+  public static final String INGE_CROSSREF_PID = "inge.crossref.pid";
   public static final String INGE_DATABASE_DRIVER_CLASS = "inge.database.driver.class";
   public static final String INGE_DATABASE_JDBC_URL = "inge.database.jdbc.url";
   public static final String INGE_DATABASE_USER_NAME = "inge.database.user.name";
@@ -131,6 +132,7 @@ public class PropertyReader {
   public static final String INGE_MATOMO_ANALYTICS_AUTH_TOKEN = "inge.matomo.analytics.auth.token";
   public static final String INGE_MATOMO_ANALYTICS_BASE_URI = "inge.matomo.analytics.base.uri";
   public static final String INGE_MATOMO_ANALYTICS_SITE_ID = "inge.matomo.analytics.site.id";
+  public static final String INGE_MATOMO_TRACKER_USE = "inge.matomo.tracker.use";
   public static final String INGE_PID_SERVICE_CREATE_PATH = "inge.pid.service.create.path";
   public static final String INGE_PID_SERVICE_PASSWORD = "inge.pid.service.password";
   public static final String INGE_PID_SERVICE_TIMEOUT = "inge.pid.service.timeout";
