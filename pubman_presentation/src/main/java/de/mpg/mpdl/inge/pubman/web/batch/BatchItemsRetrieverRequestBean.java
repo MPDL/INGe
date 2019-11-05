@@ -1,4 +1,4 @@
-package de.mpg.mpdl.inge.pubman.web.basket;
+package de.mpg.mpdl.inge.pubman.web.batch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
- * This bean is the implementation of the BaseListRetrieverRequestBean for the basket list. It uses
+ * This bean is the implementation of the BaseListRetrieverRequestBean for the batch list. It uses
  * the PubItemSessionBean as cooresponding BasePaginatorListSessionBean.
  * 
  * @author Markus Haarlaender (initial creation)
@@ -34,16 +34,16 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-@ManagedBean(name = "CartItemsRetrieverRequestBean")
+@ManagedBean(name = "BatchItemsRetrieverRequestBean")
 @SuppressWarnings("serial")
-public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
-  private static final Logger logger = Logger.getLogger(CartItemsRetrieverRequestBean.class);
+public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA> {
+  private static final Logger logger = Logger.getLogger(BatchItemsRetrieverRequestBean.class);
 
   public static final String MESSAGE_NO_ITEM_FOR_DELETION_SELECTED = "deleteItemsFromBatchOrBasket_NoItemSelected";
 
   private int numberOfRecords;
 
-  public CartItemsRetrieverRequestBean() {
+  public BatchItemsRetrieverRequestBean() {
     // refreshAlways is needed due to workarround (latest-version problem, filter only retrieves
     // latest versions and therefore
     // number of items in the basket could change -> message is displayed to the user.
@@ -79,12 +79,12 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
 
     try {
-      final PubItemStorageSessionBean pssb = (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
+      final PubItemBatchSessionBean pbsb = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
 
 
-      if (pssb.getStoredPubItems().size() > 0) {
+      if (pbsb.getStoredPubItems().size() > 0) {
 
-        List<String> ids = pssb.getStoredPubItems().values().stream().map(i -> i.getObjectIdAndVersion()).collect(Collectors.toList());
+        List<String> ids = pbsb.getStoredPubItems().values().stream().map(i -> i.getObjectIdAndVersion()).collect(Collectors.toList());
 
         QueryBuilder idQuery = QueryBuilders.termsQuery("_id", ids);
 
@@ -117,38 +117,38 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         this.numberOfRecords = 0;
       }
 
-      pssb.setDiffDisplayNumber(pssb.getStoredPubItemsSize() - this.numberOfRecords);
-      if (pssb.getDiffDisplayNumber() > 0) {
+      pbsb.setDiffDisplayNumber(pbsb.getBatchPubItemsSize() - this.numberOfRecords);
+      if (pbsb.getDiffDisplayNumber() > 0) {
 
-        this.error(pssb.getDiffDisplayNumber() + " " + this.getMessage("basketAndBatch_ItemsChanged"));
+        this.error(pbsb.getDiffDisplayNumber() + " " + this.getMessage("basketAndBatch_ItemsChanged"));
       }
 
 
 
     } catch (final Exception e) {
       this.error(this.getMessage("ItemsRetrieveError"));
-      CartItemsRetrieverRequestBean.logger.error("Error while retrieving items for basket", e);
+      BatchItemsRetrieverRequestBean.logger.error("Error while retrieving items for batch", e);
     }
     return returnList;
   }
 
   /**
-   * Called from JSF when selected items in the list should be removed from the basket.
+   * Called from JSF when selected items in the list should be removed from the batch list.
    * 
    * @return
    */
   public void deleteSelected() {
-    final PubItemStorageSessionBean pssb = (PubItemStorageSessionBean) FacesTools.findBean("PubItemStorageSessionBean");
+    final PubItemBatchSessionBean pbsb = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
     int countSelected = 0;
 
     for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
-        pssb.getStoredPubItems().remove(pubItem.getObjectIdAndVersion());
+        pbsb.getStoredPubItems().remove(pubItem.getObjectIdAndVersion());
       }
     }
     if (countSelected == 0) {
-      this.error(this.getMessage(CartItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
+      this.error(this.getMessage(BatchItemsRetrieverRequestBean.MESSAGE_NO_ITEM_FOR_DELETION_SELECTED));
     }
 
     this.getBasePaginatorListSessionBean().redirect();
@@ -156,7 +156,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
 
   @Override
   public String getListPageName() {
-    return "CartItemsPage.jsp";
+    return "BatchWorkspacePage.jsp";
   }
 
 

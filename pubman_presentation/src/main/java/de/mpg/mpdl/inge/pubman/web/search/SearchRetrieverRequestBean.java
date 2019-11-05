@@ -351,6 +351,10 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
   }
 
   public String getQueryString() {
+    if (this.queryStringUrlParam == null) {
+      this.queryStringUrlParam =
+          this.getBasePaginatorListSessionBean().getParameterMap().get(SearchRetrieverRequestBean.parameterQuery);
+    }
     return this.queryStringUrlParam;
   }
 

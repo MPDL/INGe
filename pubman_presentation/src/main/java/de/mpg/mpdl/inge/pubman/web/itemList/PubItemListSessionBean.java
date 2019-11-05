@@ -48,6 +48,7 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
+import de.mpg.mpdl.inge.pubman.web.batch.PubItemBatchSessionBean;
 import de.mpg.mpdl.inge.pubman.web.common_presentation.BasePaginatorListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItems;
 import de.mpg.mpdl.inge.pubman.web.export.ExportItemsSessionBean;
@@ -72,7 +73,7 @@ import de.mpg.mpdl.inge.transformation.TransformerFactory;
 public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> {
   private static final Logger logger = Logger.getLogger(PubItemListSessionBean.class);
 
-  public static final int MAXIMUM_CART_ITEMS = 2800;
+  public static final int MAXIMUM_CART_OR_BATCH_ITEMS = 2800;
 
 
 
@@ -453,6 +454,21 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   /**
+   * Called by JSF when the submenu should be changed to the EXPORT part
+   * 
+   * @return
+   */
+  public void changeSubmenuToActions() {
+    try {
+      this.setSubMenu("ACTIONS");
+      this.setListUpdate(false);
+      this.redirect();
+    } catch (final Exception e) {
+      this.error(this.getMessage("NoRedirect"));
+    }
+  }
+
+  /**
    * Called by JSF when the list type should be changed to bibliographic lists
    * 
    * @return
@@ -679,6 +695,86 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   /**
+   * Adds the currently selected pub items to the batch environment and displays corresponding
+   * messages.
+   * 
+   * @return
+   */
+  public void addAllToBatch() {
+    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final List<PubItemVOPresentation> allListPubItems = this.retrieveAll();
+
+    int added = 0;
+    int existing = 0;
+    for (final PubItemVOPresentation pubItem : allListPubItems) {
+
+      if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+        if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
+          pubItemBatch.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
+          added++;
+        } else {
+          existing++;
+        }
+      } else {
+        this.error(this.getMessage("basketAndBatch_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS + ")");
+        break;
+      }
+    }
+
+    if (allListPubItems.size() == 0) {
+      this.error(this.getMessage("batch_NoItemsSelected"));
+    }
+    if (added > 0 || existing > 0) {
+      this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
+    }
+    if (existing > 0) {
+      this.info(this.getMessage("batch_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
+    }
+
+    this.redirect();
+  }
+
+  /**
+   * Adds the currently selected pub items to the batch environment and displays corresponding
+   * messages.
+   * 
+   * @return
+   */
+  public void addSelectedToBatch() {
+    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    final List<PubItemVOPresentation> selectedPubItems = this.getSelectedItems();
+
+    int added = 0;
+    int existing = 0;
+    for (final PubItemVOPresentation pubItem : selectedPubItems) {
+
+      if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+        if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
+          pubItemBatch.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
+          added++;
+        } else {
+          existing++;
+        }
+      } else {
+        this.error(this.getMessage("basketAndBatch_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS + ")");
+        break;
+      }
+    }
+
+    if (selectedPubItems.size() == 0) {
+      this.error(this.getMessage("batch_NoItemsSelected"));
+    }
+    if (added > 0 || existing > 0) {
+      this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
+    }
+    if (existing > 0) {
+      this.info(this.getMessage("batch_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
+    }
+
+    this.redirect();
+  }
+
+  /**
    * Adds the currently selected pub items to the basket and displays corresponding messages.
    * 
    * @return
@@ -691,7 +787,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     int existing = 0;
     for (final PubItemVOPresentation pubItem : selectedPubItems) {
 
-      if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_ITEMS) {
+      if ((pubItemStorage.getStoredPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
         if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
           pubItemStorage.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
           added++;
@@ -699,7 +795,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
           existing++;
         }
       } else {
-        this.error(this.getMessage("basket_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_ITEMS + ")");
+        this.error(this.getMessage("basketAndBatch_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS + ")");
         break;
       }
     }

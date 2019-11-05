@@ -44,7 +44,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 public class BreadcrumbItemHistorySessionBean extends FacesBean {
   // a List of all pages with item-lists
   private final String[] itemListPages = { //
-      "SearchResultListPage", "DepositorWSPage", "QAWSPage", "CartItemsPage", "YearbookPage", "YearbookArchivePage"};
+      "SearchResultListPage", "DepositorWSPage", "QAWSPage", "BatchWorkspacePage", "CartItemsPage", "YearbookPage", "YearbookArchivePage"};
 
   // the List of BreadCrumbs representing JSP's that have been viewed
   private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
