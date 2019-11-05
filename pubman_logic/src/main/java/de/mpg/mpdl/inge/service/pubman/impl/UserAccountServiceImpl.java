@@ -377,12 +377,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
             }
           }
         }
-        
+
         if (principal == null || principal.getUserAccount() == null || !principal.getUserAccount().isActive()) {
           throw new AuthenticationException("Could not login, incorrect username and password provided or user is deactivated!");
         }
-      }
-      else {
+      } else {
         AccountUserDbVO userAccount = userAccountRepository.findByLoginname(username);
         String encodedPassword = userLoginRepository.findPassword(username);
 
