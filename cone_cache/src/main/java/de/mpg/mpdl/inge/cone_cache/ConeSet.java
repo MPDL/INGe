@@ -8,7 +8,6 @@ public enum ConeSet {
   ISO639_3_TITLE(new HashSet<String>()), //
   JEL_TITLE(new HashSet<String>()), //
   JUS_TITLE(new HashSet<String>()), //
-  MIME_TYPES_TITLE(new HashSet<String>()), //
   MPICC_PROJECTS_TITLE(new HashSet<String>()), //
   MPING_TITLE(new HashSet<String>()), //
   MPINP_TITLE(new HashSet<String>()), //
@@ -16,8 +15,7 @@ public enum ConeSet {
   MPIRG_TITLE(new HashSet<String>()), //
   MPIS_GROUPS_TITLE(new HashSet<String>()), //
   MPIS_PROJECTS_TITLE(new HashSet<String>()), //
-  MPIWG_PROJECTS_TITLE(new HashSet<String>()), //
-  PACS_TITLE(new HashSet<String>());  
+  MPIWG_PROJECTS_TITLE(new HashSet<String>());
   
   private HashSet<String> set;
 
