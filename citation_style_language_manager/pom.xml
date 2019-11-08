@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.15-SNAPSHOT</version>
+		<version>8.0.15</version>
 	</parent>
 
 	<artifactId>citation_style_language_manager</artifactId>
@@ -16,7 +16,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/citation_style_language_manager</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/citation_style_language_manager</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.0.15</tag>
 	</scm>
 
 	<repositories>
