@@ -86,7 +86,7 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canCreateFromTemplate}" />
                                     <h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{ViewItemFull.canAddToBasket}" onclick="fullItemReloadAjax();" />
                                     <h:commandLink id="lnkDeleteFromBasket" action="#{ViewItemFull.removeFromBasket}" value="#{lbl.ViewItemFull_lblRemoveFromBasket}" rendered="#{ViewItemFull.canDeleteFromBasket}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canAddToBatch or ViewItemFull.canRemoveBatch}" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canAddToBatch or ViewItemFull.canDeleteFromBatch}" />
                                     <h:commandLink id="lnkAddToBatch" action="#{ViewItemFull.addToBatch}" value="#{lbl.ViewItemFull_lblAddToBatch}" rendered="#{ViewItemFull.canAddToBatch}" onclick="fullItemReloadAjax();" />
                                     <h:commandLink id="lnkDeleteFromBatch" action="#{ViewItemFull.removeFromBatch}" value="#{lbl.ViewItemFull_lblRemoveFromBatch}" rendered="#{ViewItemFull.canDeleteFromBatch}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isCandidateOfYearbook}" />

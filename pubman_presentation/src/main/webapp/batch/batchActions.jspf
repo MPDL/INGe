@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<f:subview id="batchActions">
+		<div class="full_area0">
+			<div class="full_area0 fullItem">
+				<div class="full_area0 small_marginLExcl">
+					<!-- Subheadline starts here -->
+					<h3>
+						<h:outputText value="Choose your Action" />
+					</h3>
+					<!-- Subheadline ends here -->
+				</div>
+				<h:panelGroup>
+					<div class="full_area0 itemHeader">
+						<span class="xLarge_area0 endline"> &#160; </span> <span
+							class="seperator"></span> <span
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
+									value="&#196;nderung des Datensatz-Status" />
+						</b>
+						</span>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="free_area0 endline itemLine firstLine">
+								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
+									<br /> <br />
+								</span>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup>
+					<div class="full_area0 itemHeader">
+						<span class="xLarge_area0 endline"> &#160; </span> <span
+							class="seperator xTiny_area0"></span> <span
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
+									value="Wechsel des Kontextes" />
+						</b>
+						</span>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="free_area0 endline itemLine firstLine">
+								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
+									<br /> <br />
+								</span>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup>
+					<div class="full_area0 itemHeader">
+						<span class="xLarge_area0 endline"> &#160; </span> <span
+							class="seperator"></span> <span
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
+									value="Lokale Tags" />
+						</b>
+						</span>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="free_area0 endline itemLine firstLine">
+								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
+									<br /> <br />
+								</span>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup>
+					<div class="full_area0 itemHeader">
+						<span class="xLarge_area0 endline"> &#160; </span> <span
+							class="seperator"></span> <span
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
+									value="Wechsel des Genres" />
+						</b>
+						</span>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="free_area0 endline itemLine firstLine">
+								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
+									<br /> <br />
+								</span>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+				<h:panelGroup>
+					<div class="full_area0 itemHeader">
+						<span class="xLarge_area0 endline"> &#160; </span> <span
+							class="seperator"></span> <span
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
+									value="Metadaten" />
+						</b>
+						</span>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="free_area0 endline itemLine firstLine">
+								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
+									<br /> <br />
+								</span>
+							</div>
+						</div>
+					</div>
+				</h:panelGroup>
+			</div>
+		</div>
+	</f:subview>
+</ui:composition>
