@@ -28,7 +28,6 @@ public class ConeCache {
   private static final String ISO639_3_IDENTIFIER_QUERY = "iso639-3/query?format=rdf&q=*&mode=full&n=0";
   private static final String ISO639_3_TITLE_QUERY = "iso639-3/query?format=rdf&q=*&n=0";
   private static final String JEL_TITLE_QUERY = "jel/query?format=rdf&q=*&n=0";
-  private static final String MIME_TYPES_TITLE_QUERY = "escidocmimetypes/query?format=rdf&q=*&n=0";
   private static final String MPICC_PROJECTS_TITLE_QUERY = "mpicc-projects/query?format=rdf&q=*&n=0";
   private static final String MPINP_TITLE_QUERY = "mpinp/query?format=rdf&q=*&n=0";
   private static final String MPIPKS_TITLE_QUERY = "mpipks/query?format=rdf&q=*&n=0";
@@ -44,7 +43,6 @@ public class ConeCache {
   private static final ConeSet iso639_3_Identifier = ConeSet.ISO639_3_IDENTIFIER;
   private static final ConeSet iso639_3_Title = ConeSet.ISO639_3_TITLE;
   private static final ConeSet jelTitle = ConeSet.JEL_TITLE;
-  private static final ConeSet mimeTypesTitle = ConeSet.MIME_TYPES_TITLE;
   private static final ConeSet mpiccProjectsTitle = ConeSet.MPICC_PROJECTS_TITLE;
   private static final ConeSet mpinpTitle = ConeSet.MPINP_TITLE;
   private static final ConeSet mpipksTitle = ConeSet.MPIPKS_TITLE;
@@ -59,7 +57,7 @@ public class ConeCache {
     return ConeCache.InstanceHolder.INSTANCE;
   }
 
-  public static void refreshCache() throws ConeCacheConfigException {
+  public static void refreshCache() {
     logger.info("*** Start CONE-Cache Refresh-Cycle ***");
 
     String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
@@ -68,7 +66,6 @@ public class ConeCache {
     ConeCache.refresh(iso639_3_Identifier, new ConeHandler(ConeCache.IDENTIFIER), coneServiceUrl + ConeCache.ISO639_3_IDENTIFIER_QUERY);
     ConeCache.refresh(iso639_3_Title, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.ISO639_3_TITLE_QUERY);
     ConeCache.refresh(jelTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.JEL_TITLE_QUERY);
-    ConeCache.refresh(mimeTypesTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MIME_TYPES_TITLE_QUERY);
     ConeCache.refresh(mpiccProjectsTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPICC_PROJECTS_TITLE_QUERY);
     ConeCache.refresh(mpinpTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPINP_TITLE_QUERY);
     ConeCache.refresh(mpipksTitle, new ConeHandler(ConeCache.TITLE), coneServiceUrl + ConeCache.MPIPKS_TITLE_QUERY);
@@ -80,7 +77,7 @@ public class ConeCache {
     logger.info("*** Ende CONE-Cache Refresh-Cycle ***");
   }
 
-  private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) throws ConeCacheConfigException {
+  private static void refresh(ConeSet coneSet, ConeHandler handler, String queryUrl) {
     logger.info("*** Start refresh: " + queryUrl);
     try {
       final Set<String> result = ConeCache.getData(handler, queryUrl);
@@ -96,10 +93,10 @@ public class ConeCache {
         }
       }
     } catch (IOException | ParserConfigurationException | SAXException | ConeCacheException e) {
-      logger.warn("Could not refresh Cone Set with Url: " + queryUrl);
+      logger.error("Could not refresh Cone Set with Url: " + queryUrl, e);
       if (coneSet.set().isEmpty()) {
         logger.error("Cone Set is empty: Url: " + queryUrl);
-        throw new ConeCacheConfigException(e);
+        //        throw new ConeCacheConfigException(e);
       }
     }
     logger.info("*** Ende refresh: " + queryUrl);
@@ -154,14 +151,6 @@ public class ConeCache {
     }
 
     return jelTitle.set();
-  }
-
-  public Set<String> getMimeTypesTitleSet() {
-    if (mimeTypesTitle.set().isEmpty()) {
-      logger.error("CONE mimeTypesTitleSet is empty.");
-    }
-
-    return mimeTypesTitle.set();
   }
 
   public Set<String> getMpiccProjectsTitleSet() {

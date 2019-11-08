@@ -43,8 +43,6 @@ public class ClassifiedKeywordsValidator extends ValidatorHandler<List<SubjectVO
   public static final String MPIS_PROJECTS = "MPIS_PROJECTS";
   public static final String MPIWG_PROJECTS = "MPIWG_PROJECTS";
 
-  public static final String CONE_EMPTY_LANGUAGE_CODE = "ConeEmptyLanguageCode";
-
   @Override
   public boolean validate(ValidatorContext context, List<SubjectVO> subjects) {
 

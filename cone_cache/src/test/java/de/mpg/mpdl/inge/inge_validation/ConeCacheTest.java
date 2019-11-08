@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
-import de.mpg.mpdl.inge.cone_cache.ConeCacheConfigException;
 
 public class ConeCacheTest {
 
@@ -22,7 +21,6 @@ public class ConeCacheTest {
     list.add(new GetDDLThread());
     list.add(new GetISOThread());
     list.add(new GetISOIdThread());
-    list.add(new GetMIMEThread());
     list.add(new GetMPIPKSThread());
     list.add(new GetMPIRKThread());
     list.add(new GetMPISGROUPThread());
@@ -74,22 +72,6 @@ public class ConeCacheTest {
       while (true) {
         try {
           System.out.println("ISO_Identifier: " + this.cache.getIso639_3_IdentifierSet().size());
-          Thread.sleep((int) (Math.random() * 10000));
-        } catch (final Exception e) {
-          System.out.println(e);
-        }
-      }
-    }
-  }
-
-  class GetMIMEThread extends Thread {
-    ConeCache cache = ConeCache.getInstance();
-
-    @Override
-    public void run() {
-      while (true) {
-        try {
-          System.out.println("MIME_Title: " + this.cache.getMimeTypesTitleSet().size());
           Thread.sleep((int) (Math.random() * 10000));
         } catch (final Exception e) {
           System.out.println(e);
@@ -171,7 +153,7 @@ public class ConeCacheTest {
         System.out.println("Start refreshCache");
         try {
           ConeCache.refreshCache();
-        } catch (final ConeCacheConfigException e) {
+        } catch (final Exception e) {
           System.out.println(e);
         }
         System.out.println("Ende refreshCache");
@@ -189,7 +171,6 @@ public class ConeCacheTest {
     System.out.println("cDDC_Title: " + cache.getDdcTitleSet().size());
     System.out.println("cISO_Identifier: " + cache.getIso639_3_IdentifierSet().size());
     System.out.println("cISO_Title: " + cache.getIso639_3_TitleSet().size());
-    System.out.println("cMIME_Title: " + cache.getMimeTypesTitleSet().size());
     System.out.println("cMPIPKS_Title: " + cache.getMpipksTitleSet().size());
     System.out.println("cMPIRK_Title: " + cache.getMpirgTitleSet().size());
     System.out.println("cMPIS_GROUP_Title: " + cache.getMpisGroupsTitleSet().size());

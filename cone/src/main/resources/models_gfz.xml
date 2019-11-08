@@ -198,7 +198,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			</predicate>
 			<predicate name="Position" value="http://purl.org/escidoc/metadata/terms/0.1/position" multiple="true" mandatory="false" localized="true" generateObject="true" searchable="true" restricted="false">
 				<predicate name="Organization" value="http://purl.org/eprint/terms/affiliatedInstitution" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false" suggest-url="/pubman/faces/OrganizationSuggest.jsp?format=json&amp;lang=en"/>
-				<predicate name="eSciDoc-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" restricted="false"/>
+				<predicate name="OU-ID" value="http://purl.org/dc/elements/1.1/identifier" multiple="false" mandatory="false" localized="false" searchable="true" restricted="false"/>
 				<predicate name="Position Appellation" value="http://purl.org/escidoc/metadata/terms/0.1/position-name" multiple="false" mandatory="false" localized="true" searchable="false" restricted="false"/>
 				<predicate name="From" value="http://purl.org/escidoc/metadata/terms/0.1/start-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
 				<predicate name="Until" value="http://purl.org/escidoc/metadata/terms/0.1/end-date" multiple="false" mandatory="false" localized="false" searchable="false" restricted="true"/>
@@ -207,22 +207,22 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<predicate name="Last Modification Date"
 				value="http://purl.org/dc/terms/modified" multiple="false"
 				mandatory="true" localized="false" searchable="true"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Creation Date"
 				value="http://purl.org/dc/terms/created" multiple="false"
 				mandatory="true" localized="false" searchable="true"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentDate"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentDate"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 			<predicate name="Modified By"
 				value="http://purl.org/dc/terms/creator" multiple="false"
 				mandatory="true" localized="false" searchable="true"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
 				overwrite="true" event="onsave" modify="false" restricted="true" />
 			<predicate name="Created By"
 				value="http://purl.org/dc/terms/contributor" multiple="false"
 				mandatory="true" localized="false" searchable="true"
-				default="de.mpg.escidoc.services.cone.util.EditHelper.getCurrentUser"
+				default="de.mpg.mpdl.inge.cone.util.EditHelper.getCurrentUser"
 				overwrite="false" event="onsave" modify="false" restricted="true" />
 		</predicates>
 		<results>
