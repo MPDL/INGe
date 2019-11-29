@@ -15,105 +15,231 @@
 				</div>
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
-						<span class="xLarge_area0 endline"> &#160; </span> <span
+						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
-							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="&#196;nderung des Datensatz-Status" />
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText value="#{lbl.BatchWorkspace_lblActions_changeState}" />
 						</b>
 						</span>
 					</div>
 					<div class="full_area0 itemBlock noTopBorder">
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
-							<div class="free_area0 endline itemLine firstLine">
-								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
-									<br /> <br />
-								</span>
+							<div class="xHuge_area0_p8 itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_delete }" />
+								</b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState_deleteDesc }" />
+							</div>
+						</div>
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_submit }" />
+								</b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState_submitDesc }" />
+							</div>
+						</div>
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToRework }" />
+								</b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }" />
+							</div>
+						</div>
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_release }" />
+								</b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState_releaseDesc }" />
+							</div>
+						</div>
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_withdraw }" />
+								</b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState_withdrawDesc }" />
 							</div>
 						</div>
 					</div>
 				</h:panelGroup>
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
-						<span class="xLarge_area0 endline"> &#160; </span> <span
+						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator xTiny_area0"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="Wechsel des Kontextes" />
+									value="#{lbl.BatchWorkspace_lblActions_changeContext}" />
 						</b>
 						</span>
 					</div>
 					<div class="full_area0 itemBlock noTopBorder">
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
-							<div class="free_area0 endline itemLine firstLine">
-								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
-									<br /> <br />
-								</span>
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContext }" />
+								</b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextDesc }" />
 							</div>
 						</div>
 					</div>
 				</h:panelGroup>
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
-						<span class="xLarge_area0 endline"> &#160; </span> <span
+						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="Lokale Tags" />
+									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags }" />
 						</b>
 						</span>
 					</div>
 					<div class="full_area0 itemBlock noTopBorder">
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
-							<div class="free_area0 endline itemLine firstLine">
-								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
-									<br /> <br />
-								</span>
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add }" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc }" />
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace }" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceDesc }" />
 							</div>
 						</div>
 					</div>
 				</h:panelGroup>
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
-						<span class="xLarge_area0 endline"> &#160; </span> <span
+						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="Wechsel des Genres" />
+									value="#{lbl.BatchWorkspace_lblActions_changeGenre }" />
 						</b>
 						</span>
 					</div>
 					<div class="full_area0 itemBlock noTopBorder">
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
-							<div class="free_area0 endline itemLine firstLine">
-								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
-									<br /> <br />
-								</span>
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
 							</div>
 						</div>
 					</div>
 				</h:panelGroup>
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
-						<span class="xLarge_area0 endline"> &#160; </span> <span
+						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="Metadaten" />
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata }" />
 						</b>
 						</span>
 					</div>
 					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<h3><h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files }" /></h3>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
-							<div class="free_area0 endline itemLine firstLine">
-								<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-										value="Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim Klimbim" />
-									<br /> <br />
-								</span>
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility }" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityDesc }" />
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategory }" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryDesc }" />
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audience }" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceDesc }" />
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<h3><h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences }" /></h3>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategory}" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<h3><h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication }" /></h3>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethod}" /> </b>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodDesc }" />
 							</div>
 						</div>
 					</div>

@@ -280,6 +280,10 @@
 	width: 43.37em;
 }
 
+.itemLine h3 {
+	font-weight: bold;
+}
+
 .itemLine .licenseArea {
 	margin-left:15.8181em;
 }
