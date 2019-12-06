@@ -58,9 +58,7 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn"
-										value="#{lbl.BatchWorkspace_lblActions_changeState_release }" />
+								<b class="medium_area0 labelLine"><h:commandLink action="#{PubItemBatchSessionBean.releaseItemList }" value="#{lbl.BatchWorkspace_lblActions_changeState_release }"/>
 								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeState_releaseDesc }" />
