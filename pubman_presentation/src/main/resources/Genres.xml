@@ -7,7 +7,6 @@
 			<group id="total_number_of_pages"	repeatable="false" display="true" optional="true" form-id="all" label="g_total_number_of_pages">
 			<group id="review_method"			repeatable="false" display="true" optional="true" form-id="all" label="g_review_method">
 			<group id="item_degree"				repeatable="false" display="true" optional="true" form-id="all" label="g_item_degree">
-			<group id="item_location"			repeatable="false" display="true" optional="true" form-id="all" label="g_item_location">
 			<group id="item_language"			repeatable="false" display="true" optional="true" form-id="all" label="g_item_language">
 			<group id="item_toc"				repeatable="false" display="true" optional="true" form-id="all" label="g_item_toc">
 			Probably this change will have no effect, as single field groups in genre specific configurations are only listed when they are not to be displayed. 
@@ -97,10 +96,6 @@
 				<field id="component_visibility" repeatable="false" display="true" optional="false" label="component_visibility" class-attribute="files.visibility"/>
 				<field id="component_content" repeatable="false" display="true" optional="false" label="component_content" class-attribute="files.content"/>
 				<field id="component_description" repeatable="false" display="true" optional="true" label="component_description" class-attribute="files.description"/>
-				<group id="component_identifiers" display="true" optional="true" repeatable="true" label="g_identifiers" form-id="all" class-attribute="files.metadata.identifiers">
-					<field id="identifier_type" repeatable="false" display="true" optional="false" label="item_identifier_type" class-attribute="files.metadata.identifiers.type"/>
-					<field id="identifier_value" repeatable="false" display="true" optional="false" label="item_identifier_value" class-attribute="files.metadata.identifiers.id"/>
-				</group>
 			</group>
 			<group id="locators" display="true" repeatable="true" optional="true" label="g_locators" form-id="all" class-attribute="files">
 				<field id="component_name" repeatable="false" display="true" label="locator_name" optional="false" class-attribute="files.name"/>
