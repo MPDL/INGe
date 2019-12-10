@@ -108,8 +108,36 @@ public class PubItemBatchSessionBean extends FacesBean {
     return this.getBatchPubItemsSize() - this.diffDisplayNumber;
   }
 
+  public String deleteItemList() {
+    logger.info("trying to batch delete " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.deletePubItems(pubItemsMap, "batch delete " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch delete", e);
+      this.error("A technichal error occoured during the batch delete");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch delete failed", e);
+      this.error("Authentication for batch delete failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch delete failed", e);
+      this.error("Authorization for batch delete failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch delete", e);
+      this.error("An application error occoured during the batch delete");
+    }
+    return null;
+  }
+
   public String releaseItemList() {
-    logger.info("trying to batch release " + this.getDiffDisplayNumber() + " items");
+    logger.info("trying to batch release " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
@@ -132,6 +160,90 @@ public class PubItemBatchSessionBean extends FacesBean {
     } catch (IngeApplicationException e) {
       logger.error("An application error occoured during the batch release", e);
       this.error("An application error occoured during the batch release");
+    }
+    return null;
+  }
+
+  public String reviseItemList() {
+    logger.info("trying to batch revise " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.revisePubItems(pubItemsMap, "batch revise " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch revise", e);
+      this.error("A technichal error occoured during the batch revise");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch revise failed", e);
+      this.error("Authentication for batch revise failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch revise failed", e);
+      this.error("Authorization for batch revise failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch revise", e);
+      this.error("An application error occoured during the batch revise");
+    }
+    return null;
+  }
+
+  public String submitItemList() {
+    logger.info("trying to batch submit " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.submitPubItems(pubItemsMap, "batch submit " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch submit", e);
+      this.error("A technichal error occoured during the batch submit");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch submit failed", e);
+      this.error("Authentication for batch submit failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch submit failed", e);
+      this.error("Authorization for batch submit failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch submit", e);
+      this.error("An application error occoured during the batch submit");
+    }
+    return null;
+  }
+
+  public String withdrawItemList() {
+    logger.info("trying to batch withdraw " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.withdrawPubItems(pubItemsMap, "batch withdraw " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch withdraw", e);
+      this.error("A technichal error occoured during the batch withdraw");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch withdraw failed", e);
+      this.error("Authentication for batch withdraw failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch withdraw failed", e);
+      this.error("Authorization for batch withdraw failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch withdraw", e);
+      this.error("An application error occoured during the batch withdraw");
     }
     return null;
   }

@@ -13,7 +13,7 @@
 		href="${BatchItemsRetrieverRequestBean.unapiURLview}" />
 	<h:outputStylesheet
 		name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
-	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	<h:outputScript name="commonJavaSclript/jquery/jquery-ui-1.10.4.min.js" />
 	<script src="/cone/js/jquery.suggest.js"></script>
 	<h:outputScript
 		name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />

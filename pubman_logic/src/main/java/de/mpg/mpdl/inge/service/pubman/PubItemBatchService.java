@@ -16,20 +16,84 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
  */
 public interface PubItemBatchService {
 
-  // Submit multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId, exception>
-  public Map<String, Exception> submitPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
+  /**
+   * delete multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
+   * exception>
+   * 
+   * @param pubItemsMap
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  public Map<String, Exception> deletePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  //Release multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId, exception>
+  /**
+   * Release multiple Items within a Map <pubItemId, modificationDate> and return a Map with
+   * <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
   public Map<String, Exception> releasePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  //withdraw multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId, exception>
-  public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
+  /**
+   * revise multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
+   * exception>
+   * 
+   * @param pubItemsMap
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  public Map<String, Exception> revisePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  //revise multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId, exception>
-  public Map<String, Exception> revisePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
+  /**
+   * Submit multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
+   * exception>
+   * 
+   * @param pubItemsMap
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  public Map<String, Exception> submitPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * withdraw multiple Items within a Map <pubItemId, modificationDate> and return a Map with
+   * <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   //  public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)

@@ -17,7 +17,8 @@
 					<div class="full_area0 itemHeader">
 						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
-							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText value="#{lbl.BatchWorkspace_lblActions_changeState}" />
+							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState}" />
 						</b>
 						</span>
 					</div>
@@ -25,8 +26,8 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn"
+								<b class="medium_area0 labelLine"><h:commandLink
+										action="#{PubItemBatchSessionBean.deleteItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_delete }" />
 								</b>
 								<h:outputText
@@ -36,8 +37,8 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn"
+								<b class="medium_area0 labelLine"><h:commandLink
+										action="#{PubItemBatchSessionBean.submitItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_submit }" />
 								</b>
 								<h:outputText
@@ -47,18 +48,19 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn"
+								<b class="medium_area0 labelLine"><h:commandLink
+										action="#{PubItemBatchSessionBean.reviseItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToRework }" />
 								</b>
-								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }" />
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:commandLink action="#{PubItemBatchSessionBean.releaseItemList }" value="#{lbl.BatchWorkspace_lblActions_changeState_release }"/>
+								<b class="medium_area0 labelLine"><h:commandLink
+										action="#{PubItemBatchSessionBean.releaseItemList }"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_release }" />
 								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeState_releaseDesc }" />
@@ -67,8 +69,8 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn"
+								<b class="medium_area0 labelLine"><h:commandLink
+										action="#{PubItemBatchSessionBean.withdrawItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_withdraw }" />
 								</b>
 								<h:outputText
@@ -114,7 +116,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add }" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add }" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc }" />
 							</div>
@@ -125,7 +129,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace }" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace }" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceDesc }" />
 							</div>
@@ -146,7 +152,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
 							</div>
@@ -166,7 +174,10 @@
 						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<h3><h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files }" /></h3>
+								<h3>
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files }" />
+								</h3>
 							</div>
 						</div>
 					</div>
@@ -175,7 +186,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility }" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility }" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityDesc }" />
 							</div>
@@ -186,7 +199,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategory }" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategory }" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryDesc }" />
 							</div>
@@ -197,7 +212,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audience }" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audience }" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceDesc }" />
 							</div>
@@ -207,7 +224,10 @@
 						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<h3><h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences }" /></h3>
+								<h3>
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences }" />
+								</h3>
 							</div>
 						</div>
 					</div>
@@ -216,7 +236,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategory}" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategory}" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
 							</div>
@@ -226,7 +248,10 @@
 						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<h3><h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication }" /></h3>
+								<h3>
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication }" />
+								</h3>
 							</div>
 						</div>
 					</div>
@@ -235,7 +260,9 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:outputText
-										class="free_area0 groupBtn" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethod}" /> </b>
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethod}" />
+								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodDesc }" />
 							</div>

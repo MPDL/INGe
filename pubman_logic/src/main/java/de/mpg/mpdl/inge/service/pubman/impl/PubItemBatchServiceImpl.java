@@ -56,8 +56,17 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public Map<String, Exception> submitPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    // TODO Auto-generated method stub
-    return null;
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        this.pubItemService.submitPubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
+        messageMap.put(itemId, null);
+      } catch (Exception e) {
+        logger.error("Could not batch submit item " + itemId, e);
+        messageMap.put(itemId, e);
+      }
+    }
+    return messageMap;
   }
 
   /*
@@ -91,8 +100,17 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    // TODO Auto-generated method stub
-    return null;
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        this.pubItemService.withdrawPubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
+        messageMap.put(itemId, null);
+      } catch (Exception e) {
+        logger.error("Could not batch withdraw item " + itemId, e);
+        messageMap.put(itemId, e);
+      }
+    }
+    return messageMap;
   }
 
   /*
@@ -104,8 +122,33 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public Map<String, Exception> revisePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    // TODO Auto-generated method stub
-    return null;
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        this.pubItemService.revisePubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
+        messageMap.put(itemId, null);
+      } catch (Exception e) {
+        logger.error("Could not batch revise item " + itemId, e);
+        messageMap.put(itemId, e);
+      }
+    }
+    return messageMap;
+  }
+
+  @Override
+  public Map<String, Exception> deletePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        this.pubItemService.delete(itemId, authenticationToken);
+        messageMap.put(itemId, null);
+      } catch (Exception e) {
+        logger.error("Could not batch delete item " + itemId, e);
+        messageMap.put(itemId, e);
+      }
+    }
+    return messageMap;
   }
 
 
