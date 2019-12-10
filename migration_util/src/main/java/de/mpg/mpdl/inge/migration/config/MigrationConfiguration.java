@@ -23,31 +23,31 @@ import de.mpg.mpdl.inge.service.spring.AppConfigPubmanLogic;
 @PropertySource(value = "file:migration.properties", ignoreResourceNotFound = false)
 @EnableAsync
 public class MigrationConfiguration implements AsyncConfigurer {
-  static Logger log = Logger.getLogger(MigrationConfiguration.class.getName());
+	static Logger log = Logger.getLogger(MigrationConfiguration.class.getName());
 
-  @Override
-  public Executor getAsyncExecutor() {
-    // TODO Auto-generated method stub
-    // ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-    // executor.setMaxPoolSize(1);
-    return new ThreadPoolTaskExecutor();
-  }
+	@Override
+	public Executor getAsyncExecutor() {
+		// TODO Auto-generated method stub
+		// ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		// executor.setMaxPoolSize(1);
+		return new ThreadPoolTaskExecutor();
+	}
 
-  @Override
-  public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-    // TODO Auto-generated method stub
-    return new AsyncUncaughtExceptionHandler() {
+	@Override
+	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+		// TODO Auto-generated method stub
+		return new AsyncUncaughtExceptionHandler() {
 
-      @Override
-      public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-        // TODO Auto-generated method stub
-        log.error("uncaught async exception", ex);
-        log.info("method name: " + method.getName());
-        for (Object obj : params) {
-          log.info("object param " + obj);
-        }
-      }
-    };
-  }
+			@Override
+			public void handleUncaughtException(Throwable ex, Method method, Object... params) {
+				// TODO Auto-generated method stub
+				log.error("uncaught async exception", ex);
+				log.info("method name: " + method.getName());
+				for (Object obj : params) {
+					log.info("object param " + obj);
+				}
+			}
+		};
+	}
 
 }

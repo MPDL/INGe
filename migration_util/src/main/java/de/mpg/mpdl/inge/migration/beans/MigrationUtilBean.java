@@ -27,46 +27,48 @@ import de.mpg.mpdl.inge.util.AdminHelper;
 @Component
 public class MigrationUtilBean {
 
-  @Value("${escidoc.url}")
-  private String escidocUrl;
+	@Value("${escidoc.url}")
+	private String escidocUrl;
 
-  public String changeId(String prefix, String href) {
-    return href.substring(href.lastIndexOf("/") + 1, href.length()).replaceAll("escidoc:", prefix + "_").replaceAll(":", "_");
-  }
+	public String changeId(String prefix, String href) {
+		return href.substring(href.lastIndexOf("/") + 1, href.length()).replaceAll("escidoc:", prefix + "_")
+				.replaceAll(":", "_");
+	}
 
-  public HttpClient setup() throws URISyntaxException {
-    HttpClient httpClientWithEscidocCookie;
+	public HttpClient setup() throws URISyntaxException {
+		HttpClient httpClientWithEscidocCookie;
 
-    String userHandle = AdminHelper.getAdminUserHandle();
-    BasicCookieStore cookieStore = new BasicCookieStore();
-    BasicClientCookie cookie = new BasicClientCookie("escidocCookie", userHandle);
-    URI uri = new URIBuilder(escidocUrl).build();
-    cookie.setDomain(uri.getHost());
-    cookie.setPath("/");
-    cookieStore.addCookie(cookie);
-    httpClientWithEscidocCookie = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
-    return httpClientWithEscidocCookie;
-  }
+		String userHandle = AdminHelper.getAdminUserHandle();
+		BasicCookieStore cookieStore = new BasicCookieStore();
+		BasicClientCookie cookie = new BasicClientCookie("escidocCookie", userHandle);
+		URI uri = new URIBuilder(escidocUrl).build();
+		cookie.setDomain(uri.getHost());
+		cookie.setPath("/");
+		cookieStore.addCookie(cookie);
+		httpClientWithEscidocCookie = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).build();
+		return httpClientWithEscidocCookie;
+	}
 
-  public void wfTesting() {
-    Path path;
-    ArrayList<String> audienceIds = new ArrayList<String>();
-    FileVO file = new FileVO();
-    FileDbVO inge_file = new FileDbVO();
-    file.setVisibility(FileVO.Visibility.AUDIENCE);
-    try {
-      path = Paths.get(getClass().getClassLoader().getResource("Kontext_MPI-ID.txt").toURI());
-      Stream<String> lines = Files.lines(path);
-      lines.filter(line -> line.startsWith("escidoc:1861388")).map(line -> line.split(", ")[1]).forEach(id -> audienceIds.add(id));
-      System.out.println("Collected ids: " + audienceIds);
-      if (file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
-        inge_file.setAllowedAudienceIds(audienceIds);
-      }
-      System.out.println("new file has audienceIds " + inge_file.getAllowedAudienceIds());
-    } catch (URISyntaxException | IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+	public void wfTesting() {
+		Path path;
+		ArrayList<String> audienceIds = new ArrayList<String>();
+		FileVO file = new FileVO();
+		FileDbVO inge_file = new FileDbVO();
+		file.setVisibility(FileVO.Visibility.AUDIENCE);
+		try {
+			path = Paths.get(getClass().getClassLoader().getResource("Kontext_MPI-ID.txt").toURI());
+			Stream<String> lines = Files.lines(path);
+			lines.filter(line -> line.startsWith("escidoc:1861388")).map(line -> line.split(", ")[1])
+					.forEach(id -> audienceIds.add(id));
+			System.out.println("Collected ids: " + audienceIds);
+			if (file.getVisibility().equals(FileVO.Visibility.AUDIENCE)) {
+				inge_file.setAllowedAudienceIds(audienceIds);
+			}
+			System.out.println("new file has audienceIds " + inge_file.getAllowedAudienceIds());
+		} catch (URISyntaxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-  }
+	}
 }

@@ -12,62 +12,62 @@ import de.mpg.mpdl.inge.service.pubman.YearbookService;
 @Component
 public class Reindexing {
 
-  @Autowired
-  OrganizationService ouService;
+	@Autowired
+	OrganizationService ouService;
 
-  @Autowired
-  ContextService ctxService;
+	@Autowired
+	ContextService ctxService;
 
-  @Autowired
-  UserAccountService userService;
+	@Autowired
+	UserAccountService userService;
 
-  @Autowired
-  PubItemService itemService;
+	@Autowired
+	PubItemService itemService;
 
-  @Autowired
-  YearbookService ybService;
+	@Autowired
+	YearbookService ybService;
 
-  public void reindexOus() throws Exception {
-    ouService.reindexAll(null);
-    Thread.sleep(300000);
-  }
+	public void reindexOus() throws Exception {
+		ouService.reindexAll(null);
+		Thread.sleep(300000);
+	}
 
-  public void reindexOU(String id) throws Exception {
-    ouService.reindex(id, null);
-  }
+	public void reindexOU(String id) throws Exception {
+		ouService.reindex(id, null);
+	}
 
-  public void reindexContexts() throws Exception {
-    ctxService.reindexAll(null);
-    Thread.sleep(300000);
-  }
+	public void reindexContexts() throws Exception {
+		ctxService.reindexAll(null);
+		Thread.sleep(300000);
+	}
 
-  public void reindexUser(String id) throws Exception {
-    userService.reindex(id, null);
-  }
+	public void reindexUser(String id) throws Exception {
+		userService.reindex(id, null);
+	}
 
-  public void reindexUsers() throws Exception {
-    userService.reindexAll(null);
-    Thread.sleep(300000);
-  }
+	public void reindexUsers() throws Exception {
+		userService.reindexAll(null);
+		Thread.sleep(300000);
+	}
 
-  // @Async
-  public void reindexItems() throws Exception {
-    itemService.reindexAll(null);
-    Thread.sleep(28800000);
-  }
+	// @Async
+	public void reindexItems() throws Exception {
+		itemService.reindexAll(null);
+		Thread.sleep(28800000);
+	}
 
-  public void reindexItem(String id) throws Exception {
-    itemService.reindex(id, null);
-    // Thread.sleep(30000);
-  }
+	public void reindexItem(String id) throws Exception {
+		itemService.reindex(id, null);
+		// Thread.sleep(30000);
+	}
 
-  public void reindexYBs() throws Exception {
-    ybService.reindexAll(null);
-    Thread.sleep(300000);
-  }
+	public void reindexYBs() throws Exception {
+		ybService.reindexAll(null);
+		Thread.sleep(300000);
+	}
 
-  public void reindexYB(String id) throws Exception {
-    ybService.reindex(id, null);
-  }
+	public void reindexYB(String id) throws Exception {
+		ybService.reindex(id, null);
+	}
 
 }
