@@ -27,6 +27,7 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
+										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.deleteItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_delete }" />
 								</b>
@@ -38,6 +39,7 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
+										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.submitItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_submit }" />
 								</b>
@@ -49,16 +51,19 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
+										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.reviseItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToRework }" />
 								</b>
-									value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }" />
+								value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }"
+								/>
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
+										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.releaseItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_release }" />
 								</b>
@@ -70,6 +75,7 @@
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
+										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.withdrawItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_withdraw }" />
 								</b>
@@ -92,12 +98,42 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
+								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.changeContextItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContext }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextDesc }" />
+									<br/>
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextOldContext }"/>
+											<br/>
+											<h:outputLabel value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextNewContext }"/>
+										</div>
+										
+										<div>
+											<h:selectOneMenu id="selContextChangeOldContext"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.selectedContextOld}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.contextSelectItems}" />
+											</h:selectOneMenu>
+											<h:selectOneMenu id="selContextChangeNewContext"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.selectedContextNew}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.contextSelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

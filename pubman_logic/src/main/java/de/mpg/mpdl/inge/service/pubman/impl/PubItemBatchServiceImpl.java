@@ -15,8 +15,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
@@ -24,6 +26,7 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
+import de.mpg.mpdl.inge.service.pubman.ContextService;
 import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 
@@ -43,8 +46,49 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Autowired
   private PubItemService pubItemService;
 
+  @Autowired
+  private ContextService contextService;
+
   public PubItemBatchServiceImpl() {
 
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeContext(java.util.Map,
+   * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  public Map<String, Exception> changeContext(Map<String, Date> pubItemsMap, String contextOld, String contextNew, String message,
+      String authenticationToken) {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    ContextDbVO contextVO = null;
+    try {
+      contextVO = this.contextService.get(contextNew, authenticationToken);
+    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
+      logger.error("Batch changing of context failed. Error retrieving destination context", e);
+    }
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (itemId != null && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
+          pubItemVO.getObject().setContext(contextVO);
+          ItemVersionVO pubItemVOnew = this.pubItemService.update(pubItemVO, authenticationToken);
+          if (pubItemVOnew != null && pubItemVOnew.getObject().getContext().equals(pubItemVO.getObject().getContext())) {
+            messageMap.put(itemId, null);
+          }
+        }
+        // this.pubItemService.update(object, authenticationToken)(itemId, pubItemsMap.get(itemId),
+        // message, authenticationToken);
+        logger.error("Could not update context of " + itemId + " because the from context is not the same as in the item");
+        messageMap.put(itemId,
+            new Exception("Context was not updated. Either Item was null, or the old context did not match the context of the item"));
+      } catch (Exception e) {
+        logger.error("Could not change context of item " + itemId, e);
+        messageMap.put(itemId, e);
+      }
+    }
+    return messageMap;
   }
 
   /*
@@ -135,6 +179,12 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#deletePubItems(java.util.Map,
+   * java.lang.String, java.lang.String)
+   */
   @Override
   public Map<String, Exception> deletePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {

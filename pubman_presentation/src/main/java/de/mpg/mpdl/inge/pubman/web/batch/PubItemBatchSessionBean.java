@@ -1,15 +1,18 @@
 package de.mpg.mpdl.inge.pubman.web.batch;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,8 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -51,19 +57,14 @@ public class PubItemBatchSessionBean extends FacesBean {
   @ManagedProperty(value = "#{pubItemBatchServiceImpl}")
   private PubItemBatchService pubItemBatchService;
 
-  public PubItemBatchService getPubItemBatchService() {
-    return pubItemBatchService;
-  }
-
-  public void setPubItemBatchService(PubItemBatchService pubItemBatchService) {
-    this.pubItemBatchService = pubItemBatchService;
-  }
 
   @Autowired
   private BatchItemsRetrieverRequestBean batchIrrB;
 
+  private ArrayList<SelectItem> contextSelectItems;
+  private String selectedContextNew;
+  private String selectedContextOld;
   private Map<String, ItemVersionRO> storedPubItems;
-
   /**
    * The number that represents the difference between the real number of items in the batch
    * environment and the number that is displayed. These might differ due to the problem that items
@@ -72,12 +73,70 @@ public class PubItemBatchSessionBean extends FacesBean {
    */
   private int diffDisplayNumber = 0;
 
+
   public PubItemBatchSessionBean() {
     this.storedPubItems = new HashMap<String, ItemVersionRO>();
+    // Contexts (Collections)
+    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
+
+    this.contextSelectItems = new ArrayList<SelectItem>();
+    for (int i = 0; i < contextVOList.size(); i++) {
+      String workflow = "null";
+      if (contextVOList.get(i).getWorkflow() != null) {
+        workflow = contextVOList.get(i).getWorkflow().toString();
+      }
+      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
+    }
+    System.out.println("blabla");
   }
 
   public int getBatchPubItemsSize() {
     return this.storedPubItems.size();
+  }
+
+  public ArrayList<SelectItem> getContextSelectItems() {
+    return contextSelectItems;
+  }
+
+  public void setContextSelectItems(ArrayList<SelectItem> contextSelectItems) {
+    this.contextSelectItems = contextSelectItems;
+  }
+
+  public void setDiffDisplayNumber(int diffDisplayNumber) {
+    this.diffDisplayNumber = diffDisplayNumber;
+  }
+
+  public int getDiffDisplayNumber() {
+    return this.diffDisplayNumber;
+  }
+
+  public int getDisplayNumber() {
+    return this.getBatchPubItemsSize() - this.diffDisplayNumber;
+  }
+
+  public PubItemBatchService getPubItemBatchService() {
+    return pubItemBatchService;
+  }
+
+  public void setPubItemBatchService(PubItemBatchService pubItemBatchService) {
+    this.pubItemBatchService = pubItemBatchService;
+  }
+
+  public String getSelectedContextNew() {
+    return selectedContextNew;
+  }
+
+  public void setSelectedContextNew(String selectedContextNew) {
+    this.selectedContextNew = selectedContextNew;
+  }
+
+  public String getSelectedContextOld() {
+    return selectedContextOld;
+  }
+
+  public void setSelectedContextOld(String selectedContextOld) {
+    this.selectedContextOld = selectedContextOld;
   }
 
   /**
@@ -96,16 +155,32 @@ public class PubItemBatchSessionBean extends FacesBean {
     return this.storedPubItems;
   }
 
-  public void setDiffDisplayNumber(int diffDisplayNumber) {
-    this.diffDisplayNumber = diffDisplayNumber;
-  }
-
-  public int getDiffDisplayNumber() {
-    return this.diffDisplayNumber;
-  }
-
-  public int getDisplayNumber() {
-    return this.getBatchPubItemsSize() - this.diffDisplayNumber;
+  public String changeContextItemList() {
+    logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.changeContext(pubItemsMap, selectedContextOld, selectedContextNew,
+          "batch release " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch context change", e);
+      this.error("A technichal error occoured during the batch context change");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch context change failed", e);
+      this.error("Authentication for batch context change failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch context change failed", e);
+      this.error("Authorization for batch context change failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch context change", e);
+      this.error("An application error occoured during the batch context change");
+    }
+    return null;
   }
 
   public String deleteItemList() {
@@ -247,4 +322,5 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     return null;
   }
+
 }

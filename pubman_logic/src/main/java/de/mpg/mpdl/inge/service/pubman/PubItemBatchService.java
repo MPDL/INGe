@@ -17,6 +17,24 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 public interface PubItemBatchService {
 
   /**
+   * change the context of multiple Items within a Map <pubItemId, modificationDate> from contextOld
+   * to contextNew return a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param contextOld
+   * @param contextNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  public Map<String, Exception> changeContext(Map<String, Date> pubItemsMap, String contextOld, String contextNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * delete multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
    * exception>
    * 
@@ -96,9 +114,10 @@ public interface PubItemBatchService {
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  //  public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
-  //      throws IngeApplicationException, IngeTechnicalException;
+  // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
+  // throws IngeApplicationException, IngeTechnicalException;
 
-  //  public void reindex(String id, boolean includeFulltext, String authenticationToken)
-  //      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  // public void reindex(String id, boolean includeFulltext, String authenticationToken)
+  // throws IngeTechnicalException, AuthenticationException, AuthorizationException,
+  // IngeApplicationException;
 }

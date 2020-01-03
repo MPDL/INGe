@@ -49,6 +49,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
+import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;
@@ -266,7 +267,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     PubItemUtil.cleanUpItem(pubItemVO);
 
-    //Remove old file ids and add absolute path to content - used e.g. for import
+    // Remove old file ids and add absolute path to content - used e.g. for import
     if (pubItemVO.getFiles() != null) {
       for (FileDbVO file : pubItemVO.getFiles()) {
         file.setObjectId(null);
@@ -338,8 +339,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     pubItem.setMessage(null);
     pubItem.setModificationDate(currentDate);
     AccountUserDbRO mod = new AccountUserDbRO();
-    //Moved out due to DSGVO
-    //mod.setName(userAccount.getName());
+    // Moved out due to DSGVO
+    // mod.setName(userAccount.getName());
     mod.setObjectId(userAccount.getObjectId());
     pubItem.setModifier(mod);
     pubItem.setObjectId(objectId);
@@ -369,8 +370,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     latestVersion.setModificationDate(currentDate);
     de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO mod = new de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO();
-    //Moved out due do DSGVO
-    //mod.setName(modifierName);
+    // Moved out due do DSGVO
+    // mod.setName(modifierName);
     mod.setObjectId(modifierId);
     latestVersion.setModifier(mod);
     latestVersion.getObject().setLastModificationDate(currentDate);
@@ -382,6 +383,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Transactional(rollbackFor = Throwable.class)
   public ItemVersionVO update(ItemVersionVO pubItemVO, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    ContextDbVO contextNew = null;
     long start = System.currentTimeMillis();
     Principal principal = aaService.checkLoginRequired(authenticationToken);
     PubItemUtil.cleanUpItem(pubItemVO);
@@ -396,6 +398,11 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     checkAa("update", principal, latestVersion, context);
 
+    if (pubItemVO.getObject().getContext() != null && !(pubItemVO.getObject().getContext().getObjectId().equals(context.getObjectId()))) {
+      contextNew = contextRepository.findOne(pubItemVO.getObject().getContext().getObjectId());
+      checkAa("update", principal, latestVersion, contextNew);
+    }
+
 
 
     if (ItemVersionRO.State.RELEASED.equals(latestVersion.getVersionState())) {
@@ -409,7 +416,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       // if current user is owner, set to status pending. Else, set to status
       // submitted
 
-      if (GrantUtil.hasRole(principal.getUserAccount(), PredefinedRoles.MODERATOR, context.getObjectId())) {
+      if (GrantUtil.hasRole(principal.getUserAccount(), PredefinedRoles.MODERATOR,
+          contextNew != null ? contextNew.getObjectId() : context.getObjectId())) {
         latestVersion.setVersionState(ItemVersionRO.State.SUBMITTED);
       } else {
         latestVersion.setVersionState(ItemVersionRO.State.PENDING);
@@ -419,6 +427,9 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       latestVersion.getObject().setLatestVersion(latestVersion);
     }
 
+    if (contextNew != null) {
+      latestVersion.getObject().setContext(contextNew);
+    }
     updatePubItemWithTechnicalMd(latestVersion, principal.getUserAccount().getName(), principal.getUserAccount().getObjectId());
     latestVersion.setMetadata(pubItemVO.getMetadata());
 
@@ -428,13 +439,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     latestVersion.getObject().setLocalTags(pubItemVO.getObject().getLocalTags());
 
-    //Set Files and keep old file list
+    // Set Files and keep old file list
     List<FileDbVO> oldFiles = latestVersion.getFiles();
     latestVersion.setFiles(pubItemVO.getFiles());
 
     validate(latestVersion);
 
-    //Reset files to old files and handle them
+    // Reset files to old files and handle them
     latestVersion.setFiles(oldFiles);
     latestVersion.setFiles(handleFiles(pubItemVO, latestVersion, principal, new VersionableId(latestVersion.getObjectIdAndVersion())));
 
@@ -470,7 +481,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       if (fileVo.getObjectId() != null) {
 
-        //Check if this file exists for the given item id
+        // Check if this file exists for the given item id
         String errorMessage =
             "File with id [" + fileVo.getObjectId() + "] does not exist for this item. Please remove identifier to create as new file";
 
@@ -479,13 +490,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
           throw new IngeApplicationException(errorMessage);
         }
         // Already existing file, just update some fields
-        //currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
+        // currentFileDbVO = currentFiles.remove(fileVo.getObjectId());
         currentFileDbVO = fileRepository.findOne(fileVo.getObjectId());
         this.setVisibility(currentFileDbVO, fileVo);
 
       } else {
 
-        //New file or locator
+        // New file or locator
         currentFileDbVO = new FileDbVO();
 
         if (fileVo.getContent() == null || fileVo.getContent().trim().isEmpty()) {
@@ -500,7 +511,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
         currentFileDbVO.setObjectId(idProviderService.getNewId(ID_PREFIX.FILES));
 
-        //New real file
+        // New real file
         if (Storage.INTERNAL_MANAGED.equals(fileVo.getStorage())) {
 
           this.setVisibility(currentFileDbVO, fileVo);
@@ -526,13 +537,14 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         // oldFileVo.setChecksumAlgorithm(FileVO.ChecksumAlgorithm.valueOf(newFileVo
         // .getChecksumAlgorithm().name()));
 
-        //Content still links to older version which is ok, because the old version might already been
+        // Content still links to older version which is ok, because the old version might already
+        // been
         currentFileDbVO.setContent(fileVo.getContent());
         currentFileDbVO.setCreationDate(currentDate);
         AccountUserDbRO creator = new AccountUserDbRO();
         creator.setObjectId(principal.getUserAccount().getObjectId());
-        //Remove name due to DSGVO
-        //creator.setName(principal.getUserAccount().getName());
+        // Remove name due to DSGVO
+        // creator.setName(principal.getUserAccount().getName());
         currentFileDbVO.setCreator(creator);
         currentFileDbVO.setPid(fileVo.getPid());
       }
@@ -542,18 +554,18 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
       currentFileDbVO.setVisibility(Visibility.valueOf(fileVo.getVisibility().name()));
 
-      //      currentFileDbVO.setAllowedAudienceIds(null);
+      // currentFileDbVO.setAllowedAudienceIds(null);
       //
-      //      if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
-      //        if (fileVo.getAllowedAudienceIds() != null) {
-      //          for (String audienceId : fileVo.getAllowedAudienceIds()) {
-      //            if (ipListProvider.get(audienceId) == null) {
-      //              throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
-      //            }
-      //          }
-      //        }
-      //        currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
-      //      }
+      // if (Visibility.AUDIENCE.equals(fileVo.getVisibility())) {
+      // if (fileVo.getAllowedAudienceIds() != null) {
+      // for (String audienceId : fileVo.getAllowedAudienceIds()) {
+      // if (ipListProvider.get(audienceId) == null) {
+      // throw new IngeApplicationException("Audience id " + audienceId + " is unknown");
+      // }
+      // }
+      // }
+      // currentFileDbVO.setAllowedAudienceIds(fileVo.getAllowedAudienceIds());
+      // }
 
       updatedFileList.add(currentFileDbVO);
     }
@@ -607,7 +619,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     }
 
 
-    //Delete all files and versions
+    // Delete all files and versions
     for (int i = 1; i <= latestPubItemDbVersion.getVersionNumber(); i++) {
       ItemVersionVO item = itemRepository.findOne(new VersionableId(latestPubItemDbVersion.getObjectId(), i));
       for (FileDbVO file : item.getFiles()) {
@@ -622,7 +634,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       itemRepository.delete(item);
     }
 
-    //Delete Object
+    // Delete Object
     itemObjectRepository.delete(pubItemObjectToDelete);
 
     SearchRetrieveResponseVO<ItemVersionVO> resp = getAllVersions(id);
@@ -760,7 +772,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     if (ItemVersionRO.State.WITHDRAWN.equals(state)) {
       // change public state to withdrawn, leave version state as is
       latestVersion.getObject().setPublicState(ItemVersionRO.State.WITHDRAWN);
-      //latestVersion.getObject().setWithdrawComment(message);
+      // latestVersion.getObject().setWithdrawComment(message);
     } else {
       latestVersion.setVersionState(state);
     }
@@ -773,7 +785,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
       validate(latestVersion);
     }
 
-    // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase Commit!)
+    // vorherige Validierung notwendig, da sonst PID unnötigerweise angelegt wird (kein 2 Phase
+    // Commit!)
     // PID Generierung
     if (PropertyReader.getProperty(PropertyReader.INGE_PID_SERVICE_USE).equalsIgnoreCase("true")) {
       if (ItemVersionRO.State.RELEASED.equals(state)) {
@@ -906,7 +919,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     String oldVersion = new VersionableId(latestVersion.getObjectId(), latestVersion.getVersionNumber() - 1).toString();
     pubItemDao.delete(oldVersion);
 
-    //Delete all fulltexts of old version from index
+    // Delete all fulltexts of old version from index
     if (includeFulltext) {
       pubItemDao.deleteByQuery(QueryBuilders.termQuery(INDEX_FULLTEXT_ITEM_ID, oldVersion));
     }
@@ -1024,25 +1037,15 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
 
   /*
-  public ItemVersionVO enrichItem(ItemVersionVO item) {
-  
-    if (item != null) {
-      try {
-        entityManager.detach(item);
-      } catch (Exception e) {
-  
-      }
-      if (item.getFiles() != null) {
-        for (FileDbVO file : item.getFiles()) {
-          if (Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
-            file.setContent("/rest/items/" + item.getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content");
-          }
-        }
-      }
-    }
-    return item;
-  }
-  */
+   * public ItemVersionVO enrichItem(ItemVersionVO item) {
+   * 
+   * if (item != null) { try { entityManager.detach(item); } catch (Exception e) {
+   * 
+   * } if (item.getFiles() != null) { for (FileDbVO file : item.getFiles()) { if
+   * (Storage.INTERNAL_MANAGED.equals(file.getStorage())) { file.setContent("/rest/items/" +
+   * item.getObjectIdAndVersion() + "/component/" + file.getObjectId() + "/content"); } } } } return
+   * item; }
+   */
 
 
 }

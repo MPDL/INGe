@@ -93,6 +93,10 @@ textarea {
     resize: vertical;
 }
 
+.textblock {
+	display: flow-root;
+}
+
 .noDisplay {
     display: none !important;
 }
