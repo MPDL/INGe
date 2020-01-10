@@ -55,8 +55,8 @@
 										action="#{PubItemBatchSessionBean.reviseItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToRework }" />
 								</b>
-								value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }"
-								/>
+								<h:outputText
+									value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }" />
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
@@ -106,14 +106,16 @@
 								<div class="textblock">
 									<h:outputText
 										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextDesc }" />
-									<br/>
+									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
-											<h:outputLabel value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextOldContext }"/>
-											<br/>
-											<h:outputLabel value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextNewContext }"/>
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextOldContext }" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextNewContext }" />
 										</div>
-										
+
 										<div>
 											<h:selectOneMenu id="selContextChangeOldContext"
 												styleClass="replace"
@@ -123,6 +125,7 @@
 												<f:selectItems
 													value="#{PubItemBatchSessionBean.contextSelectItems}" />
 											</h:selectOneMenu>
+											<br />
 											<h:selectOneMenu id="selContextChangeNewContext"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.selectedContextNew}"
@@ -155,8 +158,14 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc }" />
+									<h:inputText id="inputChangeLocalTags_add"
+										styleClass="quad_txtInput"
+										value="#{PubItemBatchSessionBean.inputChangeLocalTagsAdd}" />
+								</div>
+
 							</div>
 						</div>
 					</div>
@@ -168,8 +177,29 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceFrom }" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceTo }" />
+										</div>
+										<div>
+											<h:inputText id="inputChangeLocalTags_replaceFrom"
+												styleClass="quad_txtInput"
+												value="#{PubItemBatchSessionBean.inputChangeLocalTagsReplaceFrom}" />
+											<br />
+											<h:inputText id="inputChangeLocalTags_replaceTo"
+												styleClass="quad_txtInput"
+												value="#{PubItemBatchSessionBean.inputChangeLocalTagsReplaceTo}" />
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -191,8 +221,38 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeGenreFrom" styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeGenreFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeGenreSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeGenreTo" styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeGenreTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeGenreSelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -225,8 +285,40 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeFilesVisibilityFrom"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeFilesVisibilityFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeFilesVisibilitySelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeFilesVisibilityTo"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeFilesVisibilityTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeFilesVisibilitySelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -238,8 +330,40 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategory }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeFilesContentCategoryFrom"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeFilesContentCategoryFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeFilesContentCategorySelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeFilesContentCategoryTo"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeFilesVisibilityTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeFilesContentCategorySelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
