@@ -49,7 +49,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AuditDbVO.EventType;
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.ChecksumAlgorithm;

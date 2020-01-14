@@ -18,17 +18,20 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
+import de.mpg.mpdl.inge.service.aa.IpListProvider;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -49,27 +52,24 @@ public class PubItemBatchSessionBean extends FacesBean {
   @ManagedProperty(value = "#{LoginHelper}")
   private LoginHelper loginHelper;
 
-  public LoginHelper getLoginHelper() {
-    return loginHelper;
-  }
-
-  public void setLoginHelper(LoginHelper loginHelper) {
-    this.loginHelper = loginHelper;
-  }
-
   @ManagedProperty(value = "#{pubItemBatchServiceImpl}")
   private PubItemBatchService pubItemBatchService;
 
 
   @Autowired
   private BatchItemsRetrieverRequestBean batchIrrB;
-
+  private String changeExternalReferencesContentCategoryFrom;
+  private ArrayList<SelectItem> changeExternalReferencesContentCategorySelectItems;
+  private String changeExternalReferencesContentCategoryTo;
+  private String changeFilesAudienceFrom;
+  private ArrayList<SelectItem> changeFilesAudienceSelectItems;
+  private String changeFilesAudienceTo;
   private String changeFilesContentCategoryFrom;
-  private String changeFilesContentCategoryTo;
   private ArrayList<SelectItem> changeFilesContentCategorySelectItems;
+  private String changeFilesContentCategoryTo;
   private String changeFilesVisibilityFrom;
-  private String changeFilesVisibilityTo;
   private ArrayList<SelectItem> changeFilesVisibilitySelectItems;
+  private String changeFilesVisibilityTo;
   private String changeGenreFrom;
   private ArrayList<SelectItem> changeGenreSelectItems;
   private String changeGenreTo;
@@ -89,12 +89,10 @@ public class PubItemBatchSessionBean extends FacesBean {
    */
   private int diffDisplayNumber = 0;
 
-
   public PubItemBatchSessionBean() {
     this.storedPubItems = new HashMap<String, ItemVersionRO>();
     // Contexts (Collections) and depending Genres
-    final ContextListSessionBean clsb =
-        (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
+    final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
     final List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
     this.contextSelectItems = new ArrayList<SelectItem>();
     List<Genre> allowedGenresForContext = new ArrayList<Genre>();
@@ -106,8 +104,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       if (contextVOList.get(i).getWorkflow() != null) {
         workflow = contextVOList.get(i).getWorkflow().toString();
       }
-      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(),
-          contextVOList.get(i).getName() + " -- " + workflow));
+      this.contextSelectItems.add(new SelectItem(contextVOList.get(i).getObjectId(), contextVOList.get(i).getName() + " -- " + workflow));
       allowedGenresForContext = contextVOList.get(i).getAllowedGenres();
       for (int j = 0; j < allowedGenresForContext.size(); j++) {
         genreToCheck = allowedGenresForContext.get(j);
@@ -118,24 +115,81 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     if (!allowedGenres.isEmpty()) {
       for (int k = 0; k < allowedGenres.size(); k++) {
-        this.changeGenreSelectItems
-            .add(new SelectItem(allowedGenres.get(k).getUri(), allowedGenres.get(k).toString()));
+        this.changeGenreSelectItems.add(new SelectItem(allowedGenres.get(k).getUri(), allowedGenres.get(k).toString()));
       }
     } else {
       this.changeGenreSelectItems.add(new SelectItem(null, " --- "));
     }
 
     // SelectItems for file visibility
-    this.changeFilesVisibilitySelectItems = new ArrayList<SelectItem>(
-        Arrays.asList(this.getI18nHelper().getSelectItemsVisibility(false)));
+    this.changeFilesVisibilitySelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsVisibility(false)));
 
     // SeletItems for file content category
-    this.changeFilesContentCategorySelectItems = new ArrayList<SelectItem>(
-        Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+    this.changeFilesContentCategorySelectItems =
+        new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+
+    // SelectItems for file audience
+    this.changeFilesAudienceSelectItems = new ArrayList<SelectItem>();
+    for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
+      changeFilesAudienceSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
+    }
+
+    // SelectItems for external references content category
+    this.changeExternalReferencesContentCategorySelectItems =
+        new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
   }
 
   public int getBatchPubItemsSize() {
     return this.storedPubItems.size();
+  }
+
+  public String getChangeExternalReferencesContentCategoryFrom() {
+    return changeExternalReferencesContentCategoryFrom;
+  }
+
+  public void setChangeExternalReferencesContentCategoryFrom(String changeExternalReferencesContentCategoryFrom) {
+    this.changeExternalReferencesContentCategoryFrom = changeExternalReferencesContentCategoryFrom;
+  }
+
+  public ArrayList<SelectItem> getChangeExternalReferencesContentCategorySelectItems() {
+    return changeExternalReferencesContentCategorySelectItems;
+  }
+
+  public void setChangeExternalReferencesContentCategorySelectItems(
+      ArrayList<SelectItem> changeExternalReferencesContentCategorySelectItems) {
+    this.changeExternalReferencesContentCategorySelectItems = changeExternalReferencesContentCategorySelectItems;
+  }
+
+  public String getChangeExternalReferencesContentCategoryTo() {
+    return changeExternalReferencesContentCategoryTo;
+  }
+
+  public void setChangeExternalReferencesContentCategoryTo(String changeExternalReferencesContentCategoryTo) {
+    this.changeExternalReferencesContentCategoryTo = changeExternalReferencesContentCategoryTo;
+  }
+
+  public String getChangeFilesAudienceFrom() {
+    return changeFilesAudienceFrom;
+  }
+
+  public void setChangeFilesAudienceFrom(String changeFilesAudienceFrom) {
+    this.changeFilesAudienceFrom = changeFilesAudienceFrom;
+  }
+
+  public ArrayList<SelectItem> getChangeFilesAudienceSelectItems() {
+    return changeFilesAudienceSelectItems;
+  }
+
+  public void setChangeFilesAudienceSelectItems(ArrayList<SelectItem> changeFilesAudienceSelectItems) {
+    this.changeFilesAudienceSelectItems = changeFilesAudienceSelectItems;
+  }
+
+  public String getChangeFilesAudienceTo() {
+    return changeFilesAudienceTo;
+  }
+
+  public void setChangeFilesAudienceTo(String changeFilesAudienceTo) {
+    this.changeFilesAudienceTo = changeFilesAudienceTo;
   }
 
   public String getChangeFilesContentCategoryFrom() {
@@ -158,8 +212,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     return changeFilesContentCategorySelectItems;
   }
 
-  public void setChangeFilesContentCategorySelectItems(
-      ArrayList<SelectItem> changeFilesContentCategorySelectItems) {
+  public void setChangeFilesContentCategorySelectItems(ArrayList<SelectItem> changeFilesContentCategorySelectItems) {
     this.changeFilesContentCategorySelectItems = changeFilesContentCategorySelectItems;
   }
 
@@ -183,8 +236,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     return changeFilesVisibilitySelectItems;
   }
 
-  public void setChangeFilesVisibilitySelectItems(
-      ArrayList<SelectItem> changeFilesVisibilitySelectItems) {
+  public void setChangeFilesVisibilitySelectItems(ArrayList<SelectItem> changeFilesVisibilitySelectItems) {
     this.changeFilesVisibilitySelectItems = changeFilesVisibilitySelectItems;
   }
 
@@ -256,6 +308,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.inputChangeLocalTagsReplaceTo = inputChangeLocalTagsReplaceTo;
   }
 
+  public LoginHelper getLoginHelper() {
+    return loginHelper;
+  }
+
+  public void setLoginHelper(LoginHelper loginHelper) {
+    this.loginHelper = loginHelper;
+  }
+
   public PubItemBatchService getPubItemBatchService() {
     return pubItemBatchService;
   }
@@ -307,13 +367,11 @@ public class PubItemBatchSessionBean extends FacesBean {
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(),
-          (Date) entry.getValue().getModificationDate());
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
       pubItemBatchService.changeContext(pubItemsMap, selectedContextOld, selectedContextNew,
-          "batch release " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
+          "batch release " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch context change", e);
       this.error("A technichal error occoured during the batch context change");
@@ -337,12 +395,10 @@ public class PubItemBatchSessionBean extends FacesBean {
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(),
-          (Date) entry.getValue().getModificationDate());
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.deletePubItems(pubItemsMap,
-          "batch delete " + formatter.format(calendar.getTime()),
+      pubItemBatchService.deletePubItems(pubItemsMap, "batch delete " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch delete", e);
@@ -367,12 +423,10 @@ public class PubItemBatchSessionBean extends FacesBean {
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(),
-          (Date) entry.getValue().getModificationDate());
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.releasePubItems(pubItemsMap,
-          "batch release " + formatter.format(calendar.getTime()),
+      pubItemBatchService.releasePubItems(pubItemsMap, "batch release " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch release", e);
@@ -397,12 +451,10 @@ public class PubItemBatchSessionBean extends FacesBean {
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(),
-          (Date) entry.getValue().getModificationDate());
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.revisePubItems(pubItemsMap,
-          "batch revise " + formatter.format(calendar.getTime()),
+      pubItemBatchService.revisePubItems(pubItemsMap, "batch revise " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch revise", e);
@@ -427,12 +479,10 @@ public class PubItemBatchSessionBean extends FacesBean {
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(),
-          (Date) entry.getValue().getModificationDate());
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.submitPubItems(pubItemsMap,
-          "batch submit " + formatter.format(calendar.getTime()),
+      pubItemBatchService.submitPubItems(pubItemsMap, "batch submit " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch submit", e);
@@ -457,12 +507,10 @@ public class PubItemBatchSessionBean extends FacesBean {
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(),
-          (Date) entry.getValue().getModificationDate());
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.withdrawPubItems(pubItemsMap,
-          "batch withdraw " + formatter.format(calendar.getTime()),
+      pubItemBatchService.withdrawPubItems(pubItemsMap, "batch withdraw " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch withdraw", e);

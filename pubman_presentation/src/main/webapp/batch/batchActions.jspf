@@ -375,8 +375,40 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audience }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeFilesAudienceFrom"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeFilesAudienceFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeFilesAudienceTo"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeFilesAudienceTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -401,6 +433,40 @@
 								</b>
 								<h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeExternalReferencesContentCategoryFrom"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategoryFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategorySelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeExternalReferencesContentCategoryTo"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategoryTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategorySelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
