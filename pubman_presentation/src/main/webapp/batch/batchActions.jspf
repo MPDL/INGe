@@ -383,9 +383,7 @@
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceFrom}" />
-											<br />
-											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceTo }" />
+
 										</div>
 
 										<div>
@@ -397,7 +395,14 @@
 												<f:selectItems
 													value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
 											</h:selectOneMenu>
-											<br />
+
+										</div>
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceTo }" />
+										</div>
+
+										<div>
 											<h:selectOneMenu id="selChangeFilesAudienceTo"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeFilesAudienceTo}"
@@ -447,7 +452,8 @@
 										</div>
 
 										<div>
-											<h:selectOneMenu id="selChangeExternalReferencesContentCategoryFrom"
+											<h:selectOneMenu
+												id="selChangeExternalReferencesContentCategoryFrom"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategoryFrom}"
 												onfocus="updateSelectionBox(this);"
@@ -456,7 +462,8 @@
 													value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategorySelectItems}" />
 											</h:selectOneMenu>
 											<br />
-											<h:selectOneMenu id="selChangeExternalReferencesContentCategoryTo"
+											<h:selectOneMenu
+												id="selChangeExternalReferencesContentCategoryTo"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeExternalReferencesContentCategoryTo}"
 												onfocus="updateSelectionBox(this);"
@@ -489,8 +496,124 @@
 										class="free_area0 groupBtn"
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethod}" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodDesc }" />
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeReviewMethodFrom"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeReviewMethodFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeReviewMethodSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeReviewMethodTo"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeReviewMethodTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeReviewMethodSelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<h3>
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source }" />
+								</h3>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genre}" />
+								</b>
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreFrom}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreTo }" />
+										</div>
+
+										<div>
+											<h:selectOneMenu id="selChangeSourceGenreFrom"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSourceGenreFrom}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceGenreSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeSourceGenreTo"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSourceGenreTo}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceGenreSelectItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"><h:outputText
+										class="free_area0 groupBtn"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue}" />
+								</b>
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issueDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_input}" />
+										</div>
+
+										<div>
+											<h:inputText id="inputChangeSourceIssue"
+												styleClass="quad_txtInput"
+												value="#{PubItemBatchSessionBean.inputChangeSourceIssue}" />
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

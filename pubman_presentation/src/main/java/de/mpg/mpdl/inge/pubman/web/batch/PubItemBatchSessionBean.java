@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -40,6 +42,10 @@ import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 /**
  * SessionBean for batch operations on PubItems
  * 
+ * @author walter
+ *
+ */
+/**
  * @author walter
  *
  */
@@ -74,9 +80,16 @@ public class PubItemBatchSessionBean extends FacesBean {
   private ArrayList<SelectItem> changeGenreSelectItems;
   private String changeGenreTo;
   private ArrayList<SelectItem> contextSelectItems;
+  private String changeReviewMethodFrom;
+  private String changeReviewMethodTo;
+  private ArrayList<SelectItem> changeReviewMethodSelectItems;
+  private String changeSourceGenreFrom;
+  private ArrayList<SelectItem> changeSourceGenreSelectItems;
+  private String changeSourceGenreTo;
   private String inputChangeLocalTagsReplaceFrom;
   private String inputChangeLocalTagsReplaceTo;
   private String inputChangeLocalTagsAdd;
+  private String inputChangeSourceIssue;
   private String selectedContextNew;
   private String selectedContextOld;
   private Map<String, ItemVersionRO> storedPubItems;
@@ -114,9 +127,8 @@ public class PubItemBatchSessionBean extends FacesBean {
       }
     }
     if (!allowedGenres.isEmpty()) {
-      for (int k = 0; k < allowedGenres.size(); k++) {
-        this.changeGenreSelectItems.add(new SelectItem(allowedGenres.get(k).getUri(), allowedGenres.get(k).toString()));
-      }
+      this.changeGenreSelectItems
+          .addAll(Arrays.asList(this.getI18nHelper().getSelectItemsForEnum(false, allowedGenres.toArray(new MdsPublicationVO.Genre[] {}))));
     } else {
       this.changeGenreSelectItems.add(new SelectItem(null, " --- "));
     }
@@ -137,6 +149,31 @@ public class PubItemBatchSessionBean extends FacesBean {
     // SelectItems for external references content category
     this.changeExternalReferencesContentCategorySelectItems =
         new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true)));
+
+    // SelectItems for publication review methode
+    this.changeReviewMethodSelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsReviewMethod(true)));
+
+    // SelectItems for source genre
+    final Map<String, String> excludedSourceGenres = ApplicationBean.INSTANCE.getExcludedSourceGenreMap();
+    changeSourceGenreSelectItems = new ArrayList<SelectItem>();
+    changeSourceGenreSelectItems.add(new SelectItem("", this.getLabel("BatchWorkspace_lblNoItemsSet")));
+    for (final SourceVO.Genre value : SourceVO.Genre.values()) {
+      changeSourceGenreSelectItems.add(new SelectItem(value, this.getLabel("ENUM_GENRE_" + value.name())));
+    }
+    String uri = "";
+    int i = 0;
+    while (i < changeSourceGenreSelectItems.size()) {
+      if (changeSourceGenreSelectItems.get(i).getValue() != null && !("").equals(changeSourceGenreSelectItems.get(i).getValue())) {
+        uri = ((SourceVO.Genre) changeSourceGenreSelectItems.get(i).getValue()).getUri();
+      }
+      if (excludedSourceGenres.containsValue(uri)) {
+        changeSourceGenreSelectItems.remove(i);
+      } else {
+        i++;
+      }
+    }
+    changeSourceGenreSelectItems.toArray(new SelectItem[changeSourceGenreSelectItems.size()]);
+
   }
 
   public int getBatchPubItemsSize() {
@@ -258,6 +295,62 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public String getChangeGenreTo() {
     return changeGenreTo;
+  }
+
+  public String getChangeReviewMethodFrom() {
+    return changeReviewMethodFrom;
+  }
+
+  public void setChangeReviewMethodFrom(String changeReviewMethodFrom) {
+    this.changeReviewMethodFrom = changeReviewMethodFrom;
+  }
+
+  public ArrayList<SelectItem> getChangeReviewMethodSelectItems() {
+    return changeReviewMethodSelectItems;
+  }
+
+  public void setChangeReviewMethodSelectItems(ArrayList<SelectItem> changeReviewMethodSelectItems) {
+    this.changeReviewMethodSelectItems = changeReviewMethodSelectItems;
+  }
+
+  public String getChangeReviewMethodTo() {
+    return changeReviewMethodTo;
+  }
+
+  public void setChangeReviewMethodTo(String changeReviewMethodTo) {
+    this.changeReviewMethodTo = changeReviewMethodTo;
+  }
+
+  public String getChangeSourceGenreFrom() {
+    return changeSourceGenreFrom;
+  }
+
+  public void setChangeSourceGenreFrom(String changeSourceGenreFrom) {
+    this.changeSourceGenreFrom = changeSourceGenreFrom;
+  }
+
+  public String getInputChangeSourceIssue() {
+    return inputChangeSourceIssue;
+  }
+
+  public void setInputChangeSourceIssue(String inputChangeSourceIssue) {
+    this.inputChangeSourceIssue = inputChangeSourceIssue;
+  }
+
+  public ArrayList<SelectItem> getChangeSourceGenreSelectItems() {
+    return changeSourceGenreSelectItems;
+  }
+
+  public void setChangeSourceGenreSelectItems(ArrayList<SelectItem> changeSourceGenreSelectItems) {
+    this.changeSourceGenreSelectItems = changeSourceGenreSelectItems;
+  }
+
+  public String getChangeSourceGenreTo() {
+    return changeSourceGenreTo;
+  }
+
+  public void setChangeSourceGenreTo(String changeSourceGenreTo) {
+    this.changeSourceGenreTo = changeSourceGenreTo;
   }
 
   public void setChangeGenreTo(String changeGenreTo) {
