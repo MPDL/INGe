@@ -1,16 +1,17 @@
-var journalDetailsBaseURL = '$1?format=json';
-var languageDetailsBaseURL = '';
-var autopasteDelimiter = ' ||##|| ';
-var autopasteInnerDelimiter = ' @@~~@@ ';
-var journalSuggestCommonParentClass = 'journalSuggestAnchor';
-var journalSuggestTrigger = 'JOURNAL';
-var subjectSuggestCommonParentClass = 'parentArea';
-var languageSuggestCommonParentClass = 'languageArea';
-var personSuggestCommonParentClass = 'suggestAnchor';
-var commonParentClass = 'suggestAnchor'
 var globalId = '';
 
+var journalDetailsBaseURL = '$1?format=json';
+var languageDetailsBaseURL = '';
+
+var commonParentClass = 'suggestAnchor'
+var journalSuggestCommonParentClass = 'journalSuggestAnchor';
+var journalSuggestTrigger = 'JOURNAL';
+var languageSuggestCommonParentClass = 'languageArea';
+var personSuggestCommonParentClass = 'suggestAnchor';
+
 function getJournalDetails(details) {
+	var autopasteDelimiter = ' ||##|| ';
+	var autopasteInnerDelimiter = ' @@~~@@ ';
     var parent = $input.parents('.' + journalSuggestCommonParentClass);
     var title = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
     var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?
@@ -61,8 +62,8 @@ function getJournalDetails(details) {
                 if (typeof autopasteDelimiter && identifierType != 'undefined') {
                     allIDs += identifierType + '|';
                 }
-                if (idenfierValue.includes('/journals/resource/')) {
-                  allIDs += idenfierValue.substring(idenfierValue.indexOf('/journals/resource/'), idenfierValue.length);
+                if (identifierValue.includes('/journals/resource/')) {
+                  allIDs += identifierValue.substring(identifierValue.indexOf('/journals/resource/'), identifierValue.length);
                 }
                 else {
                   allIDs += identifierValue;
@@ -97,6 +98,7 @@ function getJournalDetails(details) {
     fillField('publisher', publisher, parent);
     fillField('place', place, parent);
     fillField('sourceIdentifierPasteField', allIDs, parent);
+    
     $(parent).find('.hiddenAutosuggestUploadBtn').click();
 }
 
@@ -244,9 +246,9 @@ function removeAuthorAutoSuggest(element) {
 
     //Remove link to researcher portfolio with empty space
     $input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink xTiny_marginRExcl">&nbsp;</span>');
-
     //Enlarge givenName Field, because it was smaller before due to the remove button
     $input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
+    
     bindSuggests();
 }
 
@@ -273,10 +275,9 @@ function removeOrganizationAutoSuggest(element) {
 
     $input.css('display', 'none');
     $input.parent().find('.organizationAddress').attr('class', 'xLarge_txtInput organizationAddress');
-
     $input.parent().find('.ouLink').replaceWith('<span class="xSmall_area0 ouLink xTiny_marginRExcl">&nbsp;</span>');
+    
     bindSuggests();
-    return;
 }
 
 // removes 'readonly' attributes and resets fields for autosuggest
@@ -299,7 +300,6 @@ function removeUserAccountAutoSuggest(element) {
     $input.parent().find('.userAccountName').attr('class', 'double_txtInput userAccountSuggest userAccountName disableAfter');
 
     bindSuggests();
-    return;
 }
 
 function updatePersonUi() {
@@ -332,9 +332,7 @@ function updatePersonUi() {
         $('.userAccountIdentifier').each(function(ind) {
             if (this.value) {
                 $(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('readonly', 'readonly');
-
                 $(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestUserAccount').css('display', 'inline');
-
                 $(this).parents('.' + personSuggestCommonParentClass).find('.userAccountName').attr('class', 'large_txtInput userAccountName');
             }
         });
@@ -479,7 +477,6 @@ function fillCitationStyleFields() {
 }
 
 function getCitationStyleDetails(details) {
-
     var parent = $input.parents('.' + commonParentClass);
     var citationTitle = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
     //var citationValue = (typeof details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value != 'undefined' ? details.http_www_w3_org_1999_02_22_rdf_syntax_ns_value : null);
@@ -496,6 +493,7 @@ function removeCslAutoSuggest(element) {
     var $input = $(element);
     var parent = $input.parent();
     var field = null;
+    
     if ($(parent).find('.citationStyleIdentifier').val() != '') {
         field = $(parent).find('.citationStyleIdentifier');
         field.removeAttr('readonly');
@@ -562,11 +560,13 @@ function bindSuggests() {
         });
 
     bindJournalSuggest();
+    
     if (typeof languageSuggestURL != 'undefined') {
         $('.languageSuggest').suggest(languageSuggestURL, {
             onSelect: selectLanguage
         });
     }
+    
     $('.subjectSuggest').each(
         function(i, ele) {
             if (typeof subjectSuggestURL != 'undefined') {
@@ -579,12 +579,37 @@ function bindSuggests() {
             }
         });
 
+    $('.identifierSuggest').each(
+            function(i, ele) {
+                if (typeof identifierSuggestURL != 'undefined') {
+                    $(ele).suggest(identifierSuggestURL, {
+                        vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
+                        onSelect: function() {
+                            $(this).val(this.resultValue);
+                        }
+                    });
+                }
+            });
+
     //for search, adds result in quotes
     $('.subjectSuggestQuotes').each(
         function(i, ele) {
             if (typeof subjectSuggestURL != 'undefined') {
                 $(ele).suggest(subjectSuggestURL, {
                     vocab: $(ele).parents('.subjectArea').find('.vocabulary'),
+                    onSelect: function() {
+                        $(this).val('"' + this.resultValue + '"');
+                    }
+                });
+            }
+        });
+    
+    //for search, adds result in quotes
+    $('.identifierSuggestQuotes').each(
+        function(i, ele) {
+            if (typeof identifierSuggestURL != 'undefined') {
+                $(ele).suggest(identifierSuggestURL, {
+                    vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
                     onSelect: function() {
                         $(this).val('"' + this.resultValue + '"');
                     }
@@ -603,6 +628,7 @@ function bindSuggests() {
             }
         );
     }
+    
     if (typeof organizationSuggestURL != 'undefined') {
         $('.organizationSuggest').suggest(organizationSuggestURL, {
             onSelect: fillOrganizationFields

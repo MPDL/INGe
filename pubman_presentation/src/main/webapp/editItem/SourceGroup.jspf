@@ -47,7 +47,6 @@
 										styleClass="replace journalPulldown"
 										value="#{sourceBean.source.genre}"
 										onfocus="updateSelectionBox(this);"
-										valueChangeListener="#{sourceBean.chooseSourceGenre}"
 										onchange="updateSelectionBox(this);">
 										<f:selectItems value="#{sourceBean.sourceGenreOptions}" />
 									</h:selectOneMenu>
@@ -569,7 +568,7 @@
 										converter="GenreLabelConverter" /> <span class="noDisplay">:
 								</span>
 								</b>
-								<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:panelGroup
+								<span class="xHuge_area0 xTiny_marginLExcl endline identifierArea"> <h:panelGroup
 										styleClass="large_area0 largeFormPush"
 										rendered="#{!(genre.sources_source_identifiers_source_identifier_type_display == 'false' and genre.sources_source_identifiers_source_identifier_type_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_type_display == 'false' and genre.sources_source_identifiers_source_identifier_type_form_id == 'all')}">
 										<h:panelGroup layout="block"
@@ -580,16 +579,15 @@
 													styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 											</h:panelGroup>
 											<h:selectOneMenu id="selSourceDetailIdentifier"
-												styleClass="replace identifierType"
+												styleClass="endline vocabulary"
 												value="#{identifier.typeString}"
-												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
 												<f:selectItems
 													value="#{sourceBean.identifierCollection.identifierTypes}" />
 											</h:selectOneMenu>
 										</h:panelGroup>
 									</h:panelGroup> <h:inputText id="inpSourceDetailIdentifier"
-										styleClass="xDouble_txtInput identifierValue"
+										styleClass="xDouble_txtInput identifierSuggest"
 										value="#{identifier.id}"
 										rendered="#{!(genre.sources_source_identifiers_source_identifier_value_display == 'false' and genre.sources_source_identifiers_source_identifier_value_form_id == 'full-submission' || genre.sources_source_identifiers_source_identifier_value_display == 'false' and genre.sources_source_identifiers_source_identifier_value_form_id == 'all')}" />
 								</span>

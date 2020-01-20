@@ -104,6 +104,7 @@
             organizationSuggestURL = 'OrganizationSuggest.jsp';
             personDetailsBaseURL = '$1?format=json&amp;lang=$2';
             subjectSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>$1/query?lang=en';
+            identifierSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>$1/query?lang=en';
             journalSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>journals/query';
             journalSuggestTrigger = 'JOURNAL';
         </script>
