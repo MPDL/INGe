@@ -31,19 +31,14 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
-import org.apache.log4j.Logger;
-
-import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
-import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Backing Bean for viewItemStatistics.jspf
@@ -56,8 +51,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @ManagedBean(name = "ViewItemStatistics")
 @SuppressWarnings("serial")
 public class ViewItemStatistics extends FacesBean {
-  private static final Logger logger = Logger.getLogger(ViewItemStatisticsPage.class);
-
   /** The object Id of the current item */
   private String itemId;
 
@@ -130,38 +123,4 @@ public class ViewItemStatistics extends FacesBean {
     return this.fileList.size() > 0;
   }
 
-  public String getNimsLink() {
-    try {
-      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STATISTICS_NIMS_LINK) + this.getItemID();
-    } catch (final Exception e) {
-      ViewItemStatistics.logger.error("Could not read inge.pubman.statistics.nims.link from properties");
-      return null;
-    }
-  }
-
-  /**
-   * Gets context ids from properties and checks if this item belons to it
-   * 
-   * @return
-   */
-  public boolean getShowNIMSLink() {
-    try {
-      final String contexts = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STATISTICS_NIMS_CONTEXT_IDS);
-      final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-      final ContextDbVO currentContext = icsb.getCurrentContext();
-      // logger.info(currentContext.getReference().getObjectId());
-      if (contexts != null) {
-        final String[] contextArray = contexts.split(",");
-        for (final String contextId : contextArray) {
-          if (contextId.trim().equals(currentContext.getObjectId())) {
-            return true;
-          }
-        }
-      }
-    } catch (final Exception e) {
-      ViewItemStatistics.logger.error("Could not read inge.pubman.statistics.nims.contexts");
-    }
-
-    return false;
-  }
 }
