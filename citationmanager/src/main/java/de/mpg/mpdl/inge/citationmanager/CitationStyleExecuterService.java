@@ -55,13 +55,11 @@ import de.mpg.mpdl.inge.util.EscidocNamespaceContextImpl;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
- * 
  * Citation Style Executor Engine, XSLT-centric
  * 
  * @author Initial creation: vmakarenko
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
- * 
  */
 public class CitationStyleExecuterService {
   private static final Logger logger = Logger.getLogger(CitationStyleExecuterService.class);
@@ -80,7 +78,6 @@ public class CitationStyleExecuterService {
       return new ArrayList<>();
 
     try {
-
       List<PubItemVO> transformedList = EntityTransformer.transformToOld(itemList);
       String escidocXmlList = XmlTransformingService.transformToItemList(transformedList);
 
@@ -92,7 +89,6 @@ public class CitationStyleExecuterService {
         }
         return CitationStyleLanguageManagerService.getOutput(exportFormat, escidocXmlList);
       } else {
-
         StringWriter sw = new StringWriter();
         String csXslPath = CitationUtil.getPathToCitationStyleXSL(exportFormat.getCitationName());
 
@@ -101,6 +97,7 @@ public class CitationStyleExecuterService {
 
         // set parameters
         transformer.setParameter("pubmanUrl", getPubManUrl());
+        transformer.setParameter("instanceUrl", getInstanceUrl());
         transformer.transform(new StreamSource(new StringReader(escidocXmlList)), new StreamResult(sw));
 
         logger.debug("Transformation item-list to snippet takes time: " + (System.currentTimeMillis() - start));
@@ -109,83 +106,10 @@ public class CitationStyleExecuterService {
 
         return transformSnippetToCitationList(snippet);
       }
-
-      /*
-      
-      // new edoc md set
-      if (XmlHelper.ESCIDOC_SNIPPET.equals(outputFormat)) {
-        result = snippet.getBytes(UTF_8);
-      
-      } else if (XmlHelper.SNIPPET.equals(outputFormat)) { // old edoc md set: back transformation
-        de.mpg.mpdl.inge.transformation.Transformer trans =
-            TransformerFactory.newTransformer(FORMAT.ESCIDOC_ITEMLIST_V2_XML, FORMAT.ESCIDOC_ITEMLIST_V1_XML);
-        StringWriter wr = new StringWriter();
-        try {
-          trans.transform(new TransformerStreamSource(new ByteArrayInputStream(snippet.getBytes(UTF_8))), new TransformerStreamResult(wr));
-        } catch (Exception e) {
-          throw new CitationStyleManagerException("Problems by escidoc v2 to v1 transformation:", e);
-        }
-        result = wr.toString().getBytes(UTF_8);
-      
-      } else if (XmlHelper.HTML_PLAIN.equals(outputFormat) || XmlHelper.HTML_LINKED.equals(outputFormat)) {
-        result = generateHtmlOutput(snippet, outputFormat, HTML, true).getBytes(UTF_8);
-      
-      } else if (XmlHelper.TXT.equals(outputFormat)) {
-        result = snippet.getBytes(UTF_8);
-      
-      } else if (XmlHelper.DOCX.equals(outputFormat) || XmlHelper.PDF.equals(outputFormat)) {
-        String htmlResult = generateHtmlOutput(snippet, XmlHelper.HTML_PLAIN, XHTML, false);
-        WordprocessingMLPackage wordOutputDoc = WordprocessingMLPackage.createPackage();
-        XHTMLImporter xhtmlImporter = new XHTMLImporterImpl(wordOutputDoc);
-        MainDocumentPart mdp = wordOutputDoc.getMainDocumentPart();
-        List<Object> xhtmlObjects = xhtmlImporter.convert(htmlResult, null);
-      
-        // Remove line-height information for every paragraph
-        for (Object xhtmlObject : xhtmlObjects) {
-          try {
-            P paragraph = (P) xhtmlObject;
-            paragraph.getPPr().setSpacing(null);
-          } catch (Exception e) {
-            logger.error("Error while removing spacing information during docx export");
-          }
-        }
-      
-        mdp.getContent().addAll(xhtmlObjects);
-      
-        // Set global space after each paragrap
-        PPr ppr = new PPr();
-        Spacing spacing = new Spacing();
-        spacing.setAfter(BigInteger.valueOf(400));
-        ppr.setSpacing(spacing);
-        mdp.getStyleDefinitionsPart().getDefaultParagraphStyle().setPPr(ppr);;
-      
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-      
-        if (XmlHelper.DOCX.equals(outputFormat)) {
-          wordOutputDoc.save(bos);
-        } else if (XmlHelper.PDF.equals(outputFormat)) {
-          FOSettings foSettings = Docx4J.createFOSettings();
-          foSettings.setWmlPackage(wordOutputDoc);
-          Docx4J.toFO(foSettings, bos, Docx4J.FLAG_EXPORT_PREFER_XSL);
-        }
-      
-        bos.flush();
-        result = bos.toByteArray();
-      }
-      else if (XmlHelper.JSON.equals(outputFormat)) {
-        
-        
-      
-      }
-      
-      */
-
     } catch (Exception e) {
       throw new CitationStyleManagerException("Error by transformation:", e);
     }
-
   }
-
 
   public static List<String> transformSnippetToCitationList(String snippet) throws CitationStyleManagerException {
     try {
@@ -196,6 +120,7 @@ public class CitationStyleExecuterService {
       xPath.setNamespaceContext(nsContext);
       XPathExpression exp = xPath.compile("//dcterms:bibliographicCitation");
       NodeList nl = (NodeList) exp.evaluate(new InputSource(new StringReader(snippet)), XPathConstants.NODESET);
+
       if (nl != null) {
         for (int i = 0; i < nl.getLength(); i++) {
           if (nl.item(i) != null) {
@@ -206,24 +131,29 @@ public class CitationStyleExecuterService {
 
         }
       }
+
       return citationList;
     } catch (Exception e) {
       throw new CitationStyleManagerException("Error while parsing bibliographic citation from escidoc snippet", e);
     }
-
-
   }
 
   public static boolean isCitationStyle(String cs) throws CitationStyleManagerException {
     return XmlHelper.isCitationStyle(cs);
   }
 
-
-
   private static String getPubManUrl() {
     try {
       return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
           + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+    } catch (Exception e) {
+      throw new RuntimeException("Cannot get property:", e);
+    }
+  }
+
+  private static String getInstanceUrl() {
+    try {
+      return PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
     } catch (Exception e) {
       throw new RuntimeException("Cannot get property:", e);
     }
@@ -241,7 +171,4 @@ public class CitationStyleExecuterService {
       throw new CitationStyleManagerException("Cannot get list of citation styles:", e);
     }
   }
-
-
-
 }
