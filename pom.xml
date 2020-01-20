@@ -1204,7 +1204,7 @@
 
 		<!-- activate this profile for an open source build -->
 		<profile>
-			<id>env-opensource</id>
+			<id>env-gfz</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -1240,7 +1240,7 @@
 				<inge.pubman.blog.baseUrl />
 				<inge.pubman.blog.news />
 				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-				<inge.pubman.build.mode>opensource</inge.pubman.build.mode>
+				<inge.pubman.build.mode>gfz</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.handbook.url />
 				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>

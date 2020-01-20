@@ -27,7 +27,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warName>pubman_presentation</warName>
-					<warSourceExcludes>**/opensource/**</warSourceExcludes>
+					<warSourceExcludes>**/gfz/**</warSourceExcludes>
 					<archive>
 						<manifestEntries>
 							<Dependencies>pubman</Dependencies>
@@ -85,7 +85,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>env-opensource</id>
+			<id>env-gfz</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -101,63 +101,63 @@
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Label_de.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Label_en.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Label_ja.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Messages_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Messages_de.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Messages_de.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Messages_en.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Messages_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Messages_en.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Messages_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Messages_ja.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Messages_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Messages_ja.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Messages_ja.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Tooltip_de.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Tooltip_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Tooltip_de.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Tooltip_de.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Tooltip_en.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Tooltip_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Tooltip_en.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Tooltip_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Tooltip_ja.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Tooltip_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Tooltip_ja.properties</propertiesFile>
 										<propertiesFile>src/main/resources/mpg/Tooltip_ja.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
@@ -179,7 +179,7 @@
 							<webResources>
 								<resource>
 									<targetPath>/home</targetPath>
-									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
+									<directory>${project.basedir}/src/main/webapp/home/gfz</directory>
 									<includes>
 										<include>StartPageLoggedIn.jspf</include>
 										<include>StartPageLoggedOut.jspf</include>

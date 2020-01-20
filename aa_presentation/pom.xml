@@ -56,7 +56,7 @@
 
 	<profiles>
 		<profile>
-			<id>env-opensource</id>
+			<id>env-gfz</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
