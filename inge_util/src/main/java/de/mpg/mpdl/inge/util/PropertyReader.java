@@ -56,6 +56,10 @@ import org.apache.log4j.Logger;
 public class PropertyReader {
   private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
+  public static final String GFZ_CONE_CITATION_STYLES_USE = "gfz.citation.styles.use";
+  public static final String GFZ_CONE_RESET_USE = "gfz.cone.reset.use";
+  public static final String GFZ_OA_MAIL_ADRESS = "gfz.oa.mail.adress";
+  public static final String GFZ_OA_MAIL_SUBJECT = "gfz.oa.mail.subject";
   public static final String INGE_AA_ADMIN_LIVE_PASSWORD = "inge.aa.admin.live.password";
   public static final String INGE_AA_ADMIN_LIVE_USERNAME = "inge.aa.admin.live.username";
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
@@ -64,11 +68,14 @@ public class PropertyReader {
   public static final String INGE_AA_CLIENT_START_CLASS = "inge.aa.client.start.class";
   public static final String INGE_AA_DEFAULT_TARGET = "inge.aa.default.target";
   public static final String INGE_AA_INSTANCE_URL = "inge.aa.instance.url";
+  public static final String INGE_AA_LOGIN_JSP = "inge.aa.login.jsp";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
+  public static final String INGE_ALTERNATIVE_MODERATOR_EMAIL = "inge.alternative.moderator.email";
   public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
   public static final String INGE_AUTH_MPG_CSV_IP_LIST_URL = "inge.auth.mpg.ip.csv.url";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
+  public static final String INGE_CONE_CACHE_USE = "inge.cone.cache.use";
   public static final String INGE_CONE_DATABASE_DRIVER_CLASS = "inge.cone.database.driver.class";
   public static final String INGE_CONE_DATABASE_NAME = "inge.cone.database.name";
   public static final String INGE_CONE_DATABASE_SERVER_NAME = "inge.cone.database.server.name";
@@ -102,6 +109,7 @@ public class PropertyReader {
   public static final String INGE_EMAIL_AUTHENTICATIONPWD = "inge.email.authenticationpwd";
   public static final String INGE_EMAIL_AUTHENTICATIONUSER = "inge.email.authenticationuser";
   public static final String INGE_EMAIL_MAILSERVERNAME = "inge.email.mailservername";
+  public static final String INGE_EMAIL_SEND_OA_MAIL_USE = "inge.email.send.oa.mail.use";
   public static final String INGE_EMAIL_SENDER = "inge.email.sender";
   public static final String INGE_EMAIL_WITHAUTHENTICATION = "inge.email.withauthentication";
   public static final String INGE_ES_CLUSTER_NAME = "inge.es.cluster.name";
@@ -133,6 +141,8 @@ public class PropertyReader {
   public static final String INGE_MATOMO_ANALYTICS_BASE_URI = "inge.matomo.analytics.base.uri";
   public static final String INGE_MATOMO_ANALYTICS_SITE_ID = "inge.matomo.analytics.site.id";
   public static final String INGE_MATOMO_TRACKER_USE = "inge.matomo.tracker.use";
+  public static final String INGE_PID_HANDLE_SHORT = "inge.pid.handle.short";
+  public static final String INGE_PID_HANDLE_URL = "inge.pid.handle.url";
   public static final String INGE_PID_SERVICE_CREATE_PATH = "inge.pid.service.create.path";
   public static final String INGE_PID_SERVICE_PASSWORD = "inge.pid.service.password";
   public static final String INGE_PID_SERVICE_TIMEOUT = "inge.pid.service.timeout";
@@ -166,8 +176,6 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_ROOT_ORGANISATION_ID = "inge.pubman.root.organisation.id";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
-  public static final String INGE_PUBMAN_STATISTICS_NIMS_CONTEXT_IDS = "inge.pubman.statistics.nims.context.ids";
-  public static final String INGE_PUBMAN_STATISTICS_NIMS_LINK = "inge.pubman.statistics.nims.link";
   public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_APPLY = "inge.pubman.stylesheet.classic.apply";
   public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_TYPE = "inge.pubman.stylesheet.classic.type";
   public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_URL = "inge.pubman.stylesheet.classic.url";

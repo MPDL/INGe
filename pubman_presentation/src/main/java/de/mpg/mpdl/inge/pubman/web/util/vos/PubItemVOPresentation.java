@@ -638,8 +638,8 @@ public class PubItemVOPresentation extends ItemVersionVO {
    */
   public String getObjectPidWithoutPrefix() {
     final String pid = this.getVersionPid();
-    if (pid != null && pid.startsWith("hdl:")) {
-      return pid.substring(4);
+    if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
       return pid;
     }

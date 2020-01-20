@@ -50,6 +50,7 @@ import de.mpg.mpdl.inge.model.db.hibernate.MdsFileVOJsonUserType;
 import de.mpg.mpdl.inge.model.db.hibernate.StringListJsonUserType;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * A file that is contained in an item.
@@ -204,8 +205,8 @@ public class FileDbVO extends FileDbRO implements Serializable {
    */
   @JsonIgnore
   public String getPidWithoutPrefix() {
-    if (pid.startsWith("hdl:")) {
-      return pid.substring(4);
+    if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
       return pid;
     }

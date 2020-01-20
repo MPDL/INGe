@@ -195,7 +195,6 @@
 	</distributionManagement>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -212,9 +211,6 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
-			</dependency> <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-log4j12</artifactId> 
-			</dependency> -->
 	</dependencies>
 
 	<dependencyManagement>
@@ -418,7 +414,6 @@
 				<version>1.0</version>
 				<scope>test</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-core</artifactId>
@@ -429,7 +424,6 @@
 				<artifactId>log4j-api</artifactId>
 				<version>2.8.2</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-1.2-api</artifactId>
@@ -519,7 +513,6 @@
 				<artifactId>spring-security-config</artifactId>
 				<version>4.2.2.RELEASE</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -570,7 +563,6 @@
 				<artifactId>activemq-pool</artifactId>
 				<version>5.15.1</version>
 			</dependency>
-
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
@@ -946,11 +938,14 @@
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
+		<inge.aa.login.jsp>login_inge.jsp</inge.aa.login.jsp>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
+		<inge.alternative.moderator.email>pure-support@listsrv.mpg.de</inge.alternative.moderator.email>
 		<inge.auth.mpg.ip.csv.url />
 		<inge.auth.mpg.ip.json.url />
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
+		<inge.cone.cache.use>true</inge.cone.cache.use>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>
 		<inge.cone.database.server.name.test>dev.inge.mpdl.mpg.de</inge.cone.database.server.name.test>
@@ -976,6 +971,7 @@
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.doi.service.use>true</inge.doi.service.use>
+		<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
 		<inge.email.mailservername>mx03.mucam.mpg.de</inge.email.mailservername>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
 		<inge.email.withauthentication>false</inge.email.withauthentication>
@@ -1008,6 +1004,8 @@
 		<inge.matomo.analytics.base.uri>https://analytics.mpdl.mpg.de</inge.matomo.analytics.base.uri>
 		<inge.matomo.analytics.site.id />
 		<inge.matomo.tracker.use>true</inge.matomo.tracker.use>
+		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
+		<inge.pid.handle.url>http://hdl.handle.net/</inge.pid.handle.url>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pid.service.use>true</inge.pid.service.use>
@@ -1035,8 +1033,6 @@
 		<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
-		<inge.pubman.statistics.nims.context.ids />
-		<inge.pubman.statistics.nims.link />
 		<inge.pubman.stylesheet.classic.apply>true</inge.pubman.stylesheet.classic.apply>
 		<inge.pubman.stylesheet.classic.type>alternate stylesheet</inge.pubman.stylesheet.classic.type>
 		<inge.pubman.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</inge.pubman.stylesheet.classic.url>
@@ -1215,15 +1211,23 @@
 			<properties>
 				<escidoc.framework_access.framework.url />
 				<escidoc.framework_access.login.url />
+				<gfz.citation.styles.use>true</gfz.citation.styles.use>
+				<gfz.cone.reset.use>true</gfz.cone.reset.use>
+				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
+				<gfz.oa.mail.subject>GFZpublic: OpenAccess</gfz.oa.mail.subject>
+				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
+				<inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
+				<inge.cone.cache.use>false</inge.cone.cache.use>
 				<inge.cone.modelsxml.path>models_gfz.xml</inge.cone.modelsxml.path>
-				<inge.cone.subjectVocab>iso639-3;ddc</inge.cone.subjectVocab>
+				<inge.cone.subjectVocab />
 				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
 				<inge.doi.service.create.url />
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
+				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
 				<inge.es.cluster.name.test />
 				<inge.es.transport.ips.test />
 				<inge.filestorage.seaweed_master_server_ip />
@@ -1239,16 +1243,16 @@
 				<inge.pubman.build.mode>opensource</inge.pubman.build.mode>
 				<inge.pubman.contact.url />
 				<inge.pubman.handbook.url />
-				<inge.pubman.logo.url>/resources/images/pubman_logo_web.png</inge.pubman.logo.url>
+				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
+				<inge.pubman.logo.url>/resources/images/GFZ.svg</inge.pubman.logo.url>
 				<inge.pubman.policy.url />
 				<inge.pubman.privacy.policy.url />
 				<inge.pubman.stylesheet.classic.apply>false</inge.pubman.stylesheet.classic.apply>
 				<inge.pubman.stylesheet.contrast.apply>false</inge.pubman.stylesheet.contrast.apply>
 				<inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
-				<inge.pubman.stylesheet.special.type>stylesheet</inge.pubman.stylesheet.special.type>
-				<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_blue/styles/theme.css</inge.pubman.stylesheet.special.url>
+				<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.special.url>
 				<inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
-				<inge.pubman_presentation.overview_page.authors_ou>Deutsches GeoForschungsZentrum</inge.pubman_presentation.overview_page.authors_ou>
+				<inge.pubman_presentation.overview_page.authors_ou />
 				<inge.rest.development.file_url />
 			</properties>
 			<distributionManagement>

@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import de.mpg.mpdl.inge.util.PropertyReader;
+
 
 @MappedSuperclass
 @IdClass(VersionableId.class)
@@ -148,8 +150,8 @@ public class ItemVersionRO implements Serializable {
 
   @JsonIgnore
   public String getVersionPidWithoutPrefix() {
-    if (versionPid.startsWith("hdl:")) {
-      return versionPid.substring(4);
+    if (versionPid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return versionPid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
       return versionPid;
     }
