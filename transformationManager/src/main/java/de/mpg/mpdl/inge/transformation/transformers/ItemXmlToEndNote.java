@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.transformation.transformers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.Source;
@@ -23,7 +24,12 @@ public class ItemXmlToEndNote extends XslTransformer implements ChainableTransfo
 
   @Override
   public Map<String, Object> getParameters() throws TransformationException {
-    return null;
+    Map<String, Object> map = new HashMap<String, Object>();
+
+    map.put("handleShort", PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT));
+    map.put("handleUrl", PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL));
+
+    return map;
   }
 
   @Override

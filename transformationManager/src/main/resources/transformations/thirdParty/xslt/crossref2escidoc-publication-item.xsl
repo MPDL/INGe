@@ -10,7 +10,6 @@
 	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
 	xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	xmlns:gfz="http://www.gfz-potsdam.de/ns"
 	xmlns:mdp="http://purl.org/escidoc/metadata/profiles/0.1/publication"
 	xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
