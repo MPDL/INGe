@@ -294,6 +294,27 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     return reindexList;
   }
 
+  /**
+   * Returns the ou path from the given id up to root parent
+   */
+  @Transactional
+  public String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException {
+
+    AffiliationDbVO affVo = organizationRepository.findOne(id);
+    if (affVo == null)
+      throw new IngeApplicationException("Could not find organization with id " + id);
+
+    StringBuilder ouPath = new StringBuilder();
+    ouPath.append(affVo.getName());
+    while (affVo.getParentAffiliation() != null) {
+      ouPath.append(", ");
+      ouPath.append(affVo.getParentAffiliation().getName());
+      affVo = (AffiliationDbVO) affVo.getParentAffiliation();
+    }
+
+    return ouPath.toString();
+  }
+
 
   /**
    * Returns the path from the given id up to root parent

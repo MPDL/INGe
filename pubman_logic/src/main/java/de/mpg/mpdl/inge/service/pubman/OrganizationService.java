@@ -27,6 +27,8 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
   public List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public String getOuPath(String id) throws IngeTechnicalException, IngeApplicationException;
+
   public List<String> getIdPath(String id)
       throws IngeTechnicalException, IngeApplicationException, AuthenticationException, AuthorizationException;
 
