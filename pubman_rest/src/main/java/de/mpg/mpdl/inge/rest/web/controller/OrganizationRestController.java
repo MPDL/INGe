@@ -30,6 +30,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -245,4 +246,12 @@ public class OrganizationRestController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  @RequestMapping(value = OU_ID_PATH + "/ouPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
+  public ResponseEntity<String> ouPath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    String ouPath = organizationSvc.getOuPath(ouId);
+
+    return new ResponseEntity<String>(ouPath, HttpStatus.OK);
+  }
 }
