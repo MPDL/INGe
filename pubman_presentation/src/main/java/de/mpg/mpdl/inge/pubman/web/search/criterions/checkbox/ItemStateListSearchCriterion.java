@@ -142,7 +142,7 @@ public class ItemStateListSearchCriterion extends MapListSearchCriterion<String>
       BoolQueryBuilder contextModeratorQuery = QueryBuilders.boolQuery();
       subQuery.should(contextModeratorQuery);
       for (GrantVO grant : user.getGrantList()) {
-        if (grant.getRole().equals(GrantVO.PredefinedRoles.MODERATOR.frameworkValue())) {
+        if (GrantVO.PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
           contextModeratorQuery.should(baseElasticSearchQueryBuilder(PubItemServiceDbImpl.INDEX_CONTEXT_OBJECT_ID, grant.getObjectRef()));
         }
       }

@@ -123,7 +123,7 @@ public class YearbookUtils {
     List<String> orgIds = new ArrayList<>();
 
     for (GrantVO grant : user.getGrantList()) {
-      if (grant.getRole().equals(GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue())) {
+      if (GrantVO.PredefinedRoles.YEARBOOK_EDITOR.frameworkValue().contentEquals(grant.getRole())) {
         orgIds.add(grant.getObjectRef());
       }
     }

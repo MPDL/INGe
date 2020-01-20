@@ -35,6 +35,7 @@ import de.mpg.mpdl.inge.aa.AuthenticationVO;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Role;
 import de.mpg.mpdl.inge.aa.AuthenticationVO.Type;
 import de.mpg.mpdl.inge.aa.web.client.FinalClient;
+import de.mpg.mpdl.inge.model.valueobjects.GrantVO.PredefinedRoles;
 
 /**
  * TODO Description
@@ -54,7 +55,8 @@ public class BasicAaClient extends FinalClient {
     if (testLogin(request, response)) {
       authenticationVO.setFullName("System Administrator");
       Role role = authenticationVO.new Role();
-      role.setKey("escidoc:role-system-administrator");
+      //      role.setKey("escidoc:role-system-administrator");
+      role.setKey(PredefinedRoles.SYSADMIN.frameworkValue());
       authenticationVO.getRoles().add(role);
     } else {
       authenticationVO.setFullName("Outsider");

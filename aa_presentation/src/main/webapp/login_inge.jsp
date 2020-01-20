@@ -123,7 +123,6 @@ if(request.getParameter("username")!=null) {
 				</div>
 			</div>
 			<!-- end: content section -->
-			<
 		</form>
 	</div>
 

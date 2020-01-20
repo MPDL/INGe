@@ -76,7 +76,6 @@ public class Util {
    */
   public static MetadataVO getMdObjectToFetch(DataSourceVO dataSourceVO, TransformerFactory.FORMAT format) {
     MetadataVO sourceMd = null;
-    //    DataSourceHandlerService sourceHandler = new DataSourceHandlerService();
 
     // First: check if format can be fetched directly
     for (int i = 0; i < dataSourceVO.getMdFormats().size(); i++) {
@@ -97,19 +96,15 @@ public class Util {
       }
 
       return sourceMd;
-      //      return sourceHandler.getMdObjectfromSource(dataSourceVO, sourceMd.getName());
     }
 
     // Second: check which format can be transformed into the given format
-    //    TransformerFactory.FORMAT oldFormat = format;
-    //    TransformerFactory.FORMAT[] possibleFormats = TransformerFactory.getAllSourceFormatsFor(oldFormat);
     TransformerFactory.FORMAT[] possibleFormats = TransformerFactory.getAllSourceFormatsFor(format);
 
     for (int i = 0; i < dataSourceVO.getMdFormats().size(); i++) {
       sourceMd = dataSourceVO.getMdFormats().get(i);
       if (Arrays.asList(possibleFormats).contains(TransformerFactory.getFormat(sourceMd.getName()))) {
         return sourceMd;
-        //        return sourceHandler.getMdObjectfromSource(dataSourceVO, sourceMd.getName());
       }
     }
 
@@ -192,7 +187,6 @@ public class Util {
 
     try {
       URL coneUrl = new URL(PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + coneMethod + coneRel1 + mimeType + coneRel2);
-      //      URLConnection con = ProxyHelper.openConnection(coneUrl);
       URLConnection con = coneUrl.openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 

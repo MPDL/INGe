@@ -370,7 +370,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         if (userAccountSysadmin != null && userAccountSysadmin.isActive() && encodedPassword != null
             && passwordEncoder.matches(password, encodedPassword)) {
           for (GrantVO grant : userAccountSysadmin.getGrantList()) {
-            if (grant.getRole().equals(PredefinedRoles.SYSADMIN.frameworkValue())) {
+            if (PredefinedRoles.SYSADMIN.frameworkValue().contentEquals(grant.getRole())) {
               AccountUserDbVO userAccountToLogin = userAccountRepository.findByLoginname(parts[1]);
               String token = createToken(userAccountToLogin, request);
               principal = new Principal(userAccountToLogin, token);

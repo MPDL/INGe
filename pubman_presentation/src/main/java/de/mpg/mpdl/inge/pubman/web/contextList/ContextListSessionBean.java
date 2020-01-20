@@ -202,15 +202,14 @@ public class ContextListSessionBean extends FacesBean {
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
 
                 if (grant.getObjectRef().equals(context.getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())) {
+                    && PredefinedRoles.DEPOSITOR.frameworkValue().contentEquals(grant.getRole())) {
                   this.depositorContextList.add(context);
                 }
 
                 else if (grant.getObjectRef().equals(context.getObjectId())
-                    && grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())) {
+                    && PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
                   this.moderatorContextList.add(context);
                 }
-
 
               }
             }
