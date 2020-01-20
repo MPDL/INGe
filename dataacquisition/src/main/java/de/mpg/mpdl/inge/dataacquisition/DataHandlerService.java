@@ -68,33 +68,26 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class DataHandlerService {
   private static final Logger logger = Logger.getLogger(DataHandlerService.class);
 
-  private static final String REGEX_GETID = "GETID";
+  private static final String CROSSREF = "crossref";
+  private static final String PROTOCOL_OAI = "oai-pmh";
   private static final String REGEX_CROSSREF_PID = "CROSSREF_PID";
-  private static final String PROTOCOL_ARXIV = "oai-pmh";
-  private static final String PROTOCOL_CROSSREF = "http";
+  private static final String REGEX_GETID = "GETID";
 
-  private DataSourceHandlerService sourceHandler;
-
+  private String contentCategorie;
   private String contentMimeType;
   private String fileEnding;
-  private String contentCategorie;
   private String visibility;
+
   private FileDbVO componentVO;
-  private URL itemUrl;
 
-  private DataSourceVO currentDataSourceVO = null;
+  public DataHandlerService() {}
 
-  public DataHandlerService() {
-    this.sourceHandler = new DataSourceHandlerService();
-  }
-
-  public byte[] doFetchMetaData(DataSourceVO dataSourceVO, String identifier, TransformerFactory.FORMAT targetFormat)
+  public byte[] doFetchMetaData(String source, DataSourceVO dataSourceVO, String identifier, TransformerFactory.FORMAT targetFormat)
       throws DataaquisitionException {
     byte[] fetchedData = null;
-    this.currentDataSourceVO = dataSourceVO;
 
     try {
-      String textualData = this.fetchTextualData(identifier, targetFormat);
+      String textualData = this.fetchTextualData(source, identifier, dataSourceVO, targetFormat);
 
       if (textualData != null) {
         fetchedData = textualData.getBytes();
@@ -108,10 +101,9 @@ public class DataHandlerService {
 
   public byte[] doFetchFullText(DataSourceVO dataSourceVO, String identifier, String[] fileFormatNames) throws DataaquisitionException {
     byte[] fetchedData = null;
-    this.currentDataSourceVO = dataSourceVO;
 
     try {
-      fetchedData = this.fetchFileData(identifier, fileFormatNames);
+      fetchedData = this.fetchFileData(identifier, dataSourceVO, fileFormatNames);
     } catch (Exception e) {
       throw new DataaquisitionException(e);
     }
@@ -119,43 +111,39 @@ public class DataHandlerService {
     return fetchedData;
   }
 
-  private String fetchTextualData(String identifier, TransformerFactory.FORMAT targetFormat)
+  private String fetchTextualData(String source, String identifier, DataSourceVO dataSourceVO, TransformerFactory.FORMAT targetFormat)
       throws DataaquisitionException, TransformationException, UnsupportedEncodingException, MalformedURLException {
-    MetadataVO metaDataVO = Util.getMdObjectToFetch(this.currentDataSourceVO, targetFormat);
+    MetadataVO metaDataVO = Util.getMdObjectToFetch(dataSourceVO, targetFormat);
 
     if (metaDataVO == null) {
       logger.warn("Requested metadata for identifier " + identifier + " not supported.");
       throw new DataaquisitionException("Requested metadata for identifier " + identifier + " not supported.");
     }
 
-    String decoded = URLDecoder.decode(metaDataVO.getMdUrl().toString(), this.currentDataSourceVO.getEncoding());
-    metaDataVO.setMdUrl(new URL(decoded));
-    metaDataVO.setMdUrl(new URL(metaDataVO.getMdUrl().toString().replace(REGEX_GETID, identifier.trim())));
-
-    if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_CROSSREF)) {
-      metaDataVO.setMdUrl(new URL(
-          metaDataVO.getMdUrl().toString().replace(REGEX_CROSSREF_PID, PropertyReader.getProperty(PropertyReader.INGE_CROSSREF_PID))));
+    String decodedUrl = URLDecoder.decode(metaDataVO.getMdUrl().toString(), dataSourceVO.getEncoding());
+    decodedUrl = decodedUrl.replace(REGEX_GETID, identifier.trim());
+    if (DataHandlerService.CROSSREF.equalsIgnoreCase(source)) {
+      decodedUrl = decodedUrl.replace(REGEX_CROSSREF_PID, PropertyReader.getProperty(PropertyReader.INGE_CROSSREF_PID));
     }
-
-    this.currentDataSourceVO = this.sourceHandler.updateMdEntry(this.currentDataSourceVO, metaDataVO);
+    URL url = new URL(decodedUrl);
 
     // Select harvesting method
     String item = null;
     boolean supportedProtocol = false;
-    if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_ARXIV)) {
-      item = fetchRecord(metaDataVO, targetFormat.getFileFormat().getCharSet());
+    if (dataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_OAI)) {
+      item = fetchRecord(url, targetFormat.getFileFormat().getCharSet(), dataSourceVO);
       // Check the record for error codes
       ProtocolHandler protocolHandler = new ProtocolHandler();
       protocolHandler.checkOAIRecord(item);
       supportedProtocol = true;
-    } else if (this.currentDataSourceVO.getHarvestProtocol().equalsIgnoreCase(PROTOCOL_CROSSREF)) {
-      item = fetchRecord(metaDataVO, targetFormat.getFileFormat().getCharSet());
+    } else {
+      item = fetchRecord(url, targetFormat.getFileFormat().getCharSet(), dataSourceVO);
       supportedProtocol = true;
     }
 
     if (!supportedProtocol) {
-      logger.warn("Harvesting protocol " + this.currentDataSourceVO.getHarvestProtocol() + " not supported.");
-      throw new DataaquisitionException("Harvesting protocol " + this.currentDataSourceVO.getHarvestProtocol() + " not supported.");
+      logger.warn("Harvesting protocol " + dataSourceVO.getHarvestProtocol() + " not supported.");
+      throw new DataaquisitionException("Harvesting protocol " + dataSourceVO.getHarvestProtocol() + " not supported.");
     }
 
     String itemAfterTransformaton = item;
@@ -181,10 +169,6 @@ public class DataHandlerService {
             new TransformerStreamResult(wr));
 
         itemAfterTransformaton = wr.toString();
-
-        if (this.currentDataSourceVO.getItemUrl() != null) {
-          this.itemUrl = new URL(this.currentDataSourceVO.getItemUrl().toString().replace(REGEX_GETID, identifier.trim()));
-        }
 
         try {
           Transformer componentTransformer =
@@ -214,7 +198,7 @@ public class DataHandlerService {
   }
 
 
-  private byte[] fetchFileData(String identifier, String[] fileFormatNames) throws DataaquisitionException {
+  private byte[] fetchFileData(String identifier, DataSourceVO dataSourceVO, String[] fileFormatNames) throws DataaquisitionException {
     byte[] in = null;
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ZipOutputStream zos = new ZipOutputStream(baos);
@@ -223,13 +207,13 @@ public class DataHandlerService {
       // Call fetch file for every given format
       for (int i = 0; i < fileFormatNames.length; i++) {
         String fileFormatName = fileFormatNames[i];
-        FullTextVO fulltextVO = Util.getFtObjectToFetch(this.currentDataSourceVO, fileFormatName);
+        FullTextVO fulltextVO = Util.getFtObjectToFetch(dataSourceVO, fileFormatName);
         // Replace regex with identifier
-        String decoded = java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(), this.currentDataSourceVO.getEncoding());
+        String decoded = java.net.URLDecoder.decode(fulltextVO.getFtUrl().toString(), dataSourceVO.getEncoding());
         fulltextVO.setFtUrl(new URL(decoded));
         fulltextVO.setFtUrl(new URL(fulltextVO.getFtUrl().toString().replace(REGEX_GETID, identifier.trim())));
 
-        in = this.fetchFile(fulltextVO);
+        in = this.fetchFile(fulltextVO, dataSourceVO);
 
         this.setFileProperties(fulltextVO);
 
@@ -267,8 +251,8 @@ public class DataHandlerService {
 
       zos.close();
     } catch (DataaquisitionException e) {
-      logger.error("Import this.source " + this.currentDataSourceVO + " not available.", e);
-      throw new DataaquisitionException("Import this.source " + this.currentDataSourceVO + " not available.", e);
+      logger.error("Import this.source " + dataSourceVO + " not available.", e);
+      throw new DataaquisitionException("Import this.source " + dataSourceVO + " not available.", e);
     } catch (IOException e) {
       throw new DataaquisitionException(e);
     }
@@ -276,7 +260,7 @@ public class DataHandlerService {
     return baos.toByteArray();
   }
 
-  private byte[] fetchFile(FullTextVO fulltext) throws DataaquisitionException {
+  private byte[] fetchFile(FullTextVO fulltext, DataSourceVO dataSourceVO) throws DataaquisitionException {
     byte[] input = null;
 
     try {
@@ -299,17 +283,16 @@ public class DataHandlerService {
           String alternativeLocation = con.getHeaderField("Location");
           fulltext.setFtUrl(new URL(alternativeLocation));
 
-          return fetchFile(fulltext);
+          return fetchFile(fulltext, dataSourceVO);
 
         case 403:
-          throw new DataaquisitionException("Access to url " + this.currentDataSourceVO.getName() + " is restricted.");
+          throw new DataaquisitionException("Access to url " + dataSourceVO.getName() + " is restricted.");
 
         case 503:
           // request was not processed by this.source
-          logger
-              .warn("Import this.source " + this.currentDataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
+          logger.warn("Import this.source " + dataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
           throw new DataaquisitionException(
-              "Import this.source " + this.currentDataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
+              "Import this.source " + dataSourceVO.getName() + "did not provide data in format " + fulltext.getFtLabel());
 
         default:
           throw new DataaquisitionException(
@@ -317,7 +300,7 @@ public class DataHandlerService {
       }
     } catch (AccessException e) {
       logger.error("Access denied.", e);
-      throw new DataaquisitionException(this.currentDataSourceVO.getName());
+      throw new DataaquisitionException(dataSourceVO.getName());
     } catch (IOException e) {
       throw new DataaquisitionException(e);
     }
@@ -332,11 +315,11 @@ public class DataHandlerService {
    * @return itemXML
    * @throws DataaquisitionException
    */
-  private String fetchRecord(MetadataVO metaDataVO, String encoding) throws DataaquisitionException {
+  private String fetchRecord(URL url, String encoding, DataSourceVO dataSourceVO) throws DataaquisitionException {
     StringBuffer itemXML = new StringBuffer();
 
     try {
-      URLConnection con = metaDataVO.getMdUrl().openConnection();
+      URLConnection con = url.openConnection();
       HttpURLConnection httpCon = (HttpURLConnection) con;
 
       int responseCode = httpCon.getResponseCode();
@@ -346,14 +329,8 @@ public class DataHandlerService {
           logger.info("Source responded with 200");
           break;
 
-        case 302:
-          String alternativeLocation = con.getHeaderField("Location");
-          metaDataVO.setMdUrl(new URL(alternativeLocation));
-          this.currentDataSourceVO = this.sourceHandler.updateMdEntry(this.currentDataSourceVO, metaDataVO);
-          return fetchRecord(metaDataVO, encoding);
-
         case 403:
-          throw new AccessException("Access to url " + this.currentDataSourceVO.getName() + " is restricted.");
+          throw new AccessException("Access to url " + dataSourceVO.getName() + " is restricted.");
 
         case 503:
           String retryAfterHeader = con.getHeaderField("Retry-After");
@@ -363,8 +340,8 @@ public class DataHandlerService {
             logger.debug("Source responded with 503, retry after " + retryAfter + ".");
             throw new DataaquisitionException("Source responded with 503, retry after " + retryAfter + ".");
           } else {
-            logger.debug("Source responded with 503, retry after " + this.currentDataSourceVO.getRetryAfter() + ".");
-            throw new DataaquisitionException("Source responded with 503, retry after " + this.currentDataSourceVO.getRetryAfter() + ".");
+            logger.debug("Source responded with 503, retry after " + dataSourceVO.getRetryAfter() + ".");
+            throw new DataaquisitionException("Source responded with 503, retry after " + dataSourceVO.getRetryAfter() + ".");
           }
 
         default:
@@ -373,7 +350,7 @@ public class DataHandlerService {
       }
 
       // Get itemXML
-      InputStreamReader isReader = new InputStreamReader(metaDataVO.getMdUrl().openStream(), encoding);
+      InputStreamReader isReader = new InputStreamReader(url.openStream(), encoding);
       BufferedReader bReader = new BufferedReader(isReader);
 
       String line = "";
@@ -384,7 +361,7 @@ public class DataHandlerService {
       httpCon.disconnect();
     } catch (AccessException e) {
       logger.error("Access denied.", e);
-      throw new DataaquisitionException("Access denied " + this.currentDataSourceVO.getName(), e);
+      throw new DataaquisitionException("Access denied " + dataSourceVO.getName(), e);
     } catch (Exception e) {
       throw new DataaquisitionException(e);
     }
@@ -428,18 +405,14 @@ public class DataHandlerService {
     return FileDbVO.Visibility.PRIVATE;
   }
 
-  public URL getItemUrl() {
-    return this.itemUrl;
-  }
-
-  public FileDbVO getComponentVO() {
+  public FileDbVO getComponentVO(DataSourceVO dataSourceVO) {
     if (this.componentVO != null) {
       if (this.componentVO.getMetadata().getRights() == null || this.componentVO.getMetadata().getRights().equals("")) {
-        this.componentVO.getMetadata().setRights(this.currentDataSourceVO.getCopyright());
+        this.componentVO.getMetadata().setRights(dataSourceVO.getCopyright());
       }
 
       if (this.componentVO.getMetadata().getLicense() == null || this.componentVO.getMetadata().getLicense().equals("")) {
-        this.componentVO.getMetadata().setLicense(this.currentDataSourceVO.getLicense());
+        this.componentVO.getMetadata().setLicense(dataSourceVO.getLicense());
       }
 
       return this.componentVO;
@@ -447,8 +420,8 @@ public class DataHandlerService {
 
     FileDbVO file = new FileDbVO();
     MdsFileVO md = new MdsFileVO();
-    md.setLicense(this.currentDataSourceVO.getLicense());
-    md.setRights(this.currentDataSourceVO.getCopyright());
+    md.setLicense(dataSourceVO.getLicense());
+    md.setRights(dataSourceVO.getCopyright());
     file.setMetadata(md);
 
     return file;
