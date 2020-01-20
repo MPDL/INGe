@@ -8,18 +8,12 @@
 	<f:loadBundle var="tip" basename="Tooltip" />
 	<!-- HOMEPAGE ENGLISH VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='en'}">
-		<h2>
-			PubMan
-			<h:outputText value="#{ApplicationBean.version}" />
-			- a solution for publication data management
-		</h2>
-		<p>
-			Provide persistent access to your papers and supplementary material!
-			<br /> Compile your papers in your personal "Researcher Portfolio"! <br />
-			Benefit from the MPG service for long-term archiving! <br />
+		<h2>GFZpublic</h2>
+		<p> - GFZ publication database<br />
+			- Open Access repository<br />
+			- Open publishing platform for books, proceedings, journals and more<br />
+			- Publication records from external use of GFZ scientific infrastructure
 		</p>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-			target="_blank">Read more</a>
 		<br />
 		<br />
 		<h3>Search for publications here</h3>
@@ -51,17 +45,12 @@
 	</h:panelGroup>
 	<!-- HOMEPAGE GERMAN VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='de'}">
-		<h2>
-			PubMan
-			<h:outputText value="#{ApplicationBean.version}" />
-			- Eine Anwendung für Publikationsdaten
-		</h2>
-		<p>PubMan bietet Ihnen die Möglichkeit Ihre Publikationen und
-			ergänzendes Material dauerhaft zu veröffentlichen.</p>
-		<p>Ihre gesammelten Veröffentlichungen können Sie in einem
-			"Researcher Portfolio" präsentieren.</p>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-			target="_blank">Lesen Sie mehr </a>
+		<h2>GFZpublic</h2>
+		<p>	- Publikationsdatenbank GFZ<br />
+			- Open Access Repository<br />
+			- offene Verlagsplattform für Bücher, Proceedings, Zeitschriften und mehr<br />
+			- Publikationsnachweise zur externen Nutzung der wissenschaftlichen Infrastruktur des GFZ
+		</p>
 		<br />
 		<br />
 		<h3>Suchen Sie hier nach Publikationen</h3>
@@ -94,21 +83,12 @@
 	</h:panelGroup>
 	<!-- HOMEPAGE JAPANESE VERSION -->
 	<h:panelGroup rendered="#{PubManSessionBean.locale =='ja'}">
-		<h2>
-			PubMan
-			<h:outputText value="#{ApplicationBean.version}" />
-			- 文献管理ソリューション
-		</h2>
-		<p>
-			研究成果文献と関連資料を半永久的に保存提供できます。<br />
-			研究者個人の“研究者ポートフォリオ”として論文情報を一箇所にまとめておくことができます。<br />
-			マックスプランク研究所が提供する長期保存アーカイヴのサービスを存分にお使いください。
+		<h2>GFZpublic</h2>
+		<p> - GFZ publication database<br />
+			- Open Access repository<br />
+			- Open publishing platform for books, proceedings, journals and more<br />
+			- Publication records from external use of GFZ scientific infrastructure
 		</p>
-		<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-			target="_blank">詳しく知るには</a>
-		<h:outputText value="|" />
-		<a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support"
-			target="_blank"><h:outputText value="#{lbl.Home_Link_Support }" /></a>
 		<br />
 		<br />
 		<h3>文献検索</h3>
