@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -32,6 +33,20 @@ public interface PubItemBatchService {
    * @throws IngeApplicationException
    */
   public Map<String, Exception> changeContext(Map<String, Date> pubItemsMap, String contextOld, String contextNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * @param pubItemsMap
+   * @param selectedContextOld
+   * @param selectedContextNew
+   * @param string
+   * @param authenticationToken
+   * @throws IngeApplicationException
+   * @throws AuthorizationException
+   * @throws AuthenticationException
+   * @throws IngeTechnicalException
+   */
+  public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
@@ -113,6 +128,7 @@ public interface PubItemBatchService {
    */
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
 
   // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
   // throws IngeApplicationException, IngeTechnicalException;

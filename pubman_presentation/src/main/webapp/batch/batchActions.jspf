@@ -144,9 +144,9 @@
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
 						<span class="medium_area0 endline"> &#160; </span> <span
-							class="seperator"></span> <span
+							class="seperator xTiny_area0"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags}" />
 						</b>
 						</span>
 					</div>
@@ -154,16 +154,35 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
+								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.addLocalTagsItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add }" />
 								</b>
 								<div class="textblock">
 									<h:outputText
 										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc }" />
-									<h:inputText id="inputChangeLocalTags_add"
-										styleClass="quad_txtInput"
-										value="#{PubItemBatchSessionBean.inputChangeLocalTagsAdd}" />
+
+									<ui:repeat var="localTag"
+										value="#{PubItemBatchSessionBean.localTagsToAdd}"
+										varStatus="localTagStatus">
+										<span>
+											<h:inputText id="inputChangeLocalTags_add"
+												styleClass="quad_txtInput" value="#{PubItemBatchSessionBean.localTagsToAdd[localTagStatus.index]}" />
+											<span class="small_area0 xTiny_marginLExcl"> 
+												<h:commandButton
+													id="btnAddLocalTag" styleClass="min_imgBtn groupTool add"
+													value=" " action="#{PubItemBatchSessionBean.addLocalTag}"
+													rendered="#{localTagStatus.last}" /> 
+												<h:commandButton
+													id="btnRemoveLocalTag"
+													styleClass="min_imgBtn groupTool remove" value=" "
+													action="#{PubItemBatchSessionBean.removeLocalTag(localTagStatus.index)}"
+													rendered="#{!localTagStatus.first}" />
+											</span>
+										</span>
+									</ui:repeat>
+
 								</div>
 
 							</div>

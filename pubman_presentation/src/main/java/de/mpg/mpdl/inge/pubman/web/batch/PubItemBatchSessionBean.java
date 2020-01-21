@@ -32,6 +32,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
+import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTag;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -90,6 +91,7 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String inputChangeLocalTagsReplaceTo;
   private String inputChangeLocalTagsAdd;
   private String inputChangeSourceIssue;
+  private List<String> localTagsToAdd;
   private String selectedContextNew;
   private String selectedContextOld;
   private Map<String, ItemVersionRO> storedPubItems;
@@ -101,6 +103,8 @@ public class PubItemBatchSessionBean extends FacesBean {
    * number is adapted to the number of items retrieved via the filter query.
    */
   private int diffDisplayNumber = 0;
+
+
 
   public PubItemBatchSessionBean() {
     this.storedPubItems = new HashMap<String, ItemVersionRO>();
@@ -174,7 +178,20 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     changeSourceGenreSelectItems.toArray(new SelectItem[changeSourceGenreSelectItems.size()]);
 
+    // Instanciate localTagsToAdd
+    this.localTagsToAdd = new ArrayList<String>();
+    this.localTagsToAdd.add("");
+
   }
+
+  public List<String> getLocalTagsToAdd() {
+    return localTagsToAdd;
+  }
+
+  public void setLocalTagsToAdd(List<String> localTagsToAdd) {
+    this.localTagsToAdd = localTagsToAdd;
+  }
+
 
   public int getBatchPubItemsSize() {
     return this.storedPubItems.size();
@@ -477,6 +494,42 @@ public class PubItemBatchSessionBean extends FacesBean {
     } catch (IngeApplicationException e) {
       logger.error("An application error occoured during the batch context change", e);
       this.error("An application error occoured during the batch context change");
+    }
+    return null;
+  }
+
+  public void addLocalTag() {
+    this.localTagsToAdd.add(new String(""));
+  }
+
+  public void removeLocalTag(int index) {
+    this.localTagsToAdd.remove(index);
+  }
+
+  public String addLocalTagsItemList() {
+    logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.addLocalTags(pubItemsMap, localTagsToAdd, "batch release " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for adding local tags", e);
+      this.error("A technichal error occoured during the batch process for adding local tags");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch adding local tags", e);
+      this.error("Authentication for batch adding local tags");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch adding local tags", e);
+      this.error("Authorization for batch adding local tags");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch adding local tags", e);
+      this.error("An application error occoured during the batch adding local tags");
     }
     return null;
   }

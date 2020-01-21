@@ -53,6 +53,53 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   }
 
+  /**
+   * @param pubItemsMap
+   * @param LocalTags
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeApplicationException
+   * @throws AuthorizationException
+   * @throws AuthenticationException
+   * @throws IngeTechnicalException
+   */
+  @Override
+  public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (itemId != null) {
+          List<String> localTags = pubItemVO.getObject().getLocalTags();
+          localTags.addAll(localTagsToAdd);
+          pubItemVO.getObject().setLocalTags(localTags);;
+          ItemVersionVO pubItemVOnew = this.pubItemService.update(pubItemVO, authenticationToken);
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not update local Tags for item " + itemId + " due to a technical error");
+        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a technical error"));
+        throw e;
+      } catch (AuthenticationException e) {
+        logger.error("Could not update local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
+        throw e;
+      } catch (AuthorizationException e) {
+        logger.error("Could not update local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
+        throw e;
+      } catch (IngeApplicationException e) {
+        logger.error("Could not update local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
+        throw e;
+      }
+
+    }
+    return messageMap;
+
+  }
+
   /*
    * (non-Javadoc)
    * 
@@ -90,6 +137,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     }
     return messageMap;
   }
+
+
 
   /*
    * (non-Javadoc)
@@ -200,7 +249,5 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     }
     return messageMap;
   }
-
-
 
 }
