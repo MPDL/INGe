@@ -88,7 +88,7 @@
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
 						<span class="medium_area0 endline"> &#160; </span> <span
-							class="seperator xTiny_area0"></span> <span
+							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeContext}" />
 						</b>
@@ -144,7 +144,7 @@
 				<h:panelGroup>
 					<div class="full_area0 itemHeader">
 						<span class="medium_area0 endline"> &#160; </span> <span
-							class="seperator xTiny_area0"></span> <span
+							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
 									value="#{lbl.BatchWorkspace_lblActions_changeLocalTags}" />
 						</b>
