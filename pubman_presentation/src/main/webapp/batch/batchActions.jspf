@@ -192,8 +192,9 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
+								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.replaceLocalTagsItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace }" />
 								</b>
 								<div class="textblock">
@@ -236,8 +237,9 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
+								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.changeGenreItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" />
 								</b>
 								<div class="textblock">
@@ -300,8 +302,9 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
+								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.changeFileVisibility }"
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility }" />
 								</b>
 								<div class="textblock">

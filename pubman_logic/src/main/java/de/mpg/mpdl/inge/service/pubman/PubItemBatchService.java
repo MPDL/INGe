@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -16,6 +17,23 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
  *
  */
 public interface PubItemBatchService {
+
+  /**
+   * add local tags for multiple Items within a Map <pubItemId, modificationDate> and return a Map
+   * with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param selectedContextOld
+   * @param selectedContextNew
+   * @param string
+   * @param authenticationToken
+   * @throws IngeApplicationException
+   * @throws AuthorizationException
+   * @throws AuthenticationException
+   * @throws IngeTechnicalException
+   */
+  public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
    * change the context of multiple Items within a Map <pubItemId, modificationDate> from contextOld
@@ -36,21 +54,25 @@ public interface PubItemBatchService {
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * change genre for multiple items within a Map <pubItemId, modificationDate> and return a Map
+   * with <itemId, exception>
+   * 
    * @param pubItemsMap
-   * @param selectedContextOld
-   * @param selectedContextNew
-   * @param string
+   * @param genreOld
+   * @param genreNew
+   * @param message
    * @param authenticationToken
-   * @throws IngeApplicationException
-   * @throws AuthorizationException
-   * @throws AuthenticationException
+   * @return
    * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
    */
-  public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
+  Map<String, Exception> changeGenre(Map<String, Date> pubItemsMap, Genre genreOld, Genre genreNew, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
-   * delete multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
+   * delete multiple items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
    * exception>
    * 
    * @param pubItemsMap
@@ -128,6 +150,25 @@ public interface PubItemBatchService {
    */
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * replacing local tags for a Map <pubItemId, modificationDate> of Items and return a Map with
+   * <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param contextOld
+   * @param contextNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagsOld, String localTagsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
 
 
   // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)

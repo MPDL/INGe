@@ -21,6 +21,7 @@ import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -53,16 +54,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   }
 
-  /**
-   * @param pubItemsMap
-   * @param LocalTags
-   * @param message
-   * @param authenticationToken
-   * @return
-   * @throws IngeApplicationException
-   * @throws AuthorizationException
-   * @throws AuthenticationException
-   * @throws IngeTechnicalException
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addLocalTags(java.util.Map, java.util.List, java.lang.String, java.lang.String)
    */
   @Override
   public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
@@ -90,8 +83,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
         throw e;
       } catch (IngeApplicationException e) {
-        logger.error("Could not update local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
+        logger.error("Could not add local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been added due to a authentication error"));
         throw e;
       }
 
@@ -133,6 +126,85 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       } catch (Exception e) {
         logger.error("Could not change context of item " + itemId, e);
         messageMap.put(itemId, e);
+      }
+    }
+    return messageMap;
+  }
+
+
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeGenre(java.util.Map, de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> changeGenre(Map<String, Date> pubItemsMap, Genre genreOld, Genre genreNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (genreOld != null && genreNew != null && !genreOld.equals(genreNew)) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          Genre currentPubItemGenre = pubItemVO.getMetadata().getGenre();
+          if (currentPubItemGenre.equals(genreOld)) {
+            pubItemVO.getMetadata().setGenre(genreNew);
+            this.pubItemService.update(pubItemVO, authenticationToken);
+          }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace local Tags for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
+          throw e;
+        }
+      }
+    }
+
+    return messageMap;
+  }
+
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#replaceLocalTags(java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagOld, String localTagNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    for (String itemId : pubItemsMap.keySet()) {
+      try {
+        ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (localTagOld != null && localTagNew != null && !"".equals(localTagOld.trim()) && pubItemVO.getObject().getLocalTags() != null
+            && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
+          List<String> localTagList = pubItemVO.getObject().getLocalTags();
+          localTagList.remove(localTagOld);
+          localTagList.add(localTagNew);
+          pubItemVO.getObject().setLocalTags(localTagList);
+          this.pubItemService.update(pubItemVO, authenticationToken);
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not replace local Tags for item " + itemId + " due to a technical error");
+        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a technical error"));
+        throw e;
+      } catch (AuthenticationException e) {
+        logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
+        throw e;
+      } catch (AuthorizationException e) {
+        logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
+        throw e;
+      } catch (IngeApplicationException e) {
+        logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
+        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
+        throw e;
       }
     }
     return messageMap;
