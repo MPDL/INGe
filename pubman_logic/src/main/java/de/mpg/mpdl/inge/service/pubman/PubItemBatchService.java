@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -152,7 +153,7 @@ public interface PubItemBatchService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
-   * replacing local tags for a Map <pubItemId, modificationDate> of Items and return a Map with
+   * replacing local tags for a Map <pubItemId, modificationDate> of items and return a Map with
    * <itemId, exception>
    * 
    * @param pubItemsMap
@@ -168,6 +169,25 @@ public interface PubItemBatchService {
    */
   Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagsOld, String localTagsNew, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * replacing the visibility for the files of a Map <pubItemId, modificationDate> of items and
+   * return a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param visibilityOld
+   * @param visibilityOld2
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeFileVisibility(Map<String, Date> pubItemsMap, Visibility visibilityOld, Visibility visibilityOld2,
+      String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 
 

@@ -16,9 +16,12 @@ import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
@@ -54,8 +57,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   }
 
-  /* (non-Javadoc)
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addLocalTags(java.util.Map, java.util.List, java.lang.String, java.lang.String)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addLocalTags(java.util.Map,
+   * java.util.List, java.lang.String, java.lang.String)
    */
   @Override
   public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
@@ -131,9 +137,55 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
+  @Override
+  public Map<String, Exception> changeFileVisibility(Map<String, Date> pubItemsMap, Visibility visibilityOld, Visibility visibilityNew,
+      String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (visibilityOld != null && visibilityNew != null && !visibilityOld.equals(visibilityNew)) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          boolean anyFilesChanged = false;
+          for (FileDbVO file : pubItemVO.getFiles()) {
+            if (file.getVisibility().toString().equals(visibilityOld.toString())) {
+              file.setVisibility(FileDbVO.Visibility.valueOf(visibilityNew.toString()));
+              anyFilesChanged = true;
+            }
+          }
+          if (anyFilesChanged == true) {
+            this.pubItemService.update(pubItemVO, authenticationToken);
+          }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace file visibility for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace file visibility for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace file visibility for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace file visibility for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a authentication error"));
+          throw e;
+        }
+      }
+    }
 
-  /* (non-Javadoc)
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeGenre(java.util.Map, de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, java.lang.String, java.lang.String)
+    return messageMap;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeGenre(java.util.Map,
+   * de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre,
+   * de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre, java.lang.String,
+   * java.lang.String)
    */
   @Override
   public Map<String, Exception> changeGenre(Map<String, Date> pubItemsMap, Genre genreOld, Genre genreNew, String message,
@@ -171,8 +223,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
-  /* (non-Javadoc)
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#replaceLocalTags(java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#replaceLocalTags(java.util.Map,
+   * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
   public Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagOld, String localTagNew, String message,
