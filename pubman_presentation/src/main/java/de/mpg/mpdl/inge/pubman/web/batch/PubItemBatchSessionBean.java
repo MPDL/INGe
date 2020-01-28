@@ -535,6 +535,62 @@ public class PubItemBatchSessionBean extends FacesBean {
     return null;
   }
 
+  public String changeFileAudienceItemList() {
+    logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.changeFileAudience(pubItemsMap, changeFilesAudienceFrom, changeFilesAudienceTo,
+          "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for changing the file audience", e);
+      this.error("A technichal error occoured during the batch process for changing the file audience");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch changing the file audience failed", e);
+      this.error("Authentication for batch changing the file audience failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch changing the file audience failed", e);
+      this.error("Authorization for batch changing the file audience failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch changing file audience", e);
+      this.error("An application error occoured during the batch changing file audience");
+    }
+    return null;
+  }
+
+  public String changeFileContentCategoryItemList() {
+    logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.changeFileContentCategory(pubItemsMap, changeFilesContentCategoryFrom, changeFilesContentCategoryTo,
+          "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for changing the file content category", e);
+      this.error("A technichal error occoured during the batch process for changing the file content category");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch changing the file content category failed", e);
+      this.error("Authentication for batch changing the file content category failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch changing the file content category failed", e);
+      this.error("Authorization for batch changing the file content category failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch changing file content category", e);
+      this.error("An application error occoured during the batch changing file content category");
+    }
+    return null;
+  }
+
   public String changeFileVisibilityItemList() {
     logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();

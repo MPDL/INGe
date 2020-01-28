@@ -137,6 +137,102 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
+
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeFileAudience(java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> changeFileAudience(Map<String, Date> pubItemsMap, String audienceOld, String audienceNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (audienceOld != null && audienceNew != null && !audienceOld.equals(audienceNew)) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          boolean anyFilesChanged = false;
+          for (FileDbVO file : pubItemVO.getFiles()) {
+            List<String> audienceList = file.getAllowedAudienceIds();
+            if (audienceList.contains(audienceOld)) {
+              audienceList.remove(audienceList.indexOf(audienceOld));
+              audienceList.add(audienceNew);
+              anyFilesChanged = true;
+            }
+          }
+          if (anyFilesChanged == true) {
+            this.pubItemService.update(pubItemVO, authenticationToken);
+          }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace file audience for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("File audience has not been replaced due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace file audience for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File audience has not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace file audience for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File audiencehas not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace file audience for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File audience has not been replaced due to a authentication error"));
+          throw e;
+        }
+      }
+    }
+
+    return messageMap;
+  }
+
+
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeFileContentCategory(java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> changeFileContentCategory(Map<String, Date> pubItemsMap, String contentCategoryOld,
+      String contentCategoryNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          boolean anyFilesChanged = false;
+          for (FileDbVO file : pubItemVO.getFiles()) {
+            if (file.getMetadata().getContentCategory().equals(contentCategoryOld)) {
+              file.getMetadata().setContentCategory(contentCategoryNew);
+              anyFilesChanged = true;
+            }
+          }
+          if (anyFilesChanged == true) {
+            this.pubItemService.update(pubItemVO, authenticationToken);
+          }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace file content category for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("File content category has not been replaced due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace file content category for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File content category has not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace file content category for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File content category has not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace file content category for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("File content category has not been replaced due to a authentication error"));
+          throw e;
+        }
+      }
+    }
+
+    return messageMap;
+  }
+
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeFileVisibility(java.util.Map, de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility, de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility, java.lang.String, java.lang.String)
+   */
   @Override
   public Map<String, Exception> changeFileVisibility(Map<String, Date> pubItemsMap, Visibility visibilityOld, Visibility visibilityNew,
       String message, String authenticationToken)

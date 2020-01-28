@@ -55,6 +55,62 @@ public interface PubItemBatchService {
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * replacing the audience for the files of a Map <pubItemId, modificationDate> of items and return
+   * a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param audienceOld
+   * @param audienceNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeFileAudience(Map<String, Date> pubItemsMap, String audienceOld, String audienceNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * replacing the content category for the files of a Map <pubItemId, modificationDate> of items
+   * and return a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param contentCategoryOld
+   * @param contentCategoryNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeFileContentCategory(Map<String, Date> pubItemsMap, String contentCategoryOld, String contentCategoryNew,
+      String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * replacing the visibility for the files of a Map <pubItemId, modificationDate> of items and
+   * return a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param visibilityOld
+   * @param visibilityOld2
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeFileVisibility(Map<String, Date> pubItemsMap, Visibility visibilityOld, Visibility visibilityOld2,
+      String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * change genre for multiple items within a Map <pubItemId, modificationDate> and return a Map
    * with <itemId, exception>
    * 
@@ -169,25 +225,6 @@ public interface PubItemBatchService {
    */
   Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagsOld, String localTagsNew, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-  /**
-   * replacing the visibility for the files of a Map <pubItemId, modificationDate> of items and
-   * return a Map with <itemId, exception>
-   * 
-   * @param pubItemsMap
-   * @param visibilityOld
-   * @param visibilityOld2
-   * @param message
-   * @param authenticationToken
-   * @return
-   * @throws IngeTechnicalException
-   * @throws AuthenticationException
-   * @throws AuthorizationException
-   * @throws IngeApplicationException
-   */
-  Map<String, Exception> changeFileVisibility(Map<String, Date> pubItemsMap, Visibility visibilityOld, Visibility visibilityOld2,
-      String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
 
 
