@@ -535,6 +535,36 @@ public class PubItemBatchSessionBean extends FacesBean {
     return null;
   }
 
+  public String changeExternalRefereneceContentCategoryItemList() {
+    logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.changeExternalRefereneceContentCategory(pubItemsMap, changeExternalReferencesContentCategoryFrom,
+          changeExternalReferencesContentCategoryTo,
+          "batch change external references content category " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for changing the external references content category", e);
+      this.error("A technichal error occoured during the batch process for changing the external references content category");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch changing the external references content category failed", e);
+      this.error("Authentication for batch changing the external references content category failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch changing the external references content category failed", e);
+      this.error("Authorization for batch changing the external references content category failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch changing external references content category", e);
+      this.error("An application error occoured during the batch changing external references content category");
+    }
+    return null;
+  }
+
   public String changeFileAudienceItemList() {
     logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();

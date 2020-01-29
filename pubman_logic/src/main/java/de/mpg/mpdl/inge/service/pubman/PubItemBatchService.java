@@ -55,6 +55,26 @@ public interface PubItemBatchService {
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * replacing the content category for the external references of a Map <pubItemId,
+   * modificationDate> of items and return a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param contentCategoryOld
+   * @param contentCategoryNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeExternalRefereneceContentCategory(Map<String, Date> pubItemsMap, String contentCategoryOld,
+      String contentCategoryNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+
+  /**
    * replacing the audience for the files of a Map <pubItemId, modificationDate> of items and return
    * a Map with <itemId, exception>
    * 
