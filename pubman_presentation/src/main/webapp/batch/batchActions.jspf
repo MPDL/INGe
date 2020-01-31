@@ -574,7 +574,6 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								</b>
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.changeSourceGenreItemList }"
@@ -621,15 +620,29 @@
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
-								<b class="medium_area0 labelLine"><h:outputText
+								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue}" />
+										action="#{PubItemBatchSessionBean.changeSourceIssueItemList }"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue }" />
 								</b>
 								<div class="textblock">
 									<h:outputText
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issueDesc }" />
 									<br />
 									<div style="display: inline;">
+										<!-- This is the selection which soure will be used -->
+										<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_source}" />
+										<h:selectOneMenu id="selChangeSourceIssueSource"
+											styleClass="replace"
+											value="#{PubItemBatchSessionBean.changeSoureIssueSoure}"
+											onfocus="updateSelectionBox(this);"
+											onchange="updateSelectionBox(this);">
+											<f:selectItems
+												value="#{PubItemBatchSessionBean.changeSourceIssueSourceSelectItems}" />
+										</h:selectOneMenu>
+										
+										<br />
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_input}" />
