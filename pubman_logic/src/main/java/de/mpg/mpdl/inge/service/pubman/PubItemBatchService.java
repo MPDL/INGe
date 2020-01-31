@@ -6,6 +6,7 @@ import java.util.Map;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -164,6 +165,25 @@ public interface PubItemBatchService {
    * @throws IngeApplicationException
    */
   Map<String, Exception> changeReviewMethod(Map<String, Date> pubItemsMap, String reviewMethodOld, String reviewMethodNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+
+  /**
+   * change source genre for multiple items within a Map <pubItemId, modificationDate> and return a
+   * Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param genreOld
+   * @param genreNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeSourceGenre(Map<String, Date> pubItemsMap, SourceVO.Genre genreOld, SourceVO.Genre genreNew, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
