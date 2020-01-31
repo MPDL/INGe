@@ -149,6 +149,24 @@ public interface PubItemBatchService {
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * change review method for multiple items within a Map <pubItemId, modificationDate> and return a
+   * Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param reviewMethodOld
+   * @param reviewMethodNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeReviewMethod(Map<String, Date> pubItemsMap, String reviewMethodOld, String reviewMethodNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * delete multiple items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
    * exception>
    * 
@@ -245,8 +263,6 @@ public interface PubItemBatchService {
    */
   Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagsOld, String localTagsNew, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-
 
   // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
   // throws IngeApplicationException, IngeTechnicalException;
