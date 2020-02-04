@@ -632,25 +632,79 @@
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_source}" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_number}" />
 											<br />
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_input }" />
 										</div>
 										<div>
-											<h:selectOneMenu id="selChangeSourceIssueSource"
+											<h:selectOneMenu id="selChangeSourceIssueNumber"
 												styleClass="replace"
-												value="#{PubItemBatchSessionBean.changeSoureIssueSoure}"
+												value="#{PubItemBatchSessionBean.changeSoureIssueNumber}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
 												<f:selectItems
-													value="#{PubItemBatchSessionBean.changeSourceIssueSourceSelectItems}" />
+													value="#{PubItemBatchSessionBean.changeSourceNumberSelectItems}" />
 											</h:selectOneMenu>
 											<br />
 											<div>
 											<h:inputText id="inputChangeSourceIssue"
 												styleClass="quad_txtInput"
 												value="#{PubItemBatchSessionBean.inputChangeSourceIssue}" />
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"> <h:commandLink
+										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.addSourceIdItemList }"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_add }" />
+								</b>
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_addDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_number}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_type}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input }" />
+										</div>
+										<div>
+											<h:selectOneMenu id="selChangeSourceIdNumber"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSoureIdAddNumber}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceNumberSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeSourceIdTypeAdd"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSourceIdTypeAdd}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceIdTypeSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<div>
+											<h:inputText id="inputChangeSourceIdAdd"
+												styleClass="quad_txtInput"
+												value="#{PubItemBatchSessionBean.changeSourceIdAdd}" />
 										</div>
 										</div>
 									</div>

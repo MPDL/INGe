@@ -6,6 +6,7 @@ import java.util.Map;
 
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
@@ -35,6 +36,25 @@ public interface PubItemBatchService {
    * @throws IngeTechnicalException
    */
   public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * adding a source id for multiple items within a Map <pubItemId, modificationDate> and return a
+   * Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param sourceNumber
+   * @param sourceIdType
+   * @param idNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> addSourceId(Map<String, Date> pubItemsMap, String sourceNumber, IdType sourceIdType, String idNew, String message,
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**

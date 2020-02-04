@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,10 +25,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
@@ -88,8 +92,12 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String changeSourceGenreFrom;
   private ArrayList<SelectItem> changeSourceGenreSelectItems;
   private String changeSourceGenreTo;
-  private String changeSoureIssueSoure;
-  private ArrayList<SelectItem> changeSourceIssueSourceSelectItems;
+  private String changeSourceIdAdd;
+  private String changeSoureIdAddNumber;
+  private String changeSourceIdTypeAdd;
+  private List<SelectItem> changeSourceIdTypeSelectItems;
+  private String changeSoureIssueNumber;
+  private List<SelectItem> changeSourceNumberSelectItems;
   private String inputChangeLocalTagsReplaceFrom;
   private String inputChangeLocalTagsReplaceTo;
   private String inputChangeLocalTagsAdd;
@@ -186,9 +194,12 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.localTagsToAdd.add("");
 
     // Instantiate and fill source selection
-    this.changeSourceIssueSourceSelectItems = new ArrayList<SelectItem>();
-    this.changeSourceIssueSourceSelectItems.add(new SelectItem("1", "1"));
-    this.changeSourceIssueSourceSelectItems.add(new SelectItem("2", "2"));
+    this.changeSourceNumberSelectItems = new ArrayList<SelectItem>();
+    this.changeSourceNumberSelectItems.add(new SelectItem("1", "1"));
+    this.changeSourceNumberSelectItems.add(new SelectItem("2", "2"));
+
+    // Instantiate and fill source selection
+    this.changeSourceIdTypeSelectItems = Arrays.asList(getIdentifierTypes());
   }
 
   public List<String> getLocalTagsToAdd() {
@@ -381,20 +392,52 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.changeGenreTo = changeGenreTo;
   }
 
-  public String getChangeSoureIssueSoure() {
-    return changeSoureIssueSoure;
+  public String getChangeSoureIdAddNumber() {
+    return changeSoureIdAddNumber;
   }
 
-  public void setChangeSoureIssueSoure(String changeSoureIssueSoure) {
-    this.changeSoureIssueSoure = changeSoureIssueSoure;
+  public void setChangeSoureIdAddNumber(String changeSoureIdAddNumber) {
+    this.changeSoureIdAddNumber = changeSoureIdAddNumber;
   }
 
-  public ArrayList<SelectItem> getChangeSourceIssueSourceSelectItems() {
-    return changeSourceIssueSourceSelectItems;
+  public String getChangeSourceIdAdd() {
+    return changeSourceIdAdd;
   }
 
-  public void setChangeSourceIssueSourceSelectItems(ArrayList<SelectItem> changeSourceIssueSourceSelectItems) {
-    this.changeSourceIssueSourceSelectItems = changeSourceIssueSourceSelectItems;
+  public void setChangeSourceIdAdd(String changeSourceIdAdd) {
+    this.changeSourceIdAdd = changeSourceIdAdd;
+  }
+
+  public String getChangeSourceIdTypeAdd() {
+    return changeSourceIdTypeAdd;
+  }
+
+  public void setChangeSourceIdTypeAdd(String changeSourceIdTypeAdd) {
+    this.changeSourceIdTypeAdd = changeSourceIdTypeAdd;
+  }
+
+  public List<SelectItem> getChangeSourceIdTypeSelectItems() {
+    return changeSourceIdTypeSelectItems;
+  }
+
+  public void setChangeSourceIdTypeSelectItems(List<SelectItem> changeSourceIdTypeSelectItems) {
+    this.changeSourceIdTypeSelectItems = changeSourceIdTypeSelectItems;
+  }
+
+  public String getChangeSoureIssueNumber() {
+    return changeSoureIssueNumber;
+  }
+
+  public void setChangeSoureIssueNumber(String changeSoureIssueSoure) {
+    this.changeSoureIssueNumber = changeSoureIssueSoure;
+  }
+
+  public List<SelectItem> getChangeSourceNumberSelectItems() {
+    return changeSourceNumberSelectItems;
+  }
+
+  public void setChangeSourceNumberSelectItems(List<SelectItem> changeSourceIssueSourceSelectItems) {
+    this.changeSourceNumberSelectItems = changeSourceIssueSourceSelectItems;
   }
 
   public ArrayList<SelectItem> getContextSelectItems() {
@@ -491,6 +534,32 @@ public class PubItemBatchSessionBean extends FacesBean {
    */
   public Map<String, ItemVersionRO> getStoredPubItems() {
     return this.storedPubItems;
+  }
+
+  /**
+   * localized creation of SelectItems for the identifier types available
+   * 
+   * @return SelectItem[] with Strings representing identifier types
+   */
+  public SelectItem[] getIdentifierTypes() {
+    final ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
+
+    // constants for comboBoxes
+    selectItemList.add(new SelectItem(null, this.getLabel("EditItem_NO_ITEM_SET")));
+
+    for (final IdentifierVO.IdType type : DisplayTools.getIdTypesToDisplay()) {
+      selectItemList.add(new SelectItem(type.toString(), this.getLabel("ENUM_IDENTIFIERTYPE_" + type.toString())));
+    }
+
+    // Sort identifiers alphabetically
+    Collections.sort(selectItemList, new Comparator<SelectItem>() {
+      @Override
+      public int compare(SelectItem o1, SelectItem o2) {
+        return o1.getLabel().toLowerCase().compareTo(o2.getLabel().toLowerCase());
+      }
+    });
+
+    return selectItemList.toArray(new SelectItem[] {});
   }
 
   public String changeContextItemList() {
@@ -759,6 +828,35 @@ public class PubItemBatchSessionBean extends FacesBean {
     return null;
   }
 
+  public String addSourceIdItemList() {
+    logger.info("trying to change source genre for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.addSourceId(pubItemsMap, this.changeSoureIdAddNumber, IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd),
+          this.changeSourceIdAdd, "batch change source genre " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for changing the source genre", e);
+      this.error("A technichal error occoured during the batch process for changing the source genre");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch changing the source genre failed", e);
+      this.error("Authentication for batch changing the source genre failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch changing the gsource enre failed", e);
+      this.error("Authorization for batch changing the source genre failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch changingsource  genre", e);
+      this.error("An application error occoured during the batch changing source genre");
+    }
+    return null;
+  }
+
   public String changeSourceIssueItemList() {
     logger.info("trying to change source genre for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
@@ -769,7 +867,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.changeSourceIssue(pubItemsMap, changeSoureIssueSoure, inputChangeSourceIssue,
+      pubItemBatchService.changeSourceIssue(pubItemsMap, changeSoureIssueNumber, inputChangeSourceIssue,
           "batch change source genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch process for changing the source genre", e);
