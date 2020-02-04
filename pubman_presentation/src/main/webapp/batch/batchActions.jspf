@@ -630,28 +630,28 @@
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issueDesc }" />
 									<br />
 									<div style="display: inline;">
-										<!-- This is the selection which soure will be used -->
-										<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_source}" />
-										<h:selectOneMenu id="selChangeSourceIssueSource"
-											styleClass="replace"
-											value="#{PubItemBatchSessionBean.changeSoureIssueSoure}"
-											onfocus="updateSelectionBox(this);"
-											onchange="updateSelectionBox(this);">
-											<f:selectItems
-												value="#{PubItemBatchSessionBean.changeSourceIssueSourceSelectItems}" />
-										</h:selectOneMenu>
-										
-										<br />
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_input}" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_source}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_input }" />
 										</div>
-
 										<div>
+											<h:selectOneMenu id="selChangeSourceIssueSource"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSoureIssueSoure}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceIssueSourceSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<div>
 											<h:inputText id="inputChangeSourceIssue"
 												styleClass="quad_txtInput"
 												value="#{PubItemBatchSessionBean.inputChangeSourceIssue}" />
+										</div>
 										</div>
 									</div>
 								</div>
