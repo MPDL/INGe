@@ -477,6 +477,9 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addSourceId(java.util.Map, java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType, java.lang.String, java.lang.String, java.lang.String)
+   */
   @Override
   public Map<String, Exception> addSourceId(Map<String, Date> pubItemsMap, String sourceNumber, IdentifierVO.IdType sourceIdType,
       String idNew, String message, String authenticationToken)
@@ -510,6 +513,50 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         } catch (IngeApplicationException e) {
           logger.error("Could not change source issue for item " + itemId + " due authentication error");
           messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
+          throw e;
+        }
+      }
+    }
+
+    return messageMap;
+  }
+
+  /* (non-Javadoc)
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceIdReplace(java.util.Map, java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> changeSourceIdReplace(Map<String, Date> pubItemsMap, String sourceNumber, IdentifierVO.IdType sourceIdType,
+      String idOld, String idNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (sourceNumber != null && sourceIdType != null && idNew != null && !("").equals(idNew.trim())) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
+          int sourceNumberInt = Integer.parseInt(sourceNumber);
+          if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt) {
+            if (currentSourceList.get(sourceNumberInt - 1) != null && currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
+              currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
+              this.pubItemService.update(pubItemVO, authenticationToken);
+            }
+          }
+
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace source id for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("Source replace source id changed due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace source id for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Source ID has not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace source id for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Source ID has not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace source id for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Source ID has not been replaced due to a authentication error"));
           throw e;
         }
       }

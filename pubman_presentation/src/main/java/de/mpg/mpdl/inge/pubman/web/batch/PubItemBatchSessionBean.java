@@ -20,7 +20,6 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -37,8 +36,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
-import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTag;
-import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -94,7 +91,11 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String changeSourceGenreTo;
   private String changeSourceIdAdd;
   private String changeSoureIdAddNumber;
+  private String changeSourceIdReplaceFrom;
+  private String changeSourceIdReplaceTo;
+  private String changeSourceIdReplaceNumber;
   private String changeSourceIdTypeAdd;
+  private String changeSourceIdTypeReplace;
   private List<SelectItem> changeSourceIdTypeSelectItems;
   private String changeSoureIssueNumber;
   private List<SelectItem> changeSourceNumberSelectItems;
@@ -406,6 +407,38 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public void setChangeSourceIdAdd(String changeSourceIdAdd) {
     this.changeSourceIdAdd = changeSourceIdAdd;
+  }
+
+  public String getChangeSourceIdReplaceFrom() {
+    return changeSourceIdReplaceFrom;
+  }
+
+  public void setChangeSourceIdReplaceFrom(String changeSourceIdReplaceFrom) {
+    this.changeSourceIdReplaceFrom = changeSourceIdReplaceFrom;
+  }
+
+  public String getChangeSourceIdReplaceTo() {
+    return changeSourceIdReplaceTo;
+  }
+
+  public void setChangeSourceIdReplaceTo(String changeSourceIdReplaceTo) {
+    this.changeSourceIdReplaceTo = changeSourceIdReplaceTo;
+  }
+
+  public String getChangeSourceIdReplaceNumber() {
+    return changeSourceIdReplaceNumber;
+  }
+
+  public void setChangeSourceIdReplaceNumber(String changeSourceIdReplaceNumber) {
+    this.changeSourceIdReplaceNumber = changeSourceIdReplaceNumber;
+  }
+
+  public String getChangeSourceIdTypeReplace() {
+    return changeSourceIdTypeReplace;
+  }
+
+  public void setChangeSourceIdTypeReplace(String changeSourceIdTypeReplace) {
+    this.changeSourceIdTypeReplace = changeSourceIdTypeReplace;
   }
 
   public String getChangeSourceIdTypeAdd() {
@@ -819,17 +852,17 @@ public class PubItemBatchSessionBean extends FacesBean {
       logger.error("Authentication for batch changing the source genre failed", e);
       this.error("Authentication for batch changing the source genre failed");
     } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the gsource enre failed", e);
+      logger.error("Authorization for batch changing the source genre failed", e);
       this.error("Authorization for batch changing the source genre failed");
     } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changingsource  genre", e);
+      logger.error("An application error occoured during the batch changing source  genre", e);
       this.error("An application error occoured during the batch changing source genre");
     }
     return null;
   }
 
   public String addSourceIdItemList() {
-    logger.info("trying to change source genre for " + this.getBatchPubItemsSize() + " items");
+    logger.info("trying to replacing the source id for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
@@ -839,20 +872,49 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     try {
       pubItemBatchService.addSourceId(pubItemsMap, this.changeSoureIdAddNumber, IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd),
-          this.changeSourceIdAdd, "batch change source genre " + formatter.format(calendar.getTime()),
+          this.changeSourceIdAdd, "batch replacing the source id " + formatter.format(calendar.getTime()),
           loginHelper.getAuthenticationToken());
     } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the source genre", e);
-      this.error("A technichal error occoured during the batch process for changing the source genre");
+      logger.error("A technichal error occoured during the batch process for replacing the source id", e);
+      this.error("A technichal error occoured during the batch process for replacing the source id");
     } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the source genre failed", e);
-      this.error("Authentication for batch changing the source genre failed");
+      logger.error("Authentication for batch replacing the source id failed", e);
+      this.error("Authentication for batch replacing the source id failed");
     } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the gsource enre failed", e);
-      this.error("Authorization for batch changing the source genre failed");
+      logger.error("Authorization for batch replacing the source id failed", e);
+      this.error("Authorization for batch replacing the source id failed");
     } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changingsource  genre", e);
-      this.error("An application error occoured during the batch changing source genre");
+      logger.error("An application error occoured during the batch replacing the source id", e);
+      this.error("An application error occoured during the batch replacing the source id");
+    }
+    return null;
+  }
+
+  public String changeSourceIdReplaceItemList() {
+    logger.info("trying to replace source id for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.changeSourceIdReplace(pubItemsMap, this.changeSourceIdReplaceNumber,
+          IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd), this.changeSourceIdReplaceFrom, this.changeSourceIdReplaceTo,
+          "batch replace source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for replacing the source id", e);
+      this.error("A technichal error occoured during the batch process for replacing the source id");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch replacing the source id failed", e);
+      this.error("Authentication for batch replacing the source id failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch replacing the source id failed", e);
+      this.error("Authorization for batch replacing the source id failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch replacing the source id", e);
+      this.error("An application error occoured during the batch replacing the source id");
     }
     return null;
   }
@@ -876,10 +938,10 @@ public class PubItemBatchSessionBean extends FacesBean {
       logger.error("Authentication for batch changing the source genre failed", e);
       this.error("Authentication for batch changing the source genre failed");
     } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the gsource enre failed", e);
+      logger.error("Authorization for batch changing the source genre failed", e);
       this.error("Authorization for batch changing the source genre failed");
     } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changingsource  genre", e);
+      logger.error("An application error occoured during the batch changing source genre", e);
       this.error("An application error occoured during the batch changing source genre");
     }
     return null;

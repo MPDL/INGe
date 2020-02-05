@@ -166,20 +166,18 @@
 									<ui:repeat var="localTag"
 										value="#{PubItemBatchSessionBean.localTagsToAdd}"
 										varStatus="localTagStatus">
-										<span>
-											<h:inputText id="inputChangeLocalTags_add"
-												styleClass="quad_txtInput" value="#{PubItemBatchSessionBean.localTagsToAdd[localTagStatus.index]}" />
-											<span class="small_area0 xTiny_marginLExcl"> 
-												<h:commandButton
+										<span> <h:inputText id="inputChangeLocalTags_add"
+												styleClass="quad_txtInput"
+												value="#{PubItemBatchSessionBean.localTagsToAdd[localTagStatus.index]}" />
+											<span class="small_area0 xTiny_marginLExcl"> <h:commandButton
 													id="btnAddLocalTag" styleClass="min_imgBtn groupTool add"
 													value=" " action="#{PubItemBatchSessionBean.addLocalTag}"
-													rendered="#{localTagStatus.last}" /> 
-												<h:commandButton
+													rendered="#{localTagStatus.last}" /> <h:commandButton
 													id="btnRemoveLocalTag"
 													styleClass="min_imgBtn groupTool remove" value=" "
 													action="#{PubItemBatchSessionBean.removeLocalTag(localTagStatus.index)}"
 													rendered="#{!localTagStatus.first}" />
-											</span>
+										</span>
 										</span>
 									</ui:repeat>
 
@@ -648,10 +646,10 @@
 											</h:selectOneMenu>
 											<br />
 											<div>
-											<h:inputText id="inputChangeSourceIssue"
-												styleClass="quad_txtInput"
-												value="#{PubItemBatchSessionBean.inputChangeSourceIssue}" />
-										</div>
+												<h:inputText id="inputChangeSourceIssue"
+													styleClass="quad_txtInput"
+													value="#{PubItemBatchSessionBean.inputChangeSourceIssue}" />
+											</div>
 										</div>
 									</div>
 								</div>
@@ -683,7 +681,7 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input }" />
 										</div>
 										<div>
-											<h:selectOneMenu id="selChangeSourceIdNumber"
+											<h:selectOneMenu id="selChangeSourceIdAddNumber"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeSoureIdAddNumber}"
 												onfocus="updateSelectionBox(this);"
@@ -702,10 +700,73 @@
 											</h:selectOneMenu>
 											<br />
 											<div>
-											<h:inputText id="inputChangeSourceIdAdd"
-												styleClass="quad_txtInput"
-												value="#{PubItemBatchSessionBean.changeSourceIdAdd}" />
+												<h:inputText id="inputChangeSourceIdAdd"
+													styleClass="quad_txtInput"
+													value="#{PubItemBatchSessionBean.changeSourceIdAdd}" />
+											</div>
 										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"> <h:commandLink
+										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.changeSourceIdReplaceItemList }"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_replace }" />
+								</b>
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_replaceDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_number}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_type}" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input_from }" />
+											<br />
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input_to }" />
+										</div>
+										<div>
+											<h:selectOneMenu id="selChangeSourceIdReplaceNumber"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSourceIdReplaceNumber}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceNumberSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeSourceIdTypeReplace"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeSourceIdTypeReplace}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeSourceIdTypeSelectItems}" />
+											</h:selectOneMenu>
+											<br />
+											<div>
+												<h:inputText id="inputChangeSourceIdReplaceFrom"
+													styleClass="quad_txtInput"
+													value="#{PubItemBatchSessionBean.changeSourceIdReplaceFrom}" />
+											</div>
+											<br />
+											<div>
+												<h:inputText id="inputChangeSourceIdReplaceTo"
+													styleClass="quad_txtInput"
+													value="#{PubItemBatchSessionBean.changeSourceIdReplaceTo}" />
+											</div>
 										</div>
 									</div>
 								</div>

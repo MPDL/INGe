@@ -207,6 +207,27 @@ public interface PubItemBatchService {
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * replace source id for multiple items within a Map <pubItemId, modificationDate> and return a
+   * Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param sourceNumber
+   * @param sourceIdType
+   * @param idOld
+   * @param idNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeSourceIdReplace(Map<String, Date> pubItemsMap, String sourceNumber, IdType sourceIdType, String idOld,
+      String idNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * change source issue for multiple items within a Map <pubItemId, modificationDate> and return a
    * Map with <itemId, exception>
    * 
