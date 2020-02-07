@@ -2241,4 +2241,8 @@ public class ViewItemFull extends FacesBean {
   public AccountUserDbVO getOwner() {
     return this.owner;
   }
+
+  public String getUseExtendedConeAttributes() {
+    return PropertyReader.getProperty(PropertyReader.INGE_CONE_EXTENDED_ATTRIBUTES_USE);
+  }
 }

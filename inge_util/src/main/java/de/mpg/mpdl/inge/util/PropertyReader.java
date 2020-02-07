@@ -57,7 +57,7 @@ public class PropertyReader {
   private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
   public static final String GFZ_CONE_CITATION_STYLES_USE = "gfz.citation.styles.use";
-  public static final String GFZ_CONE_RESET_USE = "gfz.cone.reset.use";
+  public static final String GFZ_CONE_RESET_USE = "gfz.cone.reset.use"; // used in cone_presentation -> reset.jsp
   public static final String GFZ_OA_MAIL_ADRESS = "gfz.oa.mail.adress";
   public static final String GFZ_OA_MAIL_SUBJECT = "gfz.oa.mail.subject";
   public static final String INGE_AA_ADMIN_LIVE_PASSWORD = "inge.aa.admin.live.password";
@@ -81,6 +81,7 @@ public class PropertyReader {
   public static final String INGE_CONE_DATABASE_SERVER_NAME = "inge.cone.database.server.name";
   public static final String INGE_CONE_DATABASE_SERVER_PORT = "inge.cone.database.server.port";
   public static final String INGE_CONE_DATABASE_USER_NAME = "inge.cone.database.user.name";
+  public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_DATABASE_USER_PASSWORD = "inge.cone.database.user.password";
   public static final String INGE_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
   public static final String INGE_CONE_MAXIMUM_RESULTS = "inge.cone.maximum.results";

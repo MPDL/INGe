@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.ItemControllerSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * This session bean implements the BasePaginatorListSessionBean for sortable lists of PubItems.
@@ -1193,5 +1194,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
   private ItemControllerSessionBean getItemControllerSessionBean() {
     return (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
+  }
+
+  public String getUseExtendedConeAttributes() {
+    return PropertyReader.getProperty(PropertyReader.INGE_CONE_EXTENDED_ATTRIBUTES_USE);
   }
 }

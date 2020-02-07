@@ -194,6 +194,10 @@
 	</profiles>
 
 	<dependencies>
+        <dependency>
+            <groupId>de.mpg.mpdl.inge</groupId>
+            <artifactId>cone</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>

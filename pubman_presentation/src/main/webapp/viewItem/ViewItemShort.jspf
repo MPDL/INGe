@@ -44,6 +44,29 @@
 					value="#{item.genre}" />&#160;
 			</span>
 		</div>
+		
+	    <h:panelGroup rendered="#{item.metadata.genre == 'ARTICLE' and ViewItemFull.useExtendedConeAttributes == 'true'}">
+	        <div class="free_area0_p0 small_marginLIncl endline listItemLine">
+	            <span class="huge_area0_p8 endline labelLine">
+	                <h:outputText value="#{lbl.ViewItemMedium_lblSourceGenre}"/><span class="noDisplay">: </span>
+	            </span>
+	            <span class="xHuge_area0 endline">
+	                <h:outputText value="#{item.sourceGenre}"/>
+	                <h:outputText value="#{item.journalMetaData}" escape="false"/>
+	                <h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceGenre==null || item.sourceGenre==''}"/>
+	            </span>
+	        </div>
+	        <div class="free_area0_p0 small_marginLIncl endline listItemLine">
+	            <span class="huge_area0_p8 endline labelLine">
+	                <h:outputText value="#{lbl.ViewItemMedium_lblSourceTitle}"/><span class="noDisplay">: </span>
+	            </span>
+	            <span class="xHuge_area0 endline">
+	                <h:outputText value="#{item.sourceTitle}" converter="HTMLSubSupConverter" escape="false"/>
+	                <h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceTitle==null || item.sourceTitle==''}"/>
+	            </span>
+	        </div>
+	    </h:panelGroup>
+		
 		<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 			<span class="huge_area0_p8 endline labelLine"> <h:outputText
 					value="#{lbl.ViewItemShort_lblFile}" /><span class="noDisplay">:
