@@ -182,7 +182,7 @@
 		</output-format>		
 		<dc:creator>vmakarenko</dc:creator>
 		<open>true</open>
-		<output-formats refs="pdf  docx html_plain html_linked snippet escidoc_snippet txt"/>
+		<output-formats refs="pdf docx html_plain html_linked snippet escidoc_snippet txt"/>
 	</export-format>	
 	<export-format type="layout" context="PubMan">
 		<dc:title>AJP Citation Style</dc:title>
@@ -329,6 +329,8 @@
 			<dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
 		</output-format>
 		<dc:creator>dommer</dc:creator>
+        <open>true</open>
+        <output-formats refs="pdf rtf html_plain html_linked html_styled escidoc_snippet"/>
 	</export-format>
 	<export-format type="layout" context="PubMan">
 		<dc:title>Default Citation Style</dc:title>

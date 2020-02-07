@@ -21,7 +21,7 @@
 	APA  max 6 Authors/Editors version
 	Specifications: http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/APA	
 -->
-<citation-style name="APA" 
+<citation-style name="GFZPUBLISTS" 
 	xmlns="http://www.escidoc.de/citationstyle"  
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"

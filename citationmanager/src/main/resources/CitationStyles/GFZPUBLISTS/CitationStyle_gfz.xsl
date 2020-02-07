@@ -267,8 +267,10 @@
 							<xsl:value-of select="exists(pub:publication)" />
 						</xsl:variable>
 						<xsl:variable name="authorsCount">
-							<xsl:value-of select="count(pub:publication/eterms:creator[@role=$l_author and boolean(person:person)])" />
-						</xsl:variable><xsl:variable name="editorsCount">
+							<xsl:value-of 
+								select="count(pub:publication/eterms:creator[@role=$l_author and boolean(person:person)])" />
+						</xsl:variable>
+						<xsl:variable name="editorsCount">
 							<xsl:value-of
 								select="count(pub:publication/eterms:creator[@role=$l_editor and boolean(person:person)])" />
 						</xsl:variable>
@@ -534,7 +536,7 @@
 								</xsl:if>
 								<xsl:copy-of select="$var" />
 								<xsl:if test="exists($var) and $var!=''">
-									<xsl:text>): </xsl:text>
+									<xsl:text>):</xsl:text>
 								</xsl:if>
 							</xsl:variable>
 							<!--font-style -->
