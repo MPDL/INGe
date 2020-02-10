@@ -536,7 +536,7 @@
 								</xsl:if>
 								<xsl:copy-of select="$var" />
 								<xsl:if test="exists($var) and $var!=''">
-									<xsl:text>):</xsl:text>
+									<xsl:text>): </xsl:text>
 								</xsl:if>
 							</xsl:variable>
 							<!--font-style -->
