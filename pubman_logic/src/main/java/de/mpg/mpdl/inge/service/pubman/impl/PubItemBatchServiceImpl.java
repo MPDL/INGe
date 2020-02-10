@@ -4,33 +4,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.es.util.ElasticSearchIndexField;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO;
-import de.mpg.mpdl.inge.model.valueobjects.FileVO.Storage;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
-import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
-import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -388,6 +377,95 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   /*
    * (non-Javadoc)
    * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeKeywords(java.util.Map,
+   * java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> changeKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    return changeKeywords(pubItemsMap, null, keywordsNew, message, authenticationToken);
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeKeywords(java.util.Map,
+   * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public Map<String, Exception> changeKeywords(Map<String, Date> pubItemsMap, String keywordsOld, String keywordsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (keywordsNew != null && !keywordsNew.equals(keywordsOld)) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          boolean keywordsChanged = false;
+          char splittingChar = ',';
+          String currentKeywords = null;
+          String[] keywordArray = new String[1];
+          if (keywordsOld != null && !"".equals(keywordsOld.trim())
+              && (currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
+
+            if (currentKeywords.contains(",")) {
+              keywordArray = currentKeywords.split(",");
+            } else if (currentKeywords.contains(";")) {
+              keywordArray = currentKeywords.split(";");
+              splittingChar = ';';
+            } else if (currentKeywords.contains(" ")) {
+              keywordArray = currentKeywords.split(" ");
+              splittingChar = ' ';
+            } else {
+              keywordArray[0] = currentKeywords;
+            }
+            StringBuilder keywordString = new StringBuilder();
+            for (int i = 0; i < keywordArray.length; i++) {
+              String keyword = keywordArray[i].trim();
+              if (i != 0) {
+                keywordString.append(splittingChar);
+              }
+              if (keyword != "" && keywordsOld.equals(keyword)) {
+                keywordString.append(keywordsNew);
+                keywordsChanged = true;
+              } else {
+                keywordString.append(keyword);
+              }
+            }
+            if (keywordsChanged) {
+              pubItemVO.getMetadata().setFreeKeywords(keywordString.toString());
+              this.pubItemService.update(pubItemVO, authenticationToken);
+            } else {
+              messageMap.put(itemId, new Exception("No keywords were replaced"));
+            }
+          } else {
+            messageMap.put(itemId, new NullPointerException("No keywords to replace were set"));
+          }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace keywords for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
+          throw e;
+        }
+      }
+    }
+
+    return messageMap;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeReviewMethod(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
@@ -477,8 +555,12 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
-  /* (non-Javadoc)
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addSourceId(java.util.Map, java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType, java.lang.String, java.lang.String, java.lang.String)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addSourceId(java.util.Map,
+   * java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType,
+   * java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
   public Map<String, Exception> addSourceId(Map<String, Date> pubItemsMap, String sourceNumber, IdentifierVO.IdType sourceIdType,
@@ -521,8 +603,12 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
-  /* (non-Javadoc)
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceIdReplace(java.util.Map, java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceIdReplace(java.util.Map,
+   * java.lang.String, de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType,
+   * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
   public Map<String, Exception> changeSourceIdReplace(Map<String, Date> pubItemsMap, String sourceNumber, IdentifierVO.IdType sourceIdType,
@@ -675,6 +761,39 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         messageMap.put(itemId, e);
       }
     }
+    return messageMap;
+  }
+
+  @Override
+  public Map<String, Exception> replaceAllKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    if (keywordsNew != null) {
+      for (String itemId : pubItemsMap.keySet()) {
+        try {
+          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
+          this.pubItemService.update(pubItemVO, authenticationToken);
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace review method for item " + itemId + " due to a technical error");
+          messageMap.put(itemId, new Exception("Review method have not been replaced due to a technical error"));
+          throw e;
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace review method for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
+          throw e;
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace review method for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
+          throw e;
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace review method for item " + itemId + " due authentication error");
+          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
+          throw e;
+        }
+      }
+    }
+
     return messageMap;
   }
 

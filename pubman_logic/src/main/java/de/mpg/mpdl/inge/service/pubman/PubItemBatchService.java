@@ -170,6 +170,41 @@ public interface PubItemBatchService {
       String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * replace one specific keyword for multiple items within a Map <pubItemId, modificationDate> and
+   * return a Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param keywordsOld
+   * @param keywordsNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeKeywords(Map<String, Date> pubItemsMap, String keywordsOld, String keywordsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * replace all keywords for multiple items within a Map <pubItemId, modificationDate> and return a
+   * Map with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param keywordsNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> changeKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * change review method for multiple items within a Map <pubItemId, modificationDate> and return a
    * Map with <itemId, exception>
    * 
@@ -278,6 +313,41 @@ public interface PubItemBatchService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * replacing all keywords for a Map <pubItemId, modificationDate> of items and return a Map with
+   * <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param keywordsNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> replaceAllKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
+   * replacing local tags for a Map <pubItemId, modificationDate> of items and return a Map with
+   * <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param contextOld
+   * @param contextNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagsOld, String localTagsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * revise multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
    * exception>
    * 
@@ -324,24 +394,6 @@ public interface PubItemBatchService {
    */
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
-
-  /**
-   * replacing local tags for a Map <pubItemId, modificationDate> of items and return a Map with
-   * <itemId, exception>
-   * 
-   * @param pubItemsMap
-   * @param contextOld
-   * @param contextNew
-   * @param message
-   * @param authenticationToken
-   * @return
-   * @throws IngeTechnicalException
-   * @throws AuthenticationException
-   * @throws AuthorizationException
-   * @throws IngeApplicationException
-   */
-  Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagsOld, String localTagsNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
   // throws IngeApplicationException, IngeTechnicalException;

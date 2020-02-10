@@ -99,11 +99,16 @@ public class PubItemBatchSessionBean extends FacesBean {
   private List<SelectItem> changeSourceIdTypeSelectItems;
   private String changeSoureIssueNumber;
   private List<SelectItem> changeSourceNumberSelectItems;
+  private boolean disabledKeywordInput;
   private String inputChangeLocalTagsReplaceFrom;
   private String inputChangeLocalTagsReplaceTo;
   private String inputChangeLocalTagsAdd;
   private String inputChangeSourceIssue;
   private List<String> localTagsToAdd;
+  private replaceType changePublicationKeywordsReplaceType;
+  private List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems;
+  private String changePublicationKeywordsReplaceFrom;
+  private String changePublicationKeywordsReplaceTo;
   private String selectedContextNew;
   private String selectedContextOld;
   private Map<String, ItemVersionRO> storedPubItems;
@@ -115,7 +120,6 @@ public class PubItemBatchSessionBean extends FacesBean {
    * number is adapted to the number of items retrieved via the filter query.
    */
   private int diffDisplayNumber = 0;
-
 
 
   public PubItemBatchSessionBean() {
@@ -201,6 +205,14 @@ public class PubItemBatchSessionBean extends FacesBean {
 
     // Instantiate and fill source selection
     this.changeSourceIdTypeSelectItems = Arrays.asList(getIdentifierTypes());
+
+    // Instantiate and fill changePublicationKeywordsReplaceTypeSelectItems
+    this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<SelectItem>();
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_ALL, "ALL"));
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_BY_VALUE, "BY VALUE"));
+
+    // Instantiate and fill disableKeywordInput
+    this.disabledKeywordInput = true;
   }
 
   public List<String> getLocalTagsToAdd() {
@@ -333,6 +345,38 @@ public class PubItemBatchSessionBean extends FacesBean {
     return changeGenreTo;
   }
 
+  public replaceType getChangePublicationKeywordsReplaceType() {
+    return changePublicationKeywordsReplaceType;
+  }
+
+  public void setChangePublicationKeywordsReplaceType(replaceType changePublicationKeywordsReplaceType) {
+    this.changePublicationKeywordsReplaceType = changePublicationKeywordsReplaceType;
+  }
+
+  public List<SelectItem> getChangePublicationKeywordsReplaceTypeSelectItems() {
+    return changePublicationKeywordsReplaceTypeSelectItems;
+  }
+
+  public void setChangePublicationKeywordsReplaceTypeSelectItems(List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems) {
+    this.changePublicationKeywordsReplaceTypeSelectItems = changePublicationKeywordsReplaceTypeSelectItems;
+  }
+
+  public String getChangePublicationKeywordsReplaceFrom() {
+    return changePublicationKeywordsReplaceFrom;
+  }
+
+  public void setChangePublicationKeywordsReplaceFrom(String changePublicationKeywordsReplaceFrom) {
+    this.changePublicationKeywordsReplaceFrom = changePublicationKeywordsReplaceFrom;
+  }
+
+  public String getChangePublicationKeywordsReplaceTo() {
+    return changePublicationKeywordsReplaceTo;
+  }
+
+  public void setChangePublicationKeywordsReplaceTo(String changePublicationKeywordsReplaceTo) {
+    this.changePublicationKeywordsReplaceTo = changePublicationKeywordsReplaceTo;
+  }
+
   public String getChangeReviewMethodFrom() {
     return changeReviewMethodFrom;
   }
@@ -367,6 +411,14 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public String getInputChangeSourceIssue() {
     return inputChangeSourceIssue;
+  }
+
+  public boolean getDisabledKeywordInput() {
+    return disabledKeywordInput;
+  }
+
+  public void setDisabledKeywordInput(boolean disabledKeywordInput) {
+    this.disabledKeywordInput = disabledKeywordInput;
   }
 
   public void setInputChangeSourceIssue(String inputChangeSourceIssue) {
@@ -804,6 +856,40 @@ public class PubItemBatchSessionBean extends FacesBean {
     return null;
   }
 
+  public String changePublicationKeywordsReplaceItemList() {
+    logger.info("trying to change review method for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      if (replaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
+        pubItemBatchService.changeKeywords(pubItemsMap, changePublicationKeywordsReplaceFrom, changePublicationKeywordsReplaceTo,
+            "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+      } else {
+        pubItemBatchService.replaceAllKeywords(pubItemsMap, changePublicationKeywordsReplaceTo,
+            "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+      }
+
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for changing the review method", e);
+      this.error("A technichal error occoured during the batch process for changing the review method");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch changing the review method failed", e);
+      this.error("Authentication for batch changing the review method failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch changing the review method failed", e);
+      this.error("Authorization for batch changing the review method failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch changing review method", e);
+      this.error("An application error occoured during the batch changing review method");
+    }
+    return null;
+  }
+
   public String changeReviewMethodItemList() {
     logger.info("trying to change review method for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
@@ -1115,4 +1201,16 @@ public class PubItemBatchSessionBean extends FacesBean {
     return null;
   }
 
+  public void handleKeywordReplaceTypeChange() {
+    if (replaceType.REPLACE_ALL.equals(this.changePublicationKeywordsReplaceType)) {
+      this.disabledKeywordInput = true;
+    } else {
+      this.disabledKeywordInput = false;
+    }
+  }
+
+  private enum replaceType
+  {
+    REPLACE_ALL, REPLACE_BY_VALUE;
+  }
 }
