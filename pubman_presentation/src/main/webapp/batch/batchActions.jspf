@@ -563,8 +563,38 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
+										action="#{PubItemBatchSessionBean.changePublicationKeywordsAddItemList }"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_add }" />
+								</b>
+								<div class="textblock">
+									<h:outputText
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_addDesc }" />
+									<br />
+									<div style="display: inline;">
+										<div class="free_area0 selCriterionType">
+											<h:outputLabel
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_add_input }" />
+										</div>
+										<div>
+											<div>
+												<h:inputText id="inputChangeKeywordsAdd"
+													styleClass="quad_txtInput"
+													value="#{PubItemBatchSessionBean.changePublicationKeywordsAddInput}" />
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine"> <h:commandLink
+										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace }" />
 								</b>
 								<div class="textblock">
 									<h:outputText

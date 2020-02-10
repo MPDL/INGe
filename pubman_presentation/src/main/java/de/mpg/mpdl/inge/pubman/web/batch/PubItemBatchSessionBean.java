@@ -105,6 +105,7 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String inputChangeLocalTagsAdd;
   private String inputChangeSourceIssue;
   private List<String> localTagsToAdd;
+  private String changePublicationKeywordsAddInput;
   private replaceType changePublicationKeywordsReplaceType;
   private List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems;
   private String changePublicationKeywordsReplaceFrom;
@@ -359,6 +360,14 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public void setChangePublicationKeywordsReplaceTypeSelectItems(List<SelectItem> changePublicationKeywordsReplaceTypeSelectItems) {
     this.changePublicationKeywordsReplaceTypeSelectItems = changePublicationKeywordsReplaceTypeSelectItems;
+  }
+
+  public String getChangePublicationKeywordsAddInput() {
+    return changePublicationKeywordsAddInput;
+  }
+
+  public void setChangePublicationKeywordsAddInput(String changePublicationKeywordsAddInput) {
+    this.changePublicationKeywordsAddInput = changePublicationKeywordsAddInput;
   }
 
   public String getChangePublicationKeywordsReplaceFrom() {
@@ -856,8 +865,37 @@ public class PubItemBatchSessionBean extends FacesBean {
     return null;
   }
 
+  public String changePublicationKeywordsAddItemList() {
+    logger.info("trying to add keywords for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
+          "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for adding keywords", e);
+      this.error("A technichal error occoured during the batch process for adding keywords");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch adding keywords failed", e);
+      this.error("Authentication for batch adding keywords failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch adding keywords failed", e);
+      this.error("Authorization for batch adding keywords failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch adding keywords", e);
+      this.error("An application error occoured during the batchadding keywords");
+    }
+    return null;
+  }
+
   public String changePublicationKeywordsReplaceItemList() {
-    logger.info("trying to change review method for " + this.getBatchPubItemsSize() + " items");
+    logger.info("trying to Keywords method for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
@@ -868,24 +906,24 @@ public class PubItemBatchSessionBean extends FacesBean {
     try {
       if (replaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
         pubItemBatchService.changeKeywords(pubItemsMap, changePublicationKeywordsReplaceFrom, changePublicationKeywordsReplaceTo,
-            "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+            "batch change keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
       } else {
         pubItemBatchService.replaceAllKeywords(pubItemsMap, changePublicationKeywordsReplaceTo,
-            "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+            "batch change keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
       }
 
     } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the review method", e);
-      this.error("A technichal error occoured during the batch process for changing the review method");
+      logger.error("A technichal error occoured during the batch process for changing the keywords", e);
+      this.error("A technichal error occoured during the batch process for changing the keywords");
     } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the review method failed", e);
-      this.error("Authentication for batch changing the review method failed");
+      logger.error("Authentication for batch changing the keywords failed", e);
+      this.error("Authentication for batch changing the keywords failed");
     } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the review method failed", e);
-      this.error("Authorization for batch changing the review method failed");
+      logger.error("Authorization for batch changing the keywords failed", e);
+      this.error("Authorization for batch changing the keywords failed");
     } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing review method", e);
-      this.error("An application error occoured during the batch changing review method");
+      logger.error("An application error occoured during the batch changing keywords", e);
+      this.error("An application error occoured during the batch changing keywords");
     }
     return null;
   }

@@ -22,6 +22,23 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 public interface PubItemBatchService {
 
   /**
+   * add keywords for multiple Items within a Map <pubItemId, modificationDate> and return a Map
+   * with <itemId, exception>
+   * 
+   * @param pubItemsMap
+   * @param keywordsNew
+   * @param message
+   * @param authenticationToken
+   * @return
+   * @throws IngeTechnicalException
+   * @throws AuthenticationException
+   * @throws AuthorizationException
+   * @throws IngeApplicationException
+   */
+  Map<String, Exception> addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  /**
    * add local tags for multiple Items within a Map <pubItemId, modificationDate> and return a Map
    * with <itemId, exception>
    * 
@@ -394,6 +411,7 @@ public interface PubItemBatchService {
    */
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
 
   // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)
   // throws IngeApplicationException, IngeTechnicalException;
