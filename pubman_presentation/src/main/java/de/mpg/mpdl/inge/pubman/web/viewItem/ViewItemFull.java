@@ -1666,8 +1666,8 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String addToBatch() {
-    if (!this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectIdAndVersion())) {
-      this.getPubItemBatchSessionBean().getStoredPubItems().put(this.pubItem.getObjectIdAndVersion(), this.pubItem);
+    if (!this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectId())) {
+      this.getPubItemBatchSessionBean().getStoredPubItems().put(this.pubItem.getObjectId(), this.pubItem);
       this.info(this.getMessage("basket_SingleAddedSuccessfully"));
     } else {
       this.error(this.getMessage("batch_SingleAlreadyInBasket"));
@@ -1679,7 +1679,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String removeFromBatch() {
-    this.getPubItemBatchSessionBean().getStoredPubItems().remove(this.pubItem.getObjectIdAndVersion());
+    this.getPubItemBatchSessionBean().getStoredPubItems().remove(this.pubItem.getObjectId());
     this.info(this.getMessage("batch_SingleRemovedSuccessfully"));
     this.canAddToBatch = true;
     this.canDeleteFromBatch = false;

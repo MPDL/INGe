@@ -8,8 +8,10 @@ import javax.faces.bean.ManagedBean;
 
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
@@ -23,6 +25,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 /**
@@ -84,15 +87,21 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
 
       if (pbsb.getStoredPubItems().size() > 0) {
 
-        List<String> ids = pbsb.getStoredPubItems().values().stream().map(i -> i.getObjectIdAndVersion()).collect(Collectors.toList());
+        List<String> ids = pbsb.getStoredPubItems().values().stream().map(i -> i.getObjectId()).collect(Collectors.toList());
 
-        QueryBuilder idQuery = QueryBuilders.termsQuery("_id", ids);
+        BoolQueryBuilder bq = QueryBuilders.boolQuery();
 
+        bq.must(QueryBuilders.termsQuery("objectId", ids));
 
+        // display only latest versions
+        bq.must(QueryBuilders.scriptQuery(new Script("doc['" + PubItemServiceDbImpl.INDEX_LATESTVERSION_VERSIONNUMBER + "']==doc['"
+            + PubItemServiceDbImpl.INDEX_VERSION_VERSIONNUMBER + "']")));
 
         PubItemService pis = ApplicationBean.INSTANCE.getPubItemService();
         SearchSourceBuilder ssb = new SearchSourceBuilder();
-        ssb.query(idQuery);
+
+
+        ssb.query(bq);
         ssb.from(offset);
         ssb.size(limit);
 
@@ -144,7 +153,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
     for (final PubItemVOPresentation pubItem : this.getBasePaginatorListSessionBean().getCurrentPartList()) {
       if (pubItem.getSelected()) {
         countSelected++;
-        pbsb.getStoredPubItems().remove(pubItem.getObjectIdAndVersion());
+        pbsb.getStoredPubItems().remove(pubItem.getObjectId());
       }
     }
     if (countSelected == 0) {

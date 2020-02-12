@@ -709,8 +709,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     for (final PubItemVOPresentation pubItem : allListPubItems) {
 
       if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
-        if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
-          pubItemBatch.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
+        if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectId())) {
+          pubItemBatch.getStoredPubItems().put(pubItem.getObjectId(), pubItem);
           added++;
         } else {
           existing++;
@@ -749,8 +749,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     for (final PubItemVOPresentation pubItem : selectedPubItems) {
 
       if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
-        if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectIdAndVersion())) {
-          pubItemBatch.getStoredPubItems().put(pubItem.getObjectIdAndVersion(), pubItem);
+        if (!pubItemBatch.getStoredPubItems().containsKey(pubItem.getObjectId())) {
+          pubItemBatch.getStoredPubItems().put(pubItem.getObjectId(), pubItem);
           added++;
         } else {
           existing++;
