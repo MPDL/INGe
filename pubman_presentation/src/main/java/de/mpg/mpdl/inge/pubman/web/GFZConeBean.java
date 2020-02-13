@@ -27,9 +27,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import de.mpg.mpdl.inge.cone.LocalizedTripleObject;
-import de.mpg.mpdl.inge.cone.Querier;
-import de.mpg.mpdl.inge.cone.QuerierFactory;
-import de.mpg.mpdl.inge.cone.TreeFragment;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
@@ -45,14 +42,14 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class GFZConeBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(GFZConeBean.class);
 
-  private Querier querier;
+  //  private Querier querier;
   private String coneUri;
   private String hostName;
 
   public GFZConeBean() throws Exception {
     this.coneUri = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
     this.hostName = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getServerName();
-    this.querier = QuerierFactory.newQuerier(true);
+    //    this.querier = QuerierFactory.newQuerier(true);
   }
 
   private static NamespaceContext nameSpaceCtx = new NamespaceContext() {
@@ -87,7 +84,8 @@ public class GFZConeBean extends FacesBean {
     logger.debug("CoNE-Service: " + coneUri);
     logger.debug("This Host: " + hostName);
 
-    String journalUrl = "", journalId = "";
+    //    String journalUrl = "", journalId = "";
+    String journalUrl = "";
 
     if (item.getMetadata().getGenre().equals(MdsPublicationVO.Genre.ARTICLE) && item.getMetadata().getSources().size() > 0) {
       if (item.getMetadata().getSources().get(0) != null && item.getMetadata().getSources().get(0).getIdentifiers() != null
@@ -108,88 +106,88 @@ public class GFZConeBean extends FacesBean {
         }
 
         if (!(journalUrl == null || journalUrl.isEmpty())) {
-          journalId = journalUrl.replaceAll(coneUri, "");
+          //          journalId = journalUrl.replaceAll(coneUri, "");
+          //
+          //          logger.debug("journalUrl: " + journalUrl);
+          //          logger.debug("journalId: " + journalId);
+          //
+          //          if (coneUri.contains(hostName)) {
+          //            logger.debug("CoNE Service and PubMan are on the same Machine..");
+          //
+          //
+          //            if (!journalUrl.equals("")) {
+          //              TreeFragment tf = querier.details("journals", journalId);
+          //              metadataString = appendAttributesToMDString(metadataString,
+          //                  tf.get("http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/listedIn"));
+          //              metadataString = appendAttributesToMDString(metadataString, tf.get("http://purl.org/dc/terms/type"));
+          //              metadataString =
+          //                  appendAttributesToMDString(metadataString, tf.get("http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/note"));
+          //            }
+          //          } else {
+          logger.debug("CoNE-Service and PubMan are not on the same Machine..");
 
-          logger.debug("journalUrl: " + journalUrl);
-          logger.debug("journalId: " + journalId);
+          GetMethod getMethod = new GetMethod(coneUri + journalUrl.substring(1) + "?format=rdf");
+          HttpClient client = new HttpClient();
+          client.executeMethod(getMethod);
+          String response = getMethod.getResponseBodyAsString();
 
-          if (coneUri.contains(hostName)) {
-            logger.debug("CoNE Service and PubMan are on the same Machine..");
+          DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+          dbf.setNamespaceAware(true);
+          DocumentBuilder db = dbf.newDocumentBuilder();
 
+          Document xmlDocument = db.parse(new InputSource(new StringReader(response)));
 
-            if (!journalUrl.equals("")) {
-              TreeFragment tf = querier.details("journals", journalId);
-              metadataString = appendAttributesToMDString(metadataString,
-                  tf.get("http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/listedIn"));
-              metadataString = appendAttributesToMDString(metadataString, tf.get("http://purl.org/dc/terms/type"));
-              metadataString =
-                  appendAttributesToMDString(metadataString, tf.get("http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/note"));
+          XPath xPath = XPathFactory.newInstance().newXPath();
+          xPath.setNamespaceContext(nameSpaceCtx);
+
+          XPathExpression xPathExpression = xPath.compile("//rdf:Description/*");
+
+          NodeList journalMetadataList = (NodeList) xPathExpression.evaluate(xmlDocument, XPathConstants.NODESET);
+
+          List<String> metadataList = new ArrayList<String>();
+          for (int j = 0; j < journalMetadataList.getLength(); j++) {
+            Node journalNode = journalMetadataList.item(j);
+            if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("gfz"))
+                && journalNode.getLocalName().equals("listedIn")) {
+              logger.debug("Attr: " + journalNode.getTextContent());
+              metadataList.add(journalNode.getTextContent());
             }
-          } else {
-            logger.debug("CoNE-Service and PubMan are not on the same Machine..");
-
-            GetMethod getMethod = new GetMethod(coneUri + journalUrl.substring(1) + "?format=rdf");
-            HttpClient client = new HttpClient();
-            client.executeMethod(getMethod);
-            String response = getMethod.getResponseBodyAsString();
-
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            dbf.setNamespaceAware(true);
-            DocumentBuilder db = dbf.newDocumentBuilder();
-
-            Document xmlDocument = db.parse(new InputSource(new StringReader(response)));
-
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            xPath.setNamespaceContext(nameSpaceCtx);
-
-            XPathExpression xPathExpression = xPath.compile("//rdf:Description/*");
-
-            NodeList journalMetadataList = (NodeList) xPathExpression.evaluate(xmlDocument, XPathConstants.NODESET);
-
-            List<String> metadataList = new ArrayList<String>();
-            for (int j = 0; j < journalMetadataList.getLength(); j++) {
-              Node journalNode = journalMetadataList.item(j);
-              if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("gfz"))
-                  && journalNode.getLocalName().equals("listedIn")) {
-                logger.debug("Attr: " + journalNode.getTextContent());
-                metadataList.add(journalNode.getTextContent());
-              }
-            }
-
-            Collections.sort(metadataList);
-
-            for (String attr : metadataList)
-              metadataString += ", " + attr;
-
-            metadataList = new ArrayList<String>();
-            for (int j = 0; j < journalMetadataList.getLength(); j++) {
-              Node journalNode = journalMetadataList.item(j);
-              if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("dcterms"))
-                  && journalNode.getLocalName().equals("type")) {
-                logger.debug("Attr: " + journalNode.getTextContent());
-                metadataList.add(journalNode.getTextContent());
-              }
-            }
-
-            Collections.sort(metadataList);
-
-            for (String attr : metadataList)
-              metadataString += ", " + attr;
-
-            metadataList = new ArrayList<String>();
-            for (int j = 0; j < journalMetadataList.getLength(); j++) {
-              Node journalNode = journalMetadataList.item(j);
-              if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("gfz")) && journalNode.getLocalName().equals("note")) {
-                logger.debug("Attr: " + journalNode.getTextContent());
-                metadataList.add(journalNode.getTextContent());
-              }
-            }
-
-            Collections.sort(metadataList);
-
-            for (String attr : metadataList)
-              metadataString += ", " + attr;
           }
+
+          Collections.sort(metadataList);
+
+          for (String attr : metadataList)
+            metadataString += ", " + attr;
+
+          metadataList = new ArrayList<String>();
+          for (int j = 0; j < journalMetadataList.getLength(); j++) {
+            Node journalNode = journalMetadataList.item(j);
+            if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("dcterms"))
+                && journalNode.getLocalName().equals("type")) {
+              logger.debug("Attr: " + journalNode.getTextContent());
+              metadataList.add(journalNode.getTextContent());
+            }
+          }
+
+          Collections.sort(metadataList);
+
+          for (String attr : metadataList)
+            metadataString += ", " + attr;
+
+          metadataList = new ArrayList<String>();
+          for (int j = 0; j < journalMetadataList.getLength(); j++) {
+            Node journalNode = journalMetadataList.item(j);
+            if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("gfz")) && journalNode.getLocalName().equals("note")) {
+              logger.debug("Attr: " + journalNode.getTextContent());
+              metadataList.add(journalNode.getTextContent());
+            }
+          }
+
+          Collections.sort(metadataList);
+
+          for (String attr : metadataList)
+            metadataString += ", " + attr;
+          //          }
         }
       }
     }
@@ -204,20 +202,20 @@ public class GFZConeBean extends FacesBean {
     return getJournalMetaData(item);
   }
 
-  private String appendAttributesToMDString(String mdString, List<LocalizedTripleObject> ltoList) {
-    if (!(ltoList == null || ltoList.isEmpty())) {
-      Collections.sort(ltoList, new CompLocalizedTripleObject());
-
-      logger.debug("found " + ltoList.size() + " matches..");
-
-      for (LocalizedTripleObject lto : ltoList) {
-        logger.debug("Attr: " + lto.toString());
-        mdString += ", " + lto.toString();
-      }
-    }
-
-    return mdString;
-  }
+  //  private String appendAttributesToMDString(String mdString, List<LocalizedTripleObject> ltoList) {
+  //    if (!(ltoList == null || ltoList.isEmpty())) {
+  //      Collections.sort(ltoList, new CompLocalizedTripleObject());
+  //
+  //      logger.debug("found " + ltoList.size() + " matches..");
+  //
+  //      for (LocalizedTripleObject lto : ltoList) {
+  //        logger.debug("Attr: " + lto.toString());
+  //        mdString += ", " + lto.toString();
+  //      }
+  //    }
+  //
+  //    return mdString;
+  //  }
 
   public static class CompLocalizedTripleObject implements Comparator<LocalizedTripleObject> {
     @Override
