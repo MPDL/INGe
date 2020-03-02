@@ -81,16 +81,16 @@
 										value="#{lbl.List_lblExportOptions}"
 										rendered="#{PubItemListSessionBean.subMenu == 'EXPORT' and PubItemListSessionBean.totalNumberOfElements>0}" />
 									<h:outputText styleClass="seperator void"
-										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 and PubItemListSessionBean.subMenu != 'ACTIONS'}" />
+										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 and PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}" />
 									<h:commandLink id="lnkBatch_lblRemoveSelected"
 										title="#{tip.List_lblAddToBatch}" styleClass="free_area0"
 										value="#{lbl.Batch_lblRemoveSelectedUpperCase}"
 										action="#{BatchItemsRetrieverRequestBean.deleteSelected}"
-										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 and PubItemListSessionBean.subMenu != 'ACTIONS'}"
+										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 and PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}"
 										onclick="fullItemReloadAjax();" />
 									<h:outputText styleClass="seperator void"
 										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 }" />
-									<h:commandLink id="lnkList_lblSelected"
+									<h:commandLink id="lnkList_lblActions"
 										title="#{tip.List_lblActionOptions}" styleClass="free_area0"
 										value="#{lbl.List_lblActionOptions}"
 										action="#{PubItemListSessionBean.changeSubmenuToActions}"
@@ -99,6 +99,17 @@
 									<h:outputText styleClass="free_area0"
 										value="#{lbl.List_lblActionOptions}"
 										rendered="#{PubItemListSessionBean.subMenu == 'ACTIONS'}" />
+									<h:outputText styleClass="seperator void"
+										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 }" />
+									<h:commandLink id="lnkList_lblProcessLog"
+										title="#{tip.List_lblBatchProcessLog}" styleClass="free_area0"
+										value="#{lbl.List_lblBatchProcessLog}"
+										action="#{PubItemListSessionBean.changeSubmenuToProcessLog}"
+										rendered="#{PubItemListSessionBean.subMenu != 'PROCESS_LOG'}"
+										onclick="fullItemReloadAjax();" />
+									<h:outputText styleClass="free_area0"
+										value="#{lbl.List_lblBatchProcessLog}"
+										rendered="#{PubItemListSessionBean.subMenu == 'PROCESS_LOG'}" />
 									<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
@@ -236,7 +247,7 @@
 								<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
-								<h:panelGroup rendered="#{PubItemListSessionBean.subMenu != 'ACTIONS'}">
+								<h:panelGroup rendered="#{PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}">
 									<h:outputText
 										value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"
 										rendered="#{PubItemListSessionBean.totalNumberOfElements > 0}" />
@@ -292,11 +303,15 @@
 						<ui:include src="batch/batchActions.jspf" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="full_area0"
-						rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0 and PubItemListSessionBean.subMenu != 'ACTIONS'}">
+						rendered="#{PubItemListSessionBean.subMenu == 'PROCESS_LOG'}">
+						<ui:include src="batch/batchProcessLog.jspf" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="full_area0"
+						rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0 and PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}">
 						<ui:include src="list/itemList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="full_area0"
-						rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0 and PubItemListSessionBean.subMenu != 'ACTIONS'}">
+						rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0 and PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}">
 						<ui:include src="list/gridList.jspf" />
 					</h:panelGroup>
 					<h:panelGroup styleClass="full_area0"

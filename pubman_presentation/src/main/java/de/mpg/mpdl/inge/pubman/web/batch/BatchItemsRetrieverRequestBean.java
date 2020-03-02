@@ -9,7 +9,6 @@ import javax.faces.bean.ManagedBean;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -32,7 +31,7 @@ import de.mpg.mpdl.inge.service.util.SearchUtils;
  * This bean is the implementation of the BaseListRetrieverRequestBean for the batch list. It uses
  * the PubItemSessionBean as cooresponding BasePaginatorListSessionBean.
  * 
- * @author Markus Haarlaender (initial creation)
+ * @author Matthias Walter (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  * 
@@ -65,7 +64,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
 
   @Override
   public String getType() {
-    return "CartItems";
+    return "BatchItems";
   }
 
   @Override
@@ -74,7 +73,7 @@ public class BatchItemsRetrieverRequestBean extends BaseListRetrieverRequestBean
   }
 
   /**
-   * Retrieves the list of item baskets.
+   * Retrieves the list of item in the batch workspace.
    */
   @Override
   public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc) {

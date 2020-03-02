@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Future;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,12 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.BatchProcessLogUtil;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -64,9 +67,9 @@ public class PubItemBatchSessionBean extends FacesBean {
   @ManagedProperty(value = "#{pubItemBatchServiceImpl}")
   private PubItemBatchService pubItemBatchService;
 
+  private BatchProcessLogBean batchProcessLog;
+  private PubItemListSessionBean pubItemListSessionBean;
 
-  @Autowired
-  private BatchItemsRetrieverRequestBean batchIrrB;
   private String changeExternalReferencesContentCategoryFrom;
   private ArrayList<SelectItem> changeExternalReferencesContentCategorySelectItems;
   private String changeExternalReferencesContentCategoryTo;
@@ -124,6 +127,8 @@ public class PubItemBatchSessionBean extends FacesBean {
 
 
   public PubItemBatchSessionBean() {
+    this.batchProcessLog = (BatchProcessLogBean) FacesTools.findBean("BatchProcessLogBean");
+    this.pubItemListSessionBean = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.storedPubItems = new HashMap<String, ItemVersionRO>();
     // Contexts (Collections) and depending Genres
     final ContextListSessionBean clsb = (ContextListSessionBean) FacesTools.findBean("ContextListSessionBean");
@@ -656,6 +661,54 @@ public class PubItemBatchSessionBean extends FacesBean {
     return selectItemList.toArray(new SelectItem[] {});
   }
 
+
+
+  /**
+   * adding a local tag to the local tag presentation list
+   */
+  public void addLocalTag() {
+    this.localTagsToAdd.add(new String(""));
+  }
+
+  /**
+   * remove local tag within the local tag presentation list
+   * 
+   * @param index
+   */
+  public void removeLocalTag(int index) {
+    this.localTagsToAdd.remove(index);
+  }
+
+  public String addLocalTagsItemList() {
+    logger.info("trying to add local tags for " + this.getBatchPubItemsSize() + " items");
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    System.out.println(formatter.format(calendar.getTime()));
+    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+    }
+    try {
+      batchProcessLog.setBatchStatus(BatchProcessLogBean.Status.RUNNING);
+      Map<String, Exception> resultMap = pubItemBatchService.addLocalTags(pubItemsMap, localTagsToAdd,
+          "batch add local tags " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+      resultMap.put("item_3014624", new Exception("test"));
+    } catch (IngeTechnicalException e) {
+      logger.error("A technichal error occoured during the batch process for adding local tags", e);
+      this.error("A technichal error occoured during the batch process for adding local tags");
+    } catch (AuthenticationException e) {
+      logger.error("Authentication for batch adding local tags failed", e);
+      this.error("Authentication for batch adding local tags failed");
+    } catch (AuthorizationException e) {
+      logger.error("Authorization for batch adding local tags failed", e);
+      this.error("Authorization for batch adding local tags failed");
+    } catch (IngeApplicationException e) {
+      logger.error("An application error occoured during the batch adding local tags", e);
+      this.error("An application error occoured during the batch adding local tags");
+    }
+    return null;
+  }
+
   public String changeContextItemList() {
     logger.info("trying to change context for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
@@ -680,42 +733,6 @@ public class PubItemBatchSessionBean extends FacesBean {
     } catch (IngeApplicationException e) {
       logger.error("An application error occoured during the batch context change", e);
       this.error("An application error occoured during the batch context change");
-    }
-    return null;
-  }
-
-  public void addLocalTag() {
-    this.localTagsToAdd.add(new String(""));
-  }
-
-  public void removeLocalTag(int index) {
-    this.localTagsToAdd.remove(index);
-  }
-
-  public String addLocalTagsItemList() {
-    logger.info("trying to add local tags for " + this.getBatchPubItemsSize() + " items");
-    Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-    System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
-    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
-    }
-    try {
-      pubItemBatchService.addLocalTags(pubItemsMap, localTagsToAdd, "batch add local tags " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for adding local tags", e);
-      this.error("A technichal error occoured during the batch process for adding local tags");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch adding local tags failed", e);
-      this.error("Authentication for batch adding local tags failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch adding local tags failed", e);
-      this.error("Authorization for batch adding local tags failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch adding local tags", e);
-      this.error("An application error occoured during the batch adding local tags");
     }
     return null;
   }
@@ -871,13 +888,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<BatchProcessLogUtil> result = null;
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
+      result = pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
           "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-
+      this.batchProcessLog.setProcessLog(result);
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch process for adding keywords", e);
       this.error("A technichal error occoured during the batch process for adding keywords");
@@ -891,6 +909,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       logger.error("An application error occoured during the batch adding keywords", e);
       this.error("An application error occoured during the batchadding keywords");
     }
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 

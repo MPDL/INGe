@@ -1,9 +1,15 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,6 +21,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.util.BatchProcessLogUtil;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -50,15 +57,23 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   }
 
-  /* (non-Javadoc)
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addKeywords(java.util.Map, java.lang.String, java.lang.String, java.lang.String)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#addKeywords(java.util.Map,
+   * java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public List<BatchProcessLogUtil> addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    ExecutorService executor = Executors.newFixedThreadPool(Math.round(Runtime.getRuntime().availableProcessors() / 2));
     Map<String, Exception> messageMap = new HashMap<String, Exception>();
+    List<BatchProcessLogUtil> resultList = new ArrayList<BatchProcessLogUtil>();
+
     if (keywordsNew != null && !"".equals(keywordsNew.trim())) {
       for (String itemId : pubItemsMap.keySet()) {
+        Future<BatchProcessLogUtil> result = CompletableFuture.completedFuture(new BatchProcessLogUtil(null,
+            BatchProcessLogUtil.BatchProcessMessages.INTERNAL_ERROR, BatchProcessLogUtil.BatchProcessMessagesTypes.ERROR));
         try {
           ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           String currentKeywords = null;
@@ -75,7 +90,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           } else {
             pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
           }
-          this.pubItemService.update(pubItemVO, authenticationToken);
+          result = executor.submit(() -> {
+            return new BatchProcessLogUtil(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessLogUtil.BatchProcessMessages.SUCCESS, BatchProcessLogUtil.BatchProcessMessagesTypes.SUCCESS);
+          });
+          while (!result.isDone()) {
+            Thread.sleep(100);
+          }
+          resultList.add(result.get());
         } catch (IngeTechnicalException e) {
           logger.error("Could not replace keywords for item " + itemId + " due to a technical error");
           messageMap.put(itemId, new Exception("Keywords have not been replaced due to a technical error"));
@@ -92,11 +114,15 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           logger.error("Could not replace keywords for item " + itemId + " due authentication error");
           messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
           throw e;
+        } catch (InterruptedException e) {
+          logger.error("Tread was interrupted", e);
+        } catch (ExecutionException e) {
+          logger.error("Error when getting future result", e);
         }
       }
     }
 
-    return messageMap;
+    return resultList;
   }
 
   /*

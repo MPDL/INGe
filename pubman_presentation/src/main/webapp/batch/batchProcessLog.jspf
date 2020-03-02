@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<f:subview id="batchProcessLog">
+		<div class="full_area0">
+			<div class="full_area0">
+				<div class="full_area0 small_marginLExcl">
+					<!-- Subheadline starts here -->
+					<h3>
+						<h:outputText value="#{lbl.BatchWorkspace_lblProcessLog_title }" />
+					</h3>
+					<!-- Subheadline ends here -->
+				</div>
+				<table class="full_area0 itemList listBackground"
+					style="border-collapse: collapse;">
+					<thead style="text-align: left; vertical-align: top;">
+						<tr class="full_area0 listHeader">
+							<th class="tiny_area0">&#160;</th>
+							<th class="free_area0 ">
+							<h:panelGroup styleClass="seperator"></h:panelGroup>
+							<h:outputText styleClass="large_area0_p8"
+									value="#{lbl.BatchWorkspace_lblProcessLog_logStatusBatch }" /></th>
+							<th class="free_area0"><h:panelGroup styleClass="seperator"></h:panelGroup>
+								<h:outputText styleClass="xDouble_area0_p8"
+									value="#{lbl.BatchWorkspace_lblProcessLog_publicationTitle }" /></th>
+							<th class="free_area0"><h:panelGroup styleClass="seperator"></h:panelGroup>
+								<h:outputText styleClass="quad_area0_p8"
+									value="#{lbl.BatchWorkspace_lblProcessLog_logMessage }" /></th>
+
+						</tr>
+					</thead>
+					<tbody style="text-align: left; vertical-align: top;">
+						<ui:repeat var="logEntry"
+							value="#{BatchProcessLogBean.processLog}">
+							<h:panelGroup>
+								<tr class="free_area0 listItem endline">
+									<td class="tiny_area0">&#160;</td>
+									<td class="free_area0 "><h:panelGroup
+											styleClass="seperator"></h:panelGroup> <h:outputText
+											id="logStatus" styleClass="large_area0_p8"
+											value="#{logEntry.batchProcessMessageType}">
+										</h:outputText></td>
+									<td class="free_area0"><h:panelGroup
+											styleClass="seperator"></h:panelGroup> <span
+										class="xDouble_area0_p8"> <h:outputLink id="lnkItems"
+												value="#{CommonUtils.getGenericItemLink(logEntry.itemVersionVO.objectId, logEntry.itemVersionVO.versionNumber)}">
+												<h:outputText
+													value="#{logEntry.itemVersionVO.metadata.title}" />
+											</h:outputLink>
+									</span></td>
+									<td class="free_area0 "><h:panelGroup
+											styleClass="seperator"></h:panelGroup> <h:outputText
+											id="logMessage" styleClass="quad_area0_p8"
+											value="#{logEntry.batchProcessMessage.message}">
+										</h:outputText></td>
+								</tr>
+
+
+							</h:panelGroup>
+						</ui:repeat>
+					</tbody>
+
+				</table>
+
+
+			</div>
+		</div>
+	</f:subview>
+</ui:composition>

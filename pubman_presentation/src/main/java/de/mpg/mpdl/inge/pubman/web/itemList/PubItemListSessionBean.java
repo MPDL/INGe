@@ -469,6 +469,21 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   /**
+   * Called by JSF when the submenu should be changed to the EXPORT part
+   * 
+   * @return
+   */
+  public void changeSubmenuToProcessLog() {
+    try {
+      this.setSubMenu("PROCESS_LOG");
+      this.setListUpdate(false);
+      this.redirect();
+    } catch (final Exception e) {
+      this.error(this.getMessage("NoRedirect"));
+    }
+  }
+
+  /**
    * Called by JSF when the list type should be changed to bibliographic lists
    * 
    * @return
