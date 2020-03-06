@@ -8,8 +8,8 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
-import de.mpg.mpdl.inge.model.util.BatchProcessLogUtil;
 
 /**
  * Bean for documenting the batch process
@@ -22,7 +22,7 @@ import de.mpg.mpdl.inge.model.util.BatchProcessLogUtil;
 @SessionScoped
 @SuppressWarnings("serial")
 public class BatchProcessLogBean extends FacesBean {
-  public List<BatchProcessLogUtil> batchProcessLogUtil;
+  public List<BatchProcessItemVO> batchProcessLogUtil;
 
   public enum Status
   {
@@ -34,14 +34,14 @@ public class BatchProcessLogBean extends FacesBean {
 
   public BatchProcessLogBean () {
     this.batchStatus = Status.NOT_STARTED;
-    this.batchProcessLogUtil = new ArrayList<BatchProcessLogUtil>();
+    this.batchProcessLogUtil = new ArrayList<BatchProcessItemVO>();
   }
 
   public Status getBatchStatus() {
     return batchStatus;
   }
 
-  public List<BatchProcessLogUtil> getProcessLog() {
+  public List<BatchProcessItemVO> getProcessLog() {
     return this.batchProcessLogUtil;
   }
 
@@ -49,7 +49,7 @@ public class BatchProcessLogBean extends FacesBean {
     this.batchStatus = batchStatus;
   }
 
-  public void setProcessLog(List<BatchProcessLogUtil> batchProcessLogUtil) {
+  public void setProcessLog(List<BatchProcessItemVO> batchProcessLogUtil) {
     this.batchProcessLogUtil = batchProcessLogUtil;
   }
 

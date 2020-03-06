@@ -22,9 +22,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.util.BatchProcessLogUtil;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -67,7 +68,7 @@ public class PubItemBatchSessionBean extends FacesBean {
   @ManagedProperty(value = "#{pubItemBatchServiceImpl}")
   private PubItemBatchService pubItemBatchService;
 
-  private BatchProcessLogBean batchProcessLog;
+  private BatchProcessLogDbVO batchProcessLog;
   private PubItemListSessionBean pubItemListSessionBean;
 
   private String changeExternalReferencesContentCategoryFrom;
@@ -127,7 +128,7 @@ public class PubItemBatchSessionBean extends FacesBean {
 
 
   public PubItemBatchSessionBean() {
-    this.batchProcessLog = (BatchProcessLogBean) FacesTools.findBean("BatchProcessLogBean");
+    this.batchProcessLog = null;
     this.pubItemListSessionBean = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
     this.storedPubItems = new HashMap<String, ItemVersionRO>();
     // Contexts (Collections) and depending Genres
@@ -221,14 +222,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.disabledKeywordInput = true;
   }
 
-  public List<String> getLocalTagsToAdd() {
-    return localTagsToAdd;
+  public BatchProcessLogDbVO getBatchProcessLog() {
+    return batchProcessLog;
   }
 
-  public void setLocalTagsToAdd(List<String> localTagsToAdd) {
-    this.localTagsToAdd = localTagsToAdd;
+  public void setBatchProcessLog(BatchProcessLogDbVO batchProcessLog) {
+    this.batchProcessLog = batchProcessLog;
   }
-
 
   public int getBatchPubItemsSize() {
     return this.storedPubItems.size();
@@ -583,6 +583,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.inputChangeLocalTagsReplaceTo = inputChangeLocalTagsReplaceTo;
   }
 
+  public List<String> getLocalTagsToAdd() {
+    return localTagsToAdd;
+  }
+
+  public void setLocalTagsToAdd(List<String> localTagsToAdd) {
+    this.localTagsToAdd = localTagsToAdd;
+  }
+
   public LoginHelper getLoginHelper() {
     return loginHelper;
   }
@@ -689,7 +697,6 @@ public class PubItemBatchSessionBean extends FacesBean {
       pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      batchProcessLog.setBatchStatus(BatchProcessLogBean.Status.RUNNING);
       Map<String, Exception> resultMap = pubItemBatchService.addLocalTags(pubItemsMap, localTagsToAdd,
           "batch add local tags " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
       resultMap.put("item_3014624", new Exception("test"));
@@ -888,14 +895,12 @@ public class PubItemBatchSessionBean extends FacesBean {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
     Map<String, Date> pubItemsMap = new HashMap<String, Date>();
-    List<BatchProcessLogUtil> result = null;
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
     }
     try {
-      result = pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
+      batchProcessLog = pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
           "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-      this.batchProcessLog.setProcessLog(result);
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch process for adding keywords", e);
       this.error("A technichal error occoured during the batch process for adding keywords");

@@ -33,7 +33,7 @@
 					</thead>
 					<tbody style="text-align: left; vertical-align: top;">
 						<ui:repeat var="logEntry"
-							value="#{BatchProcessLogBean.processLog}">
+							value="#{BatchProcessLogBean.batchProcessLogItemList}">
 							<h:panelGroup>
 								<tr class="free_area0 listItem endline">
 									<td class="tiny_area0">&#160;</td>

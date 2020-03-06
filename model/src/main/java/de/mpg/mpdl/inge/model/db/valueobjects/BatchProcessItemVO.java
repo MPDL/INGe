@@ -24,11 +24,18 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.model.util;
+package de.mpg.mpdl.inge.model.db.valueobjects;
 
 import java.text.MessageFormat;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 
 /**
@@ -41,12 +48,20 @@ import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
  * @author walter
  *
  */
-public class BatchProcessLogUtil {
+
+@Entity
+@Table(name = "batch_process_log_item")
+@JsonInclude(value = Include.NON_EMPTY)
+public class BatchProcessItemVO {
+
+  @Id
+  @GeneratedValue
+  public long objectId;
   public BatchProcessMessages batchProcessMessage;
   public BatchProcessMessagesTypes batchProcessMessageType;
   public ItemVersionVO itemVersionVO;
 
-  public BatchProcessLogUtil(ItemVersionVO itemVersionVO, BatchProcessMessages batchProcessMessage,
+  public BatchProcessItemVO(ItemVersionVO itemVersionVO, BatchProcessMessages batchProcessMessage,
       BatchProcessMessagesTypes batchProcessMessageType) {
     this.itemVersionVO = itemVersionVO;
     this.batchProcessMessage = batchProcessMessage;
