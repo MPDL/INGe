@@ -33,6 +33,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -581,6 +582,15 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public void setInputChangeLocalTagsReplaceTo(String inputChangeLocalTagsReplaceTo) {
     this.inputChangeLocalTagsReplaceTo = inputChangeLocalTagsReplaceTo;
+  }
+
+  public String getItemLink(String itemId, int itemVersion) {
+    try {
+      return CommonUtils.getGenericItemLink(itemId, itemVersion);
+    } catch (Exception e) {
+      logger.error("Error getting log item link", e);
+    }
+    return "";
   }
 
   public List<String> getLocalTagsToAdd() {

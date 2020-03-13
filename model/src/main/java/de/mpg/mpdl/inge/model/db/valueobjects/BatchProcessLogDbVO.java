@@ -33,7 +33,7 @@ public class BatchProcessLogDbVO {
   @PrimaryKeyJoinColumn(name = "user_account_id", referencedColumnName = "objectId")
   private AccountUserDbVO accountUser;
 
-  @OneToMany(cascade = {CascadeType.ALL})
+  @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
   @JoinTable(name = "batch_join")
   //  @JoinTable(name = "batch_join", joinColumns = @JoinColumn(name = "user_account_id"), inverseJoinColumns = @JoinColumn(name = "objectId"))
   //    @JoinColumn(name = "batch_process_log_item_object_id")

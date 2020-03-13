@@ -105,9 +105,13 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           while (!result.isDone()) {
             Thread.sleep(100);
           }
+          if (batchRepository.exists(accountUser.getObjectId())) {
+            batchRepository.delete(accountUser.getObjectId());
+          }
           resultList.add(result.get());
           resultLog.setBatchProcessLogItemList(resultList);
-          batchRepository.saveAndFlush(resultLog);
+          batchRepository.save(resultLog);
+          batchRepository.flush();
         } catch (IngeTechnicalException e) {
           logger.error("Could not replace keywords for item " + itemId + " due to a technical error");
           messageMap.put(itemId, new Exception("Keywords have not been replaced due to a technical error"));

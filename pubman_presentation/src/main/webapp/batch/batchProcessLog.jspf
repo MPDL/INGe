@@ -45,7 +45,7 @@
 									<td class="free_area0"><h:panelGroup
 											styleClass="seperator"></h:panelGroup> <span
 										class="xDouble_area0_p8"> <h:outputLink id="lnkItems"
-												value="#{CommonUtils.getGenericItemLink(logEntry.itemVersionVO.objectId, logEntry.itemVersionVO.versionNumber)}">
+												value="#{PubItemBatchSessionBean.getItemLink(logEntry.itemVersionVO.objectId, logEntry.itemVersionVO.versionNumber)}">
 												<h:outputText
 													value="#{logEntry.itemVersionVO.metadata.title}" />
 											</h:outputLink>
