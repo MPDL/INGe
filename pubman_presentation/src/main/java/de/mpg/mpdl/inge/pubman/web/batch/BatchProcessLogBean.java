@@ -22,7 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class BatchProcessLogBean extends FacesBean {
-  public List<BatchProcessItemVO> batchProcessLogUtil;
+  public List<BatchProcessItemVO> batchProcessLogItemList;
 
   public enum Status
   {
@@ -34,23 +34,23 @@ public class BatchProcessLogBean extends FacesBean {
 
   public BatchProcessLogBean () {
     this.batchStatus = Status.NOT_STARTED;
-    this.batchProcessLogUtil = new ArrayList<BatchProcessItemVO>();
+    this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
   }
 
   public Status getBatchStatus() {
     return batchStatus;
   }
 
-  public List<BatchProcessItemVO> getProcessLog() {
-    return this.batchProcessLogUtil;
+  public List<BatchProcessItemVO> getBatchProcessLogItemList() {
+    return this.batchProcessLogItemList;
   }
 
   public void setBatchStatus(Status batchStatus) {
     this.batchStatus = batchStatus;
   }
 
-  public void setProcessLog(List<BatchProcessItemVO> batchProcessLogUtil) {
-    this.batchProcessLogUtil = batchProcessLogUtil;
+  public void setBatchProcessLogItemList(List<BatchProcessItemVO> batchProcessLogUtil) {
+    this.batchProcessLogItemList = batchProcessLogUtil;
   }
 
 }

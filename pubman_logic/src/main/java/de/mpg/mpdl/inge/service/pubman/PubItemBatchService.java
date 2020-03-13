@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -32,14 +33,15 @@ public interface PubItemBatchService {
    * @param keywordsNew
    * @param message
    * @param authenticationToken
+   * @param accountUser
    * @return
    * @throws IngeTechnicalException
    * @throws AuthenticationException
    * @throws AuthorizationException
-   * @throws IngeApplicationException
+   * @throws IngeApplicationExcepti on
    */
-  public BatchProcessLogDbVO addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+  public BatchProcessLogDbVO addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken,
+      AccountUserDbVO accountUser) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
    * add local tags for multiple Items within a Map <pubItemId, modificationDate> and return a Map

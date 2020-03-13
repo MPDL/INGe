@@ -900,7 +900,8 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     try {
       batchProcessLog = pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
-          "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
+          "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+          loginHelper.getAccountUser());
     } catch (IngeTechnicalException e) {
       logger.error("A technichal error occoured during the batch process for adding keywords", e);
       this.error("A technichal error occoured during the batch process for adding keywords");

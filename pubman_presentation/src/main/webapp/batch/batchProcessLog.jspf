@@ -21,7 +21,7 @@
 							<th class="free_area0 ">
 							<h:panelGroup styleClass="seperator"></h:panelGroup>
 							<h:outputText styleClass="large_area0_p8"
-									value="#{lbl.BatchWorkspace_lblProcessLog_logStatusBatch }" /></th>
+									value="#{lbl.BatchWorkspace_lblProcessLog_logStatus }" /></th>
 							<th class="free_area0"><h:panelGroup styleClass="seperator"></h:panelGroup>
 								<h:outputText styleClass="xDouble_area0_p8"
 									value="#{lbl.BatchWorkspace_lblProcessLog_publicationTitle }" /></th>
@@ -33,7 +33,7 @@
 					</thead>
 					<tbody style="text-align: left; vertical-align: top;">
 						<ui:repeat var="logEntry"
-							value="#{BatchProcessLogBean.batchProcessLogItemList}">
+							value="#{PubItemBatchSessionBean.batchProcessLog.batchProcessLogItemList}">
 							<h:panelGroup>
 								<tr class="free_area0 listItem endline">
 									<td class="tiny_area0">&#160;</td>

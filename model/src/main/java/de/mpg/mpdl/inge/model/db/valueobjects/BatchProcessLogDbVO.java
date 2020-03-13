@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,9 +33,9 @@ public class BatchProcessLogDbVO {
   @PrimaryKeyJoinColumn(name = "user_account_id", referencedColumnName = "objectId")
   private AccountUserDbVO accountUser;
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinTable(name = "batch_join")
-//  @JoinTable(name = "batch_join", joinColumns = @JoinColumn(name = "user_account_id"), inverseJoinColumns = @JoinColumn(name = "objectId"))
+  //  @JoinTable(name = "batch_join", joinColumns = @JoinColumn(name = "user_account_id"), inverseJoinColumns = @JoinColumn(name = "objectId"))
   //    @JoinColumn(name = "batch_process_log_item_object_id")
   //  @ElementCollection
   //  @CollectionTable(name = "batch_process_log_item", joinColumns = @JoinColumn(name = "object_id"))
@@ -47,7 +48,13 @@ public class BatchProcessLogDbVO {
     this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
   }
 
-  public List<BatchProcessItemVO> getBatchProcessLogUtil() {
+  public BatchProcessLogDbVO(AccountUserDbVO accountUser) {
+    this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
+    this.accountUser = accountUser;
+    this.userId = accountUser.getObjectId();
+  }
+
+  public List<BatchProcessItemVO> getBatchProcessLogItemList() {
     return this.batchProcessLogItemList;
   }
 

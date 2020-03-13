@@ -17,8 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import de.mpg.mpdl.inge.db.repository.GenericRepository;
-import de.mpg.mpdl.inge.db.repository.ItemRepository;
+import de.mpg.mpdl.inge.db.repository.BatchLogRepository;
+import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
@@ -57,7 +57,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   private ContextService contextService;
 
   @Autowired
-  private GenericRepository<BatchProcessLogDbVO, String> genericRepository;
+  private BatchLogRepository batchRepository;
 
   public PubItemBatchServiceImpl() {
 
@@ -70,12 +70,13 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken)
+  public BatchProcessLogDbVO addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken,
+      AccountUserDbVO accountUser)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     ExecutorService executor = Executors.newFixedThreadPool(Math.round(Runtime.getRuntime().availableProcessors() / 2));
     Map<String, Exception> messageMap = new HashMap<String, Exception>();
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
-    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
 
     if (keywordsNew != null && !"".equals(keywordsNew.trim())) {
       for (String itemId : pubItemsMap.keySet()) {
@@ -106,7 +107,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           }
           resultList.add(result.get());
           resultLog.setBatchProcessLogItemList(resultList);
-          genericRepository.saveAndFlush(resultLog);
+          batchRepository.saveAndFlush(resultLog);
         } catch (IngeTechnicalException e) {
           logger.error("Could not replace keywords for item " + itemId + " due to a technical error");
           messageMap.put(itemId, new Exception("Keywords have not been replaced due to a technical error"));

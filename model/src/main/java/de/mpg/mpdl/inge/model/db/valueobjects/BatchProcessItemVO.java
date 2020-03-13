@@ -61,6 +61,10 @@ public class BatchProcessItemVO {
   public BatchProcessMessagesTypes batchProcessMessageType;
   public ItemVersionVO itemVersionVO;
 
+  public BatchProcessItemVO() {
+
+  }
+
   public BatchProcessItemVO(ItemVersionVO itemVersionVO, BatchProcessMessages batchProcessMessage,
       BatchProcessMessagesTypes batchProcessMessageType) {
     this.itemVersionVO = itemVersionVO;
