@@ -7,6 +7,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -20,8 +21,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "batch_log")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "batch")
 //@TypeDef(name = "StringListJsonUserType", typeClass = StringListJsonUserType.class)
 public class BatchProcessLogDbVO {
 
@@ -29,12 +28,13 @@ public class BatchProcessLogDbVO {
   @Column(name = "user_account_id")
   private String userId;
 
-  @OneToOne
-  @PrimaryKeyJoinColumn(name = "user_account_id", referencedColumnName = "objectId")
-  private AccountUserDbVO accountUser;
+  //  @OneToOne
+  //  @PrimaryKeyJoinColumn(name = "user_account_id", referencedColumnName = "objectId")
+  //  private AccountUserDbVO accountUser;
 
-  @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+  @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
   @JoinTable(name = "batch_join")
+  //@LazyCollection(LazyCollectionOption.FALSE)
   //  @JoinTable(name = "batch_join", joinColumns = @JoinColumn(name = "user_account_id"), inverseJoinColumns = @JoinColumn(name = "objectId"))
   //    @JoinColumn(name = "batch_process_log_item_object_id")
   //  @ElementCollection
@@ -50,7 +50,7 @@ public class BatchProcessLogDbVO {
 
   public BatchProcessLogDbVO(AccountUserDbVO accountUser) {
     this.batchProcessLogItemList = new ArrayList<BatchProcessItemVO>();
-    this.accountUser = accountUser;
+    //    this.accountUser = accountUser;
     this.userId = accountUser.getObjectId();
   }
 

@@ -319,6 +319,14 @@ public interface PubItemBatchService {
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   /**
+   * look up a BatchProcessLog. Returns null or a save BatchProcessLog
+   * 
+   * @param accountUser
+   * @return
+   */
+  BatchProcessLogDbVO getBatchProcessLogForCurrentUser(AccountUserDbVO accountUser);
+
+  /**
    * Release multiple Items within a Map <pubItemId, modificationDate> and return a Map with
    * <itemId, exception>
    * 
@@ -416,6 +424,7 @@ public interface PubItemBatchService {
    */
   public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
 
 
   // public boolean checkAccess(AccessType at, Principal userAccount, ItemVersionVO item)

@@ -886,6 +886,15 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     return messageMap;
   }
 
+  @Override
+  public BatchProcessLogDbVO getBatchProcessLogForCurrentUser(AccountUserDbVO accountUser) {
+    BatchProcessLogDbVO resultBatchProcessLog = null;
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      resultBatchProcessLog = batchRepository.findOne(accountUser.getObjectId());
+    }
+    return resultBatchProcessLog;
+  }
+
   /*
    * (non-Javadoc)
    * 

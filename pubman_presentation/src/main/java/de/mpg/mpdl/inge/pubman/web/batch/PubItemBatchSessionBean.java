@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Future;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -221,6 +222,12 @@ public class PubItemBatchSessionBean extends FacesBean {
 
     // Instantiate and fill disableKeywordInput
     this.disabledKeywordInput = true;
+
+  }
+
+  @PostConstruct
+  private void init() {
+    this.batchProcessLog = pubItemBatchService.getBatchProcessLogForCurrentUser(loginHelper.getAccountUser());
   }
 
   public BatchProcessLogDbVO getBatchProcessLog() {
