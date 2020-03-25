@@ -20,7 +20,7 @@
 		</h:panelGroup>
 		<!-- Gfz specific -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p6"
-			rendered="#{ViewItemFull.specificOrganization != 'Max Planck Society'}">
+			rendered="#{ViewItemFull.specificOrganization == 'Deutsches GeoForschungsZentrum'}">
 			<h5 class="tile_title">
 				<img src="../resources/images/overviewPage/GFZ_authors_31.png"
 					class="big_imgBtn" align="right" />
@@ -28,6 +28,16 @@
 					value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
 			</h5>
 		</h:panelGroup>
+        <!-- Iass specific -->
+        <h:panelGroup layout="block" styleClass="huge_area0_p6"
+            rendered="#{ViewItemFull.specificOrganization == 'IASS Institute for Advanced Sustainability Studies Potsdam'}">
+            <h5 class="tile_title">
+                <img src="../resources/images/overviewPage/IASS_authors_31.png"
+                    class="big_imgBtn" align="right" />
+                <h:outputText
+                    value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
+            </h5>
+        </h:panelGroup>
 		<!-- If no authors available show message -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p6"
 			rendered="#{ViewItemFull.pubItem.organizationsAuthors == null or ViewItemFull.pubItem.organizationsAuthors != null and empty(ViewItemFull.pubItem.organizationsAuthors)}">
@@ -68,7 +78,7 @@
 						</h:panelGroup>
 						<!-- Gfz specific -->
 						<h:panelGroup styleClass="image"
-							rendered="#{ViewItemFull.specificOrganization != 'Max Planck Society'}">
+							rendered="#{ViewItemFull.specificOrganization == 'Deutsches GeoForschungsZentrum'}">
 							<!-- Standard image for Gfz-Authors with CoNE link -->
 							<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
@@ -83,6 +93,23 @@
 									 class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
 							</h:panelGroup>
 						</h:panelGroup>
+                        <!-- Iass specific -->
+                        <h:panelGroup styleClass="image"
+                            rendered="#{ViewItemFull.specificOrganization == 'IASS Institute for Advanced Sustainability Studies Potsdam'}">
+                            <!-- Standard image for Gfz-Authors with CoNE link -->
+                            <h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+                                rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
+                                target="_blank">
+                                <img src="../resources/images/overviewPage/IASS_authors_64.png"
+                                    class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+                            </h:outputLink>
+                            <!-- Standard image for Gfz-Authors without CoNE link -->
+                            <h:panelGroup
+                                rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
+                                <img src="../resources/images/overviewPage/ANY_authors_64.png"
+                                     class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+                            </h:panelGroup>
+                        </h:panelGroup>
 						<!-- Author textual information -->
 						<p class="xLarge_area0 xTiny_marginLExcl">
 							<!-- Author name with CoNE link -->

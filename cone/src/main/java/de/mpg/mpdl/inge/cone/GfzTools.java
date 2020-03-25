@@ -87,8 +87,8 @@ public class GfzTools {
         }
 
         if (rowCount == 0) {
-          ouID = "ou_persistent13";
-          logger.info("Relation to affiliation but no affiliations found, selecting ou_persistent13 and updating existing relation..");
+          ouID = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+          logger.info("Relation to affiliation but no affiliations found, selecting " + ouID + " and updating existing relation..");
 
           query = "insert into triples values (?, ?, ?, null, null ), (?, ?, ?, null, null);";
           PreparedStatement statement2 = connection.prepareStatement(query);
@@ -111,8 +111,8 @@ public class GfzTools {
         statement.close();
       }
     } else {
-      ouID = "ou_persistent13";
-      logger.info("No affiliations found, selecting ou_persistent13 and inserting relation..");
+      ouID = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANISATION_ID);
+      logger.info("No affiliations found, selecting " + ouID + " and inserting relation..");
       String relationId = "gfzPeopleID:".concat(id.substring(id.lastIndexOf('/') + 1, id.length()));
 
       query = "insert into triples values (?, ?, ?, null, 'persons' ), (?, ?, ?, null, null ), (?, ?, ?, null, null);";
