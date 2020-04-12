@@ -1024,7 +1024,7 @@
 		<inge.pubman.handbook.url />
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
-		<inge.pubman.instance.ssrn_contexts>ctx_167026,ctx_1002</inge.pubman.instance.ssrn_contexts>
+		<inge.pubman.instance.ssrn_contexts/>
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.logo.css />
 		<inge.pubman.logo.url />
