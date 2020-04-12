@@ -38,6 +38,16 @@
                     value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
             </h5>
         </h:panelGroup>
+        <!-- Pik specific -->
+        <h:panelGroup layout="block" styleClass="huge_area0_p6"
+            rendered="#{ViewItemFull.specificOrganization == 'PIK Potsdam-Institut für Klimafolgenforschung'}">
+            <h5 class="tile_title">
+                <img src="../resources/images/overviewPage/PIK_authors_31.png"
+                    class="big_imgBtn" align="right" />
+                <h:outputText
+                    value="#{lbl.ViewItemOverview_lblSpecificAuthorsSection}" />
+            </h5>
+        </h:panelGroup>
 		<!-- If no authors available show message -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p6"
 			rendered="#{ViewItemFull.pubItem.organizationsAuthors == null or ViewItemFull.pubItem.organizationsAuthors != null and empty(ViewItemFull.pubItem.organizationsAuthors)}">
@@ -101,6 +111,23 @@
                                 rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
                                 target="_blank">
                                 <img src="../resources/images/overviewPage/IASS_authors_64.png"
+                                    class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+                            </h:outputLink>
+                            <!-- Standard image for Gfz-Authors without CoNE link -->
+                            <h:panelGroup
+                                rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
+                                <img src="../resources/images/overviewPage/ANY_authors_64.png"
+                                     class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <!-- Pik specific -->
+                        <h:panelGroup styleClass="image"
+                            rendered="#{ViewItemFull.specificOrganization == 'PIK Potsdam-Institut für Klimafolgenforschung'}">
+                            <!-- Standard image for Gfz-Authors with CoNE link -->
+                            <h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+                                rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
+                                target="_blank">
+                                <img src="../resources/images/overviewPage/PIK_authors_64.png"
                                     class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
                             </h:outputLink>
                             <!-- Standard image for Gfz-Authors without CoNE link -->
