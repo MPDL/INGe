@@ -1,4 +1,27 @@
 {
+  "settings": {
+    "number_of_shards": 5,
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": "1",
+          "max_gram": "20"
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ],
+          "type": "custom",
+          "tokenizer": "standard"
+        }
+      }
+    },
+    "number_of_replicas": "0"
+  },
   "mappings": {
     "user": {
       "properties": {
@@ -150,37 +173,6 @@
         "objectId": {
           "type": "keyword"
         }
-      }
-    }
-  },
-  "settings": {
-    "index": {
-      "number_of_shards": "5",
-      "provided_name": "users_20180919",
-      "creation_date": "1537360603292",
-      "analysis": {
-        "filter": {
-          "autocomplete_filter": {
-            "type": "edge_ngram",
-            "min_gram": "1",
-            "max_gram": "20"
-          }
-        },
-        "analyzer": {
-          "autocomplete": {
-            "filter": [
-              "lowercase",
-              "autocomplete_filter"
-            ],
-            "type": "custom",
-            "tokenizer": "standard"
-          }
-        }
-      },
-      "number_of_replicas": "0",
-      "uuid": "2ZjxehfSRriDNOBI252aig",
-      "version": {
-        "created": "6020299"
       }
     }
   }
