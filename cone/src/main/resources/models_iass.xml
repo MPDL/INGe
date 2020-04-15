@@ -349,7 +349,7 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
     <model>
         <name>iassproject</name>
         <aliases>
-            <alias>iassgfzproject</alias>
+            <alias>iassproject</alias>
         </aliases>
         <description>IASS Projects</description>
         <open>false</open>

@@ -40,7 +40,7 @@
         </h:panelGroup>
         <!-- Pik specific -->
         <h:panelGroup layout="block" styleClass="huge_area0_p6"
-            rendered="#{ViewItemFull.specificOrganization == 'PIK Potsdam-Institut für Klimafolgenforschung'}">
+            rendered="#{ViewItemFull.specificOrganization == 'Potsdam Institute for Climate Impact Research'}">
             <h5 class="tile_title">
                 <img src="../resources/images/overviewPage/PIK_authors_31.png"
                     class="big_imgBtn" align="right" />
@@ -122,7 +122,7 @@
                         </h:panelGroup>
                         <!-- Pik specific -->
                         <h:panelGroup styleClass="image"
-                            rendered="#{ViewItemFull.specificOrganization == 'PIK Potsdam-Institut für Klimafolgenforschung'}">
+                            rendered="#{ViewItemFull.specificOrganization == 'Potsdam Institute for Climate Impact Research'}">
                             <!-- Standard image for Gfz-Authors with CoNE link -->
                             <h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
                                 rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"

@@ -1230,10 +1230,11 @@
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
 				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
+                <inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
 				<inge.es.cluster.name.test />
 				<inge.es.transport.ips.test />
 				<inge.filestorage.seaweed_master_server_ip />
-				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPROJECT,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 				<inge.matomo.tracker.use>false</inge.matomo.tracker.use>
 				<inge.pid.service.create.path />
 				<inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1293,6 +1294,7 @@
                 <inge.doi.service.url />
                 <inge.doi.service.use>false</inge.doi.service.use>
                 <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
+                <inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
@@ -1343,8 +1345,8 @@
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress></gfz.oa.mail.adress>
                 <gfz.oa.mail.subject></gfz.oa.mail.subject>
-                <inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
-                <inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
+                <inge.aa.login.jsp>login_inge_pik.jsp</inge.aa.login.jsp>
+                <inge.alternative.moderator.email>library@pik-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
                 <inge.auth.mpg.ip.json.url />
                 <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1357,10 +1359,11 @@
                 <inge.doi.service.url />
                 <inge.doi.service.use>false</inge.doi.service.use>
                 <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
+                <inge.email.sender>library@pik-potsdam.de</inge.email.sender>
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,PIKPOF,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1380,9 +1383,9 @@
                 <inge.pubman.stylesheet.classic.apply>false</inge.pubman.stylesheet.classic.apply>
                 <inge.pubman.stylesheet.contrast.apply>false</inge.pubman.stylesheet.contrast.apply>
                 <inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
-                <inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.special.url>
+                <inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.special.url>
                 <inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
-                <inge.pubman_presentation.overview_page.authors_ou>PIK Potsdam-Institut für Klimafolgenforschung</inge.pubman_presentation.overview_page.authors_ou>
+                <inge.pubman_presentation.overview_page.authors_ou>Potsdam Institute for Climate Impact Research</inge.pubman_presentation.overview_page.authors_ou>
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
