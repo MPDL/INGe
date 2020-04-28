@@ -423,7 +423,7 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
       wrapper.readFile(fileOutput);
       final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
       final AutoDetectParser parser = new AutoDetectParser();
-      final BodyContentHandler handler = new BodyContentHandler();
+      final BodyContentHandler handler = new BodyContentHandler(-1);
       ParseContext context = new ParseContext();
       parser.parse(input, handler, metadata, context);
       fileOutput.close();
