@@ -57,7 +57,7 @@
 				value="#{msg.ViewItemOverview_noSpecificAuthorsAvailable}"
 				rendered="#{ViewItemFull.specificOrganization != 'Max Planck Society'}" />
 		</h:panelGroup>
-		<!-- Iterator for MPG-Authors -->
+		<!-- Iterator for Authors -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
 			style="max-height:300px;">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
@@ -106,14 +106,14 @@
                         <!-- Iass specific -->
                         <h:panelGroup styleClass="image"
                             rendered="#{ViewItemFull.specificOrganization == 'IASS Institute for Advanced Sustainability Studies Potsdam'}">
-                            <!-- Standard image for Gfz-Authors with CoNE link -->
+                            <!-- Standard image for Iass-Authors with CoNE link -->
                             <h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
                                 rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
                                 target="_blank">
                                 <img src="../resources/images/overviewPage/IASS_authors_64.png"
                                     class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
                             </h:outputLink>
-                            <!-- Standard image for Gfz-Authors without CoNE link -->
+                            <!-- Standard image for Iass-Authors without CoNE link -->
                             <h:panelGroup
                                 rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
                                 <img src="../resources/images/overviewPage/ANY_authors_64.png"
@@ -123,14 +123,14 @@
                         <!-- Pik specific -->
                         <h:panelGroup styleClass="image"
                             rendered="#{ViewItemFull.specificOrganization == 'Potsdam Institute for Climate Impact Research'}">
-                            <!-- Standard image for Gfz-Authors with CoNE link -->
+                            <!-- Standard image for Pik-Authors with CoNE link -->
                             <h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
                                 rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
                                 target="_blank">
                                 <img src="../resources/images/overviewPage/PIK_authors_64.png"
                                     class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
                             </h:outputLink>
-                            <!-- Standard image for Gfz-Authors without CoNE link -->
+                            <!-- Standard image for Pik-Authors without CoNE link -->
                             <h:panelGroup
                                 rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
                                 <img src="../resources/images/overviewPage/ANY_authors_64.png"

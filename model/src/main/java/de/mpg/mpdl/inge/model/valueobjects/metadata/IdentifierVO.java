@@ -81,7 +81,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     PATENT_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-NR"), //
     PATENT_PUBLICATION_NR("http://purl.org/escidoc/metadata/terms/0.1/PATENT-PUBLICATION-NR"), //
     PII("http://purl.org/escidoc/metadata/terms/0.1/PII"), //
-    PIKPOF("http://purl.org/escidoc/metadata/terms/0.1/PIKPOF"), //
+    PIKDOMAIN("http://purl.org/escidoc/metadata/terms/0.1/PIKDOMAIN"), //
     PMC("http://purl.org/escidoc/metadata/terms/0.1/PMC"), //
     PMID("http://purl.org/escidoc/metadata/terms/0.1/PMID"), //
     PND("http://purl.org/escidoc/metadata/terms/0.1/PND"), //
