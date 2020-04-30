@@ -187,7 +187,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 		</aliases>
 		<description>Persons</description>
 		<open>true</open>
-		<primary-identifier control="false" generate-cone-id="true"/>
+		<primary-identifier control="false" subject-prefix="persons/resource/" generate-cone-id="false"/>
 		<predicates>
 			<predicate name="Complete Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false" shouldBeUnique="true"/>
 			<predicate name="Family Name" value="http://xmlns.com/foaf/0.1/family_name" multiple="false" mandatory="true" localized="true" searchable="true" restricted="false"/>
