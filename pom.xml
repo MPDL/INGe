@@ -1215,7 +1215,9 @@
 				<gfz.citation.styles.use>true</gfz.citation.styles.use>
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
 				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
+                <gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: OpenAccess</gfz.oa.mail.subject>
+                <gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
 				<inge.auth.mpg.ip.csv.url />
@@ -1255,7 +1257,7 @@
 				<inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
 				<inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.special.url>
 				<inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
-				<inge.pubman_presentation.overview_page.authors_ou>Deutsches GeoForschungsZentrum</inge.pubman_presentation.overview_page.authors_ou>
+				<inge.pubman_presentation.overview_page.authors_ou>GFZ</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
 			</properties>
@@ -1279,7 +1281,9 @@
                 <gfz.citation.styles.use>true</gfz.citation.styles.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress></gfz.oa.mail.adress>
+                <gfz.oa.mail.domain></gfz.oa.mail.domain>
                 <gfz.oa.mail.subject></gfz.oa.mail.subject>
+                <gfz.oa.mail.template></gfz.oa.mail.template>
                 <inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
                 <inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
@@ -1320,7 +1324,7 @@
                 <inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
                 <inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.special.url>
                 <inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
-                <inge.pubman_presentation.overview_page.authors_ou>IASS Institute for Advanced Sustainability Studies Potsdam</inge.pubman_presentation.overview_page.authors_ou>
+                <inge.pubman_presentation.overview_page.authors_ou>IASS</inge.pubman_presentation.overview_page.authors_ou>
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
@@ -1343,8 +1347,12 @@
                 <escidoc.framework_access.login.url />
                 <gfz.citation.styles.use>true</gfz.citation.styles.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
-                <gfz.oa.mail.adress></gfz.oa.mail.adress>
-                <gfz.oa.mail.subject></gfz.oa.mail.subject>
+                <gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
+                <gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
+                <gfz.oa.mail.subject>PIKpublic: OpenAccess</gfz.oa.mail.subject>
+                <gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
+                <gfz.oa.mail.adress>openaccess@pik-potsdam.de</gfz.oa.mail.adress>
+                <gfz.oa.mail.subject>PIKpublic: OpenAccess</gfz.oa.mail.subject>
                 <inge.aa.login.jsp>login_inge_pik.jsp</inge.aa.login.jsp>
                 <inge.alternative.moderator.email>library@pik-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
@@ -1358,12 +1366,12 @@
                 <inge.doi.service.create.url />
                 <inge.doi.service.url />
                 <inge.doi.service.use>false</inge.doi.service.use>
-                <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
+                <inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
                 <inge.email.sender>library@pik-potsdam.de</inge.email.sender>
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,PIKDOMAIN,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MODELMETHOD,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1385,7 +1393,7 @@
                 <inge.pubman.stylesheet.special.apply>true</inge.pubman.stylesheet.special.apply>
                 <inge.pubman.stylesheet.special.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.special.url>
                 <inge.pubman.stylesheet.standard.apply>false</inge.pubman.stylesheet.standard.apply>
-                <inge.pubman_presentation.overview_page.authors_ou>Potsdam Institute for Climate Impact Research</inge.pubman_presentation.overview_page.authors_ou>
+                <inge.pubman_presentation.overview_page.authors_ou>PIK</inge.pubman_presentation.overview_page.authors_ou>
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>

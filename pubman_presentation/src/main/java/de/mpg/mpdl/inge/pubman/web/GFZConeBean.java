@@ -81,9 +81,6 @@ public class GFZConeBean extends FacesBean {
   public String getJournalMetaData(ItemVersionVO item) throws Exception {
     String metadataString = "";
 
-    logger.debug("CoNE-Service: " + coneUri);
-    logger.debug("This Host: " + hostName);
-
     //    String journalUrl = "", journalId = "";
     String journalUrl = "";
 
@@ -97,9 +94,10 @@ public class GFZConeBean extends FacesBean {
             logger.debug("Journal as Source found!");
             for (IdentifierVO id : source.getIdentifiers()) {
               if (id.getType().equals(IdType.CONE)) {
-                logger.debug("CoNE-Identifier found!");
+                logger.info("CoNE-Identifier found!");
                 logger.debug("Retrieving Journal-Metadata from CoNE");
                 journalUrl = id.getId();
+                logger.info(journalUrl);
               }
             }
           }
@@ -124,8 +122,8 @@ public class GFZConeBean extends FacesBean {
           //                  appendAttributesToMDString(metadataString, tf.get("http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/note"));
           //            }
           //          } else {
-          logger.debug("CoNE-Service and PubMan are not on the same Machine..");
 
+          logger.info("getJournalMetaData: " + coneUri + journalUrl.substring(1) + "?format=rdf");
           GetMethod getMethod = new GetMethod(coneUri + journalUrl.substring(1) + "?format=rdf");
           HttpClient client = new HttpClient();
           client.executeMethod(getMethod);

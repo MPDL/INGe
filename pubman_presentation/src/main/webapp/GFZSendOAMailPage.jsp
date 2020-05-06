@@ -80,7 +80,6 @@
 										<span class="quad_area0 xTiny_marginLExcl endline">
 											<h:outputLabel id="lblToRecipient" styleClass="quad_label" value="#{lbl.ExportEmail_lblToRecipient}" />
 											<h:inputText id="inpEmailRecipients" styleClass="quad_txtInput" style="background-color:#BAD2E4;" value="#{GFZSendOAMailPage.firstGFZAuthorMailAdress}"/>
-											<h:outputText value="(production: 1st GFZ-Autor)"/>
 										</span>
 									</div>
 									<div class="free_area0 endline itemLine noTopBorder">

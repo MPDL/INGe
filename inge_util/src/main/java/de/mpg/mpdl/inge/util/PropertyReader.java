@@ -59,7 +59,9 @@ public class PropertyReader {
   public static final String GFZ_CONE_CITATION_STYLES_USE = "gfz.citation.styles.use";
   public static final String GFZ_CONE_RESET_USE = "gfz.cone.reset.use"; // used in cone_presentation -> reset.jsp
   public static final String GFZ_OA_MAIL_ADRESS = "gfz.oa.mail.adress";
+  public static final String GFZ_OA_MAIL_DOMAIN = "gfz.oa.mail.domain";
   public static final String GFZ_OA_MAIL_SUBJECT = "gfz.oa.mail.subject";
+  public static final String GFZ_OA_MAIL_TEMPLATE = "gfz.oa.mail.template";
   public static final String INGE_AA_ADMIN_LIVE_PASSWORD = "inge.aa.admin.live.password";
   public static final String INGE_AA_ADMIN_LIVE_USERNAME = "inge.aa.admin.live.username";
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";

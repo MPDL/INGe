@@ -47,6 +47,8 @@ public class GFZSendOAMailPage extends BreadcrumbPage {
   private String emailText;
   private String citationHtml;
   private String oaMail;
+  private String oaMailTemplate;
+  private String oaMailDomain;
 
   private ExportItemsSessionBean exportItemsSessionBean;
 
@@ -89,6 +91,8 @@ public class GFZSendOAMailPage extends BreadcrumbPage {
 
       this.oaMail = PropertyReader.getProperty(PropertyReader.GFZ_OA_MAIL_ADRESS);
       this.emailSubject = PropertyReader.getProperty(PropertyReader.GFZ_OA_MAIL_SUBJECT);
+      this.oaMailTemplate = PropertyReader.getProperty(PropertyReader.GFZ_OA_MAIL_TEMPLATE);
+      this.oaMailDomain = PropertyReader.getProperty(PropertyReader.GFZ_OA_MAIL_DOMAIN);
       this.replyToAddr = oaMail;
       this.ccAddress = oaMail;
 
@@ -184,7 +188,7 @@ public class GFZSendOAMailPage extends BreadcrumbPage {
   }
 
   private String formEmailText() {
-    this.velocityTemplate = velocityEngine.getTemplate("OpenAccessMail.vm", "UTF-8");
+    this.velocityTemplate = velocityEngine.getTemplate(this.oaMailTemplate, "UTF-8");
     this.velocityContext.put("citation", citationHtml);
     StringWriter writer = new StringWriter();
     this.velocityTemplate.merge(velocityContext, writer);
@@ -196,8 +200,8 @@ public class GFZSendOAMailPage extends BreadcrumbPage {
     this.emailText = emailText;
   }
 
-  private static String getGFZEmailAddress(String coneIdentifier) {
-    return coneIdentifier.substring(coneIdentifier.lastIndexOf('/') + 1, coneIdentifier.length()).concat("@gfz-potsdam.de");
+  private String getGFZEmailAddress(String coneIdentifier) {
+    return coneIdentifier.substring(coneIdentifier.lastIndexOf('/') + 1, coneIdentifier.length()).concat(this.oaMailDomain);
   }
 
   public boolean isHasGFZAuthor() {

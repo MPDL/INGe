@@ -448,6 +448,15 @@ public class PubItemVOPresentation extends ItemVersionVO {
     }
   }
 
+
+  /**
+   * Delivers all creators
+   */
+  public List<CreatorVO> getAllAuthors() {
+    final List<CreatorVO> creators = this.getMetadata().getCreators();
+    return creators;
+  }
+
   /**
    * Returns the newest date of the metadata date section.
    * 
