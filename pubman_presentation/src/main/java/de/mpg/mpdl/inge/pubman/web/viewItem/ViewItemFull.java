@@ -956,13 +956,14 @@ public class ViewItemFull extends FacesBean {
           identifiers.append(idList.get(i).getTypeString());
         }
         identifiers.append(": ");
-        if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
-          identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
-        } else if (idList.get(i).getType() == IdType.DOI) {
+        if (idList.get(i).getType() == IdType.DOI) {
           identifiers.append("<a target='_blank' href='https://doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
-        } else if (idList.get(i).getType() == IdType.EDOC) {
-          identifiers
-              .append("<a target='_blank' href='http://edoc.mpg.de/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
+          //        } else if (idList.get(i).getType() == IdType.EDOC) {
+          //          identifiers.append("<a target='_blank' href='http://edoc.mpg.de/" + idList.get(i).getId()
+          //            + "'>" + idList.get(i).getId() + "</a>");
+          //        } else if (idList.get(i).getType() == IdType.EDOC) {
+          //          identifiers.append("<a target='_blank' href='http://edoc.gfz-potsdam.de/pik/display.epl?mode=doc&id=" + idList.get(i).getId()
+          //              + "'>" + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.CONE) {
           String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
           identifiers.append("<a target='_blank' href='"
@@ -973,6 +974,8 @@ public class ViewItemFull extends FacesBean {
         } else if (idList.get(i).getType() == IdType.ISI) {
           identifiers.append("<a target='_blank' href='" + ViewItemFull.ISI_KNOWLEDGE_BASE_LINK + idList.get(i).getId()
               + ViewItemFull.ISI_KNOWLEDGE_DEST_APP + "'>" + idList.get(i).getId() + "</a>");
+        } else if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
+          identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
         } else {
           identifiers.append(idList.get(i).getId());
         }
