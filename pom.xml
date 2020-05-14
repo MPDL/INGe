@@ -1216,7 +1216,7 @@
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
 				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
                 <gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
-				<gfz.oa.mail.subject>GFZpublic: OpenAccess</gfz.oa.mail.subject>
+				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
                 <gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
@@ -1349,10 +1349,8 @@
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
                 <gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
-                <gfz.oa.mail.subject>PIKpublic: OpenAccess</gfz.oa.mail.subject>
+                <gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
                 <gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
-                <gfz.oa.mail.adress>openaccess@pik-potsdam.de</gfz.oa.mail.adress>
-                <gfz.oa.mail.subject>PIKpublic: OpenAccess</gfz.oa.mail.subject>
                 <inge.aa.login.jsp>login_inge_pik.jsp</inge.aa.login.jsp>
                 <inge.alternative.moderator.email>library@pik-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
@@ -1371,7 +1369,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MODELMETHOD,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>

@@ -75,6 +75,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     ISBN("http://purl.org/escidoc/metadata/terms/0.1/ISBN"), //
     ISI("http://purl.org/escidoc/metadata/terms/0.1/ISI"), //
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
+    MDB_ID("http://purl.org/escidoc/metadata/terms/0.1/MDB-ID"), //
     MODELMETHOD("http://purl.org/escidoc/metadata/terms/0.1/MODELMETHOD"), //
     OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), // anderer Zusammenhang (Fundingorganization)
     ORGANISATIONALK("http://purl.org/escidoc/metadata/terms/0.1/ORGANISATIONALK"), //
