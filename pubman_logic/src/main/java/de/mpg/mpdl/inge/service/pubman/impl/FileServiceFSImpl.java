@@ -417,26 +417,40 @@ public class FileServiceFSImpl implements FileService, FileServiceExternal {
 
     final Metadata metadata = new Metadata();
 
-    ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
-    try {
+    //    ByteArrayOutputStream fileOutput = new ByteArrayOutputStream();
+    //    try {
+    //      FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);
+    //      wrapper.readFile(fileOutput);
+    //      final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
+    //      final AutoDetectParser parser = new AutoDetectParser();
+    //      final BodyContentHandler handler = new BodyContentHandler(-1);
+    //      ParseContext context = new ParseContext();
+    //      parser.parse(input, handler, metadata, context);
+    //      fileOutput.close();
+    //      input.close();
+    //    } catch (IOException | SAXException | TikaException e) {
+    //      logger.error("could not read file [" + componentId + "] for Metadata extraction");
+    //      throw new IngeTechnicalException("could not read file [" + componentId + "] for Metadata extraction", e);
+    //    } finally {
+    //      try {
+    //        fileOutput.close();
+    //      } catch (IOException e) {
+    //        logger.error("Could not close output stream", e);
+    //      }
+    //    }
+
+    try (ByteArrayOutputStream fileOutput = new ByteArrayOutputStream()) {
       FileVOWrapper wrapper = this.readFile(itemId, componentId, authenticationToken);
       wrapper.readFile(fileOutput);
-      final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()));
-      final AutoDetectParser parser = new AutoDetectParser();
-      final BodyContentHandler handler = new BodyContentHandler(-1);
-      ParseContext context = new ParseContext();
-      parser.parse(input, handler, metadata, context);
-      fileOutput.close();
-      input.close();
+      try (final TikaInputStream input = TikaInputStream.get(new ByteArrayInputStream(fileOutput.toByteArray()))) {
+        final AutoDetectParser parser = new AutoDetectParser();
+        final BodyContentHandler handler = new BodyContentHandler(-1);
+        ParseContext context = new ParseContext();
+        parser.parse(input, handler, metadata, context);
+      }
     } catch (IOException | SAXException | TikaException e) {
       logger.error("could not read file [" + componentId + "] for Metadata extraction");
       throw new IngeTechnicalException("could not read file [" + componentId + "] for Metadata extraction", e);
-    } finally {
-      try {
-        fileOutput.close();
-      } catch (IOException e) {
-        logger.error("Could not close output stream", e);
-      }
     }
 
     final StringBuffer b = new StringBuffer(2048);

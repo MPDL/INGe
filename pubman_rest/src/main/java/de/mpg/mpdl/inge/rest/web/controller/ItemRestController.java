@@ -268,10 +268,13 @@ public class ItemRestController {
       //+ "filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; "
           + "filename*=UTF-8''"
           + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
-      OutputStream output = response.getOutputStream();
-      fileVOWrapper.readFile(output);
-      output.flush();
-      output.close();
+      //      OutputStream output = response.getOutputStream();
+      //      fileVOWrapper.readFile(output);
+      //      output.flush();
+      //      output.close();
+      try (OutputStream output = response.getOutputStream()) {
+        fileVOWrapper.readFile(output);
+      }
     } catch (IOException e) {
       logger.error("could not read file [" + componentId + "]");
       throw new IngeTechnicalException("Error while opening input stream", e);
