@@ -108,14 +108,22 @@ public class BatchProcessItemVO {
     // MESSAGE DEFINITIONS
 
     // SUCCESS MESSAGES
-    SUCCESS("lblBatchProceesLog_success"),
+    SUCCESS("batch_ProcessLog_Success"),
     // INFO MESSAGES
-    METADATA_LOST("lblBatchProceesLog_metadataLost"),
+    
     // WARNING MESSAGES
-
+    FILES_METADATA_NOT_CHANGED("batch_ProcessLog_FileMetadataNotChanged"),
+    METADATA_NOT_CHANGED("batch_ProcessLog_MetadataNotChanged"),
+    METADATA_NO_CHANGE_VALUE("batch_ProcessLog_MetadataNoChangeValue"),
+    METADATA_NO_SOURCE_FOUND("batch_ProcessLog_MetadataNoSourceFound"),
+    METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
+    METADATA_LOST("batch_ProcessLog_MetadataLost"),
+    STATE_WRONG("batch_ProcessLog_StateWrong"),
 
     // ERROR MESSAGES
-    INTERNAL_ERROR("lblBatchProceesLog_internalError");
+    INTERNAL_ERROR("batch_ProcessLog_InternalError"),
+    AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
+    AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError");
 
   /**
      * The message pattern. For syntax definition see {@link MessageFormat}.

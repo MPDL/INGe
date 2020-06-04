@@ -53,7 +53,7 @@
 									<td class="free_area0 "><h:panelGroup
 											styleClass="seperator"></h:panelGroup> <h:outputText
 											id="logMessage" styleClass="quad_area0_p8"
-											value="#{logEntry.batchProcessMessage.message}">
+											value="#{msg[logEntry.batchProcessMessage.message]}">
 										</h:outputText></td>
 								</tr>
 

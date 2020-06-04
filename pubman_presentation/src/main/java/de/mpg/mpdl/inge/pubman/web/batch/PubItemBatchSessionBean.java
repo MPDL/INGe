@@ -6,12 +6,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.Future;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,12 +19,9 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
-import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
@@ -43,9 +38,6 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubContextVOPresentation;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
-import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
-import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
-import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.PubItemBatchService;
 
 /**
@@ -709,27 +701,28 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      Map<String, Exception> resultMap = pubItemBatchService.addLocalTags(pubItemsMap, localTagsToAdd,
-          "batch add local tags " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-      resultMap.put("item_3014624", new Exception("test"));
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for adding local tags", e);
-      this.error("A technichal error occoured during the batch process for adding local tags");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch adding local tags failed", e);
-      this.error("Authentication for batch adding local tags failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch adding local tags failed", e);
-      this.error("Authorization for batch adding local tags failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch adding local tags", e);
-      this.error("An application error occoured during the batch adding local tags");
-    }
+    // try {
+    this.batchProcessLog = pubItemBatchService.addLocalTags(pubItemObjectIdList, localTagsToAdd,
+        "batch add local tags " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    // } catch (IngeTechnicalException e) {
+    // logger.error("A technichal error occoured during the batch process for adding local tags",
+    // e);
+    // this.error("A technichal error occoured during the batch process for adding local tags");
+    // } catch (AuthenticationException e) {
+    // logger.error("Authentication for batch adding local tags failed", e);
+    // this.error("Authentication for batch adding local tags failed");
+    // } catch (AuthorizationException e) {
+    // logger.error("Authorization for batch adding local tags failed", e);
+    // this.error("Authorization for batch adding local tags failed");
+    // } catch (IngeApplicationException e) {
+    // logger.error("An application error occoured during the batch adding local tags", e);
+    // this.error("An application error occoured during the batch adding local tags");
+    // }
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -738,26 +731,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeContext(pubItemsMap, selectedContextOld, selectedContextNew,
-          "batch release " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch context change", e);
-      this.error("A technichal error occoured during the batch context change");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch context change failed", e);
-      this.error("Authentication for batch context change failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch context change failed", e);
-      this.error("Authorization for batch context change failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch context change", e);
-      this.error("An application error occoured during the batch context change");
-    }
+    this.batchProcessLog = pubItemBatchService.changeContext(pubItemObjectIdList, selectedContextOld, selectedContextNew,
+        "batch release " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -766,28 +746,15 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeExternalRefereneceContentCategory(pubItemsMap, changeExternalReferencesContentCategoryFrom,
-          changeExternalReferencesContentCategoryTo,
-          "batch change external references content category " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the external references content category", e);
-      this.error("A technichal error occoured during the batch process for changing the external references content category");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the external references content category failed", e);
-      this.error("Authentication for batch changing the external references content category failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the external references content category failed", e);
-      this.error("Authorization for batch changing the external references content category failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing external references content category", e);
-      this.error("An application error occoured during the batch changing external references content category");
-    }
+    this.batchProcessLog = pubItemBatchService.changeExternalRefereneceContentCategory(pubItemObjectIdList,
+        changeExternalReferencesContentCategoryFrom, changeExternalReferencesContentCategoryTo,
+        "batch change external references content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -796,26 +763,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeFileAudience(pubItemsMap, changeFilesAudienceFrom, changeFilesAudienceTo,
-          "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the file audience", e);
-      this.error("A technichal error occoured during the batch process for changing the file audience");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the file audience failed", e);
-      this.error("Authentication for batch changing the file audience failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the file audience failed", e);
-      this.error("Authorization for batch changing the file audience failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing file audience", e);
-      this.error("An application error occoured during the batch changing file audience");
-    }
+    this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, changeFilesAudienceFrom, changeFilesAudienceTo,
+        "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -824,26 +779,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeFileContentCategory(pubItemsMap, changeFilesContentCategoryFrom, changeFilesContentCategoryTo,
-          "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the file content category", e);
-      this.error("A technichal error occoured during the batch process for changing the file content category");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the file content category failed", e);
-      this.error("Authentication for batch changing the file content category failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the file content category failed", e);
-      this.error("Authorization for batch changing the file content category failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing file content category", e);
-      this.error("An application error occoured during the batch changing file content category");
-    }
+    this.batchProcessLog = pubItemBatchService.changeFileContentCategory(pubItemObjectIdList, changeFilesContentCategoryFrom,
+        changeFilesContentCategoryTo, "batch change file content category " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -852,27 +795,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeFileVisibility(pubItemsMap, Visibility.valueOf(changeFilesVisibilityFrom),
-          Visibility.valueOf(changeFilesVisibilityTo), "batch change file visibility " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the file visibility", e);
-      this.error("A technichal error occoured during the batch process for changing the file visibility");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the file visibility failed", e);
-      this.error("Authentication for batch changing the file visibility failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the file visibility failed", e);
-      this.error("Authorization for batch changing the file visibility failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing file visibility", e);
-      this.error("An application error occoured during the batch changing file visibility");
-    }
+    this.batchProcessLog = pubItemBatchService.changeFileVisibility(pubItemObjectIdList, Visibility.valueOf(changeFilesVisibilityFrom),
+        Visibility.valueOf(changeFilesVisibilityTo), "batch change file visibility " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -881,28 +811,15 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
     Genre genreOld = Genre.valueOf(this.changeGenreFrom);
     Genre genreNew = Genre.valueOf(this.changeGenreTo);
-    try {
-      pubItemBatchService.changeGenre(pubItemsMap, genreOld, genreNew, "batch change genre " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the genre", e);
-      this.error("A technichal error occoured during the batch process for changing the genre");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the genre failed", e);
-      this.error("Authentication for batch changing the genre failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the genre failed", e);
-      this.error("Authorization for batch changing the genre failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing genre", e);
-      this.error("An application error occoured during the batch changing genre");
-    }
+    this.batchProcessLog = pubItemBatchService.changeGenre(pubItemObjectIdList, genreOld, genreNew,
+        "batch change genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -911,27 +828,27 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      batchProcessLog = pubItemBatchService.addKeywords(pubItemsMap, changePublicationKeywordsAddInput,
-          "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
-          loginHelper.getAccountUser());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for adding keywords", e);
-      this.error("A technichal error occoured during the batch process for adding keywords");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch adding keywords failed", e);
-      this.error("Authentication for batch adding keywords failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch adding keywords failed", e);
-      this.error("Authorization for batch adding keywords failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch adding keywords", e);
-      this.error("An application error occoured during the batchadding keywords");
-    }
+    // try {
+    this.batchProcessLog = pubItemBatchService.addKeywords(pubItemObjectIdList, changePublicationKeywordsAddInput,
+        "batch add keywords method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    // } catch (IngeTechnicalException e) {
+    // logger.error("A technichal error occoured during the batch process for adding keywords", e);
+    // this.error("A technichal error occoured during the batch process for adding keywords");
+    // } catch (AuthenticationException e) {
+    // logger.error("Authentication for batch adding keywords failed", e);
+    // this.error("Authentication for batch adding keywords failed");
+    // } catch (AuthorizationException e) {
+    // logger.error("Authorization for batch adding keywords failed", e);
+    // this.error("Authorization for batch adding keywords failed");
+    // } catch (IngeApplicationException e) {
+    // logger.error("An application error occoured during the batch adding keywords", e);
+    // this.error("An application error occoured during the batchadding keywords");
+    // }
     pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
@@ -941,32 +858,20 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      if (replaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
-        pubItemBatchService.changeKeywords(pubItemsMap, changePublicationKeywordsReplaceFrom, changePublicationKeywordsReplaceTo,
-            "batch change keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-      } else {
-        pubItemBatchService.replaceAllKeywords(pubItemsMap, changePublicationKeywordsReplaceTo,
-            "batch change keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-      }
-
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the keywords", e);
-      this.error("A technichal error occoured during the batch process for changing the keywords");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the keywords failed", e);
-      this.error("Authentication for batch changing the keywords failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the keywords failed", e);
-      this.error("Authorization for batch changing the keywords failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing keywords", e);
-      this.error("An application error occoured during the batch changing keywords");
+    if (replaceType.REPLACE_BY_VALUE.equals(changePublicationKeywordsReplaceType)) {
+      this.batchProcessLog = pubItemBatchService.changeKeywords(pubItemObjectIdList, changePublicationKeywordsReplaceFrom,
+          changePublicationKeywordsReplaceTo, "batch change keywords " + formatter.format(calendar.getTime()),
+          loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    } else {
+      this.batchProcessLog = pubItemBatchService.replaceAllKeywords(pubItemObjectIdList, changePublicationKeywordsReplaceTo,
+          "batch replace all keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+          loginHelper.getAccountUser());
     }
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -975,26 +880,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeReviewMethod(pubItemsMap, changeReviewMethodFrom, changeReviewMethodTo,
-          "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the review method", e);
-      this.error("A technichal error occoured during the batch process for changing the review method");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the review method failed", e);
-      this.error("Authentication for batch changing the review method failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the review method failed", e);
-      this.error("Authorization for batch changing the review method failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing review method", e);
-      this.error("An application error occoured during the batch changing review method");
-    }
+    this.batchProcessLog = pubItemBatchService.changeReviewMethod(pubItemObjectIdList, changeReviewMethodFrom, changeReviewMethodTo,
+        "batch change review method " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1003,27 +896,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeSourceGenre(pubItemsMap, SourceVO.Genre.valueOf(this.changeSourceGenreFrom),
-          SourceVO.Genre.valueOf(this.changeSourceGenreTo), "batch change source genre " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the source genre", e);
-      this.error("A technichal error occoured during the batch process for changing the source genre");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the source genre failed", e);
-      this.error("Authentication for batch changing the source genre failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the source genre failed", e);
-      this.error("Authorization for batch changing the source genre failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing source  genre", e);
-      this.error("An application error occoured during the batch changing source genre");
-    }
+    this.batchProcessLog = pubItemBatchService.changeSourceGenre(pubItemObjectIdList, SourceVO.Genre.valueOf(this.changeSourceGenreFrom),
+        SourceVO.Genre.valueOf(this.changeSourceGenreTo), "batch change source genre " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1032,27 +912,15 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.addSourceId(pubItemsMap, this.changeSoureIdAddNumber, IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd),
-          this.changeSourceIdAdd, "batch replacing the source id " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for replacing the source id", e);
-      this.error("A technichal error occoured during the batch process for replacing the source id");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch replacing the source id failed", e);
-      this.error("Authentication for batch replacing the source id failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch replacing the source id failed", e);
-      this.error("Authorization for batch replacing the source id failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch replacing the source id", e);
-      this.error("An application error occoured during the batch replacing the source id");
-    }
+    this.batchProcessLog = pubItemBatchService.addSourceId(pubItemObjectIdList, this.changeSoureIdAddNumber,
+        IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd), this.changeSourceIdAdd,
+        "batch replacing the source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1061,27 +929,15 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeSourceIdReplace(pubItemsMap, this.changeSourceIdReplaceNumber,
-          IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd), this.changeSourceIdReplaceFrom, this.changeSourceIdReplaceTo,
-          "batch replace source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for replacing the source id", e);
-      this.error("A technichal error occoured during the batch process for replacing the source id");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch replacing the source id failed", e);
-      this.error("Authentication for batch replacing the source id failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch replacing the source id failed", e);
-      this.error("Authorization for batch replacing the source id failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch replacing the source id", e);
-      this.error("An application error occoured during the batch replacing the source id");
-    }
+    this.batchProcessLog = pubItemBatchService.changeSourceIdReplace(pubItemObjectIdList, this.changeSourceIdReplaceNumber,
+        IdentifierVO.IdType.valueOf(this.changeSourceIdTypeReplace), this.changeSourceIdReplaceFrom, this.changeSourceIdReplaceTo,
+        "batch replace source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1090,26 +946,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.changeSourceIssue(pubItemsMap, changeSoureIssueNumber, inputChangeSourceIssue,
-          "batch change source genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for changing the source genre", e);
-      this.error("A technichal error occoured during the batch process for changing the source genre");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch changing the source genre failed", e);
-      this.error("Authentication for batch changing the source genre failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch changing the source genre failed", e);
-      this.error("Authorization for batch changing the source genre failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch changing source genre", e);
-      this.error("An application error occoured during the batch changing source genre");
-    }
+    this.batchProcessLog = pubItemBatchService.changeSourceIssue(pubItemObjectIdList, changeSoureIssueNumber, inputChangeSourceIssue,
+        "batch change source genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1118,26 +962,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.deletePubItems(pubItemsMap, "batch delete " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch delete", e);
-      this.error("A technichal error occoured during the batch delete");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch delete failed", e);
-      this.error("Authentication for batch delete failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch delete failed", e);
-      this.error("Authorization for batch delete failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch delete", e);
-      this.error("An application error occoured during the batch delete");
-    }
+    this.batchProcessLog = pubItemBatchService.deletePubItems(pubItemObjectIdList, "batch delete " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1146,26 +977,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.releasePubItems(pubItemsMap, "batch release " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch release", e);
-      this.error("A technichal error occoured during the batch release");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch release failed", e);
-      this.error("Authentication for batch release failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch release failed", e);
-      this.error("Authorization for batch release failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch release", e);
-      this.error("An application error occoured during the batch release");
-    }
+    this.batchProcessLog = pubItemBatchService.releasePubItems(pubItemObjectIdList, "batch release " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1174,26 +992,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.replaceLocalTags(pubItemsMap, inputChangeLocalTagsReplaceFrom, inputChangeLocalTagsReplaceTo,
-          "batch replacing local tags " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch process for replacing local tags", e);
-      this.error("A technichal error occoured during the batch process for replacing local tags");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch replacing local tags failed", e);
-      this.error("Authentication for batch replacing local tags failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch replacing local tags failed", e);
-      this.error("Authorization for batch replacing local tags failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch replacing local tags", e);
-      this.error("An application error occoured during the batch replacing local tags");
-    }
+    this.batchProcessLog = pubItemBatchService.replaceLocalTags(pubItemObjectIdList, inputChangeLocalTagsReplaceFrom,
+        inputChangeLocalTagsReplaceTo, "batch replacing local tags " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1202,26 +1008,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.revisePubItems(pubItemsMap, "batch revise " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch revise", e);
-      this.error("A technichal error occoured during the batch revise");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch revise failed", e);
-      this.error("Authentication for batch revise failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch revise failed", e);
-      this.error("Authorization for batch revise failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch revise", e);
-      this.error("An application error occoured during the batch revise");
-    }
+    this.batchProcessLog = pubItemBatchService.revisePubItems(pubItemObjectIdList, "batch revise " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1230,26 +1023,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.submitPubItems(pubItemsMap, "batch submit " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch submit", e);
-      this.error("A technichal error occoured during the batch submit");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch submit failed", e);
-      this.error("Authentication for batch submit failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch submit failed", e);
-      this.error("Authorization for batch submit failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch submit", e);
-      this.error("An application error occoured during the batch submit");
-    }
+    this.batchProcessLog = pubItemBatchService.submitPubItems(pubItemObjectIdList, "batch submit " + formatter.format(calendar.getTime()),
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 
@@ -1258,26 +1038,13 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    Map<String, Date> pubItemsMap = new HashMap<String, Date>();
+    List<String> pubItemObjectIdList = new ArrayList<String>();
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
-      pubItemsMap.put((String) entry.getValue().getObjectId(), (Date) entry.getValue().getModificationDate());
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    try {
-      pubItemBatchService.withdrawPubItems(pubItemsMap, "batch withdraw " + formatter.format(calendar.getTime()),
-          loginHelper.getAuthenticationToken());
-    } catch (IngeTechnicalException e) {
-      logger.error("A technichal error occoured during the batch withdraw", e);
-      this.error("A technichal error occoured during the batch withdraw");
-    } catch (AuthenticationException e) {
-      logger.error("Authentication for batch withdraw failed", e);
-      this.error("Authentication for batch withdraw failed");
-    } catch (AuthorizationException e) {
-      logger.error("Authorization for batch withdraw failed", e);
-      this.error("Authorization for batch withdraw failed");
-    } catch (IngeApplicationException e) {
-      logger.error("An application error occoured during the batch withdraw", e);
-      this.error("An application error occoured during the batch withdraw");
-    }
+    this.batchProcessLog = pubItemBatchService.withdrawPubItems(pubItemObjectIdList,
+        "batch withdraw " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+    pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
   }
 

@@ -1,15 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -23,6 +15,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
@@ -63,6 +56,10 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   }
 
+  private void persistItem() {
+
+  }
+
   /*
    * (non-Javadoc)
    * 
@@ -70,20 +67,23 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO addKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message, String authenticationToken,
-      AccountUserDbVO accountUser)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    ExecutorService executor = Executors.newFixedThreadPool(Math.round(Runtime.getRuntime().availableProcessors() / 2));
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO addKeywords(List<String> pubItemObjectIdList, String keywordsNew, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
+    // ExecutorService executor =
+    // Executors.newFixedThreadPool(Math.round(Runtime.getRuntime().availableProcessors() / 2));
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
 
     if (keywordsNew != null && !"".equals(keywordsNew.trim())) {
-      for (String itemId : pubItemsMap.keySet()) {
-        Future<BatchProcessItemVO> result = CompletableFuture.completedFuture(new BatchProcessItemVO(null,
-            BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        // Future<BatchProcessItemVO> result = CompletableFuture.completedFuture(new
+        // BatchProcessItemVO(null,
+        // BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+        // BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           String currentKeywords = null;
           if ((currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
             if (currentKeywords.contains(",")) {
@@ -98,44 +98,43 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           } else {
             pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
           }
-          result = executor.submit(() -> {
-            return new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS);
-          });
-          while (!result.isDone()) {
-            Thread.sleep(100);
-          }
-          if (batchRepository.exists(accountUser.getObjectId())) {
-            batchRepository.delete(accountUser.getObjectId());
-          }
-          resultList.add(result.get());
-          resultLog.setBatchProcessLogItemList(resultList);
-          batchRepository.save(resultLog);
-          batchRepository.flush();
+          // result = executor.submit(() -> {
+          // return new BatchProcessItemVO(this.pubItemService.update(pubItemVO,
+          // authenticationToken),
+          // BatchProcessItemVO.BatchProcessMessages.SUCCESS,
+          // BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS);
+          // });
+          // while (!result.isDone()) {
+          // Thread.sleep(100);
+          // }
+          // resultList.add(result.get());
+          resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not add keywords for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not add keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not add keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
-          throw e;
-        } catch (InterruptedException e) {
-          logger.error("Tread was interrupted", e);
-        } catch (ExecutionException e) {
-          logger.error("Error when getting future result", e);
+          logger.error("Could not add keywords for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
     return resultLog;
   }
 
@@ -146,39 +145,50 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.util.List, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> addLocalTags(Map<String, Date> pubItemsMap, List<String> localTagsToAdd, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
-      try {
-        ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-        if (itemId != null) {
-          List<String> localTags = pubItemVO.getObject().getLocalTags();
-          localTags.addAll(localTagsToAdd);
-          pubItemVO.getObject().setLocalTags(localTags);;
-          ItemVersionVO pubItemVOnew = this.pubItemService.update(pubItemVO, authenticationToken);
+  public BatchProcessLogDbVO addLocalTags(List<String> pubItemObjectIdList, List<String> localTagsToAdd, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (localTagsToAdd != null && localTagsToAdd.size() > 0) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        try {
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          if (itemId != null) {
+            List<String> localTags = pubItemVO.getObject().getLocalTags();
+            localTags.addAll(localTagsToAdd);
+            pubItemVO.getObject().setLocalTags(localTags);;
+          }
+
+          resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not add local tags for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (AuthenticationException e) {
+          logger.error("Could not add local tags for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (AuthorizationException e) {
+          logger.error("Could not add local tags for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (IngeApplicationException e) {
+          logger.error("Could not add local tags for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
-      } catch (IngeTechnicalException e) {
-        logger.error("Could not update local Tags for item " + itemId + " due to a technical error");
-        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a technical error"));
-        throw e;
-      } catch (AuthenticationException e) {
-        logger.error("Could not update local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
-        throw e;
-      } catch (AuthorizationException e) {
-        logger.error("Could not update local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been updated due to a authentication error"));
-        throw e;
-      } catch (IngeApplicationException e) {
-        logger.error("Could not add local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been added due to a authentication error"));
-        throw e;
       }
-
     }
-    return messageMap;
-
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -187,36 +197,53 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeContext(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
-  public Map<String, Exception> changeContext(Map<String, Date> pubItemsMap, String contextOld, String contextNew, String message,
-      String authenticationToken) {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  @Override
+  public BatchProcessLogDbVO changeContext(List<String> pubItemObjectIdList, String contextOld, String contextNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ContextDbVO contextVO = null;
-    try {
-      contextVO = this.contextService.get(contextNew, authenticationToken);
-    } catch (IngeTechnicalException | AuthenticationException | AuthorizationException | IngeApplicationException e) {
-      logger.error("Batch changing of context failed. Error retrieving destination context", e);
-    }
-    for (String itemId : pubItemsMap.keySet()) {
-      try {
-        ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-        if (itemId != null && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
-          pubItemVO.getObject().setContext(contextVO);
-          ItemVersionVO pubItemVOnew = this.pubItemService.update(pubItemVO, authenticationToken);
-          if (pubItemVOnew != null && pubItemVOnew.getObject().getContext().equals(pubItemVO.getObject().getContext())) {
-            messageMap.put(itemId, null);
+    if (contextNew != null) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        try {
+          contextVO = this.contextService.get(contextNew, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          if (itemId != null && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
+            pubItemVO.getObject().setContext(contextVO);
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not add keywords for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (AuthenticationException e) {
+          logger.error("Could not add keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (AuthorizationException e) {
+          logger.error("Could not add keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (IngeApplicationException e) {
+          logger.error("Could not add keywords for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
-        // this.pubItemService.update(object, authenticationToken)(itemId, pubItemsMap.get(itemId),
-        // message, authenticationToken);
-        logger.error("Could not update context of " + itemId + " because the from context is not the same as in the item");
-        messageMap.put(itemId,
-            new Exception("Context was not updated. Either Item was null, or the old context did not match the context of the item"));
-      } catch (Exception e) {
-        logger.error("Could not change context of item " + itemId, e);
-        messageMap.put(itemId, e);
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -227,14 +254,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeExternalRefereneceContentCategory(Map<String, Date> pubItemsMap, String contentCategoryOld,
-      String contentCategoryNew, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO changeExternalRefereneceContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
+      String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           boolean anyFilesChanged = false;
           for (FileDbVO file : pubItemVO.getFiles()) {
             if (FileDbVO.Storage.EXTERNAL_URL.equals(file.getStorage())
@@ -244,29 +273,39 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             }
           }
           if (anyFilesChanged == true) {
-            this.pubItemService.update(pubItemVO, authenticationToken);
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace external reference content category for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("External reference content category has not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change external reference content category for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace external reference content category for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("External reference content category has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change external reference content category for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace external reference content category for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("External reference content category has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change external reference content category for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace external reference content category for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("External reference content category has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change external reference content category for item " + itemId + " due to an internal application error",
+              e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -276,13 +315,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeFileAudience(Map<String, Date> pubItemsMap, String audienceOld, String audienceNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceOld, String audienceNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (audienceOld != null && audienceNew != null && !audienceOld.equals(audienceNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           boolean anyFilesChanged = false;
           for (FileDbVO file : pubItemVO.getFiles()) {
             List<String> audienceList = file.getAllowedAudienceIds();
@@ -293,29 +335,38 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             }
           }
           if (anyFilesChanged == true) {
-            this.pubItemService.update(pubItemVO, authenticationToken);
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace file audience for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("File audience has not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change file audience for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace file audience for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File audience has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file audience for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace file audience for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File audiencehas not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file audiencefor item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace file audience for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File audience has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file audience for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
 
@@ -327,14 +378,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeFileContentCategory(Map<String, Date> pubItemsMap, String contentCategoryOld,
-      String contentCategoryNew, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO changeFileContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
+      String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (contentCategoryOld != null && contentCategoryNew != null && !contentCategoryOld.equals(contentCategoryNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           boolean anyFilesChanged = false;
           for (FileDbVO file : pubItemVO.getFiles()) {
             if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
@@ -344,29 +397,38 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             }
           }
           if (anyFilesChanged == true) {
-            this.pubItemService.update(pubItemVO, authenticationToken);
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace file content category for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("File content category has not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change file content category for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace file content category for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File content category has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file content category for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace file content category for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File content category has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file content category for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace file content category for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File content category has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file content category for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -377,14 +439,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeFileVisibility(Map<String, Date> pubItemsMap, Visibility visibilityOld, Visibility visibilityNew,
-      String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityOld, Visibility visibilityNew,
+      String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (visibilityOld != null && visibilityNew != null && !visibilityOld.equals(visibilityNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           boolean anyFilesChanged = false;
           for (FileDbVO file : pubItemVO.getFiles()) {
             if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
@@ -394,29 +458,38 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             }
           }
           if (anyFilesChanged == true) {
-            this.pubItemService.update(pubItemVO, authenticationToken);
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace file visibility for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change file visibility for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace file visibility for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file visibility for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace file visibility for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file visibility for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace file visibility for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("File visibility has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change file visibility for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -428,51 +501,60 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeGenre(Map<String, Date> pubItemsMap, Genre genreOld, Genre genreNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    if (genreOld != null && genreNew != null && !genreOld.equals(genreNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO changeGenre(List<String> pubItemObjectIdList, Genre genreOld, Genre genreNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (genreOld != null && genreNew != null) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        boolean metadataChanged = false;
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           Genre currentPubItemGenre = pubItemVO.getMetadata().getGenre();
           if (currentPubItemGenre.equals(genreOld)) {
-            pubItemVO.getMetadata().setGenre(genreNew);
-            this.pubItemService.update(pubItemVO, authenticationToken);
+            if (!genreOld.equals(genreNew)) {
+              pubItemVO.getMetadata().setGenre(genreNew);
+              metadataChanged = true;
+            }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+          }
+          if (metadataChanged == true) {
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace local Tags for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change genre for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change genre for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change genre for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeKeywords(java.util.Map,
-   * java.lang.String, java.lang.String, java.lang.String)
-   */
-  @Override
-  public Map<String, Exception> changeKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    return changeKeywords(pubItemsMap, null, keywordsNew, message, authenticationToken);
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -482,13 +564,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeKeywords(Map<String, Date> pubItemsMap, String keywordsOld, String keywordsNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    if (keywordsNew != null && !keywordsNew.equals(keywordsOld)) {
-      for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO changeKeywords(List<String> pubItemObjectIdList, String keywordsOld, String keywordsNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (keywordsNew != null) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           boolean keywordsChanged = false;
           char splittingChar = ',';
           String currentKeywords = null;
@@ -522,34 +607,42 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             }
             if (keywordsChanged) {
               pubItemVO.getMetadata().setFreeKeywords(keywordString.toString());
-              this.pubItemService.update(pubItemVO, authenticationToken);
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
-              messageMap.put(itemId, new Exception("No keywords were replaced"));
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
             }
           } else {
-            messageMap.put(itemId, new NullPointerException("No keywords to replace were set"));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace keywords for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Keywords have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -559,40 +652,57 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeReviewMethod(Map<String, Date> pubItemsMap, String reviewMethodOld, String reviewMethodNew,
-      String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    if (reviewMethodOld != null && reviewMethodNew != null && !reviewMethodOld.equals(reviewMethodNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO changeReviewMethod(List<String> pubItemObjectIdList, String reviewMethodOld, String reviewMethodNew,
+      String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (reviewMethodOld != null && reviewMethodNew != null) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        boolean metadataChanged = false;
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           ReviewMethod currentReviewMethod = pubItemVO.getMetadata().getReviewMethod();
-          if (currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld))) {
-            pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
-            this.pubItemService.update(pubItemVO, authenticationToken);
+          if (!reviewMethodOld.equals(reviewMethodNew)) {
+            if (currentReviewMethod != null && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld))) {
+              pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace review method for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace review method for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace review method for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace review method for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -604,44 +714,64 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeSourceGenre(Map<String, Date> pubItemsMap, SourceVO.Genre genreOld, SourceVO.Genre genreNew,
-      String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    if (genreOld != null && genreNew != null && !genreOld.equals(genreNew)) {
-      for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO changeSourceGenre(List<String> pubItemObjectIdList, SourceVO.Genre genreOld, SourceVO.Genre genreNew,
+      String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (genreOld != null && genreNew != null) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        boolean sourceChanged = false;
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
-          for (SourceVO currentSource : currentSourceList) {
-            SourceVO.Genre currentSourceGenre = currentSource.getGenre();
-            if (currentSourceGenre.equals(genreOld)) {
-              currentSource.setGenre(genreNew);
-              this.pubItemService.update(pubItemVO, authenticationToken);
-            }
-          }
+          if (!genreOld.equals(genreNew)) {
+            for (SourceVO currentSource : currentSourceList) {
+              SourceVO.Genre currentSourceGenre = currentSource.getGenre();
+              if (currentSourceGenre.equals(genreOld)) {
+                currentSource.setGenre(genreNew);
+                sourceChanged = true;
 
+              }
+            }
+            if (sourceChanged == true) {
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+          }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change source genre for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Source genre has not been changed due to a technical error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change source genre for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source genre has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change source genre for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source genre has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change source genre for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source genre has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change review method for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -652,44 +782,57 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> addSourceId(Map<String, Date> pubItemsMap, String sourceNumber, IdentifierVO.IdType sourceIdType,
-      String idNew, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    if (sourceNumber != null && sourceIdType != null && idNew != null && !("").equals(idNew.trim())) {
-      for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO addSourceId(List<String> pubItemObjectIdList, String sourceNumber, IdentifierVO.IdType sourceIdType,
+      String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (idNew != null) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
-          int sourceNumberInt = Integer.parseInt(sourceNumber);
-          if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt) {
-            if (currentSourceList.get(sourceNumberInt - 1) != null && currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
-              currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
-              this.pubItemService.update(pubItemVO, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          if (itemId != null) {
+            List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
+            int sourceNumberInt = Integer.parseInt(sourceNumber);
+            if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
+                && currentSourceList.get(sourceNumberInt - 1) != null) {
+              if (currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
+                currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              }
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
             }
           }
-
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change source issue for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a technical error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change source issue for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change source issue for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an authorization error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change source issue for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -700,44 +843,72 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeSourceIdReplace(Map<String, Date> pubItemsMap, String sourceNumber, IdentifierVO.IdType sourceIdType,
-      String idOld, String idNew, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO changeSourceIdReplace(List<String> pubItemObjectIdList, String sourceNumber, IdentifierVO.IdType sourceIdType,
+      String idOld, String idNew, String message, String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (sourceNumber != null && sourceIdType != null && idNew != null && !("").equals(idNew.trim())) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      boolean sourceChanged = false;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        sourceChanged = false; // reset sourceChanged
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
           int sourceNumberInt = Integer.parseInt(sourceNumber);
           if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt) {
             if (currentSourceList.get(sourceNumberInt - 1) != null && currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
-              currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
-              this.pubItemService.update(pubItemVO, authenticationToken);
-            }
-          }
+              for (int i = 0; i < currentSourceList.get(sourceNumberInt - 1).getIdentifiers().size(); i++) {
+                IdentifierVO identifier = currentSourceList.get(sourceNumberInt - 1).getIdentifiers().get(i);
+                if (sourceIdType.equals(identifier.getType()) && idOld.equals(identifier.getId())) {
+                  identifier.setId(idNew);
+                  currentSourceList.get(sourceNumberInt - 1).getIdentifiers().set(i, identifier);
+                  sourceChanged = true;
+                }
+              }
+              if (sourceChanged == true) {
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              }
 
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+          }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace source id for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Source replace source id changed due to a technical error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace source id for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source ID has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace source id for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source ID has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an authorization error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace source id for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source ID has not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -747,43 +918,57 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> changeSourceIssue(Map<String, Date> pubItemsMap, String sourceNumber, String issue, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO changeSourceIssue(List<String> pubItemObjectIdList, String sourceNumber, String issue, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (sourceNumber != null && issue != null) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
           int sourceNumberInt = Integer.parseInt(sourceNumber);
           if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt) {
             if (currentSourceList.get(sourceNumberInt - 1) != null) {
               currentSourceList.get(sourceNumberInt - 1).setIssue(issue);
-              this.pubItemService.update(pubItemVO, authenticationToken);
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
             }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
           }
-
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change source issue for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a technical error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change source issue for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change source issue for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an authorization error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change source issue for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Source issue has not been changed due to a authentication error"));
-          throw e;
+          logger.error("Could not change source id for item " + itemId + " due to an application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
 
@@ -794,39 +979,53 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> replaceLocalTags(Map<String, Date> pubItemsMap, String localTagOld, String localTagNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
-      try {
-        ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-        if (localTagOld != null && localTagNew != null && !"".equals(localTagOld.trim()) && pubItemVO.getObject().getLocalTags() != null
-            && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
-          List<String> localTagList = pubItemVO.getObject().getLocalTags();
-          localTagList.remove(localTagOld);
-          localTagList.add(localTagNew);
-          pubItemVO.getObject().setLocalTags(localTagList);
-          this.pubItemService.update(pubItemVO, authenticationToken);
+  public BatchProcessLogDbVO replaceLocalTags(List<String> pubItemObjectIdList, String localTagOld, String localTagNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    if (localTagOld != null && localTagNew != null && !"".equals(localTagOld.trim())) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
+        try {
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          if (pubItemVO.getObject().getLocalTags() != null && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
+            List<String> localTagList = pubItemVO.getObject().getLocalTags();
+            localTagList.remove(localTagOld);
+            localTagList.add(localTagNew);
+            pubItemVO.getObject().setLocalTags(localTagList);
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+          }
+        } catch (IngeTechnicalException e) {
+          logger.error("Could not replace local tags for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (AuthenticationException e) {
+          logger.error("Could not replace local tags for item " + itemId + " due to an authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (AuthorizationException e) {
+          logger.error("Could not replace local tags for item " + itemId + " due to an authorization error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        } catch (IngeApplicationException e) {
+          logger.error("Could not replace local tags for item " + itemId + " due to an application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
-      } catch (IngeTechnicalException e) {
-        logger.error("Could not replace local Tags for item " + itemId + " due to a technical error");
-        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a technical error"));
-        throw e;
-      } catch (AuthenticationException e) {
-        logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
-        throw e;
-      } catch (AuthorizationException e) {
-        logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
-        throw e;
-      } catch (IngeApplicationException e) {
-        logger.error("Could not replace local Tags for item " + itemId + " due authentication error");
-        messageMap.put(itemId, new Exception("Local Tags have not been replaced due to a authentication error"));
-        throw e;
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
 
@@ -838,52 +1037,93 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> submitPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO submitPubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
+    for (String itemId : pubItemObjectIdList) {
+      pubItemVO = null; // reset pubItemVO
       try {
-        this.pubItemService.submitPubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
-        messageMap.put(itemId, null);
-      } catch (Exception e) {
-        logger.error("Could not batch submit item " + itemId, e);
-        messageMap.put(itemId, e);
+        pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState())
+            || ItemVersionRO.State.PENDING.equals(pubItemVO.getVersionState())) {
+          resultList.add(new BatchProcessItemVO(
+              this.pubItemService.submitPubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } else {
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
+              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not submit item " + itemId + " due to a technical error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthenticationException e) {
+        logger.error("Could not submit item " + itemId + " due to an authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthorizationException e) {
+        logger.error("Could submit item " + itemId + " due to an authorization error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (IngeApplicationException e) {
+        logger.error("Could submit item " + itemId + " due to an application error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
+
+
   }
 
   @Override
-  public Map<String, Exception> replaceAllKeywords(Map<String, Date> pubItemsMap, String keywordsNew, String message,
-      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
+  public BatchProcessLogDbVO replaceAllKeywords(List<String> pubItemObjectIdList, String keywordsNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (keywordsNew != null) {
-      for (String itemId : pubItemsMap.keySet()) {
+      ItemVersionVO pubItemVO = null;
+      for (String itemId : pubItemObjectIdList) {
+        pubItemVO = null; // reset pubItemVO
         try {
-          ItemVersionVO pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
-          this.pubItemService.update(pubItemVO, authenticationToken);
+          resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } catch (IngeTechnicalException e) {
-          logger.error("Could not replace review method for item " + itemId + " due to a technical error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a technical error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due to a technical error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not replace review method for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not replace review method for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due authentication error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not replace review method for item " + itemId + " due authentication error");
-          messageMap.put(itemId, new Exception("Review method have not been replaced due to a authentication error"));
-          throw e;
+          logger.error("Could not change keywords for item " + itemId + " due to an internal application error", e);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
-
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   @Override
@@ -902,19 +1142,48 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> releasePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO releasePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
+    for (String itemId : pubItemObjectIdList) {
+      pubItemVO = null; // reset pubItemVO
       try {
-        this.pubItemService.releasePubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
-        messageMap.put(itemId, null);
-      } catch (Exception e) {
-        logger.error("Could not batch release item " + itemId, e);
-        messageMap.put(itemId, e);
+        pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getVersionState())) {
+          resultList.add(new BatchProcessItemVO(
+              this.pubItemService.releasePubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } else {
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
+              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not release item " + itemId + " due to a technical error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthenticationException e) {
+        logger.error("Could not release item " + itemId + " due to an authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthorizationException e) {
+        logger.error("Could release item " + itemId + " due to an authorization error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (IngeApplicationException e) {
+        logger.error("Could release item " + itemId + " due to an application error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -924,19 +1193,48 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> withdrawPubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO withdrawPubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
+    for (String itemId : pubItemObjectIdList) {
+      pubItemVO = null; // reset pubItemVO
       try {
-        this.pubItemService.withdrawPubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
-        messageMap.put(itemId, null);
-      } catch (Exception e) {
-        logger.error("Could not batch withdraw item " + itemId, e);
-        messageMap.put(itemId, e);
+        pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (ItemVersionRO.State.RELEASED.equals(pubItemVO.getVersionState())) {
+          resultList.add(new BatchProcessItemVO(
+              this.pubItemService.withdrawPubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } else {
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
+              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthenticationException e) {
+        logger.error("Could not withdraw item " + itemId + " due to an authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthorizationException e) {
+        logger.error("Could withdraw item " + itemId + " due to an authorization error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (IngeApplicationException e) {
+        logger.error("Could withdraw item " + itemId + " due to an application error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -946,19 +1244,50 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> revisePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO revisePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
+    for (String itemId : pubItemObjectIdList) {
+      pubItemVO = null; // reset pubItemVO
       try {
-        this.pubItemService.revisePubItem(itemId, pubItemsMap.get(itemId), message, authenticationToken);
-        messageMap.put(itemId, null);
-      } catch (Exception e) {
-        logger.error("Could not batch revise item " + itemId, e);
-        messageMap.put(itemId, e);
+        pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        ContextDbVO contextDbVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
+        if (ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getVersionState())
+            && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())) {
+          resultList.add(new BatchProcessItemVO(
+              this.pubItemService.revisePubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } else {
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
+              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthenticationException e) {
+        logger.error("Could not withdraw item " + itemId + " due to an authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthorizationException e) {
+        logger.error("Could withdraw item " + itemId + " due to an authorization error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (IngeApplicationException e) {
+        logger.error("Could withdraw item " + itemId + " due to an application error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
 
   /*
@@ -968,19 +1297,48 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String)
    */
   @Override
-  public Map<String, Exception> deletePubItems(Map<String, Date> pubItemsMap, String message, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    Map<String, Exception> messageMap = new HashMap<String, Exception>();
-    for (String itemId : pubItemsMap.keySet()) {
+  public BatchProcessLogDbVO deletePubItems(List<String> pubItemObjectIdList, String message, String authenticationToken,
+      AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
+    for (String itemId : pubItemObjectIdList) {
+      pubItemVO = null; // reset pubItemVO
       try {
-        this.pubItemService.delete(itemId, authenticationToken);
-        messageMap.put(itemId, null);
-      } catch (Exception e) {
-        logger.error("Could not batch delete item " + itemId, e);
-        messageMap.put(itemId, e);
+        pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getVersionState())
+            && !ItemVersionRO.State.RELEASED.equals(pubItemVO.getObject().getPublicState())) {
+          this.pubItemService.delete(itemId, authenticationToken);
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.SUCCESS,
+              BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } else {
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
+              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthenticationException e) {
+        logger.error("Could not withdraw item " + itemId + " due to an authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthorizationException e) {
+        logger.error("Could withdraw item " + itemId + " due to an authorization error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (IngeApplicationException e) {
+        logger.error("Could withdraw item " + itemId + " due to an application error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
-    return messageMap;
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
   }
-
 }

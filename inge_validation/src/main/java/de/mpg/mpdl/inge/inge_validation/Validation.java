@@ -217,6 +217,156 @@ public class Validation {
     }
   }
 
+  public void validateForBatch(final ItemVersionVO pubItemVO, ValidationPoint validationPoint)
+      throws ValidationServiceException, ValidationException {
+
+    if (pubItemVO instanceof ItemVersionVO == false) {
+      throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
+    }
+
+
+    switch (validationPoint) {
+
+      case SAVE:
+        final FluentValidator vSave = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
+            .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
+            .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
+            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator());
+
+        final ComplexResult resultSave = vSave.doValidate().result(ResultCollectors.toComplex());
+
+        logger.info(resultSave);
+
+        checkResult(resultSave);
+
+        break;
+
+      case SIMPLE:
+        final FluentValidator vSimple = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
+            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredAndFormatValidator()) //
+            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
+            .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
+            .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
+
+        final ComplexResult resultSimple = vSimple.doValidate().result(ResultCollectors.toComplex());
+
+        logger.info(resultSimple);
+
+        checkResult(resultSimple);
+
+        break;
+
+      case STANDARD:
+        final FluentValidator vStandard = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getMetadata().getSubjects(), new ClassifiedKeywordsValidator()) //
+            .on(pubItemVO.getMetadata().getLanguages(), new LanguageCodeValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
+            .on(pubItemVO.getMetadata(), new DateRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getEvent(), new EventTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getIdentifiers(), new IdTypeRequiredAndFormatValidator()) //
+            .on(pubItemVO.getMetadata(), new MdsPublicationDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsOrganizationsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesGenreRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceRequiredValidator()) //
+            .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre()) //
+                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre())) //
+            .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
+            .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
+            .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
+
+        final ComplexResult resultStandard = vStandard.doValidate().result(ResultCollectors.toComplex());
+
+        logger.info(resultStandard);
+
+        checkResult(resultStandard);
+
+        break;
+
+      case EASY_SUBMISSION_STEP_3:
+        final FluentValidator vEasy3 = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
+            .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
+            .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
+
+        final ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
+
+        logger.info(resultEasy3);
+
+        checkResult(resultEasy3);
+
+        break;
+
+      case EASY_SUBMISSION_STEP_4:
+        final FluentValidator vEasy4 = FluentValidator.checkAll().failOver() //
+            .on(pubItemVO.getFiles(), new ComponentsDataRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsDateFormatValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsIpRangeRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsWithOrganisationRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getGenre(), new GenreRequiredValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsNoSlashesInNameValidator()) //
+            .on(pubItemVO.getMetadata().getCreators(), new CreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsRoleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getSources(), new SourceCreatorsNameRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
+            .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
+            .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
+            .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
+            .on(pubItemVO.getFiles(), new ComponentsUriAsLocatorValidator());
+
+        final ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
+
+        logger.info(resultEasy4);
+
+        checkResult(resultEasy4);
+
+        break;
+
+      default:
+        throw new ValidationServiceException("undefined validation for validation point:" + validationPoint);
+    }
+  }
+
   public void validateYearbook(final ItemVersionVO pubItemVO, List<String> childsOfMPG)
       throws ValidationServiceException, ValidationException {
 
