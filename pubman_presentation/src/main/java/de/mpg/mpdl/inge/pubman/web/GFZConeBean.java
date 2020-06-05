@@ -77,14 +77,15 @@ public class GFZConeBean extends FacesBean {
     String metadataString = "";
     String journalUrl = "";
 
-    if (item.getMetadata().getGenre().equals(MdsPublicationVO.Genre.ARTICLE) && item.getMetadata().getSources().size() > 0) {
+    if (item.getMetadata() != null && MdsPublicationVO.Genre.ARTICLE.equals(item.getMetadata().getGenre())
+        && item.getMetadata().getSources() != null && item.getMetadata().getSources().size() > 0) {
       if (item.getMetadata().getSources().get(0) != null && item.getMetadata().getSources().get(0).getIdentifiers() != null
           && item.getMetadata().getSources().get(0).getIdentifiers().size() > 0) {
 
         for (SourceVO source : item.getMetadata().getSources()) {
-          if (source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
+          if (SourceVO.Genre.JOURNAL.equals(source.getGenre())) {
             for (IdentifierVO id : source.getIdentifiers()) {
-              if (id.getType().equals(IdType.CONE)) {
+              if (IdType.CONE.equals(id.getType())) {
                 journalUrl = id.getId();
               }
             }
