@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -229,4 +233,12 @@ public class CitationTransformer extends SingleTransformer implements ChainableT
     return sw.toString();
   }
 
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+    TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    Transformer t = xslTransformerFactory.newTransformer();
+    t.setOutputProperty(OutputKeys.INDENT, "yes");
+    t.setOutputProperty(OutputKeys.METHOD, "xml");
+    t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    t.transform(s, r);
+  }
 }

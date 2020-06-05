@@ -4,6 +4,13 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
@@ -53,6 +60,15 @@ public class SearchRetrieveResponseVoToItemXml extends SingleTransformer impleme
     TransformerStreamResult tr = new TransformerStreamResult(new ByteArrayOutputStream());
 
     return tr;
+  }
+
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+    TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    Transformer t = xslTransformerFactory.newTransformer();
+    t.setOutputProperty(OutputKeys.INDENT, "yes");
+    t.setOutputProperty(OutputKeys.METHOD, "xml");
+    t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    t.transform(s, r);
   }
 
 }

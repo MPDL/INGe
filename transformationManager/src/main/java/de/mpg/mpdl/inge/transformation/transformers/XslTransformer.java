@@ -115,7 +115,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     return new LocalUriResolver("transformations/thirdParty/xslt");
   }
 
-  public static Source getXmlSourceFromProperty(String property) throws TransformationException {
+  public Source getXmlSourceFromProperty(String property) throws TransformationException {
     String stylesheetFileName = PropertyReader.getProperty(property);
     try {
       InputStream stylesheetInputStram = ResourceUtil.getResourceAsStream(stylesheetFileName, XslTransformer.class.getClassLoader());
@@ -125,7 +125,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
     }
   }
 
-  public static void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
     TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     Transformer t = xslTransformerFactory.newTransformer();
     t.setOutputProperty(OutputKeys.INDENT, "yes");
