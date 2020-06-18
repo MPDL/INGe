@@ -9,6 +9,13 @@ import java.util.Map.Entry;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.httpclient.params.HttpConnectionParams;
+import org.apache.commons.httpclient.params.HttpParams;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,6 +36,7 @@ public class MatomoTracker {
   public final static String DOWNLOAD_URL = "download";
   public final static String USER_IP = "cip";
   public final static String User_ID = "_id";
+  public final static int TIMEOUT = 1; // timeout in sedc
 
   public MatomoTracker() {
 
@@ -42,13 +50,14 @@ public class MatomoTracker {
    *        token_auth, rec, idsite, url, cip
    */
   public static void trackUrl(HashMap<String, String> parameterMap) {
-    HttpClient client = new HttpClient();
-    GetMethod getMethod = new GetMethod(HOST_URL);
-    getMethod.setQueryString(getUrlEncodedQueryString(parameterMap));
+
+    RequestConfig config = RequestConfig.custom().setConnectTimeout(TIMEOUT * 1000).setConnectionRequestTimeout(TIMEOUT * 1000)
+        .setSocketTimeout(TIMEOUT * 1000).build();
+    CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+    HttpGet getMethod = new HttpGet(HOST_URL + getUrlEncodedQueryString(parameterMap));
     try {
       try {
-        int i = client.executeMethod(getMethod);
-        //        System.out.println(i);
+        client.execute(getMethod);
       } catch (IOException e) {
         logger.error("Could not execute statistics call", e);
       }

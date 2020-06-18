@@ -69,8 +69,6 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Override
   public BatchProcessLogDbVO addKeywords(List<String> pubItemObjectIdList, String keywordsNew, String message, String authenticationToken,
       AccountUserDbVO accountUser) {
-    // ExecutorService executor =
-    // Executors.newFixedThreadPool(Math.round(Runtime.getRuntime().availableProcessors() / 2));
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
 
@@ -78,38 +76,29 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
-        // Future<BatchProcessItemVO> result = CompletableFuture.completedFuture(new
-        // BatchProcessItemVO(null,
-        // BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
-        // BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          String currentKeywords = null;
-          if ((currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
-            if (currentKeywords.contains(",")) {
-              pubItemVO.getMetadata().setFreeKeywords(currentKeywords + ", " + keywordsNew);
-            } else if (currentKeywords.contains(";")) {
-              pubItemVO.getMetadata().setFreeKeywords(currentKeywords + "; " + keywordsNew);
-            } else if (currentKeywords.contains(" ")) {
-              pubItemVO.getMetadata().setFreeKeywords(currentKeywords + " " + keywordsNew);
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            String currentKeywords = null;
+            if ((currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
+              if (currentKeywords.contains(",")) {
+                pubItemVO.getMetadata().setFreeKeywords(currentKeywords + ", " + keywordsNew);
+              } else if (currentKeywords.contains(";")) {
+                pubItemVO.getMetadata().setFreeKeywords(currentKeywords + "; " + keywordsNew);
+              } else if (currentKeywords.contains(" ")) {
+                pubItemVO.getMetadata().setFreeKeywords(currentKeywords + " " + keywordsNew);
+              } else {
+                pubItemVO.getMetadata().setFreeKeywords(currentKeywords + ", " + keywordsNew);
+              }
             } else {
-              pubItemVO.getMetadata().setFreeKeywords(currentKeywords + ", " + keywordsNew);
+              pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
             }
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
           } else {
-            pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
-          // result = executor.submit(() -> {
-          // return new BatchProcessItemVO(this.pubItemService.update(pubItemVO,
-          // authenticationToken),
-          // BatchProcessItemVO.BatchProcessMessages.SUCCESS,
-          // BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS);
-          // });
-          // while (!result.isDone()) {
-          // Thread.sleep(100);
-          // }
-          // resultList.add(result.get());
-          resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } catch (IngeTechnicalException e) {
           logger.error("Could not add keywords for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
@@ -155,14 +144,26 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          if (itemId != null) {
-            List<String> localTags = pubItemVO.getObject().getLocalTags();
-            localTags.addAll(localTagsToAdd);
-            pubItemVO.getObject().setLocalTags(localTags);;
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            if (itemId != null && localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
+              if (ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getVersionState())) {
+                List<String> localTags = pubItemVO.getObject().getLocalTags();
+                localTags.addAll(localTagsToAdd);
+                pubItemVO.getObject().setLocalTags(localTags);
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+              }
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_NEW_VALUE_SET,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
-
-          resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } catch (IngeTechnicalException e) {
           logger.error("Could not add local tags for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
@@ -210,13 +211,32 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         try {
           contextVO = this.contextService.get(contextNew, authenticationToken);
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          if (itemId != null && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
-            pubItemVO.getObject().setContext(contextVO);
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            if (itemId != null && contextOld.equals(pubItemVO.getObject().getContext().getObjectId())) {
+              if (pubItemVO.getMetadata() != null && pubItemVO.getMetadata().getGenre() != null && contextVO.getAllowedGenres() != null
+                  && !contextVO.getAllowedGenres().isEmpty() && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
+                pubItemVO.getObject().setContext(contextVO);
+                if (!(ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getObject().getPublicState())
+                    || ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState()))
+                    && !ContextDbVO.Workflow.SIMPLE.equals(contextVO.getWorkflow())) {
+                  resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                      BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+                } else {
+                  resultList
+                      .add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                          BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+                }
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+              }
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not add keywords for item " + itemId + " due to a technical error", e);
@@ -264,20 +284,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          boolean anyFilesChanged = false;
-          for (FileDbVO file : pubItemVO.getFiles()) {
-            if (FileDbVO.Storage.EXTERNAL_URL.equals(file.getStorage())
-                && file.getMetadata().getContentCategory().equals(contentCategoryOld)) {
-              file.getMetadata().setContentCategory(contentCategoryNew);
-              anyFilesChanged = true;
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            boolean anyFilesChanged = false;
+            for (FileDbVO file : pubItemVO.getFiles()) {
+              if (FileDbVO.Storage.EXTERNAL_URL.equals(file.getStorage())
+                  && file.getMetadata().getContentCategory().equals(contentCategoryOld)) {
+                file.getMetadata().setContentCategory(contentCategoryNew);
+                anyFilesChanged = true;
+              }
             }
-          }
-          if (anyFilesChanged == true) {
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            if (anyFilesChanged == true) {
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.FILES_METADATA_OLD_VALUE_NOT_EQUAL,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change external reference content category for item " + itemId + " due to a technical error", e);
@@ -325,21 +350,26 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          boolean anyFilesChanged = false;
-          for (FileDbVO file : pubItemVO.getFiles()) {
-            List<String> audienceList = file.getAllowedAudienceIds();
-            if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && audienceList.contains(audienceOld)) {
-              audienceList.remove(audienceList.indexOf(audienceOld));
-              audienceList.add(audienceNew);
-              anyFilesChanged = true;
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            boolean anyFilesChanged = false;
+            for (FileDbVO file : pubItemVO.getFiles()) {
+              List<String> audienceList = file.getAllowedAudienceIds();
+              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && audienceList.contains(audienceOld)) {
+                audienceList.remove(audienceList.indexOf(audienceOld));
+                audienceList.add(audienceNew);
+                anyFilesChanged = true;
+              }
             }
-          }
-          if (anyFilesChanged == true) {
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            if (anyFilesChanged == true) {
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.FILES_METADATA_OLD_VALUE_NOT_EQUAL,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change file audience for item " + itemId + " due to a technical error", e);
@@ -388,20 +418,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          boolean anyFilesChanged = false;
-          for (FileDbVO file : pubItemVO.getFiles()) {
-            if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
-                && file.getMetadata().getContentCategory().equals(contentCategoryOld)) {
-              file.getMetadata().setContentCategory(contentCategoryNew);
-              anyFilesChanged = true;
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            boolean anyFilesChanged = false;
+            for (FileDbVO file : pubItemVO.getFiles()) {
+              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
+                  && file.getMetadata().getContentCategory().equals(contentCategoryOld)) {
+                file.getMetadata().setContentCategory(contentCategoryNew);
+                anyFilesChanged = true;
+              }
             }
-          }
-          if (anyFilesChanged == true) {
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            if (anyFilesChanged == true) {
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.FILES_METADATA_NOT_CHANGED,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change file content category for item " + itemId + " due to a technical error", e);
@@ -449,20 +484,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          boolean anyFilesChanged = false;
-          for (FileDbVO file : pubItemVO.getFiles()) {
-            if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
-                && file.getVisibility().toString().equals(visibilityOld.toString())) {
-              file.setVisibility(FileDbVO.Visibility.valueOf(visibilityNew.toString()));
-              anyFilesChanged = true;
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            boolean anyFilesChanged = false;
+            for (FileDbVO file : pubItemVO.getFiles()) {
+              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
+                  && file.getVisibility().toString().equals(visibilityOld.toString())) {
+                file.setVisibility(FileDbVO.Visibility.valueOf(visibilityNew.toString()));
+                anyFilesChanged = true;
+              }
             }
-          }
-          if (anyFilesChanged == true) {
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            if (anyFilesChanged == true) {
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.FILES_METADATA_OLD_VALUE_NOT_EQUAL,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change file visibility for item " + itemId + " due to a technical error", e);
@@ -507,27 +547,32 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (genreOld != null && genreNew != null) {
       ItemVersionVO pubItemVO = null;
+      ContextDbVO contextVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
-        boolean metadataChanged = false;
+        contextVO = null; // reset contextVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+          contextVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
           Genre currentPubItemGenre = pubItemVO.getMetadata().getGenre();
-          if (currentPubItemGenre.equals(genreOld)) {
-            if (!genreOld.equals(genreNew)) {
-              pubItemVO.getMetadata().setGenre(genreNew);
-              metadataChanged = true;
+          if (contextVO.getAllowedGenres() != null && !contextVO.getAllowedGenres().isEmpty()
+              && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
+            if (currentPubItemGenre.equals(genreOld)) {
+              if (!genreOld.equals(genreNew)) {
+                pubItemVO.getMetadata().setGenre(genreNew);
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+              }
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
-          }
-          if (metadataChanged == true) {
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
-          } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change genre for item " + itemId + " due to a technical error", e);
@@ -574,48 +619,53 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          boolean keywordsChanged = false;
-          char splittingChar = ',';
-          String currentKeywords = null;
-          String[] keywordArray = new String[1];
-          if (keywordsOld != null && !"".equals(keywordsOld.trim())
-              && (currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            boolean keywordsChanged = false;
+            char splittingChar = ',';
+            String currentKeywords = null;
+            String[] keywordArray = new String[1];
+            if (keywordsOld != null && !"".equals(keywordsOld.trim())
+                && (currentKeywords = pubItemVO.getMetadata().getFreeKeywords()) != null) {
 
-            if (currentKeywords.contains(",")) {
-              keywordArray = currentKeywords.split(",");
-            } else if (currentKeywords.contains(";")) {
-              keywordArray = currentKeywords.split(";");
-              splittingChar = ';';
-            } else if (currentKeywords.contains(" ")) {
-              keywordArray = currentKeywords.split(" ");
-              splittingChar = ' ';
-            } else {
-              keywordArray[0] = currentKeywords;
-            }
-            StringBuilder keywordString = new StringBuilder();
-            for (int i = 0; i < keywordArray.length; i++) {
-              String keyword = keywordArray[i].trim();
-              if (i != 0) {
-                keywordString.append(splittingChar);
-              }
-              if (keyword != "" && keywordsOld.equals(keyword)) {
-                keywordString.append(keywordsNew);
-                keywordsChanged = true;
+              if (currentKeywords.contains(",")) {
+                keywordArray = currentKeywords.split(",");
+              } else if (currentKeywords.contains(";")) {
+                keywordArray = currentKeywords.split(";");
+                splittingChar = ';';
+              } else if (currentKeywords.contains(" ")) {
+                keywordArray = currentKeywords.split(" ");
+                splittingChar = ' ';
               } else {
-                keywordString.append(keyword);
+                keywordArray[0] = currentKeywords;
               }
-            }
-            if (keywordsChanged) {
-              pubItemVO.getMetadata().setFreeKeywords(keywordString.toString());
-              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              StringBuilder keywordString = new StringBuilder();
+              for (int i = 0; i < keywordArray.length; i++) {
+                String keyword = keywordArray[i].trim();
+                if (i != 0) {
+                  keywordString.append(splittingChar);
+                }
+                if (keyword != "" && keywordsOld.equals(keyword)) {
+                  keywordString.append(keywordsNew);
+                  keywordsChanged = true;
+                } else {
+                  keywordString.append(keyword);
+                }
+              }
+              if (keywordsChanged) {
+                pubItemVO.getMetadata().setFreeKeywords(keywordString.toString());
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+              }
             } else {
-              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change keywords for item " + itemId + " due to a technical error", e);
@@ -660,22 +710,26 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
-        boolean metadataChanged = false;
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          ReviewMethod currentReviewMethod = pubItemVO.getMetadata().getReviewMethod();
-          if (!reviewMethodOld.equals(reviewMethodNew)) {
-            if (currentReviewMethod != null && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld))) {
-              pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
-              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            ReviewMethod currentReviewMethod = pubItemVO.getMetadata().getReviewMethod();
+            if (!reviewMethodOld.equals(reviewMethodNew)) {
+              if (currentReviewMethod != null && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld))) {
+                pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+              }
             } else {
-              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change review method for item " + itemId + " due to a technical error", e);
@@ -725,26 +779,31 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         boolean sourceChanged = false;
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
-          if (!genreOld.equals(genreNew)) {
-            for (SourceVO currentSource : currentSourceList) {
-              SourceVO.Genre currentSourceGenre = currentSource.getGenre();
-              if (currentSourceGenre.equals(genreOld)) {
-                currentSource.setGenre(genreNew);
-                sourceChanged = true;
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
+            if (!genreOld.equals(genreNew)) {
+              for (SourceVO currentSource : currentSourceList) {
+                SourceVO.Genre currentSourceGenre = currentSource.getGenre();
+                if (currentSourceGenre.equals(genreOld)) {
+                  currentSource.setGenre(genreNew);
+                  sourceChanged = true;
 
+                }
               }
-            }
-            if (sourceChanged == true) {
-              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              if (sourceChanged == true) {
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+              }
             } else {
-              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change review method for item " + itemId + " due to a technical error", e);
@@ -792,20 +851,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          if (itemId != null) {
-            List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
-            int sourceNumberInt = Integer.parseInt(sourceNumber);
-            if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
-                && currentSourceList.get(sourceNumberInt - 1) != null) {
-              if (currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
-                currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
-                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            if (itemId != null) {
+              List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
+              int sourceNumberInt = Integer.parseInt(sourceNumber);
+              if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
+                  && currentSourceList.get(sourceNumberInt - 1) != null) {
+                if (currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
+                  currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
+                  resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                      BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+                }
+              } else {
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
               }
-            } else {
-              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
-                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
             }
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
@@ -855,10 +919,12 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         sourceChanged = false; // reset sourceChanged
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
-          int sourceNumberInt = Integer.parseInt(sourceNumber);
-          if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt) {
-            if (currentSourceList.get(sourceNumberInt - 1) != null && currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
+            int sourceNumberInt = Integer.parseInt(sourceNumber);
+            if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
+                && currentSourceList.get(sourceNumberInt - 1) != null
+                && currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
               for (int i = 0; i < currentSourceList.get(sourceNumberInt - 1).getIdentifiers().size(); i++) {
                 IdentifierVO identifier = currentSourceList.get(sourceNumberInt - 1).getIdentifiers().get(i);
                 if (sourceIdType.equals(identifier.getType()) && idOld.equals(identifier.getId())) {
@@ -871,17 +937,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
-                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NOT_CHANGED,
-                    BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
+                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
               }
-
             } else {
               resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
-                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
@@ -928,20 +993,21 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
-          int sourceNumberInt = Integer.parseInt(sourceNumber);
-          if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt) {
-            if (currentSourceList.get(sourceNumberInt - 1) != null) {
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            List<SourceVO> currentSourceList = pubItemVO.getMetadata().getSources();
+            int sourceNumberInt = Integer.parseInt(sourceNumber);
+            if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
+                && currentSourceList.get(sourceNumberInt - 1) != null) {
               currentSourceList.get(sourceNumberInt - 1).setIssue(issue);
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
               resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
-                  BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
           logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
@@ -983,23 +1049,29 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
     if (localTagOld != null && localTagNew != null && !"".equals(localTagOld.trim())) {
-      ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-          if (pubItemVO.getObject().getLocalTags() != null && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
-            List<String> localTagList = pubItemVO.getObject().getLocalTags();
-            localTagList.remove(localTagOld);
-            localTagList.add(localTagNew);
-            pubItemVO.getObject().setLocalTags(localTagList);
-            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            if (pubItemVO.getObject().getLocalTags() != null && pubItemVO.getObject().getLocalTags().contains(localTagOld)) {
+              List<String> localTagList = pubItemVO.getObject().getLocalTags();
+              localTagList.remove(localTagOld);
+              localTagList.add(localTagNew);
+              pubItemVO.getObject().setLocalTags(localTagList);
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+            } else {
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                  BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+            }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
-                BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
+
         } catch (IngeTechnicalException e) {
           logger.error("Could not replace local tags for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
@@ -1019,6 +1091,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         }
       }
     }
+
     resultLog.setBatchProcessLogItemList(resultList);
     if (batchRepository.exists(accountUser.getObjectId())) {
       batchRepository.delete(accountUser.getObjectId());
@@ -1046,14 +1119,17 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       pubItemVO = null; // reset pubItemVO
       try {
         pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-        if (ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState())
-            || ItemVersionRO.State.PENDING.equals(pubItemVO.getVersionState())) {
+        ContextDbVO contextDbVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
+        if ((ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState())
+            || ItemVersionRO.State.PENDING.equals(pubItemVO.getVersionState())
+            || ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow()))
+            && !ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
           resultList.add(new BatchProcessItemVO(
               this.pubItemService.submitPubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } else {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
-              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
         logger.error("Could not submit item " + itemId + " due to a technical error", e);
@@ -1157,7 +1233,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } else {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
-              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
         logger.error("Could not release item " + itemId + " due to a technical error", e);
@@ -1202,13 +1278,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       pubItemVO = null; // reset pubItemVO
       try {
         pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-        if (ItemVersionRO.State.RELEASED.equals(pubItemVO.getVersionState())) {
+        if (ItemVersionRO.State.RELEASED.equals(pubItemVO.getVersionState())
+            && !ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
           resultList.add(new BatchProcessItemVO(
               this.pubItemService.withdrawPubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } else {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
-              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
         logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
@@ -1255,13 +1332,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         pubItemVO = this.pubItemService.get(itemId, authenticationToken);
         ContextDbVO contextDbVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
         if (ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getVersionState())
-            && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())) {
+            && ContextDbVO.Workflow.STANDARD.equals(contextDbVO.getWorkflow())
+            && !ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
           resultList.add(new BatchProcessItemVO(
               this.pubItemService.revisePubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } else {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
-              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
         logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
@@ -1306,14 +1384,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       pubItemVO = null; // reset pubItemVO
       try {
         pubItemVO = this.pubItemService.get(itemId, authenticationToken);
-        if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getVersionState())
+        if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())
             && !ItemVersionRO.State.RELEASED.equals(pubItemVO.getObject().getPublicState())) {
           this.pubItemService.delete(itemId, authenticationToken);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.SUCCESS,
               BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } else {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
-              BatchProcessItemVO.BatchProcessMessagesTypes.WARNING));
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
         logger.error("Could not withdraw item " + itemId + " due to a technical error", e);

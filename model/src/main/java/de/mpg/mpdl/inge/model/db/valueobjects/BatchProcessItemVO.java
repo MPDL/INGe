@@ -112,15 +112,21 @@ public class BatchProcessItemVO {
     // INFO MESSAGES
     
     // WARNING MESSAGES
+    
+
+    // ERROR MESSAGES
+    STATE_WRONG("batch_ProcessLog_StateWrong"),
     FILES_METADATA_NOT_CHANGED("batch_ProcessLog_FileMetadataNotChanged"),
+    FILES_METADATA_OLD_VALUE_NOT_EQUAL("batch_ProcessLog_FileMetadataOldValueNotEqual"),
+    METADATA_CHANGE_VALUE_NOT_ALLOWED("batch_ProcessLog_MetadataChangeValueNotAllowed"),
     METADATA_NOT_CHANGED("batch_ProcessLog_MetadataNotChanged"),
     METADATA_NO_CHANGE_VALUE("batch_ProcessLog_MetadataNoChangeValue"),
+    METADATA_NO_NEW_VALUE_SET("batch_ProcessLog_MetadataNoNewValueSet"),
     METADATA_NO_SOURCE_FOUND("batch_ProcessLog_MetadataNoSourceFound"),
     METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
     METADATA_LOST("batch_ProcessLog_MetadataLost"),
-    STATE_WRONG("batch_ProcessLog_StateWrong"),
-
-    // ERROR MESSAGES
+    
+    // EXCEPTION ERROR MESSAGES
     INTERNAL_ERROR("batch_ProcessLog_InternalError"),
     AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
     AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError");
