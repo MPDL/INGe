@@ -94,6 +94,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     SSRN("http://purl.org/escidoc/metadata/terms/0.1/SSRN"), //
     URI("http://purl.org/escidoc/metadata/terms/0.1/URI"), //
     URN("http://purl.org/escidoc/metadata/terms/0.1/URN"), //
+    WORKINGGROUP("http://purl.org/escidoc/metadata/terms/0.1/WORKINGGROUP"), //
     ZDB("http://purl.org/escidoc/metadata/terms/0.1/ZDB");
 
   private String uri;

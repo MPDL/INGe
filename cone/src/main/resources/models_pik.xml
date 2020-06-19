@@ -484,6 +484,29 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
         </results>
     </model>
     
+    <model>
+        <name>workinggroup</name>
+        <aliases>
+            <alias>workinggroup</alias>
+        </aliases>
+        <description>Working Group</description>
+        <open>false</open>
+        <primary-identifier control="false" generate-cone-id="true"/>
+        <predicates>
+            <predicate name="Name" value="http://purl.org/dc/elements/1.1/title" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
+            <predicate name="Status" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/status" multiple="false" mandatory="true" localized="false" searchable="true"/>
+            <predicate name="Start Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/startYear" multiple="false" mandatory="false" localized="false" searchable="true"/>
+            <predicate name="End Year" value="http://www.gfz-potsdam.de/metadata/namespaces/cone-namespace/endYear" multiple="false" mandatory="false" localized="false" searchable="true"/>
+        </predicates>
+        <results>
+            <result>
+                <result-pattern>
+&lt;http://purl.org/dc/elements/1.1/title&gt;
+                </result-pattern>
+            </result>
+        </results>
+    </model>
+    
 	<model>
 		<name>funding-organizations</name>
 		<aliases>
