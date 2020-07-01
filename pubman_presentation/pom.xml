@@ -102,28 +102,28 @@
 									<targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
 									<propertiesFiles>
 										<propertiesFile>src/main/resources/gfz/Label_de.properties</propertiesFile>
-										<propertiesFile>src/main/resources/Label_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
 									<propertiesFiles>
 										<propertiesFile>src/main/resources/gfz/Label_en.properties</propertiesFile>
-										<propertiesFile>src/main/resources/Label_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
 									<propertiesFiles>
 										<propertiesFile>src/main/resources/gfz/Label_ja.properties</propertiesFile>
-										<propertiesFile>src/main/resources/Label_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
 									<propertiesFiles>
 										<propertiesFile>src/main/resources/gfz/Messages_de.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Messages_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Messages_de.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
@@ -209,21 +209,21 @@
                                     <targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/iass/Label_de.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/Label_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/iass/Label_en.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/Label_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/iass/Label_ja.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/Label_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
@@ -337,42 +337,42 @@
                                     <targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/pik/Messages_de.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/mpg/Messages_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Messages_de.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Messages_en.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/pik/Messages_en.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/mpg/Messages_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Messages_en.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Messages_ja.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/pik/Messages_ja.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/mpg/Messages_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Messages_ja.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Tooltip_de.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/pik/Tooltip_de.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/mpg/Tooltip_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Tooltip_de.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Tooltip_en.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/pik/Tooltip_en.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/mpg/Tooltip_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Tooltip_en.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                                 <merge>
                                     <targetFile>${project.build.outputDirectory}/Tooltip_ja.properties</targetFile>
                                     <propertiesFiles>
                                         <propertiesFile>src/main/resources/pik/Tooltip_ja.properties</propertiesFile>
-                                        <propertiesFile>src/main/resources/mpg/Tooltip_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Tooltip_ja.properties</propertiesFile>
                                     </propertiesFiles>
                                 </merge>
                             </merges>
