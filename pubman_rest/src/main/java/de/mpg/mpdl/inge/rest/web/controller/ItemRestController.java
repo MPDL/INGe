@@ -74,7 +74,7 @@ public class ItemRestController {
       + "," + TransformerFactory.DOCX + "," + TransformerFactory.HTML_PLAIN + "," + TransformerFactory.HTML_LINKED + ","
       + TransformerFactory.JSON_CITATION + "," + TransformerFactory.ESCIDOC_SNIPPET;
 
-  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL";
+  public static final String EXPORT_CITATION_ALLOWABLE_VALUES = "APA, APA(CJK), AJP, JUS, CSL, GFZPUBLISTS";
 
   @Autowired
   private PubItemService pis;
@@ -268,10 +268,13 @@ public class ItemRestController {
       //+ "filename=\"" + fileVOWrapper.getFileVO().getName() + "\"; "
           + "filename*=UTF-8''"
           + URLEncoder.encode(fileVOWrapper.getFileVO().getName(), StandardCharsets.UTF_8.toString()).replaceAll("\\+", "%20"));
-      OutputStream output = response.getOutputStream();
-      fileVOWrapper.readFile(output);
-      output.flush();
-      output.close();
+      //      OutputStream output = response.getOutputStream();
+      //      fileVOWrapper.readFile(output);
+      //      output.flush();
+      //      output.close();
+      try (OutputStream output = response.getOutputStream()) {
+        fileVOWrapper.readFile(output);
+      }
     } catch (IOException e) {
       logger.error("could not read file [" + componentId + "]");
       throw new IngeTechnicalException("Error while opening input stream", e);

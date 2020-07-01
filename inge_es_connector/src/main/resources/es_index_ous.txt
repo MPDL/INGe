@@ -1,0 +1,5 @@
+Postman:
+PUT https://IP/es/ous_20180919
+es_index_ous.json
+
+Alias: ous

@@ -1,0 +1,5 @@
+Postman:
+PUT https://IP/es/yearbooks_20180919
+es_index_yearbook.json
+
+Alias: yearbooks

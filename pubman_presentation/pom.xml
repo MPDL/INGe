@@ -27,7 +27,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warName>pubman_presentation</warName>
-					<warSourceExcludes>**/opensource/**</warSourceExcludes>
+					<warSourceExcludes>**/gfz/**</warSourceExcludes>
 					<archive>
 						<manifestEntries>
 							<Dependencies>pubman</Dependencies>
@@ -85,7 +85,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>env-opensource</id>
+			<id>env-gfz</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -101,22 +101,64 @@
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_de.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Label_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Label_de.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_en.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Label_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Label_en.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 								<merge>
 									<targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
 									<propertiesFiles>
-										<propertiesFile>src/main/resources/opensource/Label_ja.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/gfz/Label_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Label_ja.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/gfz/Messages_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/mpg/Messages_de.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Messages_en.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/gfz/Messages_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Messages_en.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Messages_ja.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/gfz/Messages_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Messages_ja.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Tooltip_de.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/gfz/Tooltip_de.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Tooltip_de.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Tooltip_en.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/gfz/Tooltip_en.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Tooltip_en.properties</propertiesFile>
+									</propertiesFiles>
+								</merge>
+								<merge>
+									<targetFile>${project.build.outputDirectory}/Tooltip_ja.properties</targetFile>
+									<propertiesFiles>
+										<propertiesFile>src/main/resources/gfz/Tooltip_ja.properties</propertiesFile>
+										<propertiesFile>src/main/resources/Tooltip_ja.properties</propertiesFile>
 									</propertiesFiles>
 								</merge>
 							</merges>
@@ -137,7 +179,7 @@
 							<webResources>
 								<resource>
 									<targetPath>/home</targetPath>
-									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
+									<directory>${project.basedir}/src/main/webapp/home/gfz</directory>
 									<includes>
 										<include>StartPageLoggedIn.jspf</include>
 										<include>StartPageLoggedOut.jspf</include>
@@ -149,74 +191,227 @@
 				</plugins>
 			</build>
 		</profile>
-		<profile>
-			<id>env-nims</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties />
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.beardedgeeks</groupId>
-						<artifactId>maven-merge-properties-plugin</artifactId>
-						<version>0.2</version>
-						<configuration>
-							<merges>
-								<merge>
-									<targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
-									<propertiesFiles>
-										<propertiesFile>src/main/resources/nims/Label_de.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
-									</propertiesFiles>
-								</merge>
-								<merge>
-									<targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
-									<propertiesFiles>
-										<propertiesFile>src/main/resources/nims/Label_en.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
-									</propertiesFiles>
-								</merge>
-								<merge>
-									<targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
-									<propertiesFiles>
-										<propertiesFile>src/main/resources/nims/Label_ja.properties</propertiesFile>
-										<propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
-									</propertiesFiles>
-								</merge>
-							</merges>
-						</configuration>
-						<executions>
-							<execution>
-								<phase>compile</phase>
-								<goals>
-									<goal>merge</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<webResources>
-								<resource>
-									<targetPath>/home</targetPath>
-									<directory>${project.basedir}/src/main/webapp/home/opensource</directory>
-									<includes>
-										<include>StartPageLoggedIn.jspf</include>
-										<include>StartPageLoggedOut.jspf</include>
-									</includes>
-								</resource>
-							</webResources>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+        <profile>
+            <id>env-iass</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties />
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.beardedgeeks</groupId>
+                        <artifactId>maven-merge-properties-plugin</artifactId>
+                        <version>0.2</version>
+                        <configuration>
+                            <merges>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Label_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Label_de.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Label_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Label_en.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Label_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Label_ja.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Messages_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Messages_de.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Messages_en.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Messages_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Messages_en.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Messages_ja.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Messages_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Messages_ja.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Tooltip_de.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Tooltip_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Tooltip_de.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Tooltip_en.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Tooltip_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Tooltip_en.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Tooltip_ja.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/iass/Tooltip_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/Tooltip_ja.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                            </merges>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>merge</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <targetPath>/home</targetPath>
+                                    <directory>${project.basedir}/src/main/webapp/home/iass</directory>
+                                    <includes>
+                                        <include>StartPageLoggedIn.jspf</include>
+                                        <include>StartPageLoggedOut.jspf</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>env-pik</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties />
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.beardedgeeks</groupId>
+                        <artifactId>maven-merge-properties-plugin</artifactId>
+                        <version>0.2</version>
+                        <configuration>
+                            <merges>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Label_de.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Label_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Label_de.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Label_en.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Label_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Label_en.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Label_ja.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Label_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Label_ja.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Messages_de.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Messages_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Messages_de.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Messages_en.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Messages_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Messages_en.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Messages_ja.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Messages_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Messages_ja.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Tooltip_de.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Tooltip_de.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Tooltip_de.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Tooltip_en.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Tooltip_en.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Tooltip_en.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                                <merge>
+                                    <targetFile>${project.build.outputDirectory}/Tooltip_ja.properties</targetFile>
+                                    <propertiesFiles>
+                                        <propertiesFile>src/main/resources/pik/Tooltip_ja.properties</propertiesFile>
+                                        <propertiesFile>src/main/resources/mpg/Tooltip_ja.properties</propertiesFile>
+                                    </propertiesFiles>
+                                </merge>
+                            </merges>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>merge</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <targetPath>/home</targetPath>
+                                    <directory>${project.basedir}/src/main/webapp/home/pik</directory>
+                                    <includes>
+                                        <include>StartPageLoggedIn.jspf</include>
+                                        <include>StartPageLoggedOut.jspf</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 
 	<dependencies>
+        <dependency>
+            <groupId>de.mpg.mpdl.inge</groupId>
+            <artifactId>cone</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -251,13 +446,10 @@
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.12</version>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-
+			</dependency>
 		<dependency>
 			<groupId>sword</groupId>
 			<artifactId>swordcommon</artifactId>
@@ -267,7 +459,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
 	</dependencies>
 
 </project>

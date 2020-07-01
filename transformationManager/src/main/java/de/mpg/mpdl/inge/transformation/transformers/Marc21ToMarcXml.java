@@ -2,7 +2,12 @@ package de.mpg.mpdl.inge.transformation.transformers;
 
 import java.io.ByteArrayOutputStream;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 
 import org.marc4j.MarcReader;
 import org.marc4j.MarcStreamReader;
@@ -44,4 +49,12 @@ public class Marc21ToMarcXml extends SingleTransformer implements ChainableTrans
     return new TransformerStreamResult(new ByteArrayOutputStream());
   }
 
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+    TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    Transformer t = xslTransformerFactory.newTransformer();
+    t.setOutputProperty(OutputKeys.INDENT, "yes");
+    t.setOutputProperty(OutputKeys.METHOD, "xml");
+    t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    t.transform(s, r);
+  }
 }

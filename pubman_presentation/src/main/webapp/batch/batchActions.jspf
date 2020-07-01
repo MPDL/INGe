@@ -6,10 +6,13 @@
 	<f:subview id="batchActions">
 		<div class="full_area0">
 			<div class="full_area0 fullItem">
-				<div class="full_area0 small_marginLExcl">
+				<div class="small_marginLExcl">
 					<!-- Subheadline starts here -->
 					<h3>
-						<h:outputText value="Choose your Action" />
+						<h:outputText value="#{lbl.BatchWorkspace_lblActions_headline1}" />
+					</h3>
+					<h3>
+						<h:outputText value="#{lbl.BatchWorkspace_lblActions_headline2}" />
 					</h3>
 					<!-- Subheadline ends here -->
 				</div>
@@ -241,8 +244,11 @@
 										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" />
 								</b>
 								<div class="textblock">
-									<h:outputText
+									<h:outputText 
 										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
+									<br />
+									<h:outputText style="font-weight: bold;"
+										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDescAdditional }" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -404,23 +410,6 @@
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceFrom}" />
-
-										</div>
-
-										<div>
-											<h:selectOneMenu id="selChangeFilesAudienceFrom"
-												styleClass="replace"
-												value="#{PubItemBatchSessionBean.changeFilesAudienceFrom}"
-												onfocus="updateSelectionBox(this);"
-												onchange="updateSelectionBox(this);">
-												<f:selectItems
-													value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
-											</h:selectOneMenu>
-
-										</div>
-										<div class="free_area0 selCriterionType">
-											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceTo }" />
 										</div>
 
@@ -459,8 +448,6 @@
 										action="#{PubItemBatchSessionBean.changeExternalRefereneceContentCategoryItemList }"
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategory }" />
 								</b>
-								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
 								<div class="textblock">
 									<h:outputText
 										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
@@ -625,14 +612,14 @@
 											<br />
 											<div>
 												<h:inputText id="inputChangeKeywordsReplaceFrom"
-													styleClass="quad_txtInput"
+													styleClass="third_txtInput"
 													value="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceFrom}" 
 													disabled="#{PubItemBatchSessionBean.disabledKeywordInput}"/>
 											</div>
 											<br />
 											<div>
 												<h:inputText id="inputChangeKeywordsReplaceTo"
-													styleClass="quad_txtInput"
+													styleClass="third_txtInput"
 													value="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceTo}" />
 											</div>
 										</div>

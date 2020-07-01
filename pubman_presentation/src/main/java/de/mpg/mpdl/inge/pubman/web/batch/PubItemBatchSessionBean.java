@@ -71,7 +71,6 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String changeExternalReferencesContentCategoryFrom;
   private ArrayList<SelectItem> changeExternalReferencesContentCategorySelectItems;
   private String changeExternalReferencesContentCategoryTo;
-  private String changeFilesAudienceFrom;
   private ArrayList<SelectItem> changeFilesAudienceSelectItems;
   private String changeFilesAudienceTo;
   private String changeFilesContentCategoryFrom;
@@ -214,7 +213,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     // Instantiate and fill changePublicationKeywordsReplaceTypeSelectItems
     this.changePublicationKeywordsReplaceTypeSelectItems = new ArrayList<SelectItem>();
     this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_ALL, "ALL"));
-    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_BY_VALUE, "BY VALUE"));
+    this.changePublicationKeywordsReplaceTypeSelectItems.add(new SelectItem(replaceType.REPLACE_BY_VALUE, "SPECIFIC VALUE"));
 
     // Instantiate and fill disableKeywordInput
     this.disabledKeywordInput = true;
@@ -261,14 +260,6 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public void setChangeExternalReferencesContentCategoryTo(String changeExternalReferencesContentCategoryTo) {
     this.changeExternalReferencesContentCategoryTo = changeExternalReferencesContentCategoryTo;
-  }
-
-  public String getChangeFilesAudienceFrom() {
-    return changeFilesAudienceFrom;
-  }
-
-  public void setChangeFilesAudienceFrom(String changeFilesAudienceFrom) {
-    this.changeFilesAudienceFrom = changeFilesAudienceFrom;
   }
 
   public ArrayList<SelectItem> getChangeFilesAudienceSelectItems() {
@@ -762,7 +753,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, changeFilesAudienceFrom, changeFilesAudienceTo,
+    this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, changeFilesAudienceTo,
         "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
         loginHelper.getAccountUser());
     pubItemListSessionBean.changeSubmenuToProcessLog();
@@ -994,8 +985,8 @@ public class PubItemBatchSessionBean extends FacesBean {
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     System.out.println(formatter.format(calendar.getTime()));
-    if (inputChangeLocalTagsReplaceFrom != null && !"".equals(inputChangeLocalTagsReplaceFrom.trim()) && inputChangeLocalTagsReplaceTo != null
-        && !"".equals(inputChangeLocalTagsReplaceTo.trim())) {
+    if (inputChangeLocalTagsReplaceFrom != null && !"".equals(inputChangeLocalTagsReplaceFrom.trim())
+        && inputChangeLocalTagsReplaceTo != null && !"".equals(inputChangeLocalTagsReplaceTo.trim())) {
       List<String> pubItemObjectIdList = new ArrayList<String>();
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());

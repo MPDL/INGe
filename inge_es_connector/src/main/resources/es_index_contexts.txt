@@ -1,0 +1,5 @@
+Postman:
+PUT https://IP/es/contexts_20180919
+es_index_contexts.json
+
+Alias: contexts

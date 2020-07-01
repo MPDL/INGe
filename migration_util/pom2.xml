@@ -56,6 +56,8 @@
 		<inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
 		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
+		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
+		<inge.pid.handle.url>http://hdl.handle.net/</inge.pid.handle.url>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
 		<inge.pid.service.timeout>5000</inge.pid.service.timeout>
 		<inge.pubman.blog.baseUrl />
@@ -80,8 +82,6 @@
 		<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
-		<inge.pubman.statistics.nims.context.ids />
-		<inge.pubman.statistics.nims.link />
 		<inge.pubman.stylesheet.classic.apply>true</inge.pubman.stylesheet.classic.apply>
 		<inge.pubman.stylesheet.classic.type>alternate stylesheet</inge.pubman.stylesheet.classic.type>
 		<inge.pubman.stylesheet.classic.url>/pubman/resources/cssFramework/themes/skin_classic/styles/theme.css</inge.pubman.stylesheet.classic.url>

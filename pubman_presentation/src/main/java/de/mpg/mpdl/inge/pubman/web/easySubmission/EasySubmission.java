@@ -27,7 +27,6 @@ package de.mpg.mpdl.inge.pubman.web.easySubmission;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -681,7 +680,7 @@ public class EasySubmission extends FacesBean {
       final String identifier = Util.trimIdentifier(dataSourceVO, this.getServiceID());
 
       // Harvest metadata
-      final byte[] fetchedItemByte = dataHandler.doFetchMetaData(dataSourceVO, identifier, TransformerFactory.getInternalFormat());
+      final byte[] fetchedItemByte = dataHandler.doFetchMetaData(source, dataSourceVO, identifier, TransformerFactory.getInternalFormat());
 
       fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length);
 
@@ -723,7 +722,7 @@ public class EasySubmission extends FacesBean {
         }
 
         if (fileId != null && !fileId.trim().equals("")) {
-          final FileDbVO fileVO = dataHandler.getComponentVO();
+          final FileDbVO fileVO = dataHandler.getComponentVO(dataSourceVO);
           final MdsFileVO fileMd = fileVO.getMetadata();
           fileVO.setStorage(FileDbVO.Storage.INTERNAL_MANAGED);
           fileVO.setVisibility(dataHandler.getVisibility());
@@ -759,16 +758,16 @@ public class EasySubmission extends FacesBean {
         itemVO.getFiles().clear();
         itemVO.getObject().setContext(this.getItem().getObject().getContext());
 
-        if (dataHandler.getItemUrl() != null) {
-          final IdentifierVO id = new IdentifierVO();
-          id.setType(IdType.URI);
-          try {
-            id.setId(java.net.URLDecoder.decode(dataHandler.getItemUrl().toString(), "UTF-8"));
-            itemVO.getMetadata().getIdentifiers().add(id);
-          } catch (final UnsupportedEncodingException e) {
-            EasySubmission.logger.warn("Item URL could not be decoded");
-          }
-        }
+        //        if (dataHandler.getItemUrl() != null) {
+        //          final IdentifierVO id = new IdentifierVO();
+        //          id.setType(IdType.URI);
+        //          try {
+        //            id.setId(java.net.URLDecoder.decode(dataHandler.getItemUrl().toString(), "UTF-8"));
+        //            itemVO.getMetadata().getIdentifiers().add(id);
+        //          } catch (final UnsupportedEncodingException e) {
+        //            EasySubmission.logger.warn("Item URL could not be decoded");
+        //          }
+        //        }
 
         if (this.getEasySubmissionSessionBean().isFulltext()
             && !this.getEasySubmissionSessionBean().getRadioSelectFulltext().equals(EasySubmissionSessionBean.FULLTEXT_NONE)) {

@@ -176,11 +176,8 @@
 											<f:selectItems value="#{EditItem.subjectTypes}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-									<!--
-							<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{EasySubmission.subject.type}">
-								<f:selectItems value="#{EditItem.subjectTypes}"/>
-							</h:selectOneMenu>	-->
-								</h:panelGroup> <h:panelGroup styleClass="xDouble_area0">
+								</h:panelGroup>
+								<h:panelGroup styleClass="xDouble_area0">
 									<h:outputLabel id="lblSubjectValue"
 										value="#{genre.content_item_subject_item_subject_value_label}"
 										converter="GenreLabelConverter" />

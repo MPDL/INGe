@@ -62,7 +62,7 @@ public class DataAcquisitionUnitTest {
     final DataSourceVO dataSourceVO = this.dataSourceHandler.getSourceByName("arXiv");
     final String identifier = Util.trimIdentifier(dataSourceVO, arxivId);
 
-    byte[] test = this.datahandler.doFetchMetaData(dataSourceVO, identifier, TransformerFactory.getInternalFormat());
+    byte[] test = this.datahandler.doFetchMetaData("arXiv", dataSourceVO, identifier, TransformerFactory.getInternalFormat());
     Assert.assertNotNull(test);
   }
 }

@@ -146,16 +146,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             if (itemId != null && localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
-              if (ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getVersionState())) {
-                List<String> localTags = pubItemVO.getObject().getLocalTags();
-                localTags.addAll(localTagsToAdd);
-                pubItemVO.getObject().setLocalTags(localTags);
-                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
-              } else {
-                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
-                    BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
-              }
+              List<String> localTags = pubItemVO.getObject().getLocalTags();
+              localTags.addAll(localTagsToAdd);
+              pubItemVO.getObject().setLocalTags(localTags);
+              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
               resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_NEW_VALUE_SET,
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
@@ -340,11 +335,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceOld, String audienceNew, String message,
+  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (audienceOld != null && audienceNew != null && !audienceOld.equals(audienceNew)) {
+    if (audienceNew != null) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -354,8 +349,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             boolean anyFilesChanged = false;
             for (FileDbVO file : pubItemVO.getFiles()) {
               List<String> audienceList = file.getAllowedAudienceIds();
-              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage()) && audienceList.contains(audienceOld)) {
-                audienceList.remove(audienceList.indexOf(audienceOld));
+              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+                audienceList.clear();
                 audienceList.add(audienceNew);
                 anyFilesChanged = true;
               }
@@ -431,7 +426,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
-              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.FILES_METADATA_NOT_CHANGED,
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {

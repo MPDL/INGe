@@ -34,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import de.mpg.mpdl.inge.model.valueobjects.ItemVO;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * The class for item references.
@@ -226,8 +227,8 @@ public class ItemRO extends ReferenceObject implements Cloneable {
   // remove "hdl:" if possible (needed for URLs including a handle-resolver)
   @JsonIgnore
   public String getPidWithoutPrefix() {
-    if (pid.startsWith("hdl:")) {
-      return pid.substring(4);
+    if (pid.startsWith(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT))) {
+      return pid.substring(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT).length());
     } else {
       return pid;
     }

@@ -68,12 +68,8 @@
 									<f:selectItems value="#{EditItem.subjectTypes}" />
 								</h:selectOneMenu>
 							</h:panelGroup>
-							<!--
-						<h:selectOneMenu id="selSelectIdentifierType" styleClass="large_select replace vocabulary" value="#{subject.type}">
-							<f:selectItems value="#{EditItem.subjectTypes}"/>
-						</h:selectOneMenu>
-					-->
-						</h:panelGroup> <h:panelGroup
+						</h:panelGroup>
+						<h:panelGroup
 							rendered="#{!(genre.content_item_subject_item_subject_value_display == 'false' and genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_value_form_id == 'full-submission' || genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_value_display == 'false' and genre.content_item_subject_item_subject_type_display == 'false' and genre.content_item_subject_item_subject_value_form_id == 'all')}">
 							<h:outputLabel id="lblSubjectValue" styleClass="xDouble_label"
 								value="#{genre.content_item_subject_item_subject_value_label}"

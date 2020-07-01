@@ -128,8 +128,6 @@ public class ViewItemFull extends FacesBean {
   public static final String LOAD_VIEWITEM = "loadViewItem";
 
   private static final String SSRN_LOCAL_TAG = "Tag: SSRN";
-  private static final String RESOLVE_HANDLE_SERVICE = "http://hdl.handle.net/";
-  private static final String ALTERNATIVE_MODERATOR_EMAIL = "pure-support@listsrv.mpg.de";
   private static final String ISI_KNOWLEDGE_BASE_LINK =
       "http://gateway.isiknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcAuth=SFX&SrcApp=SFX&DestLinkType=FullRecord&KeyUT=";
   private static final String ISI_KNOWLEDGE_DEST_APP = "&DestApp=WOS";
@@ -190,6 +188,8 @@ public class ViewItemFull extends FacesBean {
   private boolean canShowStatistics = false;
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
+
+  private boolean canSendOAMail = false;
 
   private boolean isCandidateOfYearbook = false;
   private boolean isDepositor = false;
@@ -327,7 +327,8 @@ public class ViewItemFull extends FacesBean {
 
           if (!this.isOwner) {
             for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
-              if (grant.getRole().equals("escidoc:role-system-administrator")) {
+              //              if (grant.getRole().equals("escidoc:role-system-administrator")) {
+              if (PredefinedRoles.SYSADMIN.frameworkValue().contentEquals(grant.getRole())) {
                 this.isOwner = true;
                 break;
               }
@@ -958,13 +959,14 @@ public class ViewItemFull extends FacesBean {
           identifiers.append(idList.get(i).getTypeString());
         }
         identifiers.append(": ");
-        if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
-          identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
-        } else if (idList.get(i).getType() == IdType.DOI) {
+        if (idList.get(i).getType() == IdType.DOI) {
           identifiers.append("<a target='_blank' href='https://doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
-        } else if (idList.get(i).getType() == IdType.EDOC) {
-          identifiers
-              .append("<a target='_blank' href='http://edoc.mpg.de/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
+          //        } else if (idList.get(i).getType() == IdType.EDOC) {
+          //          identifiers.append("<a target='_blank' href='http://edoc.mpg.de/" + idList.get(i).getId()
+          //            + "'>" + idList.get(i).getId() + "</a>");
+          //        } else if (idList.get(i).getType() == IdType.EDOC) {
+          //          identifiers.append("<a target='_blank' href='http://edoc.gfz-potsdam.de/pik/display.epl?mode=doc&id=" + idList.get(i).getId()
+          //              + "'>" + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.CONE) {
           String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
           identifiers.append("<a target='_blank' href='"
@@ -975,6 +977,8 @@ public class ViewItemFull extends FacesBean {
         } else if (idList.get(i).getType() == IdType.ISI) {
           identifiers.append("<a target='_blank' href='" + ViewItemFull.ISI_KNOWLEDGE_BASE_LINK + idList.get(i).getId()
               + ViewItemFull.ISI_KNOWLEDGE_DEST_APP + "'>" + idList.get(i).getId() + "</a>");
+        } else if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
+          identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
         } else {
           identifiers.append(idList.get(i).getId());
         }
@@ -1792,8 +1796,8 @@ public class ViewItemFull extends FacesBean {
   }
 
   /**
-   * This method returns the contact email address of the moderator strored in the item's context.
-   * If it is empty the pubman support address will be returned.
+   * This method returns the contact email address of the moderator stored in the item's context. If
+   * it is empty the pubman support address will be returned.
    * 
    * @return the moderator's email address (if available, otherwise pubman support address)
    */
@@ -1801,7 +1805,7 @@ public class ViewItemFull extends FacesBean {
     String contactEmail = "";
     contactEmail = this.getContext().getContactEmail();
     if (contactEmail == null || contactEmail.trim().equals("")) {
-      contactEmail = ViewItemFull.ALTERNATIVE_MODERATOR_EMAIL;
+      contactEmail = PropertyReader.getProperty(PropertyReader.INGE_ALTERNATIVE_MODERATOR_EMAIL);
     }
 
     return contactEmail;
@@ -1917,7 +1921,13 @@ public class ViewItemFull extends FacesBean {
       if (isJapanese || "ja".equalsIgnoreCase(this.getI18nHelper().getLocale())) {
         expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA_CJK.getCitationName());
       } else {
-        expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA6.getCitationName());
+        boolean coneCitationStyles =
+            Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CONE_CITATION_STYLES_USE));
+        if (coneCitationStyles) {
+          expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.GFZPUBLISTS.getCitationName());
+        } else {
+          expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA6.getCitationName());
+        }
       }
 
       ItemTransformingService itemTransformingService = new ItemTransformingServiceImpl();
@@ -1943,7 +1953,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   public String getResolveHandleService() {
-    return ViewItemFull.RESOLVE_HANDLE_SERVICE;
+    return PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL);
   }
 
   public boolean getIsMemberOfYearbook() {
@@ -1974,6 +1984,7 @@ public class ViewItemFull extends FacesBean {
       this.canRevise = pis.checkAccess(AccessType.REVISE, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canWithdraw = pis.checkAccess(AccessType.WITHDRAW, getLoginHelper().getPrincipal(), this.getPubItem());
       this.canDelete = pis.checkAccess(AccessType.DELETE, getLoginHelper().getPrincipal(), this.getPubItem());
+      this.canSendOAMail = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SEND_OA_MAIL_USE).equals(Boolean.TRUE.toString());
     } catch (Exception e) {
       this.error(this.getMessage("AccessInfoError"));
       logger.error("Error while getting access information", e);
@@ -2130,6 +2141,10 @@ public class ViewItemFull extends FacesBean {
     return this.canShowLastMessage;
   }
 
+  public boolean isCanSendOAMail() {
+    return this.canSendOAMail;
+  }
+
   public String getHtmlMetaTags() {
     try {
       final String itemXml = XmlTransformingService.transformToItem(EntityTransformer.transformToOld(new ItemVersionVO(this.pubItem)));
@@ -2273,5 +2288,9 @@ public class ViewItemFull extends FacesBean {
 
   public AccountUserDbVO getOwner() {
     return this.owner;
+  }
+
+  public String getUseExtendedConeAttributes() {
+    return PropertyReader.getProperty(PropertyReader.INGE_CONE_EXTENDED_ATTRIBUTES_USE);
   }
 }

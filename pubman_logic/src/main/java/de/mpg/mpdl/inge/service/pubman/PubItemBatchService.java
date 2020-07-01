@@ -114,7 +114,7 @@ public interface PubItemBatchService {
    * @param accountUser
    * @return
    */
-  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceOld, String audienceNew, String message,
+  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceNew, String message,
       String authenticationToken, AccountUserDbVO accountUser);
 
   /**

@@ -1,0 +1,11 @@
+Postman:
+POST https://IP/es/_aliases
+{
+  "actions" : [
+    { "add" : { "index" : "contexts_20180919", "alias" : "contexts" } },
+    { "add" : { "index" : "items_20180919", "alias" : "items" } },
+    { "add" : { "index" : "ous_20180919", "alias" : "ous" } },
+    { "add" : { "index" : "users_20180919", "alias" : "users" } },
+    { "add" : { "index" : "yearbooks_20180919", "alias" : "yearbooks" } }
+  ]
+}

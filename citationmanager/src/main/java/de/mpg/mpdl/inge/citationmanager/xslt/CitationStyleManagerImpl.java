@@ -86,14 +86,13 @@ public class CitationStyleManagerImpl implements CitationStyleManagerInterface {
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.setOutputProperty(SaxonOutputKeys.INDENT_SPACES, "4");
 
-      transformer.transform(new StreamSource(
-
-          ResourceUtil.getResourceAsStream(
-              CitationUtil.RESOURCES_DIRECTORY_LOCAL + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/" + CitationUtil.CITATION_STYLE_XML,
-              CitationStyleManagerImpl.class.getClassLoader())),
-          new StreamResult(new FileOutputStream(CitationUtil.RESOURCES_DIRECTORY_LOCAL + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/"
-              + CitationUtil.CITATION_STYLE_XSL)));
-
+      transformer
+          .transform(
+              new StreamSource(
+                  ResourceUtil.getResourceAsStream(CitationUtil.RESOURCES_DIRECTORY_LOCAL + CitationUtil.CITATIONSTYLES_DIRECTORY + cs + "/"
+                      + CitationUtil.CITATION_STYLE_XML, CitationStyleManagerImpl.class.getClassLoader())),
+              new StreamResult(new FileOutputStream(CitationUtil.RESOURCES_DIRECTORY_LOCAL + CitationUtil.CITATIONSTYLES_DIRECTORY + cs
+                  + "/" + CitationUtil.CITATION_STYLE_XSL)));
     } catch (Exception e) {
       throw new RuntimeException("Cannot compile Citation Style " + cs, e);
     }

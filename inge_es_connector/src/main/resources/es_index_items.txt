@@ -1,0 +1,5 @@
+Postman:
+PUT https://IP/es/items_20180919
+es_index_items.json
+
+Alias: items

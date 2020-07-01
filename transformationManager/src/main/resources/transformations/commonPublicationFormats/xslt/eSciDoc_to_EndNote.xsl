@@ -36,6 +36,8 @@
 	xmlns:escidocFunctions="urn:escidoc:functions" >
 	<xsl:import href="../../vocabulary-mappings.xsl"/>
 	<xsl:output method="text" encoding="UTF-8" indent="yes"/>
+	<xsl:param name="handleShort"/>
+	<xsl:param name="handleUrl"/>
 	<xsl:template match="/*">
 		<!-- create entry for each item -->
 		<xsl:apply-templates select="//pub:publication"/>
@@ -173,7 +175,7 @@
 		<xsl:if test="../../../escidocItem:properties/prop:pid and ../../../escidocItem:properties/prop:pid != '' ">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">U</xsl:with-param>
-				<xsl:with-param name="value" select="fn:concat('http://hdl.handle.net/', fn:substring-after(../../../escidocItem:properties/prop:pid, 'hdl:'))"/>
+				<xsl:with-param name="value" select="fn:concat($handleUrl, fn:substring-after(../../../escidocItem:properties/prop:pid, $handleShort))"/>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- IDENTIFIER -->

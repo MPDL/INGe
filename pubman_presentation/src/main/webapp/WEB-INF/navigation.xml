@@ -337,4 +337,13 @@
 				/HomePage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+			*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadGfzSendOAMail</from-outcome>
+			<to-view-id>
+				/GFZSendOAMailPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

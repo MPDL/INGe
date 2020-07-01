@@ -326,9 +326,12 @@
 										value="#{item.creatorsShort}" title="#{item.creators}" />&#160;
 							</span></td>
 							<td class="free_area0 endline"><span class="seperator"></span>
-								<span class="large_area0_p8"> <h:outputText
-										value="#{item.genre}" />&#160;
-							</span></td>
+                                <span class="large_area0_p8">
+                                    <h:outputText value="#{item.genre}"/>
+                                    <h:outputText value="#{item.journalMetaData}" escape="false" rendered="#{PubItemListSessionBean.useExtendedConeAttributes == 'true'}"/>
+                                    &#160;
+                                </span>
+							</td>
 							<td class="free_area0 endline"><span class="seperator"></span>
 								<span class="large_area0_p8"> <h:outputText
 										value="#{item.latestDate}" />&#160;

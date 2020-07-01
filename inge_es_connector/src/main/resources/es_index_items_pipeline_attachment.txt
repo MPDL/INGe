@@ -1,0 +1,3 @@
+Postman:
+PUT https://IP/es/_ingest/pipeline/attachment
+es_index_items_pipeline_attachement.json

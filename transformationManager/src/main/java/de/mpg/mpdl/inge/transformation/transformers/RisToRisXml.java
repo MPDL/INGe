@@ -3,7 +3,12 @@ package de.mpg.mpdl.inge.transformation.transformers;
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
@@ -26,7 +31,7 @@ public class RisToRisXml extends SingleTransformer implements ChainableTransform
 
       String resultXmlString = risImport.transformRIS2XML(getStringFromSource(source));
 
-      XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)), (Result) result);
+      this.xmlSourceToXmlResult(new StreamSource(new StringReader(resultXmlString)), (Result) result);
     } catch (Exception e) {
       throw new TransformationException("Error while transforming RIS to RIS XML", e);
     }
@@ -35,6 +40,16 @@ public class RisToRisXml extends SingleTransformer implements ChainableTransform
   @Override
   public TransformerResult createNewInBetweenResult() {
     return new TransformerStreamResult(new ByteArrayOutputStream());
+  }
+
+  @Override
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+    TransformerFactory xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    Transformer t = xslTransformerFactory.newTransformer();
+    t.setOutputProperty(OutputKeys.INDENT, "yes");
+    t.setOutputProperty(OutputKeys.METHOD, "xml");
+    t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    t.transform(s, r);
   }
 
 }

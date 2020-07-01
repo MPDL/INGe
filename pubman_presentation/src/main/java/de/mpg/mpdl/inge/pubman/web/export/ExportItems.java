@@ -43,6 +43,7 @@ import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.transformation.TransformerFactory;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * Fragment class for item exporting. This class provides all functionality for exporting items
@@ -95,7 +96,6 @@ public class ExportItems extends FacesBean {
     final SelectItem FILEFORMAT_ESCIDOC_SNIPPET =
         new SelectItem(TransformerFactory.ESCIDOC_SNIPPET, this.getLabel("Export_FileFormat_ESCIDOC_SNIPPET"));
 
-
     citationGroup.setSelectItems(new SelectItem[] {FILEFORMAT_PDF, FILEFORMAT_DOCX, FILEFORMAT_HTML_PLAIN, FILEFORMAT_HTML_LINKED,
         FILEFORMAT_JSON_CITATION, FILEFORMAT_ESCIDOC_SNIPPET});
 
@@ -126,13 +126,30 @@ public class ExportItems extends FacesBean {
         new SelectItem(TransformerFactory.CitationTypes.JUS.getCitationName(), this.getLabel("Export_ExportFormat_JUS"));
     final SelectItem EXPORTFORMAT_CSL =
         new SelectItem(TransformerFactory.CitationTypes.CSL.getCitationName(), this.getLabel("Export_ExportFormat_CSL"));
+    final SelectItem EXPORTFORMAT_GFZPUBLISTS =
+        new SelectItem(TransformerFactory.CitationTypes.GFZPUBLISTS.getCitationName(), this.getLabel("Export_ExportFormat_GFZPUBLISTS"));
 
-    final SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[] { //
-        EXPORTFORMAT_APA, //
-        EXPORTFORMAT_APA_CJK, // 
-        EXPORTFORMAT_AJP, //
-        EXPORTFORMAT_JUS, //
-        EXPORTFORMAT_CSL};
+    boolean coneCitationStyles =
+        Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CONE_CITATION_STYLES_USE));
+
+    final SelectItem[] FILEFORMAT_OPTIONS;
+
+    if (coneCitationStyles) {
+      FILEFORMAT_OPTIONS = new SelectItem[] { //
+          EXPORTFORMAT_APA, //
+          EXPORTFORMAT_APA_CJK, // 
+          EXPORTFORMAT_AJP, //
+          EXPORTFORMAT_JUS, //
+          EXPORTFORMAT_CSL, //
+          EXPORTFORMAT_GFZPUBLISTS};
+    } else {
+      FILEFORMAT_OPTIONS = new SelectItem[] { //
+          EXPORTFORMAT_APA, //
+          EXPORTFORMAT_APA_CJK, // 
+          EXPORTFORMAT_AJP, //
+          EXPORTFORMAT_JUS, //
+          EXPORTFORMAT_CSL};
+    }
 
     return FILEFORMAT_OPTIONS;
   }
@@ -194,7 +211,6 @@ public class ExportItems extends FacesBean {
           break FOR;
         }
       }
-
     }
 
     if (!OK) {

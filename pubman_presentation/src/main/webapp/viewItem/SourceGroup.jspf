@@ -68,14 +68,16 @@
 					</h:panelGroup>
 				</ui:repeat>
 				<!-- Source genre -->
-				<div class="free_area0 endline itemLine">
-					<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
-							value="#{lbl.ViewItemFull_lblSourceGenre}" /><span
-						class="noDisplay">: </span>
-					</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{source.genre}" />
-					</span>
-				</div>
+	            <div class="free_area0 endline itemLine">
+	                <b class="xLarge_area0_p8 endline labelLine clear">
+	                    <h:outputText value="#{lbl.ViewItemFull_lblSourceGenre}"/><span class="noDisplay">: </span>
+	                </b>
+	                <span class="xHuge_area0 xTiny_marginLExcl endline">
+	                    <h:outputText value="#{source.genre}"/>
+	                    <h:outputText value="#{GFZConeBean.journalMetaData}" converter="HTMLSubSupConverter" escape="false" rendered="#{ViewItemFull.useExtendedConeAttributes == 'true'}"/>
+	                </span>
+	            </div>
+
 				<!-- Source creators -->
 				<div class="free_area0 endline itemLine">
 					<b class="xLarge_area0_p8 endline labelLine"> <sup>&#160;</sup>

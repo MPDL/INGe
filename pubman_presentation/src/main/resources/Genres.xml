@@ -1156,7 +1156,6 @@
 			<field id="genre_group" value="series_or_journal"/>
 		</genre>
 		
-		<!-- NIMS-specific publication types -->
 		<genre id="PATENT" label="ENUM_GENRE_PATENT">
 			<field id="genre_group" value="other"/>
 			<group id="content">
@@ -1180,7 +1179,6 @@
 			<group id="events" repeatable="false" display="false" optional="true" form-id="all"/>
 			<group id="sources" repeatable="true" display="false" optional="true" form-id="all"/>
 		</genre>
-		<!-- NIMS-specific publication types END -->
 		
 		<!-- NEEDED FOR THE CASE THAT THE PUBITEM CANNOT BE FOUND -->
 		<genre id="" label="">

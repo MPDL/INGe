@@ -65,18 +65,11 @@ public class EmailService {
   public static String sendMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
       String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
       String subject, String text, String[] attachments) throws TechnicalException {
-    logger.debug("EmailHandlingBean sendMail...");
     String status = "not sent";
     try {
-      logger.debug("Email: smtpHost, usr, pwd (" + smtpHost + ", " + usr + ", " + pwd + ")");
-      logger.debug("Email: subject, text, attachments[0] (" + subject + ", " + text + ", " + attachments[0] + ")");
-      logger.debug("Email: sender, recipients[0], replytoAddresses (" + senderAddress + ", " + recipientsAddresses[0] + ", "
-          + replytoAddresses[0] + ")");
-
       // Setup mail server
       Properties props = System.getProperties();
       props.put("mail.smtp.host", smtpHost);
-      // props.put("mail.smtp.port", 587);
       props.put("mail.smtp.auth", withAuth);
       props.put("mail.smtp.starttls.enable", "true");
 
@@ -92,7 +85,6 @@ public class EmailService {
       for (String ra : recipientsAddresses) {
         if (ra != null && !ra.trim().equals("")) {
           message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
-          logger.debug(">>> recipientTO: " + ra);
         }
       }
 
@@ -101,7 +93,6 @@ public class EmailService {
         for (String racc : recipientsCCAddresses) {
           if (racc != null && !racc.trim().equals("")) {
             message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
-            logger.debug(">>> recipientCC  " + racc);
           }
         }
 
@@ -110,7 +101,6 @@ public class EmailService {
         for (String rabcc : recipientsBCCAddresses) {
           if (rabcc != null && !rabcc.trim().equals("")) {
             message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
-            logger.debug(">>> recipientBCC  " + rabcc);
           }
         }
 
@@ -122,7 +112,6 @@ public class EmailService {
           if (a != null && !a.trim().equals("")) {
             adresses[i] = new InternetAddress(a);
             i++;
-            logger.debug(">>> replyToaddress  " + a);
           }
         }
         if (i > 0)
@@ -149,13 +138,10 @@ public class EmailService {
       // Put all message parts in the message
       message.setContent(multipart);
 
-      logger.debug("Transport will send now....  ");
-
       // Send the message
       Transport.send(message);
 
       status = "sent";
-      logger.debug("Email sent!");
     } catch (MessagingException e) {
       logger.error("Error in sendMail(...)", e);
       throw new TechnicalException(e);
@@ -201,4 +187,90 @@ public class EmailService {
       return pwdAut;
     }
   }
+
+  public static String sendHtmlMail(String smtpHost, String withAuth, String usr, String pwd, String senderAddress,
+      String[] recipientsAddresses, String[] recipientsCCAddresses, String[] recipientsBCCAddresses, String[] replytoAddresses,
+      String subject, String text) throws TechnicalException {
+    String status = "not sent";
+    try {
+      // Setup mail server
+      Properties props = System.getProperties();
+      props.put("mail.smtp.host", smtpHost);
+      props.put("mail.smtp.auth", withAuth);
+      props.put("mail.smtp.starttls.enable", "true");
+
+      // Get a mail session with authentication
+      MailAuthenticator authenticator = MailAuthenticator.createMailAuthenticator(usr, pwd);
+      Session mailSession = Session.getInstance(props, authenticator);
+
+      // Define a new mail message
+      Message message = new MimeMessage(mailSession);
+      message.setFrom(new InternetAddress(senderAddress));
+
+      // add TO recipients
+      for (String ra : recipientsAddresses) {
+        if (ra != null && !ra.trim().equals("")) {
+          message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
+        }
+      }
+
+      // add CC recipients
+      if (recipientsCCAddresses != null)
+        for (String racc : recipientsCCAddresses) {
+          if (racc != null && !racc.trim().equals("")) {
+            message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
+          }
+        }
+
+      // add BCC recipients
+      if (recipientsBCCAddresses != null)
+        for (String rabcc : recipientsBCCAddresses) {
+          if (rabcc != null && !rabcc.trim().equals("")) {
+            message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
+          }
+        }
+
+      // add replyTo
+      if (replytoAddresses != null) {
+        InternetAddress[] adresses = new InternetAddress[recipientsAddresses.length];
+        int i = 0;
+        for (String a : replytoAddresses) {
+          if (a != null && !a.trim().equals("")) {
+            adresses[i] = new InternetAddress(a);
+            i++;
+          }
+        }
+        if (i > 0)
+          message.setReplyTo(adresses);
+      }
+
+      message.setSubject(subject);
+      Date date = new Date();
+      message.setSentDate(date);
+
+      // Create a message part to represent the body text
+      BodyPart messageBodyPart = new MimeBodyPart();
+      messageBodyPart.setContent(text, "text/html; charset=utf-8");
+
+      // use a MimeMultipart as we need to handle the file attachments
+      Multipart multipart = new MimeMultipart();
+
+      // add the message body to the mime message
+      multipart.addBodyPart(messageBodyPart);
+
+      // Put all message parts in the message
+      message.setContent(multipart);
+
+      // Send the message
+      Transport.send(message);
+
+      status = "sent";
+    } catch (MessagingException e) {
+      logger.error("Error in sendMail(...)", e);
+      throw new TechnicalException(e);
+    }
+
+    return status;
+  }
+
 }

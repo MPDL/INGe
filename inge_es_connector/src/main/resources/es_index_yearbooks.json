@@ -1,4 +1,8 @@
 {
+  "settings": {
+    "number_of_shards": 5,
+    "number_of_replicas": "0"
+  },
   "mappings": {
     "yearbook": {
       "properties": {
@@ -256,18 +260,6 @@
           "type": "long"
         }
       }
-    }
-  },
-  "settings": {
-    "index": {
-      "creation_date": "1537360603521",
-      "number_of_shards": "5",
-      "number_of_replicas": "0",
-      "uuid": "SirT6XKAQHqqsxRikoBgnQ",
-      "version": {
-        "created": "6020299"
-      },
-      "provided_name": "yearbooks_20180919"
     }
   }
 }

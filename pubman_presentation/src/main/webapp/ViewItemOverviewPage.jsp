@@ -115,6 +115,8 @@
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canWithdraw}" />
                                     <h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.canModify}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canModify}" />
+                                    <h:commandLink id="lnkSendOAMail" action="#{GFZSendOAMailPage.sendOAMailPage}" value="#{lbl.actionMenu_sendOAMail}" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased and ViewItemFull.canSendOAMail}" onclick="fullItemReloadAjax();"/>
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" rendered="#{ViewItemFull.canCreateFromTemplate}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canCreateFromTemplate}" />
                                     <h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{ViewItemFull.canAddToBasket}" onclick="fullItemReloadAjax();" />

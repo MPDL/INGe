@@ -1,0 +1,5 @@
+Postman:
+PUT https://IP/es/users_20180919
+es_index_users.json
+
+Alias: users

@@ -11,6 +11,7 @@ import com.baidu.unbiz.fluentvalidator.ValidatorHandler;
 import de.mpg.mpdl.inge.cone_cache.ConeCache;
 import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /*
  * <!-- The language codes of the publication must be in ISO639-3 --> <iso:pattern
@@ -27,25 +28,30 @@ public class LanguageCodeValidator extends ValidatorHandler<List<String>> implem
 
     boolean ok = true;
 
-    if (ValidationTools.isNotEmpty(languages)) {
+    if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")) {
 
-      final Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
+      if (ValidationTools.isNotEmpty(languages)) {
 
-      if (ValidationTools.isEmpty(iso639_3_IdentifierSet)) {
-        context.addErrorMsg(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE);
-        return false;
-      }
+        final Set<String> iso639_3_IdentifierSet = ConeCache.getInstance().getIso639_3_IdentifierSet();
 
-      int i = 1;
-      for (final String language : languages) {
-
-        if (!iso639_3_IdentifierSet.contains(language)) {
-          context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField("language[" + i + "]"));
-          ok = false;
+        if (ValidationTools.isEmpty(iso639_3_IdentifierSet)) {
+          context.addErrorMsg(ErrorMessages.CONE_EMPTY_LANGUAGE_CODE);
+          return false;
         }
 
-        i++;
-      } // for
+        int i = 1;
+        for (final String language : languages) {
+
+          if (PropertyReader.getProperty(PropertyReader.INGE_CONE_CACHE_USE).equalsIgnoreCase("true")
+              && !iso639_3_IdentifierSet.contains(language)) {
+            context.addError(ValidationError.create(ErrorMessages.UNKNOWN_LANGUAGE_CODE).setField("language[" + i + "]"));
+            ok = false;
+          }
+
+          i++;
+        } // for
+
+      } // if
 
     } // if
 

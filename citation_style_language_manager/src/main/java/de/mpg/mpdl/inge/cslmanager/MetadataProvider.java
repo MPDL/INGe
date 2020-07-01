@@ -26,6 +26,7 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.csl.CSLItemData;
 import de.undercouch.citeproc.csl.CSLItemDataBuilder;
@@ -267,7 +268,8 @@ public class MetadataProvider implements ItemDataProvider {
             if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage())) {
               cslItem.URL(fileList.get(0).getContent());
             } else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage())) {
-              cslItem.URL(fileList.get(0).getPid().replace("hdl:", "http://hdl.handle.net/"));
+              cslItem.URL(fileList.get(0).getPid().replace(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_SHORT),
+                  PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL)));
             }
           } else {
             for (IdentifierVO identifier : metadata.getIdentifiers()) {

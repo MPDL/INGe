@@ -3,7 +3,11 @@ package de.mpg.mpdl.inge.transformation.transformers;
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 
 import de.mpg.mpdl.inge.transformation.ChainableTransformer;
@@ -15,6 +19,7 @@ import de.mpg.mpdl.inge.transformation.results.TransformerResult;
 import de.mpg.mpdl.inge.transformation.results.TransformerStreamResult;
 import de.mpg.mpdl.inge.transformation.sources.TransformerSource;
 import de.mpg.mpdl.inge.transformation.transformers.helpers.endnote.EndNoteImport;
+import net.sf.saxon.TransformerFactoryImpl;
 
 @TransformerModule(sourceFormat = FORMAT.ENDNOTE_STRING, targetFormat = FORMAT.ENDNOTE_XML)
 public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableTransformer {
@@ -25,7 +30,7 @@ public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableT
       EndNoteImport endNoteImport = new EndNoteImport();
       String res = endNoteImport.transformEndNote2XML(getStringFromSource(source));
 
-      XslTransformer.xmlSourceToXmlResult(new StreamSource(new StringReader(res)), (Result) result);
+      this.xmlSourceToXmlResult(new StreamSource(new StringReader(res)), (Result) result);
     } catch (Exception e) {
       throw new TransformationException("Error while transforming EndNote to EndNote XML", e);
     }
@@ -36,4 +41,12 @@ public class EndNoteToEndNoteXml extends SingleTransformer implements ChainableT
     return new TransformerStreamResult(new ByteArrayOutputStream());
   }
 
+  public void xmlSourceToXmlResult(Source s, Result r) throws TransformationException, TransformerException {
+    TransformerFactoryImpl xslTransformerFactory = new net.sf.saxon.TransformerFactoryImpl();
+    Transformer t = xslTransformerFactory.newTransformer();
+    t.setOutputProperty(OutputKeys.INDENT, "yes");
+    t.setOutputProperty(OutputKeys.METHOD, "xml");
+    t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+    t.transform(s, r);
+  }
 }

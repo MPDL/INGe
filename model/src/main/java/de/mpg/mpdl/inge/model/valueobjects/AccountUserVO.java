@@ -115,10 +115,7 @@ public class AccountUserVO extends ValueObject {
   public boolean isDepositor() {
     boolean depositor = false;
     for (GrantVO grant : this.grants) {
-      // every system administrator is a depositor, too
-      // if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) ||
-      // grant.getRole().equals("escidoc:role-system-administrator"))
-      if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue())) {
+      if (PredefinedRoles.DEPOSITOR.frameworkValue().contentEquals(grant.getRole())) {
         depositor = true;
       }
     }
@@ -133,7 +130,7 @@ public class AccountUserVO extends ValueObject {
     boolean moderator = false;
     for (GrantVO grant : this.grants) {
 
-      if (grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())) {
+      if (PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
         moderator = true;
         break;
       }
@@ -171,12 +168,12 @@ public class AccountUserVO extends ValueObject {
     boolean moderator = false;
     for (GrantVO grant : this.grants) {
       // every system administrator is a moderator, too
-
-      if (grant.getRole().equals("escidoc:role-system-administrator")) {
+      //      if (grant.getRole().equals("escidoc:role-system-administrator")) {
+      if (PredefinedRoles.SYSADMIN.frameworkValue().contentEquals(grant.getRole())) {
         moderator = true;
       }
 
-      if (grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue())) {
+      if (PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
         if (grant.getObjectRef() != null && grant.getObjectRef().equals(refObj.getObjectId())) {
           moderator = true;
         }

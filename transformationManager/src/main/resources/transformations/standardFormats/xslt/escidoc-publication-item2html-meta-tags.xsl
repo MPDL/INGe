@@ -31,7 +31,6 @@
 	<xsl:param name="pubmanInstanceUrl"/>
 	<xsl:param name="pubmanContextPath"/>
 	<xsl:param name="pubmanComponentPattern"/>
-	<xsl:param name="handleUrl" select="'http://hdl.handle.net'"/>
 	<xsl:variable name="escidocId" select="if (/escidocItem:item/@objid) then /escidocItem:item/@objid else tokenize(/escidocItem:item/@xlink:href, '/')[last()]" />
 	<xsl:variable name="escidocIdWithVersion" select="if (/escidocItem:item/escidocItem:properties/prop:version/@objid) then /escidocItem:item/escidocItem:properties/prop:version/@objid else tokenize(/escidocItem:item/escidocItem:properties/prop:version/@xlink:href, '/')[last()]" />
 	<xsl:variable name="gen" select="//pub:publication[1]/@type"/>
@@ -52,10 +51,6 @@
 				<xsl:variable name="citationKey" select="if ($mimeType='application/pdf') then $key-pdf-url else if ($mimeType='text/html' or $mimeType='application/xhtml+xml') then $key-fulltext-html-url else ''" />
 				<!-- Do not use handles as fulltext links for now, because Google Scholar only accepts links from same host -->
 				<xsl:if test="$citationKey!=''">
-					<!--<xsl:choose>-->
-					<!-- PID available -->
-					<!-- <xsl:when test="escidocComponents:properties/prop:pid"><xsl:variable name="pid" select="tokenize(escidocComponents:properties/prop:pid, ':')[last()]"/><xsl:call-template name="createMetatag"><xsl:with-param name="name" select="$citationKey"/><xsl:with-param name="content" select="concat($handleUrl, '/', $pid)"/></xsl:call-template></xsl:when>-->
-					<!-- no PID available -->
 					<!-- <xsl:otherwise>-->
 					<xsl:variable name="componentId" select="if (@objid) then @objid else tokenize(@xlink:href, '/')[last()]" />
 					<xsl:variable name="filename" select="escidocComponents:properties/prop:file-name" />

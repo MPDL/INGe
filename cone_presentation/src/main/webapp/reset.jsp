@@ -32,13 +32,14 @@
 	response.setCharacterEncoding("UTF-8");
 %>
 
+<%@ page import="de.mpg.mpdl.inge.cone.GfzTools"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model" %>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier" %>
 <%@ page import="de.mpg.mpdl.inge.cone.QuerierFactory" %>
-<%@ page import="de.mpg.mpdl.inge.cone.Pair" %>
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
+<%@ page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List" %>
@@ -47,10 +48,12 @@
 	response.setHeader("Content-Type", "text/plain");
 
 	boolean loggedIn = Login.getLoggedIn(request);
+	boolean gfzReset = Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CONE_RESET_USE)); 
 
-	if (loggedIn)
+	if (loggedIn || gfzReset)
 	{
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
+		GfzTools gfzTools = gfzReset ? new GfzTools() : null;
 		
 		out.println("Reset started...");
 		out.flush();
@@ -67,6 +70,10 @@
 		    List<String> ids = querier.getAllIds(model.getName());
 		    for (String id : ids)
 		    {
+		        if (gfzTools != null && modelName.equals("persons")){
+		        	gfzTools.updateAffiliatedInstitutionsByPerson(id, querier);
+				}
+		      
 		        TreeFragment details = querier.details(model.getName(), id, "*");
 		        querier.delete(model.getName(), id);
 		        querier.create(model.getName(), id, details);

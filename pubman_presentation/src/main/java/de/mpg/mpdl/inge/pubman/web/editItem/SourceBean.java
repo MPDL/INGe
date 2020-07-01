@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -57,7 +56,7 @@ public class SourceBean extends EditItemBean {
   public static final String HIDDEN_INNER_DELIMITER = " @@~~@@ ";
   public static final String HIDDEN_IDTYPE_DELIMITER = "\\|";
 
-  private boolean autosuggestJournals = false;
+  //  private boolean autosuggestJournals = false;
   private String hiddenIdsField;
   private String hiddenAlternativeTitlesField;
   private SourceVO source;
@@ -74,9 +73,9 @@ public class SourceBean extends EditItemBean {
     this.list = list;
     this.setSource(source);
     // this.btnChooseCollection.setId("Source1");
-    if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
-      this.autosuggestJournals = true;
-    }
+    //    if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
+    //      this.autosuggestJournals = true;
+    //    }
   }
 
   public SourceVO getSource() {
@@ -98,21 +97,21 @@ public class SourceBean extends EditItemBean {
     if (source.getPublishingInfo() == null) {
       source.setPublishingInfo(new PublishingInfoVO());
     }
-    if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
-      this.autosuggestJournals = true;
-    }
+    //    if (source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
+    //      this.autosuggestJournals = true;
+    //    }
   }
 
-  public void chooseSourceGenre(ValueChangeEvent event) {
-    if (event.getNewValue() != null) {
-
-
-      final String sourceGenre = event.getNewValue().toString();
-      if (sourceGenre.equals(SourceVO.Genre.JOURNAL.toString())) {
-        this.autosuggestJournals = true;
-      }
-    }
-  }
+  //  public void chooseSourceGenre(ValueChangeEvent event) {
+  //    if (event.getNewValue() != null) {
+  //
+  //
+  //      final String sourceGenre = event.getNewValue().toString();
+  ////      if (sourceGenre.equals(SourceVO.Genre.JOURNAL.toString())) {
+  ////        this.autosuggestJournals = true;
+  ////      }
+  //    }
+  //  }
 
   /**
    * Adds the first alternative title for the source with no content
@@ -149,9 +148,9 @@ public class SourceBean extends EditItemBean {
    * @return EditItem page.
    */
   public String chooseGenre() {
-    if (this.source.getGenre() != null && this.source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
-      this.autosuggestJournals = true;
-    }
+    //    if (this.source.getGenre() != null && this.source.getGenre().equals(SourceVO.Genre.JOURNAL)) {
+    //      this.autosuggestJournals = true;
+    //    }
     return EditItem.LOAD_EDITITEM;
   }
 
@@ -201,13 +200,13 @@ public class SourceBean extends EditItemBean {
     return sourceGenres.toArray(new SelectItem[sourceGenres.size()]);
   }
 
-  public boolean getAutosuggestJournals() {
-    return this.autosuggestJournals;
-  }
-
-  public void setAutosuggestJournals(boolean autosuggestJournals) {
-    this.autosuggestJournals = autosuggestJournals;
-  }
+  //  public boolean getAutosuggestJournals() {
+  //    return this.autosuggestJournals;
+  //  }
+  //
+  //  public void setAutosuggestJournals(boolean autosuggestJournals) {
+  //    this.autosuggestJournals = autosuggestJournals;
+  //  }
 
   /**
    * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the

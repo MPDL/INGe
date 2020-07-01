@@ -1,4 +1,37 @@
 {
+  "settings": {
+    "number_of_shards": 5,
+    "max_result_window": "1000000",
+    "analysis": {
+      "normalizer": {
+        "sort": {
+          "filter": [
+            "lowercase",
+            "trim",
+            "asciifolding"
+          ]
+        }
+      },
+      "analyzer": {
+        "html_standard_analyzer": {
+          "filter": [
+            "standard",
+            "lowercase"
+          ],
+          "char_filter": [
+            "html_char_filter"
+          ],
+          "tokenizer": "standard"
+        }
+      },
+      "char_filter": {
+        "html_char_filter": {
+          "type": "html_strip"
+        }
+      }
+    },
+    "number_of_replicas": "0"
+  },
   "mappings": {
     "item": {
       "dynamic": "strict",
@@ -1280,47 +1313,6 @@
         "versionState": {
           "type": "keyword"
         }
-      }
-    }
-  },
-  "settings": {
-    "index": {
-      "number_of_shards": "5",
-      "provided_name": "items_20190704",
-      "max_result_window": "1000000",
-      "creation_date": "1562230955281",
-      "analysis": {
-          "normalizer": {
-              "sort": {
-                  "filter": [
-                      "lowercase",
-                      "trim",
-                      "asciifolding"
-                  ]
-              }
-          },
-          "analyzer": {
-              "html_standard_analyzer": {
-                  "filter": [
-                      "standard",
-                      "lowercase"
-                  ],
-                  "char_filter": [
-                      "html_char_filter"
-                  ],
-                  "tokenizer": "standard"
-              }
-          },
-          "char_filter": {
-              "html_char_filter": {
-                  "type": "html_strip"
-              }
-          }
-      },
-      "number_of_replicas": "0",
-      "uuid": "c90HYmEXQgeJbfZk1p1BxA",
-      "version": {
-          "created": "6020299"
       }
     }
   }

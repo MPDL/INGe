@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Beispielaufruf für CrossRef Quelle: http://doi.crossref.org/servlet/query?pid=bib@gfz-potsdam.de&format=unixref&id=10.1002/esp.4823 -->
 <xsl:stylesheet version="2.0" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
 	xmlns:dcterms="http://purl.org/dc/terms/"
@@ -10,7 +11,6 @@
 	xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
 	xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
 	xmlns:fn="http://www.w3.org/2005/xpath-functions"
-	xmlns:gfz="http://www.gfz-potsdam.de/ns"
 	xmlns:mdp="http://purl.org/escidoc/metadata/profiles/0.1/publication"
 	xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
 	xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
@@ -94,6 +94,7 @@
 			<xsl:apply-templates select="crossref/journal/journal_metadata/issn"></xsl:apply-templates>
 			<xsl:apply-templates select="crossref/journal/journal_article/pages"></xsl:apply-templates>
 			<xsl:apply-templates select="crossref/journal/journal_issue/journal_volume/volume"></xsl:apply-templates>
+			<xsl:apply-templates select="crossref/journal/journal_article/publisher_item/item_number"></xsl:apply-templates>
 		</xsl:element>
 	</xsl:template>
 	
@@ -145,10 +146,26 @@
 	
 	<xsl:template match="full_title">
 		<xsl:element name="dc:title">
-			<xsl:value-of select="."></xsl:value-of>
+            <xsl:value-of select="replace(replace(.,'\n',''),'\s{2,}','')"></xsl:value-of>
 		</xsl:element>
 	</xsl:template>
 	
+    <xsl:template match="title">
+        <xsl:element name="dc:title">
+            <xsl:value-of select="replace(replace(.,'\n',''),'\s{2,}','')"></xsl:value-of>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="item_number">
+        <xsl:element name="publ:sequence-number">
+            <xsl:choose>
+                <xsl:when test="@item_number_type = 'article-number'">
+                    <xsl:value-of select="."></xsl:value-of>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:element>
+    </xsl:template>
+    
 	<xsl:template match="issn">
 		<xsl:element name="dc:identifier">
 			<xsl:attribute name="xsi:type">eterms:ISSN</xsl:attribute>
@@ -180,12 +197,6 @@
 		<publ:volume>
 			<xsl:value-of select="."></xsl:value-of>
 		</publ:volume>
-	</xsl:template>
-	
-	<xsl:template match="title">
-		<xsl:element name="dc:title">
-			<xsl:value-of select="."></xsl:value-of>
-		</xsl:element>
 	</xsl:template>
 	
 	<xsl:template match="publication_date">
