@@ -23,14 +23,30 @@
 			<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
 				target="_blank">Read more</a> <br /> <br />
 			<h3>Search for publications here</h3>
-			<span class="huge_area0 xSmall_marginLIncl searchMenu"
-				style="float: left; margin-top: 0px !important;"> <span
-				class="quickSearchMenu"> <input id="inpSearchForPublications"
-					class="large_txtInput quickSearchTextInput" type="text" />
-			</span> <input id="btnGo" class="xSmall_txtBtn activeButton quickSearchBtn"
-				value="Go" style="float: left;" type="button"
-				onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
-			</span>
+            <span class="huge_area0 xSmall_marginLIncl searchMenu"
+                style="float: left; margin-top: 0px !important;">
+                <span class="quickSearchMenu">
+                    <input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text" />
+                </span>
+                <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button"
+                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+            </span>
+            <script type="text/javascript">
+            //<![CDATA[
+                var input = document.getElementById("inpSearchForPublications");
+                
+                // Execute a function when the user releases a key on the keyboard
+                input.addEventListener("keyup", function(event) {
+                  // Number 13 is the "Enter" key on the keyboard
+                  if (event.keyCode === 13) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    document.getElementById("btnLos").click();
+                  }
+                });
+            //]]>
+            </script>
 			<div class="clear">&#160;</div>
 			<a
 				onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
@@ -72,14 +88,29 @@
 				target="_blank">Lesen Sie mehr </a> <br /> <br />
 			<h3>Suchen Sie hier nach Publikationen</h3>
 			<span class="huge_area0 xSmall_marginLIncl searchMenu"
-				style="float: left; margin-top: 0px !important;"> <span
-				class="quickSearchMenu"> <input
-					id="inpSearchForPublicationsDe"
-					class="large_txtInput quickSearchTextInput" type="text" />
-			</span> <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn"
-				value="Los" type="button"
-				onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
-			</span>
+				style="float: left; margin-top: 0px !important;">
+                <span class="quickSearchMenu">
+                    <input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text" />
+                </span>
+                <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button"
+                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+            </span>
+            <script type="text/javascript">
+            //<![CDATA[
+				var input = document.getElementById("inpSearchForPublicationsDe");
+				
+				// Execute a function when the user releases a key on the keyboard
+				input.addEventListener("keyup", function(event) {
+				  // Number 13 is the "Enter" key on the keyboard
+				  if (event.keyCode === 13) {
+				    // Cancel the default action, if needed
+				    event.preventDefault();
+				    // Trigger the button element with a click
+				    document.getElementById("btnLos").click();
+				  }
+				});
+			//]]>
+            </script>
 			<div class="clear">&#160;</div>
 			<a
 				onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
@@ -121,15 +152,30 @@
 		<br />
 		<br />
 		<h3>文献検索</h3>
-		<span class="huge_area0 xSmall_marginLIncl searchMenu"
-			style="float: left; margin-top: 0px !important;"> <span
-			class="quickSearchMenu"> <input
-				id="inpSearchForPublicationsJp"
-				class="large_txtInput quickSearchTextInput" type="text" />
-		</span> <input id="btnGo2" class="xSmall_txtBtn activeButton quickSearchBtn"
-			value="Go" style="float: left;" type="button"
-			onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
-		</span>
+            <span class="huge_area0 xSmall_marginLIncl searchMenu"
+                style="float: left; margin-top: 0px !important;">
+                <span class="quickSearchMenu">
+                    <input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text" />
+                </span>
+                <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button"
+                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
+            </span>
+            <script type="text/javascript">
+            //<![CDATA[
+                var input = document.getElementById("inpSearchForPublicationsJp");
+                
+                // Execute a function when the user releases a key on the keyboard
+                input.addEventListener("keyup", function(event) {
+                  // Number 13 is the "Enter" key on the keyboard
+                  if (event.keyCode === 13) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    document.getElementById("btnLos").click();
+                  }
+                });
+            //]]>
+            </script>
 		<div class="clear">&#160;</div>
 		<a
 			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
