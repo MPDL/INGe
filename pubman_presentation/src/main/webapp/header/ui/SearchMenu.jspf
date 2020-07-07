@@ -10,6 +10,7 @@
 			<span class="xLarge_area0 quickSearchMenu"> <h:inputText
 					id="quickSearchString"
 					styleClass="xLarge_txtInput quickSearchTextInput"
+					title="#{tip.adv_search_inpStart}"
 					value="#{Search.searchString}" /> <h:panelGroup
 					styleClass="xLarge_checkbox quickSearchCheckBoxMenu">
 					<h:selectBooleanCheckbox id="quickSearchCheckBox"

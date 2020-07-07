@@ -8,7 +8,7 @@
 		<div class="clear breadcrumb">
 			<!-- Breadcrumb starts here -->
 			<ol>
-				<ui:repeat id="BreadcrumbNavigation" var="item"	value="#{BreadcrumbItemHistorySessionBean.breadcrumbItemHistory}">
+				<ui:repeat id="BreadcrumbNavigation" var="item"	value="#{BreadcrumbItemHistorySessionBean.breadcrumbItemHistory}" rendered="#{BreadcrumbItemHistorySessionBean.breadcrumbItemHistory.size()>1}">
 					<li>
 						<!-- start has to be reworked anyway -->
 						<h:outputLink
