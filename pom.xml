@@ -40,7 +40,7 @@
 		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
-        <module>reindex_util</module>
+		<module>reindex_util</module>
 		<module>reporting</module>
 		<module>transformationManager</module>
 		<module>pubman_rest</module>
@@ -198,15 +198,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-		</dependency>
-		<dependency>
+			<artifactId>log4j-1.2-api</artifactId>
+		</dependency><dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-		</dependency>
-		<dependency>
+		</dependency><dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-1.2-api</artifactId>
+			<artifactId>log4j-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
