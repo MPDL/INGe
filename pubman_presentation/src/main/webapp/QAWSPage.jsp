@@ -378,11 +378,6 @@
 										action="#{PubItemListSessionBean.addSelectedToBatch}"
 										onclick="fullItemReloadAjax();" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink id="lnkList_lblAddAllToBatch"
-										title="#{tip.List_lblAddAllToBatch}" styleClass="free_area0"
-										value="#{lbl.List_lblAddAllToBatch}"
-										action="#{PubItemListSessionBean.addAllToBatch}"
-										onclick="fullItemReloadAjax();" />
 									<!-- content menu lower line ends here -->
 								</h:panelGroup>
 								<!-- content menu ends here -->

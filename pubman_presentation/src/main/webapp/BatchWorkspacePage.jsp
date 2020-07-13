@@ -99,8 +99,7 @@
 									<h:outputText styleClass="free_area0"
 										value="#{lbl.List_lblActionOptions}"
 										rendered="#{PubItemListSessionBean.subMenu == 'ACTIONS'}" />
-									<h:outputText styleClass="seperator void"
-										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 }" />
+									<h:outputText styleClass="seperator void" />
 									<h:commandLink id="lnkList_lblProcessLog"
 										title="#{tip.List_lblBatchProcessLog}" styleClass="free_area0"
 										value="#{lbl.List_lblBatchProcessLog}"

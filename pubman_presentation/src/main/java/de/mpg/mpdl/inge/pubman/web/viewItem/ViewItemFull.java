@@ -1672,7 +1672,7 @@ public class ViewItemFull extends FacesBean {
   public String addToBatch() {
     if (!this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectId())) {
       this.getPubItemBatchSessionBean().getStoredPubItems().put(this.pubItem.getObjectId(), this.pubItem);
-      this.info(this.getMessage("basket_SingleAddedSuccessfully"));
+      this.info(this.getMessage("batch_SingleAddedSuccessfully"));
     } else {
       this.error(this.getMessage("batch_SingleAlreadyInBasket"));
     }

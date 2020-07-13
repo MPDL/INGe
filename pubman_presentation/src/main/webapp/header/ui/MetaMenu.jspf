@@ -71,10 +71,10 @@
 				<h:panelGroup id="login" layout="block"
 					style="clear:right; margin-top:0.37em">
 					<h:panelGroup styleClass="seperator"></h:panelGroup>
-					<h:commandButton id="lnkLogin" styleClass="activeButton quickSearchBtn"
+					<h:commandButton id="lnkLogin" styleClass="free_area0_p8 endline"
 						action="#{LoginHelper.login}" value="#{lbl.login_btLogin}"
 						type="submit" rendered="#{!LoginHelper.loggedIn}" />
-					<h:commandButton id="lnkLogout" styleClass="activeButton quickSearchBtn"
+					<h:commandButton id="lnkLogout" styleClass="free_area0_p8 endline"
 						action="#{LoginHelper.logout}" value="#{lbl.login_btLogout}"
 						type="submit" rendered="#{LoginHelper.loggedIn}" />
 					<h:inputText id="inputUsername" styleClass="large_txtInput"
