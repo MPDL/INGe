@@ -180,8 +180,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canCreateFromTemplate = false;
   private boolean canAddToBasket = false;
   private boolean canDeleteFromBasket = false;
-  private boolean canAddToBatch = false;
-  private boolean canDeleteFromBatch = false;
   private boolean canViewLocalTags = false;
   // private boolean canManageAudience = false;
   private boolean canShowItemLog = false;
@@ -1676,8 +1674,8 @@ public class ViewItemFull extends FacesBean {
     } else {
       this.error(this.getMessage("batch_SingleAlreadyInBasket"));
     }
-    this.canAddToBatch = false;
-    this.canDeleteFromBatch = true;
+    //    this.canAddToBatch = false;
+    //    this.canDeleteFromBatch = true;
 
     return "";
   }
@@ -1685,8 +1683,8 @@ public class ViewItemFull extends FacesBean {
   public String removeFromBatch() {
     this.getPubItemBatchSessionBean().getStoredPubItems().remove(this.pubItem.getObjectId());
     this.info(this.getMessage("batch_SingleRemovedSuccessfully"));
-    this.canAddToBatch = true;
-    this.canDeleteFromBatch = false;
+    //    this.canAddToBatch = true;
+    //    this.canDeleteFromBatch = false;
 
     return "";
   }
@@ -2031,13 +2029,6 @@ public class ViewItemFull extends FacesBean {
       this.canDeleteFromBasket = true;
     }
 
-    if (!this.isStateWithdrawn && !this.getIsInBasket()) {
-      this.canAddToBatch = true;
-    }
-
-    if (!this.isStateWithdrawn && this.getIsInBasket()) {
-      this.canDeleteFromBatch = true;
-    }
 
     if (this.isLatestVersion && !this.isStateWithdrawn) {
       this.canViewLocalTags = true;
@@ -2110,11 +2101,11 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean isCanAddToBatch() {
-    return this.canAddToBatch;
+    return !this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectId());
   }
 
   public boolean isCanDeleteFromBatch() {
-    return this.canDeleteFromBatch;
+    return this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectId());
   }
 
   public boolean isCanViewLocalTags() {

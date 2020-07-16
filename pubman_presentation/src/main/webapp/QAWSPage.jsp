@@ -69,6 +69,10 @@
 										<h:outputText
 											value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}" />
 									</h:outputLink>
+									<h:outputText styleClass="seperator void" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
+                                    <h:outputLink id="lnkMenuBatchWorkspace" title="#{tip.chooseWorkspace_BatchWorkspace}" value="#{ApplicationBean.appContext}BatchWorkspacePage.jsp" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+                                        <h:outputText value="#{lbl.chooseWorkspace_optMenuBatchWorkspace}" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
+                                    </h:outputLink>
 									<h:outputText styleClass="seperator void"
 										rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />
 									<h:outputLink id="lnkMenuReportWorkspace"

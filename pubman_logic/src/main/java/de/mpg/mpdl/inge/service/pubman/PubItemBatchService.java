@@ -224,18 +224,18 @@ public interface PubItemBatchService {
       String idNew, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
-   * change source issue for multiple items within a list of objectIds and return a
+   * change source edition for multiple items within a list of objectIds and return a
    * BatchProcessLogDbVO
    * 
    * @param pubItemObjectIdList
    * @param sourceNumber
-   * @param issue
+   * @param edition
    * @param message
    * @param authenticationToken
    * @param accountUser
    * @return
    */
-  public BatchProcessLogDbVO changeSourceIssue(List<String> pubItemObjectIdList, String sourceNumber, String issue, String message,
+  public BatchProcessLogDbVO changeSourceEdition(List<String> pubItemObjectIdList, String sourceNumber, String edition, String message,
       String authenticationToken, AccountUserDbVO accountUser);
 
   /**

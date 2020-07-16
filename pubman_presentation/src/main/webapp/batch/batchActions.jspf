@@ -691,12 +691,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeSourceIssueItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue }" />
+										action="#{PubItemBatchSessionBean.changeSourceEditionItemList }"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition }" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issueDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_editionDesc }" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -704,12 +704,12 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_number}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue_input }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition_input }" />
 										</div>
 										<div>
 											<h:selectOneMenu id="selChangeSourceIssueNumber"
 												styleClass="replace"
-												value="#{PubItemBatchSessionBean.changeSoureIssueNumber}"
+												value="#{PubItemBatchSessionBean.changeSoureEditionNumber}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
 												<f:selectItems
@@ -719,7 +719,7 @@
 											<div>
 												<h:inputText id="inputChangeSourceIssue"
 													styleClass="quad_txtInput"
-													value="#{PubItemBatchSessionBean.inputChangeSourceIssue}" />
+													value="#{PubItemBatchSessionBean.inputChangeSourceEdition}" />
 											</div>
 										</div>
 									</div>

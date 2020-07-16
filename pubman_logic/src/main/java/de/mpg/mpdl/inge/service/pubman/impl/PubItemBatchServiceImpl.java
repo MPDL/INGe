@@ -20,6 +20,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
@@ -974,15 +975,15 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   /*
    * (non-Javadoc)
    * 
-   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceIssue(java.util.Map,
+   * @see de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeSourceEdition(java.util.Map,
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO changeSourceIssue(List<String> pubItemObjectIdList, String sourceNumber, String issue, String message,
+  public BatchProcessLogDbVO changeSourceEdition(List<String> pubItemObjectIdList, String sourceNumber, String edition, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (sourceNumber != null && issue != null) {
+    if (sourceNumber != null && edition != null) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -993,9 +994,16 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             int sourceNumberInt = Integer.parseInt(sourceNumber);
             if (currentSourceList != null && currentSourceList.size() >= sourceNumberInt
                 && currentSourceList.get(sourceNumberInt - 1) != null) {
-              currentSourceList.get(sourceNumberInt - 1).setIssue(issue);
-              resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                  BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              if (currentSourceList.get(sourceNumberInt - 1).getPublishingInfo() != null) {
+                currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              } else {
+                currentSourceList.get(sourceNumberInt - 1).setPublishingInfo(new PublishingInfoVO());
+                currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
+                resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                    BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+              }
             } else {
               resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_SOURCE_FOUND,
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
