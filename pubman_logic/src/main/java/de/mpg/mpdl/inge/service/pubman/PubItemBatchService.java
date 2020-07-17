@@ -9,6 +9,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -108,13 +109,12 @@ public interface PubItemBatchService {
    * object
    * 
    * @param pubItemObjectIdList
-   * @param audienceOld
-   * @param audienceNew
+   * @param audienceListNew
    * @param message
    * @param accountUser
    * @return
    */
-  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceNew, String message,
+  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, List<String> audienceListNew, String message,
       String authenticationToken, AccountUserDbVO accountUser);
 
   /**
@@ -134,17 +134,19 @@ public interface PubItemBatchService {
 
   /**
    * replacing the visibility for the files of a list of objectIds and return a BatchProcessLogDbVO
+   * initially the IP range of the user account is set
    * 
    * @param pubItemObjectIdList
+   * @param visibilityNew
    * @param visibilityOld
-   * @param visibilityOld2
+   * @param userAccountIpRange
    * @param message
    * @param authenticationToken
    * @param accountUser
    * @return BatchProcessLogDbVO
    */
-  public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityOld, Visibility visibilityOld2,
-      String message, String authenticationToken, AccountUserDbVO accountUser);
+  public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityNew, Visibility visibilityOld,
+      IpRange userAccountIpRange, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
    * change genre for multiple items within a list of objectIds and return a BatchProcessLogDbVO

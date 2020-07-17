@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
@@ -336,11 +337,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
-  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, String audienceNew, String message,
+  public BatchProcessLogDbVO changeFileAudience(List<String> pubItemObjectIdList, List<String> audienceListNew, String message,
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (audienceNew != null) {
+    if (audienceListNew != null && !audienceListNew.isEmpty()) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
@@ -352,7 +353,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               List<String> audienceList = file.getAllowedAudienceIds();
               if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
                 audienceList.clear();
-                audienceList.add(audienceNew);
+                audienceList.addAll(audienceListNew);
                 anyFilesChanged = true;
               }
             }
@@ -471,11 +472,15 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    */
   @Override
   public BatchProcessLogDbVO changeFileVisibility(List<String> pubItemObjectIdList, Visibility visibilityOld, Visibility visibilityNew,
-      String message, String authenticationToken, AccountUserDbVO accountUser) {
+      IpRange userAccountIpRange, String message, String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (visibilityOld != null && visibilityNew != null && !visibilityOld.equals(visibilityNew)) {
       ItemVersionVO pubItemVO = null;
+      String ipRangeToSet = "";
+      if (userAccountIpRange != null && userAccountIpRange.getId() != null) {
+        ipRangeToSet = userAccountIpRange.getId();
+      }
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO
         try {
@@ -486,6 +491,14 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
                   && file.getVisibility().toString().equals(visibilityOld.toString())) {
                 file.setVisibility(FileDbVO.Visibility.valueOf(visibilityNew.toString()));
+
+
+                if (file.getAllowedAudienceIds() != null && file.getAllowedAudienceIds().isEmpty()) {
+                  file.getAllowedAudienceIds().add(ipRangeToSet);
+                } else if (file.getAllowedAudienceIds() == null) {
+                  file.setAllowedAudienceIds(new ArrayList<String>());
+                  file.getAllowedAudienceIds().add(ipRangeToSet);
+                }
                 anyFilesChanged = true;
               }
             }

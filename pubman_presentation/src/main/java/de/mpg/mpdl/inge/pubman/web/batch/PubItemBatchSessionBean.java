@@ -105,6 +105,7 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String inputChangeLocalTagsReplaceTo;
   private String inputChangeLocalTagsAdd;
   private String inputChangeSourceEdition;
+  private List<String> ipRangeToAdd;
   private List<String> localTagsToAdd;
   private String changePublicationKeywordsAddInput;
   private replaceType changePublicationKeywordsReplaceType;
@@ -198,6 +199,10 @@ public class PubItemBatchSessionBean extends FacesBean {
       }
     }
     changeSourceGenreSelectItems.toArray(new SelectItem[changeSourceGenreSelectItems.size()]);
+
+    // Instantiate ipRangeToAdd
+    this.ipRangeToAdd = new ArrayList<String>();
+    this.ipRangeToAdd.add("");
 
     // Instantiate localTagsToAdd
     this.localTagsToAdd = new ArrayList<String>();
@@ -579,6 +584,14 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.inputChangeLocalTagsReplaceTo = inputChangeLocalTagsReplaceTo;
   }
 
+  public List<String> getIpRangeToAdd() {
+    return ipRangeToAdd;
+  }
+
+  public void setIpRangeToAdd(List<String> localTagsToAdd) {
+    this.ipRangeToAdd = localTagsToAdd;
+  }
+
   public String getItemLink(String itemId, int itemVersion) {
     try {
       return CommonUtils.getGenericItemLink(itemId, itemVersion);
@@ -587,6 +600,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     return "";
   }
+
 
   public List<String> getLocalTagsToAdd() {
     return localTagsToAdd;
@@ -709,6 +723,21 @@ public class PubItemBatchSessionBean extends FacesBean {
     return selectItemList.toArray(new SelectItem[] {});
   }
 
+  /**
+   * adding an IP range in the IP range presentation list
+   */
+  public void addIpRange() {
+    this.ipRangeToAdd.add(new String(""));
+  }
+
+  /**
+   * remove an IP range in the IP range presentation list
+   * 
+   * @param index
+   */
+  public void removeIpRange(int index) {
+    this.ipRangeToAdd.remove(index);
+  }
 
 
   /**
@@ -792,7 +821,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, changeFilesAudienceTo,
+    this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, ipRangeToAdd,
         "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
@@ -827,8 +856,9 @@ public class PubItemBatchSessionBean extends FacesBean {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
     this.batchProcessLog = pubItemBatchService.changeFileVisibility(pubItemObjectIdList, Visibility.valueOf(changeFilesVisibilityFrom),
-        Visibility.valueOf(changeFilesVisibilityTo), "batch change file visibility " + formatter.format(calendar.getTime()),
-        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+        Visibility.valueOf(changeFilesVisibilityTo), loginHelper.getCurrentIp(),
+        "batch change file visibility " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;

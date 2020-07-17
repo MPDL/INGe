@@ -414,14 +414,29 @@
 										</div>
 
 										<div>
-											<h:selectOneMenu id="selChangeFilesAudienceTo"
-												styleClass="replace"
-												value="#{PubItemBatchSessionBean.changeFilesAudienceTo}"
-												onfocus="updateSelectionBox(this);"
-												onchange="updateSelectionBox(this);">
-												<f:selectItems
-													value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
-											</h:selectOneMenu>
+											<ui:repeat var="ipRange"
+												value="#{PubItemBatchSessionBean.ipRangeToAdd}"
+												varStatus="ipRangeStatus">
+												<span> 
+													<h:selectOneMenu id="selChangeFilesAudienceTo"
+														styleClass="replace"
+														value="#{PubItemBatchSessionBean.ipRangeToAdd[ipRangeStatus.index]}"
+														onfocus="updateSelectionBox(this);"
+														onchange="updateSelectionBox(this);">
+														<f:selectItems
+															value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
+													</h:selectOneMenu>
+													<span class="small_area0 xTiny_marginLExcl"> <h:commandButton
+															id="btnAddIpRange" styleClass="min_imgBtn groupTool add"
+															value=" " action="#{PubItemBatchSessionBean.addIpRange}"
+															rendered="#{ipRangeStatus.last}" /> <h:commandButton
+															id="btnRemoveIpRange"
+															styleClass="min_imgBtn groupTool remove" value=" "
+															action="#{PubItemBatchSessionBean.removeIpRange(ipRangeStatus.index)}"
+															rendered="#{!ipRangeStatus.first}" />
+													</span>
+												</span>
+											</ui:repeat>
 										</div>
 									</div>
 								</div>
@@ -692,7 +707,7 @@
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.changeSourceEditionItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue }" />
 								</b>
 								<div class="textblock">
 									<h:outputText
