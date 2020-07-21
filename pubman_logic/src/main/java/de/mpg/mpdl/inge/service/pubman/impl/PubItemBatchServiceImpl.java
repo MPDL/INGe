@@ -18,6 +18,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
@@ -350,10 +351,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
             boolean anyFilesChanged = false;
             for (FileDbVO file : pubItemVO.getFiles()) {
-              List<String> audienceList = file.getAllowedAudienceIds();
+              List<String> audienceList = file.getAllowedAudienceIds() != null ? file.getAllowedAudienceIds() : new ArrayList<String>();
               if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
                 audienceList.clear();
                 audienceList.addAll(audienceListNew);
+                file.setAllowedAudienceIds(audienceList);
                 anyFilesChanged = true;
               }
             }
@@ -477,7 +479,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     if (visibilityOld != null && visibilityNew != null && !visibilityOld.equals(visibilityNew)) {
       ItemVersionVO pubItemVO = null;
-      String ipRangeToSet = "";
+      String ipRangeToSet = null;
       if (userAccountIpRange != null && userAccountIpRange.getId() != null) {
         ipRangeToSet = userAccountIpRange.getId();
       }
@@ -491,13 +493,15 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
                   && file.getVisibility().toString().equals(visibilityOld.toString())) {
                 file.setVisibility(FileDbVO.Visibility.valueOf(visibilityNew.toString()));
-
-
-                if (file.getAllowedAudienceIds() != null && file.getAllowedAudienceIds().isEmpty()) {
-                  file.getAllowedAudienceIds().add(ipRangeToSet);
-                } else if (file.getAllowedAudienceIds() == null) {
-                  file.setAllowedAudienceIds(new ArrayList<String>());
-                  file.getAllowedAudienceIds().add(ipRangeToSet);
+                if (FileVO.Visibility.AUDIENCE.equals(visibilityNew)) {
+                  if (file.getAllowedAudienceIds() != null && ipRangeToSet != null) {
+                    file.getAllowedAudienceIds().add(ipRangeToSet);
+                  } else if (file.getAllowedAudienceIds() == null) {
+                    file.setAllowedAudienceIds(new ArrayList<String>());
+                    if (ipRangeToSet != null) {
+                      file.getAllowedAudienceIds().add(ipRangeToSet);
+                    }
+                  }
                 }
                 anyFilesChanged = true;
               }
