@@ -42,6 +42,8 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -98,32 +100,32 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     TITLE(PubItemServiceDbImpl.INDEX_METADATA_TITLE, SortOrder.ASC, false),
 
-    GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE, PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC, false),
+    GENRE(new String[] {PubItemServiceDbImpl.INDEX_METADATA_GENRE,
+        PubItemServiceDbImpl.INDEX_METADATA_DEGREE}, SortOrder.ASC, false),
 
     DATE(PubItemServiceDbImpl.INDEX_METADATA_DATE_CATEGORY_SORT, SortOrder.DESC, false), //
 
     CREATOR(new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_SORT}, SortOrder.ASC, false),
 
-    PUBLISHING_INFO(
-        new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID,
-            PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE, PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION},
-        SortOrder.ASC, false), //
+    PUBLISHING_INFO(new String[] {PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID,
+        PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_PLACE,
+        PubItemServiceDbImpl.INDEX_METADATA_PUBLISHINGINFO_EDITION}, SortOrder.ASC, false), //
 
     EVENT_TITLE(PubItemServiceDbImpl.INDEX_METADATA_EVENT_TITLE, SortOrder.ASC, false),
 
     SOURCE_TITLE(PubItemServiceDbImpl.INDEX_METADATA_SOURCES_TITLE, SortOrder.ASC, false),
 
     /*
-    SOURCE_CREATOR(new String[] {
-        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME,
-        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME}, SortOrder.ASC), //
-    */
+     * SOURCE_CREATOR(new String[] {
+     * PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME,
+     * PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME}, SortOrder.ASC), //
+     */
     REVIEW_METHOD(PubItemServiceDbImpl.INDEX_METADATA_REVIEW_METHOD, SortOrder.ASC, false), // ,
 
 
     STATE(PubItemServiceDbImpl.INDEX_VERSION_STATE, SortOrder.ASC, true),
 
-    //OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
+    // OWNER(PubItemServiceDbImpl.INDEX_OWNER_TITLE, SortOrder.ASC),
 
     COLLECTION(PubItemServiceDbImpl.INDEX_CONTEXT_TITLE, SortOrder.ASC, true);
 
@@ -791,6 +793,83 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
   }
 
   /**
+   * Adds all errors into the batch List.
+   * 
+   * @return
+   */
+  public void refillBatchWithErrorsOnly() {
+    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
+
+    int added = 0;
+    if (batchLog != null) {
+      pubItemBatch.setStoredPubItems(new HashMap<String, ItemVersionRO>());
+      for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
+
+        if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+          if (batchItem != null && BatchProcessItemVO.BatchProcessMessagesTypes.ERROR.equals(batchItem.getBatchProcessMessageType())
+              && batchItem.getItemVersionVO() != null
+              && !pubItemBatch.getStoredPubItems().containsKey(batchItem.getItemVersionVO().getObjectId())) {
+            pubItemBatch.getStoredPubItems().put(batchItem.getItemVersionVO().getObjectId(), batchItem.getItemVersionVO());
+            added++;
+          }
+        } else {
+          this.error(
+              this.getMessage("basketAndBatch_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS + ")");
+          break;
+        }
+      }
+    }
+
+
+    if (added == 0) {
+      this.error(this.getMessage("batch_NoItemsSelected"));
+    }
+    if (added > 0) {
+      this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
+    }
+    this.redirect();
+  }
+
+  /**
+   * Adds all items from the log into the batch List.
+   * 
+   * @return
+   */
+  public void refillBatchWithLog() {
+    final PubItemBatchSessionBean pubItemBatch = (PubItemBatchSessionBean) FacesTools.findBean("PubItemBatchSessionBean");
+    BatchProcessLogDbVO batchLog = pubItemBatch.getBatchProcessLog();
+
+    int added = 0;
+    if (batchLog != null) {
+      pubItemBatch.setStoredPubItems(new HashMap<String, ItemVersionRO>());
+      for (final BatchProcessItemVO batchItem : batchLog.getBatchProcessLogItemList()) {
+
+        if ((pubItemBatch.getBatchPubItemsSize()) < PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS) {
+          if (batchItem != null && batchItem.getItemVersionVO() != null
+              && !pubItemBatch.getStoredPubItems().containsKey(batchItem.getItemVersionVO().getObjectId())) {
+            pubItemBatch.getStoredPubItems().put(batchItem.getItemVersionVO().getObjectId(), batchItem.getItemVersionVO());
+            added++;
+          }
+        } else {
+          this.error(
+              this.getMessage("basketAndBatch_MaximumSizeReached") + " (" + PubItemListSessionBean.MAXIMUM_CART_OR_BATCH_ITEMS + ")");
+          break;
+        }
+      }
+    }
+
+
+    if (added == 0) {
+      this.error(this.getMessage("batch_NoItemsSelected"));
+    }
+    if (added > 0) {
+      this.info(this.getMessage("batch_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));
+    }
+    this.redirect();
+  }
+
+  /**
    * Adds the currently selected pub items to the basket and displays corresponding messages.
    * 
    * @return
@@ -878,14 +957,14 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     this.updateSelections();
   }
 
-  //  /**
-  //   * Exports the selected items and displays the results.
-  //   * 
-  //   * @return
-  //   */
-  //  public String exportSelectedDisplay() {
-  //    return this.showDisplayExportData(this.getSelectedItems());
-  //  }
+  // /**
+  // * Exports the selected items and displays the results.
+  // *
+  // * @return
+  // */
+  // public String exportSelectedDisplay() {
+  // return this.showDisplayExportData(this.getSelectedItems());
+  // }
 
   /**
    * Exports the selected items and shows the email page.
@@ -905,14 +984,14 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     this.downloadExportFile(this.getSelectedItems());
   }
 
-  //  /**
-  //   * Exports all items (without offset and limit filters) and displays them.
-  //   * 
-  //   * @return
-  //   */
-  //  public String exportAllDisplay() {
-  //    return this.showDisplayExportData(this.retrieveAll());
-  //  }
+  // /**
+  // * Exports all items (without offset and limit filters) and displays them.
+  // *
+  // * @return
+  // */
+  // public String exportAllDisplay() {
+  // return this.showDisplayExportData(this.retrieveAll());
+  // }
   //
   /**
    * Exports all items (without offset and limit filters) and and shows the email page.
@@ -947,49 +1026,52 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     return itemList;
   }
 
-  //  /**
-  //   * Exports the given items and displays them
-  //   * 
-  //   * @param pubItemList
-  //   * @return
-  //   */
-  //  public String showDisplayExportData(List<PubItemVOPresentation> pubItemList) {
-  //    this.saveSelections();
+  // /**
+  // * Exports the given items and displays them
+  // *
+  // * @param pubItemList
+  // * @return
+  // */
+  // public String showDisplayExportData(List<PubItemVOPresentation> pubItemList) {
+  // this.saveSelections();
   //
-  //    final ItemControllerSessionBean icsb = (ItemControllerSessionBean) FacesTools.findBean("ItemControllerSessionBean");
-  //    String displayExportData = this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
-  //    final ExportItemsSessionBean sb = (ExportItemsSessionBean) FacesTools.findBean("ExportItemsSessionBean");
+  // final ItemControllerSessionBean icsb = (ItemControllerSessionBean)
+  // FacesTools.findBean("ItemControllerSessionBean");
+  // String displayExportData = this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+  // final ExportItemsSessionBean sb = (ExportItemsSessionBean)
+  // FacesTools.findBean("ExportItemsSessionBean");
   //
   //
-  //    // set the currently selected items in the FacesBean
-  //    // this.setSelectedItemsAndCurrentItem();
-  //    if (pubItemList.size() != 0) {
-  //      // save selected file format on the web interface
-  //      final String selectedFileFormat = sb.getFileFormat();
-  //      // for the display export data the file format should be always HTML
-  //      sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
-  //      final ExportFormatVO2 curExportFormat = sb.getCurExportFormatVO();
-  //      try {
-  //        displayExportData = new String(icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList)));
-  //      } catch (final TechnicalException e) {
-  //        ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
-  //        return ErrorPage.LOAD_ERRORPAGE;
-  //      }
-  //      if (curExportFormat.getFormatType() == ExportFormatVO2.FormatType.STRUCTURED) {
-  //        displayExportData = "<pre>" + displayExportData + "</pre>";
-  //      }
-  //      sb.setExportDisplayData(displayExportData);
-  //      // restore selected file format on the interface
-  //      sb.setFileFormat(selectedFileFormat);
-  //      // return "dialog:showDisplayExportItemsPage";
-  //      return "showDisplayExportItemsPage";
-  //    } else {
-  //      this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-  //      sb.setExportDisplayData(displayExportData);
-  //      this.redirect();
-  //      return "";
-  //    }
-  //  }
+  // // set the currently selected items in the FacesBean
+  // // this.setSelectedItemsAndCurrentItem();
+  // if (pubItemList.size() != 0) {
+  // // save selected file format on the web interface
+  // final String selectedFileFormat = sb.getFileFormat();
+  // // for the display export data the file format should be always HTML
+  // sb.setFileFormat(FileFormatVO.HTML_STYLED_NAME);
+  // final ExportFormatVO2 curExportFormat = sb.getCurExportFormatVO();
+  // try {
+  // displayExportData = new String(icsb.retrieveExportData(curExportFormat,
+  // CommonUtils.convertToPubItemVOList(pubItemList)));
+  // } catch (final TechnicalException e) {
+  // ((ErrorPage) FacesTools.findBean("ErrorPage")).setException(e);
+  // return ErrorPage.LOAD_ERRORPAGE;
+  // }
+  // if (curExportFormat.getFormatType() == ExportFormatVO2.FormatType.STRUCTURED) {
+  // displayExportData = "<pre>" + displayExportData + "</pre>";
+  // }
+  // sb.setExportDisplayData(displayExportData);
+  // // restore selected file format on the interface
+  // sb.setFileFormat(selectedFileFormat);
+  // // return "dialog:showDisplayExportItemsPage";
+  // return "showDisplayExportItemsPage";
+  // } else {
+  // this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
+  // sb.setExportDisplayData(displayExportData);
+  // this.redirect();
+  // return "";
+  // }
+  // }
 
   /**
    * Exports the given pub items and shows the email page.

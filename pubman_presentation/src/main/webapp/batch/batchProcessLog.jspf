@@ -12,6 +12,18 @@
 						<h:outputText value="#{lbl.BatchWorkspace_lblProcessLog_title }" />
 					</h3>
 					<!-- Subheadline ends here -->
+					<div class="free_area0 sub">
+						<!-- Submenu starts here -->
+						<h:commandLink id="btnRefillBatchLog" style="margin-right:0.92em;"
+							title="#{tip.List_lblBatchProcessLog_refillWithLog}" styleClass="free_area0"
+							value="#{lbl.BatchWorkspace_lblProcessLog_refillWithLog}"
+							action="#{PubItemListSessionBean.refillBatchWithLog}" />
+						<h:commandLink id="btnRefillBatchError" style="margin-right:0.92em;"
+							title="#{tip.List_lblBatchProcessLog_refillWithErrors}" styleClass="free_area0"
+							value="#{lbl.BatchWorkspace_lblProcessLog_refillWithErrors}"
+							action="#{PubItemListSessionBean.refillBatchWithErrorsOnly}" />
+						<!-- Submenu ends here -->
+					</div>
 				</div>
 				<table class="full_area0 itemList listBackground"
 					style="border-collapse: collapse;">
