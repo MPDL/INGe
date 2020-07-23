@@ -2101,10 +2101,16 @@ public class ViewItemFull extends FacesBean {
   }
 
   public boolean isCanAddToBatch() {
+    if (!this.isLoggedIn) {
+      return false;
+    }
     return !this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectId());
   }
 
   public boolean isCanDeleteFromBatch() {
+    if (!this.isLoggedIn) {
+      return false;
+    }
     return this.getPubItemBatchSessionBean().getStoredPubItems().containsKey(this.getPubItem().getObjectId());
   }
 

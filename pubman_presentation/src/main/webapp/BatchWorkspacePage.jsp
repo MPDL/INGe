@@ -94,12 +94,12 @@
 										title="#{tip.List_lblActionOptions}" styleClass="free_area0"
 										value="#{lbl.List_lblActionOptions}"
 										action="#{PubItemListSessionBean.changeSubmenuToActions}"
-										rendered="#{PubItemListSessionBean.subMenu != 'ACTIONS'}"
+										rendered="#{PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.totalNumberOfElements>0}"
 										onclick="fullItemReloadAjax();" />
 									<h:outputText styleClass="free_area0"
 										value="#{lbl.List_lblActionOptions}"
-										rendered="#{PubItemListSessionBean.subMenu == 'ACTIONS'}" />
-									<h:outputText styleClass="seperator void" />
+										rendered="#{PubItemListSessionBean.subMenu == 'ACTIONS' and PubItemListSessionBean.totalNumberOfElements>0}" />
+									<h:outputText styleClass="seperator void" rendered="#{PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.totalNumberOfElements>0}"/>
 									<h:commandLink id="lnkList_lblProcessLog"
 										title="#{tip.List_lblBatchProcessLog}" styleClass="free_area0"
 										value="#{lbl.List_lblBatchProcessLog}"
@@ -242,6 +242,20 @@
 										styleClass="noDisplay changeSortBy" value=" "
 										action="#{PubItemListSessionBean.changeSortBy}" />
 									<!-- content menu lower line ends here -->
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="xHuge_area0 sub action"
+									rendered="#{PubItemListSessionBean.subMenu == 'PROCESS_LOG'}">
+										<!-- Submenu starts here -->
+										<h:commandLink id="btnRefillBatchLog"
+											title="#{tip.List_lblBatchProcessLog_refillWithLog}" styleClass="free_area0"
+											value="#{lbl.BatchWorkspace_lblProcessLog_refillWithLog}"
+											action="#{PubItemListSessionBean.refillBatchWithLog}" />
+											<h:outputText styleClass="seperator" />
+										<h:commandLink id="btnRefillBatchError"
+											title="#{tip.List_lblBatchProcessLog_refillWithErrors}" styleClass="free_area0"
+											value="#{lbl.BatchWorkspace_lblProcessLog_refillWithErrors}"
+											action="#{PubItemListSessionBean.refillBatchWithErrorsOnly}" />
+										<!-- Submenu ends here -->
 								</h:panelGroup>
 								<!-- content menu ends here -->
 							</div>

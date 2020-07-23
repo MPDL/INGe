@@ -59,10 +59,6 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
 
   }
 
-  private void persistItem() {
-
-  }
-
   /*
    * (non-Javadoc)
    * 
