@@ -10,7 +10,6 @@
 	
 	<h:outputStylesheet name="font-awesome-4.7.0/css/font-awesome.min.css" />
 	<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
-	
 	<h:outputText value="#{ApplicationBean.pubmanStyleTags}" escape="false"/>
 	
 	<style type="text/css">

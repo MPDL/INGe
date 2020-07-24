@@ -26,123 +26,6 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
-if (typeof cookieVersion == 'undefined') {
-    var cookieVersion = "1.1";
-}
-if (typeof jsURL == 'undefined') {
-    var jsURL = './javax.faces.resources/commonJavaScript/';
-}
-if (typeof coneURL == 'undefined') {
-    var coneURL = '../../cone/';
-}
-var hiddenThemesEnabled = false;
-
-function applyCookieStyle() {
-    var cookieValue = ""
-    var cookie = "layout=";
-    var dc = document.cookie;
-    if (dc.length > 0) {
-        var start = dc.indexOf(cookie);
-        if (start != -1) {
-            start += cookie.length;
-            var stop = dc.indexOf(";", start);
-            if (stop == -1) stop = dc.length;
-            cookieValue = decodeURIComponent(dc.substring(start, stop));
-        }
-    }
-    var enableHiddenShemes = false;
-    cookie = "enableHiddenSchemes=";
-    if (dc.length > 0) {
-        var start = dc.indexOf(cookie);
-        if (start != -1) {
-            start += cookie.length;
-            var stop = dc.indexOf(";", start);
-            if (stop == -1) stop = dc.length;
-            if (decodeURIComponent(dc.substring(start, stop)) == 'true') {
-                enableHiddenShemes = true;
-                hiddenThemesEnabled = true;
-            };
-        }
-    }
-    var isCorrectCookieVersion = false;
-    cookie = "cVersion=";
-    if (dc.length > 0) {
-        var start = dc.indexOf(cookie);
-        if (start != -1) {
-            start += cookie.length;
-            var stop = dc.indexOf(";", start);
-            if (stop == -1) stop = dc.length;
-            if (decodeURIComponent(dc.substring(start, stop)) == cookieVersion) {
-                isCorrectCookieVersion = true;
-            };
-        }
-    }
-
-    var el = null;
-
-    if (cookieValue != "" && isCorrectCookieVersion && document.getElementsByTagName && document.getElementById(cookieValue)) {
-        el = document.getElementsByTagName("link");
-        for (var i = 0; i < el.length; i++) {
-            if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "")) {
-                el[i].setAttribute("title", el[i].getAttribute("id"));
-            }
-            if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
-                el[i].disabled = true;
-                if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
-            }
-        }
-    } else if ((!cookieValue || (cookieValue && !document.getElementById(cookieValue))) && document.getElementsByTagName) {
-        el = document.getElementsByTagName("link");
-        for (var j = 0; j < el.length; j++) {
-            if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
-                el[j].disabled = true;
-            } else if (el[j].id && el[j].rel == 'stylesheet' && el[j].title && el[j].type == "text/css") {
-                el[j].disabled = false;
-            }
-        }
-    }
-
-    setStyleCookie();
-}
-
-function setStyleCookie() {
-    var cookieValue = "";
-    if (document.getElementsByTagName) {
-        var el = document.getElementsByTagName("link");
-        for (var i = 0; i < el.length; i++) {
-            var enabledCounter = 0;
-            if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
-                cookieValue = el[i].getAttribute("id");
-                enabledCounter++;
-            }
-        }
-    }
-
-    var now = new Date();
-    var exp = new Date(now.getTime() + (1000 * 60 * 60 * 24 * 30));
-    if (cookieValue != "") {
-        if (hiddenThemesEnabled) {
-            document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
-                "cVersion=" + cookieVersion + ";" +
-                "expires=" + exp.toGMTString() + ";" +
-                "path=/";
-            document.cookie = "cVersion=" + cookieVersion + ";" +
-                "expires=" + exp.toGMTString() + ";" +
-                "path=/";
-            document.cookie = "enableHiddenSchemes=true;" +
-                "expires=" + exp.toGMTString() + ";" +
-                "path=/";
-        } else {
-            document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
-                "cVersion=" + cookieVersion + ";" +
-                "expires=" + exp.toGMTString() + ";" +
-                "path=/";
-            document.cookie = "cVersion=" + cookieVersion + ";" +
-                "expires=" + exp.toGMTString() + ";" +
-                "path=/";
-        }
-    }
-}
 
 /*ADDS MULTIPLE EVENTS TO A EVENTLISTENER*/
 function addEvent(obj, evType, fn) {
@@ -190,30 +73,6 @@ window.onunload = function(e) {
     setStyleCookie();
 };
 
-
-/* these function is currently not in use
- * @returnValue = src or id
- */
-function getLayout(returnValue) {
-    var activeThemeSrc, activeLayoutId, ptn;
-    var doccook = document.cookie;
-    var ptnid = /layout=(.+)*;/;
-    ptnid.exec(doccook);
-    activeLayoutId = RegExp.$1;
-
-    switch (returnValue) {
-        case 'id':
-            activeThemeSrc = $('#' + activeLayoutId).attr("href");
-            ptn = /(\/common.+\/)*styles/;
-            ptn.exec(activeThemeSrc);
-            return (RegExp.$1);
-            break;
-        default:
-            return (activeLayoutId);
-            break;
-    }
-}
-
 // append a hidden field to preload the throbber image because of load error in webkit engine
 $(function() {
     $('body').append('<input type="hidden" class="smallThrobber"/>');
@@ -231,7 +90,6 @@ function fullItemReloadAjax() {
 
 function fullItemReloadStop() {
     $('#overlayAjaxRequestParent').remove();
-
 }
 
 /*This method is called by jsf before every Richfaces Ajax Call */
@@ -251,7 +109,6 @@ function afterAjaxRequest() {
         fullItemReloadStop();
     }
     install_javascripts();
-
 
     resizeSelectbox(431);
 
@@ -290,9 +147,6 @@ function stopRKey(evt) {
         return false;
     }
 }
-
-//document.onkeypress = stopRKey;
-
 
 //Appends the creative commons license chooser to the given div
 function appendLicenseBox(divToAppend, currentLicenseUrl) {

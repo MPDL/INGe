@@ -34,89 +34,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
 	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_URL) %>" type="text/css" rel="stylesheet"/>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_CONTRAST_URL) %>" id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet"/>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_CLASSIC_URL) %>" id="Classic" type="text/css" title="classic" rel="alternate stylesheet"/>	
-	<% if ("true".equals(PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_APPLY))) { %><link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_URL) %>" id="Special" type="text/css" title="special" rel="alternate stylesheet"/><% } %>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_STANDARD_URL) %>" id="Standard" type="text/css" title="blue" rel="stylesheet"/>
-
-	
-	<script language="JavaScript" type="text/javascript">
-	
-		  function applyCookieStyle() {
-				var cookieValue = ""
-				var cookie = "layout=";
-				var dc = document.cookie;
-				if (dc.length > 0) {
-					var start = dc.indexOf(cookie);
-					if (start != -1) {
-						start += cookie.length;
-						var stop = dc.indexOf(";", start);
-						if (stop == -1) stop = dc.length;
-						cookieValue = decodeURIComponent(dc.substring(start,stop));
-					}
-				}
-				var enableHiddenShemes = false;
-				cookie = "enableHiddenSchemes=";
-				if (dc.length > 0) {
-					var start = dc.indexOf(cookie);
-					if (start != -1) {
-						start += cookie.length;
-						var stop = dc.indexOf(";", start);
-						if (stop == -1) stop = dc.length;
-						if(decodeURIComponent(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
-					}
-				}
-				
-				var el = null;
-				
-				if (cookieValue != "" && document.getElementsByTagName && document.getElementById(cookieValue)) {
-					el = document.getElementsByTagName("link");
-					for (var i = 0; i < el.length; i++ ) {
-						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
-							el[i].setAttribute("title", el[i].getAttribute("id"));
-						}
-						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
-							el[i].disabled = true;
-							if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
-						}
-					}
-				} else if ( (!cookieValue || (cookieValue && !document.getElementById(cookieValue))) && document.getElementsByTagName ) {
-					el = document.getElementsByTagName("link"); 
-					for (var j = 0; j < el.length; j++ ) {
-						if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
-							el[j].disabled = true;
-						} else if (el[j].id && el[j].rel == 'stylesheet' && el[j].title && el[j].type == "text/css") {
-							el[j].disabled = false;
-						}
-					}
-				} 
-				
-				setStyleCookie();
-			}
-		
-			function setStyleCookie() {
-				var cookieValue = "Standard";
-				if(document.getElementsByTagName) {
-					var el = document.getElementsByTagName("link");
-					for (var i = 0; i < el.length; i++ ) {
-						var enabledCounter = 0;
-						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
-							cookieValue = el[i].getAttribute("id");
-							enabledCounter++;
-						}
-					}
-				}
-				var now = new Date();
-				var exp = new Date(now.getTime() + (1000*60*60*24*30));
-				if(cookieValue != "") {
-					document.cookie = "layout=" + encodeURIComponent(cookieValue) + ";" +
-										"expires=" + exp.toGMTString() + ";" +
-										"path=/";
-				}
-			}
-			applyCookieStyle();
-			window.onunload=function(e){setStyleCookie();};
-		</script>
+	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_URL) %>" id="Special" type="text/css" title="special" rel="stylesheet"/>
 
 	<script type="text/javascript">
 
@@ -295,21 +213,7 @@
 				{
 					$idInput.val(this.resultID);
 				}
-				
-				
-				
-				
 			}
-
-
-			
-			/*
-			if($input.attr('name').length && /http___purl_org_escidoc_metadata_terms_0_1_position_\d+_http___purl_org_eprint_terms_affiliatedInstitution/.test($input.attr('name')) ) {
-				var prefix = $input.attr('name').split('_http___purl_org_eprint_terms_affiliatedInstitution')[0];
-				var $idInput = $('input[name=' + prefix + '_http___purl_org_dc_elements_1_1_identifier]');
-				$idInput.val(this.resultID);
-			}
-			*/
 		}
 
 		function fillSmallId()
