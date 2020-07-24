@@ -929,8 +929,6 @@
 	</reporting>
 
 	<properties>
-		<framework.admin.password />
-		<framework.admin.username />
 		<inge.aa.client.class />
 		<inge.aa.client.finish.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish</inge.aa.client.finish.class>
 		<inge.aa.client.logout.class>de.mpg.mpdl.inge.aa.web.client.IngeAaLogoutClient</inge.aa.client.logout.class>
