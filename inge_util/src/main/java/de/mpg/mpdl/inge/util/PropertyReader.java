@@ -291,6 +291,11 @@ public class PropertyReader {
   public static final String LINE_SEPARATOR = "line.separator";
   public static final String POM = "pom";
 
+  // nur noch für Migration
+  public static final String ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL = "escidoc.framework.access.login.url";
+  public static final String ESCIDOC_FRAMEWORK_ADMIN_USERNAME = "framework.admin.username";
+  public static final String ESCIDOC_FRAMEWORK_ADMIN_PASSWORD = "framework.admin.password";
+
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
   private static Properties properties;
