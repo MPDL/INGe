@@ -179,6 +179,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_ROOT_ORGANISATION_ID = "inge.pubman.root.organisation.id";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
+  public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url";
   //  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_APPLY = "inge.pubman.stylesheet.classic.apply";
   //  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_TYPE = "inge.pubman.stylesheet.classic.type";
   //  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_URL = "inge.pubman.stylesheet.classic.url";
@@ -187,7 +188,7 @@ public class PropertyReader {
   //  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_URL = "inge.pubman.stylesheet.contrast.url";
   //  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_APPLY = "inge.pubman.stylesheet.special.apply";
   //  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_TYPE = "inge.pubman.stylesheet.special.type";
-  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_URL = "inge.pubman.stylesheet.special.url";
+  //  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_URL = "inge.pubman.stylesheet.special.url";
   //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_APPLY = "inge.pubman.stylesheet.standard.apply";
   //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_TYPE = "inge.pubman.stylesheet.standard.type";
   //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_URL = "inge.pubman.stylesheet.standard.url";

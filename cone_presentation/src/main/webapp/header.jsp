@@ -33,8 +33,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>CoNE - Control of Named Entities</title>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_URL) %>" type="text/css" rel="stylesheet"/>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_URL) %>" id="Special" type="text/css" title="special" rel="stylesheet"/>
+	<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
+	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL) %>" type="text/css" rel="stylesheet"/>
 
 	<script type="text/javascript">
 

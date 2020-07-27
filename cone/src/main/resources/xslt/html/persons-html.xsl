@@ -36,7 +36,7 @@
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
 	<xsl:param name="inge.pubman.presentation.url"/>
-	<xsl:param name="inge.pubman.stylesheet.special.url"/>
+	<xsl:param name="inge.pubman.stylesheet.url"/>
 	
 	
 	<xsl:variable name="defaultLang" select="'en'"/>
@@ -52,8 +52,8 @@
 				<link type="text/css" rel="stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.presentation.url" /></xsl:attribute>
 				</link>
-				<link id="Special" type="text/css" title="special" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.special.url" /></xsl:attribute>
+				<link type="text/css" rel="stylesheet">
+					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.url" /></xsl:attribute>
 				</link>
 				
 				<style type="text/css">

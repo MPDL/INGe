@@ -173,7 +173,8 @@ public class ApplicationBean extends FacesBean {
     //    String StylesheetStandard = "";
     //    String StylesheetContrast = "";
     //    String StylesheetClassic = "";
-    String StylesheetSpecial = "";
+    //    String StylesheetSpecial = "";
+    String stylesheet = "";
 
     // First append the standard PubMan Stylesheet
     try {
@@ -232,13 +233,14 @@ public class ApplicationBean extends FacesBean {
       //              + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") + "\" rel=\""
       //              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_TYPE) + "\"/>");
       //        } else {
-      StylesheetSpecial = "<link href=\"" + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_URL)
-          + "\" id=\"Special\" type=\"text/css\" title=\""
-          + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") + "\" rel=\""
-          + "stylesheet" + "\"/>";
+      //      StylesheetSpecial = "<link href=\"" + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL)
+      //          + "\" id=\"Special\" type=\"text/css\" title=\""
+      //          + ResourceBundle.getBundle(InternationalizationHelper.LABEL_BUNDLE + "_en").getString("styleTheme_lblSpecial") + "\" rel=\""
       //              + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_SPECIAL_TYPE) + "\"/>";
       //        }
       //      }
+      stylesheet = "<link href=\"" + PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL)
+          + "\" type=\"text/css\" rel=\"stylesheet\"/>";
     } catch (final Exception e) {
       throw new PubManStylesheetNotAvailableException(e);
     }
@@ -249,7 +251,8 @@ public class ApplicationBean extends FacesBean {
     //    styleTags.append(StylesheetStandard);
     //    styleTags.append(StylesheetContrast);
     //    styleTags.append(StylesheetClassic);
-    styleTags.append(StylesheetSpecial);
+    //    styleTags.append(StylesheetSpecial);
+    styleTags.append(stylesheet);
 
     // Last Step: add Favicon information if it should be applied
 
