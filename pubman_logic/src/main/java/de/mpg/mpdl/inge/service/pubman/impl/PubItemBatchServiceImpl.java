@@ -10,8 +10,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import de.mpg.mpdl.inge.db.repository.BatchLogRepository;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportItemVO;
+import de.mpg.mpdl.inge.inge_validation.data.ValidationReportVO;
+import de.mpg.mpdl.inge.inge_validation.exception.ValidationException;
+import de.mpg.mpdl.inge.inge_validation.util.ErrorMessages;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO.BatchProcessMessages;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -597,8 +602,24 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
           logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
-          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
-              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+          BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
+          if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+            ValidationException validationException = (ValidationException) e.getCause();
+            ValidationReportVO validationReport = validationException.getReport();
+
+            if (validationReport.hasItems()) {
+              for (ValidationReportItemVO validationItem : validationReport.getItems()) {
+                if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
+                  batchProcessMessage = BatchProcessMessages.VALIDATION_NO_SOURCE;
+                  break;
+                } else {
+                  batchProcessMessage = BatchProcessMessages.VALIDATION_GLOBAL;
+                  // no break: anther report Item could set a finer message
+                }
+              }
+            }
+          }
+          resultList.add(new BatchProcessItemVO(pubItemVO, batchProcessMessage, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       }
     }
@@ -996,7 +1017,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       String authenticationToken, AccountUserDbVO accountUser) {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
-    if (sourceNumber != null && edition != null) {
+    if (sourceNumber != null) {
       ItemVersionVO pubItemVO = null;
       for (String itemId : pubItemObjectIdList) {
         pubItemVO = null; // reset pubItemVO

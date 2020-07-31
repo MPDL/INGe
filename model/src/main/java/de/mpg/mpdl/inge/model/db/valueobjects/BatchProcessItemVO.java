@@ -125,6 +125,8 @@ public class BatchProcessItemVO {
     METADATA_NO_SOURCE_FOUND("batch_ProcessLog_MetadataNoSourceFound"),
     METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
     METADATA_LOST("batch_ProcessLog_MetadataLost"),
+    VALIDATION_GLOBAL("batch_ProcessLog_ValidationGlobal"),
+    VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource"),
     
     // EXCEPTION ERROR MESSAGES
     INTERNAL_ERROR("batch_ProcessLog_InternalError"),

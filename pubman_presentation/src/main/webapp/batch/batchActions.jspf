@@ -318,26 +318,26 @@
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityFrom}" />
 											<br />	
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityFrom}" />
-											
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityTo }" />
 										</div>
 
 										<div>
-											<h:selectOneMenu id="selChangeFilesVisibilityTo"
+											
+											<h:selectOneMenu id="selChangeFilesVisibilityFrom"
 												styleClass="replace"
-												value="#{PubItemBatchSessionBean.changeFilesVisibilityTo}"
+												value="#{PubItemBatchSessionBean.changeFilesVisibilityFrom}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
 												<f:selectItems
 													value="#{PubItemBatchSessionBean.changeFilesVisibilitySelectItems}" />
 											</h:selectOneMenu>
 											<br />
-											<h:selectOneMenu id="selChangeFilesVisibilityFrom"
+											<h:selectOneMenu id="selChangeFilesVisibilityTo"
 												styleClass="replace"
-												value="#{PubItemBatchSessionBean.changeFilesVisibilityFrom}"
+												value="#{PubItemBatchSessionBean.changeFilesVisibilityTo}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
 												<f:selectItems
@@ -708,7 +708,7 @@
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
 										action="#{PubItemBatchSessionBean.changeSourceEditionItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_issue }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition }" />
 								</b>
 								<div class="textblock">
 									<h:outputText
