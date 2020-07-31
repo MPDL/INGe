@@ -36,11 +36,7 @@
 	<xsl:param name="item-link"/>
 	<xsl:param name="lang" select="'en'"/>
 	<xsl:param name="inge.pubman.presentation.url"/>
-	<xsl:param name="inge.pubman.stylesheet.contrast.url"/>
-	<xsl:param name="inge.pubman.stylesheet.classic.url"/>
-	<xsl:param name="inge.pubman.stylesheet.standard.url"/>
-	<xsl:param name="inge.pubman.stylesheet.special.url"/>
-	<xsl:param name="inge.pubman.stylesheet.special.apply"/>
+	<xsl:param name="inge.pubman.stylesheet.url"/>
 	
 	
 	<xsl:variable name="defaultLang" select="'en'"/>
@@ -56,106 +52,9 @@
 				<link type="text/css" rel="stylesheet">
 					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.presentation.url" /></xsl:attribute>
 				</link>
-				<link id="HighContrast" type="text/css" title="high contrast" rel="alternate stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.contrast.url" /></xsl:attribute>
+				<link type="text/css" rel="stylesheet">
+					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.url" /></xsl:attribute>
 				</link>
-				<link id="Classic" type="text/css" title="classic" rel="alternate stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.classic.url" /></xsl:attribute>
-				</link>
-				<xsl:if test="$inge.pubman.stylesheet.special.apply = 'true'">
-					<link id="Special" type="text/css" title="special" rel="alternate stylesheet">
-						<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.special.url" /></xsl:attribute>
-					</link>
-				</xsl:if>
-				<link id="Standard" type="text/css" title="blue" rel="stylesheet">
-					<xsl:attribute name="href"><xsl:value-of select="$inge.pubman.stylesheet.standard.url" /></xsl:attribute>
-				</link>
-				
-				
-		<script language="JavaScript" type="text/javascript">
-		
-		  <xsl:text disable-output-escaping="yes"><![CDATA[
-		  function applyCookieStyle() {
-				var cookieValue = ""
-				var cookie = "layout=";
-				var dc = document.cookie;
-				if (dc.length > 0) {
-					var start = dc.indexOf(cookie);
-					if (start != -1) {
-						start += cookie.length;
-						var stop = dc.indexOf(";", start);
-						if (stop == -1) stop = dc.length;
-						cookieValue = unescape(dc.substring(start,stop));
-						if (!document.getElementById(cookieValue)) {
-							cookieValue = "Standard";
-						}
-					}
-				}
-				var enableHiddenShemes = false;
-				cookie = "enableHiddenSchemes=";
-				if (dc.length > 0) {
-					var start = dc.indexOf(cookie);
-					if (start != -1) {
-						start += cookie.length;
-						var stop = dc.indexOf(";", start);
-						if (stop == -1) stop = dc.length;
-						if(unescape(dc.substring(start,stop)) == 'true') {enableHiddenShemes = true;};
-					}
-				}
-				
-				var el = null;
-				
-				if (cookieValue != "" && document.getElementsByTagName && document.getElementById(cookieValue)) {
-					el = document.getElementsByTagName("link");
-					for (var i = 0; el.length > i; i++ ) {
-						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") == cookieValue && enableHiddenShemes && (el[i].getAttribute("title") == null || el[i].getAttribute("title") == "" ) ) {
-							el[i].setAttribute("title", el[i].getAttribute("id"));
-						}
-						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id")) {
-							el[i].disabled = true;
-							if (el[i].getAttribute("id") == cookieValue) el[i].disabled = false;
-						}
-					}
-				} else if ( (!cookieValue || (cookieValue && !document.getElementById(cookieValue))) && document.getElementsByTagName ) {
-					el = document.getElementsByTagName("link"); 
-					for (var j = 0; j < el.length; j++ ) {
-						if (el[j].id && el[j].rel == 'alternate stylesheet' && el[j].title && el[j].type == "text/css") {
-							el[j].disabled = true;
-						} else if (el[j].id && el[j].rel == 'stylesheet' && el[j].title && el[j].type == "text/css") {
-							el[j].disabled = false;
-						}
-					}
-				} 
-				
-				setStyleCookie();
-			}
-		
-			function setStyleCookie() {
-				var cookieValue = "Standard";
-				if(document.getElementsByTagName) {
-					var el = document.getElementsByTagName("link");
-					for (var i = 0; el.length > i; i++ ) {
-						var enabledCounter = 0;
-						if (el[i].getAttribute("rel").indexOf("style") != -1 && el[i].getAttribute("id") && el[i].getAttribute("title") && el[i].disabled == false && enabledCounter == 0) {
-							cookieValue = el[i].getAttribute("id");
-							enabledCounter++;
-						}
-					}
-				}
-				var now = new Date();
-				var exp = new Date(now.getTime() + (1000*60*60*24*30));
-				if(cookieValue != "") {
-					document.cookie = "layout=" + escape(cookieValue) + ";" +
-										"expires=" + exp.toGMTString() + ";" +
-										"path=/";
-				}
-			}
-			applyCookieStyle();
-			window.onunload=function(e){setStyleCookie();};
-			
-			]]> </xsl:text>
-			
-		</script>
 				
 				<style type="text/css">
 					.Italic {

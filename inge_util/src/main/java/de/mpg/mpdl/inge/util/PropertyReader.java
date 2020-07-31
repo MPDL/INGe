@@ -179,18 +179,19 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_ROOT_ORGANISATION_ID = "inge.pubman.root.organisation.id";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
-  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_APPLY = "inge.pubman.stylesheet.classic.apply";
-  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_TYPE = "inge.pubman.stylesheet.classic.type";
-  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_URL = "inge.pubman.stylesheet.classic.url";
-  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_APPLY = "inge.pubman.stylesheet.contrast.apply";
-  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_TYPE = "inge.pubman.stylesheet.contrast.type";
-  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_URL = "inge.pubman.stylesheet.contrast.url";
-  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_APPLY = "inge.pubman.stylesheet.special.apply";
-  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_TYPE = "inge.pubman.stylesheet.special.type";
-  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_URL = "inge.pubman.stylesheet.special.url";
-  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_APPLY = "inge.pubman.stylesheet.standard.apply";
-  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_TYPE = "inge.pubman.stylesheet.standard.type";
-  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_URL = "inge.pubman.stylesheet.standard.url";
+  public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url";
+  //  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_APPLY = "inge.pubman.stylesheet.classic.apply";
+  //  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_TYPE = "inge.pubman.stylesheet.classic.type";
+  //  public static final String INGE_PUBMAN_STYLESHEET_CLASSIC_URL = "inge.pubman.stylesheet.classic.url";
+  //  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_APPLY = "inge.pubman.stylesheet.contrast.apply";
+  //  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_TYPE = "inge.pubman.stylesheet.contrast.type";
+  //  public static final String INGE_PUBMAN_STYLESHEET_CONTRAST_URL = "inge.pubman.stylesheet.contrast.url";
+  //  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_APPLY = "inge.pubman.stylesheet.special.apply";
+  //  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_TYPE = "inge.pubman.stylesheet.special.type";
+  //  public static final String INGE_PUBMAN_STYLESHEET_SPECIAL_URL = "inge.pubman.stylesheet.special.url";
+  //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_APPLY = "inge.pubman.stylesheet.standard.apply";
+  //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_TYPE = "inge.pubman.stylesheet.standard.type";
+  //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_URL = "inge.pubman.stylesheet.standard.url";
   public static final String INGE_PUBMAN_SURVEY_STYLES = "inge.pubman.survey.styles";
   public static final String INGE_PUBMAN_SURVEY_TEXT = "inge.pubman.survey.text";
   public static final String INGE_PUBMAN_SURVEY_TITLE = "inge.pubman.survey.title";
@@ -291,10 +292,10 @@ public class PropertyReader {
   public static final String LINE_SEPARATOR = "line.separator";
   public static final String POM = "pom";
 
-  // nur noch für Migration
-  public static final String ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL = "escidoc.framework.access.login.url";
-  public static final String ESCIDOC_FRAMEWORK_ADMIN_USERNAME = "framework.admin.username";
-  public static final String ESCIDOC_FRAMEWORK_ADMIN_PASSWORD = "framework.admin.password";
+  //  // nur noch für Migration
+  //  public static final String ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL = "escidoc.framework.access.login.url";
+  //  public static final String ESCIDOC_FRAMEWORK_ADMIN_USERNAME = "framework.admin.username";
+  //  public static final String ESCIDOC_FRAMEWORK_ADMIN_PASSWORD = "framework.admin.password";
 
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
