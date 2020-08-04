@@ -788,7 +788,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
     this.batchProcessLog = pubItemBatchService.changeContext(pubItemObjectIdList, selectedContextOld, selectedContextNew,
-        "batch release " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+        "batch change context " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
@@ -827,7 +827,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
     this.batchProcessLog = pubItemBatchService.changeFileAudience(pubItemObjectIdList, ipRangeToAdd,
-        "batch change file content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        "batch change file audience " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
@@ -927,7 +927,7 @@ public class PubItemBatchSessionBean extends FacesBean {
           loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     } else {
       this.batchProcessLog = pubItemBatchService.replaceAllKeywords(pubItemObjectIdList, changePublicationKeywordsReplaceTo,
-          "batch replace all keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+          "batch replace keywords " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
           loginHelper.getAccountUser());
     }
     writeSuccessAndErrorMessages();
@@ -991,7 +991,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       }
       this.batchProcessLog = pubItemBatchService.addSourceId(pubItemObjectIdList, this.changeSoureIdAddNumber,
           IdentifierVO.IdType.valueOf(this.changeSourceIdTypeAdd), this.changeSourceIdAdd,
-          "batch replacing the source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+          "batch add source id " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
           loginHelper.getAccountUser());
       writeSuccessAndErrorMessages();
       pubItemListSessionBean.changeSubmenuToProcessLog();
@@ -1033,7 +1033,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
     this.batchProcessLog = pubItemBatchService.changeSourceEdition(pubItemObjectIdList, changeSoureEditionNumber, inputChangeSourceEdition,
-        "batch change source genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
+        "batch change source edition " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();

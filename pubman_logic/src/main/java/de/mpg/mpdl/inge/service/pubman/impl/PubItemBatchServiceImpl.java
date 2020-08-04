@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -97,6 +98,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             } else {
               pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
             }
+            if (pubItemVO.getObject().getLocalTags() != null) {
+              pubItemVO.getObject().getLocalTags().add(message);
+            } else {
+              pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+            }
             resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                 BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
           } else {
@@ -152,6 +158,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             if (itemId != null && localTagsToAdd != null && !localTagsToAdd.isEmpty()) {
               List<String> localTags = pubItemVO.getObject().getLocalTags();
               localTags.addAll(localTagsToAdd);
+              localTags.add(message);
               pubItemVO.getObject().setLocalTags(localTags);
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -218,6 +225,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 if (!(ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getObject().getPublicState())
                     || ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState()))
                     && !ContextDbVO.Workflow.SIMPLE.equals(contextVO.getWorkflow())) {
+                  if (pubItemVO.getObject().getLocalTags() != null) {
+                    pubItemVO.getObject().getLocalTags().add(message);
+                  } else {
+                    pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  }
                   resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                       BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
                 } else {
@@ -293,6 +305,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
             if (anyFilesChanged == true) {
+              if (pubItemVO.getObject().getLocalTags() != null) {
+                pubItemVO.getObject().getLocalTags().add(message);
+              } else {
+                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+              }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
@@ -361,6 +378,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
             if (anyFilesChanged == true) {
+              if (pubItemVO.getObject().getLocalTags() != null) {
+                pubItemVO.getObject().getLocalTags().add(message);
+              } else {
+                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+              }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
@@ -428,6 +450,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
             if (anyFilesChanged == true) {
+              if (pubItemVO.getObject().getLocalTags() != null) {
+                pubItemVO.getObject().getLocalTags().add(message);
+              } else {
+                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+              }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
@@ -508,6 +535,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
             if (anyFilesChanged == true) {
+              if (pubItemVO.getObject().getLocalTags() != null) {
+                pubItemVO.getObject().getLocalTags().add(message);
+              } else {
+                pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+              }
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
             } else {
@@ -574,6 +606,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             if (currentPubItemGenre.equals(genreOld)) {
               if (!genreOld.equals(genreNew)) {
                 pubItemVO.getMetadata().setGenre(genreNew);
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
@@ -683,6 +720,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
               if (keywordsChanged) {
                 pubItemVO.getMetadata().setFreeKeywords(keywordString.toString());
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
@@ -747,6 +789,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             if (!reviewMethodOld.equals(reviewMethodNew)) {
               if (currentReviewMethod != null && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld))) {
                 pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
@@ -821,6 +868,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 }
               }
               if (sourceChanged == true) {
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
@@ -889,6 +941,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   && currentSourceList.get(sourceNumberInt - 1) != null) {
                 if (currentSourceList.get(sourceNumberInt - 1).getIdentifiers() != null) {
                   currentSourceList.get(sourceNumberInt - 1).getIdentifiers().add(new IdentifierVO(sourceIdType, idNew));
+                  if (pubItemVO.getObject().getLocalTags() != null) {
+                    pubItemVO.getObject().getLocalTags().add(message);
+                  } else {
+                    pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                  }
                   resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                       BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
                 }
@@ -964,6 +1021,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 }
               }
               if (sourceChanged == true) {
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
@@ -1030,11 +1092,21 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 && currentSourceList.get(sourceNumberInt - 1) != null) {
               if (currentSourceList.get(sourceNumberInt - 1).getPublishingInfo() != null) {
                 currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               } else {
                 currentSourceList.get(sourceNumberInt - 1).setPublishingInfo(new PublishingInfoVO());
                 currentSourceList.get(sourceNumberInt - 1).getPublishingInfo().setEdition(edition);
+                if (pubItemVO.getObject().getLocalTags() != null) {
+                  pubItemVO.getObject().getLocalTags().add(message);
+                } else {
+                  pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                }
                 resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                     BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
               }
@@ -1097,6 +1169,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               List<String> localTagList = pubItemVO.getObject().getLocalTags();
               localTagList.remove(localTagOld);
               localTagList.add(localTagNew);
+              localTagList.add(message);
               pubItemVO.getObject().setLocalTags(localTagList);
               resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                   BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
@@ -1181,9 +1254,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
-        logger.error("Could submit item " + itemId + " due to an application error", e);
-        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
-            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
+        BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
+        if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+          ValidationException validationException = (ValidationException) e.getCause();
+          ValidationReportVO validationReport = validationException.getReport();
+
+          if (validationReport.hasItems()) {
+            for (ValidationReportItemVO validationItem : validationReport.getItems()) {
+              if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
+                batchProcessMessage = BatchProcessMessages.VALIDATION_NO_SOURCE;
+                break;
+              } else {
+                batchProcessMessage = BatchProcessMessages.VALIDATION_GLOBAL;
+                // no break: anther report Item could set a finer message
+              }
+            }
+          }
+        }
+        resultList.add(new BatchProcessItemVO(pubItemVO, batchProcessMessage, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
@@ -1209,6 +1298,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         try {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           pubItemVO.getMetadata().setFreeKeywords(keywordsNew);
+          if (pubItemVO.getObject().getLocalTags() != null) {
+            pubItemVO.getObject().getLocalTags().add(message);
+          } else {
+            pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+          }
           resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } catch (IngeTechnicalException e) {
@@ -1285,9 +1379,25 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
-        logger.error("Could release item " + itemId + " due to an application error", e);
-        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
-            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
+        BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
+        if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
+          ValidationException validationException = (ValidationException) e.getCause();
+          ValidationReportVO validationReport = validationException.getReport();
+
+          if (validationReport.hasItems()) {
+            for (ValidationReportItemVO validationItem : validationReport.getItems()) {
+              if (ErrorMessages.SOURCE_NOT_PROVIDED.equals(validationItem.getContent())) {
+                batchProcessMessage = BatchProcessMessages.VALIDATION_NO_SOURCE;
+                break;
+              } else {
+                batchProcessMessage = BatchProcessMessages.VALIDATION_GLOBAL;
+                // no break: anther report Item could set a finer message
+              }
+            }
+          }
+        }
+        resultList.add(new BatchProcessItemVO(pubItemVO, batchProcessMessage, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
