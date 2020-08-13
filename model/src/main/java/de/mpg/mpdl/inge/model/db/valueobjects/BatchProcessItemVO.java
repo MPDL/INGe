@@ -129,6 +129,7 @@ public class BatchProcessItemVO {
     VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource"),
     
     // EXCEPTION ERROR MESSAGES
+    ITEM_NOT_FOUND("batch_ProcessLog_ItemNotFoundError"),
     INTERNAL_ERROR("batch_ProcessLog_InternalError"),
     AUTHENTICATION_ERROR("batch_ProcessLog_AuthenticationError"),
     AUTHORIZATION_ERROR("lblBatchProceesLog_AuthorizationError");
