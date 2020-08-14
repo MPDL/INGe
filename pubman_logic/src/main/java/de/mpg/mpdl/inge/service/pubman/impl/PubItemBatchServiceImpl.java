@@ -970,10 +970,9 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
           ReviewMethod currentReviewMethod = pubItemVO.getMetadata().getReviewMethod();
           if (reviewMethodOld == null || !reviewMethodOld.equals(reviewMethodNew)) {
-            if ((currentReviewMethod != null
-                && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld)))
-                || currentReviewMethod == null && reviewMethodOld == null
-                    && reviewMethodNew != null) {
+            if ((currentReviewMethod == null && reviewMethodOld == null && reviewMethodNew != null)
+                || (currentReviewMethod != null && reviewMethodOld != null
+                    && currentReviewMethod.equals(ReviewMethod.valueOf(reviewMethodOld)))) {
               if (reviewMethodNew != null) {
                 pubItemVO.getMetadata().setReviewMethod(ReviewMethod.valueOf(reviewMethodNew));
               } else {
