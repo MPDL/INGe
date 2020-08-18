@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
+import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
@@ -83,6 +84,9 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String changeGenreFrom;
   private ArrayList<SelectItem> changeGenreSelectItems;
   private String changeGenreTo;
+  private ArrayList<SelectItem> changeGenreThesisTypeSelectItems;
+  private String changeGenreThesisType;
+  private boolean showThesisType;
   private ArrayList<SelectItem> contextSelectItems;
   private String changeReviewMethodFrom;
   private String changeReviewMethodTo;
@@ -124,7 +128,6 @@ public class PubItemBatchSessionBean extends FacesBean {
    */
   private int diffDisplayNumber = 0;
 
-
   public PubItemBatchSessionBean() {
     this.batchProcessLog = null;
     this.pubItemListSessionBean = (PubItemListSessionBean) FacesTools.findBean("PubItemListSessionBean");
@@ -158,6 +161,11 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       this.changeGenreSelectItems.add(new SelectItem(null, " --- "));
     }
+
+    // Set degreeTypes
+    this.changeGenreThesisTypeSelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsDegreeType(true)));
+    setChangeGenreThesisType(null);
+    this.setShowThesisType(false);
 
     // SelectItems for file visibility
     this.changeFilesVisibilitySelectItems = new ArrayList<SelectItem>(Arrays.asList(this.getI18nHelper().getSelectItemsVisibility(false)));
@@ -346,6 +354,22 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public void setChangeGenreSelectItems(ArrayList<SelectItem> changeGenreSelectItems) {
     this.changeGenreSelectItems = changeGenreSelectItems;
+  }
+
+  public ArrayList<SelectItem> getChangeGenreThesisTypeSelectItems() {
+    return changeGenreThesisTypeSelectItems;
+  }
+
+  public void setChangeGenreThesisTypeSelectItems(ArrayList<SelectItem> changeGenreThesisTypeSelectItems) {
+    this.changeGenreThesisTypeSelectItems = changeGenreThesisTypeSelectItems;
+  }
+
+  public String getChangeGenreThesisType() {
+    return changeGenreThesisType;
+  }
+
+  public void setChangeGenreThesisType(String changeGenreThesisType) {
+    this.changeGenreThesisType = changeGenreThesisType;
   }
 
   public String getChangeGenreTo() {
@@ -885,7 +909,11 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     Genre genreOld = Genre.valueOf(this.changeGenreFrom);
     Genre genreNew = Genre.valueOf(this.changeGenreTo);
-    this.batchProcessLog = pubItemBatchService.changeGenre(pubItemObjectIdList, genreOld, genreNew,
+    DegreeType degree = null;
+    if (this.changeGenreThesisType != null) {
+      degree = DegreeType.valueOf(this.changeGenreThesisType);
+    }
+    this.batchProcessLog = pubItemBatchService.changeGenre(pubItemObjectIdList, genreOld, genreNew, degree,
         "batch change genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
@@ -1134,6 +1162,22 @@ public class PubItemBatchSessionBean extends FacesBean {
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
     return null;
+  }
+
+  public void handleGenreThesisTypeChange() {
+    if (Genre.THESIS.equals(Genre.valueOf(this.changeGenreTo))) {
+      this.setShowThesisType(true);
+    } else {
+      this.setShowThesisType(false);
+    }
+  }
+
+  public boolean getShowThesisType() {
+    return showThesisType;
+  }
+
+  public void setShowThesisType(boolean showThesisType) {
+    this.showThesisType = showThesisType;
   }
 
   public void handleKeywordReplaceTypeChange() {

@@ -257,6 +257,9 @@
 											<br />
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeTo }" />
+											<br />
+											<h:outputLabel rendered="#{PubItemBatchSessionBean.showThesisType}"
+												value="#{lbl.BatchWorkspace_lblActions_changeGenre_thesisType }" />
 										</div>
 
 										<div>
@@ -272,9 +275,19 @@
 												value="#{PubItemBatchSessionBean.changeGenreTo}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
+												<f:ajax event="change" render="@form" listener="#{PubItemBatchSessionBean.handleGenreThesisTypeChange}"/>
 												<f:selectItems
 													value="#{PubItemBatchSessionBean.changeGenreSelectItems}" />
 											</h:selectOneMenu>
+											<br />
+											<h:selectOneMenu id="selChangeGenreThesisType" styleClass="replace"
+											value="#{PubItemBatchSessionBean.changeGenreThesisType}"
+											onfocus="updateSelectionBox(this);"
+											onchange="updateSelectionBox(this);"
+											rendered="#{PubItemBatchSessionBean.showThesisType}">
+											<f:selectItems
+												value="#{PubItemBatchSessionBean.changeGenreThesisTypeSelectItems}" />
+										</h:selectOneMenu>
 										</div>
 									</div>
 								</div>
