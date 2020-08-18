@@ -68,7 +68,6 @@ function install_javascripts() {
     }
 }
 
-applyCookieStyle();
 window.onunload = function(e) {
     setStyleCookie();
 };
