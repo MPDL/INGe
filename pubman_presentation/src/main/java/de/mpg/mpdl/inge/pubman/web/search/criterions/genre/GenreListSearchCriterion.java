@@ -123,7 +123,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
 
 
 
-  public Genre[] getGenreList() {
+  // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten 
+  public synchronized Genre[] getGenreList() {
     final Genre[] genreArray = new Genre[0];
     return this.genreMap.keySet().toArray(genreArray);
   }
@@ -371,7 +372,8 @@ public class GenreListSearchCriterion extends SearchCriterionBase {
     }
   }
 
-  public Map<Genre, Boolean> getGenreMap() {
+  // SP: Wenn gleichzeitig auf die Methode zugegriffen wird, dann kann eine ConcurrentModificationException auftreten 
+  public synchronized Map<Genre, Boolean> getGenreMap() {
     this.initGenreMap();
     return this.genreMap;
   }
