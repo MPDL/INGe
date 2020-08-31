@@ -1,30 +1,28 @@
 %0 Journal Article
-%A Samuni, Liran
-%A Preis, Anna
-%A Mundry, Roger
-%A Deschner, Tobias
-%A Crockford, Catherine ǂ
-%A Wittig, Roman M.
-%+ Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-%T Oxytocin reactivity during intergroup conflict in wild
-chimpanzees : 
+%A Acheson, Daniel J.
+%A Ganushchak, Lesya Y.
+%A Christoffels, Ingrid K.
+%A Hagoort, Peter
+%+ Donders Institute for Brain, Cognition and Behaviour, External Organizations
+Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society
+Psychology of Language Department, MPI for Psycholinguistics, Max Planck Society
+Leiden Institute for Brain and Cognition
+Institute for Psychological Research
+Donders Institute for Brain, Cognition and Behaviour, External Organizations
+Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society
+%T Conflict monitoring in speech production: Physiological evidence from bilingual picture naming : 
 %G eng
-%U http://hdl.handle.net/11858/00-001M-0000-002C-186C-8
-%D 2016
+%U http://hdl.handle.net/11858/00-001M-0000-000F-EA0F-B
+%R 10.1016/j.bandl.2012.08.008
+%7 2012
+%D 2012
 %* Review method: peer-reviewed
-%J Proceedings of the National Academy of Sciences of the United States of America
-%O Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS
-%I National Academy of Sciences
-%C Washington, D.C.
-%@ 0027-8424
+%X Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.
+%K self-monitoring; conflict monitoring; picture naming; bilingualism; EEG; ERN; speech production; cognate; Gratton effect
+%J Brain and Language
+%V 123
+%& 131 
+%P 131  - 136
+%I Elsevier
+%C Orlando, Fla.
+%@ 0093-934X
