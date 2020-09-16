@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.10" xmlns:container="http://www.escidoc.de/schemas/container/0.9" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.9" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove">
-  <escidocItem:item objid="escidoc:2368787" last-modification-date="2016-12-14T11:34:46.202Z">
+<escidocItemList:item-list xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.7" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.7" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.10" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.10" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.8" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.10" xmlns:container="http://www.escidoc.de/schemas/container/0.9" xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.9" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:mods-md="http://www.loc.gov/mods/v3" xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file" xmlns:publication="http://purl.org/escidoc/metadata/profiles/0.1/publication" xmlns:yearbook="http://purl.org/escidoc/metadata/profiles/0.1/yearbook" xmlns:face="http://purl.org/escidoc/metadata/profiles/0.1/face" xmlns:jhove="http://hul.harvard.edu/ois/xml/ns/jhove" number-of-records="1">
+  <escidocItem:item xlink:href="item_1527236" objid="item_1527236" last-modification-date="2012-11-30T11:17:14.894Z">
     <escidocItem:properties>
-      <prop:creation-date>2016-12-07T12:24:49.046Z</prop:creation-date>
-      <srel:created-by objid="escidoc:1828475"/>
+      <prop:creation-date>2012-09-03T16:52:39.307Z</prop:creation-date>
+      <srel:created-by xlink:href="user_399307" objid="user_399307"/>
       <prop:public-status>released</prop:public-status>
-      <prop:public-status-comment/>
-      <srel:context objid="escidoc:1542176"/>
-      <srel:content-model objid="escidoc:persistent4"/>
-      <prop:lock-status>unlocked</prop:lock-status>
-      <prop:pid>hdl:11858/00-001M-0000-002C-186C-8</prop:pid>
-      <prop:version objid="escidoc:2368787:2">
-        <version:number>2</version:number>
-        <version:date>2016-12-14T11:34:46.202Z</version:date>
+      <srel:context xlink:href="ctx_54203" objid="ctx_54203"/>
+      <srel:content-model xlink:href="" objid=""/>
+      <prop:pid>hdl:11858/00-001M-0000-000F-EA0F-B</prop:pid>
+      <prop:version xlink:href="item_1527236_10" objid="item_1527236_10">
+        <version:number>10</version:number>
+        <version:date>2012-11-30T11:17:14.894Z</version:date>
         <version:status>released</version:status>
-        <srel:modified-by objid="escidoc:1828475"/>
+        <srel:modified-by xlink:href="user_53213" objid="user_53213"/>
         <version:comment/>
-        <version:pid>hdl:11858/00-001M-0000-002C-22E3-5</version:pid>
+        <version:pid>hdl:11858/00-001M-0000-000F-EA18-6</version:pid>
       </prop:version>
-      <prop:latest-version objid="escidoc:2368787:2">
-        <version:number>2</version:number>
-        <version:date>2016-12-14T11:34:46.202Z</version:date>
+      <prop:latest-version xlink:href="item_1527236_10" objid="item_1527236_10">
+        <version:number>10</version:number>
+        <version:date>2012-11-30T11:17:14.894Z</version:date>
       </prop:latest-version>
-      <prop:latest-release objid="escidoc:2368787:2">
-        <release:number>2</release:number>
-        <release:date>2016-12-14T11:34:46.202Z</release:date>
-        <release:pid>hdl:11858/00-001M-0000-002C-22E3-5</release:pid>
+      <prop:latest-release xlink:href="item_1527236_10" objid="item_1527236_10">
+        <release:number>10</release:number>
+        <release:date>2012-11-30T11:17:14.894Z</release:date>
+        <release:pid>hdl:11858/00-001M-0000-000F-EA18-6</release:pid>
       </prop:latest-release>
       <prop:content-model-specific>
-        <local-tags/>
+        <local-tags>
+          <local-tag>staffmeeting-2012-sep</local-tag>
+          <local-tag>staffmeeting-2012-dec</local-tag>
+          <local-tag>ro-2012-nov</local-tag>
+        </local-tags>
       </prop:content-model-specific>
     </escidocItem:properties>
     <escidocMetadataRecords:md-records>
@@ -36,121 +38,111 @@
         <publication:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="http://purl.org/escidoc/metadata/ves/publication-types/article">
           <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
             <person:person>
-              <eterms:family-name>Samuni</eterms:family-name>
-              <eterms:given-name>Liran</eterms:given-name>
+              <eterms:family-name>Acheson</eterms:family-name>
+              <eterms:given-name>Daniel J.</eterms:given-name>
               <organization:organization>
-                <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <dc:identifier>escidoc:2149636</dc:identifier>
+                <dc:title>Donders Institute for Brain, Cognition and Behaviour, External Organizations</dc:title>
+                <dc:identifier>ou_55236</dc:identifier>
               </organization:organization>
               <organization:organization>
-                <dc:title>Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <eterms:address>Deutscher Platz 6, 04103 Leipzig, DE</eterms:address>
-                <dc:identifier>escidoc:2025298</dc:identifier>
+                <dc:title>Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                <dc:identifier>ou_792551</dc:identifier>
               </organization:organization>
-              <organization:organization>
-                <dc:title>The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <eterms:address>Deutscher Platz 6, 04103 Leipzig, DE</eterms:address>
-                <dc:identifier>escidoc:1497688</dc:identifier>
-              </organization:organization>
-              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons129528</dc:identifier>
+              <dc:identifier xsi:type="eterms:CONE">/persons/resource/persons2693</dc:identifier>
             </person:person>
           </eterms:creator>
           <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
             <person:person>
-              <eterms:family-name>Preis</eterms:family-name>
-              <eterms:given-name>Anna</eterms:given-name>
+              <eterms:family-name>Ganushchak</eterms:family-name>
+              <eterms:given-name>Lesya Y.</eterms:given-name>
               <organization:organization>
-                <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <dc:identifier>escidoc:2149636</dc:identifier>
+                <dc:title>Psychology of Language Department, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                <dc:identifier>ou_792545</dc:identifier>
               </organization:organization>
-              <organization:organization>
-                <dc:title>Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <eterms:address>Deutscher Platz 6, 04103 Leipzig, DE</eterms:address>
-                <dc:identifier>escidoc:2025298</dc:identifier>
-              </organization:organization>
-              <organization:organization>
-                <dc:title>The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <eterms:address>Deutscher Platz 6, 04103 Leipzig, DE</eterms:address>
-                <dc:identifier>escidoc:1497688</dc:identifier>
-              </organization:organization>
-              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons72908</dc:identifier>
+              <dc:identifier xsi:type="eterms:CONE">/persons/resource/persons4533</dc:identifier>
             </person:person>
           </eterms:creator>
           <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
             <person:person>
-              <eterms:family-name>Mundry</eterms:family-name>
-              <eterms:given-name>Roger</eterms:given-name>
+              <eterms:family-name>Christoffels</eterms:family-name>
+              <eterms:given-name>Ingrid K.</eterms:given-name>
               <organization:organization>
-                <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <dc:identifier>escidoc:1497674</dc:identifier>
+                <dc:title>Leiden Institute for Brain and Cognition</dc:title>
+                <eterms:address>Leiden, The Netherlands</eterms:address>
+                <dc:identifier>ou_persistent22</dc:identifier>
               </organization:organization>
               <organization:organization>
-                <dc:title>Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <eterms:address>Deutscher Platz 6, 04103 Leipzig, DE</eterms:address>
-                <dc:identifier>escidoc:1497671</dc:identifier>
+                <dc:title>Institute for Psychological Research</dc:title>
+                <eterms:address>Leiden, The Netherlands</eterms:address>
+                <dc:identifier>ou_persistent22</dc:identifier>
               </organization:organization>
-              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons72862</dc:identifier>
             </person:person>
           </eterms:creator>
           <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
             <person:person>
-              <eterms:family-name>Deschner</eterms:family-name>
-              <eterms:given-name>Tobias</eterms:given-name>
+              <eterms:family-name>Hagoort</eterms:family-name>
+              <eterms:given-name>Peter</eterms:given-name>
               <organization:organization>
-                <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <dc:identifier>escidoc:2149636</dc:identifier>
+                <dc:title>Donders Institute for Brain, Cognition and Behaviour, External Organizations</dc:title>
+                <dc:identifier>ou_55236</dc:identifier>
               </organization:organization>
               <organization:organization>
-                <dc:title>Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <eterms:address>Deutscher Platz 6, 04103 Leipzig, DE</eterms:address>
-                <dc:identifier>escidoc:2025298</dc:identifier>
+                <dc:title>Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</dc:title>
+                <dc:identifier>ou_792551</dc:identifier>
               </organization:organization>
-              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons72641</dc:identifier>
+              <dc:identifier xsi:type="eterms:CONE">/persons/resource/persons69</dc:identifier>
             </person:person>
           </eterms:creator>
-          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-            <person:person>
-              <eterms:family-name>Crockford</eterms:family-name>
-              <eterms:given-name>Catherine ǂ</eterms:given-name>
-              <organization:organization>
-                <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <dc:identifier>escidoc:2149636</dc:identifier>
-              </organization:organization>
-              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons72635</dc:identifier>
-            </person:person>
-          </eterms:creator>
-          <eterms:creator role="http://www.loc.gov/loc.terms/relators/AUT">
-            <person:person>
-              <eterms:family-name>Wittig</eterms:family-name>
-              <eterms:given-name>Roman M.</eterms:given-name>
-              <organization:organization>
-                <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                <dc:identifier>escidoc:2149636</dc:identifier>
-              </organization:organization>
-              <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/persons/resource/persons73044</dc:identifier>
-            </person:person>
-          </eterms:creator>
-          <dc:title>Oxytocin reactivity during intergroup conflict in wild
-chimpanzees</dc:title>
+          <dc:title>Conflict monitoring in speech production: Physiological evidence from bilingual picture naming</dc:title>
           <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
-          <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2016</dcterms:dateAccepted>
+          <dc:identifier xsi:type="eterms:DOI">10.1016/j.bandl.2012.08.008</dc:identifier>
+          <dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2012-08-29</dcterms:dateAccepted>
+          <eterms:published-online xsi:type="dcterms:W3CDTF">2012</eterms:published-online>
+          <dcterms:issued xsi:type="dcterms:W3CDTF">2012</dcterms:issued>
           <eterms:review-method>http://purl.org/eprint/status/PeerReviewed</eterms:review-method>
           <source:source type="http://purl.org/escidoc/metadata/ves/publication-types/journal">
-            <dc:title>Proceedings of the National Academy of Sciences of the United States of America</dc:title>
-            <dcterms:alternative xsi:type="eterms:OTHER">Proc. Acad. Sci. USA</dcterms:alternative>
-            <dcterms:alternative xsi:type="eterms:OTHER">Proc. Acad. Sci. U.S.A.</dcterms:alternative>
-            <dcterms:alternative xsi:type="eterms:ABBREVIATION">PNAS</dcterms:alternative>
+            <dc:title>Brain and Language</dc:title>
+            <eterms:volume>123</eterms:volume>
+            <eterms:start-page>131 </eterms:start-page>
+            <eterms:end-page>136</eterms:end-page>
             <eterms:publishing-info>
-              <dc:publisher>National Academy of Sciences</dc:publisher>
-              <eterms:place>Washington, D.C.</eterms:place>
+              <dc:publisher>Elsevier</dc:publisher>
+              <eterms:place>Orlando, Fla.</eterms:place>
             </eterms:publishing-info>
-            <dc:identifier xsi:type="eterms:ISSN">0027-8424</dc:identifier>
-            <dc:identifier xsi:type="eterms:CONE">http://pubman.mpdl.mpg.de/cone/journals/resource/954925427230</dc:identifier>
+            <dc:identifier xsi:type="eterms:ISSN">0093-934X</dc:identifier>
+            <dc:identifier xsi:type="eterms:CONE">/journals/resource/954922647078</dc:identifier>
           </source:source>
-          <dc:subject xsi:type="eterms:DDC"/>
+          <dcterms:abstract xml:lang="eng">Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</dcterms:abstract>
+          <dcterms:subject>self-monitoring; conflict monitoring; picture naming; bilingualism; EEG; ERN; speech production; cognate; Gratton effect</dcterms:subject>
         </publication:publication>
       </escidocMetadataRecords:md-record>
     </escidocMetadataRecords:md-records>
-    <escidocComponents:components xml:base="https://coreservice.mpdl.mpg.de"/>
+    <escidocComponents:components>
+      <escidocComponents:component xlink:href="file_1566420" objid="file_1566420">
+        <escidocComponents:properties>
+          <prop:creation-date>2012-11-13T12:31:21.610Z</prop:creation-date>
+          <srel:created-by xlink:href="user_53218" objid="user_53218"/>
+          <prop:valid-status>valid</prop:valid-status>
+          <prop:visibility>public</prop:visibility>
+          <prop:pid>hdl:11858/00-001M-0000-0010-1C62-8</prop:pid>
+          <prop:content-category>publisher-version</prop:content-category>
+          <prop:file-name>Acheson_et_al_Brain_Lang_2012.pdf</prop:file-name>
+          <prop:mime-type>application/pdf</prop:mime-type>
+          <prop:checksum>c27f6c289dffee6bce144146bf3f23a7</prop:checksum>
+          <prop:checksum-algorithm>MD5</prop:checksum-algorithm>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="Acheson_et_al_Brain_Lang_2012.pdf" xlink:href="/rest/items/item_1527236_10/component/file_1566420/content" storage="internal-managed"/>
+        <escidocMetadataRecords:md-records>
+          <escidocMetadataRecords:md-record name="escidoc">
+            <file:file xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/" xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person" xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event" xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source" xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization" xmlns:project="http://purl.org/escidoc/metadata/profiles/0.1/project" xmlns:legalCase="http://purl.org/escidoc/metadata/profiles/0.1/legal-case">
+              <dc:title>Acheson_et_al_Brain_Lang_2012.pdf</dc:title>
+              <eterms:content-category>publisher-version</eterms:content-category>
+              <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+              <dcterms:extent>366920</dcterms:extent>
+            </file:file>
+          </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+      </escidocComponents:component>
+    </escidocComponents:components>
   </escidocItem:item>
 </escidocItemList:item-list>

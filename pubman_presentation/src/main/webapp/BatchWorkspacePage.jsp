@@ -83,7 +83,7 @@
 									<h:outputText styleClass="seperator void"
 										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 and PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}" />
 									<h:commandLink id="lnkBatch_lblRemoveSelected"
-										title="#{tip.List_lblAddToBatch}" styleClass="free_area0"
+										title="#{tip.List_lblRemoveFromBatch}" styleClass="free_area0"
 										value="#{lbl.Batch_lblRemoveSelectedUpperCase}"
 										action="#{BatchItemsRetrieverRequestBean.deleteSelected}"
 										rendered="#{PubItemListSessionBean.totalNumberOfElements>0 and PubItemListSessionBean.subMenu != 'ACTIONS' and PubItemListSessionBean.subMenu != 'PROCESS_LOG'}"

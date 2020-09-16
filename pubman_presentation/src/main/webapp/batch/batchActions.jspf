@@ -244,7 +244,7 @@
 										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" />
 								</b>
 								<div class="textblock">
-									<h:outputText 
+									<h:outputText
 										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
 									<br />
 									<h:outputText style="font-weight: bold;"
@@ -258,7 +258,7 @@
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeTo }" />
 											<br />
-											<h:outputLabel rendered="#{PubItemBatchSessionBean.showThesisType}"
+											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeGenre_thesisType }" />
 										</div>
 
@@ -275,19 +275,21 @@
 												value="#{PubItemBatchSessionBean.changeGenreTo}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
-												<f:ajax event="change" render="@form" listener="#{PubItemBatchSessionBean.handleGenreThesisTypeChange}"/>
+												<f:ajax event="change" render="selChangeGenreThesisType"
+													listener="#{PubItemBatchSessionBean.handleGenreThesisTypeChange}" />
 												<f:selectItems
 													value="#{PubItemBatchSessionBean.changeGenreSelectItems}" />
 											</h:selectOneMenu>
 											<br />
-											<h:selectOneMenu id="selChangeGenreThesisType" styleClass="replace"
-											value="#{PubItemBatchSessionBean.changeGenreThesisType}"
-											onfocus="updateSelectionBox(this);"
-											onchange="updateSelectionBox(this);"
-											rendered="#{PubItemBatchSessionBean.showThesisType}">
-											<f:selectItems
-												value="#{PubItemBatchSessionBean.changeGenreThesisTypeSelectItems}" />
-										</h:selectOneMenu>
+											<h:selectOneMenu id="selChangeGenreThesisType"
+												styleClass="replace"
+												value="#{PubItemBatchSessionBean.changeGenreThesisType}"
+												onfocus="updateSelectionBox(this);"
+												onchange="updateSelectionBox(this);"
+												disabled="#{!PubItemBatchSessionBean.showThesisType}">
+												<f:selectItems
+													value="#{PubItemBatchSessionBean.changeGenreThesisTypeSelectItems}" />
+											</h:selectOneMenu>
 										</div>
 									</div>
 								</div>
@@ -332,13 +334,13 @@
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityFrom}" />
-											<br />	
+											<br />
 											<h:outputLabel
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityTo }" />
 										</div>
 
 										<div>
-											
+
 											<h:selectOneMenu id="selChangeFilesVisibilityFrom"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeFilesVisibilityFrom}"
@@ -431,16 +433,14 @@
 											<ui:repeat var="ipRange"
 												value="#{PubItemBatchSessionBean.ipRangeToAdd}"
 												varStatus="ipRangeStatus">
-												<span> 
-													<h:selectOneMenu id="selChangeFilesAudienceTo"
+												<span> <h:selectOneMenu id="selChangeFilesAudienceTo"
 														styleClass="replace"
 														value="#{PubItemBatchSessionBean.ipRangeToAdd[ipRangeStatus.index]}"
 														onfocus="updateSelectionBox(this);"
 														onchange="updateSelectionBox(this);">
 														<f:selectItems
 															value="#{PubItemBatchSessionBean.changeFilesAudienceSelectItems}" />
-													</h:selectOneMenu>
-													<span class="small_area0 xTiny_marginLExcl"> <h:commandButton
+													</h:selectOneMenu> <span class="small_area0 xTiny_marginLExcl"> <h:commandButton
 															id="btnAddIpRange" styleClass="min_imgBtn groupTool add"
 															value=" " action="#{PubItemBatchSessionBean.addIpRange}"
 															rendered="#{ipRangeStatus.last}" /> <h:commandButton
@@ -448,7 +448,7 @@
 															styleClass="min_imgBtn groupTool remove" value=" "
 															action="#{PubItemBatchSessionBean.removeIpRange(ipRangeStatus.index)}"
 															rendered="#{!ipRangeStatus.first}" />
-													</span>
+												</span>
 												</span>
 											</ui:repeat>
 										</div>
@@ -633,17 +633,19 @@
 												value="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceType}"
 												onfocus="updateSelectionBox(this);"
 												onchange="updateSelectionBox(this);">
-												<f:ajax event="change" render="inputChangeKeywordsReplaceFrom" listener="#{PubItemBatchSessionBean.handleKeywordReplaceTypeChange}"/>
+												<f:ajax event="change"
+													render="inputChangeKeywordsReplaceFrom"
+													listener="#{PubItemBatchSessionBean.handleKeywordReplaceTypeChange}" />
 												<f:selectItems
 													value="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceTypeSelectItems}" />
-												
+
 											</h:selectOneMenu>
 											<br />
 											<div>
 												<h:inputText id="inputChangeKeywordsReplaceFrom"
 													styleClass="third_txtInput"
-													value="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceFrom}" 
-													disabled="#{PubItemBatchSessionBean.disabledKeywordInput}"/>
+													value="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceFrom}"
+													disabled="#{PubItemBatchSessionBean.disabledKeywordInput}" />
 											</div>
 											<br />
 											<div>

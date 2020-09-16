@@ -387,7 +387,8 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             boolean anyFilesChanged = false;
             for (FileDbVO file : pubItemVO.getFiles()) {
               List<String> audienceList = file.getAllowedAudienceIds() != null ? file.getAllowedAudienceIds() : new ArrayList<String>();
-              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())) {
+              if (FileDbVO.Storage.INTERNAL_MANAGED.equals(file.getStorage())
+                  && FileDbVO.Visibility.AUDIENCE.equals(file.getVisibility())) {
                 audienceList.clear();
                 audienceList.addAll(audienceListNew);
                 file.setAllowedAudienceIds(audienceList);
