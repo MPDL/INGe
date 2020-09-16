@@ -20,7 +20,7 @@ Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary An
 %T Oxytocin reactivity during intergroup conflict in wild
 chimpanzees : 
 %G eng
-%U http://hdl.handle.net/11858/00-001M-0000-002C-186C-8
+%U hdl:11858/00-001M-0000-002C-186C-8
 %D 2016
 %* Review method: peer-reviewed
 %J Proceedings of the National Academy of Sciences of the United States of America
