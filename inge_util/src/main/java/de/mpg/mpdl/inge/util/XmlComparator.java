@@ -109,12 +109,19 @@ public class XmlComparator {
       String name = components[0].trim();
       Map<String, String> attributeMap = new HashMap<String, String>();
 
-      if (components[1] != null && components[1].contains("=")) {
-        String tag[] = StringUtils.split(components[1].trim(), "=");
-        attributeMap.put(tag[0], tag[1]);
+      if (components.length >= 1 && components[1] != null && components[1].contains("=")) {
+        String attributeListToAdd[] = components[1].trim().split(" ");
+        for (String attributeToAdd : attributeListToAdd) {
+          String tag[] = StringUtils.split(attributeToAdd.trim(), "=");
+          attributeMap.put(tag[0], tag[1]);
+        }
       }
 
-      String nameSpace = components[2].trim();
+      String nameSpace = null;
+      if (components.length >= 2 && components[2] != null && !"".contentEquals(components[2].trim())) {
+        nameSpace = components[2].trim();
+      }
+
       XmlNode node = new XmlNode(attributeMap, name, nameSpace);
       elementsToIgnore.add(node);
     }

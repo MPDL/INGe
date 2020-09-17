@@ -102,7 +102,8 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformation(wr, "results/fromEscidocItemToEdocXml.xml");
+    assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToEdocXml.xml",
+        Arrays.asList(new String[] {"fturl,viewftext=PUBLIC filename=Acheson_et_al_Brain_Lang_2012.pdf size=366920, "}));
   }
 
   @Test
@@ -180,8 +181,9 @@ public class TransformerFactoryTest {
         new TransformerStreamResult(wr));
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToMarcXml.xml", Arrays.asList(
-        new String[] {"controlfield, tag=005, http://www.loc.gov/MARC21/slim", "controlfield, tag=008, http://www.loc.gov/MARC21/slim"}));
+    assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToMarcXml.xml",
+        Arrays.asList(new String[] {"controlfield, tag=005, http://www.loc.gov/MARC21/slim",
+            "controlfield, tag=008, http://www.loc.gov/MARC21/slim", "subfield, code=u, http://www.loc.gov/MARC21/slim"}));
   }
 
   @Test
@@ -211,7 +213,8 @@ public class TransformerFactoryTest {
 
     logger.info("\n" + wr.toString());
 
-    assertXmlTransformation(wr, "results/fromEscidocItemToZimXml.xml");
+    assertXmlTransformationWithIgnore(wr, "results/fromEscidocItemToZimXml.xml",
+        Arrays.asList(new String[] {"fturl,viewftext=PUBLIC filename=Acheson_et_al_Brain_Lang_2012.pdf, ", "identifier,type=url, "}));
   }
 
   // target ItemXml

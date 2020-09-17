@@ -109,7 +109,7 @@
       <marc:datafield tag="856" ind1="4" ind2=" ">
          <marc:subfield code="q">application/pdf</marc:subfield>
          <marc:subfield code="s">366920 bytes</marc:subfield>
-         <marc:subfield code="u">http://localhost:8080/pubman/item/item_1527236_10/component/file_1566420/Acheson_et_al_Brain_Lang_2012.pdf</marc:subfield>
+         <marc:subfield code="u">https://dev.inge.mpdl.mpg.de/pubman/item/item_1527236_10/component/file_1566420/Acheson_et_al_Brain_Lang_2012.pdf</marc:subfield>
          <marc:subfield code="2">public</marc:subfield>
          <marc:subfield code="3">publisher-version</marc:subfield>
       </marc:datafield>
