@@ -6,50 +6,19 @@
            xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
    <dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
    <dc:type xsi:type="dcterms:DCMIType">Text</dc:type>
-   <dc:creator>Samuni, Liran</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Preis, Anna</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Mundry, Roger</dc:creator>
-   <dc:contributor>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Deschner, Tobias</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Crockford, Catherine ǂ</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Wittig, Roman M.</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:title>Oxytocin reactivity during intergroup conflict in wild
-chimpanzees</dc:title>
+   <dc:creator>Acheson, Daniel J.</dc:creator>
+   <dc:contributor>Donders Institute for Brain, Cognition and Behaviour, External Organizations Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</dc:contributor>
+   <dc:creator>Ganushchak, Lesya Y.</dc:creator>
+   <dc:contributor>Psychology of Language Department, MPI for Psycholinguistics, Max Planck Society</dc:contributor>
+   <dc:creator>Christoffels, Ingrid K.</dc:creator>
+   <dc:contributor>Leiden Institute for Brain and Cognition Institute for Psychological Research</dc:contributor>
+   <dc:creator>Hagoort, Peter</dc:creator>
+   <dc:contributor>Donders Institute for Brain, Cognition and Behaviour, External Organizations Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</dc:contributor>
+   <dc:title>Conflict monitoring in speech production: Physiological evidence from bilingual picture naming</dc:title>
    <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
-   <dc:date xsi:type="dcterms:W3CDTF">2016</dc:date>
-   <dc:source>Proceedings of the National Academy of Sciences of the United States of America</dc:source>
-   <dc:subject xsi:type="eterms:DDC"/>
-</oai_dc:dc>
-INFO  [de.mpg.mpdl.inge.transformation.TransformerFactoryTest] [main]: 
-<?xml version="1.0" encoding="UTF-8"?>
-<oai_dc:dc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:dc="http://purl.org/dc/elements/1.1/"
-           xmlns:dcterms="http://purl.org/dc/terms/"
-           xmlns:dcmitype="http://purl.org/dc/dcmitype/"
-           xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
-   <dc:type>http://purl.org/escidoc/metadata/ves/publication-types/article</dc:type>
-   <dc:type xsi:type="dcterms:DCMIType">Text</dc:type>
-   <dc:creator>Samuni, Liran</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Preis, Anna</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Mundry, Roger</dc:creator>
-   <dc:contributor>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Deschner, Tobias</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Crockford, Catherine ǂ</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:creator>Wittig, Roman M.</dc:creator>
-   <dc:contributor>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:contributor>
-   <dc:title>Oxytocin reactivity during intergroup conflict in wild
-chimpanzees</dc:title>
-   <dc:language xsi:type="dcterms:ISO639-3">eng</dc:language>
-   <dc:date xsi:type="dcterms:W3CDTF">2016</dc:date>
-   <dc:source>Proceedings of the National Academy of Sciences of the United States of America</dc:source>
-   <dc:subject xsi:type="eterms:DDC"/>
+   <dc:identifier>eterms:DOI: 10.1016/j.bandl.2012.08.008</dc:identifier>
+   <dc:date xsi:type="dcterms:W3CDTF">2012</dc:date>
+   <dc:source>Brain and Language 123</dc:source>
+   <dc:format>131 -136</dc:format>
+   <dc:description>Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</dc:description>
 </oai_dc:dc>

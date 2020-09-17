@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
    <NUM_0>Journal Article</NUM_0>
-   <A>Samuni, Liran</A>
-   <A>Preis, Anna</A>
-   <A>Mundry, Roger</A>
-   <A>Deschner, Tobias</A>
-   <A>Crockford, Catherine ǂ</A>
-   <A>Wittig, Roman M.</A>
-   <PLUS>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Department of Developmental and Comparative Psychology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society
-Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</PLUS>
-   <T>Oxytocin reactivity during intergroup conflict in wild
-chimpanzees : </T>
+   <A>Acheson, Daniel J.</A>
+   <A>Ganushchak, Lesya Y.</A>
+   <A>Christoffels, Ingrid K.</A>
+   <A>Hagoort, Peter</A>
+   <PLUS>Donders Institute for Brain, Cognition and Behaviour, External Organizations
+Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society
+Psychology of Language Department, MPI for Psycholinguistics, Max Planck Society
+Leiden Institute for Brain and Cognition
+Institute for Psychological Research
+Donders Institute for Brain, Cognition and Behaviour, External Organizations
+Neurobiology of Language Department, MPI for Psycholinguistics, Max Planck Society</PLUS>
+   <T>Conflict monitoring in speech production: Physiological evidence from bilingual picture naming : </T>
    <G>eng</G>
-   <U>hdl:11858/00-001M-0000-002C-186C-8</U>
-   <D>2016</D>
+   <U>hdl:11858/00-001M-0000-000F-EA0F-B</U>
+   <R>10.1016/j.bandl.2012.08.008</R>
+   <NUM_7>2012</NUM_7>
+   <D>2012</D>
    <STAR>Review method: peer-reviewed</STAR>
-   <J>Proceedings of the National Academy of Sciences of the United States of America</J>
-   <O>Proc. Acad. Sci. USA Proc. Acad. Sci. U.S.A. PNAS</O>
-   <I>National Academy of Sciences</I>
-   <C>Washington, D.C.</C>
-   <AT>0027-8424</AT>
+   <X>Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</X>
+   <K>self-monitoring; conflict monitoring; picture naming; bilingualism; EEG; ERN; speech production; cognate; Gratton effect</K>
+   <J>Brain and Language</J>
+   <V>123</V>
+   <AMPERSAND>131 </AMPERSAND>
+   <P>131  - 136</P>
+   <I>Elsevier</I>
+   <C>Orlando, Fla.</C>
+   <AT>0093-934X</AT>
 </item>

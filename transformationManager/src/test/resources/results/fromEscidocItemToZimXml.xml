@@ -2,56 +2,53 @@
 <zim_transfer>
    <record>
       <metametadata>
-         <localid>escidoc:2368787</localid>
+         <localid>item_1527236</localid>
       </metametadata>
       <rights/>
       <genre>3</genre>
       <creator role="author" creatortype="individual" internextern="unknown">
-         <creatorini>L.</creatorini>
-         <creatornfamily>Samuni</creatornfamily>
-         <creatorngiven>Liran</creatorngiven>
+         <creatorini>D. J.</creatorini>
+         <creatornfamily>Acheson</creatornfamily>
+         <creatorngiven>Daniel J.</creatorngiven>
       </creator>
       <creator role="author" creatortype="individual" internextern="unknown">
-         <creatorini>A.</creatorini>
-         <creatornfamily>Preis</creatornfamily>
-         <creatorngiven>Anna</creatorngiven>
+         <creatorini>L. Y.</creatorini>
+         <creatornfamily>Ganushchak</creatornfamily>
+         <creatorngiven>Lesya Y.</creatorngiven>
       </creator>
       <creator role="author" creatortype="individual" internextern="unknown">
-         <creatorini>R.</creatorini>
-         <creatornfamily>Mundry</creatornfamily>
-         <creatorngiven>Roger</creatorngiven>
+         <creatorini>I. K.</creatorini>
+         <creatornfamily>Christoffels</creatornfamily>
+         <creatorngiven>Ingrid K.</creatorngiven>
       </creator>
       <creator role="author" creatortype="individual" internextern="unknown">
-         <creatorini>T.</creatorini>
-         <creatornfamily>Deschner</creatornfamily>
-         <creatorngiven>Tobias</creatorngiven>
-      </creator>
-      <creator role="author" creatortype="individual" internextern="unknown">
-         <creatorini>C. ǂ.</creatorini>
-         <creatornfamily>Crockford</creatornfamily>
-         <creatorngiven>Catherine ǂ</creatorngiven>
-      </creator>
-      <creator role="author" creatortype="individual" internextern="unknown">
-         <creatorini>R. M.</creatorini>
-         <creatornfamily>Wittig</creatornfamily>
-         <creatorngiven>Roman M.</creatorngiven>
+         <creatorini>P.</creatorini>
+         <creatornfamily>Hagoort</creatornfamily>
+         <creatorngiven>Peter</creatorngiven>
       </creator>
       <publication>
+         <datepublished>2012</datepublished>
+         <volume>123</volume>
+         <spage>131</spage>
+         <epage>136</epage>
          <source>
             <injournal>
-               <journaltitle>Proceedings of the National Academy of Sciences of the United States of America</journaltitle>
-               <journalabbreviation>Proc. Acad. Sci. USA</journalabbreviation>
+               <journaltitle>Brain and Language</journaltitle>
             </injournal>
          </source>
       </publication>
       <content>
+         <abstract>Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</abstract>
          <educationalpurpose>no</educationalpurpose>
          <enduser>notspecified</enduser>
-         <identifier type="url">${inge.pubman.instance.url}${inge.pubman.instance.context.path}/item/escidoc:2368787</identifier>
+         <fturl viewftext="PUBLIC" filename="Acheson_et_al_Brain_Lang_2012.pdf">http://localhost:8080/rest/items/item_1527236_10/component/file_1566420/content</fturl>
+         <identifier type="url">http://localhost:8080/pubman/item/item_1527236</identifier>
+         <identifier type="doi">10.1016/j.bandl.2012.08.008</identifier>
+         <keywords>self-monitoring; conflict monitoring; picture naming; bilingualism; EEG; ERN; speech production; cognate; Gratton effect</keywords>
          <language>English</language>
          <pubstatus>published</pubstatus>
          <refereed>joureview</refereed>
-         <title>Oxytocin reactivity during intergroup conflict in wild chimpanzees</title>
+         <title>Conflict monitoring in speech production: Physiological evidence from bilingual picture naming</title>
       </content>
    </record>
 </zim_transfer>

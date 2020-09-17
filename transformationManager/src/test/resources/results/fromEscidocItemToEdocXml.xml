@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edoc>
-   <record id="escidoc:2368787">
+   <record id="item_1527236">
       <metadata>
          <basic>
             <genre>Article</genre>
-            <title>Oxytocin reactivity during intergroup conflict in wild chimpanzees</title>
+            <title>Conflict monitoring in speech production: Physiological evidence from bilingual picture naming</title>
             <language>English</language>
-            <journaltitle>Proceedings of the National Academy of Sciences of the United States of America</journaltitle>
-            <journalabbreviation>Proc. Acad. Sci. USA</journalabbreviation>
+            <datepublished>2012</datepublished>
+            <spage>131</spage>
+            <epage>136</epage>
+            <journaltitle>Brain and Language</journaltitle>
+            <volume>123</volume>
+            <abstract>Self-monitoring in production is critical to correct performance, and recent accounts suggest that such monitoring may occur via the detection of response conflict. The error-related negativity (ERN) is a response-locked event-related potential (ERP) that is sensitive to response conflict. The present study examines whether response conflict is detected in production by exploring a situation where multiple outputs are activated: the bilingual naming of form-related equivalents (i.e. cognates). ERPs were recorded while German-Dutch bilinguals named pictures in their first and second languages. Although cognates were named faster than non-cognates, response conflict was evident in the form of a larger ERN-like response for cognates and adaptation effects on naming, as the magnitude of cognate facilitation was smaller following the naming of cognates. Given that signals of response conflict are present during correct naming, the present results suggest that such conflict may serve as a reliable signal for monitoring in speech production.</abstract>
+            <keywords>self-monitoring; conflict monitoring; picture naming; bilingualism; EEG; ERN; speech production; cognate; Gratton effect</keywords>
             <pubstatus>published</pubstatus>
             <refereed>joureview</refereed>
+            <fturl viewftext="PUBLIC" filename="Acheson_et_al_Brain_Lang_2012.pdf" size="366920">http://localhost:8080/rest/items/item_1527236_10/component/file_1566420/content</fturl>
          </basic>
          <creators>
             <creator role="author" creatorType="individual" internextern="unknown">
+               <creatorini>D.</creatorini>
+               <creatornfamily>Acheson</creatornfamily>
+               <creatorngiven>Daniel J.</creatorngiven>
+            </creator>
+            <creator role="author" creatorType="individual" internextern="unknown">
                <creatorini>L.</creatorini>
-               <creatornfamily>Samuni</creatornfamily>
-               <creatorngiven>Liran</creatorngiven>
+               <creatornfamily>Ganushchak</creatornfamily>
+               <creatorngiven>Lesya Y.</creatorngiven>
             </creator>
             <creator role="author" creatorType="individual" internextern="unknown">
-               <creatorini>A.</creatorini>
-               <creatornfamily>Preis</creatornfamily>
-               <creatorngiven>Anna</creatorngiven>
+               <creatorini>I.</creatorini>
+               <creatornfamily>Christoffels</creatornfamily>
+               <creatorngiven>Ingrid K.</creatorngiven>
             </creator>
             <creator role="author" creatorType="individual" internextern="unknown">
-               <creatorini>R.</creatorini>
-               <creatornfamily>Mundry</creatornfamily>
-               <creatorngiven>Roger</creatorngiven>
-            </creator>
-            <creator role="author" creatorType="individual" internextern="unknown">
-               <creatorini>T.</creatorini>
-               <creatornfamily>Deschner</creatornfamily>
-               <creatorngiven>Tobias</creatorngiven>
-            </creator>
-            <creator role="author" creatorType="individual" internextern="unknown">
-               <creatorini>C.</creatorini>
-               <creatornfamily>Crockford</creatornfamily>
-               <creatorngiven>Catherine ǂ</creatorngiven>
-            </creator>
-            <creator role="author" creatorType="individual" internextern="unknown">
-               <creatorini>R.</creatorini>
-               <creatornfamily>Wittig</creatornfamily>
-               <creatorngiven>Roman M.</creatorngiven>
+               <creatorini>P.</creatorini>
+               <creatornfamily>Hagoort</creatornfamily>
+               <creatorngiven>Peter</creatorngiven>
             </creator>
          </creators>
          <identifiers>
-            <identifier type="url">/item/escidoc:2368787</identifier>
+            <identifier type="url">/item/item_1527236</identifier>
+            <identifier type="doi">10.1016/j.bandl.2012.08.008</identifier>
          </identifiers>
       </metadata>
       <metametadata>
-         <lastmodified>2016-12-14</lastmodified>
+         <lastmodified>2012-11-30</lastmodified>
       </metametadata>
    </record>
 </edoc>
