@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.17-SNAPSHOT</version>
+		<version>8.1.0</version>
 	</parent>
 	
 	<artifactId>reindex_util</artifactId>
@@ -19,7 +19,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/reindex_util</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/reindex_util</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.1.0</tag>
 	</scm>
 	
 	<build>
@@ -35,9 +35,7 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<copy overwrite="true"
-									file="${project.build.directory}/${project.finalName}"
-									todir="${user.home}/data/reindex">
+								<copy overwrite="true" file="${project.build.directory}/${project.finalName}" todir="${user.home}/data/reindex">
 								</copy>
 							</tasks>
 						</configuration>
@@ -63,16 +61,13 @@
 						</goals>
 						<configuration>
 							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>de.mpg.mpdl.inge.reindex.Main</mainClass>
 								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/spring.handlers</resource>
 								</transformer>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
 									<resource>META-INF/spring.schemas</resource>
 								</transformer>
 							</transformers>

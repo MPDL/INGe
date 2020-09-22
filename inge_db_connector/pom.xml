@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.0.17-SNAPSHOT</version>
+		<version>8.1.0</version>
 	</parent>
 	
 	<artifactId>inge_db_connector</artifactId>
@@ -16,7 +16,7 @@
 		<connection>scm:git:git@github.com:MPDL/INGe/inge_db_connector</connection>
 		<developerConnection>scm:git:git@github.com:MPDL/INGe/inge_db_connector</developerConnection>
 		<url>https://github.com/MPDL/INGe/</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.1.0</tag>
 	</scm>
 
 	<build>
