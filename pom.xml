@@ -6,7 +6,7 @@
 	<groupId>de.mpg.mpdl.inge</groupId>
 	<artifactId>INGe</artifactId>
 	<name>INGe</name>
-	<version>8.0.17-SNAPSHOT</version>
+	<version>8.1.0</version>
 
 	<packaging>pom</packaging>
 
@@ -134,7 +134,7 @@
 		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
 		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
 		<url>https://github.com/MPDL/INGe</url>
-		<tag>HEAD</tag>
+		<tag>INGe-8.1.0</tag>
 	</scm>
 
 	<repositories>
@@ -266,107 +266,107 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
 				<classifier>tests</classifier>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
 				<classifier>tests</classifier>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.0.17-SNAPSHOT</version>
+				<version>8.1.0</version>
 				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
@@ -1021,7 +1021,7 @@
 		<inge.pubman.handbook.url />
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
-		<inge.pubman.instance.ssrn_contexts/>
+		<inge.pubman.instance.ssrn_contexts />
 		<inge.pubman.item.pattern>/item/$1</inge.pubman.item.pattern>
 		<inge.pubman.logo.css />
 		<inge.pubman.logo.url />
@@ -1262,10 +1262,10 @@
                 <escidoc.framework_access.login.url />
                 <gfz.citation.styles.use>true</gfz.citation.styles.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
-                <gfz.oa.mail.adress></gfz.oa.mail.adress>
-                <gfz.oa.mail.domain></gfz.oa.mail.domain>
-                <gfz.oa.mail.subject></gfz.oa.mail.subject>
-                <gfz.oa.mail.template></gfz.oa.mail.template>
+                <gfz.oa.mail.adress />
+                <gfz.oa.mail.domain />
+                <gfz.oa.mail.subject />
+                <gfz.oa.mail.template />
                 <inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
                 <inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
