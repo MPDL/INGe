@@ -969,7 +969,7 @@
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.doi.service.use>true</inge.doi.service.use>
-        <inge.email.mailservername>mx03.mucam.mpg.de</inge.email.mailservername>
+        <inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
         <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
         <inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
         <inge.email.withauthentication>false</inge.email.withauthentication>
