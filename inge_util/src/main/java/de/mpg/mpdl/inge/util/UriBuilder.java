@@ -22,7 +22,6 @@ public class UriBuilder {
    * 
    * @param itemObjectId
    * @return
-   * @throws MalformedURIException
    * @throws URISyntaxException
    */
   public static URI getItemObjectLink(String itemObjectId) throws URISyntaxException {
@@ -37,7 +36,6 @@ public class UriBuilder {
    * @param itemObjectId (format: item_12345)
    * @param versionNumber (format: 12)
    * @return
-   * @throws MalformedURIException
    * @throws URISyntaxException
    */
   public static URI getItemObjectAndVersionLink(String itemObjectId, int versionNumber) throws URISyntaxException {
