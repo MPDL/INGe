@@ -350,7 +350,7 @@
                                                 <xsl:value-of select="eterms:place"></xsl:value-of>
                                             </le>
                                             <le>
-                                                <xsl:value-of select="fn:substring(eterms:start-date, 1, 4)"></xsl:value-of>
+                                                <xsl:value-of select="substring(eterms:start-date, 1, 4)"></xsl:value-of>
                                             </le>
                                         </xsl:with-param>
                                         <xsl:with-param name="delimiter" select="' '"></xsl:with-param>
@@ -1744,7 +1744,7 @@
                                             </le>
                                             <le>
                                                 <xsl:variable name="var">
-                                                    <xsl:variable name="var" select="$year-authors-or-editors-are-presented, 1, 4"></xsl:variable>
+                                                    <xsl:variable name="var" select="substring($year-authors-or-editors-are-presented, 1, 4)"></xsl:variable>
                                                     <xsl:copy-of select="$var"></xsl:copy-of>
                                                 </xsl:variable>
                                                 <xsl:copy-of select="$var"></xsl:copy-of>
