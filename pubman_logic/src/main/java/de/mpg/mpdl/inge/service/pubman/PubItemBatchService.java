@@ -314,8 +314,8 @@ public interface PubItemBatchService {
       AccountUserDbVO accountUser);
 
   /**
-   * Submit multiple Items within a Map <pubItemId, modificationDate> and return a Map with <itemId,
-   * exception>
+   * Submit multiple Items within a Map <pubItemId, modificationDate> and return a Map with
+   * <itemId, exception>
    * 
    * @param pubItemsMap
    * @param message

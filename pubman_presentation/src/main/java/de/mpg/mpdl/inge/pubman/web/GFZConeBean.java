@@ -64,7 +64,7 @@ public class GFZConeBean extends FacesBean {
       return uri;
     }
 
-    public Iterator<?> getPrefixes(String val) {
+    public Iterator<String> getPrefixes(String val) {
       return null;
     }
 

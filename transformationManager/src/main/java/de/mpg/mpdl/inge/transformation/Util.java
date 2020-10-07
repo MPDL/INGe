@@ -688,13 +688,4 @@ public class Util {
     return "";
   }
 
-  /**
-   * Converts a simpleLiteral Objects into a String Object.
-   * 
-   * @param sl as SimpleLiteral
-   * @return String
-   */
-  public static String simpleLiteralTostring(org.purl.dc.elements.x11.SimpleLiteral sl) {
-    return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
-  }
 }
