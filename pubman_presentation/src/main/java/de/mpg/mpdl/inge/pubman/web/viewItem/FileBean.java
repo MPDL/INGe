@@ -44,9 +44,9 @@ import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
+import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.aa.IpListProvider;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
-import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 
 /**
  * Bean for storing the information of files attached to items.

@@ -53,8 +53,8 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearch
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.LocatorAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.dates.DateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.GenreSearchCriterion;
-import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.StateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.ReviewMethodSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.enums.StateSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.genre.GenreListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.LogicalOperator;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.operators.Parenthesis;
