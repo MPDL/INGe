@@ -195,6 +195,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+<!--  Fuer alle Module -->
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -210,10 +211,48 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
+
+<!--  Java EE -->
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>8.0</version>
+				<scope>provided</scope>
+			</dependency>
+<!-- END  Java EE -->
+
+<!-- JSF -->
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>2.2.14</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.faces</groupId>
+				<artifactId>jsf-impl</artifactId>
+				<version>2.2.14</version>
+				<scope>provided</scope>
+			</dependency>
+<!-- END JSF -->
+
+<!--  PrimeFaces -->
+			<dependency>
+				<groupId>org.primefaces</groupId>
+				<artifactId>primefaces</artifactId>
+				<version>5.1</version>
+			</dependency>
+<!-- END PrimeFaces -->
+			
+<!--  Elastic Search -->		
 			<dependency>
 				<groupId>org.elasticsearch.client</groupId>
 				<artifactId>transport</artifactId>
@@ -224,6 +263,8 @@
 				<artifactId>elasticsearch</artifactId>
 				<version>6.1.1</version>
 			</dependency>
+<!--  END Elastic Search -->
+			
 			<dependency>
 				<groupId>xml-resolver</groupId>
 				<artifactId>xml-resolver</artifactId>
@@ -263,6 +304,8 @@
 				<artifactId>marc4j</artifactId>
 				<version>2.6.5</version>
 			</dependency>
+
+<!--  Pubman Module -->
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
@@ -376,6 +419,8 @@
 				<version>8.0.10-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
+<!-- END Pubman Module -->
+			
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
@@ -404,7 +449,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.12</version>
+				<version>4.13</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -413,6 +458,8 @@
 				<version>1.0</version>
 				<scope>test</scope>
 			</dependency>
+			
+<!--  Logging -->
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-core</artifactId>
@@ -433,18 +480,8 @@
 				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>2.8.2</version>
 			</dependency>
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-api</artifactId>
-				<version>2.2.14</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-impl</artifactId>
-				<version>2.2.14</version>
-				<scope>provided</scope>
-			</dependency>
+<!-- END Logging -->
+			
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
@@ -485,6 +522,8 @@
 				<artifactId>saxon</artifactId>
 				<version>8.7</version>
 			</dependency>
+			
+<!--  Spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
@@ -512,6 +551,8 @@
 				<artifactId>spring-security-config</artifactId>
 				<version>4.2.2.RELEASE</version>
 			</dependency>
+<!-- END  Spring -->
+			
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -568,12 +609,6 @@
 				<version>1.8.10</version>
 			</dependency>
 			<dependency>
-				<groupId>javax</groupId>
-				<artifactId>javaee-api</artifactId>
-				<version>7.0</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>20.0</version>
@@ -587,6 +622,12 @@
 				<groupId>net.sf.jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
 				<version>6.6.0</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.codehaus.castor</groupId>
+						<artifactId>castor-xml</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.jsoup</groupId>
@@ -642,6 +683,12 @@
 				<groupId>xalan</groupId>
 				<artifactId>xalan</artifactId>
 				<version>2.7.2</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 			    <groupId>commons-net</groupId>
@@ -685,22 +732,22 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
+					<version>3.8.1</version>
 					<configuration>
+						<forceJavacCompilerUse>true</forceJavacCompilerUse>
 						<encoding>${project.build.sourceEncoding}</encoding>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
+						<release>${jdk.version}</release>
 					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.6</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.7.2</version>
+					<version>3.0.0-M5</version>
 					<configuration>
 						<!-- if there are no tests, don't bail out -->
 						<failIfNoTests>false</failIfNoTests>
@@ -711,37 +758,37 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.4.1</version>
+					<version>3.1.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-ear-plugin</artifactId>
-					<version>2.10.1</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.7</version>
+					<version>1.8</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.2.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.9.1</version>
+					<version>3.1.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
+					<version>3.0.0-M1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.10</version>
+					<version>3.1.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -781,12 +828,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.2.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.3.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -795,14 +842,14 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>3.0.0-M1</version>
 				<configuration>
 					<preparationGoals>clean verify</preparationGoals>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.9.1</version>
 				<configuration>
 					<inputEncoding>UTF-8</inputEncoding>
 					<outputEncoding>UTF-8</outputEncoding>
@@ -1094,7 +1141,7 @@
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
 		<inge.yearbook.allowed_genres>ARTICLE,BOOK,BOOK_ITEM,BOOK_REVIEW,CASE_NOTE,CASE_STUDY,COLLECTED_EDITION,COMMENTARY,CONFERENCE_PAPER,CONFERENCE_REPORT,CONTRIBUTION_TO_COLLECTED_EDITION,CONTRIBUTION_TO_COMMENTARY,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_HANDBOOK,EDITORIAL,FESTSCHRIFT,HANDBOOK,ISSUE,JOURNAL,MONOGRAPH,NEWSPAPER_ARTICLE,OPINION,PAPER,PROCEEDINGS,SERIES,THESIS</inge.yearbook.allowed_genres>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>11</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 		<xsd.metadata.dc>http://purl.org/dc/elements/1.1/</xsd.metadata.dc>

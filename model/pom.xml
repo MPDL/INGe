@@ -47,7 +47,7 @@
 			<plugin>
 				<groupId>org.jibx</groupId>
 				<artifactId>jibx-maven-plugin</artifactId>
-				<version>1.3.1</version>
+				<version>1.3.3</version>
 				<configuration>
 					<schemaBindingDirectory>${project.build.outputDirectory}/jibx</schemaBindingDirectory>
 					<includeSchemaBindings>
@@ -85,7 +85,7 @@
 					<dependency>
 						<groupId>org.jibx</groupId>
 						<artifactId>jibx-bind</artifactId>
-						<version>1.3.1</version>
+						<version>1.3.3</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -109,7 +109,7 @@
 											jibx-maven-plugin
 										</artifactId>
 										<versionRange>
-											[1.3.1,)
+											[1.3.3,)
 										</versionRange>
 										<goals>
 											<goal>bind</goal>
@@ -152,10 +152,6 @@
 			<artifactId>inge_util</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
@@ -174,12 +170,24 @@
 		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-extras</artifactId>
-			<version>1.3.1</version>
+			<version>1.3.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-run</artifactId>
-			<version>1.3.1</version>
+			<version>1.3.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xpp3</groupId>
+					<artifactId>xpp3</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>

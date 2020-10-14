@@ -46,6 +46,7 @@
 				</executions>
 				<inherited>true</inherited>
 				<configuration>
+					<javaSource>1.8</javaSource>
 					<noPvr>true</noPvr>
 					<download>true</download>
 				</configuration>
@@ -95,10 +96,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.fop</groupId>

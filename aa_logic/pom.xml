@@ -56,10 +56,6 @@
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>inge_util</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-		</dependency>
 	</dependencies>
 
 </project>
