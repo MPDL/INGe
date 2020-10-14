@@ -1744,7 +1744,7 @@
                                             </le>
                                             <le>
                                                 <xsl:variable name="var">
-                                                    <xsl:variable name="var" select="substring($year-authors-or-editors-are-presented, 1, 4)"></xsl:variable>
+                                                    <xsl:variable name="var" select="$year-authors-or-editors-are-presented"></xsl:variable>
                                                     <xsl:copy-of select="$var"></xsl:copy-of>
                                                 </xsl:variable>
                                                 <xsl:copy-of select="$var"></xsl:copy-of>
