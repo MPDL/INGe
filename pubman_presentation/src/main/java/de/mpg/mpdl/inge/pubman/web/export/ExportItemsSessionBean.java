@@ -52,7 +52,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class ExportItemsSessionBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
 
-  public String exportDisplayData = "No export data available";
+  private String exportDisplayData = "No export data available";
 
   private String message = null;
 
