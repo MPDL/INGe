@@ -90,11 +90,11 @@ public class InternationalizationHelper implements Serializable {
       this.userLocale = new Locale("en");
     }
 
-//    if (this.userLocale.getLanguage().equals("de")) {
-//      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
-//    } else {
-//      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
-//    }
+    //    if (this.userLocale.getLanguage().equals("de")) {
+    //      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
+    //    } else {
+    //      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
+    //    }
 
     this.locale = this.userLocale.getLanguage();
 
