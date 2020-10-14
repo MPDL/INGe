@@ -22,7 +22,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class BatchProcessLogBean extends FacesBean {
-  public List<BatchProcessItemVO> batchProcessLogItemList;
+  private List<BatchProcessItemVO> batchProcessLogItemList;
 
   public enum Status
   {
