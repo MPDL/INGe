@@ -62,8 +62,6 @@ public class InternationalizationHelper implements Serializable {
   //  public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.jsp";
   //  public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.jsp";
 
-  public List<String> test = new ArrayList<String>();
-
   //  private String selectedHelpPage;
   private String locale = "en";
   private String homeContent = "n/a";
@@ -92,11 +90,11 @@ public class InternationalizationHelper implements Serializable {
       this.userLocale = new Locale("en");
     }
 
-//    if (this.userLocale.getLanguage().equals("de")) {
-//      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
-//    } else {
-//      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
-//    }
+    //    if (this.userLocale.getLanguage().equals("de")) {
+    //      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_DE;
+    //    } else {
+    //      this.selectedHelpPage = InternationalizationHelper.HELP_PAGE_EN;
+    //    }
 
     this.locale = this.userLocale.getLanguage();
 

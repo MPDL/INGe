@@ -1,9 +1,7 @@
 package de.mpg.mpdl.inge.pubman.web.batch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,7 +20,7 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 @SessionScoped
 @SuppressWarnings("serial")
 public class BatchProcessLogBean extends FacesBean {
-  public List<BatchProcessItemVO> batchProcessLogItemList;
+  private List<BatchProcessItemVO> batchProcessLogItemList;
 
   public enum Status
   {

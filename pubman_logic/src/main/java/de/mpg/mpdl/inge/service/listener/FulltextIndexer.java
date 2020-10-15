@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.service.listener;
 
-
-
 import java.io.ByteArrayOutputStream;
 
 import javax.jms.ObjectMessage;
