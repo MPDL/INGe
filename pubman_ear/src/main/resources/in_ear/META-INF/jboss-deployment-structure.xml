@@ -11,16 +11,13 @@
 			<subsystem name="ejb3"/>
 			<subsystem name="jaxrs" />
 			<subsystem name="jpa"/>
-			<subsystem name="jsf"/>
 			<subsystem name="security"/>
 			<subsystem name="transactions"/>
 			<subsystem name="weld"/>
-		</exclude-subsystems>  
-	
+		</exclude-subsystems>
+
 		<dependencies>
-			<module name="com.sun.jsf-impl" />
 			<module name="com.sun.xml.bind" />
-			<module name="javax.faces.api" />
 		 	<module name="pubman" export="true" />
 		</dependencies>
 	</deployment>
