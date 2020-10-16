@@ -227,8 +227,8 @@ public interface PubItemBatchService {
       String idNew, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
-   * change source edition for multiple items within a list of objectIds and return
-   * a BatchProcessLogDbVO
+   * change source edition for multiple items within a list of objectIds and return a
+   * BatchProcessLogDbVO
    * 
    * @param pubItemObjectIdList
    * @param sourceNumber
