@@ -96,7 +96,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model</artifactId>
+			<artifactId>aa_logic</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -104,15 +104,15 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>aa_logic</artifactId>
+			<artifactId>model</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>httpclient</artifactId>
+			<artifactId>fluent-hc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
-		  <artifactId>fluent-hc</artifactId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 	</dependencies>
 

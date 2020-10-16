@@ -33,19 +33,27 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>false</skip>
-                    <argLine>${jacoco.arguments.ut}</argLine>
-                </configuration>
-            </plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<argLine>${jacoco.arguments.ut}</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<dependencies>
 		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
 			<artifactId>aa_logic</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.mpdl.inge</groupId>
+			<artifactId>citationmanager</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.mpdl.inge</groupId>
@@ -56,33 +64,24 @@
 			<artifactId>model</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>citationmanager</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.marc4j</groupId>
-			<artifactId>marc4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-core</artifactId>
-		</dependency>
-		<dependency>
-		<groupId>org.apache.tika</groupId>
-		<artifactId>tika-parsers</artifactId>
+			<groupId>javabib</groupId>
+			<artifactId>javabib</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon-dom</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javabib</groupId>
-			<artifactId>javabib</artifactId>
-			<version>20040801</version>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.marc4j</groupId>
+			<artifactId>marc4j</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -95,10 +94,6 @@
 		<dependency>
 			<groupId>xml-resolver</groupId>
 			<artifactId>xml-resolver</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
 		</dependency>
 	</dependencies>
 
