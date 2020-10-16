@@ -8,17 +8,20 @@
 	<!-- This is the top level ear module, which contains all the classes in the EAR's lib folder     -->
 	<deployment>
 		<exclude-subsystems>
-			<subsystem name="jaxrs" />
-			<subsystem name="weld"/>
-			<subsystem name="security"/>
 			<subsystem name="ejb3"/>
+			<subsystem name="jaxrs" />
 			<subsystem name="jpa"/>
+			<subsystem name="jsf"/>
+			<subsystem name="security"/>
 			<subsystem name="transactions"/>
+			<subsystem name="weld"/>
 		</exclude-subsystems>  
 	
 		<dependencies>
-		 	<module name="pubman" export="true" />
+			<module name="com.sun.jsf-impl" />
 			<module name="com.sun.xml.bind" />
+			<module name="javax.faces.api" />
+		 	<module name="pubman" export="true" />
 		</dependencies>
 	</deployment>
 	
