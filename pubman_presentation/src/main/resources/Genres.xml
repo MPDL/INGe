@@ -325,7 +325,7 @@
 				<group id="source_publishing_info" form-id="full-submission">
 					<field id="publishing-info_edition" repeatable="false" display="false" optional="true"/>
 				</group>
-				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="source_sequence_number" repeatable="false" display="true" optional="true" form-id="all"/>
 			</group>
 		</genre>
 		
