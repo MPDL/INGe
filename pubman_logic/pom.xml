@@ -48,8 +48,8 @@
                     <transportPort>9500</transportPort>
                     <httpPort>9400</httpPort>
                     <version>6.3.2</version>
-                    <pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>  
-					<skip>${maven.test.skip}</skip>            
+                    <pathInitScript>${project.build.testOutputDirectory}/es_scripts/createIndex.script</pathInitScript>
+					<skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -75,10 +75,6 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.rometools</groupId>
@@ -124,35 +120,23 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-client</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-broker</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-spring</artifactId>
 		</dependency>
 		<dependency>
+			<!-- Required for Spring -->
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-kahadb-store</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>fluent-hc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
 		</dependency>
 		<dependency>
+			<!-- Required for Spring -->
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
