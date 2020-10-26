@@ -73,25 +73,25 @@
 				</plugins>
 			</build>
 		</profile>
-        <profile>
-            <id>env-iass</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties />
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <packagingExcludes>WEB-INF/classes/*.key</packagingExcludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+		<profile>
+			<id>env-iass</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties />
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<packagingExcludes>WEB-INF/classes/*.key</packagingExcludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
