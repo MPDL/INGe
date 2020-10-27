@@ -607,7 +607,12 @@
 				<version>4.2.2.RELEASE</version>
 			</dependency>
 
-<!-- Postman -->
+<!-- PostgreSQL-->
+			<dependency> <!-- Jdbc -->
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.5.4</version>
+			</dependency>
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
@@ -797,11 +802,6 @@
 			</dependency>
 
 <!-- Sonstige -->
-			<dependency> <!-- Jdbc -->
-				<groupId>com.mchange</groupId>
-				<artifactId>c3p0</artifactId>
-				<version>0.9.5.4</version>
-			</dependency>
 			<dependency> <!-- BibTex -->
 				<groupId>javabib</groupId>
 				<artifactId>javabib</artifactId>
