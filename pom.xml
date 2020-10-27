@@ -296,6 +296,13 @@
 				<version>1.7</version>
 			</dependency>
 
+<!--  Atom, RSS -->
+			<dependency>
+				<groupId>com.rometools</groupId>
+				<artifactId>rome</artifactId>
+				<version>1.8.0</version>
+			</dependency>
+			
 <!-- Commons -->
 			<dependency>
 				<groupId>commons-digester</groupId>
@@ -313,9 +320,27 @@
 				<version>2.4</version>
 			</dependency>
 			<dependency>
-			    <groupId>commons-net</groupId>
-			    <artifactId>commons-net</artifactId>
-			    <version>3.6</version>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>3.6</version>
+			</dependency>
+
+<!-- CSL -->
+			<dependency>
+				<!-- This citeproc version is a snapshot version although the version number 
+				does not indicate it. It requires rhino library The newer releases of citeproc 
+				(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
+				in JDK8. However, we got massive performance problems with the newer versions, 
+				so we use the old version until the performance problems are solved. -->
+				<groupId>org.citationstyles</groupId>
+				<artifactId>locales</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>de.undercouch</groupId>
+				<artifactId>citeproc-java</artifactId>
+				<version>1.0.0</version>
+				<classifier>mpdl-snapshot</classifier>
 			</dependency>
 
 <!-- Docx4j -->
@@ -379,6 +404,13 @@
 				<version>3.3.6</version>
 			</dependency>
 
+<!-- Dozer -->
+			<dependency>
+				<groupId>com.github.dozermapper</groupId>
+				<artifactId>dozer-core</artifactId>
+				<version>6.1.0</version>
+			</dependency>
+			
 <!-- Elastic Search -->
 			<dependency>
 				<groupId>org.elasticsearch</groupId>
@@ -391,7 +423,7 @@
 				<version>6.1.1</version>
 			</dependency>
 
-<!--  Hibernate -->
+<!-- Hibernate -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -428,18 +460,85 @@
 				<scope>provided</scope>
 			</dependency>
 
+<!-- Json Web Token -->
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>3.0.1</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.bouncycastle</groupId>
+						<artifactId>bcprov-jdk15on</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+<!-- Jasper Reports -->
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>6.6.0</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.codehaus.castor</groupId>
+						<artifactId>castor-xml</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+<!-- Jersey -->
+			<dependency>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>2.30</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.jersey.inject</groupId>
+				<artifactId>jersey-hk2</artifactId>
+				<version>2.30</version>
+			</dependency>
+			
+<!-- Jibx -->
+			<dependency>
+				<groupId>org.jibx</groupId>
+				<artifactId>jibx-extras</artifactId>
+				<version>1.3.3</version>
+				<exclusions>
+					<exclusion>
+						<groupId>xml-apis</groupId>
+						<artifactId>xml-apis</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>xpp3</groupId>
+						<artifactId>xpp3</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
 <!-- JSF -->
 			<dependency>
 				<groupId>javax.faces</groupId>
 				<artifactId>javax.faces-api</artifactId>
-  				<version>2.2</version>
+				<version>2.2</version>
 				<scope>provided</scope>
-  			</dependency>
+			</dependency>
 			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-impl</artifactId>
 				<version>2.2.14</version>
 				<scope>provided</scope>
+			</dependency>
+
+<!-- Json -->
+			<dependency>
+				<groupId>com.googlecode.json-simple</groupId>
+				<artifactId>json-simple</artifactId>
+				<version>1.1.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>20200518</version>
 			</dependency>
 
 <!-- Junit -->
@@ -508,21 +607,11 @@
 				<version>4.2.2.RELEASE</version>
 			</dependency>
 
-<!-- Jibx -->
+<!-- Postman -->
 			<dependency>
-				<groupId>org.jibx</groupId>
-				<artifactId>jibx-extras</artifactId>
-				<version>1.3.3</version>
-				<exclusions>
-					<exclusion>
-						<groupId>xml-apis</groupId>
-						<artifactId>xml-apis</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>xpp3</groupId>
-						<artifactId>xpp3</artifactId>
-					</exclusion>
-				</exclusions>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>42.1.1</version>
 			</dependency>
 
 <!-- Pubman Module -->
@@ -640,18 +729,40 @@
 				<type>war</type>
 			</dependency>
 
-<!-- Sonstige -->
+<!-- Saxon -->
 			<dependency>
-				<groupId>com.auth0</groupId>
-				<artifactId>java-jwt</artifactId>
-				<version>3.0.1</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.bouncycastle</groupId>
-						<artifactId>bcprov-jdk15on</artifactId>
-					</exclusion>
-				</exclusions>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon</artifactId>
+				<version>8.7</version>
 			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>saxon-dom</artifactId>
+				<version>8.7</version>
+			</dependency>
+
+<!-- Swagger -->
+			<dependency>
+				<!-- Required for swagger -->
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>2.9.0</version>
+			</dependency>
+
+<!-- Triple Store - RDF -->
+			<dependency>
+				<!--  ACHTUNG: ohne java.* Packages (manuell rauswerfen!) -->
+				<groupId>org.fcrepo</groupId>
+				<artifactId>mulgara-core</artifactId>
+				<version>2.1.13</version>
+			</dependency>
+
+<!-- Validation -->
 			<dependency>
 				<groupId>com.baidu.unbiz</groupId>
 				<artifactId>fluent-validator</artifactId>
@@ -667,128 +778,12 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
-				<groupId>com.github.dozermapper</groupId>
-				<artifactId>dozer-core</artifactId>
-				<version>6.1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.googlecode.json-simple</groupId>
-				<artifactId>json-simple</artifactId>
-				<version>1.1.1</version>
-			</dependency>
-			<dependency>
-				<groupId>com.mchange</groupId>
-				<artifactId>c3p0</artifactId>
-				<version>0.9.5.4</version>
-			</dependency>
-			<dependency>
-				<groupId>com.rometools</groupId>
-				<artifactId>rome</artifactId>
-				<version>1.8.0</version>
-			</dependency>
-			<dependency>
-				<groupId>de.undercouch</groupId>
-				<artifactId>citeproc-java</artifactId>
-				<version>1.0.0</version>
-				<classifier>mpdl-snapshot</classifier>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger2</artifactId>
-				<version>2.9.0</version>
-			</dependency>
-			<dependency>
-				<groupId>io.springfox</groupId>
-				<artifactId>springfox-swagger-ui</artifactId>
-				<version>2.9.0</version>
-			</dependency>
-			<dependency>
-				<groupId>javabib</groupId>
-				<artifactId>javabib</artifactId>
-				<version>20040801</version>
-			</dependency>
+			
+<!-- XML -->
 			<dependency>
 				<groupId>javax.xml.bind</groupId>
 				<artifactId>jaxb-api</artifactId>
 				<version>2.3.0</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.jasperreports</groupId>
-				<artifactId>jasperreports</artifactId>
-				<version>6.6.0</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.codehaus.castor</groupId>
-						<artifactId>castor-xml</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.saxon</groupId>
-				<artifactId>saxon</artifactId>
-				<version>8.7</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.saxon</groupId>
-				<artifactId>saxon-dom</artifactId>
-				<version>8.7</version>
-			</dependency>
-			<dependency>
-				<!-- This citeproc version is a snapshot version although the version number 
-				does not indicate it. It requires rhino library The newer releases of citeproc 
-				(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
-				in JDK8. However, we got massive performance problems with the newer versions, 
-				so we use the old version until the performance problems are solved. -->
-				<groupId>org.citationstyles</groupId>
-				<artifactId>locales</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<!--  ACHTUNG: ohne java.* Packages (manuell rauswerfen!) -->
-				<groupId>org.fcrepo</groupId>
-				<artifactId>mulgara-core</artifactId>
-				<version>2.1.13</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.jersey.core</groupId>
-				<artifactId>jersey-client</artifactId>
-				<version>2.30</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.jersey.inject</groupId>
-				<artifactId>jersey-hk2</artifactId>
-				<version>2.30</version>
-			</dependency>
-			<dependency>
-				<groupId>org.json</groupId>
-				<artifactId>json</artifactId>
-				<version>20200518</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jsoup</groupId>
-				<artifactId>jsoup</artifactId>
-				<version>1.7.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.marc4j</groupId>
-				<artifactId>marc4j</artifactId>
-				<version>2.6.5</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mozilla</groupId>
-				<artifactId>rhino</artifactId>
-				<version>1.7R4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>42.1.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.reflections</groupId>
-				<artifactId>reflections</artifactId>
-				<version>0.9.10</version>
 			</dependency>
 			<dependency>
 				<groupId>schematron</groupId>
@@ -796,14 +791,46 @@
 				<version>20021120</version>
 			</dependency>
 			<dependency>
-				<groupId>sword</groupId>
-				<artifactId>swordcommon</artifactId>
-				<version>1.0</version>
-			</dependency>
-			<dependency>
 				<groupId>xml-resolver</groupId>
 				<artifactId>xml-resolver</artifactId>
 				<version>1.2</version>
+			</dependency>
+
+<!-- Sonstige -->
+			<dependency> <!-- Jdbc -->
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.5.4</version>
+			</dependency>
+			<dependency> <!-- BibTex -->
+				<groupId>javabib</groupId>
+				<artifactId>javabib</artifactId>
+				<version>20040801</version>
+			</dependency>
+			<dependency> <!-- HTML Parser -->
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.7.3</version>
+			</dependency>
+			<dependency> <!-- Marc, MarcXML -->
+				<groupId>org.marc4j</groupId>
+				<artifactId>marc4j</artifactId>
+				<version>2.6.5</version>
+			</dependency>
+			<dependency> <!-- Javascript -->
+				<groupId>org.mozilla</groupId>
+				<artifactId>rhino</artifactId>
+				<version>1.7R4</version>
+			</dependency>
+			<dependency> <!-- Reflections -->
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>0.9.10</version>
+			</dependency>
+			<dependency> <!-- Sword -->
+				<groupId>sword</groupId>
+				<artifactId>swordcommon</artifactId>
+				<version>1.0</version>
 			</dependency>
 		</dependencies>
 		
