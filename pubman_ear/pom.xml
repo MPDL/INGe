@@ -87,6 +87,9 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>${jdk.version}</release>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>test-compile</phase>
