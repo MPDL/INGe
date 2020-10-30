@@ -231,9 +231,9 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               if (pubItemVO.getMetadata() != null && pubItemVO.getMetadata().getGenre() != null && contextVO.getAllowedGenres() != null
                   && !contextVO.getAllowedGenres().isEmpty() && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
                 pubItemVO.getObject().setContext(contextVO);
-                if (!(ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getObject().getPublicState())
+                if (!((ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getObject().getPublicState())
                     || ItemVersionRO.State.IN_REVISION.equals(pubItemVO.getVersionState()))
-                    && !ContextDbVO.Workflow.SIMPLE.equals(contextVO.getWorkflow())) {
+                    && ContextDbVO.Workflow.SIMPLE.equals(contextVO.getWorkflow()))) {
                   if (pubItemVO.getObject().getLocalTags() != null) {
                     pubItemVO.getObject().getLocalTags().add(message);
                   } else {

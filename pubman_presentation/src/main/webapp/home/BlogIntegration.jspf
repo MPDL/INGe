@@ -6,6 +6,7 @@
 	
 	<h:panelGroup>
 		<h:outputScript name="commonJavaScript/jquery/jquery.rss.min.js" />
+		<h:outputScript src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"/>
 		<h:outputScript
 			name="commonJavaScript/jquery/jquery-dateFormat.min.js" />
 		<h:outputStylesheet name="commonJavaScript/jquery/css/gfc.css" />
@@ -18,6 +19,7 @@
 								pubmanBlogUrl,
 								{
 									ssl : true,
+									host: "feedrapp.info",
 									limit : 4,
 									dateFormatFunction : function(date) {
 										return $.format

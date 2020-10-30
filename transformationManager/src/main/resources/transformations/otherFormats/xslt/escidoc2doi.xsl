@@ -207,9 +207,9 @@
 					<xsl:value-of select="dcterms:created"/>
 				</date>
 			</xsl:if>
-			<xsl:if test="event:event/eterms:start-date != ''">
+			<xsl:if test="dcterms:issued = '' and event:event/eterms:start-date != ''">
 				<date>
-					<xsl:attribute name="dateType">event start date</xsl:attribute>
+					<xsl:attribute name="dateType">Issued</xsl:attribute>
 					<xsl:value-of select="event:event/eterms:start-date"/>
 				</date>
 			</xsl:if>
@@ -240,7 +240,7 @@
 			<!-- <xsl:for-each select="../dcterms:alternative"><title><xsl:attribute name="titleType"><xsl:value-of select="./@xsi:type"/></xsl:attribute><xsl:attribute name="titleType">AlternativeTitle</xsl:attribute><xsl:value-of select="."/></title></xsl:for-each>-->
 		</titles>
 	</xsl:template>
-	<xsl:template match="dc:language">
+	<xsl:template match="dc:language[1]">
 		<language>
 			<xsl:value-of select="."/>
 		</language>

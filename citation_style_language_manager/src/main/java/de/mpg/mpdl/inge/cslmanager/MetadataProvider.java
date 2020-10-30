@@ -262,7 +262,7 @@ public class MetadataProvider implements ItemDataProvider {
         Collections.sort(fileList, new FileUrlPriorityComparator());
         if (fileList.get(0) != null) {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
-              && ("ny-fulltext".equals(fileList.get(0).getContentCategory()) || "post-print".equals(fileList.get(0).getContentCategory())
+              && ("any-fulltext".equals(fileList.get(0).getContentCategory()) || "post-print".equals(fileList.get(0).getContentCategory())
                   || "pre-print".equals(fileList.get(0).getContentCategory())
                   || "publisher-version".equals(fileList.get(0).getContentCategory()))) {
             if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage())) {

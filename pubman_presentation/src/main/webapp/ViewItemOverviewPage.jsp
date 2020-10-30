@@ -101,22 +101,22 @@
                                 <!-- content menu upper line ends here -->
                                 <!-- content menu lower line (actions) starts here -->
                                 <h:panelGroup layout="block" styleClass="free_area0 sub action" rendered="#{ViewItemSessionBean.subMenu == 'ACTIONS'}">
-                                    <h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}" value="#{lbl.actionMenu_lnkEdit}" rendered="#{ViewItemFull.canEdit}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canEdit}" />
-                                    <h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" value="#{lbl.actionMenu_lnkSubmit}" rendered="#{ViewItemFull.canSubmit}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canSubmit}" />
-                                    <h:commandLink id="lnkRelease" action="#{ViewItemFull.releaseItem}" value="#{lbl.actionMenu_lnkRelease}" rendered="#{ViewItemFull.canRelease}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRelease}" />
-                                    <h:commandLink id="lnkRevise" action="#{ViewItemFull.reviseItem}" value="#{lbl.actionMenu_lnkRevise}" rendered="#{ViewItemFull.canRevise}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRevise}" />
-                                    <h:commandLink id="lnkDelete" onclick="if(!confirm('#{msg.deleteMessage}'))return false;" value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{ViewItemFull.canDelete}" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canDelete}" />
-                                    <h:commandLink id="lnkWithdraw" action="#{ViewItemFull.withdrawItem}" value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{ViewItemFull.canWithdraw}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canWithdraw}" />
-                                    <h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.canModify}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canModify}" />
+                                    <h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}" value="#{lbl.actionMenu_lnkEdit}" rendered="#{ViewItemFull.canEdit and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canEdit and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" value="#{lbl.actionMenu_lnkSubmit}" rendered="#{ViewItemFull.canSubmit and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canSubmit and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkRelease" action="#{ViewItemFull.releaseItem}" value="#{lbl.actionMenu_lnkRelease}" rendered="#{ViewItemFull.canRelease and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRelease and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkRevise" action="#{ViewItemFull.reviseItem}" value="#{lbl.actionMenu_lnkRevise}" rendered="#{ViewItemFull.canRevise and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canRevise and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkDelete" onclick="if(!confirm('#{msg.deleteMessage}'))return false;" value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{ViewItemFull.canDelete and ViewItemFull.isLatestVersion}" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canDelete and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkWithdraw" action="#{ViewItemFull.withdrawItem}" value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{ViewItemFull.canWithdraw and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canWithdraw and ViewItemFull.isLatestVersion}" />
+                                    <h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}" value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.canModify and ViewItemFull.isLatestVersion}" onclick="fullItemReloadAjax();" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canModify and ViewItemFull.isLatestVersion}" />
                                     <h:commandLink id="lnkSendOAMail" action="#{GFZSendOAMailPage.sendOAMailPage}" value="#{lbl.actionMenu_sendOAMail}" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased and ViewItemFull.canSendOAMail}" onclick="fullItemReloadAjax();"/>
-                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased}" />
+                                    <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isModerator and ViewItemFull.isStateReleased and ViewItemFull.canSendOAMail}" />
                                     <h:commandLink id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}" value="#{lbl.ViewItemFull_lblCreateItemFromTemplate}" rendered="#{ViewItemFull.canCreateFromTemplate}" onclick="fullItemReloadAjax();" />
                                     <h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.canCreateFromTemplate}" />
                                     <h:commandLink id="lnkAddToBasket" action="#{ViewItemFull.addToBasket}" value="#{lbl.ViewItemFull_lblAddToBasket}" rendered="#{ViewItemFull.canAddToBasket}" onclick="fullItemReloadAjax();" />

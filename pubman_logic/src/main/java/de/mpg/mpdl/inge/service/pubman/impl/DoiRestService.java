@@ -1,8 +1,10 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
+import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -12,6 +14,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpClientParams;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
@@ -65,8 +68,9 @@ public class DoiRestService {
       Transformer transformer =
           TransformerFactory.newTransformer(TransformerFactory.getInternalFormat(), TransformerFactory.FORMAT.DOI_METADATA_XML);
       StringWriter wr = new StringWriter();
-
-      transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes())), new TransformerStreamResult(wr));
+      //      itemXml = StringEscapeUtils.escapeXml(itemXml);
+      transformer.transform(new TransformerStreamSource(new ByteArrayInputStream(itemXml.getBytes(StandardCharsets.UTF_8))),
+          new TransformerStreamResult(wr));
 
       // REST request to the DOI service for creating a new DOI
       RequestEntity xmlEntity = new StringRequestEntity(wr.toString(), "text/xml", "UTF-8");
