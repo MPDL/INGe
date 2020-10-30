@@ -1,6 +1,5 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
-import java.beans.XMLEncoder;
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.net.URLEncoder;
@@ -14,7 +13,6 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.params.HttpClientParams;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
