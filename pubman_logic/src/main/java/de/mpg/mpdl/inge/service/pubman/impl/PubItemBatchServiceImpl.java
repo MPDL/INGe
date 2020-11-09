@@ -557,6 +557,9 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                     }
                   }
                 }
+                if (FileVO.Visibility.PUBLIC.equals(visibilityNew) && file.getMetadata().getEmbargoUntil() != null) {
+                  file.getMetadata().setEmbargoUntil(null);
+                }
                 anyFilesChanged = true;
               }
             }
