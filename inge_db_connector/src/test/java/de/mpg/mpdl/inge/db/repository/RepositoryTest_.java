@@ -19,7 +19,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JPAConfiguration.class})
-public class RepositoryTest {
+public class RepositoryTest_ {
 
   @Autowired
   AuditRepository auditRepository;
