@@ -22,29 +22,28 @@
         throughout the solution features are of major importance.
     </description>
 
-	<!--  Hier wird die Reihenfolge für das Maven Build festgelegt (Reactor summary) -->
 	<modules>
-		<module>inge_util</module>
 		<module>aa_logic</module>
-		<module>model</module>
 		<module>aa_presentation</module>
 		<module>citation_style_language_manager</module>
 		<module>citationmanager</module>
 		<module>cone</module>
+		<module>cone_cache</module>
 		<module>cone_presentation</module>
-		<module>transformationManager</module>
 		<module>dataacquisition</module>
+		<module>inge_db_connector</module>
 		<module>inge_es_connector</module>
 		<module>inge_filestorage_connector</module>
-		<module>inge_db_connector</module>
-		<module>cone_cache</module>
+		<module>inge_util</module>
 		<module>inge_validation</module>
+		<module>model</module>
+		<module>pubman_ear</module>
 		<module>pubman_logic</module>
 		<module>pubman_presentation</module>
 		<module>pubman_rest</module>
-		<module>pubman_ear</module>
 		<module>reindex_util</module>
 		<module>reporting</module>
+		<module>transformationManager</module>
 	</modules>
 
 	<licenses>
@@ -624,96 +623,96 @@
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_presentation</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citation_style_language_manager</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>citationmanager</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_cache</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>cone_presentation</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency><dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_db_connector</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_es_connector</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_filestorage_connector</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_util</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>inge_validation</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>model</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_logic</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_presentation</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 				<classifier>${inge.pubman.build.mode}</classifier>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>pubman_rest</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 				<type>war</type>
 			</dependency>
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>transformationManager</artifactId>
-				<version>8.1.1-SNAPSHOT</version>
+				<version>8.1.2-SNAPSHOT</version>
 			</dependency>
 			
 <!-- Saxon -->
