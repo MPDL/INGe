@@ -17,8 +17,7 @@
 		</exclude-subsystems>
 
 		<dependencies>
-			<module name="com.sun.xml.bind" />
-		 	<module name="pubman" export="true" />
+			<module name="pubman" export="true" />
 		</dependencies>
 	</deployment>
 	
