@@ -64,19 +64,6 @@
 			<artifactId>inge_filestorage_connector</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>fluent-hc</artifactId>
 			<scope>test</scope>

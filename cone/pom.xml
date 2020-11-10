@@ -53,10 +53,6 @@
 			<artifactId>aa_logic</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_util</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.fcrepo</groupId>
 			<artifactId>mulgara-core</artifactId>
 		</dependency>

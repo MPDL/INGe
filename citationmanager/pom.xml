@@ -77,14 +77,6 @@
 			<artifactId>citation_style_language_manager</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>inge_util</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.mpg.mpdl.inge</groupId>
-			<artifactId>model</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 		</dependency>
