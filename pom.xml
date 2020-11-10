@@ -22,6 +22,7 @@
         throughout the solution features are of major importance.
     </description>
 
+	<!--  Hier wird die Reihenfolge für das Maven Build festgelegt (Reactor summary) -->
 	<modules>
 		<module>inge_util</module>
 		<module>aa_logic</module>
