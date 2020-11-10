@@ -1,4 +1,4 @@
-<!-- This file is used to transform an existing jboss properties-service-xml to include sprecial pubman properties -->
+<!-- This file is used to transform an existing jboss properties-service-xml to include special pubman properties -->
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="xml" omit-xml-declaration="yes" standalone="yes" indent="yes" />
