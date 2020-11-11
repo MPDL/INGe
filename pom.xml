@@ -906,7 +906,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.7.2</version>
+					<version>3.0.0-M5</version>
 					<configuration>
 						<!-- if there are no tests, don't bail out -->
 						<failIfNoTests>false</failIfNoTests>
