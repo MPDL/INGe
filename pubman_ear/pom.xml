@@ -32,7 +32,7 @@
 					<description>Pubman</description>
 					<earSourceDirectory>target/classes/in_ear</earSourceDirectory>
 					<packagingExcludes>./*.properties</packagingExcludes>
-					<version>6</version>
+					<version>8</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<skinnyWars>true</skinnyWars>
 					<initializeInOrder>true</initializeInOrder>	
@@ -57,13 +57,6 @@
 							<artifactId>pubman_rest</artifactId>
 							<contextRoot>/rest</contextRoot>
 						</webModule>
-						<!-- 
-						<webModule>
-							<groupId>de.mpg.mpdl.inge</groupId>
-							<artifactId>admintool</artifactId>
-							<contextRoot>/admintool</contextRoot>
-						</webModule>
-						-->
 					</modules>
 				</configuration>
 			</plugin>
