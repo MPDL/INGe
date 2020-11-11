@@ -1569,7 +1569,7 @@
 				<inge.unapi.service.url>https://dev.inge.mpdl.mpg.de/rest/unapi</inge.unapi.service.url>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.host>vm44.mpdl.mpg.de</jboss.host>
-				<jboss.install.dir>/srv/web/inge/wildfly-21.0.0.Final</jboss.install.dir>
+				<jboss.install.dir>/srv/web/inge/wildfly</jboss.install.dir>
 				<jboss.tmp.deploy>/srv/web/inge</jboss.tmp.deploy>
 				<jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>
 				<jboss.username>jboss</jboss.username>
