@@ -1333,12 +1333,6 @@
 				<inge.pubman.privacy.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.policy.url>
 				<inge.pubman_presentation.overview_page.authors_ou>Max Planck Society</inge.pubman_presentation.overview_page.authors_ou>
 			</properties>
-			<distributionManagement>
-				<site>
-					<id>website</id>
-					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-				</site>
-			</distributionManagement>
 		</profile>
 
 		<!-- activate this profile for an Gfz build -->
@@ -1395,12 +1389,6 @@
 				<inge.rest.development.file_url />
 				<inge.systemtype>production</inge.systemtype>
 			</properties>
-			<distributionManagement>
-				<site>
-					<id>website</id>
-					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-				</site>
-			</distributionManagement>
 		</profile>
 
         <!-- activate this profile for an Iass build -->
@@ -1458,12 +1446,6 @@
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
-            <distributionManagement>
-                <site>
-                    <id>website</id>
-                    <url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-                </site>
-            </distributionManagement>
         </profile>
         
         <!-- activate this profile for an Pik build -->
@@ -1521,12 +1503,6 @@
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
-            <distributionManagement>
-                <site>
-                    <id>website</id>
-                    <url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-                </site>
-            </distributionManagement>
         </profile>
 
 		<!-- profile for the daily build on continuum -->
@@ -1559,12 +1535,6 @@
 				<jboss.user.scp>jboss@vm44.mpdl.mpg.de</jboss.user.scp>
 				<jboss.username>jboss</jboss.username>
 			</properties>
-			<distributionManagement>
-				<site>
-					<id>website</id>
-					<url>scp://pubman.mpdl.mpg.de:/srv/www/staging/projects/pubman</url>
-				</site>
-			</distributionManagement>
 		</profile>
 
 		<!-- activate this profile for instrumenting code by JRebel -->
