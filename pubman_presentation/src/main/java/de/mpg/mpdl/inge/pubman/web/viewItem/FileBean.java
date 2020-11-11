@@ -569,17 +569,19 @@ public class FileBean extends FacesBean {
     if (Visibility.AUDIENCE.equals(file.getVisibility())) {
       IpListProvider ipListProvider = ApplicationBean.INSTANCE.getIpListProvider();
       StringBuilder sb = new StringBuilder();
-      for (String audienceId : file.getAllowedAudienceIds()) {
-        IpRange ipRange = ipListProvider.get(audienceId);
-        if (ipRange != null) {
-          sb.append(ipRange.getName());
-        } else {
-          sb.append("UNKNOWN id " + audienceId);
-        }
+      if (file.getAllowedAudienceIds() != null) {
+        for (String audienceId : file.getAllowedAudienceIds()) {
+          IpRange ipRange = ipListProvider.get(audienceId);
+          if (ipRange != null) {
+            sb.append(ipRange.getName());
+          } else {
+            sb.append("UNKNOWN id " + audienceId);
+          }
 
-        sb.append("; ");
+          sb.append("; ");
+        }
+        return sb.toString();
       }
-      return sb.toString();
     }
     return null;
   }

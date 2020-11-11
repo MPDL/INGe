@@ -142,7 +142,7 @@
 								value=" (#{lbl.EditItem_lblFileEmbargo} #{file.file.metadata.embargoUntil})"
 								rendered="#{ViewItemFull.isStateWithdrawn == false and file.isVisible == false and file.file.metadata.embargoUntil != null and file.file.metadata.embargoUntil != ''}" />
 							<h:outputText value=" (#{file.audienceOrganizations})"
-								rendered="#{ViewItemFull.isStateWithdrawn == false and file.file.visibility == 'AUDIENCE'}" />
+								rendered="#{file.audienceOrganizations != null and ViewItemFull.isStateWithdrawn == false and file.file.visibility == 'AUDIENCE'}" />
 							
 							<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}"
 								rendered="#{ViewItemFull.isStateWithdrawn == true}" />
