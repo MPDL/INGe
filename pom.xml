@@ -1115,7 +1115,7 @@
 		<inge.cone.database.server.name.test>dev.inge.mpdl.mpg.de</inge.cone.database.server.name.test>
 		<inge.cone.database.server.name>localhost</inge.cone.database.server.name>
 		<inge.cone.database.server.port>5432</inge.cone.database.server.port>
-        <inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
+		<inge.cone.extended.attributes.use>false</inge.cone.extended.attributes.use>
 		<inge.cone.language.default>en</inge.cone.language.default>
 		<inge.cone.maximum.results>50</inge.cone.maximum.results>
 		<inge.cone.mimetype.pattern>application/vnd.cone-(.+)</inge.cone.mimetype.pattern>
@@ -1136,10 +1136,10 @@
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.doi.service.use>true</inge.doi.service.use>
-        <inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
-        <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
-        <inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
-        <inge.email.withauthentication>false</inge.email.withauthentication>
+		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
+		<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
+		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
+		<inge.email.withauthentication>false</inge.email.withauthentication>
 		<inge.es.cluster.name.test>testCluster</inge.es.cluster.name.test>
 		<inge.es.cluster.name>elastic_inge</inge.es.cluster.name>
 		<inge.es.transport.ips.test>127.0.0.1:9500</inge.es.transport.ips.test>
