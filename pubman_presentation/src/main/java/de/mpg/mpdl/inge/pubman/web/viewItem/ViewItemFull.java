@@ -1739,7 +1739,7 @@ public class ViewItemFull extends FacesBean {
     // create an attachment temp file from the byte[] stream
     File exportAttFile;
     try {
-      exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getFormat() + "_" + date,
+      exportAttFile = File.createTempFile("MPG.PuRe_Export_" + curExportFormat.getFormat() + "_" + date,
           "." + TransformerFactory.getFormat(curExportFormat.getFormat()).getFileFormat().getExtension());
       final FileOutputStream fos = new FileOutputStream(exportAttFile);
       fos.write(exportFileData);
@@ -1753,7 +1753,7 @@ public class ViewItemFull extends FacesBean {
     this.getExportItemsSessionBean().setAttExportFileName(exportAttFile.getName());
     this.getExportItemsSessionBean().setAttExportFile(exportAttFile);
     this.getExportItemsSessionBean()
-        .setExportEmailSubject(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) + ": " + exportAttFile.getName());
+        .setExportEmailSubject(this.getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT).replace("$1", curExportFormat.getFormat()));
     // hier call set the values on the exportEmailView - attachment file, subject, ....
 
     return "displayExportEmailPage";
