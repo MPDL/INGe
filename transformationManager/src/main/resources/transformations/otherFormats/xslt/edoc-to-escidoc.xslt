@@ -3384,6 +3384,9 @@
 						<xsl:when test="$import-name = 'BPC'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for biophysical chemistry')" />
 						</xsl:when>
+						<xsl:when test="$import-name = 'MPIA'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Astrophysics')" />
+						</xsl:when>
 						<xsl:when test="$import-name = 'MPIBPH'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute of Biophysics')" />
 						</xsl:when>
@@ -3396,11 +3399,11 @@
 						<xsl:when test="$import-name = 'MPIE'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Extraterrestrial Physics')" />
 						</xsl:when>
-						<xsl:when test="$import-name = 'MPIA'">
-							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Astrophysics')" />
-						</xsl:when>
 						<xsl:when test="$import-name = 'MPIMET'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Meteorology')" />
+						</xsl:when>
+						<xsl:when test="$import-name = 'MPIterMIc'">
+							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'Max Planck Institute for Terrestrial Microbiology')" />
 						</xsl:when>
 						<xsl:when test="$import-name = 'ETH'">
 							<xsl:copy-of select="Util:queryConeExact('persons', concat($creatornfamily, ', ', $creatorngiven), 'MPI for Social Anthropology')" />
