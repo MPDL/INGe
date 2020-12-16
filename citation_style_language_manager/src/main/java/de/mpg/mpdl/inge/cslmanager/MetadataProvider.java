@@ -138,9 +138,12 @@ public class MetadataProvider implements ItemDataProvider {
                 .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           }
         } else if (CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType())) {
-          editorList.add(new CSLNameBuilder().given("").family(creator.getOrganization().getName()).build()); // empty
-                                                                                                              // String
-                                                                                                              // needed
+          if (CreatorVO.CreatorRole.AUTHOR.equals(creator.getRole())) {
+            authorList.add(new CSLNameBuilder().given("").family(creator.getOrganization().getName()).build());
+          } else {
+            // empty String for given needed
+            editorList.add(new CSLNameBuilder().given("").family(creator.getOrganization().getName()).build());
+          }
         }
       }
       if (authorList.size() > 0) {
