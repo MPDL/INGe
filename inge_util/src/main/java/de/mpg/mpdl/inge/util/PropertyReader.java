@@ -155,7 +155,6 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_BLOG_BASEURL = "inge.pubman.blog.baseUrl";
   public static final String INGE_PUBMAN_BLOG_NEWS = "inge.pubman.blog.news";
   public static final String INGE_PUBMAN_COMPONENT_PATTERN = "inge.pubman.component.pattern";
-  public static final String INGE_PUBMAN_CONTACT_URL = "inge.pubman.contact.url";
   public static final String INGE_PUBMAN_COOKIE_VERSION = "inge.pubman.cookie.version";
   public static final String INGE_PUBMAN_CSL_EDITOR_INSTANCE = "inge.pubman.csl_editor.instance";
   public static final String INGE_PUBMAN_EXTERNAL_ORGANISATION_ID = "inge.pubman.external.organisation.id";
@@ -163,7 +162,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_FAVICON_URL = "inge.pubman.favicon.url";
   public static final String INGE_PUBMAN_FOOTER_FILENAME = "inge.pubman.footer.fileName";
   public static final String INGE_PUBMAN_GENRES_CONFIGURATION = "inge.pubman.genres.configuration";
-  public static final String INGE_PUBMAN_HANDBOOK_URL = "inge.pubman.handbook.url";
+  public static final String INGE_PUBMAN_HELP_URL = "inge.pubman.help.url";
   public static final String INGE_PUBMAN_HOME_CONTENT_URL = "inge.pubman.home.content.url";
   public static final String INGE_PUBMAN_INSTANCE_CONTEXT_PATH = "inge.pubman.instance.context.path";
   public static final String INGE_PUBMAN_INSTANCE_SSRN_CONTEXTS = "inge.pubman.instance.ssrn_contexts";

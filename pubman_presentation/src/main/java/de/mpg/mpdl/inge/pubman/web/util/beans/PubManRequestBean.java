@@ -99,33 +99,18 @@ public class PubManRequestBean extends FacesBean {
     return url;
   }
 
-  /**
-   * Reads the contact URL from the properties file.
-   * 
-   * @return contactUrl as String
-   */
-  public String getContactUrl() {
-    String url = "";
-    try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CONTACT_URL);
-    } catch (final Exception e) {
-      PubManRequestBean.logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_CONTACT_URL + "' from properties file.", e);
-    }
-
-    return url;
-  }
 
   /**
-   * Reads the handbook URL from the properties file.
+   * Reads the help URL from the properties file.
    * 
    * @return handbookUrl as String
    */
-  public String getHandbookUrl() {
+  public String getHelpUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HANDBOOK_URL);
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_HELP_URL);
     } catch (final Exception e) {
-      PubManRequestBean.logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_HANDBOOK_URL + "' from properties file.", e);
+      PubManRequestBean.logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_HELP_URL + "' from properties file.", e);
     }
 
     return url;
