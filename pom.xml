@@ -818,6 +818,11 @@
 				<artifactId>swordcommon</artifactId>
 				<version>1.0</version>
 			</dependency>
+			<dependency>
+				<groupId>xalan</groupId>
+				<artifactId>xalan</artifactId>
+				<version>2.7.2</version>
+			</dependency>
 		</dependencies>
 		
 	</dependencyManagement>
