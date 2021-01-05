@@ -160,7 +160,7 @@ public class LoginHelper extends FacesBean {
         this.detailedMode = true;
 
         logger.info("Login succeeded: " + this.getUsername());
-        
+
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
         if (GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR)) {
