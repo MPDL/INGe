@@ -102,7 +102,7 @@ public class SearchAndExportPage extends BreadcrumbPage {
   // Wird nur 1x während der Lebenszeit des Beans aufgerufen
   @PostConstruct
   public void postConstruct() {
-    SearchAndExportPage.logger.info("PostConstruct");
+//    SearchAndExportPage.logger.info("PostConstruct");
     this.limit = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_MAXIMUM_RECORDS);
     this.offset = PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_START_RECORD);
     this.sort.add(new MySort(PropertyReader.getProperty(PropertyReader.INGE_SEARCH_AND_EXPORT_DEFAULT_SORT_KEY),
