@@ -959,12 +959,15 @@ public class ViewItemFull extends FacesBean {
         identifiers.append(": ");
         if (idList.get(i).getType() == IdType.DOI) {
           identifiers.append("<a target='_blank' href='https://doi.org/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
-          //        } else if (idList.get(i).getType() == IdType.EDOC) {
-          //          identifiers.append("<a target='_blank' href='http://edoc.mpg.de/" + idList.get(i).getId()
-          //            + "'>" + idList.get(i).getId() + "</a>");
-          //        } else if (idList.get(i).getType() == IdType.EDOC) {
-          //          identifiers.append("<a target='_blank' href='http://edoc.gfz-potsdam.de/pik/display.epl?mode=doc&id=" + idList.get(i).getId()
-          //              + "'>" + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.ADS) {
+          identifiers.append("<a target='_blank' href='https://ui.adsabs.harvard.edu/abs/" + idList.get(i).getId() + "'>"
+              + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.ARXIV) {
+          identifiers
+              .append("<a target='_blank' href='https://arxiv.org/abs/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.BMC) {
+          identifiers.append("<a target='_blank' href='https://bmcbioinformatics.biomedcentral.com/articles/" + idList.get(i).getId() + "'>"
+              + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.CONE) {
           String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
           identifiers.append("<a target='_blank' href='"
@@ -975,6 +978,18 @@ public class ViewItemFull extends FacesBean {
         } else if (idList.get(i).getType() == IdType.ISI) {
           identifiers.append("<a target='_blank' href='" + ViewItemFull.ISI_KNOWLEDGE_BASE_LINK + idList.get(i).getId()
               + ViewItemFull.ISI_KNOWLEDGE_DEST_APP + "'>" + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.PMC) {
+          identifiers.append("<a target='_blank' href='https://www.ncbi.nlm.nih.gov/pmc/articles/" + idList.get(i).getId() + "'>"
+              + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.PMID) {
+          identifiers.append(
+              "<a target='_blank' href='https://pubmed.ncbi.nlm.nih.gov/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.SSRN) {
+          identifiers.append(
+              "<a target='_blank' href='https://ssrn.com/abstract=" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
+        } else if (idList.get(i).getType() == IdType.ZDB) {
+          identifiers.append("<a target='_blank' href='https://ld.zdb-services.de/resource/" + idList.get(i).getId() + "'>"
+              + idList.get(i).getId() + "</a>");
         } else if (CommonUtils.getIsUriValidUrl(idList.get(i))) {
           identifiers.append("<a target='_blank' href='" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
         } else {
