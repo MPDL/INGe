@@ -407,7 +407,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
       if (this.elasticSearchQueryUrlParam != null) {
         json = this.elasticSearchQueryUrlParam;
       } else {
-        json = this.elasticSearchQueryBuilder.toString();
+        json = this.elasticSearchQueryBuilder != null ? this.elasticSearchQueryBuilder.toString() : "";
       }
       return json != null ? URLEncoder.encode(JsonUtil.minifyJsonString(json), StandardCharsets.UTF_8.displayName()) : "";
     } catch (Exception e) {
