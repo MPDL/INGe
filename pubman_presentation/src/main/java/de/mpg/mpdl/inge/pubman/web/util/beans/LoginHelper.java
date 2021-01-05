@@ -148,7 +148,7 @@ public class LoginHelper extends FacesBean {
    */
   public String login() {
     try {
-
+      logger.info("Try to login: " + this.getUsername());
       HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
       HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
       this.principal = ApplicationBean.INSTANCE.getUserAccountService().login(this.getUsername(), this.getPassword(), request, response);
@@ -170,17 +170,20 @@ public class LoginHelper extends FacesBean {
         }
       }
     } catch (final AuthenticationException e) {
-      LoginHelper.logger.error("Error while logging in", e);
+      logger.error("Error while logging in", e);
       this.error(this.getMessage("LoginError"));
     } catch (final Exception e) {
-      LoginHelper.logger.error("Error while logging in", e);
+      logger.error("Error while logging in", e);
       this.error(this.getMessage("LoginTechnicalError"));
     }
+
+    logger.info("Login succeeded: " + this.getUsername());
 
     return "";
   }
 
   public String logout() {
+    logger.info("Try to logout: " + this.getUsername());
     HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
     HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 
@@ -189,9 +192,13 @@ public class LoginHelper extends FacesBean {
     } catch (Exception e) {
       logger.error("Error while logging out", e);
     }
+    logger.info("Logout succeeded: " + this.getUsername());
+    
     final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
+    logger.info("Session invalidated: " + this.getUsername());
 
+    
     this.init();
 
     return HomePage.LOAD_HOMEPAGE;
