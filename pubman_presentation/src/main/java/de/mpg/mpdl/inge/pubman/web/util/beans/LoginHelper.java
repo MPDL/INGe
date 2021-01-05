@@ -159,6 +159,8 @@ public class LoginHelper extends FacesBean {
         this.loggedIn = true;
         this.detailedMode = true;
 
+        logger.info("Login succeeded: " + this.getUsername());
+        
         ((ContextListSessionBean) FacesTools.findBean("ContextListSessionBean")).init();
         // reinitialize ContextList
         if (GrantUtil.hasRole(accountUser, PredefinedRoles.DEPOSITOR)) {
@@ -177,8 +179,6 @@ public class LoginHelper extends FacesBean {
       this.error(this.getMessage("LoginTechnicalError"));
     }
 
-    logger.info("Login succeeded: " + this.getUsername());
-
     return "";
   }
 
@@ -189,16 +189,16 @@ public class LoginHelper extends FacesBean {
 
     try {
       ApplicationBean.INSTANCE.getUserAccountService().logout(this.authenticationToken, request, response);
+      logger.info("Logout succeeded: " + this.getUsername());
     } catch (Exception e) {
       logger.error("Error while logging out", e);
     }
-    logger.info("Logout succeeded: " + this.getUsername());
-    
+
     final HttpSession session = (HttpSession) FacesTools.getExternalContext().getSession(false);
     session.invalidate();
     logger.info("Session invalidated: " + this.getUsername());
 
-    
+
     this.init();
 
     return HomePage.LOAD_HOMEPAGE;
