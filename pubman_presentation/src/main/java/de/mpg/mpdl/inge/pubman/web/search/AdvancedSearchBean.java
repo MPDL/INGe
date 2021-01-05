@@ -139,10 +139,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.getI18nHelper().addLanguageChangeObserver(this);
   }
 
-//  @PreDestroy
-//  public void preDestroy() {
-//    this.getI18nHelper().removeLanguageChangeObserver(this);
-//  }
+  //  @PreDestroy
+  //  public void preDestroy() {
+  //    this.getI18nHelper().removeLanguageChangeObserver(this);
+  //  }
 
   public void clearAndInit() {
     this.affiliatedContextListSearchCriterion = new AffiliatedContextListSearchCriterion();
