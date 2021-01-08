@@ -300,14 +300,10 @@ public class SQLQuerier implements Querier {
       }
 
       query += ";";
-      if (logger.isDebugEnabled()) {
-        logger.debug("query: " + query);
-      }
+      logger.info("CoNE query: " + query);
 
       Statement statement = connection.createStatement();
-      long now = new Date().getTime();
       ResultSet result = statement.executeQuery(query);
-      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
       List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
       while (result.next()) {
         String id = result.getString("id");
