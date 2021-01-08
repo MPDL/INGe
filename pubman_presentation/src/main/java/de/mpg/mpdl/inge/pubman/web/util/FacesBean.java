@@ -49,7 +49,11 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
 public class FacesBean implements Serializable {
   private static final Logger logger = Logger.getLogger(FacesBean.class);
 
-  public FacesBean() {}
+  private InternationalizationHelper i18nHelper;
+
+  public FacesBean() {
+    this.i18nHelper = (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+  }
 
   /**
    * Enqueue a global <code>FacesMessage</code> (not associated with any particular component)
@@ -289,7 +293,7 @@ public class FacesBean implements Serializable {
   }
 
   public InternationalizationHelper getI18nHelper() {
-    return (InternationalizationHelper) FacesTools.findBean("InternationalizationHelper");
+    return this.i18nHelper;
   }
 
   public String getMessage(String placeholder) {
