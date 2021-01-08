@@ -768,7 +768,7 @@
 				<group id="source_volume_issue_pages" form-id="easy-submission">
 					<field id="source_issue" repeatable="false" display="false" optional="true"/>
 				</group>
-				<group id="source_sequence_number" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="source_sequence_number" repeatable="false" display="true" optional="true" form-id="all"/>
 			</group>
 		</genre>
 		
