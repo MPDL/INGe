@@ -55,7 +55,7 @@
 	</h:panelGroup>
 	
 	<h:panelGroup
-		rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}">
+		rendered="#{(LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}">
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span>
 			<span class="seperator"></span>

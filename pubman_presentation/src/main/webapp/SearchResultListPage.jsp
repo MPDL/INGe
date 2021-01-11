@@ -232,20 +232,20 @@
 											value="#{lbl.List_lblAddToBasket}"
 											action="#{PubItemListSessionBean.addSelectedToCart}"
 											onclick="fullItemReloadAjax();" />
-										<h:outputText styleClass="seperator" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
+										<h:outputText styleClass="seperator" rendered="#{(LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}"/>
 										<h:commandLink id="lnkList_lblAddSelectionToBatch"
 											title="#{tip.List_lblAddSelectionToBatch}" styleClass="free_area0"
 											value="#{lbl.List_lblAddSelectionToBatch}"
 											action="#{PubItemListSessionBean.addSelectedToBatch}"
 											onclick="fullItemReloadAjax();" 
-											rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
-										<h:outputText styleClass="seperator" rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
+											rendered="#{(LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}"/>
+										<h:outputText styleClass="seperator" rendered="#{(LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}"/>
 										<h:commandLink id="lnkList_lblAddAllToBatch"
 											title="#{tip.List_lblAddAllToBatch}" styleClass="free_area0"
 											value="#{lbl.List_lblAddAllToBatch}"
 											action="#{PubItemListSessionBean.addAllToBatch}"
 											onclick="fullItemReloadAjax();" 
-											rendered="#{LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
+											rendered="#{(LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}"/>
 											
 									</h:panelGroup>
 									<!-- content menu lower line ends here -->
