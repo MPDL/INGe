@@ -914,9 +914,9 @@
 					</div>
 					<div class="full_area0 formButtonArea">
 						<% if (uri != null) { %>
-							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
+							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" tabindex="2" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
-						<input class="free_txtBtn activeButton" type="submit" name="save" value="Save"/>
+						<input class="free_txtBtn activeButton" type="submit" name="save" value="Save" tabindex="1"/>
 					</div>
 				</form>
 			</div>
