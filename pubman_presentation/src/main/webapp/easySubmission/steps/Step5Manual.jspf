@@ -500,7 +500,7 @@
 								</h:panelGroup> <h:panelGroup styleClass="medium_area0 toLabelBottom"
 									rendered="#{!(genre.events_event_invitation_status_display == 'false' and genre.events_event_invitation_status_form_id == 'easy-submission' || genre.events_event_invitation_status_display == 'false' and genre.events_event_invitation_status_form_id == 'all')}">
 									<span class="medium_checkbox"> <h:selectBooleanCheckbox
-											id="cboInvitationStatus" value="#{EasySubmission.invited}" />
+											id="chkInvitationStatus" value="#{EasySubmission.invited}" />
 										<h:outputLabel id="lblInvitationStatus"
 											for="chkInvitationStatus"
 											value="#{genre.events_event_invitation_status_label}"
