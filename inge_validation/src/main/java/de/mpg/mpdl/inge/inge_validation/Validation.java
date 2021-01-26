@@ -88,7 +88,7 @@ public class Validation {
 
         final ComplexResult resultSave = vSave.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultSave);
+        //        logger.info(resultSave);
 
         checkResult(resultSave);
 
@@ -121,7 +121,7 @@ public class Validation {
 
         final ComplexResult resultSimple = vSimple.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultSimple);
+        //        logger.info(resultSimple);
 
         checkResult(resultSimple);
 
@@ -160,7 +160,7 @@ public class Validation {
 
         final ComplexResult resultStandard = vStandard.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultStandard);
+        //        logger.info(resultStandard);
 
         checkResult(resultStandard);
 
@@ -181,7 +181,7 @@ public class Validation {
 
         final ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultEasy3);
+        //        logger.info(resultEasy3);
 
         checkResult(resultEasy3);
 
@@ -206,7 +206,7 @@ public class Validation {
 
         final ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultEasy4);
+        //        logger.info(resultEasy4);
 
         checkResult(resultEasy4);
 
@@ -271,7 +271,7 @@ public class Validation {
 
         final ComplexResult resultSimple = vSimple.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultSimple);
+        //        logger.info(resultSimple);
 
         checkResult(resultSimple);
 
@@ -310,7 +310,7 @@ public class Validation {
 
         final ComplexResult resultStandard = vStandard.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultStandard);
+        //        logger.info(resultStandard);
 
         checkResult(resultStandard);
 
@@ -331,7 +331,7 @@ public class Validation {
 
         final ComplexResult resultEasy3 = vEasy3.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultEasy3);
+        //        logger.info(resultEasy3);
 
         checkResult(resultEasy3);
 
@@ -356,7 +356,7 @@ public class Validation {
 
         final ComplexResult resultEasy4 = vEasy4.doValidate().result(ResultCollectors.toComplex());
 
-        logger.info(resultEasy4);
+        //        logger.info(resultEasy4);
 
         checkResult(resultEasy4);
 
@@ -471,7 +471,7 @@ public class Validation {
 
     final ComplexResult result = vYearbook.doValidate().result(ResultCollectors.toComplex());
 
-    logger.info(result);
+    //    logger.info(result);
 
     checkResult(result);
   }
@@ -487,6 +487,8 @@ public class Validation {
         item.setElement(error.getField());
         v.addItem(item);
       }
+
+      logger.warn(complexResult);
 
       throw new ValidationException(v);
     }
