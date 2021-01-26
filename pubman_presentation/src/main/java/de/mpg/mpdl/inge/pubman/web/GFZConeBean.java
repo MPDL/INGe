@@ -93,6 +93,9 @@ public class GFZConeBean extends FacesBean {
         }
 
         if (!(journalUrl == null || journalUrl.isEmpty())) {
+          logger.info("Try to find JournalMetaData in CONE for item (" + item.getObjectId() + ") " + coneUri + journalUrl.substring(1)
+              + "?format=rdf");
+
           GetMethod getMethod = new GetMethod(coneUri + journalUrl.substring(1) + "?format=rdf");
           HttpClient client = new HttpClient();
           client.executeMethod(getMethod);
@@ -120,7 +123,6 @@ public class GFZConeBean extends FacesBean {
               Node journalNode = journalMetadataList.item(j);
               if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("gfz"))
                   && journalNode.getLocalName().equals("listedIn")) {
-                logger.debug("Attr: " + journalNode.getTextContent());
                 metadataList.add(journalNode.getTextContent());
               }
             }
@@ -135,7 +137,6 @@ public class GFZConeBean extends FacesBean {
               Node journalNode = journalMetadataList.item(j);
               if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("dcterms"))
                   && journalNode.getLocalName().equals("type")) {
-                logger.debug("Attr: " + journalNode.getTextContent());
                 metadataList.add(journalNode.getTextContent());
               }
             }
@@ -149,7 +150,6 @@ public class GFZConeBean extends FacesBean {
             for (int j = 0; j < journalMetadataList.getLength(); j++) {
               Node journalNode = journalMetadataList.item(j);
               if (journalNode.getNamespaceURI().equals(nameSpaceCtx.getNamespaceURI("gfz")) && journalNode.getLocalName().equals("note")) {
-                logger.debug("Attr: " + journalNode.getTextContent());
                 metadataList.add(journalNode.getTextContent());
               }
             }
