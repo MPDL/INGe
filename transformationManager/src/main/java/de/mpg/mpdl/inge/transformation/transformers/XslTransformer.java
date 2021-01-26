@@ -80,7 +80,7 @@ public abstract class XslTransformer extends SingleTransformer implements Chaina
 
       xslTransformer.transform(source, result);
 
-//      logger.info("XSL transformation successful");
+      //      logger.info("XSL transformation successful");
     } catch (Exception e) {
       throw new TransformationException("Error during XSL Transformation", e);
     }
