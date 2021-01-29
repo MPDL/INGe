@@ -116,6 +116,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
   public enum Genre{
 
   ARTICLE("http://purl.org/escidoc/metadata/ves/publication-types/article"), //
+    BLOG_POST("http://purl.org/eprint/type/blog-post"), //
     BOOK("http://purl.org/eprint/type/Book"), //
     BOOK_ITEM("http://purl.org/eprint/type/BookItem"), //
     BOOK_REVIEW("http://purl.org/escidoc/metadata/ves/publication-types/book-review"), //
@@ -131,11 +132,13 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     CONTRIBUTION_TO_FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-festschrift"), //
     CONTRIBUTION_TO_HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/contribution-to-handbook"), //
     COURSEWARE_LECTURE("http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture"), //
+    DATA_PUBLICATION("http://purl.org/escidoc/metadata/ves/publication-types/data-publication"), //
     EDITORIAL("http://purl.org/escidoc/metadata/ves/publication-types/editorial"), //
     ENCYCLOPEDIA("http://purl.org/escidoc/metadata/ves/publication-types/encyclopedia"), //
     FESTSCHRIFT("http://purl.org/escidoc/metadata/ves/publication-types/festschrift"), //
     FILM("http://purl.org/escidoc/metadata/ves/publication-types/film"), //
     HANDBOOK("http://purl.org/escidoc/metadata/ves/publication-types/handbook"), //
+    INTERVIEW("http://purl.org/escidoc/metadata/ves/publication-types/interview"), //
     ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"), //
     JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"), //
     MANUAL("http://purl.org/escidoc/metadata/ves/publication-types/manual"), //
@@ -150,9 +153,14 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable {
     PAPER("http://purl.org/escidoc/metadata/ves/publication-types/paper"), //
     PATENT("http://purl.org/eprint/type/Patent"), //
     POSTER("http://purl.org/eprint/type/ConferencePoster"), //
+    PRE_REGISTRATION_PAPER("http://purl.org/eprint/type/pre-registration-paper"), //
+    PREPRINT("http://purl.org/eprint/type/preprint"), //
     PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), //
+    REGISTERED_REPORT("http://purl.org/eprint/type/registered-report"), //
     REPORT("http://purl.org/eprint/type/Report"), //
+    REVIEW_ARTICLE("http://purl.org/eprint/type/review-article"), //
     SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series"), //
+    SOFTWARE("http://purl.org/escidoc/metadata/ves/publication-types/software"), //
     TALK_AT_EVENT("http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event"), //
     THESIS("http://purl.org/eprint/type/Thesis");
 
