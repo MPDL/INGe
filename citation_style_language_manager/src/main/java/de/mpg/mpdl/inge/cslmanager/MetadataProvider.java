@@ -548,10 +548,14 @@ public class MetadataProvider implements ItemDataProvider {
 
   private CSLType getCslGenre(Genre genre) {
     CSLType cslGenre = null;
-    if (Genre.ARTICLE.equals(genre)) {
+    if (Genre.ARTICLE.equals(genre) || Genre.REVIEW_ARTICLE.equals(genre)) {
       cslGenre = CSLType.ARTICLE_JOURNAL;
-    } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)) {
+    } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)
+        || Genre.DATA_PUBLICATION.equals(genre) || Genre.PRE_REGISTRATION_PAPER.equals(genre) || Genre.REGISTERED_REPORT.equals(genre)
+        || Genre.PREPRINT.equals(genre) || Genre.SOFTWARE.equals(genre)) {
       cslGenre = CSLType.ARTICLE;
+    } else if (Genre.BLOG_POST.equals(genre)) {
+      cslGenre = CSLType.POST_WEBLOG;
     } else if (Genre.BOOK.equals(genre) || Genre.COLLECTED_EDITION.equals(genre) || Genre.COMMENTARY.equals(genre)
         || Genre.ENCYCLOPEDIA.equals(genre) || Genre.FESTSCHRIFT.equals(genre) || Genre.HANDBOOK.equals(genre) || Genre.ISSUE.equals(genre)
         || Genre.JOURNAL.equals(genre) || Genre.MANUAL.equals(genre) || Genre.MONOGRAPH.equals(genre) || Genre.MULTI_VOLUME.equals(genre)
