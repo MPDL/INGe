@@ -73,7 +73,7 @@
 					<xsl:with-param name="entryType">Encyclopedia</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='article' or $genre='editorial' or $genre='book-review'">
+			<xsl:when test="$genre='article' or $genre='editorial' or $genre='book-review' or $genre='review-article'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Journal Article</xsl:with-param>
 				</xsl:call-template>
@@ -93,7 +93,7 @@
 					<xsl:with-param name="entryType">Patent</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='report' or $genre='paper'">
+			<xsl:when test="$genre='report' or $genre='paper' or $genre='data-publication' or $genre='pre-registration-paper' or $genre='registered-report' or $genre='preprint' or $genre='blog-post' or $genre='interview' or $genre='software'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Report</xsl:with-param>
 				</xsl:call-template>
@@ -154,13 +154,13 @@
 			<xsl:with-param name="value" select="$title-and-subtitle"/>
 		</xsl:call-template>
 		<!-- ALTTITLE -->
-		<xsl:if test="exists(dcterms:alternative[@xsi:type='eterms:ABBREVIATION']) and ($genre='report' or $genre='book' or $genre='thesis' or $genre='paper' or $genre='monograph' or $genre='collected-edition' or $genre='handbook' or $genre='festschrift' or $genre='commentary' or $genre='encyclopedia')">
+		<xsl:if test="exists(dcterms:alternative[@xsi:type='eterms:ABBREVIATION']) and ($genre='report' or $genre='book' or $genre='thesis' or $genre='paper' or $genre='monograph' or $genre='collected-edition' or $genre='handbook' or $genre='festschrift' or $genre='commentary' or $genre='encyclopedia' or $genre='data-publication' or $genre='pre-registration-paper' or $genre='registered-report' or $genre='preprint' or $genre='blog-post' or $genre='interview' or $genre='software')">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">O</xsl:with-param>
 				<xsl:with-param name="value" select="dcterms:alternative[@xsi:type='eterms:ABBREVIATION']"/>
 			</xsl:call-template>
 		</xsl:if>
-		<xsl:if test="exists(dcterms:alternative[@xsi:type='eterms:ABBREVIATION']) and $genre='article'">
+		<xsl:if test="exists(dcterms:alternative[@xsi:type='eterms:ABBREVIATION']) and ($genre='article' or $genre='book-review' or $genre='review-article')">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">!</xsl:with-param>
 				<xsl:with-param name="value" select="dcterms:alternative[@xsi:type='eterms:ABBREVIATION']"/>
@@ -206,7 +206,7 @@
 		</xsl:if>
 		<!-- PUBLISHING EDITION -->
 		<xsl:choose>
-			<xsl:when test="not($genre='article')">
+			<xsl:when test="not($genre='article'  or $genre='book-review' or $genre='review-article')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">7</xsl:with-param>
 					<xsl:with-param name="value" select="eterms:publishing-info/eterms:edition"/>
@@ -738,7 +738,7 @@
 					<xsl:with-param name="value" select="$idstring"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="@xsi:type='eterms:PMC' and $genre='article'">
+			<xsl:when test="@xsi:type='eterms:PMC' and $genre='article' or $genre='book-review' or $genre='review-article'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">2</xsl:with-param>
 					<xsl:with-param name="value" select="."/>
@@ -835,14 +835,14 @@
 			</xsl:when>
 		</xsl:choose>
 		<!-- ALTTITLE -->
-		<xsl:if test="$genre='article'">
+		<xsl:if test="$genre='article'  or $genre='book-review' or $genre='review-article'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">O</xsl:with-param>
 				<xsl:with-param name="value" select="dcterms:alternative"/>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:if test="not($genre='article') and (not($sgenre='series') and position()!=2)">
+		<xsl:if test="not($genre='article' or $genre='book-review' or $genre='review-article') and (not($sgenre='series') and position()!=2)">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">E</xsl:with-param>
 				<xsl:with-param name="value">
@@ -887,7 +887,7 @@
 			</xsl:call-template>
 		</xsl:if>
 		<!-- PAGES -->
-		<xsl:if test="$genre='article' or $genre='manuscript'">
+		<xsl:if test="$genre='article' or $genre='book-review' or $genre='review-article' or $genre='manuscript'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag" select="'&amp;'"/>
 				<xsl:with-param name="value" select="eterms:start-page"/>
@@ -930,21 +930,21 @@
 			</xsl:choose>
 		</xsl:if>
 		<!-- PUBLISHER -->
-		<xsl:if test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition' or $genre='conference-paper' or $genre='conference-report' or $genre='proceedings-paper' or $genre='article'">
+		<xsl:if test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition' or $genre='conference-paper' or $genre='conference-report' or $genre='proceedings-paper' or $genre='article'  or $genre='book-review' or $genre='review-article'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">I</xsl:with-param>
 				<xsl:with-param name="value" select="eterms:publishing-info/dc:publisher"/>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- PLACE -->
-		<xsl:if test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition' or $genre='article'">
+		<xsl:if test="$genre='book-item' or $genre='contribution-to-handbook' or $genre='contribution-to-encyclopedia' or $genre='contribution-to-festschrift' or $genre='contribution-to-commentary' or $genre='contribution-to-collected-edition' or $genre='article'  or $genre='book-review' or $genre='review-article'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">C</xsl:with-param>
 				<xsl:with-param name="value" select="eterms:publishing-info/eterms:place"/>
 			</xsl:call-template>
 		</xsl:if>
 		<!-- EDITION -->
-		<xsl:if test="$genre='article'">
+		<xsl:if test="$genre='article' or $genre='book-review' or $genre='review-article'">
 			<xsl:call-template name="print-line">
 				<xsl:with-param name="tag">7</xsl:with-param>
 				<xsl:with-param name="value" select="eterms:publishing-info/eterms:edition"/>

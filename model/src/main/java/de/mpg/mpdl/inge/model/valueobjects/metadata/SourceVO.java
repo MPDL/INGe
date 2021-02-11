@@ -73,11 +73,15 @@ public class SourceVO extends ValueObject implements Cloneable {
    */
   public enum Genre
   {
+    BLOG("http://purl.org/eprint/type/blog"), //
     BOOK("http://purl.org/eprint/type/Book"), //
     PROCEEDINGS("http://purl.org/escidoc/metadata/ves/publication-types/proceedings"), //
     JOURNAL("http://purl.org/escidoc/metadata/ves/publication-types/journal"), //
     ISSUE("http://purl.org/escidoc/metadata/ves/publication-types/issue"), //
+    RADIO_BROADCAST("http://purl.org/escidoc/metadata/ves/publication-types/radio-broadcast"),
     SERIES("http://purl.org/escidoc/metadata/ves/publication-types/series"),
+    TV_BROADCAST("http://purl.org/escidoc/metadata/ves/publication-types/tv-broadcast"),
+    WEB_PAGE("http://purl.org/escidoc/metadata/ves/publication-types/web-page"),
 
     // JUS
     NEWSPAPER("http://purl.org/escidoc/metadata/ves/publication-types/newspaper"), //

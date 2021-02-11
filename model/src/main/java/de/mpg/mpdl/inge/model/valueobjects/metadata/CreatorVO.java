@@ -60,6 +60,7 @@ public class CreatorVO extends ValueObject implements Cloneable {
   {
     ARTIST("http://www.loc.gov/loc.terms/relators/ART"),
     AUTHOR("http://www.loc.gov/loc.terms/relators/AUT"),
+    DEVELOPER("http://www.loc.gov/loc.terms/relators/developer"),
     EDITOR("http://www.loc.gov/loc.terms/relators/EDT"),
     PAINTER("http://purl.org/escidoc/metadata/ves/creator-roles/painter"),
     ILLUSTRATOR("http://www.loc.gov/loc.terms/relators/ILL"),
@@ -71,6 +72,8 @@ public class CreatorVO extends ValueObject implements Cloneable {
     CONTRIBUTOR("http://www.loc.gov/loc.terms/relators/CTB"),
     HONOREE("http://www.loc.gov/loc.terms/relators/HNR"),
     REFEREE("http://purl.org/escidoc/metadata/ves/creator-roles/referee"),
+    INTERVIEWEE("http://www.loc.gov/loc.terms/relators/interviewee"),
+    INTERVIEWER("http://www.loc.gov/loc.terms/relators/interviewer"),
     INVENTOR("http://www.loc.gov/loc.terms/relators/INV"),
     APPLICANT("http://www.loc.gov/loc.terms/relators/APP"),
     DIRECTOR("http://www.loc.gov/loc.terms/relators/DRT"),

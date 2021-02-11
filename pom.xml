@@ -1177,7 +1177,6 @@
 		<inge.pubman.blog.baseUrl />
 		<inge.pubman.blog.news />
 		<inge.pubman.component.pattern>/item/$1/component/$2/$3</inge.pubman.component.pattern>
-		<inge.pubman.contact.url />
 		<inge.pubman.cookie.version>1.0</inge.pubman.cookie.version>
 		<inge.pubman.csl_editor.instance>http://editor.citationstyles.org</inge.pubman.csl_editor.instance>
 		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
@@ -1185,7 +1184,7 @@
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
 		<inge.pubman.footer.fileName />
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
-		<inge.pubman.handbook.url />
+		<inge.pubman.help.url>https://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Help</inge.pubman.help.url>
 		<inge.pubman.home.content.url />
 		<inge.pubman.instance.context.path>/pubman</inge.pubman.instance.context.path>
 		<inge.pubman.instance.ssrn_contexts />

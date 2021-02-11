@@ -31,8 +31,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -119,6 +122,9 @@ public class HtmlFormatter extends AbstractFormatter {
       Transformer transformer = factory1.newTransformer(
           new StreamSource(ResourceUtil.getResourceAsStream("xslt/html/resultlist-html.xsl", HtmlFormatter.class.getClassLoader())));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
+      transformer.setParameter("base-URL", PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + "view.jsp?"
+          + ("model=$1&uri=".replace("$1", model.getName())));
+      //      + URLEncoder.encode(("model=$1&uri=".replace("$1", model.getName())), StandardCharsets.UTF_8.displayName()));
       transformer.transform(new StreamSource(new StringReader(result)), new StreamResult(writer));
     } catch (TransformerException | FileNotFoundException e) {
       throw new ConeException(e);
@@ -155,11 +161,14 @@ public class HtmlFormatter extends AbstractFormatter {
       Transformer transformer = factory.newTransformer(new StreamSource(xsltFile.toExternalForm()));
       transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
 
-      //      transformer.setParameter("citation-link",
-      //          PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
-      //              + "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
-      //              + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id + "\"&exportFormat=" + exportFormat
-      //              + "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
+      // transformer.setParameter("citation-link",
+      // PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL)
+      // +
+      // "/search/SearchAndExport?cqlQuery=escidoc.publication.creator.person.identifier=\""
+      // + PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) + id +
+      // "\"&exportFormat=" + exportFormat
+      // +
+      // "&outputFormat=snippet&language=all&sortKeys=escidoc.any-dates&sortOrder=descending");
 
       for (Object key : PropertyReader.getProperties().keySet()) {
         transformer.setParameter(key.toString(), PropertyReader.getProperty(key.toString()));
@@ -182,16 +191,26 @@ public class HtmlFormatter extends AbstractFormatter {
       String searchId = ConeUtils.convertConeId2EsId(id);
 
       // Do not close surrounding } this is done automatically during the pagination
-      //      postData.append(
-      //          "{\"query\": {\"bool\": {\"must\": [{\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
-      //              + searchId
-      //              + "\"}}}],\"must_not\": {\"bool\": {\"should\": [{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
-      //              + searchId
-      //              + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"ADVISOR\"}}}]}},{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
-      //              + searchId
-      //              + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"HONOREE\"}}}]}},{\"bool\": {\"filter\": [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
-      //              + searchId
-      //              + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\": \"REFEREE\"}}}]}}]}}}},\"sort\": [{\"sort-metadata-dates-by-category\": {\"order\": \"desc\"}}]");
+      // postData.append(
+      // "{\"query\": {\"bool\": {\"must\": [{\"term\": {\"publicState\": {\"value\":
+      // \"RELEASED\"}}},{\"term\": {\"versionState\": {\"value\":
+      // \"RELEASED\"}}},{\"term\": {\"metadata.creators.person.identifier.id\":
+      // {\"value\": \""
+      // + searchId
+      // + "\"}}}],\"must_not\": {\"bool\": {\"should\": [{\"bool\": {\"filter\":
+      // [{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""
+      // + searchId
+      // + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\":
+      // \"ADVISOR\"}}}]}},{\"bool\": {\"filter\": [{\"term\":
+      // {\"metadata.creators.person.identifier.id\": {\"value\": \""
+      // + searchId
+      // + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\":
+      // \"HONOREE\"}}}]}},{\"bool\": {\"filter\": [{\"term\":
+      // {\"metadata.creators.person.identifier.id\": {\"value\": \""
+      // + searchId
+      // + "\"}}},{\"term\": {\"metadata.creators.role\": {\"value\":
+      // \"REFEREE\"}}}]}}]}}}},\"sort\": [{\"sort-metadata-dates-by-category\":
+      // {\"order\": \"desc\"}}]");
 
       postData.append(
           "{\"query\": {\"bool\": {\"must\": [{\"term\": {\"publicState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"versionState\": {\"value\": \"RELEASED\"}}},{\"term\": {\"metadata.creators.person.identifier.id\": {\"value\": \""

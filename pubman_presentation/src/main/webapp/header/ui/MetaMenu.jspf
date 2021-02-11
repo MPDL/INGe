@@ -29,13 +29,13 @@
 				<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 				<!-- Guide -->
-				<h:outputLink id="lnkPubManGuide" styleClass="free_area0_p8 endline"
-					title="#{tip.mainMenu_lnkPubManGuide}" target="_blank"
-					value="#{PubManRequestBean.handbookUrl}"
-					rendered="#{PubManRequestBean.handbookUrl != ''}">
-					<h:outputText value="#{lbl.mainMenu_lnkPubManGuide}" />
+				<h:outputLink id="lnkPubManHelp" styleClass="free_area0_p8 endline"
+					title="#{tip.mainMenu_lnkPubManHelp}" target="_blank"
+					value="#{PubManRequestBean.helpUrl}"
+					rendered="#{PubManRequestBean.helpUrl != ''}">
+					<h:outputText value="#{lbl.mainMenu_lnkPubManHelp}" />
 				</h:outputLink>
-				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.handbookUrl != ''}" />
+				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.helpUrl != ''}" />
 
 				<!-- Privacy Policy -->
 				<h:commandLink id="lnkPrivacyPolicy" styleClass="free_area0_p8 endline"
@@ -52,14 +52,6 @@
 					value="#{lbl.mainMenu_lnkPolicy}"
 					rendered="#{PubManRequestBean.policyUrl != ''}" />
 				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.policyUrl != ''}" />
-
-				<!-- Contact -->
-				<h:commandLink id="lnkContact" styleClass="free_area0_p8 endline"
-					title="#{tip.contact}"
-					onclick="loadAbout('#{PubManRequestBean.contactUrl}');return false"
-					value="#{lbl.contact}"
-					rendered="#{PubManRequestBean.contactUrl != ''}" />
-				<h:panelGroup styleClass="seperator" rendered="#{PubManRequestBean.contactUrl != ''}" />
 
 				<!-- CurrentIp -->
 				<h:outputText styleClass="xDouble_area0_p3 endline"

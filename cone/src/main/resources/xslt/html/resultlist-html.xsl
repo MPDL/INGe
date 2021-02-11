@@ -30,7 +30,7 @@
 	
 	<!-- Use xml here, otherwise special invalid HTML characters (e.g. Unicode 152) can produce exceptions in transformation -->
 	<xsl:output method="xml" encoding="UTF-8" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" media-type="text/html"/>
-
+	<xsl:param name="base-URL" select="'https://pure.mpg.de/cone/view.jsp'"/>
 	<xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
@@ -38,9 +38,17 @@
 			</head>
 			<body>
 				<ul>
+					<xsl:variable name="model" select="rdf:RDF/rdf:Description/@rdf:about"/>
 					<xsl:for-each select="rdf:RDF/rdf:Description">
 						<li>
-							<a href="{@rdf:about}"><xsl:value-of select="dc:title"/></a>
+							<xsl:comment>About: <xsl:value-of select="@rdf:about"/></xsl:comment>
+							<xsl:comment>Index of: <xsl:value-of select="index-of(@rdf:about, '/cone')"/></xsl:comment>
+							<xsl:comment>Index of + 6: <xsl:value-of select="(index-of(@rdf:about, '/cone') + 6)"/></xsl:comment>
+							<xsl:comment>Substing after: <xsl:value-of select="substring-after(@rdf:about, '/cone')"/></xsl:comment>
+							<xsl:comment>Substring 6: <xsl:value-of select="substring(@rdf:about, 6)"/></xsl:comment>
+							<xsl:comment>base url: <xsl:value-of select="$base-URL"/></xsl:comment>
+							<xsl:comment>concat base url: <xsl:value-of select="concat($base-URL, $base-URL)"/></xsl:comment>
+							<a href="{concat($base-URL, substring-after(@rdf:about, '/cone/'))}"><xsl:value-of select="dc:title"/></a>
 						</li>
 					</xsl:for-each>
 				</ul>

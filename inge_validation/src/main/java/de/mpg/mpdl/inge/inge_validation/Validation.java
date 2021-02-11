@@ -150,7 +150,8 @@ public class Validation {
             .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
                 || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre()) //
                 || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre()) //
-                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre())) //
+                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre())
+                || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(pubItemVO.getMetadata().getGenre())) //
             .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
@@ -300,7 +301,8 @@ public class Validation {
             .when(MdsPublicationVO.Genre.ARTICLE.equals(pubItemVO.getMetadata().getGenre()) //
                 || MdsPublicationVO.Genre.BOOK_ITEM.equals(pubItemVO.getMetadata().getGenre()) //
                 || MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(pubItemVO.getMetadata().getGenre()) //
-                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre())) //
+                || MdsPublicationVO.Genre.MEETING_ABSTRACT.equals(pubItemVO.getMetadata().getGenre())
+                || MdsPublicationVO.Genre.REVIEW_ARTICLE.equals(pubItemVO.getMetadata().getGenre())) //
             .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator()) //
             .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //

@@ -38,7 +38,8 @@ public class IdTypeRequiredAndFormatValidator extends ValidatorHandler<List<Iden
               context.addError(ValidationError.create(ErrorMessages.ID_TYPE_NOT_PROVIDED).setField("identifier[" + i + "]"));
               ok = false;
             } else { // Check format of the IDs
-              if (IdentifierVO.IdType.DOI.equals(identifierVO.getType()) && identifierVO.getId().startsWith("https://doi.org")) {
+              if (IdentifierVO.IdType.DOI.equals(identifierVO.getType())
+                  && (identifierVO.getId().startsWith("https://doi.org") || identifierVO.getId().startsWith("http://doi.org"))) {
                 context.addError(ValidationError.create(ErrorMessages.INCORRECT_ID_DOI_FORMAT).setField("identifier[" + i + "]"));
                 ok = false;
               }

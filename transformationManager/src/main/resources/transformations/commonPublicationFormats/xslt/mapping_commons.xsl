@@ -915,7 +915,7 @@
 	</xsl:function>
 	<xsl:function name="misc:publication-publication-is-journal-article" as="xs:boolean">
 		<xsl:param name="publication:publication" as="element(publication:publication)"/>
-		<xsl:sequence select="normalize-space($publication:publication/@type) eq 'http://purl.org/escidoc/metadata/ves/publication-types/article'"/>
+		<xsl:sequence select="normalize-space($publication:publication/@type) eq ('http://purl.org/escidoc/metadata/ves/publication-types/article' or 'http://purl.org/eprint/type/review-article')"/>
 	</xsl:function>
 	<xsl:function name="misc:format-volume-issue" as="xs:string?">
 		<xsl:param name="volume" as="xs:string?"/>

@@ -49,6 +49,15 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">festschrift</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/journal-article">journal-article</enum>
 		<enum uri="http://purl.org/eprint/type/Patent">patent</enum>
+		<enum uri="http://purl.org/eprint/type/review-article">review-article</enum>
+		<enum uri="http://purl.org/eprint/type/preprint">preprint</enum>
+		<enum uri="http://purl.org/eprint/type/blog-post">blog-post</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/interview">interview</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/software">software</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/publication-types/data-publication">data-publication</enum>
+		<enum uri="http://purl.org/eprint/type/pre-registration-paper">pre-registration-paper</enum>
+		<enum uri="http://purl.org/eprint/type/registered-report">registered-report</enum>
+		<enum uri="http://purl.org/eprint/type/review-article">review-article</enum>
 	</xsl:variable>
 	<xsl:variable name="creator-ves">
 		<enum uri="http://www.loc.gov/loc.terms/relators/AUT">author</enum>
@@ -76,6 +85,9 @@
 		<enum uri="http://www.loc.gov/loc.terms/relators/ACT">actor</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/CNG">cinematographer</enum>
 		<enum uri="http://www.loc.gov/loc.terms/relators/SDS">sound designer</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/interviewee">interviewee</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/interviewer">interviewer</enum>
+		<enum uri="http://www.loc.gov/loc.terms/relators/developer">developer</enum>
 	</xsl:variable>
 	<xsl:variable name="degree-ves">
 		<enum uri="http://purl.org/escidoc/metadata/ves/academic-degrees/master">master</enum>
@@ -106,5 +118,6 @@
 		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/supplementary-material">supplementary-material</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/correspondence">correspondence</enum>
 		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement">copyright-transfer-agreement</enum>
+		<enum uri="http://purl.org/escidoc/metadata/ves/content-categories/multimedia">multimedia</enum>
 	</xsl:variable>
 </xsl:stylesheet>
