@@ -433,7 +433,7 @@
 		<!-- SOURCE ISSUE -->
 		<xsl:if test="eterms:issue!=''">
 			<xsl:choose>
-				<xsl:when test="$publication-type = 'article' or $genre='book-review' or $genre='review-article'">
+				<xsl:when test="$publication-type = 'article' or $publication-type='book-review' or $publication-type='review-article'">
 					<xsl:call-template name="createField">
 						<xsl:with-param name="name" select="'number'"/>
 						<xsl:with-param name="xpath" select="eterms:issue"/>
@@ -449,7 +449,7 @@
 		</xsl:if>
 		<!-- SOURCE PAGES -->
 		<xsl:choose>
-			<xsl:when test="fn:exists(parent::pub:publication/eterms:total-number-of-pages)   and ($publication-type = 'book'  or $publication-type = 'proceedings'  or $publication-type = 'issue')" />
+			<xsl:when test="fn:exists(parent::pub:publication/eterms:total-number-of-pages) and ($publication-type = 'book' or $publication-type = 'proceedings' or $publication-type = 'issue')" />
 			<xsl:otherwise>
 				<xsl:choose>
 					<xsl:when test="normalize-space(eterms:start-page)!='' and normalize-space(eterms:end-page) != ''">
