@@ -1189,6 +1189,34 @@
 			</group>
 		</genre>
 		
+		<genre id="REPORT" label="ENUM_GENRE_REPORT">
+			<field id="genre_group" value="paper"/>
+			<group id="content" form-id="easy-submission">
+				<field id="item_abstract" repeatable="true" display="false" optional="true"/>
+			</group>
+			<group id="details">
+				<group id="publishing_info">
+					<field id="publishing-info_edition" repeatable="false" display="false" optional="true"/>
+				</group>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="true" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events">
+				<field id="event_title" repeatable="false" display="true" optional="true"/>
+			</group>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission"/>
+			<group id="sources" form-id="full-submission">
+				<group id="source_basic" form-id="full-submission">
+					<field id="source_genre" repeatable="false" display="true" optional="true"/>
+					<field id="source_title" repeatable="false" display="true" optional="true"/>
+				</group>
+				<group id="source_volume_issue_pages" form-id="full-submission">
+					<field id="source_issue" repeatable="false" display="false" optional="true"/>
+				</group>
+			</group>
+		</genre>
+		
 		<genre id="REVIEW_ARTICLE" label="ENUM_GENRE_REVIEW_ARTICLE">
 			<field id="genre_group" value="review_article"/>
 			<group id="details">
