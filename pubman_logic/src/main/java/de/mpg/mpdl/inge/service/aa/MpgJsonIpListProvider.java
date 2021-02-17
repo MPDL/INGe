@@ -14,6 +14,7 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -38,6 +39,10 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class MpgJsonIpListProvider implements IpListProvider {
 
   private static final Logger logger = LogManager.getLogger(MpgJsonIpListProvider.class);
+  private static final String DETAILS = "details";
+  private static final String IP_RANGE = "ip_ranges";
+  private static final String MPG = "mpg";
+
   private Map<String, IpRange> ipRangeMap = new HashMap<>();
 
   public MpgJsonIpListProvider() {
@@ -71,8 +76,9 @@ public class MpgJsonIpListProvider implements IpListProvider {
         JSONObject jsonObjectComplete = new JSONObject(responseStrBuilder.toString());
         Map<String, IpRange> ipRangeMap = new HashMap<>();
         // Add entry for whole MPG
-        ipRangeMap.put("mpg", new IpListProvider.IpRange("mpg", " Max Planck Society (every institute)", new ArrayList<>()));
-        JSONArray jsonArray = jsonObjectComplete.getJSONArray("details");
+        ipRangeMap.put(MpgJsonIpListProvider.MPG,
+            new IpListProvider.IpRange(MpgJsonIpListProvider.MPG, " Max Planck Society (every institute)", new ArrayList<>()));
+        JSONArray jsonArray = jsonObjectComplete.getJSONArray(MpgJsonIpListProvider.DETAILS);
         // Go through JSON for every Entry/Institute
         for (int i = 0; i < jsonArray.length(); i++) {
           JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -80,27 +86,31 @@ public class MpgJsonIpListProvider implements IpListProvider {
           if (id.matches("\\d+")) {
             JSONObject singleOrganization = jsonObject.getJSONObject(id);
             List<String> ipList = new ArrayList<>();
-            JSONArray ipRangeArray = singleOrganization.getJSONArray("ip_ranges");
-            // Add all ip_ranges Entries for each institute
-            for (int j = 0; j < ipRangeArray.length(); j++) {
-              ipList.add(ipRangeArray.getString(j));
-            }
-            // Add every range for whole MPG
-            ipRangeMap.get("mpg").getIpRanges().addAll(ipList);
-            // Add every institute as single IP list entry
-            // Case: institute already exists
-            if (ipRangeMap.containsKey(id)) {
-              for (int j = 0; j < ipRangeArray.length(); j++) {
-                ipRangeMap.get(id).getIpRanges().add(ipRangeArray.getString(j));
-              }
-            }
-            // Case: new institute entry
-            else {
+            try {
+              JSONArray ipRangeArray = singleOrganization.getJSONArray(MpgJsonIpListProvider.IP_RANGE);
+              // Add all ip_ranges Entries for each institute
               for (int j = 0; j < ipRangeArray.length(); j++) {
                 ipList.add(ipRangeArray.getString(j));
               }
-              ipRangeMap.put(id, new IpListProvider.IpRange(id,
-                  singleOrganization.getString("inst_name_en") + ", " + singleOrganization.getString("inst_code"), ipList));
+              // Add every range for whole MPG
+              ipRangeMap.get(MpgJsonIpListProvider.MPG).getIpRanges().addAll(ipList);
+              // Add every institute as single IP list entry
+              // Case: institute already exists
+              if (ipRangeMap.containsKey(id)) {
+                for (int j = 0; j < ipRangeArray.length(); j++) {
+                  ipRangeMap.get(id).getIpRanges().add(ipRangeArray.getString(j));
+                }
+              }
+              // Case: new institute entry
+              else {
+                for (int j = 0; j < ipRangeArray.length(); j++) {
+                  ipList.add(ipRangeArray.getString(j));
+                }
+                ipRangeMap.put(id, new IpListProvider.IpRange(id,
+                    singleOrganization.getString("inst_name_en") + ", " + singleOrganization.getString("inst_code"), ipList));
+              }
+            } catch (JSONException e) {
+              logger.warn("Could not get '" + MpgJsonIpListProvider.IP_RANGE + "' for id '" + id + "', as they are not defined");
             }
           } else {
             logger.warn("Ignoring entry in ip list with id '" + id + "', as it is no valid id");
