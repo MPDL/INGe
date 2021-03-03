@@ -181,7 +181,8 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
- 
+
+<!-- 
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -194,6 +195,7 @@
 			<url>https://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+-->
 
 <!-- Fuer alle Module -->
 	<dependencies>
