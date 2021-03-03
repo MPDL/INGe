@@ -182,6 +182,19 @@
 		</pluginRepository>
 	</pluginRepositories>
  
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Managed Releases</name>
+			<url>https://rd.mpdl.mpg.de/nexus/content/repositories/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Managed Snapshots</name>
+			<url>https://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 <!-- Fuer alle Module -->
 	<dependencies>
 		<dependency>
