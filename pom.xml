@@ -169,6 +169,7 @@
 		</repository>
 	</repositories>
 
+<!-- 
 	<pluginRepositories>
 		<pluginRepository>
 			<id>nexus</id>
@@ -181,7 +182,8 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
+ -->
+ 
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
