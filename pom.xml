@@ -1391,7 +1391,7 @@
 				<inge.pubman.handbook.url />
 				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/GFZ.svg</inge.pubman.logo.url>
-				<inge.pubman.policy.url>https://www.gfz-potsdam.de/impressum</inge.pubman.policy.url>
+				<inge.pubman.policy.url>https://www.gfz-potsdam.de/de/impressum</inge.pubman.policy.url>
 				<inge.pubman.privacy.policy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.policy.url>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.pubman_presentation.overview_page.authors_ou>GFZ</inge.pubman_presentation.overview_page.authors_ou>
