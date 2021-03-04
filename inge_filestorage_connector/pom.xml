@@ -12,6 +12,13 @@
 	<artifactId>inge_filestorage_connector</artifactId>
 	<name>inge_filestorage_connector</name>
 
+	<scm>
+		<connection>scm:git:https://github.com/MPDL/INGe.git</connection>
+		<developerConnection>scm:git:https://github.com/MPDL/INGe.git</developerConnection>
+		<url>https://github.com/MPDL/INGe</url>
+		<tag>INGe-8.2.1</tag>
+	</scm>
+
 	<build>
 		<plugins>
 			<plugin>
