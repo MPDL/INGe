@@ -23,7 +23,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
@@ -117,6 +116,7 @@ public class SQLQuerier implements Querier {
   }
 
   public List<? extends Describable> queryFast(String model, String searchString, String language, int limit) throws ConeException {
+    String query = null;
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -144,7 +144,7 @@ public class SQLQuerier implements Querier {
 
         }
       }
-      String query = "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id "
+      query = "select r1.id, r1.value, r1.lang, r1.type, r1.sort from results r1 inner join matches on r1.id = matches.id "
           + "where (r1.lang = matches.lang or (r1.lang is null and matches.lang is null)) and " + subQuery;
 
       if (!"*".equals(language)) {
@@ -158,12 +158,8 @@ public class SQLQuerier implements Querier {
 
       query += ";";
 
-      logger.debug("query: " + query);
-
       Statement statement = connection.createStatement();
-      long now = new Date().getTime();
       ResultSet result = statement.executeQuery(query);
-      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
       List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
       while (result.next()) {
         String id = result.getString("id");
@@ -181,6 +177,7 @@ public class SQLQuerier implements Querier {
       return resultSet;
 
     } catch (SQLException | ConeException e) {
+      logger.info("CoNE query: " + query);
       throw new ConeException(e);
     }
 
@@ -431,7 +428,7 @@ public class SQLQuerier implements Querier {
 
   public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit)
       throws ConeException {
-
+    String query = null;
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -451,7 +448,7 @@ public class SQLQuerier implements Querier {
       String order1 = subQueries[3];
       String order2 = subQueries[4];
 
-      String query = "select distinct r1.*" + fromExtension
+      query = "select distinct r1.*" + fromExtension
           + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject " + joinClause + "where " + subQuery;
 
       if (!"*".equals(language)) {
@@ -465,14 +462,8 @@ public class SQLQuerier implements Querier {
 
       query += ";";
 
-      if (logger.isDebugEnabled()) {
-        logger.debug("query: " + query);
-      }
-
       Statement statement = connection.createStatement();
-      long now = new Date().getTime();
       ResultSet result = statement.executeQuery(query);
-      logger.debug("Took " + (new Date().getTime() - now) + " ms.");
       List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
       while (result.next()) {
         String id = result.getString("id");
@@ -486,6 +477,7 @@ public class SQLQuerier implements Querier {
       return resultSet;
 
     } catch (SQLException | ConeException e) {
+      logger.info("CoNE query: " + query);
       throw new ConeException(e);
     }
   }
@@ -561,13 +553,14 @@ public class SQLQuerier implements Querier {
    */
   public TreeFragment details(String modelName, List<Predicate> predicates, String id, String language, Stack<String> idStack,
       Connection connection) throws ConeException {
+    String query = null;
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
       id = escape(id);
-      String query = "select distinct object, predicate, lang from triples where ";
+      query = "select distinct object, predicate, lang from triples where ";
 
       if (modelName != null) {
         query += " model = '" + modelName + "' and";
@@ -581,7 +574,6 @@ public class SQLQuerier implements Querier {
       if (language != null && !"*".equals(language)) {
         query += " and (lang is null or lang = '" + language + "')";
       }
-      logger.debug("query: " + query);
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
       TreeFragment resultMap = new TreeFragment(id);
@@ -640,6 +632,7 @@ public class SQLQuerier implements Querier {
 
       return resultMap;
     } catch (SQLException | ConeException e) {
+      logger.info("CoNE query: " + query);
       throw new ConeException(e);
     }
   }
