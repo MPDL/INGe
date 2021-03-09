@@ -16,10 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpStatus;
+import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.cone.SQLQuerier;
 import de.mpg.mpdl.inge.pubman.web.util.threads.SiteMapTask;
 
 public class SitemapFilter implements Filter {
+  private static final Logger logger = Logger.getLogger(SQLQuerier.class);
+
   @Override
   public void destroy() {}
 
@@ -56,6 +60,11 @@ public class SitemapFilter implements Filter {
       }
     }
 
+    logger.info("################");
+    logger.info(chain);
+    logger.info(request);
+    logger.info(response);
+    logger.info("################");
     chain.doFilter(request, response);
   }
 
