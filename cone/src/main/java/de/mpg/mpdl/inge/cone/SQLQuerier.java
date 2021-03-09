@@ -448,8 +448,8 @@ public class SQLQuerier implements Querier {
       String order1 = subQueries[3];
       String order2 = subQueries[4];
 
-      query = "select distinct r1.*" + fromExtension
-          + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject " + joinClause + "where " + subQuery;
+      query = "select distinct r1.*" + fromExtension + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
+          + joinClause + "where " + subQuery;
 
       if (!"*".equals(language)) {
         query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
