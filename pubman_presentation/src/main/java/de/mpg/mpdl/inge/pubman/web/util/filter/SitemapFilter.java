@@ -60,12 +60,16 @@ public class SitemapFilter implements Filter {
       }
     }
 
-    logger.info("################");
-    logger.info(chain);
-    logger.info(request);
-    logger.info(response);
-    logger.info("################");
-    chain.doFilter(request, response);
+    try {
+      chain.doFilter(request, response);
+    } catch (ServletException e) {
+      logger.info("########################################");
+      logger.info("chain:" + chain);
+      logger.info("request:" + request);
+      logger.info("response:" + response);
+      logger.info("########################################");
+      throw e;
+    }
   }
 
   @Override
