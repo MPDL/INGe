@@ -46,6 +46,7 @@
 			<content-category id="COPYRIGHT_TRANSFER_AGREEMENT" url="http://purl.org/escidoc/metadata/ves/content-categories/copyright-transfer-agreement"/>
 			<content-category id="RESEARCH_DATA" url="http://purl.org/escidoc/metadata/ves/content-categories/research-data"/>
 			<content-category id="MULTIMEDIA" url="http://purl.org/escidoc/metadata/ves/content-categories/multimedia"/>
+			<content-category id="CODE" url="http://purl.org/escidoc/metadata/ves/content-categories/code"/>
 		</content-categories>
 		
 		<!-- !NEGATIVE! List for author roles (the listed roles will NOT be shown in PubMan!) -->
