@@ -965,9 +965,6 @@ public class ViewItemFull extends FacesBean {
         } else if (idList.get(i).getType() == IdType.ARXIV) {
           identifiers
               .append("<a target='_blank' href='https://arxiv.org/abs/" + idList.get(i).getId() + "'>" + idList.get(i).getId() + "</a>");
-        } else if (idList.get(i).getType() == IdType.BMC) {
-          identifiers.append("<a target='_blank' href='https://bmcbioinformatics.biomedcentral.com/articles/" + idList.get(i).getId() + "'>"
-              + idList.get(i).getId() + "</a>");
         } else if (idList.get(i).getType() == IdType.CONE) {
           String coneServiceUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
           identifiers.append("<a target='_blank' href='"
