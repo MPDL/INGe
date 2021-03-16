@@ -78,9 +78,13 @@ public class MetadataProvider implements ItemDataProvider {
    */
   @Override
   public CSLItemData retrieveItem(String id) {
-    PubItemVO currentItem = pubItemList.get(ids.indexOf(id));
-    MdsPublicationVO metadata = currentItem.getMetadata();
-    CSLItemDataBuilder cslItem = new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
+    PubItemVO currentItem = null;
+    MdsPublicationVO metadata = null;
+    CSLItemDataBuilder cslItem = null;
+
+    currentItem = pubItemList.get(ids.indexOf(id));
+    metadata = currentItem.getMetadata();
+    cslItem = new CSLItemDataBuilder().id(currentItem.getVersion().getObjectId());
 
     try {
       // helper variables;
@@ -260,7 +264,8 @@ public class MetadataProvider implements ItemDataProvider {
 
       // URL / Files
       if (currentItem.getFiles() != null && !currentItem.getFiles().isEmpty()) {
-        List<FileVO> fileList = currentItem.getFiles();
+        List<FileVO> fileList = null;
+        fileList = currentItem.getFiles();
         Collections.sort(fileList, new FileUrlPriorityComparator());
         if (fileList.get(0) != null) {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
@@ -638,6 +643,13 @@ public class MetadataProvider implements ItemDataProvider {
           return -1;
         } else {
           return 1;
+        }
+      } else if (FileVO.Storage.EXTERNAL_URL.equals(file2.getStorage())) {
+        if ("any-fulltext".equals(file2.getContentCategoryString()) || "post-print".equals(file2.getContentCategoryString())
+            || "pre-print".equals(file2.getContentCategoryString()) || "publisher-version".equals(file2.getContentCategoryString())) {
+          return 1;
+        } else {
+          return -1;
         }
       } else if (FileVO.Storage.INTERNAL_MANAGED.equals(file1.getStorage()) && FileVO.Visibility.PUBLIC.equals(file1.getVisibility())) {
         if ("any-fulltext".equals(file1.getContentCategoryString()) || "post-print".equals(file1.getContentCategoryString())
