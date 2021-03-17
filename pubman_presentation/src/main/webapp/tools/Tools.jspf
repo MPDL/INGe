@@ -31,6 +31,56 @@
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span> <span
 				class="seperator"></span> <span
+				class="free_area0_p8 endline itemHeadline"> <b> <h:outputLink
+						id="lnkCslEditor" value="#{ApplicationBean.cslEditorInstanceUrl}"
+						target="_blank">
+						<h:outputText value="#{lbl.Tools_lblCslEditorInstance}" />
+					</h:outputLink>
+			</b>
+			</span>
+		</div>
+		<div class="full_area0 itemBlock noTopBorder">
+			<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+			<div class="free_area0 itemBlockContent endline">
+				<div class="free_area0 endline itemLine firstLine">
+					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+							value="#{lbl.Tools_lblCslEditorInstanceText}" /> <br /> <br />
+					</span>
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
+	<h:panelGroup>
+		<div class="full_area0 itemHeader">
+			<span class="xLarge_area0 endline"> &#160; </span> <span
+				class="seperator"></span> <span
+				class="free_area0_p8 endline itemHeadline"> <b>
+						<h:outputText value="#{lbl.Tools_lblOaiInterfaceHead}" />
+			</b>
+			</span>
+		</div>
+		<div class="full_area0 itemBlock noTopBorder">
+			<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+			<div class="free_area0 itemBlockContent endline">
+				<div class="free_area0 endline itemLine firstLine">
+					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+							value="#{lbl.Tools_lblOaiProvider}" /> <br />
+							<h:outputLink id="lnkOaiProvider" 
+							value="#{ApplicationBean.pubmanInstanceUrl}/oai/provider" target="_blank"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}/oai/provider"/></h:outputLink> <br /><br />
+					</span>
+					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+							value="#{lbl.Tools_lblOaiQueryForm}" /> <br />
+							<h:outputLink id="lnkOaiQueryForm" 
+							value="#{ApplicationBean.pubmanInstanceUrl}/oai/oaisearch.do" target="_blank"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}/oai/oaisearch.do"/></h:outputLink> <br /><br />
+					</span>
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
+	<h:panelGroup>
+		<div class="full_area0 itemHeader">
+			<span class="xLarge_area0 endline"> &#160; </span> <span
+				class="seperator"></span> <span
 				class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
 						value="#{lbl.Tools_lblRESTHead}" />
 			</b>
@@ -59,33 +109,6 @@
 								<h:outputText value="#{lbl.Tools_lblRESTDoku}" />
 							</h:outputLink></li>
 					</ul>
-				</div>
-			</div>
-		</div>
-	</h:panelGroup>
-	<h:panelGroup>
-		<div class="full_area0 itemHeader">
-			<span class="xLarge_area0 endline"> &#160; </span> <span
-				class="seperator"></span> <span
-				class="free_area0_p8 endline itemHeadline"> <b>
-						<h:outputText value="#{lbl.Tools_lblOaiInterfaceHead}" />
-			</b>
-			</span>
-		</div>
-		<div class="full_area0 itemBlock noTopBorder">
-			<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
-			<div class="free_area0 itemBlockContent endline">
-				<div class="free_area0 endline itemLine firstLine">
-					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-							value="#{lbl.Tools_lblOaiProvider}" /> <br />
-							<h:outputLink id="lnkOaiProvider" 
-							value="#{ApplicationBean.pubmanInstanceUrl}/oai/provider" target="_blank"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}/oai/provider"/></h:outputLink> <br /><br />
-					</span>
-					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
-							value="#{lbl.Tools_lblOaiQueryForm}" /> <br />
-							<h:outputLink id="lnkOaiQueryForm" 
-							value="#{ApplicationBean.pubmanInstanceUrl}/oai/oaisearch.do" target="_blank"><h:outputText value="#{ApplicationBean.pubmanInstanceUrl}/oai/oaisearch.do"/></h:outputLink> <br /><br />
-					</span>
 				</div>
 			</div>
 		</div>
