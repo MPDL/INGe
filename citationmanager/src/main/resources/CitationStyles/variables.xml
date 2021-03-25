@@ -28,23 +28,33 @@
 <variables xmlns="http://www.escidoc.de/citationstyle">
 	
 	<!-- genre labels -->
-	<variable name="l_journal">'http://purl.org/escidoc/metadata/ves/publication-types/journal'</variable>
 	<variable name="l_article">'http://purl.org/escidoc/metadata/ves/publication-types/article'</variable>
-	<variable name="l_issue">'http://purl.org/escidoc/metadata/ves/publication-types/issue'</variable>
+	<variable name="l_blog_post">'http://purl.org/eprint/type/blog-post'</variable>
 	<variable name="l_book">'http://purl.org/eprint/type/Book'</variable>
 	<variable name="l_book-item">'http://purl.org/eprint/type/BookItem'</variable>
-	<variable name="l_proceedings">'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'</variable>
 	<variable name="l_conference-paper">'http://purl.org/eprint/type/ConferencePaper'</variable>
-    <variable name="l_meeting-abstract">'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'</variable>
 	<variable name="l_conference-report">'http://purl.org/escidoc/metadata/ves/publication-types/conference-report'</variable>
-	<variable name="l_poster">'http://purl.org/eprint/type/ConferencePoster'</variable>
-	<variable name="l_report">'http://purl.org/eprint/type/Report'</variable>
-	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/paper'</variable>
-	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
 	<variable name="l_courseware-lecture">'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture'</variable>
-	<variable name="l_thesis">'http://purl.org/eprint/type/Thesis'</variable>
-	<variable name="l_series">'http://purl.org/escidoc/metadata/ves/publication-types/series'</variable>
+	<variable name="l_data_publication">'http://purl.org/escidoc/metadata/ves/publication-types/data-publication'</variable>
+	<variable name="l_interview">'http://purl.org/escidoc/metadata/ves/publication-types/interview'</variable>
+	<variable name="l_issue">'http://purl.org/escidoc/metadata/ves/publication-types/issue'</variable>
+	<variable name="l_journal">'http://purl.org/escidoc/metadata/ves/publication-types/journal'</variable>
 	<variable name="l_manuscript">'http://purl.org/escidoc/metadata/ves/publication-types/manuscript'</variable>
+	<variable name="l_meeting-abstract">'http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract'</variable>
+	<variable name="l_paper">'http://purl.org/escidoc/metadata/ves/publication-types/paper'</variable>
+	<variable name="l_patent">'http://purl.org/eprint/type/Patent'</variable>
+	<variable name="l_poster">'http://purl.org/eprint/type/ConferencePoster'</variable>
+	<variable name="l_preprint">'http://purl.org/eprint/type/preprint'</variable>
+	<variable name="l_pre_registration_paper">'http://purl.org/eprint/type/pre-registration-paper'</variable>
+	<variable name="l_proceedings">'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'</variable>
+	<variable name="l_registered_report">'http://purl.org/eprint/type/pre-registration-paper'</variable>
+	<variable name="l_report">'http://purl.org/eprint/type/Report'</variable>
+	<variable name="l_review_article">'http://purl.org/eprint/type/registered-report'</variable>
+	<variable name="l_series">'http://purl.org/escidoc/metadata/ves/publication-types/series'</variable>
+	<variable name="l_software">'http://purl.org/escidoc/metadata/ves/publication-types/software'</variable>
+	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
+	<variable name="l_thesis">'http://purl.org/eprint/type/Thesis'</variable>
+	
 	<variable name="l_other">'http://purl.org/escidoc/metadata/ves/publication-types/other'</variable>
 	<!-- jus genre labels -->
 	<variable name="l_monograph"><![CDATA['http://purl.org/escidoc/metadata/ves/publication-types/monograph']]></variable>

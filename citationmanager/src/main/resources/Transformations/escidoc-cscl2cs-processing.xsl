@@ -98,6 +98,10 @@
 				<xsl:attribute name="name" select="'pubmanUrl'"/>
 			</xsl:element>
 			
+			<xsl:element name="xsl:param" >
+				<xsl:attribute name="name" select="'instanceUrl'"/>
+			</xsl:element>
+			
 			<xsl:variable name="variables" >
 				<xsl:call-template name="createVariables"/>
 			</xsl:variable>	

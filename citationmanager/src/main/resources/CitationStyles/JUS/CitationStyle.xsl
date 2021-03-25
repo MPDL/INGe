@@ -27,6 +27,7 @@
     <xsl:output method="xml" encoding="UTF-8" indent="yes"
                 cdata-section-elements="dcterms:bibliographicCitation dcterms:abstract"/>
     <xsl:param name="pubmanUrl"/>
+    <xsl:param name="instanceUrl"/>
     <xsl:template match="node() | @*">
         <xsl:copy>
             <xsl:apply-templates select="@* | node ()"/>
@@ -38,14 +39,11 @@
             <xsl:element name="dcterms:bibliographicCitation">
                 <xsl:variable name="citation">
                     <xsl:for-each select="../../mdr:md-records/mdr:md-record"><!--### Global Default Variables ###-->
-	<xsl:variable name="l_journal">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/journal')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_article">
+	<xsl:variable name="l_article">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/article')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_issue">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/issue')"/>
+                        <xsl:variable name="l_blog_post">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/blog-post')"/>
                         </xsl:variable>
                         <xsl:variable name="l_book">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Book')"/>
@@ -53,41 +51,71 @@
                         <xsl:variable name="l_book-item">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/BookItem')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_proceedings">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/proceedings')"/>
-                        </xsl:variable>
                         <xsl:variable name="l_conference-paper">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/ConferencePaper')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_meeting-abstract">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract')"/>
                         </xsl:variable>
                         <xsl:variable name="l_conference-report">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/conference-report')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_poster">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/ConferencePoster')"/>
+                        <xsl:variable name="l_courseware-lecture">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_report">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Report')"/>
+                        <xsl:variable name="l_data_publication">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/data-publication')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_interview">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/interview')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_issue">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/issue')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_journal">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/journal')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_manuscript">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/manuscript')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_meeting-abstract">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/meeting-abstract')"/>
                         </xsl:variable>
                         <xsl:variable name="l_paper">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/paper')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_talk-at-event">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event')"/>
+                        <xsl:variable name="l_patent">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Patent')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_courseware-lecture">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture')"/>
+                        <xsl:variable name="l_poster">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/ConferencePoster')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_thesis">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Thesis')"/>
+                        <xsl:variable name="l_preprint">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/preprint')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_pre_registration_paper">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/pre-registration-paper')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_proceedings">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/proceedings')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_registered_report">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/pre-registration-paper')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_report">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Report')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_review_article">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/registered-report')"/>
                         </xsl:variable>
                         <xsl:variable name="l_series">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/series')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_manuscript">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/manuscript')"/>
+                        <xsl:variable name="l_software">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/software')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_talk-at-event">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_thesis">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Thesis')"/>
                         </xsl:variable>
                         <xsl:variable name="l_other">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/other')"/>
@@ -3831,7 +3859,7 @@
     	   <xsl:element name="{name(.)}">
     		      <xsl:copy-of select="@*[name(.)!='xlink:href']"/>
     		      <xsl:attribute name="xlink:href"
-                           select="concat(         $pubmanUrl,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
+                           select="concat(         $instanceUrl,         '/item/',          ../../../ei:properties/prop:version/@objid,         '/component/',         ../@objid,         '/',         ../escidocComponents:properties/prop:file-name        )"/>
     	   </xsl:element>
     </xsl:template>
     <xsl:template name="applyDelimiter">
