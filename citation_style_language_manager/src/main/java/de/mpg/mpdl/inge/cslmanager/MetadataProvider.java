@@ -556,8 +556,8 @@ public class MetadataProvider implements ItemDataProvider {
     if (Genre.ARTICLE.equals(genre) || Genre.REVIEW_ARTICLE.equals(genre)) {
       cslGenre = CSLType.ARTICLE_JOURNAL;
     } else if (Genre.EDITORIAL.equals(genre) || Genre.PAPER.equals(genre) || Genre.OTHER.equals(genre)
-        || Genre.DATA_PUBLICATION.equals(genre) || Genre.PRE_REGISTRATION_PAPER.equals(genre) || Genre.REGISTERED_REPORT.equals(genre)
-        || Genre.PREPRINT.equals(genre) || Genre.SOFTWARE.equals(genre)) {
+        || Genre.PRE_REGISTRATION_PAPER.equals(genre) || Genre.REGISTERED_REPORT.equals(genre) || Genre.PREPRINT.equals(genre)
+        || Genre.SOFTWARE.equals(genre)) {
       cslGenre = CSLType.ARTICLE;
     } else if (Genre.BLOG_POST.equals(genre)) {
       cslGenre = CSLType.POST_WEBLOG;
@@ -592,6 +592,8 @@ public class MetadataProvider implements ItemDataProvider {
       cslGenre = CSLType.THESIS;
     } else if (Genre.CASE_NOTE.equals(genre) || Genre.CASE_STUDY.equals(genre) || Genre.OPINION.equals(genre)) {
       cslGenre = CSLType.LEGAL_CASE;
+    } else if (Genre.DATA_PUBLICATION.equals(genre)) {
+      cslGenre = CSLType.DATASET;
     }
     return cslGenre;
   }
