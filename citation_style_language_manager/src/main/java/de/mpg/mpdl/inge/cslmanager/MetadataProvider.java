@@ -271,7 +271,8 @@ public class MetadataProvider implements ItemDataProvider {
           if (FileVO.Visibility.PUBLIC.equals(fileList.get(0).getVisibility())
               && ("any-fulltext".equals(fileList.get(0).getContentCategory()) || "post-print".equals(fileList.get(0).getContentCategory())
                   || "pre-print".equals(fileList.get(0).getContentCategory())
-                  || "publisher-version".equals(fileList.get(0).getContentCategory()))) {
+                  || "publisher-version".equals(fileList.get(0).getContentCategory()) || "code".equals(fileList.get(0).getContentCategory())
+                  || "multimedia".equals(fileList.get(0).getContentCategory()))) {
             if (FileVO.Storage.EXTERNAL_URL.equals(fileList.get(0).getStorage())) {
               cslItem.URL(fileList.get(0).getContent());
             } else if (FileVO.Storage.INTERNAL_MANAGED.equals(fileList.get(0).getStorage())) {
@@ -624,14 +625,16 @@ public class MetadataProvider implements ItemDataProvider {
           if (file1.getContentCategoryString().equals(file2.getContentCategoryString())) {
             return 0;
           } else if ("any-fulltext".equals(file1.getContentCategoryString()) || "post-print".equals(file1.getContentCategoryString())
-              || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())) {
+              || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())
+              || "code".equals(file1.getContentCategoryString()) || "multimedia".equals(file1.getContentCategoryString())) {
             return -1;
           } else {
             return 1;
           }
         } else if (FileVO.Storage.INTERNAL_MANAGED.equals(file1.getStorage()) && FileVO.Visibility.PUBLIC.equals(file1.getVisibility())) {
           if ("any-fulltext".equals(file1.getContentCategoryString()) || "post-print".equals(file1.getContentCategoryString())
-              || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())) {
+              || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())
+              || "code".equals(file1.getContentCategoryString()) || "multimedia".equals(file1.getContentCategoryString())) {
             return -1;
           } else {
             return 1;
@@ -641,21 +644,24 @@ public class MetadataProvider implements ItemDataProvider {
         }
       } else if (FileVO.Storage.EXTERNAL_URL.equals(file1.getStorage())) {
         if ("any-fulltext".equals(file1.getContentCategoryString()) || "post-print".equals(file1.getContentCategoryString())
-            || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())) {
+            || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())
+            || "code".equals(file1.getContentCategoryString()) || "multimedia".equals(file1.getContentCategoryString())) {
           return -1;
         } else {
           return 1;
         }
       } else if (FileVO.Storage.EXTERNAL_URL.equals(file2.getStorage())) {
         if ("any-fulltext".equals(file2.getContentCategoryString()) || "post-print".equals(file2.getContentCategoryString())
-            || "pre-print".equals(file2.getContentCategoryString()) || "publisher-version".equals(file2.getContentCategoryString())) {
+            || "pre-print".equals(file2.getContentCategoryString()) || "publisher-version".equals(file2.getContentCategoryString())
+            || "code".equals(file1.getContentCategoryString()) || "multimedia".equals(file1.getContentCategoryString())) {
           return 1;
         } else {
           return -1;
         }
       } else if (FileVO.Storage.INTERNAL_MANAGED.equals(file1.getStorage()) && FileVO.Visibility.PUBLIC.equals(file1.getVisibility())) {
         if ("any-fulltext".equals(file1.getContentCategoryString()) || "post-print".equals(file1.getContentCategoryString())
-            || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())) {
+            || "pre-print".equals(file1.getContentCategoryString()) || "publisher-version".equals(file1.getContentCategoryString())
+            || "code".equals(file1.getContentCategoryString()) || "multimedia".equals(file1.getContentCategoryString())) {
           return -1;
         } else {
           return 1;
