@@ -93,7 +93,7 @@
 					<xsl:with-param name="entryType">Patent</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='report' or $genre='paper' or $genre='data-publication' or $genre='pre-registration-paper' or $genre='registered-report' or $genre='preprint' or $genre='blog-post' or $genre='interview' or $genre='software'">
+			<xsl:when test="$genre='report' or $genre='paper' or $genre='pre-registration-paper' or $genre='registered-report' or $genre='preprint'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Report</xsl:with-param>
 				</xsl:call-template>
@@ -106,6 +106,26 @@
 			<xsl:when test="$genre='thesis'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Thesis</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='data-publication'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Dataset</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='blog-post'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Blog</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='interview'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Interview</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='film'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Film</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -591,6 +611,18 @@
 			<xsl:when test="$role='sound designer'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$role='developer' or $role='interviewee'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'A'"/>
+					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$role='interviewer'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'E'"/>
 					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
 				</xsl:call-template>
 			</xsl:when>
