@@ -114,10 +114,12 @@ public class MetadataProvider implements ItemDataProvider {
       List<CSLName> illustratorList = new ArrayList<CSLName>();
       List<CSLName> translatorList = new ArrayList<CSLName>();
       List<CSLName> composerList = new ArrayList<CSLName>();
+      List<CSLName> interviewerList = new ArrayList<CSLName>();
       for (CreatorVO creator : metadata.getCreators()) {
         if (CreatorVO.CreatorType.PERSON.equals(creator.getType())) {
           if (CreatorVO.CreatorRole.AUTHOR.equals(creator.getRole()) || CreatorVO.CreatorRole.COMMENTATOR.equals(creator.getRole())
-              || CreatorVO.CreatorRole.ACTOR.equals(creator.getRole()) || CreatorVO.CreatorRole.INVENTOR.equals(creator.getRole())) {
+              || CreatorVO.CreatorRole.ACTOR.equals(creator.getRole()) || CreatorVO.CreatorRole.INVENTOR.equals(creator.getRole())
+              || CreatorVO.CreatorRole.DEVELOPER.equals(creator.getRole()) || CreatorVO.CreatorRole.INTERVIEWEE.equals(creator.getRole())) {
             authorList
                 .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           } else if (CreatorVO.CreatorRole.EDITOR.equals(creator.getRole()) || CreatorVO.CreatorRole.PRODUCER.equals(creator.getRole())
@@ -139,6 +141,9 @@ public class MetadataProvider implements ItemDataProvider {
                 .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           } else if (CreatorVO.CreatorRole.SOUND_DESIGNER.equals(creator.getRole())) {
             composerList
+                .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
+          } else if (CreatorVO.CreatorRole.INTERVIEWER.equals(creator.getRole())) {
+            interviewerList
                 .add(new CSLNameBuilder().given(creator.getPerson().getGivenName()).family(creator.getPerson().getFamilyName()).build());
           }
         } else if (CreatorVO.CreatorType.ORGANIZATION.equals(creator.getType())) {
@@ -167,6 +172,9 @@ public class MetadataProvider implements ItemDataProvider {
       }
       if (composerList.size() > 0) {
         cslItem.composer(getCSLNameArrayFromList(composerList));
+      }
+      if (interviewerList.size() > 0) {
+        cslItem.interviewer(getCSLNameArrayFromList(interviewerList));
       }
 
       // Dates

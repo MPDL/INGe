@@ -45,7 +45,7 @@
 		<variable name="genre">pub:publication/@type</variable>
 		<variable name="source-type">pub:publication/source:source[1]/@type</variable>
 		<variable name="hasPublication" type="xs:boolean">exists(pub:publication)</variable>
-		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author])</variable>
+		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee])</variable>
 		<variable name="editorsCount">count(pub:publication/eterms:creator[@role=$l_editor])</variable>
 		<variable name="ed-postfix">if ($editorsCount=1) then 'Ed.' else 'Eds.'</variable>
 		<variable name="sourceEditorsCount">count(pub:publication/source:source[1]/eterms:creator[@role=$l_editor])</variable>

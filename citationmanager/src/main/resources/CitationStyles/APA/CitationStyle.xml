@@ -137,7 +137,7 @@
 					</parameters>
 					<elements>
 						<layout-element name="authors-base"
-							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]" repeatable="yes">
 							<parameters position="last">
 								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />

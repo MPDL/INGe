@@ -79,21 +79,25 @@
 
 	<!-- creator labels -->
 	<variable name="l_author">'http://www.loc.gov/loc.terms/relators/AUT'</variable>
-	<variable name="l_artist">'http://www.loc.gov/loc.terms/relators/ART'</variable>
-	<variable name="l_editor">'http://www.loc.gov/loc.terms/relators/EDT'</variable>
-	<variable name="l_painter">'http://purl.org/escidoc/metadata/ves/creator-roles/painter'</variable>
-	<variable name="l_photographer">'http://www.loc.gov/loc.terms/relators/PHT'</variable>
-	<variable name="l_illustrator">'http://www.loc.gov/loc.terms/relators/ILL'</variable>
-	<variable name="l_commentator">'http://www.loc.gov/loc.terms/relators/CMM'</variable>
-	<variable name="l_transcriber">'http://www.loc.gov/loc.terms/relators/TRC'</variable>
-	<variable name="l_translator">'http://www.loc.gov/loc.terms/relators/TRL'</variable>
 	<variable name="l_advisor">'http://www.loc.gov/loc.terms/relators/SAD'</variable>
 	<variable name="l_advisor">'http://www.loc.gov/loc.terms/relators/THS'</variable>
+	<variable name="l_artist">'http://www.loc.gov/loc.terms/relators/ART'</variable>
+	<variable name="l_commentator">'http://www.loc.gov/loc.terms/relators/CMM'</variable>
 	<variable name="l_contributor">'http://www.loc.gov/loc.terms/relators/CTB'</variable>
-	<variable name="l_publisher">'http://purl.org/escidoc/metadata/ves/creator-roles/publisher'</variable>
-	<variable name="l_honoree">'http://www.loc.gov/loc.terms/relators/HNR'</variable>
 	<variable name="l_contributor">'http://purl.org/escidoc/metadata/ves/creator-roles/founder'</variable>
 	<variable name="l_contributor">'http://purl.org/escidoc/metadata/ves/creator-roles/referee'</variable>
+	<variable name="l_developer">'http://www.loc.gov/loc.terms/relators/developer'</variable>
+	<variable name="l_interviewee">'http://www.loc.gov/loc.terms/relators/interviewee'</variable>
+	<variable name="l_editor">'http://www.loc.gov/loc.terms/relators/EDT'</variable>
+	<variable name="l_honoree">'http://www.loc.gov/loc.terms/relators/HNR'</variable>
+	<variable name="l_illustrator">'http://www.loc.gov/loc.terms/relators/ILL'</variable>
+	<variable name="l_painter">'http://purl.org/escidoc/metadata/ves/creator-roles/painter'</variable>
+	<variable name="l_photographer">'http://www.loc.gov/loc.terms/relators/PHT'</variable>
+	<variable name="l_publisher">'http://purl.org/escidoc/metadata/ves/creator-roles/publisher'</variable>
+	<variable name="l_transcriber">'http://www.loc.gov/loc.terms/relators/TRC'</variable>
+	<variable name="l_translator">'http://www.loc.gov/loc.terms/relators/TRL'</variable>
+	
+    
 
 	<!-- degree labels -->
 	<variable name="l_master">'http://purl.org/escidoc/metadata/ves/academic-degrees/master'</variable>

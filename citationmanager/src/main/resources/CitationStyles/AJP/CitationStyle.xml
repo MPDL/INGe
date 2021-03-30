@@ -37,7 +37,7 @@
 	<variables>
 		<variable name="objid" ><![CDATA[../../@objid]]></variable>
 		
-		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author])</variable>
+		<variable name="authorsCount">count(pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee])</variable>
 		<variable name="editorsCount">count(pub:publication/eterms:creator[@role=$l_editor])</variable>
 		<variable name="sourceEditorsCount">count(pub:publication/source:source[1]/eterms:creator[@role=$l_editor])</variable>
 		<variable name="ed"><![CDATA[if ($editorsCount=1) then ' (ed)' else ' (eds)']]></variable>
@@ -123,7 +123,7 @@
 			</parameters>
 			<elements>
 				<layout-element name="authors-NotEqual2"
-					ref="pub:publication/eterms:creator[@role=$l_author]"
+					ref="pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=", and " />
@@ -139,7 +139,7 @@
 					</elements>
 				</layout-element>
 				<layout-element name="authors-Equal2"
-					ref="pub:publication/eterms:creator[@role=$l_author]"
+					ref="pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]"
 					repeatable="yes">
 					<parameters position="last">
 						<delimiter value=" and " />

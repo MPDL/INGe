@@ -194,7 +194,7 @@
 					</parameters>
 					<elements>
 						<layout-element name="authors-Equal1"
-							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]" repeatable="yes">
 							<parameters>
 								<valid-if><![CDATA[$authorsCount=1]]></valid-if>
 								<delimiter value=", " />
@@ -208,7 +208,7 @@
 						</layout-element>
 				
 						<layout-element name="authors-MoreThan1LessOrEqual6"
-							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]" repeatable="yes">
 							<parameters position="last">
 								<delimiter value=", &amp;amp; " />
 								<internal-delimiter value=", " />
@@ -226,7 +226,7 @@
 						</layout-element>
 				
 						<layout-element name="authors-MoreThan6"
-							ref="pub:publication/eterms:creator[@role=$l_author]" repeatable="yes">
+							ref="pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]" repeatable="yes">
 							<parameters>
 								<valid-if><![CDATA[$authorsCount>6]]></valid-if>
 								<delimiter value=", " />
