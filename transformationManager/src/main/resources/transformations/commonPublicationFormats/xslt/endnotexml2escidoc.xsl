@@ -94,8 +94,7 @@
 		<m key="Dataset">data-publication</m>
 		<m key="Blog">blog-post</m>
 		<m key="Interview">interview</m>
-		<m key="Film">film</m>
-		<m key="Broadcast">film</m>
+		<m key="Film or Broadcast">film</m>
 	</xsl:variable>
 	<xsl:template match="/">
 		<xsl:choose>
