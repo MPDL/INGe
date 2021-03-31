@@ -28,7 +28,7 @@
 -->
 
 <!-- 
-	Mapping from the eSciDoc EnumTypes v1 to v2
+	Mapping from the eSciDoc mapTypes v1 to v2
 	http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Encoding_Schemes
 	$Author$ (last changed)
 	$Revision$ 
@@ -100,6 +100,14 @@
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/handbook">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/collected-edition">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/festschrift">other</map>
+			<map v2="http://purl.org/eprint/type/review-article">other</map>
+			<map v2="http://purl.org/eprint/type/preprint">other</map>
+			<map v2="http://purl.org/eprint/type/blog-post">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/interview">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/software">other</map>
+			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/data-publication">other</map>
+			<map v2="http://purl.org/eprint/type/pre-registration-paper">other</map>
+			<map v2="http://purl.org/eprint/type/registered-report">other</map>
 			
 			<map v2="http://purl.org/eprint/type/Patent">other</map>
 			<map v2="http://purl.org/escidoc/metadata/ves/publication-types/film">other</map>		
