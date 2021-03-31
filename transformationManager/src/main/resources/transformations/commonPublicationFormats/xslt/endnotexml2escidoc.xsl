@@ -911,7 +911,7 @@
 			<xsl:if test="name(.)='A'">
 				<xsl:choose>
 					<xsl:when
-						test="  $refType = (  'Generic',   'Book',   'Book Section',   'Conference Paper',   'Conference Proceedings',   'Electronic Article',   'Electronic Book',   'Journal Article',   'Magazine Article',   'Newspaper Article',   'Manuscript',   'Report',   'Thesis',  'Artwork',   'Classical Work',  'Courseware'  )">
+						test="  $refType = (  'Generic',   'Book',   'Book Section',   'Conference Paper',   'Conference Proceedings',   'Electronic Article',   'Electronic Book',   'Journal Article',   'Magazine Article',   'Newspaper Article',   'Manuscript',   'Report',   'Thesis',  'Artwork',   'Classical Work',  'Courseware', 'Dataset', 'Blog', 'Film or Broadcast' )">
 						<!-- Artwork und Classical Work sind Endnote-Sondertypen des MPIGEM 
 							(Gemeinschaftsgüter -->
 						<xsl:variable name="currentAuthorPosition"
@@ -983,10 +983,21 @@
 			</xsl:if>
 			<xsl:if test="name(.)='E'">
 				<xsl:choose>
-					<xsl:when test="$refType='Interview'">
+					<xsl:when test="$refType = 'Interview' ">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role"
 								select="$creator-ves/enum[.='interviewer']/@uri" />
+							<xsl:with-param name="gen" select="$gen" />
+						</xsl:call-template>
+					</xsl:when>
+				</xsl:choose>
+			</xsl:if>
+			<xsl:if test="name(.)='E'">
+				<xsl:choose>
+					<xsl:when test="$refType = ('Dataset', 'Blog', 'Film or Broadcast')">
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role"
+								select="$creator-ves/enum[.='editor']/@uri" />
 							<xsl:with-param name="gen" select="$gen" />
 						</xsl:call-template>
 					</xsl:when>
