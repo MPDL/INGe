@@ -125,7 +125,7 @@
 			</xsl:when>
 			<xsl:when test="$genre='film'">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType">Film</xsl:with-param>
+					<xsl:with-param name="entryType">Film or Broadcast</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
