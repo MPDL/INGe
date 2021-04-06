@@ -44,22 +44,22 @@ public class FulltextIndexer {
       if (item.getFiles() != null) {
         for (FileDbVO fileVO : item.getFiles()) {
           if (Storage.INTERNAL_MANAGED.equals(fileVO.getStorage()) && Visibility.PUBLIC.equals(fileVO.getVisibility())) {
-            logger.info("Index fulltext for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId());
+            long start = System.currentTimeMillis();
+            logger.info("Index fulltext for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId() + " - "
+                + fileVO.getLocalFileIdentifier() + " - " + fileVO.getSize());
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             fsi.readFile(fileVO.getLocalFileIdentifier(), bos);
             bos.flush();
             bos.close();
             pubItemDao.createFulltext(item.getObjectIdAndVersion(), fileVO.getObjectId(), bos.toByteArray());
-            logger.info("Finished fulltext indexing for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId());
+            long time = System.currentTimeMillis() - start;
+            logger.info("Finished fulltext indexing for: " + item.getObjectIdAndVersion() + " - " + fileVO.getObjectId() + " - "
+                + fileVO.getLocalFileIdentifier() + " - " + fileVO.getSize() + " - " + time + " ms");
           }
         }
       }
-
     } catch (Exception e) {
       logger.error("Error while indexing fulltext", e);
     }
   }
-
-
-
 }
