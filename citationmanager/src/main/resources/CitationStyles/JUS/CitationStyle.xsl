@@ -103,7 +103,7 @@
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Report')"/>
                         </xsl:variable>
                         <xsl:variable name="l_review_article">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/registered-report')"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/review-article')"/>
                         </xsl:variable>
                         <xsl:variable name="l_series">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/series')"/>
@@ -174,11 +174,41 @@
                         <xsl:variable name="l_author">
                             <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/AUT')"/>
                         </xsl:variable>
+                        <xsl:variable name="l_advisor">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/SAD')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_advisor">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/THS')"/>
+                        </xsl:variable>
                         <xsl:variable name="l_artist">
                             <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/ART')"/>
                         </xsl:variable>
+                        <xsl:variable name="l_commentator">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/CMM')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contributor">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/CTB')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contributor">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/founder')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_contributor">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/referee')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_developer">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/developer')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_interviewee">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/interviewee')"/>
+                        </xsl:variable>
                         <xsl:variable name="l_editor">
                             <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/EDT')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_honoree">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/HNR')"/>
+                        </xsl:variable>
+                        <xsl:variable name="l_illustrator">
+                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/ILL')"/>
                         </xsl:variable>
                         <xsl:variable name="l_painter">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/painter')"/>
@@ -186,38 +216,14 @@
                         <xsl:variable name="l_photographer">
                             <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/PHT')"/>
                         </xsl:variable>
-                        <xsl:variable name="l_illustrator">
-                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/ILL')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_commentator">
-                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/CMM')"/>
+                        <xsl:variable name="l_publisher">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/publisher')"/>
                         </xsl:variable>
                         <xsl:variable name="l_transcriber">
                             <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/TRC')"/>
                         </xsl:variable>
                         <xsl:variable name="l_translator">
                             <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/TRL')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_advisor">
-                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/SAD')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_advisor">
-                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/THS')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_contributor">
-                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/CTB')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_publisher">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/publisher')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_honoree">
-                            <xsl:value-of select="func:escapeMarkupTags('http://www.loc.gov/loc.terms/relators/HNR')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_contributor">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/founder')"/>
-                        </xsl:variable>
-                        <xsl:variable name="l_contributor">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/creator-roles/referee')"/>
                         </xsl:variable>
                         <xsl:variable name="l_master">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/academic-degrees/master')"/>

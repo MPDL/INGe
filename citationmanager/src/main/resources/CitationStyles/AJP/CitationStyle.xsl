@@ -103,7 +103,7 @@
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Report')"/>
                         </xsl:variable>
                         <xsl:variable name="l_review_article">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/registered-report')"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/review-article')"/>
                         </xsl:variable>
                         <xsl:variable name="l_series">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/series')"/>

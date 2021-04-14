@@ -103,7 +103,7 @@
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/Report')"/>
                         </xsl:variable>
                         <xsl:variable name="l_review_article">
-                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/registered-report')"/>
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/eprint/type/review-article')"/>
                         </xsl:variable>
                         <xsl:variable name="l_series">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/series')"/>
@@ -269,7 +269,7 @@
                             <xsl:value-of select="func:escapeMarkupTags(exists(pub:publication))"/>
                         </xsl:variable>
                         <xsl:variable name="authorsCount">
-                            <xsl:value-of select="func:escapeMarkupTags(count(pub:publication/eterms:creator[@role=$l_author]))"/>
+                            <xsl:value-of select="func:escapeMarkupTags(count(pub:publication/eterms:creator[@role=$l_author or @role=$l_developer or @role=$l_interviewee]))"/>
                         </xsl:variable>
                         <xsl:variable name="editorsCount">
                             <xsl:value-of select="func:escapeMarkupTags(count(pub:publication/eterms:creator[@role=$l_editor]))"/>
