@@ -49,7 +49,7 @@
 	<variable name="l_proceedings">'http://purl.org/escidoc/metadata/ves/publication-types/proceedings'</variable>
 	<variable name="l_registered_report">'http://purl.org/eprint/type/pre-registration-paper'</variable>
 	<variable name="l_report">'http://purl.org/eprint/type/Report'</variable>
-	<variable name="l_review_article">'http://purl.org/eprint/type/registered-report'</variable>
+	<variable name="l_review_article">'http://purl.org/eprint/type/review-article'</variable>
 	<variable name="l_series">'http://purl.org/escidoc/metadata/ves/publication-types/series'</variable>
 	<variable name="l_software">'http://purl.org/escidoc/metadata/ves/publication-types/software'</variable>
 	<variable name="l_talk-at-event">'http://purl.org/escidoc/metadata/ves/publication-types/talk-at-event'</variable>
