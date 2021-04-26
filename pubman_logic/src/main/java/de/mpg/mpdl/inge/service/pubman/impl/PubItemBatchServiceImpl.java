@@ -24,6 +24,7 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
+import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
@@ -1448,11 +1449,19 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
     List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
     BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
     ItemVersionVO pubItemVO = null;
+    ContextDbVO contextVO = null;
     for (String itemId : pubItemObjectIdList) {
       pubItemVO = null; // reset pubItemVO
+      contextVO = null; //reset contextVO
       try {
         pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        contextVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
         if (ItemVersionRO.State.SUBMITTED.equals(pubItemVO.getVersionState())) {
+          resultList.add(new BatchProcessItemVO(
+              this.pubItemService.releasePubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
+              BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+        } else if (ItemVersionRO.State.PENDING.equals(pubItemVO.getVersionState())
+            && ContextDbVO.Workflow.SIMPLE.equals(contextVO.getWorkflow())) {
           resultList.add(new BatchProcessItemVO(
               this.pubItemService.releasePubItem(itemId, pubItemVO.getModificationDate(), message, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
