@@ -72,15 +72,19 @@
 					<h:inputText id="inputUsername" styleClass="large_txtInput"
 						value="#{LoginHelper.username}"
 						rendered="#{!LoginHelper.loggedIn}" />
+					<!--
 					<p:watermark for="inputUsername" value="username"
 						rendered="#{!LoginHelper.loggedIn}" />
+					-->
 					<h:panelGroup styleClass="seperator"
 						rendered="#{!LoginHelper.loggedIn}"></h:panelGroup>
 					<h:inputSecret id="inputSecretPassword" styleClass="large_txtInput"
 						value="#{LoginHelper.password}"
 						rendered="#{!LoginHelper.loggedIn}" />
+					<!--
 					<p:watermark for="inputSecretPassword" value="password"
 						rendered="#{!LoginHelper.loggedIn}" />
+					-->
 					<h:panelGroup styleClass="seperator"
 						rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
 

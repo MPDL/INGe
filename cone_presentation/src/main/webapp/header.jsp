@@ -74,7 +74,7 @@
 				$(parent).find("input[type='text']").each(function(){ $(this).val('');});
 				$(element).remove();
 			}
-			form.submit();
+			form.on('submit');
 		}
 
 		function add(element, predicate, hidden, lang, hasPredicates)
@@ -97,7 +97,7 @@
 				reorderPredicateInputNames($(parentInput).parent());
 			}
 			
-			element.form.submit();
+			element.form.on('submit');
 
 		
 		}
@@ -533,8 +533,8 @@
 			         var abbr = $(xmlDoc).xpath('/csl:style/csl:info/csl:title-short', xPathNamespace);
 
 		             $("[name='" + evt.data.txtArea + "']").val(this.result);   
-		             $("[name='http___purl_org_dc_elements_1_1_title']").val(title.text()).change();
-		             $("[name='http___purl_org_escidoc_metadata_terms_0_1_abbreviation']").val(abbr.text()).change();
+		             $("[name='http___purl_org_dc_elements_1_1_title']").val(title.text()).on('change');
+		             $("[name='http___purl_org_escidoc_metadata_terms_0_1_abbreviation']").val(abbr.text()).on('change');
 	           }
 	           reader.readAsText(file)
 	      }
@@ -586,7 +586,11 @@ function getMouseXY(e) {
 
 //-->
 </script>
+	<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
+	<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
+	<!-- 
 	<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js">;</script>
+	 -->
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>

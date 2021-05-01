@@ -121,7 +121,7 @@
 									<h:selectOneMenu id="selFileVisibility" styleClass="replace"
 										onfocus="updateSelectionBox(this);"
 										value="#{fileComponent.file.visibility}"
-										onchange="this.form.submit();">
+										onchange="this.form.on('submit');">
 										<f:selectItems id="selFileVisibilities"
 											value="#{EasySubmission.visibilities}" />
 									</h:selectOneMenu>

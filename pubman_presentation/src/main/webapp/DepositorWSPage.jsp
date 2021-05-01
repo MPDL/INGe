@@ -11,9 +11,12 @@
 	<!-- unapi interface for zotero -->
 	<link rel="unapi-server" type="application/xml" title="unAPI"
 		href="${MyItemsRetrieverRequestBean.unapiURLview}" />
-	<h:outputStylesheet
-		name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
+	<h:outputStylesheet	name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-3.6.0.js" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-migrate-3.3.2.js" />
+	<!--
 	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	  -->
 	<script src="/cone/js/jquery.suggest.js"></script>
 	<h:outputScript
 		name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
@@ -372,12 +375,12 @@
 		<script type="text/javascript">
       var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>citation-styles/query';
       var citationStyleSuggestBaseURL = '$1?format=json';
-      $("input[id$='offset']").submit(function() {
+      $("input[id$='offset']").on('submit',function() {
         $(this).val($(window).scrollTop());
       });
       $(document).ready(function() {
         $(window).scrollTop($("input[id$='offset']").val());
-        $(window).scroll(function() {
+        $(window).on('scroll',function() {
           $("input[id$='offset']").val($(window).scrollTop());
         });
         checkUpdateCslUi();

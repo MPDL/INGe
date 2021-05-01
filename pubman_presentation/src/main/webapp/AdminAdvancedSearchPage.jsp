@@ -88,12 +88,12 @@
             }
             $(document).ready(function() {
                 /*
-                $("input[id$='offset']").submit(function() {
+                $("input[id$='offset']").on('submit',function() {
                 	$(this).val($(window).scrollTop());
                 });
                  */
                 $(window).scrollTop($("input[id$='offset']").val());
-                $(window).scroll(function() {
+                $(window).on('scroll',function() {
                     $("input[id$='offset']").val($(window).scrollTop());
                 });
                 //toggleEmbargoCheckbox();

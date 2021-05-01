@@ -68,10 +68,6 @@ function install_javascripts() {
     }
 }
 
-window.onunload = function(e) {
-    setStyleCookie();
-};
-
 // append a hidden field to preload the throbber image because of load error in webkit engine
 $(function() {
     $('body').append('<input type="hidden" class="smallThrobber"/>');

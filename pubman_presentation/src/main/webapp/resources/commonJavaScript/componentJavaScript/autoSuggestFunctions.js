@@ -134,7 +134,7 @@ function getPersonDetails(details) {
             for (var i = 0; i < details.http_purl_org_escidoc_metadata_terms_0_1_position.length; i++) {
                 if (details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_eprint_terms_affiliatedInstitution.replace(/^\s*(.*\S)\s*$/, '$1') == orgName &&
                     typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined') {
-                    orgId = $.trim(details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier);
+                    orgId = $details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier.trim();
                     break;
                 }
             }
@@ -353,8 +353,8 @@ function fillField(name, value, commonParent, readonly) {
         field.attr('title', value);
 
         if (typeof readonly != 'undefined') {
-            field.unbind('keydown');
-            field.unbind('keypress');
+            field.off('keydown');
+            field.off('keypress');
             field.attr('readonly', 'readonly');
         }
     }
@@ -376,8 +376,8 @@ function fillPersonFields() {
     } else {
         $.getJSON(personDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID).replace('$2', '*'), getPersonDetails);
     }
-    $input.unbind('keydown');
-    $input.unbind('keypress');
+    $input.off('keydown');
+    $input.off('keypress');
 }
 
 function fillOrganizationFields() {
@@ -431,8 +431,8 @@ function fillFundingProgramFields() {
     $input.resultID = this.resultID;
     $.getJSON(fundingProgramDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID), getFundingProgramDetails);
 
-    //$input.unbind('keydown');
-    //$input.unbind('keypress');
+    //$input.off('keydown');
+    //$input.off('keypress');
 }
 
 function getFundingProgramDetails(details) {
@@ -534,27 +534,27 @@ function bindSuggests() {
     $('select.journalPulldown[value="' + journalSuggestTrigger + '"]').parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
     $('span.journalPulldown').find('input[type=hidden][value="' + journalSuggestTrigger + '"]').parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
 
-    $('select.journalPulldown').change(
+    $('select.journalPulldown').on('change',
         function() {
             if ($(this).val() == journalSuggestTrigger) {
                 $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
             } else {
                 $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
-                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
-                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').off('keypress');
+                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').off('keydown');
                 $('.autoSuggestsArea').hide();
             };
             var t = window.setTimeout('bindJournalSuggest()', 500);
         });
 
-    $('span.journalPulldown').find('input[type=hidden]').change(
+    $('span.journalPulldown').find('input[type=hidden]').on('change',
         function() {
             if ($(this).val() == journalSuggestTrigger) {
                 $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
             } else {
                 $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
-                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
-                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').off('keypress');
+                $(this).parents('.' + journalSuggestCommonParentClass).find('.sourceTitle').off('keydown');
                 $('.autoSuggestsArea').hide();
             };
             var t = window.setTimeout('bindJournalSuggest()', 500);
@@ -663,13 +663,13 @@ function bindSuggests() {
 
 function selectLanguage() {
     $input = $(this);
-    if (($.trim(this.resultValue)).indexOf(' ') !== -1) {
-        var langShortHand = $.trim(($.trim(this.resultValue)).substr(0, ($.trim(this.resultValue)).indexOf(' ')));
+    if ($this.resultValue.trim().indexOf(' ') !== -1) {
+        var langShortHand = $($this.resultValue.trim()).substr(0, ($this.resultValue.trim()).indexOf(' ')).trim();
         if (langShortHand != '') {
             $input.val(langShortHand);
             $input.attr('title', langShortHand);
         }
-        var lang = $.trim(($.trim(this.resultValue)).substr(($.trim(this.resultValue)).lastIndexOf(' ') + 1));
+        var lang = $($this.resultValue.trim()).substr($this.resultValue.trim().lastIndexOf(' ') + 1).trim();
         if (lang != '') {
             $input.parents('.' + languageSuggestCommonParentClass).find('.languageText').val(lang);
             $input.parents('.' + languageSuggestCommonParentClass).find('.languageText').attr('title', lang);

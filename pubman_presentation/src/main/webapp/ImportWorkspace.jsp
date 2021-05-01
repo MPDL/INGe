@@ -6,7 +6,11 @@
     </title>
     <ui:include src="header/ui/StandardImports.jspf" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
-    <h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-3.6.0.js" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-migrate-3.3.2.js" />
+	<!--
+	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	  -->
     <style>
         .dialogNoTitleBar .ui-dialog-titlebar {
             display: none;

@@ -1,5 +1,5 @@
 function addPaginatorFunctions() {
-    $('.gotoBox').find(':text').keypress(function(event) {
+    $('.gotoBox').find(':text').on('keypress',function(event) {
 
         switch (event.keyCode) {
             case 13:
@@ -14,7 +14,7 @@ function addPaginatorFunctions() {
 }
 
 function addPaginatorItemFunctions() {
-    $('.gotoBox').find(':text').keypress(function(event) {
+    $('.gotoBox').find(':text').on('keypress',function(event) {
         switch (event.keyCode) {
             case 13:
                 {

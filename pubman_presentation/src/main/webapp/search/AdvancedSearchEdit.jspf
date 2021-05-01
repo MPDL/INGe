@@ -662,7 +662,7 @@
 												.find(".subGenre input");
 										var genre = genreArea
 												.find("input.genreCheckbox");
-										checkboxinput.click(function(evt) {
+										checkboxinput.on('click',function(evt) {
 											if (this.checked) {
 												if (!subgenre.is(":checked")) {
 													subgenre.trigger("click")

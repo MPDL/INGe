@@ -88,7 +88,7 @@ function updateSelectionBox(box, isStart) {
         tooltip = null;
 
         /* at first: exclude all logical operation selectboxes */
-        if ($.trim(contentText) != 'AND' && $.trim(contentText) != 'OR' && $.trim(contentText) != 'NOT') {
+        if (contentText.trim() != 'AND' && contentText.trim() != 'OR' && contentText.trim() != 'NOT') {
             var parent = null; //define the parent object
             for (var ij = 0; ij < $(box).parents().length; ij++) {
                 if ($($(box).parents().get(ij)).hasClass('.itemBlock')) {
@@ -99,7 +99,7 @@ function updateSelectionBox(box, isStart) {
 
             //compare the contentText and decide for remove hidden class
             if (parent) {
-                if ($.trim(contentText) != '-' && $.trim(contentText) != '--' && $.trim(contentText) != '') {
+                if (contentText.trim() != '-' && contentText.trim() != '--' && contentText.trim() != '') {
                     parent.find('.itemBlockContent').removeClass("hideBlockIfVoid");
                     parent.find('.itemBlockContent').removeClass("hideAdvSearchComplexBlockIfVoid");
                     /* parent.find('.itemBlockContent').removeClass("hideAdvSearchGenreBlockIfVoid"); -- should be expanded for text-input fields*/

@@ -12,7 +12,11 @@
     <h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
     <meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
-    <h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-3.6.0.js" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-migrate-3.3.2.js" />
+	<!--
+	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	  -->
     <script src="/cone/js/jquery.suggest.js"></script>
 	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
     <style type="text/css">
@@ -358,12 +362,12 @@
             $(document).ready(function() {
                 startNanoScrollerWhenLoaded();
                 // enable overflow of links on mouseover
-                $('.tile_category a').mouseenter(function(evt) {
+                $('.tile_category a').on('mouseenter',function(evt) {
                     $(this).parent().css({
                         "overflow": "visible"
                     })
                 });
-                $('.tile_category a').mouseleave(function(evt) {
+                $('.tile_category a').on('mouseleave',function(evt) {
                     $(this).parent().css({
                         "overflow": "hidden"
                     })
@@ -408,7 +412,7 @@
             function updateImage(imgElement, jsonRequestUrl) {
                 $.getJSON(jsonRequestUrl, function(result) {
                     var pictureUrl = result.http_xmlns_com_foaf_0_1_depiction;
-                    if (pictureUrl != undefined &amp;&amp; $.trim().pictureUrl != '') {
+                    if (pictureUrl != undefined &amp;&amp; $pictureUrl.trim() != '') {
                         $(imgElement).attr('src', pictureUrl);
                     }
                 });

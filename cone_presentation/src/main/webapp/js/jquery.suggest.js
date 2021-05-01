@@ -42,35 +42,35 @@
 
 			
 			//unbind events on input
-			$input.unbind('keypress');
-			$input.unbind('keydown');
-			$input.unbind('blur');
+			$input.off('keypress');
+			$input.off('keydown');
+			$input.off('blur');
 			
 			// I really hate browser detection, but I don't see any other way
 			/*
 			if ($.browser.mozilla)
-				$input.keypress(processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
+				$input.on('keypress',processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
 			else
 				*/
-			$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
+			$input.on('keydown',processKey);		// onkeydown repeats arrow keys in IE/Safari
 			
 			
 			
 			
 			//unbind events on result
-			$results.unbind('mouseover');
-			$results.unbind('mouseenter');
-			$results.unbind('mouseleave');
+			$results.off('mouseover');
+			$results.off('mouseenter');
+			$results.off('mouseleave');
 			
 			var mouseOverResults = false;
 			
 			$results.mouseover(function(){
 				mouseOverResults = true;
 			});
-			$results.bind("mouseenter",function(){
+			$results.on("mouseenter",function(){
 				mouseOverResults = true;
 			});
-			$results.bind("mouseleave",function(){
+			$results.on("mouseleave",function(){
 				mouseOverResults = false;
 			});
 			$input.blur(function(){
@@ -172,7 +172,7 @@
 			
 				displayResults=true;
 				
-				var q = $.trim($input.val());
+				var q = $input.val().trim();
 				var lang = '';
 
 				if (q.length >= options.minchars) {
@@ -314,7 +314,7 @@
 						$results.children('li').removeClass(options.selectClass);
 						$(this).addClass(options.selectClass);
 					})
-					.click(function(e) {
+					.on('click',function(e) {
 						e.preventDefault(); 
 						e.stopPropagation();
 						selectCurrentResult();
@@ -365,9 +365,9 @@
 				for (var i = 0; i < tokens.length; i++) {
 					
 					var token = tokens[i].split(options.subdelimiter);
-					token[0]= $.trim(token[0]);
+					token[0]= token[0].trim();
 					
-				/*	var token = $.trim(tokens[i]);*/
+				/*	var token = tokens[i].trim();*/
 					if (token[0]) {
 						token[0] = token[0].replace(
 							new RegExp(expression, 'ig'), 
@@ -402,9 +402,9 @@
 						var item = cache[j]['items'][i];
 						item[0] = item[0].replace(new RegExp(span,'ig'),'');
 						item[0] = item[0].replace(new RegExp('</span>','ig'),'');
-						item[0] = $.trim(item[0]);
+						item[0] = item[0].trim();
 						//alert(item[0] + '==' + result + " : " + (item[0]==result));
-						if (item[0] == $.trim(result)) {
+						if (item[0] == result.trim()) {
 							obj =item[1];
 							break;
 						}

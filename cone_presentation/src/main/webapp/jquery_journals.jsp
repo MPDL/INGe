@@ -6,7 +6,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<script src="/cone/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
+		<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
+		<!-- 
+		<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js">;</script>
+		 -->
 		<script src="./js/jquery.suggest.js" type="text/javascript"></script>
 		<script src="./js/jquery.dimensions.js" type="text/javascript"></script>
 		<link href="./js/jquery.suggest.css" rel="stylesheet" type="text/css" />

@@ -61,7 +61,12 @@
 						font-style:italic;
 					}
 				</style>
+				
+				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-3.6.0.js"></script>
+				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
+				<!-- 
 				<script type="text/javascript" language="JavaScript" src="/cone/js/jquery-1.11.1.min.js">;</script>
+				 -->
 				
 				<script type="text/javascript" language="JavaScript" src="/cone/js/smartpaginator/smartpaginator.js">;</script>
 				<script>

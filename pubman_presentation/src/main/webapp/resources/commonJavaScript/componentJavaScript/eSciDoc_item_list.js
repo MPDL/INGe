@@ -18,7 +18,7 @@ function addItemListFunctions() {
         $(ele).find('.expandTriangle').each(function(j, elem) {
             $(elem).show();
         });
-        $(ele).find('.listItem').hover(function() {
+        $(ele).find('.listItem').on('hover',function() {
             $(this).addClass('listBackground');
         }, function() {
             $(this).removeClass('listBackground');
@@ -26,11 +26,11 @@ function addItemListFunctions() {
     });
     // Openration of the select menu for checkboxes 
     // Start with event on document to close the select menu on click elswhere    
-    $('html').click(function() {
+    $('html').on('click',function() {
         //        $('.selectMenu').hide();
     });
 
-    slctMenu.click(function(evt) {
+    slctMenu.on('click',function(evt) {
         evt.preventDefault();
         evt.stopPropagation();
         evt.stopImmediatePropagation();
@@ -40,13 +40,13 @@ function addItemListFunctions() {
         element.hide(100);
     }
 
-    $('.checkBoxSelectButton').click(function(evt) {
+    $('.checkBoxSelectButton').on('click',function(evt) {
         evt.preventDefault();
         evt.stopPropagation();
         evt.stopImmediatePropagation();
 
-        $('body').unbind("click");
-        $('body').unbind("keydown");
+        $('body').off("click");
+        $('body').off("keydown");
 
         var cbsButtonPosition = $(this).position();
 
@@ -71,17 +71,17 @@ function addItemListFunctions() {
 
     // Select options    
     var tog = '';
-    $('.listHeader').find('.allCheckBox').click(function() {
+    $('.listHeader').find('.allCheckBox').on('click',function() {
         itemList.find("input[type=checkbox]").prop("checked", !tog);
         tog = !tog;
     });
 
-    $('.listHeader').find('.selectAll').click(function() {
+    $('.listHeader').find('.selectAll').on('click',function() {
         itemList.find('input[type=checkbox]').prop('checked', true);
         hideElement(slctMenu);
     });
 
-    slctMenu.find('.toggleAll').click(function() {
+    slctMenu.find('.toggleAll').on('click',function() {
         $('.listItem').find('input[type="checkbox"]').click();
         if (itemList.find('.listItem input[type="checkbox"][checked]').length < 1) {
             itemList.find('.allCheckBox').prop('checked', false);
@@ -91,18 +91,18 @@ function addItemListFunctions() {
         hideElement(slctMenu);
     });
 
-    slctMenu.find('.selectNone').click(function() {
+    slctMenu.find('.selectNone').on('click',function() {
         itemList.find("input[type='checkbox']").removeAttr("checked");
         hideElement(slctMenu);
     });
 
     slctMenu.find('a').each(function(i, elem) {
-        $(elem).click(function() {
+        $(elem).on('click',function() {
             hideElement(slctMenu);
         });
     });
 
-    $('.headerSwitchView').find('.expandTriangle').click(function() {
+    $('.headerSwitchView').find('.expandTriangle').on('click',function() {
         $(this).hide();
         $(this).siblings('.collapseTriangle').show();
         itemList.find('.listItem').find('.expandTriangle:visible').each(function(i, elem) {
@@ -110,7 +110,7 @@ function addItemListFunctions() {
         });
     });
 
-    $('.headerSwitchView').find('.collapseTriangle').click(function() {
+    $('.headerSwitchView').find('.collapseTriangle').on('click',function() {
         $(this).hide();
         $(this).siblings('.expandTriangle').show();
         itemList.find('.listItem').find('.collapseTriangle:visible').each(function(i, elem) {
@@ -119,7 +119,7 @@ function addItemListFunctions() {
     });
 
     $('.shortView').find('.expandTriangle').each(function(i, ele) {
-        $(ele).click(function() {
+        $(ele).on('click',function() {
             $(this).hide();
             $(this).siblings('.collapseTriangle').show();
             var parentElement = $(this).parents('.listItem');
@@ -134,7 +134,7 @@ function addItemListFunctions() {
     });
 
     $('.shortView').find('.collapseTriangle').each(function(i, ele) {
-        $(ele).click(function() {
+        $(ele).on('click',function() {
             $(this).hide();
             $(this).siblings('.expandTriangle').show();
             var parentElement = $(this).parents('.listItem');
