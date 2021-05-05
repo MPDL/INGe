@@ -103,6 +103,7 @@ import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
+import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.impl.DoiRestService;
@@ -230,6 +231,10 @@ public class ViewItemFull extends FacesBean {
     if (itemID != null) {
       try {
         this.pubItem = this.getItemControllerSessionBean().retrieveItem(itemID);
+        if (this.pubItem == null) {
+          this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID));
+          return;
+        }
         // if it is a new item reset ViewItemSessionBean
         if (this.getItemControllerSessionBean().getCurrentPubItem() == null || !this.pubItem.getObjectIdAndVersion()
             .equals(this.getItemControllerSessionBean().getCurrentPubItem().getObjectIdAndVersion())) {
@@ -243,8 +248,7 @@ public class ViewItemFull extends FacesBean {
           getLoginHelper().logout();
         }
         return;
-      } catch (Exception e) {
-        ViewItemFull.logger.error("Could not retrieve release with id " + itemID, e);
+      } catch (IngeTechnicalException | IngeApplicationException e) {
         this.error(this.getMessage("ViewItemFull_invalidID").replace("$1", itemID), e.getMessage());
         return;
       }
@@ -261,8 +265,6 @@ public class ViewItemFull extends FacesBean {
       PubItemUtil.cleanUpItem(icsb.getCurrentPubItem());
       this.pubItem = icsb.getCurrentPubItem();
     }
-
-    ViewItemFull.logger.info("Initializing view for item: " + this.pubItem.getObjectIdAndVersion());
 
     if (this.getPubItem().getObjectIdAndVersion() != null) {
 

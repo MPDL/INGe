@@ -657,11 +657,6 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
     ValidId validId = getValidId(id);
 
-    if (validId == null) {
-      logger.warn("Item " + id + " not valid");
-      return null;
-    }
-
     //    String[] splittedId = id.split("_");
     //    String objectId = splittedId[0] + "_" + splittedId[1];
     //    String version = null;
@@ -700,13 +695,16 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
         checkAa("get", principal, requestedItem, context);
       }
     }
+
     if (requestedItem == null) {
-      logger.info("Item " + id + " not found");
+      logger.error("Item " + id + " not found");
       return null;
     }
+
     requestedItem.setFileLinks();
     long time = System.currentTimeMillis() - start;
     logger.info("PubItem " + id + " successfully retrieved in " + time + " ms");
+
     return requestedItem;
   }
 
@@ -715,11 +713,13 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
     Pattern r = Pattern.compile(pattern);
     Matcher m = r.matcher(id);
 
-    if (m.find()) {
-      return new ValidId(m.group(1) + m.group(2), m.group(4) != null ? Integer.parseInt(m.group(4)) : null);
+    if (!m.find()) {
+      String error = "ItemId " + id + " not valid";
+      logger.error(error);
+      throw new RuntimeException(error);
     }
 
-    return null;
+    return new ValidId(m.group(1) + m.group(2), m.group(4) != null ? Integer.parseInt(m.group(4)) : null);
   }
 
   private class ValidId {

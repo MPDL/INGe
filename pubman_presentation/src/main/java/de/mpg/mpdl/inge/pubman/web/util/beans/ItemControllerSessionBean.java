@@ -537,11 +537,20 @@ public class ItemControllerSessionBean extends FacesBean {
    * @author Tobias Schraut
    * @param the item id for which releases should be fetched
    * @return the item with the requested id
+   * @throws IngeApplicationException
+   * @throws AuthorizationException
+   * @throws AuthenticationException
+   * @throws IngeTechnicalException
    * @throws Exception if framework access fails
    */
-  public PubItemVOPresentation retrieveItem(String itemID) throws Exception {
-    return new PubItemVOPresentation(
-        ApplicationBean.INSTANCE.getPubItemService().get(itemID, this.getLoginHelper().getAuthenticationToken()));
+  public PubItemVOPresentation retrieveItem(String itemID)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    ItemVersionVO itemVersionVO = ApplicationBean.INSTANCE.getPubItemService().get(itemID, this.getLoginHelper().getAuthenticationToken());
+    if (itemVersionVO != null) {
+      return new PubItemVOPresentation(itemVersionVO);
+    }
+
+    return null;
   }
 
   //  /**

@@ -61,7 +61,7 @@
 	while (params.hasMoreElements())
 	{
 	    String param = params.nextElement().toString();
-	    if(!param.equals("auth"))
+	    if(param.equals("searchterm") || param.equals("model") || param.equals("lang"))
 	    {
 		    queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
 		    if (params.hasMoreElements())
