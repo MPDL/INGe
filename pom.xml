@@ -750,14 +750,6 @@
 				<version>2.9.2</version>
 			</dependency>
 
-<!-- Triple Store - RDF -->
-			<dependency>
-				<!--  ACHTUNG: ohne java.* Packages (manuell rauswerfen!) -->
-				<groupId>org.fcrepo</groupId>
-				<artifactId>mulgara-core</artifactId>
-				<version>2.1.13</version>
-			</dependency>
-
 <!-- Validation -->
 			<dependency>
 				<groupId>com.baidu.unbiz</groupId>
@@ -1115,8 +1107,6 @@
 		<inge.cone.maximum.results>50</inge.cone.maximum.results>
 		<inge.cone.mimetype.pattern>application/vnd.cone-(.+)</inge.cone.mimetype.pattern>
 		<inge.cone.modelsxml.path>models.xml</inge.cone.modelsxml.path>
-		<inge.cone.mulgara.server.name />
-		<inge.cone.mulgara.server.port />
 		<inge.cone.person.id.identifier>/persons/resource/</inge.cone.person.id.identifier>
 		<inge.cone.querier.class>de.mpg.mpdl.inge.cone.SQLQuerier</inge.cone.querier.class>
 		<inge.cone.rdfs.template>models2rdfs.xsl</inge.cone.rdfs.template>

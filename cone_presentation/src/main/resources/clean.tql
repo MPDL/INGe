@@ -1,4 +1,0 @@
-drop <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#languages>;
-drop <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#languages_result>;
-drop <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#journals>;
-drop <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#journals_result>;

@@ -1,6 +1,0 @@
-create <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#languages>;
-create <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#languages_result>;
-create <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#journals>;
-create <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#journals_result>;
-load local <file:/${inge.cone.rdf.path}languages.rdf> into <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#languages>;
-load local <file:/${inge.cone.rdf.path}journals.rdf> into <rmi://${inge.cone.mulgara.server.name}:${inge.cone.mulgara.server.port}/cone#journals>;

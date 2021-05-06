@@ -89,8 +89,6 @@ public class PropertyReader {
   public static final String INGE_CONE_MAXIMUM_RESULTS = "inge.cone.maximum.results";
   public static final String INGE_CONE_MIMETYPE_PATTERN = "inge.cone.mimetype.pattern";
   public static final String INGE_CONE_MODELSXML_PATH = "inge.cone.modelsxml.path";
-  public static final String INGE_CONE_MULGARA_SERVER_NAME = "inge.cone.mulgara.server.name";
-  public static final String INGE_CONE_MULGARA_SERVER_PORT = "inge.cone.mulgara.server.port";
   public static final String INGE_CONE_PERSON_ID_IDENTIFIER = "inge.cone.person.id.identifier";
   public static final String INGE_CONE_QUERIER_CLASS = "inge.cone.querier.class";
   public static final String INGE_CONE_RDFS_TEMPLATE = "inge.cone.rdfs.template";
