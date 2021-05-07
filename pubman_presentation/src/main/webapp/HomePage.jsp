@@ -4,9 +4,6 @@
     <title>
         <h:outputText value="#{ApplicationBean.appTitle}" />
     </title>
-    <!-- 
-    <link rel="sword" type="application/xml" title="Sword Servicedocument Location" href="${ApplicationBean.pubmanInstanceUrl}/pubman/faces/sword-app/servicedocument" />
-     -->
     <meta name="description" content="${lbl.Pubman_descriptionMetaTag}"></meta>
     <ui:include src="header/ui/StandardImports.jspf" />
     <ui:include src="home/HomePageFeedLinks.jspf" />

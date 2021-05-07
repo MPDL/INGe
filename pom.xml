@@ -810,11 +810,6 @@
 				<artifactId>reflections</artifactId>
 				<version>0.9.10</version>
 			</dependency>
-			<dependency> <!-- Sword -->
-				<groupId>sword</groupId>
-				<artifactId>swordcommon</artifactId>
-				<version>1.0</version>
-			</dependency>
 			<dependency>
 				<groupId>xalan</groupId>
 				<artifactId>xalan</artifactId>

@@ -60,11 +60,6 @@
 				<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
 				href="/cone/" target="_blank">controlled vocabularies</a> for
 				persons, journals, classifications or languages.
-				<!-- 
-				<h4>SWORD-Interface</h4> Use this <a
-				href="/pubman/faces/SwordStartPage.jsp" target="_blank">push
-					service</a> for automatic depositing from external servers.
-			     -->
 			</span>
 		</div>
 	</h:panelGroup>
@@ -124,11 +119,6 @@
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
 				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
 				für Personen, Zeitschriften, Klassifikationen oder Sprachen.
-				<!-- 
-				<h4>SWORD-Schnittstelle</h4> Nutzen Sie diesen <a
-				href="/pubman/faces/SwordStartPage.jsp" target="_blank">Push-Dienst</a>
-				zum automatisierten Datenimport von externen Servern.
-				 -->
 			</span>
 		</div>
 	</h:panelGroup>
@@ -193,10 +183,6 @@
 					Control of Named Entities Service (CoNE)</a>:
 				雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher
 				Portfolio)の提供が可能です。</li>
-			<!-- 
-			<li><a href="/pubman/faces/SwordStartPage.jsp" target="_blank">SWORD</a>:
-				自動登録用インタフェース</li>
-		     -->
 		</ul>
 		
 	</h:panelGroup>

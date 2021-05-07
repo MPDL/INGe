@@ -60,17 +60,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // Redirect Servlet
     ServletRegistration.Dynamic redirectServlet = servletContext.addServlet("Redirect Servlet", RedirectServlet.class);
     redirectServlet.addMapping("/item/*");
-
-    //    // SWORD SP 20.12.2018 -> Not used
-    //    ServletRegistration.Dynamic swordServiceDocumentServlet =
-    //        servletContext.addServlet("Sword Service Document Servlet", PubManServiceDocumentServlet.class);
-    //    swordServiceDocumentServlet.addMapping("/sword-app/servicedocument");
-    //
-    //    ServletRegistration.Dynamic swordDepositServlet = servletContext.addServlet("Sword Deposit Servlet", PubManDepositServlet.class);
-    //    swordDepositServlet.addMapping("/sword-app/deposit");
-    //
-    //    servletContext.setInitParameter("server-class", "de.mpg.mpdl.inge.pubman.web.sword.PubManSwordServer");
-    //    servletContext.setInitParameter("authentication-method", "Basic");
   }
 
 }

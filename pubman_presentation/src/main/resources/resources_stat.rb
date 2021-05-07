@@ -85,7 +85,6 @@ IGNORE_UNTRANSLATED = {
    "Tools_lblCoNE" => "CoNE",
    "Tools_lblColab" => "http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Interfaces",
    "Tools_lblREST" => "REST",
-   "Tools_lblSWORD" => "SWORD",
    "Tools_lblUnAPI" => "unAPI",
 
    # Imeji
