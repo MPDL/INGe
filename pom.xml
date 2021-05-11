@@ -140,7 +140,7 @@
 	<repositories>
 		<repository>
 			<id>nexus</id>
-			<url>https://rd.mpdl.mpg.de/nexus/content/groups/public</url>
+			<url>https://rd.mpdl.mpg.de/nexus3/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -172,7 +172,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>nexus</id>
-			<url>https://rd.mpdl.mpg.de/nexus/content/groups/public</url>
+			<url>https://rd.mpdl.mpg.de/nexus3/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -186,12 +186,12 @@
 		<repository>
 			<id>releases</id>
 			<name>Nexus Managed Releases</name>
-			<url>https://rd.mpdl.mpg.de/nexus/content/repositories/releases</url>
+			<url>https://rd.mpdl.mpg.de/nexus3/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Nexus Managed Snapshots</name>
-			<url>https://rd.mpdl.mpg.de/nexus/content/repositories/snapshots</url>
+			<url>https://rd.mpdl.mpg.de/nexus3/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
