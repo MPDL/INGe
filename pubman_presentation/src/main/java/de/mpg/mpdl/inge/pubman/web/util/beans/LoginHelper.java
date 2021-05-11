@@ -164,7 +164,11 @@ public class LoginHelper extends FacesBean {
       }
     } catch (final AuthenticationException e) {
       logger.error("Error while logging in", e);
-      this.error(this.getMessage("LoginError"));
+      if (e.getMessage().contains("blocked")) {
+        this.error(this.getMessage("LoginBlocked"));
+      } else {
+        this.error(this.getMessage("LoginError"));
+      }
     } catch (final Exception e) {
       logger.error("Error while logging in", e);
       this.error(this.getMessage("LoginTechnicalError"));
