@@ -44,88 +44,87 @@
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="org.apache.log4j.Logger"%>
 
 <%!
-	String uri;
-	TreeFragment results;
-	ModelList.Model model;
-
 	private String printPredicates(List<Predicate> predicates, TreeFragment resultNode, boolean loggedIn) throws Exception
 	{
-	    StringWriter writer = new StringWriter();
-	    
-    	for (Predicate predicate : predicates)
-    	{
-			
-    	    if (resultNode.get(predicate.getId()) != null)
-    	    {
-    	        List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
-    	        
-	    	    for (LocalizedTripleObject node : nodeList)
-	    	    {
-	    	    	if(!predicate.isRestricted() || loggedIn)
-	    	    	{	
-	    	        writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
-	    	        
-	    				writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
-	    					writer.append(predicate.getName());
-	    					writer.append("<span class=\"noDisplay\">: </span>");
-	    				writer.append("</b>");
-	    				writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
-	    					
-	    			
-   			        		if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment)
-   		    	    		{
-   			        		 	writer.append("<span class=\"xDouble_area0 singleItem endline\">");
-   			 		        		writer.append("<span class=\"xDouble_area0\">");
-		        				    	writer.append("&#160;");
-		   				     		writer.append("</span>");
-		   				     	writer.append("</span>");
-   		  				       	writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
-   					    	        writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node, loggedIn));
-   	    				     	writer.append("</span>");
-  		    			   	}
-   		    				else
-   		    				{
-   		    				 	writer.append("<span class=\"xDouble_area0 singleItem endline\">");
-   		    	     				writer.append("<span class=\"xDouble_area0\">");
-   		    							writer.append(HtmlUtils.escapeHtml(node.toString()));
-   		    	    				writer.append("</span>");
-   		    	    			writer.append("</span>");
-   		    				}
-	    				writer.append("</span>");
-	    			writer.append("</span>");
-	    	    	}
-	    	    }
-    	    }
-    	}
-    	return writer.toString();
+		StringWriter writer = new StringWriter();
+		for (Predicate predicate : predicates) {
+			if (resultNode.get(predicate.getId()) != null) {
+				List<LocalizedTripleObject> nodeList = resultNode.get(predicate.getId());
+				for (LocalizedTripleObject node : nodeList) {
+					if(!predicate.isRestricted() || loggedIn) {
+						writer.append("<span class=\"full_area0 endline itemLine noTopBorder\">");
+						writer.append("<b class=\"xLarge_area0_p8 endline labelLine clear\">");
+						writer.append(predicate.getName());
+						writer.append("<span class=\"noDisplay\">: </span>");
+						writer.append("</b>");
+						writer.append("<span class=\"xDouble_area0 endline\" style=\"overflow: visible;\">");
+						if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0 && node instanceof TreeFragment) {
+							writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+							writer.append("<span class=\"xDouble_area0\">");
+							writer.append("&#160;");
+							writer.append("</span>");
+							writer.append("</span>");
+							writer.append("<span class=\"free_area0 large_negMarginLExcl\">");
+							writer.append(printPredicates(predicate.getPredicates(), (TreeFragment) node, loggedIn));
+							writer.append("</span>");
+						} else {
+							writer.append("<span class=\"xDouble_area0 singleItem endline\">");
+							writer.append("<span class=\"xDouble_area0\">");
+							writer.append(HtmlUtils.escapeHtml(node.toString()));
+							writer.append("</span>");
+							writer.append("</span>");
+						}
+						writer.append("</span>");
+						writer.append("</span>");
+					}
+				}
+			}
+		}
+		return writer.toString();
 	}
 %>
-<%
-	uri = request.getParameter("uri");
-	String modelName = request.getParameter("model");
-	results = new TreeFragment();
 
-	if (modelName != null && !"".equals(modelName))
-	{
-	    model = ModelList.getInstance().getModelByAlias(modelName);
+<%
+	Logger logger = Logger.getLogger("CoNE view.jsp");
+
+	String uri = request.getParameter("uri");
+	String modelName = request.getParameter("model");
+	
+	if (null == uri || "".equals(uri.trim()) || null == modelName || "".equals(modelName.trim())) {
+		String error = "uri and/or model may not be null";
+		logger.error(error);
+		throw new RuntimeException(error);
 	}
 	
+	if (!UrlHelper.isValidParam(uri)) {
+		String error = "uri " + uri + " not valid";
+		logger.error(error);
+		throw new RuntimeException(error);
+	}
+
+	if (!UrlHelper.isValidParam(modelName)) {
+		String error = "model " + modelName + " not valid";
+		logger.error(error);
+		throw new RuntimeException(error);
+	}
+
+	ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 	boolean loggedIn = Login.getLoggedIn(request);
+
+	Querier querier = QuerierFactory.newQuerier(loggedIn);
+	TreeFragment results = querier.details(modelName, uri, "*");
 	
-	if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
-	{
-		Querier querier = QuerierFactory.newQuerier(loggedIn);
-		
-	    results = querier.details(modelName, uri, "*");
-		querier.release();
-	}
+	querier.release();
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<jsp:include page="header.jsp"/>
@@ -133,7 +132,7 @@
 		<div class="full wrapper">
 			<jsp:include page="navigation.jsp"/>
 			<div id="content" class="full_area0 clear">
-			<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+			<!-- begin: content section (including elements that visually belong to the header (breadcrumb, headline, subheader and content menu)) -->
 				<div class="clear">
 					<div id="headerSection">
 						<div id="headLine" class="clear headLine">
@@ -142,21 +141,18 @@
 								View <%= modelName %>
 							</h1>
 							<!-- Headline ends here -->
-							
 						</div>
 					</div>
 					<div class="small_marginLIncl subHeaderSection">
 						<div class="contentMenu">
 							<div class="free_area0 sub">
 								<% if (Login.getLoggedIn(request)) { %>
-								
 									<% if (model.isOpen() &&
 										(request.getSession().getAttribute("edit_open_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())) { %>
 										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
 											Edit Entity
 										</a>
 									<% } %>
-									
 									<% if (!model.isOpen() &&
 										(request.getSession().getAttribute("edit_closed_vocabulary") != null && ((Boolean)request.getSession().getAttribute("edit_closed_vocabulary")).booleanValue())) { %>
 										<a href="edit.jsp?model=<%= modelName %>&amp;uri=<%= uri %>">
@@ -186,13 +182,9 @@
 										</span>
 									</span>
 								<% } %>
-
-
 								<% if (model != null) { %>
 									<%= printPredicates(model.getPredicates(), results, loggedIn) %>
 								<% } %>
-								
-								
 							</div>
 						</div>
 					</div>

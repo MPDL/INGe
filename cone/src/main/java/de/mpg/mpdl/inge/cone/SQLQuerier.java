@@ -540,12 +540,9 @@ public class SQLQuerier implements Querier {
 
   public TreeFragment details(String modelName, String id, String language, Stack<String> idStack, Connection connection)
       throws ConeException {
-    if (modelName != null) {
-      Model model = ModelList.getInstance().getModelByAlias(modelName);
-      return details(modelName, model.getPredicates(), id, language, idStack, connection);
-    } else {
-      throw new ConeException("Model name not provided");
-    }
+    Model model = ModelList.getInstance().getModelByAlias(modelName);
+
+    return details(modelName, model.getPredicates(), id, language, idStack, connection);
   }
 
   /**
@@ -767,14 +764,11 @@ public class SQLQuerier implements Querier {
    */
   public void delete(String modelName, String id) throws ConeException {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
-
     List<Predicate> predicates = model.getPredicates();
-
     delete(predicates, id);
   }
 
   public void delete(List<Predicate> predicates, String id) throws ConeException {
-
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");

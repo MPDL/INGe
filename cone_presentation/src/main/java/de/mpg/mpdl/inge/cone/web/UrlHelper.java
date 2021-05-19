@@ -1,6 +1,8 @@
 package de.mpg.mpdl.inge.cone.web;
 
 import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.mpg.mpdl.inge.cone.ConeException;
 
@@ -40,5 +42,17 @@ public class UrlHelper {
     } else {
       return null;
     }
+  }
+
+  public static boolean isValidParam(String s) {
+    String pattern = "^[^<>'\"&]*$";
+    Pattern r = Pattern.compile(pattern);
+    Matcher m = r.matcher(s);
+
+    if (!m.find()) {
+      return false;
+    }
+
+    return true;
   }
 }

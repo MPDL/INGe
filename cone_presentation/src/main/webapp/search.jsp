@@ -57,42 +57,29 @@
 	String path = "search.jsp";
 	String queryString = "?";
 	Enumeration params = request.getParameterNames();
-	
-	while (params.hasMoreElements())
-	{
-	    String param = params.nextElement().toString();
-	    if(param.equals("searchterm") || param.equals("model") || param.equals("lang"))
-	    {
-		    queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
-		    if (params.hasMoreElements())
-		    {
-		        queryString += "&";
-		    }
-	    }
+	while (params.hasMoreElements()) {
+		String param = params.nextElement().toString();
+		if (param.equals("searchterm") || param.equals("model") || param.equals("lang")) {
+			queryString += param + "=" + URLEncoder.encode(UrlHelper.fixURLEncoding(request.getParameter(param)), "UTF-8");
+			if (params.hasMoreElements()) {
+				queryString += "&";
+			}
+		}
 	}
-	if (!"?".equals(queryString))
-	{
-	    path += queryString;
-	    
+	if (!"?".equals(queryString)) {
+		path += queryString;
 	}
 	request.getSession().setAttribute("latestSearch", path);
 	boolean loggedIn = Login.getLoggedIn(request);
-	
 	String searchterm = UrlHelper.fixURLEncoding(request.getParameter("searchterm"));
 	pageContext.setAttribute("searchterm", searchterm);
-	
-	if (searchterm != null && !"".equals(searchterm))
-	{
+	if (searchterm != null && !"".equals(searchterm)) {
 		Querier querier = QuerierFactory.newQuerier(loggedIn);
-	   
-	    if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang")))
-	    {
-	    	results = querier.query(request.getParameter("model"), searchterm, request.getParameter("lang"), Querier.ModeType.FAST);
-	    }
-	    else
-	    {
-	        results = querier.query(request.getParameter("model"), searchterm, Querier.ModeType.FAST);
-	    }
+		if (request.getParameter("lang") != null && !"".equals(request.getParameter("lang"))) {
+			results = querier.query(request.getParameter("model"), searchterm, request.getParameter("lang"), Querier.ModeType.FAST);
+		} else {
+			results = querier.query(request.getParameter("model"), searchterm, Querier.ModeType.FAST);
+		}
 		querier.release();
 	}
 %>
