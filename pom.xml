@@ -1201,16 +1201,16 @@
 				<gfz.citation.styles.use>true</gfz.citation.styles.use>
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
 				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
-                <gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
+				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
-                <gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
+				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
 				<inge.cone.cache.use>false</inge.cone.cache.use>
-                <inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
+				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
 				<inge.cone.modelsxml.path>models_gfz.xml</inge.cone.modelsxml.path>
 				<inge.cone.subjectVocab />
 				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
@@ -1218,11 +1218,11 @@
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
 				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
-                <inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
+				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
 				<inge.es.cluster.name.test />
 				<inge.es.transport.ips.test />
 				<inge.filestorage.seaweed_master_server_ip />
-				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPOF_WEITERE,GFZPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 				<inge.matomo.tracker.use>false</inge.matomo.tracker.use>
 				<inge.pid.service.create.path />
 				<inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1241,7 +1241,7 @@
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
 				<inge.pubman_presentation.overview_page.authors_ou>GFZ</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
-                <inge.systemtype>production</inge.systemtype>
+				<inge.systemtype>production</inge.systemtype>
 			</properties>
 			<distributionManagement>
 				<site>
@@ -1284,7 +1284,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1347,7 +1347,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
