@@ -1362,7 +1362,7 @@
 				<inge.es.cluster.name.test />
 				<inge.es.transport.ips.test />
 				<inge.filestorage.seaweed_master_server_ip />
-				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,GFZPOF,GFZPOF_WEITERE,GFZPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 				<inge.matomo.tracker.use>false</inge.matomo.tracker.use>
 				<inge.pid.service.create.path />
 				<inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1418,7 +1418,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1475,7 +1475,7 @@
                 <inge.es.cluster.name.test />
                 <inge.es.transport.ips.test />
                 <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
+                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
                 <inge.matomo.tracker.use>false</inge.matomo.tracker.use>
                 <inge.pid.service.create.path />
                 <inge.pid.service.timeout>0</inge.pid.service.timeout>
@@ -1489,7 +1489,7 @@
                 <inge.pubman.handbook.url />
                 <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
                 <inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
-                <inge.pubman.policy.url>https://www.pik-potsdam.de/impressum</inge.pubman.policy.url>
+                <inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
                 <inge.pubman.privacy.policy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.policy.url>
                 <inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
                 <inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
