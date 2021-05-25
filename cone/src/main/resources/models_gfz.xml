@@ -443,9 +443,9 @@ AND{&lt;http://purl.org/dc/elements/1.1/title&gt;,&lt;http://purl.org/escidoc/me
 	</model>
 	
 	<model>
-		<name>gfzpof_weitere</name>
+		<name>gfzpofweitere</name>
 		<aliases>
-			<alias>gfzpof_weitere</alias>
+			<alias>gfzpofweitere</alias>
 		</aliases>
 		<description>weitere GFZ POFs</description>
 		<open>false</open>
