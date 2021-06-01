@@ -32,6 +32,8 @@ public interface UserAccountService extends GenericService<AccountUserDbVO, Stri
   public Principal login(HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public Principal loginForPasswordChange(String username, String password) throws IngeTechnicalException, AuthenticationException;
+
   public void logout(String authenticationToken, HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 

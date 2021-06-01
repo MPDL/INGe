@@ -50,7 +50,7 @@
                         <!-- MessageArea ends here -->
                     </div>
                     <div class="full_area0">
-                        <div class="full_area0 fullItem">
+                        <h:panelGroup class="full_area0 fullItem" rendered="#{LoginHelper.loggedIn }">
                             <div class="full_area0 small_marginLExcl">
                                 <!-- Subheadline starts here -->
                                 <h3>
@@ -59,7 +59,17 @@
                                 <!-- Subheadline ends here -->
                             </div>
                             <ui:include src="userAccountOptions/Password.jspf" />
-                        </div>
+                        </h:panelGroup>
+                        <h:panelGroup class="full_area0 fullItem" rendered="#{!LoginHelper.loggedIn }">
+                            <div class="full_area0 small_marginLExcl">
+                                <!-- Subheadline starts here -->
+                                <h3>
+                                    <h:outputText value="#{msg.userAccountOptions_UserInformation}" />
+                                </h3>
+                                <!-- Subheadline ends here -->
+                            </div>
+                            <ui:include src="userAccountOptions/NoLoginPassword.jspf" />
+                        </h:panelGroup>
                     </div>
                 </div>
                 <!-- end: content section -->

@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.db.repository;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Test;
@@ -83,7 +84,7 @@ public class RepositoryTest_ {
   @Test
   public void updateLogin() throws Exception {
     String encodedPassword = "$2a$10$3g.zbUZBGwty2tKCvdk97eitmg6ua2pmpMlh4y2Frmq3dZEssaHMu";
-    userLoginRepository.updateLogin("test_depositor", encodedPassword);
+    userLoginRepository.updateLogin("test_depositor", encodedPassword, LocalDate.now(), true);
 
     String password = userLoginRepository.findPassword("test_depositor");
 
@@ -93,7 +94,7 @@ public class RepositoryTest_ {
   @Test(expected = Exception.class)
   public void updateLoginWrongLoginname() throws Exception {
     String encodedPassword = "$2a$10$3g.zbUZBGwty2tKCvdk97eitmg6ua2pmpMlh4y2Frmq3dZEssaHMu";
-    userLoginRepository.updateLogin("xxxxxxxxxxx", encodedPassword);
+    userLoginRepository.updateLogin("xxxxxxxxxxx", encodedPassword, LocalDate.now(), true);
   }
 
 }

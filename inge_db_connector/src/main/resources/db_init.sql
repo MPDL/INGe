@@ -13,6 +13,8 @@ INSERT INTO id_provider (type, current_id) VALUES ('pure', 1) ON CONFLICT DO NOT
 CREATE TABLE IF NOT EXISTS user_login (
     loginname varchar(255), 
     password varchar(255), 
+    last_password_change DATE,
+    password_change_flag BOOLEAN,
     PRIMARY KEY (loginname),
 	FOREIGN KEY (loginname) REFERENCES user_account(loginname) ON DELETE CASCADE ON UPDATE CASCADE
     );

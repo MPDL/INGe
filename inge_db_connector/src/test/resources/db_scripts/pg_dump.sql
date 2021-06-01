@@ -996,7 +996,9 @@ SET default_with_oids = false;
 
 CREATE TABLE user_login (
     loginname character varying(255) NOT NULL,
-    password character varying(255)
+    password character varying(255),
+    last_password_change DATE,
+    password_change_flag BOOLEAN,
 );
 
 

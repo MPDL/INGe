@@ -48,6 +48,7 @@ import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
 import de.mpg.mpdl.inge.pubman.web.HomePage;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.depositorWS.DepositorWSSessionBean;
+import de.mpg.mpdl.inge.pubman.web.exceptions.PubManVersionNotAvailableException;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
@@ -166,6 +167,14 @@ public class LoginHelper extends FacesBean {
       logger.error("Error while logging in", e);
       if (e.getMessage().contains("blocked")) {
         this.error(this.getMessage("LoginBlocked"));
+      }
+      if (e.getMessage().contains("change password")) {
+        try {
+          this.error("<a href=\"" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + ApplicationBean.INSTANCE.getInstanceContextPath()
+              + "/faces/UserAccountOptions.jsp\">" + this.getMessage("LoginPasswordChangeRequired") + "</a>");
+        } catch (PubManVersionNotAvailableException e1) {
+          logger.error(e1);
+        }
       } else {
         this.error(this.getMessage("LoginError"));
       }

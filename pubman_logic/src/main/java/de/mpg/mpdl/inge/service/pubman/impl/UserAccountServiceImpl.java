@@ -1,6 +1,7 @@
 package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
@@ -104,7 +105,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   // private static final String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-  private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
+  //private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
+  private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\.:@$!%*?&])[A-Za-z\\d\\.:@$!%*?&]{8,}$";
 
   /**
    * Loginname must consist of at least 4 characters of a-z, A-Z, 0-9, @, _, -, .
@@ -134,7 +136,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     AccountUserDbVO accountUser = super.create(givenUser, authenticationToken);
     validatePassword(givenUser.getPassword());
     try {
-      userLoginRepository.insertLogin(accountUser.getLoginname(), passwordEncoder.encode(givenUser.getPassword()));
+      userLoginRepository.insertLogin(accountUser.getLoginname(), passwordEncoder.encode(givenUser.getPassword()), LocalDate.now(), false);
     } catch (DataAccessException e) {
       handleDBException(e);
     }
@@ -177,7 +179,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     checkEqualModificationDate(modificationDate, getModificationDate(userDbToUpdated));
 
     checkAa("changePassword", principal, userDbToUpdated);
-    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword));
+    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword), LocalDate.now(), true);
 
     updateWithTechnicalMetadata(userDbToUpdated, principal.getUserAccount(), false);
 
@@ -324,7 +326,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
       throw new AuthenticationException("Could not login, Please provide correct username and password!");
     }
-    return loginUserOrAnonymous(username, password, request, response);
+    return loginUserOrAnonymous(username, password, request, response, false);
   }
 
   @Override
@@ -332,23 +334,32 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
       throw new AuthenticationException("Could not login, Please provide correct username and password!");
     }
-    return loginUserOrAnonymous(username, password, null, null);
+    return loginUserOrAnonymous(username, password, null, null, false);
   }
 
   public Principal login(HttpServletRequest request, HttpServletResponse response)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
-    return loginUserOrAnonymous(null, null, request, response);
+    return loginUserOrAnonymous(null, null, request, response, false);
   }
 
-  private Principal loginUserOrAnonymous(String username, String password, HttpServletRequest request, HttpServletResponse response)
-      throws IngeTechnicalException, AuthenticationException {
+  public Principal loginForPasswordChange(String username, String password) throws IngeTechnicalException, AuthenticationException {
+    if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+      throw new AuthenticationException("Could not login, Please provide correct username and password!");
+    }
+    return loginUserOrAnonymous(username, password, null, null, true);
+  }
+
+  private Principal loginUserOrAnonymous(String username, String password, HttpServletRequest request, HttpServletResponse response,
+      boolean passwordChangeRequest) throws IngeTechnicalException, AuthenticationException {
 
     Principal principal = null;
 
     if (username != null) {
       if (loginAttemptsCache.isBlocked(username)) {
         throw new AuthenticationException(username + " is blocked for " + loginAttemptsCache.ATTEMPT_TIMER + " since last attempt");
+      } else if (!userLoginRepository.findPasswordChangeFlag(username) && !passwordChangeRequest) {
+        throw new AuthenticationException(username + " needs to change password first");
       }
       // Helper to login as any user if you are sysadmin
       if (username.contains("#")) {
@@ -528,7 +539,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     if (password == null || password.trim().isEmpty()) {
       throw new IngeApplicationException("A password has to be provided");
     } else if (!password.matches(PASSWORD_REGEX)) {
-      throw new IngeApplicationException("Password  must consist of at least 6 characters, no whitespaces");
+      throw new IngeApplicationException(
+          "Password  must consist of at least 8 characters, no whitespaces and contain at least one upper case letter, one lower case letter, a number and a special character");
     }
 
   }

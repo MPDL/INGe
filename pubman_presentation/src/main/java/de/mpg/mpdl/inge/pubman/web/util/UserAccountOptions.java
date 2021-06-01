@@ -32,8 +32,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
+import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-
 
 /**
  * TODO Description
@@ -50,9 +50,26 @@ public class UserAccountOptions extends FacesBean {
   private Logger logger = Logger.getLogger(UserAccountOptions.class);
   private LoginHelper loginHelper;
 
+  private String loginName;
+  private String currentPassword;
   private String password;
   private String secondPassword;
 
+  public String getCurrentPassword() {
+    return currentPassword;
+  }
+
+  public void setCurrentPassword(String currentPassword) {
+    this.currentPassword = currentPassword;
+  }
+
+  public String getLoginName() {
+    return loginName;
+  }
+
+  public void setLoginName(String loginName) {
+    this.loginName = loginName;
+  }
 
   public String getPassword() {
     return this.password;
@@ -79,6 +96,32 @@ public class UserAccountOptions extends FacesBean {
           userAccountService.changePassword(this.loginHelper.getAccountUser().getObjectId(),
               this.loginHelper.getAccountUser().getLastModificationDate(), this.password, this.loginHelper.getAuthenticationToken());
           info(getMessage("userAccountOptions_PasswordUpdated"));
+        } else {
+          error(getMessage("userAccountOptions_DifferentPasswords"));
+        }
+      } else {
+        error(getMessage("userAccountOptions_emptyPassword"));
+      }
+    } catch (Exception e) {
+      error(e.getMessage());
+      logger.error("Problem updating Password", e);
+    }
+
+    return "";
+  }
+
+  public String updatePasswordNoLogin() {
+    try {
+      if (this.password != null && !("").equals(this.password.trim())) {
+        if (this.password.equals(this.secondPassword)) {
+          this.loginHelper = (LoginHelper) FacesTools.findBean("LoginHelper");
+          UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
+          Principal principal = userAccountService.loginForPasswordChange(this.loginName, this.currentPassword);
+          if (principal != null) {
+            userAccountService.changePassword(principal.getUserAccount().getObjectId(),
+                principal.getUserAccount().getLastModificationDate(), this.password, principal.getJwToken());
+            info(getMessage("userAccountOptions_PasswordUpdated"));
+          }
         } else {
           error(getMessage("userAccountOptions_DifferentPasswords"));
         }

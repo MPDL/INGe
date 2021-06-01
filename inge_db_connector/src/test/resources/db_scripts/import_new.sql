@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS public.user_login;
 -- Is to be created manually, because not provided by Hibernate.
 --
 
-CREATE TABLE user_login (loginname character varying(255) NOT NULL, password character varying(255));
+CREATE TABLE user_login (loginname character varying(255) NOT NULL, password character varying(255), last_password_change DATE,
+    password_change_flag BOOLEAN,);
 
 
 ALTER TABLE user_login OWNER TO postgres;
