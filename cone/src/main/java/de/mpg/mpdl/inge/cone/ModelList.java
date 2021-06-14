@@ -51,12 +51,14 @@ public class ModelList {
 
   public enum Event
   {
-    ONLOAD, ONSAVE
+    ONLOAD,
+    ONSAVE
   }
 
   public enum Type
   {
-    STRING, XML
+    STRING,
+    XML
   }
 
   private static ModelList instance = null;
@@ -117,14 +119,16 @@ public class ModelList {
    * 
    * @param alias The String to look for.
    * @return The first {@link Model} in the list using the given alias.
+   * @throws ConeException
    */
-  public Model getModelByAlias(String alias) {
+  public Model getModelByAlias(String alias) throws ConeException {
     for (Model model : getList()) {
       if (model.getName().equals(alias) || model.getAliases().contains(alias)) {
         return model;
       }
     }
-    return null;
+
+    throw new ConeException("Model " + alias + " not found");
   }
 
   public Map<String, String> getDefaultNamepaces() {

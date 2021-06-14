@@ -27,18 +27,16 @@
  All rights reserved. Use is subject to license terms.
 --%>
 
-
-<%@page import="de.mpg.mpdl.inge.cone.ConeException"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	this.request = request;
-	
 	response.setCharacterEncoding("UTF-8");
 %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="de.mpg.mpdl.inge.aa.AuthenticationVO" %>
+<%@ page import="de.mpg.mpdl.inge.cone.ConeException"%>
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedString" %>
 <%@ page import="de.mpg.mpdl.inge.cone.LocalizedTripleObject" %>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList" %>
@@ -49,6 +47,7 @@
 <%@ page import="de.mpg.mpdl.inge.cone.TreeFragment" %>
 <%@ page import="de.mpg.mpdl.inge.cone.web.Login"%>
 <%@ page import="de.mpg.mpdl.inge.cone.web.util.HtmlUtils" %>
+<%@ page import="de.mpg.mpdl.inge.cone.web.UrlHelper"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page import="java.nio.charset.Charset" %>
@@ -63,24 +62,15 @@
 <%@ page import="org.apache.log4j.Logger"%>
 
 <%!
-	static Logger logger = Logger.getLogger("CoNE edit.jsp");
-	
-	List<String> errors;
-	List<String> messages;
-	
-	boolean warning;
-	
-	HttpServletRequest request = null;
-	Querier querier = null;
-	
+	HttpServletRequest request;
 	String sessionAttributePrefix = "coneSubSession_";
+	List<String> errors = new ArrayList<String>();
+	List<String> messages = new ArrayList<String>();
+	Querier querier;
 	
-
 	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn) throws ConeException
 	{
-		
     	StringWriter out = new StringWriter();
-    
 	    for (Predicate predicate : predicates)
 	    {
 	    		//Display name of predicate and mandatory status
@@ -93,20 +83,15 @@
 	        	out.append(predicate.getName()+"<span class=\"noDisplay\">: </span>");
 	        	out.append("</b>");
 	        	out.append("\n<span class=\"xHuge_area0 singleItem endline\" style=\"overflow: visible;\">");
-
-	        	
 	        	//If this predicate has the same identifier as the models primary identifier, display the primary identifier as value (or a message if no identifier is available yet for new entries)
 	        	if (model != null && predicate.getId().equals(model.getIdentifier()) && prefix.isEmpty())
 	        	{
-	        		
 	        		List<LocalizedTripleObject> resList = results.get(predicate.getId());
-	        		
 					if (results.get(predicate.getId()) != null && !resList.isEmpty())
 					{				
 						for (LocalizedTripleObject object : resList) 
 						{
 							out.append(object.toString());
-							
 							if (object instanceof TreeFragment)
 						    {
 						        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
@@ -119,7 +104,6 @@
 						    {
 						        request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
 						    }
-							
 						}
 					}
 					else
@@ -127,11 +111,9 @@
 						out.append("Will be the same value as Cone-ID");
 					}
 	        	}
-	        	
 	        	//Otherwise (predicates that are not equal to the model's primary identifier)
 	        	else
 	        	{
-	        		
 	        		//If a value for this predicate already exists
 			        if (results != null && results.get(predicate.getId()) != null && results.get(predicate.getId()).size() > 0)
 			        {
@@ -140,12 +122,10 @@
 	        		    for (LocalizedTripleObject object : results.get(predicate.getId()))
 	            		{
 			                out.append("\n<span class=\"xHuge_area0 endline inputField\" style=\"overflow: visible;\">");
-			                	
 			              		//Value for predicate exists and predicate is modifyable
 			                	if (predicate.isModify())
 			                	{
 			                		StringBuffer value = new StringBuffer();
-			                		
 			                		if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD && predicate.isOverwrite())
 									{
 									    value.append(HtmlUtils.escapeHtml(predicate.getDefault(request)));
@@ -164,14 +144,11 @@
 									    {
 									    	value.append(HtmlUtils.escapeHtml(object.toString()));
 									    }
-									    
 									}
-			                		
 			                		String name = prefix + predicate.getId().replaceAll("[/:.]", "_");
 			                		String onChangeSnippet = (" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", false, " + predicate.isShouldBeUnique() + ")\"");
 			                		String nameSnippet = (" name=\"" + name + "\"");
 					                String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:.]", "_")) : "";
-			                		
 					                if (predicate.isGenerateObject())
 				    	            {
 		    		    	            out.append("\n<input type=\"hidden\" class=\"noDisplay\"" + nameSnippet + " value=\"" + value.toString() + "\"/>");
@@ -186,9 +163,6 @@
 		            		    	{
 		            		    		 out.append("\n<input type=\"text\" class=\"huge_txtInput" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + " value=\"" + value.toString() + "\"/>");
 		            		    	}
-			                					                
-					
-
 									if (predicate.isResource())
 									{
 										out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
@@ -197,7 +171,6 @@
 									{
 										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
 									}
-	
 				            	    if (predicate.isLocalized())
 					                {
 					                    out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? HtmlUtils.escapeHtml(object.getLanguage()) : "") + "\"");
@@ -205,9 +178,6 @@
 										out.append("/>");
 										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'iso639-1', true)</script>");
 		                			}
-				            	    
-				            	   
-			                
 				                	if (predicate.isMultiple())
 				    		        {
 			    			            out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
@@ -219,7 +189,6 @@
 		    			    	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
 				    		        	}
 		    	        			}
-
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
 				            	    {
 				        	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn remove \" value=\" \" onclick=\"removeLine(this, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ");\"/>");
@@ -257,8 +226,6 @@
 									    }
 									}
 			                	}
-	                
-			              		
 			              	//Predicate has child predicates	
 			                if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
 			                {
@@ -267,9 +234,7 @@
 	        		            out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + "_" + counter + "|", path + predicate.getId() + "/", Login.getLoggedIn(request)));
 	        		            out.append("</span>");
 	            	    	}
-			                
 		            	    out.append("</span>");
-	                
 	                		counter++;
 	            		}
 	            	}
@@ -280,13 +245,10 @@
 	    		        if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
 	        			{
 	            				out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
-	            				
-	            			
 	            				String name = prefix + predicate.getId().replaceAll("[/:.]", "_");
 	            				String nameSnippet = " name=\"" + name + "\"";
 	            				String onChangeSnippet = " onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"";
 	            				String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:.]", "_")) : "";
-	            				
 	            				if (predicate.isGenerateObject())
 	                			{
     		            		    out.append("<input type=\"hidden\"" + nameSnippet +  "value=\"\"/>");
@@ -294,7 +256,6 @@
 	            				else if(predicate.getType()!=null && predicate.getType() == ModelList.Type.XML)
 		            		    {
 	            					 out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
-	            					 
 	            		    		 out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + ">" +  "</textarea>");
 	            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').on('change', {txtArea: '" + name + "'}, readCslFile)});</script>");
 		    	            	}
@@ -302,18 +263,14 @@
 	            		    	{
 	            		    		 out.append("\n<input type=\"text\" class=\"huge_txtInput" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + " value=\"\"/>");
 	            		    	}
-			    	            
-	            				
 	            				if (predicate.isResource())
     		            		{
 	    	        		    	out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
     	    	        		}
-
 	            				if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
 								{
 									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
 								}
-	            				
 					            if (predicate.isLocalized())
 					            {
 	    				            out.append("<input type=\"text\" title=\"Language\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
@@ -321,13 +278,6 @@
 									out.append("/>");
 									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'iso639-1', true)</script>");
 		            			}
-			            
-//			            	  	if (predicate.getPredicates() != null && predicate.getPredicates().size() > 0)
-//      		          		{
-//          	          
-//	          		          	out.append(displayPredicates(model, null, uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + ":0:"));
-//  	            		  	}
-
 								if (predicate.isMultiple())
 					        	{
 							    	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
@@ -339,16 +289,13 @@
 		        			    		out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 		        					}
 					        	}
-
 								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
-							//	out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" src=\"img/empty.png\" onclick=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', true, " + predicate.isShouldBeUnique() + ");return false;\"/>");
 				            out.append("</span>");
 	        			}
 	    		        else if (predicate.isMultiple())
 			        	{
 	    		            out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
 						    out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
-			    	        
 	        	   		 	out.append("</span>");
 	        			}
 			        	else if (predicate.isLocalized())
@@ -358,7 +305,6 @@
 	           				out.append("</span>");
        					}
 	    		   	}
-	        		
 			        //A value for this predicate does not exist yet and is automatically generated on load of this page
 		            else if (predicate.getDefaultValue() != null && predicate.getEvent() == ModelList.Event.ONLOAD)
 					{
@@ -366,7 +312,6 @@
 					    out.append(predicate.getDefault(request));
 					    request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
 					}
-	        		
 			        //A value for this predicate does not exist yet and is automatically generated on save of this page
 			        else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
 			        {
@@ -382,32 +327,22 @@
 					    out.append("---");
 					}
 	        	}
-				
 		        out.append("\n</span>");
-		        
 	        out.append("\n</span>");
 	    }
-
 	    return out.toString();
 	}
 	
 	private void mapFormValues(Model model, List<Predicate> predicates, HttpServletRequest request, Enumeration<String> paramNames, TreeFragment results, String prefix) throws ConeException
 	{
-	    	    
         for (Predicate predicate : predicates)
         {
             String paramName = prefix + predicate.getId().replaceAll("[/:.]", "_");
-            
-            //System.out.println("-----------------------------------------------------------------------------------------");
-            //System.out.println("Param Name: " + paramName);
-            //System.out.println("-----------------------------------------------------------------------------------------");
             String[] paramValues = request.getParameterValues(paramName);
-            //System.out.println("Values:" + paramValues);
             if (!predicate.isModify() && predicate.getDefaultValue() != null && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
             {
                 paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
             }
-            
             else if (model.getIdentifier() != null && model.getIdentifier().equals(predicate.getId()) && predicate.isMandatory() && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
             {
                 paramValues = new String[]{(String) request.getSession().getAttribute(sessionAttributePrefix + paramName)};
@@ -419,8 +354,6 @@
 	            for (int i = 0; i < paramValues.length; i++)
 	            {
 	                String paramValue = paramValues[i];
-	                
-	                //System.out.println("working on paramValue:" + paramValue + "(paramName is:" + paramName + ", predicate is" + predicate+ ")");
 	                if (predicate.getDefaultValue() != null && predicate.isOverwrite() && predicate.getEvent() == Event.ONSAVE)
 	                {
 	                    paramValue = predicate.getDefault(request);
@@ -488,8 +421,6 @@
         	        objects.add(new LocalizedString(predicate.getDefault(request), null));
         	    }
             }
-            
-            
             if (!predicate.isMultiple() && objects.size() > 1)
             {
                 if (predicate.isLocalized())
@@ -538,234 +469,154 @@
             }
             results.put(predicate.getId(), objects);
         }
-	    
 	}
-
 %>
 
 <%
+	Logger logger = Logger.getLogger("CoNE edit.jsp");
 
-	errors = new ArrayList<String>();
-	messages = new ArrayList<String>();
-	warning = false;
-	
 	String uri = request.getParameter("uri");
 	String modelName = request.getParameter("model");
-	AuthenticationVO user = (AuthenticationVO) request.getSession().getAttribute("user");
-	Model model = null;
+	
+	if (null == modelName || "".equals(modelName.trim())) {
+		String error = "model may not be null";
+		logger.error(error);
+		throw new RuntimeException(error);
+	}
+	
+	if (uri != null && !"".equals(uri.trim()) && !UrlHelper.isValidParam(uri)) {
+		String error = "uri " + uri + " not valid";
+		logger.error(error);
+		throw new RuntimeException(error);
+	}
+
+	if (!UrlHelper.isValidParam(modelName)) {
+		String error = "model " + modelName + " not valid";
+		logger.error(error);
+		throw new RuntimeException(error);
+	}
+
+	ModelList.Model model = ModelList.getInstance().getModelByAlias(modelName);
 	TreeFragment results = new TreeFragment();
-
+	boolean form = ("true".equals(request.getParameter("form")));
 	Enumeration<String> paramNames = request.getParameterNames();
-	
-	boolean loggedIn = Login.getLoggedIn(request);
-	
-	querier = QuerierFactory.newQuerier(loggedIn);
-	
-	if (modelName != null && !"".equals(modelName))
-	{
-	    model = ModelList.getInstance().getModelByAlias(modelName);
-	}
-    
-	if ("true".equals(request.getParameter("form")))
-	{
-	    if (!model.isGenerateIdentifier() && request.getParameter("cone_identifier") != null)
-	    {
-	        results.setSubject(request.getParameter("cone_identifier"));
-	    }
 
+	if (form) {
+		if (!model.isGenerateIdentifier() && request.getParameter("cone_identifier") != null) {
+			results.setSubject(request.getParameter("cone_identifier"));
+		}
 		mapFormValues(model, model.getPredicates(), request, paramNames, results, "");
-	}
-	//First call edit.jsp (just GET request, no form submission)
-	else
-	{
+	} else { //First call edit.jsp (just GET request, no form submission)
 		//remove old session attributes
-		for(Enumeration e = request.getSession().getAttributeNames(); e.hasMoreElements(); )
-		{
+		for(Enumeration e = request.getSession().getAttributeNames(); e.hasMoreElements(); ) {
 			String attrName = (String)e.nextElement();
-			if(attrName.startsWith(sessionAttributePrefix))
-			{
+			if(attrName.startsWith(sessionAttributePrefix)) {
 				request.getSession().removeAttribute(attrName);
 			}
 		}
-			
 	}
-	
-	boolean form = ("true".equals(request.getParameter("form")));
-	
-	if (request.getParameter("workflow") != null)
-    {
-	    errors = new ArrayList<String>();
-		messages = new ArrayList<String>();
-		
-		results = (TreeFragment) session.getAttribute("currentObject");
-		
-		if ("change".equals(request.getParameter("workflow")))
-		{
-		    results = querier.details(modelName, uri, "*");
-		}
-		else if ("overwrite".equals(request.getParameter("workflow")))
-		{
-			logger.info("Overwrite existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-		    querier.delete(modelName, uri);
-		    querier.create(modelName, uri, results);
-		    if (request.getSession().getAttribute("latestSearch") != null)
-		    {
-		        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
-		        return;
-		    }
-		    messages.add("Entry saved.");
-		    logger.info("CoNE entry " + uri + " overwritten successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
-		}
-		else if ("update-overwrite".equals(request.getParameter("workflow")))
-		{
-			logger.info("Merge existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-		    TreeFragment existingObject = querier.details(modelName, uri, "*");
-		    existingObject.merge(results, true);
-		    results = existingObject;
-		    querier.delete(modelName, uri);
-		    querier.create(modelName, uri, results);
-		    
-		    if (request.getSession().getAttribute("latestSearch") != null)
-		    {
-		        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
-		        return;
-		    }
-		    messages.add("Entry saved.");
-		    logger.info("CoNE entry " + uri + " merged successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
-		}
-    }
-	else if ((request.getParameter("delete") != null
-	        || request.getParameter("save") != null)
-	        && ((request.getSession().getAttribute("edit_open_vocabulary") == null)
-	      		  && (model != null && (Boolean)model.isOpen())		
-	        //|| !((Boolean)request.getSession().getAttribute("edit_open_vocabulary")).booleanValue())
-	        ))
-    {
-	    errors.add("Not authorized for this action.");
-    }
-	else if ((request.getParameter("delete") != null
-	        || request.getParameter("save") != null)
-	        && ((request.getSession().getAttribute("edit_closed_vocabulary") == null)
-	        && (model != null && !(Boolean)model.isOpen())))
-	{
-	    errors.add("Not authorized for this action.");
-    }
-	else if (request.getParameter("delete") != null)
-	{
-		logger.info("Deleting existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-	    querier.delete(modelName, uri);
-	    logger.info("CoNE entry " + uri + " deleted successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
-	    uri = null;
-	    messages.add("Entry deleted successfully.");
-	    
-	    /*
-	    if (request.getSession().getAttribute("latestSearch") != null)
-	    {
-	        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
-	        return;
-	    }
-	    */
-	}
-	else if (request.getParameter("save") != null)
-	{
-		
-		 if (errors.size() == 0)
-		 {
-			 
-		 
-	        if (uri == null)
-	        {
-	            String identifierValue;
-	            if (model.isGenerateIdentifier())
-	            {
-	                identifierValue = querier.createUniqueIdentifier(modelName);
-	                uri = model.getSubjectPrefix() + identifierValue;
-	            }
-	            else
-	            {
-	                identifierValue = request.getParameter("cone_identifier");
-	                //Check if identifier is null or not ASCII compatible
-	                if (identifierValue != null && !"".equals(identifierValue) &&  Charset.forName("US-ASCII").newEncoder().canEncode(identifierValue))
-	                {
-	                	identifierValue = identifierValue.trim();
-	                    uri = model.getSubjectPrefix() + identifierValue;
-	                    
-	                    TreeFragment result = querier.details(modelName, uri, "*");
-	                    
-	                    if (result.exists())
-	                    {
-	                        warning = true;
-	                        session.setAttribute("currentObject", results);
-	                        errors.add("This resource already exists.");
-	                    }
-	                }
-	                else
-	                {
-	                    errors.add("No primary key is provided or the key is invalid. Please do not use special characters or umlauts.");
-	                }
-	            }
-	            if (model.getIdentifier() != null)
-	            {
-	                List<LocalizedTripleObject> idList = new ArrayList<LocalizedTripleObject>();
-	                idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
-	                results.put(model.getIdentifier(), idList);
-	            }
-	            logger.info("Creating new CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
-	        }
-	        else
-	        {
-	            if (!uri.startsWith(model.getSubjectPrefix()))
-	            {
-	                errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
-	            }
-	            logger.info("Modifying existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
 
-	//            else
-	//            {
-	//	            String identifierName = model.getIdentifier();
-	//	            String identifierValue = uri.substring(model.getIdentifierPrefix().length());
-	//	            List<LocalizedTripleObject> objects = new ArrayList<LocalizedTripleObject>();
-	//	            objects.add(new LocalizedString(identifierValue));
-	//	            results.put(identifierName, objects);
-	//           }
-	        }
-	        
-	        if (errors.size() == 0 && !warning)
-	        {
-	        	
-			    querier.delete(modelName, uri);
-			    querier.create(modelName, uri, results);
-			    
-			    messages.add("Entry saved.");
-			    logger.info("CoNE entry " + uri + " saved successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
-			    response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
-			    return;
-			    
-			    
-			    /*
-			    if (request.getSession().getAttribute("latestSearch") != null)
-			    {
-			        response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
-			        return;
-			    }
-			    */
-			    
-	        }
-		 }
-	}
-	//Edit existing entity
-	else if (uri != null && !"".equals(uri) && modelName != null && !"".equals(modelName))
-	{
+	AuthenticationVO user = (AuthenticationVO) request.getSession().getAttribute("user");
+	boolean loggedIn = Login.getLoggedIn(request);
+	Querier querier = QuerierFactory.newQuerier(loggedIn);
+	boolean warning = false;
+
+	if (request.getParameter("workflow") != null) {
+		errors = new ArrayList<String>();
+		messages = new ArrayList<String>();
+		results = (TreeFragment) session.getAttribute("currentObject");
+		if ("change".equals(request.getParameter("workflow"))) {
+			results = querier.details(modelName, uri, "*");
+		} else if ("overwrite".equals(request.getParameter("workflow"))) {
+			logger.info("Overwrite existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
+			querier.delete(modelName, uri);
+			querier.create(modelName, uri, results);
+			if (request.getSession().getAttribute("latestSearch") != null) {
+				response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+				return;
+			}
+			messages.add("Entry saved.");
+			logger.info("CoNE entry " + uri + " overwritten successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
+		} else if ("update-overwrite".equals(request.getParameter("workflow"))) {
+			logger.info("Merge existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
+			TreeFragment existingObject = querier.details(modelName, uri, "*");
+			existingObject.merge(results, true);
+			results = existingObject;
+			querier.delete(modelName, uri);
+			querier.create(modelName, uri, results);
+			if (request.getSession().getAttribute("latestSearch") != null) {
+				response.sendRedirect(request.getSession().getAttribute("latestSearch").toString());
+				return;
+			}
+			messages.add("Entry saved.");
+			logger.info("CoNE entry " + uri + " merged successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
+		}
+	} else if ((request.getParameter("delete") != null || request.getParameter("save") != null)
+				&& request.getSession().getAttribute("edit_open_vocabulary") == null
+				&& model.isOpen()) {
+		errors.add("Not authorized for this action.");
+	} else if ((request.getParameter("delete") != null || request.getParameter("save") != null)
+				&& request.getSession().getAttribute("edit_closed_vocabulary") == null
+				&& !model.isOpen()) {
+		errors.add("Not authorized for this action.");
+	} else if (request.getParameter("delete") != null) {
+		logger.info("Deleting existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
+		querier.delete(modelName, uri);
+		logger.info("CoNE entry " + uri + " deleted successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
+		uri = null;
+		messages.add("Entry deleted successfully.");
+	} else if (request.getParameter("save") != null) {
+		if (errors.size() == 0) {
+			if (uri == null) {
+				String identifierValue;
+				if (model.isGenerateIdentifier()) {
+					identifierValue = querier.createUniqueIdentifier(modelName);
+					uri = model.getSubjectPrefix() + identifierValue;
+				} else {
+					identifierValue = request.getParameter("cone_identifier");
+					//Check if identifier is null or not ASCII compatible
+					if (identifierValue != null && !"".equals(identifierValue) &&  Charset.forName("US-ASCII").newEncoder().canEncode(identifierValue)) {
+						identifierValue = identifierValue.trim();
+						uri = model.getSubjectPrefix() + identifierValue;
+						TreeFragment result = querier.details(modelName, uri, "*");
+						if (result.exists()) {
+							warning = true;
+							session.setAttribute("currentObject", results);
+							errors.add("This resource already exists.");
+						}
+					} else {
+						errors.add("No primary key is provided or the key is invalid. Please do not use special characters or umlauts.");
+					}
+				}
+				if (model.getIdentifier() != null) {
+					List<LocalizedTripleObject> idList = new ArrayList<LocalizedTripleObject>();
+					idList.add(new LocalizedString(model.getIdentifierPrefix() + identifierValue));
+					results.put(model.getIdentifier(), idList);
+				}
+				logger.info("Creating new CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
+			} else {
+				if (!uri.startsWith(model.getSubjectPrefix())) {
+					errors.add("Identifier does not start with expected prefix '" + model.getSubjectPrefix() + "'");
+				}
+				logger.info("Modifying existing CoNE entry " + uri + " by user " + user.getUsername() +" (" + user.getUserId() + ")");
+			}
+			if (errors.size() == 0 && !warning) {
+				querier.delete(modelName, uri);
+				querier.create(modelName, uri, results);
+				messages.add("Entry saved.");
+				logger.info("CoNE entry " + uri + " saved successfully by user " + user.getUsername() +" (" + user.getUserId() + ")");
+				response.sendRedirect("view.jsp?model=" + modelName + "&uri=" + uri);
+				return;
+			}
+		}
+	} else if (uri != null && !"".equals(uri.trim()) && modelName != null && !"".equals(modelName)) { //Edit existing entity
 		//First call of edit existing entity (just GET request, no form submission)
-	    if (!form)
-	    {
-	    	results = querier.details(modelName, uri, "*");
-	    }
-	    errors = new ArrayList<String>();
+		if (!form) {
+			results = querier.details(modelName, uri, "*");
+		}
+		errors = new ArrayList<String>();
 		messages = new ArrayList<String>();
 	}
-	
-	
 %>
 
 <%@page import="de.mpg.mpdl.inge.cone.ModelList.Event"%>
@@ -871,39 +722,28 @@
 											</b>
 											<span class="xHuge_area0 endline">
 												<%
-												if (uri == null)
-									            {
-									                if (model.isGenerateIdentifier())
-									                {
-									                    out.append("<label class=\"quad_label\">Will be generated automatically</label>");
-									            	}
-									                else
-									                {
-									                    out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
-									                    out.append("<input type=\"hidden\" name=\"cone_subject_prefix\" value=\""+model.getSubjectPrefix()+"\"/>");
-
-									                    String subject = "";
-									                    if (results.getSubject() != null)
-									                    {
-									                        subject = results.getSubject();
-									                    }
-									                    
-									                    out.append("<input type=\"text\" name=\"cone_identifier\" id='cone_identifier' class=\"double_txtInput\" onchange=\"checkId('" + model.getName() + "', false)\" value=\"" + subject + "\" />");
+												if (uri == null) {
+													if (model.isGenerateIdentifier()) {
+														out.append("<label class=\"quad_label\">Will be generated automatically</label>");
+													} else {
+														out.append("<label class=\"free_area0\">"+model.getSubjectPrefix()+"</label>");
+														out.append("<input type=\"hidden\" name=\"cone_subject_prefix\" value=\""+model.getSubjectPrefix()+"\"/>");
+														String subject = "";
+														if (results.getSubject() != null) {
+															subject = results.getSubject();
+														}
+														out.append("<input type=\"text\" name=\"cone_identifier\" id='cone_identifier' class=\"double_txtInput\" onchange=\"checkId('" + model.getName() + "', false)\" value=\"" + subject + "\" />");
 														out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' id='idInfo' onclick=\"checkId('" + model.getName() + "', true);return false;\">i</span>");
-									                 //   out.append("<input type=\"image\" style=\"border: none\" class=\"checkImage\" id=\"idImage\" onclick=\"checkId('" + model.getName() + "', true);return false;\"/>");
-									                }
-									            }
-												else
-												{
-												    out.append("<label class=\"quad_label\">"+uri+"</label>");
+													}
+												} else {
+													out.append("<label class=\"quad_label\">"+uri+"</label>");
 												}
-												
 												%>
 											</span>
 										</span>
 										<% if (model != null) { %>
 											<%= displayPredicates(model, results, uri, model.getPredicates(), "", "", Login.getLoggedIn(request)) %>
-										<% } %>	
+										<% } %>
 									</div>
 									<div class="free_area0 xTiny_marginLIncl">
 										<span class="mandatory">* mandatory field</span>
@@ -917,15 +757,12 @@
 						<% if (uri != null) { %>
 							<input class="free_txtBtn cancelButton xLarge_marginLIncl" type="submit" name="delete" value="Delete" onclick="if (!confirm('Really delete this entry?')) return false;"/>
 						<% } %>
-						
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="xHuge_area2_p8 messageArea noDisplay" style="height: 28.37em; overflow-y: auto;">
-
 			<input type="button" id="btnClose" onclick="closeDialog()" value=" " class="min_imgBtn quad_marginLIncl fixMessageBlockBtn"/>
-			
 		</div>
 	</body>
 </html>

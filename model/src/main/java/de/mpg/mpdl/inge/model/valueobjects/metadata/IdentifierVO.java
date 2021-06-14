@@ -69,6 +69,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     EDOC("http://purl.org/escidoc/metadata/terms/0.1/EDOC"), //
     ESCIDOC("http://purl.org/escidoc/metadata/terms/0.1/ESCIDOC"), // wegen Altdaten noch notwendig
     GFZPOF("http://purl.org/escidoc/metadata/terms/0.1/GFZPOF"), //
+    GFZPOFWEITERE("http://purl.org/escidoc/metadata/terms/0.1/GFZPOFWEITERE"), //
     GFZPROJECT("http://purl.org/escidoc/metadata/terms/0.1/GFZPROJECT"), //
     GRANT_ID("http://purl.org/escidoc/metadata/terms/0.1/GRANT-ID"), // anderer Zusammenhang (Projektinfo)
     IASSPROJECT("http://purl.org/escidoc/metadata/terms/0.1/IASSPROJECT"), //
@@ -77,6 +78,7 @@ public class IdentifierVO extends ValueObject implements Cloneable {
     ISSN("http://purl.org/escidoc/metadata/terms/0.1/ISSN"), //
     MDB_ID("http://purl.org/escidoc/metadata/terms/0.1/MDB-ID"), //
     MODELMETHOD("http://purl.org/escidoc/metadata/terms/0.1/MODELMETHOD"), //
+    OATYPE("http://purl.org/escidoc/metadata/terms/0.1/OATYPE"), //
     OPEN_AIRE("http://purl.org/escidoc/metadata/terms/0.1/OPEN-AIRE"), // anderer Zusammenhang (Fundingorganization)
     ORGANISATIONALK("http://purl.org/escidoc/metadata/terms/0.1/ORGANISATIONALK"), //
     OTHER("http://purl.org/escidoc/metadata/terms/0.1/OTHER"), //

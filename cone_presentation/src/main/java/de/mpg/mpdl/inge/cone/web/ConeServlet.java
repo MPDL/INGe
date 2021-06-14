@@ -130,16 +130,6 @@ public class ConeServlet extends HttpServlet {
 
     PrintWriter out = response.getWriter();
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("request.getPathInfo() " + request.getPathInfo());
-      logger.debug("getPathTranslated() " + request.getPathTranslated());
-      logger.debug("getRequestURI() " + request.getRequestURI());
-      logger.debug("getServletPath() " + request.getServletPath());
-      logger.debug("getLocalAddr() " + request.getLocalAddr());
-      logger.debug("getLocalName() " + request.getLocalName());
-      logger.debug("getLocalPort() " + request.getLocalPort());
-    }
-
     // Read the model name and action from the URL
     String[] path = request.getServletPath().split("/", 4);
 
@@ -216,11 +206,6 @@ public class ConeServlet extends HttpServlet {
     } catch (ConeException e1) {
       // TODO Auto-generated catch block
       e1.printStackTrace();
-    }
-
-    if (logger.isDebugEnabled()) {
-      logger.debug("Formatter is '" + formatter + "'");
-      logger.debug("Querying for '" + model + "'");
     }
 
     Querier.ModeType modeType = Querier.ModeType.FAST;
@@ -308,31 +293,24 @@ public class ConeServlet extends HttpServlet {
   private void allAction(String lang, Querier.ModeType modeType, HttpServletResponse response, AbstractFormatter formatter,
       String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
+    response.setContentType(formatter.getContentType());
+    Querier querier = QuerierFactory.newQuerier(loggedIn);
 
-    if (model != null) {
-      response.setContentType(formatter.getContentType());
-
-      Querier querier = QuerierFactory.newQuerier(loggedIn);
-
-      logger.debug("Querier is " + querier);
-
-      if (querier == null) {
-        reportMissingQuerier(response);
-      } else {
-        List<? extends Describable> result = null;
-
-        try {
-          result = querier.query(model.getName(), "*", lang, modeType, 0);
-        } catch (Exception e) {
-          logger.error(DB_ERROR_MESSAGE, e);
-        }
-
-        response.getWriter().print(formatter.formatQuery(result, model));
-      }
-      querier.release();
+    if (querier == null) {
+      reportMissingQuerier(response);
     } else {
-      reportUnknownModel(modelName, response);
+      List<? extends Describable> result = null;
+
+      try {
+        result = querier.query(model.getName(), "*", lang, modeType, 0);
+      } catch (Exception e) {
+        logger.error(DB_ERROR_MESSAGE, e);
+      }
+
+      response.getWriter().print(formatter.formatQuery(result, model));
     }
+
+    querier.release();
   }
 
   /**
@@ -347,35 +325,24 @@ public class ConeServlet extends HttpServlet {
   private void detailAction(String id, String lang, HttpServletResponse response, AbstractFormatter formatter, PrintWriter out,
       String modelName, boolean loggedIn) throws Exception {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
+    response.setContentType(formatter.getContentType());
 
-    if (model != null) {
-      response.setContentType(formatter.getContentType());
-
-      if (id == null) {
-        reportMissingParameter("id", response);
-      } else if ("".equals(id)) {
-        reportEmptyParameter("id", response);
-      } else {
-
-        Querier querier = QuerierFactory.newQuerier(loggedIn);
-
-        if (querier == null) {
-          reportMissingQuerier(response);
-        } else {
-          TreeFragment result = null;
-
-          try {
-            result = querier.details(modelName, id, lang);
-          } catch (Exception e) {
-            logger.error(DB_ERROR_MESSAGE, e);
-          }
-
-          out.print(formatter.formatDetails(id, model, result, lang));
-        }
-        querier.release();
-      }
+    if (id == null) {
+      reportMissingParameter("id", response);
     } else {
-      reportUnknownModel(modelName, response);
+      Querier querier = QuerierFactory.newQuerier(loggedIn);
+      if (querier == null) {
+        reportMissingQuerier(response);
+      } else {
+        TreeFragment result = null;
+        try {
+          result = querier.details(modelName, id, lang);
+        } catch (Exception e) {
+          logger.error(DB_ERROR_MESSAGE, e);
+        }
+        out.print(formatter.formatDetails(id, model, result, lang));
+      }
+      querier.release();
     }
   }
 
@@ -392,40 +359,31 @@ public class ConeServlet extends HttpServlet {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     try {
-      if (model != null) {
-        response.setContentType(formatter.getContentType());
+      response.setContentType(formatter.getContentType());
 
-        if (query == null) {
-          reportMissingParameter("q", response);
-        } else if ("".equals(query)) {
-          reportEmptyParameter("q", response);
-        } else {
-
-          Querier querier = QuerierFactory.newQuerier(loggedIn);
-
-          logger.debug("Querier is " + querier);
-
-          if (querier == null) {
-            reportMissingQuerier(response);
-          } else {
-            List<? extends Describable> result = null;
-
-            try {
-              if (limit >= 0) {
-                result = querier.query(model.getName(), query, lang, modeType, limit);
-              } else {
-                result = querier.query(model.getName(), query, lang, modeType);
-              }
-            } catch (Exception e) {
-              logger.error(DB_ERROR_MESSAGE, e);
-            }
-
-            response.getWriter().print(formatter.formatQuery(result, model));
-          }
-          querier.release();
-        }
+      if (query == null) {
+        reportMissingParameter("q", response);
       } else {
-        reportUnknownModel(modelName, response);
+        Querier querier = QuerierFactory.newQuerier(loggedIn);
+
+        if (querier == null) {
+          reportMissingQuerier(response);
+        } else {
+          List<? extends Describable> result = null;
+
+          try {
+            if (limit >= 0) {
+              result = querier.query(model.getName(), query, lang, modeType, limit);
+            } else {
+              result = querier.query(model.getName(), query, lang, modeType);
+            }
+          } catch (Exception e) {
+            logger.error(DB_ERROR_MESSAGE, e);
+          }
+
+          response.getWriter().print(formatter.formatQuery(result, model));
+        }
+        querier.release();
       }
     } catch (IOException e) {
       throw new ConeException(e);
@@ -445,37 +403,28 @@ public class ConeServlet extends HttpServlet {
     Model model = ModelList.getInstance().getModelByAlias(modelName);
 
     try {
-      if (model != null) {
-        response.setContentType(formatter.getContentType());
+      response.setContentType(formatter.getContentType());
 
-        Querier querier = QuerierFactory.newQuerier(loggedIn);
+      Querier querier = QuerierFactory.newQuerier(loggedIn);
 
-        if (logger.isDebugEnabled()) {
-          logger.debug("Querier is " + querier);
-        }
-
-        if (querier == null) {
-          reportMissingQuerier(response);
-        } else {
-          List<? extends Describable> result = null;
-
-          try {
-            if (limit >= 0) {
-              result = querier.query(model.getName(), searchFields, lang, modeType, limit);
-            } else {
-              result = querier.query(model.getName(), searchFields, lang, modeType);
-            }
-          } catch (Exception e) {
-            logger.error(DB_ERROR_MESSAGE, e);
-          }
-
-          response.getWriter().print(formatter.formatQuery(result, model));
-        }
-        querier.release();
-
+      if (querier == null) {
+        reportMissingQuerier(response);
       } else {
-        reportUnknownModel(modelName, response);
+        List<? extends Describable> result = null;
+
+        try {
+          if (limit >= 0) {
+            result = querier.query(model.getName(), searchFields, lang, modeType, limit);
+          } else {
+            result = querier.query(model.getName(), searchFields, lang, modeType);
+          }
+        } catch (Exception e) {
+          logger.error(DB_ERROR_MESSAGE, e);
+        }
+
+        response.getWriter().print(formatter.formatQuery(result, model));
       }
+      querier.release();
     } catch (IOException e) {
       throw new ConeException(e);
     }
@@ -484,15 +433,6 @@ public class ConeServlet extends HttpServlet {
   private void reportMissingQuerier(HttpServletResponse response) throws IOException {
     response.setStatus(500);
     response.getWriter().println("Error: Querier implementation not set in propertyfile.");
-  }
-
-  private void reportUnknownModel(String model, HttpServletResponse response) throws IOException {
-    response.setStatus(500);
-    response.getWriter().println("Error: Model " + model + " is not known.");
-  }
-
-  private void reportEmptyParameter(String string, HttpServletResponse response) {
-    // do not report empty parameters, just return nothing.
   }
 
   private void reportMissingParameter(String param, HttpServletResponse response) throws IOException {

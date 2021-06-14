@@ -74,24 +74,17 @@ public class ModelHelper {
 
   public static List<Pair<ResultEntry>> buildObjectFromPatternNew(String modelName, String currentSubject, TreeFragment poMap,
       boolean loggedIn) throws ConeException {
-
     Model model = ModelList.getInstance().getModelByAlias(modelName);
-
+    List<Pair<ResultEntry>> results = new ArrayList<Pair<ResultEntry>>();
     Set<String> languages = getLanguagesForResults(model, poMap, loggedIn);
 
-    List<Pair<ResultEntry>> results = new ArrayList<Pair<ResultEntry>>();
-
     for (ModelResult modelResult : model.getResults()) {
-
       if (languages.isEmpty()) {
         List<Map<String, List<LocalizedTripleObject>>> permutationMaps = getPermutations(model, poMap, modelResult, loggedIn, "");
-
         results.addAll(getReplaceResult(modelResult, permutationMaps, null));
-
       } else {
         for (String lang : languages) {
           List<Map<String, List<LocalizedTripleObject>>> permutationMaps = getPermutations(model, poMap, modelResult, loggedIn, lang);
-
           if (!"".equals(lang)) {
             results.addAll(getReplaceResult(modelResult, permutationMaps, lang));
           } else {
@@ -334,18 +327,18 @@ public class ModelHelper {
           if (object instanceof TreeFragment && model.getPredicate(key).isResource()) {
             Querier querier = QuerierFactory.newQuerier(loggedIn);
             Model subModel = ModelList.getInstance().getModelByAlias(model.getPredicate(key).getResourceModel());
-            TreeFragment subResource;
-
-            subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
+            TreeFragment subResource = querier.details(subModel.getName(), ((TreeFragment) object).getSubject(), "*");
             languages.addAll(getLanguagesForMatches(subModel, subResource, loggedIn));
             querier.release();
           }
         }
       }
     }
+
     if (model.isGlobalMatches()) {
       languages.add("");
     }
+
     return languages;
   }
 
@@ -376,12 +369,9 @@ public class ModelHelper {
 
   public static List<Pair<LocalizedString>> buildMatchStringFromModel(String modelName, String id, TreeFragment values, boolean loggedIn)
       throws ConeException {
-    Set<String> languages = new HashSet<String>();
     Model model = ModelList.getInstance().getModelByAlias(modelName);
-
     List<Pair<LocalizedString>> results = new ArrayList<Pair<LocalizedString>>();
-
-    languages = getLanguagesForMatches(model, values, loggedIn);
+    Set<String> languages = getLanguagesForMatches(model, values, loggedIn);
 
     for (String lang : languages) {
       String matchString = id + getMatchString(model.getPredicates(), values, lang, loggedIn);
@@ -402,9 +392,7 @@ public class ModelHelper {
           if (value.getLanguage() == null || "".equals(value.getLanguage()) || lang.equals(value.getLanguage())) {
             if (predicate.isResource() && value instanceof TreeFragment) {
               Querier querier = QuerierFactory.newQuerier(loggedIn);
-
               String id = ((TreeFragment) value).getSubject();
-
               TreeFragment treeFragment = querier.details(predicate.getResourceModel(), id, "*");
               Model newModel = ModelList.getInstance().getModelByAlias(predicate.getResourceModel());
               result.append(getMatchString(newModel.getPredicates(), treeFragment, lang, loggedIn));
@@ -419,6 +407,7 @@ public class ModelHelper {
         }
       }
     }
+
     return result.toString();
   }
 

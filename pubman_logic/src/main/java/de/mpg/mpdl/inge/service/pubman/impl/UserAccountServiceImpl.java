@@ -403,6 +403,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
         Cookie cookie = new Cookie("inge_auth_token", principal.getJwToken());
         cookie.setPath("/");
         cookie.setMaxAge(TOKEN_MAX_AGE_HOURS * 3600);
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
       }
     }
