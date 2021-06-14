@@ -35,7 +35,7 @@
                                 <!-- content menu starts here -->
                                 <div class="free_area0 sub">
                                     <!-- content menu upper line starts here -->
-                                    <h:outputLink id="lnkMenuCoNE" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/cone/" target="_blank">
+                                    <h:outputLink id="lnkMenuCoNE" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/cone/" target="_blank" rel="noreferrer noopener">
                                         <h:outputText value="#{lbl.Tools_lblCoNE}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />
@@ -43,7 +43,7 @@
                                         <h:outputText value="#{lbl.Tools_lblREST}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />
-                                    <h:outputLink id="lnkMenuCslEditor" styleClass="free_area0" value="#{ApplicationBean.cslEditorInstanceUrl}" target="_blank">
+                                    <h:outputLink id="lnkMenuCslEditor" styleClass="free_area0" value="#{ApplicationBean.cslEditorInstanceUrl}" target="_blank" rel="noreferrer noopener">
                                         <h:outputText value="#{lbl.Tools_lblCslEditorInstance}" />
                                     </h:outputLink>
                                     <h:outputText styleClass="seperator void" />

@@ -160,7 +160,7 @@
 											value="#{ExportItemsSessionBean.coneCitationStyleId}" />
 										<h:outputLink class="fa fa-list-ul"
 											value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html"
-											title="Liste aller Zitierstile" target="_blank" />
+											title="Liste aller Zitierstile" target="_blank" rel="noreferrer noopener" />
 										<h:commandButton id="btnRemoveCslAutoSuggest" value=" "
 											styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl"
 											style="display:none;" onclick="removeCslAutoSuggest($(this))"

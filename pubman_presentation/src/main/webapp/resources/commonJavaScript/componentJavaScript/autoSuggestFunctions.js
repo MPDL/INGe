@@ -170,7 +170,7 @@ function getPersonDetails(details) {
     $(parent).find('.givenName').attr('class', 'medium_txtInput givenName');
 
     if ($input.resultID != null && $input.resultID != '') {
-        $(parent).find('.authorLink').replaceWith('<a href="' + $input.resultID + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+        $(parent).find('.authorLink').replaceWith('<a href="' + $input.resultID + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
     }
 
     // Try to disable input field
@@ -388,7 +388,7 @@ function fillOrganizationFields() {
     fillField('organizationAddress', this.result.address, parent);
 
     if (this.resultID != null && this.resultID != '') {
-        $(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+        $(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
     }
 
     // Try to disable input field
@@ -411,7 +411,7 @@ function fillUserAccountFields() {
     /*
     if (this.resultID != null && this.resultID != '')
     {
-    	$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+    	$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
     	
     }
     */

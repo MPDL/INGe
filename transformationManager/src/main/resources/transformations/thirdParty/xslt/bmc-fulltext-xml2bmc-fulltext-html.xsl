@@ -665,7 +665,7 @@
 		</i>
 	</xsl:template>
 	<xsl:template match="bmc:url" mode="ref"> [
-		<a class="hiddenlink" target="_blank" href="{.}">
+		<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="{.}">
 			<xsl:value-of select="."/>
 		</a>]
 	</xsl:template>
@@ -715,12 +715,12 @@
 			<xsl:choose>
 				<!--   Check whether this doi is a bmc one  If it is, still go via dx.doi.org but use different text  -->
 				<xsl:when test="substring(.//bmc:pubid[@idtype='doi'],1,8)='10.1186/'">[
-					<a class="hiddenlink" target="_blank" href="https://doi.org/{.//bmc:pubid[@idtype='doi']}">BioMed Central Full Text</a>]
+					<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="https://doi.org/{.//bmc:pubid[@idtype='doi']}">BioMed Central Full Text</a>]
 				</xsl:when>
 				<xsl:otherwise>
 					<!--   if we have a full text link via PubMed then we ignore the DOI  and use the PubMed id which is output below.  -->
 					<xsl:if test="count(.//bmc:pubid[@link='fulltext'])=0">[
-						<a class="hiddenlink" target="_blank" href="https://doi.org/{.//bmc:pubid[@idtype='doi']}">Publisher Full Text</a>]
+						<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="https://doi.org/{.//bmc:pubid[@idtype='doi']}">Publisher Full Text</a>]
 					</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -730,13 +730,13 @@
 			<xsl:if test=".//bmc:pubid[@link='fulltext']">
 				<xsl:choose>
 					<xsl:when test="count(.//bmc:pubid[@idtype='pmpid'])=1">[
-						<a class="hiddenlink" target="_blank" href="http://www.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&amp;cmd=prlinks&amp;retmode=ref&amp;id={.//bmc:pubid[@idtype='pmpid']}">Publisher Full Text</a>]
+						<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="http://www.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&amp;cmd=prlinks&amp;retmode=ref&amp;id={.//bmc:pubid[@idtype='pmpid']}">Publisher Full Text</a>]
 					</xsl:when>
 					<xsl:when test="count(.//bmc:pubid[@idtype='pubmed'])=1">[
-						<a class="hiddenlink" target="_blank" href="http://www.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&amp;cmd=prlinks&amp;retmode=ref&amp;id={.//bmc:pubid[@idtype='pubmed']}">Publisher Full Text</a>]
+						<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="http://www.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&amp;cmd=prlinks&amp;retmode=ref&amp;id={.//bmc:pubid[@idtype='pubmed']}">Publisher Full Text</a>]
 					</xsl:when>
 					<xsl:when test="count(.//bmc:pubid[not(@idtype)])=1">[
-						<a class="hiddenlink" target="_blank" href="http://www.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&amp;cmd=prlinks&amp;retmode=ref&amp;id={.//bmc:pubid[not(@idtype)]}">Publisher Full Text</a>]
+						<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="http://www.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&amp;cmd=prlinks&amp;retmode=ref&amp;id={.//bmc:pubid[not(@idtype)]}">Publisher Full Text</a>]
 					</xsl:when>
 					<xsl:otherwise />
 				</xsl:choose>
@@ -746,13 +746,13 @@
 		<xsl:if test="count(.//bmc:pubid[@idtype='pmcid'])=1">
 			<xsl:choose>
 				<xsl:when test="count(.//bmc:pubid[@idtype='pmpid'])=1">[
-					<a class="hiddenlink" target="_blank" href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid={.//bmc:pubid[@idtype='pmpid']}">PubMed Central Full Text</a>]
+					<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid={.//bmc:pubid[@idtype='pmpid']}">PubMed Central Full Text</a>]
 				</xsl:when>
 				<xsl:when test="count(.//bmc:pubid[@idtype='pubmed'])=1">[
-					<a class="hiddenlink" target="_blank" href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid={.//bmc:pubid[@idtype='pubmed']}">PubMed Central Full Text</a>]
+					<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid={.//bmc:pubid[@idtype='pubmed']}">PubMed Central Full Text</a>]
 				</xsl:when>
 				<xsl:when test="count(.//bmc:pubid[not(@idtype)])=1">[
-					<a class="hiddenlink" target="_blank" href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid={.//bmc:pubid[not(@idtype)]}">PubMed Central Full Text</a>]
+					<a class="hiddenlink" target="_blank" rel="noreferrer noopener" href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid={.//bmc:pubid[not(@idtype)]}">PubMed Central Full Text</a>]
 				</xsl:when>
 				<xsl:otherwise />
 			</xsl:choose>

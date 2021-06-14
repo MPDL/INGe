@@ -133,7 +133,7 @@
 									itemURL = '';
 									itemURL = '<xsl:value-of select="$item-link"/>'.replace('$1', $(allItems[i]).attr('objid') + '_' + $(getElementsByTagName('number', 'http://escidoc.de/core/01/properties/release/', 'release', getElementsByTagName('latest-release', 'http://escidoc.de/core/01/properties/', 'prop', allItems[i])[0])[0]).text());
 
-									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" >PubMan</a>]' + '</span>';
+									element = '<span class="xHuge_area0 xTiny_marginLExcl endline citationBlock">' + $(citation).text() + ' [<a href="' + itemURL + '" target="_blank" rel="noreferrer noopener" >PubMan</a>]' + '</span>';
 									
 									if($('#publicationsArea').find('.smallThrobber').length != 0) {$('#publicationsArea').find('.smallThrobber').remove();}
 									

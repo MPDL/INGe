@@ -300,7 +300,7 @@
                             <xsl:if test="($doi != '')">
                                 <xsl:text>&lt;br/&gt;&lt;a href="https://doi.org/</xsl:text>
                                 <xsl:value-of select="$doi"></xsl:value-of>
-                                <xsl:text>" target="_blank"&gt;https://doi.org/</xsl:text>
+                                <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;https://doi.org/</xsl:text>
                                 <xsl:value-of select="$doi"></xsl:value-of>
                                 <xsl:text>&lt;/a&gt;</xsl:text>
                             </xsl:if>
@@ -312,7 +312,7 @@
                             <xsl:if test="($urn != '')">
                                 <xsl:text>&lt;br/&gt;URN: &lt;a href="http://nbn-resolving.de/urn/resolver.pl?urn=</xsl:text>
                                 <xsl:value-of select="$urn"></xsl:value-of>
-                                <xsl:text>" target="_blank"&gt;http://nbn-resolving.de/urn/resolver.pl?urn=</xsl:text>
+                                <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;http://nbn-resolving.de/urn/resolver.pl?urn=</xsl:text>
                                 <xsl:value-of select="$urn"></xsl:value-of>
                                 <xsl:text>&lt;/a&gt;</xsl:text>
                             </xsl:if>
@@ -863,7 +863,7 @@
                                                                                         <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                             <xsl:text>&lt;a href="</xsl:text>
                                                                                             <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                            <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                            <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                             <xsl:call-template name="applyDelimiter">
                                                                                                 <xsl:with-param name="les">
                                                                                                     <le>
@@ -934,7 +934,7 @@
                                                                                         <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                             <xsl:text>&lt;a href="</xsl:text>
                                                                                             <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                            <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                            <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                             <xsl:call-template name="applyDelimiter">
                                                                                                 <xsl:with-param name="les">
                                                                                                     <le>
@@ -1068,7 +1068,7 @@
                                                                                                                     <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                                                         <xsl:text>&lt;a href="</xsl:text>
                                                                                                                         <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                                                        <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                                                        <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                                                         <xsl:call-template name="applyDelimiter">
                                                                                                                             <xsl:with-param name="les">
                                                                                                                                 <le>
@@ -1139,7 +1139,7 @@
                                                                                                                     <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                                                         <xsl:text>&lt;a href="</xsl:text>
                                                                                                                         <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                                                        <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                                                        <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                                                         <xsl:call-template name="applyDelimiter">
                                                                                                                             <xsl:with-param name="les">
                                                                                                                                 <le>
@@ -1259,7 +1259,7 @@
                                                                                                             <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                                                 <xsl:text>&lt;a href="</xsl:text>
                                                                                                                 <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                                                <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                                                <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                                                 <xsl:call-template name="applyDelimiter">
                                                                                                                     <xsl:with-param name="les">
                                                                                                                         <le>
@@ -1330,7 +1330,7 @@
                                                                                                             <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                                                 <xsl:text>&lt;a href="</xsl:text>
                                                                                                                 <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                                                <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                                                <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                                                 <xsl:call-template name="applyDelimiter">
                                                                                                                     <xsl:with-param name="les">
                                                                                                                         <le>
@@ -1451,7 +1451,7 @@
                                                                                         <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                             <xsl:text>&lt;a href="</xsl:text>
                                                                                             <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                            <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                            <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                             <xsl:call-template name="applyDelimiter">
                                                                                                 <xsl:with-param name="les">
                                                                                                     <le>
@@ -1522,7 +1522,7 @@
                                                                                         <xsl:when test="person:person/dc:identifier[@xsi:type = 'eterms:CONE'] != ''">
                                                                                             <xsl:text>&lt;a href="</xsl:text>
                                                                                             <xsl:value-of select="concat($instanceUrl, '/cone', person:person/dc:identifier[@xsi:type = 'eterms:CONE'])"></xsl:value-of>
-                                                                                            <xsl:text>" target="_blank"&gt;</xsl:text>
+                                                                                            <xsl:text>" target="_blank" rel="noreferrer noopener"&gt;</xsl:text>
                                                                                             <xsl:call-template name="applyDelimiter">
                                                                                                 <xsl:with-param name="les">
                                                                                                     <le>

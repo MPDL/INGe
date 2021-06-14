@@ -40,7 +40,7 @@
 										<h:outputText value=", #{file.fileSize}" />
 									</div>
 									<div class="xHuge_area0 endline marginTExcl6p">
-										<h:outputLink id="lnkCitationURL" target="_blank"
+										<h:outputLink id="lnkCitationURL" target="_blank" rel="noreferrer noopener"
 											styleClass="piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
@@ -50,7 +50,7 @@
 											<h:outputText value="#{lbl.ViewItemFull_lblViewFulltext}" />
 										</h:outputLink>
 										<!-- Link for fulltext searchhits with open pdf params-->
-										<h:outputLink id="lnkSearchHitsURL" target="_blank"
+										<h:outputLink id="lnkSearchHitsURL" target="_blank" rel="noreferrer noopener"
 											styleClass="piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
 											title="#{lbl.ViewItemFull_lblPdfWarning}"
@@ -158,7 +158,7 @@
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 								value="#{file.file.mimeType}" /> <h:commandLink id="lnkChecksum"
 								value=" / [#{file.checksumAlgorithmAsString}]"
-								action="#{file.displayChecksum}" target="_blank"
+								action="#{file.displayChecksum}" target="_blank" rel="noreferrer noopener"
 								rendered="#{file.checksumAlgorithmAsString!=null and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}" />
 						</span>
 					</h:panelGroup>
@@ -171,7 +171,7 @@
 						</b>
 						<div class="xHuge_area0 xTiny_marginLExcl endline">
 							<div class="xHuge_area0 endline marginTExcl6p">
-								<h:outputLink id="lnkCitationURLTme" target="_blank"
+								<h:outputLink id="lnkCitationURLTme" target="_blank" rel="noreferrer noopener"
 									value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=tme"
 									rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 									<span class="std_imgBtn viewFileIcon"></span>
@@ -214,7 +214,7 @@
 							class="noDisplay">: <br /></span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
-								target="_blank" value="#{file.file.metadata.license}"
+								target="_blank" rel="noreferrer noopener" value="#{file.file.metadata.license}"
 								rendered="#{file.isLicenseUrl}">
 								<h:outputText value="#{file.file.metadata.license}" />
 							</h:outputLink> <h:outputText value="#{file.file.metadata.license}"

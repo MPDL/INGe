@@ -99,7 +99,7 @@
 								<h:outputLink id="lnkSourceCreatorPersonPortfolioLink"
 										styleClass="authorCard"
 										value="#{sourceCreatorPerson.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
-										target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+										target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 								</h:panelGroup>
 							</h:panelGroup>
 							<h:panelGroup styleClass="free_area0 creator clear"
@@ -141,7 +141,7 @@
 										id="lnkSourceCreatorAffiliationOrganizationDetails" value=""
 										styleClass="ouCard"
 										onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{creatorAffiliation.organizationIdentifier}', 980, 400, 'Details');return false"
-										target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+										target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 								</h:panelGroup>
 							</h:panelGroup>
 							<br />

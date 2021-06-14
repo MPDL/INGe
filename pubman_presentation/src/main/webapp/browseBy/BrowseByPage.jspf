@@ -82,7 +82,7 @@
 
 							<h:outputLink id="lnkPersonPortfolioLink" styleClass="authorCard"
 								value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}"
-								target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+								target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<!-- Link for other values then persons -->
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl"
@@ -113,7 +113,7 @@
 							<h:outputLink id="lnkPersonPortfolioLinkAll"
 								styleClass="authorCard"
 								value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}"
-								target="_blank">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+								target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 						</h:panelGroup>
 						<!-- Link for other values then persons -->
 						<h:panelGroup styleClass="free_area0 xTiny_marginLExcl"

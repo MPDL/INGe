@@ -31,7 +31,7 @@
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
 								id="lnkLocatorLink" value="#{locator.locatorLink}"
-								rendered="#{locator.locatorIsLink}" target="_blank"
+								rendered="#{locator.locatorIsLink}" target="_blank" rel="noreferrer noopener"
 								title="#{locator.file.metadata.description}">
 								<h:outputText value="#{locator.file.metadata.title}" />
 							</h:outputLink> <h:outputText value="#{locator.file.content}"

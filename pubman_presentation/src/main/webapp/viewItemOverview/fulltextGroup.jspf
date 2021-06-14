@@ -30,34 +30,34 @@
 					<div>
 						<h:outputLink id="lnkIconShowComponent"
 							style="float:left;font-size:200%;line-height:100%;color:#000000;"
-							target="_blank"
+							target="_blank" rel="noreferrer noopener"
 							value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 							rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 							<i class="fa fa-arrow-circle-o-down" style="color: #3a3b3b;"></i>
 						</h:outputLink>
 						<h:outputLink id="lnkIconDownloadComponent"
 							style="float:left;font-size:200%;line-height:100%;color:#000000;"
-							target="_blank"
+							target="_blank" rel="noreferrer noopener"
 							value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
 							rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 							<i class="fa fa-arrow-circle-o-down" style="color: #3a3b3b;"></i>
 						</h:outputLink>
 						<p class="double_area0">
 							<!-- Link (show or download) to the file -->
-							<h:outputLink id="lnkShowComponent" target="_blank"
+							<h:outputLink id="lnkShowComponent" target="_blank" rel="noreferrer noopener"
 								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
 								rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 								<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
 									rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							</h:outputLink>
-							<h:outputLink id="lnkDownloadComponent" target="_blank"
+							<h:outputLink id="lnkDownloadComponent" target="_blank" rel="noreferrer noopener"
 								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
 								rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 								<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
 									rendered="#{!ViewItemFull.isStateWithdrawn}" />
 							</h:outputLink>
 							<!-- Link for fulltext searchhits with open pdf params-->
-							<h:outputLink id="lnkSearchHitsURL" target="_blank"
+							<h:outputLink id="lnkSearchHitsURL" target="_blank" rel="noreferrer noopener"
 								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
 								rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
 								<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"

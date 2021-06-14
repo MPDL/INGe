@@ -30,7 +30,7 @@
 
 				<!-- Guide -->
 				<h:outputLink id="lnkPubManHelp" styleClass="free_area0_p8 endline"
-					title="#{tip.mainMenu_lnkPubManHelp}" target="_blank"
+					title="#{tip.mainMenu_lnkPubManHelp}" target="_blank" rel="noreferrer noopener"
 					value="#{PubManRequestBean.helpUrl}"
 					rendered="#{PubManRequestBean.helpUrl != ''}">
 					<h:outputText value="#{lbl.mainMenu_lnkPubManHelp}" />

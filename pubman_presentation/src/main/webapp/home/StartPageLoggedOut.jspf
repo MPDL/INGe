@@ -10,18 +10,18 @@
 			<h2>MPG.PuRe</h2>
 			<p>
 				This is the publication repository of the <span> <a
-					href="http://www.mpg.de/en" target="_blank"><span>Max Planck Society</span></a>.
+					href="http://www.mpg.de/en" target="_blank" rel="noreferrer noopener"><span>Max Planck Society</span></a>.
 				</span> <br /> It contains bibliographic data and numerous fulltexts of
 				the publications of its researchers. <br /> The repository is based
 				on PubMan, a publication repository software developed by
-				the <a href="http://www.mpdl.mpg.de/" target="_blank">Max Planck
+				the <a href="http://www.mpdl.mpg.de/" target="_blank" rel="noreferrer noopener">Max Planck
 					Digital Library</a>. <br /> <br /> Currently we are working on the
 				migration of the data base of the predecessor system <a
-					href="http://edoc.mpg.de/" target="_blank">eDoc</a> into this
+					href="http://edoc.mpg.de/" target="_blank" rel="noreferrer noopener">eDoc</a> into this
 				repository.
 			</p>
 			<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-				target="_blank">Read more</a> <br /> <br />
+				target="_blank" rel="noreferrer noopener">Read more</a> <br /> <br />
 			<h3>Search for publications here</h3>
             <span class="huge_area0 xSmall_marginLIncl searchMenu"
                 style="float: left; margin-top: 0px !important;">
@@ -58,7 +58,7 @@
 				out via our <a
 				href="/pubman/faces/SearchAndExportPage.jsp">REST-Interface</a>!
 				<h4>Control of Named Entities (CoNE)</h4> Search and administrate <a
-				href="/cone/" target="_blank">controlled vocabularies</a> for
+				href="/cone/" target="_blank" rel="noreferrer noopener">controlled vocabularies</a> for
 				persons, journals, classifications or languages.
 			</span>
 		</div>
@@ -69,18 +69,18 @@
 			<h2>MPG.PuRe</h2>
 			<p>
 				Dies ist das Publikationsrepositorium der <span> <a
-					href="http://www.mpg.de/de" target="_blank"><span>Max-Planck-Gesellschaft</span></a>.
+					href="http://www.mpg.de/de" target="_blank" rel="noreferrer noopener"><span>Max-Planck-Gesellschaft</span></a>.
 				</span> <br /> Es beinhaltet bibliografische Daten und zahlreiche
 				Volltexte zu den Veröffentlichungen ihrer Wissenschaftler. <br />
 				Das Repositorium basiert auf PubMan, einer Anwendung für
 				Publikationsdaten, die von der <a href="http://www.mpdl.mpg.de/"
-					target="_blank">Max Planck Digital Library</a> entwickelt wird. <br />
+					target="_blank" rel="noreferrer noopener">Max Planck Digital Library</a> entwickelt wird. <br />
 				<br /> Derzeit arbeiten wir an der Migration der Datenbestände vom
-				Vorgänger-System <a href="http://edoc.mpg.de/" target="_blank">eDoc</a>
+				Vorgänger-System <a href="http://edoc.mpg.de/" target="_blank" rel="noreferrer noopener">eDoc</a>
 				in dieses Repositorium.
 			</p>
 			<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-				target="_blank">Lesen Sie mehr </a> <br /> <br />
+				target="_blank" rel="noreferrer noopener">Lesen Sie mehr </a> <br /> <br />
 			<h3>Suchen Sie hier nach Publikationen</h3>
 			<span class="huge_area0 xSmall_marginLIncl searchMenu"
 				style="float: left; margin-top: 0px !important;">
@@ -117,7 +117,7 @@
 				Datenabfragen können Sie über unsere <a
 				href="/pubman/faces/SearchAndExportPage.jsp">REST-Schnittstelle</a> vornehmen.
 				<h4>Control of Named Entities (CoNE)</h4> Durchsuchen und verwalten
-				Sie <a href="/cone/" target="_blank">kontrollierte Vokabulare</a>
+				Sie <a href="/cone/" target="_blank" rel="noreferrer noopener">kontrollierte Vokabulare</a>
 				für Personen, Zeitschriften, Klassifikationen oder Sprachen.
 			</span>
 		</div>
@@ -135,10 +135,10 @@
 			マックスプランク研究所が提供する長期保存アーカイヴのサービスを存分にお使いください。
 		</p>
 		<a href="http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan"
-			target="_blank">詳しく知るには</a>
+			target="_blank" rel="noreferrer noopener">詳しく知るには</a>
 		<h:outputText value="|" />
 		<a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Support"
-			target="_blank"><h:outputText value="#{lbl.Home_Link_Support }" /></a>
+			target="_blank" rel="noreferrer noopener"><h:outputText value="#{lbl.Home_Link_Support }" /></a>
 		<br />
 		<br />
 		<h3>文献検索</h3>
@@ -179,7 +179,7 @@
 				利用者毎のニーズに沿った検索を実行して、手元のシステムに取り込む等の連携が可能です。
 				<a href="/pubman/faces/SearchAndExportPage.jsp">REST インタフェース</a>
 			</li>
-			<li><a href="/cone/" target="_blank">名称典拠サービス;
+			<li><a href="/cone/" target="_blank" rel="noreferrer noopener">名称典拠サービス;
 					Control of Named Entities Service (CoNE)</a>:
 				雑誌名、言語名、著者名などの固有名称辞書に対する検索により、たとえば研究者総覧サービス(Researcher
 				Portfolio)の提供が可能です。</li>

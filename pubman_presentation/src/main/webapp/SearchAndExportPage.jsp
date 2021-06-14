@@ -72,7 +72,7 @@
 									<label class="xLarge_area0_p8 endline labelLine clear">#{lbl.searchAndExport_Sorting}</label>
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="xHuge_area0 endline">
-											<a href="http://colab.mpdl.mpg.de/mediawiki/INGe-REST_Sortierschl%C3%BCssel" target="_blank">#{lbl.searchAndExport_ListSortingKey}</a>
+											<a href="http://colab.mpdl.mpg.de/mediawiki/INGe-REST_Sortierschl%C3%BCssel" target="_blank" rel="noreferrer noopener">#{lbl.searchAndExport_ListSortingKey}</a>
 										</span>
 										<h:panelGroup id="sorting" layout="block" styleClass="xHuge_area0 sub action">
 											<ui:repeat value="#{SearchAndExportPage.sort}" var="sort">
@@ -142,7 +142,7 @@
 				                            <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
 				                                <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="#{lbl.searchAndExport_EnterCitationStyle}" />
 				                                <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-				                                <h:outputLink styleClass="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="#{lbl.searchAndExport_ListCitationStyle}" target="_blank" />
+				                                <h:outputLink styleClass="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="#{lbl.searchAndExport_ListCitationStyle}" target="_blank" rel="noreferrer noopener" />
 				                                <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{lbl.searchAndExport_btnRemoveAutoSuggestCsl}" />
 				                            </h:panelGroup>
 				                        </h:panelGroup>
@@ -176,7 +176,7 @@
 								<div class="free_area0 itemBlockContent endline">
 									<span class="xHuge_area0 xTiny_marginLExcl endline">
 										<span class="xHuge_area0 endline">
-				                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank">Atom, version 1.0</h:outputLink>
+				                            <h:outputLink styleClass="xHuge_area0 endline" value="#{SearchAndExportPage.atomFeedLink}" title="Atom, version 1.0" target="_blank" rel="noreferrer noopener">Atom, version 1.0</h:outputLink>
 										</span>
 									</span>
 			                    </div>

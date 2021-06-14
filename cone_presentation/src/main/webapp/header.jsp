@@ -435,9 +435,9 @@
 									{
 										if (subject == null || data[i].id != instanceUrl + subject)
 										{
-											html += '<li><a href="' + data[i].id + '" target="_blank">' + data[i].value + '</a>\n';
+											html += '<li><a href="' + data[i].id + '" target="_blank" rel="noreferrer noopener">' + data[i].value + '</a>\n';
 											html += '<a href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[edit]</a>\n';
-											html += '<a target="_blank" href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[new window]</a></li>\n';
+											html += '<a target="_blank" rel="noreferrer noopener" href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[new window]</a></li>\n';
 										}
 									}
 									html += '</ul>\n';

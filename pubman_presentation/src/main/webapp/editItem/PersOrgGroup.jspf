@@ -186,7 +186,7 @@
 									styleClass="small_area0 authorCard authorLink xTiny_marginRExcl"
 									value="#{EditItemSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
 									rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}"
-									target="_blank">&#160;</h:outputLink>
+									target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
 								<h:panelGroup
 									rendered="#{creator.person.identifier.id == null || creator.person.identifier.id == ''}"
 									styleClass="xSmall_area0 authorLink xTiny_marginRExcl">&#160;
