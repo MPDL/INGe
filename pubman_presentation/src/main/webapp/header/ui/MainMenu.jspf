@@ -33,7 +33,7 @@
 		<h:outputLink id="lnkWorkspaces" styleClass="free_area0"
 			title="#{tip.MainMenu_WorkspacesPage}"
 			value="#{ApplicationBean.appContext}WorkspacesPage.jsp"
-			rendered="#{(LoginHelper.isModerator or LoginHelper.isYearbookEditor or LoginHelper.isYearbookAdmin or LoginHelper.isAdmin or DepositorWSSessionBean.newSubmission) and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'WorkspacesPage'}">
+			rendered="#{(LoginHelper.isModerator or LoginHelper.isAdmin or DepositorWSSessionBean.newSubmission) and BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'WorkspacesPage'}">
 			<h:outputText value="#{lbl.mainMenu_lnkWorkspaces}" />
 		</h:outputLink>
 		<h:outputText styleClass="free_area0"

@@ -134,8 +134,6 @@ public class PropertyReader {
   public static final String INGE_INDEX_USER_NAME = "inge.index.user.name";
   public static final String INGE_INDEX_USER_SORT = "inge.index.user.sort";
   public static final String INGE_INDEX_USER_TYPE = "inge.index.user.type";
-  public static final String INGE_INDEX_YEARBOOK_NAME = "inge.index.yearbook.name";
-  public static final String INGE_INDEX_YEARBOOK_TYPE = "inge.index.yearbook.type";
   public static final String INGE_JWT_SHARED_SECRET = "inge.jwt.shared-secret";
   public static final String INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH = "inge.logic.temporary_filesystem_root_path";
   public static final String INGE_MATOMO_ANALYTICS_AUTH_TOKEN = "inge.matomo.analytics.auth.token";
@@ -280,7 +278,6 @@ public class PropertyReader {
   public static final String INGE_TRANSFORMATION_ZFN_CONFIGURATION_FILENAME = "inge.transformation.zfn.configuration.filename";
   public static final String INGE_TRANSFORMATION_ZFN_STYLESHEET_FILENAME = "inge.transformation.zfn.stylesheet.filename";
   public static final String INGE_UNAPI_SERVICE_URL = "inge.unapi.service.url";
-  public static final String INGE_YEARBOOK_ALLOWED_GENRES = "inge.yearbook.allowed_genres";
 
   // system properties
   public static final String FILE_ENCODING = "file.encoding";
@@ -288,11 +285,6 @@ public class PropertyReader {
   public static final String JBOSS_HOME_DIR = "jboss.home.dir";
   public static final String LINE_SEPARATOR = "line.separator";
   public static final String POM = "pom";
-
-  //  // nur noch für Migration
-  //  public static final String ESCIDOC_FRAMEWORK_ACCESS_LOGIN_URL = "escidoc.framework.access.login.url";
-  //  public static final String ESCIDOC_FRAMEWORK_ADMIN_USERNAME = "framework.admin.username";
-  //  public static final String ESCIDOC_FRAMEWORK_ADMIN_PASSWORD = "framework.admin.password";
 
   private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 

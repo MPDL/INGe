@@ -106,14 +106,6 @@ public class ExportItems extends FacesBean {
   }
 
 
-  // Yearbook
-  public SelectItem[] getEXPORTFORMAT_OPTIONS_EXTENDED() {
-    final SelectItem[] EXPORTFORMAT_OPTIONS = Arrays.copyOf(this.getEXPORTFORMAT_OPTIONS(), this.getEXPORTFORMAT_OPTIONS().length + 1);
-    EXPORTFORMAT_OPTIONS[EXPORTFORMAT_OPTIONS.length - 1] = new SelectItem(TransformerFactory.EDOC_XML, TransformerFactory.EDOC_XML); // nicht globalisert
-
-    return EXPORTFORMAT_OPTIONS;
-  }
-
   public SelectItem[] getCITATION_OPTIONS() {
 
     final SelectItem EXPORTFORMAT_APA =

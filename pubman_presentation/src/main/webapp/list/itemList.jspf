@@ -159,31 +159,6 @@
 										<b><h:outputText value="#{item.fullTitle}" converter="HTMLSubSupShortTitleConverter" escape="false" /></b>
 									</h:outputLink>
 								</span> </h:panelGroup>
-                        <h:panelGroup styleClass="free_area0_p0 xLarge_marginLIncl endline listItemLine" rendered="#{item.validationReport!=null}"> <span class="huge_area0_p8 endline labelLine"></span> <span class="xHuge_area0 endline">
-									<h:panelGroup
-										layout="block"
-										styleClass="half_area2_p6 messageArea errorMessageArea"
-										style="padding-top: 0px !important;">
-										<h2>
-											<h:outputText value="#{lbl.Yearbook_validationMessageHeader}" />
-										</h2>
-										<ul>
-											<ui:repeat var="valitem"
-												value="#{item.validationReport.items}">
-												<h:panelGroup rendered="#{valitem.severity == 'ERROR'}">
-													<li class="messageWarn">
-														<h:outputText value="#{msg[valitem.content]}" />
-													</li>
-												</h:panelGroup>
-												<h:panelGroup rendered="#{valitem.severity != 'ERROR'}">
-													<li class="messageStatus">
-														<h:outputText value="#{msg[valitem.content]}" />
-													</li>
-												</h:panelGroup>
-											</ui:repeat>
-										</ul>
-									</h:panelGroup>
-								</span> </h:panelGroup>
                         <ui:include src="../viewItem/ViewItemShort.jspf" />
                         <ui:include src="../viewItem/ViewItemMedium.jspf" /> </li>
                 </h:panelGroup>

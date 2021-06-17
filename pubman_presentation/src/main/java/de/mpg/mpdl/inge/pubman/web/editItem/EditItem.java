@@ -89,8 +89,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation.WrappedLocalTag;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemFull;
-import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
-import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.aa.IpListProvider.IpRange;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
@@ -148,28 +146,11 @@ public class EditItem extends FacesBean {
       throw new RuntimeException("Error initializing item", e);
     }
 
-    // if item is currently part of invalid yearbook items, show Validation Messages
     if (this.getPubItem() == null) {
       return;
     }
 
     this.enableLinks();
-
-    if (this.getPubItem().getObjectId() != null && this.getLoginHelper().getIsYearbookEditor()) {
-      if (this.getYearbookItemSessionBean().getYearbook() != null
-          && this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getObjectId()) != null) {
-        try {
-          this.getYearbookItemSessionBean().validateItem(this.getPubItem());
-          final YearbookInvalidItemRO invItem = this.getYearbookItemSessionBean().getInvalidItemMap().get(this.getPubItem().getObjectId());
-
-          if (invItem != null) {
-            (this.getPubItem()).setValidationReport(invItem.getValidationReport());
-          }
-        } catch (final Exception e) {
-          EditItem.logger.error("Error in yearbook validation", e);
-        }
-      }
-    }
 
     // FIXME provide access to parts of my VO to specialized POJO's
     this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
@@ -1330,10 +1311,6 @@ public class EditItem extends FacesBean {
 
   private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-  }
-
-  private YearbookItemSessionBean getYearbookItemSessionBean() {
-    return (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
   }
 
   private PubItemListSessionBean getPubItemListSessionBean() {

@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -31,20 +29,20 @@ public class ItemValidatingService {
     }
   }
 
-  public void validateYearbook(final ItemVersionVO itemVO, List<String> childsOfMPG)
-      throws ValidationServiceException, ValidationException {
-
-    try {
-      Validation validation = new Validation();
-      validation.validateYearbook(itemVO, childsOfMPG);
-    } catch (final ValidationServiceException e) {
-      logger.error("validateYearbook:", e);
-      throw e;
-    } catch (final ValidationException e) {
-      throw e;
-    } catch (final Exception e) {
-      logger.error("validateYearbook: " + itemVO, e);
-      throw new ValidationServiceException("validateYearbook:", e);
-    }
-  }
+  //  public void validateYearbook(final ItemVersionVO itemVO, List<String> childsOfMPG)
+  //      throws ValidationServiceException, ValidationException {
+  //
+  //    try {
+  //      Validation validation = new Validation();
+  //      validation.validateYearbook(itemVO, childsOfMPG);
+  //    } catch (final ValidationServiceException e) {
+  //      logger.error("validateYearbook:", e);
+  //      throw e;
+  //    } catch (final ValidationException e) {
+  //      throw e;
+  //    } catch (final Exception e) {
+  //      logger.error("validateYearbook: " + itemVO, e);
+  //      throw new ValidationServiceException("validateYearbook:", e);
+  //    }
+  //  }
 }

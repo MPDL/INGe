@@ -340,15 +340,6 @@ public class LoginHelper extends FacesBean {
    * return this.userAccountUserGroups; }
    */
 
-  public boolean getIsYearbookEditor() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.YEARBOOK_EDITOR);
-
-  }
-
-  public boolean getIsYearbookAdmin() {
-    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.YEARBOOK_ADMIN);
-  }
-
   /**
    * @return the userGrants (with inherited grants)
    */

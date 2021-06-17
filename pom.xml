@@ -1141,8 +1141,6 @@
 		<inge.index.user.name>users</inge.index.user.name>
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
-		<inge.index.yearbook.name>yearbooks</inge.index.yearbook.name>
-		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.matomo.analytics.auth.token />
 		<inge.matomo.analytics.base.uri>https://analytics.mpdl.mpg.de</inge.matomo.analytics.base.uri>
@@ -1238,7 +1236,6 @@
 		<inge.transformation.wos.stylesheet.filename>transformations/otherFormats/xslt/wosxml2escidoc.xsl</inge.transformation.wos.stylesheet.filename>
 		<inge.transformation.zfn.configuration.filename>transformations/standardFormats/conf/zfn.properties</inge.transformation.zfn.configuration.filename>
 		<inge.transformation.zfn.stylesheet.filename>transformations/standardFormats/xslt/zfn_tei2escidoc-publication-item.xsl</inge.transformation.zfn.stylesheet.filename>
-		<inge.yearbook.allowed_genres>ARTICLE,BOOK,BOOK_ITEM,BOOK_REVIEW,CASE_NOTE,CASE_STUDY,COLLECTED_EDITION,COMMENTARY,CONFERENCE_PAPER,CONFERENCE_REPORT,CONTRIBUTION_TO_COLLECTED_EDITION,CONTRIBUTION_TO_COMMENTARY,CONTRIBUTION_TO_ENCYCLOPEDIA,CONTRIBUTION_TO_FESTSCHRIFT,CONTRIBUTION_TO_HANDBOOK,EDITORIAL,FESTSCHRIFT,HANDBOOK,ISSUE,JOURNAL,MONOGRAPH,NEWSPAPER_ARTICLE,OPINION,PAPER,PROCEEDINGS,SERIES,THESIS</inge.yearbook.allowed_genres>
 		<jdk.version>11</jdk.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
@@ -1258,7 +1255,6 @@
 		<xsd.metadata.publication>http://purl.org/escidoc/metadata/profiles/0.1/publication</xsd.metadata.publication>
 		<xsd.metadata.source>http://purl.org/escidoc/metadata/profiles/0.1/source</xsd.metadata.source>
 		<xsd.metadata.terms>http://purl.org/escidoc/metadata/terms/0.1/</xsd.metadata.terms>
-		<xsd.metadata.yearbook>http://purl.org/escidoc/metadata/profiles/0.1/yearbook</xsd.metadata.yearbook>
 		<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 		<xsd.soap.attributes>http://www.escidoc.de/schemas/attributes/0.1</xsd.soap.attributes>
 		<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>

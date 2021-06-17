@@ -124,28 +124,6 @@
 									rendered="#{EditItem.lastModificationDate != null}" />
 							</div>
 							<h:panelGroup id="messages" styleClass="subHeader">
-								<!-- Special validation messages for yearbook -->
-								<h:panelGroup layout="block"
-									styleClass="half_area2_p6 messageArea errorMessageArea clear"
-									style="padding-top: 0px !important;"
-									rendered="#{EditItem.pubItem.validationReport!=null}">
-									<h2>
-										<h:outputText value="#{lbl.Yearbook_validationMessageHeader}" />
-									</h2>
-									<ul>
-										<ui:repeat var="valitem"
-											value="#{EditItem.pubItem.validationReport.items}">
-											<h:panelGroup rendered="#{valitem.severity == 'ERROR'}">
-												<li class="messageWarn"><h:outputText
-														value="#{msg[valitem.content]}" /></li>
-											</h:panelGroup>
-											<h:panelGroup rendered="#{valitem.severity != 'ERROR'}">
-												<li class="messageStatus"><h:outputText
-														value="#{msg[valitem.content]}" /></li>
-											</h:panelGroup>
-										</ui:repeat>
-									</ul>
-								</h:panelGroup>
 								<h:panelGroup layout="block"
 									styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea"
 									rendered="#{EditItem.hasErrorMessages}">

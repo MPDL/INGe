@@ -65,8 +65,6 @@ public class ContextListSessionBean extends FacesBean {
 
   private List<PubContextVOPresentation> depositorContextList;
   private List<PubContextVOPresentation> moderatorContextList;
-  private List<PubContextVOPresentation> yearbookContextList;
-  private List<PubContextVOPresentation> yearbookModeratorContextList;
 
   public ContextListSessionBean() {
     this.init();
@@ -118,30 +116,6 @@ public class ContextListSessionBean extends FacesBean {
     this.moderatorContextList = moderatorContextList;
   }
 
-  public void setYearbookContextList(List<PubContextVOPresentation> yearbookContextList) {
-    this.yearbookContextList = yearbookContextList;
-  }
-
-  public List<PubContextVOPresentation> getYearbookContextList() {
-    return this.yearbookContextList;
-  }
-
-  public int getYearbookContextListSize() {
-    return this.yearbookContextList == null ? 0 : this.yearbookContextList.size();
-  }
-
-  public int getYearbookModeratorContextListSize() {
-    return this.yearbookModeratorContextList == null ? 0 : this.yearbookModeratorContextList.size();
-  }
-
-  public void setYearbookModeratorContextList(List<PubContextVOPresentation> yearbookModeratorContextList) {
-    this.yearbookModeratorContextList = yearbookModeratorContextList;
-  }
-
-  public List<PubContextVOPresentation> getYearbookModeratorContextList() {
-    return this.yearbookModeratorContextList;
-  }
-
   // TODO NBU: this method needs to be moved elsewhere here only to avoid
   // common logic modification
   // at present
@@ -154,21 +128,15 @@ public class ContextListSessionBean extends FacesBean {
   private void retrieveAllContextsForUser() throws SecurityException, TechnicalException {
     this.depositorContextList = new ArrayList<PubContextVOPresentation>();
     this.moderatorContextList = new ArrayList<PubContextVOPresentation>();
-    this.yearbookContextList = new ArrayList<PubContextVOPresentation>();
-    this.yearbookModeratorContextList = new ArrayList<PubContextVOPresentation>();
 
     if (this.getLoginHelper().isLoggedIn() && this.getLoginHelper().getAccountUser().getGrantList() != null) {
       try {
         boolean hasGrants = false;
         final ArrayList<String> ctxIdList = new ArrayList<>();
-        final ArrayList<String> yearbookOuIdList = new ArrayList<>();
         for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
           if (grant.getObjectRef() != null) {
             ctxIdList.add(grant.getObjectRef());
             hasGrants = true;
-            if (PredefinedRoles.YEARBOOK_EDITOR.frameworkValue().equals(grant.getRole())) {
-              yearbookOuIdList.add(grant.getObjectRef());
-            }
           }
         }
 
@@ -198,34 +166,17 @@ public class ContextListSessionBean extends FacesBean {
             // and Privileged viewer
 
             for (final GrantVO grant : this.getLoginHelper().getAccountUser().getGrantList()) {
-
               if ((grant.getObjectRef() != null) && !grant.getObjectRef().equals("")) {
-
                 if (grant.getObjectRef().equals(context.getObjectId())
                     && PredefinedRoles.DEPOSITOR.frameworkValue().contentEquals(grant.getRole())) {
                   this.depositorContextList.add(context);
-                }
-
-                else if (grant.getObjectRef().equals(context.getObjectId())
+                } else if (grant.getObjectRef().equals(context.getObjectId())
                     && PredefinedRoles.MODERATOR.frameworkValue().contentEquals(grant.getRole())) {
                   this.moderatorContextList.add(context);
                 }
-
               }
             }
           }
-
-
-          BoolQueryBuilder yearbookContextsQueryBuilder = QueryBuilders.boolQuery();
-          yearbookContextsQueryBuilder.must(SearchUtils.baseElasticSearchQueryBuilder(contextService.getElasticSearchIndexFields(),
-              ContextServiceDbImpl.INDEX_STATE, ContextDbVO.State.OPENED.name()));
-          yearbookContextsQueryBuilder
-              .must(QueryBuilders.termsQuery(ContextServiceDbImpl.INDEX_AFILLIATIONS_OBJECT_ID, yearbookOuIdList.toArray(new String[] {})));
-
-          SearchRetrieveResponseVO<ContextDbVO> ybResponse =
-              contextService.search(new SearchRetrieveRequestVO(yearbookContextsQueryBuilder, 1000, 0), null);
-          this.yearbookContextList = CommonUtils.convertToPubCollectionVOPresentationList(
-              ybResponse.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList()));
         }
       } catch (final Exception e) {
         // No business exceptions expected.

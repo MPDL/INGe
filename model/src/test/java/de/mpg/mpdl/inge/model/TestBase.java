@@ -59,7 +59,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 import de.mpg.mpdl.inge.util.XmlUtilities;
@@ -295,24 +294,6 @@ public class TestBase {
     item.setContext(collectionRef);
 
     return item;
-  }
-
-  /**
-   * @return the PubItemVO instance with MdsYearbookVO metadata
-   */
-  protected PubItemVO getYearbookPubItem() {
-    PubItemVO yearbookPubItem = new PubItemVO();
-
-    // Add Metadata
-    MdsYearbookVO metaDataYearbook = getYearbookMetaData();
-    yearbookPubItem.setYearbookMetadata(metaDataYearbook);
-
-    // Add PubCollectionRef
-    ContextRO collectionRef = new ContextRO();
-    collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-    yearbookPubItem.setContext(collectionRef);
-
-    return yearbookPubItem;
   }
 
   /**
@@ -668,37 +649,6 @@ public class TestBase {
     mds.setEvent(event);
 
     return mds;
-  }
-
-  protected MdsYearbookVO getYearbookMetaData() {
-    MdsYearbookVO metaDataYearBook = new MdsYearbookVO();
-
-    // Add creator
-    CreatorVO creator = new CreatorVO();
-    creator.setRole(CreatorRole.AUTHOR);
-    PersonVO person = new PersonVO();
-    person.setGivenName("Matthias");
-    person.setFamilyName("Walter");
-    person.setCompleteName("Matthias Walter");
-    creator.setPerson(person);
-    metaDataYearBook.getCreators().add(creator);
-
-    // Add Title
-    metaDataYearBook.setTitle("YearbookAutomatedTestItem");
-
-    // Add Year
-    metaDataYearBook.setYear("2012");
-
-    // Add StartDate
-    metaDataYearBook.setStartDate("2012-01-01");
-
-    // Add EndDate
-    metaDataYearBook.setEndDate("2012-12-31");
-
-    // Add IncludedContexts
-    metaDataYearBook.getIncludedContexts().add("escidoc:testContext1");
-    metaDataYearBook.getIncludedContexts().add("escidoc:testContext2");
-    return metaDataYearBook;
   }
 
   /**

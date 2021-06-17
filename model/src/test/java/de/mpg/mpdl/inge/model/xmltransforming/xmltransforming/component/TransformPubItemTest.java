@@ -73,7 +73,6 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
   private static String SAVED_ITEM_FILE = TEST_FILE_ROOT + "saved_item1.xml";
   private static String WITHDRAWN_ITEM_FILE = TEST_FILE_ROOT + "withdrawn_item1.xml";
   private static String ITEM_LIST1_FILE = TEST_FILE_ROOT + "item_list1.xml";
-  private static String YEARBOOK_PUBITEM_FILE = TEST_FILE_ROOT + "yearbook_item.xml";
 
   /**
    * Test method for
@@ -523,44 +522,6 @@ public class TransformPubItemTest extends XmlTransformingTestBase {
     logger.info("XML: " + itemXml);
 
     assertXMLValid(itemXml);
-  }
-
-  @Test
-  public void testTransformPubItemWithYearbookMetadata2Xml() throws Exception {
-    logger.info("### testTransformPubItemWithYearbookMetadata2Xml ###");
-
-    PubItemVO pubItemYearbook = getYearbookPubItem();
-
-    String itemXml = XmlTransformingService.transformToItem(pubItemYearbook);
-
-    logger.info("XML: " + itemXml);
-
-    assertXMLValid(itemXml);
-
-
-  }
-
-  @Test
-  public void testTransformYearbookXml2PubItemVOWithYearbookMetadata() throws Exception {
-    logger.info("### testTransformYearbookXml2PubItemVOWithYearbookMetadata ###");
-
-    // read item[XML] from file
-    String yearbookPubItemXML = readFile(YEARBOOK_PUBITEM_FILE);
-    logger.info("Item[XML] read from file.");
-
-    PubItemVO yearbookPubItem = XmlTransformingService.transformToPubItem(yearbookPubItemXML);
-
-    logger.info("Transformed item to PubItemVO.");
-
-    // check results
-    assertNotNull(yearbookPubItem);
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getTitle());
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getCreators().get(0));
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getStartDate());
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getEndDate());
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getYear());
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getIncludedContexts().get(0));
-    assertNotNull(yearbookPubItem.getYearbookMetadata().getIncludedContexts().get(1));
   }
 
   @Test

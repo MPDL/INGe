@@ -46,10 +46,6 @@
                                     <h:outputLink id="lnkMenuBatchWorkspace" title="#{tip.chooseWorkspace_BatchWorkspace}" value="#{ApplicationBean.appContext}BatchWorkspacePage.jsp" rendered="#{(LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}">
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuBatchWorkspace}" rendered="#{(LoginHelper.isModerator  and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin}" />
                                     </h:outputLink>
-                                    <h:outputText styleClass="seperator void" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}" />
-                                    <h:outputLink id="lnkMenuYearbookWorkspace" title="#{tip.chooseWorkspace_YearbookWorkspace}" value="#{ApplicationBean.appContext}YearbookModeratorPage.jsp" rendered="#{LoginHelper.isYearbookEditor || LoginHelper.isYearbookAdmin}">
-                                        <h:outputText value="#{lbl.chooseWorkspace_optMenuYearbookWorkspace}" />
-                                    </h:outputLink>
                                     <h:outputText styleClass="seperator void" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}" />
                                     <h:outputLink id="lnkMenuReportWorkspace" title="#{tip.chooseWorkspace_ReportWorkspace}" value="#{ApplicationBean.appContext}ReportWorkspacePage.jsp" rendered="#{BreadcrumbItemHistorySessionBean.lastPageIdentifier != 'ReportWorkspacePage' and LoginHelper.isReporter and ContextListSessionBean.moderatorContextListSize>0}">
                                         <h:outputText value="#{lbl.chooseWorkspace_optMenuReportWorkspace}" />

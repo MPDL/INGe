@@ -422,35 +422,6 @@ public class TestBase {
     vo.setVersionState(ItemVersionRO.State.RELEASED);
     vo.setVersionNumber(5);
 
-    // Yearbook (erst mal weglassen!)
-    // MdsYearbookVO yearbook = new MdsYearbookVO();
-    // yearbook.setEndDate("2017");
-    // yearbook.setStartDate("2017");
-    // yearbook.setTitle("testTitle");
-    // yearbook.setYear("testYear");
-    // // -PersonCreator
-    // person = new PersonVO();
-    // person.setCompleteName("testCompleteName");
-    // person.setFamilyName("testFamililyName");
-    // person.setGivenName("testGivenName");
-    // identifier = new IdentifierVO(IdType.ARXIV, "testIdentifier");
-    // person.setIdentifier(identifier);
-    // person.getAlternativeNames().add("testAlternativeName");
-    // organization = new OrganizationVO();
-    // organization.setAddress("testAdress");
-    // organization.setIdentifier("testIdentifer");
-    // organization.setName("testName");
-    // person.getOrganizations().add(organization);
-    // person.getPseudonyms().add("testPseudonym");
-    // person.getTitles().add("testTitle");
-    // creator = new CreatorVO(person, CreatorRole.ACTOR);
-    // yearbook.getCreators().add(creator);
-    // // -OrganizationCreator
-    // creator = new CreatorVO(organization, CreatorRole.EDITOR);
-    // yearbook.getCreators().add(creator);
-    // yearbook.getIncludedContexts().add("testContext");
-    // vo.setYearbookMetadata(yearbook);
-
     // Files
     FileDbVO file = new FileDbVO();
     file.setChecksum("testChecksum");

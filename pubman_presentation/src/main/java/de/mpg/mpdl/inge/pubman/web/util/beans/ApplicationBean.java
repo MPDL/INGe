@@ -58,7 +58,6 @@ import de.mpg.mpdl.inge.service.pubman.OrganizationService;
 import de.mpg.mpdl.inge.service.pubman.PubItemService;
 import de.mpg.mpdl.inge.service.pubman.SearchAndExportService;
 import de.mpg.mpdl.inge.service.pubman.UserAccountService;
-import de.mpg.mpdl.inge.service.pubman.YearbookService;
 import de.mpg.mpdl.inge.util.PropertyReader;
 import de.mpg.mpdl.inge.util.ResourceUtil;
 
@@ -141,16 +140,11 @@ public class ApplicationBean extends FacesBean {
   @ManagedProperty("#{userAccountServiceImpl}")
   private UserAccountService userAccountService;
 
-  @ManagedProperty("#{yearbookServiceDbImpl}")
-  private YearbookService yearbookService;
-
   @ManagedProperty("#{mpgJsonIpListProvider}")
   private IpListProvider ipListProvider;
 
   @ManagedProperty("#{itemTransformingServiceImpl}")
   private ItemTransformingService itemTransformingService;
-
-
 
   public ApplicationBean() {
     this.languageSelectItems = new HashMap<String, SelectItem[]>();
@@ -433,10 +427,6 @@ public class ApplicationBean extends FacesBean {
     return this.userAccountService;
   }
 
-  public YearbookService getYearbookService() {
-    return this.yearbookService;
-  }
-
   public boolean isHandlesActivated() {
     return this.handlesActivated;
   }
@@ -560,10 +550,6 @@ public class ApplicationBean extends FacesBean {
 
   public void setUserAccountService(UserAccountService userAccountService) {
     this.userAccountService = userAccountService;
-  }
-
-  public void setYearbookService(YearbookService yearbookService) {
-    this.yearbookService = yearbookService;
   }
 
   public IpListProvider getIpListProvider() {

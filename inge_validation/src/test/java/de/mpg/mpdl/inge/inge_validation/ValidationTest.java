@@ -33,7 +33,6 @@ import de.mpg.mpdl.inge.inge_validation.validator.SourcesTitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.TitleRequiredValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO;
@@ -1501,18 +1500,6 @@ public class ValidationTest {
     Assert.assertTrue(complexResult.isSuccess());
 
     logger.info("---------------------- FINISHED testUriAsLocator2 ----------------------");
-  }
-
-  @Ignore
-  @Test
-  public void testGenre() throws Exception {
-    logger.info("--------------------- STARTING testGenre ---------------------");
-
-    this.mdsPublicationVO.setGenre(Genre.FILM);
-
-    GenreValidator.checkGenre(this.pubItemVO.getMetadata().getGenre());
-
-    logger.info("--------------------- FINISHED testGenre ---------------------");
   }
 
 }

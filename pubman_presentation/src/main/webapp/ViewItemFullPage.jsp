@@ -95,11 +95,6 @@
                                     <h:panelGroup id="lnkAddDeleteBasketSeperator" styleClass="seperator" rendered="#{(ViewItemFull.canAddToBatch and ((LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin)) or ViewItemFull.canDeleteFromBatch}" />
                                     <h:commandLink id="lnkAddToBatch" action="#{ViewItemFull.addToBatch}" value="#{lbl.ViewItemFull_lblAddToBatch}" rendered="#{ViewItemFull.canAddToBatch and ((LoginHelper.isModerator and ContextListSessionBean.moderatorContextListSize>0) or LoginHelper.isAdmin)}" onclick="fullItemReloadAjax();" />
                                     <h:commandLink id="lnkDeleteFromBatch" action="#{ViewItemFull.removeFromBatch}" value="#{lbl.ViewItemFull_lblRemoveFromBatch}" rendered="#{ViewItemFull.canDeleteFromBatch}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup id="lnkBatchSeperator" styleClass="seperator" rendered="#{ViewItemFull.isCandidateOfYearbook}" />
-                                    <h:commandLink id="lnkAddToYearbook" styleClass="free_area0" value="#{lbl.Yearbook_addToYearbookViewItem} (#{YearbookItemSessionBean.yearbook.name})" type="reset" action="#{ViewItemFull.addToYearbookMember}" immediate="true" rendered="#{ViewItemFull.isCandidateOfYearbook}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup id="lnkAddToYearbookSeperator" styleClass="seperator" rendered="#{ViewItemFull.isMemberOfYearbook}" />
-                                    <h:commandLink id="lnkRemoveFromYearbook" styleClass="free_area0" value="#{lbl.Yearbook_removeFromYearbookViewItem} (#{YearbookItemSessionBean.yearbook.name})" action="#{ViewItemFull.removeMemberFromYearbook}" rendered="#{ViewItemFull.isMemberOfYearbook}" onclick="fullItemReloadAjax();" />
-                                    <h:panelGroup id="lnkRemoveFromYearbookSeperator" styleClass="seperator" rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" />
                                     <h:commandLink id="lnkAddSsrn" styleClass="free_area0" title="#{tip.ViewItemFull_lblAddSsrn }" action="#{ViewItemFull.addSsrnTag}" rendered="#{ViewItemFull.ssrnContext and !ViewItemFull.ssrnTagged and (ViewItemFull.canEdit or ViewItemFull.canModify)}" onclick="fullItemReloadAjax();">
                                         <h:panelGroup styleClass="min_imgBtn add" />
                                         <h:outputText value="#{lbl.ViewItemFull_lblSSRN}" />
@@ -234,26 +229,6 @@
                                         <h:outputText value="#{lbl.info_lblMessageHeader}" />
                                     </h2>
                                     <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}" />
-                                </h:panelGroup>
-                                <!-- Special validation messages for yearbook -->
-                                <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea clear" style="padding-top: 0px !important;" rendered="#{ViewItemFull.pubItem.validationReport!=null}">
-                                    <h2>
-                                        <h:outputText value="#{lbl.Yearbook_validationMessageHeader}" />
-                                    </h2>
-                                    <ul>
-                                        <ui:repeat var="valitem" value="#{ViewItemFull.pubItem.validationReport.items}">
-                                            <h:panelGroup rendered="#{valitem.severity == 'ERROR'}">
-                                                <li class="messageWarn">
-                                                    <h:outputText value="#{msg[valitem.content]}" />
-                                                </li>
-                                            </h:panelGroup>
-                                            <h:panelGroup rendered="#{valitem.severity != 'ERROR'}">
-                                                <li class="messageStatus">
-                                                    <h:outputText value="#{msg[valitem.content]}" />
-                                                </li>
-                                            </h:panelGroup>
-                                        </ui:repeat>
-                                    </ul>
                                 </h:panelGroup>
                                 <!-- Survey link -->
                                 <h:panelGroup layout="block" style="margin-top:1em;" rendered="#{not empty HomePage.surveyUrl}">

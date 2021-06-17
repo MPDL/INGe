@@ -55,7 +55,6 @@ public class ErrorMessages {
   public static final String LOCATOR_IS_NO_URI = "LocatorIsNoUri";
   public static final String NO_MAX_PLANCK_AFFILIATION = "NoMaxPlanckAffiliation";
   public static final String NO_SEQUENCE_INFORMATION_GIVEN = "NoSequenceInformationGiven";
-  public static final String NO_YEARBOOK_GENRE = "NoYearbookGenre";
   public static final String NO_UTF8_CHAR_IN_ALTERNATIVE_TITLE = "NoUtf8CharInAlternativeTitle";
   public static final String NO_UTF8_CHAR_IN_TITLE = "NoUtf8CharInTitle";
   public static final String NO_UTF8_CHAR_IN_ABSTRACT = "NoUtf8CharInAbstract";

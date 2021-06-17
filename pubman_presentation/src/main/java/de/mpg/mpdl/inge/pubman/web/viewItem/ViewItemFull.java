@@ -53,7 +53,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.YearbookDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.EntityTransformer;
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
@@ -98,8 +97,6 @@ import de.mpg.mpdl.inge.pubman.web.util.vos.CreatorDisplay;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubItemVOPresentation;
 import de.mpg.mpdl.inge.pubman.web.viewItem.ViewItemCreators.Type;
 import de.mpg.mpdl.inge.pubman.web.withdrawItem.WithdrawItem;
-import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookInvalidItemRO;
-import de.mpg.mpdl.inge.pubman.web.yearbook.YearbookItemSessionBean;
 import de.mpg.mpdl.inge.service.aa.AuthorizationService.AccessType;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -166,8 +163,6 @@ public class ViewItemFull extends FacesBean {
   // private String unapiBibtex;
   // private String unapiApa;
 
-  private YearbookItemSessionBean yisb;
-
   private int defaultSize = 20;
 
   private boolean canEdit = false;
@@ -190,12 +185,10 @@ public class ViewItemFull extends FacesBean {
 
   private boolean canSendOAMail = false;
 
-  private boolean isCandidateOfYearbook = false;
   private boolean isDepositor = false;
   private boolean isLatestRelease = false;
   private boolean isLatestVersion = false;
   private boolean isLoggedIn = false;
-  private boolean isMemberOfYearbook = false;
   private boolean isModerator = false;
   private boolean isOwner = false;
   private boolean isPublicStateReleased = false;
@@ -473,38 +466,6 @@ public class ViewItemFull extends FacesBean {
         }
       }
 
-      // Yearbook
-      // if item is currently part of invalid yearbook items, show Validation Messages
-      if (this.getLoginHelper().getIsYearbookEditor()) {
-        this.yisb = (YearbookItemSessionBean) FacesTools.findBean("YearbookItemSessionBean");
-
-        if (this.yisb.getYearbook() != null) {
-          if (this.yisb.getInvalidItemMap().get(this.getPubItem().getObjectId()) != null) {
-            try {
-              // revalidate
-              this.yisb.validateItem(this.getPubItem());
-              final YearbookInvalidItemRO invItem = this.yisb.getInvalidItemMap().get(this.getPubItem().getObjectId());
-              if (invItem != null) {
-                ((PubItemVOPresentation) this.getPubItem()).setValidationReport(invItem.getValidationReport());
-              }
-            } catch (Exception e) {
-              ViewItemFull.logger.error("Error in Yearbook validation", e);
-            }
-          }
-
-          try {
-            if (YearbookDbVO.State.CREATED.equals(this.yisb.getYearbook().getState())) {
-              this.isCandidateOfYearbook = this.yisb.isCandidate(this.pubItem.getObjectId());
-              if (!(this.isCandidateOfYearbook) && this.yisb.getNumberOfMembers() > 0) {
-                this.isMemberOfYearbook = this.yisb.isMember(this.pubItem.getObjectId());
-              }
-            }
-          } catch (final Exception e) {
-            e.printStackTrace();
-          }
-        }
-      }
-
       // Unapi Export
       try {
         // this.unapiURLdownload =
@@ -553,26 +514,6 @@ public class ViewItemFull extends FacesBean {
     }
 
     return false;
-  }
-
-  public String addToYearbookMember() {
-    final List<String> selected = new ArrayList<String>();
-    selected.add(this.getPubItem().getObjectId());
-    this.yisb.addMembers(selected);
-    this.isCandidateOfYearbook = false;
-    this.isMemberOfYearbook = true;
-
-    return "";
-  }
-
-  public String removeMemberFromYearbook() {
-    final List<String> selected = new ArrayList<String>();
-    selected.add(this.getPubItem().getObjectId());
-    this.yisb.removeMembers(selected);
-    this.isMemberOfYearbook = false;
-    this.isCandidateOfYearbook = true;
-
-    return "";
   }
 
   /**
@@ -1966,22 +1907,6 @@ public class ViewItemFull extends FacesBean {
 
   public String getResolveHandleService() {
     return PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_URL);
-  }
-
-  public boolean getIsMemberOfYearbook() {
-    return this.isMemberOfYearbook;
-  }
-
-  public boolean getIsCandidateOfYearbook() {
-    return this.isCandidateOfYearbook;
-  }
-
-  public void setMemberOfYearbook(boolean isMemberOfYearbook) {
-    this.isMemberOfYearbook = isMemberOfYearbook;
-  }
-
-  public void setCandidateOfYearbook(boolean isCandidateOfYearbook) {
-    this.isCandidateOfYearbook = isCandidateOfYearbook;
   }
 
   private void setLinks() {

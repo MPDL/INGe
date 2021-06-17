@@ -81,7 +81,6 @@ import de.mpg.mpdl.inge.model.valueobjects.VersionHistoryEntryVO;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.SearchResultElement;
 import de.mpg.mpdl.inge.model.valueobjects.interfaces.Searchable;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
-import de.mpg.mpdl.inge.model.valueobjects.publication.MdsYearbookVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PubItemVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationDefinitionVO;
 import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
@@ -1044,8 +1043,7 @@ public class XmlTransformingService {
 
   public static PubItemVO transformToPubItem(String itemXml) throws TechnicalException {
     ItemVO itemVO = transformToItem(itemXml);
-    if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO
-        || itemVO.getMetadataSets().get(0) instanceof MdsYearbookVO) {
+    if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO) {
       return new PubItemVO(itemVO);
     } else {
       logger.warn("Cannot transform item xml to PubItemVO");

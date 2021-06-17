@@ -1,7 +1,5 @@
 package de.mpg.mpdl.inge.inge_validation;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import com.baidu.unbiz.fluentvalidator.ComplexResult;
@@ -39,25 +37,6 @@ import de.mpg.mpdl.inge.inge_validation.validator.Utf8AlternativeTitleValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.Utf8TitleValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.ClassifiedKeywordsValidator;
 import de.mpg.mpdl.inge.inge_validation.validator.cone.LanguageCodeValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsMaxPlanckAffiliationValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsPersonNamesRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.CreatorsPersonRoleRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.DateAcceptedRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.EventDatesRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.EventTitleAndPlaceRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.GenreValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.PublisherAndPlaceRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.PublishingDateRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsOrganizationNamesRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsPersonNamesRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesCreatorsRoleValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreJournalValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreProceedingsOrJournalValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesGenreSeriesOrJournalValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesPublisherAndPlaceRequiredValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.SourcesSequenceInfomationValidator;
-import de.mpg.mpdl.inge.inge_validation.validator.yearbook.TotalNumberOfPagesRequiredValidator;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 
@@ -369,114 +348,114 @@ public class Validation {
     }
   }
 
-  public void validateYearbook(final ItemVersionVO pubItemVO, List<String> childsOfMPG)
-      throws ValidationServiceException, ValidationException {
-
-    if (pubItemVO instanceof ItemVersionVO == false) {
-      throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
-    }
-
-
-    GenreValidator.checkGenre(pubItemVO.getMetadata().getGenre());
-
-    final FluentValidator vYearbook = FluentValidator.checkAll().failOver()
-        // Allgemein
-        .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
-        .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
-        .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
-        .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorsMaxPlanckAffiliationValidator(childsOfMPG))
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorsPersonNamesRequiredValidator())
-        .on(pubItemVO.getMetadata().getCreators(), new CreatorsPersonRoleRequiredValidator())
-        .on(pubItemVO.getMetadata(), new PublishingDateRequiredValidator())
-        .when(!MdsPublicationVO.Genre.THESIS.equals(pubItemVO.getMetadata().getGenre()))
-
-        // Book
-        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
-        .when(isBook(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
-        .when(isBook(pubItemVO.getMetadata().getGenre()))
-
-        // Book Chapter
-        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorsOrganizationNamesRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorsPersonNamesRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorsRoleValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesSequenceInfomationValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
-        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
-
-        // Conference Paper
-        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreProceedingsOrJournalValidator())
-        .when(isConferencePaper(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesSequenceInfomationValidator())
-        .when(isConferencePaper(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
-        .when(isConferencePaper(pubItemVO.getMetadata().getGenre()))
-
-        // Conference Report
-        .on(pubItemVO.getMetadata().getEvent(), new EventTitleAndPlaceRequiredValidator())
-        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getEvent(), new EventDatesRequiredValidator())
-        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreSeriesOrJournalValidator())
-        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
-        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
-
-        // Issue
-        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreJournalValidator()) //
-        .when(isIssue(pubItemVO.getMetadata().getGenre())) //
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
-        .when(isIssue(pubItemVO.getMetadata().getGenre()))
-
-        // Journal
-        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
-        .when(isJournal(pubItemVO.getMetadata().getGenre()))
-
-        // Journal-Article
-        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreJournalValidator()) //
-        .when(isJournalArticle(pubItemVO.getMetadata().getGenre())) //
-        .on(pubItemVO.getMetadata().getSources(), new SourcesSequenceInfomationValidator())
-        .when(isJournalArticle(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
-        .when(isJournalArticle(pubItemVO.getMetadata().getGenre())).on(pubItemVO.getMetadata().getSources())
-
-        // Proceedings
-        .on(pubItemVO.getMetadata().getEvent(), new EventTitleAndPlaceRequiredValidator())
-        .when(isProceedings(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
-        .when(isProceedings(pubItemVO.getMetadata().getGenre()))
-        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
-        .when(isProceedings(pubItemVO.getMetadata().getGenre()))
-
-        // Thesis
-        .on(pubItemVO.getMetadata(), new DateAcceptedRequiredValidator()) //
-        .when(isThesis(pubItemVO.getMetadata().getGenre())) //
-        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
-        .when(isThesis(pubItemVO.getMetadata().getGenre()))
-
-        // Paper
-        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
-        .when(isPaper(pubItemVO.getMetadata().getGenre()))
-
-        // Series
-        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
-        .when(isSeries(pubItemVO.getMetadata().getGenre()));
-
-    final ComplexResult result = vYearbook.doValidate().result(ResultCollectors.toComplex());
-
-    //    logger.info(result);
-
-    checkResult(result);
-  }
+  //  public void validateYearbook(final ItemVersionVO pubItemVO, List<String> childsOfMPG)
+  //      throws ValidationServiceException, ValidationException {
+  //
+  //    if (pubItemVO instanceof ItemVersionVO == false) {
+  //      throw new ValidationServiceException("itemVO instanceof PubItemVO == false");
+  //    }
+  //
+  //
+  //    GenreValidator.checkGenre(pubItemVO.getMetadata().getGenre());
+  //
+  //    final FluentValidator vYearbook = FluentValidator.checkAll().failOver()
+  //        // Allgemein
+  //        .on(pubItemVO.getMetadata().getTitle(), new TitleRequiredValidator())
+  //        .on(pubItemVO.getMetadata().getTitle(), new Utf8TitleValidator()) //
+  //        .on(pubItemVO.getMetadata().getAlternativeTitles(), new Utf8AlternativeTitleValidator()) //
+  //        .on(pubItemVO.getMetadata().getAbstracts(), new Utf8AbstractValidator()) //
+  //        .on(pubItemVO.getMetadata().getCreators(), new CreatorsMaxPlanckAffiliationValidator(childsOfMPG))
+  //        .on(pubItemVO.getMetadata().getCreators(), new CreatorsPersonNamesRequiredValidator())
+  //        .on(pubItemVO.getMetadata().getCreators(), new CreatorsPersonRoleRequiredValidator())
+  //        .on(pubItemVO.getMetadata(), new PublishingDateRequiredValidator())
+  //        .when(!MdsPublicationVO.Genre.THESIS.equals(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Book
+  //        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
+  //        .when(isBook(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
+  //        .when(isBook(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Book Chapter
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorsOrganizationNamesRequiredValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorsPersonNamesRequiredValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorRequiredValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesCreatorsRoleValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesPublisherAndPlaceRequiredValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesSequenceInfomationValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
+  //        .when(isBookChapter(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Conference Paper
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreProceedingsOrJournalValidator())
+  //        .when(isConferencePaper(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesSequenceInfomationValidator())
+  //        .when(isConferencePaper(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
+  //        .when(isConferencePaper(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Conference Report
+  //        .on(pubItemVO.getMetadata().getEvent(), new EventTitleAndPlaceRequiredValidator())
+  //        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getEvent(), new EventDatesRequiredValidator())
+  //        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreSeriesOrJournalValidator())
+  //        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
+  //        .when(isConferenceReport(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Issue
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreJournalValidator()) //
+  //        .when(isIssue(pubItemVO.getMetadata().getGenre())) //
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator()) //
+  //        .when(isIssue(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Journal
+  //        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
+  //        .when(isJournal(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Journal-Article
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesGenreJournalValidator()) //
+  //        .when(isJournalArticle(pubItemVO.getMetadata().getGenre())) //
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesSequenceInfomationValidator())
+  //        .when(isJournalArticle(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getSources(), new SourcesTitleRequiredValidator())
+  //        .when(isJournalArticle(pubItemVO.getMetadata().getGenre())).on(pubItemVO.getMetadata().getSources())
+  //
+  //        // Proceedings
+  //        .on(pubItemVO.getMetadata().getEvent(), new EventTitleAndPlaceRequiredValidator())
+  //        .when(isProceedings(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
+  //        .when(isProceedings(pubItemVO.getMetadata().getGenre()))
+  //        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
+  //        .when(isProceedings(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Thesis
+  //        .on(pubItemVO.getMetadata(), new DateAcceptedRequiredValidator()) //
+  //        .when(isThesis(pubItemVO.getMetadata().getGenre())) //
+  //        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
+  //        .when(isThesis(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Paper
+  //        .on(pubItemVO.getMetadata().getTotalNumberOfPages(), new TotalNumberOfPagesRequiredValidator())
+  //        .when(isPaper(pubItemVO.getMetadata().getGenre()))
+  //
+  //        // Series
+  //        .on(pubItemVO.getMetadata().getPublishingInfo(), new PublisherAndPlaceRequiredValidator())
+  //        .when(isSeries(pubItemVO.getMetadata().getGenre()));
+  //
+  //    final ComplexResult result = vYearbook.doValidate().result(ResultCollectors.toComplex());
+  //
+  //    //    logger.info(result);
+  //
+  //    checkResult(result);
+  //  }
 
   private void checkResult(ComplexResult complexResult) throws ValidationException {
     final ValidationReportVO v = new ValidationReportVO();
@@ -498,64 +477,64 @@ public class Validation {
 
   // ### Yearbook Section ########################################
 
-  private boolean isBook(MdsPublicationVO.Genre genre) {
-    return (MdsPublicationVO.Genre.BOOK.equals(genre) // 
-        || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre) //
-        || MdsPublicationVO.Genre.COMMENTARY.equals(genre) //
-        || MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre) //
-        || MdsPublicationVO.Genre.HANDBOOK.equals(genre) //
-        || MdsPublicationVO.Genre.MONOGRAPH.equals(genre));
-  }
-
-  private boolean isBookChapter(MdsPublicationVO.Genre genre) {
-    return (MdsPublicationVO.Genre.BOOK_ITEM.equals(genre) //
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre) //
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) //
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre) //
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre) //
-        || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre));
-  }
-
-  private boolean isConferencePaper(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre);
-  }
-
-  private boolean isConferenceReport(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre);
-  }
-
-  private boolean isIssue(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.ISSUE.equals(genre);
-  }
-
-  private boolean isJournal(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.JOURNAL.equals(genre);
-  }
-
-  private boolean isJournalArticle(MdsPublicationVO.Genre genre) {
-    return (MdsPublicationVO.Genre.ARTICLE.equals(genre) //
-        || MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre) //
-        || MdsPublicationVO.Genre.CASE_NOTE.equals(genre) //
-        || MdsPublicationVO.Genre.CASE_STUDY.equals(genre) //
-        || MdsPublicationVO.Genre.EDITORIAL.equals(genre) //
-        || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre) //
-        || MdsPublicationVO.Genre.OPINION.equals(genre));
-  }
-
-  private boolean isSeries(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.SERIES.equals(genre);
-  }
-
-  private boolean isPaper(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.PAPER.equals(genre);
-  }
-
-  private boolean isProceedings(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.PROCEEDINGS.equals(genre);
-  }
-
-  private boolean isThesis(MdsPublicationVO.Genre genre) {
-    return MdsPublicationVO.Genre.THESIS.equals(genre);
-  }
+  //  private boolean isBook(MdsPublicationVO.Genre genre) {
+  //    return (MdsPublicationVO.Genre.BOOK.equals(genre) // 
+  //        || MdsPublicationVO.Genre.COLLECTED_EDITION.equals(genre) //
+  //        || MdsPublicationVO.Genre.COMMENTARY.equals(genre) //
+  //        || MdsPublicationVO.Genre.FESTSCHRIFT.equals(genre) //
+  //        || MdsPublicationVO.Genre.HANDBOOK.equals(genre) //
+  //        || MdsPublicationVO.Genre.MONOGRAPH.equals(genre));
+  //  }
+  //
+  //  private boolean isBookChapter(MdsPublicationVO.Genre genre) {
+  //    return (MdsPublicationVO.Genre.BOOK_ITEM.equals(genre) //
+  //        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COLLECTED_EDITION.equals(genre) //
+  //        || MdsPublicationVO.Genre.CONTRIBUTION_TO_COMMENTARY.equals(genre) //
+  //        || MdsPublicationVO.Genre.CONTRIBUTION_TO_HANDBOOK.equals(genre) //
+  //        || MdsPublicationVO.Genre.CONTRIBUTION_TO_ENCYCLOPEDIA.equals(genre) //
+  //        || MdsPublicationVO.Genre.CONTRIBUTION_TO_FESTSCHRIFT.equals(genre));
+  //  }
+  //
+  //  private boolean isConferencePaper(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.CONFERENCE_PAPER.equals(genre);
+  //  }
+  //
+  //  private boolean isConferenceReport(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.CONFERENCE_REPORT.equals(genre);
+  //  }
+  //
+  //  private boolean isIssue(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.ISSUE.equals(genre);
+  //  }
+  //
+  //  private boolean isJournal(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.JOURNAL.equals(genre);
+  //  }
+  //
+  //  private boolean isJournalArticle(MdsPublicationVO.Genre genre) {
+  //    return (MdsPublicationVO.Genre.ARTICLE.equals(genre) //
+  //        || MdsPublicationVO.Genre.BOOK_REVIEW.equals(genre) //
+  //        || MdsPublicationVO.Genre.CASE_NOTE.equals(genre) //
+  //        || MdsPublicationVO.Genre.CASE_STUDY.equals(genre) //
+  //        || MdsPublicationVO.Genre.EDITORIAL.equals(genre) //
+  //        || MdsPublicationVO.Genre.NEWSPAPER_ARTICLE.equals(genre) //
+  //        || MdsPublicationVO.Genre.OPINION.equals(genre));
+  //  }
+  //
+  //  private boolean isSeries(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.SERIES.equals(genre);
+  //  }
+  //
+  //  private boolean isPaper(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.PAPER.equals(genre);
+  //  }
+  //
+  //  private boolean isProceedings(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.PROCEEDINGS.equals(genre);
+  //  }
+  //
+  //  private boolean isThesis(MdsPublicationVO.Genre genre) {
+  //    return MdsPublicationVO.Genre.THESIS.equals(genre);
+  //  }
 
 }
