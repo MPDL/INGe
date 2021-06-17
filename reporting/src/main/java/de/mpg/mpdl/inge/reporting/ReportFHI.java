@@ -25,61 +25,6 @@
 
 package de.mpg.mpdl.inge.reporting;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
-import org.apache.http.entity.ContentType;
-import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-
-import de.mpg.mpdl.inge.model.valueobjects.FileFormatVO;
-import de.mpg.mpdl.inge.model.xmltransforming.EmailService;
-import de.mpg.mpdl.inge.model.xmltransforming.exceptions.TechnicalException;
-import de.mpg.mpdl.inge.util.PropertyReader;
-import net.sf.jasperreports.engine.DefaultJasperReportsContext;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.design.JRJdtCompiler;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRRtfExporter;
-import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.util.JRXmlUtils;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-
 /**
  * Monthly report for FHI
  * 
@@ -89,330 +34,330 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
  * 
  */
 public class ReportFHI {
-  private static final Logger logger = Logger.getLogger(ReportFHI.class);
-
-  private static final TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
-  private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
-  private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
-
-  private static Properties rprops;
-
-  public static String USER_NAME;
-  public static String USER_PASSWD;
-  public static String emailSenderProp;
-  public static String emailServernameProp;
-  public static String emailWithAuthProp;
-  public static String emailAuthUserProp;
-  public static String emailAuthPwdProp;
-
-  public ReportFHI() throws IOException, URISyntaxException {
-    USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_USERNAME);
-    USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_PASSWORD);
-    emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
-    emailServernameProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_MAILSERVERNAME);
-    emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
-    emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
-    emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
-
-
-    rprops = loadReportProperties();
-  }
-
-  // Generate time range query
-  // Take all docs from the last months
-  public static String[] getStartEndDateOfQuery() {
-    SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-");
-    int months;
-    try {
-      months = new Integer(rprops.getProperty("FHI.report.months.range")).intValue();
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot read/convert FHI.report.months.range:", e);
-    } ;
-
-    // from
-    Calendar fromMonth = GregorianCalendar.getInstance();
-    fromMonth.add(Calendar.MONTH, -months);
-    String fromYearMonth = dateformatter.format(fromMonth.getTime());
-
-    // to
-    Calendar toMonth = GregorianCalendar.getInstance();
-    toMonth.add(Calendar.MONTH, -1);
-    String toYearMonth = dateformatter.format(toMonth.getTime());
-
-    return new String[] {fromYearMonth + String.format("%02d", fromMonth.getActualMinimum(Calendar.DAY_OF_MONTH)),
-        toYearMonth + toMonth.getActualMaximum(Calendar.DAY_OF_MONTH)};
-  }
-
-  // Generate query for time range
-  private static String getTimeRangeQuery() {
-    String[] dd = getStartEndDateOfQuery();
-    return "\"bool\":{\"must\":{\"range\":{\"creationDate\":{\"from\":\"" + dd[0] + "\",\"to\":\"" + dd[1]
-        + "\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}}}";
-    //    return "(\"/properties/creation-date\">=\"" + dd[0] + "\"" + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
-  }
-
-  public static String getItemListFromFramework() {
-    // Publications of the test context
-    // Time range: previous month
-
-    String itemList = null;
-
-    PostMethod method;
-    try {
-      String token = loginInInge(PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_USERNAME),
-          PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_PASSWORD));
-      method =
-          new PostMethod(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/items/search?format=eSciDoc_Itemlist_Xml");
-      method.setRequestEntity(new StringRequestEntity((rprops.getProperty("FHI.query")).replace("$CREATION_DATE$", getTimeRangeQuery()),
-          "application/json", StandardCharsets.UTF_8.displayName()));
-      method.setRequestHeader("Authorization", token);
-
-      logger.info("URI:" + method.getURI());
-      HttpClient client = new HttpClient();
-      //      ProxyHelper.executeMethod(client, method);
-      client.executeMethod(method);
-      logger.info("URI:" + method.getURI() + "\nStatus code:" + method.getStatusCode());
-      if (method.getStatusCode() == HttpServletResponse.SC_OK) {
-        itemList = method.getResponseBodyAsString();
-
-        // escape all alone &, otherwise filler throws an exception
-        itemList = replaceAllTotal(itemList, AMPS_ALONE, "&amp;");
-
-        if (logger.isDebugEnabled())
-          writeToFile("./search-res.xml", itemList.getBytes("UTF-8"));
-        logger.info(itemList);
-
-      }
-    } catch (Exception e) {
-      logger.warn("Exception occured ", e);
-      throw new RuntimeException("Cannot get item-list from framework:", e);
-    }
-
-    return itemList;
-  }
-
-  /**
-   * Converts item-list XML to JasperReports DataSource
-   * 
-   * @return Document
-   */
-  private static Document getXmlDataSource() {
-    // getFilter from framework, FHI specific
-    Document document = null;
-    StringWriter sw = new StringWriter();
-
-    // get item-list from framework
-    Transformer transformer;
-    try {
-      // resolution of containers, like authors and source names
-      transformer = tf.newTemplates(new StreamSource(JRLoader.getLocationInputStream("schemas/make-containers.xsl"))).newTransformer();
-      transformer.transform(new StreamSource(new StringReader(getItemListFromFramework())), new StreamResult(sw));
-
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot transform item-list XML containers:", e);
-    }
-    logger.debug("*********************************************************************");
-    logger.debug(sw.toString());
-    logger.debug("*********************************************************************");
-
-    try {
-      document = JRXmlUtils.parse(new InputSource(new StringReader(sw.toString())));
-    } catch (Exception e) {
-      throw new RuntimeException("Cannot convert item-list XML to JasperReport DataSource:", e);
-    }
-
-    return document;
-  }
-
-  /**
-   * Generate month report files (formats are specified in properties)
-   * 
-   * @throws JRException
-   * @return list of paths to the generated reports
-   */
-  public static String[] generateReport() throws JRException {
-    rprops = loadReportProperties();
-    String[] formats = rprops.getProperty("FHI.report.formats").split(",");
-
-    // GET REPORT FROM JRXMLs
-    // compile subreports
-    // JasperCompileManager.compileReportToFile("src/main/resources/subreport_creators.jrxml");
-
-    // get main report
-    JasperReport jr = null;
-    JasperDesign jd;
-    jd = JRXmlLoader.load(JRLoader.getLocationInputStream("FHI_Bibilothek_report.jrxml"));
-    JRJdtCompiler compiler = new JRJdtCompiler(DefaultJasperReportsContext.getInstance());
-    //    jr = JasperCompileManager.compileReport(jd);
-    jr = compiler.compileReport(jd);
-    if (jr == null) {
-      throw new RuntimeException("Compiled report is null: " + "FHI_Bibilothek_report.jrxml");
-    }
-
-    Document doc = getXmlDataSource();
-
-    Map<String, Object> params = new HashMap<String, Object>();
-    params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, doc);
-
-    // fill report in memory
-    JasperPrint jasperPrint;
-    jasperPrint = JasperFillManager.fillReport(jr, params, new JRXmlDataSource(doc, jr.getQuery().getText()));
-
-    ArrayList<String> atts = new ArrayList<String>();
-    String fn;
-    // save in files in formats
-    for (String f : formats) {
-      if (FileFormatVO.PDF_NAME.equalsIgnoreCase(f)) {
-        JRPdfExporter pdfExp = new JRPdfExporter();
-        pdfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        fn = "FHI_Bibilothek_report.pdf";
-        pdfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
-        pdfExp.exportReport();
-        atts.add(fn);
-      } else if (FileFormatVO.RTF_NAME.equalsIgnoreCase(f)) {
-        JRRtfExporter rtfExp = new JRRtfExporter();
-        rtfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-        fn = "FHI_Bibilothek_report.rtf";
-        rtfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
-        rtfExp.exportReport();
-        atts.add(fn);
-      }
-    }
-
-    return atts.toArray(new String[atts.size()]);
-  }
-
-  /**
-   * Send report per email(s)
-   * 
-   * @param attFileNames - array of paths to report files
-   */
-  public static void sendReport(String[] attFileNames, boolean testing) {
-    // send email with attachments
-    String toEmails = (testing ? rprops.getProperty("FHI.recipients.addresses.test") : rprops.getProperty("FHI.recipients.addresses"));
-    if (toEmails != null && !toEmails.trim().equals("")) {
-      String[] timeRange = getStartEndDateOfQuery();
-      try {
-        EmailService.sendMail(emailServernameProp, emailWithAuthProp, emailAuthUserProp, emailAuthPwdProp,
-            rprops.getProperty("FHI.sender.address"), toEmails.split(","), rprops.getProperty("FHI.recipients.cc.addresses").split(","),
-            rprops.getProperty("FHI.recipients.bcc.addresses").split(","), rprops.getProperty("FHI.reply.to.addresses").split(","),
-            rprops.getProperty("FHI.subject") + ", von " + timeRange[0] + " bis " + timeRange[1],
-            new String(rprops.getProperty("FHI.body")), attFileNames);
-      } catch (TechnicalException e) {
-        // TODO Auto-generated catch block
-        throw new RuntimeException("Cannot send email:", e);
-      }
-    }
-  }
-
-  /**
-   * Generate month report and send it per email
-   * 
-   * @throws JRException
-   */
-  public static void generateAndSendReport(boolean testing) throws JRException {
-    sendReport(generateReport(), testing);
-  }
-
-  /**
-   * Load report properties
-   * 
-   * @return
-   */
-  public static Properties loadReportProperties() {
-    InputStream is;
-    Properties props = null;
-    try {
-      is = JRLoader.getLocationInputStream("reporting.properties");
-      props = new Properties();
-      props.load(is);
-
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      throw new RuntimeException("Cannot read report props:", e);
-    }
-
-    return props;
-  }
-
-
-  /**
-   * @param username
-   * @param password
-   * @return INGe token or null if login failed
-   * @throws Exception
-   */
-  public static String loginInInge(String username, String password) throws Exception {
-    String credentials = username + ":" + password;
-    Response resp = Request.Post(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/login")
-        .bodyString(credentials, ContentType.TEXT_PLAIN).execute();
-    HttpResponse httpResp = resp.returnResponse();
-
-    if (httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-
-      String token = httpResp.getLastHeader("Token").getValue();
-      return token;
-    }
-    return null;
-
-
-  }
-
-  /**
-   * Joins the elements of the provided array into a single String containing the provided list of
-   * elements. Separator will be put between the not null/empty elements
-   * 
-   * @param arr is the list of the elements.
-   * @param delimiter
-   * @return joined string
-   */
-  public static String join(String[] arr, String delimiter) {
-    if (arr == null || arr.length == 0)
-      return null;
-    StringBuffer sb = new StringBuffer();
-    if (delimiter == null)
-      delimiter = "";
-    for (int i = 0, n = arr.length; i < n; i++) {
-      if (arr[i] == null || arr[i].trim().equals(""))
-        continue;
-      sb.append(arr[i]);
-      if (i < n - 1)
-        sb.append(delimiter);
-    }
-    String str = sb.toString().replaceAll(Pattern.quote(delimiter) + "$", "");
-
-    return str;
-  }
-
-  public static String replaceAllTotal(String what, String expr, String replacement) {
-    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what).replaceAll(replacement);
-  }
-
-  public static String replaceAllTotal(String what, Pattern p, String replacement) {
-    return p.matcher(what).replaceAll(replacement);
-  }
-
-  protected static void writeToFile(String fileName, byte[] content) throws IOException {
-    FileOutputStream fos = new FileOutputStream(fileName);
-    fos.write(content);
-    fos.close();
-  }
-
-  protected static String readFromFile(String fileName) throws IOException {
-    int ch;
-    StringBuffer buff = new StringBuffer();
-    FileInputStream fis = new FileInputStream(fileName);
-
-    while ((ch = fis.read()) != -1)
-      buff.append((char) ch);
-    fis.close();
-
-    return buff.toString();
-  }
-
-  // This is the main application called periodically by a cron job on continuum
-  // configured in /usr/local/sbin/reporting
-  public static void main(String args[]) throws Exception {
-    ReportFHI.generateAndSendReport(false);
-  }
+//  private static final Logger logger = Logger.getLogger(ReportFHI.class);
+//
+//  private static final TransformerFactory tf = new net.sf.saxon.TransformerFactoryImpl();
+//  private static final int FLAGS = Pattern.CASE_INSENSITIVE | Pattern.DOTALL;
+//  private static final Pattern AMPS_ALONE = Pattern.compile("\\&(?!\\w+?;)", FLAGS);
+//
+//  private static Properties rprops;
+//
+//  public static String USER_NAME;
+//  public static String USER_PASSWD;
+//  public static String emailSenderProp;
+//  public static String emailServernameProp;
+//  public static String emailWithAuthProp;
+//  public static String emailAuthUserProp;
+//  public static String emailAuthPwdProp;
+//
+//  public ReportFHI() throws IOException, URISyntaxException {
+//    USER_NAME = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_USERNAME);
+//    USER_PASSWD = PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_PASSWORD);
+//    emailSenderProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_SENDER);
+//    emailServernameProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_MAILSERVERNAME);
+//    emailWithAuthProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_WITHAUTHENTICATION);
+//    emailAuthUserProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONUSER);
+//    emailAuthPwdProp = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_AUTHENTICATIONPWD);
+//
+//
+//    rprops = loadReportProperties();
+//  }
+//
+//  // Generate time range query
+//  // Take all docs from the last months
+//  public static String[] getStartEndDateOfQuery() {
+//    SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-");
+//    int months;
+//    try {
+//      months = new Integer(rprops.getProperty("FHI.report.months.range")).intValue();
+//    } catch (Exception e) {
+//      throw new RuntimeException("Cannot read/convert FHI.report.months.range:", e);
+//    } ;
+//
+//    // from
+//    Calendar fromMonth = GregorianCalendar.getInstance();
+//    fromMonth.add(Calendar.MONTH, -months);
+//    String fromYearMonth = dateformatter.format(fromMonth.getTime());
+//
+//    // to
+//    Calendar toMonth = GregorianCalendar.getInstance();
+//    toMonth.add(Calendar.MONTH, -1);
+//    String toYearMonth = dateformatter.format(toMonth.getTime());
+//
+//    return new String[] {fromYearMonth + String.format("%02d", fromMonth.getActualMinimum(Calendar.DAY_OF_MONTH)),
+//        toYearMonth + toMonth.getActualMaximum(Calendar.DAY_OF_MONTH)};
+//  }
+//
+//  // Generate query for time range
+//  private static String getTimeRangeQuery() {
+//    String[] dd = getStartEndDateOfQuery();
+//    return "\"bool\":{\"must\":{\"range\":{\"creationDate\":{\"from\":\"" + dd[0] + "\",\"to\":\"" + dd[1]
+//        + "\",\"include_lower\":true,\"include_upper\":true,\"boost\":1}}}}";
+//    //    return "(\"/properties/creation-date\">=\"" + dd[0] + "\"" + " and \"/properties/creation-date\"<=\"" + dd[1] + "U\")";
+//  }
+//
+//  public static String getItemListFromFramework() {
+//    // Publications of the test context
+//    // Time range: previous month
+//
+//    String itemList = null;
+//
+//    PostMethod method;
+//    try {
+//      String token = loginInInge(PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_USERNAME),
+//          PropertyReader.getProperty(PropertyReader.INGE_AA_ADMIN_LIVE_PASSWORD));
+//      method =
+//          new PostMethod(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/items/search?format=eSciDoc_Itemlist_Xml");
+//      method.setRequestEntity(new StringRequestEntity((rprops.getProperty("FHI.query")).replace("$CREATION_DATE$", getTimeRangeQuery()),
+//          "application/json", StandardCharsets.UTF_8.displayName()));
+//      method.setRequestHeader("Authorization", token);
+//
+//      logger.info("URI:" + method.getURI());
+//      HttpClient client = new HttpClient();
+//      //      ProxyHelper.executeMethod(client, method);
+//      client.executeMethod(method);
+//      logger.info("URI:" + method.getURI() + "\nStatus code:" + method.getStatusCode());
+//      if (method.getStatusCode() == HttpServletResponse.SC_OK) {
+//        itemList = method.getResponseBodyAsString();
+//
+//        // escape all alone &, otherwise filler throws an exception
+//        itemList = replaceAllTotal(itemList, AMPS_ALONE, "&amp;");
+//
+//        if (logger.isDebugEnabled())
+//          writeToFile("./search-res.xml", itemList.getBytes("UTF-8"));
+//        logger.info(itemList);
+//
+//      }
+//    } catch (Exception e) {
+//      logger.warn("Exception occured ", e);
+//      throw new RuntimeException("Cannot get item-list from framework:", e);
+//    }
+//
+//    return itemList;
+//  }
+//
+//  /**
+//   * Converts item-list XML to JasperReports DataSource
+//   * 
+//   * @return Document
+//   */
+//  private static Document getXmlDataSource() {
+//    // getFilter from framework, FHI specific
+//    Document document = null;
+//    StringWriter sw = new StringWriter();
+//
+//    // get item-list from framework
+//    Transformer transformer;
+//    try {
+//      // resolution of containers, like authors and source names
+//      transformer = tf.newTemplates(new StreamSource(JRLoader.getLocationInputStream("schemas/make-containers.xsl"))).newTransformer();
+//      transformer.transform(new StreamSource(new StringReader(getItemListFromFramework())), new StreamResult(sw));
+//
+//    } catch (Exception e) {
+//      throw new RuntimeException("Cannot transform item-list XML containers:", e);
+//    }
+//    logger.debug("*********************************************************************");
+//    logger.debug(sw.toString());
+//    logger.debug("*********************************************************************");
+//
+//    try {
+//      document = JRXmlUtils.parse(new InputSource(new StringReader(sw.toString())));
+//    } catch (Exception e) {
+//      throw new RuntimeException("Cannot convert item-list XML to JasperReport DataSource:", e);
+//    }
+//
+//    return document;
+//  }
+//
+//  /**
+//   * Generate month report files (formats are specified in properties)
+//   * 
+//   * @throws JRException
+//   * @return list of paths to the generated reports
+//   */
+//  public static String[] generateReport() throws JRException {
+//    rprops = loadReportProperties();
+//    String[] formats = rprops.getProperty("FHI.report.formats").split(",");
+//
+//    // GET REPORT FROM JRXMLs
+//    // compile subreports
+//    // JasperCompileManager.compileReportToFile("src/main/resources/subreport_creators.jrxml");
+//
+//    // get main report
+//    JasperReport jr = null;
+//    JasperDesign jd;
+//    jd = JRXmlLoader.load(JRLoader.getLocationInputStream("FHI_Bibilothek_report.jrxml"));
+//    JRJdtCompiler compiler = new JRJdtCompiler(DefaultJasperReportsContext.getInstance());
+//    //    jr = JasperCompileManager.compileReport(jd);
+//    jr = compiler.compileReport(jd);
+//    if (jr == null) {
+//      throw new RuntimeException("Compiled report is null: " + "FHI_Bibilothek_report.jrxml");
+//    }
+//
+//    Document doc = getXmlDataSource();
+//
+//    Map<String, Object> params = new HashMap<String, Object>();
+//    params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, doc);
+//
+//    // fill report in memory
+//    JasperPrint jasperPrint;
+//    jasperPrint = JasperFillManager.fillReport(jr, params, new JRXmlDataSource(doc, jr.getQuery().getText()));
+//
+//    ArrayList<String> atts = new ArrayList<String>();
+//    String fn;
+//    // save in files in formats
+//    for (String f : formats) {
+//      if (FileFormatVO.PDF_NAME.equalsIgnoreCase(f)) {
+//        JRPdfExporter pdfExp = new JRPdfExporter();
+//        pdfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//        fn = "FHI_Bibilothek_report.pdf";
+//        pdfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
+//        pdfExp.exportReport();
+//        atts.add(fn);
+//      } else if (FileFormatVO.RTF_NAME.equalsIgnoreCase(f)) {
+//        JRRtfExporter rtfExp = new JRRtfExporter();
+//        rtfExp.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+//        fn = "FHI_Bibilothek_report.rtf";
+//        rtfExp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, fn);
+//        rtfExp.exportReport();
+//        atts.add(fn);
+//      }
+//    }
+//
+//    return atts.toArray(new String[atts.size()]);
+//  }
+//
+//  /**
+//   * Send report per email(s)
+//   * 
+//   * @param attFileNames - array of paths to report files
+//   */
+//  public static void sendReport(String[] attFileNames, boolean testing) {
+//    // send email with attachments
+//    String toEmails = (testing ? rprops.getProperty("FHI.recipients.addresses.test") : rprops.getProperty("FHI.recipients.addresses"));
+//    if (toEmails != null && !toEmails.trim().equals("")) {
+//      String[] timeRange = getStartEndDateOfQuery();
+//      try {
+//        EmailService.sendMail(emailServernameProp, emailWithAuthProp, emailAuthUserProp, emailAuthPwdProp,
+//            rprops.getProperty("FHI.sender.address"), toEmails.split(","), rprops.getProperty("FHI.recipients.cc.addresses").split(","),
+//            rprops.getProperty("FHI.recipients.bcc.addresses").split(","), rprops.getProperty("FHI.reply.to.addresses").split(","),
+//            rprops.getProperty("FHI.subject") + ", von " + timeRange[0] + " bis " + timeRange[1],
+//            new String(rprops.getProperty("FHI.body")), attFileNames);
+//      } catch (TechnicalException e) {
+//        // TODO Auto-generated catch block
+//        throw new RuntimeException("Cannot send email:", e);
+//      }
+//    }
+//  }
+//
+//  /**
+//   * Generate month report and send it per email
+//   * 
+//   * @throws JRException
+//   */
+//  public static void generateAndSendReport(boolean testing) throws JRException {
+//    sendReport(generateReport(), testing);
+//  }
+//
+//  /**
+//   * Load report properties
+//   * 
+//   * @return
+//   */
+//  public static Properties loadReportProperties() {
+//    InputStream is;
+//    Properties props = null;
+//    try {
+//      is = JRLoader.getLocationInputStream("reporting.properties");
+//      props = new Properties();
+//      props.load(is);
+//
+//    } catch (Exception e) {
+//      // TODO Auto-generated catch block
+//      throw new RuntimeException("Cannot read report props:", e);
+//    }
+//
+//    return props;
+//  }
+//
+//
+//  /**
+//   * @param username
+//   * @param password
+//   * @return INGe token or null if login failed
+//   * @throws Exception
+//   */
+//  public static String loginInInge(String username, String password) throws Exception {
+//    String credentials = username + ":" + password;
+//    Response resp = Request.Post(PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL) + "/login")
+//        .bodyString(credentials, ContentType.TEXT_PLAIN).execute();
+//    HttpResponse httpResp = resp.returnResponse();
+//
+//    if (httpResp.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+//
+//      String token = httpResp.getLastHeader("Token").getValue();
+//      return token;
+//    }
+//    return null;
+//
+//
+//  }
+//
+//  /**
+//   * Joins the elements of the provided array into a single String containing the provided list of
+//   * elements. Separator will be put between the not null/empty elements
+//   * 
+//   * @param arr is the list of the elements.
+//   * @param delimiter
+//   * @return joined string
+//   */
+//  public static String join(String[] arr, String delimiter) {
+//    if (arr == null || arr.length == 0)
+//      return null;
+//    StringBuffer sb = new StringBuffer();
+//    if (delimiter == null)
+//      delimiter = "";
+//    for (int i = 0, n = arr.length; i < n; i++) {
+//      if (arr[i] == null || arr[i].trim().equals(""))
+//        continue;
+//      sb.append(arr[i]);
+//      if (i < n - 1)
+//        sb.append(delimiter);
+//    }
+//    String str = sb.toString().replaceAll(Pattern.quote(delimiter) + "$", "");
+//
+//    return str;
+//  }
+//
+//  public static String replaceAllTotal(String what, String expr, String replacement) {
+//    return Pattern.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(what).replaceAll(replacement);
+//  }
+//
+//  public static String replaceAllTotal(String what, Pattern p, String replacement) {
+//    return p.matcher(what).replaceAll(replacement);
+//  }
+//
+//  protected static void writeToFile(String fileName, byte[] content) throws IOException {
+//    FileOutputStream fos = new FileOutputStream(fileName);
+//    fos.write(content);
+//    fos.close();
+//  }
+//
+//  protected static String readFromFile(String fileName) throws IOException {
+//    int ch;
+//    StringBuffer buff = new StringBuffer();
+//    FileInputStream fis = new FileInputStream(fileName);
+//
+//    while ((ch = fis.read()) != -1)
+//      buff.append((char) ch);
+//    fis.close();
+//
+//    return buff.toString();
+//  }
+//
+//  // This is the main application called periodically by a cron job on continuum
+//  // configured in /usr/local/sbin/reporting
+//  public static void main(String args[]) throws Exception {
+//    ReportFHI.generateAndSendReport(false);
+//  }
 }

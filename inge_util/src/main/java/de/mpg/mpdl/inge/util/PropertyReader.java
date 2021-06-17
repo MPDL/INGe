@@ -62,8 +62,6 @@ public class PropertyReader {
   public static final String GFZ_OA_MAIL_DOMAIN = "gfz.oa.mail.domain";
   public static final String GFZ_OA_MAIL_SUBJECT = "gfz.oa.mail.subject";
   public static final String GFZ_OA_MAIL_TEMPLATE = "gfz.oa.mail.template";
-  public static final String INGE_AA_ADMIN_LIVE_PASSWORD = "inge.aa.admin.live.password";
-  public static final String INGE_AA_ADMIN_LIVE_USERNAME = "inge.aa.admin.live.username";
   public static final String INGE_AA_CLIENT_CLASS = "inge.aa.client.class";
   public static final String INGE_AA_CLIENT_FINISH_CLASS = "inge.aa.client.finish.class";
   public static final String INGE_AA_CLIENT_LOGOUT_CLASS = "inge.aa.client.logout.class";
