@@ -51,8 +51,6 @@
 		<inge.index.user.name>new_model_users</inge.index.user.name>
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
-		<inge.index.yearbook.name>db_yearbooks</inge.index.yearbook.name>
-		<inge.index.yearbook.type>yearbook</inge.index.yearbook.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
 		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
 		<inge.pid.handle.url>http://hdl.handle.net/</inge.pid.handle.url>
