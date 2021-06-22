@@ -3,7 +3,7 @@ Bitte prüfen, ob in /src/main/resources die pubman.properties die neueste Kopie
 Bitte prüfen, ob in pom.xml project.parent.version die identische Version aus INGE pom.xml steht !!! 
 
 ANLEITUNG:
-- Index xy anlegen mit Settings und Mapping
+- neuen Index xy anlegen mit Settings und Mapping aus altem Index (mit Admintool)
 
 /home/przibylla/reindex bzw. /home/mpdl/migration_gfz: (GFZ)
 - kopiere reindex.jar
@@ -34,6 +34,9 @@ ANLEITUNG:
     bzw. (GFZ)
     
     GET https://gfzpublic.gfz-potsdam.de/es/_aliases
+
+- Alias des alten Index löschen (mit Admintool)
+- Alias zu neuem Index hinzufügen (mit Admintool)
 
 - Neuaufbau Index:
   sudo -i
