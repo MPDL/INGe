@@ -6,5 +6,3 @@
 
 {"index": {"_index": "new_model_items", "_type": "item"}}
 
-{"index": {"_index": "db_yearbooks", "_type": "yearbook"}}
-
