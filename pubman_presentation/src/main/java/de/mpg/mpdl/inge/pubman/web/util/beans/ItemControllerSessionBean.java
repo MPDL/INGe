@@ -77,7 +77,6 @@ import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
 import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 import de.mpg.mpdl.inge.service.pubman.ItemTransformingService;
 import de.mpg.mpdl.inge.service.pubman.impl.ItemTransformingServiceImpl;
-import de.mpg.mpdl.inge.service.pubman.impl.MatomoStatisticsService;
 import de.mpg.mpdl.inge.service.util.PubItemUtil;
 import de.mpg.mpdl.inge.util.PropertyReader;
 
@@ -262,10 +261,6 @@ public class ItemControllerSessionBean extends FacesBean {
 
   private EditItemSessionBean getEditItemSessionBean() {
     return (EditItemSessionBean) FacesTools.findBean("EditItemSessionBean");
-  }
-
-  public String getStatisticValue() throws Exception {
-    return Integer.toString(MatomoStatisticsService.getTotal4Item(this.currentPubItem.getObjectId()));
   }
 
   /**

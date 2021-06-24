@@ -481,15 +481,6 @@ public class ApplicationBean extends FacesBean {
         this.handlesActivated = false;
       }
 
-      final String footerFileName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FOOTER_FILENAME);
-      try {
-        if (footerFileName != null && !footerFileName.isEmpty()) {
-          this.footerSnippet = ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
-        }
-      } catch (final Exception e) {
-        ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
-      }
-
       this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);
     } catch (final Exception e) {
       ApplicationBean.logger.error("Error while reading properties", e);

@@ -69,7 +69,6 @@ import de.mpg.mpdl.inge.model.valueobjects.metadata.SubjectVO;
 import de.mpg.mpdl.inge.model.xmltransforming.XmlTransformingService;
 import de.mpg.mpdl.inge.pubman.web.DepositorWSPage;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
-import de.mpg.mpdl.inge.pubman.web.ViewItemStatisticsPage;
 import de.mpg.mpdl.inge.pubman.web.basket.PubItemStorageSessionBean;
 import de.mpg.mpdl.inge.pubman.web.batch.PubItemBatchSessionBean;
 import de.mpg.mpdl.inge.pubman.web.breadcrumb.BreadcrumbItemHistorySessionBean;
@@ -179,7 +178,6 @@ public class ViewItemFull extends FacesBean {
   private boolean canViewLocalTags = false;
   // private boolean canManageAudience = false;
   private boolean canShowItemLog = false;
-  private boolean canShowStatistics = false;
   private boolean canShowReleaseHistory = false;
   private boolean canShowLastMessage = false;
 
@@ -547,15 +545,6 @@ public class ViewItemFull extends FacesBean {
     this.getEditItemSessionBean().clean();
 
     return EditItem.LOAD_EDITITEM;
-  }
-
-  /**
-   * Redirects the user to the statistics page.
-   * 
-   * @return String navigation rule to load statistics page
-   */
-  public String showStatistics() {
-    return ViewItemStatisticsPage.LOAD_VIEWSTATISTICS;
   }
 
   /**
@@ -1981,10 +1970,6 @@ public class ViewItemFull extends FacesBean {
       this.canShowItemLog = true;
     }
 
-    if (this.isLatestRelease && !this.isStateWithdrawn) {
-      this.canShowStatistics = true;
-    }
-
     if (this.pubItem != null && (!this.isStateWithdrawn && this.isLatestRelease)
         || (this.isStateWithdrawn && this.pubItem.getVersionNumber() > 1)) {
       this.canShowReleaseHistory = true;
@@ -2063,10 +2048,6 @@ public class ViewItemFull extends FacesBean {
 
   public boolean isCanShowItemLog() {
     return this.canShowItemLog;
-  }
-
-  public boolean isCanShowStatistics() {
-    return this.canShowStatistics;
   }
 
   public boolean isCanShowReleaseHistory() {

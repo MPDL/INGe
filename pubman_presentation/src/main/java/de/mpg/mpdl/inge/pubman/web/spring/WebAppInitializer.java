@@ -17,7 +17,6 @@ import com.sun.faces.config.ConfigureListener;
 import de.mpg.mpdl.inge.pubman.web.util.filter.SitemapFilter;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.GenreServlet;
 import de.mpg.mpdl.inge.pubman.web.util.servlet.RedirectServlet;
-import de.mpg.mpdl.inge.pubman.web.util.servlet.StatisticChartServlet;
 
 public class WebAppInitializer implements WebApplicationInitializer {
   public void onStartup(ServletContext servletContext) throws ServletException {
@@ -48,10 +47,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
     // Sitemap
     FilterRegistration.Dynamic sitemapFilter = servletContext.addFilter("Sitemap Filter", SitemapFilter.class);
     sitemapFilter.addMappingForUrlPatterns(null, false, "/*");
-
-    // Statistic Servlet
-    ServletRegistration statisticChartServlet = servletContext.addServlet("Statistic Chart Servlet", StatisticChartServlet.class);
-    statisticChartServlet.addMapping("/statisticchart/*");
 
     // Genre Servlet
     ServletRegistration.Dynamic genreServlet = servletContext.addServlet("Genre Servlet", GenreServlet.class);

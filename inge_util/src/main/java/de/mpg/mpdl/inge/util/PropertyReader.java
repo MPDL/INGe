@@ -134,10 +134,6 @@ public class PropertyReader {
   public static final String INGE_INDEX_USER_TYPE = "inge.index.user.type";
   public static final String INGE_JWT_SHARED_SECRET = "inge.jwt.shared-secret";
   public static final String INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH = "inge.logic.temporary_filesystem_root_path";
-  public static final String INGE_MATOMO_ANALYTICS_AUTH_TOKEN = "inge.matomo.analytics.auth.token";
-  public static final String INGE_MATOMO_ANALYTICS_BASE_URI = "inge.matomo.analytics.base.uri";
-  public static final String INGE_MATOMO_ANALYTICS_SITE_ID = "inge.matomo.analytics.site.id";
-  public static final String INGE_MATOMO_TRACKER_USE = "inge.matomo.tracker.use";
   public static final String INGE_PID_HANDLE_SHORT = "inge.pid.handle.short";
   public static final String INGE_PID_HANDLE_URL = "inge.pid.handle.url";
   public static final String INGE_PID_SERVICE_CREATE_PATH = "inge.pid.service.create.path";
@@ -154,7 +150,6 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_EXTERNAL_ORGANISATION_ID = "inge.pubman.external.organisation.id";
   public static final String INGE_PUBMAN_FAVICON_APPLY = "inge.pubman.favicon.apply";
   public static final String INGE_PUBMAN_FAVICON_URL = "inge.pubman.favicon.url";
-  public static final String INGE_PUBMAN_FOOTER_FILENAME = "inge.pubman.footer.fileName";
   public static final String INGE_PUBMAN_GENRES_CONFIGURATION = "inge.pubman.genres.configuration";
   public static final String INGE_PUBMAN_HELP_URL = "inge.pubman.help.url";
   public static final String INGE_PUBMAN_HOME_CONTENT_URL = "inge.pubman.home.content.url";
