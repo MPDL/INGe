@@ -1,4 +1,4 @@
--- This script is running during every startup and creates the tables which are not automically created by Hibernate's automatic schema generation DDL
+-- This script is running during every startup and creates the tables which are not automatically created by Hibernate's automatic schema generation DDL
 
 -- ID Provider
 CREATE TABLE IF NOT EXISTS id_provider (
