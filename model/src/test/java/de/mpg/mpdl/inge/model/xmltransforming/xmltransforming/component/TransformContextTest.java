@@ -142,43 +142,6 @@ public class TransformContextTest extends TestBase {
    * @throws Exception Any exception.
    */
   @Test
-  @Ignore("New SearchRetrieveresponse")
-  public void testTransformToContextList() throws Exception {
-    logger.info("## testTransformToContextList ##");
-    // read pubCollection list [XML] from file
-    String contextList = readFile(CONTEXT_LIST_SAMPLE_FILE);
-    assertNotNull(contextList);
-
-    logger.info("contextList:" + contextList);
-
-    // transform the list to a List<ContextVO>
-    List<ContextVO> contextVOList = XmlTransformingService.transformToContextList(contextList);
-    assertNotNull(contextVOList);
-
-    // check results
-    assertEquals(2, contextVOList.size());
-    ContextVO expectedPubCollection = getExpectedContextFull();
-    for (ContextVO pubCollection : contextVOList) {
-      assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
-
-      ObjectComparator oc = new ObjectComparator(expectedPubCollection, pubCollection);
-      assertTrue(oc.toString(), oc.isEqual());
-    }
-    List<ContextVO> expectedPubCollectionList = new ArrayList<ContextVO>();
-    expectedPubCollectionList.add(expectedPubCollection);
-    expectedPubCollectionList.add(expectedPubCollection);
-    ObjectComparator oc = new ObjectComparator(expectedPubCollectionList, contextVOList);
-    assertTrue(oc.toString(), oc.isEqual());
-  }
-
-  /**
-   * Test for {@link XmlTransforming#transformToPubCollectionList(String)}. Reads list of
-   * pubCollections [XML] from file, transforms the list to a {@link List&lt;ContextVO>} and checks
-   * the results.
-   * 
-   * @throws Exception Any exception.
-   */
-  @Test
   public void testTransformToContextListSearchRetrieve() throws Exception {
     logger.info("## testTransformToContextListSearchRetrieve ##");
     // read pubCollection list [XML] from file

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<application>
-	<display-name>eSciDoc common logic</display-name>
-	<description>eSciDoc common logic</description>
-	<module>
-		<jar>common_logic.jar</jar>
-	</module>
-</application>
