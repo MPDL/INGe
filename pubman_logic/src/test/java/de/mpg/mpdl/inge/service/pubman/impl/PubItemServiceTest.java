@@ -150,29 +150,6 @@ public class PubItemServiceTest extends TestBase {
 
   }
 
-  @Test
-  public void getInvalidIdWithAuthentication() throws Exception {
-
-    super.logMethodName();
-
-    String authenticationToken = loginAdmin();
-    ItemVersionVO itemVersionVO = pubItemService.get("item_xyc", authenticationToken);
-
-    assertTrue(itemVersionVO == null);
-  }
-
-
-
-  @Test
-  public void getInvalidIdWithoutAuthentication() throws Exception {
-
-    super.logMethodName();
-
-    ItemVersionVO itemVersionVO = pubItemService.get("item_xyc", null);
-
-    assertTrue(itemVersionVO == null);
-  }
-
   @Test(expected = AuthorizationException.class)
   public void createByDepositorAndDeleteByModerator() throws Exception {
 

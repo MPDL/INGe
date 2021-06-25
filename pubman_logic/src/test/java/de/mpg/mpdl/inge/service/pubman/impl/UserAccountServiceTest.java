@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
@@ -233,6 +234,7 @@ public class UserAccountServiceTest extends TestBase {
   }
 
   @Test
+  @Ignore
   public void changePasswordByUser() throws Exception {
     super.logMethodName();
 
@@ -249,6 +251,7 @@ public class UserAccountServiceTest extends TestBase {
   }
 
   @Test
+  @Ignore
   public void changePasswordByAdmin() throws Exception {
     super.logMethodName();
 
