@@ -61,9 +61,7 @@
 										action="#{ViewItemFull.showItemLog}"
 										rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isOwner || ViewItemFull.isModerator)}">
 										<h:outputText value="#{lbl.ViewItemLogPage}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
+									</h:commandLink><h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewLocalVersions"
 										styleClass="free_area0"

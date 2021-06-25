@@ -80,8 +80,6 @@
 										<h:outputText value="#{lbl.ViewItemLogPage}" />
 									</h:commandLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:outputLink id="lnkViewItemReleaseHistoryVersions"
 										styleClass="free_area0 actual" value="#contentSkipLinkAnchor">
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}" />

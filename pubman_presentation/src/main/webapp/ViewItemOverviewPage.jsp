@@ -264,7 +264,7 @@
 										action="#{ViewItemFull.showItemLog}"
 										rendered="#{ViewItemFull.canShowItemLog}">
 										<h:outputText value="#{lbl.ViewItemLogPage}" />
-									<h:panelGroup styleClass="seperator"
+									</h:commandLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowReleaseHistory}" /> <h:commandLink
 										id="lnkViewItemFull_btnItemVersions" styleClass="free_area0"
 										action="#{ViewItemFull.showReleaseHistory}"

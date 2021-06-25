@@ -79,8 +79,6 @@
 										<h:outputText value="#{lbl.ViewItemLogPage}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewItemLogPageHistory"
 										styleClass="free_area0"
 										action="#{ViewItemFull.showReleaseHistory}"

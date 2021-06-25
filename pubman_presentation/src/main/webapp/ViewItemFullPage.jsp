@@ -270,7 +270,7 @@
 										rendered="#{ViewItemFull.canViewLocalTags}">
 										<h:outputText
 											value="#{lbl.ViewItemFull_lblSubHeaderLocalTags}" />
-									</h:outputLink>  <h:panelGroup styleClass="seperator"
+									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.canShowItemLog}" /> <h:commandLink
 										id="lnkViewItemLogPage" styleClass="free_area0"
 										action="#{ViewItemFull.showItemLog}"
