@@ -84,12 +84,6 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.mpdl.inge.model.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationFieldVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationIndexVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.AggregationTableVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportDefinitionVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.mpdl.inge.model.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongDateException;
 import de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.exceptions.WrongEnumException;
 
@@ -313,18 +307,6 @@ public class JiBXHelper {
     return new ArrayList<AllowedRolesRO>();
   }
 
-  public static List<AggregationTableVO> aggregationTableListFactory() {
-    return new ArrayList<AggregationTableVO>();
-  }
-
-  public static List<AggregationIndexVO> aggregationIndexListFactory() {
-    return new ArrayList<AggregationIndexVO>();
-  }
-
-  public static List<AggregationFieldVO> aggregationFieldListFactory() {
-    return new ArrayList<AggregationFieldVO>();
-  }
-
   /**
    * Factory method to create a {@link ArrayList} as the implementation of a {@link List}.
    * 
@@ -440,36 +422,6 @@ public class JiBXHelper {
     return new ArrayList<AbstractVO>();
   }
 
-
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;StatisticReportRecordVO></code> as the
-   * implementation of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;StatisticReportRecordVO></code>
-   */
-  public static List<StatisticReportRecordVO> statisticReportRecordVOListFactory() {
-    return new ArrayList<StatisticReportRecordVO>();
-  }
-
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;StatisticReportRecordParamVO></code> as
-   * the implementation of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;StatisticReportRecordParamVO></code>
-   */
-  public static List<StatisticReportRecordParamVO> statisticReportRecordParamVOListFactory() {
-    return new ArrayList<StatisticReportRecordParamVO>();
-  }
-
-  /**
-   * Factory method to create a <code>java.util.ArrayList&lt;StatisticReportDefinitionVO></code> as
-   * the implementation of a <code>java.util.List</code>.
-   * 
-   * @return A new <code>java.util.ArrayList&lt;StatisticReportDefinitionVO></code>
-   */
-  public static List<StatisticReportDefinitionVO> statisticReportDefinitionVOListFactory() {
-    return new ArrayList<StatisticReportDefinitionVO>();
-  }
 
   /**
    * Factory method to create a <code>java.util.ArrayList&lt;SubjectVO></code> as the implementation

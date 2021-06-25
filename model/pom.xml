@@ -64,12 +64,9 @@
 						<includeSchemaBinding>bindings_FileURL.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_ExportFormat.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_Grant.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_StatisticReportVO.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_StatisticRecordVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_TocItemVO_input.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_TocItemVO_output.xml</includeSchemaBinding>
 						<includeSchemaBinding>bindings_SearchResultVO_input.xml</includeSchemaBinding>
-						<includeSchemaBinding>bindings_StatisticAggregationVO.xml</includeSchemaBinding>
 						<includeSchemaBinding>jibx_generated/binding.xml</includeSchemaBinding>
 					</includeSchemaBindings>
 				</configuration>

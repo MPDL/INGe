@@ -1282,11 +1282,6 @@
 		<xsd.soap.role.role>http://www.escidoc.de/schemas/role/0.5</xsd.soap.role.role>
 		<xsd.soap.searchRetrieveResponse>http://www.loc.gov/zing/srw/</xsd.soap.searchRetrieveResponse>
 		<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.8</xsd.soap.searchresult.searchresult>
-		<xsd.soap.statistic.aggregation-definition>http://www.escidoc.de/schemas/aggregationdefinition/0.4</xsd.soap.statistic.aggregation-definition>
-		<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.4</xsd.soap.statistic.report>
-		<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.4</xsd.soap.statistic.reportdefinition>
-		<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.4</xsd.soap.statistic.reportdefinitionlist>
-		<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.4</xsd.soap.statistic.reportparameters>
 		<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 		<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 		<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.5</xsd.soap.useraccount.grants>
