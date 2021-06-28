@@ -1171,10 +1171,6 @@
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
-		<inge.pubman.survey.styles />
-		<inge.pubman.survey.text />
-		<inge.pubman.survey.title />
-		<inge.pubman.survey.url />
 		<inge.pubman_presentation.overview_page.authors_ou />
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br />Please be aware that example values in particular might not be fully correct.<br />Valid examples can be found in <a href="https://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank" rel="noreferrer noopener">MPDL CoLab</a>.]]></inge.rest.api.description>

@@ -180,10 +180,6 @@ public class PropertyReader {
   //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_APPLY = "inge.pubman.stylesheet.standard.apply";
   //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_TYPE = "inge.pubman.stylesheet.standard.type";
   //  public static final String INGE_PUBMAN_STYLESHEET_STANDARD_URL = "inge.pubman.stylesheet.standard.url";
-  public static final String INGE_PUBMAN_SURVEY_STYLES = "inge.pubman.survey.styles";
-  public static final String INGE_PUBMAN_SURVEY_TEXT = "inge.pubman.survey.text";
-  public static final String INGE_PUBMAN_SURVEY_TITLE = "inge.pubman.survey.title";
-  public static final String INGE_PUBMAN_SURVEY_URL = "inge.pubman.survey.url";
   public static final String INGE_REST_API_DESCRIPTION = "inge.rest.api.description";
   public static final String INGE_REST_DEVELOPMENT_ADMIN_PASSWORD = "inge.rest.development.admin.password";
   public static final String INGE_REST_DEVELOPMENT_ADMIN_USERNAME = "inge.rest.development.admin.username";

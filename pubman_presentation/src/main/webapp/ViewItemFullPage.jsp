@@ -230,27 +230,6 @@
                                     </h2>
                                     <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}" />
                                 </h:panelGroup>
-                                <!-- Survey link -->
-                                <h:panelGroup layout="block" style="margin-top:1em;" rendered="#{not empty HomePage.surveyUrl}">
-                                    <div class="xHuge_area2_p6 messageArea">
-                                        <span class="half_area0">
-											<h2>
-												<h:outputText value="#{HomePage.surveyTitle}" />
-											</h2>
-										</span>
-                                        <span class="huge_area0"> <h:outputText	value="#{HomePage.surveyText}" />
-										</span>
-                                        <span class="free_area0">
-											<div class="medium_area2_p6 small_marginLExcl">
-												<h:outputLink styleClass="activeButton"
-													value="#{HomePage.surveyUrl}" title="User Survey"
-													target="_blank" rel="noreferrer noopener">
-													<h:outputText value="User Survey" />
-												</h:outputLink>
-											</div>
-										</span>
-                                    </div>
-                                </h:panelGroup>
                                 <!-- Subheadline ends here -->
                             </div>
                         </div>

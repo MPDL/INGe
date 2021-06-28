@@ -93,64 +93,6 @@ public class HomePage extends BreadcrumbPage {
     return url;
   }
 
-  /**
-   * Reads the survey URL from the properties file.
-   * 
-   * @return policyUrl as String
-   */
-  public String getSurveyUrl() {
-    String url = "";
-    try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_URL);
-    } catch (final Exception e) {
-      HomePage.logger.error("Could not read property: 'inge.pubman.survey.url' from properties file.", e);
-    }
-
-    return url;
-  }
-
-  /**
-   * Reads the survey Title from the properties file.
-   */
-  public String getSurveyTitle() {
-    String url = "";
-    try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_TITLE);
-    } catch (final Exception e) {
-      HomePage.logger.error("Could not read property: 'inge.pubman.survey.title' from properties file.", e);
-    }
-
-    return url;
-  }
-
-  /**
-   * Reads the survey ToolTip from the properties file.
-   */
-  public String getSurveyText() {
-    String url = "";
-    try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_TEXT);
-    } catch (final Exception e) {
-      HomePage.logger.error("Could not read property: 'inge.pubman.survey.text' from properties file.", e);
-    }
-
-    return url;
-  }
-
-  /**
-   * Reads the survey styles from the properties file.
-   */
-  public String getSurveyStyles() {
-    String url = "";
-    try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_SURVEY_STYLES);
-    } catch (final Exception e) {
-      HomePage.logger.error("Could not read property: 'inge.pubman.survey.styles' from properties file.", e);
-    }
-
-    return url;
-  }
-
   public boolean isDepositor() {
     return this.getLoginHelper().getIsDepositor();
   }
