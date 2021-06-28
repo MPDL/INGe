@@ -24,11 +24,11 @@
 						id="lnkCitationURLItemPid"
 						value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.object.objectPid)}"
 						title="#{tip.ViewItemFull_lblCiteItemAs}"
-						rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.object.objectPid != null}">
+						rendered="#{ApplicationBean.pidHandleActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.object.objectPid != null}">
 						<h:outputText
 							value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.object.objectPid)}" />
 					</h:outputLink> <h:outputText value="#{lbl.lbl_noEntry}"
-						rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.handlesActivated and ViewItemFull.pubItem.object.objectPid == null)}" />
+						rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.pidHandleActivated and ViewItemFull.pubItem.object.objectPid == null)}" />
 				</span> <b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText
 						value="#{lbl.ViewItemFull_lblCiteItemVersionAs}" /><span
 					class="noDisplay">: </span>
@@ -36,15 +36,15 @@
 						id="lnkCitationURLVersionPid"
 						value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.versionPid)}"
 						title="#{tip.ViewItemFull_lblCiteItemVersionAs}"
-						rendered="#{ApplicationBean.handlesActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.versionPid != null}">
+						rendered="#{ApplicationBean.pidHandleActivated and ViewItemFull.isStateReleased and ViewItemFull.pubItem.versionPid != null}">
 						<h:outputText
 							value="#{ViewItemFull.resolveHandleService}#{UtilBean.getPidWithoutPrefix(ViewItemFull.pubItem.versionPid)}" />
 					</h:outputLink> <h:outputLink id="lnkCitationURL"
 						value="#{ViewItemFull.citationURL}"
-						rendered="#{!ApplicationBean.handlesActivated and ViewItemFull.isStateReleased}">
+						rendered="#{!ApplicationBean.pidHandleActivated and ViewItemFull.isStateReleased}">
 						<h:outputText value="#{ViewItemFull.citationURL}" />
 					</h:outputLink> <h:outputText value="#{lbl.lbl_noEntry}"
-						rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.handlesActivated and ViewItemFull.pubItem.versionPid == null)}" />
+						rendered="#{!ViewItemFull.isStateReleased or (ApplicationBean.pidHandleActivated and ViewItemFull.pubItem.versionPid == null)}" />
 				</span>
 			</div>
 			<!-- Genre -->

@@ -1086,7 +1086,6 @@
 		<inge.aa.login.jsp>login_inge.jsp</inge.aa.login.jsp>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
-		<inge.alternative.moderator.email>pure-support@listsrv.mpg.de</inge.alternative.moderator.email>
 		<inge.auth.mpg.ip.csv.url />
 		<inge.auth.mpg.ip.json.url />
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
@@ -1115,6 +1114,7 @@
 		<inge.database.jdbc.url.test>jdbc:postgresql://localhost:5432/inge_test</inge.database.jdbc.url.test>
 		<inge.doi.service.create.url>/doxi/rest/doi</inge.doi.service.create.url>
 		<inge.doi.service.use>true</inge.doi.service.use>
+		<inge.email.alternative.moderator>pure-support@listsrv.mpg.de</inge.email.alternative.moderator>
 		<inge.email.mailservername>mx04.mpdl.mpg.de</inge.email.mailservername>
 		<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
 		<inge.email.sender>pubman@mpdl.mpg.de</inge.email.sender>
@@ -1126,7 +1126,6 @@
 		<inge.filestorage.filesystem_path>/standalone/data/inge_files/</inge.filestorage.filesystem_path>
 		<inge.filestorage.oai.filesystem_path>/standalone/data/inge_oai_files/</inge.filestorage.oai.filesystem_path>
 		<inge.filestorage.seaweed_direct_submit_path>/submit</inge.filestorage.seaweed_direct_submit_path>
-		<inge.handles.activated>true</inge.handles.activated>
 		<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
 		<inge.import.sources.xml>resources/sources.xml</inge.import.sources.xml>
 		<inge.index.context.name>contexts</inge.index.context.name>
@@ -1142,6 +1141,7 @@
 		<inge.index.user.sort>name.keyword</inge.index.user.sort>
 		<inge.index.user.type>user</inge.index.user.type>
 		<inge.logic.temporary_filesystem_root_path>/standalone/data/inge_tmp_files/</inge.logic.temporary_filesystem_root_path>
+		<inge.pid.handle.activated>true</inge.pid.handle.activated>
 		<inge.pid.handle.short>hdl:</inge.pid.handle.short>
 		<inge.pid.handle.url>http://hdl.handle.net/</inge.pid.handle.url>
 		<inge.pid.service.create.path>/doxi/rest/pid/create</inge.pid.service.create.path>
@@ -1327,7 +1327,6 @@
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
 				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
-				<inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1339,6 +1338,7 @@
 				<inge.doi.service.create.url />
 				<inge.doi.service.url />
 				<inge.doi.service.use>false</inge.doi.service.use>
+				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
 				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
 				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
 				<inge.es.cluster.name.test />
@@ -1382,7 +1382,6 @@
                 <gfz.oa.mail.subject />
                 <gfz.oa.mail.template />
                 <inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
-                <inge.alternative.moderator.email>bib@gfz-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
                 <inge.auth.mpg.ip.json.url />
                 <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1394,6 +1393,7 @@
                 <inge.doi.service.create.url />
                 <inge.doi.service.url />
                 <inge.doi.service.use>false</inge.doi.service.use>
+                <inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
                 <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
                 <inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
                 <inge.es.cluster.name.test />
@@ -1438,7 +1438,6 @@
                 <gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
                 <gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
                 <inge.aa.login.jsp>login_inge_pik.jsp</inge.aa.login.jsp>
-                <inge.alternative.moderator.email>library@pik-potsdam.de</inge.alternative.moderator.email>
                 <inge.auth.mpg.ip.csv.url />
                 <inge.auth.mpg.ip.json.url />
                 <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1450,6 +1449,7 @@
                 <inge.doi.service.create.url />
                 <inge.doi.service.url />
                 <inge.doi.service.use>false</inge.doi.service.use>
+                <inge.email.alternative.moderator>library@pik-potsdam.de</inge.email.alternative.moderator>
                 <inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
                 <inge.email.sender>library@pik-potsdam.de</inge.email.sender>
                 <inge.es.cluster.name.test />

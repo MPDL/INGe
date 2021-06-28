@@ -114,7 +114,7 @@ public class ApplicationBean extends FacesBean {
   private String version = null;
   private String buildDate = null;
 
-  private boolean handlesActivated;
+  private boolean handleActivated;
 
   @ManagedProperty("#{contextServiceDbImpl}")
   private ContextService contextService;
@@ -427,8 +427,8 @@ public class ApplicationBean extends FacesBean {
     return this.userAccountService;
   }
 
-  public boolean isHandlesActivated() {
-    return this.handlesActivated;
+  public boolean isHandleActivated() {
+    return this.handleActivated;
   }
 
   private void loadProperties() {
@@ -475,10 +475,10 @@ public class ApplicationBean extends FacesBean {
       }
 
       try {
-        this.handlesActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_HANDLES_ACTIVATED));
+        this.handleActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_ACTIVATED));
       } catch (final Exception e) {
         ApplicationBean.logger.error("Error reading property 'inge.handles.activated'", e);
-        this.handlesActivated = false;
+        this.handleActivated = false;
       }
 
       this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);

@@ -1747,7 +1747,7 @@ public class ViewItemFull extends FacesBean {
     String contactEmail = "";
     contactEmail = this.getContext().getContactEmail();
     if (contactEmail == null || contactEmail.trim().equals("")) {
-      contactEmail = PropertyReader.getProperty(PropertyReader.INGE_ALTERNATIVE_MODERATOR_EMAIL);
+      contactEmail = PropertyReader.getProperty(PropertyReader.INGE_EMAIL_ALTERNATIVE_MODERATOR);
     }
 
     return contactEmail;

@@ -71,7 +71,6 @@ public class PropertyReader {
   public static final String INGE_AA_LOGIN_JSP = "inge.aa.login.jsp";
   public static final String INGE_AA_PRIVATE_KEY_FILE = "inge.aa.private.key.file";
   public static final String INGE_AA_PUBLIC_KEY_FILE = "inge.aa.public.key.file";
-  public static final String INGE_ALTERNATIVE_MODERATOR_EMAIL = "inge.alternative.moderator.email";
   public static final String INGE_AUTH_MPG_JSON_IP_LIST_URL = "inge.auth.mpg.ip.json.url";
   public static final String INGE_AUTH_MPG_CSV_IP_LIST_URL = "inge.auth.mpg.ip.csv.url";
   public static final String INGE_AUTH_MPG_IP_LIST_USE = "inge.auth.mpg.ip.use";
@@ -105,6 +104,7 @@ public class PropertyReader {
   public static final String INGE_DOI_SERVICE_URL = "inge.doi.service.url";
   public static final String INGE_DOI_SERVICE_USE = "inge.doi.service.use";
   public static final String INGE_DOI_SERVICE_USER = "inge.doi.service.user";
+  public static final String INGE_EMAIL_ALTERNATIVE_MODERATOR = "inge.email.alternative.moderator";
   public static final String INGE_EMAIL_AUTHENTICATIONPWD = "inge.email.authenticationpwd";
   public static final String INGE_EMAIL_AUTHENTICATIONUSER = "inge.email.authenticationuser";
   public static final String INGE_EMAIL_MAILSERVERNAME = "inge.email.mailservername";
@@ -117,7 +117,6 @@ public class PropertyReader {
   public static final String INGE_FILESTORAGE_OAI_FILESYSTEM_PATH = "inge.filestorage.oai.filesystem_path";
   public static final String INGE_FILESTORAGE_SEAWEED_DIRECT_SUBMIT_PATH = "inge.filestorage.seaweed_direct_submit_path";
   public static final String INGE_FILESTORAGE_SEAWEED_MASTER_SERVER_IP = "inge.filestorage.seaweed_master_server_ip";
-  public static final String INGE_HANDLES_ACTIVATED = "inge.handles.activated";
   public static final String INGE_ID_TYPES_TO_DISPLAY = "inge.id.types.to.display";
   public static final String INGE_IMPORT_SOURCES_XML = "inge.import.sources.xml";
   public static final String INGE_INDEX_CONTEXT_NAME = "inge.index.context.name";
@@ -134,6 +133,7 @@ public class PropertyReader {
   public static final String INGE_INDEX_USER_TYPE = "inge.index.user.type";
   public static final String INGE_JWT_SHARED_SECRET = "inge.jwt.shared-secret";
   public static final String INGE_LOGIC_TEMPORARY_FILESYSTEM_ROOT_PATH = "inge.logic.temporary_filesystem_root_path";
+  public static final String INGE_PID_HANDLE_ACTIVATED = "inge.pid.handle.activated";
   public static final String INGE_PID_HANDLE_SHORT = "inge.pid.handle.short";
   public static final String INGE_PID_HANDLE_URL = "inge.pid.handle.url";
   public static final String INGE_PID_SERVICE_CREATE_PATH = "inge.pid.service.create.path";
