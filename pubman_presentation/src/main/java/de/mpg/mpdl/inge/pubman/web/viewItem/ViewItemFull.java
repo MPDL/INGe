@@ -1864,7 +1864,7 @@ public class ViewItemFull extends FacesBean {
         expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.APA_CJK.getCitationName());
       } else {
         boolean coneCitationStyles =
-            Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CONE_CITATION_STYLES_USE));
+            Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CITATION_STYLE_USE));
         if (coneCitationStyles) {
           expFormat = new ExportFormatVO(FileFormatVO.HTML_PLAIN_NAME, CitationTypes.GFZPUBLISTS.getCitationName());
         } else {
