@@ -56,7 +56,7 @@ import org.apache.log4j.Logger;
 public class PropertyReader {
   private static final Logger logger = Logger.getLogger(PropertyReader.class);
 
-  public static final String GFZ_CONE_CITATION_STYLES_USE = "gfz.citation.styles.use";
+  public static final String GFZ_CITATION_STYLE_USE = "gfz.citation.style.use";
   public static final String GFZ_CONE_RESET_USE = "gfz.cone.reset.use"; // used in cone_presentation -> reset.jsp
   public static final String GFZ_OA_MAIL_ADRESS = "gfz.oa.mail.adress";
   public static final String GFZ_OA_MAIL_DOMAIN = "gfz.oa.mail.domain";

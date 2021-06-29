@@ -121,12 +121,12 @@ public class ExportItems extends FacesBean {
     final SelectItem EXPORTFORMAT_GFZPUBLISTS =
         new SelectItem(TransformerFactory.CitationTypes.GFZPUBLISTS.getCitationName(), this.getLabel("Export_ExportFormat_GFZPUBLISTS"));
 
-    boolean coneCitationStyles =
-        Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CONE_CITATION_STYLES_USE));
+    boolean coneCitationStyle =
+        Boolean.TRUE.toString().equalsIgnoreCase(PropertyReader.getProperty(PropertyReader.GFZ_CITATION_STYLE_USE));
 
     final SelectItem[] FILEFORMAT_OPTIONS;
 
-    if (coneCitationStyles) {
+    if (coneCitationStyle) {
       FILEFORMAT_OPTIONS = new SelectItem[] { //
           EXPORTFORMAT_APA, //
           EXPORTFORMAT_APA_CJK, // 

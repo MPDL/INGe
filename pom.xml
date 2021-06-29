@@ -1320,7 +1320,7 @@
 			<properties>
 				<escidoc.framework_access.framework.url />
 				<escidoc.framework_access.login.url />
-				<gfz.citation.styles.use>true</gfz.citation.styles.use>
+				<gfz.citation.style.use>true</gfz.citation.style.use>
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
 				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
 				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
@@ -1375,7 +1375,7 @@
             <properties>
                 <escidoc.framework_access.framework.url />
                 <escidoc.framework_access.login.url />
-                <gfz.citation.styles.use>true</gfz.citation.styles.use>
+                <gfz.citation.style.use>true</gfz.citation.style.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress />
                 <gfz.oa.mail.domain />
@@ -1431,7 +1431,7 @@
             <properties>
                 <escidoc.framework_access.framework.url />
                 <escidoc.framework_access.login.url />
-                <gfz.citation.styles.use>true</gfz.citation.styles.use>
+                <gfz.citation.style.use>true</gfz.citation.style.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
                 <gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
