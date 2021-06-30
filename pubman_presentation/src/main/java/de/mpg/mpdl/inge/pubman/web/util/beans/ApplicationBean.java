@@ -114,7 +114,7 @@ public class ApplicationBean extends FacesBean {
   private String version = null;
   private String buildDate = null;
 
-  private boolean handleActivated;
+  private boolean pidHandleActivated;
 
   @ManagedProperty("#{contextServiceDbImpl}")
   private ContextService contextService;
@@ -427,8 +427,8 @@ public class ApplicationBean extends FacesBean {
     return this.userAccountService;
   }
 
-  public boolean isHandleActivated() {
-    return this.handleActivated;
+  public boolean isPidHandleActivated() {
+    return this.pidHandleActivated;
   }
 
   private void loadProperties() {
@@ -474,12 +474,7 @@ public class ApplicationBean extends FacesBean {
         this.additionalLogoCss = "";
       }
 
-      try {
-        this.handleActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_ACTIVATED));
-      } catch (final Exception e) {
-        ApplicationBean.logger.error("Error reading property 'inge.handles.activated'", e);
-        this.handleActivated = false;
-      }
+      this.pidHandleActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_ACTIVATED));
 
       this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);
     } catch (final Exception e) {
