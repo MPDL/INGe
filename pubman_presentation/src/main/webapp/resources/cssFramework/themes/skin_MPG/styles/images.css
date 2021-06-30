@@ -103,19 +103,6 @@
     background-position: center center;
 }
 
-/*
- .quickSearchIcon:hover, .quickSearchIcon:focus {
- background-image: url('../images/All_Search_LensStart_15_Hover.png');
- background-repeat: no-repeat;
- background-position: center center;
- }
- 
- .quickSearchIcon:disabled {
- background-image: url('../images/All_Search_LensStart_15_Deactivated.png');
- background-repeat: no-repeat;
- background-position: center center;
- }
- */
 /* GLOBAL IMAGE CLASS */
 .min_imgBtn {
     padding: 0.1818em;
@@ -164,7 +151,6 @@ body {
 }
 
 body .wrapper {
-    /*	background: url("../images/mpg_bg_head_wrapper_100.png") no-repeat scroll left top; */
     background-image: url("../images/mpg_bg_head_wrapper_80.png");
     background-repeat: no-repeat !important;
 }
@@ -318,7 +304,6 @@ body .wrapper {
 
 /*LIST COMPONENT*/
 .itemList, .tiledList, .fullItem {
-    /*	background:url("../images/all_ramp_list.png") scroll left top; */
     background: none;
 }
 
@@ -749,37 +734,37 @@ body .wrapper {
 }
 
 .assign {
-    background-image: url('../images/Virr_Work_Assign_31_Active.gif');
+    background-image: url('../images/Virr_Work_Assign_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .assign:hover, .assign:focus {
-    background-image: url('../images/Virr_Work_Assign_31_Hover.gif');
+    background-image: url('../images/Virr_Work_Assign_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .assign:disabled {
-    background-image: url('../images/Virr_Work_Assign_31_Deactivated.gif');
+    background-image: url('../images/Virr_Work_Assign_15_Deactivated.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .unassign {
-    background-image: url('../images/Virr_Work_Assign_31_Active.gif');
+    background-image: url('../images/Virr_Work_Assign_15_Active.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .unassign:hover, .unassign:focus {
-    background-image: url('../images/Virr_Work_Assign_31_Hover.gif');
+    background-image: url('../images/Virr_Work_Assign_15_Hover.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .unassign:disabled {
-    background-image: url('../images/Virr_Work_Assign_31_Deactivated.gif');
+    background-image: url('../images/Virr_Work_Assign_15_Deactivated.gif');
     background-repeat: no-repeat;
     background-position: center center;
 }

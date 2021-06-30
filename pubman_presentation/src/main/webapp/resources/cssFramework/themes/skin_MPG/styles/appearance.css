@@ -195,10 +195,6 @@ a:disabled {
 	cursor: default;
 	color: #888B8B;
 }
-/* TEXT DECORATION FOR ALL LINKS WITH one or more CLASS-ATTRIBUTE - e.g. images */
-/*a[class] { 
-	text-decoration:none;
-}*/
 /***TEXTAREA***/
 textarea {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -308,23 +304,6 @@ body .wrapper {
 	margin: -1.5454em 0 0 0;
 	background-color: #006F7B;
 }
-/*
-.metaMenu .selectContainer:hover {
-	background-image:url("../images/BG_MainNavi_hover_bold.png");
-	background-repeat:no-repeat;
-	background-position:0.1818em;
-}
-.metaMenu .selectContainer:focus {
-	background-image:url("../images/BG_MainNavi_hover_bold.png");
-	background-repeat:no-repeat;
-	background-position:0.1818em;
-}
-.metaMenu .selectContainer:active {
-	background-image:url("../images/BG_MainNavi_hover_bold.png");
-	background-repeat:no-repeat;
-	background-position:0.1818em;
-}
-*/
 /***MAIN MENU***/
 .mainMenu {
 	color: #FFFFFF;
@@ -576,15 +555,6 @@ body .wrapper {
 	    cursor: default;*/
 	text-decoration: underline;
 }
-/*  - declared the current page == not needed because of pageBrowser :disbled settings
-.pageBrowser .actual:hover {
-    color: #012846;
-    cursor: pointer;
-}
-.pageBrowser .actual:focus {
-    color: #012846;
-    cursor: pointer;
-}*/
 /*EXT. PAGINATOR*/
 .paginatorFallbackGoBtn {
 	background-color: #FFFFFF;
@@ -755,14 +725,6 @@ body .wrapper {
 	background-color: #BADF4A;
 	border-color: #006F7B !important;
 }
-/***** ITEM HEADER *****/
-/*
-.itemHeader .itemHeadline {
-	padding: 0 0 0.3636em 0 !important;
-	margin-top:0.2727em;
-	margin-left:0.7272em;
-}
-*/
 /***** ITEM BLOCK *****/
 .itemBlock .voidBlock {
 	color: #B0B1B1;
