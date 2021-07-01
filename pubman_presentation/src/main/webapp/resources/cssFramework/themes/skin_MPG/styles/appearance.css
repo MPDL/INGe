@@ -107,6 +107,7 @@ body {
 h1 {
 	color: #468EA2;
 }
+
 h6 {
 	color: #888B8B;
 	margin: 0px;
@@ -120,13 +121,16 @@ button {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: #000000;
 }
+
 button:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
 button:focus {
 	text-decoration: underline;
 }
+
 button:disabled {
 	cursor: default;
 	color: #888B8B;
@@ -139,31 +143,39 @@ input {
 	border-style: solid;
 	border-color: #9FAFAE;
 }
+
 input:disabled {
 	cursor: default;
 	color: #888B8B;
 }
+
 input[type="button"]:hover {
 	cursor: pointer;
 }
+
 input[type="submit"]:hover {
 	cursor: pointer;
 }
+
 input[type="reset"]:hover {
 	cursor: pointer;
 }
+
 input[type="text"] {
 	background-color: #F3F5F5;
 	vertical-align: baseline;
 }
+
 input[type="file"] {
 	background-color: #F3F5F5;
 	border-bottom-color: #000000;
 	border-right-color: #000000;
 }
+
 input.numberLabel {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+
 input[type="radio"] {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
@@ -175,22 +187,27 @@ a {
 	color: #004465;
 	text-decoration: none;
 }
+
 a:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
 a:focus {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
 a:active {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
 a:visited {
 	color: #004465;
 	text-decoration: none;
 }
+
 a:disabled {
 	cursor: default;
 	color: #888B8B;
@@ -216,11 +233,13 @@ select {
 body .footer {
 	display: none;
 }
+
 .footer .metaMenu a {
 	float: left;
 	background-color: transparent;
 	color: #3A3B3B;
 }
+
 .footer .metaMenu .seperator {
 	float: left;
 	background-color: #006F7B;
@@ -244,30 +263,38 @@ body .wrapper {
 .metaMenu {
 	height: 3.9091em;
 }
+
 .metaMenu button {
 	font-size: 100%;
 	background-color: #006F7B;
 	color: #FFFFFF;
 }
+
 .metaMenu button:hover {
 	text-decoration: underline;
 }
+
 .metaMenu button:focus {
 	text-decoration: underline;
 }
+
 .metaMenu a {
 	color: #FFFFFF;
 	background-color: #006F7B;
 }
+
 .metaMenu a:hover {
 	text-decoration: underline;
 }
+
 .metaMenu a:focus {
 	text-decoration: underline;
 }
+
 .metaMenu label {
 	color: #FFFFFF;
 }
+
 .metaMenu .seperator {
 	background-color: #7CADB4;
 	border-color: transparent;
@@ -279,18 +306,20 @@ body .wrapper {
 	margin-top: -1.3636em;
 	margin-left: auto;
 	margin-right: -0.0909em;
-	filter: alpha(opacity=0);
+	filter: alpha(opacity = 0);
 	opacity: 0;
 	-moz-opacity: 0;
 	cursor: pointer;
 	background-color: #006F7B;
 	color: #FFFFFF;
 }
+
 .metaMenu .selectionBox {
 	color: #FFFFFF;
 	margin-left: 0.5454em;
 	float: left;
 }
+
 .metaMenu .selectContainer {
 	margin-left: 0.001em;
 	padding-top: 0.2727em;
@@ -298,6 +327,7 @@ body .wrapper {
 	border: none;
 	background-color: #006F7B;
 }
+
 .metaMenu .selectContainer .selectboxIcon {
 	float: right;
 	padding: 0 0.1818em 0 0;
@@ -310,40 +340,49 @@ body .wrapper {
 	/*general color for main menu text*/
 	margin-top: 0.2727em;
 }
+
 .mainMenu input {
 	background-color: transparent;
 	color: #FFFFFF;
 }
+
 .mainMenu input:hover {
 	color: #012846;
 }
+
 .mainMenu input:focus {
 	color: #012846;
 }
+
 .mainMenu a {
 	background-color: transparent;
 	color: #FFFFFF;
 }
+
 .mainMenu a:hover {
 	height: 1.3125em;
 	text-decoration: none;
 	padding-bottom: 0.3125em;
 }
+
 .mainMenu a:focus {
 	height: 1.3125em;
 	text-decoration: none;
 	padding-bottom: 0.3125em;
 }
+
 .mainMenu span.free_area0 {
 	height: 1.3125em;
 	text-decoration: none;
 	padding-bottom: 0.3125em;
 }
+
 .coneMainMenu {
 	/*	display:none; */
+	
 }
 /* IE 7 Hack */
-*:first-child + html .coneMainMenu {
+*:first-child+html .coneMainMenu {
 	height: 2.7272em;
 }
 /***CONTENT MENU - OPTION MENU***/
@@ -351,34 +390,44 @@ body .wrapper {
 	background-color: transparent;
 	color: #004465;
 }
+
 .contentMenu a:hover {
 	text-decoration: underline;
 }
+
 .contentMenu a:focus {
 	text-decoration: underline;
 }
+
 .contentMenu .seperator {
 	background-color: transparent;
 	border-color: transparent;
 }
+
 .contentMenu input {
 	color: #004465;
 	line-height: 1.36364em;
 }
+
 .contentMenu .CSL {
 	clear: left;
 	margin-top: 0.252525em;
 }
+
 .contentMenu .sub span {
 	/*	text-decoration:underline; */
+	
 }
+
 .contentMenu .sub span.free_area0 {
 	/*	text-decoration:underline; */
+	
 }
 /***ACTION MENU***/
 .contentMenu .sub.action span {
 	text-decoration: none;
 }
+
 .sub.action .seperator {
 	background-color: #9BB5CE;
 	border-width: 0.0909em;
@@ -388,16 +437,20 @@ body .wrapper {
 	background-color: transparent;
 	color: #004465;
 }
+
 .quickSearchMenu a:hover {
 	text-decoration: underline;
 }
+
 .quickSearchMenu a:focus {
 	text-decoration: underline;
 }
+
 .quickSearchCheckBoxMenu label {
 	background-color: transparent;
 	color: #004465;
 }
+
 .quickSearchTextInput {
 	height: 1.5454em;
 	line-height: 1.5454em;
@@ -405,6 +458,7 @@ body .wrapper {
 	padding-top: 0;
 	padding-bottom: 0;
 }
+
 .quickSearchBtn {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
@@ -412,6 +466,7 @@ body .wrapper {
 .searchMenu a:hover {
 	text-decoration: underline;
 }
+
 .searchMenu a:focus {
 	text-decoration: underline;
 }
@@ -420,6 +475,7 @@ body .wrapper {
 	background-color: transparent;
 	color: #004465;
 }
+
 .advancedSearchMenu a {
 	background-color: transparent;
 	color: #004465;
@@ -429,16 +485,20 @@ body .wrapper {
 	background-color: transparent;
 	color: #004465;
 }
+
 .organisationSearchMenu a {
 	background-color: transparent;
 	color: #004465;
 }
+
 .organisationSearchMenu a:hover {
 	text-decoration: underline;
 }
+
 .organisationSearchMenu a:focus {
 	text-decoration: underline;
 }
+
 .checkboxDoubleContainer .large_checkbox label {
 	white-space: normal;
 }
@@ -449,23 +509,29 @@ body .wrapper {
 	    filter: alpha(opacity=91); */
 	background-color: #F3F5F5;
 }
+
 .selectMenu input {
 	background-color: #F3F5F5;
 }
+
 .selectMenu a {
 	color: #004465;
 }
+
 .selectMenu a:hover {
 	background-color: #366A9D;
 	color: #FFFFFF;
 }
+
 .selectMenu input:hover {
 	background-color: #366A9D;
 	color: #FFFFFF;
 }
+
 .selectMenu .checkBoxCloseSelectButton:focus {
 	background-color: transparent;
 }
+
 .selectMenuGroupTitle {
 	text-align: left;
 	/*	background-color:#006F7B; */
@@ -477,9 +543,11 @@ body .wrapper {
 .logoAlternate span {
 	color: #888B8B;
 }
+
 .coneLogo {
 	height: 5.7272em;
 }
+
 .searchExportLogo {
 	height: 5.7272em;
 }
@@ -490,65 +558,81 @@ body .wrapper {
 	margin-top: 0.7272em;
 	background-color: #888B8B;
 }
-.pageBrowser a.actual,
-.pageBrowser span.actual {
+
+.pageBrowser a.actual, .pageBrowser span.actual {
 	color: #888B8B;
 }
+
 .pageBrowser :disabled {
 	color: #888B8B;
 	cursor: default;
 }
+
 .pageBrowser :disabled:hover {
 	color: #888B8B;
 }
+
 .pageBrowser :disabled:focus {
 	color: #888B8B;
 }
+
 .pageBrowser .deactivated {
 	color: #888B8B;
 }
+
 .pageBrowser .deactivated:hover {
 	color: #888B8B;
 }
+
 .pageBrowser .deactivated:focus {
 	color: #888B8B;
 }
+
 .pageBrowser input {
 	background-color: transparent;
 	color: #004465;
 }
+
 .pageBrowser input:hover {
 	color: #012846;
 	cursor: pointer;
 }
+
 .pageBrowser input:focus {
 	color: #012846;
 	cursor: pointer;
 }
+
 .pageBrowser button {
 	background-color: transparent;
 	color: #004465;
 }
+
 .pageBrowser button:hover {
 	color: #012846;
 	cursor: pointer;
 }
+
 .pageBrowser button:focus {
 	color: #012846;
 	cursor: pointer;
 }
+
 .pageBrowser a {
 	background-color: transparent;
 	color: #004465;
 }
+
 .pageBrowser a:hover {
 	color: #012846;
 	cursor: pointer;
 }
+
 .pageBrowser a:focus {
 	color: #012846;
 	cursor: pointer;
 }
+
 .pageBrowser .actual:disabled {
 	/* are declared for the current page and are not used for images */
 	/*    color: #888B8B;	color and cursor are defined about general disabled settings
@@ -560,32 +644,38 @@ body .wrapper {
 	background-color: #FFFFFF;
 	color: #004465;
 }
+
 @media print {
 	.pageBrowser .actual {
 		font-weight: normal;
 		background-color: white;
 	}
 }
+
 .fullItem .pageBrowserItem a:hover {
 	text-decoration: underline;
 }
-.fullItem .pageBrowserItem .skipToFirst:hover,
-.fullItem .pageBrowserItem .skipToLast:hover {
+
+.fullItem .pageBrowserItem .skipToFirst:hover, .fullItem .pageBrowserItem .skipToLast:hover {
 	text-decoration: none;
 }
 /***** BREADCRUMP *****/
 .breadcrumb li {
 	color: #636363;
 }
+
 .breadcrumb li a {
 	color: #004465;
 }
+
 .breadcrumb li a:visited {
 	color: #004465;
 }
+
 .breadcrumb li a:hover {
 	color: #012846;
 }
+
 .breadcrumb li a:focus {
 	color: #012846;
 }
@@ -595,13 +685,16 @@ body .wrapper {
 	border-bottom-color: #B0B1B1;
 	background-color: #B1D5DC;
 }
+
 .itemList .seperator {
 	background-color: #FFFFFF;
 	border-color: #B0B1B1;
 }
+
 .itemList .checkBoxSelectButton {
 	cursor: pointer;
 }
+
 .itemList .checkBoxCloseSelectButton:hover {
 	background-color: transparent;
 }
@@ -609,12 +702,15 @@ body .wrapper {
 .listItem {
 	border-top-color: #B0B1B1 !important;
 }
+
 .listItem td {
 	border-top-color: #B0B1B1 !important;
 }
+
 .listItem td .itemHeadline b {
 	font-size: 11px !important;
 }
+
 .listItem .itemHeadline b {
 	font-size: 14px !important;
 	white-space: nowrap;
@@ -626,50 +722,62 @@ body .wrapper {
 	border-bottom-color: #B0B1B1;
 	background-color: #B1D5DC;
 }
+
 .fullItem .seperator {
 	background-color: transparent;
 	border-color: #B0B1B1;
 }
+
 .fullItem .messageSuccess b {
 	color: #006F7B;
 }
+
 .fullItem .groupBtn {
 	color: #004465;
 	background-color: transparent;
 	text-align: left;
 }
+
 .fullItem .groupBtn:hover {
 	color: #012846;
 	cursor: pointer;
 }
+
 .fullItem .groupBtn:focus {
 	color: #012846;
 	cursor: pointer;
 }
+
 .fullItem .groupBtn:disabled {
 	color: #888B8B;
 	cursor: default;
 }
+
 .fullItem .disabled {
 	text-decoration: underline !important;
 	color: #888B8B;
 	cursor: default;
 }
+
 .fullItem li {
 	border-top-color: #B0B1B1;
 }
+
 .fullItem .itemHeadline b {
 	font-size: 16px !important;
 	line-height: 145%;
 }
+
 .fullItem .easySubmissionHeader b {
 	color: #888B8B;
 	font-size: 16px;
 }
+
 .fullItem .easySubmissionHeader b.actual {
 	color: #000000;
 	/*	text-decoration:underline; */
 }
+
 .fullItem .easySubmissionHeader .seperator {
 	background-color: #FFFFFF;
 	border-color: #99C8E9;
@@ -678,21 +786,26 @@ body .wrapper {
 .fullItem .itemHeader {
 	border-top-color: #B0B1B1;
 }
+
 .fullItem .fullItemControls a {
 	cursor: pointer;
 }
+
 .fullItem .fullItemControls .seperator {
 	background-color: transparent;
 	border-color: #9BB5CE;
 }
+
 .fullItem .fullItemControls .actual {
 	color: #FFFFFF;
 	background-color: #004465;
 }
+
 .fullItem .itemHeader .medium_area0_p4.statusArea {
 	width: 10.5454em;
 	text-align: center;
 }
+
 .fullItem .itemHeader .medium_area0_p4.statusArea .medium_label {
 	width: auto;
 }
@@ -701,22 +814,27 @@ body .wrapper {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 .fullItem .detailedItem {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 .fullItem .fullsizedBlock {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 .fullItem .splitBlockHeader {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 .fullItem .splitBlockBody {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 .fullItem .itemBlock {
 	border-top-color: #B0B1B1;
 }
@@ -729,9 +847,11 @@ body .wrapper {
 .itemBlock .voidBlock {
 	color: #B0B1B1;
 }
+
 .itemBlock .itemLine {
 	border-top-color: #B0B1B1;
 }
+
 .itemBlock .newBlock {
 	/*short line color*/
 	border-top-color: #CFD1D1;
@@ -743,10 +863,12 @@ body .wrapper {
 	border-bottom-color: #B0B1B1;
 	background-color: #B1D5DC;
 }
+
 .tiledList .metaDataSection {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 .tiledList .seperator {
 	background-color: #FFFFFF;
 }
@@ -765,20 +887,25 @@ body .wrapper {
 	background-position: left -12em;
 	padding-top: 2em !important;
 }
+
 .headerSection h1 {
 	font-family: "Myriad Pro Condensed", "Arial Narrow", sans-serif;
 }
+
 .header.alternateHeader .metaMenu .logoAlternate a {
 	background-color: transparent;
 }
+
 .header.alternateHeader .mainMenu {
 	/* uses in cone */
 	margin-top: 6em;
 }
+
 .header.alternateHeader .mainMenu a {
 	/* uses in cone */
 	color: #FFFFFF;
 }
+
 .header.alternateHeader .mainMenu a.active {
 	/* uses in cone */
 	background-image: url("../images/BG_MainNavi_hover_bold.png");
@@ -788,7 +915,8 @@ body .wrapper {
 	padding-bottom: 0.3125em;
 	text-decoration: none;
 }
-.header.alternateHeader .searchExportLogo + .mainMenu {
+
+.header.alternateHeader .searchExportLogo+.mainMenu {
 	margin-top: 0.2727em;
 }
 /***** PRE-HEADER *****/
@@ -800,6 +928,7 @@ body .wrapper {
 .listHeader a:hover {
 	text-decoration: underline;
 }
+
 table#selSelectDate .huge_radioBtn label {
 	/*browse by year */
 	width: 25em !important;
@@ -809,6 +938,7 @@ table#selSelectDate .huge_radioBtn label {
 	border-style: solid;
 	border-left-color: #B0B1B1;
 }
+
 .infoPage .videoPreview {
 	border-style: solid;
 	border-color: #012846;
@@ -818,6 +948,7 @@ table#selSelectDate .huge_radioBtn label {
 	background-color: #FFFFFF;
 	border-top: 1px solid #004465 !important;
 }
+
 .listBackground .seperator {
 	background-color: #FFFFFF;
 }
@@ -826,7 +957,7 @@ table#selSelectDate .huge_radioBtn label {
 	float: left;
 	margin-top: -1.3636em;
 	margin-left: -0.0909em;
-	filter: alpha(opacity=0);
+	filter: alpha(opacity = 0);
 	opacity: 0;
 	-moz-opacity: 0;
 	cursor: pointer;
@@ -835,10 +966,12 @@ table#selSelectDate .huge_radioBtn label {
 	border-bottom-color: #9FAFAE;
 	border-style: none;
 }
+
 .selectContainer .selectionBox {
 	padding-left: 0.2727em !important;
 	white-space: nowrap;
 }
+
 .selectionBox {
 	color: #000000;
 	text-align: left;
@@ -847,6 +980,7 @@ table#selSelectDate .huge_radioBtn label {
 	height: 1.363636em;
 	overflow: hidden;
 }
+
 .selectContainer {
 	padding-top: 0em;
 	padding-bottom: 0.18em;
@@ -854,6 +988,7 @@ table#selSelectDate .huge_radioBtn label {
 	background-color: #F3F5F5;
 	border: 0.0909em solid #9FAFAE;
 }
+
 .selectboxIcon {
 	float: right;
 	padding: 0 0.1818em 0 0;
@@ -862,13 +997,12 @@ table#selSelectDate .huge_radioBtn label {
 	/*action menu fix*/
 	background-color: #F3F5F5;
 }
+
 .free_area0.third_txtInput {
 	background-color: #F3F5F5;
 }
 /* special definitions for different height of selectContainer and following text input fields */
-.selectContainer + input[type=text],
-.selectContainer + input[type=text] + input[type=text],
-.xSmall_txtInput.ouNumber {
+.selectContainer+input[type=text], .selectContainer+input[type=text]+input[type=text], .xSmall_txtInput.ouNumber {
 	height: 1.363636em;
 }
 /***** ALBUM *****/
@@ -876,6 +1010,7 @@ table#selSelectDate .huge_radioBtn label {
 	background-color: #BADF4A;
 	border-color: #006F7B !important;
 }
+
 .activeAlbum .seperator {
 	background-color: #BADF4A;
 	border-color: #006F7B !important;
@@ -892,6 +1027,7 @@ body .cancelButton {
 	padding-top: 0.10em;
 	padding-bottom: 0.10em;
 }
+
 body .cancelButton:hover {
 	color: #FFFFFF;
 	border-right-color: #FFFFFF;
@@ -899,6 +1035,7 @@ body .cancelButton:hover {
 	text-decoration: underline;
 	background-color: #012846;
 }
+
 body .activeButton {
 	float: right;
 	color: #FFFFFF;
@@ -910,14 +1047,17 @@ body .activeButton {
 	padding-top: 0.10em;
 	padding-bottom: 0.10em;
 }
+
 body .activeButton:hover {
 	text-decoration: underline;
 	background-color: #012846;
 }
+
 body .activeButton.disabled {
 	background-color: #888B8B !important;
 	cursor: auto;
 }
+
 body .activeButton.disabled:hover {
 	text-decoration: none;
 }
@@ -928,25 +1068,31 @@ body .activeButton.disabled:hover {
 	background-color: #E8FBFB;
 	margin-bottom: 1em;
 }
+
 .infoMessageArea {
 	border: 1px solid #56871B !important;
 	border-color: #56871B;
 	/*	position:absolute; */
 }
+
 .infoMessageArea h2 {
 	color: #006F7B;
 }
+
 .errorMessageArea {
 	border: 1px solid #E95A29 !important;
 	border-color: #E95A29;
 }
+
 .errorMessageArea h2 {
 	color: #D80000;
 }
+
 .absoluteMessageArea {
 	position: fixed;
 	z-index: 100;
 }
+
 .successMessageArea {
 	border: 1px solid #147DA2 !important;
 	border-color: #147DA2;
@@ -956,10 +1102,12 @@ body .activeButton.disabled:hover {
 	float: right;
 	background-color: #FFFFFF;
 }
+
 .fixErrorMessageBlockBtn {
 	float: right;
 	background-color: #FFFFFF;
 }
+
 .fixSuccessMessageBlockBtn {
 	float: right;
 	background-color: #FFFFFF;
@@ -968,21 +1116,27 @@ body .activeButton.disabled:hover {
 .messageSuccess {
 	color: #006F7B;
 }
+
 .messageStatus {
 	color: #006F7B;
 }
+
 .falseValue {
 	color: #BE0031;
 }
+
 .messageError {
 	color: #BE0031;
 }
+
 .messageWarn {
 	color: #BE0031;
 }
+
 .messageFatal {
 	color: #BE0031;
 }
+
 .mandatory {
 	font-weight: bold;
 }
@@ -990,25 +1144,32 @@ body .activeButton.disabled:hover {
 .searchHit {
 	background-color: #99C8E9;
 }
+
 .add {
 	cursor: pointer;
 }
+
 .add:disabled {
 	cursor: default !important;
 }
+
 .remove {
 	cursor: pointer;
 }
+
 .remove:disabled {
 	cursor: default !important;
 }
+
 .dateJSLabel {
 	background-color: #006D70;
 	color: #FFFFFF;
 }
+
 .blankInput {
 	color: #B0B1B1;
 }
+
 .underRework {
 	background-color: #F43E71 !important;
 }
@@ -1019,16 +1180,19 @@ body .activeButton.disabled:hover {
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
 }
+
 .inputInfoBox a {
 	text-align: center;
 	font-family: serif;
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
 }
+
 .filesSection a:hover {
 	/* used in bib list as logged in user - for file references */
 	text-decoration: underline;
 }
+
 .languageArea .readonlyInput {
 	background-color: transparent;
 	border: none;
@@ -1041,15 +1205,18 @@ body .activeButton.disabled:hover {
 	border-style: solid;
 	background-color: #F3F5F5;
 }
+
 .ac_results li {
 	border-bottom-style: solid;
 	border-bottom-color: #9FAFAE;
 }
+
 .ac_over {
 	cursor: pointer;
 	background-color: #006D70 !important;
 	color: #FFFFFF !important;
 }
+
 .ac_match {
 	background-color: #CDDAE7;
 	color: #000000;
@@ -1059,15 +1226,20 @@ a.OraLinkDisabled {
 	/* used e.g. for selectMenu */
 	/*	color: #888B8B;
 	cursor: default; */
+	
 }
+
 a.OraLinkDisabled:hover {
 	/*	color: #888B8B;
 	cursor: default; */
+	
 }
+
 .affHover {
 	background-color: #006D70;
 	color: #FFFFFF;
 }
+
 .licenseArea .messageArea {
 	background-color: #FFFFFF;
 }
@@ -1080,14 +1252,17 @@ a.OraLinkDisabled:hover {
 	background-color: #CBE0E5;
 	border-radius: 6px 6px 6px 6px;
 }
+
 .colorBackground {
 	background-color: #CBE0E5;
 	border-radius: 6px 6px 6px 6px;
 }
+
 .tile_category img[align="left"] {
 	clear: left;
 	border: none;
 }
+
 .tile_category div {
 	line-height: 150%;
 	display: inline-block;
@@ -1095,88 +1270,109 @@ a.OraLinkDisabled:hover {
 	*clear: both;
 	/* IE7 Hack */
 }
+
 .tile_category div p {
 	margin-left: 0;
 }
+
 .tile_category .image {
 	float: left;
 	width: 4.272727em;
 	margin-right: 1.363636em;
 }
+
 .tile_category div .big_imgBtn[align="left"] {
 	*margin-bottom: 0.5em;
 	/* IE7 Hack */
 }
-.tile_category div .large_imgBtn[align="right"],
-.tile_category div .big_imgBtn[align="right"] {
+
+.tile_category div .large_imgBtn[align="right"], .tile_category div .big_imgBtn[align="right"] {
 	margin-left: 0.545454em;
 	display: block;
 	border: none;
 }
+
 .tile_category.borderDarkTurquoise {
 	border-top-color: #006F7B;
 }
+
 .tile_category.borderDarkBlue {
 	border-top-color: #163D7A;
 }
+
 .tile_category.borderDarkGreen {
 	border-top-color: #008354;
 }
+
 .tile_category.borderYellow {
 	border-top-color: #CEC200;
 }
+
 .tile_category.borderRed {
 	border-top-color: #BE0031;
 }
+
 .tile_category.borderOrange {
 	border-top-color: #FF8304;
 }
+
 .tile_category.borderBrown {
 	border-top-color: #6E1E16;
 }
+
 .tile_category .tile_title {
 	font-size: 1.454545em;
 	display: block;
 	margin: 0.454545em 0;
 }
+
 .tile_category .tile_title img {
 	width: 1.9375em;
 	height: 1.9375em;
 }
+
 .tile_category h4.tile_publication_title {
 	font-size: 1.909090909090909em;
 	margin: 0.454545em 0;
 	line-height: normal;
 	text-align: center;
 }
+
 .tile_category .tile_publication_title img {
 	width: 1.476190476190476em;
 	height: 1.476190476190476em;
 }
+
 .tile_category .status_group {
 	margin-top: 0.4545454545455em;
 	float: left;
 	text-align: center;
 }
+
 .tile_category .status_group img {
 	display: inline-block;
 }
+
 .tile_category .genre_group {
 	margin-top: 0.4545454545455em;
 	float: right;
 	text-align: center;
 }
+
 .tile_category h5.tile_citation_title {
 	font-size: 2.181818em;
 	margin: 0.454545em 0;
 }
+
 .tile_category .tile_citation_title img {
 	width: 1.291666666666667em;
 	height: 1.291666666666667em;
 }
+
 .tile_category .author_name {
 	font-weight: bold;
 }
+
 .tile_category .author_organization {
 	font-style: italic;
 }

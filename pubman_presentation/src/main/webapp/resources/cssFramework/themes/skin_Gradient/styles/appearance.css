@@ -74,14 +74,17 @@ h2 {
 
 /*H3*/
 h3 {
+	
 }
 
 /*H4*/
 h4 {
+	
 }
 
 /*H5*/
 h5 {
+	
 }
 
 /*H6*/
@@ -201,7 +204,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*HEADER*/
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
-.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
+.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input,
+	.contentMenu a {
 	background-color: #F2EEE6;
 	color: #000000;
 }
@@ -219,7 +223,9 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	color: #524240;
 }
 
-.metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu a:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
+.metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover,
+	.advancedSearchMenu a:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover,
+	.contentMenu a:focus {
 	color: #C65252;
 }
 
@@ -619,7 +625,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*MANDATORY FIELD*/
 .mandatory {
-		font-weight: bold;
+	font-weight: bold;
 }
 
 /*UNDER REWORK*/

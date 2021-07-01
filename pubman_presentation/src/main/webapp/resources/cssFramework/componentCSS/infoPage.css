@@ -29,7 +29,6 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-
 .infoPage {
 	border-top-width: 0.10em !important;
 }
@@ -73,8 +72,8 @@
 
 .mainSection h3 {
 	font-size: 200% !important;
-	line-height:1.3em;
-	font-weight:normal;
+	line-height: 1.3em;
+	font-weight: normal;
 }
 
 .infoPage h2, .infoPage .mainSection h2, .infoPage .sideSection h2 {
@@ -97,11 +96,11 @@
 }
 
 .infoPage .mainSection h4 {
-	font-size:120%;
-	margin-bottom:0.4545em;
+	font-size: 120%;
+	margin-bottom: 0.4545em;
 }
 
-.infoPage .sideSectionArea { 
+.infoPage .sideSectionArea {
 	width: 34em;
 }
 
@@ -118,7 +117,7 @@
 
 .infoPage .sideSection .gf-result {
 	margin-top: 1.2em;
-} 
+}
 
 .infoPage .sideSection a {
 	font-weight: bold;

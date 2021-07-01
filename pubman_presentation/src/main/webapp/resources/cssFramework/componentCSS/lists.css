@@ -123,7 +123,7 @@ textarea:focus {
  * IE 7 HACK
  * table view - bug in IE7- 
  */
-*:first-child + html table input[type="checkbox"] {
+*:first-child+html table input[type="checkbox"] {
 	height: 1.3636em;
 	width: 1.3636em;
 }
@@ -208,7 +208,7 @@ div.listHeader span.itemSelectArea {
 }
 
 /*REPLACEMENT HACK FOR IE 7*/
-*:first-child + html .itemList th .checkBoxSelectButton {
+*:first-child+html .itemList th .checkBoxSelectButton {
 	margin-right: -1.19em;
 }
 
@@ -505,12 +505,15 @@ th .selectMenu {
 }
 
 .citeAuthor {
+	
 }
 
 .citeDate {
+	
 }
 
 .citeLink {
+	
 }
 
 .citeSource {
@@ -518,6 +521,7 @@ th .selectMenu {
 }
 
 .citeID {
+	
 }
 
 /*STATUS RELATED ITEM ELEMENTS*/
@@ -550,11 +554,9 @@ th .selectMenu {
 	.itemList input, .itemList select, .itemList .seperator, .listItem .collapseTriangle, .listItem .expandTriangle {
 		display: none !important;
 	}
-	
 	.itemSelectArea {
 		display: none !important;
 	}
-	
 	.itemList, .listItem {
 		border-top-width: 0px !important;
 	}

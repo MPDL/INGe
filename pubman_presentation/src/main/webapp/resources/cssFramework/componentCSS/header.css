@@ -32,7 +32,6 @@
 	.header * {
 		display: none;
 	}
-	
 	.headerSection .headLine h1, .headerSection .headLine {
 		float: none;
 	}
@@ -177,7 +176,7 @@
 	margin-top: -0.1818em;
 }
 
-.quickSearchCheckBoxMenu > label {
+.quickSearchCheckBoxMenu>label {
 	margin-top: 0.19em;
 }
 
@@ -216,7 +215,7 @@
 }
 
 /*Force IE7 top-margin*/
-* + html .header {
+*+html .header {
 	margin-bottom: 1em;
 }
 
@@ -264,7 +263,7 @@
 	line-height: normal;
 }
 
-@media screen, presentation {
+@media screen , presentation {
 	.headLine {
 		float: right;
 		text-align: right;
@@ -277,7 +276,6 @@
 		float: left;
 		text-align: left;
 	}
-	
 	.subHeaderSection {
 		float: left;
 		margin-left: 0px;
@@ -336,11 +334,11 @@
 }
 
 /*REPLACEMENT HACK FOR IE 7*/
-*:first-child + html .contentMenu .action {
+*:first-child+html .contentMenu .action {
 	margin-top: -1.28em;
 }
 
-*:first-child + html .ieFilter {
+*:first-child+html .ieFilter {
 	width: 50em;
 }
 
@@ -402,7 +400,7 @@
 	.contentMenu .sub {
 		display: none;
 	}
-	
+
 	/*USE NOT SHOWN CONTENT MENU FOR LOGO REPRESENTATION IN PRINT VERSION*/
 	.contentMenu {
 		position: absolute;
