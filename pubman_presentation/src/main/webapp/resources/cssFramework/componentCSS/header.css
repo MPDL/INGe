@@ -28,15 +28,6 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-@media print {
-	.header * {
-		display: none;
-	}
-	.headerSection .headLine h1, .headerSection .headLine {
-		float: none;
-	}
-}
-
 /*META MENU*/
 .metaMenu {
 	line-height: normal;
@@ -241,12 +232,6 @@
 	text-decoration: none;
 }
 
-@media print {
-	.breadcrumb {
-		display: none;
-	}
-}
-
 /*PAGE HEADER*/
 .headLine {
 	margin: 0px;
@@ -261,25 +246,6 @@
 	height: 0.9474em;
 	max-height: 0.9474em;
 	line-height: normal;
-}
-
-@media screen , presentation {
-	.headLine {
-		float: right;
-		text-align: right;
-		white-space: nowrap;
-	}
-}
-
-@media print {
-	.headLine {
-		float: left;
-		text-align: left;
-	}
-	.subHeaderSection {
-		float: left;
-		margin-left: 0px;
-	}
 }
 
 /*CONTENT MENU*/
@@ -396,11 +362,25 @@
 	margin: 0px;
 }
 
+.headerDistanceFix {
+	margin-top: -1.4545em;
+}
+
+@media screen , presentation {
+	.headLine {
+		float: right;
+		text-align: right;
+		white-space: nowrap;
+	}
+}
+
 @media print {
+	.breadcrumb {
+		display: none;
+	}
 	.contentMenu .sub {
 		display: none;
 	}
-
 	/*USE NOT SHOWN CONTENT MENU FOR LOGO REPRESENTATION IN PRINT VERSION*/
 	.contentMenu {
 		position: absolute;
@@ -411,8 +391,19 @@
 		display: list-item;
 		list-style-position: inside;
 	}
+	.header * {
+		display: none;
+	}
+	.headerSection .headLine h1, .headerSection .headLine {
+		float: none;
+	}
+	.headLine {
+		float: left;
+		text-align: left;
+	}
+	.subHeaderSection {
+		float: left;
+		margin-left: 0px;
+	}
 }
 
-.headerDistanceFix {
-	margin-top: -1.4545em;
-}

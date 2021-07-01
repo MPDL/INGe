@@ -299,13 +299,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	cursor: pointer;
 }
 
-@media print {
-	.pageBrowser .actual {
-		font-weight: normal;
-		background-color: white;
-	}
-}
-
 .pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
 	color: #827775;
 }
@@ -613,3 +606,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .underRework {
 	background-color: #F43E71 !important;
 }
+
+@media print {
+	.pageBrowser .actual {
+		font-weight: normal;
+		background-color: white;
+	}
+}
+

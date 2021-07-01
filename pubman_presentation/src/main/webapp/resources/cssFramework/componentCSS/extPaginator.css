@@ -49,12 +49,6 @@
 	margin-top: 0.09em;
 }
 
-@media print {
-	.rangeSelector {
-		display: none;
-	}
-}
-
 /*PAGE BROWSER*/
 .pageBrowser {
 	float: left;
@@ -125,21 +119,6 @@
 	margin-top: 0.65em;
 }
 
-@media print {
-	.pageBrowser button {
-		background-color: #FFFFFF !important;
-		display: none;
-	}
-	.pageBrowser .pageLabel {
-		display: block !important;
-	}
-	.pageBrowser button.actual {
-		display: block;
-		border-width: 1px;
-		text-decoration: underline !important;
-	}
-}
-
 /*GOTO BOX*/
 .gotoBox {
 	float: right;
@@ -164,4 +143,20 @@
 	.gotoBox input, .gotoBox .gotoLabel {
 		display: none;
 	}
+	.pageBrowser button {
+		background-color: #FFFFFF !important;
+		display: none;
+	}
+	.pageBrowser .pageLabel {
+		display: block !important;
+	}
+	.pageBrowser button.actual {
+		display: block;
+		border-width: 1px;
+		text-decoration: underline !important;
+	}
+	.rangeSelector {
+		display: none;
+	}
 }
+

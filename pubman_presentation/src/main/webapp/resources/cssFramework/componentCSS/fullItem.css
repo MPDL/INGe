@@ -31,12 +31,6 @@
 */
 
 /*GENERAL*/
-@media print {
-	.messageArea {
-		display: none;
-	}
-}
-
 .fullItem {
 	border-top-width: 0.19em !important;
 	border-top-style: solid;
@@ -119,12 +113,6 @@
 }
 
 /*HEADER*/
-@media print {
-	.fullItem .fullItemControls {
-		display: none;
-	}
-}
-
 .fullItem ol {
 	list-style: none;
 	padding: 0px;
@@ -485,3 +473,13 @@
 .citeulikebookmark img {
 	padding-top: 0.0909em;
 }
+
+@media print {
+	.fullItem .fullItemControls {
+		display: none;
+	}
+	.messageArea {
+		display: none;
+	}
+}
+

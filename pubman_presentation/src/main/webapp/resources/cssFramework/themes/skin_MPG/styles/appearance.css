@@ -645,13 +645,6 @@ body .wrapper {
 	color: #004465;
 }
 
-@media print {
-	.pageBrowser .actual {
-		font-weight: normal;
-		background-color: white;
-	}
-}
-
 .fullItem .pageBrowserItem a:hover {
 	text-decoration: underline;
 }
@@ -1447,4 +1440,9 @@ a.OraLinkDisabled:hover {
 	.messageArea {
 		visibility: hidden !important;
 	}
+	.pageBrowser .actual {
+		font-weight: normal;
+		background-color: white;
+	}
 }
+

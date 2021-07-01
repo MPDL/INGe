@@ -291,13 +291,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	cursor: pointer;
 }
 
-@media print {
-	.pageBrowser .actual {
-		font-weight: normal;
-		background-color: white;
-	}
-}
-
 .pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
 	color: #BAB4B3;
 }
@@ -645,3 +638,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
 }
+
+@media print {
+	.pageBrowser .actual {
+		font-weight: normal;
+		background-color: white;
+	}
+}
+

@@ -384,13 +384,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	cursor: pointer;
 }
 
-@media print {
-	.pageBrowser .actual {
-		font-weight: normal;
-		background-color: white;
-	}
-}
-
 .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
 	color: #486131;
 	cursor: default;
@@ -835,3 +828,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .fullItem .detailedItem {
 	border-color: #292929 !important;
 }
+
+@media print {
+	.pageBrowser .actual {
+		font-weight: normal;
+		background-color: white;
+	}
+}
+
