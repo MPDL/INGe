@@ -200,7 +200,7 @@ div.listHeader span.itemSelectArea {
 }
 
 /*SELECT MENU*/
-.itemList .checkboxSelectButton {
+.itemList .checkBoxSelectButton {
 	margin-top: 0.19em;
 	margin-right: 0.19em;
 	float: right;
@@ -208,7 +208,7 @@ div.listHeader span.itemSelectArea {
 }
 
 /*REPLACEMENT HACK FOR IE 7*/
-*:first-child + html .itemList th .checkboxSelectButton {
+*:first-child + html .itemList th .checkBoxSelectButton {
 	margin-right: -1.19em;
 }
 

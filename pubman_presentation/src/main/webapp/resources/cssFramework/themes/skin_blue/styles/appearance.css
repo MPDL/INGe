@@ -209,6 +209,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
     background-color: #A1CBDA;
+    border-color: #EAF4F7;
 }
 
 .itemList .seperator {
@@ -217,10 +218,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator, .tiledList .seperator {
     background-color: #FFFFFF;
-}
-
-.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-    border-color: #EAF4F7;
 }
 
 .fullItem .fullItemControls .seperator {
@@ -726,11 +723,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     color: #E95A29;
 }
 
-.successMessageArea {
-    border: 1px solid #147DA2 !important;
-    border-color: #147DA2;
-}
-
 .absoluteMessageArea {
     position: fixed;
     z-index: 100;
@@ -739,12 +731,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 .fixMessageBlockBtn, .fixErrorMessageBlockBtn, .fixSuccessMessageBlockBtn {
     float: right;
     background-color: #FFFFFF;
-}
-
-.inputInfoBox, .inputInfoBox a {
-    text-align: center;
-    font-weight: bolder;
-    font-family: serif;
 }
 
 /*ERROR OR WARNING MESSAGES*/
@@ -901,7 +887,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	float: left;
 	text-align: center;
 }
-.tile_category .status_group img{
+.tile_category .status_group img {
 	display: inline-block;
 }
 .tile_category .genre_group {

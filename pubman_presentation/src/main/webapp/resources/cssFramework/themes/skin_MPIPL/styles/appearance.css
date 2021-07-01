@@ -137,11 +137,6 @@ a.OraLinkDisabled {
 	cursor: default;
 }
 
-a:hover, a:focus {
-	color: #C65252;
-	text-decoration: none;
-}
-
 input:hover, input:focus, button:hover, button:focus {
 	color: #000000;
 	text-decoration: none;
@@ -161,7 +156,6 @@ input[type="text"], textarea, select {
 }
 
 a:hover, a:focus {
-	/*	text-decoration: underline; */
 	cursor: pointer;
 	color: #C65252 !important;
 }
@@ -174,6 +168,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
 	background-color: #C65252;
+	border-color: #F2EEE6;
 }
 
 .itemList .seperator {
@@ -182,10 +177,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator {
 	background-color: #FFFFFF;
-}
-
-.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-	border-color: #F2EEE6;
 }
 
 .fullItem .fullItemControls .seperator {
@@ -331,12 +322,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .itemList, .fullItem {
 	border-top-color: #436976;
-}
-
-.itemList, .fullItem {
 	border-bottom-color: #436976;
 }
-
 /*PRE-HEADER*/
 .preListHeader {
 	border-top-color: #436976;

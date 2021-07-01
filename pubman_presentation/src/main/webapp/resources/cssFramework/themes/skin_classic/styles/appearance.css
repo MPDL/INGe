@@ -197,7 +197,6 @@ input[type = "text"], textarea, select {
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
     cursor: pointer;
 }
 
@@ -209,6 +208,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
     background-color: #ACC6CF;
+    border-color: #E7E8E2;
 }
 
 .itemList .seperator {
@@ -217,10 +217,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator, .tiledList .seperator {
     background-color: #FFFFFF;
-}
-
-.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-    border-color: #E7E8E2;
 }
 
 .fullItem .fullItemControls .seperator {
@@ -892,7 +888,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	float: left;
 	text-align: center;
 }
-.tile_category .status_group img{
+.tile_category .status_group img {
 	display: inline-block;
 }
 .tile_category .genre_group {

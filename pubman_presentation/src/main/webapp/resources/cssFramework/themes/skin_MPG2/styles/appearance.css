@@ -138,7 +138,6 @@ input[type="text"], textarea, select {
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
     cursor: pointer;
 }
 
@@ -150,10 +149,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator {
     background-color: #99BFBB;
+    border-color: #FCFCFC;
 }
 
 .contentMenu .seperator, .pageBrowser .seperator {
     background-color: #A9A9A9;
+    border-color: #FCFCFC;
 }
 
 .itemList .seperator {
@@ -162,14 +163,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator {
     background-color: #FFFFFF;
-}
-
-.metaMenu .seperator {
-    border-color: #FCFCFC;
-}
-
-.contentMenu .seperator, .pageBrowser .seperator {
-    border-color: #FCFCFC;
 }
 
 .fullItem .fullItemControls .seperator {
@@ -224,7 +217,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
     color: #524240;
 }
 
-.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus {
+.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
     color: #524240;
 }
 
@@ -326,9 +319,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .itemList, .fullItem {
     border-top-color: #202628;
-}
-
-.itemList, .fullItem {
     border-bottom-color: #BAB4B3;
 }
 

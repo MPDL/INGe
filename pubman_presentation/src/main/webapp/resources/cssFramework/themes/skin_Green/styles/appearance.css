@@ -170,8 +170,7 @@ a:hover, a:focus, input:hover, input:focus, button:hover, button:focus {
     text-decoration: none;
 }
 
-input[type =
-"button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
+input[type = "button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
     cursor: pointer;
 }
 
@@ -180,13 +179,11 @@ input, textarea, select {
     border-color: #BABABA;
 }
 
-input[type =
-"text"], textarea, select {
+input[type = "text"], textarea, select {
     background-color: #FFFFFF;
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
     cursor: pointer;
 }
 
@@ -198,10 +195,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator {
     background-color: #99bfbb;
+    border-color: #fcfcfc;
 }
 
 .contentMenu .seperator, .pageBrowser .seperator {
     background-color: #A9A9A9;
+    border-color: #fcfcfc;
 }
 
 .itemList .seperator {
@@ -210,14 +209,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator, .tiledList .seperator {
     background-color: #FFFFFF;
-}
-
-.metaMenu .seperator {
-    border-color: #fcfcfc;
-}
-
-.contentMenu .seperator, .pageBrowser .seperator {
-    border-color: #fcfcfc;
 }
 
 .fullItem .fullItemControls .seperator {

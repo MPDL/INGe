@@ -157,7 +157,6 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 	
 	a:hover, a:focus {
-	/*	text-decoration: underline; */
 		cursor: pointer;
 	}
 	
@@ -169,8 +168,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	.metaMenu .seperator {
 		background-color: #486131;
 		border-width:0;
-		/*border-color: #393939;*/
-		border-color:#292929;  /* erweitert 2011-03-30 - Marco */
+		border-color:#292929;
 	}
 	
 	.contentMenu .seperator, .pageBrowser .seperator {
@@ -286,7 +284,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 		text-transform:none;
 	}
 	
-	.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus  {
+	.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
 		color: #f0f0f0;
 	}
 
@@ -407,9 +405,6 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	
 	.itemList, .tiledList, .fullItem {
 		border-top-color: #6CAD2F;
-	}
-	
-	.itemList, .tiledList, .fullItem {
 		border-bottom-color: #262626;
 	}
 	
@@ -435,7 +430,7 @@ COLOR 4C4C4C was changed to 3C3C3C; - 2011-03-28
 	}
 		/*SELECT MENU*/
 	
-	.itemList .checkboxSelectButton {
+	.itemList .checkBoxSelectButton {
 /*		background-color: #393939; */
 		cursor: pointer;
 	}

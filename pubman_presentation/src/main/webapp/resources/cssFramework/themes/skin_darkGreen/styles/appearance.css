@@ -184,8 +184,7 @@ input:hover, input:focus {
     text-decoration: none;
 }
 
-input[type =
-"button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
+input[type = "button"]:hover, input[type = "submit"]:hover, input[type = "reset"]:hover, button:hover {
     cursor: pointer;
 }
 
@@ -194,13 +193,11 @@ input, textarea, select {
     border-color: #6CAD2F;
 }
 
-input[type =
-"text"], textarea, select {
+input[type = "text"], textarea, select {
     background-color: #F3F8FA;
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
     cursor: pointer;
 }
 
@@ -212,6 +209,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
     background-color: #486131;
+    border-color: #262626;
 }
 
 .itemList .seperator {
@@ -221,11 +219,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator, .tiledList .seperator {
     background-color: #FFFFFF;
-}
-
-.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-    /*border-color: #393939;*/
-    border-color: #262626; /* erweitert 2011-03-30 - Marco */
 }
 
 .fullItem .fullItemControls .seperator {
@@ -379,9 +372,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .itemList, .tiledList, .fullItem {
     border-top-color: #6CAD2F;
-}
-
-.itemList, .tiledList, .fullItem {
     border-bottom-color: #BAB4B3;
 }
 
@@ -398,7 +388,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 }
 
 /*SELECT MENU*/
-.itemList .checkboxSelectButton {
+.itemList .checkBoxSelectButton {
     background-color: #393939;
     cursor: pointer;
 }

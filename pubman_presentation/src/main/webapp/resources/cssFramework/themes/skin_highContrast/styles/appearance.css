@@ -193,7 +193,6 @@ input[type = "text"], textarea, select {
 }
 
 a:hover, a:focus {
-    /*	text-decoration: underline; */
     cursor: pointer;
 }
 
@@ -205,6 +204,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
     background-color: #99C8E9;
+    border-color: #FFFFFF;
 }
 
 .itemList .seperator {
@@ -213,10 +213,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator, .tiledList .seperator {
     background-color: #FFFFFF;
-}
-
-.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-    border-color: #FFFFFF;
 }
 
 .fullItem .fullItemControls .seperator {
@@ -446,9 +442,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .itemList, .tiledList, .fullItem {
     border-top-color: #0076C9;
-}
-
-.itemList, .tiledList, .fullItem {
     border-bottom-color: #AEAEAE;
 }
 
@@ -884,7 +877,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	float: left;
 	text-align: center;
 }
-.tile_category .status_group img{
+.tile_category .status_group img {
 	display: inline-block;
 }
 .tile_category .genre_group {
