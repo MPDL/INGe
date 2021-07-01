@@ -22,43 +22,33 @@
  * CDDL HEADER END
  */
 /*
- * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur F�rderung der Wissenschaft e.V.
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
+
 /*
  ALL COLORS USED
  
  BACKGROUND		#EAF4F7 MPIPL Replacement: #436976
- 
  LINK COLOR		#147DA2 MPIPL Replacement: #000000
- AUTHOR/ORG BG		#4397B4
- LIGHT LINES		#A1CBDA MPIPL Replacement: #C65252
- DROPDOWN/BG		#DCECF1 MPIPL Replacement: #E6DDD5
+ AUTHOR/ORG BG	#4397B4
+ LIGHT LINES	#A1CBDA MPIPL Replacement: #C65252
+ DROPDOWN/BG	#DCECF1 MPIPL Replacement: #E6DDD5
  INPUT BG		#F3F8FA MPIPL Replacement: #E6DDD5
- 
  PAGE TITLE		#0F313E
- 
  ERROR MSG		#E95A29
- 
- SUCCESS MSG		#56871B
- 
- DEACTIVATED		#827775
- 
+ SUCCESS MSG	#56871B
+ DEACTIVATED	#827775
  DEA LIGHT		#CDC9C8
- 
  TEXT			#524240
- 
  TEXT LIGHT		#BAB4B3
- 
  MOUSEOVER		#382926 MPIPL Replacement: #C65252
- 
  INPUT TEXT		#000000
- 
- FORM BG			#FFFFFF
- 
+ FORM BG		#FFFFFF
  */
+ 
 /*FONT DEFINITION*/
 /*HEADER*/
 /*H1*/

@@ -22,32 +22,33 @@
  * CDDL HEADER END
  */
 /*
- * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
+
 /*
  ALL COLORS USED
  
  BACKGROUND		#EAF4F7 MPG Replacement: #FFFFFF
  LINK COLOR		#147DA2 MPG Replacement: #202628
- AUTHOR/ORG BG	        #4397B4
- LIGHT LINES		#A1CBDA
- DROPDOWN/BG		#DCECF1
+ AUTHOR/ORG BG	#4397B4
+ LIGHT LINES	#A1CBDA
+ DROPDOWN/BG	#DCECF1
  INPUT BG		#F3F8FA MPG Replacement: #FFFFFF
  PAGE TITLE		#0F313E MPG Replacement: #697274
  ERROR MSG		#E95A29
- SUCCESS MSG		#56871B
- DEACTIVATED		#827775
+ SUCCESS MSG	#56871B
+ DEACTIVATED	#827775
  DEA LIGHT		#CDC9C8
  TEXT			#524240
  TEXT LIGHT		#BAB4B3
  MOUSEOVER		#382926
  INPUT TEXT		#000000
- FORM BG			#FFFFFF
- 
+ FORM BG		#FFFFFF
  */
+ 
 /*FONT DEFINITION*/
 /*HEADER*/
 /*H1*/
