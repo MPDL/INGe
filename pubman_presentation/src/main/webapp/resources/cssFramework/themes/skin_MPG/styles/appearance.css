@@ -1394,6 +1394,10 @@ a.OraLinkDisabled:hover {
 		float: left !important;
 		clear: both !important;
 	}
+	.blockHeader {
+		font-size: 1.4em !important;
+		margin-bottom: 0.6em !important;
+	}
 	.listItem {
 		text-align: left !important;
 		float: left !important;
@@ -1414,10 +1418,6 @@ a.OraLinkDisabled:hover {
 	}
 	.paginator * {
 		float: left !important;
-	}
-	.blockHeader {
-		font-size: 1.4em !important;
-		margin-bottom: 0.6em !important;
 	}
 	.min_imgBtn {
 		visibility: hidden !important;

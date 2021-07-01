@@ -92,7 +92,7 @@ body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 	font-family: Trebuchet, "Trebuchet MS", sans-serif;
 }
 
-input[type=text], textarea {
+input[type="text"], textarea {
 	font-family: Courier, "Courier New", serif;
 }
 

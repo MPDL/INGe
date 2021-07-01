@@ -90,7 +90,7 @@ body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 	font-family: Verdana, sans-serif;
 }
 
-input[type=text], textarea {
+input[type="text"], textarea {
 	font-family: "Courier New", Courier, Monospace, serif;
 }
 
