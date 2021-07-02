@@ -32,7 +32,6 @@
 
 /* import eSciDoc global styles | globale eSciDoc-Stylesheets einbinden */
 @import url(./globalCSS/eSciDoc_core_em.css);
-
 /* import component specific styles | komponentenspezifische Stylesheets einbinden */
 /* import header styles | das Stylesheet für den Seitenkopf einbinden */
 @import url(./componentCSS/header.css);

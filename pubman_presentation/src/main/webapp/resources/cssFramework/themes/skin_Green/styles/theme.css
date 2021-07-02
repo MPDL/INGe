@@ -31,6 +31,6 @@
 */
 
 /* import vendor specific styles | anbieterspezifische Styles einbinden */
-	/* import vendor specific appearance styles | das kundenspezifische Darstellungs-Stylesheet einbinden */
-		@import url(./appearance.css);
-		@import url(./images.css);
+/* import vendor specific appearance styles | das kundenspezifische Darstellungs-Stylesheet einbinden */
+@import url(./appearance.css);
+@import url(./images.css);

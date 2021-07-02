@@ -92,14 +92,15 @@
  */
  
 /****** GLOBAL DEFINITION ******/
+
 /***BODY***/
 body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	/*	background-color: #6FA3A9 !important; */
 	background-color: #78AAB3 !important;
 	color: #3A3B3B;
 	line-height: 145%;
 }
+
 /***HEADLINES***/
 h1 {
 	color: #468EA2;
@@ -109,10 +110,12 @@ h6 {
 	color: #888B8B;
 	margin: 0px;
 }
+
 /***LABEL***/
 label {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+
 /***BUTTON***/
 button {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -132,6 +135,7 @@ button:disabled {
 	cursor: default;
 	color: #888B8B;
 }
+
 /***INPUT***/
 input {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -178,6 +182,7 @@ input[type="radio"] {
 	padding-right: 0 !important;
 	margin-right: 0.2727em;
 }
+
 /***LINK***/
 a {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -209,6 +214,7 @@ a:disabled {
 	cursor: default;
 	color: #888B8B;
 }
+
 /***TEXTAREA***/
 textarea {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -217,6 +223,7 @@ textarea {
 	border-color: #9FAFAE;
 	background-color: #F3F5F5;
 }
+
 /***SELECTBOX***/
 select {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -225,7 +232,9 @@ select {
 	border-color: #9FAFAE;
 	background-color: #F3F5F5;
 }
+
 /****** COMPONENT DEFINITION ******/
+
 /***** FOOTER *****/
 body .footer {
 	display: none;
@@ -243,6 +252,7 @@ body .footer {
 	padding-left: 0.001em;
 	/* bugfixing for 1px-calculation in difference browser */
 }
+
 /***** WRAPPER ******/
 body .wrapper {
 	background-color: #E8FBFB !important;
@@ -251,11 +261,14 @@ body .wrapper {
 	max-width: 84.0909em !important;
 	overflow: hidden;
 }
+
 /* HELP PAGE */
 .maketitle.wrapper {
 	background-image: none;
 }
+
 /***** MENU *****/
+
 /***META MENU***/
 .metaMenu {
 	height: 3.9091em;
@@ -297,6 +310,7 @@ body .wrapper {
 	border-color: transparent;
 	max-height: 0.363636em;
 }
+
 /*META MENU - CUSTOMIZED SELECTBOX*/
 .metaMenu .selectContainer select {
 	float: right;
@@ -331,6 +345,7 @@ body .wrapper {
 	margin: -1.5454em 0 0 0;
 	background-color: #006F7B;
 }
+
 /***MAIN MENU***/
 .mainMenu {
 	color: #FFFFFF;
@@ -378,10 +393,12 @@ body .wrapper {
 	/*	display:none; */
 	
 }
+
 /* IE 7 Hack */
 *:first-child+html .coneMainMenu {
 	height: 2.7272em;
 }
+
 /***CONTENT MENU - OPTION MENU***/
 .contentMenu a {
 	background-color: transparent;
@@ -420,6 +437,7 @@ body .wrapper {
 	/*	text-decoration:underline; */
 	
 }
+
 /***ACTION MENU***/
 .contentMenu .sub.action span {
 	text-decoration: none;
@@ -429,6 +447,7 @@ body .wrapper {
 	background-color: #9BB5CE;
 	border-width: 0.0909em;
 }
+
 /***QUICK SEARCH MENU***/
 .quickSearchMenu a {
 	background-color: transparent;
@@ -459,6 +478,7 @@ body .wrapper {
 .quickSearchBtn {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+
 /***SEARCH MENU***/
 .searchMenu a:hover {
 	text-decoration: underline;
@@ -467,6 +487,7 @@ body .wrapper {
 .searchMenu a:focus {
 	text-decoration: underline;
 }
+
 /***ADVANCED SEARCH MENU***/
 .advancedSearchMenu input {
 	background-color: transparent;
@@ -477,6 +498,7 @@ body .wrapper {
 	background-color: transparent;
 	color: #004465;
 }
+
 /***ORGANISATION SEARCH MENU***/
 .organisationSearchMenu input {
 	background-color: transparent;
@@ -499,6 +521,7 @@ body .wrapper {
 .checkboxDoubleContainer .large_checkbox label {
 	white-space: normal;
 }
+
 /***SELECT MENU***/
 .selectMenu {
 	border-color: #9FAFAE;
@@ -536,6 +559,7 @@ body .wrapper {
 	color: #888B8B;
 	text-decoration: underline;
 }
+
 /***** LOGO *****/
 .logoAlternate span {
 	color: #888B8B;
@@ -548,6 +572,7 @@ body .wrapper {
 .searchExportLogo {
 	height: 5.7272em;
 }
+
 /***** PAGE BROWSER - PAGINATOR *****/
 .pageBrowser .seperator {
 	/*	border-color: #B1D5DC; */
@@ -632,10 +657,11 @@ body .wrapper {
 
 .pageBrowser .actual:disabled {
 	/* are declared for the current page and are not used for images */
-	/*    color: #888B8B;	color and cursor are defined about general disabled settings
+	/*  color: #888B8B;	color and cursor are defined about general disabled settings
 	    cursor: default;*/
 	text-decoration: underline;
 }
+
 /*EXT. PAGINATOR*/
 .paginatorFallbackGoBtn {
 	background-color: #FFFFFF;
@@ -649,6 +675,7 @@ body .wrapper {
 .fullItem .pageBrowserItem .skipToFirst:hover, .fullItem .pageBrowserItem .skipToLast:hover {
 	text-decoration: none;
 }
+
 /***** BREADCRUMP *****/
 .breadcrumb li {
 	color: #636363;
@@ -669,6 +696,7 @@ body .wrapper {
 .breadcrumb li a:focus {
 	color: #012846;
 }
+
 /***** ITEM LIST *****/
 .itemList {
 	border-top-color: #004465;
@@ -688,6 +716,7 @@ body .wrapper {
 .itemList .checkBoxCloseSelectButton:hover {
 	background-color: transparent;
 }
+
 /***** LIST ITEM *****/
 .listItem {
 	border-top-color: #B0B1B1 !important;
@@ -705,6 +734,7 @@ body .wrapper {
 	font-size: 14px !important;
 	white-space: nowrap;
 }
+
 /***** FULL ITEM *****/
 .fullItem {
 	/*	background-color: #FFFFFF; */
@@ -772,6 +802,7 @@ body .wrapper {
 	background-color: #FFFFFF;
 	border-color: #99C8E9;
 }
+
 /*FULL ITEM HEADER*/
 .fullItem .itemHeader {
 	border-top-color: #B0B1B1;
@@ -799,6 +830,7 @@ body .wrapper {
 .fullItem .itemHeader .medium_area0_p4.statusArea .medium_label {
 	width: auto;
 }
+
 /*FULL ITEM BLOCK*/
 .fullItem .metaDataSection {
 	border-color: #B0B1B1 !important;
@@ -828,11 +860,13 @@ body .wrapper {
 .fullItem .itemBlock {
 	border-top-color: #B0B1B1;
 }
+
 /*ALBUM*/
 .fullItem .inAlbum {
 	background-color: #BADF4A;
 	border-color: #006F7B !important;
 }
+
 /***** ITEM BLOCK *****/
 .itemBlock .voidBlock {
 	color: #B0B1B1;
@@ -846,6 +880,7 @@ body .wrapper {
 	/*short line color*/
 	border-top-color: #CFD1D1;
 }
+
 /***** TILED LIST *****/
 .tiledList {
 	/*	background-color: #FFFFFF; */
@@ -862,16 +897,19 @@ body .wrapper {
 .tiledList .seperator {
 	background-color: #FFFFFF;
 }
+
 /*ALBUM*/
 .tiledList .inAlbum {
 	background-color: #BADF4A;
 	border-color: #006F7B !important;
 }
+
 /***** ITEM TILE *****/
 .itemTile .tileIconArea {
 	border-color: #B0B1B1 !important;
 	border-style: solid;
 }
+
 /***** HEADER-SECTION *****/
 .withoutPageHeader {
 	background-position: left -12em;
@@ -909,11 +947,13 @@ body .wrapper {
 .header.alternateHeader .searchExportLogo+.mainMenu {
 	margin-top: 0.2727em;
 }
+
 /***** PRE-HEADER *****/
 .preListHeader {
 	border-top-color: #B0B1B1;
 	background-color: #FFFFFF;
 }
+
 /***** LISTHEADER *****/
 .listHeader a:hover {
 	text-decoration: underline;
@@ -923,6 +963,7 @@ table#selSelectDate .huge_radioBtn label {
 	/*browse by year */
 	width: 25em !important;
 }
+
 /***** INFO PAGE *****/
 .infoPage .sideSection {
 	border-style: solid;
@@ -933,6 +974,7 @@ table#selSelectDate .huge_radioBtn label {
 	border-style: solid;
 	border-color: #012846;
 }
+
 /***** LIST BACKGROUND *****/
 .listBackground {
 	background-color: #FFFFFF;
@@ -942,6 +984,7 @@ table#selSelectDate .huge_radioBtn label {
 .listBackground .seperator {
 	background-color: #FFFFFF;
 }
+
 /***** CUSTOMIZED SELECTCONTAINER *****/
 .selectContainer select {
 	float: left;
@@ -991,10 +1034,12 @@ table#selSelectDate .huge_radioBtn label {
 .free_area0.third_txtInput {
 	background-color: #F3F5F5;
 }
+
 /* special definitions for different height of selectContainer and following text input fields */
 .selectContainer+input[type=text], .selectContainer+input[type=text]+input[type=text], .xSmall_txtInput.ouNumber {
 	height: 1.363636em;
 }
+
 /***** ALBUM *****/
 .activeAlbum {
 	background-color: #BADF4A;
@@ -1005,6 +1050,7 @@ table#selSelectDate .huge_radioBtn label {
 	background-color: #BADF4A;
 	border-color: #006F7B !important;
 }
+
 /***** FORM BUTTONS *****/
 body .cancelButton {
 	float: left;
@@ -1051,6 +1097,7 @@ body .activeButton.disabled {
 body .activeButton.disabled:hover {
 	text-decoration: none;
 }
+
 /***** MESSAGE AREA *****/
 .messageArea {
 	border-style: solid;
@@ -1087,6 +1134,7 @@ body .activeButton.disabled:hover {
 	border: 1px solid #147DA2 !important;
 	border-color: #147DA2;
 }
+
 /***** MESSAGE BUTTON *****/
 .fixMessageBlockBtn {
 	float: right;
@@ -1102,6 +1150,7 @@ body .activeButton.disabled:hover {
 	float: right;
 	background-color: #FFFFFF;
 }
+
 /***** MESSAGE TEXT *****/
 .messageSuccess {
 	color: #006F7B;
@@ -1130,6 +1179,7 @@ body .activeButton.disabled:hover {
 .mandatory {
 	font-weight: bold;
 }
+
 /***** GLOBAL ELEMENTS *****/
 .searchHit {
 	background-color: #99C8E9;
@@ -1163,6 +1213,7 @@ body .activeButton.disabled:hover {
 .underRework {
 	background-color: #F43E71 !important;
 }
+
 /***** UNCATEGORIZED *****/
 .inputInfoBox {
 	text-align: center;
@@ -1187,6 +1238,7 @@ body .activeButton.disabled:hover {
 	background-color: transparent;
 	border: none;
 }
+
 /***** AUTOSUGGEST *****/
 .ac_results {
 	border-color: #9FAFAE;
@@ -1211,6 +1263,7 @@ body .activeButton.disabled:hover {
 	background-color: #CDDAE7;
 	color: #000000;
 }
+
 /******************** EXTERNAL AND JSP CLASSES ********************/
 a.OraLinkDisabled {
 	/* used e.g. for selectMenu */
@@ -1233,6 +1286,7 @@ a.OraLinkDisabled:hover {
 .licenseArea .messageArea {
 	background-color: #FFFFFF;
 }
+
 /* OVERVIEW PAGE */
 .tile_category {
 	margin-top: 1.363636em;
@@ -1366,6 +1420,7 @@ a.OraLinkDisabled:hover {
 .tile_category .author_organization {
 	font-style: italic;
 }
+
 /******************** GLOBAL PRINT SETTINGS ********************/
 /*FF3.x Print Issue (No more relevant in FF4)*/
 @media print {
