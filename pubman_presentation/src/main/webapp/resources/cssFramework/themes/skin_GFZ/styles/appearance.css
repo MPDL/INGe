@@ -179,7 +179,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #FFFFFF;
 }
 
-.fullItem .seperator, .tiledList .seperator {
+.fullItem .seperator {
 	background-color: #FFFFFF;
 }
 
@@ -407,7 +407,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
-.itemList, .tiledList, .fullItem {
+.itemList, .fullItem {
 	border-top-color: #00589C;
 	border-bottom-color: #AEAEAE;
 }
@@ -469,18 +469,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #99C8E9;
 }
 
-.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
+.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
 	background-color: #FFFFFF;
-}
-
-.tiledList .metaDataSection, .itemTile .tileIconArea {
-	border-color: #AEAEAE !important;
-	border-style: solid;
-}
-
-.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
-	background-color: #BADF4A;
-	border-color: #548E00 !important;
 }
 
 /*ITEM HEADER*/

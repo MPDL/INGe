@@ -861,12 +861,6 @@ body .wrapper {
 	border-top-color: #B0B1B1;
 }
 
-/*ALBUM*/
-.fullItem .inAlbum {
-	background-color: #BADF4A;
-	border-color: #006F7B !important;
-}
-
 /***** ITEM BLOCK *****/
 .itemBlock .voidBlock {
 	color: #B0B1B1;
@@ -879,35 +873,6 @@ body .wrapper {
 .itemBlock .newBlock {
 	/*short line color*/
 	border-top-color: #CFD1D1;
-}
-
-/***** TILED LIST *****/
-.tiledList {
-	/*	background-color: #FFFFFF; */
-	border-top-color: #004465;
-	border-bottom-color: #B0B1B1;
-	background-color: #B1D5DC;
-}
-
-.tiledList .metaDataSection {
-	border-color: #B0B1B1 !important;
-	border-style: solid;
-}
-
-.tiledList .seperator {
-	background-color: #FFFFFF;
-}
-
-/*ALBUM*/
-.tiledList .inAlbum {
-	background-color: #BADF4A;
-	border-color: #006F7B !important;
-}
-
-/***** ITEM TILE *****/
-.itemTile .tileIconArea {
-	border-color: #B0B1B1 !important;
-	border-style: solid;
 }
 
 /***** HEADER-SECTION *****/
@@ -1038,17 +1003,6 @@ table#selSelectDate .huge_radioBtn label {
 /* special definitions for different height of selectContainer and following text input fields */
 .selectContainer+input[type=text], .selectContainer+input[type=text]+input[type=text], .xSmall_txtInput.ouNumber {
 	height: 1.363636em;
-}
-
-/***** ALBUM *****/
-.activeAlbum {
-	background-color: #BADF4A;
-	border-color: #006F7B !important;
-}
-
-.activeAlbum .seperator {
-	background-color: #BADF4A;
-	border-color: #006F7B !important;
 }
 
 /***** FORM BUTTONS *****/

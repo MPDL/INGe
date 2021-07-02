@@ -172,7 +172,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #FFFFFF;
 }
 
-.fullItem .seperator, .tiledList .seperator {
+.fullItem .seperator {
 	background-color: #FFFFFF;
 }
 
@@ -377,16 +377,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .listItem {
 	border-top-color: #BAB4B3 !important;
-}
-
-.tiledList .metaDataSection, .itemTile .tileIconArea {
-	border-color: #BAB4B3 !important;
-	border-style: solid;
-}
-
-.itemTile .inAlbum {
-	background-color: #DAE160;
-	border-color: #56871B;
 }
 
 .searchHit {

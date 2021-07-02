@@ -172,7 +172,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #FEFDEB;
 }
 
-.fullItem .seperator, .tiledList .seperator {
+.fullItem .seperator {
 	background-color: #FFFFFF;
 }
 
@@ -187,7 +187,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border-color: #A00000;
 }
 
-.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
+.itemList .seperator, .fullItem .seperator {
 	border-color: #BAB4B3 !important;
 }
 
@@ -317,7 +317,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
-.itemList, .tiledList, .fullItem {
+.itemList, .fullItem {
 	border-top-color: #A00000;
 	border-bottom-color: #A00000;
 }
@@ -379,18 +379,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #A00000;
 }
 
-.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
+.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
 	background-color: #FFFFFF;
-}
-
-.tiledList .metaDataSection, .itemTile .tileIconArea {
-	border-color: #BAB4B3 !important;
-	border-style: solid;
-}
-
-.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
-	background-color: #DAE160;
-	border-color: #56871B !important;
 }
 
 /*ITEM HEADER*/

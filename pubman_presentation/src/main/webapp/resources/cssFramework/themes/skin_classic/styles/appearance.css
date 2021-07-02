@@ -176,7 +176,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #E7E8E2;
 }
 
-.fullItem .seperator, .tiledList .seperator {
+.fullItem .seperator {
 	background-color: #FFFFFF;
 }
 
@@ -190,7 +190,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border-color: #ACC6CF;
 }
 
-.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
+.itemList .seperator, .fullItem .seperator {
 	border-color: #B9B9B9 !important;
 }
 
@@ -409,7 +409,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
-.itemList, .tiledList, .fullItem {
+.itemList, .fullItem {
 	border-top-color: #307086;
 	border-bottom-color: #B9B9B9;
 }
@@ -474,18 +474,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #ACC6CF;
 }
 
-.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
+.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
 	background-color: #ffffff;
-}
-
-.tiledList .metaDataSection, .itemTile .tileIconArea {
-	border-color: #B9B9B9 !important;
-	border-style: solid;
-}
-
-.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
-	background-color: #3EABC9;
-	border-color: #66852C !important;
 }
 
 /*ITEM HEADER*/

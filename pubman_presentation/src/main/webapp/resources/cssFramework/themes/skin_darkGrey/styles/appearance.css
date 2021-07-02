@@ -180,7 +180,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #292929; /* erweitert 2011-03-30 - Marco */
 }
 
-.fullItem .seperator, .tiledList .seperator {
+.fullItem .seperator {
 	background-color: #f0f0f0;
 }
 
@@ -404,7 +404,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*LISTS & FULL ITEM*/
 
 /*GENERAL*/
-.itemList, .tiledList, .fullItem {
+.itemList, .fullItem {
 	border-top-color: #6CAD2F;
 	border-bottom-color: #262626;
 }
@@ -480,7 +480,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #486131;
 }
 
-.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
+.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
 	background-color: #313131;
 }
 
@@ -488,16 +488,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 		background-color:#313131;
 	}
 	*/
-.tiledList .metaDataSection, .itemTile .tileIconArea {
-	border-color: #BAB4B3 !important;
-	border-style: solid;
-}
-
-.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator, .activeAlbum td { /* .activeAlbum td - erweitert 2011-04-06 - Marco */
-	background-color: #484848;
-	color: #f0f0f0;
-}
-
 /*ITEM HEADER*/
 .fullItem .itemHeadline b {
 	font-size: 16px !important;
@@ -758,28 +748,16 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #F43E71 !important;
 }
 
-.itemTile .tileIconArea {
-	background-color: #494949 !important;
-}
-
-.tileIconAreaSelected {
-	background: none repeat scroll 0 0 #33698F;
-	border: 0em none !important;
-}
-
 .full_area0 .noTopBorder {
 	background-color: #313131;
 } /* erweitert 2011-03-30 */
+
 .pageBrowser { /* erweitert 2011-03-30 */
 	background-color: #292929;
 	min-width: 49%;
 	/* bugfix for chrome 22, without min-width - linebreak before skipToLast */
 	text-align: center;
 }
-
-.tileIconAreaSelected a img {
-	border-color: #33698F;
-} /* erweitert 2011-04-06 */
 
 /*Richfaces Overwrite*/
 .rich-tool-tip {

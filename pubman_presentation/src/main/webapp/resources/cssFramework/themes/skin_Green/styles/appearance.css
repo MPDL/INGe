@@ -166,7 +166,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #A1CBDA;
 }
 
-.fullItem .seperator, .tiledList .seperator {
+.fullItem .seperator {
 	background-color: #FFFFFF;
 }
 
@@ -180,7 +180,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border-color: #A1CBDA;
 }
 
-.itemList .seperator, .fullItem .seperator, .tileControlIconArea {
+.itemList .seperator, .fullItem .seperator {
 	border-color: #BAB4B3 !important;
 }
 
@@ -312,7 +312,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*LISTS & FULL ITEM*/
 /*GENERAL*/
-.itemList, .tiledList, .fullItem {
+.itemList, .fullItem {
 	border-top-color: #50D619;
 	background-color: #EEFBE9;
 }
@@ -382,22 +382,12 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	background-color: #eefbe9;
 }
 
-.preListHeader, .fullItem, .tiledList, .listBackground, .listBackground .seperator {
+.preListHeader, .fullItem, .listBackground, .listBackground .seperator {
 	background-color: #FFFFFF;
 }
 
 .listBackground a {
 	color: #50D619;
-}
-
-.tiledList .metaDataSection, .itemTile .tileIconArea {
-	border-color: #BAB4B3 !important;
-	border-style: solid;
-}
-
-.tiledList .inAlbum, .fullItem .inAlbum, .activeAlbum, .activeAlbum .seperator {
-	background-color: #DAE160;
-	border-color: #56871B !important;
 }
 
 /*ITEM HEADER*/

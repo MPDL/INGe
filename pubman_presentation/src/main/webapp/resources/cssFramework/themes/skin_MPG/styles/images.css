@@ -303,7 +303,7 @@ body .wrapper {
 }
 
 /*LIST COMPONENT*/
-.itemList, .tiledList, .fullItem {
+.itemList, .fullItem {
     background: none;
 }
 

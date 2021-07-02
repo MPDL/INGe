@@ -54,19 +54,14 @@ textarea:focus {
 	background-color: #FFFFFF;
 }
 
-.itemList, .tiledList {
+.itemList {
 	border-top-width: 0.1818em !important;
 	border-bottom-width: 0.0909em !important;
 	border-top-style: solid;
 	border-bottom-style: solid;
 }
 
-.tiledList {
-	float: left;
-	margin-bottom: 0.74em;
-}
-
-.itemList .seperator, .tiledList .seperator {
+.itemList .seperator {
 	float: left;
 	width: 0.0909em;
 	margin: 0px;
@@ -81,23 +76,10 @@ textarea:focus {
 	display: block;
 }
 
-.itemList ol, .itemList ul, .tiledList ol, .tiledList ul {
+.itemList ol, .itemList ul {
 	list-style: none;
 	padding: 0px;
 	margin: 0px;
-}
-
-.tiledList .fullBrowse {
-	width: 75em;
-}
-
-.tiledList .metaDataSection {
-	margin-right: 0.74em;
-	margin-top: 0.74em;
-}
-
-.tiledList .albumBrowse {
-	width: 50em;
 }
 
 .itemList input[type="button"] {
@@ -306,55 +288,6 @@ th .selectMenu {
 	border-top-style: solid !important;
 }
 
-.itemTile {
-	margin-right: 0.74em;
-	margin-top: 0.74em;
-}
-
-.itemTile .tileIconArea {
-	border: 0.0909em !important;
-	/*	height: 11.56em;
-	line-height: 11.56em; */
-	height: 10.2727em;
-	line-height: 10.2727em;
-	text-align: center;
-	background: #282828;
-	/*	padding: 18px 11px 0px 0px; */
-	padding: 1.1818em 0em 0.2727em 0.0em;
-}
-
-.tileIconAreaSelected {
-	border: 0.0909em !important;
-	/*	height: 11.56em;
-	line-height: 11.56em; */
-	height: 10.2727em;
-	line-height: 10.2727em;
-	text-align: center;
-	background: #757575;
-	/*	padding: 18px 11px 0px 0px; */
-	padding: 1em 0em 0.4545em 0.0em;
-}
-
-.tileControlIconArea {
-	/* new in content but predefined in Component Library - 2011-04-05 Marco */
-	height: 3em;
-	max-height: 3em;
-}
-
-.itemTile .tileIconArea img {
-	border: 0px;
-}
-
-.itemTile .tileIconArea img.horizontal {
-	width: 100%;
-	vertical-align: middle;
-}
-
-.itemTile .tileIconArea img.vertical {
-	height: 100%;
-	margin: 0 auto 0 auto !important;
-}
-
 .itemList tr.listItem {
 	border: 0px !important;
 }
@@ -490,18 +423,6 @@ th .selectMenu {
 
 .listItem td .files, .listItem td .locators {
 	margin: 0px;
-}
-
-.tiledList .lineToolSection, .tiledList .sectionToolSection {
-	float: right;
-}
-
-.tiledList .lineToolSection .groupTool, .tiledList .sectionToolSection .groupTool {
-	float: left;
-}
-
-.tiledList .lineToolSection .sectionTool, .tiledList .sectionToolSection .sectionTool {
-	float: right;
 }
 
 .citeAuthor {
