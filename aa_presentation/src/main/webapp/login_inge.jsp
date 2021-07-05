@@ -1,15 +1,47 @@
-<%@page import="de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish"%>
-<%@page import="java.net.URLDecoder"%>
-<%@page import="java.util.Enumeration"%>
+<%--
+
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.org/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+--%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@page import="de.mpg.mpdl.inge.aa.web.client.IngeAaClientFinish"%>
+<%@page import="de.mpg.mpdl.inge.util.PropertyReader" %>
+<%@page import="java.net.URLDecoder"%>
 <%@ page import="java.net.URLEncoder"%>
+<%@page import="java.util.Enumeration"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 <title>PubMan Login</title>
 <link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
-<link href="/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css" type="text/css" rel="stylesheet" />
+<link href=<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL) %> type="text/css" rel="stylesheet" />
 <style type="text/css">
 .fa {
 	line-height: inherit;
@@ -95,7 +127,7 @@ if(request.getParameter("username")!=null) {
 							<!-- Citation title and icon -->
 							<div class="third_area0_p6">
 								<h5 class="tile_citation_title">
-									<img src="/pubman/resources/images/overviewPage/MPG_authors_64.png" class="big_imgBtn" align="right">
+									<img src="/pubman/resources/images/overviewPage/ANY_authors_64.png" class="big_imgBtn" align="right">
 									Login
 								</h5>
 							</div>
