@@ -147,19 +147,14 @@
 			
 			if (typeof pageLoaded != 'undefined' && pageLoaded)
 			{
-				
-				//if(element = 'http://purl.org/eprint/terms/affiliatedInstitution')
-				
 				element = element.replace('|', '\\|');
 				
 				if (typeof cutId != 'undefined' && cutId)
 				{
-					//console.log("Bind suggest true: " + element + " cutId: " + cutId);
 					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>" + model + "/query?lang=*&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
-					//console.log("Bind suggest false: " + element + " cutId: " + cutId);
 					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>" + model + "/query?lang=*&format=json", {onSelect: fillId});
 				}
 			}
@@ -174,11 +169,6 @@
 		{
 			if (typeof pageLoaded != 'undefined' && pageLoaded)
 			{
-				//console.log("Bind external suggest: " + element + "url : " + url);
-				
-				//console.log("Element: " + $('input[name=element]').attr('class'));
-				//console.log("http___purl_org_escidoc_metadata_terms_0_1_position_0_http___purl_org_eprint_terms_affiliatedInstitution");
-				//if(element = 'http://purl.org/eprint/terms/affiliatedInstitution')
 				element = element.replace('|', '\\|');
 				$('input[name=' + element + ']').suggest(url, {onSelect: fillExternalValue});
 
@@ -258,8 +248,6 @@
 									}
 									else
 									{
-										//xLarge_txtInput errorMessageArea endline
-										//document.getElementById('idImage').src = 'img/taken.png';
 										$('#cone_identifier').addClass('errorMessageArea endline');
 										document.getElementById('idInfo').style.visibility = 'visible';
 										document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
@@ -268,8 +256,6 @@
 								}
 								else
 								{
-									//xLarge_txtInput infoMessageArea endline
-									//document.getElementById('idImage').src = 'img/new.png';
 									document.getElementById('idInfo').style.visibility = 'visible';
 									document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
 									$('#cone_identifier').addClass('infoMessageArea endline');
@@ -281,16 +267,13 @@
 				}
 				else
 				{
-					//document.getElementById('idImage').src = 'img/empty.png';
 					document.getElementById('idInfo').style.visibility = 'hidden';
-					//document.getElementById('cone_identifier').className = 'huge_txtInput';
 				}
 			}
 		}
 
 		function checkFields()
 		{
-			//var fields = $.find('.checkImage');
 			var fields = $.find('.inputInfoBox');
 			$(fields).each(function(){
 					this.init = false;
@@ -341,7 +324,6 @@
 				object = document.editform[formField].value;
 			}
 
-			//var image = $(element).parents('.inputField').find('.checkImage')[0];
 			var input = $(element).parents('.inputField').find('.huge_txtInput, .half_txtArea')[0];
 			var info = $(element).parents('.inputField').find('.inputInfoBox')[0];
 			$(input).removeClass('errorMessageArea successMessageArea infoMessageArea endline');
@@ -381,7 +363,6 @@
 									$(input).addClass('errorMessageArea endline');
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
-								//	image.src = 'img/taken.png';
 									var title;
 									if (counter == 1)
 									{
@@ -396,7 +377,6 @@
 										title = 'many other entries were';
 									}
 									title = 'This field should usually be unique, but ' + title + ' found with the same content';
-								//	image.title = title;
 									info.title = title;
 								}
 								else if (counter > 0)
@@ -404,7 +384,6 @@
 									$(input).addClass('successMessageArea endline');
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox successMessageArea';
-								//	image.src = 'img/hits.png';
 									var title;
 									if (counter <=48) 
 									{
@@ -415,7 +394,6 @@
 										title = 'Many';
 									}
 									title += ' other entries were found with the same content';
-								//	image.title = title;
 									info.title = title;
 								}
 								else
@@ -424,8 +402,6 @@
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
 									info.title = 'This content is unique';
-								//	image.src = 'img/new.png';
-								//	image.title = 'This content is unique';
 								}
 
 								if (counter > 0 && popup && element.init)
@@ -455,10 +431,7 @@
 								$(input).addClass('infoMessageArea endline');
 								info.style.visibility = 'visible';
 								info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';			
-							//	image.src = 'img/new.png';
-							//	image.title = jsonUrl + ' - ' + predicate + ' - ' + formField;
 								info.title = jsonUrl + ' - ' + predicate + ' - ' + formField; 
-							//	title = 'This field is unique';
 								info.title = 'This content is unique';
 							}
 						}
@@ -466,10 +439,7 @@
 			}
 			else
 			{
-				//input.className ='huge_txtInput';
 				info.style.visibility = 'hidden';
-			//	image.src = 'img/empty.png';
-			//	image.title = '';
 			}
 			
 		}
@@ -588,9 +558,6 @@ function getMouseXY(e) {
 </script>
 	<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
-	<!-- 
-	<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js">;</script>
-	 -->
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
