@@ -423,7 +423,7 @@ public class PubItemVOPresentation extends ItemVersionVO {
   public List<CreatorVO> getOrganizationsAuthors() {
     final List<CreatorVO> creators = this.getMetadata().getCreators();
     final List<CreatorVO> mpgCreators = new ArrayList<CreatorVO>();
-    final String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_OVERVIEW_PAGE_AUTHORS_OU).trim();
+    final String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
     boolean isPartOfTheOrganization = false;
 
     if (rootOrganization != null && !rootOrganization.isEmpty()) {

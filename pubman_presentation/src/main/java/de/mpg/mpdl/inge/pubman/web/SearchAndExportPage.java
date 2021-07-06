@@ -267,23 +267,19 @@ public class SearchAndExportPage extends BreadcrumbPage {
 
     SearchAndExportRetrieveRequestVO saerrVO = parseInput();
 
-    try {
-      StringBuilder sb = new StringBuilder();
-      sb.append("curl -X POST ");
-      sb.append("\"");
-      sb.append(ApplicationBean.INSTANCE.getPubmanInstanceUrl());
-      sb.append("/rest/items/search");
-      sb.append(getParameterString(saerrVO));
-      sb.append("\" ");
-      sb.append("-H 'Cache-Control: no-cache' -H 'Content-Type: application/json' ");
-      sb.append("-d '");
-      sb.append(getSearchString(saerrVO));
-      sb.append("'");
+    StringBuilder sb = new StringBuilder();
+    sb.append("curl -X POST ");
+    sb.append("\"");
+    sb.append(ApplicationBean.INSTANCE.getPubmanInstanceUrl());
+    sb.append("/rest/items/search");
+    sb.append(getParameterString(saerrVO));
+    sb.append("\" ");
+    sb.append("-H 'Cache-Control: no-cache' -H 'Content-Type: application/json' ");
+    sb.append("-d '");
+    sb.append(getSearchString(saerrVO));
+    sb.append("'");
 
-      return sb.toString();
-    } catch (PubManVersionNotAvailableException e) {
-      throw new RuntimeException("Cannot get curl", e);
-    }
+    return sb.toString();
   }
 
   private String getParameterString(SearchAndExportRetrieveRequestVO saerrVO) {

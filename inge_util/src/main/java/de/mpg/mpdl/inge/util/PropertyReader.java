@@ -159,11 +159,12 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_LOGO_CSS = "inge.pubman.logo.css";
   public static final String INGE_PUBMAN_LOGO_URL = "inge.pubman.logo.url";
   public static final String INGE_PUBMAN_POLICY_URL = "inge.pubman.policy.url";
-  public static final String INGE_PUBMAN_PRESENTATION_OVERVIEW_PAGE_AUTHORS_OU = "inge.pubman_presentation.overview_page.authors_ou";
   public static final String INGE_PUBMAN_PRESENTATION_URL = "inge.pubman.presentation.url";
   public static final String INGE_PUBMAN_PRESENTATION_VIEWFULLITEM_DEFAULTSIZE = "inge.pubman_presentation.viewFullItem.defaultSize";
   public static final String INGE_PUBMAN_PRIVACY_URL = "inge.pubman.privacy.url";
+  public static final String INGE_PUBMAN_ROOT_AUTHORS_ICON = "inge.pubman.root.authors.icon";
   public static final String INGE_PUBMAN_ROOT_ORGANISATION_ID = "inge.pubman.root.organisation.id";
+  public static final String INGE_PUBMAN_ROOT_ORGANIZATION_NAME = "inge.pubman.root.organization.name";
   public static final String INGE_PUBMAN_SITEMAP_MAX_ITEMS = "inge.pubman.sitemap.max.items";
   public static final String INGE_PUBMAN_SITEMAP_RETRIEVE_ITEMS = "inge.pubman.sitemap.retrieve.items";
   public static final String INGE_PUBMAN_STYLESHEET_URL = "inge.pubman.stylesheet.url";

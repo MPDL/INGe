@@ -110,6 +110,8 @@ public class ApplicationBean extends FacesBean {
   private String logoUrl;
   private String pubmanBlogFeedUrl;
   private String pubmanInstanceUrl;
+  private String pubmanRootAuthorsIcon;
+  private String pubmanRootOrganizationName;
   private String pubmanStyleTags;
   private String version = null;
   private String buildDate = null;
@@ -311,13 +313,7 @@ public class ApplicationBean extends FacesBean {
     return this.contextService;
   }
 
-  /**
-   * This method returns the cookie version for PubMan hold in the pubman.properties
-   * 
-   * @return String cookie version for PubMan
-   * @throws PubManVersionNotAvailableException
-   */
-  public String getCookieVersion() throws PubManVersionNotAvailableException {
+  public String getCookieVersion() {
     return this.cookieVersion;
   }
 
@@ -385,24 +381,20 @@ public class ApplicationBean extends FacesBean {
     return this.searchAndExportService;
   }
 
-  /**
-   * Provides the url for the pubman blog feed.
-   * 
-   * @return the escidoc instance
-   * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
-   */
   public String getPubmanBlogFeedUrl() {
     return this.pubmanBlogFeedUrl;
   }
 
-  /**
-   * Provides the escidoc instance string.
-   * 
-   * @return the escidoc instance
-   * @throws PubManVersionNotAvailableException if escidoc instance can not be retrieved.
-   */
-  public String getPubmanInstanceUrl() throws PubManVersionNotAvailableException {
+  public String getPubmanInstanceUrl() {
     return this.pubmanInstanceUrl;
+  }
+
+  public String getPubmanRootAuthorsIcon() {
+    return this.pubmanRootAuthorsIcon;
+  }
+
+  public String getPubmanRootOrganizationName() {
+    return this.pubmanRootOrganizationName;
   }
 
   public String getPubmanStyleTags() {
@@ -435,7 +427,6 @@ public class ApplicationBean extends FacesBean {
     try {
       Properties versionProperties = new Properties();
       versionProperties.load(ResourceUtil.getResourceAsStream("/pubman-version.txt", ApplicationBean.class.getClassLoader()));
-      //final Properties solProperties = CommonUtils.getProperties(ApplicationBean.PROPERTY_FILENAME);
       this.version = versionProperties.getProperty("version");
       this.buildDate = versionProperties.getProperty("build.date");
 
@@ -477,6 +468,10 @@ public class ApplicationBean extends FacesBean {
       this.pidHandleActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_ACTIVATED));
 
       this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);
+
+      this.pubmanRootAuthorsIcon = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_AUTHORS_ICON);
+
+      this.pubmanRootOrganizationName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
     } catch (final Exception e) {
       ApplicationBean.logger.error("Error while reading properties", e);
     }

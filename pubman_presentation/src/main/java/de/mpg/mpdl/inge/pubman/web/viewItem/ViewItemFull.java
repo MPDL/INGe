@@ -1209,10 +1209,10 @@ public class ViewItemFull extends FacesBean {
   /**
    * Returns the name of the specified OU its authors will be shown
    * 
-   * @return String name of the specified OU (inge.pubman_presentation.overview_page.authors_ou)
+   * @return String name of the specified OU (inge.pubman.root.organization.name)
    */
   public String getSpecificOrganization() {
-    final String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRESENTATION_OVERVIEW_PAGE_AUTHORS_OU).trim();
+    final String rootOrganization = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_ORGANIZATION_NAME);
 
     if (rootOrganization != null) {
       return rootOrganization;
