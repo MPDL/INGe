@@ -23,7 +23,7 @@
                     <input id="inpSearchForPublications" class="large_txtInput quickSearchTextInput" type="text" />
                 </span>
                 <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button"
-                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click());" />
+                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
             </span>
             <script type="text/javascript">
             //<![CDATA[
@@ -43,7 +43,7 @@
             </script>
 		<div class="clear">&#160;</div>
 		<a
-			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click());">...
+			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
 			or browse through different categories.</a>
 		<br />
 		<br />
@@ -76,7 +76,7 @@
                     <input id="inpSearchForPublicationsDe" class="large_txtInput quickSearchTextInput" type="text" />
                 </span>
                 <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button"
-                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click());" />
+                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
             </span>
             <script type="text/javascript">
             //<![CDATA[
@@ -96,7 +96,7 @@
             </script>
 		<div class="clear">&#160;</div>
 		<a
-			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click());">...
+			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
 			oder browsen Sie durch verschiedene Kategorien.</a>
 		<br />
 		<br />
@@ -129,7 +129,7 @@
                     <input id="inpSearchForPublicationsJp" class="large_txtInput quickSearchTextInput" type="text" />
                 </span>
                 <input id="btnLos" class="xSmall_txtBtn activeButton quickSearchBtn" value="Los" type="button"
-                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click());" />
+                        onclick="$('#searchMenuSkipLinkAnchor').find('.quickSearchTextInput').val( $(this).parents('.searchMenu').find('.quickSearchTextInput').val() ); $('#searchMenuSkipLinkAnchor').find('.quickSearchBtn').click();" />
             </span>
             <script type="text/javascript">
             //<![CDATA[
@@ -149,7 +149,7 @@
             </script>
 		<div class="clear">&#160;</div>
 		<a
-			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click());">...
+			onclick="$('#searchMenuSkipLinkAnchor').find('.organisationSearchMenu').click();">...
 			また、組織一覧からも探せます</a>
 		<br />
 		<br />

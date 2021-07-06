@@ -21,22 +21,22 @@ function addFullItemFunctions() {
 
     });
 
-    $('.fullItem').find('.visibility').find('.collapse').off("click");
-    $('.fullItem').find('.visibility').find('.collapse').on('click',function() {
+    $('.fullItem').find('.visibility').find('.collapse').unbind("click");
+    $('.fullItem').find('.visibility').find('.collapse').click(function() {
         $(this).hide();
         $(this).parents('.itemBlock').find('.expand').show();
         $(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.collapse:visible').trigger('click');
     });
 
-    $('.fullItem').find('.visibility').find('.expand').off("click");
-    $('.fullItem').find('.visibility').find('.expand').on('click',function() {
+    $('.fullItem').find('.visibility').find('.expand').unbind("click");
+    $('.fullItem').find('.visibility').find('.expand').click(function() {
         $(this).hide();
         $(this).parents('.itemBlock').find('.collapse').show();
         $(this).parents('.fullItem').find('.itemBlock:not(.visibility)').find('.expand:visible').trigger('click');
     });
     $('.itemBlock:not(.visibility)').find('.expand').each(function(i, ele) {
-        $(ele).off("click");
-        $(ele).on('click',function() {
+        $(ele).unbind("click");
+        $(ele).click(function() {
             $(this).hide();
             $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide();
             $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('normal', function() {
@@ -50,8 +50,8 @@ function addFullItemFunctions() {
         })
     });
     $('.itemBlock:not(.visibility)').find('.collapse').each(function(i, ele) {
-        $(ele).off("click");
-        $(ele).on('click',function() {
+        $(ele).unbind("click");
+        $(ele).click(function() {
             $(this).hide();
             $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide();
             $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('normal', function() {
@@ -86,12 +86,12 @@ function addFullItemFunctions() {
     });
 
     $('.creator').each(function(i, ele) {
-        $(ele).on('hover',function() {
+        $(ele).hover(function() {
             $(this).addClass('affHover');
             var numbers = $(this).children('sup').text().split(',');
             for (var z = 0; z < numbers.length; z++) {
                 $(this).parents('.itemBlockContent').find('.affiliation').each(function(j, elem) {
-                    if ($(elem).prev().text().trim() == numbers[z].trim()) {
+                    if (jQuery.trim($(elem).prev().text()) == jQuery.trim(numbers[z])) {
                         $(elem).addClass('affHover');
                     }
                 });
@@ -101,7 +101,7 @@ function addFullItemFunctions() {
             var numbers = $(this).children('sup').text().split(',');
             for (var z = 0; z < numbers.length; z++) {
                 $(this).parents('.itemBlockContent').find('.affiliation').each(function(j, elem) {
-                    if ($(elem).prev().text().trimn() == numbers[z].trim()) {
+                    if (jQuery.trim($(elem).prev().text()) == jQuery.trim(numbers[z])) {
                         $(elem).removeClass('affHover');
                     }
                 });
@@ -109,13 +109,13 @@ function addFullItemFunctions() {
         })
     });
     $('.affiliation').each(function(i, ele) {
-        $(ele).on('hover',function() {
+        $(ele).hover(function() {
             $(this).addClass('affHover');
             var number = $(this).prev().text();
             $(this).parents('.itemBlockContent').find('.creator').each(function(j, elem) {
                 var numbers = $(elem).children('sup').text().split(',');
                 for (var z = 0; z < numbers.length; z++) {
-                    if (number.trim() == numbers[z].trim()) {
+                    if (jQuery.trim(number) == jQuery.trim(numbers[z])) {
                         $(elem).addClass('affHover');
                     }
                 }
@@ -126,7 +126,7 @@ function addFullItemFunctions() {
             $(this).parents('.itemBlockContent').find('.creator').each(function(j, elem) {
                 var numbers = $(elem).children('sup').text().split(',');
                 for (var z = 0; z < numbers.length; z++) {
-                    if (number.trim() == numbers[z].trim()) {
+                    if (jQuery.trim(number) == jQuery.trim(numbers[z])) {
                         $(elem).removeClass('affHover');
                     }
                 }
@@ -138,15 +138,15 @@ function addFullItemFunctions() {
         $(ele).hide();
     });
     $('.fullItem').find('.itemInfoSwitch').each(function(i, ele) {
-        $(ele).off("click");
-        $(ele).on('click',function() {
+        $(ele).unbind("click");
+        $(ele).click(function() {
             $(this).parents('.listItem').find('.shortView').slideToggle('normal');
         });
     });
 
     //	$('.fileUploadBtn').each(function(i, elem){ if($(elem).parents('.fileSection').find('.fileInput').val() == ''){ $(elem).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');}; });
-    $('.showMultipleAuthors').off("click");
-    $('.showMultipleAuthors').on('click',function() {
+    $('.showMultipleAuthors').unbind("click");
+    $('.showMultipleAuthors').click(function() {
         $(this).parents('.itemBlock').find('.multipleAuthors').slideDown('normal');
         $(this).parents('.itemBlock').find('.firstCreator').removeClass('noTopBorder');
         $(this).parents('.itemBlock').find('.multipleAuthors').find(':hidden').val('showPermanent');
@@ -162,15 +162,15 @@ function addFullItemFunctions() {
         };
     });
 
-    $('.checkAll').off("click");
-    $('.checkAll').on('click',function() { // function is used in logged out status for advanced search
+    $('.checkAll').unbind("click");
+    $('.checkAll').click(function() { // function is used in logged out status for advanced search
         $(this).parents('.itemLine').find('.checkboxDoubleGroup').find(':checkbox').attr('checked', 'true');
         $(this).parents('.itemLine').find('.checkboxDoubleGroup').find('span:hidden').show();
         $(this).parents('.itemLine').find('.checkboxDoubleGroup').find('.showMoreCheckboxes').hide();
     });
 
-    $('.showMoreCheckboxes').off("click");
-    $('.showMoreCheckboxes').on('click',function() {
+    $('.showMoreCheckboxes').unbind("click");
+    $('.showMoreCheckboxes').click(function() {
         $(this).hide();
         var cont = $(this).parent().find('.checkboxDoubleContainer');
         //if a container for checkboxDoubleGroup given the children gets visible status 
@@ -190,8 +190,8 @@ function addFullItemFunctions() {
         };
     });
 
-    $('.showMoreDates').off("click");
-    $('.showMoreDates').on('click',function() {
+    $('.showMoreDates').unbind("click");
+    $('.showMoreDates').click(function() {
         $(this).hide();
         $(this).siblings().show();
     });
@@ -211,8 +211,8 @@ function addFullItemFunctions() {
         };
     });
 
-    $('.showMoreAuthors').off("click");
-    $('.showMoreAuthors').on('click',function() {
+    $('.showMoreAuthors').unbind("click");
+    $('.showMoreAuthors').click(function() {
         $(this).hide();
         $(this).siblings().show();
     });
@@ -281,19 +281,19 @@ function installFullItem() {
             var a = this;
             this.events = {
                 down: function(b) {
-                    return a.isBeingDragged = !0, a.offsetY = b.pageY - a.slider.offset().top, a.pane.addClass("active"), a.doc.on(l, a.events[h]).on(m, a.events[u]), !1
+                    return a.isBeingDragged = !0, a.offsetY = b.pageY - a.slider.offset().top, a.pane.addClass("active"), a.doc.bind(l, a.events[h]).bind(m, a.events[u]), !1
                 },
                 drag: function(b) {
-                    return a.sliderY = b.pageY - a.$el.offset().top - a.offsetY, a.on('scroll'), a.updateScrollValues(), a.contentScrollTop >= a.maxScrollTop && a.prevScrollTop !== a.maxScrollTop ? a.$el.trigger("scrollend") : 0 === a.contentScrollTop && 0 !== a.prevScrollTop && a.$el.trigger("scrolltop"), !1
+                    return a.sliderY = b.pageY - a.$el.offset().top - a.offsetY, a.scroll(), a.updateScrollValues(), a.contentScrollTop >= a.maxScrollTop && a.prevScrollTop !== a.maxScrollTop ? a.$el.trigger("scrollend") : 0 === a.contentScrollTop && 0 !== a.prevScrollTop && a.$el.trigger("scrolltop"), !1
                 },
                 up: function() {
-                    return a.isBeingDragged = !1, a.pane.removeClass("active"), a.doc.off(l, a.events[h]).off(m, a.events[u]), !1
+                    return a.isBeingDragged = !1, a.pane.removeClass("active"), a.doc.unbind(l, a.events[h]).unbind(m, a.events[u]), !1
                 },
                 resize: function() {
                     a.reset()
                 },
                 panedown: function(b) {
-                    return a.sliderY = (b.offsetY || b.originalEvent.layerY) - .5 * a.sliderHeight, a.on('scroll'), a.events.down(b), !1
+                    return a.sliderY = (b.offsetY || b.originalEvent.layerY) - .5 * a.sliderHeight, a.scroll(), a.events.down(b), !1
                 },
                 scroll: function(b) {
                     a.isBeingDragged || (a.updateScrollValues(), a.iOSNativeScrolling || (a.sliderY = a.sliderTop, a.slider.css({
@@ -302,15 +302,15 @@ function installFullItem() {
                 },
                 wheel: function(b) {
                     var c;
-                    if (null != b) return c = b.delta || b.wheelDelta || b.originalEvent && b.originalEvent.wheelDelta || -b.detail || b.originalEvent && -b.originalEvent.detail, c && (a.sliderY += -c / 3), a.on('scroll'), !1
+                    if (null != b) return c = b.delta || b.wheelDelta || b.originalEvent && b.originalEvent.wheelDelta || -b.detail || b.originalEvent && -b.originalEvent.detail, c && (a.sliderY += -c / 3), a.scroll(), !1
                 }
             }
         }, i.prototype.addEvents = function() {
             var a;
-            this.removeEvents(), a = this.events, this.options.disableResize || this.win.on(q, a[q]), this.iOSNativeScrolling || (this.slider.on(k, a[g]), this.pane.on(k, a[p]).on("" + n + " " + f, a[v])), this.$content.on("" + r + " " + n + " " + f + " " + t, a[r])
+            this.removeEvents(), a = this.events, this.options.disableResize || this.win.bind(q, a[q]), this.iOSNativeScrolling || (this.slider.bind(k, a[g]), this.pane.bind(k, a[p]).bind("" + n + " " + f, a[v])), this.$content.bind("" + r + " " + n + " " + f + " " + t, a[r])
         }, i.prototype.removeEvents = function() {
             var a;
-            a = this.events, this.win.off(q, a[q]), this.iOSNativeScrolling || (this.slider.off(), this.pane.off()), this.$content.off("" + r + " " + n + " " + f + " " + t, a[r])
+            a = this.events, this.win.unbind(q, a[q]), this.iOSNativeScrolling || (this.slider.unbind(), this.pane.unbind()), this.$content.unbind("" + r + " " + n + " " + f + " " + t, a[r])
         }, i.prototype.generate = function() {
             var a, b, c, d, f;
             return c = this.options, d = c.paneClass, f = c.sliderClass, a = c.contentClass, this.$el.find("" + d).length || this.$el.find("" + f).length || this.$el.append('<div class="' + d + '"><div class="' + f + '" /></div>'), this.pane = this.$el.children("." + d), this.slider = this.pane.find("." + f), e && (b = {
@@ -322,7 +322,7 @@ function installFullItem() {
             var a, b, c, f, g, h, i, j, k, l;
             return this.iOSNativeScrolling ? (this.contentHeight = this.content.scrollHeight, void 0) : (this.$el.find("." + this.options.paneClass).length || this.generate().stop(), this.stopped && this.restore(), a = this.content, c = a.style, f = c.overflowY, d && this.$content.css({
                 height: this.$content.height()
-            }), b = a.scrollHeight + e, k = parseInt(this.$el.css("max-height"), 10), k > 0 && (this.$el.height(""), this.$el.height(a.scrollHeight > k ? k : a.scrollHeight)), h = this.pane.outerHeight(!1), j = parseInt(this.pane.css("top"), 10), g = parseInt(this.pane.css("bottom"), 10), i = h + j + g, l = Math.round(i / b * i), l < this.options.sliderMinHeight ? l = this.options.sliderMinHeight : null != this.options.sliderMaxHeight && l > this.options.sliderMaxHeight && (l = this.options.sliderMaxHeight), f === r && c.overflowX !== r && (l += e), this.maxSliderTop = i - l, this.contentHeight = b, this.paneHeight = h, this.paneOuterHeight = i, this.sliderHeight = l, this.slider.height(l), this.events.on('scroll'), this.pane.show(), this.isActive = !0, a.scrollHeight === a.clientHeight || this.pane.outerHeight(!0) >= a.scrollHeight && f !== r ? (this.pane.hide(), this.isActive = !1) : this.el.clientHeight === a.scrollHeight && f === r ? this.slider.hide() : this.slider.show(), this.pane.css({
+            }), b = a.scrollHeight + e, k = parseInt(this.$el.css("max-height"), 10), k > 0 && (this.$el.height(""), this.$el.height(a.scrollHeight > k ? k : a.scrollHeight)), h = this.pane.outerHeight(!1), j = parseInt(this.pane.css("top"), 10), g = parseInt(this.pane.css("bottom"), 10), i = h + j + g, l = Math.round(i / b * i), l < this.options.sliderMinHeight ? l = this.options.sliderMinHeight : null != this.options.sliderMaxHeight && l > this.options.sliderMaxHeight && (l = this.options.sliderMaxHeight), f === r && c.overflowX !== r && (l += e), this.maxSliderTop = i - l, this.contentHeight = b, this.paneHeight = h, this.paneOuterHeight = i, this.sliderHeight = l, this.slider.height(l), this.events.scroll(), this.pane.show(), this.isActive = !0, a.scrollHeight === a.clientHeight || this.pane.outerHeight(!0) >= a.scrollHeight && f !== r ? (this.pane.hide(), this.isActive = !1) : this.el.clientHeight === a.scrollHeight && f === r ? this.slider.hide() : this.slider.show(), this.pane.css({
                 opacity: this.options.alwaysVisible ? 1 : "",
                 visibility: this.options.alwaysVisible ? "visible" : ""
             }), this)
