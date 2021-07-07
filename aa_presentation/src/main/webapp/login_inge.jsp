@@ -158,17 +158,5 @@ if(request.getParameter("username")!=null) {
 		</form>
 	</div>
 
-
-	<script type="text/javascript">
-		var passArea = $('.passArea');
-		passArea.find("input[type=password]").keyup(function(keyEvent) {
-			var key = keyEvent.keyCode;
-			if (key == '13') {
-				passArea.find('.activeButton').trigger("click");
-			}
-			;
-		});
-	</script>
-
 </body>
 </html>
