@@ -558,9 +558,13 @@ function getMouseXY(e) {
 </script>
 	<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
+	<!-- 
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
+	 -->
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
+	<!-- 
 	<script type="text/javascript" src="/cone/js/jquery.xpath.min.js">;</script>
+	 -->
 	<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>
 </head>
