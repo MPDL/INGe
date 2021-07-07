@@ -21,7 +21,7 @@ public class PropertyReaderTest {
   public static void createPropertiesFile() throws IOException {
     FileUtils.deleteQuietly(propertiesFile);
 
-    FileUtils.writeStringToFile(propertiesFile, "escidoc.framework_access.framework.url = http://dev-pubman.mpdl.mpg.de", true);
+    FileUtils.writeStringToFile(propertiesFile, "test = http://dev-pubman.mpdl.mpg.de", true);
     FileUtils.writeStringToFile(propertiesFile, System.getProperty(PropertyReader.LINE_SEPARATOR), true);
 
     Logger.getLogger(PropertyReaderTest.class).info("pubman.properties created for testing in <" + propertiesFile.getAbsolutePath() + ">");
