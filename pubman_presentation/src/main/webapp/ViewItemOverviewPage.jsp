@@ -352,7 +352,7 @@
                 var imgElement;
                 $('.mpgAuthorId').each(function(index) {
                     url = $(this).text();
-                    jsonRequestUrl = url + '?format=json';
+                    jsonRequestUrl = "cone" + url + '?format=json';
                     imgElement = $(this).parent().find('img').get(0);
                     updateImage(imgElement, jsonRequestUrl);
                 });

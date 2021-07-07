@@ -22,15 +22,16 @@
 			rendered="#{ViewItemFull.pubItem.organizationsAuthors == null or ViewItemFull.pubItem.organizationsAuthors != null and empty(ViewItemFull.pubItem.organizationsAuthors) and ViewItemFull.specificOrganization == 'Max Planck Society'}">
 			<h:outputText value="#{msg.ViewItemOverview_noMpgAuthorsAvailable}" />
 		</h:panelGroup>
-		<!-- If no authors available show message -->
+		<!-- If no OpenSource authors available show message -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p6"
 			rendered="#{ViewItemFull.pubItem.allAuthors == null or ViewItemFull.pubItem.allAuthors != null and empty(ViewItemFull.pubItem.allAuthors) and ViewItemFull.specificOrganization != 'Max Planck Society'}">
 			<h:outputText
 				value="#{msg.ViewItemOverview_noSpecificAuthorsAvailable}" />
 		</h:panelGroup>
-		<!-- Iterator for Authors -->
+		<!-- Iterator for MPG Authors -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
-			style="max-height:300px;">
+			style="max-height:300px;"
+			rendered="#{ViewItemFull.specificOrganization == 'Max Planck Society'}">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
 				<ui:repeat var="creator"
 					value="#{ViewItemFull.pubItem.organizationsAuthors}"
@@ -47,13 +48,78 @@
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
 								target="_blank" rel="noreferrer noopener">
 								<img src="../resources/images/overviewPage/#{ApplicationBean.pubmanRootAuthorsIcon}_64.png"
-									 class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+									 class="large_imgImg xTiny_marginRExcl" align="left" />
 							</h:outputLink>
 							<!-- Standard image for Authors without CoNE link -->
 							<h:panelGroup
 								rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
 								<img src="../resources/images/overviewPage/#{ApplicationBean.pubmanRootAuthorsIcon}_64.png"
-									 class="large_imgImg xTiny_marginRExcl mpgAuthor" align="left" />
+									 class="large_imgImg xTiny_marginRExcl" align="left" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<!-- Author textual information -->
+						<p class="xLarge_area0 xTiny_marginLExcl">
+							<!-- Author name with CoNE link -->
+							<h:panelGroup styleClass="author_name"
+								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
+								<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}" 
+								    target="_blank" rel="noreferrer noopener">
+									<h:outputText value="#{creator.person.familyName}"
+										rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;
+								<h:outputText value="#{creator.person.givenName}"
+										rendered="#{creator.type == 'PERSON' and creator.person.givenName != null}" />
+								</h:outputLink>
+							</h:panelGroup>
+							<!-- Author name without CoNE link -->
+							<h:panelGroup styleClass="author_name"
+								rendered="#{creator.person.identifier == null || creator.person.identifier.id == null}">
+								<h:outputText value="#{creator.person.familyName}"
+									rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;
+							<h:outputText value="#{creator.person.givenName}"
+									rendered="#{creator.type == 'PERSON' and creator.person.givenName != null}" />
+							</h:panelGroup>
+							<!-- Iterator for the authors organizations (linked in the publication) -->
+							<h:panelGroup styleClass="author_organization">
+								<ui:repeat var="creatorOrganization"
+									value="#{creator.person.organizations}"
+									rendered="#{ViewItemFull.pubItem.metadata.creators != null}">
+									<br />
+									<h:outputText value="#{creatorOrganization.name};"
+										rendered="#{creator.type == 'PERSON' and creatorOrganization.name != null}" />
+								</ui:repeat>
+							</h:panelGroup>
+						</p>
+					</div>
+				</ui:repeat>
+			</h:panelGroup>
+		</h:panelGroup>
+		<!-- Iterator for OpenSource Authors -->
+		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
+			style="max-height:300px;"
+			rendered="#{ViewItemFull.specificOrganization != 'Max Planck Society'}">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
+				<ui:repeat var="creator"
+					value="#{ViewItemFull.pubItem.allAuthors}"
+					rendered="#{ViewItemFull.pubItem.allAuthors != null and !empty(ViewItemFull.pubItem.allAuthors)}">
+					<div>
+						<!-- Hidden ID (used to replace image with CoNE image if available [see JavaScript]) -->
+						<h:outputText value="#{creator.person.identifier.id}"
+							styleClass="mpgAuthorId noDisplay"
+							rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}" />
+						<!-- specific -->
+						<h:panelGroup styleClass="image">
+							<!-- Standard image for Authors with CoNE link -->
+							<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
+								target="_blank" rel="noreferrer noopener">
+								<img src="../resources/images/overviewPage/#{ApplicationBean.pubmanRootAuthorsIcon}_64.png"
+									 class="large_imgImg xTiny_marginRExcl" align="left" />
+							</h:outputLink>
+							<!-- Standard image for Authors without CoNE link -->
+							<h:panelGroup
+								rendered="#{creator.person.identifier == null or creator.person.identifier.id == null}">
+								<img src="../resources/images/overviewPage/ANY_authors_64.png"
+									 class="large_imgImg xTiny_marginRExcl" align="left" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<!-- Author textual information -->
