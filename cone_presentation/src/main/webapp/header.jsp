@@ -23,7 +23,7 @@
 
  Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ Gesellschaft zur F�rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 --%>
 
@@ -31,18 +31,18 @@
 <%@page import="de.mpg.mpdl.inge.util.PropertyReader"%>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>CoNE - Control of Named Entities</title>
-	<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet"/>
-	<link href="<%= PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL) %>" type="text/css" rel="stylesheet"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>CoNE - Control of Named Entities</title>
 
-	<script type="text/javascript">
+<link href="/pubman/resources/cssFramework/main.css" type="text/css" rel="stylesheet" />
+<link href="<%=PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_STYLESHEET_URL)%>" type="text/css" rel="stylesheet" />
 
-		var instanceUrl = '<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>';
+<script type="text/javascript">
+
+		var instanceUrl = '<%=PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)%>';
 
 		function removeLine(element, hasPredicates)
 		{
-			
 			var form = $(element.form);
 			var parent = $(element).parents(".inputField")[0];
 			var listSize = $(parent).parent().children(".inputField").length;
@@ -74,12 +74,11 @@
 				$(parent).find("input[type='text']").each(function(){ $(this).val('');});
 				$(element).remove();
 			}
-			form.on('submit');
+			form.submit();
 		}
 
 		function add(element, predicate, hidden, lang, hasPredicates)
 		{
-
 			var parentInput =  $(element).parent();
 			
 			var newItem = $(parentInput).clone().empty();
@@ -89,7 +88,6 @@
 					newItem.append('<input name="'+ predicate + '_lang'+'" value="" type="hidden">');
 				}
 
-			
 			$(parentInput).after(newItem);
 
 			if(hasPredicates)
@@ -97,11 +95,8 @@
 				reorderPredicateInputNames($(parentInput).parent());
 			}
 			
-			element.form.on('submit');
-
-		
+			element.form.submit();
 		}
-
 
 		function reorderPredicateInputNames(parent)
 		{
@@ -109,415 +104,348 @@
 			var count = 0;
 			$(parent).children(".inputField").each(
 				function (index) {
-
 					if($(this).find("input:text, input:hidden").size())
 					{
-						//console.log("found inputs for " + $(this));
 						$(this).find("input:text").each(function (index) {
 
 							if($(this).attr("name").indexOf("|") >= 0)
 							{
-								//console.log("Name:" + $(this).attr("name"));
 								var name = $(this).attr("name").split("|");
 								var predicatePos = name.length - 2;
 
-								//console.log("Predicate Pos:" + predicatePos);
-
-								
 								name[predicatePos] = name[predicatePos].substring(0, name[predicatePos].lastIndexOf('_')) + "_" + count;
-								//console.log(name[predicatePos]);
 
 								var newName = name.join("|");
-								//console.log("New name:" + newName);
 								$(this).attr("name", newName);
 							}
-							
-															
-							
 						});
-						//console.log("count++");
 						count++;
 					}
 				});
-
 		}
 
 		function bindSuggest(element, model, cutId)
 		{
-			
 			if (typeof pageLoaded != 'undefined' && pageLoaded)
 			{
 				element = element.replace('|', '\\|');
 				
 				if (typeof cutId != 'undefined' && cutId)
 				{
-					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>" + model + "/query?lang=*&format=json", {onSelect: fillSmallId});
+					$('input[name=' + element + ']').suggest("<%=PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)%>" + model + "/query?lang=*&format=json", {onSelect: fillSmallId});
 				}
 				else
 				{
-					$('input[name=' + element + ']').suggest("<%= PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL) %>" + model + "/query?lang=*&format=json", {onSelect: fillId});
-				}
+					$('input[name=' + element + ']').suggest("<%=PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL)%>" + model + "/query?lang=*&format=json", {onSelect : fillId});
 			}
-			else
-			{
-				setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', ' + (typeof cutId != 'undefined' && cutId) + ')', 100);
+		} else {
+			setTimeout('bindSuggest(\'' + element + '\', \'' + model + '\', ' + (typeof cutId != 'undefined' && cutId) + ')', 100);
+		}
+	};
+
+	function bindExternalSuggest(element, url) {
+		if (typeof pageLoaded != 'undefined' && pageLoaded) {
+			element = element.replace('|', '\\|');
+			$('input[name=' + element + ']').suggest(url, {
+				onSelect : fillExternalValue
+			});
+		} else {
+			setTimeout('bindExternalSuggest(\'' + element + '\', \'' + url
+					+ '\')', 100);
+		}
+	};
+
+	function fillExternalValue() {
+
+		var $input = $(this);
+		$input.val(this.resultValue);
+
+		//try to fill identifier, if given
+		if (this.resultID) {
+			var inputName = $input.attr('name');
+			var lastPos = inputName.lastIndexOf('|');
+			var prefix = '';
+			if (lastPos != -1) {
+				prefix = inputName.substring(0, lastPos) + "|";
 			}
-		};
 
-
-		function bindExternalSuggest(element, url)
-		{
-			if (typeof pageLoaded != 'undefined' && pageLoaded)
-			{
-				element = element.replace('|', '\\|');
-				$('input[name=' + element + ']').suggest(url, {onSelect: fillExternalValue});
-
-			}
-			else
-			{
-				setTimeout('bindExternalSuggest(\'' + element + '\', \'' + url + '\')', 100);
-			}
-		};
-
-		function fillExternalValue()
-		{
-			 
-			var $input = $(this);
-			$input.val(this.resultValue);
-
-
-			//try to fill identifier, if given
-			if(this.resultID)
-			{
-				var inputName = $input.attr('name');
-				var lastPos = inputName.lastIndexOf('|');
-				var prefix = '';
-				if(lastPos!=-1)
-				{
-					prefix = inputName.substring(0, lastPos) + "|";
-				}
-				
-				var identifierName = prefix + 'http___purl_org_dc_elements_1_1_identifier';
-				var $idInput = $('input[name=' + identifierName.replace('|', '\\|') + ']');
-				if($idInput.length)
-				{
-					$idInput.val(this.resultID);
-				}
+			var identifierName = prefix
+					+ 'http___purl_org_dc_elements_1_1_identifier';
+			var $idInput = $('input[name=' + identifierName.replace('|', '\\|')
+					+ ']');
+			if ($idInput.length) {
+				$idInput.val(this.resultID);
 			}
 		}
+	}
 
-		function fillSmallId()
-		{
-			$(this).val(this.resultID.substring(this.resultID.lastIndexOf('/') + 1));
-		}
-		
-		function fillId()
-		{
-			var id = this.resultID.replace(/^.+\/(.+\/resource\/.+)$/, '$1');
-			$(this).val(id);
+	function fillSmallId() {
+		$(this).val(this.resultID.substring(this.resultID.lastIndexOf('/') + 1));
+	}
+
+	function fillId() {
+		var id = this.resultID.replace(/^.+\/(.+\/resource\/.+)$/, '$1');
+		$(this).val(id);
+	}
+
+	function checkId(model, conf) {
+		var subject;
+		if (document.editform["cone_identifier"] != null) {
+			subject = document.editform["cone_identifier"].value;
+		} else {
+			subject = document.editform["uri"].value;
 		}
 
-		function checkId(model, conf)
-		{
-			
-			var subject;
-			if (document.editform["cone_identifier"] != null)
-			{
-				subject = document.editform["cone_identifier"].value;
-			}
-			else
-			{
-				subject = document.editform["uri"].value;
-			}
-			
-			if (typeof predicate == 'undefined')
-			{
-				$('#cone_identifier').removeClass('errorMessageArea successMessageArea infoMessageArea endline');
-				if (subject != '')
-				{
-					var subject_prefix = document.editform["cone_subject_prefix"].value;
-					$.getJSON(
-							instanceUrl + subject_prefix + subject + '?format=json'
-							, function(data) {
-								
-								if (data.id != null)
-								{
-									if (conf && confirm('This entry already exists!\nDo you want to edit the existing entry?'))
-									{
-										location.href = data.id.replace(instanceUrl, instanceUrl + 'edit.jsp?model=' + model + '&uri=');
-									}
-									else
-									{
-										$('#cone_identifier').addClass('errorMessageArea endline');
+		if (typeof predicate == 'undefined') {
+			$('#cone_identifier').removeClass('errorMessageArea successMessageArea infoMessageArea endline');
+			if (subject != '') {
+				var subject_prefix = document.editform["cone_subject_prefix"].value;
+				$.getJSON(
+								instanceUrl + subject_prefix + subject
+										+ '?format=json',
+								function(data) {
+
+									if (data.id != null) {
+										if (conf
+												&& confirm('This entry already exists!\nDo you want to edit the existing entry?')) {
+											location.href = data.id.replace(
+													instanceUrl, instanceUrl
+															+ 'edit.jsp?model='
+															+ model + '&uri=');
+										} else {
+											$('#cone_identifier').addClass(
+													'errorMessageArea endline');
+											document.getElementById('idInfo').style.visibility = 'visible';
+											document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
+											document.getElementById('idInfo').title = 'This entry already exists!';
+										}
+									} else {
 										document.getElementById('idInfo').style.visibility = 'visible';
-										document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
-										document.getElementById('idInfo').title = 'This entry already exists!';
-									}
-								}
-								else
-								{
-									document.getElementById('idInfo').style.visibility = 'visible';
-									document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
-									$('#cone_identifier').addClass('infoMessageArea endline');
-									document.getElementById('idInfo').title = 'This content is unique';
+										document.getElementById('idInfo').className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
+										$('#cone_identifier').addClass(
+												'infoMessageArea endline');
+										document.getElementById('idInfo').title = 'This content is unique';
 
-								}
-							}
-					);
-				}
-				else
-				{
-					document.getElementById('idInfo').style.visibility = 'hidden';
-				}
+									}
+								});
+			} else {
+				document.getElementById('idInfo').style.visibility = 'hidden';
 			}
 		}
+	}
 
-		function checkFields()
-		{
-			var fields = $.find('.inputInfoBox');
-			$(fields).each(function(){
-					this.init = false;
-					this.onclick();
-				}
-			);
+	function checkFields() {
+		var fields = $.find('.inputInfoBox');
+		$(fields).each(function() {
+			this.init = false;
+			this.onclick();
+		});
+	}
+
+	function checkField(element, model, predicate, formField, counter, popup,
+			shouldBeUnique) {
+
+		mx = tempX;
+		my = tempY;
+
+		if (typeof popup == 'undefined') {
+			popup = false;
+		}
+
+		var subject = null;
+		if (document.editform["cone_identifier"] != null) {
+			subject = document.editform["cone_identifier"].value;
+		} else if (document.editform["uri"] != null) {
+			subject = document.editform["uri"].value;
 		}
 		
-		function checkField(element, model, predicate, formField, counter, popup, shouldBeUnique)
-		{
-			
-			mx = tempX;
-			my = tempY;
-			
-			if (typeof popup == 'undefined')
-			{
-				popup = false;
-			}
-			
-			var subject = null;
-			if (document.editform["cone_identifier"] != null)
-			{
-				subject = document.editform["cone_identifier"].value;
-			}
-			else if (document.editform["uri"] != null)
-			{
-				subject = document.editform["uri"].value;
-			}
-			var object;
-			if (counter != null)
-			{
-
-				if(!(typeof document.editform[formField][counter] === "undefined"))
-				{
-					object = document.editform[formField][counter].value;
-				}
-				else
-				{
-					object = document.editform[formField].value;
-				}
-				
-				
-				
-				
-			}
-			else
-			{
+		var object;
+		if (counter != null) {
+			if (!(typeof document.editform[formField][counter] === "undefined")) {
+				object = document.editform[formField][counter].value;
+			} else {
 				object = document.editform[formField].value;
 			}
+		} else {
+			object = document.editform[formField].value;
+		}
 
-			var input = $(element).parents('.inputField').find('.huge_txtInput, .half_txtArea')[0];
-			var info = $(element).parents('.inputField').find('.inputInfoBox')[0];
-			$(input).removeClass('errorMessageArea successMessageArea infoMessageArea endline');
-			
-			if (object != '')
-			{
+		var input = $(element).parents('.inputField').find('.huge_txtInput, .half_txtArea')[0];
+		var info = $(element).parents('.inputField').find('.inputInfoBox')[0];
+		$(input).removeClass('errorMessageArea successMessageArea infoMessageArea endline');
 
-				var jsonUrl = instanceUrl + model + '/query?' + encodeURIComponent(predicate) + '="' + encodeURIComponent(object) + '"&format=json';
+		if (object != '') {
+			var jsonUrl = instanceUrl + model + '/query?'
+					+ encodeURIComponent(predicate) + '="'
+					+ encodeURIComponent(object) + '"&format=json';
+			$.getJSON(
+							jsonUrl,
+							function(data) {
 
-				$.getJSON(
-						jsonUrl
-						, function(data)
-						{
+								if (data.length > 0) {
+									var counter = 0;
+									for (var i = 0; i < data.length; i++) {
+										var entry = data[i];
+										if (subject == null
+												|| entry.id != instanceUrl
+														+ subject) {
+											counter++;
+										} else {
+											// I found myself
+										}
+									}
 
-							
-							if (data.length > 0)
-							{
-								var counter = 0;
-								for (var i = 0; i < data.length; i++)
-								{
-									var entry = data[i];
-									if (subject == null || entry.id != instanceUrl + subject)
-									{
-										counter++;
+									if (counter > 0 && shouldBeUnique) {
+										$(input).addClass(
+												'errorMessageArea endline');
+										info.style.visibility = 'visible';
+										info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
+										var title;
+										if (counter == 1) {
+											title = 'another entry was';
+										} else if (counter <= 48) {
+											title = counter
+													+ ' other entries were';
+										} else {
+											title = 'many other entries were';
+										}
+										title = 'This field should usually be unique, but '
+												+ title
+												+ ' found with the same content';
+										info.title = title;
+									} else if (counter > 0) {
+										$(input).addClass(
+												'successMessageArea endline');
+										info.style.visibility = 'visible';
+										info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox successMessageArea';
+										var title;
+										if (counter <= 48) {
+											title = counter;
+										} else {
+											title = 'Many';
+										}
+										title += ' other entries were found with the same content';
+										info.title = title;
+									} else {
+										$(input).addClass(
+												'infoMessageArea endline');
+										info.style.visibility = 'visible';
+										info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
+										info.title = 'This content is unique';
 									}
-									else
-									{
-										// I found myself
-									}
-								}
-								
-								if (counter > 0 && shouldBeUnique)
-								{
 
-									
-									
-									$(input).addClass('errorMessageArea endline');
-									info.style.visibility = 'visible';
-									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox errorMessageArea';
-									var title;
-									if (counter == 1)
-									{
-										title = 'another entry was';
+									if (counter > 0 && popup && element.init) {
+										var html = '<ul class="dialog">\n';
+										for (var i = 0; i < data.length; i++) {
+											if (subject == null
+													|| data[i].id != instanceUrl
+															+ subject) {
+												html += '<li><a href="' + data[i].id + '" target="_blank" rel="noreferrer noopener">'
+														+ data[i].value
+														+ '</a>\n';
+												html += '<a href="edit.jsp?model='
+														+ model
+														+ '&uri='
+														+ data[i].id
+																.replace(
+																		instanceUrl,
+																		'')
+														+ '">[edit]</a>\n';
+												html += '<a target="_blank" rel="noreferrer noopener" href="edit.jsp?model='
+														+ model
+														+ '&uri='
+														+ data[i].id
+																.replace(
+																		instanceUrl,
+																		'')
+														+ '">[new window]</a></li>\n';
+											}
+										}
+										html += '</ul>\n';
+
+										showDialog(html, element);
+									} else {
+										element.init = true;
 									}
-									else if (counter <=48) 
-									{
-										title = counter + ' other entries were';
-									}
-									else
-									{
-										title = 'many other entries were';
-									}
-									title = 'This field should usually be unique, but ' + title + ' found with the same content';
-									info.title = title;
-								}
-								else if (counter > 0)
-								{
-									$(input).addClass('successMessageArea endline');
-									info.style.visibility = 'visible';
-									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox successMessageArea';
-									var title;
-									if (counter <=48) 
-									{
-										title = counter;
-									}
-									else
-									{
-										title = 'Many';
-									}
-									title += ' other entries were found with the same content';
-									info.title = title;
-								}
-								else
-								{
+								} else {
 									$(input).addClass('infoMessageArea endline');
 									info.style.visibility = 'visible';
 									info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';
+									info.title = jsonUrl + ' - ' + predicate + ' - ' + formField;
 									info.title = 'This content is unique';
 								}
-
-								if (counter > 0 && popup && element.init)
-								{
-									var html = '<ul class="dialog">\n';
-									for (var i = 0; i < data.length; i++)
-									{
-										if (subject == null || data[i].id != instanceUrl + subject)
-										{
-											html += '<li><a href="' + data[i].id + '" target="_blank" rel="noreferrer noopener">' + data[i].value + '</a>\n';
-											html += '<a href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[edit]</a>\n';
-											html += '<a target="_blank" rel="noreferrer noopener" href="edit.jsp?model=' + model + '&uri=' + data[i].id.replace(instanceUrl, '') + '">[new window]</a></li>\n';
-										}
-									}
-									html += '</ul>\n';
-									
-									showDialog(html, element);
-									
-								}
-								else
-								{
-									element.init = true;
-								}
-							}
-							else
-							{
-								$(input).addClass('infoMessageArea endline');
-								info.style.visibility = 'visible';
-								info.className = 'tiny_area0 tiny_marginRExcl inputInfoBox infoMessageArea';			
-								info.title = jsonUrl + ' - ' + predicate + ' - ' + formField; 
-								info.title = 'This content is unique';
-							}
-						}
-				);
-			}
-			else
-			{
-				info.style.visibility = 'hidden';
-			}
-			
+							});
+		} else {
+			info.style.visibility = 'hidden';
 		}
+	}
 
-		function removeParent(element)
-		{
-			element.parentNode.parentNode.removeChild(element.parentNode);
+	function removeParent(element) {
+		element.parentNode.parentNode.removeChild(element.parentNode);
+	}
+
+	function addListEntry(element, newTag, text) {
+
+		var addEntry = element.parentNode.cloneNode(true);
+		var newEntry = document.createElement(newTag);
+		newEntry.innerHTML = text;
+		var papa = element.parentNode.parentNode;
+
+		removeParent(element);
+
+		papa.appendChild(newEntry);
+		papa.appendChild(addEntry);
+	}
+
+	function showDialog(html, element) {
+		$('.messageArea').append(html);
+		$('.messageArea').css('position', 'absolute');
+		$('.messageArea').css('z-index', '2001');
+		$('.messageArea').css('left', mx);
+		$('.messageArea').css('top', my);
+		$('.messageArea').removeClass('noDisplay');
+
+		document.getElementById('fullItem').style.opacity = '0.4';
+		document.getElementById('fullItem').style.bg = 'FFF';
+		$('*').attr('readonly', true);
+		$(':input :file').attr('disabled', true);
+	}
+
+	function closeDialog() {
+		$('.dialog').remove();
+		$('.messageArea').addClass('noDisplay');
+
+		document.getElementById('fullItem').style.opacity = '1';
+		document.getElementById('fullItem').style.bg = 'FFF';
+		$('*').attr('readonly', false);
+		$(':input :file').attr('disabled', false);
+	}
+
+	function readCslFile(evt) {
+		var files = evt.target.files;
+		var file = files[0];
+		var reader = new FileReader();
+		reader.onload = function() {
+
+			var xmlDoc = $.parseXML(this.result);
+
+			var title = $(xmlDoc).xpath('/csl:style/csl:info/csl:title', xPathNamespace);
+			var abbr = $(xmlDoc).xpath('/csl:style/csl:info/csl:title-short', xPathNamespace);
+
+			$("[name='" + evt.data.txtArea + "']").val(this.result);
+			$("[name='http___purl_org_dc_elements_1_1_title']").val(title.text()).change();
+			$("[name='http___purl_org_escidoc_metadata_terms_0_1_abbreviation']").val(abbr.text()).change();
 		}
-		
-		function addListEntry(element, newTag, text)
-		{
-			
-			var addEntry = element.parentNode.cloneNode(true);
-			var newEntry = document.createElement(newTag);
-			newEntry.innerHTML = text;
-			var papa = element.parentNode.parentNode;
-			
-			removeParent(element);
+		reader.readAsText(file)
+	}
 
-			papa.appendChild(newEntry);
-			papa.appendChild(addEntry);
+	function xPathNamespace(prefix) {
+		if (prefix == "csl")
+			return "http://purl.org/net/xbiblio/csl";
+	}
+</script>
 
-		}
-		
-		function showDialog(html, element)
-		{
-			$('.messageArea').append(html);
-			$('.messageArea').css('position', 'absolute');
-			$('.messageArea').css('z-index', '2001');
-			$('.messageArea').css('left', mx);
-			$('.messageArea').css('top', my);
-			$('.messageArea').removeClass('noDisplay');
-			
-			document.getElementById('fullItem').style.opacity='0.4';
-			document.getElementById('fullItem').style.bg='FFF';
-			$('*').attr('readonly', true);
-		    $(':input :file').attr('disabled', true);
-		}
-
-		function closeDialog()
-		{
-			$('.dialog').remove();
-			$('.messageArea').addClass('noDisplay');
-			
-			document.getElementById('fullItem').style.opacity='1';
-			document.getElementById('fullItem').style.bg='FFF';
-			$('*').attr('readonly', false);
-		    $(':input :file').attr('disabled', false);
-		}
-
-
-		function readCslFile (evt) {
-	           var files = evt.target.files;
-	           var file = files[0];           
-	           var reader = new FileReader();
-	           reader.onload = function() {
-
-			         var xmlDoc = $.parseXML(this.result);
-
-			         var title = $(xmlDoc).xpath('/csl:style/csl:info/csl:title', xPathNamespace);
-			         var abbr = $(xmlDoc).xpath('/csl:style/csl:info/csl:title-short', xPathNamespace);
-
-		             $("[name='" + evt.data.txtArea + "']").val(this.result);   
-		             $("[name='http___purl_org_dc_elements_1_1_title']").val(title.text()).on('change');
-		             $("[name='http___purl_org_escidoc_metadata_terms_0_1_abbreviation']").val(abbr.text()).on('change');
-	           }
-	           reader.readAsText(file)
-	      }
-
-		function xPathNamespace(prefix) {
-       	 if (prefix == "csl")
-       	        return "http://purl.org/net/xbiblio/csl";
-	    }
-		
-	</script>
-	
-	<script language="JavaScript1.2">
-<!--
+<script language="JavaScript1.2">
 
 // Detect if the browser is IE or not.
 // If it is not IE, we assume that the browser is NS.
@@ -554,17 +482,11 @@ function getMouseXY(e) {
   return true
 }
 
-//-->
 </script>
-	<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
-	<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
-	<!-- 
-	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js">;</script>
-	<script type="text/javascript" src="/cone/js/jquery.dimensions.js">;</script>
-	 -->
-	<script type="text/javascript" src="/cone/js/jquery.suggest.js">;</script>
-	<!-- 
-	<script type="text/javascript" src="/cone/js/jquery.xpath.min.js">;</script>
-	 -->
+	<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js"></script>
+	<script type="text/javascript" src="/cone/js/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/cone/js/jquery.suggest.js"></script>
+	<script type="text/javascript" src="/cone/js/jquery.xpath.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="/cone/js/jquery.suggest.css"/>
 </head>

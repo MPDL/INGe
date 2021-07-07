@@ -157,7 +157,7 @@
 			            		    {
 		            		    		 out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
 		            		    		 out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet  + ">" + value.toString() + "</textarea>");
-		            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').on('change', {txtArea: '" + name + "'}, readCslFile)});</script>");
+		            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').bind('change', {txtArea: '" + name + "'}, readCslFile)});</script>");
 			    	            	}
 		            		    	else
 		            		    	{
@@ -186,7 +186,7 @@
 					    	        {
 				    		            if (predicate.isLocalized())
 				    		        	{
-		    			    	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
+		    			    	        	out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
 				    		        	}
 		    	        			}
 				        	        if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
@@ -257,7 +257,7 @@
 		            		    {
 	            					 out.append("\n<input type=\"file\" name=\"" + name +"_file\" enctype=\"multipart/form-data\" accept=\".xml,.csl\" />");
 	            		    		 out.append("\n<textarea rows=\"30\" class=\"half_txtArea inputTextArea" + cssSnippet + "\"" + nameSnippet + onChangeSnippet + ">" +  "</textarea>");
-	            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').on('change', {txtArea: '" + name + "'}, readCslFile)});</script>");
+	            		    		 out.append("<script>$(document).ready(function() {$('[name=\"" + name + "_file\"]').bind('change', {txtArea: '" + name + "'}, readCslFile)});</script>");
 		    	            	}
 	            		    	else
 	            		    	{
@@ -286,7 +286,7 @@
 					        	{
 					        	    if (predicate.isLocalized())
 		    			    		{
-		        			    		out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+		        			    		out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 		        					}
 					        	}
 								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
@@ -301,7 +301,7 @@
 			        	else if (predicate.isLocalized())
    			    		{
 			        	    out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-	       			    	out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+	       			    	out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 	           				out.append("</span>");
        					}
 	    		   	}
