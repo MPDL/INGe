@@ -65,7 +65,6 @@
 	HttpServletRequest request;
 	String sessionAttributePrefix = "coneSubSession_";
 	List<String> errors = new ArrayList<String>();
-	List<String> messages = new ArrayList<String>();
 	Querier querier;
 	
 	private String displayPredicates(Model model, TreeFragment results, String uri, List<Predicate> predicates, String prefix, String path, boolean loggedIn) throws ConeException
@@ -518,8 +517,9 @@
 
 	AuthenticationVO user = (AuthenticationVO) request.getSession().getAttribute("user");
 	boolean loggedIn = Login.getLoggedIn(request);
-	Querier querier = QuerierFactory.newQuerier(loggedIn);
+	querier = QuerierFactory.newQuerier(loggedIn);
 	boolean warning = false;
+	List<String> messages = new ArrayList<String>();
 
 	if (request.getParameter("workflow") != null) {
 		errors = new ArrayList<String>();
