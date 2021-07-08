@@ -56,7 +56,7 @@
 			{
 				$(parent).find('input[class*="min_imgBtn groupBtn remove"]').remove();
 				
-				if ($(parent).find(".itemLine").size() > 0)
+				if ($(parent).find(".itemLine").length > 0)
 				{
 					$(parent).find(".itemLine").remove();				
 					$(parent).find('input[class*="small_txtInput"]').remove();
@@ -104,7 +104,7 @@
 			var count = 0;
 			$(parent).children(".inputField").each(
 				function (index) {
-					if($(this).find("input:text, input:hidden").size())
+					if($(this).find("input:text, input:hidden").length)
 					{
 						$(this).find("input:text").each(function (index) {
 
@@ -483,7 +483,11 @@ function getMouseXY(e) {
 }
 
 </script>
+	<!--
 	<script type="text/javascript" src="/cone/js/jquery-1.11.1.min.js"></script>
+	  -->
+	<script type="text/javascript" src="/cone/js/jquery-3.6.0.js"></script>
+	<script type="text/javascript" src="/cone/js/jquery-migrate-3.3.2.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery.jdialog.min.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery.dimensions.js"></script>
 	<script type="text/javascript" src="/cone/js/jquery.suggest.js"></script>
