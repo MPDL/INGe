@@ -79,13 +79,6 @@
 										<h:outputText value="#{lbl.ViewItemLogPage}" />
 									</h:outputLink> <h:panelGroup styleClass="seperator"
 										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
-									<h:commandLink id="lnkViewItemLogPageStatistics"
-										styleClass="free_area0"
-										action="#{ViewItemFull.showStatistics}"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
-										<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}" />
-									</h:commandLink> <h:panelGroup styleClass="seperator"
-										rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink id="lnkViewItemLogPageHistory"
 										styleClass="free_area0"
 										action="#{ViewItemFull.showReleaseHistory}"
