@@ -134,7 +134,7 @@ function getPersonDetails(details) {
             for (var i = 0; i < details.http_purl_org_escidoc_metadata_terms_0_1_position.length; i++) {
                 if (details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_eprint_terms_affiliatedInstitution.replace(/^\s*(.*\S)\s*$/, '$1') == orgName &&
                     typeof details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier != 'undefined') {
-                    orgId = $details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier.trim();
+                    orgId = details.http_purl_org_escidoc_metadata_terms_0_1_position[i].http_purl_org_dc_elements_1_1_identifier.trim();
                     break;
                 }
             }
