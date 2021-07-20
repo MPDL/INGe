@@ -20,6 +20,20 @@
 		</locale-config>
 	</application>
 
+	<protected-views>
+		<url-pattern>/BatchWorkspacePage.jsp</url-pattern>
+		<url-pattern>/CreateItemPage.jsp</url-pattern>
+		<url-pattern>/EasySubmissionPage.jsp</url-pattern>
+		<url-pattern>/EditItemPage.jsp</url-pattern>
+		<url-pattern>/FetchMetadataPage.jsp</url-pattern>
+		<url-pattern>/MultipleImportForm.jsp</url-pattern>
+		<url-pattern>/NewMultipleImport.jsp</url-pattern>
+		<url-pattern>/ReleaseItemPage.jsp</url-pattern>
+		<url-pattern>/ReviseItemPage.jsp</url-pattern>
+		<url-pattern>/UserAccountOptions.jsp</url-pattern>
+		<url-pattern>/WithdrawItemPage.jsp</url-pattern>
+	</protected-views>
+
 	<lifecycle>
 		<phase-listener id="facesMessagesListener">de.mpg.mpdl.inge.pubman.web.util.listener.FacesMessagesPhaseListener</phase-listener>
 	</lifecycle>
