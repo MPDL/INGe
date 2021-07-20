@@ -169,12 +169,8 @@ public class LoginHelper extends FacesBean {
         this.error(this.getMessage("LoginBlocked"));
       }
       if (e.getMessage().contains("change password")) {
-        try {
-          this.error("<a href=\"" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + ApplicationBean.INSTANCE.getInstanceContextPath()
-              + "/faces/UserAccountOptions.jsp\">" + this.getMessage("LoginPasswordChangeRequired") + "</a>");
-        } catch (PubManVersionNotAvailableException e1) {
-          logger.error(e1);
-        }
+        this.error("<a href=\"" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + ApplicationBean.INSTANCE.getInstanceContextPath()
+            + "/faces/UserAccountOptions.jsp\">" + this.getMessage("LoginPasswordChangeRequired") + "</a>");
       } else {
         this.error(this.getMessage("LoginError"));
       }

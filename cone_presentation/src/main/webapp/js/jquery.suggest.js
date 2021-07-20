@@ -31,8 +31,8 @@
 			
 			resetPosition();
 			$(window)
-				.load(resetPosition)		// just in case user is changing size of page while loading
-				.resize(resetPosition);
+				.on('load', resetPosition)		// just in case user is changing size of page while loading
+				.on('resize', resetPosition);
 
 			// help IE users if possible
 			try {
@@ -64,7 +64,7 @@
 			
 			var mouseOverResults = false;
 			
-			$results.mouseover(function(){
+			$results.on('mouseover', function(){
 				mouseOverResults = true;
 			});
 			$results.on("mouseenter",function(){
@@ -73,7 +73,7 @@
 			$results.on("mouseleave",function(){
 				mouseOverResults = false;
 			});
-			$input.blur(function(){
+			$input.on('blur', function(){
 				if(!mouseOverResults) {
 					displayResults = false;
 					$results.hide();
@@ -310,7 +310,7 @@
 				
 				$results
 					.children('li')
-					.mouseover(function() {
+					.on('mouseover', function() {
 						$results.children('li').removeClass(options.selectClass);
 						$(this).addClass(options.selectClass);
 					})

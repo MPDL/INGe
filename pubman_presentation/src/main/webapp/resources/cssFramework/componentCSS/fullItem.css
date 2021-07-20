@@ -31,45 +31,43 @@
 */
 
 /*GENERAL*/
-
-@media print {
-
-	.messageArea {display: none;}
-}
-
 .fullItem {
 	border-top-width: 0.19em !important;
 	border-top-style: solid;
 	border-bottom-width: 0.09em !important;
 	border-bottom-style: solid;
-	margin-top:0.5454em;
+	margin-top: 0.5454em;
 }
 
 .fullItem table, .fullItem td, .fullItem tr, .fullItem th {
 	margin: 0px;
 	padding: 0px;
 }
+
 .fullItem .itemHeadline table td {
-	float:left;
-}
-.fullItem .itemHeadline .noFloat table td {
-	float:none;
+	float: left;
 }
 
-.fullItem .itemHeadline table td + td {
-	margin-left:2em;
+.fullItem .itemHeadline .noFloat table td {
+	float: none;
 }
+
+.fullItem .itemHeadline table td+td {
+	margin-left: 2em;
+}
+
 .fullItem .itemHeader .itemHeadline table td label {
-	width:auto !important;
+	width: auto !important;
 }
 /* hacks for IE7 to show the headline in one line */
-*:first-child+html .fullItem .itemHeadline table td + td {
-	padding-left:1em;
-	padding-right:1em;
+*:first-child+html .fullItem .itemHeadline table td+td {
+	padding-left: 1em;
+	padding-right: 1em;
 }
+
 *:first-child+html .fullItem .itemHeader .itemHeadline table td label {
-	display:inline;
-	width:90% !important;
+	display: inline;
+	width: 90% !important;
 }
 
 .fullItem .radioButtonTable td {
@@ -106,21 +104,15 @@
 
 .fullItem .detailedItem img.horizontal {
 	width: 100%;
-	vertical-align:middle;
+	vertical-align: middle;
 }
-		
+
 .fullItem .detailedItem img.vertical {
 	height: 100%;
 	margin: 0 auto 0 auto !important;
 }
 
 /*HEADER*/
-
-@media print {
-	
-	.fullItem .fullItemControls {display: none;}
-}
-
 .fullItem ol {
 	list-style: none;
 	padding: 0px;
@@ -129,7 +121,7 @@
 .fullItem .fullItemControls .seperator {
 	float: right;
 	margin-top: 0.45em;
-	padding-right:0.001em; /* Hack to fix browser-calc for pixel in em */
+	padding-right: 0.001em; /* Hack to fix browser-calc for pixel in em */
 }
 
 .fullItem .fullItemControls a {
@@ -146,8 +138,8 @@
 
 .fullItem .itemHeader .statusArea {
 	margin-top: 0.56em;
-	text-align:center;
-	width:9.1818em;
+	text-align: center;
+	width: 9.1818em;
 }
 
 .fullItem .itemHeader .statusArea * {
@@ -155,17 +147,18 @@
 }
 
 .fullItem .itemHeader .statusArea .statusIcon {
-	float:none;
-	margin:0 auto;
+	float: none;
+	margin: 0 auto;
 }
+
 .fullItem .itemHeader .statusArea .statusLabel {
-	clear:left;
+	clear: left;
 }
 
 .fullItem .itemHeadline {
 	width: 53.82em;
 	padding: 0 0 0.3636em 0;
-/*	margin-top:0.2727em; */
+	/*	margin-top:0.2727em; */
 }
 
 .fullItem .listItem .itemHeadline {
@@ -195,7 +188,6 @@
 }
 
 /*BODY*/
-
 .fullItem .blockHeader {
 	text-align: right;
 	padding-top: 0px;
@@ -231,7 +223,6 @@
 	padding-bottom: 0.00em;
 }
 
-
 .fullItem .noTopBorder {
 	border-top-width: 0px !important;
 }
@@ -247,16 +238,19 @@
 }
 
 .itemBlock .openingParenthesis {
-	font-size:145%;
+	font-size: 145%;
 }
+
 .itemBlock .deleteOpenParenthesis {
-	font-size:70%;
+	font-size: 70%;
 }
+
 .itemBlock .closingParenthesis {
-	font-size:145%;
+	font-size: 145%;
 }
+
 .itemBlock .deleteCloseParenthesis {
-	font-size:70%;
+	font-size: 70%;
 }
 
 .itemLine sup {
@@ -285,7 +279,7 @@
 }
 
 .itemLine .licenseArea {
-	margin-left:15.8181em;
+	margin-left: 15.8181em;
 }
 
 .fullItem .listItemLine, .fullItem li {
@@ -319,26 +313,26 @@
 	
 	border-width: 0.0em;
 	*/
-	margin-left:0.1818em;
+	margin-left: 0.1818em;
 }
 
-	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
-	* html .fileSection .fileInput input {
-		border-width: 0.0909em;
-	}
-	/*REPLACEMENT HACK FOR IE 7*/
-	*:first-child+html .fileSection .fileInput input {
-		border-width: 0.0909em;
-	}
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+* html .fileSection .fileInput input {
+	border-width: 0.0909em;
+}
+/*REPLACEMENT HACK FOR IE 7*/
+*:first-child+html .fileSection .fileInput input {
+	border-width: 0.0909em;
+}
 
 .fileSection .fileLabel {
 	text-align: center;
 	padding: 0.37em 0.0em 0.0em 0.0em;
 }
 
-.sectionTool {	/* used in View Item */
-	margin-top:0.0909em;
-	padding-top:0.0909em;
+.sectionTool { /* used in View Item */
+	margin-top: 0.0909em;
+	padding-top: 0.0909em;
 }
 
 .fullItem .lineToolSection, .fullItem .sectionToolSection {
@@ -403,7 +397,7 @@
 
 .fullItem .singleItem {
 	margin-bottom: 0.19em;
-} 
+}
 
 .fullItem .affTreeOUIcon {
 	margin-bottom: 0.27em;
@@ -412,9 +406,9 @@
 
 .fullItem .advSearchCollapse {
 	line-height: normal;
-    margin-left: 0.73em;
-    margin-top: 0.19em;
-    padding-bottom: 0.19em;
+	margin-left: 0.73em;
+	margin-top: 0.19em;
+	padding-bottom: 0.19em;
 }
 
 .inputInfoBox, .inputInfoBox a {
@@ -422,65 +416,69 @@
 	cursor: pointer;
 }
 
-
-
-
 .fullItem .pageBrowserItem {
-	text-align:center;
-	padding-bottom:0.2727em;
+	text-align: center;
+	padding-bottom: 0.2727em;
 }
+
 .fullItem .pageBrowserItem .paginatorPanel {
-	line-height:3em;
+	line-height: 3em;
 }
+
 *:first-child+html .fullItem .pageBrowserItem .paginatorPanel {
-	line-height:normal;
-} 
+	line-height: normal;
+}
+
 .fullItem .pageBrowserItem a {
-	border:none;
-	text-decoration:none;
+	border: none;
+	text-decoration: none;
 }
 
 .fullItem .pageBrowserItem span.gotoBox {
-	margin-right:0.2727em;
+	margin-right: 0.2727em;
 }
+
 *:first-child+html .fullItem .pageBrowserItem span.gotoBox {
-	margin-top:-1.8181em;
+	margin-top: -1.8181em;
 }
+
 .fullItem .pageBrowserItem .gotoBox input[type="text"] {
-	margin-top:0.545454em;
+	margin-top: 0.545454em;
 }
+
 .fullItem .pageBrowserItem .gotoBox input[type="submit"] {
-	display:none;
+	display: none;
 }
-
-
-
-
-
-
 
 /*VALIDATION (Cone)*/
-
 .validatedUnique input {
-	 border-color: green;
+	border-color: green;
 }
 
 .validatedUnique {
-	 color: white;
-	 background-color: green;
+	color: white;
+	background-color: green;
 }
-
-
 
 .citeulikebookmark {
-    position: absolute;
-	clip: rect(0.8181em 8.5454em 2.1818em 7.3636em);
-    height: 2em;
+	position: absolute;
+	clip: rect(0.8181em, 8.5454em, 2.1818em, 7.3636em);
+	height: 2em;
 	width: 94px;
-	margin-left:-1.6363em;
-    margin-top: -0.3636em;
-    overflow: hidden !important;
+	margin-left: -1.6363em;
+	margin-top: -0.3636em;
+	overflow: hidden !important;
 }
+
 .citeulikebookmark img {
-	padding-top:0.0909em;
+	padding-top: 0.0909em;
+}
+
+@media print {
+	.fullItem .fullItemControls {
+		display: none;
+	}
+	.messageArea {
+		display: none;
+	}
 }

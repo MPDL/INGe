@@ -18,7 +18,7 @@
 		<!-- If no fulltexts are available show message -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p6"
 			rendered="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList == null or empty(ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList)}">
-			<h:outputText value="#{msg.ViewItemOverview_noFulttextsAvailable}" />
+			<h:outputText value="#{msg.ViewItemOverview_noFullTextsAvailable}" />
 		</h:panelGroup>
 		<!-- Iterator for publicly accessible fulltexts (not only any-fulltext, but also postprint/preprint/publisher-version) -->
 		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"

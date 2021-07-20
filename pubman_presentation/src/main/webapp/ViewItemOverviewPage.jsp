@@ -12,10 +12,11 @@
     <h:outputText value="#{ViewItemFull.htmlMetaTags}" escape="false" rendered="#{ViewItemFull.pubItem != null and ViewItemFull.isStateReleased}" />
     <meta name="description" content="${ViewItemFull.pubItem.descriptionMetaTag}" />
     <h:outputStylesheet name="commonJavaScript/jquery/css/jquery-ui-1.10.4.min.css" />
+	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
+	<!-- ACHTUNG: Mit untenstehenden Bibliotheken funktioniert der nanoScroller nicht !!!
+	              Daher kann auch eSciDoc_full_item.js nicht auf die neue Syntax umgestellt werden!!!
 	<h:outputScript name="commonJavaScript/jquery/jquery-3.6.0.js" />
 	<h:outputScript name="commonJavaScript/jquery/jquery-migrate-3.3.2.js" />
-	<!--
-	<h:outputScript name="commonJavaScript/jquery/jquery-ui-1.10.4.min.js" />
 	  -->
     <script src="/cone/js/jquery.suggest.js"></script>
 	<h:outputScript name="commonJavaScript/componentJavaScript/autoSuggestFunctions.js" />
@@ -351,7 +352,7 @@
                 var imgElement;
                 $('.mpgAuthorId').each(function(index) {
                     url = $(this).text();
-                    jsonRequestUrl = url + '?format=json';
+                    jsonRequestUrl = '#{AdvancedSearchBean.coneServiceUrl}' + url + '?format=json';
                     imgElement = $(this).parent().find('img').get(0);
                     updateImage(imgElement, jsonRequestUrl);
                 });

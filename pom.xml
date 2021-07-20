@@ -1083,7 +1083,6 @@
 		<inge.aa.client.start.class>de.mpg.mpdl.inge.aa.web.client.IngeAaClientStart</inge.aa.client.start.class>
 		<inge.aa.default.target>http://localhost:8080/auth/clientLogin</inge.aa.default.target>
 		<inge.aa.instance.url>http://localhost:8080/auth/</inge.aa.instance.url>
-		<inge.aa.login.jsp>login_inge.jsp</inge.aa.login.jsp>
 		<inge.aa.private.key.file>private.key</inge.aa.private.key.file>
 		<inge.aa.public.key.file>public.key</inge.aa.public.key.file>
 		<inge.auth.mpg.ip.csv.url />
@@ -1166,12 +1165,13 @@
 		<inge.pubman.logo.url />
 		<inge.pubman.policy.url />
 		<inge.pubman.presentation.url>/pubman/resources/cssFramework/main.css</inge.pubman.presentation.url>
-		<inge.pubman.privacy.policy.url />
-		<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+		<inge.pubman.privacy.url />
+		<inge.pubman.root.authors.icon />
+		<inge.pubman.root.organization.name />
+		<inge.pubman.root.organisation.id />
 		<inge.pubman.sitemap.max.items>50000</inge.pubman.sitemap.max.items>
 		<inge.pubman.sitemap.retrieve.items>1000</inge.pubman.sitemap.retrieve.items>
 		<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_MPG/styles/theme.css</inge.pubman.stylesheet.url>
-		<inge.pubman_presentation.overview_page.authors_ou />
 		<inge.pubman_presentation.viewFullItem.defaultSize>20</inge.pubman_presentation.viewFullItem.defaultSize>
 		<inge.rest.api.description><![CDATA[This is an automatically generated REST API documentation for PubMan.<br />Please be aware that example values in particular might not be fully correct.<br />Valid examples can be found in <a href="https://colab.mpdl.mpg.de/mediawiki/INGe_REST_API_Documentation" target="_blank" rel="noreferrer noopener">MPDL CoLab</a>.]]></inge.rest.api.description>
 		<inge.rest.file.path>/component</inge.rest.file.path>
@@ -1306,8 +1306,10 @@
 				<inge.pubman.handbook.url>https://subversion.mpdl.mpg.de/repos/smc/tags/public/PubMan/Benutzerhandbuch_WebHelp/index.htm</inge.pubman.handbook.url>
 				<inge.pubman.logo.url>/resources/images/pure_logo_web.png</inge.pubman.logo.url>
 				<inge.pubman.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.policy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.policy.url>
-				<inge.pubman_presentation.overview_page.authors_ou>Max Planck Society</inge.pubman_presentation.overview_page.authors_ou>
+				<inge.pubman.privacy.url>http://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Datenschutzhinweis</inge.pubman.privacy.url>
+				<inge.pubman.root.authors.icon>MPG_authors</inge.pubman.root.authors.icon>
+				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.name>Max Planck Society</inge.pubman.root.organization.name>
 			</properties>
 		</profile>
 
@@ -1318,15 +1320,12 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<escidoc.framework_access.framework.url />
-				<escidoc.framework_access.login.url />
 				<gfz.citation.style.use>true</gfz.citation.style.use>
 				<gfz.cone.reset.use>true</gfz.cone.reset.use>
 				<gfz.oa.mail.adress>openaccess@gfz-potsdam.de</gfz.oa.mail.adress>
 				<gfz.oa.mail.domain>@gfz-potsdam.de</gfz.oa.mail.domain>
 				<gfz.oa.mail.subject>GFZpublic: Open Access</gfz.oa.mail.subject>
 				<gfz.oa.mail.template>OpenAccessMailGFZ.vm</gfz.oa.mail.template>
-				<inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
 				<inge.auth.mpg.ip.csv.url />
 				<inge.auth.mpg.ip.json.url />
 				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1358,9 +1357,11 @@
 				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
 				<inge.pubman.logo.url>/resources/images/GFZ.svg</inge.pubman.logo.url>
 				<inge.pubman.policy.url>https://www.gfz-potsdam.de/de/impressum</inge.pubman.policy.url>
-				<inge.pubman.privacy.policy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.policy.url>
+				<inge.pubman.privacy.url>https://www.gfz-potsdam.de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.root.authors.icon>GFZ_authors</inge.pubman.root.authors.icon>
+				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.name>GFZ</inge.pubman.root.organization.name>
 				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-				<inge.pubman_presentation.overview_page.authors_ou>GFZ</inge.pubman_presentation.overview_page.authors_ou>
 				<inge.rest.development.file_url />
 				<inge.systemtype>production</inge.systemtype>
 			</properties>
@@ -1373,15 +1374,12 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <escidoc.framework_access.framework.url />
-                <escidoc.framework_access.login.url />
                 <gfz.citation.style.use>true</gfz.citation.style.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress />
                 <gfz.oa.mail.domain />
                 <gfz.oa.mail.subject />
                 <gfz.oa.mail.template />
-                <inge.aa.login.jsp>login_inge_gfz.jsp</inge.aa.login.jsp>
                 <inge.auth.mpg.ip.csv.url />
                 <inge.auth.mpg.ip.json.url />
                 <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1413,10 +1411,11 @@
                 <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
                 <inge.pubman.logo.url>/resources/images/iass.svg</inge.pubman.logo.url>
                 <inge.pubman.policy.url>https://www.iass-potsdam.de/de/impressum</inge.pubman.policy.url>
-                <inge.pubman.privacy.policy.url>https://www.iass-potsdam.de/de/datenschutz</inge.pubman.privacy.policy.url>
+                <inge.pubman.privacy.url>https://www.iass-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
+                <inge.pubman.root.authors.icon>IASS_authors</inge.pubman.root.authors.icon>
                 <inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
+                <inge.pubman.root.organization.name>IASS</inge.pubman.root.organization.name>
                 <inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-                <inge.pubman_presentation.overview_page.authors_ou>IASS</inge.pubman_presentation.overview_page.authors_ou>
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>
@@ -1429,15 +1428,12 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <escidoc.framework_access.framework.url />
-                <escidoc.framework_access.login.url />
                 <gfz.citation.style.use>true</gfz.citation.style.use>
                 <gfz.cone.reset.use>true</gfz.cone.reset.use>
                 <gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
                 <gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
                 <gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
                 <gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
-                <inge.aa.login.jsp>login_inge_pik.jsp</inge.aa.login.jsp>
                 <inge.auth.mpg.ip.csv.url />
                 <inge.auth.mpg.ip.json.url />
                 <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
@@ -1469,10 +1465,11 @@
                 <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
                 <inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
                 <inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
-                <inge.pubman.privacy.policy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.policy.url>
+                <inge.pubman.privacy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.url>
+                <inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
                 <inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+                <inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
                 <inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
-                <inge.pubman_presentation.overview_page.authors_ou>PIK</inge.pubman_presentation.overview_page.authors_ou>
                 <inge.rest.development.file_url />
                 <inge.systemtype>production</inge.systemtype>
             </properties>

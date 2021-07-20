@@ -28,16 +28,6 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-@media print {
-	.header * {
-		display: none;
-	}
-	
-	.headerSection .headLine h1, .headerSection .headLine {
-		float: none;
-	}
-}
-
 /*META MENU*/
 .metaMenu {
 	line-height: normal;
@@ -177,7 +167,7 @@
 	margin-top: -0.1818em;
 }
 
-.quickSearchCheckBoxMenu > label {
+.quickSearchCheckBoxMenu>label {
 	margin-top: 0.19em;
 }
 
@@ -216,7 +206,7 @@
 }
 
 /*Force IE7 top-margin*/
-* + html .header {
+*+html .header {
 	margin-bottom: 1em;
 }
 
@@ -242,12 +232,6 @@
 	text-decoration: none;
 }
 
-@media print {
-	.breadcrumb {
-		display: none;
-	}
-}
-
 /*PAGE HEADER*/
 .headLine {
 	margin: 0px;
@@ -262,26 +246,6 @@
 	height: 0.9474em;
 	max-height: 0.9474em;
 	line-height: normal;
-}
-
-@media screen, presentation {
-	.headLine {
-		float: right;
-		text-align: right;
-		white-space: nowrap;
-	}
-}
-
-@media print {
-	.headLine {
-		float: left;
-		text-align: left;
-	}
-	
-	.subHeaderSection {
-		float: left;
-		margin-left: 0px;
-	}
 }
 
 /*CONTENT MENU*/
@@ -336,11 +300,11 @@
 }
 
 /*REPLACEMENT HACK FOR IE 7*/
-*:first-child + html .contentMenu .action {
+*:first-child+html .contentMenu .action {
 	margin-top: -1.28em;
 }
 
-*:first-child + html .ieFilter {
+*:first-child+html .ieFilter {
 	width: 50em;
 }
 
@@ -398,11 +362,25 @@
 	margin: 0px;
 }
 
+.headerDistanceFix {
+	margin-top: -1.4545em;
+}
+
+@media screen , presentation {
+	.headLine {
+		float: right;
+		text-align: right;
+		white-space: nowrap;
+	}
+}
+
 @media print {
+	.breadcrumb {
+		display: none;
+	}
 	.contentMenu .sub {
 		display: none;
 	}
-	
 	/*USE NOT SHOWN CONTENT MENU FOR LOGO REPRESENTATION IN PRINT VERSION*/
 	.contentMenu {
 		position: absolute;
@@ -413,8 +391,18 @@
 		display: list-item;
 		list-style-position: inside;
 	}
-}
-
-.headerDistanceFix {
-	margin-top: -1.4545em;
+	.header * {
+		display: none;
+	}
+	.headerSection .headLine h1, .headerSection .headLine {
+		float: none;
+	}
+	.headLine {
+		float: left;
+		text-align: left;
+	}
+	.subHeaderSection {
+		float: left;
+		margin-left: 0px;
+	}
 }

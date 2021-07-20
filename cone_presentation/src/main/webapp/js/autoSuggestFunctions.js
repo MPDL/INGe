@@ -76,7 +76,7 @@
 	
 	function bindSuggests()
 	{
-		$('.journalPulldown').on('change',function(){if($(this).val() == journalSuggestTrigger) {  $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest'); } else { $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').off('keypress'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').off('keydown'); $('.autoSuggestsArea').hide(); }; setTimeout('bindJournalSuggest()', 500);});
+		$('.journalPulldown').change(function(){if($(this).val() == journalSuggestTrigger) {  $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest'); } else { $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').off('keypress'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown'); $('.autoSuggestsArea').hide(); }; setTimeout('bindJournalSuggest()', 500);});
 		bindJournalSuggest();
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); }   });
 	};

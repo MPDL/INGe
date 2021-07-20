@@ -1,4 +1,4 @@
-﻿(function ($) {
+﻿﻿(function ($) {
     $.fn.extend({
         smartpaginator: function (options) {
             var settings = $.extend({
@@ -36,33 +36,33 @@
                     dataElements = $('' + settings.dataelement + '', dataContainer);
                 }
                 //var list = $('<ul/>');
-                var btnPrev = $('<a class="prevBtn"/>').text(settings.prev).on('click',function () {
+                var btnPrev = $('<a class="prevBtn"/>').text(settings.prev).click(function () {
                 	if ($(this).hasClass('disabled')) return false; 
                 	currentPage = parseInt(container.find('a.paginatorNumber.actual').text()) - 1; 
                 	navigate(--currentPage); 
                 	}).addClass('backward');
-                var btnNext = $('<a class="nextBtn"/>').text(settings.next).on('click',function () {
+                var btnNext = $('<a class="nextBtn"/>').text(settings.next).click(function () {
                 	if ($(this).hasClass('disabled')) return false; 
                 	currentPage = parseInt(container.find('a.paginatorNumber.actual').text()); 
                 	navigate(currentPage); 
                 	}).addClass('forward');
-                var btnFirst = $('<a class="firstBtn" style="max-height:1em;"/>').text(settings.first).on('click',function () {
+                var btnFirst = $('<a class="firstBtn" style="max-height:1em;"/>').text(settings.first).click(function () {
                 	if ($(this).hasClass('disabled')) return false;
                 	currentPage = 0; 
                 	navigate(0); 
                 	}).addClass('min_imgBtn skipToFirst');
-                var btnLast = $('<a class="lastBtn"  style="max-height:1em;"/>').text(settings.last).on('click',function () {
+                var btnLast = $('<a class="lastBtn"  style="max-height:1em;"/>').text(settings.last).click(function () {
                 	if ($(this).hasClass('disabled')) return false;
                 	currentPage = totalpages - 1; navigate(currentPage); 
                 	}).addClass('min_imgBtn skipToLast');
-                var inputPage = $('<input/>').attr('type', 'text').on('keydown',function (e) {
+                var inputPage = $('<input/>').attr('type', 'text').keydown(function (e) {
                     if (isTextSelected(inputPage)) inputPage.val('');
                     if (e.which >= 48 && e.which < 58) {
                         var value = parseInt(inputPage.val() + (e.which - 48));
                         if (!(value > 0 && value <= totalpages)) e.preventDefault();
                     } else if (!(e.which == 8 || e.which == 46)) e.preventDefault();
                 });
-                var btnGo = $('<input/>').attr('type', 'button').attr('value', settings.go).addClass('btn').on('click',function () { if (inputPage.val() == '') return false; else { currentPage = parseInt(inputPage.val()) - 1; navigate(currentPage); } });
+                var btnGo = $('<input/>').attr('type', 'button').attr('value', settings.go).addClass('btn').click(function () { if (inputPage.val() == '') return false; else { currentPage = parseInt(inputPage.val()) - 1; navigate(currentPage); } });
                 container.append(btnFirst).append(btnPrev).append(btnNext).append(btnLast);//.append($('<div/>').addClass('short').append(inputPage).append(btnGo));
                 if (settings.display == 'single') {
                     btnGo.css('display', 'none');
@@ -98,7 +98,7 @@
                                     .attr('id', (i + 1)).addClass(settings.theme)
                                     .attr('href', 'javascript:void(0)')
                                     .text(i + 1)
-                                    .on('click',function () {
+                                    .click(function () {
                                         currentPage = startPage + $(this).closest('a.paginatorNumber').prevAll('a.paginatorNumber').length;
                                         navigate(currentPage);
                                     }));

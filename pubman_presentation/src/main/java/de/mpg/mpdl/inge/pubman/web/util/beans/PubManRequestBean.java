@@ -36,36 +36,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 public class PubManRequestBean extends FacesBean {
   private static final Logger logger = Logger.getLogger(PubManRequestBean.class);
 
-  //  private String helpAnchor = "";
-  //  private String requestedPage = "";
-
-  public PubManRequestBean() {
-    this.init();
-  }
-
-  public void init() {
-    //    if (FacesTools.getExternalContext().getRequestPathInfo() != null) {
-    //      this.helpAnchor = FacesTools.getExternalContext().getRequestPathInfo().replace("/", "");
-    //      this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
-    //      this.helpAnchor = "#" + this.helpAnchor.replaceAll(".jsp", "");
-    //    }
-  }
-
-  //  public String getHelpAnchor() {
-  //    return this.helpAnchor;
-  //  }
-  //
-  //  public void setHelpAnchor(String helpAnchor) {
-  //    this.helpAnchor = helpAnchor;
-  //  }
-
-  //  public String getRequestedPage() {
-  //    return this.requestedPage;
-  //  }
-  //
-  //  public void setRequestedPage(String requestedPage) {
-  //    this.requestedPage = requestedPage;
-  //  }
+  public PubManRequestBean() {}
 
   /**
    * Reads the policy URL from the properties file.
@@ -91,9 +62,9 @@ public class PubManRequestBean extends FacesBean {
   public String getPrivacyPolicyUrl() {
     String url = "";
     try {
-      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRIVACY_POLICY_URL);
+      url = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_PRIVACY_URL);
     } catch (Exception e) {
-      logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_PRIVACY_POLICY_URL + "' from properties file.", e);
+      logger.error("Could not read property: '" + PropertyReader.INGE_PUBMAN_PRIVACY_URL + "' from properties file.", e);
     }
 
     return url;

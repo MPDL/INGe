@@ -22,43 +22,33 @@
  * CDDL HEADER END
  */
 /*
- * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ * Copyright 2006-2012 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur F�rderung der Wissenschaft e.V.
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
+
 /*
  ALL COLORS USED
  
  BACKGROUND		#EAF4F7 MPIPL Replacement: #436976
- 
  LINK COLOR		#147DA2 MPIPL Replacement: #000000
- AUTHOR/ORG BG		#4397B4
- LIGHT LINES		#A1CBDA MPIPL Replacement: #C65252
- DROPDOWN/BG		#DCECF1 MPIPL Replacement: #E6DDD5
+ AUTHOR/ORG BG	#4397B4
+ LIGHT LINES	#A1CBDA MPIPL Replacement: #C65252
+ DROPDOWN/BG	#DCECF1 MPIPL Replacement: #E6DDD5
  INPUT BG		#F3F8FA MPIPL Replacement: #E6DDD5
- 
  PAGE TITLE		#0F313E
- 
  ERROR MSG		#E95A29
- 
- SUCCESS MSG		#56871B
- 
- DEACTIVATED		#827775
- 
+ SUCCESS MSG	#56871B
+ DEACTIVATED	#827775
  DEA LIGHT		#CDC9C8
- 
  TEXT			#524240
- 
  TEXT LIGHT		#BAB4B3
- 
  MOUSEOVER		#382926 MPIPL Replacement: #C65252
- 
  INPUT TEXT		#000000
- 
- FORM BG			#FFFFFF
- 
+ FORM BG		#FFFFFF
  */
+ 
 /*FONT DEFINITION*/
 /*HEADER*/
 /*H1*/
@@ -74,14 +64,17 @@ h2 {
 
 /*H3*/
 h3 {
+	
 }
 
 /*H4*/
 h4 {
+	
 }
 
 /*H5*/
 h5 {
+	
 }
 
 /*H6*/
@@ -97,7 +90,7 @@ body, label, input, textarea, select, button, input.numberLabel, h2, h3, h6, a {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-input[type=text], textarea {
+input[type="text"], textarea {
 	font-family: "Courier New", Courier, serif;
 	background-image: url('../images/input_background.gif');
 }
@@ -138,11 +131,6 @@ a.OraLinkDisabled {
 	cursor: default;
 }
 
-a:hover, a:focus {
-	color: #C65252;
-	text-decoration: none;
-}
-
 input:hover, input:focus, button:hover, button:focus {
 	color: #000000;
 	text-decoration: none;
@@ -162,7 +150,6 @@ input[type="text"], textarea, select {
 }
 
 a:hover, a:focus {
-	/*	text-decoration: underline; */
 	cursor: pointer;
 	color: #C65252 !important;
 }
@@ -175,6 +162,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*SEPERATORS*/
 .metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
 	background-color: #C65252;
+	border-color: #F2EEE6;
 }
 
 .itemList .seperator {
@@ -183,10 +171,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 .fullItem .seperator {
 	background-color: #FFFFFF;
-}
-
-.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-	border-color: #F2EEE6;
 }
 
 .fullItem .fullItemControls .seperator {
@@ -210,7 +194,8 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*HEADER*/
 /*COLORING FOR ALL MENU INPUTS AND LABELS*/
-.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, .contentMenu a {
+.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input,
+	.contentMenu a {
 	background-color: #F2EEE6;
 	color: #000000;
 }
@@ -228,7 +213,9 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	color: #524240;
 }
 
-.metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu a:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover, .contentMenu a:focus {
+.metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu a:hover, .quickSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover,
+	.advancedSearchMenu a:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, .contentMenu a:hover,
+	.contentMenu a:focus {
 	color: #C65252;
 }
 
@@ -294,13 +281,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	cursor: pointer;
 }
 
-@media print {
-	.pageBrowser .actual {
-		font-weight: normal;
-		background-color: white;
-	}
-}
-
 .pageBrowser :disabled, .pageBrowser :disabled:hover, .pageBrowser :disabled:focus, .pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
 	color: #BAB4B3;
 }
@@ -331,9 +311,6 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 /*GENERAL*/
 .itemList, .fullItem {
 	border-top-color: #436976;
-}
-
-.itemList, .fullItem {
 	border-bottom-color: #436976;
 }
 
@@ -631,7 +608,7 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 
 /*MANDATORY FIELD*/
 .mandatory {
-		font-weight: bold;
+	font-weight: bold;
 }
 
 /*UNDER REWORK*/
@@ -651,3 +628,11 @@ a:disabled, a.disabled, input:disabled, input.disabled, button:disabled, button.
 	border-left-width: 2px !important;
 	border-right-width: 2px !important;
 }
+
+@media print {
+	.pageBrowser .actual {
+		font-weight: normal;
+		background-color: white;
+	}
+}
+

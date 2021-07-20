@@ -29,146 +29,133 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
+.paginator {
+	margin-right: 0px;
+	margin-top: 0.5em;
+	margin-bottom: 1em;
+}
 
-	.paginator {
-		margin-right: 0px;
-		margin-top: 0.5em;
-		margin-bottom: 1em;
-	}
-
-	.paginatorFallbackGoBtn {
-		display: none;
-		margin-top: 0.73em;
-	}
+.paginatorFallbackGoBtn {
+	display: none;
+	margin-top: 0.73em;
+}
 
 /*RANGE SELECTOR*/
-
 .rangeSelector {
-		margin-top: 0.46em;
-	}
-	
-	.rangeSelector select {
-		margin-top: 0.09em;
-	}
-	
-@media print {
-	.rangeSelector {
-		display: none;
-	}
+	margin-top: 0.46em;
+}
+
+.rangeSelector select {
+	margin-top: 0.09em;
 }
 
 /*PAGE BROWSER*/
+.pageBrowser {
+	float: left;
+	display: inline;
+	margin-top: 0.18em;
+}
 
-	.pageBrowser {
-		float: left;
-		display: inline;
-		margin-top: 0.18em;
-	}
-	
-	.pageBrowser * {
-		float: left;
-	}
-	
-	.pageBrowser > a {
-		margin-top: 0.65em;
-	}
-	
-	.pageBrowser input, .pageBrowser button, .pageBrowser a, .pageBrowser span {
-		margin: 0px;
-		border: 0px;
-		display: block;
-		text-align: center;
-		text-decoration: none;
-		
-	}
+.pageBrowser * {
+	float: left;
+}
 
-	.pageBrowser input, .pageBrowser button {
-		height: 2.4545em;
-	}
-	
-	.pageBrowser button:disabled {
-		cursor:default !important;
-		text-decoration:none;
-	}
-	
-	.pageBrowser .seperator, .pageBrowser .actualSeperator {
-		display: block;
-		overflow: hidden;
-		width: 0.0909em;
-		height: 1.2727em;
-		margin: 0;
-		padding: 0;
-		padding-left:0.01em;
-		border-right-width: 0px;
-		border-left-width: 0px;
-		border-top-width: 0.65em;
-		border-top-style: solid;
-		border-bottom-width: 0.82em;
-		border-bottom-style: solid;
-	}
+.pageBrowser>a {
+	margin-top: 0.65em;
+}
 
-	.pageBrowser .skipToFirst {
-		margin-right: 0.45em;	
-	}
+.pageBrowser input, .pageBrowser button, .pageBrowser a, .pageBrowser span {
+	margin: 0px;
+	border: 0px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
 
-	.pageBrowser .forward {
-		text-align: left;
-		margin-left: 0.64em;
-	}
+.pageBrowser input, .pageBrowser button {
+	height: 2.4545em;
+}
 
-	.pageBrowser .backward {
-		text-align: right;
-		margin-right: 0.64em;
-	}
+.pageBrowser button:disabled {
+	cursor: default !important;
+	text-decoration: none;
+}
 
-	.pageBrowser .skipToLast {
-		margin-left: 0.45em;
-	}
-	
-	.pageBrowser label, .pageBrowser span, .pageBrowser a {
-		margin-top: 0.65em;
-	}
-	
+.pageBrowser .seperator, .pageBrowser .actualSeperator {
+	display: block;
+	overflow: hidden;
+	width: 0.0909em;
+	height: 1.2727em;
+	margin: 0;
+	padding: 0;
+	padding-left: 0.01em;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-top-width: 0.65em;
+	border-top-style: solid;
+	border-bottom-width: 0.82em;
+	border-bottom-style: solid;
+}
+
+.pageBrowser .skipToFirst {
+	margin-right: 0.45em;
+}
+
+.pageBrowser .forward {
+	text-align: left;
+	margin-left: 0.64em;
+}
+
+.pageBrowser .backward {
+	text-align: right;
+	margin-right: 0.64em;
+}
+
+.pageBrowser .skipToLast {
+	margin-left: 0.45em;
+}
+
+.pageBrowser label, .pageBrowser span, .pageBrowser a {
+	margin-top: 0.65em;
+}
+
+/*GOTO BOX*/
+.gotoBox {
+	float: right;
+}
+
+.gotoBox label {
+	margin-top: 0.46em;
+}
+
+.gotoBox input {
+	text-align: right;
+	margin-top: 0.46em;
+	margin-left: 0.19em;
+	margin-right: 0.37em;
+	padding-top: 0.18em;
+}
+
 @media print {
+	.gotoBox {
+		float: left;
+	}
+	.gotoBox input, .gotoBox .gotoLabel {
+		display: none;
+	}
 	.pageBrowser button {
 		background-color: #FFFFFF !important;
 		display: none;
 	}
-	
 	.pageBrowser .pageLabel {
 		display: block !important;
 	}
-	
 	.pageBrowser button.actual {
 		display: block;
 		border-width: 1px;
 		text-decoration: underline !important;
 	}
-}
-
-/*GOTO BOX*/
-	.gotoBox {
-		float: right;
-	}
-	
-	.gotoBox label {
-		margin-top: 0.46em;
-	}
-
-	.gotoBox input {
-		text-align: right;
-		margin-top: 0.46em;
-		margin-left: 0.19em;
-		margin-right: 0.37em;
-		padding-top: 0.18em;
-	}
-	
-@media print {
-	.gotoBox {
-		float: left;
-	}
-	
-	.gotoBox input, .gotoBox .gotoLabel {
+	.rangeSelector {
 		display: none;
 	}
 }
