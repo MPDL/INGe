@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
 
 	<mime-mapping>
 		<extension>jsp</extension>
@@ -13,15 +16,20 @@
 
 	<session-config>
 		<session-timeout>120</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 
 	<welcome-file-list>
 		<welcome-file>faces/HomePage.jsp</welcome-file>
 	</welcome-file-list>
-	
+
+	<session-config>
+		<
+	</session-config>
+
 	<error-page>
-	    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-	    <location>faces/HomePage.jsp?expired=true</location>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>faces/HomePage.jsp?expired=true</location>
 	</error-page>
 
 </web-app>
