@@ -23,10 +23,6 @@
 		<welcome-file>faces/HomePage.jsp</welcome-file>
 	</welcome-file-list>
 
-	<session-config>
-		<
-	</session-config>
-
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>faces/HomePage.jsp?expired=true</location>
