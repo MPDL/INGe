@@ -609,6 +609,13 @@
 				<version>4.2.3.RELEASE</version>
 			</dependency>
 
+<!-- Passay-->
+			<dependency>
+				<groupId>org.passay</groupId>
+				<artifactId>passay</artifactId>
+				<version>1.6.1</version>
+			</dependency>
+			
 <!-- PostgreSQL-->
 			<dependency> <!-- Jdbc -->
 				<groupId>com.mchange</groupId>

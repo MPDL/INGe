@@ -17,6 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.LengthRule;
+import org.passay.PasswordData;
+import org.passay.PasswordGenerator;
+import org.passay.PasswordValidator;
+import org.passay.RuleResult;
+import org.passay.WhitespaceRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -106,7 +114,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   // private static final String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
   //private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
-  private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\.:@$!%*?&])[A-Za-z\\d\\.:@$!%*?&]{8,}$";
+  //private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\.:@$!%*?&])[A-Za-z\\d\\.:@$!%*?&]{8,}$";
 
   /**
    * Loginname must consist of at least 4 characters of a-z, A-Z, 0-9, @, _, -, .
@@ -537,15 +545,14 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     return object.getObjectId();
   }
 
-  private void validatePassword(String password) throws IngeApplicationException {
-    if (password == null || password.trim().isEmpty()) {
-      throw new IngeApplicationException("A password has to be provided");
-    } else if (!password.matches(PASSWORD_REGEX)) {
-      throw new IngeApplicationException(
-          "Password  must consist of at least 8 characters, no whitespaces and contain at least one upper case letter, one lower case letter, a number and a special character");
-    }
-
-  }
+  //  private void validatePassword(String password) throws IngeApplicationException {
+  //    if (password == null || password.trim().isEmpty()) {
+  //      throw new IngeApplicationException("A password has to be provided");
+  //    } else if (!password.matches(PASSWORD_REGEX)) {
+  //      throw new IngeApplicationException(
+  //          "Password  must consist of at least 8 characters, no whitespaces and contain at least one upper case letter, one lower case letter, a number and a special character");
+  //    }
+  //  }
 
   private void validateLoginname(String loginname) throws IngeApplicationException {
     if (loginname == null || loginname.trim().isEmpty()) {
@@ -612,4 +619,49 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   }
 
+  private void validatePassword(String password) throws IngeApplicationException {
+    PasswordValidator validator = new PasswordValidator(
+        // length between 8 and 16 characters
+        new LengthRule(8, 16),
+        // at least one upper-case character
+        new CharacterRule(EnglishCharacterData.UpperCase, 1),
+        // at least one lower-case character
+        new CharacterRule(EnglishCharacterData.LowerCase, 1),
+        // at least one digit character
+        new CharacterRule(EnglishCharacterData.Digit, 1),
+        // at least one symbol (special character)
+        new CharacterRule(EnglishCharacterData.Special, 1),
+        // no whitespace
+        new WhitespaceRule());
+
+    RuleResult result = validator.validate(new PasswordData(new String(password)));
+    if (!result.isValid()) {
+      StringBuilder sb = new StringBuilder();
+      for (String msg : validator.getMessages(result)) {
+        sb.append(msg);
+        sb.append("\n");
+      }
+
+      throw new IngeApplicationException(
+          "Password must be between 8 and 16 characters in length, no whitespaces allowed and contains at least one upper case letter, one lower case letter, a number and a special character");
+    }
+  }
+
+  public String generateRandomPassword() {
+    List<CharacterRule> rules = Arrays.asList(
+        // at least one upper-case character
+        new CharacterRule(EnglishCharacterData.UpperCase, 1),
+        // at least one lower-case character
+        new CharacterRule(EnglishCharacterData.LowerCase, 1),
+        // at least one digit character
+        new CharacterRule(EnglishCharacterData.Digit, 1),
+        // at least one special character
+        new CharacterRule(EnglishCharacterData.Special, 1));
+
+    PasswordGenerator generator = new PasswordGenerator();
+
+    // Generated password is 12 characters long, which complies with policy
+    return generator.generatePassword(12, rules);
+  }
 }
+

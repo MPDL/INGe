@@ -54,4 +54,6 @@ public interface UserAccountService extends GenericService<AccountUserDbVO, Stri
 
   public DecodedJWT verifyToken(String authenticationToken) throws AuthenticationException;
 
+  public String generateRandomPassword();
+
 }

@@ -1,12 +1,17 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -186,5 +191,22 @@ public class UserAccountRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     userSvc.delete(userId, token);
     return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @RequestMapping(value = "/generateRandomPassword", method = RequestMethod.GET)
+  public void generateRandomPassword(HttpServletResponse response)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    String pw = this.userSvc.generateRandomPassword();
+    response.setContentType(MediaType.TEXT_PLAIN_VALUE);
+    writeOutput(response, pw);
+  }
+
+  private void writeOutput(HttpServletResponse response, String result) throws IngeTechnicalException {
+    try {
+      OutputStream output = response.getOutputStream();
+      output.write(result.getBytes(StandardCharsets.UTF_8));
+    } catch (IOException e) {
+      throw new IngeTechnicalException(e);
+    }
   }
 }
