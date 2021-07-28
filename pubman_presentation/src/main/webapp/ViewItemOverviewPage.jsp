@@ -362,7 +362,7 @@
             function updateImage(imgElement, jsonRequestUrl) {
                 $.getJSON(jsonRequestUrl, function(result) {
                     var pictureUrl = result.http_xmlns_com_foaf_0_1_depiction;
-                    if (pictureUrl != undefined &amp;&amp; $pictureUrl.trim() != '') {
+                    if (pictureUrl != undefined &amp;&amp; pictureUrl.trim() != '') {
                         $(imgElement).attr('src', pictureUrl);
                     }
                 });
