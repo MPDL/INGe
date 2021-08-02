@@ -64,10 +64,7 @@ public class RedirectServlet extends HttpServlet {
     final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
     final StringBuffer redirectUrl = new StringBuffer();
-    if (INSTANCE_URL.startsWith("https")) {
-      redirectUrl.append("https://" + req.getServerName());
-    }
-
+    
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
       final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
@@ -92,6 +89,10 @@ public class RedirectServlet extends HttpServlet {
       final String[] pieces = id.split("/");
       if (pieces.length != 4) {
         resp.sendError(404, "File not found");
+      }
+
+      if (INSTANCE_URL.startsWith("https")) {
+        redirectUrl.append("https://" + req.getServerName());
       }
 
       redirectUrl.append("/rest/items/");
