@@ -62,10 +62,14 @@ public class RedirectServlet extends HttpServlet {
 
     final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
+    System.out.println("************" + req.getScheme());
+    final StringBuffer redirectUrl = new StringBuffer();
+    if (req.getScheme().equalsIgnoreCase("https")) {
+      redirectUrl.append("https://" + req.getServerName());
+    }
 
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
-      final StringBuffer redirectUrl = new StringBuffer();
       final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
 
       if (loginHelper != null && loginHelper.isDetailedMode()) {
@@ -73,10 +77,14 @@ public class RedirectServlet extends HttpServlet {
       } else {
         redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemOverviewPage.jsp?itemId=" + id);
       }
+      
       if (userHandle != null) {
         redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle);
       }
+      
+      System.out.println("************" + redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
+
       return;
     }
 
@@ -87,11 +95,6 @@ public class RedirectServlet extends HttpServlet {
         resp.sendError(404, "File not found");
       }
 
-      final StringBuffer redirectUrl = new StringBuffer();
-      System.out.println("************" + req.getScheme());
-      if (req.getScheme().equalsIgnoreCase("https")) {
-        redirectUrl.append("https://" + req.getServerName());
-      }
       redirectUrl.append("/rest/items/");
       redirectUrl.append(pieces[0]);
       redirectUrl.append("/component/");
@@ -108,7 +111,7 @@ public class RedirectServlet extends HttpServlet {
       if (tme) {
         redirectUrl.append("/metadata");
       }
-
+      
       System.out.println("************" + redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
     }
