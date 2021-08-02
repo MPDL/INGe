@@ -62,10 +62,11 @@ public class RedirectServlet extends HttpServlet {
 
     final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
+    final StringBuffer redirectUrl = new StringBuffer();
+    redirectUrl.append("https://" + req.getServerName());
 
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
-      final StringBuffer redirectUrl = new StringBuffer();
       final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
 
       if (loginHelper != null && loginHelper.isDetailedMode()) {
@@ -73,10 +74,14 @@ public class RedirectServlet extends HttpServlet {
       } else {
         redirectUrl.append(RedirectServlet.INSTANCE_CONTEXT_PATH + "/faces/ViewItemOverviewPage.jsp?itemId=" + id);
       }
+
       if (userHandle != null) {
         redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle);
       }
+
+      System.out.println(redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
+
       return;
     }
 
@@ -87,7 +92,7 @@ public class RedirectServlet extends HttpServlet {
         resp.sendError(404, "File not found");
       }
 
-      final StringBuffer redirectUrl = new StringBuffer("/rest/items/");
+      redirectUrl.append("/rest/items/");
       redirectUrl.append(pieces[0]);
       redirectUrl.append("/component/");
       redirectUrl.append(pieces[2]);
@@ -104,6 +109,7 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("/metadata");
       }
 
+      System.out.println(redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
     }
 
