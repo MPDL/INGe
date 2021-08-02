@@ -88,7 +88,8 @@ public class RedirectServlet extends HttpServlet {
       }
 
       final StringBuffer redirectUrl = new StringBuffer();
-      if (req.getRequestURI().startsWith("https:")) {
+      System.out.println("************" + req.getScheme());
+      if (req.getScheme().equalsIgnoreCase("https")) {
         redirectUrl.append("https://" + req.getServerName());
       }
       redirectUrl.append("/rest/items/");
@@ -108,6 +109,7 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("/metadata");
       }
 
+      System.out.println("************" + redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
     }
 
