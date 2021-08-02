@@ -87,7 +87,11 @@ public class RedirectServlet extends HttpServlet {
         resp.sendError(404, "File not found");
       }
 
-      final StringBuffer redirectUrl = new StringBuffer("/rest/items/");
+      final StringBuffer redirectUrl = new StringBuffer();
+      if (req.getRequestURI().startsWith("https:")) {
+        redirectUrl.append("https://" + req.getServerName());
+      }
+      redirectUrl.append("/rest/items/");
       redirectUrl.append(pieces[0]);
       redirectUrl.append("/component/");
       redirectUrl.append(pieces[2]);
