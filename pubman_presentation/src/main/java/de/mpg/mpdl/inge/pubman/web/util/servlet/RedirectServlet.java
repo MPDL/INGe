@@ -50,6 +50,7 @@ import de.mpg.mpdl.inge.util.PropertyReader;
 @SuppressWarnings("serial")
 public class RedirectServlet extends HttpServlet {
   private static final String INSTANCE_CONTEXT_PATH = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_CONTEXT_PATH);
+  private static final String INSTANCE_URL = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_INSTANCE_URL);
 
   /**
    * {@inheritDoc}
@@ -63,7 +64,9 @@ public class RedirectServlet extends HttpServlet {
     final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
     final StringBuffer redirectUrl = new StringBuffer();
-    redirectUrl.append("https://" + req.getServerName());
+    if (INSTANCE_URL.startsWith("https")) {
+      redirectUrl.append("https://" + req.getServerName());
+    }
 
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
@@ -79,7 +82,6 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("&" + LoginHelper.PARAMETERNAME_USERHANDLE + "=" + userHandle);
       }
 
-      System.out.println(redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
 
       return;
@@ -109,7 +111,6 @@ public class RedirectServlet extends HttpServlet {
         redirectUrl.append("/metadata");
       }
 
-      System.out.println(redirectUrl.toString());
       resp.sendRedirect(redirectUrl.toString());
     }
 
