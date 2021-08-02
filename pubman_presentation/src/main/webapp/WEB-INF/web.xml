@@ -31,7 +31,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>SSL Pages</web-resource-name>
-			<url-pattern>/*</url-pattern>
+			<url-pattern>/component/*</url-pattern>
 			<http-method>GET</http-method>
 		</web-resource-collection>
 		<user-data-constraint>
