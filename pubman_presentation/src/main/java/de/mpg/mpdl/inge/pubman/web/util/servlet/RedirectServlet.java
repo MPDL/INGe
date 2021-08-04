@@ -64,7 +64,7 @@ public class RedirectServlet extends HttpServlet {
     final String userHandle = req.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
 
     final StringBuffer redirectUrl = new StringBuffer();
-    
+
     // no component -> ViewItemOverviewPage
     if (!id.contains("/component/")) {
       final LoginHelper loginHelper = (LoginHelper) ServletTools.findSessionBean(req, "LoginHelper");
