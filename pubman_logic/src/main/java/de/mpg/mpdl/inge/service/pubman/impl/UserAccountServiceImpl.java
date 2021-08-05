@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.LengthRule;
@@ -656,14 +657,23 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
   public String generateRandomPassword() {
     List<CharacterRule> rules = Arrays.asList(
         // at least one upper-case character
-        new CharacterRule(EnglishCharacterData.UpperCase, 1),
+        new CharacterRule(EnglishCharacterData.UpperCase, 4),
         // at least one lower-case character
-        new CharacterRule(EnglishCharacterData.LowerCase, 1),
+        new CharacterRule(EnglishCharacterData.LowerCase, 4),
         // at least one digit character
-        new CharacterRule(EnglishCharacterData.Digit, 1),
+        new CharacterRule(EnglishCharacterData.Digit, 3),
         // at least one special character
-        new CharacterRule(EnglishCharacterData.Special, 1));
+        new CharacterRule(new CharacterData() {
+          @Override
+          public String getErrorCode() {
+            return "ERR_SPACE";
+          }
 
+          @Override
+          public String getCharacters() {
+            return "!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~";
+          }
+        }, 1));
     PasswordGenerator generator = new PasswordGenerator();
 
     // Generated password is 12 characters long, which complies with policy
