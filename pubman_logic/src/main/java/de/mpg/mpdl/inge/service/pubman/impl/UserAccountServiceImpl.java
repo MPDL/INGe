@@ -113,8 +113,10 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   // private static final String PASSWORD_REGEX =
   // "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-  //private static final String PASSWORD_REGEX = "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
-  //private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\.:@$!%*?&])[A-Za-z\\d\\.:@$!%*?&]{8,}$";
+  // private static final String PASSWORD_REGEX =
+  // "^(?=.*[A-Za-z0-9])(?=\\S+$).{6,}$";
+  // private static final String PASSWORD_REGEX =
+  // "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\.:@$!%*?&])[A-Za-z\\d\\.:@$!%*?&]{8,}$";
 
   /**
    * Loginname must consist of at least 4 characters of a-z, A-Z, 0-9, @, _, -, .
@@ -364,11 +366,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     Principal principal = null;
 
     if (username != null) {
-      if (loginAttemptsCache.isBlocked(username)) {
-        throw new AuthenticationException(username + " is blocked for " + loginAttemptsCache.ATTEMPT_TIMER + " since last attempt");
-      } else if (!userLoginRepository.findPasswordChangeFlag(username) && !passwordChangeRequest) {
-        throw new AuthenticationException(username + " needs to change password first");
-      }
+
       // Helper to login as any user if you are sysadmin
       if (username.contains("#")) {
         String[] parts = username.split("#");
@@ -397,6 +395,11 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
         if (userAccount != null && userAccount.isActive() && encodedPassword != null
             && passwordEncoder.matches(password, encodedPassword)) {
+          if (loginAttemptsCache.isBlocked(username)) {
+            throw new AuthenticationException(username + " is blocked for " + loginAttemptsCache.ATTEMPT_TIMER + " since last attempt");
+          } else if (!userLoginRepository.findPasswordChangeFlag(username) && !passwordChangeRequest) {
+            throw new AuthenticationException(username + " needs to change password first");
+          }
           loginAttemptsCache.loginSucceeded(username);
           String token = createToken(userAccount, request);
           principal = new Principal(userAccount, token);
@@ -545,14 +548,17 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     return object.getObjectId();
   }
 
-  //  private void validatePassword(String password) throws IngeApplicationException {
-  //    if (password == null || password.trim().isEmpty()) {
-  //      throw new IngeApplicationException("A password has to be provided");
-  //    } else if (!password.matches(PASSWORD_REGEX)) {
-  //      throw new IngeApplicationException(
-  //          "Password  must consist of at least 8 characters, no whitespaces and contain at least one upper case letter, one lower case letter, a number and a special character");
-  //    }
-  //  }
+  // private void validatePassword(String password) throws
+  // IngeApplicationException {
+  // if (password == null || password.trim().isEmpty()) {
+  // throw new IngeApplicationException("A password has to be provided");
+  // } else if (!password.matches(PASSWORD_REGEX)) {
+  // throw new IngeApplicationException(
+  // "Password must consist of at least 8 characters, no whitespaces and contain
+  // at least one upper case letter, one lower case letter, a number and a special
+  // character");
+  // }
+  // }
 
   private void validateLoginname(String loginname) throws IngeApplicationException {
     if (loginname == null || loginname.trim().isEmpty()) {
@@ -664,4 +670,3 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     return generator.generatePassword(12, rules);
   }
 }
-

@@ -131,9 +131,10 @@ public class UserAccountOptions extends FacesBean {
     } catch (Exception e) {
       error(e.getMessage());
       logger.error("Problem updating Password", e);
+      return "";
     }
 
-    return "";
+    return "loadHome";
   }
 
 }
