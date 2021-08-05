@@ -662,6 +662,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
           public String getErrorCode() {
             return "ERR_SPACE";
           }
+
           @Override
           public String getCharacters() {
             return "!\\\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~";

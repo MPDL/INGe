@@ -79,8 +79,6 @@ public class Search extends FacesBean {
       searchString = searchString.trim().substring(0, searchString.length() - 1);
     }
 
-
-
     try {
       final QueryBuilder qb = Search.generateElasticSearchRequest(searchString, includeFiles);
       FacesTools.getExternalContext()
@@ -92,9 +90,7 @@ public class Search extends FacesBean {
   }
 
   public static QueryBuilder generateElasticSearchRequest(String searchString, boolean includeFiles) throws Exception {
-
     final List<SearchCriterionBase> criteria = new ArrayList<SearchCriterionBase>();
-
 
     if (includeFiles) {
       final AnyFieldAndFulltextSearchCriterion anyFulltext = new AnyFieldAndFulltextSearchCriterion();
@@ -112,49 +108,11 @@ public class Search extends FacesBean {
     identifier.setSearchString(searchString);
     criteria.add(identifier);
 
-    /*
-     * CollectionSearchCriterion collection = new CollectionSearchCriterion();
-     * collection.setSearchString(searchString); criteria.add(collection);
-     * 
-     * CreatedBySearchCriterion createdBy = new CreatedBySearchCriterion();
-     * createdBy.setHiddenId(searchString); criteria.add(createdBy);
-     */
-
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
     bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
         PubItemServiceDbImpl.INDEX_PUBLIC_STATE, de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State.RELEASED.name()));
     bqb.must(SearchCriterionBase.scListToElasticSearchQuery(criteria));
 
-    // final String cql = SearchCriterionBase.scListToCql(Index.ESCIDOC_ALL, criteria, true);
-
-
-    /*
-     * 
-     * String cql = "";
-     * 
-     * ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-     * 
-     * if( includeFiles == true ) { criteria.add( new MetadataSearchCriterion(
-     * MetadataSearchCriterion.CriterionType.ANY_INCLUDE, searchString ) ); criteria.add( new
-     * MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, searchString,
-     * MetadataSearchCriterion.LogicalOperator.OR ) ); } else { criteria.add( new
-     * MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY, searchString ) );
-     * criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER,
-     * searchString, MetadataSearchCriterion.LogicalOperator.OR ) ); } criteria.add( new
-     * MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTEXT_OBJECTID,
-     * searchString, MetadataSearchCriterion.LogicalOperator.NOT ) ); criteria.add( new
-     * MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CREATED_BY_OBJECTID,
-     * searchString, MetadataSearchCriterion.LogicalOperator.NOT ) ); criteria.add( new
-     * MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, "item",
-     * MetadataSearchCriterion.LogicalOperator.AND ) );
-     * 
-     * ArrayList<String> contentTypes = new ArrayList<String>(); String contentTypeIdPublication =
-     * PropertyReader.getProperty( PROPERTY_CONTENT_MODEL ); contentTypes.add(
-     * contentTypeIdPublication );
-     * 
-     * MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria ); cql =
-     * query.getCqlQuery();
-     */
     return bqb;
   }
 
