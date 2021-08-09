@@ -124,9 +124,11 @@ public class UserAccountOptions extends FacesBean {
           }
         } else {
           error(getMessage("userAccountOptions_DifferentPasswords"));
+          return "";
         }
       } else {
         error(getMessage("userAccountOptions_emptyPassword"));
+        return "";
       }
     } catch (Exception e) {
       error(e.getMessage());
