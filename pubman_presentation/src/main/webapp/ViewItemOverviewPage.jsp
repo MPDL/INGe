@@ -277,7 +277,7 @@
                                     <h:commandLink id="btList_lkLastListItem" styleClass="min_imgBtn skipToLast" action="#{PubItemListSessionBean.lastListItem}" rendered="#{PubItemListSessionBean.hasNextListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">&#160;</h:commandLink>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="gotoBox" rendered="#{(PubItemListSessionBean.hasNextListItem or PubItemListSessionBean.hasPreviousListItem) and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
-                                    <h:inputText id="inputItemListPosition" styleClass="pag_txtInput" value="#{PubItemListSessionBean.listItemPosition}" label="GoTo Box" />
+                                    <h:inputText id="inputItemListPosition" styleClass="pag_txtInput" value="#{PubItemListSessionBean.listItemPosition}" label="GoToBox" />
                                     <h:outputLabel id="lblItemListPosition" styleClass="free_label" value="#{lbl.ItemList_of} " />
                                     <h:outputLabel id="lblChangeItemListPosition" styleClass="free_label" value="#{PubItemListSessionBean.totalNumberOfElements}" />
                                     <h:commandButton id="btnGoToItemListPosition" styleClass="xTiny_txtBtn pageChangeHiddenBtn" value="#{lbl.List_btGo}" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.doListItemPosition}" />

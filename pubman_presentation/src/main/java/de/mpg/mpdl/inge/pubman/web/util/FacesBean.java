@@ -33,6 +33,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
@@ -243,7 +244,7 @@ public class FacesBean implements Serializable {
    * @param summary summary text
    */
   public void message(String summary, String detail, UIComponent component, Severity severity) {
-    final FacesMessage fm = new FacesMessage(severity, summary, detail);
+    final FacesMessage fm = new FacesMessage(severity, summary, StringEscapeUtils.escapeHtml(detail));
 
     if (component == null) {
       FacesTools.getCurrentInstance().addMessage(null, fm);

@@ -27,7 +27,8 @@
 package de.mpg.mpdl.inge.pubman.web.util.renderer;
 
 /**
- * TODO Renderer for h:messages which enables html-tags
+ * Custom MessagesRenderer that prevents faces messages from being not encoded (u can disable this
+ * renderer by adding the attribute escape=false to the <h:messages> tag)
  * 
  * @author walter (initial creation)
  * @author $Author$ (last modification)
@@ -40,9 +41,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
+import javax.faces.render.FacesRenderer;
 
 import com.sun.faces.renderkit.html_basic.MessagesRenderer;
 
+// TODO test if this is working in Versions after JSF 2.2
+// @FacesRenderer(componentFamily = "javax.faces.Messages", rendererType = "javax.faces.Messages")
+// Annotation not working correctly. For this reason it is added to the renderkit in
+// faces-config.xml
 public class EscapableMessagesRenderer extends MessagesRenderer {
 
   @Override
@@ -58,12 +64,12 @@ public class EscapableMessagesRenderer extends MessagesRenderer {
       @Override
       public void writeText(Object text, UIComponent component, String property) throws IOException {
         final String string = String.valueOf(text);
-        // String escape = (String) component.getAttributes().get("escape");
-        // if (escape != null && !Boolean.valueOf(escape)) {
-        super.write(string);
-        // } else {
-        // super.writeText(string, component, property);
-        // }
+        String escape = (String) component.getAttributes().get("escape");
+        if (escape != null && !Boolean.valueOf(escape)) {
+          super.write(string);
+        } else {
+          super.writeText(string, component, property);
+        }
       }
     });
 
