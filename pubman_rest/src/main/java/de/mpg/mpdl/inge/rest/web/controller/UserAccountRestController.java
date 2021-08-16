@@ -182,7 +182,7 @@ public class UserAccountRestController {
     AccountUserDbVO user = userSvc.get(userId, token);
     Date lmd = user.getLastModificationDate();
     AccountUserDbVO updated = null;
-    updated = userSvc.changePassword(userId, lmd, changedPassword, token);
+    updated = userSvc.changePassword(userId, lmd, changedPassword, false, token);
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 

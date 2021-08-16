@@ -176,8 +176,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, boolean passwordChangeFlag,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
@@ -190,7 +190,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     checkEqualModificationDate(modificationDate, getModificationDate(userDbToUpdated));
 
     checkAa("changePassword", principal, userDbToUpdated);
-    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword), LocalDate.now(), true);
+    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword), LocalDate.now(),
+        passwordChangeFlag);
 
     updateWithTechnicalMetadata(userDbToUpdated, principal.getUserAccount(), false);
 
@@ -628,8 +629,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private void validatePassword(String password) throws IngeApplicationException {
     PasswordValidator validator = new PasswordValidator(
-        // length between 8 and 16 characters
-        new LengthRule(8, 16),
+        // length between 8 and 32 characters
+        new LengthRule(8, 32),
         // at least one upper-case character
         new CharacterRule(EnglishCharacterData.UpperCase, 1),
         // at least one lower-case character
@@ -650,7 +651,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       }
 
       throw new IngeApplicationException(
-          "Password must be between 8 and 16 characters in length, no whitespaces allowed and contains at least one upper case letter, one lower case letter, a number and a special character");
+          "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character");
     }
   }
 

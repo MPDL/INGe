@@ -107,11 +107,8 @@ public class ConeServlet extends HttpServlet {
       this.add("number");
       this.add("l");
       this.add("lang");
-      //      this.add("r");
-      //      this.add("redirect");
       this.add("q");
       this.add("query");
-      //      this.add("h");
       this.add("tan4directLogin");
     }
   };
@@ -126,17 +123,6 @@ public class ConeServlet extends HttpServlet {
     request.setCharacterEncoding(DEFAULT_ENCODING);
     response.setCharacterEncoding(DEFAULT_ENCODING);
 
-    AbstractFormatter formatter = null;
-
-    PrintWriter out = response.getWriter();
-
-    // Read the model name and action from the URL
-    String[] path = request.getServletPath().split("/", 4);
-
-    String model = null;
-    String action = null;
-    String format = DEFAULT_FORMAT;
-    String lang = (request.getParameter("lang") != null ? request.getParameter("lang") : request.getParameter("l"));
     boolean loggedIn = false;
     if (request.getSession().getAttribute("logged_in") == null
         || !((Boolean) request.getSession().getAttribute("logged_in")).booleanValue()) {
@@ -154,15 +140,9 @@ public class ConeServlet extends HttpServlet {
       }
     }
 
-    //    if (!loggedIn && ((request.getParameter("eSciDocUserHandle") != null)
-    //        || "true".equals((request.getParameter("redirect") != null ? request.getParameter("redirect") : request.getParameter("r"))))) {
-    //      try {
-    //        response.sendRedirect(Aa.getLoginLink(request) + "&" + request.getQueryString());
-    //      } catch (Exception e) {
-    //        throw new ServletException("Error redirecting to Login", e);
-    //      }
-    //    }
-
+    String action = null;
+    String model = null;
+    String[] path = request.getServletPath().split("/", 4);
     if (path.length == 3 && "".equals(path[2])) {
       action = path[1];
     } else if (path.length > 2) {
@@ -172,6 +152,7 @@ public class ConeServlet extends HttpServlet {
       }
     }
 
+    String format = DEFAULT_FORMAT;
     if (request.getParameter("format") != null || request.getParameter("f") != null) {
       format = (request.getParameter("format") != null ? request.getParameter("format") : request.getParameter("f"));
     } else {
@@ -201,11 +182,11 @@ public class ConeServlet extends HttpServlet {
       }
     }
 
+    AbstractFormatter formatter = null;
     try {
       formatter = AbstractFormatter.getFormatter(format);
-    } catch (ConeException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
+    } catch (ConeException e) {
+      throw new ServletException(e);
     }
 
     Querier.ModeType modeType = Querier.ModeType.FAST;
@@ -214,21 +195,21 @@ public class ConeServlet extends HttpServlet {
       modeType = Querier.ModeType.FULL;
     }
 
+    String lang = (request.getParameter("lang") != null ? request.getParameter("lang") : request.getParameter("l"));
+    PrintWriter out = response.getWriter();
     if ("query".equals(action)) {
       String query;
       try {
         query = UrlHelper.fixURLEncoding(request.getParameter("query") != null ? request.getParameter("query") : request.getParameter("q"));
-      } catch (ConeException e1) {
-        throw new ServletException(e1);
+      } catch (ConeException e) {
+        throw new ServletException(e);
       } ;
       int limit = -1;
-
       try {
         limit = Integer.parseInt((request.getParameter("number") != null ? request.getParameter("number") : request.getParameter("n")));
       } catch (Exception e) {
         // Ignore n(umber) parameter as it is no number.
       }
-
       try {
         if (query != null) {
           queryAction(query, limit, lang, modeType, response, formatter, model, loggedIn);
@@ -252,11 +233,9 @@ public class ConeServlet extends HttpServlet {
       }
     } else if ("resource".equals(action)) {
       String id = null;
-
       if (path.length >= 4) {
         id = ConeUtils.makeConePersonsLinkRelative(path);
       }
-
       try {
         detailAction(id, lang, response, formatter, out, model, loggedIn);
       } catch (Exception e) {

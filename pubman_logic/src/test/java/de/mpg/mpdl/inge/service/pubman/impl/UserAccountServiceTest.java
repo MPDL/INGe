@@ -244,7 +244,7 @@ public class UserAccountServiceTest extends TestBase {
 
     AccountUserDbVO accountUserPwdToBeChanged = userAccountService.get(DEPOSITOR_OBJECTID, principal.getJwToken());
 
-    userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), newDepositorPassword,
+    userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), newDepositorPassword, true,
         principal.getJwToken());
 
     assertTrue(userAccountService.login("test_depositor", newDepositorPassword) != null);
@@ -262,7 +262,7 @@ public class UserAccountServiceTest extends TestBase {
 
     String veryNewDepositorPassword = "veryNewDepositorPassword";
     userAccountService.changePassword(DEPOSITOR_OBJECTID, accountUserPwdToBeChanged.getLastModificationDate(), veryNewDepositorPassword,
-        principal.getJwToken());
+        true, principal.getJwToken());
 
     Principal principalNew = userAccountService.login(DEPOSITOR_LOGIN_NAME, veryNewDepositorPassword);
 
