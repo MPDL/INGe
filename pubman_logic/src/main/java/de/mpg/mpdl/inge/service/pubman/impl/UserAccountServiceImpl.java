@@ -176,8 +176,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   @Transactional(rollbackFor = Throwable.class)
   @Override
-  public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, String authenticationToken)
-      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+  public AccountUserDbVO changePassword(String userId, Date modificationDate, String newPassword, boolean passwordChangeFlag,
+      String authenticationToken) throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     Principal principal = aaService.checkLoginRequired(authenticationToken);
     validatePassword(newPassword);
@@ -190,7 +190,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
     checkEqualModificationDate(modificationDate, getModificationDate(userDbToUpdated));
 
     checkAa("changePassword", principal, userDbToUpdated);
-    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword), LocalDate.now(), true);
+    userLoginRepository.updateLogin(userDbToUpdated.getLoginname(), passwordEncoder.encode(newPassword), LocalDate.now(),
+        passwordChangeFlag);
 
     updateWithTechnicalMetadata(userDbToUpdated, principal.getUserAccount(), false);
 

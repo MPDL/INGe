@@ -177,12 +177,12 @@ public class UserAccountRestController {
   @RequestMapping(value = USER_ID_PATH + "/password", method = RequestMethod.PUT)
   @ApiIgnore
   public ResponseEntity<AccountUserDbVO> changePassword(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String changedPassword)
+      @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String changedPassword, boolean passwordChangeFlag)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user = userSvc.get(userId, token);
     Date lmd = user.getLastModificationDate();
     AccountUserDbVO updated = null;
-    updated = userSvc.changePassword(userId, lmd, changedPassword, token);
+    updated = userSvc.changePassword(userId, lmd, changedPassword, passwordChangeFlag, token);
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 

@@ -94,7 +94,7 @@ public class UserAccountOptions extends FacesBean {
           this.loginHelper = (LoginHelper) FacesTools.findBean("LoginHelper");
           UserAccountService userAccountService = ApplicationBean.INSTANCE.getUserAccountService();
           userAccountService.changePassword(this.loginHelper.getAccountUser().getObjectId(),
-              this.loginHelper.getAccountUser().getLastModificationDate(), this.password, this.loginHelper.getAuthenticationToken());
+              this.loginHelper.getAccountUser().getLastModificationDate(), this.password, true, this.loginHelper.getAuthenticationToken());
           info(getMessage("userAccountOptions_PasswordUpdated"));
         } else {
           error(getMessage("userAccountOptions_DifferentPasswords"));
@@ -119,7 +119,7 @@ public class UserAccountOptions extends FacesBean {
           Principal principal = userAccountService.loginForPasswordChange(this.loginName, this.currentPassword);
           if (principal != null) {
             userAccountService.changePassword(principal.getUserAccount().getObjectId(),
-                principal.getUserAccount().getLastModificationDate(), this.password, principal.getJwToken());
+                principal.getUserAccount().getLastModificationDate(), this.password, true, principal.getJwToken());
             info(getMessage("userAccountOptions_PasswordUpdated"));
           }
         } else {
