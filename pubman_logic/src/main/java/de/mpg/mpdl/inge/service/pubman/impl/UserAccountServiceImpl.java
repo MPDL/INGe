@@ -629,8 +629,8 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
   private void validatePassword(String password) throws IngeApplicationException {
     PasswordValidator validator = new PasswordValidator(
-        // length between 8 and 16 characters
-        new LengthRule(8, 16),
+        // length between 8 and 32 characters
+        new LengthRule(8, 32),
         // at least one upper-case character
         new CharacterRule(EnglishCharacterData.UpperCase, 1),
         // at least one lower-case character
@@ -651,7 +651,7 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
       }
 
       throw new IngeApplicationException(
-          "Password must be between 8 and 16 characters in length, no whitespaces allowed and contains at least one upper case letter, one lower case letter, a number and a special character");
+          "Password must have a minimum length of 8 characters, no whitespaces allowed, at least one upper case letter, one lower case letter, a number and a special character");
     }
   }
 
