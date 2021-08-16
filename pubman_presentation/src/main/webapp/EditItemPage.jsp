@@ -134,7 +134,7 @@
 									</h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn"
 										fatalClass="messageFatal" infoClass="messageStatus"
-										layout="list" globalOnly="true" showDetail="false"
+										layout="list" globalOnly="true" showDetail="false"  escape="false"
 										showSummary="true" rendered="#{EditItem.hasMessages}" />
 								</h:panelGroup>
 								<h:panelGroup layout="block"
@@ -148,7 +148,7 @@
 									</h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn"
 										fatalClass="messageFatal" infoClass="messageStatus"
-										layout="list" globalOnly="true" showDetail="false"
+										layout="list" globalOnly="true" showDetail="false"  escape="false"
 										showSummary="true" rendered="#{EditItem.hasMessages}" />
 								</h:panelGroup>
 							</h:panelGroup>

@@ -50,16 +50,16 @@
                                     <h2>
                                         <h:outputText value="#{lbl.warning_lblMessageHeader}" />
                                     </h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SubmitItemPage.hasMessages}" />
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" escape="false" rendered="#{SubmitItemPage.hasMessages}" />
                                 </h:panelGroup>
-                                <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{SubmitItemPage.hasMessages and !SubmitItemPage.hasErrorMessages}" />
+                                <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" escape="false" rendered="#{SubmitItemPage.hasMessages and !SubmitItemPage.hasErrorMessages}" />
 <!--                                
                                  <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea" rendered="#{SubmitItemPage.hasMessages and !SubmitItemPage.hasErrorMessages}">
                                     <input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
                                     <h2>
                                         <h:outputText value="#{lbl.info_lblMessageHeader}" />
                                     </h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SubmitItemPage.hasMessages}" />
+                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" escape="false" rendered="#{SubmitItemPage.hasMessages}" />
                                 </h:panelGroup>
  -->                                
                             </h:panelGroup>

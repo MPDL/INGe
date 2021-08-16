@@ -31,6 +31,7 @@ import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -46,6 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.util.beans.LoginHelper;
  * @author Mario Wagner
  * @version
  */
+@ManagedBean(name = "FacesBean")
 @SuppressWarnings("serial")
 public class FacesBean implements Serializable {
   private static final Logger logger = Logger.getLogger(FacesBean.class);

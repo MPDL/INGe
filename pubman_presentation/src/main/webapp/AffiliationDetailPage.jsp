@@ -21,7 +21,7 @@
                             <h:outputText value="#{lbl.AffiliationTree_txtHeadlineDetails}" />
                         </h1>
                     </div>
-                    <h:messages errorClass="messageError" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{AffiliationDetailPage.hasMessages}" />
+                    <h:messages errorClass="messageError" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" escape="false" rendered="#{AffiliationDetailPage.hasMessages}" />
                     <div class="full_area0 fullItem">
                         <!-- title -->
                         <div class="full_area0 itemHeader noTopBorder">

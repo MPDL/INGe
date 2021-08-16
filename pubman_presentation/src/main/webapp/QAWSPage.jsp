@@ -406,7 +406,7 @@
 								<h:messages styleClass="singleMessage" errorClass="messageError"
 									warnClass="messageWarn" fatalClass="messageFatal"
 									infoClass="messageStatus" layout="list" globalOnly="true"
-									showDetail="false" showSummary="true"
+									showDetail="false" showSummary="true"  escape="false"
 									rendered="#{MyTasksRetrieverRequestBean.numberOfMessages == 1}" />
 								<h:panelGroup layout="block"
 									styleClass="half_area2_p6 messageArea errorMessageArea"
@@ -417,7 +417,7 @@
 									<h:messages errorClass="messageError" warnClass="messageWarn"
 										fatalClass="messageFatal" infoClass="messageStatus"
 										layout="list" globalOnly="true" showDetail="false"
-										showSummary="true"
+										showSummary="true"  escape="false"
 										rendered="#{MyTasksRetrieverRequestBean.hasMessages}" />
 								</h:panelGroup>
 								<h:panelGroup layout="block"
@@ -429,7 +429,7 @@
 									<h:messages errorClass="messageError" warnClass="messageWarn"
 										fatalClass="messageFatal" infoClass="messageStatus"
 										layout="list" globalOnly="true" showDetail="false"
-										showSummary="true"
+										showSummary="true"  escape="false"
 										rendered="#{MyTasksRetrieverRequestBean.hasMessages}" />
 								</h:panelGroup>
 								<!-- Subheadline ends here -->

@@ -37,14 +37,14 @@
                                 <h2>
                                     <h:outputText value="#{lbl.warning_lblMessageHeader}" />
                                 </h2>
-                                <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{UserAccountOptions.hasMessages}" />
+                                <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" escape="false" rendered="#{UserAccountOptions.hasMessages}" />
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea absoluteMessageArea small_marginLExcl" rendered="#{UserAccountOptions.hasMessages and !UserAccountOptions.hasErrorMessages}">
                                 <input type="button" class="min_imgBtn fixSuccessMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
                                 <h2>
                                     <h:outputText value="#{lbl.info_lblMessageHeader}" />
                                 </h2>
-                                <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{UserAccountOptions.hasMessages}" />
+                                <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" escape="false" rendered="#{UserAccountOptions.hasMessages}" />
                             </h:panelGroup>
                         </h:panelGroup>
                         <!-- MessageArea ends here -->

@@ -206,18 +206,18 @@
                             <!-- Subheadline ends here -->
                             <!-- JSF messages -->
                             <div class="subHeader">
-                                <h:messages styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}" />
+                                <h:messages id="msg_wrapper" styleClass="singleMessage" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.numberOfMessages == 1}" escape="false"/>
                                 <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
                                     <h2>
                                         <h:outputText value="#{lbl.warning_lblMessageHeader}" />
                                     </h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}" />
+                                    <h:messages id="msg_error" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}" escape="false"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages and ViewItemFull.numberOfMessages != 1}">
                                     <h2>
                                         <h:outputText value="#{lbl.info_lblMessageHeader}" />
                                     </h2>
-                                    <h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}" />
+                                    <h:messages id="msg_info" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="false" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}" escape="false"/>
                                 </h:panelGroup>
                             </div>
                             <!-- Subheadline ends here -->
@@ -277,7 +277,7 @@
                                     <h:commandLink id="btList_lkLastListItem" styleClass="min_imgBtn skipToLast" action="#{PubItemListSessionBean.lastListItem}" rendered="#{PubItemListSessionBean.hasNextListItem and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">&#160;</h:commandLink>
                                 </h:panelGroup>
                                 <h:panelGroup styleClass="gotoBox" rendered="#{(PubItemListSessionBean.hasNextListItem or PubItemListSessionBean.hasPreviousListItem) and BreadcrumbItemHistorySessionBean.previousPageIsListPage}">
-                                    <h:inputText id="inputItemListPosition" styleClass="pag_txtInput" value="#{PubItemListSessionBean.listItemPosition}" label="GoToBox" />
+                                    <h:inputText id="inputItemListPosition" styleClass="pag_txtInput" value="#{PubItemListSessionBean.listItemPosition}" validatorMessage="#{FacesBean.getMessage('listError_goTo')}" requiredMessage="#{FacesBean.getMessage('listError_goTo')}" converterMessage="#{FacesBean.getMessage('listError_goTo')}" label="GoToBox" />
                                     <h:outputLabel id="lblItemListPosition" styleClass="free_label" value="#{lbl.ItemList_of} " />
                                     <h:outputLabel id="lblChangeItemListPosition" styleClass="free_label" value="#{PubItemListSessionBean.totalNumberOfElements}" />
                                     <h:commandButton id="btnGoToItemListPosition" styleClass="xTiny_txtBtn pageChangeHiddenBtn" value="#{lbl.List_btGo}" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.doListItemPosition}" />
