@@ -591,6 +591,105 @@
 				<misc:target misc:use="conference">0</misc:target>
 				<misc:target misc:use="festschrift">0</misc:target>
 			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/film</misc:source>
+				<misc:target misc:use="996a">Film</misc:target>
+				<misc:target misc:use="997a">film</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/data-publication</misc:source>
+				<misc:target misc:use="996a">Datenpublikation</misc:target>
+				<misc:target misc:use="997a">data publication</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/eprint/type/pre-registration-paper</misc:source>
+				<misc:target misc:use="996a">Pre-Registration Paper</misc:target>
+				<misc:target misc:use="997a">pre-registration paper</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/eprint/type/registered-report</misc:source>
+				<misc:target misc:use="996a">Registered Report</misc:target>
+				<misc:target misc:use="997a">registered report</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/eprint/type/preprint</misc:source>
+				<misc:target misc:use="996a">Preprint</misc:target>
+				<misc:target misc:use="997a">preprint</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/eprint/type/blog-post</misc:source>
+				<misc:target misc:use="996a">Blogbeitrag</misc:target>
+				<misc:target misc:use="997a">blog post</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/interview</misc:source>
+				<misc:target misc:use="996a">Interview</misc:target>
+				<misc:target misc:use="997a">interview</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/escidoc/metadata/ves/publication-types/software</misc:source>
+				<misc:target misc:use="996a">Software</misc:target>
+				<misc:target misc:use="997a">software</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a/m</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
+			<misc:mapping>
+				<misc:source>http://purl.org/eprint/type/review-article</misc:source>
+				<misc:target misc:use="996a">Review Article</misc:target>
+				<misc:target misc:use="997a">review article</misc:target>
+				<misc:target misc:use="type-of-record">a</misc:target>
+				<misc:target misc:use="bibliographic-level">a</misc:target>
+				<misc:target misc:use="multipart-resource">b</misc:target>
+				<misc:target misc:use="nature-of-contents">#</misc:target>
+				<misc:target misc:use="conference">0</misc:target>
+				<misc:target misc:use="festschrift">0</misc:target>
+			</misc:mapping>
 		</misc:mapping-table>
 	</xsl:variable>
 	<xsl:function name="misc-marc:pubman-genre" as="xs:string">
