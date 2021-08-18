@@ -34,7 +34,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList"%>
 <%@ page import="de.mpg.mpdl.inge.cone.ModelList.Model"%>
 <%@ page import="de.mpg.mpdl.inge.cone.Querier"%>
