@@ -45,7 +45,7 @@ public class UrlHelper {
   }
 
   public static boolean isValidParam(String s) {
-    String pattern = "^[^<>'\"&]*$";
+    String pattern = "^[^<>'\"&%]*$";
     Pattern r = Pattern.compile(pattern);
     Matcher m = r.matcher(s);
 
