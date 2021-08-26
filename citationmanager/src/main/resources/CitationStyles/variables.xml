@@ -36,6 +36,7 @@
 	<variable name="l_conference-report">'http://purl.org/escidoc/metadata/ves/publication-types/conference-report'</variable>
 	<variable name="l_courseware-lecture">'http://purl.org/escidoc/metadata/ves/publication-types/courseware-lecture'</variable>
 	<variable name="l_data_publication">'http://purl.org/escidoc/metadata/ves/publication-types/data-publication'</variable>
+	<variable name="l_film">'http://purl.org/escidoc/metadata/ves/publication-types/film'</variable>
 	<variable name="l_interview">'http://purl.org/escidoc/metadata/ves/publication-types/interview'</variable>
 	<variable name="l_issue">'http://purl.org/escidoc/metadata/ves/publication-types/issue'</variable>
 	<variable name="l_journal">'http://purl.org/escidoc/metadata/ves/publication-types/journal'</variable>

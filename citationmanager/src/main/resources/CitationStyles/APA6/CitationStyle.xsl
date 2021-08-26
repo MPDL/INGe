@@ -63,6 +63,9 @@
                         <xsl:variable name="l_data_publication">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/data-publication')"/>
                         </xsl:variable>
+                        <xsl:variable name="l_film">
+                            <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/film')"/>
+                        </xsl:variable>
                         <xsl:variable name="l_interview">
                             <xsl:value-of select="func:escapeMarkupTags('http://purl.org/escidoc/metadata/ves/publication-types/interview')"/>
                         </xsl:variable>
@@ -2608,7 +2611,7 @@
                                 </xsl:variable>
                                 <xsl:copy-of select="$submitted-or-in-preparation"/>
                             </xsl:when>
-                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article, $l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software, $l_review_article ) &#xA;&#x9;&#x9;&#x9;&#x9;or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper, $l_meeting-abstract, $l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software) and $source-type = $l_journal )  &#xA;&#x9;&#x9;&#x9;">
+                            <xsl:when test="&#xA;&#x9;&#x9;&#x9;&#x9;$genre = ( $l_article, $l_paper, $l_case-note, $l_book-review, $l_case-study, $l_editorial, $l_newspaper-article, $l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software, $l_review_article, $l_film ) &#xA;&#x9;&#x9;&#x9;&#x9;or ( $genre = ( $l_other, $l_paper, $l_conference-report, $l_conference-paper, $l_meeting-abstract, $l_data_publication, $l_pre_registration_paper, $l_registered_report, $l_preprint, $l_blog_post, $l_interview, $l_software, $l_film) and $source-type = $l_journal )  &#xA;&#x9;&#x9;&#x9;">
                                 <xsl:variable name="journal-article-etc"><!--### Plain Layout Element ###-->
 	<!--### @ref is not available ###--><xsl:variable name="var" select="''"/>
                                     <xsl:variable name="var">
