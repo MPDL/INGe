@@ -108,6 +108,11 @@
 					<xsl:with-param name="entryType">Thesis</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
+			<xsl:when test="$genre='software'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType">Computer Program</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
 			<xsl:when test="$genre='data-publication'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">Dataset</xsl:with-param>
@@ -495,6 +500,12 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$role='editor' and not($genre='book' or $genre='monograph' or $genre='handbook' or $genre='collected-edition' or $genre='festschrift' or $genre='manual' or $genre='multi-volume')">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag" select="'E'"/>
+					<xsl:with-param name="value" select="$name"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$role='editor' and ($genre='software')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'E'"/>
 					<xsl:with-param name="value" select="$name"/>

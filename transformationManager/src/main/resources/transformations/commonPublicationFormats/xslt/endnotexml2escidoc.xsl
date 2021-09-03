@@ -91,6 +91,7 @@
 		<m key="Generic">other</m>
 		<m key="GenericMPIGEM">paper</m>
 		<m key="Courseware">courseware-lecture</m>
+		<m key="Computer Program">software</m>
 		<m key="Dataset">data-publication</m>
 		<m key="Blog">blog-post</m>
 		<m key="Interview">interview</m>
@@ -927,10 +928,9 @@
 							<xsl:with-param name="gen" select="$gen" />
 						</xsl:call-template>
 					</xsl:when>
+					<!-- INTERVIEW -->
 					<xsl:when
 						test="  $refType = (  'Interview'  )">
-						<!-- Artwork und Classical Work sind Endnote-Sondertypen des MPIGEM 
-							(Gemeinschaftsgüter -->
 						<xsl:variable name="currentAuthorPosition"
 							select="position()" />
 						<xsl:comment>
@@ -951,6 +951,23 @@
 							<xsl:with-param name="gen" select="$gen" />
 						</xsl:call-template>
 					</xsl:when>
+					<!-- SOFTWARE -->
+					<xsl:when
+						test="  $refType = (  'Computer Program'  )">
+						<xsl:variable name="currentAuthorPosition"
+							select="position()" />
+						<xsl:comment>
+						    --Author --
+						</xsl:comment>
+						<xsl:call-template name="createCreator">
+							<xsl:with-param name="role"
+								select="$creator-ves/enum[.='developer']/@uri" />
+							<xsl:with-param name="pos"
+								select="count(../A[position() &lt; $currentAuthorPosition]) + 1" />
+							<xsl:with-param name="gen" select="$gen" />
+						</xsl:call-template>
+					</xsl:when>
+					
 				</xsl:choose>
 			</xsl:if>
 			<!-- Besonderheit MPI Gemeinschaftsgüter: Immer Editoren berücksichtigen, 
@@ -990,11 +1007,7 @@
 							<xsl:with-param name="gen" select="$gen" />
 						</xsl:call-template>
 					</xsl:when>
-				</xsl:choose>
-			</xsl:if>
-			<xsl:if test="name(.)='E'">
-				<xsl:choose>
-					<xsl:when test="$refType = ('Dataset', 'Blog', 'Film or Broadcast')">
+					<xsl:when test="$refType = ('Dataset', 'Blog', 'Film or Broadcast', 'Computer Program')">
 						<xsl:call-template name="createCreator">
 							<xsl:with-param name="role"
 								select="$creator-ves/enum[.='editor']/@uri" />
