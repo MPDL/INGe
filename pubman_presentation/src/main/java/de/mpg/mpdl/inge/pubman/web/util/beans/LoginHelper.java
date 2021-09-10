@@ -170,7 +170,7 @@ public class LoginHelper extends FacesBean {
       }
       if (e.getMessage().contains("change password")) {
         this.error("<a href=\"" + ApplicationBean.INSTANCE.getPubmanInstanceUrl() + ApplicationBean.INSTANCE.getInstanceContextPath()
-            + "/faces/UserAccountOptions.jsp\">" + this.getMessage("LoginPasswordChangeRequired") + "</a>");
+            + "/faces/UserAccountOptions.jsp\" style=\"color:red\">" + this.getMessage("LoginPasswordChangeRequired") + "</a>");
       } else {
         this.error(this.getMessage("LoginError"));
       }
