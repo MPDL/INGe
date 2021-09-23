@@ -663,13 +663,13 @@ function bindSuggests() {
 
 function selectLanguage() {
     $input = $(this);
-    if ($this.resultValue.trim().indexOf(' ') !== -1) {
-        var langShortHand = $($this.resultValue.trim()).substr(0, ($this.resultValue.trim()).indexOf(' ')).trim();
+    if (($.trim(this.resultValue)).indexOf(' ') !== -1) {
+        var langShortHand = $.trim(($.trim(this.resultValue)).substr(0, ($.trim(this.resultValue)).indexOf(' ')));
         if (langShortHand != '') {
             $input.val(langShortHand);
             $input.attr('title', langShortHand);
         }
-        var lang = $($this.resultValue.trim()).substr($this.resultValue.trim().lastIndexOf(' ') + 1).trim();
+        var lang = $.trim(($.trim(this.resultValue)).substr(($.trim(this.resultValue)).lastIndexOf(' ') + 1));
         if (lang != '') {
             $input.parents('.' + languageSuggestCommonParentClass).find('.languageText').val(lang);
             $input.parents('.' + languageSuggestCommonParentClass).find('.languageText').attr('title', lang);
