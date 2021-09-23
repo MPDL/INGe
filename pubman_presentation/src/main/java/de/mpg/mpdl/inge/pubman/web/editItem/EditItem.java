@@ -560,9 +560,11 @@ public class EditItem extends FacesBean {
       if (this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage().contains("ViewItemFullPage.jsp")) {
         FacesTools.getExternalContext().redirect(
             FacesTools.getRequest().getContextPath() + "/faces/" + this.getBreadcrumbItemHistorySessionBean().getPreviousItem().getPage());
-      } else {
+      } else if (null != this.getPubItem().getObjectId()) {
         FacesTools.getExternalContext()
             .redirect(FacesTools.getRequest().getContextPath() + "/faces/ViewItemFullPage.jsp?itemId=" + this.getPubItem().getObjectId());
+      } else {
+        FacesTools.getExternalContext().redirect("faces/SubmissionPage.jsp");
       }
     } catch (final Exception e) {
       EditItem.logger.error("Could not redirect to the previous page", e);
