@@ -103,8 +103,12 @@ public class UserAccountOptions extends FacesBean {
         error(getMessage("userAccountOptions_emptyPassword"));
       }
     } catch (Exception e) {
-      error(e.getMessage());
       logger.error("Problem updating Password", e);
+      if (e.getMessage().contains("Object changed in the meantime")) {
+        error(getMessage("userAccountOptions_ChangePasswordNotPossible"));
+      } else {
+        error(e.getMessage());
+      }
     }
 
     return "";
