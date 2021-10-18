@@ -11,6 +11,8 @@ import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
 import de.undercouch.citeproc.CSL;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
+import de.undercouch.citeproc.script.ScriptRunnerFactory;
+import de.undercouch.citeproc.script.ScriptRunnerFactory.RunnerType;
 
 /**
  * CitationStyleLanguageManagerDefaultImpl is used to generate a citation for an escidoc item or a
@@ -33,6 +35,7 @@ public class CitationStyleLanguageManagerService {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
+      ScriptRunnerFactory.setRunnerType(RunnerType.GRAALJS);
 
       CSL citeproc = null;
       if (defaultLocale != null) {
@@ -40,6 +43,8 @@ public class CitationStyleLanguageManagerService {
       } else {
         citeproc = new CSL(itemDataProvider, citationStyle);
       }
+      logger.info("JavaScript Engine: " + citeproc.getJavaScriptEngineName() + " -Verison: " + citeproc.getJavaScriptEngineVersion()
+          + " -JSVerison: " + citeproc.getCiteprocJsVersion());
 
       citeproc.registerCitationItems(itemDataProvider.getIds());
       citeproc.setOutputFormat(CITATION_PROCESSOR_OUTPUT_FORMAT);

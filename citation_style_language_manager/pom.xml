@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -72,13 +74,12 @@
 		</dependency>
 		<dependency>
 			<!--this citeproc version is a snapshot version although the version number 
-			does not indicate it. It requires rhino library The newer releases of citeproc 
-			(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
-			in JDK8. However, we got massive performance problems with the newer versions, 
-			so we use the old version until the performance problems are solved. -->
+				does not indicate it. It requires rhino library The newer releases of citeproc 
+				(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
+				in JDK8. However, we got massive performance problems with the newer versions, 
+				so we use the old version until the performance problems are solved. -->
 			<groupId>de.undercouch</groupId>
 			<artifactId>citeproc-java</artifactId>
-			<classifier>mpdl-snapshot</classifier>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
@@ -93,10 +94,12 @@
 		</dependency>
 		<dependency>
 			<!-- Required for citeproc-java -->
-			<groupId>org.mozilla</groupId>
-			<artifactId>rhino</artifactId>
+			<groupId>org.citationstyles</groupId>
+			<artifactId>styles</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+
 	</dependencies>
 
 </project>

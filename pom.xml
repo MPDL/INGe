@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.mpg.mpdl.inge</groupId>
@@ -180,7 +182,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
- 
+
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
@@ -194,16 +196,16 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-<!-- Fuer alle Module -->
+	<!-- Fuer alle Module -->
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 		</dependency>
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-			</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-1.2-api</artifactId>
@@ -222,11 +224,11 @@
 		</dependency>
 	</dependencies>
 
-<!-- Versionsverwaltung -->
+	<!-- Versionsverwaltung -->
 	<dependencyManagement>
 		<dependencies>
 
-<!-- Apache -->
+			<!-- Apache -->
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-spring</artifactId>
@@ -295,14 +297,14 @@
 				<version>1.7</version>
 			</dependency>
 
-<!--  Atom, RSS -->
+			<!-- Atom, RSS -->
 			<dependency>
 				<groupId>com.rometools</groupId>
 				<artifactId>rome</artifactId>
 				<version>1.8.0</version>
 			</dependency>
-			
-<!-- Commons -->
+
+			<!-- Commons -->
 			<dependency>
 				<groupId>commons-digester</groupId>
 				<artifactId>commons-digester</artifactId>
@@ -329,34 +331,33 @@
 				<version>3.6</version>
 			</dependency>
 
-<!-- CSL -->
+			<!-- CSL -->
 			<dependency>
-				<!-- This citeproc version is a snapshot version although the version number 
-				does not indicate it. It requires rhino library The newer releases of citeproc 
-				(1.0.0 and 1.0.1) do not require rhino, but nashorn, which is integrated 
-				in JDK8. However, we got massive performance problems with the newer versions, 
-				so we use the old version until the performance problems are solved. -->
+				<groupId>org.citationstyles</groupId>
+				<artifactId>styles</artifactId>
+				<version>20.11</version>
+			</dependency>
+			<dependency>
 				<groupId>org.citationstyles</groupId>
 				<artifactId>locales</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
+				<version>20.11</version>
 			</dependency>
 			<dependency>
 				<groupId>de.undercouch</groupId>
 				<artifactId>citeproc-java</artifactId>
-				<version>1.0.0</version>
-				<classifier>mpdl-snapshot</classifier>
+				<version>2.0.0</version>
 			</dependency>
 
-<!-- Docx4j -->
+			<!-- Docx4j -->
 			<dependency>
-				<!--  Required for docx4j -->
+				<!-- Required for docx4j -->
 				<groupId>com.googlecode.jaxb-namespaceprefixmapper-interfaces</groupId>
-					<artifactId>JAXBNamespacePrefixMapper</artifactId>
-					<version>2.2.4</version>
+				<artifactId>JAXBNamespacePrefixMapper</artifactId>
+				<version>2.2.4</version>
 			</dependency>
-			
+
 			<dependency>
-				<!--  Required for docx4j-export-fo -->
+				<!-- Required for docx4j-export-fo -->
 				<groupId>org.apache.xmlgraphics</groupId>
 				<artifactId>fop</artifactId>
 				<version>2.2</version>
@@ -408,14 +409,14 @@
 				<version>3.3.6</version>
 			</dependency>
 
-<!-- Dozer -->
+			<!-- Dozer -->
 			<dependency>
 				<groupId>com.github.dozermapper</groupId>
 				<artifactId>dozer-core</artifactId>
 				<version>6.1.0</version>
 			</dependency>
-			
-<!-- Elastic Search -->
+
+			<!-- Elastic Search -->
 			<dependency>
 				<groupId>org.elasticsearch</groupId>
 				<artifactId>elasticsearch</artifactId>
@@ -427,7 +428,7 @@
 				<version>6.1.1</version>
 			</dependency>
 
-<!-- Hibernate -->
+			<!-- Hibernate -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -444,7 +445,7 @@
 				<version>5.2.13.Final</version>
 			</dependency>
 
-<!-- Jackson -->
+			<!-- Jackson -->
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
@@ -456,7 +457,7 @@
 				<version>2.8.10</version>
 			</dependency>
 
-<!-- Java EE -->
+			<!-- Java EE -->
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
@@ -468,8 +469,8 @@
 				<artifactId>mail</artifactId>
 				<version>1.4</version>
 			</dependency>
-			
-<!-- Jasper Reports -->
+
+			<!-- Jasper Reports -->
 			<dependency>
 				<groupId>net.sf.jasperreports</groupId>
 				<artifactId>jasperreports</artifactId>
@@ -482,7 +483,7 @@
 				</exclusions>
 			</dependency>
 
-<!-- Jersey -->
+			<!-- Jersey -->
 			<dependency>
 				<groupId>org.glassfish.jersey.core</groupId>
 				<artifactId>jersey-client</artifactId>
@@ -493,8 +494,8 @@
 				<artifactId>jersey-hk2</artifactId>
 				<version>2.30</version>
 			</dependency>
-			
-<!-- Jibx -->
+
+			<!-- Jibx -->
 			<dependency>
 				<groupId>org.jibx</groupId>
 				<artifactId>jibx-extras</artifactId>
@@ -511,7 +512,7 @@
 				</exclusions>
 			</dependency>
 
-<!-- JSF -->
+			<!-- JSF -->
 			<dependency>
 				<groupId>javax.faces</groupId>
 				<artifactId>javax.faces-api</artifactId>
@@ -525,7 +526,7 @@
 				<scope>provided</scope>
 			</dependency>
 
-<!-- Json -->
+			<!-- Json -->
 			<dependency>
 				<groupId>com.googlecode.json-simple</groupId>
 				<artifactId>json-simple</artifactId>
@@ -537,7 +538,7 @@
 				<version>20200518</version>
 			</dependency>
 
-<!-- Json Web Token -->
+			<!-- Json Web Token -->
 			<dependency>
 				<groupId>com.auth0</groupId>
 				<artifactId>java-jwt</artifactId>
@@ -550,7 +551,7 @@
 				</exclusions>
 			</dependency>
 
-<!-- Junit -->
+			<!-- Junit -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -558,7 +559,7 @@
 				<scope>test</scope>
 			</dependency>
 
-<!-- Logging -->
+			<!-- Logging -->
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
 				<artifactId>log4j-1.2-api</artifactId>
@@ -580,7 +581,7 @@
 				<version>2.13.0</version>
 			</dependency>
 
-<!--  Spring -->
+			<!-- Spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-framework-bom</artifactId>
@@ -609,14 +610,14 @@
 				<version>4.2.3.RELEASE</version>
 			</dependency>
 
-<!-- Passay-->
+			<!-- Passay -->
 			<dependency>
 				<groupId>org.passay</groupId>
 				<artifactId>passay</artifactId>
 				<version>1.6.1</version>
 			</dependency>
-			
-<!-- PostgreSQL-->
+
+			<!-- PostgreSQL -->
 			<dependency> <!-- Jdbc -->
 				<groupId>com.mchange</groupId>
 				<artifactId>c3p0</artifactId>
@@ -628,14 +629,14 @@
 				<version>42.1.1</version>
 			</dependency>
 
-<!-- PrimeFaces -->
+			<!-- PrimeFaces -->
 			<dependency>
 				<groupId>org.primefaces</groupId>
 				<artifactId>primefaces</artifactId>
 				<version>5.1</version>
 			</dependency>
 
-<!-- Pubman Module -->
+			<!-- Pubman Module -->
 			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>aa_logic</artifactId>
@@ -672,7 +673,8 @@
 				<artifactId>cone_presentation</artifactId>
 				<version>8.4.3-SNAPSHOT</version>
 				<type>war</type>
-			</dependency><dependency>
+			</dependency>
+			<dependency>
 				<groupId>de.mpg.mpdl.inge</groupId>
 				<artifactId>dataacquisition</artifactId>
 				<version>8.4.3-SNAPSHOT</version>
@@ -730,8 +732,8 @@
 				<artifactId>transformationManager</artifactId>
 				<version>8.4.3-SNAPSHOT</version>
 			</dependency>
-			
-<!-- Saxon -->
+
+			<!-- Saxon -->
 			<dependency>
 				<groupId>net.sf.saxon</groupId>
 				<artifactId>saxon</artifactId>
@@ -743,7 +745,7 @@
 				<version>8.7</version>
 			</dependency>
 
-<!-- Swagger -->
+			<!-- Swagger -->
 			<dependency>
 				<!-- Required for swagger -->
 				<groupId>io.springfox</groupId>
@@ -756,7 +758,7 @@
 				<version>2.9.2</version>
 			</dependency>
 
-<!-- Validation -->
+			<!-- Validation -->
 			<dependency>
 				<groupId>com.baidu.unbiz</groupId>
 				<artifactId>fluent-validator</artifactId>
@@ -772,8 +774,8 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			
-<!-- XML -->
+
+			<!-- XML -->
 			<dependency>
 				<groupId>javax.xml.bind</groupId>
 				<artifactId>jaxb-api</artifactId>
@@ -790,7 +792,7 @@
 				<version>1.2</version>
 			</dependency>
 
-<!-- Sonstige -->
+			<!-- Sonstige -->
 			<dependency> <!-- BibTex -->
 				<groupId>javabib</groupId>
 				<artifactId>javabib</artifactId>
@@ -822,7 +824,7 @@
 				<version>2.7.2</version>
 			</dependency>
 		</dependencies>
-		
+
 	</dependencyManagement>
 
 	<build>
@@ -912,19 +914,19 @@
 					<artifactId>maven-war-plugin</artifactId>
 					<version>3.3.1</version>
 				</plugin>
-				
+
 				<plugin>
 					<groupId>org.codehaus.cargo</groupId>
 					<artifactId>cargo-maven2-plugin</artifactId>
 					<version>1.4.10</version>
 				</plugin>
-				
+
 				<plugin>
 					<groupId>org.codehaus.izpack</groupId>
 					<artifactId>izpack-maven-plugin</artifactId>
 					<version>1.0-alpha-5</version>
 				</plugin>
-				
+
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>axistools-maven-plugin</artifactId>
@@ -973,7 +975,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -993,7 +995,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -1058,7 +1060,7 @@
 					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javancss-maven-plugin</artifactId>
@@ -1075,7 +1077,8 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
 				<version>2.0</version>
-			</plugin><plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>taglist-maven-plugin</artifactId>
 				<version>2.2</version>
@@ -1374,113 +1377,113 @@
 			</properties>
 		</profile>
 
-        <!-- activate this profile for an Iass build -->
-        <profile>
-            <id>env-iass</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <gfz.citation.style.use>true</gfz.citation.style.use>
-                <gfz.cone.reset.use>true</gfz.cone.reset.use>
-                <gfz.oa.mail.adress />
-                <gfz.oa.mail.domain />
-                <gfz.oa.mail.subject />
-                <gfz.oa.mail.template />
-                <inge.auth.mpg.ip.csv.url />
-                <inge.auth.mpg.ip.json.url />
-                <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
-                <inge.cone.cache.use>false</inge.cone.cache.use>
-                <inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
-                <inge.cone.modelsxml.path>models_iass.xml</inge.cone.modelsxml.path>
-                <inge.cone.subjectVocab />
-                <inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
-                <inge.doi.service.create.url />
-                <inge.doi.service.url />
-                <inge.doi.service.use>false</inge.doi.service.use>
-                <inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
-                <inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
-                <inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
-                <inge.es.cluster.name.test />
-                <inge.es.transport.ips.test />
-                <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
-                <inge.pid.service.create.path />
-                <inge.pid.service.timeout>0</inge.pid.service.timeout>
-                <inge.pid.service.url />
-                <inge.pid.service.use>false</inge.pid.service.use>
-                <inge.pubman.blog.baseUrl />
-                <inge.pubman.blog.news />
-                <inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-                <inge.pubman.build.mode>iass</inge.pubman.build.mode>
-                <inge.pubman.contact.url />
-                <inge.pubman.handbook.url />
-                <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-                <inge.pubman.logo.url>/resources/images/iass.svg</inge.pubman.logo.url>
-                <inge.pubman.policy.url>https://www.iass-potsdam.de/de/impressum</inge.pubman.policy.url>
-                <inge.pubman.privacy.url>https://www.iass-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
-                <inge.pubman.root.authors.icon>IASS_authors</inge.pubman.root.authors.icon>
-                <inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
-                <inge.pubman.root.organization.name>IASS</inge.pubman.root.organization.name>
-                <inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
-                <inge.rest.development.file_url />
-                <inge.systemtype>production</inge.systemtype>
-            </properties>
-        </profile>
-        
-        <!-- activate this profile for an Pik build -->
-        <profile>
-            <id>env-pik</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <gfz.citation.style.use>true</gfz.citation.style.use>
-                <gfz.cone.reset.use>true</gfz.cone.reset.use>
-                <gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
-                <gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
-                <gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
-                <gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
-                <inge.auth.mpg.ip.csv.url />
-                <inge.auth.mpg.ip.json.url />
-                <inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
-                <inge.cone.cache.use>false</inge.cone.cache.use>
-                <inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
-                <inge.cone.modelsxml.path>models_pik.xml</inge.cone.modelsxml.path>
-                <inge.cone.subjectVocab />
-                <inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
-                <inge.doi.service.create.url />
-                <inge.doi.service.url />
-                <inge.doi.service.use>false</inge.doi.service.use>
-                <inge.email.alternative.moderator>library@pik-potsdam.de</inge.email.alternative.moderator>
-                <inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
-                <inge.email.sender>library@pik-potsdam.de</inge.email.sender>
-                <inge.es.cluster.name.test />
-                <inge.es.transport.ips.test />
-                <inge.filestorage.seaweed_master_server_ip />
-                <inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
-                <inge.pid.service.create.path />
-                <inge.pid.service.timeout>0</inge.pid.service.timeout>
-                <inge.pid.service.url />
-                <inge.pid.service.use>false</inge.pid.service.use>
-                <inge.pubman.blog.baseUrl />
-                <inge.pubman.blog.news />
-                <inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
-                <inge.pubman.build.mode>pik</inge.pubman.build.mode>
-                <inge.pubman.contact.url />
-                <inge.pubman.handbook.url />
-                <inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
-                <inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
-                <inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
-                <inge.pubman.privacy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.url>
-                <inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
-                <inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
-                <inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
-                <inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
-                <inge.rest.development.file_url />
-                <inge.systemtype>production</inge.systemtype>
-            </properties>
-        </profile>
+		<!-- activate this profile for an Iass build -->
+		<profile>
+			<id>env-iass</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<gfz.citation.style.use>true</gfz.citation.style.use>
+				<gfz.cone.reset.use>true</gfz.cone.reset.use>
+				<gfz.oa.mail.adress />
+				<gfz.oa.mail.domain />
+				<gfz.oa.mail.subject />
+				<gfz.oa.mail.template />
+				<inge.auth.mpg.ip.csv.url />
+				<inge.auth.mpg.ip.json.url />
+				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
+				<inge.cone.cache.use>false</inge.cone.cache.use>
+				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
+				<inge.cone.modelsxml.path>models_iass.xml</inge.cone.modelsxml.path>
+				<inge.cone.subjectVocab />
+				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
+				<inge.doi.service.create.url />
+				<inge.doi.service.url />
+				<inge.doi.service.use>false</inge.doi.service.use>
+				<inge.email.alternative.moderator>bib@gfz-potsdam.de</inge.email.alternative.moderator>
+				<inge.email.send.oa.mail.use>false</inge.email.send.oa.mail.use>
+				<inge.email.sender>bib@gfz-potsdam.de</inge.email.sender>
+				<inge.es.cluster.name.test />
+				<inge.es.transport.ips.test />
+				<inge.filestorage.seaweed_master_server_ip />
+				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,IASSPROJECT,ISBN,ISI,ISSN,OATYPE,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PMC,PMID,PND,PUBLISHER,REPORT_NR,SSRN,URI,URN,ZDB</inge.id.types.to.display>
+				<inge.pid.service.create.path />
+				<inge.pid.service.timeout>0</inge.pid.service.timeout>
+				<inge.pid.service.url />
+				<inge.pid.service.use>false</inge.pid.service.use>
+				<inge.pubman.blog.baseUrl />
+				<inge.pubman.blog.news />
+				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
+				<inge.pubman.build.mode>iass</inge.pubman.build.mode>
+				<inge.pubman.contact.url />
+				<inge.pubman.handbook.url />
+				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
+				<inge.pubman.logo.url>/resources/images/iass.svg</inge.pubman.logo.url>
+				<inge.pubman.policy.url>https://www.iass-potsdam.de/de/impressum</inge.pubman.policy.url>
+				<inge.pubman.privacy.url>https://www.iass-potsdam.de/de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.root.authors.icon>IASS_authors</inge.pubman.root.authors.icon>
+				<inge.pubman.root.organisation.id>ou_96022</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.name>IASS</inge.pubman.root.organization.name>
+				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_GFZ/styles/theme.css</inge.pubman.stylesheet.url>
+				<inge.rest.development.file_url />
+				<inge.systemtype>production</inge.systemtype>
+			</properties>
+		</profile>
+
+		<!-- activate this profile for an Pik build -->
+		<profile>
+			<id>env-pik</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<gfz.citation.style.use>true</gfz.citation.style.use>
+				<gfz.cone.reset.use>true</gfz.cone.reset.use>
+				<gfz.oa.mail.adress>library@pik-potsdam.de</gfz.oa.mail.adress>
+				<gfz.oa.mail.domain>@pik-potsdam.de</gfz.oa.mail.domain>
+				<gfz.oa.mail.subject>PIKpublic: Open Access</gfz.oa.mail.subject>
+				<gfz.oa.mail.template>OpenAccessMailPIK.vm</gfz.oa.mail.template>
+				<inge.auth.mpg.ip.csv.url />
+				<inge.auth.mpg.ip.json.url />
+				<inge.auth.mpg.ip.use>false</inge.auth.mpg.ip.use>
+				<inge.cone.cache.use>false</inge.cone.cache.use>
+				<inge.cone.extended.attributes.use>true</inge.cone.extended.attributes.use>
+				<inge.cone.modelsxml.path>models_pik.xml</inge.cone.modelsxml.path>
+				<inge.cone.subjectVocab />
+				<inge.crossref.pid>bib@gfz-potsdam.de</inge.crossref.pid>
+				<inge.doi.service.create.url />
+				<inge.doi.service.url />
+				<inge.doi.service.use>false</inge.doi.service.use>
+				<inge.email.alternative.moderator>library@pik-potsdam.de</inge.email.alternative.moderator>
+				<inge.email.send.oa.mail.use>true</inge.email.send.oa.mail.use>
+				<inge.email.sender>library@pik-potsdam.de</inge.email.sender>
+				<inge.es.cluster.name.test />
+				<inge.es.transport.ips.test />
+				<inge.filestorage.seaweed_master_server_ip />
+				<inge.id.types.to.display>ADS,ARXIV,BIBTEX_CITEKEY,BMC,CONE,DOI,EDOC,ISBN,ISI,ISSN,MDB_ID,MODELMETHOD,OATYPE,ORGANISATIONALK,OTHER,PATENT_APPLICATION_NR,PATENT_NR,PATENT_PUBLICATION_NR,PII,PIKDOMAIN,PMC,PMID,PND,PUBLISHER,REGIONALK,REPORT_NR,RESEARCHTK,SSRN,URI,URN,WORKINGGROUP,ZDB</inge.id.types.to.display>
+				<inge.pid.service.create.path />
+				<inge.pid.service.timeout>0</inge.pid.service.timeout>
+				<inge.pid.service.url />
+				<inge.pid.service.use>false</inge.pid.service.use>
+				<inge.pubman.blog.baseUrl />
+				<inge.pubman.blog.news />
+				<inge.pubman.build.hyphen>-</inge.pubman.build.hyphen>
+				<inge.pubman.build.mode>pik</inge.pubman.build.mode>
+				<inge.pubman.contact.url />
+				<inge.pubman.handbook.url />
+				<inge.pubman.logo.css>height:8em; padding-top:2.5em</inge.pubman.logo.css>
+				<inge.pubman.logo.url>/resources/images/pik.svg</inge.pubman.logo.url>
+				<inge.pubman.policy.url>https://www.pik-potsdam.de/de/impressum</inge.pubman.policy.url>
+				<inge.pubman.privacy.url>https://www.pik-potsdam.de/datenschutz</inge.pubman.privacy.url>
+				<inge.pubman.root.authors.icon>PIK_authors</inge.pubman.root.authors.icon>
+				<inge.pubman.root.organisation.id>ou_persistent13</inge.pubman.root.organisation.id>
+				<inge.pubman.root.organization.name>PIK</inge.pubman.root.organization.name>
+				<inge.pubman.stylesheet.url>/pubman/resources/cssFramework/themes/skin_PIK/styles/theme.css</inge.pubman.stylesheet.url>
+				<inge.rest.development.file_url />
+				<inge.systemtype>production</inge.systemtype>
+			</properties>
+		</profile>
 
 		<!-- profile for the daily build on continuum -->
 		<profile>
@@ -1577,8 +1580,10 @@
 				<jacoco.out.it.file>jacoco-it.exec</jacoco.out.it.file>
 				<sonar.jacoco.reportPaths>${jacoco.outputDir}/${jacoco.out.ut.file}</sonar.jacoco.reportPaths>
 				<sonar.jacoco.itReportPaths>${jacoco.outputDir}/${jacoco.out.it.file}</sonar.jacoco.itReportPaths>
-				<jacoco.arguments.ut>-Xmx1G -XX:+CMSClassUnloadingEnabled ${jacoco.agent.ut.arg}</jacoco.arguments.ut>
-				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled ${jacoco.agent.it.arg}</jacoco.arguments.it>
+				<jacoco.arguments.ut>-Xmx1G -XX:+CMSClassUnloadingEnabled
+					${jacoco.agent.ut.arg}</jacoco.arguments.ut>
+				<jacoco.arguments.it>-Xmx1G -XX:MaxPermSize=512m
+					-XX:+CMSClassUnloadingEnabled ${jacoco.agent.it.arg}</jacoco.arguments.it>
 			</properties>
 
 			<build>
