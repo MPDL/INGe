@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>de.mpg.mpdl.inge</groupId>
 		<artifactId>INGe</artifactId>
-		<version>8.4.4-SNAPSHOT</version>
+		<version>8.4.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>citation_style_language_manager</artifactId>
@@ -97,6 +97,11 @@
 			<groupId>org.citationstyles</groupId>
 			<artifactId>styles</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.eclipsesource.j2v8</groupId>
+			<artifactId>j2v8_linux_x86_64</artifactId>
+			<version>4.6.0</version>
 		</dependency>
 
 
