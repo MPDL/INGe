@@ -35,7 +35,7 @@ public class CitationStyleLanguageManagerService {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
-      ScriptRunnerFactory.setRunnerType(RunnerType.GRAALJS);
+      ScriptRunnerFactory.setRunnerType(RunnerType.V8);
 
       CSL citeproc = null;
       if (defaultLocale != null) {
