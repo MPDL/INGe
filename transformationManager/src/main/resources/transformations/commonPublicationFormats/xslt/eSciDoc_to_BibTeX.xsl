@@ -48,7 +48,7 @@
 					<xsl:with-param name="entryType">proceedings</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="$genre='conference-paper'">
+			<xsl:when test="$genre='conference-paper' or $genre='poster' or $genre='talk-at-event' or $genre='meeting-abstract'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType">inproceedings</xsl:with-param>
 				</xsl:call-template>
@@ -66,6 +66,11 @@
 			<xsl:when test="$genre='report'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="entryType" select="'techreport'"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:when test="$genre='paper'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="entryType" select="'upblished'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
@@ -119,6 +124,9 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<xsl:value-of select="concat('% pubman genre = ', $type-of-publication)"/>
+		<xsl:text disable-output-escaping="yes">&#xD;&#xA;</xsl:text>
+		<!-- line break -->
 		<xsl:value-of select="concat('@', $entryType, '{')"/>
 		<xsl:value-of select="$cite-key"/>
 		<xsl:value-of select="','"/>
@@ -478,10 +486,21 @@
 	</xsl:template>
 	<xsl:template match="event:event">
 		<xsl:param name="publication-type"/>
-		<xsl:if test="./eterms:place!=''   and ($publication-type = 'proceedings'  or $publication-type = 'conference-paper')">
+		<xsl:if test="./eterms:place!='' 
+			and ($publication-type = 'proceedings'  or $publication-type = 'conference-paper' 
+				or $publication-type='poster' or $publication-type='talk-at-event' 
+				or $publication-type='meeting-abstract')">
 			<xsl:call-template name="createField">
 				<xsl:with-param name="name" select="'address'"/>
 				<xsl:with-param name="xpath" select="./eterms:place"/>
+			</xsl:call-template>
+		</xsl:if>
+		<xsl:if test="./dc:title!='' 
+				and ($publication-type='poster' or $publication-type='talk-at-event' 
+					or $publication-type='meeting-abstract')">
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'note'"/>
+				<xsl:with-param name="xpath" select="./dc:title"/>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -619,6 +638,15 @@
 			<xsl:call-template name="createField">
 				<xsl:with-param name="name" select="'number'"/>
 				<xsl:with-param name="xpath" select="jfunc:texString($report_nr-concated)"/>
+			</xsl:call-template>
+		</xsl:if>
+		<xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:PATENT_NR'])">
+			<xsl:variable name="patent_nr-concated">
+				<xsl:value-of select="$identifier-list/dc:identifier[@xsi:type='eterms:PATENT_NR']" separator="; " />
+			</xsl:variable>
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'note'"/>
+				<xsl:with-param name="xpath" select="jfunc:texString($patent_nr-concated)"/>
 			</xsl:call-template>
 		</xsl:if>
 		<xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:OTHER' and fn:starts-with(fn:lower-case(.), 'local-id:')]) ">

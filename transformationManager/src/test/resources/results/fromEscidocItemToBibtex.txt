@@ -1,3 +1,4 @@
+% pubman genre = article
 @article{item_1527236,
 title = {{Conflict monitoring in speech production: Physiological evidence from bilingual picture naming}},
 author = {Acheson, Daniel J. and Ganushchak, Lesya Y. and Christoffels, Ingrid K. and Hagoort, Peter},
