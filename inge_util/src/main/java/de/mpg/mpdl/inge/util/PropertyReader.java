@@ -94,6 +94,7 @@ public class PropertyReader {
   public static final String INGE_CRON_IMPORT_SURVEYOR = "inge.cron.import.surveyor";
   public static final String INGE_CRON_PUBMAN_SITEMAP = "inge.cron.pubman.sitemap";
   public static final String INGE_CROSSREF_PID = "inge.crossref.pid";
+  public static final String INGE_CSL_JAVASCRIPT_ENGINE = "inge.csl.javascript.engine";
   public static final String INGE_DATABASE_DRIVER_CLASS = "inge.database.driver.class";
   public static final String INGE_DATABASE_JDBC_URL = "inge.database.jdbc.url";
   public static final String INGE_DATABASE_USER_NAME = "inge.database.user.name";

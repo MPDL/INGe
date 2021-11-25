@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.model.valueobjects.ExportFormatVO;
+import de.mpg.mpdl.inge.util.PropertyReader;
 import de.undercouch.citeproc.CSL;
 import de.undercouch.citeproc.ItemDataProvider;
 import de.undercouch.citeproc.output.Bibliography;
@@ -35,7 +39,14 @@ public class CitationStyleLanguageManagerService {
       ItemDataProvider itemDataProvider = new MetadataProvider(itemList);
 
       String defaultLocale = CitationStyleLanguageUtils.parseDefaultLocaleFromStyle(citationStyle);
-      ScriptRunnerFactory.setRunnerType(RunnerType.V8);
+      if ("v8".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
+        ScriptRunnerFactory.setRunnerType(RunnerType.V8);
+      } else if ("graaljs".equals(PropertyReader.getProperty(PropertyReader.INGE_CSL_JAVASCRIPT_ENGINE))) {
+        ScriptRunnerFactory.setRunnerType(RunnerType.GRAALJS);
+      } else {
+        ScriptRunnerFactory.setRunnerType(RunnerType.AUTO);
+      }
+
 
       CSL citeproc = null;
       if (defaultLocale != null) {
@@ -43,7 +54,7 @@ public class CitationStyleLanguageManagerService {
       } else {
         citeproc = new CSL(itemDataProvider, citationStyle);
       }
-      logger.info("JavaScript Engine: " + citeproc.getJavaScriptEngineName() + " -Verison: " + citeproc.getJavaScriptEngineVersion()
+      logger.info("JavaScript Engine: " + citeproc.getJavaScriptEngineName() + " -Version: " + citeproc.getJavaScriptEngineVersion()
           + " -JSVerison: " + citeproc.getCiteprocJsVersion());
 
       citeproc.registerCitationItems(itemDataProvider.getIds());
