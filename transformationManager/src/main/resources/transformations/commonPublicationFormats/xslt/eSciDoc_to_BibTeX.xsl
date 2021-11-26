@@ -70,7 +70,7 @@
 			</xsl:when>
 			<xsl:when test="$genre='paper'">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType" select="'unpblished'"/>
+					<xsl:with-param name="entryType" select="'unpublished'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
@@ -646,7 +646,7 @@
 			</xsl:variable>
 			<xsl:call-template name="createField">
 				<xsl:with-param name="name" select="'note'"/>
-				<xsl:with-param name="xpath" select="jfunc:texString($patent_nr-concated)"/>
+				<xsl:with-param name="xpath" select="jfunc:texString(concat('Patent number: ', $patent_nr-concated))"/>
 			</xsl:call-template>
 		</xsl:if>
 		<xsl:if test="exists($identifier-list/dc:identifier[@xsi:type='eterms:OTHER' and fn:starts-with(fn:lower-case(.), 'local-id:')]) ">
