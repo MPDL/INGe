@@ -496,7 +496,7 @@
 			</xsl:call-template>
 		</xsl:if>
 		<xsl:if test="./dc:title!='' 
-				and ($publication-type='poster' or $publication-type='talk-at-event' 
+				and ($publication-type='conference-paper' or $publication-type='poster' or $publication-type='talk-at-event' 
 					or $publication-type='meeting-abstract')">
 			<xsl:call-template name="createField">
 				<xsl:with-param name="name" select="'note'"/>
