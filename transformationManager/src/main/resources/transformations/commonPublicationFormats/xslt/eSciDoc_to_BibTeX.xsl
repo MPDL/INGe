@@ -70,7 +70,7 @@
 			</xsl:when>
 			<xsl:when test="$genre='paper'">
 				<xsl:call-template name="createEntry">
-					<xsl:with-param name="entryType" select="'upblished'"/>
+					<xsl:with-param name="entryType" select="'unpblished'"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
