@@ -515,9 +515,9 @@ public class UserAccountServiceImpl extends GenericServiceImpl<AccountUserDbVO, 
 
     validateLoginname(givenUser.getLoginname());
 
-//    if (create) {
-//      tobeUpdatedUser.setActive(true);
-//    }
+    //    if (create) {
+    //      tobeUpdatedUser.setActive(true);
+    //    }
 
     tobeUpdatedUser.setActive(givenUser.isActive());
     tobeUpdatedUser.setAffiliation(givenUser.getAffiliation());
