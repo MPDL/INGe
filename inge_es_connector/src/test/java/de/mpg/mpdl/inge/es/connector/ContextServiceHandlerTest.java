@@ -58,10 +58,10 @@ public class ContextServiceHandlerTest extends TestBase {
   public void testUpdate() {
     try {
       ContextDbVO contextVO = this.contextDao.get(test_context_id);
-      contextVO.setState(ContextDbVO.State.CREATED);
+      contextVO.setState(ContextDbVO.State.OPENED);
       this.contextDao.updateImmediately(test_context_id, contextVO);
       ContextDbVO contextVO2 = this.contextDao.get(test_context_id);
-      assertTrue(contextVO2.getState().equals(ContextDbVO.State.CREATED));
+      assertTrue(contextVO2.getState().equals(ContextDbVO.State.OPENED));
     } catch (IngeTechnicalException e) {
       logger.error(e);
       System.out.println(e);

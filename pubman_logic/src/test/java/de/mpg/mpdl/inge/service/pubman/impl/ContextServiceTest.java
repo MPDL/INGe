@@ -73,7 +73,6 @@ public class ContextServiceTest extends TestBase {
         assertTrue(contextDbVO.getState().equals(ContextDbVO.State.CLOSED));
         break;
       case CLOSED:
-      case CREATED:
         contextDbVO = contextService.open("ctx_persistent3", contextDbVO.getLastModificationDate(), authenticationToken);
         assertTrue(contextDbVO.getState().equals(ContextDbVO.State.OPENED));
       default:
@@ -139,7 +138,7 @@ public class ContextServiceTest extends TestBase {
     String contextId = contextVO.getObjectId();
     assertTrue(contextVO != null);
     assertTrue(contextId != null);
-    assertTrue(contextVO.getState().equals(ContextDbVO.State.CREATED));
+    assertTrue(contextVO.getState().equals(ContextDbVO.State.OPENED));
 
     contextService.delete(contextVO.getObjectId(), authenticationToken);
 

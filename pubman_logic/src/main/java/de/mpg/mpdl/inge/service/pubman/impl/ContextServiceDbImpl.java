@@ -137,7 +137,7 @@ public class ContextServiceDbImpl extends GenericServiceImpl<ContextDbVO, String
 
     if (createNew) {
       toBeUpdatedContext.setObjectId(idProviderService.getNewId(ID_PREFIX.CONTEXT));
-      toBeUpdatedContext.setState(ContextDbVO.State.CREATED);
+      toBeUpdatedContext.setState(ContextDbVO.State.OPENED);
     }
 
     return null;

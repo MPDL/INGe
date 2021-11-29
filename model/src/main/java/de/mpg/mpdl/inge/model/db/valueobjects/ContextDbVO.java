@@ -76,10 +76,8 @@ public class ContextDbVO extends ContextDbRO implements Searchable, Serializable
    */
   public enum State
   {
-    CREATED,
     CLOSED,
-    OPENED,
-    DELETED
+    OPENED
   }
 
 
