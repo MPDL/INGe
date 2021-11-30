@@ -299,9 +299,7 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				},
-				"context.state" : "OPENED"
-				
+				}
 			}
 		],
 		"get" : [
