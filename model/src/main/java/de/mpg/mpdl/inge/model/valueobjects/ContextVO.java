@@ -69,8 +69,10 @@ public class ContextVO extends ValueObject implements Searchable {
    */
   public enum State
   {
+    CREATED,
     CLOSED,
-    OPENED
+    OPENED,
+    DELETED
   }
 
   /**
