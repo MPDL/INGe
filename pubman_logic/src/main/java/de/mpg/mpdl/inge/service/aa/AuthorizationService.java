@@ -281,7 +281,7 @@ public class AuthorizationService {
 
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     if (serviceMap == null) {
-      throw new AuthorizationException("Nor rules for service " + serviceName);
+      throw new AuthorizationException("No rules for service " + serviceName);
     }
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get(methodName);
@@ -397,7 +397,7 @@ public class AuthorizationService {
 
           if (!check) {
             throw new AuthenticationException(
-                "The current user's ip adress " + userIp + " does not match required ip range  of organization with id " + ouIdToBeMatched);
+                "The current user's ip adress " + userIp + " does not match required ip range of organization with id " + ouIdToBeMatched);
           }
         } catch (Exception e) {
           throw new AuthenticationException("Error while matching IPs", e);
