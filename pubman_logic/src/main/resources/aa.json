@@ -300,7 +300,7 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"context.state" : "CREATED"
+				"context.state" : "OPENED"
 				
 			}
 		],
