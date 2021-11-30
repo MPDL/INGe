@@ -208,7 +208,7 @@
 		"create" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
@@ -216,7 +216,7 @@
 		"update" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
@@ -238,15 +238,15 @@
 		"open" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				},
-				"ou.publicStatus" : ["CREATED", "CLOSED"]
+				"ou.publicStatus" : ["CLOSED"]
 			}
 		],
 		"close" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				},
 				"ou.publicStatus" : "OPENED"
 			}
@@ -261,7 +261,7 @@
 		"create" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
@@ -269,7 +269,7 @@
 		"update" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
@@ -278,9 +278,7 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
-				},
-				"context.state" : "CREATED"
-				
+				}
 			}
 		],
 		
@@ -291,15 +289,15 @@
 		"open" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				},
-				"context.state" : ["CREATED", "CLOSED"]
+				"context.state" : ["CLOSED"]
 			}
 		],
 		"close" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				},
 				"context.state" : "OPENED"
 			}
@@ -315,7 +313,7 @@
 		"create" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
@@ -323,7 +321,7 @@
 		"update" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
@@ -339,7 +337,7 @@
 		"get" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			},
 			{
@@ -358,21 +356,21 @@
 		"addGrants" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
 		"removeGrants" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				}
 			}
 		],
 		"changePassword" : [
             {
                 "user" : {
-                    "role" : "SYSADMIN"
+                    "role" : ["SYSADMIN","LOCAL_ADMIN"]
                 }
             },
             {
@@ -383,7 +381,7 @@
 		"activate" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				},
 				"givenUser.active" : "false"
 			}
@@ -391,7 +389,7 @@
 		"deactivate" : [
 			{
 				"user" : {
-					"role" : "SYSADMIN"
+					"role" : ["SYSADMIN","LOCAL_ADMIN"]
 				},
 				"givenUser.active" : "true"
 			}
