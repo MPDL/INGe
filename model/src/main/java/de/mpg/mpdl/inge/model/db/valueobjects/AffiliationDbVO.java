@@ -70,10 +70,8 @@ public class AffiliationDbVO extends AffiliationDbRO implements Serializable {
 
   public enum State
   {
-    CREATED,
     CLOSED,
-    OPENED,
-    DELETED
+    OPENED
   }
 
   @Type(type = "MdsOrganizationalUnitVOJsonUserType")

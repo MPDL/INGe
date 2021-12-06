@@ -247,7 +247,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     if (createNew) {
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
-      toBeUpdatedAff.setPublicStatus(AffiliationDbVO.State.CREATED);
+      toBeUpdatedAff.setPublicStatus(AffiliationDbVO.State.OPENED);
     }
 
     toBeUpdatedAff.setMetadata(givenAff.getMetadata());
@@ -278,7 +278,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
       if (newParentAffId != null) {
         AffiliationDbVO newAffVo = organizationRepository.findOne(newParentAffId);
-        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.CREATED && newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
+        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
           throw new IngeApplicationException(
               "Parent Affiliation " + newAffVo.getObjectId() + " has wrong state " + newAffVo.getPublicStatus().toString());
         }

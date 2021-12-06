@@ -112,7 +112,7 @@ public class TestBase {
     predecessor.setName("testTitle");
     vo.getPredecessorAffiliations().add(predecessor);
 
-    vo.setPublicStatus(State.CREATED);
+    vo.setPublicStatus(State.OPENED);
 
     // Reference
     vo.setObjectId("testReference");
