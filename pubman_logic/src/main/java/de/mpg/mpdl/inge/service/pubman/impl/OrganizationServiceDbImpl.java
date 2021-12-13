@@ -258,7 +258,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       throw new IngeApplicationException("Please provide a name for the organization.");
     }
 
-    // Set new parents, parents must be in state CREATED or OPENED
+    // Set new parents, parents must be in state OPENED
     String oldParentAffId = toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation().getObjectId() : null;
     String newParentAffId = givenAff.getParentAffiliation() != null ? givenAff.getParentAffiliation().getObjectId() : null;
 
