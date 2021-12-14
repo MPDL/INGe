@@ -67,11 +67,9 @@ public class OrganizationSuggest {
       SearchSourceBuilder ssb = new SearchSourceBuilder();
       OrganizationService organizationService = ApplicationBean.INSTANCE.getOrganizationService();
 
-      QueryBuilder qb = QueryBuilders.boolQuery()
-          .mustNot(SearchUtils.baseElasticSearchQueryBuilder(organizationService.getElasticSearchIndexFields(),
-              OrganizationServiceDbImpl.INDEX_STATE, AffiliationDbVO.State.CREATED.name()))
-          .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_TITLE, query))
-          .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES, query));
+      QueryBuilder qb =
+          QueryBuilders.boolQuery().should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_TITLE, query))
+              .should(QueryBuilders.matchPhrasePrefixQuery(OrganizationServiceDbImpl.INDEX_METADATA_ALTERNATIVE_NAMES, query));
 
       //String[] returnFields = new String[] {OrganizationServiceDbImpl.INDEX_OBJECT_ID, OrganizationServiceDbImpl.INDEX_METADATA_TITLE, OrganizationServiceDbImpl.INDEX_METADATA_CITY};
       ssb.query(qb).size(50);

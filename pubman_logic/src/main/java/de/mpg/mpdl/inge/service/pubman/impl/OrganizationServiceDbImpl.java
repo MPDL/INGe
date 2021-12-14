@@ -247,7 +247,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     if (createNew) {
       toBeUpdatedAff.setObjectId(idProviderService.getNewId(ID_PREFIX.OU));
-      toBeUpdatedAff.setPublicStatus(AffiliationDbVO.State.CREATED);
+      toBeUpdatedAff.setPublicStatus(AffiliationDbVO.State.OPENED);
     }
 
     toBeUpdatedAff.setMetadata(givenAff.getMetadata());
@@ -258,7 +258,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       throw new IngeApplicationException("Please provide a name for the organization.");
     }
 
-    // Set new parents, parents must be in state CREATED or OPENED
+    // Set new parents, parents must be in state OPENED
     String oldParentAffId = toBeUpdatedAff.getParentAffiliation() != null ? toBeUpdatedAff.getParentAffiliation().getObjectId() : null;
     String newParentAffId = givenAff.getParentAffiliation() != null ? givenAff.getParentAffiliation().getObjectId() : null;
 
@@ -278,7 +278,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
       if (newParentAffId != null) {
         AffiliationDbVO newAffVo = organizationRepository.findOne(newParentAffId);
-        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.CREATED && newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
+        if (newAffVo.getPublicStatus() != AffiliationDbVO.State.OPENED) {
           throw new IngeApplicationException(
               "Parent Affiliation " + newAffVo.getObjectId() + " has wrong state " + newAffVo.getPublicStatus().toString());
         }

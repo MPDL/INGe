@@ -60,9 +60,9 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CREATED));
-    affiliationVO = organizationService.open(affiliationVO.getObjectId(), affiliationVO.getLastModificationDate(), authenticationToken);
     assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
+    affiliationVO = organizationService.close(affiliationVO.getObjectId(), affiliationVO.getLastModificationDate(), authenticationToken);
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CLOSED));
 
 
     organizationService.delete(affiliationVO.getObjectId(), authenticationToken);
@@ -81,7 +81,7 @@ public class OrganizationServiceTest extends TestBase {
 
     AffiliationDbVO affiliationVO = organizationService.create(getAffiliationVO(), authenticationToken);
     assertTrue(affiliationVO != null);
-    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.CREATED));
+    assertTrue(affiliationVO.getPublicStatus().equals(AffiliationDbVO.State.OPENED));
 
     organizationService.delete(affiliationVO.getObjectId(), authenticationToken);
 

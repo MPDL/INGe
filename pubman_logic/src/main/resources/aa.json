@@ -22,7 +22,6 @@
 				}
 			}
 		],
-		
 		"update" : [
 			{
 				"user" : {
@@ -64,7 +63,6 @@
 				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
-		
 		"delete" : [
 			{
 				"user" : {
@@ -86,7 +84,6 @@
 				"item.object.publicState" : ["SUBMITTED"]
 			}
 		],
-		
 		"get" : [
 			{
 				"user" : {
@@ -113,7 +110,6 @@
 				"item.versionState" : ["SUBMITTED", "IN_REVISION"]
 			}
 		],
-		
 		"submit" : [
 			{
 				"user" : {
@@ -130,7 +126,6 @@
 				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
-		
 		"release" : [
 			{
 				"user" : {
@@ -155,7 +150,6 @@
 				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
-		
 		"revise" : [
 			{
 				"user" : {
@@ -173,7 +167,6 @@
 				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
 			}
 		],
-		
 		"withdraw" : [
 			{
 				"user" : {
@@ -210,17 +203,25 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
 			}
 		],
-		
 		"update" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
 				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
 			}
 		],
-		
 		"delete" : [
 			{
 				"user" : {
@@ -230,17 +231,21 @@
 				
 			}
 		],
-		
 		"get" : [
 
 		],
-		
 		"open" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"ou.publicStatus" : ["CREATED", "CLOSED"]
+				"ou.publicStatus" : ["CLOSED"]
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				},
+				"ou.publicStatus" : ["CLOSED"]
 			}
 		],
 		"close" : [
@@ -249,7 +254,14 @@
 					"role" : "SYSADMIN"
 				},
 				"ou.publicStatus" : "OPENED"
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				},
+				"ou.publicStatus" : "OPENED"
 			}
+			
 		]
 	},
 	"de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl" : {
@@ -263,43 +275,60 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
+			}
+			
+		],
+		"update" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
 			}
 		],
-		
-		"update" : [
+		"delete" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
 				}
 			}
 		],
-		
-		"delete" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"context.state" : "CREATED"
-				
-			}
-		],
-		
 		"get" : [
 
 		],
-		
 		"open" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
 				},
-				"context.state" : ["CREATED", "CLOSED"]
+				"context.state" : ["CLOSED"]
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				},
+				"context.state" : ["CLOSED"]
 			}
 		],
 		"close" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
+				},
+				"context.state" : "OPENED"
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
 				},
 				"context.state" : "OPENED"
 			}
@@ -317,17 +346,25 @@
 				"user" : {
 					"role" : "SYSADMIN"
 				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
 			}
 		],
-		
 		"update" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
 				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
 			}
 		],
-		
 		"delete" : [
 			{
 				"user" : {
@@ -335,11 +372,15 @@
 				}
 			}
 		],
-		
 		"get" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
 				}
 			},
 			{
@@ -354,11 +395,15 @@
 			}
 			
 		],
-		
 		"addGrants" : [
 			{
 				"user" : {
 					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
 				}
 			}
 		],
@@ -366,6 +411,11 @@
 			{
 				"user" : {
 					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
 				}
 			}
 		],
@@ -375,6 +425,11 @@
                     "role" : "SYSADMIN"
                 }
             },
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
+			},
             {
                 "givenUser.objectId": "user.userAccount.objectId"
 
@@ -386,6 +441,12 @@
 					"role" : "SYSADMIN"
 				},
 				"givenUser.active" : "false"
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				},
+				"givenUser.active" : "false"
 			}
 		],
 		"deactivate" : [
@@ -394,6 +455,12 @@
 					"role" : "SYSADMIN"
 				},
 				"givenUser.active" : "true"
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				},
+				"givenUser.active" : "false"
 			}
 		]
 	},
