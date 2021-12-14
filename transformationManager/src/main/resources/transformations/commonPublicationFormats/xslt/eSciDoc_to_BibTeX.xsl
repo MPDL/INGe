@@ -159,17 +159,21 @@
 				<xsl:apply-templates select="eterms:publishing-info/dc:publisher">
 					<xsl:with-param name="genre" select="$type-of-publication"/>
 				</xsl:apply-templates>
-				<xsl:apply-templates select="eterms:publishing-info/eterms:place">
-					<xsl:with-param name="genre" select="$type-of-publication"/>
-				</xsl:apply-templates>
+				<xsl:if test="not(event:event/eterms:place) or event:event/eterms:place=''">
+					<xsl:apply-templates select="eterms:publishing-info/eterms:place">
+						<xsl:with-param name="genre" select="$type-of-publication"/>
+					</xsl:apply-templates>
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates select="source:source/eterms:publishing-info/dc:publisher">
 					<xsl:with-param name="genre" select="$type-of-publication"/>
 				</xsl:apply-templates>
-				<xsl:apply-templates select="source:source/eterms:publishing-info/eterms:place">
-					<xsl:with-param name="genre" select="$type-of-publication"/>
-				</xsl:apply-templates>
+				<xsl:if test="not(event:event/eterms:place) or event:event/eterms:place=''">
+					<xsl:apply-templates select="source:source/eterms:publishing-info/eterms:place">
+						<xsl:with-param name="genre" select="$type-of-publication"/>
+					</xsl:apply-templates>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 		<!-- EDITION / NUMBER -->
@@ -292,7 +296,6 @@
 	</xsl:template>
 	<xsl:template match="eterms:publishing-info/eterms:place">
 		<xsl:param name="genre"/>
-		<xsl:if test=".!=''">
 			<xsl:choose>
 				<xsl:when test="$genre = 'conference-paper' or $genre = 'proceedings'">
 					<!-- DO NOTHING -->
@@ -304,7 +307,6 @@
 					</xsl:call-template>
 				</xsl:otherwise>
 			</xsl:choose>
-		</xsl:if>
 	</xsl:template>
 	<xsl:template match="dcterms:abstract">
 		<xsl:if test=".!=''">
