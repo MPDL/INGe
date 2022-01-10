@@ -21,6 +21,9 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public List<AffiliationDbVO> searchOpenedFirstLevelOrganizations()
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 

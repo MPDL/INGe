@@ -171,6 +171,14 @@ public class OrganizationRestController {
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
   }
 
+  @RequestMapping(value = "/firstlevel", method = RequestMethod.GET)
+  public ResponseEntity<List<AffiliationDbVO>> firstLevel()
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+    List<AffiliationDbVO> response = organizationSvc.searchOpenedFirstLevelOrganizations();
+
+    return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
+  }
+
   @RequestMapping(value = OU_ID_PATH + "/children", method = RequestMethod.GET)
   public ResponseEntity<List<AffiliationDbVO>> childOrganizations(@PathVariable(value = OU_ID_VAR) String parentAffiliationId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {

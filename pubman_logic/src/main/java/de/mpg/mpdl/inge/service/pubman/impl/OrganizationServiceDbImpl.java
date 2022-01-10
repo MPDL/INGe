@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -86,6 +87,37 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
             new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.DESC)});
+    final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
+
+    return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+  }
+
+  /**
+   * Returns all first-level affiliations.
+   * 
+   * @return all first-level affiliations
+   * @throws Exception if framework access fails
+   */
+  public List<AffiliationDbVO> searchOpenedFirstLevelOrganizations()
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    final BoolQueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_STATE, "OPENED"));
+
+    final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
+
+    if (topLevelOus.size() == 0) {
+      return new ArrayList<AffiliationDbVO>();
+    }
+
+    final List<String> topLevelOuIds = new ArrayList<String>();
+    for (AffiliationDbVO affiliationDbVO : topLevelOus) {
+      topLevelOuIds.add(affiliationDbVO.getObjectId());
+    }
+    qb.filter(QueryBuilders.termsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, topLevelOuIds));
+
+    final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
+        new SearchSortCriteria[] {new SearchSortCriteria(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, SearchSortCriteria.SortOrder.ASC),
+            new SearchSortCriteria(INDEX_METADATA_TITLE_KEYWORD, SearchSortCriteria.SortOrder.ASC)});
+
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
