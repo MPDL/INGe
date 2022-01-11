@@ -1,17 +1,15 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.MediaType;
 
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +29,7 @@ import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveResponseVO;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria;
 import de.mpg.mpdl.inge.model.valueobjects.SearchSortCriteria.SortOrder;
 import de.mpg.mpdl.inge.rest.web.exceptions.NotFoundException;
+import de.mpg.mpdl.inge.rest.web.spring.AuthCookieToHeaderFilter;
 import de.mpg.mpdl.inge.rest.web.util.UtilServiceBean;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.exceptions.AuthorizationException;
@@ -67,6 +66,7 @@ public class UserAccountRestController {
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_USER_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchAllQuery, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
+
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
   }
 
@@ -82,6 +82,7 @@ public class UserAccountRestController {
     SearchSortCriteria sorting = new SearchSortCriteria(PropertyReader.getProperty(PropertyReader.INGE_INDEX_USER_SORT), SortOrder.ASC);
     SearchRetrieveRequestVO srRequest = new SearchRetrieveRequestVO(matchQueryParam, limit, offset, sorting);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
+
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
   }
 
@@ -91,25 +92,15 @@ public class UserAccountRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<AccountUserDbVO> srResponse = userSvc.search(srRequest, token);
+
     return new ResponseEntity<SearchRetrieveResponseVO<AccountUserDbVO>>(srResponse, HttpStatus.OK);
   }
 
-  /**
-   * @param token
-   * @param userId (can either be userId or user login name)
-   * @return the user-account in json format
-   * @throws AuthenticationException
-   * @throws AuthorizationException
-   * @throws IngeTechnicalException
-   * @throws IngeApplicationException
-   * @throws NotFoundException
-   */
   @RequestMapping(value = USER_ID_PATH, method = RequestMethod.GET)
   public ResponseEntity<AccountUserDbVO> get(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = USER_ID_VAR) String userId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, NotFoundException {
-    AccountUserDbVO user = null;
-    user = userSvc.get(userId, token);
+    AccountUserDbVO user = userSvc.get(userId, token);
     if (user != null) {
       return new ResponseEntity<AccountUserDbVO>(user, HttpStatus.OK);
     } else {
@@ -120,8 +111,8 @@ public class UserAccountRestController {
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<AccountUserDbVO> create(@RequestHeader(value = AUTHZ_HEADER) String token, @RequestBody AccountUserDbVO user)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    AccountUserDbVO created = null;
-    created = userSvc.create(user, token);
+    AccountUserDbVO created = userSvc.create(user, token);
+
     return new ResponseEntity<AccountUserDbVO>(created, HttpStatus.CREATED);
   }
 
@@ -129,8 +120,8 @@ public class UserAccountRestController {
   public ResponseEntity<AccountUserDbVO> update(@RequestHeader(value = AUTHZ_HEADER) String token,
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody AccountUserDbVO user)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    AccountUserDbVO updated = null;
-    updated = userSvc.update(user, token);
+    AccountUserDbVO updated = userSvc.update(user, token);
+
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 
@@ -139,8 +130,8 @@ public class UserAccountRestController {
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user2AddGrants2 = userSvc.get(userId, token);
-    AccountUserDbVO updated = null;
-    updated = userSvc.addGrants(userId, user2AddGrants2.getLastModificationDate(), grants, token);
+    AccountUserDbVO updated = userSvc.addGrants(userId, user2AddGrants2.getLastModificationDate(), grants, token);
+
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 
@@ -149,8 +140,8 @@ public class UserAccountRestController {
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody GrantVO[] grants)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user2RemoveGrantsFrom = userSvc.get(userId, token);
-    AccountUserDbVO updated = null;
-    updated = userSvc.removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
+    AccountUserDbVO updated = userSvc.removeGrants(userId, user2RemoveGrantsFrom.getLastModificationDate(), grants, token);
+
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 
@@ -159,8 +150,8 @@ public class UserAccountRestController {
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Date lmd = utils.string2Date(modificationDate);
-    AccountUserDbVO updated = null;
-    updated = userSvc.activate(userId, lmd, token);
+    AccountUserDbVO updated = userSvc.activate(userId, lmd, token);
+
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 
@@ -169,8 +160,8 @@ public class UserAccountRestController {
       @PathVariable(value = USER_ID_VAR) String userId, @RequestBody String modificationDate)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     Date lmd = utils.string2Date(modificationDate);
-    AccountUserDbVO updated = null;
-    updated = userSvc.deactivate(userId, lmd, token);
+    AccountUserDbVO updated = userSvc.deactivate(userId, lmd, token);
+
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 
@@ -181,8 +172,8 @@ public class UserAccountRestController {
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     AccountUserDbVO user = userSvc.get(userId, token);
     Date lmd = user.getLastModificationDate();
-    AccountUserDbVO updated = null;
-    updated = userSvc.changePassword(userId, lmd, changedPassword, false, token);
+    AccountUserDbVO updated = userSvc.changePassword(userId, lmd, changedPassword, false, token);
+
     return new ResponseEntity<AccountUserDbVO>(updated, HttpStatus.OK);
   }
 
@@ -190,23 +181,16 @@ public class UserAccountRestController {
   public ResponseEntity<?> delete(@RequestHeader(value = AUTHZ_HEADER) String token, @PathVariable(value = USER_ID_VAR) String userId)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     userSvc.delete(userId, token);
+
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/generateRandomPassword", method = RequestMethod.GET)
-  public void generateRandomPassword(HttpServletResponse response)
+  @RequestMapping(value = "/generateRandomPassword", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
+  public ResponseEntity<String> generateRandomPassword(
+      @RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     String pw = this.userSvc.generateRandomPassword();
-    response.setContentType(MediaType.TEXT_PLAIN_VALUE);
-    writeOutput(response, pw);
-  }
 
-  private void writeOutput(HttpServletResponse response, String result) throws IngeTechnicalException {
-    try {
-      OutputStream output = response.getOutputStream();
-      output.write(result.getBytes(StandardCharsets.UTF_8));
-    } catch (IOException e) {
-      throw new IngeTechnicalException(e);
-    }
+    return new ResponseEntity<String>(pw, HttpStatus.OK);
   }
 }
