@@ -3,7 +3,6 @@ package de.mpg.mpdl.inge.rest.web.controller;
 import java.io.IOException;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 
 import org.elasticsearch.index.query.QueryBuilder;

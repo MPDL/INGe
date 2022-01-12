@@ -2,6 +2,7 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -124,11 +125,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   /**
-   * Returns all child affiliations of a given affiliation.
+   * Returns next child affiliations of a given affiliation.
    * 
    * @param parentAffiliation The parent affiliation
    * 
-   * @return all child affiliations
+   * @return next child affiliations
    * @throws Exception if framework access fails
    */
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
@@ -140,6 +141,32 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
 
     return response.getRecords().stream().map(rec -> rec.getData()).collect(Collectors.toList());
+  }
+
+  /**
+   * Returns all child affiliations of given affiliations.
+   * 
+   * @param parentAffiliations The parent affiliations
+   * 
+   * @return all child affiliations
+   * @throws Exception if framework access fails
+   */
+  public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+    List<AffiliationDbVO> result = new ArrayList<AffiliationDbVO>();
+    for (String parentAffiliationId : parentAffiliationIds) {
+      result.add(this.get(parentAffiliationId, null));
+      List<AffiliationDbVO> children = this.searchChildOrganizations(parentAffiliationId);
+      List<String> childrenIds = new ArrayList<String>();
+      for (AffiliationDbVO child : children) {
+        childrenIds.add(child.getObjectId());
+      }
+      if (childrenIds.size() > 0) {
+        result.addAll(this.searchAllChildOrganizations(childrenIds.toArray(new String[childrenIds.size()])));
+      }
+    }
+
+    return result;
   }
 
   public List<AffiliationDbVO> searchSuccessors(String objectId)
