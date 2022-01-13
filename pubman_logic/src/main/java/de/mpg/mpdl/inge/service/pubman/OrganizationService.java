@@ -27,7 +27,7 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
-  public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds)
+  public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds, String ignoreOuId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public List<AffiliationDbVO> searchSuccessors(String objectId)

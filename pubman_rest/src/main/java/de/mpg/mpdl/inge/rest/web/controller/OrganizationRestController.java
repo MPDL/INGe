@@ -188,10 +188,11 @@ public class OrganizationRestController {
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/allchildren", method = RequestMethod.POST)
-  public ResponseEntity<List<AffiliationDbVO>> allChildOrganizations(@RequestBody String[] parentAffiliationIds)
+  @RequestMapping(value = "/allchildren/" + OU_ID_PATH, method = RequestMethod.POST)
+  public ResponseEntity<List<AffiliationDbVO>> allChildOrganizations(@PathVariable(value = OU_ID_VAR) String ignoreOuId,
+      @RequestBody String[] parentAffiliationIds)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    List<AffiliationDbVO> response = organizationSvc.searchAllChildOrganizations(parentAffiliationIds);
+    List<AffiliationDbVO> response = organizationSvc.searchAllChildOrganizations(parentAffiliationIds, ignoreOuId);
     response.sort((ou1, ou2) -> ou1.getMetadata().getName().compareTo(ou2.getMetadata().getName()));
 
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);

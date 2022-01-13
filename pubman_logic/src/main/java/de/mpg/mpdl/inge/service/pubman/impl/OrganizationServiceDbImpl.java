@@ -2,7 +2,6 @@ package de.mpg.mpdl.inge.service.pubman.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -151,18 +150,20 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    * @return all child affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds)
+  public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds, String ignoreOuId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     List<AffiliationDbVO> result = new ArrayList<AffiliationDbVO>();
     for (String parentAffiliationId : parentAffiliationIds) {
-      result.add(this.get(parentAffiliationId, null));
-      List<AffiliationDbVO> children = this.searchChildOrganizations(parentAffiliationId);
-      List<String> childrenIds = new ArrayList<String>();
-      for (AffiliationDbVO child : children) {
-        childrenIds.add(child.getObjectId());
-      }
-      if (childrenIds.size() > 0) {
-        result.addAll(this.searchAllChildOrganizations(childrenIds.toArray(new String[childrenIds.size()])));
+      if (!parentAffiliationId.equals(ignoreOuId)) {
+        result.add(this.get(parentAffiliationId, null));
+        List<AffiliationDbVO> children = this.searchChildOrganizations(parentAffiliationId);
+        List<String> childrenIds = new ArrayList<String>();
+        for (AffiliationDbVO child : children) {
+          childrenIds.add(child.getObjectId());
+        }
+        if (childrenIds.size() > 0) {
+          result.addAll(this.searchAllChildOrganizations(childrenIds.toArray(new String[childrenIds.size()]), ignoreOuId));
+        }
       }
     }
 
