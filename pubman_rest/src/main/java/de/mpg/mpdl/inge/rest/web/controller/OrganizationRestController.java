@@ -174,7 +174,7 @@ public class OrganizationRestController {
   @RequestMapping(value = "/firstlevel", method = RequestMethod.GET)
   public ResponseEntity<List<AffiliationDbVO>> firstLevel()
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
-    List<AffiliationDbVO> response = organizationSvc.searchOpenedFirstLevelOrganizations();
+    List<AffiliationDbVO> response = organizationSvc.searchFirstLevelOrganizations();
 
     return new ResponseEntity<List<AffiliationDbVO>>(response, HttpStatus.OK);
   }

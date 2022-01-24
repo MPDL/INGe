@@ -53,15 +53,15 @@ public class ContextRestController {
   }
 
   @RequestMapping(value = "/search", method = RequestMethod.POST)
-  public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> query(
-      @RequestHeader(value = AUTHZ_HEADER, required = false) String token, @RequestBody JsonNode query)
+  public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> query(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestBody JsonNode query)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
     SearchRetrieveRequestVO srRequest = utils.query2VO(query);
     SearchRetrieveResponseVO<ContextDbVO> srResponse = ctxSvc.search(srRequest, token);
 
     return new ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>>(srResponse, HttpStatus.OK);
   }
-  
+
   @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> getAll(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
       @RequestParam(value = "size", required = true, defaultValue = "10") int limit,

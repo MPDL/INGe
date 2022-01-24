@@ -98,9 +98,9 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    * @return all first-level affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationDbVO> searchOpenedFirstLevelOrganizations()
+  public List<AffiliationDbVO> searchFirstLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    final BoolQueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_STATE, "OPENED"));
+    final BoolQueryBuilder qb = QueryBuilders.boolQuery();
 
     final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
 
