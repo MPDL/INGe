@@ -286,7 +286,7 @@
 					"role" : "LOCAL_ADMIN"
 				}
 			}
-		],
+		]
 	},
 	"de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl" : {
 		"technical" : {
