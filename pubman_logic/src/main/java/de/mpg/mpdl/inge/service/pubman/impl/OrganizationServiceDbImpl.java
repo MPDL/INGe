@@ -215,6 +215,53 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   }
 
   @Transactional(rollbackFor = Throwable.class)
+  public AffiliationDbVO addPredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    if (affDbToBeUpdated == null) {
+      throw new IngeApplicationException("Organization with given id " + id + " not found.");
+    }
+
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
+    checkAa("addPredecessor", principal, affDbToBeUpdated);
+
+    checkEqualModificationDate(modificationDate, affDbToBeUpdated.getLastModificationDate());
+
+    List<AffiliationDbRO> predecessors = affDbToBeUpdated.getPredecessorAffiliations();
+
+    AffiliationDbRO predecessorToBeAdded = null;
+    for (AffiliationDbRO predecessor : predecessors) {
+      if (predecessor.getObjectId().equals(predecessorId)) {
+        predecessorToBeAdded = predecessor;
+        break;
+      }
+    }
+
+    if (predecessorToBeAdded != null) {
+      throw new IngeApplicationException(
+          "Predecessor with given id " + predecessorId + " already exists in ou " + affDbToBeUpdated.getObjectId());
+    }
+
+    predecessorToBeAdded = new AffiliationDbRO();
+    predecessorToBeAdded.setObjectId(predecessorId);
+    predecessors.add(predecessorToBeAdded);
+    affDbToBeUpdated.setPredecessorAffiliations(predecessors);
+
+    updateWithTechnicalMetadata(affDbToBeUpdated, principal.getUserAccount(), false);
+
+    try {
+      affDbToBeUpdated = getDbRepository().saveAndFlush(affDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+
+    getElasticDao().createImmediately(affDbToBeUpdated.getObjectId(), affDbToBeUpdated);
+
+    return affDbToBeUpdated;
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
   public AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 

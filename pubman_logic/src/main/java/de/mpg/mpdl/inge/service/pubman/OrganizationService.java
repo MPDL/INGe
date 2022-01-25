@@ -11,11 +11,13 @@ import de.mpg.mpdl.inge.service.exceptions.IngeApplicationException;
 
 public interface OrganizationService extends GenericService<AffiliationDbVO, String> {
 
-
   public AffiliationDbVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public AffiliationDbVO close(String id, Date modificationDate, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
+  public AffiliationDbVO addPredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
   public AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
