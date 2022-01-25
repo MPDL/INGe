@@ -288,12 +288,13 @@ public class OrganizationRestController {
     return new ResponseEntity<String>(ouPath, HttpStatus.OK);
   }
   
-  @RequestMapping(value = OU_ID_PATH + "/remove", method = RequestMethod.PUT)
+  @RequestMapping(value = OU_ID_PATH + "/remove/{predecessorId}", method = RequestMethod.PUT)
   public ResponseEntity<AffiliationDbVO> removePredecessor(@RequestHeader(value = AUTHZ_HEADER) String token,
-      @PathVariable(value = OU_ID_VAR) String ouId, @RequestBody String predecessorId)
+      @PathVariable(value = OU_ID_VAR) String ouId, @PathVariable String predecessorId, @RequestBody String modificationDate)
       throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
     
-    AffiliationDbVO updated = organizationSvc.removePredecessor(ouId, null, predecessorId, token);
+    Date lmd = utils.string2Date(modificationDate);
+    AffiliationDbVO updated = organizationSvc.removePredecessor(ouId, lmd, predecessorId, token);
 
     return new ResponseEntity<AffiliationDbVO>(updated, HttpStatus.OK);
   }
