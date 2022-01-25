@@ -18,6 +18,9 @@ public interface OrganizationService extends GenericService<AffiliationDbVO, Str
   public AffiliationDbVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
+  public AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
+
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException;
 
