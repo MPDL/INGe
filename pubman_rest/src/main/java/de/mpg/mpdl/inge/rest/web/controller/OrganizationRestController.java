@@ -278,6 +278,25 @@ public class OrganizationRestController {
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  @RequestMapping(value = OU_ID_PATH + "/idPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
+  public ResponseEntity<String> idPath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
+      @PathVariable(value = OU_ID_VAR) String ouId)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException {
+
+    List<String> idPath = organizationSvc.getIdPath(ouId);
+    StringBuilder ouIdPath = new StringBuilder();
+    int i = 0;
+    for (String ou : idPath) {
+      i++;
+      ouIdPath.append(ou);
+      if (i < idPath.size()) {
+        ouIdPath.append(",");
+      }
+    }
+
+    return new ResponseEntity<String>(ouIdPath.toString(), HttpStatus.OK);
+  }
+
   @RequestMapping(value = OU_ID_PATH + "/ouPath", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN)
   public ResponseEntity<String> ouPath(@RequestHeader(value = AuthCookieToHeaderFilter.AUTHZ_HEADER, required = false) String token,
       @PathVariable(value = OU_ID_VAR) String ouId)

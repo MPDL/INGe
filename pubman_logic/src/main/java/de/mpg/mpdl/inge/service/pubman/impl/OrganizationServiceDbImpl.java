@@ -455,7 +455,6 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     return ouPath.toString();
   }
 
-
   /**
    * Returns the path from the given id up to root parent
    */
@@ -474,7 +473,6 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
     return idPath;
   }
-
 
   @Transactional
   public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
