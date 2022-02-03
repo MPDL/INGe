@@ -262,6 +262,30 @@
 				"ou.publicStatus" : "OPENED"
 			}
 			
+		],
+		"addPredecessor" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
+			}
+		],
+		"removePredecessor" : [
+			{
+				"user" : {
+					"role" : "SYSADMIN"
+				}
+			},
+			{
+				"user" : {
+					"role" : "LOCAL_ADMIN"
+				}
+			}
 		]
 	},
 	"de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl" : {

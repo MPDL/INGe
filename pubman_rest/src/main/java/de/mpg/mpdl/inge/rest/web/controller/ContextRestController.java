@@ -1,5 +1,6 @@
 package de.mpg.mpdl.inge.rest.web.controller;
 
+import java.io.IOException;
 import java.util.Date;
 
 import org.elasticsearch.index.query.QueryBuilder;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
@@ -47,6 +50,16 @@ public class ContextRestController {
   public ContextRestController(ContextService ctxSvc, UtilServiceBean utils) {
     this.ctxSvc = ctxSvc;
     this.utils = utils;
+  }
+
+  @RequestMapping(value = "/search", method = RequestMethod.POST)
+  public ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>> query(@RequestHeader(value = AUTHZ_HEADER, required = false) String token,
+      @RequestBody JsonNode query)
+      throws AuthenticationException, AuthorizationException, IngeTechnicalException, IngeApplicationException, IOException {
+    SearchRetrieveRequestVO srRequest = utils.query2VO(query);
+    SearchRetrieveResponseVO<ContextDbVO> srResponse = ctxSvc.search(srRequest, token);
+
+    return new ResponseEntity<SearchRetrieveResponseVO<ContextDbVO>>(srResponse, HttpStatus.OK);
   }
 
   @RequestMapping(value = "", method = RequestMethod.GET)

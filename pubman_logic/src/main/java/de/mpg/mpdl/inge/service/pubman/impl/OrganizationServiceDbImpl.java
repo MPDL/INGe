@@ -28,6 +28,7 @@ import de.mpg.mpdl.inge.db.repository.OrganizationRepository;
 import de.mpg.mpdl.inge.es.dao.GenericDaoEs;
 import de.mpg.mpdl.inge.es.dao.OrganizationDaoEs;
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.valueobjects.SearchRetrieveRequestVO;
@@ -83,6 +84,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    */
   public List<AffiliationDbVO> searchTopLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     final QueryBuilder qb = QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
@@ -98,10 +100,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    * @return all first-level affiliations
    * @throws Exception if framework access fails
    */
-  public List<AffiliationDbVO> searchOpenedFirstLevelOrganizations()
+  public List<AffiliationDbVO> searchFirstLevelOrganizations()
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-    final BoolQueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_STATE, "OPENED"));
 
+    final BoolQueryBuilder qb = QueryBuilders.boolQuery();
     final List<AffiliationDbVO> topLevelOus = this.searchTopLevelOrganizations();
 
     if (topLevelOus.size() == 0) {
@@ -133,6 +135,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    */
   public List<AffiliationDbVO> searchChildOrganizations(String parentAffiliationId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     final QueryBuilder qb = QueryBuilders.termQuery(INDEX_PARENT_AFFILIATIONS_OBJECT_ID, parentAffiliationId);
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0,
         new SearchSortCriteria[] {new SearchSortCriteria(INDEX_STATE, SearchSortCriteria.SortOrder.DESC),
@@ -152,6 +155,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
    */
   public List<AffiliationDbVO> searchAllChildOrganizations(String[] parentAffiliationIds, String ignoreOuId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     List<AffiliationDbVO> result = new ArrayList<AffiliationDbVO>();
     for (String parentAffiliationId : parentAffiliationIds) {
       if (!parentAffiliationId.equals(ignoreOuId)) {
@@ -172,6 +176,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
 
   public List<AffiliationDbVO> searchSuccessors(String objectId)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     final QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(INDEX_PREDECESSOR_AFFILIATIONS_OBJECT_ID, objectId));
     final SearchRetrieveRequestVO srr = new SearchRetrieveRequestVO(qb, OU_SEARCH_LIMIT, 0);
     final SearchRetrieveResponseVO<AffiliationDbVO> response = this.search(srr, null);
@@ -201,29 +206,103 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
     } while (resp.getHits().getHits().length != 0);
 
-    // StringBuilder sb = new StringBuilder();
-    // sb.append(ouId + " size children: " + listHits.size() + " -> ");
-    // for (SearchHit hit : listHits) {
-    // sb.append((String) hit.field(INDEX_OBJECT_ID).getValue());
-    // sb.append(" ");
-    // }
-    // logger.info(sb.toString());
-
     if (listHits.size() > 0) {
       for (SearchHit hit : listHits) {
         fillWithChildOus(idList, hit.field(INDEX_OBJECT_ID).getValue());
       }
     }
-
     idList.add(ouId);
+  }
 
-    // sb = new StringBuilder();
-    // sb.append(ouId + ": ");
-    // for (String id : idList) {
-    // sb.append(id);
-    // sb.append(" ");
-    // }
-    // logger.info(sb.toString());
+  @Transactional(rollbackFor = Throwable.class)
+  public AffiliationDbVO addPredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    if (affDbToBeUpdated == null) {
+      throw new IngeApplicationException("Organization with given id " + id + " not found.");
+    }
+
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
+    checkAa("addPredecessor", principal, affDbToBeUpdated);
+
+    checkEqualModificationDate(modificationDate, affDbToBeUpdated.getLastModificationDate());
+
+    List<AffiliationDbRO> predecessors = affDbToBeUpdated.getPredecessorAffiliations();
+
+    AffiliationDbRO predecessorToBeAdded = null;
+    for (AffiliationDbRO predecessor : predecessors) {
+      if (predecessor.getObjectId().equals(predecessorId)) {
+        predecessorToBeAdded = predecessor;
+        break;
+      }
+    }
+
+    if (predecessorToBeAdded != null) {
+      throw new IngeApplicationException(
+          "Predecessor with given id " + predecessorId + " already exists in ou " + affDbToBeUpdated.getObjectId());
+    }
+
+    predecessorToBeAdded = new AffiliationDbRO();
+    predecessorToBeAdded.setObjectId(predecessorId);
+    predecessors.add(predecessorToBeAdded);
+    affDbToBeUpdated.setPredecessorAffiliations(predecessors);
+
+    updateWithTechnicalMetadata(affDbToBeUpdated, principal.getUserAccount(), false);
+
+    try {
+      affDbToBeUpdated = getDbRepository().saveAndFlush(affDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+
+    getElasticDao().createImmediately(affDbToBeUpdated.getObjectId(), affDbToBeUpdated);
+
+    return affDbToBeUpdated;
+  }
+
+  @Transactional(rollbackFor = Throwable.class)
+  public AffiliationDbVO removePredecessor(String id, Date modificationDate, String predecessorId, String authenticationToken)
+      throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
+    AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
+    if (affDbToBeUpdated == null) {
+      throw new IngeApplicationException("Organization with given id " + id + " not found.");
+    }
+
+    Principal principal = aaService.checkLoginRequired(authenticationToken);
+    checkAa("removePredecessor", principal, affDbToBeUpdated);
+
+    checkEqualModificationDate(modificationDate, affDbToBeUpdated.getLastModificationDate());
+
+    List<AffiliationDbRO> predecessors = affDbToBeUpdated.getPredecessorAffiliations();
+
+    AffiliationDbRO predecessorToBeRemoved = null;
+    for (AffiliationDbRO predecessor : predecessors) {
+      if (predecessor.getObjectId().equals(predecessorId)) {
+        predecessorToBeRemoved = predecessor;
+      }
+    }
+
+    if (predecessorToBeRemoved == null) {
+      throw new IngeApplicationException(
+          "Predecessor with given id " + predecessorId + " does not exist in ou " + affDbToBeUpdated.getObjectId());
+    }
+
+    predecessors.remove(predecessorToBeRemoved);
+    affDbToBeUpdated.setPredecessorAffiliations(predecessors);
+
+    updateWithTechnicalMetadata(affDbToBeUpdated, principal.getUserAccount(), false);
+
+    try {
+      affDbToBeUpdated = getDbRepository().saveAndFlush(affDbToBeUpdated);
+    } catch (DataAccessException e) {
+      handleDBException(e);
+    }
+
+    getElasticDao().createImmediately(affDbToBeUpdated.getObjectId(), affDbToBeUpdated);
+
+    return affDbToBeUpdated;
   }
 
   @Override
@@ -232,6 +311,10 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
 
     AffiliationDbVO ouDbTobeDeleted = organizationRepository.findOne(id);
+    if (ouDbTobeDeleted == null) {
+      throw new IngeApplicationException("Organization with given id " + id + " not found.");
+    }
+
     super.delete(id, authenticationToken);
 
     if (ouDbTobeDeleted.getParentAffiliation() != null) {
@@ -241,15 +324,13 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       AffiliationDbVO parentVO = organizationRepository.findOne(ouDbTobeDeleted.getParentAffiliation().getObjectId());
       organizationDao.createImmediately(parentVO.getObjectId(), parentVO);
     }
-
-
-
   }
 
   @Override
   @Transactional(rollbackFor = Throwable.class)
   public AffiliationDbVO open(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     return changeState(id, modificationDate, authenticationToken, AffiliationDbVO.State.OPENED);
   }
 
@@ -258,18 +339,18 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
   @Transactional(rollbackFor = Throwable.class)
   public AffiliationDbVO close(String id, Date modificationDate, String authenticationToken)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     return changeState(id, modificationDate, authenticationToken, AffiliationDbVO.State.CLOSED);
   }
 
   private AffiliationDbVO changeState(String id, Date modificationDate, String authenticationToken, AffiliationDbVO.State state)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
+
     Principal principal = aaService.checkLoginRequired(authenticationToken);
     AffiliationDbVO affDbToBeUpdated = organizationRepository.findOne(id);
     if (affDbToBeUpdated == null) {
       throw new IngeApplicationException("Organization with given id " + id + " not found.");
     }
-
-
 
     checkEqualModificationDate(modificationDate, affDbToBeUpdated.getLastModificationDate());
 
@@ -291,6 +372,7 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     }
 
     organizationDao.createImmediately(affDbToBeUpdated.getObjectId(), affDbToBeUpdated);
+
     return affDbToBeUpdated;
   }
 
@@ -349,8 +431,6 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       }
     }
 
-
-
     return reindexList;
   }
 
@@ -375,13 +455,11 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     return ouPath.toString();
   }
 
-
   /**
    * Returns the path from the given id up to root parent
    */
   @Transactional
   public List<String> getIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
-
     AffiliationDbVO affVo = organizationRepository.findOne(id);
     if (affVo == null)
       throw new IngeApplicationException("Could not find organization with id " + id);
@@ -394,29 +472,25 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
     }
 
     return idPath;
-
   }
-
 
   @Transactional
   public List<String> getChildIdPath(String id) throws IngeTechnicalException, IngeApplicationException {
     List<String> ouIds = new ArrayList<>();
     fillWithChildOus(ouIds, id);
+
     return ouIds;
   }
 
-
   @Override
   protected JpaRepository<AffiliationDbVO, String> getDbRepository() {
-    return organizationRepository;
+    return this.organizationRepository;
   }
-
 
   @Override
   protected GenericDaoEs<AffiliationDbVO> getElasticDao() {
-    return organizationDao;
+    return this.organizationDao;
   }
-
 
   @Override
   protected String getObjectId(AffiliationDbVO object) {
@@ -451,5 +525,4 @@ public class OrganizationServiceDbImpl extends GenericServiceImpl<AffiliationDbV
       logger.error("CRON: refreshAllChildrenOfMpg() failed!", e);
     }
   }
-
 }
