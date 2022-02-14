@@ -584,6 +584,7 @@
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="$role='inventor'">
+				<xsl:message>concat: <xsl:value-of select="$role"/>, <xsl:value-of select="$name"/></xsl:message>
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="concat($role,': ',$name)"/>
