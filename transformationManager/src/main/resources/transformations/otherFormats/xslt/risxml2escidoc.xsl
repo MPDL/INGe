@@ -159,6 +159,11 @@
 					<xsl:with-param name="gen">journal</xsl:with-param>
 				</xsl:call-template>
 			</xsl:when>
+			<xsl:when test="TY='JOUR'">
+				<xsl:call-template name="createEntry">
+					<xsl:with-param name="gen">article</xsl:with-param>
+				</xsl:call-template>
+			</xsl:when>
 			<xsl:when test="TY='MGZN'">
 				<xsl:call-template name="createEntry">
 					<xsl:with-param name="gen">article</xsl:with-param>
@@ -224,6 +229,9 @@
 					</xsl:when>
 					<xsl:when test="JF">
 						<xsl:value-of select="JF"/>
+					</xsl:when>
+					<xsl:when test="T2 and TY='JFULL' and not(JF) ">
+						<xsl:value-of select="T2"/>
 					</xsl:when>
 					<xsl:when test="TI">
 						<xsl:value-of select="TI"/>
