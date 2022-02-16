@@ -139,7 +139,9 @@ public class DoiRestService {
     for (FileDbVO file : pubItem.getFiles()) {
       if (file.getVisibility() == Visibility.PUBLIC && ("any-fulltext".equals(file.getMetadata().getContentCategory())
           || "pre-print".equals(file.getMetadata().getContentCategory()) || "post-print".equals(file.getMetadata().getContentCategory())
-          || "publisher-version".equals(file.getMetadata().getContentCategory()))) {
+          || "publisher-version".equals(file.getMetadata().getContentCategory()) || "code".equals(file.getMetadata().getContentCategory())
+          || "research-data".equals(file.getMetadata().getContentCategory())
+          || "multimedia".equals(file.getMetadata().getContentCategory()))) {
         doiReady = true;
       }
     }
