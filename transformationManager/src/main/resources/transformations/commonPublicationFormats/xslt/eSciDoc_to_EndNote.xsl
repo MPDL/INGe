@@ -858,7 +858,7 @@
 		<xsl:variable name="sgenre" select="$genre-ves/enum[@uri=$sgenre-uri]"/>
 		<!-- TITLE -->
 		<xsl:choose>
-			<xsl:when test="($sgenre='book' or $sgenre='proceedings' or $sgenre='issue' or ($sgenre='series' and not($genre='book-item'))) and not($genre='proceedings')">
+			<xsl:when test="($sgenre='book' or $sgenre='proceedings' or $sgenre='issue' or $sgenre='collected-edition' or $sgenre='encyclopedia' or $sgenre='festschrift' or $sgenre='handbook' or $sgenre='commentary' or ($sgenre='series' and not($genre='book-item'))) and not($genre='proceedings')">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag">B</xsl:with-param>
 					<xsl:with-param name="value" select="dc:title"/>
@@ -963,6 +963,12 @@
 						<xsl:with-param name="value" select="eterms:sequence-number"/>
 					</xsl:call-template>
 				</xsl:when>
+				<xsl:when test="$genre='article' or $genre='newspaper-article'">
+				<xsl:call-template name="print-line">
+					<xsl:with-param name="tag">]</xsl:with-param>
+					<xsl:with-param name="value" select="eterms:sequence-number"/>
+				</xsl:call-template>
+			</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="seq-no" select="concat('sequence number: ',eterms:sequence-number)"/>
 					<xsl:call-template name="print-line">

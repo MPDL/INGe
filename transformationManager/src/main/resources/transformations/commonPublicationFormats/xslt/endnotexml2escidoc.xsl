@@ -825,6 +825,11 @@
 					<xsl:value-of select="AMPERSAND" />
 				</xsl:element>
 			</xsl:if>
+			<xsl:if test="SQUARE_RIGHT_BRACKET and ($refType = 'Electronic Article' or $refType = 'Journal Article' or $refType = 'Magazine Article' or $refType = 'Newspaper Article')">
+				<xsl:element name="eterms:sequence-number">
+					<xsl:value-of select="SQUARE_RIGHT_BRACKET"/>
+				</xsl:element>
+			</xsl:if>
 			<!-- SOURCE PUBLISHINGINFO -->
 			<xsl:variable name="publisher"
 				select="  if (I and $refType = ('Book Section', 'Conference Paper', 'Electronic Article', 'Magazine Article', 'Newspaper Article', 'Journal Article')) then I else ''  " />
