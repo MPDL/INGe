@@ -330,7 +330,7 @@
 							<xsl:with-param name="title" select="JF"/>
 						</xsl:call-template>
 					</xsl:if>
-					<xsl:if test="T2 and $gen='article'">
+					<xsl:if test="T2 and ($gen='article' or $gen='book-item')">
 						<xsl:call-template name="createSource">
 							<xsl:with-param name="genre" select="$gen"/>
 							<xsl:with-param name="title" select="T2"/>
