@@ -230,9 +230,6 @@
 					<xsl:when test="JF">
 						<xsl:value-of select="JF"/>
 					</xsl:when>
-					<xsl:when test="T2 and TY='JFULL' and not(JF) ">
-						<xsl:value-of select="T2"/>
-					</xsl:when>
 					<xsl:when test="TI">
 						<xsl:value-of select="TI"/>
 					</xsl:when>
@@ -551,9 +548,17 @@
 				</xsl:choose>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
-			<xsl:element name="dc:title">
-				<xsl:value-of select="$title" />
-			</xsl:element>
+			<xsl:choose>
+				<xsl:when test="T2 and TY='JOUR' and not(JF) ">
+					<xsl:value-of select="T2"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:element name="dc:title">
+						<xsl:value-of select="$title" />
+					</xsl:element>
+				</xsl:otherwise>
+			</xsl:choose>
+			
 			<!-- SOURCE ALTTITLE -->
 			<xsl:choose>
 				<xsl:when test="JA">
