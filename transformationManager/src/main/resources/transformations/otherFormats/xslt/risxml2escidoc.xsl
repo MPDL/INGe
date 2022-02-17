@@ -330,6 +330,12 @@
 							<xsl:with-param name="title" select="JF"/>
 						</xsl:call-template>
 					</xsl:if>
+					<xsl:if test="T2 and $gen='article'">
+						<xsl:call-template name="createSource">
+							<xsl:with-param name="genre" select="$gen"/>
+							<xsl:with-param name="title" select="T2"/>
+						</xsl:call-template>
+					</xsl:if>
 					<xsl:if test="T3">
 						<!-- source series -->
 						<xsl:call-template name="createSource">
@@ -548,16 +554,9 @@
 				</xsl:choose>
 			</xsl:attribute>
 			<!-- SOURCE TITLE -->
-			<xsl:choose>
-				<xsl:when test="T2 and TY='JOUR' and not(JF) ">
-					<xsl:value-of select="T2"/>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:element name="dc:title">
-						<xsl:value-of select="$title" />
-					</xsl:element>
-				</xsl:otherwise>
-			</xsl:choose>
+			<xsl:element name="dc:title">
+				<xsl:value-of select="$title" />
+			</xsl:element>
 			
 			<!-- SOURCE ALTTITLE -->
 			<xsl:choose>
