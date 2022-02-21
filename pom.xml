@@ -1170,7 +1170,7 @@
 		<inge.pubman.external.organisation.id>ou_persistent22</inge.pubman.external.organisation.id>
 		<inge.pubman.favicon.apply>true</inge.pubman.favicon.apply>
 		<inge.pubman.favicon.url>/pubman/faces/javax.faces.resources/pubman_favicon_32_32.png</inge.pubman.favicon.url>
-		<inge.pubman.footer.fileName />
+		<inge.pubman.footer.fileName>matomo.js</inge.pubman.footer.fileName>
 		<inge.pubman.genres.configuration>Genres.xml</inge.pubman.genres.configuration>
 		<inge.pubman.help.url>https://colab.mpdl.mpg.de/mediawiki/MPG.PuRe_Help</inge.pubman.help.url>
 		<inge.pubman.home.content.url />
