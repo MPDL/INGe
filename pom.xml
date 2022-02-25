@@ -349,9 +349,14 @@
 			</dependency>
 			<dependency>
 			    <groupId>com.eclipsesource.j2v8</groupId>
-			    <artifactId>j2v8_linux_x86_64</artifactId>
-				<version>4.6.0</version>
-  			</dependency>
+			    <artifactId>j2v8_win32_x86_64</artifactId>
+			    <version>4.6.0</version>
+			</dependency>
+			<dependency>
+    			<groupId>com.eclipsesource.j2v8</groupId>
+    			<artifactId>j2v8_linux_x86_64</artifactId>
+    			<version>4.6.0</version>
+			</dependency>
 
 			<!-- Docx4j -->
 			<dependency>
@@ -763,18 +768,6 @@
 				<version>2.9.2</version>
 			</dependency>
 
-			<!-- V8 -->
-			<dependency>
-    			<groupId>com.eclipsesource.j2v8</groupId>
-    			<artifactId>j2v8_linux_x86_64</artifactId>
-    			<version>4.8.0</version>
-			</dependency>
-			<dependency>
-			    <groupId>com.eclipsesource.j2v8</groupId>
-			    <artifactId>j2v8_win32_x86_64</artifactId>
-			    <version>4.6.0</version>
-			</dependency>
-			
 			<!-- Validation -->
 			<dependency>
 				<groupId>com.baidu.unbiz</groupId>
