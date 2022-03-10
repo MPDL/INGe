@@ -395,7 +395,10 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "update": [
@@ -403,7 +406,10 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "delete": [
@@ -428,7 +434,10 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "removeGrants": [
@@ -436,17 +445,23 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "changePassword": [
             {
                 "user": {"role": "SYSADMIN"}
             },
+            {"givenUser.objectId": "user.userAccount.objectId"},
             {
-                "user": {"role": "LOCAL_ADMIN"}
-            },
-            {"givenUser.objectId": "user.userAccount.objectId"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                }
+            }
         ],
         "activate": [
             {
@@ -454,7 +469,10 @@
                 "givenUser.active": "false"
             },
             {
-                "user": {"role": "LOCAL_ADMIN"},
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                },
                 "givenUser.active": "false"
             }
         ],
@@ -464,7 +482,10 @@
                 "givenUser.active": "true"
             },
             {
-                "user": {"role": "LOCAL_ADMIN"},
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
+                },
                 "givenUser.active": "false"
             }
         ]
