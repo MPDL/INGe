@@ -85,15 +85,11 @@ public class AuthorizationService {
   }
 
   public AuthorizationService() {
-
     try {
-
       aaMap = modelMapper.readValue(ResourceUtil.getResourceAsStream("aa.json", AuthorizationService.class.getClassLoader()), Map.class);
-
     } catch (Exception e) {
       throw new RuntimeException("Problem with parsing aa.json file.", e);
     }
-
   }
 
   public QueryBuilder modifyQueryForAa(String serviceName, QueryBuilder query, Object... objects)
@@ -111,25 +107,22 @@ public class AuthorizationService {
     }
 
     return query;
-
   }
-
 
   private QueryBuilder getAaFilterQuery(String serviceName, Object... objects)
       throws AuthorizationException, IngeApplicationException, IngeTechnicalException, AuthenticationException {
+
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
 
     List<String> order = (List<String>) serviceMap.get("technical").get("order");
     Map<String, String> indices = (Map<String, String>) serviceMap.get("technical").get("indices");
     List<Map<String, Object>> allowedMap = (List<Map<String, Object>>) serviceMap.get("get");
 
-
     AccountUserDbVO userAccount;
     try {
       userAccount = ((Principal) objects[order.indexOf("user")]).getUserAccount();
     } catch (NullPointerException e) {
       userAccount = null;
-
     }
 
     BoolQueryBuilder bqb = QueryBuilders.boolQuery();
@@ -151,22 +144,16 @@ public class AuthorizationService {
       rulesLoop: for (Entry<String, Object> rule : rules.entrySet()) {
         switch (rule.getKey()) {
           case "user": {
-
-
             if (userAccount != null) {
               Map<String, String> userMap = (Map<String, String>) rule.getValue();
 
               if (userMap.containsKey("field_user_id_match")) {
                 String value = (String) userMap.get("field_user_id_match");
-
                 subQb.must(QueryBuilders.termQuery(indices.get(value), userAccount.getObjectId()));
                 userMatch = true;
-
               }
 
               if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
-
-
                 BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                 for (GrantVO grant : userAccount.getGrantList()) {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
@@ -182,18 +169,14 @@ public class AuthorizationService {
                         grantQueryBuilder
                             .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
                       }
-
                     }
-
                   }
                 }
 
                 if (grantQueryBuilder.hasClauses()) {
                   subQb.must(grantQueryBuilder);
                 }
-
               }
-
 
               if (userMap.containsKey("field_ou_id_match")) {
                 String userOuId = userAccount.getAffiliation().getObjectId();
@@ -210,8 +193,6 @@ public class AuthorizationService {
               subQb = QueryBuilders.boolQuery();
               break rulesLoop;
             }
-
-
             break;
           }
           default: {
@@ -233,17 +214,12 @@ public class AuthorizationService {
               } else {
                 subQb.must(QueryBuilders.termQuery(index, valuesToCompare.get(0)));
               }
-
-
-
             } else {
               Object value = getFieldValueOrString(order, objects, (String) rule.getValue());
               if (value != null) {
                 subQb.must(QueryBuilders.termQuery(index, value.toString()));
               }
             }
-
-
             break;
           }
         }
@@ -256,29 +232,22 @@ public class AuthorizationService {
       else if (userMatch) {
         return null;
       }
-
     }
-
-
 
     if (bqb.hasClauses()) {
       return bqb;
     }
+
     throw new AuthorizationException("This search requires a login");
   }
-
-
 
   public Principal checkLoginRequired(String authenticationToken)
       throws AuthenticationException, IngeTechnicalException, IngeApplicationException, AuthorizationException {
     return new Principal(userAccountService.get(authenticationToken), authenticationToken);
   }
 
-
-
   public void checkAuthorization(String serviceName, String methodName, Object... objects)
       throws AuthorizationException, AuthenticationException, IngeTechnicalException, IngeApplicationException {
-
     Map<String, Map<String, Object>> serviceMap = (Map<String, Map<String, Object>>) aaMap.get(serviceName);
     if (serviceMap == null) {
       throw new AuthorizationException("No rules for service " + serviceName);
@@ -288,15 +257,11 @@ public class AuthorizationService {
 
     if (allowedMap == null) {
       throw new AuthorizationException("No rules for service " + serviceName + ", method " + methodName);
-    }
-
-    else {
+    } else {
       Exception lastExceptionOfAll = null;
       for (Map<String, Object> rules : allowedMap) {
         Exception lastExceptionOfRule = null;
-
         for (Entry<String, Object> rule : rules.entrySet()) {
-
           try {
             switch (rule.getKey()) {
               case "user": {
@@ -325,26 +290,20 @@ public class AuthorizationService {
                     throw new AuthorizationException("Expected value [" + value + "] for field " + key + " (" + keyValue + ")");
                   }
                 }
-
-
                 break;
               }
-
-
             }
           } catch (AuthorizationException | AuthenticationException e) {
             lastExceptionOfRule = e;
             lastExceptionOfAll = e;
             break;
           }
-
-
         }
-
         if (lastExceptionOfRule == null) {
           return;
         }
       }
+
       if (lastExceptionOfAll == null) {
         return;
       } else {
@@ -354,10 +313,7 @@ public class AuthorizationService {
           throw (AuthenticationException) lastExceptionOfAll;
         }
       }
-
-
     }
-
   }
 
   private void checkUser(Map<String, Object> ruleMap, List<String> order, Object[] objects)
@@ -367,12 +323,9 @@ public class AuthorizationService {
       throw new AuthenticationException("You have to be logged in with username/password or ip address.");
     }
     AccountUserDbVO userAccount = principal.getUserAccount();
-
     String ipMatch = (String) ruleMap.get("ip_match");
-
     if (ipMatch != null) {
       DecodedJWT decodedJwt = userAccountService.verifyToken(principal.getJwToken());
-
       if (decodedJwt.getHeaderClaim("ip") != null) {
         try {
           Collection<String> ouIdsToBeMatched = new ArrayList<>();
@@ -382,19 +335,15 @@ public class AuthorizationService {
           } else if (ouIdToBeMatched instanceof Collection) {
             ouIdsToBeMatched = (Collection<String>) ouIdToBeMatched;
           }
-
           String userIp = decodedJwt.getHeaderClaim("ip").asString();
           boolean check = false;
           for (String ouId : ouIdsToBeMatched) {
             IpRange ouIpRange = ipListProvider.get(ouId);
-
             if (ouIpRange.matches(userIp)) {
               check = true;
               break;
             }
           }
-
-
           if (!check) {
             throw new AuthenticationException(
                 "The current user's ip adress " + userIp + " does not match required ip range of organization with id " + ouIdToBeMatched);
@@ -402,35 +351,26 @@ public class AuthorizationService {
         } catch (Exception e) {
           throw new AuthenticationException("Error while matching IPs", e);
         }
-
       } else {
         throw new AuthenticationException("Token contains no IP, but IP match is required");
       }
-
     } else if (userAccount == null) {
       throw new AuthenticationException("You have to be logged in with username/password.");
-
     }
 
-
     String userIdFieldMatch = (String) ruleMap.get("field_user_id_match");
-
     if (userIdFieldMatch != null) {
       Object userId = getFieldValueOrString(order, objects, userIdFieldMatch);
       String expectedUserId = (userId != null ? userId.toString() : null);
-
       if (expectedUserId == null || !expectedUserId.equals(userAccount.getObjectId())) {
         throw new AuthorizationException("User is not owner of object.");
       }
     }
 
-
     if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match")) {
       boolean check = false;
       String role = (String) ruleMap.get("role");
-
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
-
       List<String> grantFieldMatchValues = new ArrayList<>();
       if (grantFieldMatch != null) {
         Object val = getFieldValueOrString(order, objects, grantFieldMatch);
@@ -439,11 +379,7 @@ public class AuthorizationService {
         } else {
           logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
         }
-
-
-
       }
-
 
       // If grant is of type "ORGANIZATION", get all children of organization as potential matches
       if (grantFieldMatch != null && (!grantFieldMatchValues.isEmpty()) && grantFieldMatchValues.get(0).startsWith("ou")) {
@@ -452,32 +388,24 @@ public class AuthorizationService {
         grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
 
       }
-
-
       for (GrantVO grant : userAccount.getGrantList()) {
         check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch == null
             || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
-
         if (check) {
           break;
         }
       }
-
       if (!check) {
         throw new AuthorizationException(
             "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
       }
-
     }
-
 
     if (ruleMap.containsKey("field_ou_id_match")) {
       String userOuId = principal.getUserAccount().getAffiliation().getObjectId();
       String ouFieldMatch = (String) ruleMap.get("field_ou_id_match");
-
       if (ouFieldMatch != null) {
         Object val = getFieldValueOrString(order, objects, ouFieldMatch);
-
         if (val == null) {
           throw new AuthorizationException(
               "User with ou [" + userOuId + "] is not allowed to access object with field " + ouFieldMatch + "[" + val + "]");
@@ -486,24 +414,17 @@ public class AuthorizationService {
           ouIds.add(userOuId);
           List<AffiliationDbVO> childList = new ArrayList<>();
           searchAllChildOrganizations(ouIds.get(0), childList);
-
           if (!ouIds.contains(val.toString())) {
             throw new AuthorizationException(
                 "User with ou [" + userOuId + "] is not allowed to access object with field " + ouFieldMatch + "[" + val + "]");
           }
         }
-
       }
-
     }
-
-
   }
 
   private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationDbVO> completeList)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
-
-
     List<AffiliationDbVO> children = ouService.searchChildOrganizations(parentAffiliationId);
     if (children != null) {
       for (AffiliationDbVO child : children) {
@@ -511,10 +432,6 @@ public class AuthorizationService {
         searchAllChildOrganizations(child.getObjectId(), completeList);
       }
     }
-  }
-
-  private void check(List<String> order, Object[] objects, Object key, Object value, Object current) {
-
   }
 
   private Object getFieldValueOrString(List<String> order, Object[] objects, String field) throws AuthorizationException {
@@ -531,9 +448,6 @@ public class AuthorizationService {
       } else {
         return getFieldValueViaGetter(object, field.substring(field.indexOf(".") + 1, field.length()));
       }
-
-
-
     } else {
       return field;
     }
@@ -542,32 +456,23 @@ public class AuthorizationService {
   private Object getFieldValueViaGetter(Object object, String field) throws AuthorizationException {
     try {
       String[] fieldHierarchy = field.split("\\.");
-
       for (PropertyDescriptor pd : Introspector.getBeanInfo(object.getClass()).getPropertyDescriptors()) {
-
         if (pd.getName().equals(fieldHierarchy[0])) {
           Object value = pd.getReadMethod().invoke(object);
           if (value == null) {
             return null;
           }
-
           if (fieldHierarchy.length == 1) {
             return value;
-
           } else {
             return getFieldValueViaGetter(value, field.substring(field.indexOf(".") + 1, field.length()));
           }
         }
-
       }
-
-
     } catch (Exception e) {
       throw new AuthorizationException("Error while calling getter in object", e);
     }
+
     return null;
-
   }
-
-
 }
