@@ -419,7 +419,7 @@
             {
                 "user": {
                     "role": "MODERATOR",
-                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                    "field_ou_id_match": "givenUser.affiliation.objectId"
                 }
             }
         ],
