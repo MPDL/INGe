@@ -489,7 +489,7 @@
                     "role": "LOCAL_ADMIN",
                     "field_grant_id_match": "givenUser.affiliation.objectId"
                 },
-                "givenUser.active": "false"
+                "givenUser.active": "true"
             }
         ]
     },
