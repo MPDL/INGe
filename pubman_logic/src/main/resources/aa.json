@@ -429,10 +429,7 @@
                 }
             },
             {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "givenUser.affiliation.objectId"
-                }
+                "user": {"role": "LOCAL_ADMIN"}
             }
         ],
         "addGrants": [
