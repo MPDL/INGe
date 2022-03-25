@@ -162,12 +162,9 @@ public class AuthorizationService {
                       // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou_")) {
                         List<String> ouIds = new ArrayList<>();
-                        List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält eigene Ou
-                        parents.remove(parents.size() - 1); // remove root
+                        List<String> parents = ouService.getIdPath(grant.getObjectRef());
                         ouIds.addAll(parents);
-                        if (!ouIds.isEmpty()) {
-                          grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
-                        }
+                        grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
                       } else {
                         grantQueryBuilder
                             .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
