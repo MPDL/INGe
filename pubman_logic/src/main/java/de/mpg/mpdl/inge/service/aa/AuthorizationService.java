@@ -159,11 +159,15 @@ public class AuthorizationService {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
+                      // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou_")) {
                         List<String> ouIds = new ArrayList<>();
-                        List<String> parents = ouService.getIdPath(grant.getObjectRef());
+                        List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält eigene Ou
+                        parents.remove(parents.size() - 1); // remove root
                         ouIds.addAll(parents);
-                        grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
+                        if (!ouIds.isEmpty()) {
+                          grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
+                        }
                       } else {
                         grantQueryBuilder
                             .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
@@ -515,10 +519,11 @@ public class AuthorizationService {
         }
       }
 
-      // If grant is of type "ORGANIZATION", get all parents of organization as potential matches
+      // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
       List<String> grantFieldMatchValues = new ArrayList<>();
       if (grantFieldMatch != null && grantFieldMatchValue != null && grantFieldMatchValue.startsWith("ou")) {
-        List<String> parents = ouService.getIdPath(grantFieldMatchValue);
+        List<String> parents = ouService.getIdPath(grantFieldMatchValue); // enthält auch eigene Ou
+        parents.remove(parents.size() - 1); // remove root
         grantFieldMatchValues.addAll(parents);
       }
 
