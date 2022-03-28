@@ -153,14 +153,15 @@ public class AuthorizationService {
                 userMatch = true;
               }
 
-              if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")) {
+              if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")
+                  || userMap.containsKey("field_ctx_ou_id_match")) {
                 BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                 for (GrantVO grant : userAccount.getGrantList()) {
                   if (grant.getRole().equalsIgnoreCase((String) userMap.get("role"))) {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
                       // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
-                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou_")) {
+                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou")) {
                         List<String> grantFieldMatchValues = new ArrayList<>();
                         List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält auch eigene Ou
                         parents.remove(parents.size() - 1); // remove root
@@ -170,6 +171,12 @@ public class AuthorizationService {
                         grantQueryBuilder
                             .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
                       }
+                    } else if (userMap.get("field_ctx_ou_id_match") != null) {
+                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ctx")) {
+                        ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
+                        String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
+                        grantQueryBuilder.should(QueryBuilders.termQuery(indices.get(userMap.get("field_ctx_ou_id_match")), ouId));
+                      }
                     }
                   }
                 }
@@ -177,23 +184,17 @@ public class AuthorizationService {
                   subQb.must(grantQueryBuilder);
                 }
               }
-
-              if (userMap.containsKey("field_ctx_ou_id_match")) {
-                for (GrantVO grant : userAccount.getGrantList()) {
-                  ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
-                  String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
-                  subQb.should(QueryBuilders.termQuery(indices.get(userMap.get("field_ctx_ou_id_match")), ouId));
-                }
-              }
-
             }
+
             if (!userMatch) {
               //reset queryBuilder
               subQb = QueryBuilders.boolQuery();
               break rulesLoop;
             }
+
             break;
           }
+
           default: {
             String key = rule.getKey();
             String index = indices.get(key);
@@ -552,17 +553,19 @@ public class AuthorizationService {
       }
 
       for (GrantVO grant : userAccount.getGrantList()) {
-        ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
-        if (ctx == null) {
-          throw new AuthorizationException("context for " + ctxOuFieldMatchValue + " returned null!");
-        }
-        if (ctx.getResponsibleAffiliations().isEmpty()) {
-          throw new AuthorizationException("context " + ctx.getObjectId() + " has no affiliations!");
-        }
-        String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
-        check = role.equals(grant.getRole()) && ctxOuFieldMatchValue.equals(ouId);
-        if (check) {
-          break;
+        if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ctx")) {
+          ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
+          if (ctx == null) {
+            throw new AuthorizationException("context for " + ctxOuFieldMatchValue + " returned null!");
+          }
+          if (ctx.getResponsibleAffiliations().isEmpty()) {
+            throw new AuthorizationException("context " + ctx.getObjectId() + " has no affiliations!");
+          }
+          String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
+          check = role.equals(grant.getRole()) && ctxOuFieldMatchValue.equals(ouId);
+          if (check) {
+            break;
+          }
         }
       }
 
