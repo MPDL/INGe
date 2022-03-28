@@ -388,7 +388,10 @@
                 "user",
                 "givenUser"
             ],
-            "indices": {"givenUser.objectId": "objectId"}
+            "indices": {
+            	"givenUser.objectId": "objectId",
+            	"givenUser.affiliation.objectId": "affiliation.objectId"
+            }
         },
         "create": [
             {

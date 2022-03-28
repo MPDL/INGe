@@ -160,12 +160,13 @@ public class AuthorizationService {
                     userMatch = true;
                     if (userMap.get("field_grant_id_match") != null) {
                       // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
-                      if (grant.getObjectRef() != null && !grant.getObjectRef().startsWith("ou_")) {
-//                        List<String> ouIds = new ArrayList<>();
-//                        List<String> parents = ouService.getIdPath(grant.getObjectRef());
-//                        ouIds.addAll(parents);
-//                        grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), ouIds));
-//                      } else {
+                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou_")) {
+                        List<String> grantFieldMatchValues = new ArrayList<>();
+                        List<String> parents = ouService.getIdPath(grant.getObjectRef()); // enthält auch eigene Ou
+                        parents.remove(parents.size() - 1); // remove root
+                        grantFieldMatchValues.addAll(parents);
+                        grantQueryBuilder.should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), parents));
+                      } else {
                         grantQueryBuilder
                             .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
                       }
@@ -177,16 +178,13 @@ public class AuthorizationService {
                 }
               }
 
-              /*
-              if (userMap.containsKey("field_ou_id_match")) {
-                String userOuId = userAccount.getAffiliation().getObjectId();
-                List<String> ouIds = new ArrayList<>();
-                ouIds.add(userOuId);
-                List<AffiliationDbVO> childList = new ArrayList<>();
-                searchAllChildOrganizations(ouIds.get(0), childList);
-                subQb.must(QueryBuilders.termsQuery(UserAccountServiceImpl.INDEX_AFFIlIATION_OBJECTID, ouIds));
+              if (userMap.containsKey("field_ctx_ou_id_match")) {
+                for (GrantVO grant : userAccount.getGrantList()) {
+                  ContextDbVO ctx = ctxService.get(grant.getObjectRef(), null);
+                  String ouId = ctx.getResponsibleAffiliations().get(0).getObjectId(); // Ou des Kontextes
+                  subQb.should(QueryBuilders.termQuery(indices.get(userMap.get("field_ctx_ou_id_match")), ouId));
+                }
               }
-              */
 
             }
             if (!userMatch) {
