@@ -58,8 +58,7 @@ public class AuthorizationService {
   private IpListProvider ipListProvider;
 
 
-  public enum AccessType
-  {
+  public enum AccessType {
     GET("get"),
     READ_FILE("readFile"),
     SUBMIT("submit"),
@@ -69,19 +68,19 @@ public class AuthorizationService {
     EDIT("update"),
     REVISE("revise");
 
-  private String methodName;
+    private String methodName;
 
-  private AccessType(String methodName) {
+    private AccessType(String methodName) {
       this.setMethodName(methodName);
     }
 
-  public String getMethodName() {
-    return methodName;
-  }
+    public String getMethodName() {
+      return methodName;
+    }
 
-  public void setMethodName(String methodName) {
-    this.methodName = methodName;
-  }
+    public void setMethodName(String methodName) {
+      this.methodName = methodName;
+    }
 
   }
 
@@ -507,17 +506,21 @@ public class AuthorizationService {
       boolean check = false;
       String role = (String) ruleMap.get("role");
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
+      String grantFieldMatchValue = null;
       List<String> grantFieldMatchValues = new ArrayList<>();
       if (grantFieldMatch != null) {
         Object val = getFieldValueOrString(order, objects, grantFieldMatch);
         if (val != null) {
-          grantFieldMatchValues.add(val.toString());
+          grantFieldMatchValue = val.toString();
+          if (!val.toString().startsWith("ou")) {
+            grantFieldMatchValues.add(grantFieldMatchValue);
+          }
         } else {
           logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
         }
       }
 
-      if (grantFieldMatch != null && (!grantFieldMatchValues.isEmpty()) && grantFieldMatchValues.get(0).startsWith("ou")) {
+      if (grantFieldMatch != null && grantFieldMatchValue != null && grantFieldMatchValue.startsWith("ou")) {
         // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
         List<String> parents = ouService.getIdPath(grantFieldMatchValues.get(0)); // enthält auch eigene Ou
         parents.remove(parents.size() - 1); // remove root
