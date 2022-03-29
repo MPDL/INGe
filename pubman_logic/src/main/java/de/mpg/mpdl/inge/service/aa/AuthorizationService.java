@@ -539,47 +539,36 @@ public class AuthorizationService {
         }
       }
 
+      List<String> grantFieldMatchValues = new ArrayList<>();
+
       if (grantFieldMatch != null && grantFieldMatchValue != null && grantFieldMatchValue.startsWith("ou")) {
         // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
-        List<String> grantFieldMatchValues = new ArrayList<>();
         List<String> parents = ouService.getIdPath(grantFieldMatchValue); // enthält auch eigene Ou
         parents.remove(parents.size() - 1); // remove root
         grantFieldMatchValues.addAll(parents);
-
-        for (GrantVO grant : userAccount.getGrantList()) {
-          check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch == null
-              || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
-          if (check) {
-            break;
-          }
-        }
-
-        if (!check) {
-          throw new AuthorizationException(
-              "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
-        }
       }
 
       if (grantFieldMatch2 != null && grantFieldMatchValue2 != null && grantFieldMatchValue2.startsWith("ou")) {
         // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-        List<String> grantFieldMatchValues2 = new ArrayList<>();
         List<AffiliationDbVO> childList = new ArrayList<>();
-        grantFieldMatchValues2.add(grantFieldMatchValue2); // add parent
+        grantFieldMatchValues.add(grantFieldMatchValue2); // add parent
         searchAllChildOrganizations(grantFieldMatchValue2, childList);
-        grantFieldMatchValues2.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
+        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
+      }
 
-        for (GrantVO grant : userAccount.getGrantList()) {
-          check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch2 == null
-              || (grant.getObjectRef() != null && grantFieldMatchValues2.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
-          if (check) {
-            break;
-          }
+      for (GrantVO grant : userAccount.getGrantList()) {
+        check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch2 == null && grantFieldMatch2 == null
+            || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
+        if (check) {
+          break;
         }
+      }
 
-        if (!check) {
-          throw new AuthorizationException(
-              "Expected user with role [" + role + "], on object [" + grantFieldMatchValues2 + "] (" + grantFieldMatch2 + ")");
-        }
+      if (!check) {
+        throw new AuthorizationException(
+            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch != null
+                ? grantFieldMatch
+                : grantFieldMatch2 + ")");
       }
     }
 
