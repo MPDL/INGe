@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -155,7 +154,7 @@ public class AuthorizationService {
                 userMatch = true;
               }
 
-              if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match") || userMap.containsKey("field_grant_id_match2")
+              if (userMap.containsKey("role") || userMap.containsKey("field_grant_id_match")
                   || userMap.containsKey("field_ctx_ou_id_match")) {
                 BoolQueryBuilder grantQueryBuilder = QueryBuilders.boolQuery();
                 for (GrantVO grant : userAccount.getGrantList()) {
@@ -173,17 +172,6 @@ public class AuthorizationService {
                       } else {
                         grantQueryBuilder
                             .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match")), grant.getObjectRef()));
-                      }
-                    } else if (userMap.get("field_grant_id_match2") != null) {
-                      // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-                      if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ou")) {
-                        List<String> grantFieldMatchValues2 = new ArrayList<>();
-                        grantFieldMatchValues2.add(grant.getObjectRef()); // add parent
-                        List<AffiliationDbVO> childList = new ArrayList<>();
-                        searchAllChildOrganizations(grant.getObjectRef(), childList);
-                        grantFieldMatchValues2.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
-                        grantQueryBuilder
-                            .should(QueryBuilders.termsQuery(indices.get(userMap.get("field_grant_id_match2")), grantFieldMatchValues2));
                       }
                     } else if (userMap.get("field_ctx_ou_id_match") != null) {
                       if (grant.getObjectRef() != null && grant.getObjectRef().startsWith("ctx")) {
@@ -515,27 +503,17 @@ public class AuthorizationService {
       }
     }
 
-    if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match") || ruleMap.containsKey("field_grant_id_match2")) {
+    if (ruleMap.containsKey("role") || ruleMap.containsKey("field_grant_id_match")) {
       boolean check = false;
       String role = (String) ruleMap.get("role");
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
-      String grantFieldMatch2 = (String) ruleMap.get("field_grant_id_match2");
       String grantFieldMatchValue = null;
-      String grantFieldMatchValue2 = null;
       if (grantFieldMatch != null) {
         Object val = getFieldValueOrString(order, objects, grantFieldMatch);
         if (val != null) {
           grantFieldMatchValue = val.toString();
         } else {
           logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
-        }
-      }
-      if (grantFieldMatch2 != null) {
-        Object val = getFieldValueOrString(order, objects, grantFieldMatch2);
-        if (val != null) {
-          grantFieldMatchValue2 = val.toString();
-        } else {
-          logger.warn("getFieldValue for " + grantFieldMatch2 + "returned null!");
         }
       }
 
@@ -548,16 +526,8 @@ public class AuthorizationService {
         grantFieldMatchValues.addAll(parents);
       }
 
-      if (grantFieldMatch2 != null && grantFieldMatchValue2 != null && grantFieldMatchValue2.startsWith("ou")) {
-        // If grant is of type "ORGANIZATION", get all children of organization as potential matches
-        List<AffiliationDbVO> childList = new ArrayList<>();
-        grantFieldMatchValues.add(grantFieldMatchValue2); // add parent
-        searchAllChildOrganizations(grantFieldMatchValue2, childList);
-        grantFieldMatchValues.addAll(childList.stream().map(aff -> aff.getObjectId()).collect(Collectors.toList()));
-      }
-
       for (GrantVO grant : userAccount.getGrantList()) {
-        check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch2 == null && grantFieldMatch2 == null
+        check = (role == null || role.equals(grant.getRole())) && (grantFieldMatch == null
             || (grant.getObjectRef() != null && grantFieldMatchValues.stream().anyMatch(id -> id.equals(grant.getObjectRef()))));
         if (check) {
           break;
@@ -566,9 +536,7 @@ public class AuthorizationService {
 
       if (!check) {
         throw new AuthorizationException(
-            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch != null
-                ? grantFieldMatch
-                : grantFieldMatch2 + ")");
+            "Expected user with role [" + role + "], on object [" + grantFieldMatchValues + "] (" + grantFieldMatch + ")");
       }
     }
 

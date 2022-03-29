@@ -270,7 +270,7 @@
                 "ou"
             ],
             "indices": {
-            	"givenUser.affiliation.objectId": "affiliation.objectId"
+            	"ou.objectId": "objectId"
             }
         },
         "create": [
@@ -280,7 +280,7 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": "ou.objectId"
                 }
             }
         ],
@@ -291,7 +291,7 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": "ou.objectId"
                 }
             }
         ],
@@ -310,7 +310,7 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": "ou.objectId"
                 },
                 "ou.publicStatus": "CLOSED"
             }
@@ -323,7 +323,7 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": "ou.objectId"
                 },
                 "ou.publicStatus": "OPENED"
             }
@@ -335,7 +335,7 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": "ou.objectId"
                 }
             }
         ],
@@ -346,7 +346,7 @@
             {
                 "user": {
                     "role": "LOCAL_ADMIN",
-                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                    "field_grant_id_match": "ou.objectId"
                 }
             }
         ]
