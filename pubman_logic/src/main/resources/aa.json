@@ -269,14 +269,19 @@
                 "user",
                 "ou"
             ],
-            "indices": {}
+            "indices": {
+            	"givenUser.affiliation.objectId": "affiliation.objectId"
+            }
         },
         "create": [
             {
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "update": [
@@ -284,7 +289,10 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "delete": [
@@ -297,11 +305,14 @@
         "open": [
             {
                 "user": {"role": "SYSADMIN"},
-                "ou.publicStatus": ["CLOSED"]
+                "ou.publicStatus": "CLOSED"
             },
             {
-                "user": {"role": "LOCAL_ADMIN"},
-                "ou.publicStatus": ["CLOSED"]
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                },
+                "ou.publicStatus": "CLOSED"
             }
         ],
         "close": [
@@ -310,7 +321,10 @@
                 "ou.publicStatus": "OPENED"
             },
             {
-                "user": {"role": "LOCAL_ADMIN"},
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                },
                 "ou.publicStatus": "OPENED"
             }
         ],
@@ -319,7 +333,10 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                }
             }
         ],
         "removePredecessor": [
@@ -327,7 +344,10 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {"role": "LOCAL_ADMIN"}
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match2": "givenUser.affiliation.objectId"
+                }
             }
         ]
     },
@@ -364,11 +384,11 @@
         "open": [
             {
                 "user": {"role": "SYSADMIN"},
-                "context.state": ["CLOSED"]
+                "context.state": "CLOSED"
             },
             {
                 "user": {"role": "LOCAL_ADMIN"},
-                "context.state": ["CLOSED"]
+                "context.state": "CLOSED"
             }
         ],
         "close": [
