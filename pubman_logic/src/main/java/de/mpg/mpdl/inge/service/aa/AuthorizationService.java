@@ -507,21 +507,19 @@ public class AuthorizationService {
       boolean check = false;
       String role = (String) ruleMap.get("role");
       String grantFieldMatch = (String) ruleMap.get("field_grant_id_match");
-      String grantFieldMatchValue = null;
+      List<String> grantFieldMatchValues = new ArrayList<>();
       if (grantFieldMatch != null) {
         Object val = getFieldValueOrString(order, objects, grantFieldMatch);
         if (val != null) {
-          grantFieldMatchValue = val.toString();
+          grantFieldMatchValues.add(val.toString());
         } else {
           logger.warn("getFieldValue for " + grantFieldMatch + "returned null!");
         }
       }
 
-      List<String> grantFieldMatchValues = new ArrayList<>();
-
-      if (grantFieldMatch != null && grantFieldMatchValue != null && grantFieldMatchValue.startsWith("ou")) {
+      if (grantFieldMatch != null && (!grantFieldMatchValues.isEmpty()) && grantFieldMatchValues.get(0).startsWith("ou")) {
         // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
-        List<String> parents = ouService.getIdPath(grantFieldMatchValue); // enthält auch eigene Ou
+        List<String> parents = ouService.getIdPath(grantFieldMatchValues.get(0)); // enthält auch eigene Ou
         parents.remove(parents.size() - 1); // remove root
         grantFieldMatchValues.addAll(parents);
       }
