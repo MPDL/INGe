@@ -522,7 +522,7 @@ public class AuthorizationService {
 
       if (grantFieldMatch != null && grantFieldMatchValue != null && grantFieldMatchValue.startsWith("ou")) {
         // If grant is of type "ORGANIZATION", get all parents of organization up to firstLevel as potential matches
-        List<String> parents = ouService.getIdPath(grantFieldMatchValues.get(0)); // enthält auch eigene Ou
+        List<String> parents = ouService.getIdPath(grantFieldMatchValue); // enthält auch eigene Ou
         parents.remove(parents.size() - 1); // remove root
         grantFieldMatchValues.addAll(parents);
       }
