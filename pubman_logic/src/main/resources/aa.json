@@ -106,10 +106,7 @@
                 "user": {"role": "SYSADMIN"}
             },
             {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                }
+                "user": {"role": "LOCAL_ADMIN"}
             }
         ],
         "update": [
