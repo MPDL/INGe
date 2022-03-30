@@ -1,4 +1,184 @@
 {
+    "de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "context"
+            ],
+            "indices": {}
+        },
+        "create": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                }
+            }
+        ],
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                }
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"}
+            }
+        ],
+        "get": [],
+        "open": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "context.state": "CLOSED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                },
+                "context.state": "CLOSED"
+            }
+        ],
+        "close": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "context.state": "OPENED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                },
+                "context.state": "OPENED"
+            }
+        ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "file",
+                "item"
+            ],
+            "indices": {}
+        },
+        "readFile": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {"file.visibility": "PUBLIC"},
+            {
+                "user": {"field_user_id_match": "file.creator.objectId"}
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                }
+            },
+            {
+                "file.visibility": "AUDIENCE",
+                "user": {"ip_match": "file.allowedAudienceIds"}
+            }
+        ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "ou"
+            ],
+            "indices": {
+            	"ou.objectId": "objectId"
+            }
+        },
+        "create": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ],
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "ou.hasChildren": "false"
+            }
+        ],
+        "get": [],
+        "open": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "ou.publicStatus": "CLOSED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                },
+                "ou.publicStatus": "CLOSED"
+            }
+        ],
+        "close": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "ou.publicStatus": "OPENED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                },
+                "ou.publicStatus": "OPENED"
+            }
+        ],
+        "addPredecessor": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ],
+        "removePredecessor": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ]
+    },
     "de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl": {
         "technical": {
             "order": [
@@ -263,145 +443,6 @@
             }
         ]
     },
-    "de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl": {
-        "technical": {
-            "order": [
-                "user",
-                "ou"
-            ],
-            "indices": {
-            	"ou.objectId": "objectId"
-            }
-        },
-        "create": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                }
-            }
-        ],
-        "update": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                }
-            }
-        ],
-        "delete": [
-            {
-                "user": {"role": "SYSADMIN"},
-                "ou.hasChildren": "false"
-            }
-        ],
-        "get": [],
-        "open": [
-            {
-                "user": {"role": "SYSADMIN"},
-                "ou.publicStatus": "CLOSED"
-            },
-            {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                },
-                "ou.publicStatus": "CLOSED"
-            }
-        ],
-        "close": [
-            {
-                "user": {"role": "SYSADMIN"},
-                "ou.publicStatus": "OPENED"
-            },
-            {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                },
-                "ou.publicStatus": "OPENED"
-            }
-        ],
-        "addPredecessor": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                }
-            }
-        ],
-        "removePredecessor": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {
-                "user": {
-                    "role": "LOCAL_ADMIN",
-                    "field_grant_id_match": "ou.objectId"
-                }
-            }
-        ]
-    },
-    "de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl": {
-        "technical": {
-            "order": [
-                "user",
-                "context"
-            ],
-            "indices": {}
-        },
-        "create": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {
-                "user": {"role": "LOCAL_ADMIN"}
-            }
-        ],
-        "update": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {
-                "user": {"role": "LOCAL_ADMIN"}
-            }
-        ],
-        "delete": [
-            {
-                "user": {"role": "SYSADMIN"}
-            }
-        ],
-        "get": [],
-        "open": [
-            {
-                "user": {"role": "SYSADMIN"},
-                "context.state": "CLOSED"
-            },
-            {
-                "user": {"role": "LOCAL_ADMIN"},
-                "context.state": "CLOSED"
-            }
-        ],
-        "close": [
-            {
-                "user": {"role": "SYSADMIN"},
-                "context.state": "OPENED"
-            },
-            {
-                "user": {"role": "LOCAL_ADMIN"},
-                "context.state": "OPENED"
-            }
-        ]
-    },
     "de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl": {
         "technical": {
             "order": [
@@ -516,35 +557,6 @@
                     "field_grant_id_match": "givenUser.affiliation.objectId"
                 },
                 "givenUser.active": "true"
-            }
-        ]
-    },
-    "de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl": {
-        "technical": {
-            "order": [
-                "user",
-                "file",
-                "item"
-            ],
-            "indices": {}
-        },
-        "readFile": [
-            {
-                "user": {"role": "SYSADMIN"}
-            },
-            {"file.visibility": "PUBLIC"},
-            {
-                "user": {"field_user_id_match": "file.creator.objectId"}
-            },
-            {
-                "user": {
-                    "role": "MODERATOR",
-                    "field_grant_id_match": "item.object.context.objectId"
-                }
-            },
-            {
-                "file.visibility": "AUDIENCE",
-                "user": {"ip_match": "file.allowedAudienceIds"}
             }
         ]
     }

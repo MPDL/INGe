@@ -21,7 +21,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
-import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ContextDbVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
 import de.mpg.mpdl.inge.model.util.MapperFactory;
@@ -58,7 +57,8 @@ public class AuthorizationService {
   private IpListProvider ipListProvider;
 
 
-  public enum AccessType {
+  public enum AccessType
+  {
     GET("get"),
     READ_FILE("readFile"),
     SUBMIT("submit"),
@@ -68,19 +68,19 @@ public class AuthorizationService {
     EDIT("update"),
     REVISE("revise");
 
-    private String methodName;
+  private String methodName;
 
-    private AccessType(String methodName) {
+  private AccessType(String methodName) {
       this.setMethodName(methodName);
     }
 
-    public String getMethodName() {
-      return methodName;
-    }
+  public String getMethodName() {
+    return methodName;
+  }
 
-    public void setMethodName(String methodName) {
-      this.methodName = methodName;
-    }
+  public void setMethodName(String methodName) {
+    this.methodName = methodName;
+  }
 
   }
 
@@ -688,6 +688,7 @@ public class AuthorizationService {
   }
   */
 
+  /*
   private void searchAllChildOrganizations(String parentAffiliationId, List<AffiliationDbVO> completeList)
       throws IngeTechnicalException, AuthenticationException, AuthorizationException, IngeApplicationException {
     List<AffiliationDbVO> children = ouService.searchChildOrganizations(parentAffiliationId);
@@ -698,6 +699,7 @@ public class AuthorizationService {
       }
     }
   }
+  */
 
   private Object getFieldValueOrString(List<String> order, Object[] objects, String field) throws AuthorizationException {
     if (field.contains(".")) {
@@ -710,6 +712,11 @@ public class AuthorizationService {
       }
       if (object == null) {
         return null;
+        // hart codiert, da getFieldValueViaGetter nicht mit arrays funktioniert
+      } else if (object.getClass().equals(ContextDbVO.class) && fieldHierarchy.length == 2
+          && fieldHierarchy[1].equals("responsibleAffiliations")) {
+        ContextDbVO ro = (ContextDbVO) object;
+        return ro.getResponsibleAffiliations().get(0).getObjectId();
       } else {
         return getFieldValueViaGetter(object, field.substring(field.indexOf(".") + 1, field.length()));
       }
