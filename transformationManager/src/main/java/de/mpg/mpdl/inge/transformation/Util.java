@@ -47,7 +47,6 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.jsoup.Jsoup;
-import org.jsoup.examples.HtmlToPlainText;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -687,5 +686,4 @@ public class Util {
 
     return "";
   }
-
 }
