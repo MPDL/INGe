@@ -97,6 +97,7 @@ public class GrantVO extends ValueObject {
     DEPOSITOR("DEPOSITOR"),
     MODERATOR("MODERATOR"),
     SYSADMIN("SYSADMIN"),
+    LOCAL_ADMIN("LOCAL_ADMIN"),
     REPORTER("REPORTER");
 
   private final String frameworkValue;

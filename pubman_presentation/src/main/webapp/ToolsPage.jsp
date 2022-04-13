@@ -35,6 +35,10 @@
                                 <!-- content menu starts here -->
                                 <div class="free_area0 sub">
                                     <!-- content menu upper line starts here -->
+                                    <h:outputLink id="lnkMenuAdminTool" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/admintool" target="_blank" rel="noreferrer noopener" rendered="#{LoginHelper.isAdmin or LoginHelper.isLocalAdmin}">
+                                        <h:outputText value="#{lbl.Tools_lblAdminTool}" />
+                                    </h:outputLink>
+                                    <h:outputText styleClass="seperator void" rendered="#{LoginHelper.isAdmin or LoginHelper.isLocalAdmin}"/>
                                     <h:outputLink id="lnkMenuCoNE" styleClass="free_area0" value="#{ApplicationBean.pubmanInstanceUrl}/cone/" target="_blank" rel="noreferrer noopener">
                                         <h:outputText value="#{lbl.Tools_lblCoNE}" />
                                     </h:outputLink>
