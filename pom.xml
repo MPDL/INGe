@@ -631,7 +631,7 @@
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>42.1.1</version>
+				<version> 42.3.1</version>
 			</dependency>
 
 			<!-- PrimeFaces -->
@@ -1103,6 +1103,7 @@
 		<inge.auth.mpg.ip.csv.url />
 		<inge.auth.mpg.ip.json.url />
 		<inge.auth.mpg.ip.use>true</inge.auth.mpg.ip.use>
+		<inge.cluster.node.name>default</inge.cluster.node.name>
 		<inge.cone.cache.use>true</inge.cone.cache.use>
 		<inge.cone.database.driver.class>org.postgresql.Driver</inge.cone.database.driver.class>
 		<inge.cone.database.name>cone</inge.cone.database.name>

@@ -57,6 +57,7 @@ import de.mpg.mpdl.inge.service.aa.Principal;
 import de.mpg.mpdl.inge.service.exceptions.AuthenticationException;
 import de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl;
 import de.mpg.mpdl.inge.service.util.GrantUtil;
+import de.mpg.mpdl.inge.util.PropertyReader;
 
 /**
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
@@ -89,6 +90,7 @@ public class LoginHelper extends FacesBean {
   private boolean loggedIn;
 
   private IpRange currentIp;
+  private String userIp;
 
   public LoginHelper() {
     this.init();
@@ -109,18 +111,18 @@ public class LoginHelper extends FacesBean {
     UserAccountServiceImpl.removeTokenCookie((HttpServletRequest) ec.getRequest(), (HttpServletResponse) ec.getResponse());
 
 
-    String ip = ec.getRequestHeaderMap().get("X-Forwarded-For");
+    userIp = ec.getRequestHeaderMap().get("X-Forwarded-For");
     // try to fallback to getRemoteAddr(), if Proxy doesn't fill X-Forwarded-For header
-    if (ip == null) {
+    if (userIp == null) {
       HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-      ip = request.getRemoteAddr();
+      userIp = request.getRemoteAddr();
     }
 
-    logger.info("Init LoginHelper with IP " + ip);
+    logger.info("Init LoginHelper with IP " + userIp);
 
-    if (ip != null) {
+    if (userIp != null) {
       try {
-        currentIp = ApplicationBean.INSTANCE.getIpListProvider().getMatch(ip);
+        currentIp = ApplicationBean.INSTANCE.getIpListProvider().getMatch(userIp);
         principal = ApplicationBean.INSTANCE.getUserAccountService().login((HttpServletRequest) ec.getRequest(),
             (HttpServletResponse) ec.getResponse());
 
@@ -379,5 +381,10 @@ public class LoginHelper extends FacesBean {
 
   public void setPrincipal(Principal principal) {
     this.principal = principal;
+  }
+
+  public String getInstanceAndUserIp() {
+    logger.info("Clusternode: " + PropertyReader.getProperty(PropertyReader.INGE_CLUSTER_NODE_NAME) + " / Userip: " + userIp);
+    return "Clusternode: " + PropertyReader.getProperty(PropertyReader.INGE_CLUSTER_NODE_NAME) + " / Userip: " + userIp;
   }
 }

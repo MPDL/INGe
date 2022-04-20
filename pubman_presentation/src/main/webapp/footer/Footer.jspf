@@ -5,6 +5,9 @@
 		<h:panelGroup layout="block" styleClass="quad_area0" rendered="#{ApplicationBean.systemTypeFromProperty!='Production_Server'}">
 			<h:outputText value="#{ApplicationBean.appTitle}" />
 		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="quad_area0">
+			<h:outputText value="#{LoginHelper.instanceAndUserIp}"/>
+		</h:panelGroup>
 
 		<div class="footer">
 
