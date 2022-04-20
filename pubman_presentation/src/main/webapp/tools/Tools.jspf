@@ -4,6 +4,29 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
+	<h:panelGroup rendered="#{LoginHelper.isAdmin or LoginHelper.isLocalAdmin}">
+		<div class="full_area0 itemHeader">
+			<span class="xLarge_area0 endline"> &#160; </span> <span
+				class="seperator"></span> <span
+				class="free_area0_p8 endline itemHeadline"> <b> <h:outputLink
+						id="lnkAdminTool" value="#{ApplicationBean.pubmanInstanceUrl}/admintool/"
+						target="_blank" rel="noreferrer noopener">
+						<h:outputText value="#{lbl.Tools_lblAdminToolHead}" />
+					</h:outputLink>
+			</b>
+			</span>
+		</div>
+		<div class="full_area0 itemBlock noTopBorder">
+			<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+			<div class="free_area0 itemBlockContent endline">
+				<div class="free_area0 endline itemLine firstLine">
+					<span class="quad_area0_p8 noPaddingTopBottom endline"> <h:outputText
+							value="#{lbl.Tools_lblAdminToolText}" /> <br /> <br />
+					</span>
+				</div>
+			</div>
+		</div>
+	</h:panelGroup>
 	<h:panelGroup>
 		<div class="full_area0 itemHeader">
 			<span class="xLarge_area0 endline"> &#160; </span> <span

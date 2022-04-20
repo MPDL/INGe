@@ -467,6 +467,15 @@ public class ApplicationBean extends FacesBean {
 
       this.pidHandleActivated = Boolean.parseBoolean(PropertyReader.getProperty(PropertyReader.INGE_PID_HANDLE_ACTIVATED));
 
+      final String footerFileName = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_FOOTER_FILENAME);
+      try {
+        if (footerFileName != null && !footerFileName.isEmpty()) {
+          this.footerSnippet = ResourceUtil.getResourceAsString(footerFileName, this.getClass().getClassLoader());
+        }
+      } catch (final Exception e) {
+        ApplicationBean.logger.error("Error while reading footer file: " + footerFileName);
+      }
+
       this.cslEditorInstanceUrl = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_CSL_EDITOR_INSTANCE);
 
       this.pubmanRootAuthorsIcon = PropertyReader.getProperty(PropertyReader.INGE_PUBMAN_ROOT_AUTHORS_ICON);

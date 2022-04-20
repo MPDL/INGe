@@ -1,528 +1,560 @@
 {
-	"de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl" : {
-		"technical" : {
-			"order" : ["user", "item", "context"],
-			"indices" : {
-				"item.object.creator.objectId" : "creator.objectId",
-				"item.object.context.objectId" : "context.objectId",
-				"item.versionState" : "versionState",
-				"item.object.publicState" : "publicState"
-			}
-		}, 
-		"create" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},		
-			{
-				"user" : {
-					"role" : "DEPOSITOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				}
-			}
-		],
-		"update" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"item.versionState" : ["PENDING", "SUBMITTED", "RELEASED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},			{
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"context.workflow" : "SIMPLE",
-				"item.versionState" : ["PENDING", "SUBMITTED", "RELEASED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},
-			{
-				"context.workflow" : "SIMPLE",
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["RELEASED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},
-			{
-				"context.workflow" : "STANDARD",
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"item.versionState" : ["PENDING", "RELEASED", "IN_REVISION"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["RELEASED", "SUBMITTED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			}
-		],
-		"delete" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},			{
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"item.versionState" : ["PENDING", "IN_REVISION"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED"]
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["SUBMITTED", "IN_REVISION"],
-				"item.object.publicState" : ["SUBMITTED"]
-			}
-		],
-		"get" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"item.versionState" : ["RELEASED"]
-			},
-			{
-				"item.object.publicState" : ["WITHDRAWN"]
-			},
-			{
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"item.versionState" : ["PENDING", "IN_REVISION", "SUBMITTED"]
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["SUBMITTED", "IN_REVISION"]
-			}
-		],
-		"submit" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"item.versionState" : ["PENDING", "IN_REVISION"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},			{
-				"context.workflow" : "STANDARD",
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"item.versionState" : ["PENDING", "IN_REVISION"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			}
-		],
-		"release" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"item.versionState" : ["PENDING", "SUBMITTED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},			{
-				"context.workflow" : "SIMPLE",
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"item.versionState" : ["PENDING", "SUBMITTED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["SUBMITTED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			}
-		],
-		"revise" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"item.versionState" : ["SUBMITTED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			},			{
-				"context.workflow" : "STANDARD",
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["SUBMITTED"],
-				"item.object.publicState" : ["PENDING", "SUBMITTED", "RELEASED"]
-			}
-		],
-		"withdraw" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"item.versionState" : ["RELEASED"],
-				"item.object.publicState" : ["RELEASED"]
-			},			{
-				"context.workflow" : "SIMPLE",
-				"user" : {
-					"field_user_id_match" : "item.object.creator.objectId"
-				},
-				"item.versionState" : ["RELEASED"],
-				"item.object.publicState" : ["RELEASED"]
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				},
-				"item.versionState" : ["RELEASED"],
-				"item.object.publicState" : ["RELEASED"]
-			}
-		]
-	},
-	"de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl" : {
-		"technical" : {
-			"order" : ["user", "ou"],
-			"indices" : {
-			}
-		}, 
-		"create" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"update" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"delete" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"ou.hasChildren" : "false"
-				
-			}
-		],
-		"get" : [
-
-		],
-		"open" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"ou.publicStatus" : ["CLOSED"]
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				},
-				"ou.publicStatus" : ["CLOSED"]
-			}
-		],
-		"close" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"ou.publicStatus" : "OPENED"
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				},
-				"ou.publicStatus" : "OPENED"
-			}
-			
-		],
-		"addPredecessor" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"removePredecessor" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		]
-	},
-	"de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl" : {
-		"technical" : {
-			"order" : [ "user", "context"],
-			"indices" : {
-			}
-		}, 
-		"create" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-			
-		],
-		"update" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"delete" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			}
-		],
-		"get" : [
-
-		],
-		"open" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"context.state" : ["CLOSED"]
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				},
-				"context.state" : ["CLOSED"]
-			}
-		],
-		"close" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"context.state" : "OPENED"
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				},
-				"context.state" : "OPENED"
-			}
-		]
-	},
-	"de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl" : {
-		"technical" : {
-			"order" : ["user", "givenUser"],
-			"indices" : {
-				"givenUser.objectId" : "objectId"
-			}
-		}, 
-		"create" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"update" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"delete" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			}
-		],
-		"get" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			},
-			{
-				"givenUser.objectId": "user.userAccount.objectId"
-
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_ou_id_match" : "givenUser.affiliation.objectId"
-				}
-			}
-			
-		],
-		"addGrants" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"removeGrants" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			}
-		],
-		"changePassword" : [
+    "de.mpg.mpdl.inge.service.pubman.impl.ContextServiceDbImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "context"
+            ],
+            "indices": {}
+        },
+        "create": [
             {
-                "user" : {
-                    "role" : "SYSADMIN"
-                }
+                "user": {"role": "SYSADMIN"}
             },
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				}
-			},
             {
-                "givenUser.objectId": "user.userAccount.objectId"
-
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                }
             }
         ],
-		"activate" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"givenUser.active" : "false"
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				},
-				"givenUser.active" : "false"
-			}
-		],
-		"deactivate" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				},
-				"givenUser.active" : "true"
-			},
-			{
-				"user" : {
-					"role" : "LOCAL_ADMIN"
-				},
-				"givenUser.active" : "false"
-			}
-		]
-	},
-	"de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl" : {
-		"technical" : {
-			"order" : [ "user", "file", "item"],
-			"indices" : {
-			}
-		}, 
-		"readFile" : [
-			{
-				"user" : {
-					"role" : "SYSADMIN"
-				}
-			},
-			{
-				"file.visibility" : "PUBLIC"
-			},
-			{
-				"user" : {
-					"field_user_id_match" : "file.creator.objectId"
-				}
-			},
-			{
-				"user" : {
-					"role" : "MODERATOR",
-					"field_grant_id_match" : "item.object.context.objectId"
-				}
-				
-			},
-			{
-				"file.visibility" : "AUDIENCE",
-				"user" : {
-						
-						"ip_match" : "file.allowedAudienceIds"
-					}
-			}
-			
-		]
-	}
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                }
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"}
+            }
+        ],
+        "get": [],
+        "open": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "context.state": "CLOSED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                },
+                "context.state": "CLOSED"
+            }
+        ],
+        "close": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "context.state": "OPENED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "context.responsibleAffiliations"
+                },
+                "context.state": "OPENED"
+            }
+        ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.FileServiceFSImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "file",
+                "item"
+            ],
+            "indices": {}
+        },
+        "readFile": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {"file.visibility": "PUBLIC"},
+            {
+                "user": {"field_user_id_match": "file.creator.objectId"}
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                }
+            },
+            {
+                "file.visibility": "AUDIENCE",
+                "user": {"ip_match": "file.allowedAudienceIds"}
+            }
+        ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "ou"
+            ],
+            "indices": {
+            	"ou.objectId": "objectId"
+            }
+        },
+        "create": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {"role": "LOCAL_ADMIN"}
+            }
+        ],
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "ou.hasChildren": "false"
+            }
+        ],
+        "get": [],
+        "open": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "ou.publicStatus": "CLOSED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                },
+                "ou.publicStatus": "CLOSED"
+            }
+        ],
+        "close": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "ou.publicStatus": "OPENED"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                },
+                "ou.publicStatus": "OPENED"
+            }
+        ],
+        "addPredecessor": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ],
+        "removePredecessor": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "ou.objectId"
+                }
+            }
+        ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "item",
+                "context"
+            ],
+            "indices": {
+                "item.object.creator.objectId": "creator.objectId",
+                "item.object.context.objectId": "context.objectId",
+                "item.versionState": "versionState",
+                "item.object.publicState": "publicState"
+            }
+        },
+        "create": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "DEPOSITOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                }
+            }
+        ],
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "item.versionState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "context.workflow": "SIMPLE",
+                "item.versionState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "context.workflow": "SIMPLE",
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": ["RELEASED"],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "context.workflow": "STANDARD",
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "item.versionState": [
+                    "PENDING",
+                    "RELEASED",
+                    "IN_REVISION"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": [
+                    "RELEASED",
+                    "SUBMITTED"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "item.versionState": [
+                    "PENDING",
+                    "IN_REVISION"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED"
+                ]
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": [
+                    "SUBMITTED",
+                    "IN_REVISION"
+                ],
+                "item.object.publicState": ["SUBMITTED"]
+            }
+        ],
+        "get": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "item.versionState": ["RELEASED"]
+            },
+            {
+                "item.object.publicState": ["WITHDRAWN"]
+            },
+            {
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "item.versionState": [
+                    "PENDING",
+                    "IN_REVISION",
+                    "SUBMITTED"
+                ]
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": [
+                    "SUBMITTED",
+                    "IN_REVISION"
+                ]
+            }
+        ],
+        "submit": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "item.versionState": [
+                    "PENDING",
+                    "IN_REVISION"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "context.workflow": "STANDARD",
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "item.versionState": [
+                    "PENDING",
+                    "IN_REVISION"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            }
+        ],
+        "release": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "item.versionState": [
+                    "PENDING",
+                    "SUBMITTED"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "context.workflow": "SIMPLE",
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "item.versionState": [
+                    "PENDING",
+                    "SUBMITTED"
+                ],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": ["SUBMITTED"],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            }
+        ],
+        "revise": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "item.versionState": ["SUBMITTED"],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            },
+            {
+                "context.workflow": "STANDARD",
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": ["SUBMITTED"],
+                "item.object.publicState": [
+                    "PENDING",
+                    "SUBMITTED",
+                    "RELEASED"
+                ]
+            }
+        ],
+        "withdraw": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "item.versionState": ["RELEASED"],
+                "item.object.publicState": ["RELEASED"]
+            },
+            {
+                "context.workflow": "SIMPLE",
+                "user": {"field_user_id_match": "item.object.creator.objectId"},
+                "item.versionState": ["RELEASED"],
+                "item.object.publicState": ["RELEASED"]
+            },
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_grant_id_match": "item.object.context.objectId"
+                },
+                "item.versionState": ["RELEASED"],
+                "item.object.publicState": ["RELEASED"]
+            }
+        ]
+    },
+    "de.mpg.mpdl.inge.service.pubman.impl.UserAccountServiceImpl": {
+        "technical": {
+            "order": [
+                "user",
+                "givenUser"
+            ],
+            "indices": {
+            	"givenUser.objectId": "objectId",
+            	"givenUser.affiliation.objectId": "affiliation.objectId"
+            }
+        },
+        "create": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                }
+            }
+        ],
+        "update": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                }
+            }
+        ],
+        "delete": [
+            {
+                "user": {"role": "SYSADMIN"}
+            }
+        ],
+        "get": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {"givenUser.objectId": "user.userAccount.objectId"},
+            {
+                "user": {
+                    "role": "MODERATOR",
+                    "field_ctx_ou_id_match": "givenUser.affiliation.objectId"
+                }
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                }
+            }
+        ],
+        "addGrants": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                }
+            }
+        ],
+        "removeGrants": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                }
+            }
+        ],
+        "changePassword": [
+            {
+                "user": {"role": "SYSADMIN"}
+            },
+            {"givenUser.objectId": "user.userAccount.objectId"},
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                }
+            }
+        ],
+        "activate": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "givenUser.active": "false"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                },
+                "givenUser.active": "false"
+            }
+        ],
+        "deactivate": [
+            {
+                "user": {"role": "SYSADMIN"},
+                "givenUser.active": "true"
+            },
+            {
+                "user": {
+                    "role": "LOCAL_ADMIN",
+                    "field_grant_id_match": "givenUser.affiliation.objectId"
+                },
+                "givenUser.active": "true"
+            }
+        ]
+    }
 }

@@ -279,6 +279,15 @@ public class LoginHelper extends FacesBean {
   }
 
   /**
+   * JSF Wrapper for isAdmin()
+   * 
+   * @return
+   */
+  public boolean getIsLocalAdmin() {
+    return this.isLoggedIn() && GrantUtil.hasRole(accountUser, PredefinedRoles.LOCAL_ADMIN);
+  }
+
+  /**
    * JSF Wrapper for isModerator()
    * 
    * @return

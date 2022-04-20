@@ -151,6 +151,7 @@ public class PropertyReader {
   public static final String INGE_PUBMAN_EXTERNAL_ORGANISATION_ID = "inge.pubman.external.organisation.id";
   public static final String INGE_PUBMAN_FAVICON_APPLY = "inge.pubman.favicon.apply";
   public static final String INGE_PUBMAN_FAVICON_URL = "inge.pubman.favicon.url";
+  public static final String INGE_PUBMAN_FOOTER_FILENAME = "inge.pubman.footer.fileName";
   public static final String INGE_PUBMAN_GENRES_CONFIGURATION = "inge.pubman.genres.configuration";
   public static final String INGE_PUBMAN_HELP_URL = "inge.pubman.help.url";
   public static final String INGE_PUBMAN_HOME_CONTENT_URL = "inge.pubman.home.content.url";
