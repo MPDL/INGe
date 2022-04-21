@@ -120,6 +120,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
       // this part adds predecessors and successors to the query String
       StringBuilder queryString = new StringBuilder();
       try {
+        queryString.append(" ( ");
         int i = 0;
         for (final AffiliationDbVO aff : this.retrievePredecessorsAndSuccessors(this.getHiddenId())) {
           if (i > 0) {
@@ -129,6 +130,7 @@ public class OrganizationSearchCriterion extends StringOrHiddenIdSearchCriterion
               + SearchCriterionBase.escapeForQueryString(aff.getObjectId()) + "\"");
           i++;
         }
+        queryString.append(" ) ");
       } catch (Exception e) {
 
         e.printStackTrace();
