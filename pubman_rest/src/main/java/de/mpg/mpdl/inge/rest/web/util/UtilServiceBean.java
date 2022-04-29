@@ -63,7 +63,7 @@ public class UtilServiceBean {
   private SearchAndExportService saes;
 
   public Date string2Date(String dateString) {
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSxxxx");
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
     ZonedDateTime zdt = ZonedDateTime.parse(dateString, formatter);
     Date convertedDate = Date.from(zdt.toInstant());
     return convertedDate;
