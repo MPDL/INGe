@@ -462,7 +462,7 @@ public class CommonUtils {
       if (id.getType() == null) {
         return false;
       }
-      if (id.getType().equals(IdType.URI) || id.getType().equals(IdType.CONE)) {
+      if (id.getType().equals(IdType.URI) || id.getType().equals(IdType.CONE) || id.getType().equals(IdType.IASSPROJECT)) {
         new URL(id.getId());
         valid = true;
       }

@@ -586,8 +586,11 @@ function bindSuggests() {
                     $(ele).suggest(identifierSuggestURL, {
                         vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
                         onSelect: function() {
-                            $(this).val(this.resultValue);
-                        }
+							if (this.resultID.indexOf('iassproject') > 0)
+		                        $(this).val(this.resultID);
+	                        else
+	    	                    $(this).val(this.resultValue);
+	                        }
                     });
                 }
             });
@@ -612,7 +615,10 @@ function bindSuggests() {
                 $(ele).suggest(identifierSuggestURL, {
                     vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
                     onSelect: function() {
-                        $(this).val('"' + this.resultValue + '"');
+						if (this.resultID.indexOf('iassproject') > 0)
+						    $(this).val('"' + this.resultID + '"');
+                        else
+    	                    $(this).val('"' + this.resultValue + '"');
                     }
                 });
             }
