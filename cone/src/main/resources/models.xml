@@ -42,7 +42,7 @@
 			<predicate name="Abbreviation" value="http://purl.org/escidoc/metadata/terms/0.1/abbreviation" multiple="false" mandatory="false" localized="false" searchable="true" shouldBeUnique="true"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true">
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
-				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance/type" multiple="false" mandatory="true" localized="false" searchable="false"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance_type" multiple="false" mandatory="true" localized="false" searchable="false"/>
 			</predicate>
 			<predicate name="Publisher" value="http://purl.org/dc/elements/1.1/publisher" multiple="false" mandatory="false" localized="false" searchable="true"/>
 			<predicate name="Publisher Place" value="http://purl.org/dc/terms/publisher" multiple="false" mandatory="false" localized="true" searchable="true"/>
@@ -198,7 +198,7 @@ NOT{&lt;http://purl.org/dc/elements/1.1/title&gt;}:&lt;http://purl.org/dc/elemen
 			<predicate name="Given Name" value="http://xmlns.com/foaf/0.1/givenname" multiple="false" mandatory="false" localized="true" searchable="true" restricted="false"/>
 			<predicate name="Photo-URL" value="http://xmlns.com/foaf/0.1/depiction" multiple="false" mandatory="false" localized="false" searchable="false" restricted="false" shouldBeUnique="true"/>
 			<predicate name="Identifier" value="http://purl.org/dc/elements/1.1/identifier" multiple="true" mandatory="false" localized="false" generateObject="true" searchable="true" restricted="false">
-				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance/type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false" suggest-url="/pubman/faces/IdentifierSuggest.jsp?format=json"/>
+				<predicate name="ID Type" value="http://www.w3.org/2001/XMLSchema-instance_type" multiple="false" mandatory="true" localized="false" searchable="true" restricted="false" suggest-url="/pubman/faces/IdentifierSuggest.jsp?format=json"/>
 				<predicate name="Value" value="http://www.w3.org/1999/02/22-rdf-syntax-ns#value" multiple="false" mandatory="true" localized="false" searchable="true" shouldBeUnique="true"/>
 				<!-- changed idtype namespace-->
 			</predicate>
