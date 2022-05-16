@@ -6,13 +6,7 @@
                       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<distributable/>
                       
-	<display-name>Control of Named Entities</display-name>
-	
-	<!-- CoNE Servlets -->
-	<servlet>
-		<servlet-name>ConeServlet</servlet-name>
-		<servlet-class>de.mpg.mpdl.inge.cone.web.ConeServlet</servlet-class>
-	</servlet>
+	<display-name>REST</display-name>
 	
 	<session-config>
 		<session-timeout>120</session-timeout>
@@ -47,14 +41,4 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.jpg</url-pattern>
 	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>ConeServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-
-	<!-- Welcome files -->
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
 </web-app>
