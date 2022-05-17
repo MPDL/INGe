@@ -3,6 +3,9 @@ package de.mpg.mpdl.inge.model.valueobjects.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,6 +14,8 @@ import de.mpg.mpdl.inge.model.valueobjects.MetadataSetVO;
 @SuppressWarnings("serial")
 @JsonInclude(value = Include.NON_EMPTY)
 public class MdsFileVO extends MetadataSetVO {
+
+  public static final long serialVersionUID = -8509026196044603245L;
 
   private String contentCategory;
   private String description;
@@ -32,40 +37,48 @@ public class MdsFileVO extends MetadataSetVO {
   private String copyrightDate;
   private String rights;
   private String license;
+  @Enumerated(EnumType.STRING)
+  private OA_STATUS oaStatus;
+
+  public enum OA_STATUS
+  {
+		NOT_SPECIFIED, GOLD, HYBRID, GREEN, MISCELLANEOUS
+	}
 
   /**
-   * Default constructor.
-   */
-  public MdsFileVO() {
+	 * Default constructor.
+	 */
+	public MdsFileVO() {
 
-  }
-
-  /**
-   * Clone constructor.
-   * 
-   * @param other The {@link MdsFileVO} to be cloned.
-   */
-  public MdsFileVO(MdsFileVO other) {
-    super(other.getTitle());
-
-    this.identifiers = other.identifiers;
-    this.description = other.description;
-    this.contentCategory = other.contentCategory;
-    this.formats = other.formats;
-    this.size = other.size;
-    this.embargoUntil = other.embargoUntil;
-    this.copyrightDate = other.copyrightDate;
-    this.rights = other.rights;
-    this.license = other.license;
-  }
+	}
 
   /**
-   * Please use FileDbVO.size instead
-   */
-  @Deprecated
-  public int getSize() {
-    return size;
-  }
+	 * Clone constructor.
+	 * 
+	 * @param other The {@link MdsFileVO} to be cloned.
+	 */
+	public MdsFileVO(MdsFileVO other) {
+		super(other.getTitle());
+
+		this.identifiers = other.identifiers;
+		this.description = other.description;
+		this.contentCategory = other.contentCategory;
+		this.formats = other.formats;
+		this.size = other.size;
+		this.embargoUntil = other.embargoUntil;
+		this.copyrightDate = other.copyrightDate;
+		this.rights = other.rights;
+		this.license = other.license;
+		this.oaStatus = other.oaStatus;
+	}
+
+  /**
+	 * Please use FileDbVO.size instead
+	 */
+	@Deprecated
+	public int getSize() {
+		return size;
+	}
 
   /**
    * Please use FileDbVO.size instead
@@ -147,6 +160,14 @@ public class MdsFileVO extends MetadataSetVO {
    */
   public void setLicense(String license) {
     this.license = license;
+  }
+
+  public OA_STATUS getOaStatus() {
+    return oaStatus;
+  }
+
+  public void setOaStatus(OA_STATUS oaStatus) {
+    this.oaStatus = oaStatus;
   }
 
   @Override

@@ -100,6 +100,7 @@ public class PubFileVOPresentation extends FacesBean {
 
   public void init() {
     this.setVisibility();
+    this.setOaStatus();
   }
 
   /**
@@ -227,6 +228,24 @@ public class PubFileVOPresentation extends FacesBean {
     }
 
     return "";
+  }
+
+  public String getOaStatus() {
+    String visibility = "";
+    if (this.file.getVisibility() != null) {
+      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
+    } else {
+      this.file.setVisibility(FileDbVO.Visibility.PUBLIC);
+      visibility = this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getVisibility()));
+    }
+
+    return visibility;
+  }
+
+  private void setOaStatus() {
+    if (this.file.getMetadata().getOaStatus() == null) {
+      this.file.getMetadata().setOaStatus(MdsFileVO.OA_STATUS.NOT_SPECIFIED);
+    }
   }
 
   /**
@@ -437,6 +456,16 @@ public class PubFileVOPresentation extends FacesBean {
   public void setUpdateVisibility(ValueChangeEvent event) {
     final Visibility newVisibility = (Visibility) event.getNewValue();
     this.file.setVisibility(newVisibility);
+  }
+
+  /**
+   * This method updates the file's visibility with the new one selected by the user
+   * 
+   * @param event The value change event
+   */
+  public void setUpdateOaStatus(ValueChangeEvent event) {
+    final MdsFileVO.OA_STATUS newOaStatus = (MdsFileVO.OA_STATUS) event.getNewValue();
+    this.file.getMetadata().setOaStatus(newOaStatus);
   }
 
   //  public List<GrantVOPresentation> getGrantList() {

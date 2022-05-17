@@ -1,8 +1,10 @@
 package de.mpg.mpdl.inge.service.aa;
 
+import java.io.Serializable;
+
 import de.mpg.mpdl.inge.model.db.valueobjects.AccountUserDbVO;
 
-public class Principal {
+public class Principal implements Serializable {
 
   private AccountUserDbVO userAccount;
 

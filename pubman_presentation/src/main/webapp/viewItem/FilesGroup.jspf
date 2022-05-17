@@ -35,6 +35,8 @@
 											rendered="#{!ViewItemFull.isStateWithdrawn}" />
 										<h:outputText value=" (#{file.contentCategoryLabel})"
 											rendered="#{!ViewItemFull.isStateWithdrawn}" />
+										<h:outputText value=" (#{file.oaStatus})"
+											rendered="#{!ViewItemFull.isStateWithdrawn}" />
 										<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}"
 											rendered="#{ViewItemFull.isStateWithdrawn}" />
 										<h:outputText value=", #{file.fileSize}" />
@@ -123,6 +125,20 @@
 								rendered="#{ViewItemFull.isStateWithdrawn == false}" /> <h:outputText
 								value="#{lbl.lbl_noEntry}"
 								rendered="#{file.fileDescription == null  || file.fileDescription == ''}" />
+						</span>
+					</h:panelGroup>
+					<!-- OA Status -->
+					<h:panelGroup layout="block"
+						styleClass="free_area0 endline itemLine">
+						<b class="xLarge_area0_p8 endline labelLine"> <h:outputText
+								value="#{lbl.ViewItemMedium_lblFileOaSatus}" /><span
+							class="noDisplay">: <br /></span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
+								value="#{file.oaStatus}"
+								rendered="#{ViewItemFull.isStateWithdrawn == false}" /> <h:outputText
+								value=" #{file.file.ViewItemMedium_lblFileOaSatus}"
+								rendered="#{ViewItemFull.isStateWithdrawn == false and file.visibility == 'PUBLIC'}" />
 						</span>
 					</h:panelGroup>
 					<!-- File visibility, Embargo Date -->

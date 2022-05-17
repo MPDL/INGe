@@ -920,6 +920,10 @@ public class EditItem extends FacesBean {
     return this.getI18nHelper().getSelectItemsVisibility(false);
   }
 
+  public SelectItem[] getOaStatuses() {
+    return this.getI18nHelper().getSelectItemsOaStatus(false);
+  }
+
   public SelectItem[] getInvitationStatuses() {
     return this.getI18nHelper().getSelectItemsInvitationStatus(true);
   }

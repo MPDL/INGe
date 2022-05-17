@@ -40,6 +40,8 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO.Visibility;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO.OA_STATUS;
 import de.mpg.mpdl.inge.model.xmltransforming.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
@@ -453,6 +455,19 @@ public class FileBean extends FacesBean {
   public void setUpdateVisibility(ValueChangeEvent event) {
     final Visibility newVisibility = (Visibility) event.getNewValue();
     this.file.setVisibility(newVisibility);
+  }
+
+  public String getOaStatus() {
+    if (this.file.getMetadata() != null && this.file.getMetadata().getOaStatus() != null) {
+      return this.getLabel(this.getI18nHelper().convertEnumToString(this.file.getMetadata().getOaStatus()));
+    }
+
+    return "";
+  }
+
+  public void setUpdateOaStatus(ValueChangeEvent event) {
+    final OA_STATUS newOaStatus = (OA_STATUS) event.getNewValue();
+    this.file.getMetadata().setOaStatus(newOaStatus);
   }
 
   /**

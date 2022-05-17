@@ -67,6 +67,11 @@
 			<value style="element" name="content-category" ns="${xsd.metadata.escidocprofile.types}"
 				field="contentCategory" usage="optional" />
 				
+			<!-- Node: file.oaStatus -->
+			<!-- Field: MdsFileVO.oaStatus [String] -->
+			<value style="element" name="oaStatus" ns="${xsd.metadata.escidocprofile.types}"
+				field="oaStatus" usage="optional" />
+				
 			<!-- Node: file.format -->
 			<!-- Field: MdsFileVO.formats [List<String>] -->
 			<collection field="formats"

@@ -136,7 +136,30 @@
 								value="#{fileVar.file.metadata.embargoUntil}"
 								pt:placeholder="#{lbl.EditItem_DateFormatPlaceholder}"
 								title="#{tip.DateFormatDescription}" />
-						</h:panelGroup> <h:panelGroup styleClass="free_area0 tiny_marginRIncl endline"
+						</h:panelGroup> 
+						<h:panelGroup styleClass="large_area0 tiny_marginLIncl"
+							rendered="#{fileVar.file.visibility=='PUBLIC'}">
+							<label class="large_label"><span class="mandatory"
+								title="#{msg.mandatoryField}"> <h:outputText value="*"
+										rendered="false" />
+							</span> <h:outputText value="#{lbl.EditItem_lblFileOaStatus}" /></label>
+							<h:panelGroup layout="block"
+								styleClass="large_area1 endline selectContainer"
+								rendered="#{genre.files_component_visibility_display != 'false'}">
+								<h:panelGroup layout="block" styleClass="large_area0">
+									<h:panelGroup styleClass="large_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block"
+										styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selFileOaStatus"
+									value="#{fileVar.file.metadata.oaStatus}"
+									onfocus="updateSelectionBox(this);"
+									onchange="this.form.submit()">
+									<f:selectItems value="#{EditItem.oaStatuses}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup styleClass="free_area0 tiny_marginRIncl endline"
 							rendered="#{fileVar.file.visibility=='AUDIENCE' and EditItem.ipListReady=='true'}">
 							<h:outputLabel id="txtFileAudienceIds" styleClass="xDouble_label"
 								value="#{lbl.EditItem_lblFileAudienceIps}" />

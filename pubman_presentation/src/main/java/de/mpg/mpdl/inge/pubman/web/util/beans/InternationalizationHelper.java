@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.EventVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.LanguageChangeObserver;
@@ -381,6 +382,18 @@ public class InternationalizationHelper implements Serializable {
     }
 
     return selectItems;
+  }
+
+  /**
+   * Returns an array of SelectItems for the enum OA_STATUS.
+   * 
+   * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+   * @return array of SelectItems for visibility
+   */
+  public SelectItem[] getSelectItemsOaStatus(final boolean includeNoItemSelectedEntry) {
+    final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
+
+    return this.getSelectItemsForEnum(includeNoItemSelectedEntry, values);
   }
 
   /**
