@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ei:item xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
-         xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
-         xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
-         xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
-         xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
-         xmlns:eprints="http://purl.org/eprint/terms/"
-         xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
-         xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
-         xmlns:fn="http://www.w3.org/2005/xpath-functions"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<ei:item xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
+         xmlns:organization="http://purl.org/escidoc/metadata/profiles/0.1/organization"
+         xmlns:ei="http://www.escidoc.de/schemas/item/0.10"
          xmlns:eterms="http://purl.org/escidoc/metadata/terms/0.1/"
          xmlns:srel="http://escidoc.de/core/01/structural-relations/"
          xmlns:prop="http://escidoc.de/core/01/properties/"
-         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
+         xmlns:itemlist="http://www.escidoc.de/schemas/itemlist/0.10"
+         xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.9"
+         xmlns:esc="http://purl.org/escidoc/metadata/terms/0.1/"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:eprints="http://purl.org/eprint/terms/"
          xmlns:file="http://purl.org/escidoc/metadata/profiles/0.1/file"
-         xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
-         xmlns:xlink="http://www.w3.org/1999/xlink"
-         xmlns:ei="http://www.escidoc.de/schemas/item/0.10"
+         xmlns:escidoc="http://purl.org/escidoc/metadata/terms/0.1/"
+         xmlns:fn="http://www.w3.org/2005/xpath-functions"
          xmlns:escidocFunctions="urn:escidoc:functions"
+         xmlns:pub="http://purl.org/escidoc/metadata/profiles/0.1/publication"
+         xmlns:AuthorDecoder="java:de.mpg.mpdl.inge.transformation.util.creators.AuthorDecoder"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person"
+         xmlns:Util="java:de.mpg.mpdl.inge.transformation.Util"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
          xmlns:source="http://purl.org/escidoc/metadata/profiles/0.1/source"
-         xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.5"
-         xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event"
-         xmlns:person="http://purl.org/escidoc/metadata/profiles/0.1/person">
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:event="http://purl.org/escidoc/metadata/profiles/0.1/event">
    <ei:properties>
       <srel:context objid="dummy:context"/>
       <srel:content-model objid="dummy-content-model"/>
@@ -56,8 +56,8 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_1497674</dc:identifier>
+                     <dc:title>Department of Human Behavior Ecology and Culture, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_2173689</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons129528</dc:identifier>
                   <!--
@@ -73,8 +73,8 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
-                     <dc:title>The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_1497688</dc:identifier>
+                     <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_2149636</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons129528</dc:identifier>
                   <!--
@@ -107,8 +107,25 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
-                     <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_2149636</dc:identifier>
+                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_1497674</dc:identifier>
+                  </organization:organization>
+                  <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons129528</dc:identifier>
+                  <!--
+										pubdate:
+										2017--><!--
+										start:
+										--><!--start
+										< pubdate
+										true--><!--
+										end:
+										--><!--pubdate
+										< end
+										true--><!--
+											Case: affiliated institute found for publishing date
+										--><organization:organization>
+                     <dc:title>The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_1497688</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons129528</dc:identifier>
                </person:person>
@@ -134,6 +151,23 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
+                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_1497674</dc:identifier>
+                  </organization:organization>
+                  <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72908</dc:identifier>
+                  <!--
+										pubdate:
+										2017--><!--
+										start:
+										--><!--start
+										< pubdate
+										true--><!--
+										end:
+										--><!--pubdate
+										< end
+										true--><!--
+											Case: affiliated institute found for publishing date
+										--><organization:organization>
                      <dc:title>The Leipzig School of Human Origins (IMPRS), Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
                      <dc:identifier>ou_1497688</dc:identifier>
                   </organization:organization>
@@ -170,23 +204,6 @@
 										--><organization:organization>
                      <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
                      <dc:identifier>ou_2149636</dc:identifier>
-                  </organization:organization>
-                  <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72908</dc:identifier>
-                  <!--
-										pubdate:
-										2017--><!--
-										start:
-										--><!--start
-										< pubdate
-										true--><!--
-										end:
-										--><!--pubdate
-										< end
-										true--><!--
-											Case: affiliated institute found for publishing date
-										--><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_1497674</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72908</dc:identifier>
                </person:person>
@@ -256,8 +273,8 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
-                     <dc:title>Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_2025298</dc:identifier>
+                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_1497674</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72641</dc:identifier>
                   <!--
@@ -290,8 +307,8 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_1497674</dc:identifier>
+                     <dc:title>Endocrinology Laboratory, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_2025298</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72641</dc:identifier>
                </person:person>
@@ -305,6 +322,23 @@
                   <!--
 							Publication-Date:
 							2017--><!--
+										pubdate:
+										2017--><!--
+										start:
+										--><!--start
+										< pubdate
+										true--><!--
+										end:
+										--><!--pubdate
+										< end
+										true--><!--
+											Case: affiliated institute found for publishing date
+										--><organization:organization>
+                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_1497674</dc:identifier>
+                  </organization:organization>
+                  <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72635</dc:identifier>
+                  <!--
 										pubdate:
 										2017--><!--
 										start:
@@ -334,8 +368,8 @@
 										true--><!--
 											Case: affiliated institute found for publishing date
 										--><organization:organization>
-                     <dc:title>Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
-                     <dc:identifier>ou_1497674</dc:identifier>
+                     <dc:title>Department of Human Behavior Ecology and Culture, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_2173689</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons72635</dc:identifier>
                </person:person>
@@ -363,6 +397,23 @@
 										--><organization:organization>
                      <dc:title>Chimpanzees, Department of Primatology, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
                      <dc:identifier>ou_2149636</dc:identifier>
+                  </organization:organization>
+                  <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons73044</dc:identifier>
+                  <!--
+										pubdate:
+										2017--><!--
+										start:
+										--><!--start
+										< pubdate
+										true--><!--
+										end:
+										--><!--pubdate
+										< end
+										true--><!--
+											Case: affiliated institute found for publishing date
+										--><organization:organization>
+                     <dc:title>Department of Human Behavior Ecology and Culture, Max Planck Institute for Evolutionary Anthropology, Max Planck Society</dc:title>
+                     <dc:identifier>ou_2173689</dc:identifier>
                   </organization:organization>
                   <dc:identifier xsi:type="CONE">https://dev.inge.mpdl.mpg.de/cone/persons/resource/persons73044</dc:identifier>
                   <!--
@@ -419,8 +470,8 @@ chimpanzees  : </dc:title>
                                     storage="external-url"/>
          <mdr:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.5">
             <mdr:md-record name="escidoc">
-               <file:file xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/"
-                          xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/">
+               <file:file xmlns:eidt="http://purl.org/escidoc/metadata/terms/0.1/idtypes/"
+                          xmlns:e="http://purl.org/escidoc/metadata/terms/0.1/">
                   <dc:title>http://hdl.handle.net/11858/00-001M-0000-002C-186C-8</dc:title>
                </file:file>
             </mdr:md-record>
