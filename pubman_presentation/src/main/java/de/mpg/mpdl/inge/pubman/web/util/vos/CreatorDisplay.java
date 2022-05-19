@@ -38,6 +38,7 @@ package de.mpg.mpdl.inge.pubman.web.util.vos;
 public class CreatorDisplay {
   private String formattedDisplay;
   private String portfolioLink;
+  private String orcid;
 
   public String getFormattedDisplay() {
     return this.formattedDisplay;
@@ -53,5 +54,13 @@ public class CreatorDisplay {
 
   public void setPortfolioLink(String portfolioLink) {
     this.portfolioLink = portfolioLink;
+  }
+
+  public String getOrcid() {
+    return this.orcid;
+  }
+
+  public void setOrcid(String orcid) {
+    this.orcid = orcid;
   }
 }

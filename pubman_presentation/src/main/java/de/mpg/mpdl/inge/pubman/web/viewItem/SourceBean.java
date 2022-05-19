@@ -169,6 +169,14 @@ public class SourceBean extends FacesBean {
           }
         }
 
+        if (creator1.getPerson().getOrcid() != null) {
+          try {
+            creatorDisplay.setOrcid(creator1.getPerson().getOrcid());
+          } catch (final Exception e) {
+            throw new RuntimeException(e);
+          }
+        }
+
         // this.sourceCreatorArray.add(creatorDisplay);
         creator.setCreatorType(ViewItemCreators.Type.PERSON.toString());
         creator.setCreatorObj(creatorDisplay);

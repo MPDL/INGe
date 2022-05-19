@@ -180,17 +180,28 @@
 									value="#{creator.ouNumbers}" title="#{creator.ouNumbers}" />
 								<h:inputText id="inppersons_identifier"
 									styleClass="noDisplay personIdentifier"
-									title="#{creator.person.identifier.id}"
 									value="#{creator.person.identifier.id}" />
 								<h:outputLink
-									styleClass="small_area0 authorCard authorLink xTiny_marginRExcl"
+									styleClass="small_area0 authorCard authorLink"
 									value="#{EditItemSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
 									rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}"
 									target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
 								<h:panelGroup
 									rendered="#{creator.person.identifier.id == null || creator.person.identifier.id == ''}"
-									styleClass="xSmall_area0 authorLink xTiny_marginRExcl">&#160;
-						</h:panelGroup>
+									styleClass="xSmall_area0 authorLink">&#160;
+								</h:panelGroup>
+								<h:inputText id="inppersons_orcid"
+									styleClass="noDisplay personOrcid"
+									value="#{creator.person.orcid}" />
+								<h:outputLink
+									styleClass="small_area0 orcidCard orcidLink xTiny_marginRExcl"
+									value="#{creator.person.orcid}"
+									rendered="#{creator.person.orcid != null and creator.person.orcid != ''}"
+									target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
+								<h:panelGroup
+									rendered="#{creator.person.orcid == null || creator.person.orcid == ''}"
+									styleClass="xSmall_area0 orcidLink">&#160;
+								</h:panelGroup>
 								<h:panelGroup styleClass="large_area0">
 									<h:commandButton id="btnAddCreator"
 										title="#{tip.EditItem_addCreator}"

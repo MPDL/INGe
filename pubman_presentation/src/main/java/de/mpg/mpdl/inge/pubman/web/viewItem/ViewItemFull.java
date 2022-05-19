@@ -731,6 +731,15 @@ public class ViewItemFull extends FacesBean {
             throw new RuntimeException(e);
           }
         }
+
+        if (creator1.getPerson().getOrcid() != null) {
+          try {
+            creatorDisplay.setOrcid(creator1.getPerson().getOrcid());
+          } catch (final Exception e) {
+            throw new RuntimeException(e);
+          }
+        }
+
         creator.setCreatorType(Type.PERSON.toString());
         creator.setCreatorObj(creatorDisplay);
         creator.setCreatorRole(creator1.getRoleString());

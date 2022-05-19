@@ -57,6 +57,7 @@ public class PersonVO extends ValueObject implements Cloneable {
   private java.util.List<String> pseudonyms = new java.util.ArrayList<String>();
   private java.util.List<OrganizationVO> organizations = new java.util.ArrayList<OrganizationVO>();
   private IdentifierVO identifier;
+  private String orcid;
 
   /**
    * Delivers the complete name of the person, usually a concatenation of given names and family
@@ -289,7 +290,21 @@ public class PersonVO extends ValueObject implements Cloneable {
       return false;
     }
 
+    if (orcid == null) {
+      if (other.orcid != null)
+        return false;
+    } else if (!orcid.equals(other.orcid))
+      return false;
+
     return true;
+  }
+
+  public String getOrcid() {
+    return this.orcid;
+  }
+
+  public void setOrcid(String orcid) {
+    this.orcid = orcid;
   }
 
 }

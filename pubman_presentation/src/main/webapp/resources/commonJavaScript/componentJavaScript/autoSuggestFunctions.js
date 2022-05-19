@@ -111,6 +111,17 @@ function getPersonDetails(details) {
     var orgId = null;
     var familyName = '';
     var givenName = '';
+    var identifiers = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ? details.http_purl_org_dc_elements_1_1_identifier : null);
+    var orcid = null;
+
+	if (identifiers != null) {
+            for (var i = 0; i < details.http_purl_org_dc_elements_1_1_identifier.length; i++) {
+				if (details.http_purl_org_dc_elements_1_1_identifier[i].http_www_w3_org_2001_XMLSchema_instance_type = 'ORCID') {
+					orcid = details.http_purl_org_dc_elements_1_1_identifier[i].http_www_w3_org_1999_02_22_rdf_syntax_ns_value;
+					break;
+				}
+			}
+	}
 
     if (chosenName.indexOf('(') >= 0) {
         orgName = chosenName.substring(chosenName.indexOf('(') + 1, chosenName.lastIndexOf(')')).replace(/^\s*(.*\S)\s*$/, '$1');
@@ -166,13 +177,18 @@ function getPersonDetails(details) {
     $input.blur();
     $input.focus();
     fillField('personIdentifier', personId, parent, true);
+    fillField('personOrcid', orcid, parent, true);
     $(parent).find('.removeAutoSuggestPerson').css('display', 'inline');
     $(parent).find('.givenName').attr('class', 'medium_txtInput givenName');
 
     if ($input.resultID != null && $input.resultID != '') {
-        $(parent).find('.authorLink').replaceWith('<a href="' + $input.resultID + '" class="small_area0 authorCard authorLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
+        $(parent).find('.authorLink').replaceWith('<a href="' + $input.resultID + '" class="small_area0 authorCard authorLink" target="_blank" rel="noreferrer noopener">&#160;</a>');
     }
 
+    if (orcid != null) {
+        $(parent).find('.orcidLink').replaceWith('<a href="' + orcid + '" class="small_area0 orcidCard orcidLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&#160;</a>');
+    }
+    
     // Try to disable input field
     $.each($(parent).find('.disableAfter'),
         function() {
@@ -231,6 +247,11 @@ function removeAuthorAutoSuggest(element) {
         field.removeAttr('readonly');
         fillField('personIdentifier', '', parent);
     }
+    if ($(parent).find('.orcid').val() != '') {
+        field = $(parent).find('.personOrcid');
+        field.removeAttr('readonly');
+        fillField('personOrcid', '', parent);
+    }
     if ($(parent).find('.familyName').val() != '') {
         field = $(parent).find('.familyName');
         field.removeAttr('readonly');
@@ -247,6 +268,7 @@ function removeAuthorAutoSuggest(element) {
 
     //Remove link to researcher portfolio with empty space
     $input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink xTiny_marginRExcl">&nbsp;</span>');
+    $input.parent().find('.orcidLink').replaceWith('<span class="xSmall_area0 orcidLink xTiny_marginRExcl">&nbsp;</span>');
     //Enlarge givenName Field, because it was smaller before due to the remove button
     $input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
     

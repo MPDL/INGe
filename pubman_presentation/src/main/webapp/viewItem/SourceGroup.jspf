@@ -85,7 +85,8 @@
 						class="noDisplay">: <br /></span>
 					</b> <span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
 							value="#{lbl.lbl_noEntry}"
-							rendered="#{source.sourceCreatorArray.size() le 0}" /> <ui:repeat
+							rendered="#{source.sourceCreatorArray.size() le 0}" />
+						<ui:repeat
 							var="sourceCreatorPerson" value="#{source.sourceCreatorArray}"
 							varStatus="index">
 							<h:panelGroup styleClass="free_area0 creator clear"
@@ -95,19 +96,26 @@
 									escape="false" />
 								<h:panelGroup
 									rendered="#{sourceCreatorPerson.creatorObj.portfolioLink != null and sourceCreatorPerson.creatorObj.portfolioLink != ''}">
-								&#160;
-								<h:outputLink id="lnkSourceCreatorPersonPortfolioLink"
-										styleClass="authorCard"
-										value="#{sourceCreatorPerson.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
-										target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+									&#160;
+									<h:outputLink id="lnkSourceCreatorPersonPortfolioLink"
+											styleClass="authorCard"
+											value="#{sourceCreatorPerson.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
+											target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{sourceCreatorPerson.creatorObj.orcid != null}">
+									<h:outputLink id="lnkSourceCreatorPersonOrcid"
+											styleClass="orcidCard"
+											value="#{sourceCreatorPerson.creatorObj.orcid}"
+											target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 								</h:panelGroup>
 							</h:panelGroup>
 							<h:panelGroup styleClass="free_area0 creator clear"
 								rendered="#{sourceCreatorPerson.creatorType=='ORGANIZATION'}">
 								<h:outputText
 									value="#{sourceCreatorPerson.creatorObj.organizationName}, #{sourceCreatorPerson.creatorRole} " />
-						&#160;
-							<h:outputLink id="lnkSourceCreatorOrganizationLink"
+								&#160;
+								<h:outputLink id="lnkSourceCreatorOrganizationLink"
 									styleClass="ouCard"
 									rendered="#{sourceCreatorPerson.creatorObj.identifier != null and sourceCreatorPerson.creatorObj.identifier != ''}"
 									value="#"

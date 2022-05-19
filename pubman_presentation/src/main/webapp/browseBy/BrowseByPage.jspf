@@ -79,7 +79,6 @@
 							rendered="#{BrowseBySessionBean.selectedValue == 'persons'}">
 							<h:commandLink id="lnkLink"
 								value="#{link.label}" action="#{BrowseByPage.searchForPerson(link)}"/>
-
 							<h:outputLink id="lnkPersonPortfolioLink" styleClass="authorCard"
 								value="#{BrowseByPage.portfolioLink}#{link.value}?lang=#{InternationalizationHelper.locale}"
 								target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>

@@ -36,11 +36,18 @@
 										escape="false" />
 									<h:panelGroup
 										rendered="#{creator.creatorObj.portfolioLink != null}">
-								&#160;
-								<h:outputLink id="lnkCreatorPersonPortfolioLink"
-											styleClass="authorCard"
-											value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
-											target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+										&#160;
+										<h:outputLink id="lnkCreatorPersonPortfolioLink"
+													styleClass="authorCard"
+													value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
+													target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{creator.creatorObj.orcid != null}">
+										<h:outputLink id="lnkCreatorPersonOrcid"
+													styleClass="orcidCard"
+													value="#{creator.creatorObj.orcid}"
+													target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 									</h:panelGroup>
 								</h:panelGroup>
 								<h:panelGroup styleClass="free_area0 creator clear"
@@ -50,15 +57,16 @@
 											value="#{creator.creatorObj.organizationName}, #{creator.creatorRole}"
 											escape="false" />
 									</h:panelGroup>
-							&#160;
-							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard"
+									&#160;
+									<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard"
 										rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}"
 										value="#"
 										onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 								</h:panelGroup>
 								<br />
 							</ui:fragment>
-						</ui:repeat> <!-- Hidden creators, visible after clicking on more --> <ui:repeat
+						</ui:repeat> <!-- Hidden creators, visible after clicking on more -->
+						<ui:repeat
 							var="creator" value="#{ViewItemFull.creators}"
 							varStatus="creatorStatus" offset="#{ViewItemFull.defaultSize}"
 							rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}">
@@ -70,11 +78,18 @@
 									escape="false" />
 								<h:panelGroup
 									rendered="#{creator.creatorObj.portfolioLink != null}">
-								&#160;
-								<h:outputLink id="lnkCreatorPersonPortfolioLink"
-										styleClass="authorCard"
-										value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
-										target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+									&#160;
+									<h:outputLink id="lnkCreatorPersonPortfolioLink"
+											styleClass="authorCard"
+											value="#{creator.creatorObj.portfolioLink}?lang=#{InternationalizationHelper.locale}"
+											target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{creator.creatorObj.orcid != null}">
+									<h:outputLink id="lnkCreatorPersonOrcid"
+											styleClass="orcidCard"
+											value="#{creator.creatorObj.orcid}"
+											target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 								</h:panelGroup>
 							</h:panelGroup>
 							<h:panelGroup
@@ -85,13 +100,14 @@
 										value="#{creator.creatorObj.organizationName}, #{creator.creatorRole}"
 										escape="false" />
 								</h:panelGroup>
-							&#160;
-							<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard"
+								&#160;
+								<h:outputLink id="lnkCreatorOrganizationLink" styleClass="ouCard"
 									rendered="#{creator.creatorObj.identifier != null and creator.creatorObj.identifier != ''}"
 									value="#"
 									onclick="openCenteredWindow('AffiliationDetailPage.jsp?id=#{creator.creatorObj.identifier}', 980, 400, 'Details');return false">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 							</h:panelGroup>
-						</ui:repeat> <h:panelGroup
+						</ui:repeat>
+						<h:panelGroup
 							rendered="#{ViewItemFull.creatorArraySize > ViewItemFull.defaultSize}">
 							<a class="large_area0 tiny_marginRIncl showMoreAuthors"><h:outputText
 									value="#{lbl.adv_search_btShowMore}" /></a>

@@ -33,32 +33,36 @@
             </h:form>
         </div>
         <ui:include src="footer/Footer.jspf" />
-        <script type="text/javascript">
-            function checkUpdatePersonFunction() {
-                (typeof updatePersonUi == 'function') ? updatePersonUi(): setTimeout("checkUpdatePersonFunction()", 30);
-            }
-            $("input[id$='offset']").on('submit',function() {
-                $(this).val($(window).scrollTop());
-            });
-            $(document).ready(function() {
-                $(window).scrollTop($("input[id$='offset']").val());
-                $(window).on('scroll',function() {
-                    $("input[id$='offset']").val($(window).scrollTop());
-                });
-                checkUpdatePersonFunction();
-                //Disable return button for form1
-                document.getElementById('form1').onkeypress = stopRKey;
-            });
-            journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />journals/query?format=json';
-            subjectSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>$1/query?lang=en';
-            personSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}"/>persons/query?format=json';
-            organizationSuggestURL = 'OrganizationSuggest.jsp';
-            journalDetailsBaseURL = '$1?format=json';
-            personDetailsBaseURL = '$1?format=json';
-            languageDetailsBaseURL = '$1?format=json';
-            personSuggestCommonParentClass = 'suggestAnchor';
-            journalSuggestTrigger = 'JOURNAL';
-        </script>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+	      var suggestConeUrl = "#{EditItem.suggestConeUrl}";
+	      function checkUpdatePersonFunction() {
+	        (typeof updatePersonUi == 'function') ? updatePersonUi() : setTimeout(
+	                "checkUpdatePersonFunction()", 30);
+	      }
+	      $("input[id$='offset']").on('submit',function() {
+	        $(this).val($(window).scrollTop());
+	      });
+	      $(document).ready(function() {
+	        $(window).scrollTop($("input[id$='offset']").val());
+	        $(window).on('scroll',function() {
+	          $("input[id$='offset']").val($(window).scrollTop());
+	        });
+	        checkUpdatePersonFunction();
+	        //Disable return button for form1
+	        document.getElementById('form1').onkeypress = stopRKey;
+	      });
+	      journalSuggestURL = suggestConeUrl + 'journals/query';
+	      subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
+	      personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
+	      organizationSuggestURL = 'OrganizationSuggest.jsp';
+	      journalDetailsBaseURL = '$1?format=json';
+	      personDetailsBaseURL = '$1?format=json&mode=full&lang=$2';
+	      languageDetailsBaseURL = '$1?format=json&lang=$2';
+	      personSuggestCommonParentClass = 'suggestAnchor';
+	      journalSuggestTrigger = 'JOURNAL';
+	   /* ]]> */
+	   </script>
     </f:view>
 </body>
 
