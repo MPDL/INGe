@@ -78,6 +78,12 @@
 							<h:outputText value="#{creator.person.givenName}"
 									rendered="#{creator.type == 'PERSON' and creator.person.givenName != null}" />
 							</h:panelGroup>
+							<h:panelGroup
+								rendered="#{creator.person.orcid != null and creator.person.orcid != ''}">
+								<h:outputLink styleClass="orcidCard"
+											  value="#{creator.person.orcid}"
+											  target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
+							</h:panelGroup>
 							<!-- Iterator for the authors organizations (linked in the publication) -->
 							<h:panelGroup styleClass="author_organization">
 								<ui:repeat var="creatorOrganization"
@@ -140,8 +146,14 @@
 								rendered="#{creator.person.identifier == null || creator.person.identifier.id == null}">
 								<h:outputText value="#{creator.person.familyName}"
 									rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;
-							<h:outputText value="#{creator.person.givenName}"
+								<h:outputText value="#{creator.person.givenName}"
 									rendered="#{creator.type == 'PERSON' and creator.person.givenName != null}" />
+							</h:panelGroup>
+							<h:panelGroup
+								rendered="#{creator.person.orcid != null and creator.person.orcid != ''}">
+								<h:outputLink styleClass="orcidCard"
+											  value="#{creator.person.orcid}"
+											  target="_blank" rel="noreferrer noopener">&#160;&#160;&#160;&#160;&#160;&#160;</h:outputLink>
 							</h:panelGroup>
 							<!-- Iterator for the authors organizations (linked in the publication) -->
 							<h:panelGroup styleClass="author_organization">

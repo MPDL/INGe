@@ -115,12 +115,20 @@ function getPersonDetails(details) {
     var orcid = null;
 
 	if (identifiers != null) {
+		if (typeof details.http_purl_org_dc_elements_1_1_identifier.length != 'undefined') {
             for (var i = 0; i < details.http_purl_org_dc_elements_1_1_identifier.length; i++) {
-				if (details.http_purl_org_dc_elements_1_1_identifier[i].http_www_w3_org_2001_XMLSchema_instance_type = 'ORCID') {
+				if (details.http_purl_org_dc_elements_1_1_identifier[i].http_www_w3_org_2001_XMLSchema_instance_type = 'ORCID' &&
+				    details.http_purl_org_dc_elements_1_1_identifier[i].http_www_w3_org_1999_02_22_rdf_syntax_ns_value != 'undefined') {
 					orcid = details.http_purl_org_dc_elements_1_1_identifier[i].http_www_w3_org_1999_02_22_rdf_syntax_ns_value;
 					break;
 				}
 			}
+		} else if (typeof details.http_purl_org_dc_elements_1_1_identifier.http_www_w3_org_2001_XMLSchema_instance_type != 'undefined') {
+				if (details.http_purl_org_dc_elements_1_1_identifier.http_www_w3_org_2001_XMLSchema_instance_type === 'ORCID' &&
+				    details.http_purl_org_dc_elements_1_1_identifier.http_www_w3_org_1999_02_22_rdf_syntax_ns_value != 'undefined') {
+					orcid = details.http_purl_org_dc_elements_1_1_identifier.http_www_w3_org_1999_02_22_rdf_syntax_ns_value;
+				}
+		}
 	}
 
     if (chosenName.indexOf('(') >= 0) {
