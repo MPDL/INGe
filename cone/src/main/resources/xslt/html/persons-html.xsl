@@ -410,7 +410,24 @@
 												<span class="xHuge_area0 xTiny_marginLExcl endline">
 													<xsl:for-each select="dc:identifier/rdf:Description">
 														<xsl:if test="position() &gt; 1"> <br /> </xsl:if>
-														<xsl:value-of select="xsi:type"/>: <xsl:value-of select="rdf:value"/>
+														<xsl:choose>
+															<xsl:when test="xsi:type = 'ORCID'">
+																<xsl:value-of select="xsi:type"/>: 
+																<a>
+																	<xsl:attribute name="href">
+																		<xsl:value-of select="rdf:value"/>
+																	</xsl:attribute>
+																	<xsl:attribute name="title">
+																		<xsl:value-of select="rdf:value"/>
+																	</xsl:attribute>
+																	<xsl:attribute name="target">_blank</xsl:attribute>
+																	<xsl:value-of select="rdf:value"/>
+																</a>
+															</xsl:when>
+															<xsl:otherwise>
+																<xsl:value-of select="xsi:type"/>: <xsl:value-of select="rdf:value"/>
+															</xsl:otherwise>
+														</xsl:choose>
 													</xsl:for-each>
 												</span>
 											</div>

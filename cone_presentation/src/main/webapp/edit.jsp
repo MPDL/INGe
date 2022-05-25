@@ -97,15 +97,15 @@
 							out.append(HtmlUtils.escapeHtml(object.toString()));
 							if (object instanceof TreeFragment)
 							{
-								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
+								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((TreeFragment) object).getSubject());
 							}
 							else if (object instanceof LocalizedString)
 							{
-								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
+								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((LocalizedString) object).getValue());
 							}
 							else
 							{
-								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+								request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), object.toString());
 							}
 						}
 					}
@@ -148,10 +148,10 @@
 											value.append(HtmlUtils.escapeHtml(object.toString()));
 										}
 									}
-									String name = prefix + predicate.getId().replaceAll("[/:.]", "_");
-									String onChangeSnippet = (" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", false, " + predicate.isShouldBeUnique() + ")\"");
+									String name = prefix + predicate.getId().replaceAll("[/:. ]", "_");
+									String onChangeSnippet = (" onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', " + (multiValues ? counter + "" : "null") + ", false, " + predicate.isShouldBeUnique() + ")\"");
 									String nameSnippet = (" name=\"" + name + "\"");
-									String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:.]", "_")) : "";
+									String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:. ]", "_")) : "";
 									if (predicate.isGenerateObject())
 									{
 										out.append("\n<input type=\"hidden\" class=\"noDisplay\"" + nameSnippet + " value=\"" + value.toString() + "\"/>");
@@ -168,28 +168,28 @@
 									}
 									if (predicate.isResource())
 									{
-										out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+										out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 									}
 									if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
 									{
-										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
+										out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
 									}
 									if (predicate.isLocalized())
 									{
-										out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? HtmlUtils.escapeHtml(object.getLanguage()) : "") + "\"");
-										out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang" + counter + "\"");
+										out.append("<input title=\"Language\" type=\"text\" name=\"" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang\"  value=\"" + (object.getLanguage() != null ? HtmlUtils.escapeHtml(object.getLanguage()) : "") + "\"");
+										out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang" + counter + "\"");
 										out.append("/>");
-										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'iso639-1', true)</script>");
+										out.append("<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang', 'iso639-1', true)</script>");
 									}
 									if (predicate.isMultiple())
 									{
-										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+										out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add \" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 									}
 									else
 									{
 										if (predicate.isLocalized())
 										{
-											out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
+											out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>"  );
 										}
 									}
 									if (results.get(predicate.getId()).size() > 1 || !((object.getLanguage() == null || "".equals(object.getLanguage())) && object instanceof LocalizedString && "".equals(((LocalizedString) object).getValue())))
@@ -198,7 +198,7 @@
 									}
 									if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0 || predicate.isResource())
 									{
-										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+										out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', " + (multiValues ? counter + "" : "null") + ", true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 									}
 								}
 								//Value for predicate exists and it is not modifyable
@@ -208,22 +208,22 @@
 									{
 										String defaultValue = predicate.getDefault(request);
 										out.append(predicate.getDefault(request));
-										request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
+										request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), defaultValue);
 									}
 									else
 									{
 										out.append(object.toString());
 										if (object instanceof TreeFragment)
 										{
-											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((TreeFragment) object).getSubject());
+											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((TreeFragment) object).getSubject());
 										}
 										else if (object instanceof LocalizedString)
 										{
-											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), ((LocalizedString) object).getValue());
+											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), ((LocalizedString) object).getValue());
 										}
 										else
 										{
-											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), object.toString());
+											request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), object.toString());
 										}
 									}
 								}
@@ -232,7 +232,7 @@
 							{
 								out.append("<br/>");
 								out.append("\n<span class=\"free_area0 clear\">");
-								out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:.]", "_") + "_" + counter + "|", path + predicate.getId() + "/", Login.getLoggedIn(request)));
+								out.append(displayPredicates(model, (object instanceof TreeFragment ? (TreeFragment) object : null), uri, predicate.getPredicates(), prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_" + counter + "|", path + predicate.getId() + "/", Login.getLoggedIn(request)));
 								out.append("</span>");
 							}
 							out.append("</span>");
@@ -245,10 +245,10 @@
 						if (predicate.getPredicates() == null || predicate.getPredicates().size() == 0)
 						{
 								out.append("\n<span class=\"xHuge_area0 singleItem inputField endline\">");
-								String name = prefix + predicate.getId().replaceAll("[/:.]", "_");
+								String name = prefix + predicate.getId().replaceAll("[/:. ]", "_");
 								String nameSnippet = " name=\"" + name + "\"";
-								String onChangeSnippet = " onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"";
-								String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:.]", "_")) : "";
+								String onChangeSnippet = " onchange=\"checkField(this, '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', null, false, " + predicate.isShouldBeUnique() + ");\"";
+								String cssSnippet = predicate.isResource() ? (" " + prefix + predicate.getId().replaceAll("[/:. ]", "_")) : "";
 								if (predicate.isGenerateObject())
 								{
 									out.append("<input type=\"hidden\"" + nameSnippet +  "value=\"\"/>");
@@ -265,43 +265,43 @@
 								}
 								if (predicate.isResource())
 								{
-									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
+									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getResourceModel() + "')</script>");
 								}
 								if(predicate.getSuggestUrl()!= null && !predicate.getSuggestUrl().trim().isEmpty())
 								{
-									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
+									out.append("\n<script type=\"text/javascript\">bindExternalSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', '" + predicate.getSuggestUrl() + "')</script>");
 								}
 								if (predicate.isLocalized())
 								{
-									out.append("<input type=\"text\" title=\"Language\" name=\"" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\" value=\"\"");
-									out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang\"");
+									out.append("<input type=\"text\" title=\"Language\" name=\"" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang\" value=\"\"");
+									out.append(" class=\"small_txtInput " + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang\"");
 									out.append("/>");
-									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "_lang', 'iso639-1', true)</script>");
+									out.append("\n<script type=\"text/javascript\">bindSuggest('" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "_lang', 'iso639-1', true)</script>");
 								}
 								if (predicate.isMultiple())
 								{
-									out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+									out.append("<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 								}
 								else
 								{
 									if (predicate.isLocalized())
 									{
-										out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+										out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", true, " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 									}
 								}
-								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
+								out.append("<span style='visibility:hidden' class='tiny_area0 tiny_marginRExcl inputInfoBox' onclick=\"checkField($(this).siblings('input').first()[0], '" + model.getName() + "', '" + path + predicate.getId() + "', '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "', null, true, " + predicate.isShouldBeUnique() + ");return false;\">i</span>");
 							out.append("</span>");
 						}
 						else if (predicate.isMultiple())
 						{
 							out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 							out.append("</span>");
 						}
 						else if (predicate.isLocalized())
 						{
 							out.append("\n<span class=\"xDouble_area0 singleItem endline\">");
-							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:.]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
+							out.append("\n<input type=\"button\" class=\"min_imgBtn groupBtn add\" value=\" \" title=\"add language\" onclick=\"add(this, '" + prefix + predicate.getId().replaceAll("[/:. ]", "_") + "'," + predicate.isGenerateObject() +", " + predicate.isLocalized()+ ", " + (predicate.getPredicates() != null && predicate.getPredicates().size()>0) + ")\"/>");
 							out.append("</span>");
 						}
 					}
@@ -310,7 +310,7 @@
 					{
 						String defaultValue = predicate.getDefault(request);
 						out.append(predicate.getDefault(request));
-						request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:.]", "_"), defaultValue);
+						request.getSession().setAttribute(sessionAttributePrefix + prefix + predicate.getId().replaceAll("[/:. ]", "_"), defaultValue);
 					}
 					//A value for this predicate does not exist yet and is automatically generated on save of this page
 					else if (predicate.getDefaultValue() != null && predicate.getEvent() == Event.ONSAVE)
@@ -318,7 +318,7 @@
 						//remove old session attributes which are not modifiable
 						if(!predicate.isModify())
 						{
-							request.getSession().removeAttribute(prefix + predicate.getId().replaceAll("[/:.]", "_"));
+							request.getSession().removeAttribute(prefix + predicate.getId().replaceAll("[/:. ]", "_"));
 						}
 						out.append("Will be generated automatically");
 					}
@@ -337,7 +337,7 @@
 	{
 		for (Predicate predicate : predicates)
 		{
-			String paramName = prefix + predicate.getId().replaceAll("[/:.]", "_");
+			String paramName = prefix + predicate.getId().replaceAll("[/:. ]", "_");
 			String[] paramValues = request.getParameterValues(paramName);
 			if (!predicate.isModify() && predicate.getDefaultValue() != null && request.getSession().getAttribute(sessionAttributePrefix + paramName) != null)
 			{

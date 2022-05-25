@@ -24,43 +24,40 @@
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.mpdl.inge.pubman.web.util.vos;
+package de.mpg.mpdl.inge.pubman.web.util.beans;
 
-/**
- * 
- * Bean class for creator persons.
- * 
- * @author franke (initial creation)
- * @author $Author$ (last modification)
- * @version $Revision$ $LastChangedDate$
- * 
- */
-public class CreatorDisplay {
-  private String formattedDisplay;
-  private String portfolioLink;
-  private String orcid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-  public String getFormattedDisplay() {
-    return this.formattedDisplay;
+import javax.faces.bean.ManagedBean;
+
+import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
+
+@ManagedBean(name = "IdentifierSuggest")
+public class IdentifierSuggest {
+  private static final String ORCID = "ORCID";
+
+  private List<String> results = new ArrayList<>();
+
+  public IdentifierSuggest() throws Exception {
+    // Get query from URL parameters
+    final Map<String, String> parameters = FacesTools.getExternalContext().getRequestParameterMap();
+    final String query = parameters.get("q");
+
+    // Perform search request
+    if (query != null) {
+      if (IdentifierSuggest.ORCID.startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.ORCID);
+      }
+    }
   }
 
-  public void setFormattedDisplay(String formattedDisplay) {
-    this.formattedDisplay = formattedDisplay;
+  public List<String> getResults() {
+    return this.results;
   }
 
-  public String getPortfolioLink() {
-    return this.portfolioLink;
-  }
-
-  public void setPortfolioLink(String portfolioLink) {
-    this.portfolioLink = portfolioLink;
-  }
-
-  public String getOrcid() {
-    return this.orcid;
-  }
-
-  public void setOrcid(String orcid) {
-    this.orcid = orcid;
+  public void setResults(List<String> results) {
+    this.results = results;
   }
 }

@@ -67,6 +67,9 @@
 		<structure name="identifier" ns="${xsd.metadata.dc}" field="identifier"
 			usage="optional" />
 
+		<value style="element" name="orcid" ns="${xsd.metadata.escidocprofile.types}"
+			field="orcid" usage="optional" />
+
 		<!-- /structure-->
 
 	</mapping>

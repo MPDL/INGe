@@ -664,6 +664,26 @@ body {
 	background-position: center center;
 }
 
+.orcidCard {
+    width: 1.5em;
+    height: 1.37em;
+    background-image: url('../images/orcid_16x16.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.orcidCard:hover, .orcidCard:focus {
+    background-image: url('../images/orcid_16x16.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.orcidCard:disabled {
+    background-image: url('../images/orcid_16x16.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 .ouCard {
 	width: 2.83em;
 	height: 1.37em;
