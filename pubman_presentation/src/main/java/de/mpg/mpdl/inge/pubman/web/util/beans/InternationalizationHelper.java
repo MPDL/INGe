@@ -81,7 +81,7 @@ public class InternationalizationHelper implements Serializable {
     boolean found = false;
     while (supportedLocales.hasNext()) {
       final Locale supportedLocale = supportedLocales.next();
-      if (supportedLocale.getLanguage().equals(this.userLocale.getLanguage())) {
+      if (this.userLocale != null && supportedLocale.getLanguage().equals(this.userLocale.getLanguage())) {
         found = true;
         break;
       }

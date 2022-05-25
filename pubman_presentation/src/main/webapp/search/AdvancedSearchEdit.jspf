@@ -446,6 +446,24 @@
 							</span>
 						</h:panelGroup>
 						
+						<!-- input for component oa status -->
+						<h:outputLabel id="lblComponentOaStatusSearchTerm" styleClass="small_label label_keyword" value=" "
+							rendered="#{criterion.searchCriterion == 'COMPONENT_OA_STATUS_LIST'}" />
+						<h:panelGroup layout="block" styleClass="quad_area1 endline"
+							rendered="#{criterion.searchCriterion == 'COMPONENT_OA_STATUS_LIST'}">
+							<span class="free_area0">
+								<ui:repeat value="#{criterion.enumList}" var="oa">
+									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
+										<ui:param name="label" value="ENUM_OA_STATUS_#{oa}" />
+										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{oa}" id="contentOaStatus"
+											value="#{criterion.enumMap[oa]}">
+										</h:selectBooleanCheckbox>
+										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="oaStatusCriterion" />
+									</h:panelGroup>
+								</ui:repeat>
+							</span>
+						</h:panelGroup>
+						
 						<!-- input for language-->
 						<h:panelGroup styleClass="free_area1 endline languageArea" rendered="#{criterion.searchCriterion == 'LANG'}">
 							<h:outputLabel id="lblLanguageSuggestMultiple" styleClass="small_label" value=" " />
@@ -778,6 +796,20 @@
 											value="#{AdvancedSearchBean.fileSectionSearchCriterion.contentCategoryListSearchCriterion.enumMap[cc]}" disabled="#{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES'}">
 										</h:selectBooleanCheckbox>
 										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="contentCategoryCriterion" />
+									</h:panelGroup>
+								</ui:repeat>
+							</span>
+						</h:panelGroup>
+						<h:panelGroup styleClass="double_area0 tiny_marginRIncl #{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
+							<h:outputLabel id="lblOaStatus" styleClass="double_label" value="#{lbl.adv_search_fileOaStatus}" />
+							<span class="free_area0 clear">
+								<ui:repeat value="#{AdvancedSearchBean.fileSectionSearchCriterion.oaStatusListSearchCriterion.enumList}" var="oa">
+									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
+										<ui:param name="label" value="ENUM_OA_STATUS_#{oa}" />
+										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{oa}" id="oaStatusCriterion"
+											value="#{AdvancedSearchBean.fileSectionSearchCriterion.oaStatusListSearchCriterion.enumMap[oa]}" disabled="#{AdvancedSearchBean.fileSectionSearchCriterion.selectedAvailability != 'YES'}">
+										</h:selectBooleanCheckbox>
+										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="oaStatusCriterion" />
 									</h:panelGroup>
 								</ui:repeat>
 							</span>

@@ -47,6 +47,7 @@ import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.EventInvitationSea
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.ItemStateListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.checkbox.PublicationStatusListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentContentCategoryListSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentOaStatusListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.ComponentVisibilityListSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileAvailableSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.search.criterions.component.FileSectionSearchCriterion;
@@ -139,6 +140,7 @@ public abstract class SearchCriterionBase implements Serializable {
     COMPONENT_VISIBILITY_LIST(ComponentVisibilityListSearchCriterion.class, null),
     COMPONENT_CONTENT_CATEGORY_LIST(ComponentContentCategoryListSearchCriterion.class, null),
     COMPONENT_EMBARGO_DATE(DateSearchCriterion.class, DisplayType.DATE),
+    COMPONENT_OA_STATUS_LIST(ComponentOaStatusListSearchCriterion.class, null),
     ITEMSTATE_LIST(ItemStateListSearchCriterion.class, null),
     AFFILIATED_CONTEXT_LIST(AffiliatedContextListSearchCriterion.class, null),
     PUBLICATION_STATUS_LIST(PublicationStatusListSearchCriterion.class, null),

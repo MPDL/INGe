@@ -23,6 +23,8 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
   private ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion =
       new ComponentContentCategoryListSearchCriterion();
 
+  private ComponentOaStatusListSearchCriterion oaStatusListSearchCriterion = new ComponentOaStatusListSearchCriterion();
+
   private DateSearchCriterion embargoDateSearchCriterion = new DateSearchCriterion(SearchCriterion.COMPONENT_EMBARGO_DATE);
 
   private ComponentVisibilityListSearchCriterion visibilityListSearchCriterion = new ComponentVisibilityListSearchCriterion();
@@ -64,6 +66,9 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
         if (!contentCategoryListSearchCriterion.isEmpty(QueryType.CQL)) {
           bq.must(contentCategoryListSearchCriterion.toElasticSearchQuery());
         }
+        if (!oaStatusListSearchCriterion.isEmpty(QueryType.CQL)) {
+          bq.must(oaStatusListSearchCriterion.toElasticSearchQuery());
+        }
         break;
       }
 
@@ -101,6 +106,10 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     if (!contentCategoryListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
       sb.append(contentCategoryListSearchCriterion.getQueryStringContent());
     }
+    sb.append("||");
+    if (!oaStatusListSearchCriterion.isEmpty(QueryType.INTERNAL)) {
+      sb.append(oaStatusListSearchCriterion.getQueryStringContent());
+    }
 
     return sb.toString();
 
@@ -113,6 +122,7 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
     this.visibilityListSearchCriterion.parseQueryStringContent(parts[1]);
     this.embargoDateSearchCriterion.parseQueryStringContent(parts[2]);
     this.contentCategoryListSearchCriterion.parseQueryStringContent(parts[3]);
+    this.oaStatusListSearchCriterion.parseQueryStringContent(parts[4]);
 
   }
 
@@ -135,6 +145,14 @@ public class FileSectionSearchCriterion extends SearchCriterionBase {
 
   public void setContentCategoryListSearchCriterion(ComponentContentCategoryListSearchCriterion contentCategoryListSearchCriterion) {
     this.contentCategoryListSearchCriterion = contentCategoryListSearchCriterion;
+  }
+
+  public ComponentOaStatusListSearchCriterion getOaStatusListSearchCriterion() {
+    return oaStatusListSearchCriterion;
+  }
+
+  public void setOaStatusListSearchCriterion(ComponentOaStatusListSearchCriterion oaStatusListSearchCriterion) {
+    this.oaStatusListSearchCriterion = oaStatusListSearchCriterion;
   }
 
   public DateSearchCriterion getEmbargoDateSearchCriterion() {

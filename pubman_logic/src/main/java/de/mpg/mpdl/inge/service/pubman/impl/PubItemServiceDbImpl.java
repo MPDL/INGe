@@ -238,6 +238,8 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
 
   public static String INDEX_FILE_CONTENTCATEGORY = "files.metadata.contentCategory";
 
+  public static String INDEX_FILE_OA_STATUS = "files.metadata.oaStatus";
+
   public static String INDEX_FILE_STORAGE = "files.storage";
 
   public static String INDEX_FILE_NAME = "files.name";

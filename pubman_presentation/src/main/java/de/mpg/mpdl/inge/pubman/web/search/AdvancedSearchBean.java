@@ -96,6 +96,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   private List<SelectItem> componentVisibilityListMenu = this.initComponentVisibilityListMenu();
   private List<SelectItem> contentCategoryListMenu = this.initContentCategoryListMenu();
+  private List<SelectItem> oaStatusListMenu = this.initOaStatusListMenu();
   private List<SelectItem> contextListMenu;
   private List<SelectItem> criterionTypeListMenu = this.initCriterionTypeListMenu(Index.ESCIDOC_ALL);
   private List<SelectItem> criterionTypeListMenuAdmin = this.initCriterionTypeListMenu(Index.ITEM_CONTAINER_ADMIN);
@@ -262,6 +263,10 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   private List<SelectItem> initContentCategoryListMenu() {
     return Arrays.asList(this.getI18nHelper().getSelectItemsContentCategory(true));
+  }
+
+  private List<SelectItem> initOaStatusListMenu() {
+    return Arrays.asList(this.getI18nHelper().getSelectItemsOaStatus(true));
   }
 
   private List<SelectItem> initGenreListMenu() {
@@ -885,6 +890,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.contentCategoryListMenu = contentCategoryListMenu;
   }
 
+  public List<SelectItem> getOaStatusListMenu() {
+    return this.oaStatusListMenu;
+  }
+
+
+  public void setOaStatutsListMenu(List<SelectItem> contentCategoryListMenu) {
+    this.oaStatusListMenu = contentCategoryListMenu;
+  }
+
 
 
   public List<SelectItem> getComponentVisibilityListMenu() {
@@ -1018,6 +1032,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.genreListMenu = this.initGenreListMenu(); //
     this.reviewMethodListMenu = this.initReviewMethodListMenu();
     this.contentCategoryListMenu = this.initContentCategoryListMenu(); //
+    this.oaStatusListMenu = this.initOaStatusListMenu(); //
     this.componentVisibilityListMenu = this.initComponentVisibilityListMenu(); //
     this.subjectTypesListMenu = this.initSubjectTypesListMenu();
     this.identifierTypesListMenu = this.initIdentifierTypesListMenu();
