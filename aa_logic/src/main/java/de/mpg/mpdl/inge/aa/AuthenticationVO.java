@@ -26,6 +26,7 @@
 
 package de.mpg.mpdl.inge.aa;
 
+import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
@@ -49,7 +50,8 @@ import de.mpg.mpdl.inge.aa.util.ShortContentHandler;
  * @version $Revision$ $LastChangedDate$
  * 
  */
-public class AuthenticationVO {
+@SuppressWarnings("serial")
+public class AuthenticationVO implements Serializable {
   public enum Type
   {
     USER,
