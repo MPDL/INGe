@@ -163,38 +163,38 @@
 							rendered="#{fileVar.file.visibility=='AUDIENCE' and EditItem.ipListReady=='true'}">
 							<h:outputLabel id="txtFileAudienceIds" styleClass="xDouble_label"
 								value="#{lbl.EditItem_lblFileAudienceIps}" />
-
-							<ui:repeat var="ip" value="#{fileVar.file.allowedAudienceIds}"
-								varStatus="status">
-								<h:panelGroup layout="block"
-									styleClass="xDouble_area1 endline selectContainer">
-									<h:panelGroup layout="block" styleClass="xDouble_area0">
-										<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
-										<h:panelGroup layout="block"
-											styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+							<h:panelGroup styleClass="free_area0 endline">
+								<ui:repeat var="ip" value="#{fileVar.file.allowedAudienceIds}"
+									varStatus="status">
+									<h:panelGroup layout="block"
+										styleClass="xDouble_area1 endline selectContainer">
+										<h:panelGroup layout="block" styleClass="xDouble_area0">
+											<h:panelGroup styleClass="xDouble_area0 selectionBox">&#160;</h:panelGroup>
+											<h:panelGroup layout="block"
+												styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+										</h:panelGroup>
+										<h:selectOneMenu id="selFileAudienceIps"
+											value="#{fileVar.file.allowedAudienceIds[status.index]}"
+											onfocus="updateSelectionBox(this);"
+											onchange="updateSelectionBox(this);">
+											<f:selectItems value="#{EditItem.audienceIpListSelectItems}" />
+										</h:selectOneMenu>
 									</h:panelGroup>
-									<h:selectOneMenu id="selFileAudienceIps"
-										value="#{fileVar.file.allowedAudienceIds[status.index]}"
-										onfocus="updateSelectionBox(this);"
-										onchange="updateSelectionBox(this);">
-										<f:selectItems value="#{EditItem.audienceIpListSelectItems}" />
-									</h:selectOneMenu>
-								</h:panelGroup>
-								<span class="small_area0_p8 lineToolSection"> <h:commandButton
-										id="btnAddFirst" styleClass="min_imgBtn groupTool add"
-										value=" " title="#{tip.search_btAdd}"
-										action="#{fileVar.file.allowedAudienceIds.add(null)}">
-										<f:ajax render="form1:files" execute="@form" />
-									</h:commandButton> <h:commandButton id="btnRemoveFirst"
-										styleClass="min_imgBtn groupTool remove" value=" "
-										title="#{tip.search_btAdd}"
-										rendered="#{fileVar.file.allowedAudienceIds.size() > 1 }"
-										action="#{UtilBean.removeFromList(fileVar.file.allowedAudienceIds, status.index)}">
-										<f:ajax render="form1:files" execute="@form" />
-									</h:commandButton>
-								</span>
-							</ui:repeat>
-
+									<span class="small_area0_p8 lineToolSection noMarginTop"> <h:commandButton
+											id="btnAddFirst" styleClass="min_imgBtn groupTool add"
+											value=" " title="#{tip.search_btAdd}"
+											action="#{fileVar.file.allowedAudienceIds.add(null)}">
+											<f:ajax render="form1:files" execute="@form" />
+										</h:commandButton> <h:commandButton id="btnRemoveFirst"
+											styleClass="min_imgBtn groupTool remove" value=" "
+											title="#{tip.search_btAdd}"
+											rendered="#{fileVar.file.allowedAudienceIds.size() > 1 }"
+											action="#{UtilBean.removeFromList(fileVar.file.allowedAudienceIds, status.index)}">
+											<f:ajax render="form1:files" execute="@form" />
+										</h:commandButton>
+									</span>
+								</ui:repeat>
+							</h:panelGroup>
 						</h:panelGroup>
 
 					</span>
