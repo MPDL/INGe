@@ -42,11 +42,11 @@ public class IdentifierSuggest {
   private static final String ISNI = "ISNI";
   private static final String MPIB = "MPIB";
   private static final String MPIKYB = "MPIKYB";
-  private static final String MRAUTHORID ="MRAuthorID";
+  private static final String MRAUTHORID = "MRAuthorID";
   private static final String ORCID = "ORCID";
   private static final String RESEARCHERID = "ResearcherID";
   private static final String SCOPUSAUTHORID = "ScopusAuthorID";
-      
+
   private List<String> results = new ArrayList<>();
 
   public IdentifierSuggest() throws Exception {
