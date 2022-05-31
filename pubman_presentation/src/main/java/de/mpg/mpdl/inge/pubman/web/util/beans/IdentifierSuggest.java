@@ -36,7 +36,16 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 
 @ManagedBean(name = "IdentifierSuggest")
 public class IdentifierSuggest {
+  private static final String DIGITALAUTHORID = "DigitalAuthorID";
+  private static final String GND = "GND";
+  private static final String IRIS = "IRIS";
+  private static final String ISNI = "ISNI";
+  private static final String MPIB = "MPIB";
+  private static final String MPIKYB = "MPIKYB";
+  private static final String MRAUTHORID = "MRAuthorID";
   private static final String ORCID = "ORCID";
+  private static final String RESEARCHERID = "ResearcherID";
+  private static final String SCOPUSAUTHORID = "ScopusAuthorID";
 
   private List<String> results = new ArrayList<>();
 
@@ -47,8 +56,35 @@ public class IdentifierSuggest {
 
     // Perform search request
     if (query != null) {
-      if (IdentifierSuggest.ORCID.startsWith(query.toUpperCase())) {
+      if (IdentifierSuggest.DIGITALAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.DIGITALAUTHORID);
+      }
+      if (IdentifierSuggest.GND.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.GND);
+      }
+      if (IdentifierSuggest.IRIS.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.IRIS);
+      }
+      if (IdentifierSuggest.ISNI.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.ISNI);
+      }
+      if (IdentifierSuggest.MPIB.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.MPIB);
+      }
+      if (IdentifierSuggest.MPIKYB.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.MPIKYB);
+      }
+      if (IdentifierSuggest.MRAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.MRAUTHORID);
+      }
+      if (IdentifierSuggest.ORCID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.ORCID);
+      }
+      if (IdentifierSuggest.RESEARCHERID.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.RESEARCHERID);
+      }
+      if (IdentifierSuggest.SCOPUSAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
+        this.results.add(IdentifierSuggest.SCOPUSAUTHORID);
       }
     }
   }

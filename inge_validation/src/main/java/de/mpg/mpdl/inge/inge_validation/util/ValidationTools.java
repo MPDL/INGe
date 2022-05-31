@@ -13,6 +13,9 @@ public class ValidationTools {
   private static final SimpleDateFormat MEDIUM = new SimpleDateFormat("yyyy-MM");
   private static final SimpleDateFormat LONG = new SimpleDateFormat("yyyy-MM-dd");
 
+  public static final String ORCID_HTTPS = "https://orcid.org/";
+  public static final String ORCID_REGEX = "^\\d{4}-\\d{4}-\\d{4}-(\\d{3}X|\\d{4})$";
+
   public synchronized static boolean isEmpty(String s) {
     return s == null || s.trim().isEmpty();
   }
