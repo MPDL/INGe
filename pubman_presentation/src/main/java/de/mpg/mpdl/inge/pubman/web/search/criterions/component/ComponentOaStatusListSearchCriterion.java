@@ -26,6 +26,7 @@
 package de.mpg.mpdl.inge.pubman.web.search.criterions.component;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -48,8 +49,8 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
 
   private static Map<String, String> getOaStatusMap() {
     final MdsFileVO.OA_STATUS[] values = MdsFileVO.OA_STATUS.values();
-    final Map<String, String> oaMap = new HashMap<String, String>();
-    final Map<String, String> newMap = new HashMap<String, String>();
+    final Map<String, String> oaMap = new LinkedHashMap<String, String>();
+    final Map<String, String> newMap = new LinkedHashMap<String, String>();
 
     if (values.length > 0) {
       for (int i = 0; i < values.length; i++) {
