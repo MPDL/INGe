@@ -25,6 +25,7 @@ public class ErrorMessages {
   public static final String CREATOR_FAMILY_NAME_NOT_PROVIDED = "CreatorFamilyNameNotProvided";
   public static final String CREATOR_GIVEN_NAME_NOT_PROVIDED = "CreatorGivenNameNotProvided";
   public static final String CREATOR_NOT_PROVIDED = "CreatorNotProvided";
+  public static final String CREATOR_ORCID_INVALID = "CreatorOrcidInvalid";
   public static final String CREATOR_ORGANIZATION_NAME_NOT_PROVIDED = "CreatorOrganizationNameNotProvided";
   public static final String CREATOR_ROLE_NOT_PROVIDED = "CreatorRoleNotProvided";
   public static final String DATE_ACCEPTED_NOT_PROVIDED = "DateAcceptedNotProvided";
@@ -72,6 +73,7 @@ public class ErrorMessages {
   public static final String NO_SOURCE_CREATOR_ORGANIZATION_NAME = "NoSourceCreatorOrganizationName";
   public static final String SOURCE_CREATOR_ROLE_INVALID = "SourceCreatorRoleInvalid";
   public static final String SOURCE_CREATOR_ROLE_NOT_PROVIDED = "SourceCreatorRoleNotProvided";
+  public static final String SOURCE_CREATOR_ORCID_INVALID = "SourceCreatorOrcidInvalid";
   public static final String SOURCE_EDITION_NOT_PROVIDED = "SourceEditionNotProvided";
   public static final String SOURCE_GENRE_MUST_BE_PROCCEDINGS_OR_JOURNAL = "SourceGenreMustBeProceedingsOrJournal";
   public static final String SOURCE_GENRE_MUST_BE_SERIES_OR_JOURNAL = "SourceGenreMustBeSeriesOrJournal";
