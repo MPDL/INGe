@@ -58,23 +58,32 @@ public class IdentifierSuggest {
     if (query != null) {
       if (IdentifierSuggest.DIGITALAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.DIGITALAUTHORID);
-      } else if (IdentifierSuggest.GND.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.GND.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.GND);
-      } else if (IdentifierSuggest.IRIS.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.IRIS.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.IRIS);
-      } else if (IdentifierSuggest.ISNI.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.ISNI.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.ISNI);
-      } else if (IdentifierSuggest.MPIB.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.MPIB.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.MPIB);
-      } else if (IdentifierSuggest.MPIKYB.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.MPIKYB.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.MPIKYB);
-      } else if (IdentifierSuggest.MRAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.MRAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.MRAUTHORID);
-      } else if (IdentifierSuggest.ORCID.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.ORCID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.ORCID);
-      } else if (IdentifierSuggest.RESEARCHERID.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.RESEARCHERID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.RESEARCHERID);
-      } else if (IdentifierSuggest.SCOPUSAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
+      }
+      if (IdentifierSuggest.SCOPUSAUTHORID.toUpperCase().startsWith(query.toUpperCase())) {
         this.results.add(IdentifierSuggest.SCOPUSAUTHORID);
       }
     }
