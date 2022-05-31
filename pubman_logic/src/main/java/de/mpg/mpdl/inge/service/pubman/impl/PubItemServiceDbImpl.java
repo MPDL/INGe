@@ -143,116 +143,95 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   @Qualifier("mpgJsonIpListProvider")
   private IpListProvider ipListProvider;
 
-
-  public static String INDEX_MODIFICATION_DATE = "modificationDate";
-  public static String INDEX_CREATION_DATE = "creationDate";
-  public static String INDEX_LOCAL_TAGS = "localTags";
-  public static String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
-  public static String INDEX_CONTEXT_TITLE = "context.name";
-  public static String INDEX_OWNER_OBJECT_ID = "creator.objectId";
-  public static String INDEX_OWNER_TITLE = "creator.name";
-  public static String INDEX_PUBLIC_STATE = "publicState";
-  public static String INDEX_PID = "objectPid";
-
-  public static String INDEX_VERSION_STATE = "versionState";
-  public static String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
-  public static String INDEX_LATESTVERSION_STATE = "latestVersion.versionState";
-  public static String INDEX_LATESTRELEASE_DATE = "latestRelease.modificationDate";
-  public static String INDEX_VERSION_VERSIONNUMBER = "versionNumber";
-  public static String INDEX_VERSION_OBJECT_ID = "objectId";
-  public static String INDEX_VERSION_PID = "versionPid";
-
-  public static String INDEX_METADATA_CREATOR_SORT = "sort-metadata-creators-compound";
-  public static String INDEX_METADATA_DATE_CATEGORY_SORT = "sort-metadata-dates-by-category";
-  public static String INDEX_METADATA_DATE_CATEGORY_YEAR_SORT = "sort-metadata-dates-by-category-year";
-
-  public static String INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID = "metadata.creators.person.identifier.id";
-  public static String INDEX_METADATA_CREATOR_PERSON_FAMILYNAME = "metadata.creators.person.familyName";
-  public static String INDEX_METADATA_CREATOR_PERSON_GIVENNAME = "metadata.creators.person.givenName";
-  public static String INDEX_METADATA_CREATOR_PERSON_ORCID = "metadata.creators.person.orcid";
-
-  public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER = "metadata.creators.person.organizations.identifier";
-  public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH = "metadata.creators.person.organizations.identifierPath";
-  public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER = "metadata.creators.organization.identifier";
-  public static String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH = "metadata.creators.organization.identifierPath";
-  public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME = "metadata.creators.person.organizations.name";
-  public static String INDEX_METADATA_CREATOR_ORGANIZATION_NAME = "metadata.creators.organization.name";
-  public static String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
-
-  public static String INDEX_METADATA_TITLE = "metadata.title";
-  public static String INDEX_METADATA_ALTERNATIVETITLE_VALUE = "metadata.alternativeTitles.value";
-  public static String INDEX_METADATA_DATE_ANY = "metadata.anyDates";
-  public static String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
-  public static String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
-  public static String INDEX_METADATA_DATE_ACCEPTED = "metadata.dateAccepted";
-  public static String INDEX_METADATA_DATE_CREATED = "metadata.dateCreated";
-  public static String INDEX_METADATA_DATE_MODIFIED = "metadata.dateModified";
-  public static String INDEX_METADATA_DATE_SUBMITTED = "metadata.dateSubmitted";
-  public static String INDEX_METADATA_EVENT_TITLE = "metadata.event.title";
-  public static String INDEX_METADATA_EVENT_STARTDATE = "metadata.event.startDate";
-  public static String INDEX_METADATA_EVENT_ENDDATE = "metadata.event.endDate";
-  public static String INDEX_METADATA_EVENT_INVITATION_STATUS = "metadata.event.invitationStatus";
-  public static String INDEX_METADATA_GENRE = "metadata.genre";
-  public static String INDEX_METADATA_REVIEW_METHOD = "metadata.reviewMethod";
-  public static String INDEX_METADATA_SUBJECTS_VALUE = "metadata.subjects.value";
-  public static String INDEX_METADATA_SUBJECTS_TYPE = "metadata.subjects.type";
-  public static String INDEX_METADATA_FREEKEYWORDS = "metadata.freeKeywords";
-  public static String INDEX_METADATA_DEGREE = "metadata.degree";
-  public static String INDEX_METADATA_LANGUAGES = "metadata.languages";
-  public static String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";
-  public static String INDEX_METADATA_IDENTIFIERS_TYPE = "metadata.identifiers.type";
-
-  public static String INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID = "metadata.publishingInfo.publisher";
-  public static String INDEX_METADATA_PUBLISHINGINFO_PLACE = "metadata.publishingInfo.place";
-  public static String INDEX_METADATA_PUBLISHINGINFO_EDITION = "metadata.publishingInfo.edition";
-
-  public static String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE = "metadata.projectInfo.fundingInfo.fundingOrganization.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID =
+  public static final String INDEX_CONTEXT_OBJECT_ID = "context.objectId";
+  public static final String INDEX_CONTEXT_TITLE = "context.name";
+  public static final String INDEX_CREATION_DATE = "creationDate";
+  public static final String INDEX_FILE_CONTENTCATEGORY = "files.metadata.contentCategory";
+  public static final String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
+  public static final String INDEX_FILE_NAME = "files.name";
+  public static final String INDEX_FILE_OA_STATUS = "files.metadata.oaStatus";
+  public static final String INDEX_FILE_OBJECT_ID = "files.objectId";
+  public static final String INDEX_FILE_STORAGE = "files.storage";
+  public static final String INDEX_FILE_VISIBILITY = "files.visibility";
+  public static final String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
+  public static final String INDEX_FULLTEXT_FILE_ID = "fileData.fileId";
+  public static final String INDEX_FULLTEXT_ITEM_ID = "fileData.itemId";
+  public static final String INDEX_LATESTRELEASE_DATE = "latestRelease.modificationDate";
+  public static final String INDEX_LATESTVERSION_STATE = "latestVersion.versionState";
+  public static final String INDEX_LATESTVERSION_VERSIONNUMBER = "latestVersion.versionNumber";
+  public static final String INDEX_LOCAL_TAGS = "localTags";
+  public static final String INDEX_METADATA_ALTERNATIVETITLE_VALUE = "metadata.alternativeTitles.value";
+  public static final String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIER = "metadata.creators.organization.identifier";
+  public static final String INDEX_METADATA_CREATOR_ORGANIZATION_IDENTIFIERPATH = "metadata.creators.organization.identifierPath";
+  public static final String INDEX_METADATA_CREATOR_ORGANIZATION_NAME = "metadata.creators.organization.name";
+  public static final String INDEX_METADATA_CREATOR_PERSON_FAMILYNAME = "metadata.creators.person.familyName";
+  public static final String INDEX_METADATA_CREATOR_PERSON_GIVENNAME = "metadata.creators.person.givenName";
+  public static final String INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID = "metadata.creators.person.identifier.id";
+  public static final String INDEX_METADATA_CREATOR_PERSON_ORCID = "metadata.creators.person.orcid";
+  public static final String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER = "metadata.creators.person.organizations.identifier";
+  public static final String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH =
+      "metadata.creators.person.organizations.identifierPath";
+  public static final String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_NAME = "metadata.creators.person.organizations.name";
+  public static final String INDEX_METADATA_CREATOR_ROLE = "metadata.creators.role";
+  public static final String INDEX_METADATA_CREATOR_SORT = "sort-metadata-creators-compound";
+  public static final String INDEX_METADATA_DATE_ACCEPTED = "metadata.dateAccepted";
+  public static final String INDEX_METADATA_DATE_ANY = "metadata.anyDates";
+  public static final String INDEX_METADATA_DATE_CATEGORY_SORT = "sort-metadata-dates-by-category";
+  public static final String INDEX_METADATA_DATE_CATEGORY_YEAR_SORT = "sort-metadata-dates-by-category-year";
+  public static final String INDEX_METADATA_DATE_CREATED = "metadata.dateCreated";
+  public static final String INDEX_METADATA_DATE_MODIFIED = "metadata.dateModified";
+  public static final String INDEX_METADATA_DATE_PUBLISHED_IN_PRINT = "metadata.datePublishedInPrint";
+  public static final String INDEX_METADATA_DATE_PUBLISHED_ONLINE = "metadata.datePublishedOnline";
+  public static final String INDEX_METADATA_DATE_SUBMITTED = "metadata.dateSubmitted";
+  public static final String INDEX_METADATA_DEGREE = "metadata.degree";
+  public static final String INDEX_METADATA_EVENT_ENDDATE = "metadata.event.endDate";
+  public static final String INDEX_METADATA_EVENT_INVITATION_STATUS = "metadata.event.invitationStatus";
+  public static final String INDEX_METADATA_EVENT_STARTDATE = "metadata.event.startDate";
+  public static final String INDEX_METADATA_EVENT_TITLE = "metadata.event.title";
+  public static final String INDEX_METADATA_FREEKEYWORDS = "metadata.freeKeywords";
+  public static final String INDEX_METADATA_GENRE = "metadata.genre";
+  public static final String INDEX_METADATA_IDENTIFIERS_ID = "metadata.identifiers.id";
+  public static final String INDEX_METADATA_IDENTIFIERS_TYPE = "metadata.identifiers.type";
+  public static final String INDEX_METADATA_LANGUAGES = "metadata.languages";
+  public static final String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_IDENTIFIERS_ID =
       "metadata.projectInfo.fundingInfo.fundingOrganization.identifiers.id";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingInfo.fundingProgram.title";
-  public static String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID =
+  public static final String INDEX_METADATA_PROJECTINFO_FUNDING_ORGANIZATION_TITLE =
+      "metadata.projectInfo.fundingInfo.fundingOrganization.title";
+  public static final String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_IDENTIFIERS_ID =
       "metadata.projectInfo.fundingInfo.fundingProgram.identifiers.id";
-  public static String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID = "metadata.projectInfo.grantIdentifier.id";
-
-  public static String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
-  public static String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE = "metadata.sources.alternativeTitles.value";
-
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME = "metadata.sources.creators.person.familyName";
-
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME = "metadata.sources.creators.person.givenName";
-
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIER =
+  public static final String INDEX_METADATA_PROJECTINFO_FUNDING_PROGRAM_TITLE = "metadata.projectInfo.fundingInfo.fundingProgram.title";
+  public static final String INDEX_METADATA_PROJECTINFO_GRANT_IDENTIFIER_ID = "metadata.projectInfo.grantIdentifier.id";
+  public static final String INDEX_METADATA_PROJECTINFO_TITLE = "metadata.projectInfo.title";
+  public static final String INDEX_METADATA_PUBLISHINGINFO_EDITION = "metadata.publishingInfo.edition";
+  public static final String INDEX_METADATA_PUBLISHINGINFO_PLACE = "metadata.publishingInfo.place";
+  public static final String INDEX_METADATA_PUBLISHINGINFO_PUBLISHER_ID = "metadata.publishingInfo.publisher";
+  public static final String INDEX_METADATA_REVIEW_METHOD = "metadata.reviewMethod";
+  public static final String INDEX_METADATA_SOURCES_ALTERNATIVE_TITLE = "metadata.sources.alternativeTitles.value";
+  public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_FAMILYNAME = "metadata.sources.creators.person.familyName";
+  public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_GIVENNAME = "metadata.sources.creators.person.givenName";
+  public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORCID = "metadata.sources.creators.person.orcid";
+  public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIER =
       "metadata.sources.creators.person.organizations.identifier";
-  public static String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
+  public static final String INDEX_METADATA_SOURCES_CREATOR_PERSON_ORGANIZATIONS_IDENTIFIERPATH =
       "metadata.sources.creators.person.organizations.identifierPath";
+  public static final String INDEX_METADATA_SOURCES_IDENTIFIERS_ID = "metadata.sources.identifiers.id";
+  public static final String INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE = "metadata.sources.identifiers.type";
+  public static final String INDEX_METADATA_SOURCES_TITLE = "metadata.sources.title";
+  public static final String INDEX_METADATA_SUBJECTS_TYPE = "metadata.subjects.type";
+  public static final String INDEX_METADATA_SUBJECTS_VALUE = "metadata.subjects.value";
+  public static final String INDEX_METADATA_TITLE = "metadata.title";
+  public static final String INDEX_MODIFICATION_DATE = "modificationDate";
+  public static final String INDEX_OWNER_OBJECT_ID = "creator.objectId";
+  public static final String INDEX_OWNER_TITLE = "creator.name";
+  public static final String INDEX_PID = "objectPid";
+  public static final String INDEX_PUBLIC_STATE = "publicState";
+  public static final String INDEX_VERSION_OBJECT_ID = "objectId";
+  public static final String INDEX_VERSION_PID = "versionPid";
+  public static final String INDEX_VERSION_STATE = "versionState";
+  public static final String INDEX_VERSION_VERSIONNUMBER = "versionNumber";
 
-  public static String INDEX_METADATA_SOURCES_IDENTIFIERS_ID = "metadata.sources.identifiers.id";
-
-  public static String INDEX_METADATA_SOURCES_IDENTIFIERS_TYPE = "metadata.sources.identifiers.type";
-
-  public static String INDEX_FILE_OBJECT_ID = "files.objectId";
-
-  public static String INDEX_FILE_METADATA_EMBARGO_UNTIL = "files.metadata.embargoUntil";
-
-  public static String INDEX_FILE_VISIBILITY = "files.visibility";
-
-  public static String INDEX_FILE_CONTENTCATEGORY = "files.metadata.contentCategory";
-
-  public static String INDEX_FILE_OA_STATUS = "files.metadata.oaStatus";
-
-  public static String INDEX_FILE_STORAGE = "files.storage";
-
-  public static String INDEX_FILE_NAME = "files.name";
-
-  public static String INDEX_FULLTEXT_CONTENT = "fileData.attachment.content";
-
-  public static String INDEX_FULLTEXT_ITEM_ID = "fileData.itemId";
-
-  public static String INDEX_FULLTEXT_FILE_ID = "fileData.fileId";
-
-  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
   public static final String REST_COMPONENT_PATH = PropertyReader.getProperty(PropertyReader.INGE_REST_FILE_PATH);
+  public static final String REST_SERVICE_URL = PropertyReader.getProperty(PropertyReader.INGE_REST_SERVICE_URL);
 
   @Override
   @Transactional(rollbackFor = Throwable.class)

@@ -46,7 +46,8 @@ public class OrcidSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORCID};
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORCID,
+        PubItemServiceDbImpl.INDEX_METADATA_SOURCES_CREATOR_PERSON_ORCID};
 
   }
 
