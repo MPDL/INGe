@@ -218,7 +218,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       criterionList.remove(0);
     }
 
-
     if (this.criterionList.isEmpty()) {
       this.initCriterionListWithEmptyValues();
     }
@@ -339,59 +338,15 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       final SelectItemGroup adminGroup = new SelectItemGroup(this.getLabel("adv_search_lblSearchAdmin"));
       adminGroupList.add(new SelectItem(SearchCriterion.CREATED_INTERNAL, this.getLabel("adv_search_lblItemCreationDate")));
       adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_INTERNAL, this.getLabel("adv_search_lblItemLastModificationDate")));
-
-      /*
-      adminGroupList.add(new SelectItem(SearchCriterion.CREATED_BY, this.getLabel("adv_search_lblItemCreatedBy")));
-      adminGroupList.add(new SelectItem(SearchCriterion.MODIFIED_BY, this.getLabel("adv_search_lblItemModifiedBy")));
-       */
-
       adminGroup.setSelectItems(adminGroupList.toArray(new SelectItem[0]));
       criterionTypeList.add(adminGroup);
     }
 
     // Persons
-    /*
-     * final List<SelectItem> personGroupList = new ArrayList<SelectItem>(); personGroupList.add(new
-     * SelectItem(SearchCriterion.ANYPERSON, this .getLabel("adv_search_lblSearchPerson")));
-     * 
-     * for (final CreatorRole role : CreatorRole.values()) { personGroupList.add(new
-     * SelectItem(SearchCriterion.valueOf(role.name()), this .getLabel("ENUM_CREATORROLE_" +
-     * role.name()))); }
-     */
-
-    /*
-     * personGroupList.add(new SelectItem(SearchCriterion.AUTHOR,
-     * getLabel("ENUM_CREATORROLE_AUTHOR"))); personGroupList.add(new
-     * SelectItem(SearchCriterion.EDITOR,getLabel("ENUM_CREATORROLE_EDITOR")));
-     * personGroupList.add(new
-     * SelectItem(SearchCriterion.ADVISOR,getLabel("ENUM_CREATORROLE_ADVISOR")));
-     * personGroupList.add(new
-     * SelectItem(SearchCriterion.ARTIST,getLabel("ENUM_CREATORROLE_ARTIST")));
-     * personGroupList.add(new
-     * SelectItem(SearchCriterion.COMMENTATOR,getLabel("ENUM_CREATORROLE_COMMENTATOR")));
-     * personGroupList.add(new
-     * SelectItem(SearchCriterion.CONTRIBUTOR,getLabel("ENUM_CREATORROLE_CONTRIBUTOR")));
-     * personGroupList.add(new SelectItem(SearchCriterion.ILLUSTRATOR,
-     * getLabel("ENUM_CREATORROLE_ILLUSTRATOR"))); personGroupList.add(new
-     * SelectItem(SearchCriterion.PAINTER, getLabel("ENUM_CREATORROLE_PAINTER")));
-     * personGroupList.add(new SelectItem(SearchCriterion.PHOTOGRAPHER,
-     * getLabel("ENUM_CREATORROLE_PHOTOGRAPHER"))); personGroupList.add(new
-     * SelectItem(SearchCriterion.TRANSCRIBER, getLabel("ENUM_CREATORROLE_TRANSCRIBER")));
-     * personGroupList.add(new SelectItem(SearchCriterion.TRANSLATOR,
-     * getLabel("ENUM_CREATORROLE_TRANSLATOR"))); personGroupList.add(new
-     * SelectItem(SearchCriterion.HONOREE, getLabel("ENUM_CREATORROLE_HONOREE")));
-     * personGroupList.add(new SelectItem(SearchCriterion.INVENTOR,
-     * getLabel("ENUM_CREATORROLE_INVENTOR"))); personGroupList.add(new
-     * SelectItem(SearchCriterion.APPLICANT, getLabel("ENUM_CREATORROLE_APPLICANT")));
-     */
-    /*
-     * final SelectItemGroup personGroup = new
-     * SelectItemGroup(this.getLabel("adv_search_lblSearchPerson"));
-     * personGroup.setSelectItems(personGroupList.toArray(new SelectItem[0]));
-     */
-
     criterionTypeList.add(new SelectItem(SearchCriterion.ANYPERSON, this.getLabel("adv_search_lblSearchPerson")));
 
+    // Orcid
+    criterionTypeList.add(new SelectItem(SearchCriterion.ORCID, this.getLabel("adv_search_lbHeaderOrcid")));
 
     // Organisation
     criterionTypeList.add(new SelectItem(SearchCriterion.ORGUNIT, this.getLabel("adv_search_lbHeaderOrgan")));
@@ -410,7 +365,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     dateGroup.setSelectItems(dateGroupList.toArray(new SelectItem[0]));
     criterionTypeList.add(dateGroup);
 
-
     // Event
     final List<SelectItem> eventGroupList = new ArrayList<SelectItem>();
     eventGroupList.add(new SelectItem(SearchCriterion.EVENT, this.getLabel("adv_search_lbHeaderEvent")));
@@ -422,11 +376,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     eventGroup.setSelectItems(eventGroupList.toArray(new SelectItem[0]));
     criterionTypeList.add(eventGroup);
 
-
-
     // Genre
     criterionTypeList.add(new SelectItem(SearchCriterion.GENRE, this.getLabel("adv_search_lbHeaderGenre")));
-
     criterionTypeList.add(new SelectItem(SearchCriterion.REVIEW_METHOD, this.getLabel("ViewItemFull_lblRevisionMethod")));
 
     // Language
@@ -442,7 +393,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     // Identifier
     criterionTypeList.add(new SelectItem(SearchCriterion.IDENTIFIER, this.getLabel("adv_search_lbHeaderIdent")));
 
-
     // Collection
     criterionTypeList.add(new SelectItem(SearchCriterion.COLLECTION, this.getLabel("adv_search_lbHeaderCollection")));
 
@@ -452,9 +402,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     // Component content category
     criterionTypeList.add(new SelectItem(SearchCriterion.COMPONENT_CONTENT_CATEGORY_LIST, this.getLabel("adv_search_fileContentCategory")));
 
-
     return criterionTypeList;
-
   }
 
   private List<SelectItem> initOperatorListMenu() {
@@ -465,36 +413,8 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     operatorTypeList.add(new SelectItem(SearchCriterion.OR_OPERATOR, this.getLabel("adv_search_logicop_or")));
     operatorTypeList.add(new SelectItem(SearchCriterion.NOT_OPERATOR, this.getLabel("adv_search_logicop_not")));
 
-
     return operatorTypeList;
-
   }
-
-
-
-  /*
-   * public void changeCriterion(ValueChangeEvent evt) {
-   * 
-   * Integer position = (Integer) evt.getComponent().getAttributes().get("indexOfCriterion");
-   * SearchCriterion newValue = (SearchCriterion)evt.getNewValue(); if(newValue != null &&
-   * position!=null) { logger.debug("Changing sortCriteria at position " + position + " to " +
-   * newValue);
-   * 
-   * SearchCriterionBase oldSearchCriterion = criterionList.remove(position.intValue());
-   * SearchCriterionBase newSearchCriterion = SearchCriterionBase.initSearchCriterion(newValue);
-   * newSearchCriterion.setLevel(oldSearchCriterion.getLevel());
-   * if(possibleCriterionsForClosingParenthesisMap.containsKey(oldSearchCriterion)) { boolean
-   * oldValue = possibleCriterionsForClosingParenthesisMap.get(oldSearchCriterion);
-   * possibleCriterionsForClosingParenthesisMap.remove(oldSearchCriterion);
-   * possibleCriterionsForClosingParenthesisMap.put(newSearchCriterion, oldValue); }
-   * criterionList.add(position, newSearchCriterion); logger.info("New criterion list:" +
-   * criterionList); }
-   * 
-   * 
-   * 
-   * }
-   */
-
 
   public void copyValuesFromOldToNew(SearchCriterionBase oldSc, SearchCriterionBase newSc) {
     if (oldSc instanceof PersonSearchCriterion && newSc instanceof PersonSearchCriterion) {
@@ -555,7 +475,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
   public void addSearchCriterion(int position) {
-    // Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
     final SearchCriterionBase oldSearchCriterion = this.criterionList.get(position);
 
     // If the add button of a Parenthesis is used, add an ANYFIELD Criterion, else add the same
@@ -582,15 +501,12 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
   public void removeSearchCriterion(int position) {
-    // Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
     final SearchCriterionBase sc = this.criterionList.get(position);
     SearchCriterionBase.removeSearchCriterionWithOperator(this.criterionList, sc);
     this.updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
-
   }
 
   public void addOpeningParenthesis(int position) {
-    // Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
     this.currentlyOpenedParenthesis = new Parenthesis(SearchCriterion.OPENING_PARENTHESIS);
     this.currentlyOpenedParenthesis.setLevel(this.criterionList.get(position).getLevel());
     // add before criterion
@@ -599,7 +515,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
   public void addClosingParenthesis(int position) {
-    // Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
     final Parenthesis closingParenthesis = new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS);
     this.currentlyOpenedParenthesis.setPartnerParenthesis(closingParenthesis);
     closingParenthesis.setPartnerParenthesis(this.currentlyOpenedParenthesis);
@@ -609,30 +524,24 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   }
 
   public void removeParenthesis(int position) {
-    // Integer position = (Integer) ae.getComponent().getAttributes().get("indexOfCriterion");
     final Parenthesis parenthesis = (Parenthesis) this.criterionList.get(position);
     final Parenthesis partnerParenthesis = parenthesis.getPartnerParenthesis();
 
     this.criterionList.remove(parenthesis);
     this.criterionList.remove(partnerParenthesis);
 
-
     if (parenthesis.equals(this.currentlyOpenedParenthesis)) {
       this.currentlyOpenedParenthesis = null;
     }
 
-    // this.currentlyOpenedParenthesis = null;
     this.updateListForClosingParenthesis(this.currentlyOpenedParenthesis);
-
   }
-
 
   private void updateListForClosingParenthesis(SearchCriterionBase startParenthesis) {
     this.possibleCriterionsForClosingParenthesisMap.clear();
     int balanceCounter = 0;
     boolean lookForClosingParenthesis = false;
     int startParenthesisBalance = 0;
-    // int pos = 0;
 
     this.numberOfSearchCriterions = 0;
 
@@ -651,8 +560,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
         balanceCounter++;
       }
 
-
-
       if (sc.equals(startParenthesis)) {
         lookForClosingParenthesis = true;
         startParenthesisBalance = sc.getLevel();
@@ -668,40 +575,11 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
           && !DisplayType.PARENTHESIS.equals(sc.getSearchCriterion().getDisplayType())) {
         this.numberOfSearchCriterions++;
       }
-      // pos++;
     }
-
-    // logger.info("number of search criterions: " + numberOfSearchCriterions);
-
-
-    /*
-     * this.possibleCriterionsForClosingParenthesisMap.clear(); if(startParenthesis != null) { int
-     * pos = criterionList.indexOf(startParenthesis); int balanceCounter = 0;
-     * 
-     * for(int i=pos; i<criterionList.size(); i++) { SearchCriterionBase sc = criterionList.get(i);
-     * 
-     * sc.setLevel(sc.getLevel() + balanceCounter);
-     * 
-     * if(SearchCriterion.OPENING_PARENTHESIS.equals(sc.getSearchCriterion())) { balanceCounter++; }
-     * else if (SearchCriterion.CLOSING_PARENTHESIS.equals(sc.getSearchCriterion())) {
-     * balanceCounter--; }
-     * 
-     * 
-     * 
-     * 
-     * 
-     * if(!DisplayType.OPERATOR.equals(sc.getSearchCriterion().getDisplayType()) && balanceCounter
-     * == 1) { possibleCriterionsForClosingParenthesisMap.put(sc, true); } }
-     * 
-     * }
-     */
   }
 
-
   public List<SelectItem> getContextListMenu() throws Exception {
-
     if (this.contextListMenu == null) {
-
       try {
 
         QueryBuilder qb = QueryBuilders.boolQuery().must(QueryBuilders.termQuery(ContextServiceDbImpl.INDEX_STATE, "OPENED"));
@@ -745,11 +623,7 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     allCriterions.addAll(this.getCriterionList());
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
-
-
     if (Index.ITEM_CONTAINER_ADMIN == indexName) {
-
-
       allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
       allCriterions.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
       allCriterions.add(this.itemStateListSearchCriterion);
@@ -761,7 +635,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
       allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
     }
 
-
     allCriterions.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     allCriterions.add(new Parenthesis(SearchCriterion.OPENING_PARENTHESIS));
     allCriterions.add(this.genreListSearchCriterion);
@@ -772,33 +645,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     allCriterions.add(this.publicationStatusListSearchCriterion);
     allCriterions.add(new Parenthesis(SearchCriterion.CLOSING_PARENTHESIS));
 
-
     final List<SearchCriterionBase> componentSearchCriterions = this.getComponentSearchCriterions(indexName);
     allCriterions.addAll(componentSearchCriterions);
 
-    /*
-    QueryBuilder qb = null;
-    try {
-      // cql = SearchCriterionBase.scListToCql(indexName, allCriterions, true);
-    
-      if (Index.ESCIDOC_ALL == indexName) {
-        BoolQueryBuilder bqb = QueryBuilders.boolQuery();
-        bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-            PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
-        bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
-            PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
-        bqb.must(SearchCriterionBase.scListToElasticSearchQuery(allCriterions));
-        qb = bqb;
-      } else {
-        qb = SearchCriterionBase.scListToElasticSearchQuery(allCriterions);
-    
-      }
-    
-    
-    } catch (final SearchParseException e1) {
-      this.error(this.getMessage("search_ParseError"));
-    }
-    */
     this.query = SearchCriterionBase.scListToQueryString(allCriterions);
     AdvancedSearchBean.logger.debug("Internal Query: " + this.query);
 
@@ -824,7 +673,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     } catch (final Exception e) {
       AdvancedSearchBean.logger.error("Error while redirecting to search result page", e);
     }
-
   }
 
   public void startAdminSearch() {
@@ -842,29 +690,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
     returnList.add(this.getLocatorSectionSearchCriterion());
 
-    /*
-     * returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-     * returnList.add(this.fileAvailableSearchCriterion);
-     * 
-     * returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-     * returnList.add(this.fileComponentEmbargoDateAvailableSearchCriterion); returnList.add(new
-     * LogicalOperator(SearchCriterion.AND_OPERATOR));
-     * returnList.add(this.fileComponentEmbargoDateSearchCriterion);
-     * 
-     * if (this.excludeComponentContentCategory) { returnList.add(new
-     * LogicalOperator(SearchCriterion.NOT_OPERATOR)); } else { returnList.add(new
-     * LogicalOperator(SearchCriterion.AND_OPERATOR)); }
-     * 
-     * returnList.add(this.fileComponentContentCategoryListSearchCriterion); returnList.add(new
-     * LogicalOperator(SearchCriterion.AND_OPERATOR));
-     * returnList.add(this.fileComponentVisibilityListSearchCriterion);
-     * 
-     * 
-     * returnList.add(new LogicalOperator(SearchCriterion.AND_OPERATOR));
-     * returnList.add(this.locatorAvailableSearchCriterion); returnList.add(new
-     * LogicalOperator(SearchCriterion.AND_OPERATOR));
-     * returnList.add(this.locatorComponentContentCategoryListSearchCriterion);
-     */
     return returnList;
   }
 
@@ -879,12 +704,9 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.contextListMenu = contextListMenu;
   }
 
-
-
   public List<SelectItem> getContentCategoryListMenu() {
     return this.contentCategoryListMenu;
   }
-
 
   public void setContentCategoryListMenu(List<SelectItem> contentCategoryListMenu) {
     this.contentCategoryListMenu = contentCategoryListMenu;
@@ -894,129 +716,94 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     return this.oaStatusListMenu;
   }
 
-
   public void setOaStatutsListMenu(List<SelectItem> contentCategoryListMenu) {
     this.oaStatusListMenu = contentCategoryListMenu;
   }
-
-
 
   public List<SelectItem> getComponentVisibilityListMenu() {
     return this.componentVisibilityListMenu;
   }
 
-
   public void setComponentVisibilityListMenu(List<SelectItem> componentVisibilityListMenu) {
     this.componentVisibilityListMenu = componentVisibilityListMenu;
   }
-
 
   public List<SelectItem> getSubjectTypesListMenu() {
     return this.subjectTypesListMenu;
   }
 
-
   public void setSubjectTypesListMenu(List<SelectItem> subjectTypesListMenu) {
     this.subjectTypesListMenu = subjectTypesListMenu;
   }
-
-
 
   public Parenthesis getCurrentlyOpenedParenthesis() {
     return this.currentlyOpenedParenthesis;
   }
 
-
-
   public void setCurrentlyOpenedParenthesis(Parenthesis currentlyOpenedParenthesis) {
     this.currentlyOpenedParenthesis = currentlyOpenedParenthesis;
   }
-
-
 
   public Map<SearchCriterionBase, Boolean> getPossibleCriterionsForClosingParenthesisMap() {
     return this.possibleCriterionsForClosingParenthesisMap;
   }
 
-
-
   public void setPossibleCriterionsForClosingParenthesisMap(Map<SearchCriterionBase, Boolean> possibleCriterionsForClosingParenthesisMap) {
     this.possibleCriterionsForClosingParenthesisMap = possibleCriterionsForClosingParenthesisMap;
   }
-
-
 
   public Map<SearchCriterionBase, Integer> getBalanceMap() {
     return this.balanceMap;
   }
 
-
-
   public void setBalanceMap(Map<SearchCriterionBase, Integer> balanceMap) {
     this.balanceMap = balanceMap;
   }
-
-
 
   public SearchCriterionBase getGenreListSearchCriterion() {
     return this.genreListSearchCriterion;
   }
 
-
-
   public void setGenreListSearchCriterion(SearchCriterionBase genreListSearchCriterion) {
     this.genreListSearchCriterion = genreListSearchCriterion;
   }
-
 
   public List<SelectItem> getGenreListMenu() {
     return this.genreListMenu;
   }
 
-
   public void setGenreListMenu(List<SelectItem> genreListMenu) {
     this.genreListMenu = genreListMenu;
   }
-
 
   public boolean isExcludeComponentContentCategory() {
     return this.excludeComponentContentCategory;
   }
 
-
   public void setExcludeComponentContentCategory(boolean excludeComponentContentCategory) {
     this.excludeComponentContentCategory = excludeComponentContentCategory;
   }
 
-
-
   public int getNumberOfSearchCriterions() {
     return this.numberOfSearchCriterions;
   }
-
 
   public void setNumberOfSearchCriterions(int numberOfSearchCriterions) {
     this.numberOfSearchCriterions = numberOfSearchCriterions;
   }
 
   public void removeAutoSuggestValues(int position) {
-    // Integer position = (Integer) e.getComponent().getAttributes().get("indexOfCriterion");
-
     final SearchCriterionBase sc = this.criterionList.get(position);
     if (sc instanceof StringOrHiddenIdSearchCriterion) {
       final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
       hiddenSc.setHiddenId(null);
       hiddenSc.setSearchString(null);
     }
-
   }
-
-
 
   public List<SelectItem> getReviewMethodListMenu() {
     return this.reviewMethodListMenu;
   }
-
 
   public void setReviewMethodListMenu(List<SelectItem> reviewMethodListMenu) {
     this.reviewMethodListMenu = reviewMethodListMenu;
@@ -1064,8 +851,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   public void setItemStateListSearchCriterion(SearchCriterionBase itemStateListSearchCriterion) {
     this.itemStateListSearchCriterion = itemStateListSearchCriterion;
   }
-
-
 
   public SearchCriterionBase getAffiliatedContextListSearchCriterion() {
     return this.affiliatedContextListSearchCriterion;
@@ -1134,5 +919,4 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
   public String getConeServiceUrl() {
     return ConeUtils.getConeServiceUrl();
   }
-
 }

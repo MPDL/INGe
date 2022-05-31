@@ -28,7 +28,7 @@ package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
 import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
 
 @SuppressWarnings("serial")
-public class LocalTagSearchCriterion extends StandardSearchCriterion {
+public class OrcidSearchCriterion extends StandardSearchCriterion {
 
   //  @Override
   //  public String[] getCqlIndexes(Index indexName) {
@@ -46,7 +46,7 @@ public class LocalTagSearchCriterion extends StandardSearchCriterion {
 
   @Override
   public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_LOCAL_TAGS};
+    return new String[] {PubItemServiceDbImpl.INDEX_METADATA_CREATOR_PERSON_ORCID};
 
   }
 
@@ -56,7 +56,7 @@ public class LocalTagSearchCriterion extends StandardSearchCriterion {
   }
 
   /*
-   * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.ORCID; }
+   * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.LOCAL; }
    */
 
 

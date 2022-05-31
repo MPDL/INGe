@@ -169,6 +169,7 @@ public class PubItemServiceDbImpl extends GenericServiceBaseImpl<ItemVersionVO> 
   public static String INDEX_METADATA_CREATOR_PERSON_IDENTIFIER_ID = "metadata.creators.person.identifier.id";
   public static String INDEX_METADATA_CREATOR_PERSON_FAMILYNAME = "metadata.creators.person.familyName";
   public static String INDEX_METADATA_CREATOR_PERSON_GIVENNAME = "metadata.creators.person.givenName";
+  public static String INDEX_METADATA_CREATOR_PERSON_ORCID = "metadata.creators.person.orcid";
 
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIER = "metadata.creators.person.organizations.identifier";
   public static String INDEX_METADATA_CREATOR_PERSON_ORGANIZATION_IDENTIFIERPATH = "metadata.creators.person.organizations.identifierPath";
