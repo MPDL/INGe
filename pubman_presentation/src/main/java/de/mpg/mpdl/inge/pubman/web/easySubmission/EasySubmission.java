@@ -133,8 +133,6 @@ public class EasySubmission extends FacesBean {
   private String locatorUpload;
   private String selectedDate;
   private String serviceID;
-  private String suggestConeUrl = null;
-  //  private UploadedFile uploadedFile_;
   private boolean overwriteCreators;
 
   public EasySubmission() {
@@ -518,7 +516,7 @@ public class EasySubmission extends FacesBean {
       return returnValue;
     } catch (ValidationException e) {
       for (final ValidationReportItemVO item : e.getReport().getItems()) {
-        this.error(this.getMessage(item.getContent()));
+        this.error(this.getMessage(item.getContent()).replaceAll("\\$1", item.getElement()));
       }
     }
 
@@ -982,7 +980,7 @@ public class EasySubmission extends FacesBean {
         ApplicationBean.INSTANCE.getItemValidatingService().validate(itemVO, validationPoint);
       } catch (final ValidationException e) {
         for (final ValidationReportItemVO item : e.getReport().getItems()) {
-          this.error(this.getMessage(item.getContent()));
+          this.error(this.getMessage(item.getContent()).replaceAll("\\$1", item.getElement()));
         }
         return null;
       } catch (final ValidationServiceException e) {
@@ -1497,21 +1495,6 @@ public class EasySubmission extends FacesBean {
 
   public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
     this.radioSelectFulltext = radioSelectFulltext;
-  }
-
-  /**
-   * This method returns the URL to the cone autosuggest service read from the properties
-   * 
-   * @author Tobias Schraut
-   * @return String the URL to the cone autosuggest service
-   * @throws Exception
-   */
-  public String getSuggestConeUrl() throws Exception {
-    if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
-    }
-
-    return this.suggestConeUrl;
   }
 
   /**
