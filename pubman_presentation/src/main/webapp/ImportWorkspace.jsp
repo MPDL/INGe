@@ -277,8 +277,13 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
+        
         <script type="text/javascript">
+	        window.setTimeout("reloadImports()", 1000);
+    	    window.setTimeout("reloadDetails()", 3000);
+    	    
             function reloadImports() {
                 $('.listItem').find('.statusArea').find('div:not(.FINISHED)').siblings('input').each(
                     function(i, ele) {
@@ -303,9 +308,6 @@
                 );
                 window.setTimeout("reloadDetails()", 2000);
             }
-            
-            window.setTimeout("reloadImports()", 1000);
-            window.setTimeout("reloadDetails()", 3000);
         </script>
     </f:view>
 </body>

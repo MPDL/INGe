@@ -102,7 +102,7 @@ public interface PubItemBatchService {
    * @param accountUser
    * @return
    */
-  public BatchProcessLogDbVO changeExternalRefereneceContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
+  public BatchProcessLogDbVO changeExternalReferenceContentCategory(List<String> pubItemObjectIdList, String contentCategoryOld,
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**

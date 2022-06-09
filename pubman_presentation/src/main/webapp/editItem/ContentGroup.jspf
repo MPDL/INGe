@@ -61,7 +61,7 @@
 									<span class="large_area0 selectionBox">&#160;</span>
 									<div class="min_imgArea selectboxIcon">&#160;</div>
 								</div>
-								<h:selectOneMenu id="selSelectIdentifierType"
+								<h:selectOneMenu id="selSelectClassificationType"
 									onfocus="updateSelectionBox(this);" value="#{subject.type}"
 									styleClass="endline vocabulary"
 									onchange="updateSelectionBox(this);">
