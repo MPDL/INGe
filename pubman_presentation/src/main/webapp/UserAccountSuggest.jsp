@@ -2,7 +2,6 @@
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<f:loadBundle var="tip" basename="Tooltip"/>
-		
 		[
 			<ui:repeat var="ua" value="#{UserAccountSuggest.userAccountList}" varStatus="index">
 				<h:panelGroup>
@@ -14,5 +13,4 @@
 				</h:panelGroup>
 			</ui:repeat>
 		]
-		
 	</f:view>
