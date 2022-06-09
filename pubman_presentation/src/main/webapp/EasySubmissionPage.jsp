@@ -32,36 +32,23 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
+        
 		<script type="text/javascript">
-		/* <![CDATA[ */
-	      var suggestConeUrl = "#{EditItem.suggestConeUrl}";
-	      function checkUpdatePersonFunction() {
-	        (typeof updatePersonUi == 'function') ? updatePersonUi() : setTimeout(
-	                "checkUpdatePersonFunction()", 30);
-	      }
-	      $("input[id$='offset']").on('submit',function() {
-	        $(this).val($(window).scrollTop());
-	      });
+	      var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
+	      
+	      var organizationSuggestURL = 'OrganizationSuggest.jsp';
+	      var personDetailsBaseURL = '$1?format=json&amp;mode=full&amp;lang=$2';
+	      var personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
+	      
 	      $(document).ready(function() {
-	        $(window).scrollTop($("input[id$='offset']").val());
-	        $(window).on('scroll',function() {
-	          $("input[id$='offset']").val($(window).scrollTop());
-	        });
 	        checkUpdatePersonFunction();
-	        //Disable return button for form1
-	        document.getElementById('form1').onkeypress = stopRKey;
 	      });
-	      journalSuggestURL = suggestConeUrl + 'journals/query';
-	      subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
-	      personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
-	      organizationSuggestURL = 'OrganizationSuggest.jsp';
-	      journalDetailsBaseURL = '$1?format=json';
-	      personDetailsBaseURL = '$1?format=json&mode=full&lang=$2';
-	      languageDetailsBaseURL = '$1?format=json&lang=$2';
-	      personSuggestCommonParentClass = 'suggestAnchor';
-	      journalSuggestTrigger = 'JOURNAL';
-	   /* ]]> */
+	        
+		  function checkUpdatePersonFunction() {
+	      	(typeof updatePersonUi == 'function') ? updatePersonUi(): setTimeout("checkUpdatePersonFunction()", 30);
+	      }
 	   </script>
     </f:view>
 </body>
