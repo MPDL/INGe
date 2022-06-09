@@ -75,23 +75,17 @@
                 <!-- end: content section -->
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
+        
         <script type="text/javascript">
             var passArea = $('.passArea');
+            
             passArea.find("input[type=password]").keyup(function(keyEvent) {
                 var key = keyEvent.keyCode;
                 if (key == '13') {
                     passArea.find('.activeButton').trigger("click");
                 };
-            });
-            $("input[id$='offset']").on('submit',function() {
-                $(this).val($(window).scrollTop());
-            });
-            $(document).ready(function() {
-                $(window).scrollTop($("input[id$='offset']").val());
-                $(window).on('scroll',function() {
-                    $("input[id$='offset']").val($(window).scrollTop());
-                });
             });
         </script>
     </f:view>
