@@ -24,10 +24,11 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionVO;
 import de.mpg.mpdl.inge.model.exception.IngeTechnicalException;
-import de.mpg.mpdl.inge.model.valueobjects.ContextVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO;
 import de.mpg.mpdl.inge.model.valueobjects.FileVO.Visibility;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.CreatorVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.IdentifierVO;
+import de.mpg.mpdl.inge.model.valueobjects.metadata.PersonVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.DegreeType;
@@ -63,9 +64,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
   @Autowired
   private BatchLogRepository batchRepository;
 
-  public PubItemBatchServiceImpl() {
-
-  }
+  public PubItemBatchServiceImpl() {}
 
   /*
    * (non-Javadoc)
@@ -108,7 +107,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
             resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
                 BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -128,7 +127,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -173,7 +172,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -193,7 +192,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not add local tags for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -256,7 +255,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -276,7 +275,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -295,7 +294,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
    * (non-Javadoc)
    * 
    * @see
-   * de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeExternalRefereneceContentCategory(
+   * de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeExternalReferenceContentCategory(
    * java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
    */
   @Override
@@ -331,7 +330,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -352,10 +351,101 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change external reference content category for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
+      }
+    }
+    resultLog.setBatchProcessLogItemList(resultList);
+    if (batchRepository.exists(accountUser.getObjectId())) {
+      batchRepository.delete(accountUser.getObjectId());
+    }
+    batchRepository.save(resultLog);
+    batchRepository.flush();
+    return resultLog;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * de.mpg.mpdl.inge.service.pubman.PubItemBatchService#changeOrcid(
+   * java.util.Map, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public BatchProcessLogDbVO changeOrcid(List<String> pubItemObjectIdList, String creatorId, String orcidNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser) {
+    List<BatchProcessItemVO> resultList = new ArrayList<BatchProcessItemVO>();
+    BatchProcessLogDbVO resultLog = new BatchProcessLogDbVO(accountUser);
+    ItemVersionVO pubItemVO = null;
+    for (String itemId : pubItemObjectIdList) {
+      pubItemVO = null; // reset pubItemVO
+      try {
+        pubItemVO = this.pubItemService.get(itemId, authenticationToken);
+        if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+          boolean anyOrcidChanged = false;
+          for (CreatorVO creator : pubItemVO.getMetadata().getCreators()) {
+            PersonVO person = creator.getPerson();
+            if (person != null && person.getIdentifier() != null) {
+              if (creatorId.equals(person.getIdentifier().getId())) {
+                if (!orcidNew.equals(person.getOrcid())) {
+                  person.setOrcid(orcidNew);
+                  anyOrcidChanged = true;
+                }
+              }
+            }
+          }
+          List<SourceVO> sources = pubItemVO.getMetadata().getSources();
+          for (SourceVO source : sources) {
+            for (CreatorVO creator : source.getCreators()) {
+              PersonVO person = creator.getPerson();
+              if (person != null && person.getIdentifier() != null) {
+                if (creatorId.equals(person.getIdentifier().getId())) {
+                  if (!orcidNew.equals(person.getOrcid())) {
+                    person.setOrcid(orcidNew);
+                    anyOrcidChanged = true;
+                  }
+                }
+              }
+            }
+          }
+          if (anyOrcidChanged == true) {
+            if (pubItemVO.getObject().getLocalTags() != null) {
+              pubItemVO.getObject().getLocalTags().add(message);
+            } else {
+              pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+            }
+            resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+          } else {
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_ORCID_NO_PERSON,
+                BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+          }
+        } else {
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
+              BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+        }
+      } catch (IngeTechnicalException e) {
+        logger.error("Could not change orcid for item " + itemId + " due to a technical error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthenticationException e) {
+        logger.error("Could not change orcid for item " + itemId + " due authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (AuthorizationException e) {
+        logger.error("Could not change orcid for item " + itemId + " due authentication error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (IngeApplicationException e) {
+        logger.error("Could not change orcid for item " + itemId + " due to an internal application error", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (NullPointerException e) {
+        logger.error("Could not change orcid for item " + itemId + " due to an nullpointer exception", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
     resultLog.setBatchProcessLogItemList(resultList);
@@ -409,7 +499,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -429,7 +519,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change file audience for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -485,7 +575,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -505,7 +595,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change file content category for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -577,7 +667,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -597,7 +687,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change file visibility for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -635,44 +725,49 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           pubItemVO = this.pubItemService.get(itemId, authenticationToken);
           contextVO = this.contextService.get(pubItemVO.getObject().getContext().getObjectId(), authenticationToken);
           Genre currentPubItemGenre = pubItemVO.getMetadata().getGenre();
-          if (contextVO.getAllowedGenres() != null && !contextVO.getAllowedGenres().isEmpty()
-              && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
-            if (currentPubItemGenre.equals(genreOld)) {
-              if (!genreOld.equals(genreNew)) {
-                if (!Genre.THESIS.equals(genreNew)) {
-                  pubItemVO.getMetadata().setGenre(genreNew);
-                  if (pubItemVO.getObject().getLocalTags() != null) {
-                    pubItemVO.getObject().getLocalTags().add(message);
+          if (!ItemVersionRO.State.WITHDRAWN.equals(pubItemVO.getObject().getPublicState())) {
+            if (contextVO.getAllowedGenres() != null && !contextVO.getAllowedGenres().isEmpty()
+                && contextVO.getAllowedGenres().contains(pubItemVO.getMetadata().getGenre())) {
+              if (currentPubItemGenre.equals(genreOld)) {
+                if (!genreOld.equals(genreNew)) {
+                  if (!Genre.THESIS.equals(genreNew)) {
+                    pubItemVO.getMetadata().setGenre(genreNew);
+                    if (pubItemVO.getObject().getLocalTags() != null) {
+                      pubItemVO.getObject().getLocalTags().add(message);
+                    } else {
+                      pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                    }
+                    resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                        BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+                  } else if (Genre.THESIS.equals(genreNew) && degree != null) {
+                    pubItemVO.getMetadata().setGenre(genreNew);
+                    pubItemVO.getMetadata().setDegree(degree);
+                    if (pubItemVO.getObject().getLocalTags() != null) {
+                      pubItemVO.getObject().getLocalTags().add(message);
+                    } else {
+                      pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                    }
+                    resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
+                        BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
                   } else {
-                    pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
+                    resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_NEW_VALUE_SET,
+                        BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
                   }
-                  resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                      BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
-                } else if (Genre.THESIS.equals(genreNew) && degree != null) {
-                  pubItemVO.getMetadata().setGenre(genreNew);
-                  pubItemVO.getMetadata().setDegree(degree);
-                  if (pubItemVO.getObject().getLocalTags() != null) {
-                    pubItemVO.getObject().getLocalTags().add(message);
-                  } else {
-                    pubItemVO.getObject().setLocalTags(new ArrayList<String>(Arrays.asList(message)));
-                  }
-                  resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
-                      BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
+
                 } else {
-                  resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_NEW_VALUE_SET,
+                  resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
                       BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
                 }
-
               } else {
-                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_NO_CHANGE_VALUE,
+                resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
                     BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
               }
             } else {
-              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_EQUAL,
+              resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -708,7 +803,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           }
           resultList.add(new BatchProcessItemVO(pubItemVO, batchProcessMessage, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change genre for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -790,7 +885,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -810,7 +905,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change keywords for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -868,7 +963,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } else {
-          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+          resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
@@ -886,6 +981,10 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
       } catch (IngeApplicationException e) {
         logger.error("Could not change review method for item " + itemId + " due to an internal application error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
+            BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
+      } catch (NullPointerException e) {
+        logger.error("Could not change review method for item " + itemId + " due to an nullpointer exception", e);
+        resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
     }
@@ -947,27 +1046,27 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change review method for item " + itemId + " due to a technical error", e);
+          logger.error("Could not change source genre for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change review method for item " + itemId + " due authentication error", e);
+          logger.error("Could not change source genre for item " + itemId + " due authentication error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change review method for item " + itemId + " due authentication error", e);
+          logger.error("Could not change source genre for item " + itemId + " due authentication error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change review method for item " + itemId + " due to an internal application error", e);
+          logger.error("Could not change source genre for item " + itemId + " due to an internal application error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change source genre for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -1022,27 +1121,27 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               }
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
+          logger.error("Could not add source id for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change source id for item " + itemId + " due to an authentication error", e);
+          logger.error("Could not add source id for item " + itemId + " due to an authentication error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change source id for item " + itemId + " due to an authorization error", e);
+          logger.error("Could not add source id for item " + itemId + " due to an authorization error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change source id for item " + itemId + " due to an application error", e);
+          logger.error("Could not add source id for item " + itemId + " due to an application error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not add source id for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -1112,7 +1211,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
@@ -1132,7 +1231,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not change source id for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -1194,27 +1293,27 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change source id for item " + itemId + " due to a technical error", e);
+          logger.error("Could not change source edition for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change source id for item " + itemId + " due to an authentication error", e);
+          logger.error("Could not change source edition for item " + itemId + " due to an authentication error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change source id for item " + itemId + " due to an authorization error", e);
+          logger.error("Could not change source edition for item " + itemId + " due to an authorization error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change source id for item " + itemId + " due to an application error", e);
+          logger.error("Could not change source edition for item " + itemId + " due to an application error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not cahnge source edition for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -1261,7 +1360,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
                   BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
             }
           } else {
-            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.METADATA_CHANGE_VALUE_NOT_ALLOWED,
+            resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.STATE_WRONG,
                 BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
           }
 
@@ -1282,7 +1381,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not replace local tags for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -1337,11 +1436,11 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (AuthorizationException e) {
-        logger.error("Could submit item " + itemId + " due to an authorization error", e);
+        logger.error("Could not submit item " + itemId + " due to an authorization error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
-        logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
+        logger.error("Could not submit item " + itemId + " due to an internal application error", e);
         BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
         if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
           ValidationException validationException = (ValidationException) e.getCause();
@@ -1361,7 +1460,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         }
         resultList.add(new BatchProcessItemVO(pubItemVO, batchProcessMessage, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (NullPointerException e) {
-        logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+        logger.error("Could not submit item " + itemId + " due to an nullpointer exception", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
@@ -1397,23 +1496,23 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
           resultList.add(new BatchProcessItemVO(this.pubItemService.update(pubItemVO, authenticationToken),
               BatchProcessItemVO.BatchProcessMessages.SUCCESS, BatchProcessItemVO.BatchProcessMessagesTypes.SUCCESS));
         } catch (IngeTechnicalException e) {
-          logger.error("Could not change keywords for item " + itemId + " due to a technical error", e);
+          logger.error("Could not replace keywords for item " + itemId + " due to a technical error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthenticationException e) {
-          logger.error("Could not change keywords for item " + itemId + " due authentication error", e);
+          logger.error("Could not replace keywords for item " + itemId + " due authentication error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (AuthorizationException e) {
-          logger.error("Could not change keywords for item " + itemId + " due authentication error", e);
+          logger.error("Could not replace keywords for item " + itemId + " due authentication error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (IngeApplicationException e) {
-          logger.error("Could not change keywords for item " + itemId + " due to an internal application error", e);
+          logger.error("Could not replace keywords for item " + itemId + " due to an internal application error", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         } catch (NullPointerException e) {
-          logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+          logger.error("Could not replace keywords for item " + itemId + " due to an nullpointer exception", e);
           resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
@@ -1482,7 +1581,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
-        logger.error("Could not change genre for item " + itemId + " due to an internal application error", e);
+        logger.error("Could release item " + itemId + " due to an internal application error", e);
         BatchProcessMessages batchProcessMessage = BatchProcessMessages.INTERNAL_ERROR;
         if (e.getCause() != null && ValidationException.class.equals(e.getCause().getClass())) {
           ValidationException validationException = (ValidationException) e.getCause();
@@ -1502,7 +1601,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         }
         resultList.add(new BatchProcessItemVO(pubItemVO, batchProcessMessage, BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (NullPointerException e) {
-        logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+        logger.error("Could not release item " + itemId + " due to an nullpointer exception", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
@@ -1558,7 +1657,7 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (NullPointerException e) {
-        logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+        logger.error("Could not withdraw item " + itemId + " due to an nullpointer exception", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
@@ -1600,23 +1699,23 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
-        logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
+        logger.error("Could not revise item " + itemId + " due to a technical error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (AuthenticationException e) {
-        logger.error("Could not withdraw item " + itemId + " due to an authentication error", e);
+        logger.error("Could not revise item " + itemId + " due to an authentication error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (AuthorizationException e) {
-        logger.error("Could withdraw item " + itemId + " due to an authorization error", e);
+        logger.error("Could not revise item " + itemId + " due to an authorization error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
-        logger.error("Could withdraw item " + itemId + " due to an application error", e);
+        logger.error("Could not revise item " + itemId + " due to an application error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (NullPointerException e) {
-        logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+        logger.error("Could not revise item " + itemId + " due to an nullpointer exception", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }
@@ -1656,23 +1755,23 @@ public class PubItemBatchServiceImpl implements PubItemBatchService {
               BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
         }
       } catch (IngeTechnicalException e) {
-        logger.error("Could not withdraw item " + itemId + " due to a technical error", e);
+        logger.error("Could not delete item " + itemId + " due to a technical error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (AuthenticationException e) {
-        logger.error("Could not withdraw item " + itemId + " due to an authentication error", e);
+        logger.error("Could not delete item " + itemId + " due to an authentication error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHENTICATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (AuthorizationException e) {
-        logger.error("Could withdraw item " + itemId + " due to an authorization error", e);
+        logger.error("Could not delete item " + itemId + " due to an authorization error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.AUTHORIZATION_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (IngeApplicationException e) {
-        logger.error("Could withdraw item " + itemId + " due to an application error", e);
+        logger.error("Could not delete item " + itemId + " due to an application error", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.INTERNAL_ERROR,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       } catch (NullPointerException e) {
-        logger.error("Could not add keywords for item " + itemId + " due to an nullpointer Exception", e);
+        logger.error("Could not delete item " + itemId + " due to an nullpointer exception", e);
         resultList.add(new BatchProcessItemVO(pubItemVO, BatchProcessItemVO.BatchProcessMessages.ITEM_NOT_FOUND,
             BatchProcessItemVO.BatchProcessMessagesTypes.ERROR));
       }

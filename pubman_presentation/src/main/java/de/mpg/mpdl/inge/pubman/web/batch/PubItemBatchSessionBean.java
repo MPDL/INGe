@@ -917,12 +917,9 @@ public class PubItemBatchSessionBean extends FacesBean {
     for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
       pubItemObjectIdList.add(entry.getValue().getObjectId());
     }
-    /*
-    this.batchProcessLog = pubItemBatchService.changeExternalRefereneceContentCategory(pubItemObjectIdList,
-        changeExternalReferencesContentCategoryFrom, changeExternalReferencesContentCategoryTo,
-        "batch change external references content category ", loginHelper.getAuthenticationToken(),
-        loginHelper.getAccountUser());
-    */
+
+    this.batchProcessLog = pubItemBatchService.changeOrcid(pubItemObjectIdList, hiddenSc.getHiddenId(), this.orcid, "batch change orcid ",
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
 
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();

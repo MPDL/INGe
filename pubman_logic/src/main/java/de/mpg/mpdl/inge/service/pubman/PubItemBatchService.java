@@ -106,6 +106,20 @@ public interface PubItemBatchService {
       String contentCategoryNew, String message, String authenticationToken, AccountUserDbVO accountUser);
 
   /**
+   * replacing the orcid a list of objectIds and return a BatchProcessLogDbVO object
+   * 
+   * @param pubItemsMap
+   * @param creatorId
+   * @param orcidNew
+   * @param message
+   * @param authenticationToken
+   * @param accountUser
+   * @return
+   */
+  public BatchProcessLogDbVO changeOrcid(List<String> pubItemObjectIdList, String creatorId, String orcidNew, String message,
+      String authenticationToken, AccountUserDbVO accountUser);
+
+  /**
    * replacing the audience for the files of a list of objectIds and return a BatchProcessLogDbVO
    * object
    * 
