@@ -81,9 +81,9 @@
                                             <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
-                                    <h:commandLink id="btnExportDownload" title="#{tip.export_btDownload}" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}" />
+                                    <h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}" />
                                     <h:outputText styleClass="seperator" />
-                                    <h:commandLink id="btnExportEMail" title="#{tip.export_btEMail}" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportAllEmail}" />
+                                    <h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportAllEmail}" />
                                     <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
                                         <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
                                         <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />

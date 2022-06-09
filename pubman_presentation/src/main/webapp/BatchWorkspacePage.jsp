@@ -149,15 +149,9 @@
 												listener="#{ExportItems.updateExportFormats}" />
 										</h:selectOneMenu>
 									</h:panelGroup>
-									<h:commandLink id="btnExportDownload"
-										title="#{tip.export_btDownload}" styleClass="free_area0"
-										value="#{lbl.export_btDownload}"
-										action="#{PubItemListSessionBean.exportAllDownload}" />
+									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.exportAllDownload}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink id="btnExportEMail"
-										title="#{tip.export_btEMail}" styleClass="free_area0"
-										value="#{lbl.export_btEMail}"
-										action="#{PubItemListSessionBean.exportAllEmail}" />
+									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.exportAllEmail}" />
 									<h:panelGroup layout="block"
 										styleClass="free_area0 suggestAnchor endline CSL"
 										rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
