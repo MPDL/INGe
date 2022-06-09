@@ -131,8 +131,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   private int numberOfSearchCriterions;
 
-  private String suggestConeUrl;
-
   public AdvancedSearchBean() {}
 
   @PostConstruct
@@ -884,14 +882,6 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
     this.personRoleMenu = personRoleMenu;
   }
 
-  public String getSuggestConeUrl() throws Exception {
-    if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
-    }
-
-    return this.suggestConeUrl;
-  }
-
   public SearchCriterionBase getFileSectionSearchCriterion() {
     return fileSectionSearchCriterion;
   }
@@ -914,9 +904,5 @@ public class AdvancedSearchBean extends FacesBean implements Serializable, Langu
 
   public void setIdentifierTypesListMenu(List<SelectItem> identifierTypesListMenu) {
     this.identifierTypesListMenu = identifierTypesListMenu;
-  }
-
-  public String getConeServiceUrl() {
-    return ConeUtils.getConeServiceUrl();
   }
 }

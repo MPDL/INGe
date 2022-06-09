@@ -98,15 +98,8 @@
 					<ui:repeat var="creator" value="#{EditItemSessionBean.creators}">
 						<h:panelGroup layout="block"
 							styleClass="full_area0 suggestAnchor endline">
-							<!-- Creator person family name, Creator person given name -->
-							<!--
-				<h:panelGroup layout="block" styleClass="free_area0 endline" rendered="#{creator.personType and !(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'easy-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
-					<span class="large_area0 xSmall_marginRExcl">&#160;</span>
-					<span class="xTiny_area0">&#160;</span>
-				</h:panelGroup>
-				 -->
 							<h:panelGroup layout="block"
-								styleClass="clear free_area0 endline personArea"
+								styleClass="clear free_area0 endline"
 								rendered="#{creator.personType and !(genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'full-submission' || genre.creator_person_organization_creator_persons_display == 'false' and genre.creator_person_organization_creator_persons_form_id == 'all')}">
 								<span class="large_area0 xSmall_marginRExcl">&#160;</span>
 								<span class="xTiny_area0">&#160;</span>
@@ -125,10 +118,6 @@
 										<f:selectItems value="#{EditItemSessionBean.creatorRoles}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!-- Creator role 	<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select" value="#{creator.roleString}"
-						rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-						<f:selectItems value="#{EditItemSessionBean.creatorRoles}" />
-					</h:selectOneMenu> -->
 								<h:panelGroup layout="block"
 									styleClass="small_area1 endline selectContainer"
 									rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
@@ -143,12 +132,6 @@
 										<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!-- Creator role 	<h:selectOneMenu id="selcreatorTypeString" value="#{creator.typeString}" styleClass="small_select"
-						rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}"
-						onchange="submit();">
-						<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
-					</h:selectOneMenu>
-					-->
 								<h:inputText id="inpcreator_persons_person_family_name_optional"
 									title="#{creator.person.familyName}"
 									styleClass="large_txtInput personSuggest familyName"
@@ -163,8 +146,7 @@
 									style="display:none;"
 									onclick="removeAuthorAutoSuggest($(this))"
 									title="#{tip.EditItem_lblRemoveAutosuggestAuthor}">
-									<f:ajax render="form1:iterCreatorOrganisationAuthors"
-										execute="@form" />
+									<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
 								</h:commandButton>
 								<h:inputText id="inpcreator_hidden_organizations"
 									styleClass="noDisplay organizationPasteField"
@@ -183,7 +165,7 @@
 									value="#{creator.person.identifier.id}" />
 								<h:outputLink
 									styleClass="small_area0 authorCard authorLink"
-									value="#{EditItemSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
+									value="#{ConeSessionBean.suggestConeUrl}#{creator.person.identifier.id}"
 									rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}"
 									target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
 								<h:panelGroup
@@ -240,10 +222,6 @@
 										<f:selectItems value="#{EditItemSessionBean.creatorRoles}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!--	<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="small_select" value="#{creator.roleString}"
-						rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-						<f:selectItems value="#{EditItemSessionBean.creatorRoles}" />
-					</h:selectOneMenu> -->
 								<h:panelGroup layout="block"
 									styleClass="medium_area1 endline selectContainer"
 									rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
@@ -259,11 +237,6 @@
 										<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!--	<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" value="#{creator.typeString}"
-						rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'full-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}"
-						onchange="submit();">
-						<f:selectItems value="#{EditItemSessionBean.creatorTypes}" />
-					</h:selectOneMenu>	-->
 								<h:inputText id="inpcreator_organization_name_optional"
 									styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl"
 									value="#{creator.organization.name}"
@@ -277,8 +250,7 @@
 									styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization"
 									style="display:none;"
 									onclick="return removeOrganizationAutoSuggest($(this))">
-									<f:ajax render="form1:iterCreatorOrganisationAuthors"
-										execute="@form" />
+									<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
 								</h:commandButton>
 								<h:outputLink styleClass="min_imgBtn ouCard ouLink"
 									rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}"
@@ -341,8 +313,7 @@
 								styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestOrganization"
 								style="display:none;"
 								onclick="removeOrganizationAutoSuggest($(this))">
-								<f:ajax render="form1:iterCreatorOrganisationAuthors"
-									execute="@form" />
+								<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
 							</h:commandButton>
 							<h:outputLink
 								styleClass="small_area0 ouCard ouLink xTiny_marginRExcl"

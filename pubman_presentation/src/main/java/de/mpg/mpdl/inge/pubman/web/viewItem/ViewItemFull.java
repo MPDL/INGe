@@ -1157,12 +1157,6 @@ public class ViewItemFull extends FacesBean {
     return contextName;
   }
 
-  public String getConeServiceUrl() {
-    return ConeUtils.getConeServiceUrl();
-  }
-
-
-
   /**
    * Returns the Context the item belongs to
    */

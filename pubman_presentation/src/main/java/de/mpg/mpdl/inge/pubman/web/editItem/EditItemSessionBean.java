@@ -34,7 +34,6 @@ import de.mpg.mpdl.inge.model.db.valueobjects.FileDbVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.SourceVO;
 import de.mpg.mpdl.inge.pubman.web.util.vos.PubFileVOPresentation;
-import de.mpg.mpdl.inge.util.ConeUtils;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -193,9 +192,4 @@ public class EditItemSessionBean extends EditItemBean {
   public void setFilesInitialized(boolean filesInitialized) {
     this.filesInitialized = filesInitialized;
   }
-
-  public String getConeServiceUrl() {
-    return ConeUtils.getConeServiceUrl();
-  }
-
 }
