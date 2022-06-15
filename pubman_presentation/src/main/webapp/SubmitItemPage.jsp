@@ -78,18 +78,8 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
-        <script type="text/javascript">
-            $("input[id$='offset']").on('submit',function() {
-                $(this).val($(window).scrollTop());
-            });
-            $(document).ready(function() {
-                $(window).scrollTop($("input[id$='offset']").val());
-                $(window).on('scroll',function() {
-                    $("input[id$='offset']").val($(window).scrollTop());
-                });
-            });
-        </script>
     </f:view>
 </body>
 

@@ -105,7 +105,6 @@ function getJournalDetails(details) {
 
 function getPersonDetails(details) {
     var parent = $input.parents('.' + personSuggestCommonParentClass);
-    var completeName = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
     var chosenName = $input.resultValue;
     var orgName = null;
     var orgId = null;
@@ -275,8 +274,8 @@ function removeAuthorAutoSuggest(element) {
     $input.css('display', 'none');
 
     //Remove link to researcher portfolio with empty space
-    $input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink xTiny_marginRExcl">&nbsp;</span>');
-    $input.parent().find('.orcidLink').replaceWith('<span class="xSmall_area0 orcidLink xTiny_marginRExcl">&nbsp;</span>');
+    $input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink">&#160;</span>');
+    $input.parent().find('.orcidLink').replaceWith('<span class="xSmall_area0 orcidLink ">&#160;</span>');
     //Enlarge givenName Field, because it was smaller before due to the remove button
     $input.parent().find('.givenName').attr('class', 'large_txtInput givenName');
     
@@ -306,7 +305,7 @@ function removeOrganizationAutoSuggest(element) {
 
     $input.css('display', 'none');
     $input.parent().find('.organizationAddress').attr('class', 'xLarge_txtInput organizationAddress');
-    $input.parent().find('.ouLink').replaceWith('<span class="xSmall_area0 ouLink xTiny_marginRExcl">&nbsp;</span>');
+    $input.parent().find('.ouLink').replaceWith('<span class="xSmall_area0 ouLink">&#160;</span>');
     
     bindSuggests();
 }
@@ -353,7 +352,6 @@ function updatePersonUi() {
                 $(this).parents('.' + personSuggestCommonParentClass).find('.organizationName').attr('readonly', 'readonly');
                 $(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('readonly', 'readonly');
                 $(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestOrganization').css('display', 'inline');
-                //$(this).parents('.' + personSuggestCommonParentClass).find('.removeAutoSuggestPerson').css('display', 'inline');
                 $(this).parents('.' + personSuggestCommonParentClass).find('.organizationAddress').attr('class', 'large_txtInput organizationAddress');
             }
         });
@@ -436,15 +434,6 @@ function fillUserAccountFields() {
     var parent = $input.parents('.' + commonParentClass);
     fillField('userAccountName', this.resultValue, parent);
     fillField('userAccountIdentifier', this.resultID, parent);
-    //fillField('organizationAddress', this.result.address, parent);
-
-    /*
-    if (this.resultID != null && this.resultID != '')
-    {
-    	$(parent).find('.ouLink').replaceWith('<a href="#" onclick="openCenteredWindow(\'/pubman/faces/AffiliationDetailPage.jsp?id=' + this.resultID + '\', 980, 400, \'Details\');return false" class="small_area0 ouCard ouLink xTiny_marginRExcl" target="_blank" rel="noreferrer noopener">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>');
-    	
-    }
-    */
     // Try to disable input field
     $.each($(parent).find('.disableAfter'),
         function() {
@@ -460,9 +449,6 @@ function fillFundingProgramFields() {
     $input.resultValue = this.resultValue;
     $input.resultID = this.resultID;
     $.getJSON(fundingProgramDetailsBaseURL.replace('$1', this.resultID).replace('$1', this.resultID), getFundingProgramDetails);
-
-    //$input.off('keydown');
-    //$input.off('keypress');
 }
 
 function getFundingProgramDetails(details) {
@@ -544,7 +530,6 @@ function removeCslAutoSuggest(element) {
 
 function updateCslUi() {
     var cslIdentifier = $('.citationStyleIdentifier');
-    // maintain attributes for autosuggest filled persons
     if (cslIdentifier && cslIdentifier.val()) {
         $('.citationStyleName').attr('readonly', 'readonly');
         $('.removeAutoSuggestCsl').css('display', 'inline');
@@ -610,18 +595,6 @@ function bindSuggests() {
             }
         });
 
-    $('.identifierSuggest').each(
-            function(i, ele) {
-                if (typeof identifierSuggestURL != 'undefined') {
-                    $(ele).suggest(identifierSuggestURL, {
-                        vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
-                        onSelect: function() {
-                            $(this).val(this.resultValue);
-                        }
-                    });
-                }
-            });
-
     //for search, adds result in quotes
     $('.subjectSuggestQuotes').each(
         function(i, ele) {
@@ -636,18 +609,6 @@ function bindSuggests() {
         });
     
     //for search, adds result in quotes
-    $('.identifierSuggestQuotes').each(
-        function(i, ele) {
-            if (typeof identifierSuggestURL != 'undefined') {
-                $(ele).suggest(identifierSuggestURL, {
-                    vocab: $(ele).parents('.identifierArea').find('.vocabulary'),
-                    onSelect: function() {
-                        $(this).val('"' + this.resultValue + '"');
-                    }
-                });
-            }
-        });
-    
     if (typeof personSuggestURL != 'undefined') {
         $('.personSuggest').each(
             function(i, ele) {
@@ -704,6 +665,45 @@ function selectLanguage() {
             $input.parents('.' + languageSuggestCommonParentClass).find('.languageText').val(lang);
             $input.parents('.' + languageSuggestCommonParentClass).find('.languageText').attr('title', lang);
         }
+    }
+}
+
+// removes 'readonly' attributes and resets fields for autosuggest
+function removePersonAutoSuggest(element) {
+    var $input = $(element);
+    var parent = $input.parent();
+    var field = null;
+    
+    if ($(parent).find('.personIdentifier').val() != '') {
+        field = $(parent).find('.personIdentifier');
+        field.removeAttr('readonly');
+        fillField('personIdentifier', '', parent);
+    }
+    if ($(parent).find('.personSearchString').val() != '') {
+        field = $(parent).find('.personSearchString');
+        field.removeAttr('readonly');
+        fillField('personSearchString', '', parent);
+    }
+    if ($(parent).find('.orcid').val() != '') {
+        field = $(parent).find('.personOrcid');
+        field.removeAttr('readonly');
+        fillField('personOrcid', '', parent);
+    }
+
+    //Hide remove button
+    $input.css('display', 'none');
+    
+    $input.parent().find('.authorLink').replaceWith('<span class="xSmall_area0 authorLink">&#160;</span>');
+    $input.parent().find('.orcidLink').replaceWith('<span class="xSmall_area0 orcidLink">&#160;</span>');
+
+    bindSuggests();
+}
+
+function updatePersonBatchUi() {
+    var personIdentifier = $('.personIdentifier');
+    if (personIdentifier && personIdentifier.val()) {
+        $('.personSearchString').attr('readonly', 'readonly');
+        $('.removeAutoSuggestPerson').css('display', 'inline');
     }
 }
 

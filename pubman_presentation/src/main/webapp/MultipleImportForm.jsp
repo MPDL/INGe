@@ -203,6 +203,7 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
     </f:view>
 </body>

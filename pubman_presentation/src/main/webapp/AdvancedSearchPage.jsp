@@ -81,32 +81,28 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
+        
         <script type="text/javascript">
+			var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
+        
+            var journalSuggestTrigger = 'JOURNAL';
+	  	    var journalSuggestURL = suggestConeUrl + 'journals/query';
+            var languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
+			var languageSuggestURL = suggestConeUrl + 'iso639-3/query';
+            var organizationSuggestURL = 'OrganizationSuggest.jsp';
+            var personDetailsBaseURL = '$1?format=json&amp;lang=$2';
+			var personSuggestURL = suggestConeUrl + 'persons/query?lang=*';
+			var subjectSuggestURL = suggestConeUrl + '$1/query?lang=en';
+
+            $(document).ready(function() {
+                checkUpdatePersonFunction();
+            });
+
             function checkUpdatePersonFunction() {
                 (typeof updatePersonUi == 'function') ? updatePersonUi(): setTimeout("checkUpdatePersonFunction()", 30);
             }
-            $(document).ready(function() {
-                /*
-                $("input[id$='offset']").on('submit',function() {
-                	$(this).val($(window).scrollTop());
-                });
-                 */
-                $(window).scrollTop($("input[id$='offset']").val());
-                $(window).on('scroll',function() {
-                    $("input[id$='offset']").val($(window).scrollTop());
-                });
-                checkUpdatePersonFunction();
-            });
-            languageSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>iso639-3/query?format=json';
-            personSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>persons/query?lang=*';
-            languageDetailsBaseURL = '$1?format=json&amp;lang=$2';
-            organizationSuggestURL = 'OrganizationSuggest.jsp';
-            personDetailsBaseURL = '$1?format=json&amp;lang=$2';
-            subjectSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>$1/query?lang=en';
-            identifierSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>$1/query?lang=en';
-            journalSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>journals/query';
-            journalSuggestTrigger = 'JOURNAL';
         </script>
     </f:view>
 </body>

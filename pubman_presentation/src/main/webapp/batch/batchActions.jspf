@@ -2,8 +2,9 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-	<f:subview id="batchActions">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	<f:subview>
 		<div class="full_area0">
 			<div class="full_area0 fullItem">
 				<div class="small_marginLExcl">
@@ -31,11 +32,11 @@
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.deleteItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeState_delete }" />
+										action="#{PubItemBatchSessionBean.deleteItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_delete}" />
 								</b>
 								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeState_deleteDesc }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeState_deleteDesc}" />
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
@@ -43,11 +44,11 @@
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.submitItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeState_submit }" />
+										action="#{PubItemBatchSessionBean.submitItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_submit}" />
 								</b>
 								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeState_submitDesc }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeState_submitDesc}" />
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
@@ -55,11 +56,11 @@
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.reviseItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToRework }" />
+										action="#{PubItemBatchSessionBean.reviseItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToRework}" />
 								</b>
 								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeState_sendBackToReworkDesc}" />
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
@@ -67,11 +68,11 @@
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.releaseItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeState_release }" />
+										action="#{PubItemBatchSessionBean.releaseItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_release}" />
 								</b>
 								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeState_releaseDesc }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeState_releaseDesc}" />
 							</div>
 						</div>
 						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
@@ -79,11 +80,11 @@
 							<div class="xHuge_area0_p8 itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.withdrawItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeState_withdraw }" />
+										action="#{PubItemBatchSessionBean.withdrawItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeState_withdraw}" />
 								</b>
 								<h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeState_withdrawDesc }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeState_withdrawDesc}" />
 							</div>
 						</div>
 					</div>
@@ -103,22 +104,21 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"><h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeContextItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContext }" />
+										action="#{PubItemBatchSessionBean.changeContextItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContext}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextOldContext }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextOldContext}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextNewContext }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeContext_changeContextNewContext}" />
 										</div>
-
 										<div>
 											<h:selectOneMenu id="selContextChangeOldContext"
 												styleClass="replace"
@@ -159,13 +159,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.addLocalTagsItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add }" />
+										action="#{PubItemBatchSessionBean.addLocalTagsItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_add}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc }" />
-
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_addDesc}" />
 									<ui:repeat var="localTag"
 										value="#{PubItemBatchSessionBean.localTagsToAdd}"
 										varStatus="localTagStatus">
@@ -183,9 +182,7 @@
 										</span>
 										</span>
 									</ui:repeat>
-
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -195,20 +192,20 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.replaceLocalTagsItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace }" />
+										action="#{PubItemBatchSessionBean.replaceLocalTagsItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replace}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceFrom }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeLocalTags_replaceTo}" />
 										</div>
 										<div>
 											<h:inputText id="inputChangeLocalTags_replaceFrom"
@@ -230,7 +227,7 @@
 						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeGenre }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeGenre}" />
 						</b>
 						</span>
 					</div>
@@ -240,15 +237,15 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeGenreItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change }" />
+										action="#{PubItemBatchSessionBean.changeGenreItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeGenre_change}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDesc}" />
 									<br />
 									<h:outputText style="font-weight: bold;"
-										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDescAdditional }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeDescAdditional}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -256,12 +253,11 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeGenre_changeTo}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeGenre_thesisType }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeGenre_thesisType}" />
 										</div>
-
 										<div>
 											<h:selectOneMenu id="selChangeGenreFrom" styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeGenreFrom}"
@@ -297,12 +293,12 @@
 						</div>
 					</div>
 				</h:panelGroup>
-				<h:panelGroup>
+				<h:panelGroup id="editSearch">
 					<div class="full_area0 itemHeader">
 						<span class="medium_area0 endline"> &#160; </span> <span
 							class="seperator"></span> <span
 							class="free_area0_p8 endline itemHeadline"> <b> <h:outputText
-									value="#{lbl.BatchWorkspace_lblActions_changeMetadata }" />
+									value="#{lbl.BatchWorkspace_lblActions_changeMetadata}" />
 						</b>
 						</span>
 					</div>
@@ -312,7 +308,7 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<h3>
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files}" />
 								</h3>
 							</div>
 						</div>
@@ -323,12 +319,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeFileVisibilityItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility }" />
+										action="#{PubItemBatchSessionBean.changeFileVisibilityItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibility}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -336,11 +332,9 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_visibilityTo}" />
 										</div>
-
 										<div>
-
 											<h:selectOneMenu id="selChangeFilesVisibilityFrom"
 												styleClass="replace"
 												value="#{PubItemBatchSessionBean.changeFilesVisibilityFrom}"
@@ -370,12 +364,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeFileContentCategoryItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategory }" />
+										action="#{PubItemBatchSessionBean.changeFileContentCategoryItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategory}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -383,9 +377,8 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_changeContentCategoryTo}" />
 										</div>
-
 										<div>
 											<h:selectOneMenu id="selChangeFilesContentCategoryFrom"
 												styleClass="replace"
@@ -416,19 +409,18 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeFileAudienceItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audience }" />
+										action="#{PubItemBatchSessionBean.changeFileAudienceItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audience}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_files_audienceTo}" />
 										</div>
-
 										<div>
 											<ui:repeat var="ipRange"
 												value="#{PubItemBatchSessionBean.ipRangeToAdd}"
@@ -463,7 +455,7 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<h3>
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences}" />
 								</h3>
 							</div>
 						</div>
@@ -474,12 +466,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeExternalRefereneceContentCategoryItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategory }" />
+										action="#{PubItemBatchSessionBean.changeExternalReferenceContentCategoryItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategory}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -487,9 +479,8 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_externalReferences_changeContentCategoryTo}" />
 										</div>
-
 										<div>
 											<h:selectOneMenu
 												id="selChangeExternalReferencesContentCategoryFrom"
@@ -516,13 +507,55 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<h3>
+									<h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_orcid}" />
+								</h3>
+							</div>
+						</div>
+					</div>
+					
+					<div class="full_area0 itemBlock noTopBorder">
+						<h3 class="xLarge_area0_p8 endline blockHeader">&#160;</h3>
+						<div class="free_area0 itemBlockContent endline">
+							<div class="xHuge_area0_p8 endline itemLine firstLine">
+								<b class="medium_area0 labelLine">
+									<h:commandLink class="free_area0 groupBtn" action="#{PubItemBatchSessionBean.changeOrcid}" value="#{lbl.BatchWorkspace_lblActions_changeMetadata_orcid_changeOrcid}" />
+								</b>
+								<div class="textblock">
+									<h:outputText value="#{lbl.BatchWorkspace_lblActions_changeMetadata_orcid_changeOrcidDesc}" />
+									<br />
+									<div>
+										<!-- input for person searches-->
+										<h:panelGroup id="personArea" styleClass="free_area0 endline suggestAnchor">
+											<h:inputText id="inputPersonSearchString" styleClass="quad_txtInput personSuggest personSearchString disableAfter" value="#{PubItemBatchSessionBean.criterion.searchString}" pt:placeholder="Person eingeben" />
+											<h:inputText id="inputPersonsIdentifier" styleClass="noDisplay personIdentifier" value="#{PubItemBatchSessionBean.criterion.hiddenId}" />
+											<h:commandButton id="btnRemovePersonAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestPerson" style="display:none;" onclick="removePersonAutoSuggest($(this))" action="#{PubItemBatchSessionBean.removeAutoSuggestValues()}">
+												<f:ajax render="personArea" execute="@form" />
+											</h:commandButton>
+											<h:outputLink styleClass="small_area0 authorCard authorLink" value="#{ConeSessionBean.coneServiceUrl}#{PubItemBatchSessionBean.criterion.hiddenId}" rendered="#{PubItemBatchSessionBean.criterion.hiddenId != null and PubItemBatchSessionBean.criterion.hiddenId != ''}" target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
+											<h:panelGroup rendered="#{PubItemBatchSessionBean.criterion.hiddenId == null || PubItemBatchSessionBean.criterion.hiddenId == ''}" styleClass="xSmall_area0 authorLink">&#160;</h:panelGroup>
+											<h:inputText id="inputPersonOrcid" styleClass="noDisplay personOrcid" value="#{PubItemBatchSessionBean.orcid}" />
+											<h:outputLink styleClass="small_area0 orcidCard orcidLink" value="#{PubItemBatchSessionBean.orcid}" rendered="#{PubItemBatchSessionBean.orcid != null and PubItemBatchSessionBean.orcid != ''}" target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
+											<h:panelGroup rendered="#{PubItemBatchSessionBean.orcid == null || PubItemBatchSessionBean.orcid == ''}" styleClass="xSmall_area0 orcidLink">&#160;</h:panelGroup>
+										</h:panelGroup>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 					<div class="full_area0 itemBlock noTopBorder">
 						<h3 class="large_area0_p8 endline blockHeader">&#160;</h3>
 						<div class="free_area0 itemBlockContent endline">
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<h3>
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication}" />
 								</h3>
 							</div>
 						</div>
@@ -533,12 +566,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeReviewMethodItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethod }" />
+										action="#{PubItemBatchSessionBean.changeReviewMethodItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethod}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -546,9 +579,8 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_reviewMethodTo}" />
 										</div>
-
 										<div>
 											<h:selectOneMenu id="selChangeReviewMethodFrom"
 												styleClass="replace"
@@ -579,17 +611,17 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changePublicationKeywordsAddItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_add }" />
+										action="#{PubItemBatchSessionBean.changePublicationKeywordsAddItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_add}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_addDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_addDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_add_input }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_add_input}" />
 										</div>
 										<div>
 											<div>
@@ -609,12 +641,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace }" />
+										action="#{PubItemBatchSessionBean.changePublicationKeywordsReplaceItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replaceDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replaceDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -622,10 +654,10 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace_select_replace_type}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace_input_from }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace_input_from}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace_input_to }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_publication_keywords_replace_input_to}" />
 										</div>
 										<div>
 											<h:selectOneMenu id="selChangeKeywordsReplaceNumber"
@@ -665,7 +697,7 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<h3>
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source}" />
 								</h3>
 							</div>
 						</div>
@@ -676,12 +708,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeSourceGenreItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genre }" />
+										action="#{PubItemBatchSessionBean.changeSourceGenreItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genre}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -689,7 +721,7 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreFrom}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreTo }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_genreTo}" />
 										</div>
 
 										<div>
@@ -722,12 +754,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeSourceEditionItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition }" />
+										action="#{PubItemBatchSessionBean.changeSourceEditionItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_editionDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_editionDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -735,7 +767,7 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_number}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition_input }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_edition_input}" />
 										</div>
 										<div>
 											<h:selectOneMenu id="selChangeSourceIssueNumber"
@@ -764,12 +796,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.addSourceIdItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_add }" />
+										action="#{PubItemBatchSessionBean.addSourceIdItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_add}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_addDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_addDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -780,7 +812,7 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_type}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input}" />
 										</div>
 										<div>
 											<h:selectOneMenu id="selChangeSourceIdAddNumber"
@@ -818,12 +850,12 @@
 							<div class="xHuge_area0_p8 endline itemLine firstLine">
 								<b class="medium_area0 labelLine"> <h:commandLink
 										class="free_area0 groupBtn"
-										action="#{PubItemBatchSessionBean.changeSourceIdReplaceItemList }"
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_replace }" />
+										action="#{PubItemBatchSessionBean.changeSourceIdReplaceItemList}"
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_replace}" />
 								</b>
 								<div class="textblock">
 									<h:outputText
-										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_replaceDesc }" />
+										value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_replaceDesc}" />
 									<br />
 									<div style="display: inline;">
 										<div class="free_area0 selCriterionType">
@@ -834,10 +866,10 @@
 												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_type}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input_from }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input_from}" />
 											<br />
 											<h:outputLabel
-												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input_to }" />
+												value="#{lbl.BatchWorkspace_lblActions_changeMetadata_source_id_input_to}" />
 										</div>
 										<div>
 											<h:selectOneMenu id="selChangeSourceIdReplaceNumber"

@@ -277,9 +277,7 @@
 							styleClass="min_imgBtn sectionTool remove" value=" "
 							action="#{fileComponent.removeFileEasySubmission}"
 							rendered="#{genre.files_repeatable != 'false'}">
-							<f:ajax
-								render="form1:easySubmission:easySubmissionStep1Manual:editFile"
-								execute="@form" />
+							<f:ajax render="form1:easySubmission:easySubmissionStep1Manual:editFile" execute="@form" />
 						</h:commandButton>
 					</span>
 				</h:panelGroup>

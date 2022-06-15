@@ -168,7 +168,7 @@
 											<h:panelGroup layout="block"
 												styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
 										</h:panelGroup>
-										<h:selectOneMenu id="selSelectIdentifierType"
+										<h:selectOneMenu id="selSelectClassificationType"
 											styleClass="replace vocabulary"
 											onfocus="updateSelectionBox(this);"
 											value="#{EasySubmission.subject.type}"

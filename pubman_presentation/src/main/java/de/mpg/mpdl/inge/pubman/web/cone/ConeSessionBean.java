@@ -23,42 +23,34 @@
  * wissenschaftlich-technische Information mbH and Max-Planck- Gesellschaft zur Förderung der
  * Wissenschaft e.V. All rights reserved. Use is subject to license terms.
  */
-package de.mpg.mpdl.inge.pubman.web.search.criterions.standard;
+package de.mpg.mpdl.inge.pubman.web.cone;
 
-import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import java.io.Serializable;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
+import de.mpg.mpdl.inge.util.ConeUtils;
+import de.mpg.mpdl.inge.util.PropertyReader;
+
+@ManagedBean(name = "ConeSessionBean")
+@SessionScoped
 @SuppressWarnings("serial")
-public class LocalTagSearchCriterion extends StandardSearchCriterion {
+public class ConeSessionBean extends FacesBean implements Serializable {
+  private String suggestConeUrl;
 
-  //  @Override
-  //  public String[] getCqlIndexes(Index indexName) {
-  //
-  //    switch (indexName) {
-  //      case ESCIDOC_ALL:
-  //        return new String[] {"escidoc.property.content-model-specific.local-tags.local-tag"};
-  //      case ITEM_CONTAINER_ADMIN:
-  //        return new String[] {"\"/properties/content-model-specific/local-tags/local-tag\""};
-  //    }
-  //    return null;
-  //
-  //
-  //  }
+  public ConeSessionBean() {}
 
-  @Override
-  public String[] getElasticIndexes() {
-    return new String[] {PubItemServiceDbImpl.INDEX_LOCAL_TAGS};
+  public String getSuggestConeUrl() throws Exception {
+    if (this.suggestConeUrl == null) {
+      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
+    }
 
+    return this.suggestConeUrl;
   }
 
-  @Override
-  public String getElasticSearchNestedPath() {
-    return null;
+  public String getConeServiceUrl() {
+    return ConeUtils.getConeServiceUrl();
   }
-
-  /*
-   * @Override public SearchCriterion getSearchCriterion() { return SearchCriterion.ORCID; }
-   */
-
-
-
 }

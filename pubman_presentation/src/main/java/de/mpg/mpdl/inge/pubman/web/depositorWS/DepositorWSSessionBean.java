@@ -84,5 +84,4 @@ public class DepositorWSSessionBean extends FacesBean {
   public void setNewSubmission(boolean newSubmission) {
     this.newSubmission = newSubmission;
   }
-
 }

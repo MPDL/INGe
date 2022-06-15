@@ -44,7 +44,7 @@
 						<!-- specific -->
 						<h:panelGroup styleClass="image">
 							<!-- Standard image for Authors with CoNE link -->
-							<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+							<h:outputLink value="#{ConeSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
 								target="_blank" rel="noreferrer noopener">
 								<img src="../resources/images/overviewPage/#{ApplicationBean.pubmanRootAuthorsIcon}_64.png"
@@ -62,7 +62,7 @@
 							<!-- Author name with CoNE link -->
 							<h:panelGroup styleClass="author_name"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
-								<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}" 
+								<h:outputLink value="#{ConeSessionBean.coneServiceUrl}#{creator.person.identifier.id}" 
 								    target="_blank" rel="noreferrer noopener">
 									<h:outputText value="#{creator.person.familyName}"
 										rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;
@@ -115,7 +115,7 @@
 						<!-- specific -->
 						<h:panelGroup styleClass="image">
 							<!-- Standard image for Authors with CoNE link -->
-							<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}"
+							<h:outputLink value="#{ConeSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}"
 								target="_blank" rel="noreferrer noopener">
 								<img src="../resources/images/overviewPage/#{ApplicationBean.pubmanRootAuthorsIcon}_64.png"
@@ -133,7 +133,7 @@
 							<!-- Author name with CoNE link -->
 							<h:panelGroup styleClass="author_name"
 								rendered="#{creator.person.identifier != null and creator.person.identifier.id != null}">
-								<h:outputLink value="#{ViewItemFull.coneServiceUrl}#{creator.person.identifier.id}" 
+								<h:outputLink value="#{ConeSessionBean.coneServiceUrl}#{creator.person.identifier.id}" 
 								    target="_blank" rel="noreferrer noopener">
 									<h:outputText value="#{creator.person.familyName}"
 										rendered="#{creator.type == 'PERSON' and creator.person.familyName != null}" />,&#160;

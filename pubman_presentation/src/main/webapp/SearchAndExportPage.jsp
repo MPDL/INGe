@@ -128,7 +128,6 @@
 				                                    <f:ajax render="form1:export" execute="form1:export" listener="#{ExportItems.updateExportFormats}"/>
 				                                </h:selectOneMenu>
 				                            </h:panelGroup>
-				                            
 				                            <h:panelGroup layout="block" styleClass="medium_area1 endline selectContainer" rendered="#{ExportItemsSessionBean.enableFileFormats}">
 				                                <h:panelGroup layout="block" styleClass="medium_area0">
 				                                    <h:panelGroup styleClass="medium_area0 selectionBox">&#160;</h:panelGroup>
@@ -142,8 +141,8 @@
 				                            <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
 				                                <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="#{lbl.searchAndExport_EnterCitationStyle}" />
 				                                <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-				                                <h:outputLink styleClass="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="#{lbl.searchAndExport_ListCitationStyle}" target="_blank" rel="noreferrer noopener" />
-				                                <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{lbl.searchAndExport_btnRemoveAutoSuggestCsl}" />
+				                                <h:outputLink styleClass="fa fa-list-ul" value="#{ConeSessionBean.suggestConeUrl}citation-styles/all/format=html" title="#{lbl.searchAndExport_ListCitationStyle}" target="_blank" rel="noreferrer noopener" />
+				                                <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}" />
 				                            </h:panelGroup>
 				                        </h:panelGroup>
 									</span>
@@ -190,24 +189,21 @@
         </div>
         
         <ui:include src="footer/Footer.jspf" />
-        <script type="text/javascript">
-            var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>citation-styles/query';
-            var citationStyleSuggestBaseURL = '$1?format=json';
-            $("input[id$='offset']").on('submit',function() {
-                $(this).val($(window).scrollTop());
-            });
-            $(document).ready(function() {
-                $(window).scrollTop($("input[id$='offset']").val());
-                $(window).on('scroll',function() {
-                    $("input[id$='offset']").val($(window).scrollTop());
-                });
-                checkUpdateCslUi();
-            });
+        
+		<script type="text/javascript">
+	        var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
+        
+	        var citationStyleSuggestBaseURL = '$1?format=json';
+		    var citationStyleSuggestURL = suggestConeUrl + 'citation-styles/query';
 
-            function checkUpdateCslUi() {
-                (typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
-            }
-        </script>
+			$(document).ready(function() {
+				checkUpdateCslUi();
+			});
+
+			function checkUpdateCslUi() {
+				(typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
+			}
+		</script>
     </f:view>
 </body>
 

@@ -1157,12 +1157,6 @@ public class ViewItemFull extends FacesBean {
     return contextName;
   }
 
-  public String getConeServiceUrl() {
-    return ConeUtils.getConeServiceUrl();
-  }
-
-
-
   /**
    * Returns the Context the item belongs to
    */
@@ -1713,7 +1707,7 @@ public class ViewItemFull extends FacesBean {
   }
 
   /**
-   * Downloads the page with the selected items as export. This method is called when the user
+   * Downloads the page with the selected item as export. This method is called when the user
    * selects one or more items and then clicks on the Download-Button in the Export-Items Panel.
    * 
    * @author: StG

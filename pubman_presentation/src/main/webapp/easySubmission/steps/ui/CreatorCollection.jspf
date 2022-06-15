@@ -112,10 +112,6 @@
 											value="#{EasySubmissionSessionBean.creatorRoles}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!--
-						<h:selectOneMenu id="selCreatorRoleString" styleClass="small_select" value="#{creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-							<f:selectItems value="#{EasySubmissionSessionBean.creatorRoles}"/>
-						</h:selectOneMenu>	-->
 								<h:panelGroup layout="block"
 									styleClass="small_area1 endline selectContainer"
 									rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
@@ -131,10 +127,6 @@
 											value="#{EasySubmissionSessionBean.creatorTypes}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!--
-						<h:selectOneMenu id="selcreatorTypeString" value="#{creator.typeString}" styleClass="small_select" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" onchange="submit();">
-							<f:selectItems value="#{EasySubmissionSessionBean.creatorTypes}"/>
-						</h:selectOneMenu>	-->
 								<h:inputText id="inpcreator_persons_person_family_name_optional"
 									styleClass="large_txtInput personSuggest familyName"
 									value="#{creator.person.familyName}"
@@ -146,8 +138,7 @@
 									styleClass="xSmall_area0 closeIcon min_imgBtn removeAutoSuggestPerson"
 									style="display:none;"
 									onclick="removeAuthorAutoSuggest($(this))">
-									<f:ajax render="form1:iterCreatorOrganisationAuthors"
-										execute="@form" />
+									<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
 								</h:commandButton>
 								<h:inputText id="inpcreator_hidden_organizations"
 									styleClass="noDisplay organizationPasteField"
@@ -162,7 +153,7 @@
 									styleClass="noDisplay personIdentifier"
 									value="#{creator.person.identifier.id}" />
 								<h:outputLink styleClass="small_area0 authorCard authorLink"
-									value="#{EasySubmissionSessionBean.coneServiceUrl}#{creator.person.identifier.id}"
+									value="#{ConeSessionBean.suggestConeUrl}#{creator.person.identifier.id}"
 									rendered="#{creator.person.identifier.id != null and creator.person.identifier.id != ''}"
 									target="_blank" rel="noreferrer noopener">&#160;</h:outputLink>
 								<h:panelGroup
@@ -213,10 +204,6 @@
 											value="#{EasySubmissionSessionBean.creatorRoles}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!--
-						<h:selectOneMenu id="selCreatorOrgRoleString" styleClass="small_select" value="#{creator.roleString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_display == 'false' and genre.creator_person_organization_creator_select_roles_form_id == 'all')}">
-							<f:selectItems value="#{EasySubmissionSessionBean.creatorRoles}"/>
-						</h:selectOneMenu>	-->
 								<h:panelGroup layout="block"
 									styleClass="small_area1 endline selectContainer"
 									rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}">
@@ -232,10 +219,6 @@
 											value="#{EasySubmissionSessionBean.creatorTypes}" />
 									</h:selectOneMenu>
 								</h:panelGroup>
-								<!--
-						<h:selectOneMenu id="selcreatorOrgTypeString" styleClass="small_select" value="#{creator.typeString}" rendered="#{!(genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'easy-submission' || genre.creator_person_organization_creator_select_roles_creator_type_display == 'false' and genre.creator_person_organization_creator_select_roles_creator_type_form_id == 'all')}" onchange="submit();">
-							<f:selectItems value="#{EasySubmissionSessionBean.creatorTypes}"/>
-						</h:selectOneMenu>	-->
 								<h:inputText id="inpcreator_organization_name_optional"
 									styleClass="huge_txtInput organizationSuggest organizationName xSmall_marginRExcl"
 									value="#{creator.organization.name}"
@@ -248,8 +231,7 @@
 									style="display:none;"
 									onclick="removeOrganizationAutoSuggest($(this))"
 									title="#{tip.EditItem_lblRemoveAutosuggestAuthor} }">
-									<f:ajax render="form1:iterCreatorOrganisationAuthors"
-										execute="@form" />
+									<f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
 								</h:commandButton>
 								<h:outputLink styleClass="min_imgBtn ouCard ouLink"
 									rendered="#{creator.organization.identifier != null and creator.organization.identifier != ''}"

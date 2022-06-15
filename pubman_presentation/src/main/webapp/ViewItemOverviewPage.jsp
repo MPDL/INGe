@@ -175,7 +175,7 @@
                                     <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
                                         <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
                                         <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-                                        <h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" rel="noreferrer noopener" />
+		                                <h:outputLink styleClass="fa fa-list-ul" value="#{ConeSessionBean.suggestConeUrl}citation-styles/all/format=html" title="#{lbl.searchAndExport_ListCitationStyle}" target="_blank" rel="noreferrer noopener" />
                                         <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
                                             <f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
                                         </h:commandButton>
@@ -305,73 +305,83 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
-        <script type="text/javascript">
-            var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>citation-styles/query';
-            var citationStyleSuggestBaseURL = '$1?format=json';
-            $(document).ready(function() {
-                startNanoScrollerWhenLoaded();
-                // enable overflow of links on mouseover
-                $('.tile_category a').on('mouseenter',function(evt) {
-                    $(this).parent().css({
-                        "overflow": "visible"
-                    })
-                });
-                $('.tile_category a').on('mouseleave',function(evt) {
-                    $(this).parent().css({
-                        "overflow": "hidden"
-                    })
-                });
-                // Try to replace standard author images with CoNE-images
-                replaceAuthorImage();
-                checkUpdateCslUi();
-            });
-            // NanoScroller
-            var counter = 0;
-            var startNanoScrollerTimeout;
-            // Add NanoScroller (Scrollbar only visible when hovering the marked div)
-            function startNanoScrollerWhenLoaded() {
-                clearTimeout(startNanoScrollerTimeout);
-                switch (typeof $.fn.nanoScroller) {
-                    case 'function':
-                        var nanoDiv = $(".nano");
-                        nanoDiv.nanoScroller();
-                        break;
-                    default:
-                        counter++;
-                        if (counter &lt; 10) {
-                            startNanoScrollerTimeout = setTimeout(startNanoScrollerWhenLoaded, 100);
-                        }
-                        break;
-                }
-            }
-            // tries to replace the standard author image with the cone image.
-            function replaceAuthorImage() {
-                var url;
-                var jsonRequestUrl;
-                var imgElement;
-                $('.mpgAuthorId').each(function(index) {
-                    url = $(this).text();
-                    jsonRequestUrl = '#{AdvancedSearchBean.coneServiceUrl}' + url + '?format=json';
-                    imgElement = $(this).parent().find('img').get(0);
-                    updateImage(imgElement, jsonRequestUrl);
-                });
-            }
-            // JSon request to CoNE (works only if CoNE is on the same server as PubMan [Cross-site-scripting])
-            // !DOES NOT WORK LOCALLY! (Cross-site-scripting)
-            function updateImage(imgElement, jsonRequestUrl) {
-                $.getJSON(jsonRequestUrl, function(result) {
-                    var pictureUrl = result.http_xmlns_com_foaf_0_1_depiction;
-                    if (pictureUrl != undefined &amp;&amp; pictureUrl.trim() != '') {
-                        $(imgElement).attr('src', pictureUrl);
-                    }
-                });
-            }
+        
+		<script type="text/javascript">
+	        var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
+        
+		    var citationStyleSuggestBaseURL = '$1?format=json';
+    		var citationStyleSuggestURL = suggestConeUrl + 'citation-styles/query';
 
-            function checkUpdateCslUi() {
-                (typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
-            }
-        </script>
+			$(document).ready(function() {
+				startNanoScrollerWhenLoaded();
+				// enable overflow of links on mouseover
+				$('.tile_category a').on('mouseenter',function(evt) {
+					$(this).parent().css({
+						"overflow": "visible"
+					})
+				});
+				$('.tile_category a').on('mouseleave',function(evt) {
+					$(this).parent().css({
+						"overflow": "hidden"
+					})
+				});
+				
+				// Try to replace standard author images with CoNE-images
+				replaceAuthorImage();
+				checkUpdateCslUi();
+			});
+
+			// NanoScroller
+			var counter = 0;
+			var startNanoScrollerTimeout;
+
+			// Add NanoScroller (Scrollbar only visible when hovering the marked div)
+			function startNanoScrollerWhenLoaded() {
+				clearTimeout(startNanoScrollerTimeout);
+				switch (typeof $.fn.nanoScroller) {
+					case 'function':
+						var nanoDiv = $(".nano");
+						nanoDiv.nanoScroller();
+						break;
+					default:
+						counter++;
+						if (counter &lt; 10) {
+							startNanoScrollerTimeout = setTimeout(startNanoScrollerWhenLoaded, 100);
+						}
+						break;
+				}
+			}
+
+			// tries to replace the standard author image with the cone image.
+			function replaceAuthorImage() {
+				var url;
+				var jsonRequestUrl;
+				var imgElement;
+				$('.mpgAuthorId').each(function(index) {
+					url = $(this).text();
+					jsonRequestUrl = '#{ConeSessionBean.coneServiceUrl}' + url + '?format=json';
+					imgElement = $(this).parent().find('img').get(0);
+					updateImage(imgElement, jsonRequestUrl);
+				});
+			}
+
+			// JSon request to CoNE (works only if CoNE is on the same server as PubMan [Cross-site-scripting])
+			// !DOES NOT WORK LOCALLY! (Cross-site-scripting)
+			function updateImage(imgElement, jsonRequestUrl) {
+				$.getJSON(jsonRequestUrl, function(result) {
+					var pictureUrl = result.http_xmlns_com_foaf_0_1_depiction;
+					if (pictureUrl != undefined &amp;&amp; pictureUrl.trim() != '') {
+						$(imgElement).attr('src', pictureUrl);
+					}
+				});
+			}
+
+			function checkUpdateCslUi() {
+				(typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
+			}
+		</script>
     </f:view>
 </body>
 

@@ -124,6 +124,7 @@ public class BatchProcessItemVO {
     METADATA_NO_NEW_VALUE_SET("batch_ProcessLog_MetadataNoNewValueSet"),
     METADATA_NO_SOURCE_FOUND("batch_ProcessLog_MetadataNoSourceFound"),
     METADATA_CHANGE_VALUE_NOT_EQUAL("batch_ProcessLog_MetadataChangeValueNotEqual"),
+    METADATA_CHANGE_VALUE_ORCID_NO_PERSON("batch_ProcessLog_MetadataChangeOrcidNoPerson"),
     METADATA_LOST("batch_ProcessLog_MetadataLost"),
     VALIDATION_GLOBAL("batch_ProcessLog_ValidationGlobal"),
     VALIDATION_NO_SOURCE("batch_ProcessLog_ValidationNoSource"),

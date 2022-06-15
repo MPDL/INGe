@@ -133,14 +133,4 @@ public class QAWSSessionBean extends FacesBean {
   public void setOrgUnitSelectItems(List<SelectItem> orgUnitSelectItems) {
     this.orgUnitSelectItems = orgUnitSelectItems;
   }
-
-  // public void setOrgUnitList(List<OrganizationVOPresentation> list)
-  // {
-  // this.orgUnitSelectItems = new ArrayList<SelectItem>();
-  // this.orgUnitSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
-  // for (OrganizationVOPresentation org : list)
-  // {
-  // this.orgUnitSelectItems.add(new SelectItem(org.getIdentifier(), org.getName().getValue()));
-  // }
-  // }
 }

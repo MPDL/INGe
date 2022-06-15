@@ -183,7 +183,7 @@
                                     <h:panelGroup layout="block" styleClass="free_area0 suggestAnchor endline CSL" rendered="#{ExportItemsSessionBean.enableCslAutosuggest }">
                                         <h:inputText id="inputCitationStyleName" styleClass="huge_txtInput citationStyleSuggest citationStyleName" value="#{ExportItemsSessionBean.citationStyleName}" title="#{ExportItemsSessionBean.citationStyleName}" pt:placeholder="Zitierstil eingeben" />
                                         <h:inputText id="inputCitationStyleIdentifier" styleClass="noDisplay citationStyleIdentifier" value="#{ExportItemsSessionBean.coneCitationStyleId}" />
-                                        <h:outputLink class="fa fa-list-ul" value="#{AdvancedSearchBean.suggestConeUrl}citation-styles/all/format=html" title="Liste aller Zitierstile" target="_blank" rel="noreferrer noopener" />
+		                                <h:outputLink styleClass="fa fa-list-ul" value="#{ConeSessionBean.suggestConeUrl}citation-styles/all/format=html" title="#{lbl.searchAndExport_ListCitationStyle}" target="_blank" rel="noreferrer noopener" />
                                         <h:commandButton id="btnRemoveCslAutoSuggest" value=" " styleClass="xSmall_area0 min_imgBtn closeIcon removeAutoSuggestCsl" style="display:none;" onclick="removeCslAutoSuggest($(this))" title="#{tip.ViewItem_lblRemoveAutosuggestCsl}">
                                             <f:ajax render="form1:iterCreatorOrganisationAuthors" execute="@form" />
                                         </h:commandButton>
@@ -356,18 +356,23 @@
                 </div>
             </h:form>
         </div>
+        
         <ui:include src="footer/Footer.jspf" />
-        <script type="text/javascript">
-            var citationStyleSuggestURL = '<h:outputText value="#{AdvancedSearchBean.suggestConeUrl}"/>citation-styles/query';
-            var citationStyleSuggestBaseURL = '$1?format=json';
+        
+		<script type="text/javascript">
+	        var suggestConeUrl = "#{ConeSessionBean.suggestConeUrl}";
+        
+    	    var citationStyleSuggestBaseURL = '$1?format=json';
+	    	var citationStyleSuggestURL = suggestConeUrl + 'citation-styles/query';
 
-            function checkUpdateCslUi() {
-                (typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
-            }
-            $(document).ready(function() {
-                checkUpdateCslUi();
-            });
-        </script>
+			$(document).ready(function() {
+				checkUpdateCslUi();
+			});
+
+			function checkUpdateCslUi() {
+				(typeof updateCslUi == 'function') ? updateCslUi(): setTimeout("checkUpdateCslUi()", 30);
+			}
+		</script>
     </f:view>
 </body>
 

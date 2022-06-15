@@ -21,6 +21,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import de.mpg.mpdl.inge.inge_validation.util.ValidationTools;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessItemVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.BatchProcessLogDbVO;
 import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO;
@@ -33,6 +34,10 @@ import de.mpg.mpdl.inge.model.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.mpdl.inge.model.xmltransforming.logging.Messages;
 import de.mpg.mpdl.inge.pubman.web.contextList.ContextListSessionBean;
 import de.mpg.mpdl.inge.pubman.web.itemList.PubItemListSessionBean;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.SearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.PersonSearchCriterion;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.stringOrHiddenId.StringOrHiddenIdSearchCriterion;
 import de.mpg.mpdl.inge.pubman.web.util.CommonUtils;
 import de.mpg.mpdl.inge.pubman.web.util.DisplayTools;
 import de.mpg.mpdl.inge.pubman.web.util.FacesBean;
@@ -107,6 +112,9 @@ public class PubItemBatchSessionBean extends FacesBean {
   private boolean disabledKeywordInput;
   private String inputChangeLocalTagsReplaceFrom;
   private String inputChangeLocalTagsReplaceTo;
+  private String inputChangeOrcidAuthor;
+  private String inputChangeOrcidAuthorId;
+  private String inputChangeOrcidReplaceTo;
   private String inputChangeLocalTagsAdd;
   private String inputChangeSourceEdition;
   private List<String> ipRangeToAdd;
@@ -119,6 +127,9 @@ public class PubItemBatchSessionBean extends FacesBean {
   private String selectedContextNew;
   private String selectedContextOld;
   private Map<String, ItemVersionRO> storedPubItems;
+
+  private SearchCriterionBase criterion;
+  private String orcid;
 
   /**
    * The number that represents the difference between the real number of items in the batch
@@ -231,12 +242,14 @@ public class PubItemBatchSessionBean extends FacesBean {
 
     // Instantiate and fill disableKeywordInput
     this.disabledKeywordInput = true;
-
   }
 
   @PostConstruct
   private void init() {
     this.batchProcessLog = pubItemBatchService.getBatchProcessLogForCurrentUser(loginHelper.getAccountUser());
+
+    this.criterion = new PersonSearchCriterion(SearchCriterion.ANYPERSON);
+    this.orcid = null;
   }
 
   public BatchProcessLogDbVO getBatchProcessLog() {
@@ -378,6 +391,30 @@ public class PubItemBatchSessionBean extends FacesBean {
 
   public replaceType getChangePublicationKeywordsReplaceType() {
     return changePublicationKeywordsReplaceType;
+  }
+
+  public String getInputChangeOrcidAuthor() {
+    return inputChangeOrcidAuthor;
+  }
+
+  public void setInputChangeOrcidAuthor(String inputChangeOrcidAuthor) {
+    this.inputChangeOrcidAuthor = inputChangeOrcidAuthor;
+  }
+
+  public String getInputChangeOrcidAuthorId() {
+    return inputChangeOrcidAuthorId;
+  }
+
+  public void setInputChangeOrcidAuthorId(String inputChangeOrcidAuthorId) {
+    this.inputChangeOrcidAuthorId = inputChangeOrcidAuthorId;
+  }
+
+  public String getInputChangeOrcidReplaceTo() {
+    return inputChangeOrcidReplaceTo;
+  }
+
+  public void setInputChangeOrcidReplaceTo(String inputChangeOrcidReplaceTo) {
+    this.inputChangeOrcidReplaceTo = inputChangeOrcidReplaceTo;
   }
 
   public void setChangePublicationKeywordsReplaceType(replaceType changePublicationKeywordsReplaceType) {
@@ -608,6 +645,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.inputChangeLocalTagsReplaceTo = inputChangeLocalTagsReplaceTo;
   }
 
+
   public List<String> getIpRangeToAdd() {
     return ipRangeToAdd;
   }
@@ -625,6 +663,17 @@ public class PubItemBatchSessionBean extends FacesBean {
     return "";
   }
 
+  public SearchCriterionBase getCriterion() {
+    return this.criterion;
+  }
+
+  public String getOrcid() {
+    return this.orcid;
+  }
+
+  public void setOrcid(String orcid) {
+    this.orcid = orcid;
+  }
 
   public List<String> getLocalTagsToAdd() {
     return localTagsToAdd;
@@ -799,6 +848,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
+
     return null;
   }
 
@@ -815,10 +865,11 @@ public class PubItemBatchSessionBean extends FacesBean {
         "batch change context " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
-  public String changeExternalRefereneceContentCategoryItemList() {
+  public String changeExternalReferenceContentCategoryItemList() {
     logger.info("trying to change the external reference content category for " + this.getBatchPubItemsSize() + " items");
     Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -828,7 +879,7 @@ public class PubItemBatchSessionBean extends FacesBean {
       for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
         pubItemObjectIdList.add(entry.getValue().getObjectId());
       }
-      this.batchProcessLog = pubItemBatchService.changeExternalRefereneceContentCategory(pubItemObjectIdList,
+      this.batchProcessLog = pubItemBatchService.changeExternalReferenceContentCategory(pubItemObjectIdList,
           changeExternalReferencesContentCategoryFrom, changeExternalReferencesContentCategoryTo,
           "batch change external references content category " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(),
           loginHelper.getAccountUser());
@@ -838,6 +889,41 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
+    return null;
+  }
+
+  public String changeOrcid() {
+    logger.info("trying to change the ORCID ID " + this.getBatchPubItemsSize() + " items");
+    final SearchCriterionBase sc = this.criterion;
+    final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
+    if (ValidationTools.isEmpty(hiddenSc.getHiddenId())) {
+      error(internationalizationHelper.getMessage("batch_ErrorMissingValues"));
+      return null;
+    }
+    if (ValidationTools.isEmpty(this.orcid)) {
+      error(internationalizationHelper.getMessage("batch_ErrorNoOrcid").replace("$2", hiddenSc.getSearchString()));
+      return null;
+    }
+    if (!this.orcid.startsWith(ValidationTools.ORCID_HTTPS)
+        || (!this.orcid.substring(ValidationTools.ORCID_HTTPS.length()).matches(ValidationTools.ORCID_REGEX))) {
+      error(internationalizationHelper.getMessage("batch_ErrorInvalidOrcid").replace("$1", this.orcid).replace("$2",
+          hiddenSc.getSearchString()));
+      return null;
+    }
+
+    List<String> pubItemObjectIdList = new ArrayList<String>();
+
+    for (Entry<String, ItemVersionRO> entry : this.storedPubItems.entrySet()) {
+      pubItemObjectIdList.add(entry.getValue().getObjectId());
+    }
+
+    this.batchProcessLog = pubItemBatchService.changeOrcid(pubItemObjectIdList, hiddenSc.getHiddenId(), this.orcid, "batch change orcid ",
+        loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
+
+    writeSuccessAndErrorMessages();
+    pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -855,6 +941,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -877,6 +964,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -895,6 +983,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -916,6 +1005,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     this.batchProcessLog = pubItemBatchService.changeGenre(pubItemObjectIdList, genreOld, genreNew, degree,
         "batch change genre " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -937,6 +1027,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
+
     return null;
   }
 
@@ -960,6 +1051,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -977,6 +1069,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -999,6 +1092,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1021,6 +1115,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
+
     return null;
   }
 
@@ -1043,6 +1138,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
+
     return null;
   }
 
@@ -1060,6 +1156,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1076,6 +1173,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1092,6 +1190,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1113,6 +1212,7 @@ public class PubItemBatchSessionBean extends FacesBean {
     } else {
       warn(internationalizationHelper.getMessage(BatchMessages.NO_VALUE_SET.getMessage()));
     }
+
     return null;
   }
 
@@ -1129,6 +1229,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1145,6 +1246,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1161,6 +1263,7 @@ public class PubItemBatchSessionBean extends FacesBean {
         "batch withdraw " + formatter.format(calendar.getTime()), loginHelper.getAuthenticationToken(), loginHelper.getAccountUser());
     writeSuccessAndErrorMessages();
     pubItemListSessionBean.changeSubmenuToProcessLog();
+
     return null;
   }
 
@@ -1200,9 +1303,18 @@ public class PubItemBatchSessionBean extends FacesBean {
     }
   }
 
+  public void removeAutoSuggestValues() {
+    final SearchCriterionBase sc = this.criterion;
+    final StringOrHiddenIdSearchCriterion hiddenSc = (StringOrHiddenIdSearchCriterion) sc;
+    hiddenSc.setHiddenId(null);
+    hiddenSc.setSearchString(null);
+    this.orcid = null;
+  }
+
   private enum replaceType
   {
-    REPLACE_ALL, REPLACE_BY_VALUE;
+    REPLACE_ALL,
+    REPLACE_BY_VALUE;
   }
 
   private enum BatchMessages implements Messages

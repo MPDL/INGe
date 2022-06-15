@@ -90,20 +90,8 @@
             </h:form>
         </div>
         <!-- end of full wrapper -->
+        
         <ui:include src="footer/Footer.jspf" />
-        <script type="text/javascript">
-            $(document).ready(function() {
-                /*
-                $("input[id$='offset']").on('submit',function() {
-                	$(this).val($(window).scrollTop());
-                });
-                 */
-                $(window).scrollTop($("input[id$='offset']").val());
-                $(window).on('scroll',function() {
-                    $("input[id$='offset']").val($(window).scrollTop());
-                });
-            });
-        </script>
     </f:view>
 </body>
 

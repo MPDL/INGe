@@ -126,7 +126,6 @@ public class EditItem extends FacesBean {
   private String locatorUpload;
   private PubItemVOPresentation item = null;
   private boolean fromEasySubmission = false;
-  private String suggestConeUrl = null;
   private HtmlSelectOneMenu genreSelect = new HtmlSelectOneMenu();
   // Flag for the binding method to avoid unnecessary binding
   private boolean bindFilesAndLocators = true;
@@ -1218,18 +1217,6 @@ public class EditItem extends FacesBean {
 
   public void setFileIterator(UIRepeat fileIterator) {
     this.fileIterator = fileIterator;
-  }
-
-  public String getSuggestConeUrl() throws Exception {
-    if (this.suggestConeUrl == null) {
-      this.suggestConeUrl = PropertyReader.getProperty(PropertyReader.INGE_CONE_SERVICE_URL);
-    }
-
-    return this.suggestConeUrl;
-  }
-
-  public void setSuggestConeUrl(String suggestConeUrl) {
-    this.suggestConeUrl = suggestConeUrl;
   }
 
   public HtmlSelectOneMenu getGenreSelect() {

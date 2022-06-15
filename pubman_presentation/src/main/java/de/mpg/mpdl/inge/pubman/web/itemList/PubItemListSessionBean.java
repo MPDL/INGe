@@ -1140,7 +1140,6 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     if (pubItemList.size() != 0) {
       exportAndDownload(pubItemList);
-
     } else {
       this.error(this.getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
     }
