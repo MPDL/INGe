@@ -128,6 +128,34 @@
 						</h:panelGroup>
 					</span>
 				</h:panelGroup>
+				<!-- Block locator OA-Status  -->
+				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder"
+					rendered="#{(locator.locator != null and locator.locator != '')}">
+					<h:panelGroup>
+						<b class="xLarge_area0_p8 endline labelLine clear">&#160;<span
+							class="noDisplay"> </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl xTiny_marginRIncl">
+							<h:panelGroup layout="block" id="labelOaStatus" styleClass="clear">
+								<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblFileOaStatus}" />
+							</h:panelGroup>
+							<h:panelGroup layout="block"
+								styleClass="xDouble_area1 endline selectContainer clear">
+								<h:panelGroup layout="block" styleClass="double_area0">
+									<h:panelGroup styleClass="double_area0 selectionBox">&#160;</h:panelGroup>
+									<h:panelGroup layout="block"
+										styleClass="min_imgArea selectboxIcon">&#160;</h:panelGroup>
+								</h:panelGroup>
+								<h:selectOneMenu id="selFileOaStatus"
+									value="#{locator.file.metadata.oaStatus}"
+									onfocus="updateSelectionBox(this);"
+									onchange="this.form.submit()">
+									<f:selectItems value="#{EditItem.oaStatuses}" />
+								</h:selectOneMenu>
+							</h:panelGroup>
+						</span>
+					</h:panelGroup>
+				</h:panelGroup>
 				<!-- Locator description -->
 				<h:panelGroup layout="block"
 					styleClass="free_area0 endline itemLine noTopBorder"
