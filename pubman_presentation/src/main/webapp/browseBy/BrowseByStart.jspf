@@ -92,6 +92,9 @@
 						<h:panelGroup rendered="#{subjectVocab == 'mpis-projects'}">
 							<h:outputText value="#{lbl.mpis_projectsDesc}" />
 						</h:panelGroup>
+						<h:panelGroup rendered="#{subjectVocab == 'mpicc-projects'}">
+							<h:outputText value="#{lbl.mpicc_projectsDesc}" />
+						</h:panelGroup>
 					</div>
 				</ui:repeat>
 			</p>
