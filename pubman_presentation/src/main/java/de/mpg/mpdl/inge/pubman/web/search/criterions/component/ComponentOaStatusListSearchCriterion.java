@@ -32,7 +32,14 @@ import java.util.Map.Entry;
 
 import javax.faces.model.SelectItem;
 
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+
 import de.mpg.mpdl.inge.model.valueobjects.metadata.MdsFileVO;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.Index;
+import de.mpg.mpdl.inge.pubman.web.search.criterions.SearchCriterionBase.QueryType;
 import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.beans.InternationalizationHelper;
@@ -79,5 +86,37 @@ public class ComponentOaStatusListSearchCriterion extends MapListSearchCriterion
   @Override
   public String getElasticSearchNestedPath() {
     return "files";
+  }
+
+  @Override
+  public QueryBuilder toElasticSearchQuery() {
+
+    if (!this.isEmpty(QueryType.CQL)) {
+
+      BoolQueryBuilder bq = QueryBuilders.boolQuery();
+      for (final Entry<String, Boolean> entry : this.enumMap.entrySet()) {
+
+
+        if (entry.getValue()) {
+          final String value = this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(entry.getKey()));
+          final String notSpecifiedValue =
+              this.getCqlValue(Index.ESCIDOC_ALL, this.getValueMap().get(MdsFileVO.OA_STATUS.NOT_SPECIFIED.toString()));
+          if (notSpecifiedValue.equals(value)) {
+            bq = bq.should(QueryBuilders.boolQuery().mustNot(QueryBuilders.existsQuery(PubItemServiceDbImpl.INDEX_FILE_OA_STATUS)));
+          }
+          bq = bq.should(SearchCriterionBase.baseElasticSearchQueryBuilder(this.getElasticIndexes(value), value));
+
+
+        }
+
+      }
+
+
+      return bq;
+
+    }
+
+
+    return null;
   }
 }
