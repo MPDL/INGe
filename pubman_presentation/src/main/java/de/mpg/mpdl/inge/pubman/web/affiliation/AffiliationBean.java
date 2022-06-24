@@ -11,12 +11,15 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.primefaces.event.NodeExpandEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 import de.mpg.mpdl.inge.model.db.valueobjects.AffiliationDbVO;
+import de.mpg.mpdl.inge.model.db.valueobjects.ItemVersionRO.State;
 import de.mpg.mpdl.inge.model.valueobjects.metadata.OrganizationVO;
 import de.mpg.mpdl.inge.pubman.web.ErrorPage;
 import de.mpg.mpdl.inge.pubman.web.qaws.QAWSSessionBean;
@@ -29,6 +32,8 @@ import de.mpg.mpdl.inge.pubman.web.util.FacesTools;
 import de.mpg.mpdl.inge.pubman.web.util.beans.ApplicationBean;
 import de.mpg.mpdl.inge.pubman.web.util.vos.AffiliationVOPresentation;
 import de.mpg.mpdl.inge.service.pubman.impl.OrganizationServiceDbImpl;
+import de.mpg.mpdl.inge.service.pubman.impl.PubItemServiceDbImpl;
+import de.mpg.mpdl.inge.service.util.SearchUtils;
 
 @ManagedBean(name = "AffiliationBean")
 @SessionScoped
@@ -232,6 +237,15 @@ public class AffiliationBean extends FacesBean {
       scList.add(sc);
 
       QueryBuilder qb = SearchCriterionBase.scListToElasticSearchQuery(scList);
+
+      BoolQueryBuilder bqb = QueryBuilders.boolQuery();
+      bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+          PubItemServiceDbImpl.INDEX_PUBLIC_STATE, State.RELEASED.name()));
+      bqb.must(SearchUtils.baseElasticSearchQueryBuilder(ApplicationBean.INSTANCE.getPubItemService().getElasticSearchIndexFields(),
+          PubItemServiceDbImpl.INDEX_VERSION_STATE, State.RELEASED.name()));
+      bqb.must(qb);
+
+      qb = bqb;
 
       FacesTools.getExternalContext().redirect("SearchResultListPage.jsp?esq=" + URLEncoder.encode(qb.toString(), "UTF-8") + "&"
           + SearchRetrieverRequestBean.parameterSearchType + "=org");
