@@ -116,6 +116,15 @@
 		<from-view-id>
 			*</from-view-id>
 		<navigation-case>
+			<from-outcome>loadAffiliationTree</from-outcome>
+			<to-view-id>
+				/AffiliationTreePage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+			*</from-view-id>
+		<navigation-case>
 			<from-outcome>loadHelp</from-outcome>
 			<to-view-id>
 				/help/HelpPage.jsp</to-view-id>
