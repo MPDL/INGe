@@ -188,8 +188,10 @@ public class PubItemBatchSessionBean extends FacesBean {
     // SelectItems for file audience
     this.changeFilesAudienceSelectItems = new ArrayList<SelectItem>();
     for (IpRange ipRange : ApplicationBean.INSTANCE.getIpListProvider().getAll()) {
-      changeFilesAudienceSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
+      this.changeFilesAudienceSelectItems.add(new SelectItem(ipRange.getId(), ipRange.getName()));
     }
+
+    Collections.sort(this.changeFilesAudienceSelectItems, (a, b) -> a.getLabel().compareTo(b.getLabel()));
 
     // SelectItems for external references content category
     this.changeExternalReferencesContentCategorySelectItems =
