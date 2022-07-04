@@ -245,8 +245,6 @@
           </source:source>
           <event:event>
             <dc:title>OA Days 2009</dc:title>
-            <dcterms:alternative>OA Conference 2009</dcterms:alternative>
-            <dcterms:alternative>OA Meeting 2009</dcterms:alternative>
             <eterms:start-date xsi:type="dcterms:W3CDTF">2009-10-15</eterms:start-date>
             <eterms:end-date xsi:type="dcterms:W3CDTF">2009-10-16</eterms:end-date>
             <eterms:place>Konstanz</eterms:place>
