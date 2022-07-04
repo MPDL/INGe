@@ -130,7 +130,6 @@
                     </source:source>
                     <event:event xmlns:md-profile-escidoc="${xsd.metadata.escidocprofile}">
                         <dc:title xml:lang="fr">item.md-records.md-record.publication.event.title</dc:title>
-                        <dcterms:alternative xml:lang="fr">text</dcterms:alternative>
                         <eterms:start-date>2001-12-17</eterms:start-date>
                         <eterms:end-date>2001-12-17</eterms:end-date>
                         <eterms:place>String</eterms:place>
