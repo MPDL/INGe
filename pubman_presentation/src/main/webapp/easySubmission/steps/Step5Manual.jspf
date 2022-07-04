@@ -426,34 +426,7 @@
 									value="#{EasySubmission.item.metadata.event.title}" cols="15"
 									rows="3" />
 							</span>
-							<span class="large_area0_p8 lineToolSection"> <h:commandButton
-									id="btnAddTitle" title="#{tip.easy_submission_addTitle}"
-									styleClass="min_imgBtn groupTool add" value=" "
-									action="#{EasySubmission.item.addEventAlternativeTitleVO}"
-									rendered="#{genre.events_event_title_repeatable != 'false'}" />
-							</span>
 						</h:panelGroup>
-						<!-- Alternative event title -->
-						<ui:repeat var="altTitle"
-							value="#{EasySubmission.item.metadata.event.alternativeTitles}"
-							varStatus="status">
-							<h:panelGroup layout="block"
-								styleClass="free_area0 endline itemLine noTopBorder"
-								rendered="#{!(genre.events_event_title_alternative_display == 'false' and genre.events_event_title_alternative_form_id == 'easy-submission' || genre.events_event_title_alternative_display == 'false' and genre.events_event_title_alternative_form_id == 'all')}">
-								<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-										styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-										rendered="#{genre.events_event_title_alternative_optional != 'true'}" />
-									<h:outputText
-										value="#{genre.events_event_title_alternative_label}"
-										converter="GenreLabelConverter" /><span class="noDisplay">:
-								</span>
-								</b>
-								<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:inputTextarea
-										id="inpAltEventTitle" styleClass="quad_txtArea inputTxtArea"
-										value="#{altTitle.value}" cols="15" rows="3" />
-								</span>
-							</h:panelGroup>
-						</ui:repeat>
 						<!-- Event place, Event start date, Event end date -->
 						<div class="free_area0 endline itemLine noTopBorder">
 							<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText

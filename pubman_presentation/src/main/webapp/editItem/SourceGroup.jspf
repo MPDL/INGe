@@ -168,7 +168,7 @@
 									</h:commandButton> <h:commandButton id="btnRemoveDetails"
 										styleClass="min_imgBtn groupTool remove" value=" "
 										title="#{lbl.EditItem_lblAlternativeTitel} #{tip.EditItem_btRemove}"
-										action="#{sourceBean.removeEventAlternativeTitleAtIndex(status.index)}"
+										action="#{sourceBean.removeSourceAlternativeTitleAtIndex(status.index)}"
 										rendered="#{genre.sources_source_basic_source_title_alternative_display != 'false'}">
 										<f:ajax render="form1:editSource" execute="@form" />
 									</h:commandButton>

@@ -304,37 +304,6 @@ public class PubItemVOPresentation extends ItemVersionVO {
   }
 
   /**
-   * Adds the first alternative title for the event with no content
-   */
-  public void addEventAlternativeTitle() {
-    if (this.getMetadata().getEvent() != null) {
-      if (this.getMetadata().getEvent().getAlternativeTitles() == null || this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
-        this.getMetadata().getEvent().getAlternativeTitles().add(new AlternativeTitleVO("F"));
-      }
-    }
-  }
-
-  /**
-   * Adds an empty alternative title for the event after the current one
-   */
-  public void addEventAlternativeTitleAtIndex(int index) {
-    if (this.getMetadata().getEvent() != null && this.getMetadata().getEvent().getAlternativeTitles() != null
-        && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
-      this.getMetadata().getEvent().getAlternativeTitles().add((index + 1), new AlternativeTitleVO());
-    }
-  }
-
-  /**
-   * Removes an alternative title from the current position of the event
-   */
-  public void removeEventAlternativeTitleAtIndex(int index) {
-    if (this.getMetadata().getEvent() != null && this.getMetadata().getEvent().getAlternativeTitles() != null
-        && !this.getMetadata().getEvent().getAlternativeTitles().isEmpty()) {
-      this.getMetadata().getEvent().getAlternativeTitles().remove(index);
-    }
-  }
-
-  /**
    * Adds an empty subject after the current one
    */
   public void addSubjectAtIndex(int index) {

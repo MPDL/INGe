@@ -136,7 +136,7 @@ public class SourceBean extends EditItemBean {
   /**
    * Removes an alternative title from the current position of the source
    */
-  public void removeEventAlternativeTitleAtIndex(int index) {
+  public void removeSourceAlternativeTitleAtIndex(int index) {
     if (this.getSource() != null && this.getSource().getAlternativeTitles() != null && !this.getSource().getAlternativeTitles().isEmpty()) {
       this.getSource().getAlternativeTitles().remove(index);
     }

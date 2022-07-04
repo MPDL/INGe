@@ -28,20 +28,6 @@
 						rendered="#{ViewItemFull.pubItem.metadata.event.title == null || ViewItemFull.pubItem.metadata.event.title == ''}" />
 				</span>
 			</div>
-			<!-- Event alternative title -->
-			<ui:repeat var="eventAltTitles"
-				value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}">
-				<h:panelGroup layout="block"
-					styleClass="free_area0 endline itemLine">
-					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-							value="#{lbl.ViewItemFull_lblEventAlternativeTitle}" /><span
-						class="noDisplay">: </span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
-							value="#{eventAltTitles.value}" />
-					</span>
-				</h:panelGroup>
-			</ui:repeat>
 			<!-- Event place -->
 			<div class="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear"> <h:outputText

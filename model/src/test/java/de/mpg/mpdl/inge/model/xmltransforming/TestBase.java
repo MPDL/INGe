@@ -419,8 +419,6 @@ public class TestBase {
     EventVO event = new EventVO();
     // Event.Title
     event.setTitle("Weekly progress meeting");
-    // Event.AlternativeTitle
-    event.getAlternativeTitles().add(new AlternativeTitleVO("Wöchentliches Fortschrittsmeeting", "de"));
     // Event.StartDate
     event.setStartDate("2004-11-11");
     // Event.EndDate
@@ -670,8 +668,6 @@ public class TestBase {
     EventVO event = new EventVO();
     // Event.Title
     event.setTitle("Länderübergreifende Änderungsüberlegungen");
-    // Event.AlternativeTitle
-    event.getAlternativeTitles().add(new AlternativeTitleVO("Änderungen gibt's immer, auch länderübergreifend", "es"));
     // Event.StartDate
     event.setStartDate("2000-02-29");
     // Event.EndDate

@@ -150,7 +150,6 @@
 			</group>
 			<group id="events" repeatable="false" display="true" optional="true" form-id="all" label="g_events" class-attribute="metadata.event">
 				<field id="event_title" repeatable="false" display="true" optional="false" label="event_title" class-attribute="metadata.event.title"/>
-				<field id="event_title_alternative" repeatable="true" display="true" optional="true" label="event_title_alternative" class-attribute="metadata.event.alternativeTitles"/>
 				<field id="event_invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status" class-attribute="metadata.event.invitationStatus"/>
 				<field id="event_place" repeatable="false" display="true" optional="true" label="event_place" class-attribute="metadata.event.place"/>
 				<field id="event_start-date" repeatable="false" display="true" optional="true" label="event_start-date" class-attribute="metadata.event.startDate"/>
@@ -483,7 +482,6 @@
 				<field id="event_title" repeatable="false" display="true" optional="true"/>
 			</group>
 			<group id="events" form-id="easy-submission">
-				<field id="event_title_alternative" repeatable="true" display="false" optional="true"/>
 				<field id="event_start-date" repeatable="false" display="false" optional="true"/>
 				<field id="event_end-date" repeatable="false" display="false" optional="true"/>
 			</group>

@@ -237,11 +237,6 @@ public class TestBase {
     event.setPlace("testPlace");
     event.setStartDate("2018-12-23");
     event.setTitle("testTitle");
-    AlternativeTitleVO alternativeTitle = new AlternativeTitleVO();
-    alternativeTitle.setLanguage("testLanguage");
-    alternativeTitle.setType("testType");
-    alternativeTitle.setValue("testValue");
-    event.getAlternativeTitles().add(alternativeTitle);
     mdsPublication.setEvent(event);
     mdsPublication.setFreeKeywords("testFreeKeywords");
     mdsPublication.setGenre(Genre.ARTICLE);
@@ -282,7 +277,7 @@ public class TestBase {
     abstractVO.setLanguage("testLanguage");
     abstractVO.setValue("testValue");
     mdsPublication.getAbstracts().add(abstractVO);
-    alternativeTitle = new AlternativeTitleVO();
+    AlternativeTitleVO alternativeTitle = new AlternativeTitleVO();
     alternativeTitle.setLanguage("testLanguage");
     alternativeTitle.setType("testType");
     alternativeTitle.setValue("testValue");

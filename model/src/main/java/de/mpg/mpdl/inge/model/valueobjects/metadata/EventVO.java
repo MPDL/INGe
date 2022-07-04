@@ -60,7 +60,6 @@ public class EventVO extends ValueObject implements Cloneable {
     INVITED
   }
 
-  private java.util.List<AlternativeTitleVO> alternativeTitles = new java.util.ArrayList<AlternativeTitleVO>();
   private String endDate;
 
   @IgnoreForCleanup
@@ -69,14 +68,6 @@ public class EventVO extends ValueObject implements Cloneable {
   private String place;
   private String startDate;
   private String title;
-
-  /**
-   * Get the alternativeTitles. The event may have one or several alternative forms of the title
-   * (e.g. an abbreviated title).
-   */
-  public java.util.List<AlternativeTitleVO> getAlternativeTitles() {
-    return alternativeTitles;
-  }
 
   /**
    * Delivers the end date of the event.
@@ -153,9 +144,6 @@ public class EventVO extends ValueObject implements Cloneable {
     if (getTitle() != null) {
       clone.setTitle(getTitle());
     }
-    for (AlternativeTitleVO altTitle : getAlternativeTitles()) {
-      clone.getAlternativeTitles().add((AlternativeTitleVO) altTitle.clone());
-    }
     if (getEndDate() != null) {
       clone.setEndDate(getEndDate());
     }
@@ -173,7 +161,6 @@ public class EventVO extends ValueObject implements Cloneable {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((alternativeTitles == null) ? 0 : alternativeTitles.hashCode());
     result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
     result = prime * result + ((invitationStatus == null) ? 0 : invitationStatus.hashCode());
     result = prime * result + ((place == null) ? 0 : place.hashCode());
@@ -194,16 +181,6 @@ public class EventVO extends ValueObject implements Cloneable {
       return false;
 
     EventVO other = (EventVO) obj;
-
-    if (alternativeTitles == null) {
-      if (other.alternativeTitles != null)
-        return false;
-    } else if (other.alternativeTitles == null)
-      return false;
-    else if (!alternativeTitles.containsAll(other.alternativeTitles) //
-        || !other.alternativeTitles.containsAll(alternativeTitles)) {
-      return false;
-    }
 
     if (endDate == null) {
       if (other.endDate != null)

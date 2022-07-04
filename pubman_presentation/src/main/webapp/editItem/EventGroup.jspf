@@ -32,52 +32,7 @@
 						id="inpEventTitle" styleClass="quad_txtArea inputTxtArea"
 						value="#{EditItem.eventTitle}" cols="15" rows="3" />
 				</span>
-				<span class="large_area0_p8 lineToolSection"> <h:commandButton
-						id="btnAddEventTitle" title="#{tip.EditItem_addTitle}"
-						styleClass="min_imgBtn groupTool add" value=" "
-						action="#{EditItem.pubItem.addEventAlternativeTitle}"
-						rendered="#{genre.events_event_title_alternative_repeatable != 'false'}">
-						<f:ajax render="form1:editEvent" execute="@form" />
-					</h:commandButton>
-				</span>
 			</h:panelGroup>
-			<!-- Alternative event title -->
-			<ui:repeat id="iterAlternativeEventTitle" var="altTitle"
-				varStatus="status"
-				value="#{EditItem.pubItem.metadata.event.alternativeTitles}"
-				rendered="#{!(genre.events_event_title_alternative_display == 'false' and genre.events_event_title_alternative_form_id == 'full-submission' || genre.events_event_title_alternative_display == 'false' and genre.events_event_title_alternative_form_id == 'all')}">
-				<h:panelGroup layout="block"
-					styleClass="free_area0 endline itemLine noTopBorder">
-					<b class="xLarge_area0_p8 endline labelLine clear"> &#160;<h:outputText
-							styleClass="mandatory" title="#{msg.mandatoryField}" value="*"
-							rendered="#{genre.events_event_title_alternative_optional != 'true'}" />
-						<h:outputText
-							value="#{genre.events_event_title_alternative_label}"
-							converter="GenreLabelConverter" /><span class="noDisplay">:
-					</span>
-					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:inputTextarea
-							id="inpAlternateEventTitle"
-							styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}"
-							cols="15" rows="3" />
-					</span>
-					<span class="large_area0_p8 lineToolSection"> <h:commandButton
-							id="btnAddAlternateEventTitle"
-							styleClass="min_imgBtn groupTool add" value=" "
-							title="#{tip.EditItem_addAltTitle}"
-							action="#{EditItem.pubItem.addEventAlternativeTitleAtIndex(status.index)}"
-							rendered="#{genre.events_event_title_alternative_repeatable != 'false'}">
-							<f:ajax render="form1:editEvent" execute="@form" />
-						</h:commandButton> <h:commandButton id="btnRemoveAlternateEventTitle"
-							styleClass="min_imgBtn groupTool remove" value=" "
-							title="#{tip.EditItem_removeAltTitle}"
-							action="#{EditItem.pubItem.removeEventAlternativeTitleAtIndex(status.index)}"
-							rendered="#{genre.events_event_title_alternative_repeatable != 'false'}">
-							<f:ajax render="form1:editEvent" execute="@form" />
-						</h:commandButton>
-					</span>
-				</h:panelGroup>
-			</ui:repeat>
 			<!-- Event place, Event start date, Event end date -->
 			<h:panelGroup layout="block"
 				styleClass="free_area0 endline itemLine noTopBorder">

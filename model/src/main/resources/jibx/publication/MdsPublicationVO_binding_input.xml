@@ -185,18 +185,6 @@
 				<!-- Node: item.md-records.md-record.publication.event.title -->
 				<value style="element"  name="title" ns="${xsd.metadata.dc}" field="title" usage="optional"/>
 
-				<!-- Node: item.md-records.md-record.publication.event.alternative(*) -->
-				<!-- Field: PubItemVO.metadata.event.alternativeTitles -->
-				<collection field="alternativeTitles"
-					factory="de.mpg.mpdl.inge.model.xmltransforming.xmltransforming.JiBXHelper.alternativeTitleVOListFactory" usage="optional">
-					<structure name="alternative" ns="${xsd.metadata.dcterms}"
-						type="de.mpg.mpdl.inge.model.valueobjects.metadata.AlternativeTitleVO">
-						<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
-							usage="optional" />
-						<value style="text" field="value" usage="optional" />
-					</structure>
-				</collection>
-
 				<!-- Node: item.md-records.md-record.publication.event.start-date -->
 				<!-- Field: PubItemVO.metadata.event.startDate -->
 				<value style="element" name="start-date" ns="${xsd.metadata.escidocprofile.types}"
