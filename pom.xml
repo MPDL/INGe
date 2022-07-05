@@ -382,6 +382,10 @@
 						<groupId>xml-apis</groupId>
 						<artifactId>xml-apis-ext</artifactId>
 					</exclusion>
+					<exclusion>
+						<groupId>org.apache.pdfbox</groupId>
+						<artifactId>fontbox</artifactId>
+					</exclusion>
 				</exclusions>
 			</dependency>
 
