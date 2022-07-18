@@ -30,6 +30,16 @@
 * All rights reserved. Use is subject to license terms.
 */
 
+.grid-container {
+	display: grid;
+  	grid-template-columns: auto auto auto auto;
+  	grid-gap: 10px;
+}
+
+.grid-item-3 {
+  	grid-area: 1 / 2 / span 2 / span 3;
+}
+
 /* START NanoScroller */
 .nano {
 	position: relative;
