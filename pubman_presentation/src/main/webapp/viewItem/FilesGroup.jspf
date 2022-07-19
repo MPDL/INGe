@@ -80,7 +80,11 @@
 									<h:panelGroup id="imgFileGroupOpenAcces"
 										rendered="#{file.file.metadata.oaStatus!=null}">
 										<img src="../resources/images/open_access_#{file.file.metadata.oaStatus.name().toLowerCase() }_31.png"
-												 class="xSmall_imgImg " align="left" />
+												 class="xSmall_imgImg " align="left" title="#{file.file.metadata.oaStatus.name().toLowerCase() == 'gold' ? tip.ViewItem_imgOa_gold :
+												 	file.file.metadata.oaStatus.name().toLowerCase() == 'green' ? tip.ViewItem_imgOa_green :
+												 	file.file.metadata.oaStatus.name().toLowerCase() == 'hybrid' ? tip.ViewItem_imgOa_hybrid :
+												 	file.file.metadata.oaStatus.name().toLowerCase() == 'miscellaneous' ? tip.ViewItem_imgOa_miscellaneous :
+												 	tip.ViewItem_imgOa_not_specified}"/>
 									</h:panelGroup>
 									<h:panelGroup id="imgFileGroupOpenAccesUnknown"
 										rendered="#{file.file.metadata.oaStatus==null}">
