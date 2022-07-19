@@ -29,7 +29,7 @@
 								value="#{lbl.ViewItemFull_lblLocatorLocation}" /><span
 							class="noDisplay">: <br /></span>
 						</b>
-						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputLink
+						<span class="half_area0 xTiny_marginLExcl endline"> <h:outputLink
 								id="lnkLocatorLink" value="#{locator.locatorLink}"
 								rendered="#{locator.locatorIsLink}" target="_blank" rel="noreferrer noopener"
 								title="#{locator.file.metadata.description}">
@@ -38,6 +38,16 @@
 								rendered="#{!locator.locatorIsLink}" /> <h:outputText
 								value=" (#{locator.contentCategoryLabel})" />
 						</span>
+						<h:panelGroup id="imgLocatorGroupOpenAcces"
+							rendered="#{locator.file.metadata.oaStatus!=null}">
+							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
+									 class="xSmall_imgImg " align="left" />
+						</h:panelGroup>
+						<h:panelGroup id="imgLocatorGroupOpenAccesUnknown"
+							rendered="#{locator.file.metadata.oaStatus==null}">
+							<img src="../resources/images/open_access_not_specified_31.png"
+									 class="xSmall_imgImg " align="left" />
+						</h:panelGroup>
 					</h:panelGroup>
 					<!-- Locator description -->
 					<h:panelGroup layout="block"
@@ -50,6 +60,18 @@
 								value="#{locator.fileDescription}" /> <h:outputText
 								value="#{lbl.lbl_noEntry}"
 								rendered="#{locator.fileDescription == null  || locator.fileDescription == ''}" />
+						</span>
+					</h:panelGroup>
+					<!-- OA Status -->
+					<h:panelGroup layout="block"
+						styleClass="free_area0 endline itemLine">
+						<b class="xLarge_area0_p8 endline labelLine"> <h:outputText
+								value="#{lbl.ViewItemMedium_lblFileOaSatus}" /><span
+							class="noDisplay">: <br /></span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline"> <h:outputText
+								value="#{locator.oaStatus}"
+								rendered="#{ViewItemFull.isStateWithdrawn == false}" />
 						</span>
 					</h:panelGroup>
 				</ui:repeat>

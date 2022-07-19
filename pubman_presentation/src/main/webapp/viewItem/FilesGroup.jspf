@@ -29,19 +29,18 @@
 								<span class="xLarge_area0 endline labelLine featureIcon">
 									<span class="noDisplay">: </span>
 								</span>
+								
 								<div class="xHuge_area0 xTiny_marginLExcl endline">
-									<div class="xHuge_area0 endline">
+									<div class="half_area0 endline">
 										<h:outputText value="#{file.fileName}"
 											rendered="#{!ViewItemFull.isStateWithdrawn}" />
 										<h:outputText value=" (#{file.contentCategoryLabel})"
-											rendered="#{!ViewItemFull.isStateWithdrawn}" />
-										<h:outputText value=" (#{file.oaStatus})"
 											rendered="#{!ViewItemFull.isStateWithdrawn}" />
 										<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}"
 											rendered="#{ViewItemFull.isStateWithdrawn}" />
 										<h:outputText value=", #{file.fileSize}" />
 									</div>
-									<div class="xHuge_area0 endline marginTExcl6p">
+									<div class="half_area0 endline marginTExcl6p">
 										<h:outputLink id="lnkCitationURL" target="_blank" rel="noreferrer noopener"
 											styleClass="piwik_ignore"
 											value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
@@ -78,6 +77,16 @@
 											<h:outputText value="#{lbl.save}" />
 										</h:outputLink>
 									</div>
+									<h:panelGroup id="imgFileGroupOpenAcces"
+										rendered="#{file.file.metadata.oaStatus!=null}">
+										<img src="../resources/images/open_access_#{file.file.metadata.oaStatus.name().toLowerCase() }_31.png"
+												 class="xSmall_imgImg " align="left" />
+									</h:panelGroup>
+									<h:panelGroup id="imgFileGroupOpenAccesUnknown"
+										rendered="#{file.file.metadata.oaStatus==null}">
+										<img src="../resources/images/open_access_not_specified_31.png"
+												 class="xSmall_imgImg " align="left" />
+									</h:panelGroup>
 								</div>
 							</div>
 						</div>

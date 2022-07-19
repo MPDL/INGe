@@ -30,14 +30,24 @@
 				<ui:repeat var="locator"
 					value="#{ViewItemFull.pubItem.locatorBeanList}"
 					rendered="#{ViewItemFull.pubItem.locatorBeanList != null and !empty(ViewItemFull.pubItem.locatorBeanList)}">
-					<div>
+					<h:panelGroup style="display:grid">
 						<!-- External resource icon -->
 						<img
 							src="../resources/images/overviewPage/external_Ressources_31.png"
 							class="min_imgBtn xxTiny_marginRExcl xTiny_marginBExcl"
 							align="left" />
 						<!-- Textual description and link to external resource -->
-						<p class="double_area0">
+						<h:panelGroup id="imgLocatorGroupOpenAcces"
+							rendered="#{locator.file.metadata.oaStatus!=null}">
+							<img src="../resources/images/open_access_#{locator.file.metadata.oaStatus.name().toLowerCase() }_31.png"
+									 class="large_imgImg xTiny_marginRExcl" align="left" />
+						</h:panelGroup>
+						<h:panelGroup id="imgLocatorGroupOpenAccesUnknown"
+							rendered="#{locator.file.metadata.oaStatus==null}">
+							<img src="../resources/images/open_access_not_specified_31.png"
+									 class="large_imgImg xTiny_marginRExcl" align="left" />
+						</h:panelGroup>
+						<p class="double_area0 grid-item-3">
 							<!-- Link to the external resource -->
 							<h:outputLink id="lnkLocator" target="_blank" rel="noreferrer noopener"
 								value="#{locator.locatorLink}">
@@ -53,7 +63,7 @@
 							<h:outputText value=" (#{locator.contentCategoryLabel})"
 								rendered="#{!ViewItemFull.isStateWithdrawn}" />
 						</p>
-					</div>
+					</h:panelGroup>
 				</ui:repeat>
 			</h:panelGroup>
 		</h:panelGroup>
