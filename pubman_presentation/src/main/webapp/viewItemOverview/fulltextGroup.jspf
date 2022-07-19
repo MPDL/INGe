@@ -21,8 +21,7 @@
 			<h:outputText value="#{msg.ViewItemOverview_noFullTextsAvailable}" />
 		</h:panelGroup>
 		<!-- Iterator for publicly accessible fulltexts (not only any-fulltext, but also postprint/preprint/publisher-version) -->
-		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
-			style="max-height:350px;">
+		<h:panelGroup layout="block" styleClass="huge_area0_p0">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
 				<ui:repeat var="file"
 					value="#{ViewItemFull.pubItem.publiclyAccessibleFulltextFileBeanList}"
