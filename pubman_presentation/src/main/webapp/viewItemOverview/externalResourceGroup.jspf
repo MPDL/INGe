@@ -24,7 +24,8 @@
 				value="#{msg.ViewItemOverview_noExternalResourcesAvailable}" />
 		</h:panelGroup>
 		<!-- Iterator for external resources -->
-		<h:panelGroup layout="block" styleClass="huge_area0_p0">
+		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
+			style="max-height:300px;">
 			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
 				<ui:repeat var="locator"
 					value="#{ViewItemFull.pubItem.locatorBeanList}"

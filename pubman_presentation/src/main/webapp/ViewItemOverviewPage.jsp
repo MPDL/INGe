@@ -316,17 +316,6 @@
 
 			$(document).ready(function() {
 				startNanoScrollerWhenLoaded();
-				// enable overflow of links on mouseover
-				$('.tile_category a').on('mouseenter',function(evt) {
-					$(this).parent().css({
-						"overflow": "visible"
-					})
-				});
-				$('.tile_category a').on('mouseleave',function(evt) {
-					$(this).parent().css({
-						"overflow": "hidden"
-					})
-				});
 				
 				// Try to replace standard author images with CoNE-images
 				replaceAuthorImage();

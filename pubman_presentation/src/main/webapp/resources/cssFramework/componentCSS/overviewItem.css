@@ -32,12 +32,12 @@
 
 .grid-container {
 	display: grid;
-  	grid-template-columns: auto auto auto auto;
+	grid-template-columns: auto auto;
   	grid-gap: 10px;
 }
 
 .grid-item-3 {
-  	grid-area: 1 / 2 / span 2 / span 3;
+  	grid-area: 1 / 2 / span 2 / span 1;
 }
 
 /* START NanoScroller */
