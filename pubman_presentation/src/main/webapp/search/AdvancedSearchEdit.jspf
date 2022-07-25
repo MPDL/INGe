@@ -846,6 +846,20 @@
 								</ui:repeat>
 							</span>
 						</h:panelGroup>
+						<h:panelGroup styleClass="double_area0 tiny_marginRIncl #{AdvancedSearchBean.locatorSectionSearchCriterion.selectedAvailability != 'YES' ? 'disabled' : ''}">
+							<h:outputLabel id="lblOaStatusLocator" styleClass="double_label" value="#{lbl.adv_search_fileOaStatus}" />
+							<span class="free_area0 clear">
+								<ui:repeat value="#{AdvancedSearchBean.locatorSectionSearchCriterion.oaStatusListSearchCriterion.enumList}" var="oa">
+									<h:panelGroup styleClass="double_checkbox xTiny_marginRIncl">
+										<ui:param name="label" value="ENUM_OA_STATUS_#{oa}" />
+										<h:selectBooleanCheckbox styleClass="visibilityCheckbox #{oa}" id="oaStatusCriterionLocator"
+											value="#{AdvancedSearchBean.locatorSectionSearchCriterion.oaStatusListSearchCriterion.enumMap[oa]}" disabled="#{AdvancedSearchBean.locatorSectionSearchCriterion.selectedAvailability != 'YES'}">
+										</h:selectBooleanCheckbox>
+										<h:outputLabel title="#{lbl[label]}" value="#{lbl[label]}" for="oaStatusCriterion" />
+									</h:panelGroup>
+								</ui:repeat>
+							</span>
+						</h:panelGroup>
 					</span>
 				</span>
 			</h:panelGroup>
