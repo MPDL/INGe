@@ -1253,13 +1253,38 @@ public class PubItemVOPresentation extends ItemVersionVO {
     final List<FileBean> supplementaryMaterial = new ArrayList<FileBean>();
     if (this.fileBeanList != null) {
       for (final FileBean file : this.fileBeanList) {
-        if ("supplementary-material".equals(file.getContentCategory())) {
+        if ("supplementary-material".equals(file.getContentCategory()) || "multimedia".equals(file.getContentCategory())
+            || "research-data".equals(file.getContentCategory()) || "code".equals(file.getContentCategory())) {
           supplementaryMaterial.add(file);
         }
       }
     }
 
     return supplementaryMaterial;
+  }
+
+  /**
+   * Delivers the FileBeans for all files which are restriced for the current user accessible and
+   * have content category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
+   * 
+   * @return List<FileBeans> which are restriced accessible for the current user and have content
+   *         category "any-fulltext" / "postprint" / "preprint" / "publisher-version"
+   */
+  public List<FileBean> getRestrictedAccessibleFulltextFileBeanList() {
+    final List<FileBean> fulltexts = new ArrayList<FileBean>();
+    if (this.fileBeanList != null) {
+      for (final FileBean file : this.fileBeanList) {
+        if (FileDbVO.Visibility.AUDIENCE.equals(file.getFile().getVisibility())
+            && ("any-fulltext".equals(file.getContentCategory()) || "pre-print".equals(file.getContentCategory())
+                || "post-print".equals(file.getContentCategory()) || "publisher-version".equals(file.getContentCategory()))) {
+          if (file.isFileAccessGranted()) {
+            fulltexts.add(file);
+          }
+        }
+      }
+    }
+
+    return fulltexts;
   }
 
   /**

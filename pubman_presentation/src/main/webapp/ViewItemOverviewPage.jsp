@@ -290,6 +290,7 @@
                                 <h:panelGroup layout="block" styleClass="huge_area0 xTiny_marginRExcl small_marginLExcl" style="overflow:visible;">
                                     <ui:include src="viewItemOverview/authorGroup.jspf" />
                                     <ui:include src="viewItemOverview/externalResourceGroup.jspf" />
+                                    <ui:include src="viewItemOverview/restrictedFilesGroup.jspf" />
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="third_area0">
                                     <ui:include src="viewItemOverview/fulltextGroup.jspf" />

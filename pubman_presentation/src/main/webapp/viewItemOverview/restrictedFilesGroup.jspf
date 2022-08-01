@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<!-- Fulltext tile -->
+	<h:panelGroup layout="block"
+		styleClass="huge_area0 tile_category borderDarkGreen xTiny_marginRExcl">
+		<!-- Fulltext title and icon -->
+		<h:panelGroup layout="block" styleClass="huge_area0_p6">
+			<h5 class="tile_title">
+				<img src="../resources/images/overviewPage/fulltext_31.png"
+					class="big_imgBtn" align="right" />
+				<h:outputText value="#{lbl.ViewItemOverview_lblFulltextSection} (Restricted)" />
+			</h5>
+		</h:panelGroup>
+		<!-- If no fulltexts are available show message -->
+		<h:panelGroup layout="block" styleClass="huge_area0_p6"
+			rendered="#{ViewItemFull.pubItem.restrictedAccessibleFulltextFileBeanList == null or empty(ViewItemFull.pubItem.restrictedAccessibleFulltextFileBeanList)}">
+			<h:outputText value="#{msg.ViewItemOverview_noRestrictedFullTextsAvailable}" />
+		</h:panelGroup>
+		<!-- Iterator for publicly accessible fulltexts (not only any-fulltext, but also postprint/preprint/publisher-version) -->
+		<h:panelGroup layout="block" styleClass="huge_area0_p0 nano"
+			style="max-height:350px;">
+			<h:panelGroup layout="block" styleClass="free_area0_p6 content">
+				<ui:repeat var="file"
+					value="#{ViewItemFull.pubItem.restrictedAccessibleFulltextFileBeanList}"
+					rendered="#{ViewItemFull.pubItem.restrictedAccessibleFulltextFileBeanList != null and !empty(ViewItemFull.pubItem.restrictedAccessibleFulltextFileBeanList) }">
+					<div>
+						<h:panelGroup style="display:grid">
+							<h:outputLink id="lnkIconShowRestirctedComponent"
+								style="float:left;font-size:200%;line-height:100%;color:#000000;"
+								target="_blank" rel="noreferrer noopener"
+								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
+								rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+								<i class="fa fa-arrow-circle-o-down" style="color: #3a3b3b;"></i>
+							</h:outputLink>
+							<h:outputLink id="lnkIconDownloadRestictedComponent"
+								style="float:left;font-size:200%;line-height:100%;color:#000000;"
+								target="_blank" rel="noreferrer noopener"
+								value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
+								rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+								<i class="fa fa-arrow-circle-o-down" style="color: #3a3b3b;"></i>
+							</h:outputLink>
+							<h:panelGroup id="imgFileGroupOpenAccesUnknownResticted"
+								rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html') and file.file.metadata.oaStatus==null  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+								<img src="../resources/images/open_access_not_specified_31.png"
+										 class="large_imgImg xTiny_marginRExcl" align="left" title="#{tip.ViewItem_imgOa_not_specified }" />
+							</h:panelGroup>
+							<p class="double_area0 grid-item-3">
+								<!-- Link (show or download) to the file -->
+								<h:outputLink id="lnkShowRestictedComponent" target="_blank" rel="noreferrer noopener"
+									value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}"
+									rendered="#{!(file.showSearchHits) and (file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+									<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
+										rendered="#{!ViewItemFull.isStateWithdrawn}" />
+								</h:outputLink>
+								<h:outputLink id="lnkDownloadRestictedComponent" target="_blank" rel="noreferrer noopener"
+									value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}?mode=download"
+									rendered="#{!(file.showSearchHits) and !(file.file.mimeType=='application/pdf' or file.file.mimeType=='text/html')  and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+									<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
+										rendered="#{!ViewItemFull.isStateWithdrawn}" />
+								</h:outputLink>
+								<!-- Link for fulltext searchhits with open pdf params-->
+								<h:outputLink id="lnkRestictedSearchHitsURL" target="_blank" rel="noreferrer noopener"
+									value="#{ViewItemFull.citationURL}/component/#{file.file.objectId}/#{file.urlEncodedFileName}#search=#{file.openPDFSearchParameter}"
+									rendered="#{(file.showSearchHits and file.file.mimeType=='application/pdf') and !ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || file.fileAccessGranted)}">
+									<h:outputText value="#{file.file.metadata.title}" title="#{file.file.metadata.title}"
+										rendered="#{!ViewItemFull.isStateWithdrawn}" />
+								</h:outputLink>
+								<!-- Text if publication is withdrawn -->
+								<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}"
+									rendered="#{ViewItemFull.isStateWithdrawn}" />
+								<br />
+								<!-- Content category and file size -->
+								<h:outputText value=" (#{file.contentCategoryLabel})"
+									rendered="#{!ViewItemFull.isStateWithdrawn}" />
+								<h:outputText value=", #{file.fileSize}"
+									rendered="#{!ViewItemFull.isStateWithdrawn}" />
+							</p>
+						</h:panelGroup>
+					</div>
+				</ui:repeat>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+	
+</ui:composition>
