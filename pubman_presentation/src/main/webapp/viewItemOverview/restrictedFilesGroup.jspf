@@ -12,7 +12,7 @@
 			<h5 class="tile_title">
 				<img src="../resources/images/overviewPage/fulltext_31.png"
 					class="big_imgBtn" align="right" />
-				<h:outputText value="#{lbl.ViewItemOverview_lblFulltextSection} (Restricted)" />
+				<h:outputText value="#{lbl.ViewItemOverview_lblRestrictedFulltextSection}" />
 			</h5>
 		</h:panelGroup>
 		<!-- If no fulltexts are available show message -->
