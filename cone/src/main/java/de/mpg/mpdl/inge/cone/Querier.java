@@ -66,19 +66,8 @@ public interface Querier {
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, String query, String lang, ModeType modeType, int limit) throws ConeException;
-
-  /**
-   * Retrieve a list of objects matching the given search fields and the given language.
-   * 
-   * @param model The object type, e.g. "journals", "languages".
-   * @param searchFields The search fields, key is the predicate and value is the search term.
-   * @param lang The given language in ISO-639-1 format (2 letters).
-   * 
-   * @return A {@link List} of key-value pairs containing the matching results.
-   * @throws Exception Any exception
-   */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang, ModeType modeType) throws ConeException;
+  public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType, int limit)
+      throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
