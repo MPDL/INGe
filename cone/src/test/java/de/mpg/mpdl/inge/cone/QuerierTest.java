@@ -82,8 +82,8 @@ public class QuerierTest {
     assertTrue("No results for query 'topics'", results.size() > 0);
     assertTrue(
         "Retrieved more results than allowed (" + results.size() + " > "
-            + Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS)) + ")",
-        results.size() <= Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS)));
+            + Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_RESULTS_DEFAULT)) + ")",
+        results.size() <= Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_RESULTS_DEFAULT)));
 
     logger.info("Query returned " + results.size() + " hits");
 
