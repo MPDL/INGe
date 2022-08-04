@@ -15,8 +15,6 @@
  */
 package de.mpg.mpdl.inge.cone;
 
-
-
 import org.apache.log4j.Logger;
 
 import de.mpg.mpdl.inge.util.PropertyReader;
@@ -50,8 +48,8 @@ public class QuerierFactory {
       logger.warn("Property \"inge.cone.querier.class\" not found, taking default querier class: " + DEFAULT_QUERIER);
       querier = DEFAULT_QUERIER;
     }
-    try {
 
+    try {
       Object querierImpl = Class.forName(querier).newInstance();
       if (querierImpl instanceof Querier) {
         ((Querier) querierImpl).setLoggedIn(loggedIn);

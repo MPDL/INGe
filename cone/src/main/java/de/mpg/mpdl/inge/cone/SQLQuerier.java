@@ -46,7 +46,6 @@ import de.mpg.mpdl.inge.util.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  */
 public class SQLQuerier implements Querier {
-  private static final String ESCIDOC_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
   private static final Logger logger = Logger.getLogger(SQLQuerier.class);
   private Connection connection;
   protected boolean loggedIn;
@@ -57,9 +56,6 @@ public class SQLQuerier implements Querier {
    * @throws Exception Any exception.
    */
   public SQLQuerier() throws Exception {
-    // InitialContext context = new InitialContext();
-    // dataSource = (DataSource) context.lookup("Cone");
-
     Class.forName(PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_DRIVER_CLASS));
     connection = DriverManager.getConnection(
         "jdbc:postgresql://" + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_SERVER_NAME) + ":"
@@ -67,69 +63,62 @@ public class SQLQuerier implements Querier {
             + PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_NAME),
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_NAME),
         PropertyReader.getProperty(PropertyReader.INGE_CONE_DATABASE_USER_PASSWORD));
-
-    // connection = dataSource.getConnection();
   }
 
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String query, ModeType modeType) throws ConeException {
-    return query(model, query, null, modeType);
+  public List<? extends Describable> query(String modelName, String searchString, ModeType modeType) throws ConeException {
+    return query(modelName, searchString, PropertyReader.getProperty(PropertyReader.INGE_CONE_LANGUAGE_DEFAULT), modeType);
   }
 
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, String query, String language, ModeType modeType) throws ConeException {
-    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
-    return query(model, query, language, modeType, Integer.parseInt(limitString));
+  public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType) throws ConeException {
+    return query(modelName, searchString, language, modeType,
+        Integer.parseInt(PropertyReader.getProperty(PropertyReader.INGE_CONE_RESULTS_DEFAULT)));
   }
 
   /**
    * {@inheritDoc}
    */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String language, ModeType modeType)
+  public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType, int limit)
       throws ConeException {
-
-    String limitString = PropertyReader.getProperty(PropertyReader.INGE_CONE_MAXIMUM_RESULTS, "50");
-    return query(model, searchFields, language, modeType, Integer.parseInt(limitString));
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public List<? extends Describable> query(String model, String searchString, String language, ModeType modeType, int limit)
-      throws ConeException {
-    if (logger.isDebugEnabled()) {
-      logger.debug("query:  model = '" + model + "' searchString = '" + searchString + "' language = '" + language + "' modeType = '"
-          + modeType.toString() + "' linit = '" + limit + "'");
-    }
     if (modeType == ModeType.FAST) {
-      return queryFast(model, searchString, language, limit);
+      return queryFast(modelName, searchString, language, limit);
     } else if (modeType == ModeType.FULL) {
-      return queryFull(model, searchString, language, limit);
+      return queryFull(modelName, searchString, language, limit);
     } else {
       throw new ConeException("Mode " + modeType + " not supported.");
     }
-
   }
 
-  public List<? extends Describable> queryFast(String model, String searchString, String language, int limit) throws ConeException {
+  /**
+   * {@inheritDoc}
+   */
+  public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit)
+      throws ConeException {
+    if (modeType == ModeType.FAST) {
+      return queryFast(modelName, searchPairs, language, limit);
+    } else if (modeType == ModeType.FULL) {
+      return queryFull(modelName, searchPairs, language, limit);
+    } else {
+      throw new ConeException("Mode " + modeType + " not supported.");
+    }
+  }
+
+  private List<? extends Describable> queryFast(String modelName, String searchString, String language, int limit) throws ConeException {
     String query = null;
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
-      if (language == null) {
-        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-      }
-
       language = language.replace("'", "''");
 
       String[] searchStrings = formatSearchString(searchString);
-      String subQuery = "matches.model = '" + model + "'";
+      String subQuery = "matches.model = '" + modelName + "'";
       String order1 = "";
       String order2 = "";
       for (int i = 0; i < searchStrings.length; i++) {
@@ -157,6 +146,7 @@ public class SQLQuerier implements Querier {
       }
 
       query += ";";
+      // logger.info("CoNE query: " + query);
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
@@ -177,27 +167,93 @@ public class SQLQuerier implements Querier {
       return resultSet;
 
     } catch (SQLException | ConeException e) {
-      logger.info("CoNE query: " + query);
+      logger.error("CoNE query: " + query);
       throw new ConeException(e);
     }
-
   }
 
-  public List<? extends Describable> queryFull(String model, String searchString, String language, int limit) throws ConeException {
+  private List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs, String language, int limit)
+      throws ConeException {
     String query = null;
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
       }
 
-      if (language == null) {
-        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
+      language = language.replace("'", "''");
+
+      String[] subQueries = getSubqueries(modelName, searchPairs);
+
+      String fromExtension = subQueries[0];
+      String joinClause = subQueries[1];
+      String subQuery = subQueries[2];
+      String order1 = subQueries[3];
+      String order2 = subQueries[4];
+
+      int found = Integer.parseInt(subQueries[5]);
+      if (found != searchPairs.length) {
+        throw new ConeException("Invalid search parameters.");
+      }
+
+      query = "select distinct r1.*" + fromExtension + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
+          + joinClause + "where " + subQuery;
+
+      if (!"*".equals(language)) {
+        query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
+            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
+      }
+      query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
+      if (limit > 0) {
+        query += " limit " + limit;
+      }
+
+      query += ";";
+      // logger.info("CoNE query: " + query);
+
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery(query);
+      List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
+      while (result.next()) {
+        String id = result.getString("id");
+        String value = result.getString("value");
+        String lang = result.getString("lang");
+        String type = result.getString("type");
+        String sortKey = result.getString("sort");
+        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
+        resultSet.add(pair);
+      }
+
+      result.close();
+      statement.close();
+
+      return resultSet;
+    } catch (SQLException | ConeException e) {
+      logger.error("CoNE query: " + query);
+      StringBuilder sb = new StringBuilder();
+      sb.append("Parameters: ");
+      for (Pair<String> pair : searchPairs) {
+        sb.append(pair.getKey());
+        sb.append(":");
+        sb.append(pair.getValue());
+        sb.append(" / ");
+      }
+      logger.error(sb.toString());
+
+      throw new ConeException(e);
+    }
+  }
+
+  private List<? extends Describable> queryFull(String modelName, String searchString, String language, int limit) throws ConeException {
+    String query = null;
+    try {
+      if (connection.isClosed()) {
+        throw new ConeException("Connection was already closed.");
       }
 
       language = language.replace("'", "''");
 
       String[] searchStrings = formatSearchString(searchString);
-      String subQuery = "model = '" + model + "'";
+      String subQuery = "model = '" + modelName + "'";
       String order1 = "";
       String order2 = "";
       for (int i = 0; i < searchStrings.length; i++) {
@@ -224,13 +280,14 @@ public class SQLQuerier implements Querier {
       }
 
       query += ";";
+      // logger.info("CoNE query: " + query);
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
       List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
       while (result.next()) {
         String id = result.getString("id");
-        TreeFragment treeFragment = details(model, id, language);
+        TreeFragment treeFragment = details(modelName, id, language);
         resultSet.add(treeFragment);
       }
 
@@ -240,35 +297,17 @@ public class SQLQuerier implements Querier {
       return resultSet;
 
     } catch (SQLException | ConeException e) {
-      logger.info("CoNE query: " + query);
+      logger.error("CoNE query: " + query);
       throw new ConeException(e);
     }
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public List<? extends Describable> query(String modelName, Pair<String>[] searchPairs, String language, ModeType modeType, int limit)
-      throws ConeException {
-    if (modeType == ModeType.FAST) {
-      return queryFast(modelName, searchPairs, language, limit);
-    } else if (modeType == ModeType.FULL) {
-      return queryFull(modelName, searchPairs, language, limit);
-    } else {
-      throw new ConeException("Mode " + modeType + " not supported.");
-    }
-  }
-
-  public List<? extends Describable> queryFast(String modelName, Pair<String>[] searchPairs, String language, int limit)
+  private List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit)
       throws ConeException {
     String query = null;
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
-      }
-
-      if (language == null) {
-        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
       }
 
       language = language.replace("'", "''");
@@ -281,6 +320,11 @@ public class SQLQuerier implements Querier {
       String order1 = subQueries[3];
       String order2 = subQueries[4];
 
+      int found = Integer.parseInt(subQueries[5]);
+      if (found != searchPairs.length) {
+        throw new ConeException("Invalid search parameters.");
+      }
+
       query = "select distinct r1.*" + fromExtension + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
           + joinClause + "where " + subQuery;
 
@@ -288,32 +332,40 @@ public class SQLQuerier implements Querier {
         query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
             + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
       }
-      query += " order by " + order1 + order2 + "r1.sort, r1.value, r1.id";
+      query += " order by " + order1 + order2 + "r1.value, r1.id";
       if (limit > 0) {
         query += " limit " + limit;
       }
 
       query += ";";
+      // logger.info("CoNE query: " + query);
 
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery(query);
-      List<Pair<LocalizedString>> resultSet = new ArrayList<Pair<LocalizedString>>();
+      List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
       while (result.next()) {
         String id = result.getString("id");
-        String value = result.getString("value");
-        String lang = result.getString("lang");
-        String type = result.getString("type");
-        String sortKey = result.getString("sort");
-        Pair<LocalizedString> pair = new Pair<LocalizedString>(id, new ResultEntry(value, lang, type, sortKey));
-        resultSet.add(pair);
+        TreeFragment treeFragment = details(modelName, id, language);
+        resultSet.add(treeFragment);
       }
 
       result.close();
       statement.close();
 
       return resultSet;
+
     } catch (SQLException | ConeException e) {
-      logger.info("CoNE query: " + query);
+      logger.error("CoNE query: " + query);
+      StringBuilder sb = new StringBuilder();
+      sb.append("Parameters: ");
+      for (Pair<String> pair : searchPairs) {
+        sb.append(pair.getKey());
+        sb.append(":");
+        sb.append(pair.getValue());
+        sb.append(" / ");
+      }
+      logger.error(sb.toString());
+
       throw new ConeException(e);
     }
   }
@@ -333,9 +385,8 @@ public class SQLQuerier implements Querier {
     String joinClause = "";
     String order1 = "";
     String order2 = "";
+    String found = "0";
     boolean first = true;
-
-    // ArrayList<Pair<String>> allPairs = new ArrayList<Pair<String>>();
 
     for (Pair<String> pair : searchPairs) {
       String table = "triples" + counter + "_" + level;
@@ -367,14 +418,15 @@ public class SQLQuerier implements Querier {
             break;
           }
         }
-
       }
+
       List<Predicate> predicateList = null;
       if (modelName != null) {
         predicateList = ModelList.getInstance().getModelByAlias(modelName).getPredicates();
       } else {
         predicateList = parentPredicate.getPredicates();
       }
+
       for (Predicate predicate : predicateList) {
         if (key.equals(predicate.getId())) {
           subQuery += " and " + table + ".predicate = '" + key + "' ";
@@ -395,7 +447,7 @@ public class SQLQuerier implements Querier {
             fromExtension += ", r1.value ilike '" + pair.getValue() + "%'" + ", r1.value ilike '% " + pair.getValue() + "%'"
                 + ", r1.value ilike '%" + pair.getValue() + "%'";
           }
-
+          found = "1";
           break;
         } else if (key.startsWith(predicate.getId())) {
           String[] subResult;
@@ -419,67 +471,12 @@ public class SQLQuerier implements Querier {
           subQuery += subResult[2];
           order1 += subResult[3];
           order2 += subResult[4];
+          found += Integer.parseInt(subResult[5]);
         }
       }
     }
 
-    return new String[] {fromExtension, joinClause, subQuery, order1, order2};
-  }
-
-  public List<? extends Describable> queryFull(String modelName, Pair<String>[] searchPairs, String language, int limit)
-      throws ConeException {
-    String query = null;
-    try {
-      if (connection.isClosed()) {
-        throw new ConeException("Connection was already closed.");
-      }
-
-      if (language == null) {
-        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-      }
-
-      language = language.replace("'", "''");
-
-      String[] subQueries = getSubqueries(modelName, searchPairs);
-
-      String fromExtension = subQueries[0];
-      String joinClause = subQueries[1];
-      String subQuery = subQueries[2];
-      String order1 = subQueries[3];
-      String order2 = subQueries[4];
-
-      query = "select distinct r1.*" + fromExtension + " from results r1 inner join triples triples0_0 on r1.id = triples0_0.subject "
-          + joinClause + "where " + subQuery;
-
-      if (!"*".equals(language)) {
-        query += " and (r1.lang = '" + language + "' or (r1.lang is null and '" + language
-            + "' not in (select lang from results r2 where r2.id = r1.id and lang is not null)))";
-      }
-      query += " order by " + order1 + order2 + "r1.value, r1.id";
-      if (limit > 0) {
-        query += " limit " + limit;
-      }
-
-      query += ";";
-
-      Statement statement = connection.createStatement();
-      ResultSet result = statement.executeQuery(query);
-      List<TreeFragment> resultSet = new ArrayList<TreeFragment>();
-      while (result.next()) {
-        String id = result.getString("id");
-        TreeFragment treeFragment = details(modelName, id, language);
-        resultSet.add(treeFragment);
-      }
-
-      result.close();
-      statement.close();
-
-      return resultSet;
-
-    } catch (SQLException | ConeException e) {
-      logger.info("CoNE query: " + query);
-      throw new ConeException(e);
-    }
+    return new String[] {fromExtension, joinClause, subQuery, order1, order2, String.valueOf(found)};
   }
 
   /**
@@ -510,8 +507,8 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public TreeFragment details(String model, String id) throws ConeException {
-    return details(model, id, null);
+  public TreeFragment details(String modelName, String id) throws ConeException {
+    return details(modelName, id, null);
   }
 
   /**
@@ -565,10 +562,7 @@ public class SQLQuerier implements Querier {
 
       query += " subject = '" + id + "'";
 
-      if (language == null) {
-        language = PropertyReader.getProperty(ESCIDOC_CONE_LANGUAGE_DEFAULT);
-      }
-      if (language != null && !"*".equals(language)) {
+      if (!"*".equals(language)) {
         query += " and (lang is null or lang = '" + language + "')";
       }
       Statement statement = connection.createStatement();
@@ -629,7 +623,7 @@ public class SQLQuerier implements Querier {
 
       return resultMap;
     } catch (SQLException | ConeException e) {
-      logger.info("CoNE query: " + query);
+      logger.error("CoNE query: " + query);
       throw new ConeException(e);
     }
   }
@@ -648,7 +642,6 @@ public class SQLQuerier implements Querier {
    * {@inheritDoc}
    */
   public void create(String modelName, String id, TreeFragment values) throws ConeException {
-
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -665,8 +658,7 @@ public class SQLQuerier implements Querier {
           if (modelName != null) {
             throw new ConeException("Trying to create a resource that is already existing: " + modelName + " " + id);
           } else {
-            // Won't update an existing resource linked from this
-            // resource
+            // Won't update an existing resource linked from this resource
             result.close();
             statement.close();
             return;
@@ -823,8 +815,7 @@ public class SQLQuerier implements Querier {
   /**
    * {@inheritDoc}
    */
-  public synchronized String createUniqueIdentifier(String model) throws ConeException {
-
+  public synchronized String createUniqueIdentifier(String modelName) throws ConeException {
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -842,10 +833,10 @@ public class SQLQuerier implements Querier {
         statement.executeUpdate(query);
 
         String uid;
-        if (model == null) {
+        if (modelName == null) {
           uid = "genid:" + maxId;
         } else {
-          uid = model + "/resource/" + model + maxId;
+          uid = modelName + "/resource/" + modelName + maxId;
         }
 
         result.close();
@@ -855,7 +846,7 @@ public class SQLQuerier implements Querier {
         if (result.next()) {
           result.close();
           statement.close();
-          return createUniqueIdentifier(model);
+          return createUniqueIdentifier(modelName);
         } else {
           result.close();
           statement.close();
@@ -877,7 +868,6 @@ public class SQLQuerier implements Querier {
   }
 
   public List<String> getAllIds(String modelName, int hits) throws ConeException {
-
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -933,7 +923,6 @@ public class SQLQuerier implements Querier {
   }
 
   public void cleanup() throws ConeException {
-
     try {
       if (connection.isClosed()) {
         throw new ConeException("Connection was already closed.");
@@ -955,5 +944,4 @@ public class SQLQuerier implements Querier {
       throw new ConeException(e);
     }
   }
-
 }

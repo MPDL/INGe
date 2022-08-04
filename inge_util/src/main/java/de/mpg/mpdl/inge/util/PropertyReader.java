@@ -82,12 +82,13 @@ public class PropertyReader {
   public static final String INGE_CONE_EXTENDED_ATTRIBUTES_USE = "inge.cone.extended.attributes.use";
   public static final String INGE_CONE_DATABASE_USER_PASSWORD = "inge.cone.database.user.password";
   public static final String INGE_CONE_LANGUAGE_DEFAULT = "inge.cone.language.default";
-  public static final String INGE_CONE_MAXIMUM_RESULTS = "inge.cone.maximum.results";
   public static final String INGE_CONE_MIMETYPE_PATTERN = "inge.cone.mimetype.pattern";
   public static final String INGE_CONE_MODELSXML_PATH = "inge.cone.modelsxml.path";
   public static final String INGE_CONE_PERSON_ID_IDENTIFIER = "inge.cone.person.id.identifier";
   public static final String INGE_CONE_QUERIER_CLASS = "inge.cone.querier.class";
   public static final String INGE_CONE_RDFS_TEMPLATE = "inge.cone.rdfs.template";
+  public static final String INGE_CONE_RESULTS_DEFAULT = "inge.cone.results.default";
+  public static final String INGE_CONE_RESULTS_MAXIMUM = "inge.cone.results.maximum";
   public static final String INGE_CONE_SERVICE_URL = "inge.cone.service.url";
   public static final String INGE_CONE_SUBJECTVOCAB = "inge.cone.subjectVocab";
   public static final String INGE_CRON_CLEANUP_STAGING_FILES = "inge.cron.cleanup_staging_files";

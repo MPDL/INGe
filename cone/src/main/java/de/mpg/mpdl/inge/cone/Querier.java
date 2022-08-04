@@ -36,31 +36,31 @@ public interface Querier {
   /**
    * Retrieve a list of entities matching the given search query.
    * 
-   * @param model The entity type, e.g. "journals", "languages".
-   * @param query The search query, one or more words.
+   * @param modelName The entity type, e.g. "journals", "languages".
+   * @param searchString The search query, one or more words.
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, String query, ModeType modeType)
+  public List<? extends Describable> query(String modelName, String searchString, ModeType modeType)
       throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
    * 
-   * @param model The object type, e.g. "journals", "languages".
-   * @param query The search query, one or more words.
-   * @param lang The given language in ISO-639-1 format (2 letters).
+   * @param modelName The object type, e.g. "journals", "languages".
+   * @param searchString The search query, one or more words.
+   * @param language The given language in ISO-639-1 format (2 letters).
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, String query, String lang, ModeType modeType) throws ConeException;
+  public List<? extends Describable> query(String modelName, String searchString, String language, ModeType modeType) throws ConeException;
 
   /**
    * Retrieve a list of objects matching the given search query and the given language.
    * 
-   * @param model The object type, e.g. "journals", "languages".
-   * @param query The search query, one or more words.
-   * @param lang The given language in ISO-639-1 format (2 letters).
+   * @param modelName The object type, e.g. "journals", "languages".
+   * @param searchString The search query, one or more words.
+   * @param language The given language in ISO-639-1 format (2 letters).
    * @param limit The maximum number of results returned.
    * 
    * @return A {@link List} of key-value pairs containing the matching results.
@@ -83,21 +83,21 @@ public interface Querier {
   /**
    * Retrieve a list of objects matching the given search fields and the given language.
    * 
-   * @param model The object type, e.g. "journals", "languages".
+   * @param modelName The object type, e.g. "journals", "languages".
    * @param searchFields The search fields, key is the predicate and value is the search term.
-   * @param lang The given language in ISO-639-1 format (2 letters).
+   * @param language The given language in ISO-639-1 format (2 letters).
    * @param limit The maximum number of results returned.
    * 
    * @return A {@link List} of key-value pairs containing the matching results.
    * @throws Exception Any exception
    */
-  public List<? extends Describable> query(String model, Pair<String>[] searchFields, String lang, ModeType modeType, int limit)
+  public List<? extends Describable> query(String modelName, Pair<String>[] searchFields, String language, ModeType modeType, int limit)
       throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id.
    * 
-   * @param model The entity type, e.g. "journals", "languages".
+   * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @return A {@link Map} of {@link List}s of {@link LocalizedString}s containing the information
    *         about the entity. It is a list because it is possible that there are more than one
@@ -105,27 +105,27 @@ public interface Querier {
    *         alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public TreeFragment details(String model, String id) throws ConeException;
+  public TreeFragment details(String modelName, String id) throws ConeException;
 
   /**
    * Retrieves details about an entity identified by the given id and returns the results in the
    * given language.
    * 
-   * @param model The entity type, e.g. "journals", "languages".
+   * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
-   * @param lang The given language in ISO-639-1 format (2 letters).
+   * @param language The given language in ISO-639-1 format (2 letters).
    * @return A {@link Map} of {@link List}s of {@link LocalizedString}s containing the information
    *         about the entity. It is a list because it is possible that there are more than one
    *         objects to a given subject/predicate combination. E.g. there may be multiple
    *         alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public TreeFragment details(String model, String id, String lang) throws ConeException;
+  public TreeFragment details(String modelName, String id, String language) throws ConeException;
 
   /**
    * Inserts a map of values into the database.
    * 
-   * @param model The entity type, e.g. "journals", "languages".
+   * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @param values A {@link Map} of {@link List}s of {@link LocalizedString}s containing the
    *        information about the entity. It is a list because it is possible that there are more
@@ -133,22 +133,22 @@ public interface Querier {
    *        alternative titles to a journal.
    * @throws Exception Any exception.
    */
-  public void create(String model, String id, TreeFragment values) throws ConeException;
+  public void create(String modelName, String id, TreeFragment values) throws ConeException;
 
   /**
    * Deletes all entries from the database that fit the given model and id.
    * 
-   * @param model The entity type, e.g. "journals", "languages".
+   * @param modelName The entity type, e.g. "journals", "languages".
    * @param id The identifier.
    * @throws Exception Any exception.
    */
-  public void delete(String model, String id) throws ConeException;
+  public void delete(String modelName, String id) throws ConeException;
 
   public String createUniqueIdentifier(String model) throws ConeException;
 
-  public List<String> getAllIds(String model) throws ConeException;
+  public List<String> getAllIds(String modelName) throws ConeException;
 
-  public List<String> getAllIds(String model, int hits) throws ConeException;
+  public List<String> getAllIds(String modelName, int hits) throws ConeException;
 
   public void release() throws ConeException;
 
