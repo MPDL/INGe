@@ -89,7 +89,7 @@
 									<h:panelGroup id="imgFileGroupOpenAccessUnknown"
 										rendered="#{file.file.metadata.oaStatus==null and file.file.visibility == 'PUBLIC'}">
 										<img src="../resources/images/open_access_not_specified_31.png"
-												 class="xSmall_imgImg " align="left" />
+												 class="xSmall_imgImg " align="left" title="#{tip.ViewItem_imgOa_not_specified }"/>
 									</h:panelGroup>
 								</div>
 							</div>
